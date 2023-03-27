@@ -1,0 +1,136 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- Copyright (C) 2021-2022 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU General Public License, Version 3 or any
+later version published by the Free Software Foundation.  A copy of the
+license is included in the section entitled "GNU General Public
+License".
+ -->
+<title>Type indexes and type IDs (The CTF File Format)</title>
+
+<meta name="description" content="Type indexes and type IDs (The CTF File Format)">
+<meta name="keywords" content="Type indexes and type IDs (The CTF File Format)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="The-type-section.html" rel="up" title="The type section">
+<link href="Type-kinds.html" rel="next" title="Type kinds">
+<link href="The-info-word.html" rel="prev" title="The info word">
+<style type="text/css">
+<!--
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<div class="subsection" id="Type-indexes-and-type-IDs">
+<div class="header">
+<p>
+Next: <a href="Type-kinds.html" accesskey="n" rel="next">Type kinds</a>, Previous: <a href="The-info-word.html" accesskey="p" rel="prev">The info word, ctt_info</a>, Up: <a href="The-type-section.html" accesskey="u" rel="up">The type section</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<span id="Type-indexes-and-type-IDs-1"></span><h4 class="subsection">2.3.2 Type indexes and type IDs</h4>
+<span id="index-Type-indexes"></span>
+<span id="index-Type-IDs"></span>
+<span id="index-Type_002c-IDs-of"></span>
+<span id="index-Type_002c-indexes-of"></span>
+<span id="index-ctf_005fid_005ft"></span>
+
+<span id="index-Parent-range"></span>
+<span id="index-Child-range"></span>
+<span id="index-Type-IDs_002c-ranges"></span>
+<p>Types are referred to within the CTF file via <em>type IDs</em>.  A type ID is a
+number from 0 to <em class='math'>2^32</em>, from a space divided in half.  Types <em class='math'>2^31-1</em>
+and below are in the <em>parent range</em>: these IDs are used for dictionaries
+that have not had any other dictionary <code>ctf_import</code>ed into it as a parent.
+Both completely standalone dictionaries and parent dictionaries with children
+hanging off them have types in this range.  Types <em class='math'>2^31</em> and above are in
+the <em>child range</em>: only types in child dictionaries are in this range.
+</p>
+<p>These IDs appear in <code>ctf_type_t.ctt_type</code> (see <a href="The-type-section.html">The type section</a>), but
+the types themselves have no visible ID: quite intentionally, because adding an
+ID uses space, and every ID is different so they don&rsquo;t compress well.  The IDs
+are implicit: at open time, the consumer walks through the entire type section
+and counts the types in the type section. The type section is an array of
+variable-length elements, so each entry could be considered as having an index,
+starting from 1. We count these indexes and associate each with its
+corresponding <code>ctf_type_t</code> or <code>ctf_stype_t</code>.
+</p>
+<p>Lookups of types with IDs in the parent space look in the parent dictionary if
+this dictionary has one associated with it; lookups of types with IDs in the
+child space error out if the dictionary does not have a parent, and otherwise
+convert the ID into an index by shaving off the top bit and look up the index
+in the child.
+</p>
+<p>These properties mean that the same dictionary can be used as a parent of child
+dictionaries and can also be used directly with no children at all, but a
+dictionary created as a child dictionary must always be associated with a parent
+&mdash; usually, the same parent &mdash; because its references to its own types have
+the high bit turned on and this is only flipped off again if this is a child
+dictionary.  (This is not a problem, because if you <em>don&rsquo;t</em> associate the
+child with a parent, any references within it to its parent types will fail, and
+there are almost certain to be many such references, or why is it a child at
+all?)
+</p>
+<p>This does mean that consumers should keep a close eye on the distinction between
+type IDs and type indexes: if you mix them up, everything will appear to work as
+long as you&rsquo;re only using parent dictionaries or standalone dictionaries, but as
+soon as you start using children, everything will fail horribly.
+</p>
+<p>Type index zero, and type ID zero, are used to indicate that this type cannot be
+represented in CTF as currently constituted: they are emitted by the compiler,
+but all type chains that terminate in the unknown type are erased at link time
+(structure fields that use them just vanish, etc).  So you will probably never
+see a use of type zero outside the symtypetab sections, where they serve as
+sentinels of sorts, to indicate symbols with no associated type.
+</p>
+<p>The macros <code>CTF_V2_TYPE_TO_INDEX</code> and <code>CTF_V2_INDEX_TO_TYPE</code> may help
+in translation between types and indexes: <code>CTF_V2_TYPE_ISPARENT</code> and
+<code>CTF_V2_TYPE_ISCHILD</code> can be used to tell whether a given ID is in the
+parent or child range.
+<span id="index-CTF_005fV2_005fTYPE_005fTO_005fINDEX"></span>
+<span id="index-CTF_005fV2_005fINDEX_005fTO_005fTYPE"></span>
+<span id="index-CTF_005fV2_005fTYPE_005fISPARENT"></span>
+<span id="index-CTF_005fV2_005fTYPE_005fISCHILD"></span>
+</p>
+<p>It is quite possible and indeed common for type IDs to point forward in the
+dictionary, as well as backward.
+</p>
+</div>
+<hr>
+<div class="header">
+<p>
+Next: <a href="Type-kinds.html">Type kinds</a>, Previous: <a href="The-info-word.html">The info word, ctt_info</a>, Up: <a href="The-type-section.html">The type section</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

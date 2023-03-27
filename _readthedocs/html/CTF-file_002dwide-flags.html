@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- Copyright (C) 2021-2022 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU General Public License, Version 3 or any
+later version published by the Free Software Foundation.  A copy of the
+license is included in the section entitled "GNU General Public
+License".
+ -->
+<title>CTF file-wide flags (The CTF File Format)</title>
+
+<meta name="description" content="CTF file-wide flags (The CTF File Format)">
+<meta name="keywords" content="CTF file-wide flags (The CTF File Format)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="CTF-Preamble.html" rel="up" title="CTF Preamble">
+<style type="text/css">
+<!--
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<div class="subsection" id="CTF-file_002dwide-flags">
+<div class="header">
+<p>
+Up: <a href="CTF-Preamble.html" accesskey="u" rel="up">CTF Preamble</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<span id="CTF-file_002dwide-flags-1"></span><h4 class="subsection">2.1.1 CTF file-wide flags</h4>
+
+<p>The preamble contains bitflags in its <code>ctp_flags</code> field that
+describe various file-wide properties.  Some of the flags are valid only
+for particular file-format versions, which means the flags can be used
+to fix file-format bugs.  Consumers that see unknown flags should
+accordingly assume that the dictionary is not comprehensible, and
+refuse to open them.
+</p>
+<p>The following flags are currently defined.  Many are bug workarounds,
+valid only in CTFv3, and will not be valid in any future versions: the
+same values may be reused for other flags in v4+.
+</p>
+<table>
+<thead><tr><th>Flag</th><th>Versions</th><th>Value</th><th>Meaning
+<span id="index-CTF_005fF_005fCOMPRESS"></span></th></tr></thead>
+<tr><td><code>CTF_F_COMPRESS</code></td><td>All</td><td>0x1</td><td>Compressed with zlib
+<span id="index-CTF_005fF_005fNEWFUNCINFO"></span></td></tr>
+<tr><td><code>CTF_F_NEWFUNCINFO</code></td><td>3 only</td><td>0x2</td><td>&ldquo;New-format&rdquo; func info section.
+<span id="index-CTF_005fF_005fIDXSORTED"></span></td></tr>
+<tr><td><code>CTF_F_IDXSORTED</code></td><td>3+</td><td>0x4</td><td>The index section is
+in sorted order
+<span id="index-CTF_005fF_005fDYNSTR"></span></td></tr>
+<tr><td><code>CTF_F_DYNSTR</code></td><td>3 only</td><td>0x8</td><td>The external strtab is
+in <code>.dynstr</code> and the symtab used is <code>.dynsym</code>.
+See <a href="The-string-section.html">The string section</a></td></tr>
+</table>
+
+<p><code>CTF_F_NEWFUNCINFO</code> and <code>CTF_F_IDXSORTED</code> relate to the
+function info and data object sections. See <a href="The-symtypetab-sections.html">The symtypetab sections</a>.
+</p>
+<p>Further flags (and further compression methods) wil be added in future.
+</p>
+</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- This file documents the GNU Assembler "as".
+
+Copyright (C) 1991-2022 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3
+or any later version published by the Free Software Foundation;
+with no Invariant Sections, with no Front-Cover Texts, and with no
+Back-Cover Texts.  A copy of the license is included in the
+section entitled "GNU Free Documentation License".
+ -->
+<title>Machine Dependencies (Using as)</title>
+
+<meta name="description" content="Machine Dependencies (Using as)">
+<meta name="keywords" content="Machine Dependencies (Using as)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="AS-Index.html" rel="index" title="AS Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="index.html" rel="up" title="Top">
+<link href="Reporting-Bugs.html" rel="next" title="Reporting Bugs">
+<link href="Object-Attributes.html" rel="prev" title="Object Attributes">
+<style type="text/css">
+<!--
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<div class="chapter" id="Machine-Dependencies">
+<div class="header">
+<p>
+Next: <a href="Reporting-Bugs.html" accesskey="n" rel="next">Reporting Bugs</a>, Previous: <a href="Object-Attributes.html" accesskey="p" rel="prev">Object Attributes</a>, Up: <a href="index.html" accesskey="u" rel="up">Using as</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<span id="Machine-Dependent-Features"></span><h2 class="chapter">9 Machine Dependent Features</h2>
+
+<span id="index-machine-dependencies"></span>
+<p>The machine instruction sets are (almost by definition) different on
+each machine where <code>as</code> runs.  Floating point representations
+vary as well, and <code>as</code> often supports a few additional
+directives or command-line options for compatibility with other
+assemblers on a particular platform.  Finally, some versions of
+<code>as</code> support special pseudo-instructions for branch
+optimization.
+</p>
+<p>This chapter discusses most of these differences, though it does not
+include details on any machine&rsquo;s instruction set.  For details on that
+subject, see the hardware manufacturer&rsquo;s manual.
+</p>
+
+
+
+
+<ul class="section-toc">
+<li><a href="AArch64_002dDependent.html" accesskey="1">AArch64 Dependent Features</a></li>
+<li><a href="Alpha_002dDependent.html" accesskey="2">Alpha Dependent Features</a></li>
+<li><a href="ARC_002dDependent.html" accesskey="3">ARC Dependent Features</a></li>
+<li><a href="ARM_002dDependent.html" accesskey="4">ARM Dependent Features</a></li>
+<li><a href="AVR_002dDependent.html" accesskey="5">AVR Dependent Features</a></li>
+<li><a href="Blackfin_002dDependent.html" accesskey="6">Blackfin Dependent Features</a></li>
+<li><a href="BPF_002dDependent.html" accesskey="7">BPF Dependent Features</a></li>
+<li><a href="CR16_002dDependent.html" accesskey="8">CR16 Dependent Features</a></li>
+<li><a href="CRIS_002dDependent.html" accesskey="9">CRIS Dependent Features</a></li>
+<li><a href="C_002dSKY_002dDependent.html">C-SKY Dependent Features</a></li>
+<li><a href="D10V_002dDependent.html">D10V Dependent Features</a></li>
+<li><a href="D30V_002dDependent.html">D30V Dependent Features</a></li>
+<li><a href="Epiphany_002dDependent.html">Epiphany Dependent Features</a></li>
+<li><a href="H8_002f300_002dDependent.html">H8/300 Dependent Features</a></li>
+<li><a href="HPPA_002dDependent.html">HPPA Dependent Features</a></li>
+<li><a href="i386_002dDependent.html">80386 Dependent Features</a></li>
+<li><a href="IA_002d64_002dDependent.html">IA-64 Dependent Features</a></li>
+<li><a href="IP2K_002dDependent.html">IP2K Dependent Features</a></li>
+<li><a href="LM32_002dDependent.html">LM32 Dependent Features</a></li>
+<li><a href="M32C_002dDependent.html">M32C Dependent Features</a></li>
+<li><a href="M32R_002dDependent.html">M32R Dependent Features</a></li>
+<li><a href="M68K_002dDependent.html">M680x0 Dependent Features</a></li>
+<li><a href="M68HC11_002dDependent.html">M68HC11 and M68HC12 Dependent Features</a></li>
+<li><a href="S12Z_002dDependent.html">S12Z Dependent Features</a></li>
+<li><a href="Meta_002dDependent.html">Meta Dependent Features</a></li>
+<li><a href="MicroBlaze_002dDependent.html">MicroBlaze Dependent Features</a></li>
+<li><a href="MIPS_002dDependent.html">MIPS Dependent Features</a></li>
+<li><a href="MMIX_002dDependent.html">MMIX Dependent Features</a></li>
+<li><a href="MSP430_002dDependent.html">MSP 430 Dependent Features</a></li>
+<li><a href="NDS32_002dDependent.html">NDS32 Dependent Features</a></li>
+<li><a href="NiosII_002dDependent.html">Nios II Dependent Features</a></li>
+<li><a href="NS32K_002dDependent.html">NS32K Dependent Features</a></li>
+<li><a href="OpenRISC_002dDependent.html">OPENRISC Dependent Features</a></li>
+<li><a href="PDP_002d11_002dDependent.html">PDP-11 Dependent Features</a></li>
+<li><a href="PJ_002dDependent.html">picoJava Dependent Features</a></li>
+<li><a href="PPC_002dDependent.html">PowerPC Dependent Features</a></li>
+<li><a href="PRU_002dDependent.html">PRU Dependent Features</a></li>
+<li><a href="RISC_002dV_002dDependent.html">RISC-V Dependent Features</a></li>
+<li><a href="RL78_002dDependent.html">RL78 Dependent Features</a></li>
+<li><a href="RX_002dDependent.html">RX Dependent Features</a></li>
+<li><a href="S_002f390_002dDependent.html">IBM S/390 Dependent Features</a></li>
+<li><a href="SCORE_002dDependent.html">SCORE Dependent Features</a></li>
+<li><a href="SH_002dDependent.html">Renesas / SuperH SH Dependent Features</a></li>
+<li><a href="Sparc_002dDependent.html">SPARC Dependent Features</a></li>
+<li><a href="TIC54X_002dDependent.html">TIC54X Dependent Features</a></li>
+<li><a href="TIC6X_002dDependent.html">TIC6X Dependent Features</a></li>
+<li><a href="TILE_002dGx_002dDependent.html">TILE-Gx Dependent Features</a></li>
+<li><a href="TILEPro_002dDependent.html">TILEPro Dependent Features</a></li>
+<li><a href="V850_002dDependent.html">v850 Dependent Features</a></li>
+<li><a href="Vax_002dDependent.html">VAX Dependent Features</a></li>
+<li><a href="Visium_002dDependent.html">Visium Dependent Features</a></li>
+<li><a href="WebAssembly_002dDependent.html">WebAssembly Dependent Features</a></li>
+<li><a href="XGATE_002dDependent.html">XGATE Dependent Features</a></li>
+<li><a href="XSTORMY16_002dDependent.html">XStormy16 Dependent Features</a></li>
+<li><a href="Xtensa_002dDependent.html">Xtensa Dependent Features</a></li>
+<li><a href="Z80_002dDependent.html">Z80 Dependent Features</a></li>
+<li><a href="Z8000_002dDependent.html">Z8000 Dependent Features</a></li>
+</ul>
+</div>
+<hr>
+<div class="header">
+<p>
+Next: <a href="Reporting-Bugs.html">Reporting Bugs</a>, Previous: <a href="Object-Attributes.html">Object Attributes</a>, Up: <a href="index.html">Using as</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

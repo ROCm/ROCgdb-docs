@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- Copyright (C) 2021-2022 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU General Public License, Version 3 or any
+later version published by the Free Software Foundation.  A copy of the
+license is included in the section entitled "GNU General Public
+License".
+ -->
+<title>Forward declarations (The CTF File Format)</title>
+
+<meta name="description" content="Forward declarations (The CTF File Format)">
+<meta name="keywords" content="Forward declarations (The CTF File Format)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="The-type-section.html" rel="up" title="The type section">
+<link href="Structs-and-unions.html" rel="prev" title="Structs and unions">
+<style type="text/css">
+<!--
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<div class="subsection" id="Forward-declarations">
+<div class="header">
+<p>
+Previous: <a href="Structs-and-unions.html" accesskey="p" rel="prev">Structs and unions</a>, Up: <a href="The-type-section.html" accesskey="u" rel="up">The type section</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<span id="Forward-declarations-1"></span><h4 class="subsection">2.3.12 Forward declarations</h4>
+<span id="index-Forwards"></span>
+<span id="index-enum-1"></span>
+<span id="index-struct-1"></span>
+<span id="index-union-1"></span>
+<span id="index-CTF_005fK_005fFORWARD"></span>
+
+<p>When the compiler encounters a forward declaration of a struct, union, or enum,
+it emits a type of kind <code>CTF_K_FORWARD</code>.  If it later encounters a non-
+forward declaration of the same thing, it marks the forward as non-root-visible:
+before link time, therefore, non-root-visible forwards indicate that a
+non-forward is coming.
+</p>
+<p>After link time, forwards are fused with their corresponding non-forwards by the
+deduplicator where possible.  They are kept if there is no non-forward
+definition (maybe it&rsquo;s not visible from any TU at all) or if <code>multiple</code>
+conflicting structures with the same name might match it.  Otherwise, all other
+forwards are converted to structures, unions, or enums as appropriate, even
+across TUs if only one structure could correspond to the forward (after all,
+all types across all TUs land in the same dictionary unless they conflict,
+so promoting forwards to their concrete type seems most helpful).
+</p>
+<p>A forward has a rather strange representation: it is encoded with a
+<code>ctf_stype_t</code> but the <code>ctt_type</code> is populated not with a type (if it&rsquo;s
+a forward, we don&rsquo;t have an underlying type yet: if we did, we&rsquo;d have promoted
+it and this wouldn&rsquo;t be a forward any more) but with the <code>kind</code> of the
+forward.  This means that we can distinguish forwards to structs, enums and
+unions reliably and ensure they land in the appropriate namespace even before
+the actual struct, union or enum is found.
+</p>
+</div>
+
+
+
+</body>
+</html>

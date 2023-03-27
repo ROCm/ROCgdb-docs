@@ -1,0 +1,179 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- Copyright (C) 2021-2022 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU General Public License, Version 3 or any
+later version published by the Free Software Foundation.  A copy of the
+license is included in the section entitled "GNU General Public
+License".
+ -->
+<title>CTF archive (The CTF File Format)</title>
+
+<meta name="description" content="CTF archive (The CTF File Format)">
+<meta name="keywords" content="CTF archive (The CTF File Format)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="index.html" rel="up" title="Top">
+<link href="CTF-dictionaries.html" rel="next" title="CTF dictionaries">
+<link href="Overview.html" rel="prev" title="Overview">
+<style type="text/css">
+<!--
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<div class="chapter" id="CTF-archive">
+<div class="header">
+<p>
+Next: <a href="CTF-dictionaries.html" accesskey="n" rel="next">CTF dictionaries</a>, Previous: <a href="Overview.html" accesskey="p" rel="prev">Overview</a>, Up: <a href="index.html" accesskey="u" rel="up">The CTF file format</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<span id="CTF-archives"></span><h2 class="chapter">1 CTF archives</h2>
+<span id="index-archive_002c-CTF-archive"></span>
+
+<p>The CTF archive format maps names to CTF dictionaries.  The names may
+contain any character other than \0, but for now archives containing
+slashes in the names may not extract correctly.  It is possible to
+insert multiple members with the same name, but these are quite hard to
+access reliably (you have to iterate through all the members rather than
+opening by name) so this is not recommended.
+</p>
+<p>CTF archives are not themselves compressed: the constituent components,
+CTF dictionaries, can be compressed.  (See <a href="CTF-header.html">CTF header</a>).
+</p>
+<p>CTF archives usually contain a collection of related dictionaries, one
+parent and many children of that parent.  CTF archives can have a member
+with a <em>default name</em>, <code>.ctf</code> (which can be represented as
+<code>NULL</code> in the API).  If present, this member is usually the parent
+of all the children, but it is possible for CTF producers to emit
+parents with different names if they wish (usually for backward-
+compatibility purposes).
+</p>
+<p><code>.ctf</code> sections in ELF objects consist of a single CTF dictionary
+rather than an archive of dictionaries if and only if the section
+contains no types with identical names but conflicting definitions: if
+two conflicting definitions exist, the deduplicator will place the type
+most commonly referred to by other types in the parent and will place
+the other type in a child named after the translation unit it is found
+in, and will emit a CTF archive containing both dictionaries instead of
+a raw dictionary.  All types that refer to such conflicting types are
+also placed in the per-translation-unit child.
+</p>
+<p>The definition of an archive in <samp>ctf.h</samp> is as follows:
+</p>
+<pre class="verbatim">struct ctf_archive
+{
+  uint64_t ctfa_magic;
+  uint64_t ctfa_model;
+  uint64_t ctfa_nfiles;
+  uint64_t ctfa_names;
+  uint64_t ctfa_ctfs;
+};
+
+typedef struct ctf_archive_modent
+{
+  uint64_t name_offset;
+  uint64_t ctf_offset;
+} ctf_archive_modent_t;
+</pre>
+<p>(Note one irregularity here: the <code>ctf_archive_t</code> is not a typedef
+to <code>struct ctf_archive</code>, but a different typedef, private to
+<code>libctf</code>, so that things that are not really archives can be made
+to appear as if they were.)
+</p>
+<p>All the above items are always in little-endian byte order, regardless
+of the machine endianness.
+</p>
+<p>The archive header has the following fields:
+</p>
+<span id="index-struct-ctf_005farchive"></span>
+<table>
+<thead><tr><th>Offset</th><th>Name</th><th>Description</th></tr></thead>
+<tr><td>0x00</td><td><code>uint64_t ctfa_magic</code>
+<span id="index-ctfa_005fmagic"></span>
+<span id="index-struct-ctf_005farchive_002c-ctfa_005fmagic"></span></td><td>The magic number for archives, <code>CTFA_MAGIC</code>: 0x8b47f2a4d7623eeb.
+<span id="index-CTFA_005fMAGIC"></span></td></tr>
+<tr><td>0x08</td><td><code>uint64_t ctfa_model</code>
+<span id="index-ctfa_005fmodel"></span>
+<span id="index-struct-ctf_005farchive_002c-ctfa_005fmodel"></span></td><td>The data model for this archive: an arbitrary integer that serves no
+purpose but to be handed back by the libctf API. See <a href="Data-models.html">Data models</a>.</td></tr>
+<tr><td>0x10</td><td><code>uint64_t ctfa_nfiles</code>
+<span id="index-ctfa_005fnfiles"></span>
+<span id="index-struct-ctf_005farchive_002c-ctfa_005fnfiles"></span></td><td>The number of CTF dictionaries in this archive.</td></tr>
+<tr><td>0x18</td><td><code>uint64_t ctfa_names</code>
+<span id="index-ctfa_005fnames"></span>
+<span id="index-struct-ctf_005farchive_002c-ctfa_005fnames"></span></td><td>Offset of the name table, in bytes from the start of the archive.
+The name table is an array of <code>struct ctf_archive_modent_t[ctfa_nfiles]</code>.</td></tr>
+<tr><td>0x20</td><td><code>uint64_t ctfa_ctfs</code>
+<span id="index-ctfa_005fctfs"></span>
+<span id="index-struct-ctf_005farchive_002c-ctfa_005fctfs"></span></td><td>Offset of the CTF table.  Each element starts with a <code>uint64_t</code> size,
+followed by a CTF dictionary.</td></tr>
+</table>
+
+<p>The array pointed to by <code>ctfa_names</code> is an array of entries of
+<code>ctf_archive_modent</code>:
+</p>
+<span id="index-struct-ctf_005farchive_005fmodent"></span>
+<span id="index-ctf_005farchive_005fmodent_005ft"></span>
+<table>
+<thead><tr><th>Offset</th><th>Name</th><th>Description</th></tr></thead>
+<tr><td>0x00</td><td><code>uint64_t name_offset</code>
+<span id="index-name_005foffset"></span>
+<span id="index-struct-ctf_005farchive_005fmodent_002c-name_005foffset"></span>
+<span id="index-ctf_005farchive_005fmodent_005ft_002c-name_005foffset"></span></td><td>Offset of this name, in bytes from the start of the archive.</td></tr>
+<tr><td>0x08</td><td><code>uint64_t ctf_offset</code>
+<span id="index-ctf_005foffset"></span>
+<span id="index-struct-ctf_005farchive_005fmodent_002c-ctf_005foffset"></span>
+<span id="index-ctf_005farchive_005fmodent_005ft_002c-ctf_005foffset"></span></td><td>Offset of this CTF dictionary, in bytes from the start of the archive.</td></tr>
+</table>
+
+<p>The <code>ctfa_names</code> array is sorted into ASCIIbetical order by name
+(i.e. by the result of dereferencing the <code>name_offset</code>).
+</p>
+<p>The archive file also contains a name table and a table of CTF
+dictionaries: these are pointed to by the structures above.  The name
+table is a simple strtab which is not required to be sorted; the
+dictionary array is described above in the entry for <code>ctfa_ctfs</code>.
+</p>
+<p>The relative order of these various parts is not defined, except that
+the header naturally always comes first.
+</p>
+</div>
+<hr>
+<div class="header">
+<p>
+Next: <a href="CTF-dictionaries.html">CTF dictionaries</a>, Previous: <a href="Overview.html">Overview</a>, Up: <a href="index.html">The CTF file format</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>
