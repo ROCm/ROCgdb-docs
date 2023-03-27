@@ -1,4 +1,6 @@
 version: 2
+
+# override build process with custom steps
 build:
   os: "ubuntu-22.04"
   tools:
@@ -8,3 +10,21 @@ build:
     - cp --parents `find . -name *.html` _readthedocs/html/
     - cp index.html _readthedocs/html/
     - cp README-ROCM.md _readthedocs/html/
+    # replicate RTD default config/build process
+    - asdf global python 3.8.15
+    - python -mvirtualenv $READTHEDOCS_VIRTUALENV_PATH 
+    - python -m pip install --upgrade --no-cache-dir pip setuptools<58.3.0 
+    - python -m pip install --upgrade --no-cache-dir pillow mock==1.0.1 alabaster>=0.7,<0.8,!=0.7.5 commonmark==0.9.1 recommonmark==0.5.0 sphinx sphinx-rtd-theme readthedocs-sphinx-ext<2.3 
+    - python -m pip install --exists-action=w --no-cache-dir -r .sphinx/requirements.txt
+    - cat conf.py
+    - python3 -m sphinx -T -E -b html -d _build/doctrees -D language=en . _build/html
+
+sphinx:
+   configuration: conf.py
+
+formats: [htmlzip]
+
+python:
+   version: "3.8"
+   install:
+   - requirements: .sphinx/requirements.txt
