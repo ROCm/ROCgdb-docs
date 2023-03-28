@@ -2,6 +2,8 @@
 GDB Documentation
 =================
 
-`GDB Documentation`_
+|GDB Documentation|
 
-.. _GDB Documentation: gdb/doc/gdb/index.html
+.. |GDB Documentation| raw:: html
+
+   <a href="gdb/doc/gdb/index.html" target="_blank">GDB Documentation</a>
