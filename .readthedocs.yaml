@@ -7,11 +7,10 @@ build:
     nodejs: "16"
   commands:
     - mkdir --parents _readthedocs/html/
-    - cp --parents `find . -name *.html` _readthedocs/html/
+    - cp -v --parents `find . -name *.html` _readthedocs/html/
     - cp index.html _readthedocs/html/
     - cp README-ROCM.md _readthedocs/html/
     # replicate RTD default config/build process
-    - asdf global python 3.8.15
     - python -mvirtualenv $READTHEDOCS_VIRTUALENV_PATH 
     - python -m pip install --upgrade --no-cache-dir pip setuptools<58.3.0 
     - python -m pip install --upgrade --no-cache-dir pillow mock==1.0.1 alabaster>=0.7,<0.8,!=0.7.5 commonmark==0.9.1 recommonmark==0.5.0 sphinx sphinx-rtd-theme readthedocs-sphinx-ext<2.3 
