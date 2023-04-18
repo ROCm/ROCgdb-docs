@@ -1,0 +1,9 @@
+=================
+GDB Documentation
+=================
+
+|GDB Documentation|
+
+.. |GDB Documentation| raw:: html
+
+   <a href="gdb/doc/gdb/index.html" target="_blank">GDB Documentation</a>
