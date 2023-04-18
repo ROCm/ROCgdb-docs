@@ -30,7 +30,7 @@ Alternatively, change `build_docs.py` and run it.
 
 Change:
 
-```
+```diff
 - os.system("cp -v --parents `find ROCgdb/ -name '*.html'` _readthedocs/html")
 + os.system("cp -v --parents `find ROCgdb/ -name '*.html'` docs/_build/html")
 ```
