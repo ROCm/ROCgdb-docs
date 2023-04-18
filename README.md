@@ -13,7 +13,8 @@ cd ROCgdb
 ./configure
 make do-html
 cd ..
-cp -v --parents `find ROCgdb/ -name "*.html"` docs/
+mkdir --parents _readthedocs/html
+cp -v --parents `find ROCgdb/ -name "*.html"` _readthedocs/html
 cd docs
 pip3 install -r .sphinx/requirements.txt
 python3 -m sphinx -T -E -b html -d _build/doctrees -D language=en . _build/html
