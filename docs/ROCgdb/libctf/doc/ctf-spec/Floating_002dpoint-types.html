@@ -1,0 +1,171 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- Copyright (C) 2021-2022 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU General Public License, Version 3 or any
+later version published by the Free Software Foundation.  A copy of the
+license is included in the section entitled "GNU General Public
+License".
+ -->
+<title>Floating-point types (The CTF File Format)</title>
+
+<meta name="description" content="Floating-point types (The CTF File Format)">
+<meta name="keywords" content="Floating-point types (The CTF File Format)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="The-type-section.html" rel="up" title="The type section">
+<link href="Slices.html" rel="next" title="Slices">
+<link href="Integer-types.html" rel="prev" title="Integer types">
+<style type="text/css">
+<!--
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<div class="subsection" id="Floating_002dpoint-types">
+<div class="header">
+<p>
+Next: <a href="Slices.html" accesskey="n" rel="next">Slices</a>, Previous: <a href="Integer-types.html" accesskey="p" rel="prev">Integer types</a>, Up: <a href="The-type-section.html" accesskey="u" rel="up">The type section</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<span id="Floating_002dpoint-types-1"></span><h4 class="subsection">2.3.5 Floating-point types</h4>
+<span id="index-Floating_002dpoint-types"></span>
+<span id="index-Types_002c-floating_002dpoint"></span>
+<span id="index-float"></span>
+<span id="index-double"></span>
+<span id="index-signed-float"></span>
+<span id="index-signed-double"></span>
+<span id="index-unsigned-float"></span>
+<span id="index-unsigned-double"></span>
+<span id="index-Complex_002c-float"></span>
+<span id="index-Complex_002c-double"></span>
+<span id="index-Complex_002c-signed-float"></span>
+<span id="index-Complex_002c-signed-double"></span>
+<span id="index-Complex_002c-unsigned-float"></span>
+<span id="index-Complex_002c-unsigned-double"></span>
+<span id="index-CTF_005fK_005fFLOAT"></span>
+
+<p>Floating-point types are all represented as types of kind <code>CTF_K_FLOAT</code>.
+Like integers, These types fill out <code>ctt_size</code> in the <code>ctf_stype_t</code>
+with the size in bytes of the floating-point type in question.  They are always
+represented by <code>ctf_stype_t</code>, never <code>ctf_type_t</code>.
+</p>
+<p>This part of CTF shows many rough edges in the more obscure corners of
+floating-point handling, and is likely to change in format v4.
+</p>
+<p>The variable-length data for floats has multiple items packed into it just like
+integers do:
+</p>
+<table>
+<thead><tr><th>Bit offset</th><th>Name</th><th>Description</th></tr></thead>
+<tr><td>24&ndash;31</td><td>Encoding</td><td>The desired display representation of this float. You can extract this
+field with the <code>CTF_FP_ENCODING</code> macro.  See below.
+<span id="index-CTF_005fFP_005fENCODING"></span></td></tr>
+<tr><td>16&ndash;23</td><td>Offset</td><td>The offset of this floating-point type in bits from the start of its enclosing
+structure field, adjusted for endianness: see <a href="Structs-and-unions.html">Structs and unions</a>.  You can
+extract this field with the <code>CTF_FP_OFFSET</code> macro.
+<span id="index-CTF_005fFP_005fOFFSET"></span></td></tr>
+<tr><td>0&ndash;15</td><td>Bit-width</td><td>The width of this floating-point type in bits.  You can extract this field with
+the <code>CTF_FP_BITS</code> macro.
+<span id="index-CTF_005fFP_005fBITS"></span></td></tr>
+</table>
+
+<p>The purpose of the floating-point offset and bit-width is somewhat opaque, since
+there are no such things as floating-point bitfields in C: the bit-width should
+be filled out with the full width of the type in bits, and the offset should
+always be zero.  It is likely that these fields will go away in the future.  As
+with integers, you can use <code>CTF_FP_DATA</code> to assemble one of these vlen
+items from its component parts.
+<span id="index-CTF_005fINT_005fDATA-1"></span>
+</p>
+<p>The <em>encoding</em> for floats is not a bitfield but a simple value indicating
+the display representation.  Many of these are unused, relate to
+Solaris-specific compiler extensions, and will be recycled in future: some are
+unused and will become used in future.
+</p>
+<table>
+<thead><tr><th>Offset</th><th>Name</th><th>Description</th></tr></thead>
+<tr><td>1</td><td><code>CTF_FP_SINGLE</code></td><td>This is a single-precision IEEE 754 <code>float</code>.
+<span id="index-CTF_005fFP_005fSINGLE"></span></td></tr>
+<tr><td>2</td><td><code>CTF_FP_DOUBLE</code></td><td>This is a double-precision IEEE 754 <code>double</code>.
+<span id="index-CTF_005fFP_005fDOUBLE"></span></td></tr>
+<tr><td>3</td><td><code>CTF_FP_CPLX</code></td><td>This is a <code>Complex float</code>.
+<span id="index-CTF_005fFP_005fCPLX"></span></td></tr>
+<tr><td>4</td><td><code>CTF_FP_DCPLX</code></td><td>This is a <code>Complex double</code>.
+<span id="index-CTF_005fFP_005fDCPLX"></span></td></tr>
+<tr><td>5</td><td><code>CTF_FP_LDCPLX</code></td><td>This is a <code>Complex long double</code>.
+<span id="index-CTF_005fFP_005fLDCPLX"></span></td></tr>
+<tr><td>6</td><td><code>CTF_FP_LDOUBLE</code></td><td>This is a <code>long double</code>.
+<span id="index-CTF_005fFP_005fLDOUBLE"></span></td></tr>
+<tr><td>7</td><td><code>CTF_FP_INTRVL</code></td><td>This is a <code>float</code> interval type, a Solaris-specific extension.
+Unused: will be recycled.
+<span id="index-CTF_005fFP_005fINTRVL"></span>
+<span id="index-Unused-bits"></span></td></tr>
+<tr><td>8</td><td><code>CTF_FP_DINTRVL</code></td><td>This is a <code>double</code> interval type, a Solaris-specific extension.
+Unused: will be recycled.
+<span id="index-CTF_005fFP_005fDINTRVL"></span>
+<span id="index-Unused-bits-1"></span></td></tr>
+<tr><td>9</td><td><code>CTF_FP_LDINTRVL</code></td><td>This is a <code>long double</code> interval type, a Solaris-specific extension.
+Unused: will be recycled.
+<span id="index-CTF_005fFP_005fLDINTRVL"></span>
+<span id="index-Unused-bits-2"></span></td></tr>
+<tr><td>10</td><td><code>CTF_FP_IMAGRY</code></td><td>This is a the imaginary part of a <code>Complex float</code>. Not currently
+generated. May change.
+<span id="index-CTF_005fFP_005fIMAGRY"></span>
+<span id="index-Unused-bits-3"></span></td></tr>
+<tr><td>11</td><td><code>CTF_FP_DIMAGRY</code></td><td>This is a the imaginary part of a <code>Complex double</code>. Not currently
+generated. May change.
+<span id="index-CTF_005fFP_005fDIMAGRY"></span>
+<span id="index-Unused-bits-4"></span></td></tr>
+<tr><td>12</td><td><code>CTF_FP_LDIMAGRY</code></td><td>This is a the imaginary part of a <code>Complex long double</code>. Not currently
+generated. May change.
+<span id="index-CTF_005fFP_005fLDIMAGRY"></span>
+<span id="index-Unused-bits-5"></span></td></tr>
+</table>
+
+<p>The use of the complex floating-point encodings is obscure: it is possible that
+<code>CTF_FP_CPLX</code> is meant to be used for only the real part of complex types,
+and <code>CTF_FP_IMAGRY</code> et al for the imaginary part &ndash; but for now, we are
+emitting <code>CTF_FP_CPLX</code> to cover the entire type, with no way to get at its
+constituent parts. There appear to be no uses of these encodings anywhere, so
+they are quite likely to change incompatibly in future.
+</p>
+</div>
+<hr>
+<div class="header">
+<p>
+Next: <a href="Slices.html">Slices</a>, Previous: <a href="Integer-types.html">Integer types</a>, Up: <a href="The-type-section.html">The type section</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

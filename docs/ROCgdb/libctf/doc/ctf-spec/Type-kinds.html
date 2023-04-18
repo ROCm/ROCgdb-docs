@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- Copyright (C) 2021-2022 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU General Public License, Version 3 or any
+later version published by the Free Software Foundation.  A copy of the
+license is included in the section entitled "GNU General Public
+License".
+ -->
+<title>Type kinds (The CTF File Format)</title>
+
+<meta name="description" content="Type kinds (The CTF File Format)">
+<meta name="keywords" content="Type kinds (The CTF File Format)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="The-type-section.html" rel="up" title="The type section">
+<link href="Integer-types.html" rel="next" title="Integer types">
+<link href="Type-indexes-and-type-IDs.html" rel="prev" title="Type indexes and type IDs">
+<style type="text/css">
+<!--
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<div class="subsection" id="Type-kinds">
+<div class="header">
+<p>
+Next: <a href="Integer-types.html" accesskey="n" rel="next">Integer types</a>, Previous: <a href="Type-indexes-and-type-IDs.html" accesskey="p" rel="prev">Type indexes and type IDs</a>, Up: <a href="The-type-section.html" accesskey="u" rel="up">The type section</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<span id="Type-kinds-1"></span><h4 class="subsection">2.3.3 Type kinds</h4>
+<span id="index-Type-kinds"></span>
+<span id="index-Type_002c-kinds-of"></span>
+
+<p>Every type in CTF is of some <em>kind</em>. Each kind is some variety of C type:
+all structures are a single kind, as are all unions, all pointers, all arrays,
+all integers regardless of their bitfield width, etc.  The kind of a type is
+given in the <code>kind</code> field of the <code>ctt_info</code> word (see <a href="The-info-word.html">The info word, ctt_info</a>).
+</p>
+<p>The space of type kinds is only a quarter full so far, so there is plenty of
+room for expansion.  It is likely that in future versions of the file format,
+types with smaller kinds will be more efficiently encoded than types with larger
+kinds, so their numerical value will actually start to matter in future. (So
+these IDs will probably change their numerical values in a later release of this
+format, to move more frequently-used kinds like structures and cv-quals towards
+the top of the space, and move rarely-used kinds like integers downwards. Yes,
+integers are rare: how many kinds of <code>int</code> are there in a program? They&rsquo;re
+just very frequently <em>referenced</em>.)
+</p>
+<p>Here&rsquo;s the set of kinds so far.  Each kind has a <code>#define</code> associated with
+it, also given here.
+</p>
+<table>
+<thead><tr><th>Kind</th><th>Macro</th><th>Purpose</th></tr></thead>
+<tr><td>0</td><td><code>CTF_K_UNKNOWN</code></td><td>Indicates a type that cannot be represented in CTF, or that is being skipped.
+It is very similar to type ID 0, except that you can have <em>multiple</em>, distinct types
+of kind <code>CTF_K_UNKNOWN</code>.
+<span id="index-CTF_005fK_005fUNKNOWN"></span></td></tr>
+<tr><td>1</td><td><code>CTF_K_INTEGER</code></td><td>An integer type. See <a href="Integer-types.html">Integer types</a>.</td></tr>
+<tr><td>2</td><td><code>CTF_K_FLOAT</code></td><td>A floating-point type. See <a href="Floating_002dpoint-types.html">Floating-point types</a>.</td></tr>
+<tr><td>3</td><td><code>CTF_K_POINTER</code></td><td>A pointer. See <a href="Pointers-typedefs-and-cvr_002dquals.html">Pointers, typedefs, and cvr-quals</a>.</td></tr>
+<tr><td>4</td><td><code>CTF_K_ARRAY</code></td><td>An array. See <a href="Arrays.html">Arrays</a>.</td></tr>
+<tr><td>5</td><td><code>CTF_K_FUNCTION</code></td><td>A function pointer. See <a href="Function-pointers.html">Function pointers</a>.</td></tr>
+<tr><td>6</td><td><code>CTF_K_STRUCT</code></td><td>A structure. See <a href="Structs-and-unions.html">Structs and unions</a>.</td></tr>
+<tr><td>7</td><td><code>CTF_K_UNION</code></td><td>A union. See <a href="Structs-and-unions.html">Structs and unions</a>.</td></tr>
+<tr><td>8</td><td><code>CTF_K_ENUM</code></td><td>An enumerated type. See <a href="Enums.html">Enums</a>.</td></tr>
+<tr><td>9</td><td><code>CTF_K_FORWARD</code></td><td>A forward. See <a href="Forward-declarations.html">Forward declarations</a>.</td></tr>
+<tr><td>10</td><td><code>CTF_K_TYPEDEF</code></td><td>A typedef. See <a href="Pointers-typedefs-and-cvr_002dquals.html">Pointers, typedefs, and cvr-quals</a>.</td></tr>
+<tr><td>11</td><td><code>CTF_K_VOLATILE</code></td><td>A volatile-qualified type. See <a href="Pointers-typedefs-and-cvr_002dquals.html">Pointers, typedefs, and cvr-quals</a>.</td></tr>
+<tr><td>12</td><td><code>CTF_K_CONST</code></td><td>A const-qualified type. See <a href="Pointers-typedefs-and-cvr_002dquals.html">Pointers, typedefs, and cvr-quals</a>.</td></tr>
+<tr><td>13</td><td><code>CTF_K_RESTRICT</code></td><td>A restrict-qualified type. See <a href="Pointers-typedefs-and-cvr_002dquals.html">Pointers, typedefs, and cvr-quals</a>.</td></tr>
+<tr><td>14</td><td><code>CTF_K_SLICE</code></td><td>A slice, a change of the bit-width or offset of some other type. See <a href="Slices.html">Slices</a>.</td></tr>
+</table>
+
+<p>Now we cover all type kinds in turn. Some are more complicated than others.
+</p>
+</div>
+<hr>
+<div class="header">
+<p>
+Next: <a href="Integer-types.html">Integer types</a>, Previous: <a href="Type-indexes-and-type-IDs.html">Type indexes and type IDs</a>, Up: <a href="The-type-section.html">The type section</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

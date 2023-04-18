@@ -1,0 +1,231 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- This file documents the GNU Assembler "as".
+
+Copyright (C) 1991-2022 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3
+or any later version published by the Free Software Foundation;
+with no Invariant Sections, with no Front-Cover Texts, and with no
+Back-Cover Texts.  A copy of the license is included in the
+section entitled "GNU Free Documentation License".
+ -->
+<title>ARC-Regs (Using as)</title>
+
+<meta name="description" content="ARC-Regs (Using as)">
+<meta name="keywords" content="ARC-Regs (Using as)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="AS-Index.html" rel="index" title="AS Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ARC-Syntax.html" rel="up" title="ARC Syntax">
+<link href="ARC_002dChars.html" rel="prev" title="ARC-Chars">
+<style type="text/css">
+<!--
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<div class="subsection" id="ARC_002dRegs">
+<div class="header">
+<p>
+Previous: <a href="ARC_002dChars.html" accesskey="p" rel="prev">Special Characters</a>, Up: <a href="ARC-Syntax.html" accesskey="u" rel="up">Syntax</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<span id="Register-Names-2"></span><h4 class="subsubsection">9.3.2.2 Register Names</h4>
+
+<span id="index-ARC-register-names"></span>
+<span id="index-register-names_002c-ARC"></span>
+<p>The ARC assembler uses the following register names for its core
+registers:
+</p>
+<dl compact="compact">
+<dt id='index-core-general-registers_002c-ARC'><span><code>r0-r31</code><a href='#index-core-general-registers_002c-ARC' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="index-ARC-core-general-registers"></span>
+<p>The core general registers.  Registers <code>r26</code> through <code>r31</code>
+have special functions, and are usually referred to by those synonyms.
+</p>
+</dd>
+<dt id='index-global-pointer_002c-ARC'><span><code>gp</code><a href='#index-global-pointer_002c-ARC' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="index-ARC-global-pointer"></span>
+<p>The global pointer and a synonym for <code>r26</code>.
+</p>
+</dd>
+<dt id='index-frame-pointer_002c-ARC'><span><code>fp</code><a href='#index-frame-pointer_002c-ARC' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="index-ARC-frame-pointer"></span>
+<p>The frame pointer and a synonym for <code>r27</code>.
+</p>
+</dd>
+<dt id='index-stack-pointer_002c-ARC'><span><code>sp</code><a href='#index-stack-pointer_002c-ARC' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="index-ARC-stack-pointer"></span>
+<p>The stack pointer and a synonym for <code>r28</code>.
+</p>
+</dd>
+<dt id='index-level-1-interrupt-link-register_002c-ARC'><span><code>ilink1</code><a href='#index-level-1-interrupt-link-register_002c-ARC' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="index-ARC-level-1-interrupt-link-register"></span>
+<p>For ARC 600 and ARC 700, the level 1 interrupt link register and a
+synonym for <code>r29</code>.  Not supported for ARCv2.
+</p>
+</dd>
+<dt id='index-interrupt-link-register_002c-ARC'><span><code>ilink</code><a href='#index-interrupt-link-register_002c-ARC' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="index-ARC-interrupt-link-register"></span>
+<p>For ARCv2, the interrupt link register and a synonym for <code>r29</code>.
+Not supported for ARC 600 and ARC 700.
+</p>
+</dd>
+<dt id='index-level-2-interrupt-link-register_002c-ARC'><span><code>ilink2</code><a href='#index-level-2-interrupt-link-register_002c-ARC' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="index-ARC-level-2-interrupt-link-register"></span>
+<p>For ARC 600 and ARC 700, the level 2 interrupt link register and a
+synonym for <code>r30</code>.  Not supported for ARC v2.
+</p>
+</dd>
+<dt id='index-link-register_002c-ARC'><span><code>blink</code><a href='#index-link-register_002c-ARC' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="index-ARC-link-register"></span>
+<p>The link register and a synonym for <code>r31</code>.
+</p>
+</dd>
+<dt id='index-extension-core-registers_002c-ARC'><span><code>r32-r59</code><a href='#index-extension-core-registers_002c-ARC' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="index-ARC-extension-core-registers"></span>
+<p>The extension core registers.
+</p>
+</dd>
+<dt id='index-loop-counter_002c-ARC'><span><code>lp_count</code><a href='#index-loop-counter_002c-ARC' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="index-ARC-loop-counter"></span>
+<p>The loop count register.
+</p>
+</dd>
+<dt id='index-word-aligned-program-counter_002c-ARC'><span><code>pcl</code><a href='#index-word-aligned-program-counter_002c-ARC' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="index-ARC-word-aligned-program-counter"></span>
+<p>The word aligned program counter.
+</p>
+</dd>
+</dl>
+
+<p>In addition the ARC processor has a large number of <em>auxiliary
+registers</em>.  The precise set depends on the extensions being
+supported, but the following baseline set are always defined:
+</p>
+<dl compact="compact">
+<dt id='index-Processor-Identification-register_002c-ARC'><span><code>identity</code><a href='#index-Processor-Identification-register_002c-ARC' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="index-ARC-Processor-Identification-register"></span>
+<p>Processor Identification register.  Auxiliary register address 0x4.
+</p>
+</dd>
+<dt id='index-Program-Counter_002c-ARC'><span><code>pc</code><a href='#index-Program-Counter_002c-ARC' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="index-ARC-Program-Counter"></span>
+<p>Program Counter.  Auxiliary register address 0x6.
+</p>
+</dd>
+<dt id='index-Status-register_002c-ARC'><span><code>status32</code><a href='#index-Status-register_002c-ARC' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="index-ARC-Status-register"></span>
+<p>Status register.  Auxiliary register address 0x0a.
+</p>
+</dd>
+<dt id='index-Branch-Target-Address_002c-ARC'><span><code>bta</code><a href='#index-Branch-Target-Address_002c-ARC' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="index-ARC-Branch-Target-Address"></span>
+<p>Branch Target Address.  Auxiliary register address 0x412.
+</p>
+</dd>
+<dt id='index-Exception-Cause-Register_002c-ARC'><span><code>ecr</code><a href='#index-Exception-Cause-Register_002c-ARC' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="index-ARC-Exception-Cause-Register"></span>
+<p>Exception Cause Register.  Auxiliary register address 0x403.
+</p>
+</dd>
+<dt id='index-Interrupt-Vector-Base-address_002c-ARC'><span><code>int_vector_base</code><a href='#index-Interrupt-Vector-Base-address_002c-ARC' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="index-ARC-Interrupt-Vector-Base-address"></span>
+<p>Interrupt Vector Base address.  Auxiliary register address 0x25.
+</p>
+</dd>
+<dt id='index-Stored-STATUS32-register-on-entry-to-level-P0-interrupts_002c-ARC'><span><code>status32_p0</code><a href='#index-Stored-STATUS32-register-on-entry-to-level-P0-interrupts_002c-ARC' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="index-ARC-Stored-STATUS32-register-on-entry-to-level-P0-interrupts"></span>
+<p>Stored STATUS32 register on entry to level P0 interrupts.  Auxiliary
+register address 0xb.
+</p>
+</dd>
+<dt id='index-Saved-User-Stack-Pointer_002c-ARC'><span><code>aux_user_sp</code><a href='#index-Saved-User-Stack-Pointer_002c-ARC' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="index-ARC-Saved-User-Stack-Pointer"></span>
+<p>Saved User Stack Pointer.  Auxiliary register address 0xd.
+</p>
+</dd>
+<dt id='index-Exception-Return-Address_002c-ARC'><span><code>eret</code><a href='#index-Exception-Return-Address_002c-ARC' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="index-ARC-Exception-Return-Address"></span>
+<p>Exception Return Address.  Auxiliary register address 0x400.
+</p>
+</dd>
+<dt id='index-BTA-saved-on-exception-entry_002c-ARC'><span><code>erbta</code><a href='#index-BTA-saved-on-exception-entry_002c-ARC' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="index-ARC-BTA-saved-on-exception-entry"></span>
+<p>BTA saved on exception entry.  Auxiliary register address 0x401.
+</p>
+</dd>
+<dt id='index-STATUS32-saved-on-exception_002c-ARC'><span><code>erstatus</code><a href='#index-STATUS32-saved-on-exception_002c-ARC' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="index-ARC-STATUS32-saved-on-exception"></span>
+<p>STATUS32 saved on exception.  Auxiliary register address 0x402.
+</p>
+</dd>
+<dt id='index-Build-Configuration-Registers-Version_002c-ARC'><span><code>bcr_ver</code><a href='#index-Build-Configuration-Registers-Version_002c-ARC' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="index-ARC-Build-Configuration-Registers-Version"></span>
+<p>Build Configuration Registers Version.  Auxiliary register address 0x60.
+</p>
+</dd>
+<dt id='index-Build-configuration-for_003a-BTA-Registers_002c-ARC'><span><code>bta_link_build</code><a href='#index-Build-configuration-for_003a-BTA-Registers_002c-ARC' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="index-ARC-Build-configuration-for_003a-BTA-Registers"></span>
+<p>Build configuration for: BTA Registers.  Auxiliary register address 0x63.
+</p>
+</dd>
+<dt id='index-Build-configuration-for_003a-Interrupts_002c-ARC'><span><code>vecbase_ac_build</code><a href='#index-Build-configuration-for_003a-Interrupts_002c-ARC' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="index-ARC-Build-configuration-for_003a-Interrupts"></span>
+<p>Build configuration for: Interrupts.  Auxiliary register address 0x68.
+</p>
+</dd>
+<dt id='index-Build-configuration-for_003a-Core-Registers_002c-ARC'><span><code>rf_build</code><a href='#index-Build-configuration-for_003a-Core-Registers_002c-ARC' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="index-ARC-Build-configuration-for_003a-Core-Registers"></span>
+<p>Build configuration for: Core Registers.  Auxiliary register address 0x6e.
+</p>
+</dd>
+<dt id='index-DCCM-RAM-Configuration-Register_002c-ARC'><span><code>dccm_build</code><a href='#index-DCCM-RAM-Configuration-Register_002c-ARC' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="index-ARC-DCCM-RAM-Configuration-Register"></span>
+<p>DCCM RAM Configuration Register.  Auxiliary register address 0xc1.
+</p>
+</dd>
+</dl>
+
+<p>Additional auxiliary register names are defined according to the
+processor architecture version and extensions selected by the options.
+</p>
+</div>
+<hr>
+<div class="header">
+<p>
+Previous: <a href="ARC_002dChars.html">Special Characters</a>, Up: <a href="ARC-Syntax.html">Syntax</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,1196 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- Copyright (C) 1988-2022 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being "Free Software" and "Free Software Needs
+Free Documentation", with the Front-Cover Texts being "A GNU Manual,"
+and with the Back-Cover Texts as in (a) below.
+
+(a) The FSF's Back-Cover Text is: "You are free to copy and modify
+this GNU Manual.  Buying copies from GNU Press supports the FSF in
+developing GNU and promoting software freedom."
+
+Disclaimer
+
+The information contained herein is for informational purposes only,
+and is subject to change without notice.  While every precaution has
+been taken in the preparation of this document, it may contain
+technical inaccuracies, omissions and typographical errors, and AMD is
+under no obligation to update or otherwise correct this information.
+Advanced Micro Devices, Inc. makes no representations or warranties
+with respect to the accuracy or completeness of the contents of this
+document, and assumes no liability of any kind, including the implied
+warranties of noninfringement, merchantability or fitness for
+particular purposes, with respect to the operation or use of AMD
+hardware, software or other products described herein.  No license,
+including implied or arising by estoppel, to any intellectual property
+rights is granted by this document.  Terms and limitations applicable
+to the purchase or use of AMD’s products are as set forth in a signed
+agreement between the parties or in AMD's Standard Terms and
+Conditions of Sale.
+
+AMD(R), the AMD Arrow logo, AMD Instinct(R),
+Radeon(R), ROCm(R) and combinations thereof are
+trademarks of Advanced Micro Devices, Inc.  Linux(R) is the
+registered trademark of Linus Torvalds in the U.S. and other countries.
+PCIe(R) is a registered trademark of PCI-SIG Corporation. Other
+product names used in this publication are for identification purposes only and
+may be trademarks of their respective companies.
+
+Copyright (C) 2019-2022 Advanced Micro Devices, Inc.  All
+rights reserved. -->
+<title>Heterogeneous Debugging (Debugging with ROCGDB)</title>
+
+<meta name="description" content="Heterogeneous Debugging (Debugging with ROCGDB)">
+<meta name="keywords" content="Heterogeneous Debugging (Debugging with ROCGDB)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="Concept-Index.html" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="index.html" rel="up" title="Top">
+<link href="Remote-Debugging.html" rel="next" title="Remote Debugging">
+<link href="Targets.html" rel="prev" title="Targets">
+<style type="text/css">
+<!--
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<div class="chapter" id="Heterogeneous-Debugging">
+<div class="header">
+<p>
+Next: <a href="Remote-Debugging.html" accesskey="n" rel="next">Debugging Remote Programs</a>, Previous: <a href="Targets.html" accesskey="p" rel="prev">Specifying a Debugging Target</a>, Up: <a href="index.html" accesskey="u" rel="up">Debugging with <small>ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<span id="Debugging-Heterogeneous-Programs"></span><h2 class="chapter">20 Debugging Heterogeneous Programs</h2>
+<span id="index-heterogeneous-debugging"></span>
+
+<table class="cartouche" border="1"><tr><td>
+<blockquote>
+<p><em>Note:</em> The commands presented in this chapter are not currently fully
+implemented.  See <a href="AMD-GPU.html"><acronym>AMD GPU</acronym></a> for the current support available.
+</p></blockquote>
+</td></tr></table>
+
+<span id="index-heterogeneous-system"></span>
+<span id="index-heterogeneous-program"></span>
+<p>In some operating systems, such as Linux with the <acronym>AMD ROCm</acronym>
+platform installed, a single program may have multiple threads in the
+same process, executing on different devices which may have different
+target architectures.  Such a system is termed a <em>heterogeneous
+system</em> and a program that uses the multiple devices is termed a
+<em>heterogeneous program</em>.
+</p>
+<span id="index-heterogeneous-agent"></span>
+<p>The multiple devices of a heterogeneous system are termed
+<em>heterogeneous agents</em>.  They can include the following kinds of
+devices: <acronym title="Central Processing Unit">CPU</acronym> (Central Processing Unit), <acronym title="Graphics Processing Unit">GPU</acronym> (Graphics Processing Unit), <acronym title="Digital Signal Processor">DSP</acronym> (Digital Signal Processor),
+<acronym title="Field Programmable Gate Array">FPGA</acronym> (Field Programmable Gate Array), as well as other
+specialized hardware.
+</p>
+<span id="index-heterogeneous-host-agent"></span>
+<p>The device of a heterogeneous system that starts the execution of the
+program is termed the <em>heterogeneous host agent</em>.
+</p>
+<p>The precise way threads are created on different heterogeneous agents
+may vary from one heterogeneous system to another, but in general the
+threads behave similarly no matter what heterogeneous agent is
+executing them, except that the target architecture may be different.
+</p>
+<span id="index-heterogeneous-queue"></span>
+<span id="index-heterogeneous-packet"></span>
+<p>A heterogeneous program can create <em>heterogeneous queues</em>
+associated with a heterogeneous agent.  The heterogeneous program can
+then place <em>heterogeneous packets</em> on a heterogeneous queue to
+control the actions of the associated heterogeneous agent.  A
+heterogeneous agent removes heterogeneous packets from the
+heterogeneous queues assocated with it and performs the requested
+actions.  The packet actions and scheduling of packet processing
+varies depending on the heterogeneous system and the target
+architecture of the heterogeneous agent.  See <a href="Architectures.html">Architectures</a>.
+</p>
+<span id="index-heterogeneous-dispatch-packet"></span>
+<span id="index-heterogeneous-dispatch"></span>
+<p>A <em>heterogeneous dispatch packet</em> is used to initiate code
+execution on a heterogeneous agent.  A single heterogeneous dispatch
+packet may specify that the heterogeneous agent create a set of
+threads that are all associated with a corresponding
+<em>heterogeneous dispatch</em>.  Each thread typically has an associated
+position within the heterogeneous dispatch, possibly expressed as a
+multi-dimensional grid position.  The heterogeneous agent typically
+can create multiple threads that execute concurrently.  If a
+heterogeneous dispatch is larger than the number of concurrent threads
+that can be created, the heterogeneous agent creates threads of the
+heterogeneous dispatch as other threads complete.  When all the
+threads of a heterogeneous dispatch have been created and have
+completed, the heterogeneous dispatch is considered complete.
+</p>
+<span id="index-heterogeneous-work_002dgroup"></span>
+<p>The threads of a heterogeneous dispatch may be grouped into
+<em>heterogeneous work-groups</em>.  The threads that belong to the same
+heterogeneous work-group may have special shared memory, and efficient
+execution synchronization abilities.  A thread that is part of a
+heterogeneous work-group typically has an associated position within
+the heterogeneous work-group, possibly also expressed as a
+multi-dimensional grid position.
+</p>
+<p>Other heterogeneous packets may control heterogeneous packet
+scheduling, memory visibility between the threads of a heterogeneous
+dispatch and other threads, or other services supported by the
+heterogeneous system.
+</p>
+<span id="heterogeneous-lane"></span><span id="index-heterogeneous-lane"></span>
+<p>On some heterogeneous systems there can be heterogeneous agents that
+support <acronym title="Single Instruction Multiple Data">SIMD</acronym> (Single Instruction Multiple Data) or
+<acronym title="Single Instruction Multiple Threads">SIMT</acronym> (Single Instruction Multiple Threads) machine
+instructions.  On these target architectures, a single machine
+instruction can operate in parallel on multiple <em>heterogeneous
+lanes</em>.
+</p>
+<span id="unused-heterogeneous-lane"></span><span id="index-unused-heterogeneous-lane"></span>
+<p>When an heterogeneous lane is not associated with any work-group, it
+is said to be unused.  For example, the left over lanes when the
+work-group size is not a multiple of the lanes in a SIMD/SIMT thread,
+or when the grid size is not a multiple of the work-group size
+(resulting in partial work-groups on the dimension edges of the grid).
+<small>ROCGDB</small> hides unused lanes by default.
+</p>
+<span id="index-divergent-control-flow"></span>
+<p>Source languages used by heterogeneous programs can be implemented on
+target architectures that support multiple heterogeneous lanes by
+mapping a source language thread of execution onto a heterogeneous
+lane of a single target architecture thread.  Control flow in the
+source language may be implemented by controlling which heterogeneous
+lanes are active.  If the source language control flow may result in
+some heterogeneous lanes becoming inactive while some remain active,
+the control flow is said to be <em>divergent</em>.  Typically, the
+machine code may execute different divergent paths for different sets
+of heterogeneous lanes, before the control flow reconverges and all
+heterogeneous lanes become active.
+</p>
+<p>Just because a target architecture supports multiple lanes, does not
+mean that the source language is mapped to use them to implement
+source language threads of execution.  Therefore, a thread is only
+considered to have multiple heterogeneous lanes if it&rsquo;s current frame
+corresponds to a source language that does do such a mapping.
+</p>
+<span id="Address-Space"></span><span id="index-address-space"></span>
+<p>On some heterogeneous systems there can be heterogeneous agents with
+target architectures that support multiple <em>address spaces</em>.  In
+these target architectures, there may be memory that is physically
+disjoint from regular global virtual memory.  There can also be cases
+when the same underlying memory can be accessed using linear addresses
+that map to the underlying physical memory in an interleaved manner.
+In these target architectures there can be distinct machine
+instructions to access the distinct address spaces.  For example,
+there may be physical hardware scratch pad memory that is allocated
+and accessible only to the threads that are associated with the same
+heterogeneous work-group.  There may be hardware address swizzle logic
+that allows regular global virtual memory to be allocated per
+heterogeneous lane such that they have a linear address view, which in
+fact maps to an interleaved global virtual memory access to improve
+cache performance.
+</p>
+<p><small>ROCGDB</small> provides these facilities for debugging heterogeneous
+programs:
+</p>
+<ul>
+<li> <code>info sharedlibrary</code>, command supports code objects for
+multiple architectures
+
+</li><li> debugger convenience variables for heterogeneous entities
+
+</li><li> <code>show architecture</code>, <code>x/i</code>, <code>disassemble</code>, commands
+to disassemble multiple architectures in the same inferior
+
+</li><li> <code>info threads</code>, <code>thread</code>, commands support threads
+executing on multiple heterogeneous agents
+
+</li><li> <code>info agents</code>, <code>info queues</code>, <code>info packets</code>,
+<code>info dispatches</code>, commands to inquire about the heterogeneous
+system
+
+</li><li> <code>queue find</code>, <code>dispatch find</code>, commands to find heterogeneous
+entities
+
+</li><li> <code>info lanes</code>, <code>lane</code>, commands support source language
+threads of execution that are mapped to SIMD-like lanes of a thread
+
+</li><li> <code>$_thread_find</code>, <code>$_thread_find_first_gid</code>,
+<code>$_lane_find</code>, <code>$_lane_find_first_gid</code> debugger convenience
+functions can find threads and heterogeneous lanes associated with
+specific heterogeneous entities
+
+</li><li> <code>maint print address-spaces</code>, command together with address
+qualifiers supports multiple address spaces
+
+</li></ul>
+
+<p>A heterogeneous system may use separate code objects for the different
+target architectures of the heterogeneous agents.  The <code>info
+sharedlibrary</code> command lists all the code objects currently loaded,
+regardless of their target architecture.
+</p>
+<p>The following rules apply in determining the target architecture used
+by commands when debugging heterogeneous programs:
+</p>
+<ol>
+<li> Typically the target architecture of the heterogeneous host agent is
+the target architecture of the program&rsquo;s code object.  The <code>set
+architecture</code> command (see <a href="Targets.html">Specifying a Debugging Target</a>)
+can be used to change this target architecture.  The target
+architecture of other heterogeneous agents is typically the target
+architecture of the associated device.
+
+</li><li> The target architecture of a thread is the target architecture of the
+selected stack frame.  Typically stack frames will have the same
+target architecture as the heterogeneous agent on which the thread was
+created, however, a target may assocociate different target
+architectures for different stack frames.
+
+</li><li> The current target architecture is the target architecture of the
+selected thread, or the target architecture of the heterogeneous host
+agent if there are no threads.
+
+</li></ol>
+
+<p><small>ROCGDB</small> handles the heterogeneous agent, queue, and dispatch
+entities in a similar manner to threads (see <a href="Threads.html">Debugging Programs with Multiple Threads</a>):
+</p>
+<ul>
+<li> For debugging purposes, <small>ROCGDB</small> associates its own number
+&mdash;always a single integer&mdash;with each heterogeneous entity of an
+inferior.  This number is unique between all instances of
+heterogeneous entities of an inferior, but not unique between
+heterogeneous entities of different inferiors.
+
+</li><li> <span id="qualified-heterogeneous-entity-numbers"></span>You can refer to a given heterogeneous entity in an inferior using the
+qualified <var>inferior-num</var>.<var>heterogeneous-entity-num</var> syntax,
+also known as a <em>qualified heterogeneous entity ID</em>, with
+<var>inferior-num</var> being the inferior number and
+<var>heterogeneous-entity-num</var> being the heterogeneous entity number
+of the given inferior.  If you omit <var>inferior-num</var>, then
+<small>ROCGDB</small> infers you&rsquo;re referring to a heterogeneous entity of the
+current inferior.
+
+</li><li> Until you create a second inferior, <small>ROCGDB</small> does not show the
+<var>inferior-num</var> part of heterogeneous entity IDs, even though you
+can always use the full
+<var>inferior-num</var>.<var>heterogeneous-entity-num</var> form to refer to
+heterogeneous entities of inferior 1, the initial inferior.
+
+</li><li> <span id="heterogeneous-entity-ID-list"></span><span id="index-heterogeneous-entity-ID-list"></span>
+Some commands accept a space-separated <em>heterogeneous entity ID
+list</em> as argument.  The list element has the same forms as for thread
+ID lists.  See <a href="Threads.html#thread-ID-list">thread ID list</a>.
+
+</li><li> <span id="global-heterogeneous-entity-numbers"></span>In addition to a <em>per-inferior</em> number, some heterogeneous
+entities are also assigned a unique <em>global</em> number, also known
+as <em>global heterogeneous entity ID</em>, a single integer.  Unlike the
+heterogeneous entity number component of the heterogeneous entity ID,
+no two entities have the same global heterogeneous entity ID, even
+when you&rsquo;re debugging multiple inferiors.
+
+</li></ul>
+
+<span id="lane-ID"></span><span id="index-lane-ID"></span>
+<p>Each lane of a thread is assigned a single number, also known as
+<em>lane ID</em>.  This is a single integer, which is an index number
+starting at 0, going up to the number of hardware-supported lanes per
+thread.  This ID is unique per thread, not global, and thus multiple
+threads can have lanes with the same ID.
+</p>
+<span id="lane-ID-list"></span><span id="index-lane-ID-list"></span>
+<p>Some commands accept a space-separated <em>lane ID list</em> as argument.
+A list element can be:
+</p>
+<ol>
+<li> A lane ID as shown in the first field of the &lsquo;<samp>info lanes</samp>&rsquo;
+display.  E.g., &lsquo;<samp>1</samp>&rsquo;.
+
+</li><li> A range of lane IDs, as in <var>lane1</var>-<var>lane2</var>.  E.g.,
+&lsquo;<samp>0-20</samp>&rsquo;.
+
+</li></ol>
+
+<p>The following debugger convenience variables (see <a href="Convenience-Vars.html">Convenience Variables</a>) are related to heterogeneous debugging.
+You may find these useful in writing breakpoint conditional
+expressions, command scripts, and so forth.
+</p>
+<dl compact="compact">
+<dt><span><code>$_thread</code></span></dt>
+<dt><span><code>$_gthread</code></span></dt>
+<dt><span><code>$_thread_systag</code></span></dt>
+<dt><span><code>$_thread_name</code></span></dt>
+<dd><p>See <a href="Convenience-Vars.html">Convenience Variables</a>.
+</p>
+<span id="index-_0024_005fagent_002c-convenience-variable"></span>
+<span id="index-_0024_005fqueue_002c-convenience-variable"></span>
+<span id="index-_0024_005fdispatch_002c-convenience-variable"></span>
+</dd>
+<dt><span><code>$_agent</code></span></dt>
+<dt><span><code>$_queue</code></span></dt>
+<dt><span><code>$_dispatch</code></span></dt>
+<dd><p>There are debugger convenience variables that contain the number of
+each heterogeneous entity associated with the current thread if it was
+created by a heterogeneous dispatch, or 0 otherwise.  <code>$_agent</code>,
+<code>$_queue</code>, and <code>$_dispatch</code> contain the corresponding
+per-inferior heterogeneous entity number.
+</p>
+<span id="index-_0024_005flane_002c-convenience-variable"></span>
+</dd>
+<dt><span><code>$_lane</code></span></dt>
+<dd><p>The heterogeneous lane number of the current lane of the current
+thread.  If the current thread does not support SIMD/SIMT lanes, it is
+treated as if it has a single lane.
+</p>
+<span id="index-_0024_005fdispatch_005fpos_002c-convenience-variable"></span>
+</dd>
+<dt><span><code>$_dispatch_pos</code></span></dt>
+<dd><p>The heterogeneous dispatch position string of the current thread within
+its associated heterogeneous dispatch if it is was created by a
+heterogeneous dispatch, or the empty string otherwise.  The format
+varies depending on the heterogeneous system and target architecture
+of the heterogeneous agent.  See <a href="Architectures.html">Architectures</a>.
+</p>
+<span id="index-_0024_005flane_005fname_002c-convenience-variable"></span>
+</dd>
+<dt><span><code>$_lane_name</code></span></dt>
+<dd><p>The heterogeneous lane name string of the current heterogeneous lane, or
+the empty string if no name has been assigned by the <code>lane name</code>
+command.
+</p>
+<span id="index-_0024_005fthread_005fworkgroup_005fpos_002c-convenience-variable"></span>
+<span id="index-_0024_005flane_005fworkgroup_005fpos_002c-convenience-variable"></span>
+</dd>
+<dt><span><code>$_thread_workgroup_pos</code></span></dt>
+<dt><span><code>$_lane_workgroup_pos</code></span></dt>
+<dd><p>The heterogeneous work-group position string of the current thread or
+heterogeneous lane within its associated heterogeneous dispatch if it
+is was created by a heterogeneous dispatch, or the empty string
+otherwise.  The format varies depending on the heterogeneous system
+and target architecture of the heterogeneous agent.
+See <a href="Architectures.html">Architectures</a>.
+</p>
+<span id="index-_0024_005flane_005fsystag_002c-convenience-variable"></span>
+</dd>
+<dt><span><code>$_lane_systag</code></span></dt>
+<dd><p>The target system&rsquo;s heterogeneous lane identifier (<var>lane_systag</var>)
+string of the current heterogeneous lane.  See <a href="#target-system-lane-identifier">target system lane identifier</a>.
+</p>
+<span id="index-_0024_005fagent_005fsystag_002c-convenience-variable"></span>
+<p>The target system&rsquo;s heterogeneous agent identifier (<var>agent_systag</var>) string
+of the heterogeneous agent of the current thread.
+</p>
+<span id="index-_0024_005fqueue_005fsystag_002c-convenience-variable"></span>
+<p>The target system&rsquo;s heterogeneous queue identifier (<var>queue_systag</var>) string
+of the heterogeneous queue of the current thread.
+</p>
+<span id="index-_0024_005fdispatch_005fsystag_002c-convenience-variable"></span>
+</dd>
+<dt><span><code>$_dispatch_systag</code></span></dt>
+<dd><p>The target system&rsquo;s heterogeneous dispatch identifier (<var>dispatch_systag</var>)
+string of the heterogeneous dispatch of the current thread.
+</p>
+</dd>
+</dl>
+
+<p>The following debugger convenience functions (see <a href="Convenience-Funs.html">Convenience Functions</a>) are related to heterogeneous debugging.
+Given the very large number of threads on heterogeneous systems, these
+may be very useful.  They allow threads or thread lists to be
+specified based on the target system&rsquo;s thread identifier
+(<var>systag</var>) or thread name, and allow heterogeneous lanes or
+heterogeneous lane lists to be specified based on the target system&rsquo;s
+heterogeneous lane identifier (<var>lane_systag</var>) or heterogeneous
+lane name.
+</p>
+<dl compact="compact">
+<dt><span><code>$_thread_find</code></span></dt>
+<dt><span><code>$_thread_find_first_gid</code></span></dt>
+<dd><p>See <a href="Convenience-Funs.html">Convenience Functions</a>.
+</p>
+<span id="index-_0024_005flane_005ffind_002c-convenience-function"></span>
+</dd>
+<dt><span><code>$_lane_find(<var>regex</var>)</code></span></dt>
+<dd><p>Searches for heterogeneous lanes whose name or <var>lane_systag</var>
+matches the supplied regular expression.  The syntax of the regular
+expression is that specified by <code>Python</code>&rsquo;s regular expression
+support.
+</p>
+<p>Returns a string that is the space separated list of per-inferior
+heterogeneous lane numbers of the found heterogeneous lanes.  If
+debugging multiple inferiors, the heterogeneous lane numbers are
+qualified with the inferior number.  If no heterogeneous lane are
+found, the empty string is returned.  The string can be used in
+commands that accept a heterogeneous lane ID list.
+See <a href="#heterogeneous-entity-ID-list">heterogeneous entity ID list</a>.
+</p>
+<p>For example, the following command lists all heterogeneous lanes that
+are part of a heterogeneous work-group with work-group position
+&lsquo;<samp>(1,2,3)</samp>&rsquo; (see <a href="#Heterogeneous-Debugging">Debugging Heterogeneous Programs</a>):
+</p>
+<div class="example">
+<pre class="example">(gdb) info lanes $_thread_find (&quot;(1,2,3)&quot;)
+</pre></div>
+
+</dd>
+<dt id='index-_0024_005flane_005ffind_005ffirst_005fgid_002c-convenience-function'><span><code>$_lane_find_first_gid(<var>regex</var>)</code><a href='#index-_0024_005flane_005ffind_005ffirst_005fgid_002c-convenience-function' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Similar to the <code>$_lane_find</code> convenience function, except it
+returns a number that is the global heterogeneous lane number of one
+of the heterogeneous lanes found, or 0 if no heterogeneous lanes were
+found.  The number can be used in commands that accept a global
+heterogeneous lane number.  See <a href="#global-heterogeneous-entity-numbers">global heterogeneous entity numbers</a>.
+</p>
+<p>For example, the following command sets the current heterogeneous lane
+to one of the heterogeneous lanes that are part of a heterogeneous
+work-group with work-item position &lsquo;<samp>[1,2,3]</samp>&rsquo;:
+</p>
+<div class="example">
+<pre class="example">(gdb) lane -gid $_lane_find_first_gid (&quot;[1,2,3]&quot;)
+</pre></div>
+
+</dd>
+</dl>
+
+<p>The following commands are related to heterogeneous debugging:
+</p>
+<dl compact="compact">
+<dt id='index-info-agents'><span><code>info agents <span class="roman">[</span><var>agent-id-list</var><span class="roman">]</span></code><a href='#index-info-agents' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>The <code>info agents</code> command lists the following information for
+each heterogeneous agent (in this order):
+</p>
+<ol>
+<li> The heterogeneous agent ID.  See <a href="#qualified-heterogeneous-entity-numbers">qualified heterogeneous entity numbers</a>.
+
+</li><li> The target system&rsquo;s heterogeneous agent state.  Agents that support
+debugging are marked with &lsquo;<samp>A</samp>&rsquo; for active.  &lsquo;<samp>U</samp>&rsquo; marks
+unsupported agents which cannot be debugged and so do not report any
+queues, dispatches, or wavefronts.
+
+</li><li> The target system&rsquo;s heterogeneous agent identifier.
+
+</li><li> The target system&rsquo;s architecture name.
+
+</li><li> The target system&rsquo;s device name.
+
+</li><li> The number of compute unit cores.
+
+</li><li> The total number of threads.  The number of threads that a core can execute
+concurrently is dependent on the target architecture of the device.
+
+</li><li> The target-specific string identifying the location of the agent.  For
+example, some target agents may use the <acronym>PCI</acronym> slot number in
+<acronym title="Bus:Device.Function">BDF</acronym> (Bus:Device.Function) notation.
+
+</li></ol>
+
+<p>An asterisk &lsquo;<samp>*</samp>&rsquo; to the left of the <small>ROCGDB</small> heterogeneous agent number
+indicates the heterogeneous agent executing the current thread.
+</p>
+<p>Some heterogeneous agents may not be listed until the inferior has started
+execution of the program.
+</p>
+<p>With no arguments displays information about all heterogeneous agents.  You can
+specify the list of heterogeneous agents that you want to display using the
+heterogeneous entity ID list syntax (see <a href="#heterogeneous-entity-ID-list">heterogeneous entity ID list</a>).
+</p>
+<p>For example,
+</p>
+<div class="example">
+<pre class="example">(gdb) info agents
+  Id State Target Id                  Architecture Device Name Cores Threads Location
+* 1  A     AMDGPU Agent (GPUID 45151) gfx906       vega20      240   2400    0a:00.0
+  2  A     AMDGPU Agent (GPUID 39113) gfx906       vega20      240   2400    44:00.0
+</pre></div>
+
+<p>If you&rsquo;re debugging multiple inferiors, <small>ROCGDB</small> displays
+heterogeneous agent IDs using the qualified
+<var>inferior-num</var>.<var>agent-num</var> format.  Otherwise, only
+<var>agent-num</var> is shown.
+</p>
+</dd>
+<dt id='index-info-queues'><span><code>info queues <span class="roman">[</span><var>queue-id-list</var><span class="roman">]</span></code><a href='#index-info-queues' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>The <code>info queues</code> command lists the following information for
+each heterogeneous queue (in this order):
+</p>
+<ol>
+<li> The heterogeneous queue ID.  See <a href="#qualified-heterogeneous-entity-numbers">qualified heterogeneous entity numbers</a>.
+
+</li><li> The target system&rsquo;s heterogeneous queue identifier.
+
+</li><li> The type of the heterogeneous queue.  The meaning of the queue types is target
+architecture and operating system depentent.
+
+</li><li> The target system&rsquo;s heterogeneous packet identifier for the next packet that
+will be read from the heterogeneous queue by the device.
+
+</li><li> The target system&rsquo;s heterogeneous packet identifier for the next packet that
+will be written to the heterogeneous queue for submission to the device.
+
+</li><li> The size in bytes of the heterogeneous queue packet buffer.
+
+</li><li> The global memory address of the heterogeneous queue packet buffer.
+
+</li></ol>
+
+<p>An asterisk &lsquo;<samp>*</samp>&rsquo; to the left of the <small>ROCGDB</small> heterogeneous queue number
+indicates the heterogeneous queue executing the current thread.
+</p>
+<p>With no arguments displays information about all heterogeneous queues.  You can
+specify the list of heterogeneous queues that you want to display using the
+heterogeneous entity ID list syntax (see <a href="#heterogeneous-entity-ID-list">heterogeneous entity ID list</a>).
+</p>
+<p>For example,
+</p>
+<div class="example">
+<pre class="example">(gdb) info queues
+  Id   Target Id                Type         Read   Write  Size     Address
+* 1    AMDGPU Queue 1:1 (QID 1) HSA (Multi)  0      2      65536    0x00007ffff7f60000
+  2    AMDGPU Queue 1:2 (QID 2) DMA                        1048576  0x00007ffde4e00000
+  3    AMDGPU Queue 1:3 (QID 0) HSA (Multi)  4      4      262144   0x00007ffff7f00000
+</pre></div>
+
+<p>If you&rsquo;re debugging multiple inferiors, <small>ROCGDB</small> displays
+heterogeneous queue IDs using the qualified
+<var>inferior-num</var>.<var>queue-num</var> format.  Otherwise, only
+<var>queue-num</var> is shown.
+</p>
+</dd>
+<dt id='index-info-dispatches'><span><code>info dispatches <span class="roman">[</span>-full<span class="roman">]</span> <span class="roman">[</span><var>dispatch-id-list</var><span class="roman">]</span></code><a href='#index-info-dispatches' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>The <code>info dispatches</code> command lists the following information for each
+heterogeneous dispatch (in this order):
+</p>
+<ol>
+<li> The heterogeneous dispatch ID.  See <a href="#qualified-heterogeneous-entity-numbers">qualified heterogeneous entity numbers</a>.
+
+</li><li> The target system&rsquo;s identifier of the dispatch packet that initiated the
+dispatch.
+
+</li><li> The x, y, and z heterogeneous grid dimensions, in that order, in terms of
+work-items of the heterogeneous dispatch.  The number of dimensions displayed
+matches the dimensionality of the heterogeneous dispatch.
+
+</li><li> The x, y, and z heterogeneous work-group dimensions, in that order, in terms of
+work-items of the heterogeneous dispatch.  The number of dimensions displayed
+matches the dimensionality of the heterogeneous dispatch.
+
+</li><li> The fences associated with the heterogeneous dispatch packet.  The kinds of
+fences are target architecture dependent.
+
+</li><li> The size in bytes of address spaces associated with the heterogeneous dispatch.
+The address spaces are target architecture dependent.  Only displayed if the
+<samp>-full</samp> option is specified.
+
+</li><li> The global memory address of the kernel descriptor for the heterogeneous
+dispatch.  The descriptor is target architecture dependent.  Only displayed if
+the <samp>-full</samp> option is specified.
+
+</li><li> The global memory address of the kernel arguments for the heterogeneous
+dispatch.  Only displayed if the <samp>-full</samp> option is specified.
+
+</li><li> The global memory address of the completion event for the heterogeneous
+dispatch.  Omitted if the heterogeneous dispatch has no completion event.  The
+event is target architecture and operating system dependent.  Only displayed if
+the <samp>-full</samp> option is specified.
+
+</li><li> The kernel function prototype.
+
+</li></ol>
+
+<p>An asterisk &lsquo;<samp>*</samp>&rsquo; to the left of the <small>ROCGDB</small> heterogeneous dispatch
+number indicates the heterogeneous dispatch executing the current thread.
+</p>
+<p>With no arguments displays information about all heterogeneous dispatches.  You
+can specify the list of heterogeneous dispatches that you want to display using
+the heterogeneous entity ID list syntax (see <a href="#heterogeneous-entity-ID-list">heterogeneous entity ID list</a>).
+</p>
+<p>For example,
+</p>
+<div class="example">
+<pre class="example">(gdb) info dispatches -full
+  Id   Target Id                      Grid      Workgroup Fence   Address Spaces          Kernel Descriptor  Kernel Args        Completion Signal  Kernel Function
+* 1    AMDGPU Dispatch 1:1:1 (PKID 0) [256,1,1] [128,1,1] B|As    Shared(0), Private(220) 0x00007ffde5409800 0x00007ffff7e00000 (nil)              bit_extract_kernel(unsigned int*, unsigned int const*, unsigned long)
+</pre></div>
+
+<p>If you&rsquo;re debugging multiple inferiors, <small>ROCGDB</small> displays
+heterogeneous dispatch IDs using the qualified
+<var>inferior-num</var>.<var>dispatch-num</var> format.  Otherwise, only
+<var>dispatch-num</var> is shown.
+</p>
+</dd>
+<dt id='index-search-for-a-heterogeneous-dispatch'><span><code>queue find <var>regexp</var></code><a href='#index-search-for-a-heterogeneous-dispatch' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="index-search-for-a-heterogeneous-queue"></span>
+</dd>
+<dt><span><code>dispatch find <var>regexp</var></code></span></dt>
+<dd><p>These commands operate the same way as the &lsquo;<samp>thread find</samp>&rsquo; command
+(see <a href="Threads.html#thread-find">&lsquo;<samp>thread find</samp>&rsquo;</a>) except that they use the target
+system&rsquo;s heterogeneous agent, queue, and dispatch identifiers respectively.
+</p>
+</dd>
+<dt id='index-info-packets'><span><code>info packets <span class="roman">[</span><var>queue-id-list</var><span class="roman">]</span></code><a href='#index-info-packets' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Display information about the heterogeneous packets on one or more
+heterogeneous queues.  With no arguments displays information about
+all heterogeneous queues.  You can specify the list of heterogeneous
+queues that you want to display using the heterogeneous queue ID list
+syntax (see <a href="#heterogeneous-entity-ID-list">heterogeneous entity ID list</a>).
+</p>
+<p>Since heterogeneous agents may be processing heterogeneous packets
+asynchronously, the display is at best a snapshot, and may be
+inconsistent due to the heterogeneous queues being updated while they
+are being inspected.
+</p>
+<p>The heterogeneous packets are listed contiguously for each
+heterogeneous agent, and for each heterogeneous queue of that
+heterogeneous agent, with the oldest packet first.
+</p>
+<p><small>ROCGDB</small> displays for each heterogeneous packet (in this order):
+</p>
+<ol>
+<li> The associated heterogeneous agent ID.  See <a href="#qualified-heterogeneous-entity-numbers">qualified heterogeneous entity numbers</a>.
+
+</li><li> The associated heterogeneous queue ID.  See <a href="#qualified-heterogeneous-entity-numbers">qualified heterogeneous entity numbers</a>.
+
+</li><li> The packet position in the heterogeneous queue, with the oldest one
+being 1.
+
+</li><li> Additional information about the heterogeneous packet that varies
+depending on the heterogeneous system and may vary depending on the
+target architecture of the heterogeneous entity
+(see <a href="Architectures.html">Architectures</a>).
+
+</li></ol>
+
+</dd>
+<dt><span><code>info threads <span class="roman">[</span>-gid<span class="roman">]</span> <span class="roman">[</span><var>thread-id-list</var><span class="roman">]</span></code></span></dt>
+<dd><p>The <code>info threads</code> command (see <a href="Threads.html">Debugging Programs with Multiple Threads</a>) lists the threads
+created on all the heterogeneous agents.
+</p>
+<p>If any of the threads listed have multiple heterogeneous lanes, then
+an additional <em>Lanes</em> column is displayed before the target
+system&rsquo;s thread identifier (<var>systag</var>) column.  For threads that
+have multiple heterogeneous lanes, the number of heterogeneous lanes
+that are active followed by a slash and the total number of
+heterogeneous lanes of the current frame of the thread is displayed.
+Otherwise, nothing is displayed.
+</p>
+<p>The target system&rsquo;s thread identifier (<var>systag</var>) (see <a href="Threads.html#target-system-thread-identifier">target system thread identifier</a>) for threads associated with heterogeneous
+dispatches varies depending on the heterogeneous system and target
+architecture of the heterogeneous agent.  However, it typically will
+include information about the heterogeneous agent, heterogeneous
+queue, heterogeneous dispatch, heterogeneous work-group position
+within the heterogeneous dispatch, and thread position within the
+heterogeneous work-group.  See <a href="Architectures.html">Architectures</a>.
+</p>
+<p>The stack frame summary displayed is for the active lanes of the
+thread.  This may differ from the stack frame information for the
+current lane if the focus is on an inactive lane.  Use the <code>info
+lanes</code> command for information about individual lanes of a thread.
+See <a href="Threads.html">Debugging Programs with Multiple Threads</a>.
+</p>
+<p>For example,
+</p></dd>
+</dl>
+
+<div class="example">
+<pre class="example">(gdb) info threads
+  Id  Lanes  Target Id                                       Frame
+  1          Thread 0x7ffff7fc4cc0 (LWP 74764) &quot;bit_extract&quot; 0x00007ffff6b56f37 in sched_yield () from /lib/x86_64-linux-gnu/libc.so.6
+  2          Thread 0x7ffff59cb700 (LWP 74773) &quot;bit_extract&quot; 0x00007ffff6b696d7 in ioctl () from /lib/x86_64-linux-gnu/libc.so.6
+  4          Thread 0x7ffff7fc1700 (LWP 74775) &quot;bit_extract&quot; 0x00007ffff6b696d7 in ioctl () from /lib/x86_64-linux-gnu/libc.so.6
+* 5   62/64  AMDGPU Wave 1:1:1:1 (0,0,0)/0 &quot;bit_extract&quot;     bit_extract_kernel (C_d=0x7ffde8800000, A_d=0x7ffde8e00000, N=4000000) at bit_extract.cpp:38
+  6   2/64   AMDGPU Wave 1:1:1:2 (0,0,0)/1 &quot;bit_extract&quot;     __hip_get_block_dim_x () at /opt/rocm-3.8.0-3471/hip/include/hip/hcc_detail/hip_runtime.h:462
+  7   64/64  AMDGPU Wave 1:1:1:3 (1,0,0)/0 &quot;bit_extract&quot;     __hip_get_block_dim_x () at /opt/rocm-3.8.0-3471/hip/include/hip/hcc_detail/hip_runtime.h:462
+  8   8/64   AMDGPU Wave 1:1:1:4 (1,0,0)/1 &quot;bit_extract&quot;     __hip_get_block_dim_x () at /opt/rocm-3.8.0-3471/hip/include/hip/hcc_detail/hip_runtime.h:462
+</pre></div>
+
+<dl compact="compact">
+<dd><span id="index-heterogeneous-lane-index"></span>
+</dd>
+<dt><span><code>thread <span class="roman">[</span>-gid<span class="roman">]</span> <var>thread-id</var> <span class="roman">[</span><var>lane-index</var><span class="roman">]</span></code></span></dt>
+<dd><p>The <code>thread</code> command has an optional <var>lane-index</var> argument to
+specify the <em>heterogeneous lane index</em>.  If the value is not
+between 1 and the number of heterogeneous lanes of the current frame
+of the thread, then <small>ROCGDB</small> will print an error.  If omitted it
+defaults to 1.
+</p>
+<p>The current thread is set to <var>thread-id</var> and the current
+heterogeneous lane is set to the heterogeneous lane corresponding to
+the specified heterogeneous lane index.
+</p>
+<p>If the thread has multiple heterogeneous lanes, <small>ROCGDB</small> responds
+by displaying the system identifier of the heterogeneous lane you
+selected, otherwise it responds with the system identifier of the
+thread you selected, followed by its current stack frame summary.
+</p>
+</dd>
+<dt><span><code>thread apply <span class="roman">[</span><var>thread-id-list</var> <span class="roman">|</span> all <span class="roman">[</span>-ascending<span class="roman">]]</span> <span class="roman">[</span><var>flag</var><span class="roman">]&hellip;</span> <var>command</var></code></span></dt>
+<dt><span><code>taas [<var>option</var>]&hellip; <var>command</var></code></span></dt>
+<dt><span><code>tfaas [<var>option</var>]&hellip; <var>command</var></code></span></dt>
+<dt><span><code>thread name <span class="roman">[</span><var>name</var><span class="roman">]</span></code></span></dt>
+<dd><p>These commands operate the same way for all threads, regardless of
+whether or not the thread is associated with a heterogeneous dispatch.
+</p>
+<p>If the thread&rsquo;s frame has multiple heterogeneous lanes then the
+heterogeneous lane index 1 is used.  Use the heterogeneous lane
+counterpart commands if it is desired to perform the the <var>command</var>
+on each lane of a thread.
+</p>
+<p>See <a href="Threads.html">Debugging Programs with Multiple Threads</a>.
+</p>
+</dd>
+<dt><span><code>thread find <var>regexp</var></code></span></dt>
+<dd><p>In addition to searching thread information, if a thread&rsquo;s frame has
+multiple heterogeneous lanes then the command also searches the
+thread&rsquo;s lanes for those whose name or <var>systag</var> matches the
+supplied regular expression.
+</p>
+<p>See <a href="Threads.html">Debugging Programs with Multiple Threads</a>.
+</p>
+<span id="index-lane-identifier-_0028system_0029"></span>
+<span id="info-lanes"></span></dd>
+<dt><span><code>info lanes <span class="roman">[</span>-all | -active | -inactived<span class="roman">]</span> <var>lane-id-list</var></code></span></dt>
+<dd><p>Display information about one or more heterogeneous lanes of the
+current thread.  With no arguments displays information about all used
+lanes of the current thread.  You can specify the list of lanes that
+you want to display using the lane ID list syntax (see <a href="#lane-ID-list">lane ID list</a>).
+</p>
+<p>By default, <small>ROCGDB</small> lists all the used lanes of the thread; lanes
+which are not associated with any work-group (see <a href="#unused-heterogeneous-lane">unused heterogeneous lane</a>) are not displayed.  The following options can be
+used to fine-tune this behavior:
+</p>
+<dl compact="compact">
+<dt><span><code>-all</code></span></dt>
+<dd><p>All lanes, including active, inactive and unused lanes.
+</p></dd>
+<dt><span><code>-active</code></span></dt>
+<dd><p>Only active lanes.
+</p></dd>
+<dt><span><code>-inactive</code></span></dt>
+<dd><p>Only used inactive lanes.
+</p></dd>
+</dl>
+
+<p><small>ROCGDB</small> displays for each heterogeneous lane (in this order):
+</p>
+<ol>
+<li> The heterogeneous lane ID assigned by <small>ROCGDB</small>.  See <a href="#lane-ID">lane ID</a>.
+
+
+</li><li> The state of the heterogeneous lane.  If a thread is stopped, then its
+lanes can be either in the &lsquo;<samp>A</samp>&rsquo; (active), or &lsquo;<samp>I</samp>&rsquo; (inactive)
+states.  An unused lane (see <a href="#unused-heterogeneous-lane">unused heterogeneous lane</a>) is always
+shown in the &lsquo;<samp>U</samp>&rsquo; (unused) state.  When a thread is running (as
+opposed to stopped), whether one of its lanes is active or inactive
+can&rsquo;t be determined, as the thread is executing instructions and may
+be constinuously changing its lanes between active and inactive
+states.  Therefore, when a thread is running, all its used lanes are
+in the &lsquo;<samp>R</samp>&rsquo; (running) state.
+
+<span id="target-system-lane-identifier"></span></li><li> The target system&rsquo;s heterogeneous lane identifier (<var>lane_systag</var>).
+This varies depending on the system and target architecture of the
+heterogeneous agent.  However, for heterogeneous agents it typically
+will include information about the heterogeneous agent, heterogeneous
+queue, heterogeneous dispatch, heterogeneous work-group position
+within the heterogeneous dispatch, and position of the heterogeneous
+lane in the heterogeneous work-group.  See <a href="Architectures.html">Architectures</a>.
+
+</li><li> The heterogeneous lane&rsquo;s name, if one is assigned by the user (see
+<code>lane name</code>, below).
+
+</li><li> The current stack frame summary for that heterogeneous lane.  If the
+heterogeneous lane is inactive, and it can be determined from the
+debug information, this is the source position at which the
+heterogeneous lane will resume.  If, on the other hand, it cannot be
+determined, it is &ldquo;(inactive)&rdquo;.  If the lane is running, it is
+&ldquo;(running)&rdquo;.
+</li></ol>
+
+<p>An asterisk &lsquo;<samp>*</samp>&rsquo; to the left of the <small>ROCGDB</small> heterogeneous
+lane number indicates the current heterogeneous lane.
+</p>
+<p>For example,
+</p></dd>
+</dl>
+
+<div class="example">
+<pre class="example">(gdb) info lanes 1-2
+  Id  State   Target Id                                Frame
+* 1   A       AMDGPU Lane 1:2:3:463/2 (2,3,4)[1,2,4]   0x34e5 in saxpy ()
+  2   I       AMDGPU Lane 1:2:4:456/12 (2,4,4)[1,2,3]  (inactive)
+</pre></div>
+
+<dl compact="compact">
+<dd><span id="index-lane"></span>
+</dd>
+<dt><span><code>lane <var>lane-id</var></code></span></dt>
+<dd>
+<p>Make lane ID <var>lane-id</var> the current lane of the current thread.
+The command argument <var>lane-id</var> is the <small>ROCGDB</small> per-thread lane
+ID (see <a href="#lane-ID">lane ID</a>), as shown in the first field of the <code>info
+lanes</code> display.
+</p>
+<p><small>ROCGDB</small> responds by displaying the system identifier of the
+heterogeneous lane you selected, and its current stack frame summary:
+</p>
+<div class="example">
+<pre class="example">(gdb) lane 2
+[Switching to thread 5, lane 2 (AMDGPU Lane 1:1:1:1/2 (0,0,0)[2,0,0])]
+#0  some_function (ignore=0x0) at example.c:8
+8	    printf (&quot;hello\n&quot;);
+</pre></div>
+
+<p>As with the &lsquo;<samp>[New &hellip;]</samp>&rsquo; message, the form of the text in
+parentheses after &lsquo;<samp>Switching to</samp>&rsquo; depends on your system&rsquo;s
+conventions for identifying heterogeneous lanes.
+</p>
+<p>If you switch to an inactive lane, <small>ROCGDB</small> displays a warning, so
+that you are made aware that values of local variables, function
+arguments, etc. will have meaningless values.  For example:
+</p>
+<div class="example">
+<pre class="example">(gdb) lane 1
+[Switching to thread 6, lane 1 (AMDGPU Lane 1:1:1:2/1 (0,0,0)[65,0,0])]
+warning: Current lane is inactive.
+#0  some_function (ignore=0x0) at example.c:8
+8	    printf (&quot;hello\n&quot;);
+</pre></div>
+
+<p>See <a href="#stepping-lanes">description of how execution commands and
+heterogeneous debugging interact</a>, for what happens if you run a
+stepping command with an inactive lane selected.
+</p>
+<span id="index-lane-name"></span>
+<span id="index-name-a-heterogeneous-lane"></span>
+<span id="heterogeneous-lane-name"></span></dd>
+<dt><span><code>lane name [<var>name</var>]</code></span></dt>
+<dd><p>This command assigns a name to the current heterogeneous lane.  If no
+argument is given, any existing user-specified name is removed.  The
+heterogeneous lane name appears in the <code>info lanes</code> display.
+</p>
+<span id="index-lane-find"></span>
+<span id="index-search-for-a-heterogeneous-lane"></span>
+<span id="lane-find"></span></dd>
+<dt><span><code>lane find [<var>regexp</var>]</code></span></dt>
+<dd><p>Search for and display heterogeneous lane ids whose name or
+<var>lane_systag</var> matches the supplied regular expression.  The syntax
+of the regular expression is that specified by <code>Python</code>&rsquo;s regular
+expression support.
+</p>
+<p>As well as being the complement to the <code>lane name</code> command, this
+command also allows you to identify a heterogeneous lane by its target
+<var>lane_systag</var>.  For instance, on the <acronym>AMD ROCm</acronym> platform,
+the target <var>lane_systag</var> is the heterogeneous agent, heterogeneous
+queue, heterogeneous dispatch, heterogeneous work-group position and
+heterogeneous work-item position.
+</p>
+<div class="example">
+<pre class="example">(gdb) lane find &quot;work-group(2,3,4)&quot;
+Lane 2 has lane id 'ROCm process 35 agent 1 queue 2 dispatch 3 work-group(2,3,4) work-item(1,2,4)'
+(gdb) info lane 2
+  Id  Thread  Active  Target Id                                Frame
+  2   5/2     Y       AMDGPU Lane 1:2:3:324/2 (2,3,4)[]1,2,4]  0x34e5 in saxpy ()
+</pre></div>
+
+
+</dd>
+<dt><span><code>lane apply <span class="roman">[</span><var>lane-id-list</var> <span class="roman">|</span> all<span class="roman">]</span> <span class="roman">[</span>-all | -active | -inactive<span class="roman">]</span> <span class="roman">[</span><var>flag</var><span class="roman">]&hellip;</span> <var>command</var></code></span></dt>
+<dt><span><code>laas [<var>option</var>]&hellip; <var>command</var></code></span></dt>
+<dt><span><code>lfaas [<var>option</var>]&hellip; <var>command</var></code></span></dt>
+<dd><p><code>lane apply</code>, <code>laas</code>, and <code>lfass</code> commands are similar
+to their thread counterparts <code>thread apply</code>, <code>taas</code>, and
+<code>tfaas</code> respectively, except they operate on heterogeneous lanes.
+See <a href="Threads.html">Debugging Programs with Multiple Threads</a>.
+</p>
+<p>By default, <small>ROCGDB</small> operates on all the used lanes of the thread.
+The following flags can be used to fine-tune this behavior:
+</p>
+<dl compact="compact">
+<dt><span><code>-all</code></span></dt>
+<dd><p>All lanes, including active, inactive and unused lanes.
+</p></dd>
+<dt><span><code>-active</code></span></dt>
+<dd><p>Only active lanes.
+</p></dd>
+<dt><span><code>-inactive</code></span></dt>
+<dd><p>Only used inactive lanes.
+</p></dd>
+</dl>
+
+<p>The <var>flag</var> arguments control what output to produce and how to
+handle errors raised when applying <var>command</var> to a lane.  See
+<code>info threads</code> command (see <a href="Threads.html">Debugging Programs with Multiple Threads</a>) for available flags and
+their meaning.
+</p>
+</dd>
+<dt><span><code>backtrace [<var>option</var>]&hellip; [<var>qualifier</var>]&hellip; [<var>count</var>]</code></span></dt>
+<dt><span><code>frame <span class="roman">[</span> <var>frame-selection-spec</var> <span class="roman">]</span></code></span></dt>
+<dt><span><code>frame apply [all | <var>count</var> | <var>-count</var> | level <var>level</var>&hellip;] [<var>option</var>]&hellip; <var>command</var></code></span></dt>
+<dt><span><code>select-frame <span class="roman">[</span> <var>frame-selection-spec</var> <span class="roman">]</span></code></span></dt>
+<dt><span><code>up-silently <var>n</var></code></span></dt>
+<dt><span><code>down-silently <var>n</var></code></span></dt>
+<dt><span><code>info frame</code></span></dt>
+<dt><span><code>info args [-q] [-t <var>type_regexp</var>] [<var>regexp</var>]</code></span></dt>
+<dt><span><code>info locals [-q] [-t <var>type_regexp</var>] [<var>regexp</var>]</code></span></dt>
+<dt><span><code>faas <var>command</var></code></span></dt>
+<dd><p>The frame commands apply to the current heterogeneous lane.
+</p>
+<p>If the frame is switched from one that has multiple heterogeneous
+lanes to one with fewer (including only one) then the current lane is
+switched to the heterogeneous lane corresponding to the highest
+heterogeneous lane index of the new frame and <small>ROCGDB</small> responds by
+displaying the system identifier of the heterogeneous lane selected.
+</p>
+<p>See <a href="Stack.html">Examining the Stack</a>.
+</p>
+</dd>
+<dt><span><code>set libthread-db-search-path</code></span></dt>
+<dt><span><code>show libthread-db-search-path</code></span></dt>
+<dt><span><code>set debug libthread-db</code></span></dt>
+<dt><span><code>show debug libthread-db</code></span></dt>
+<dd><p>These commands only apply to threads created on the heterogeneous host
+agent that are not associated with a heterogeneous dispatch.  There
+are no commands that support reporting of heterogeneous dispatch
+thread events.
+</p>
+</dd>
+<dt><span><code>x/i</code></span></dt>
+<dt><span><code>display/i</code></span></dt>
+<dd><p>The <code>x/i</code> and <code>display/i</code> commands (see <a href="Memory.html">Examining
+Memory</a>) can be used to disassemble machine instructions.  They use
+the current target architecture.
+</p>
+</dd>
+<dt><span><code>disassemble</code></span></dt>
+<dd><p>The <code>disassemble</code> command (see <a href="Machine-Code.html">Source and
+Machine Code</a>) can also be used to disassemble machine instructions.
+If the start address of the range is within a loaded code object, then
+the target architecture of the code object is used.  Otherwise, the
+current target architecture is used.
+</p>
+
+</dd>
+<dt><span><code>info registers</code></span></dt>
+<dt><span><code>info all-registers</code></span></dt>
+<dt><span><code>maint print reggroups</code></span></dt>
+<dd><p>The register commands display information about the current
+architecture.
+</p>
+</dd>
+<dt><span><code>print</code></span></dt>
+<dd><p>The <code>print</code> command evaluates the source language expression in
+the context of the current heterogeneous lane.
+</p>
+<span id="stepping-lanes"></span></dd>
+<dt><span><code>step</code></span></dt>
+<dt><span><code>next</code></span></dt>
+<dt><span><code>finish</code></span></dt>
+<dt><span><code>until</code></span></dt>
+<dt><span><code>stepi</code></span></dt>
+<dt><span><code>nexti</code></span></dt>
+<dd><p>Execution commands such as <code>step</code>, <code>next</code>, <code>finish</code> and
+<code>until</code> (see <a href="Continuing-and-Stepping.html">Continuing and
+Stepping</a>) automatically skip over code regions where the current
+heterogeneous lane becomes inactive.  Similarly, if the current
+heterogeneous lane is inactive when the execution command is entered,
+<small>ROCGDB</small> advances the thread until the current lane becomes
+active.
+</p>
+<p>At the hardware level, all lanes of a thread execute instructions in
+lock-step, though some lanes may be set inactive (as result of special
+instructions emitted by the compiler) so that instructions do not have
+an effect in them.  Thus, stepping a lane may cause other active
+heterogeneous lanes of the same thread to also execute code.  This may
+even result in other heterogeneous lanes completing whole functions.
+</p>
+<p>If the current heterogeneous lane is set to an inactive heterogeneous
+lane, then the <code>stepi</code> and <code>nexti</code> commands
+(see <a href="Continuing-and-Stepping.html">Continuing and Stepping</a>) may not
+cause the source position to appear to move until execution reaches a
+point that makes the current heterogeneous lane active.  However,
+other heterogeneous lanes of the same thread will advance.
+</p>
+<span id="break-commands"></span></dd>
+<dt><span><code>break <span class="roman">[</span>-lane <var>lane-index</var><span class="roman">]</span> <span class="roman">[</span>location<span class="roman">]</span> <span class="roman">[</span>if <var>cond</var><span class="roman">]</span></code></span></dt>
+<dt><span><code>tbreak <span class="roman">[</span>-lane <var>lane-index</var><span class="roman">]</span> <span class="roman">[</span>location<span class="roman">]</span> <span class="roman">[</span>if <var>cond</var><span class="roman">]</span></code></span></dt>
+<dt><span><code>hbreak <span class="roman">[</span>-lane <var>lane-index</var><span class="roman">]</span> <span class="roman">[</span>location<span class="roman">]</span> <span class="roman">[</span>if <var>cond</var><span class="roman">]</span></code></span></dt>
+<dt><span><code>thbreak <span class="roman">[</span>-lane <var>lane-index</var><span class="roman">]</span> <span class="roman">[</span>location<span class="roman">]</span> <span class="roman">[</span>if <var>cond</var><span class="roman">]</span></code></span></dt>
+<dt><span><code>rbreak <span class="roman">[</span>-lane <var>lane-index</var><span class="roman">]</span> <var>regex</var></code></span></dt>
+<dt><span><code>info breakpoints <span class="roman">[</span><var>list</var>&hellip;<span class="roman">]</span></code></span></dt>
+<dt><span><code>watch <span class="roman">[</span>-lane <var>lane-index</var><span class="roman">]</span> <span class="roman">[</span>-l<span class="roman">|</span>-location<span class="roman">]</span> <var>expr</var> <span class="roman">[</span>thread <var>thread-id</var><span class="roman">]</span> <span class="roman">[</span>mask <var>maskvalue</var><span class="roman">]</span></code></span></dt>
+<dt><span><code>rwatch <span class="roman">[</span>-lane <var>lane-index</var><span class="roman">]</span> <span class="roman">[</span>-l<span class="roman">|</span>-location<span class="roman">]</span> <var>expr</var> <span class="roman">[</span>thread <var>thread-id</var><span class="roman">]</span> <span class="roman">[</span>mask <var>maskvalue</var><span class="roman">]</span></code></span></dt>
+<dt><span><code>awatch <span class="roman">[</span>-lane <var>lane-index</var><span class="roman">]</span> <span class="roman">[</span>-l<span class="roman">|</span>-location<span class="roman">]</span> <var>expr</var> <span class="roman">[</span>thread <var>thread-id</var><span class="roman">]</span> <span class="roman">[</span>mask <var>maskvalue</var><span class="roman">]</span></code></span></dt>
+<dt><span><code>info watchpoints <span class="roman">[</span><var>list</var>&hellip;<span class="roman">]</span></code></span></dt>
+<dt><span><code>catch <span class="roman">[</span>-lane <var>lane-index</var><span class="roman">]</span> <var>event</var></code></span></dt>
+<dt><span><code>tcatch <span class="roman">[</span>-lane <var>lane-index</var><span class="roman">]</span> <var>event</var></code></span></dt>
+<dd><p>When a breakpoint, watchpoint, or catchpoint (see <a href="Breakpoints.html">Breakpoints; Watchpoints; and Catchpoints</a>) is hit by a frame of a
+thread with multiple heterogeneous lanes:
+</p>
+<ul>
+<li> The breakpoint condition, if present, is evaluated for each active
+heterogeneous lane.
+
+</li><li> The breakpoint command, if present, is executed for the first active
+heterogeneous lane that evaluates the breakpoint condition as true.
+If you want to execute the command for other lanes, you can use the
+<code>lane apply</code> command.
+
+</li><li> If the breakpoint causes heterogeneous lanes to halt then the current
+heterogeneous lane is set to the first lane in the set of lanes that
+are active, and that evaluate the breakpoint condition as true (if
+there&rsquo;s a breakpoint condition).  <small>ROCGDB</small> responds by displaying
+the system identifier of the heterogeneous lane selected.  The
+breakpoint hit notification mentions the intersection of which
+heterogeneous lanes were active and evaluated the condition as true,
+like so:
+
+<div class="example">
+<pre class="example">(gdb) c
+Continuing.
+[Switching to thread 5, lane 1 (AMDGPU Lane 1:1:1:1/1 (0,0,0)[1,0,0])]
+
+Thread 5 hit Breakpoint 2, with lanes [1-10 13], func () at example.cpp:48
+</pre></div>
+
+
+
+
+</li></ul>
+
+<p>If a heterogeneous lane causes a thread to halt, then the other
+heterogeneous lanes of the thread will no longer execute even if in
+non-stop mode.
+</p>
+<p>For <code>break</code>, <code>watch</code>, <code>catch</code>, and their variants, the
+<samp><span class="nolinebreak">-lane</span>&nbsp;<var><span class="nolinebreak">lane-index</span></var></samp><!-- /@w --> option can be specified.  This
+limits <small>ROCGDB</small> to only process breakpoints if the heterogeneous
+lane has a heterogeneous lane index that matches <var>lane-index</var>.
+</p>
+<p>The <code>info break</code> and <code>info watch</code> commands add a <em>Lane</em>
+column before the <em>Address</em> column if any breakpoint has a
+<var>lane-index</var> specified that displays the heterogeneous lane index.
+</p>
+<span id="index-maint-set-lane_002ddivergence_002dsupport"></span>
+</dd>
+<dt id='index-maint-show-lane_002ddivergence_002dsupport'><span><code>maint set lane-divergence-support</code><a href='#index-maint-show-lane_002ddivergence_002dsupport' class='copiable-anchor'> &para;</a></span></dt>
+<dt><span><code>maint show lane-divergence-support</code></span></dt>
+<dd><p>Control whether or not <small>ROCGDB</small> understands lane divergence.
+</p>
+<p>When set to &lsquo;<samp>on</samp>&rsquo;, which is the default, execution commands such
+as <code>step</code>, <code>next</code>, <code>finish</code> and <code>until</code>
+automatically skip over code regions where the selected lane is
+inactive, and <small>ROCGDB</small> ignores breakpoint hits that trigger with
+all lanes inactive.
+</p>
+<p>When set to &lsquo;<samp>off</samp>&rsquo;, execution commands ignore lane active/inactive
+state, and may thus present stops in code regions where the selected
+lane is inactive.  Also, breakpoint hits are reported even if all
+lanes are inactive.
+</p>
+
+<span id="maint-print-address_002dspaces"></span></dd>
+<dt><span><code>maint print address-spaces</code></span></dt>
+<dd><p><code>maint print address-spaces</code> displays the address space names
+supported by the current architecture.
+</p>
+<p>The address spaces info looks like this:
+</p>
+<div class="example">
+<pre class="example">(gdb) <kbd>maint print address-spaces</kbd>
+ Name
+ global
+ generic
+ local
+ private_lane
+ private_wave
+</pre></div>
+
+<p>Any expression that evaluates to an integral value, can be used
+as an address.  It can optionally specify an address space qualifier
+by prepending an address space name followed by a &lsquo;<samp>#</samp>&rsquo;.
+<small>ROCGDB</small> will print an error if the address space name is not
+supported by the current architecture.  If no address space is
+specified the current architecture&rsquo;s default address space (generally
+the global address space) is used.
+</p>
+<p>The same syntax is used when an address that is not in the current
+architecture&rsquo;s default address space is displayed.
+</p>
+<p>For example,
+</p>
+<div class="example">
+<pre class="example">(gdb) x/x local#0x10021608
+local#0x10021608:     0x0022fd98
+</pre></div>
+
+</dd>
+</dl>
+
+<p>Heterogeneous systems often have very large numbers of threads.
+Breakpoint conditions can be used to limit the number of threads
+reporting breakpoint hits.  For example,
+</p>
+<div class="example">
+<pre class="example">break kernel_foo if $_streq($_lane_workgroup_pos, &quot;(0,0,0)&quot;)
+</pre></div>
+
+<p>The <code>tbreak</code> command can be used so only one heterogeneous lane
+will report the breakpoint.  Before continuing execution, the
+breakpoint will need to be set again if necessary.
+</p>
+<p>The <code>set scheduler-locking on</code> command (see <a href="Non_002dStop-Mode.html">Non-Stop Mode</a>)
+together with the <samp><span class="nolinebreak">-lane</span></samp><!-- /@w --> breakpoint option can be used to
+lock <small>ROCGDB</small> to only resume the current thread, and only report
+breakpoints for a fixed heterogeneous lane index.  This avoids the
+overhead of resuming a large number of threads every time resuming
+from a breakpoint, and also avoids the focus being switched to other
+threads that hit the breakpoints.  Note however that other threads
+will not be executed.
+</p>
+<p>The scheduler locking commands can also be helpful to prevent
+<small>ROCGDB</small> switching to other threads while concentrating on
+debugging one particular thread.  The non-stop mode can be hepful to
+prevent the <code>continue</code> command from resuming other threads that
+are intentionally halted or from cancelling a single step command that
+is in progress by another thread and resuming it instead.
+See <a href="Non_002dStop-Mode.html">Non-Stop Mode</a>.
+</p>
+
+</div>
+<hr>
+<div class="header">
+<p>
+Next: <a href="Remote-Debugging.html">Debugging Remote Programs</a>, Previous: <a href="Targets.html">Specifying a Debugging Target</a>, Up: <a href="index.html">Debugging with <small>ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>
