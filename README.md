@@ -39,7 +39,3 @@ Command:
 ```
 python3 build_docs.py
 ```
-
-## How to update documentation on Read the Docs
-
-Run `build_docs.py` and push the changes in the `_readthedocs` folder.
