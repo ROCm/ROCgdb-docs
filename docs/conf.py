@@ -6,6 +6,9 @@
 
 from rocm_docs import ROCmDocs
 
+
+external_projects_current_project = "rocgdb"
+
 docs_core = ROCmDocs("ROCgdb Documentation")
 docs_core.setup()
 
