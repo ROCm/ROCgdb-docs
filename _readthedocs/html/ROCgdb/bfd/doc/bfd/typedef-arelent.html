@@ -94,7 +94,7 @@ typedef enum bfd_reloc_status
   /* Unsupported relocation size requested.  */
   bfd_reloc_notsupported,
 
-  /* Unused.  */
+  /* Target specific meaning.  */
   bfd_reloc_other,
 
   /* The symbol to relocate against was undefined.  */
@@ -272,12 +272,11 @@ but it would be possible to create each howto field on demand.
 <li><a href="#enum-complain_005foverflow" accesskey="1"><code>enum complain_overflow</code></a></li>
 <li><a href="#reloc_005fhowto_005ftype" accesskey="2"><code>reloc_howto_type</code></a></li>
 <li><a href="#The-HOWTO-Macro" accesskey="3"><code>The HOWTO Macro</code></a></li>
-<li><a href="#bfd_005fget_005freloc_005fsize" accesskey="4"><code>bfd_get_reloc_size</code></a></li>
-<li><a href="#arelent_005fchain" accesskey="5"><code>arelent_chain</code></a></li>
-<li><a href="#bfd_005fcheck_005foverflow" accesskey="6"><code>bfd_check_overflow</code></a></li>
-<li><a href="#bfd_005freloc_005foffset_005fin_005frange" accesskey="7"><code>bfd_reloc_offset_in_range</code></a></li>
-<li><a href="#bfd_005fperform_005frelocation" accesskey="8"><code>bfd_perform_relocation</code></a></li>
-<li><a href="#bfd_005finstall_005frelocation" accesskey="9"><code>bfd_install_relocation</code></a></li>
+<li><a href="#arelent_005fchain" accesskey="4"><code>arelent_chain</code></a></li>
+<li><a href="#bfd_005fcheck_005foverflow" accesskey="5"><code>bfd_check_overflow</code></a></li>
+<li><a href="#bfd_005freloc_005foffset_005fin_005frange" accesskey="6"><code>bfd_reloc_offset_in_range</code></a></li>
+<li><a href="#bfd_005fperform_005frelocation" accesskey="7"><code>bfd_perform_relocation</code></a></li>
+<li><a href="#bfd_005finstall_005frelocation" accesskey="8"><code>bfd_install_relocation</code></a></li>
 </ul>
 <div class="subsubsection" id="enum-complain_005foverflow">
 <h4 class="subsubsection">2.10.1.1 <code>enum complain_overflow</code></h4>
@@ -322,10 +321,8 @@ information that libbfd needs to know to tie up a back end&rsquo;s data.
      an external reloc number is stored in this field.  */
   unsigned int type;
 
-  /* The encoded size of the item to be relocated.  This is *not* a
-     power-of-two measure.  Use bfd_get_reloc_size to find the size
-     of the item in bytes.  */
-  unsigned int size:3;
+  /* The size of the item to be relocated in bytes.  */
+  unsigned int size:4;
 
   /* The number of bits in the field to be relocated.  This is used
      when doing overflow checking.  */
@@ -408,9 +405,10 @@ information that libbfd needs to know to tie up a back end&rsquo;s data.
 The HOWTO macro fills in a reloc_howto_type (a typedef for
 const struct reloc_howto_struct).
 </p><div class="example">
-<pre class="example">#define HOWTO(type, right, size, bits, pcrel, left, ovf, func, name,   \
+<pre class="example">#define HOWTO_RSIZE(sz) ((sz) &lt; 0 ? -(sz) : (sz))
+#define HOWTO(type, right, size, bits, pcrel, left, ovf, func, name,   \
               inplace, src_mask, dst_mask, pcrel_off)                  \
-  { (unsigned) type, size &lt; 0 ? -size : size, bits, right, left, ovf,  \
+  { (unsigned) type, HOWTO_RSIZE (size), bits, right, left, ovf,       \
     size &lt; 0, pcrel, inplace, pcrel_off, src_mask, dst_mask, func, name }
 </pre></div>
 
@@ -418,27 +416,21 @@ const struct reloc_howto_struct).
 This is used to fill in an empty howto entry in an array.
 </p><div class="example">
 <pre class="example">#define EMPTY_HOWTO(C) \
-  HOWTO ((C), 0, 0, 0, false, 0, complain_overflow_dont, NULL, \
+  HOWTO ((C), 0, 1, 0, false, 0, complain_overflow_dont, NULL, \
          NULL, false, 0, 0, false)
 
+static inline unsigned int
+bfd_get_reloc_size (reloc_howto_type *howto)
+{
+  return howto-&gt;size;
+}
+
 </pre></div>
 
-<span id="index-bfd_005fget_005freloc_005fsize"></span>
-</div>
-<div class="subsubsection" id="bfd_005fget_005freloc_005fsize">
-<h4 class="subsubsection">2.10.1.4 <code>bfd_get_reloc_size</code></h4>
-<p><strong>Synopsis</strong>
-</p><div class="example">
-<pre class="example">unsigned int bfd_get_reloc_size (reloc_howto_type *);
-</pre></div>
-<p><strong>Description</strong><br>
-For a reloc_howto_type that operates on a fixed number of bytes,
-this returns the number of bytes operated on.
-</p>
 <span id="index-arelent_005fchain"></span>
 </div>
 <div class="subsubsection" id="arelent_005fchain">
-<h4 class="subsubsection">2.10.1.5 <code>arelent_chain</code></h4>
+<h4 class="subsubsection">2.10.1.4 <code>arelent_chain</code></h4>
 <p><strong>Description</strong><br>
 How relocs are tied together in an <code>asection</code>:
 </p><div class="example">
@@ -454,7 +446,7 @@ arelent_chain;
 <span id="index-bfd_005fcheck_005foverflow"></span>
 </div>
 <div class="subsubsection" id="bfd_005fcheck_005foverflow">
-<h4 class="subsubsection">2.10.1.6 <code>bfd_check_overflow</code></h4>
+<h4 class="subsubsection">2.10.1.5 <code>bfd_check_overflow</code></h4>
 <p><strong>Synopsis</strong>
 </p><div class="example">
 <pre class="example">bfd_reloc_status_type bfd_check_overflow
@@ -474,7 +466,7 @@ Perform overflow checking on <var>relocation</var> which has
 <span id="index-bfd_005freloc_005foffset_005fin_005frange"></span>
 </div>
 <div class="subsubsection" id="bfd_005freloc_005foffset_005fin_005frange">
-<h4 class="subsubsection">2.10.1.7 <code>bfd_reloc_offset_in_range</code></h4>
+<h4 class="subsubsection">2.10.1.6 <code>bfd_reloc_offset_in_range</code></h4>
 <p><strong>Synopsis</strong>
 </p><div class="example">
 <pre class="example">bool bfd_reloc_offset_in_range
@@ -490,7 +482,7 @@ applied at <var>OFFSET</var> octets in <var>SECTION</var>.
 <span id="index-bfd_005fperform_005frelocation"></span>
 </div>
 <div class="subsubsection" id="bfd_005fperform_005frelocation">
-<h4 class="subsubsection">2.10.1.8 <code>bfd_perform_relocation</code></h4>
+<h4 class="subsubsection">2.10.1.7 <code>bfd_perform_relocation</code></h4>
 <p><strong>Synopsis</strong>
 </p><div class="example">
 <pre class="example">bfd_reloc_status_type bfd_perform_relocation
@@ -520,7 +512,7 @@ this return <code>bfd_reloc_dangerous</code>.
 <span id="index-bfd_005finstall_005frelocation"></span>
 </div>
 <div class="subsubsection" id="bfd_005finstall_005frelocation">
-<h4 class="subsubsection">2.10.1.9 <code>bfd_install_relocation</code></h4>
+<h4 class="subsubsection">2.10.1.8 <code>bfd_install_relocation</code></h4>
 <p><strong>Synopsis</strong>
 </p><div class="example">
 <pre class="example">bfd_reloc_status_type bfd_install_relocation

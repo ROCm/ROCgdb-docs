@@ -3,7 +3,7 @@
 <!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright (C) 1988-2022 Free Software Foundation, Inc.
+<!-- Copyright (C) 1988-2023 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -16,35 +16,47 @@ and with the Back-Cover Texts as in (a) below.
 this GNU Manual.  Buying copies from GNU Press supports the FSF in
 developing GNU and promoting software freedom."
 
-Disclaimer
+Legal Disclaimer and Copyright Information
 
-The information contained herein is for informational purposes only,
-and is subject to change without notice.  While every precaution has
-been taken in the preparation of this document, it may contain
-technical inaccuracies, omissions and typographical errors, and AMD is
-under no obligation to update or otherwise correct this information.
-Advanced Micro Devices, Inc. makes no representations or warranties
-with respect to the accuracy or completeness of the contents of this
-document, and assumes no liability of any kind, including the implied
-warranties of noninfringement, merchantability or fitness for
-particular purposes, with respect to the operation or use of AMD
-hardware, software or other products described herein.  No license,
-including implied or arising by estoppel, to any intellectual property
-rights is granted by this document.  Terms and limitations applicable
-to the purchase or use of AMD’s products are as set forth in a signed
-agreement between the parties or in AMD's Standard Terms and
-Conditions of Sale.
+AMD ROCm software is made available by Advanced Micro Devices, Inc. under the
+open source license identified in the top-level directory for the library in
+the repository on Github.com (Portions of AMD ROCm software are
+licensed under MITx11 and UIL/NCSA. For more information on the license, review
+the license.txt in the top-level directory for the library on
+Github.com).  The additional terms and conditions below apply to your use
+of AMD ROCm technical documentation.
 
-AMD(R), the AMD Arrow logo, AMD Instinct(R),
-Radeon(R), ROCm(R) and combinations thereof are
-trademarks of Advanced Micro Devices, Inc.  Linux(R) is the
-registered trademark of Linus Torvalds in the U.S. and other countries.
-PCIe(R) is a registered trademark of PCI-SIG Corporation. Other
-product names used in this publication are for identification purposes only and
-may be trademarks of their respective companies.
+(C)2019-2023 Advanced Micro Devices, Inc.  All rights reserved.
 
-Copyright (C) 2019-2022 Advanced Micro Devices, Inc.  All
-rights reserved. -->
+The information presented in this document is for informational purposes only
+and may contain technical inaccuracies, omissions, and typographical errors.
+The information contained herein is subject to change and may be rendered
+inaccurate for many reasons, including but not limited to product and roadmap
+changes, component and motherboard version changes, new model and/or product
+releases, product differences between differing manufacturers, software
+changes, BIOS flashes, firmware upgrades, or the like.  Any computer system has
+risks of security vulnerabilities that cannot be completely prevented or
+mitigated.  AMD assumes no obligation to update or otherwise correct or revise
+this information.  However, AMD reserves the right to revise this information
+and to make changes from time to time to the content hereof without obligation
+of AMD to notify any person of such revisions or changes.
+
+THIS INFORMATION IS PROVIDED "AS IS."  AMD MAKES NO REPRESENTATIONS OR
+WARRANTIES WITH RESPECT TO THE CONTENTS HEREOF AND ASSUMES NO RESPONSIBILITY
+FOR ANY INACCURACIES, ERRORS, OR OMISSIONS THAT MAY APPEAR IN THIS INFORMATION.
+AMD SPECIFICALLY DISCLAIMS ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT,
+MERCHANTABILITY, OR FITNESS FOR ANY PARTICULAR PURPOSE.  IN NO EVENT WILL AMD
+BE LIABLE TO ANY PERSON FOR ANY RELIANCE, DIRECT, INDIRECT, SPECIAL, OR OTHER
+CONSEQUENTIAL DAMAGES ARISING FROM THE USE OF ANY INFORMATION CONTAINED HEREIN,
+EVEN IF AMD IS EXPRESSLY ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+
+AMD, the AMD Arrow logo, AMD Instinct™, Radeon™, AMD ROCm™, and combinations
+thereof are trademarks of Advanced Micro Devices, Inc.
+Linux(R) is the registered trademark of Linus Torvalds in the
+U.S. and other countries. PCIe(R) is a registered trademark of
+PCI-SIG Corporation.  Other product names used in this publication are for
+identification purposes only and may be trademarks of their respective
+companies. -->
 <title>Maintenance Commands (Debugging with ROCGDB)</title>
 
 <meta name="description" content="Maintenance Commands (Debugging with ROCGDB)">
@@ -104,8 +116,8 @@ messages, see <a href="Debugging-Output.html">Optional Messages about Internal H
 <dd><span id="index-maint-agent"></span>
 <span id="index-maint-agent_002deval"></span>
 </dd>
-<dt><span><code>maint agent <span class="roman">[</span>-at <var>location</var><span class="roman">,</span><span class="roman">]</span> <var>expression</var></code></span></dt>
-<dt><span><code>maint agent-eval <span class="roman">[</span>-at <var>location</var><span class="roman">,</span><span class="roman">]</span> <var>expression</var></code></span></dt>
+<dt><span><code>maint agent <span class="roman">[</span>-at <var>linespec</var><span class="roman">,</span><span class="roman">]</span> <var>expression</var></code></span></dt>
+<dt><span><code>maint agent-eval <span class="roman">[</span>-at <var>linespec</var><span class="roman">,</span><span class="roman">]</span> <var>expression</var></code></span></dt>
 <dd><p>Translate the given <var>expression</var> into remote agent bytecodes.
 This command is useful for debugging the Agent Expression mechanism
 (see <a href="Agent-Expressions.html">The GDB Agent Expression Mechanism</a>).  The &lsquo;<samp>agent</samp>&rsquo; version produces an
@@ -116,7 +128,8 @@ globb</code> will include bytecodes to record four bytes of memory at each
 of the addresses of <code>globa</code> and <code>globb</code>, while discarding
 the result of the addition, while an evaluation expression will do the
 addition and return the sum.
-If <code>-at</code> is given, generate remote agent bytecode for <var>location</var>.
+If <code>-at</code> is given, generate remote agent bytecode for all the
+addresses to which <var>linespec</var> resolves (see <a href="Linespec-Locations.html">Linespec Locations</a>).
 If not, generate remote agent bytecode for current frame PC address.
 </p>
 <span id="index-maint-agent_002dprintf"></span>
@@ -242,6 +255,47 @@ packet history.
 <dt><span><code>maint info jit</code></span></dt>
 <dd><p>Print information about JIT code objects loaded in the current inferior.
 </p>
+<span id="maint-info-python_002ddisassemblers"></span><span id="index-maint-info-python_002ddisassemblers"></span>
+</dd>
+<dt><span><code>maint info python-disassemblers</code></span></dt>
+<dd><p>This command is defined within the <code>gdb.disassembler</code> Python
+module (see <a href="Disassembly-In-Python.html">Instruction Disassembly In Python</a>), and will only be present after
+that module has been imported.  To force the module to be imported do
+the following:
+</p>
+<div class="example">
+<pre class="example">(gdb) python import gdb.disassembler
+</pre></div>
+
+<p>This command lists all the architectures for which a disassembler is
+currently registered, and the name of the disassembler.  If a
+disassembler is registered for all architectures, then this is listed
+last against the &lsquo;<samp>GLOBAL</samp>&rsquo; architecture.
+</p>
+<p>If one of the disassemblers would be selected for the architecture of
+the current inferior, then this disassembler will be marked.
+</p>
+<p>The following example shows a situation in which two disassemblers are
+registered, initially the &lsquo;<samp>i386</samp>&rsquo; disassembler matches the current
+architecture, then the architecture is changed, now the &lsquo;<samp>GLOBAL</samp>&rsquo;
+disassembler matches.
+</p>
+<div class="example">
+<pre class="example">(gdb) show architecture
+The target architecture is set to &quot;auto&quot; (currently &quot;i386&quot;).
+(gdb) maint info python-disassemblers
+Architecture        Disassember Name
+i386                Disassembler_1	(Matches current architecture)
+GLOBAL              Disassembler_2
+</pre><pre class="example">(gdb) set architecture arm
+The target architecture is set to &quot;arm&quot;.
+(gdb) maint info python-disassemblers
+quit
+Architecture        Disassember Name
+i386                Disassembler_1
+GLOBAL              Disassembler_2	(Matches current architecture)
+</pre></div>
+
 <span id="index-set-displaced_002dstepping"></span>
 <span id="index-show-displaced_002dstepping"></span>
 <span id="index-displaced-stepping-support"></span>
@@ -507,6 +561,24 @@ The program being debugged stopped while in a function called from GDB.
 
 <p>Takes an optional file parameter.
 </p>
+<span id="index-maint-print-frame_002did"></span>
+</dd>
+<dt><span><code>maint print frame-id</code></span></dt>
+<dt><span><code>maint print frame-id <var>level</var></code></span></dt>
+<dd><p>Print <small>ROCGDB</small>&rsquo;s internal frame-id for the frame at relative
+<var>level</var>, or for the currently selected frame when <var>level</var> is
+not given.
+</p>
+<p>If used, <var>level</var> should be an integer, as displayed in the
+<code>backtrace</code> output.
+</p>
+<div class="example">
+<pre class="example">(gdb) maint print frame-id
+frame-id for frame #0: {stack=0x7fffffffac70,code=0x0000000000401106,!special}
+(gdb) maint print frame-id 2
+frame-id for frame #2: {stack=0x7fffffffac90,code=0x000000000040111c,!special}
+</pre></div>
+
 <span id="index-maint-print-registers"></span>
 <span id="index-maint-print-raw_002dregisters"></span>
 <span id="index-maint-print-cooked_002dregisters"></span>
@@ -939,9 +1011,31 @@ styling, if it is available.
 library when <small>ROCGDB</small> is linked against the GNU Source Highlight
 library.
 </p>
+<span id="maint_005flibopcodes_005fstyling"></span><span id="index-maint-set-libopcodes_002dstyling-enabled"></span>
+<span id="index-maint-show-libopcodes_002dstyling-enabled"></span>
+</dd>
+<dt><span><code>maint set libopcodes-styling enabled <span class="roman">[</span>on|off<span class="roman">]</span></code></span></dt>
+<dt><span><code>maint show libopcodes-styling enabled</code></span></dt>
+<dd><p>Control whether <small>ROCGDB</small> should use its builtin disassembler
+(<samp>libopcodes</samp>) to style disassembler output (see <a href="Output-Styling.html">Output Styling</a>).  The builtin disassembler does not support styling for all
+architectures.
+</p>
+<p>When this option is &lsquo;<samp>off</samp>&rsquo; the builtin disassembler will not be
+used for styling, <small>ROCGDB</small> will fall back to using the Python
+Pygments package if possible.
+</p>
+<p>Trying to set this option &lsquo;<samp>on</samp>&rsquo; for an architecture that the
+builtin disassembler is unable to style will give an error, otherwise,
+the builtin disassembler will be used to style disassembler output.
+</p>
+<p>This option is &lsquo;<samp>on</samp>&rsquo; by default for supported architectures.
+</p>
+<p>This option is useful for debugging <small>ROCGDB</small>&rsquo;s use of the Pygments
+library when <small>ROCGDB</small> is built for an architecture that supports
+styling with the builtin disassembler
 <span id="index-maint-space"></span>
 <span id="index-memory-used-by-commands"></span>
-</dd>
+</p></dd>
 <dt><span><code>maint space <var>value</var></code></span></dt>
 <dd><p>An alias for <code>maint set per-command space</code>.
 A non-zero value enables it, zero disables it.

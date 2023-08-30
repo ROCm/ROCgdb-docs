@@ -3,7 +3,7 @@
 <!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright (C) 1988-2022 Free Software Foundation, Inc.
+<!-- Copyright (C) 1988-2023 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -16,35 +16,47 @@ and with the Back-Cover Texts as in (a) below.
 this GNU Manual.  Buying copies from GNU Press supports the FSF in
 developing GNU and promoting software freedom."
 
-Disclaimer
+Legal Disclaimer and Copyright Information
 
-The information contained herein is for informational purposes only,
-and is subject to change without notice.  While every precaution has
-been taken in the preparation of this document, it may contain
-technical inaccuracies, omissions and typographical errors, and AMD is
-under no obligation to update or otherwise correct this information.
-Advanced Micro Devices, Inc. makes no representations or warranties
-with respect to the accuracy or completeness of the contents of this
-document, and assumes no liability of any kind, including the implied
-warranties of noninfringement, merchantability or fitness for
-particular purposes, with respect to the operation or use of AMD
-hardware, software or other products described herein.  No license,
-including implied or arising by estoppel, to any intellectual property
-rights is granted by this document.  Terms and limitations applicable
-to the purchase or use of AMD’s products are as set forth in a signed
-agreement between the parties or in AMD's Standard Terms and
-Conditions of Sale.
+AMD ROCm software is made available by Advanced Micro Devices, Inc. under the
+open source license identified in the top-level directory for the library in
+the repository on Github.com (Portions of AMD ROCm software are
+licensed under MITx11 and UIL/NCSA. For more information on the license, review
+the license.txt in the top-level directory for the library on
+Github.com).  The additional terms and conditions below apply to your use
+of AMD ROCm technical documentation.
 
-AMD(R), the AMD Arrow logo, AMD Instinct(R),
-Radeon(R), ROCm(R) and combinations thereof are
-trademarks of Advanced Micro Devices, Inc.  Linux(R) is the
-registered trademark of Linus Torvalds in the U.S. and other countries.
-PCIe(R) is a registered trademark of PCI-SIG Corporation. Other
-product names used in this publication are for identification purposes only and
-may be trademarks of their respective companies.
+(C)2019-2023 Advanced Micro Devices, Inc.  All rights reserved.
 
-Copyright (C) 2019-2022 Advanced Micro Devices, Inc.  All
-rights reserved. -->
+The information presented in this document is for informational purposes only
+and may contain technical inaccuracies, omissions, and typographical errors.
+The information contained herein is subject to change and may be rendered
+inaccurate for many reasons, including but not limited to product and roadmap
+changes, component and motherboard version changes, new model and/or product
+releases, product differences between differing manufacturers, software
+changes, BIOS flashes, firmware upgrades, or the like.  Any computer system has
+risks of security vulnerabilities that cannot be completely prevented or
+mitigated.  AMD assumes no obligation to update or otherwise correct or revise
+this information.  However, AMD reserves the right to revise this information
+and to make changes from time to time to the content hereof without obligation
+of AMD to notify any person of such revisions or changes.
+
+THIS INFORMATION IS PROVIDED "AS IS."  AMD MAKES NO REPRESENTATIONS OR
+WARRANTIES WITH RESPECT TO THE CONTENTS HEREOF AND ASSUMES NO RESPONSIBILITY
+FOR ANY INACCURACIES, ERRORS, OR OMISSIONS THAT MAY APPEAR IN THIS INFORMATION.
+AMD SPECIFICALLY DISCLAIMS ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT,
+MERCHANTABILITY, OR FITNESS FOR ANY PARTICULAR PURPOSE.  IN NO EVENT WILL AMD
+BE LIABLE TO ANY PERSON FOR ANY RELIANCE, DIRECT, INDIRECT, SPECIAL, OR OTHER
+CONSEQUENTIAL DAMAGES ARISING FROM THE USE OF ANY INFORMATION CONTAINED HEREIN,
+EVEN IF AMD IS EXPRESSLY ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+
+AMD, the AMD Arrow logo, AMD Instinct™, Radeon™, AMD ROCm™, and combinations
+thereof are trademarks of Advanced Micro Devices, Inc.
+Linux(R) is the registered trademark of Linus Torvalds in the
+U.S. and other countries. PCIe(R) is a registered trademark of
+PCI-SIG Corporation.  Other product names used in this publication are for
+identification purposes only and may be trademarks of their respective
+companies. -->
 <title>Top (Debugging with ROCGDB)</title>
 
 <meta name="description" content="Top (Debugging with ROCGDB)">
@@ -97,9 +109,9 @@ ul.no-bullet {list-style: none}
 <p>This is the Tenth Edition, of <cite>Debugging with
 <small>ROCGDB</small>: the <small>GNU</small> Source-Level Debugger</cite> for <small>ROCGDB</small>
 (GDB)
-Version 13.0.50.20220325-git.
+Version 13.1.
 </p>
-<p>Copyright &copy; 1988-2022 Free Software Foundation, Inc.
+<p>Copyright &copy; 1988-2023 Free Software Foundation, Inc.
 </p>
 <p>Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -112,35 +124,47 @@ and with the Back-Cover Texts as in (a) below.
 this GNU Manual.  Buying copies from GNU Press supports the FSF in
 developing GNU and promoting software freedom.&rdquo;
 </p>
-<p><em>Disclaimer</em>
+<p><em>Legal Disclaimer and Copyright Information</em>
 </p>
-<p>The information contained herein is for informational purposes only,
-and is subject to change without notice.  While every precaution has
-been taken in the preparation of this document, it may contain
-technical inaccuracies, omissions and typographical errors, and AMD is
-under no obligation to update or otherwise correct this information.
-Advanced Micro Devices, Inc. makes no representations or warranties
-with respect to the accuracy or completeness of the contents of this
-document, and assumes no liability of any kind, including the implied
-warranties of noninfringement, merchantability or fitness for
-particular purposes, with respect to the operation or use of AMD
-hardware, software or other products described herein.  No license,
-including implied or arising by estoppel, to any intellectual property
-rights is granted by this document.  Terms and limitations applicable
-to the purchase or use of AMD’s products are as set forth in a signed
-agreement between the parties or in AMD&rsquo;s Standard Terms and
-Conditions of Sale.
+<p>AMD ROCm software is made available by Advanced Micro Devices, Inc. under the
+open source license identified in the top-level directory for the library in
+the repository on <a href="Github.com">Github.com</a> (Portions of AMD ROCm software are
+licensed under MITx11 and UIL/NCSA. For more information on the license, review
+the <samp>license.txt</samp> in the top-level directory for the library on
+<a href="Github.com">Github.com</a>).  The additional terms and conditions below apply to your use
+of AMD ROCm technical documentation.
 </p>
-<p>AMD&reg;, the AMD Arrow logo, AMD Instinct&reg;,
-Radeon&reg;, ROCm&reg; and combinations thereof are
-trademarks of Advanced Micro Devices, Inc.  Linux&reg; is the
-registered trademark of Linus Torvalds in the U.S. and other countries.
-PCIe&reg; is a registered trademark of PCI-SIG Corporation. Other
-product names used in this publication are for identification purposes only and
-may be trademarks of their respective companies.
+<p>&copy;2019-2023 Advanced Micro Devices, Inc.  All rights reserved.
 </p>
-<p>Copyright &copy; 2019-2022 Advanced Micro Devices, Inc.  All
-rights reserved.
+<p>The information presented in this document is for informational purposes only
+and may contain technical inaccuracies, omissions, and typographical errors.
+The information contained herein is subject to change and may be rendered
+inaccurate for many reasons, including but not limited to product and roadmap
+changes, component and motherboard version changes, new model and/or product
+releases, product differences between differing manufacturers, software
+changes, BIOS flashes, firmware upgrades, or the like.  Any computer system has
+risks of security vulnerabilities that cannot be completely prevented or
+mitigated.  AMD assumes no obligation to update or otherwise correct or revise
+this information.  However, AMD reserves the right to revise this information
+and to make changes from time to time to the content hereof without obligation
+of AMD to notify any person of such revisions or changes.
+</p>
+<p>THIS INFORMATION IS PROVIDED &quot;AS IS.&quot;  AMD MAKES NO REPRESENTATIONS OR
+WARRANTIES WITH RESPECT TO THE CONTENTS HEREOF AND ASSUMES NO RESPONSIBILITY
+FOR ANY INACCURACIES, ERRORS, OR OMISSIONS THAT MAY APPEAR IN THIS INFORMATION.
+AMD SPECIFICALLY DISCLAIMS ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT,
+MERCHANTABILITY, OR FITNESS FOR ANY PARTICULAR PURPOSE.  IN NO EVENT WILL AMD
+BE LIABLE TO ANY PERSON FOR ANY RELIANCE, DIRECT, INDIRECT, SPECIAL, OR OTHER
+CONSEQUENTIAL DAMAGES ARISING FROM THE USE OF ANY INFORMATION CONTAINED HEREIN,
+EVEN IF AMD IS EXPRESSLY ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+</p>
+<p>AMD, the AMD Arrow logo, AMD Instinct™, Radeon™, AMD ROCm™, and combinations
+thereof are trademarks of Advanced Micro Devices, Inc.
+Linux&reg; is the registered trademark of Linus Torvalds in the
+U.S. and other countries. PCIe&reg; is a registered trademark of
+PCI-SIG Corporation.  Other product names used in this publication are for
+identification purposes only and may be trademarks of their respective
+companies.
 </p>
 
 <div class="top" id="Top">
@@ -156,9 +180,9 @@ Next: <a href="Summary.html" accesskey="n" rel="next">Summary of <small>ROCGDB</
 </p>
 <p>This is the Tenth Edition, for <small>ROCGDB</small>
 (GDB)
-Version 13.0.50.20220325-git.
+Version 13.1.
 </p>
-<p>Copyright (C) 1988-2022 Free Software Foundation, Inc.
+<p>Copyright (C) 1988-2023 Free Software Foundation, Inc.
 </p>
 <p>This edition of the GDB manual is dedicated to the memory of Fred
 Fish.  Fred was a long-standing contributor to GDB and to Free
@@ -269,7 +293,7 @@ software in general.  We will miss him.
   <li><a id="toc-Examining-Source-Files" href="Source.html">9 Examining Source Files</a>
   <ul class="no-bullet">
     <li><a id="toc-Printing-Source-Lines" href="List.html">9.1 Printing Source Lines</a></li>
-    <li><a id="toc-Specifying-a-Location" href="Specify-Location.html">9.2 Specifying a Location</a>
+    <li><a id="toc-Location-Specifications-1" href="Location-Specifications.html">9.2 Location Specifications</a>
     <ul class="no-bullet">
       <li><a id="toc-Linespec-Locations-1" href="Linespec-Locations.html">9.2.1 Linespec Locations</a></li>
       <li><a id="toc-Explicit-Locations-1" href="Explicit-Locations.html">9.2.2 Explicit Locations</a></li>
@@ -404,9 +428,10 @@ software in general.  We will miss him.
       </ul></li>
       <li><a id="toc-Fortran-1" href="Fortran.html">15.4.6 Fortran</a>
       <ul class="no-bullet">
-        <li><a id="toc-Fortran-Operators-and-Expressions" href="Fortran-Operators.html">15.4.6.1 Fortran Operators and Expressions</a></li>
-        <li><a id="toc-Fortran-Defaults-1" href="Fortran-Defaults.html">15.4.6.2 Fortran Defaults</a></li>
-        <li><a id="toc-Special-Fortran-Commands-1" href="Special-Fortran-Commands.html">15.4.6.3 Special Fortran Commands</a></li>
+        <li><a id="toc-Fortran-Types-1" href="Fortran-Types.html">15.4.6.1 Fortran Types</a></li>
+        <li><a id="toc-Fortran-Operators-and-Expressions" href="Fortran-Operators.html">15.4.6.2 Fortran Operators and Expressions</a></li>
+        <li><a id="toc-Fortran-Intrinsics-1" href="Fortran-Intrinsics.html">15.4.6.3 Fortran Intrinsics</a></li>
+        <li><a id="toc-Special-Fortran-Commands-1" href="Special-Fortran-Commands.html">15.4.6.4 Special Fortran Commands</a></li>
       </ul></li>
       <li><a id="toc-Pascal-1" href="Pascal.html">15.4.7 Pascal</a></li>
       <li><a id="toc-Rust-1" href="Rust.html">15.4.8 Rust</a></li>
@@ -433,9 +458,8 @@ software in general.  We will miss him.
         <li><a id="toc-Extensions-for-Ada-Tasks" href="Ada-Tasks.html">15.4.10.7 Extensions for Ada Tasks</a></li>
         <li><a id="toc-Tasking-Support-when-Debugging-Core-Files" href="Ada-Tasks-and-Core-Files.html">15.4.10.8 Tasking Support when Debugging Core Files</a></li>
         <li><a id="toc-Tasking-Support-when-using-the-Ravenscar-Profile" href="Ravenscar-Profile.html">15.4.10.9 Tasking Support when using the Ravenscar Profile</a></li>
-        <li><a id="toc-Ada-Settings-1" href="Ada-Settings.html">15.4.10.10 Ada Settings</a></li>
-        <li><a id="toc-Ada-Source-Character-Set-1" href="Ada-Source-Character-Set.html">15.4.10.11 Ada Source Character Set</a></li>
-        <li><a id="toc-Known-Peculiarities-of-Ada-Mode" href="Ada-Glitches.html">15.4.10.12 Known Peculiarities of Ada Mode</a></li>
+        <li><a id="toc-Ada-Source-Character-Set-1" href="Ada-Source-Character-Set.html">15.4.10.10 Ada Source Character Set</a></li>
+        <li><a id="toc-Known-Peculiarities-of-Ada-Mode" href="Ada-Glitches.html">15.4.10.11 Known Peculiarities of Ada Mode</a></li>
       </ul></li>
       <li><a id="toc-HIP-1" href="HIP.html">15.4.11 HIP</a></li>
     </ul></li>
@@ -660,6 +684,7 @@ software in general.  We will miss him.
         <li><a id="toc-Registers-In-Python-1" href="Registers-In-Python.html">24.3.2.35 Registers In Python</a></li>
         <li><a id="toc-Connections-In-Python-1" href="Connections-In-Python.html">24.3.2.36 Connections In Python</a></li>
         <li><a id="toc-Implementing-new-TUI-windows" href="TUI-Windows-In-Python.html">24.3.2.37 Implementing new TUI windows</a></li>
+        <li><a id="toc-Instruction-Disassembly-In-Python" href="Disassembly-In-Python.html">24.3.2.38 Instruction Disassembly In Python</a></li>
       </ul></li>
       <li><a id="toc-Python-Auto_002dloading-1" href="Python-Auto_002dloading.html">24.3.3 Python Auto-loading</a></li>
       <li><a id="toc-Python-modules-1" href="Python-modules.html">24.3.4 Python modules</a>

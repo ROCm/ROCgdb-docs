@@ -545,11 +545,15 @@ struct bfd
   /* Put pathnames into archives (non-POSIX).  */
 #define BFD_ARCHIVE_FULL_PATH  0x100000
 
+#define BFD_CLOSED_BY_CACHE    0x200000
+  /* Compress sections in this BFD with SHF_COMPRESSED zstd.  */
+#define BFD_COMPRESS_ZSTD      0x400000
+
   /* Flags bits to be saved in bfd_preserve_save.  */
 #define BFD_FLAGS_SAVED \
   (BFD_IN_MEMORY | BFD_COMPRESS | BFD_DECOMPRESS | BFD_LINKER_CREATED \
    | BFD_PLUGIN | BFD_COMPRESS_GABI | BFD_CONVERT_ELF_COMMON \
-   | BFD_USE_ELF_STT_COMMON)
+   | BFD_USE_ELF_STT_COMMON | BFD_COMPRESS_ZSTD)
 
   /* Flags bits which are for BFD use only.  */
 #define BFD_FLAGS_FOR_BFD_USE_MASK \
@@ -882,6 +886,14 @@ bfd_get_section_limit (const bfd *abfd, const asection *sec)
           / bfd_octets_per_byte (abfd, sec));
 }
 
+static inline bfd_size_type
+bfd_get_section_alloc_size (const bfd *abfd, const asection *sec)
+{
+  if (abfd-&gt;direction != write_direction &amp;&amp; sec-&gt;rawsize &gt; sec-&gt;size)
+    return sec-&gt;rawsize;
+  return sec-&gt;size;
+}
+
 /* Functions to handle insertion and deletion of a bfd's sections.  These
    only handle the list pointers, ie. do not adjust section_count,
    target_index etc.  */
@@ -1120,7 +1132,9 @@ typedef void (*bfd_error_handler_type) (const char *, va_list);
 <ul class="section-toc">
 <li><a href="#g_t_005fbfd_005ferror_005fhandler" accesskey="1"><code>_bfd_error_handler</code></a></li>
 <li><a href="#bfd_005fset_005ferror_005fhandler" accesskey="2"><code>bfd_set_error_handler</code></a></li>
-<li><a href="#bfd_005fset_005ferror_005fprogram_005fname" accesskey="3"><code>bfd_set_error_program_name</code></a></li>
+<li><a href="#g_t_005fbfd_005fset_005ferror_005fhandler_005fcaching" accesskey="3"><code>_bfd_set_error_handler_caching</code></a></li>
+<li><a href="#bfd_005fset_005ferror_005fprogram_005fname" accesskey="4"><code>bfd_set_error_program_name</code></a></li>
+<li><a href="#g_t_005fbfd_005fget_005ferror_005fprogram_005fname" accesskey="5"><code>_bfd_get_error_program_name</code></a></li>
 </ul>
 <div class="subsubsection" id="g_t_005fbfd_005ferror_005fhandler">
 <h4 class="subsubsection">2.2.2.1 <code>_bfd_error_handler</code></h4>
@@ -1152,10 +1166,22 @@ archive too.
 Set the BFD error handler function.  Returns the previous
 function.
 </p>
+<span id="index-_005fbfd_005fset_005ferror_005fhandler_005fcaching"></span>
+</div>
+<div class="subsubsection" id="g_t_005fbfd_005fset_005ferror_005fhandler_005fcaching">
+<h4 class="subsubsection">2.2.2.3 <code>_bfd_set_error_handler_caching</code></h4>
+<p><strong>Synopsis</strong>
+</p><div class="example">
+<pre class="example">bfd_error_handler_type _bfd_set_error_handler_caching (bfd *);
+</pre></div>
+<p><strong>Description</strong><br>
+Set the BFD error handler function to one that stores messages
+to the per_xvec_warn array.  Returns the previous function.
+</p>
 <span id="index-bfd_005fset_005ferror_005fprogram_005fname"></span>
 </div>
 <div class="subsubsection" id="bfd_005fset_005ferror_005fprogram_005fname">
-<h4 class="subsubsection">2.2.2.3 <code>bfd_set_error_program_name</code></h4>
+<h4 class="subsubsection">2.2.2.4 <code>bfd_set_error_program_name</code></h4>
 <p><strong>Synopsis</strong>
 </p><div class="example">
 <pre class="example">void bfd_set_error_program_name (const char *);
@@ -1165,6 +1191,17 @@ Set the program name to use when printing a BFD error.  This
 is printed before the error message followed by a colon and
 space.  The string must not be changed after it is passed to
 this function.
+</p>
+<span id="index-_005fbfd_005fget_005ferror_005fprogram_005fname"></span>
+</div>
+<div class="subsubsection" id="g_t_005fbfd_005fget_005ferror_005fprogram_005fname">
+<h4 class="subsubsection">2.2.2.5 <code>_bfd_get_error_program_name</code></h4>
+<p><strong>Synopsis</strong>
+</p><div class="example">
+<pre class="example">const char *_bfd_get_error_program_name (void);
+</pre></div>
+<p><strong>Description</strong><br>
+Get the program name used when printing a BFD error.
 </p>
 </div>
 </div>
@@ -1242,11 +1279,6 @@ Next: <a href="#Memory-Usage" accesskey="n" rel="next">Memory Usage</a>, Previou
 <li><a href="#bfd_005femul_005fget_005fmaxpagesize"><code>bfd_emul_get_maxpagesize</code></a></li>
 <li><a href="#bfd_005femul_005fget_005fcommonpagesize"><code>bfd_emul_get_commonpagesize</code></a></li>
 <li><a href="#bfd_005fdemangle"><code>bfd_demangle</code></a></li>
-<li><a href="#bfd_005fupdate_005fcompression_005fheader"><code>bfd_update_compression_header</code></a></li>
-<li><a href="#bfd_005fcheck_005fcompression_005fheader"><code>bfd_check_compression_header</code></a></li>
-<li><a href="#bfd_005fget_005fcompression_005fheader_005fsize"><code>bfd_get_compression_header_size</code></a></li>
-<li><a href="#bfd_005fconvert_005fsection_005fsize"><code>bfd_convert_section_size</code></a></li>
-<li><a href="#bfd_005fconvert_005fsection_005fcontents"><code>bfd_convert_section_contents</code></a></li>
 <li><a href="#struct-bfd_005fiovec"><code>struct bfd_iovec</code></a></li>
 <li><a href="#bfd_005fget_005fmtime"><code>bfd_get_mtime</code></a></li>
 <li><a href="#bfd_005fget_005fsize"><code>bfd_get_size</code></a></li>
@@ -1520,6 +1552,11 @@ The following functions exist but have not yet been documented.
        BFD_SEND (abfd, _bfd_find_nearest_line, \
                  (abfd, syms, sec, off, file, func, line, NULL))
 
+#define bfd_find_nearest_line_with_alt(abfd, alt_filename, sec, syms, off, \
+                                       file, func, line, disc) \
+       BFD_SEND (abfd, _bfd_find_nearest_line_with_alt, \
+                 (abfd, alt_filename, syms, sec, off, file, func, line, disc))
+
 #define bfd_find_nearest_line_discriminator(abfd, sec, syms, off, file, func, \
                                            line, disc) \
        BFD_SEND (abfd, _bfd_find_nearest_line, \
@@ -1673,87 +1710,10 @@ If passed a g++ v3 ABI mangled name, returns a buffer allocated
 with malloc holding the demangled name.  Returns NULL otherwise
 and on memory alloc failure.
 </p>
-<span id="index-bfd_005fupdate_005fcompression_005fheader"></span>
-</div>
-<div class="subsubsection" id="bfd_005fupdate_005fcompression_005fheader">
-<h4 class="subsubsection">2.3.1.20 <code>bfd_update_compression_header</code></h4>
-<p><strong>Synopsis</strong>
-</p><div class="example">
-<pre class="example">void bfd_update_compression_header
-   (bfd *abfd, bfd_byte *contents, asection *sec);
-</pre></div>
-<p><strong>Description</strong><br>
-Set the compression header at CONTENTS of SEC in ABFD and update
-elf_section_flags for compression.
-</p>
-<span id="index-bfd_005fcheck_005fcompression_005fheader"></span>
-</div>
-<div class="subsubsection" id="bfd_005fcheck_005fcompression_005fheader">
-<h4 class="subsubsection">2.3.1.21 <code>bfd_check_compression_header</code></h4>
-<p><strong>Synopsis</strong>
-</p><div class="example">
-<pre class="example">bool bfd_check_compression_header
-   (bfd *abfd, bfd_byte *contents, asection *sec,
-    bfd_size_type *uncompressed_size,
-    unsigned int *uncompressed_alignment_power);
-</pre></div>
-<p><strong>Description</strong><br>
-Check the compression header at CONTENTS of SEC in ABFD and
-store the uncompressed size in UNCOMPRESSED_SIZE and the
-uncompressed data alignment in UNCOMPRESSED_ALIGNMENT_POWER
-if the compression header is valid.
-</p>
-<p><strong>Returns</strong><br>
-Return TRUE if the compression header is valid.
-</p>
-<span id="index-bfd_005fget_005fcompression_005fheader_005fsize"></span>
-</div>
-<div class="subsubsection" id="bfd_005fget_005fcompression_005fheader_005fsize">
-<h4 class="subsubsection">2.3.1.22 <code>bfd_get_compression_header_size</code></h4>
-<p><strong>Synopsis</strong>
-</p><div class="example">
-<pre class="example">int bfd_get_compression_header_size (bfd *abfd, asection *sec);
-</pre></div>
-<p><strong>Description</strong><br>
-Return the size of the compression header of SEC in ABFD.
-</p>
-<p><strong>Returns</strong><br>
-Return the size of the compression header in bytes.
-</p>
-<span id="index-bfd_005fconvert_005fsection_005fsize"></span>
-</div>
-<div class="subsubsection" id="bfd_005fconvert_005fsection_005fsize">
-<h4 class="subsubsection">2.3.1.23 <code>bfd_convert_section_size</code></h4>
-<p><strong>Synopsis</strong>
-</p><div class="example">
-<pre class="example">bfd_size_type bfd_convert_section_size
-   (bfd *ibfd, asection *isec, bfd *obfd, bfd_size_type size);
-</pre></div>
-<p><strong>Description</strong><br>
-Convert the size <var>size</var> of the section <var>isec</var> in input
-BFD <var>ibfd</var> to the section size in output BFD <var>obfd</var>.
-</p>
-<span id="index-bfd_005fconvert_005fsection_005fcontents"></span>
-</div>
-<div class="subsubsection" id="bfd_005fconvert_005fsection_005fcontents">
-<h4 class="subsubsection">2.3.1.24 <code>bfd_convert_section_contents</code></h4>
-<p><strong>Synopsis</strong>
-</p><div class="example">
-<pre class="example">bool bfd_convert_section_contents
-   (bfd *ibfd, asection *isec, bfd *obfd,
-    bfd_byte **ptr, bfd_size_type *ptr_size);
-</pre></div>
-<p><strong>Description</strong><br>
-Convert the contents, stored in <var>*ptr</var>, of the section
-<var>isec</var> in input BFD <var>ibfd</var> to output BFD <var>obfd</var>
-if needed.  The original buffer pointed to by <var>*ptr</var> may
-be freed and <var>*ptr</var> is returned with memory malloc&rsquo;d by this
-function, and the new size written to <var>ptr_size</var>.
-</p>
 <span id="index-struct-bfd_005fiovec"></span>
 </div>
 <div class="subsubsection" id="struct-bfd_005fiovec">
-<h4 class="subsubsection">2.3.1.25 <code>struct bfd_iovec</code></h4>
+<h4 class="subsubsection">2.3.1.20 <code>struct bfd_iovec</code></h4>
 <p><strong>Description</strong><br>
 The <code>struct bfd_iovec</code> contains the internal file I/O class.
 Each <code>BFD</code> has an instance of this class and all file I/O is
@@ -1796,7 +1756,7 @@ extern const struct bfd_iovec _bfd_memory_iovec;
 <span id="index-bfd_005fget_005fmtime"></span>
 </div>
 <div class="subsubsection" id="bfd_005fget_005fmtime">
-<h4 class="subsubsection">2.3.1.26 <code>bfd_get_mtime</code></h4>
+<h4 class="subsubsection">2.3.1.21 <code>bfd_get_mtime</code></h4>
 <p><strong>Synopsis</strong>
 </p><div class="example">
 <pre class="example">long bfd_get_mtime (bfd *abfd);
@@ -1808,7 +1768,7 @@ from the archive header for archive members).
 <span id="index-bfd_005fget_005fsize"></span>
 </div>
 <div class="subsubsection" id="bfd_005fget_005fsize">
-<h4 class="subsubsection">2.3.1.27 <code>bfd_get_size</code></h4>
+<h4 class="subsubsection">2.3.1.22 <code>bfd_get_size</code></h4>
 <p><strong>Synopsis</strong>
 </p><div class="example">
 <pre class="example">ufile_ptr bfd_get_size (bfd *abfd);
@@ -1843,7 +1803,7 @@ size reasonable?&quot;.
 <span id="index-bfd_005fget_005ffile_005fsize"></span>
 </div>
 <div class="subsubsection" id="bfd_005fget_005ffile_005fsize">
-<h4 class="subsubsection">2.3.1.28 <code>bfd_get_file_size</code></h4>
+<h4 class="subsubsection">2.3.1.23 <code>bfd_get_file_size</code></h4>
 <p><strong>Synopsis</strong>
 </p><div class="example">
 <pre class="example">ufile_ptr bfd_get_file_size (bfd *abfd);
@@ -1856,7 +1816,7 @@ and archive elements.
 <span id="index-bfd_005fmmap"></span>
 </div>
 <div class="subsubsection" id="bfd_005fmmap">
-<h4 class="subsubsection">2.3.1.29 <code>bfd_mmap</code></h4>
+<h4 class="subsubsection">2.3.1.24 <code>bfd_mmap</code></h4>
 <p><strong>Synopsis</strong>
 </p><div class="example">
 <pre class="example">void *bfd_mmap (bfd *abfd, void *addr, bfd_size_type len,
@@ -2083,6 +2043,12 @@ typedef struct bfd_section
      the same as that passed to bfd_make_section.  */
   const char *name;
 
+  /* The next section in the list belonging to the BFD, or NULL.  */
+  struct bfd_section *next;
+
+  /* The previous section in the list belonging to the BFD, or NULL.  */
+  struct bfd_section *prev;
+
   /* A unique sequence number.  */
   unsigned int id;
 
@@ -2092,12 +2058,6 @@ typedef struct bfd_section
 
   /* Which section in the bfd; 0..n-1 as sections are created in a bfd.  */
   unsigned int index;
-
-  /* The next section in the list belonging to the BFD, or NULL.  */
-  struct bfd_section *next;
-
-  /* The previous section in the list belonging to the BFD, or NULL.  */
-  struct bfd_section *prev;
 
   /* The field flags contains attributes of the section. Some
      flags are read in from the object file, and some are
@@ -2268,9 +2228,8 @@ typedef struct bfd_section
      executables or shared objects. This is for COFF only.  */
 #define SEC_COFF_SHARED             0x8000000
 
-  /* This section should be compressed.  This is for ELF linker
-     internal use only.  */
-#define SEC_ELF_COMPRESS            0x8000000
+  /* Indicate that section has the purecode flag set.  */
+#define SEC_ELF_PURECODE            0x8000000
 
   /* When a section with this flag is being linked, then if the size of
      the input section is less than a page, it should not cross a page
@@ -2278,10 +2237,6 @@ typedef struct bfd_section
      it should be aligned on a page boundary.  This is for TI
      TMS320C54X only.  */
 #define SEC_TIC54X_BLOCK           0x10000000
-
-  /* This section should be renamed.  This is for ELF linker
-     internal use only.  */
-#define SEC_ELF_RENAME             0x10000000
 
   /* Conditionally link this section; do not link if there are no
      references found to any symbol in the section.  This is for TI
@@ -2299,9 +2254,6 @@ typedef struct bfd_section
   /* Indicate that section has the no read flag set. This happens
      when memory read flag isn't set. */
 #define SEC_COFF_NOREAD            0x40000000
-
-  /* Indicate that section has the purecode flag set.  */
-#define SEC_ELF_PURECODE           0x80000000
 
   /*  End of section flags.  */
 
@@ -2324,7 +2276,8 @@ typedef struct bfd_section
   unsigned int compress_status : 2;
 #define COMPRESS_SECTION_NONE    0
 #define COMPRESS_SECTION_DONE    1
-#define DECOMPRESS_SECTION_SIZED 2
+#define DECOMPRESS_SECTION_ZLIB  2
+#define DECOMPRESS_SECTION_ZSTD  3
 
   /* The following flags are used by the ELF linker. */
 
@@ -2340,6 +2293,7 @@ typedef struct bfd_section
 #define SEC_INFO_TYPE_JUST_SYMS 4
 #define SEC_INFO_TYPE_TARGET    5
 #define SEC_INFO_TYPE_EH_FRAME_ENTRY 6
+#define SEC_INFO_TYPE_SFRAME  7
 
   /* Nonzero if this section uses RELA relocations, rather than REL.  */
   unsigned int use_rela_p:1;
@@ -2387,13 +2341,6 @@ typedef struct bfd_section
   /* The compressed size of the section in octets.  */
   bfd_size_type compressed_size;
 
-  /* Relaxation table. */
-  struct relax_table *relax;
-
-  /* Count of used relaxation table entries. */
-  int relax_count;
-
-
   /* If this section is going to be output, then this value is the
      offset in *bytes* into the output section of the first byte in the
      input section (byte ==&gt; smallest addressable unit on the
@@ -2406,10 +2353,6 @@ typedef struct bfd_section
   /* The output section through which to map on output.  */
   struct bfd_section *output_section;
 
-  /* The alignment requirement of the section, as an exponent of 2 -
-     e.g., 3 aligns to 2^3 (or 8).  */
-  unsigned int alignment_power;
-
   /* If an input section, a pointer to a vector of relocation
      records for the data in this section.  */
   struct reloc_cache_entry *relocation;
@@ -2420,6 +2363,10 @@ typedef struct bfd_section
 
   /* The number of relocation records in one of the above.  */
   unsigned reloc_count;
+
+  /* The alignment requirement of the section, as an exponent of 2 -
+     e.g., 3 aligns to 2^3 (or 8).  */
+  unsigned int alignment_power;
 
   /* Information below is back end specific - and not always used
      or updated.  */
@@ -2493,17 +2440,6 @@ typedef struct bfd_section
   unsigned int type;
 
 } asection;
-
-/* Relax table contains information about instructions which can
-   be removed by relaxation -- replacing a long address with a
-   short address.  */
-struct relax_table {
-  /* Address where bytes may be deleted. */
-  bfd_vma addr;
-
-  /* Number of bytes to be deleted.  */
-  int size;
-};
 
 static inline const char *
 bfd_section_name (const asection *sec)
@@ -2581,6 +2517,8 @@ bfd_set_section_lma (asection *sec, bfd_vma val)
 static inline bool
 bfd_set_section_alignment (asection *sec, unsigned int val)
 {
+  if (val &gt;= sizeof (bfd_vma) * 8 - 1)
+    return false;
   sec-&gt;alignment_power = val;
   return true;
 }
@@ -2641,8 +2579,8 @@ discarded_section (const asection *sec)
 }
 
 #define BFD_FAKE_SECTION(SEC, SYM, NAME, IDX, FLAGS)                   \
-  /* name, id,  section_id, index, next, prev, flags, user_set_vma, */ \
-  {  NAME, IDX, 0,          0,     NULL, NULL, FLAGS, 0,               \
+  /* name, next, prev, id,  section_id, index, flags, user_set_vma, */ \
+  {  NAME, NULL, NULL, IDX, 0,          0,     FLAGS, 0,               \
                                                                        \
   /* linker_mark, linker_has_input, gc_mark, decompress_status,     */ \
      0,           0,                1,       0,                        \
@@ -2653,14 +2591,14 @@ discarded_section (const asection *sec)
   /* sec_flg0, sec_flg1, sec_flg2, sec_flg3, sec_flg4, sec_flg5,    */ \
      0,        0,        0,        0,        0,        0,              \
                                                                        \
-  /* vma, lma, size, rawsize, compressed_size, relax, relax_count,  */ \
-     0,   0,   0,    0,       0,               0,     0,               \
+  /* vma, lma, size, rawsize, compressed_size,                      */ \
+     0,   0,   0,    0,       0,                                       \
                                                                        \
-  /* output_offset, output_section, alignment_power,                */ \
-     0,             &amp;SEC,           0,                                 \
+  /* output_offset, output_section, relocation, orelocation,        */ \
+     0,             &amp;SEC,           NULL,       NULL,                  \
                                                                        \
-  /* relocation, orelocation, reloc_count, filepos, rel_filepos,    */ \
-     NULL,       NULL,        0,           0,       0,                 \
+  /* reloc_count, alignment_power, filepos, rel_filepos,            */ \
+     0,           0,               0,       0,                         \
                                                                        \
   /* line_filepos, userdata, contents, lineno, lineno_count,        */ \
      0,            NULL,     NULL,     NULL,   0,                      \
@@ -2728,6 +2666,7 @@ Previous: <a href="#typedef-asection" accesskey="p" rel="prev">typedef asection<
 <li><a href="#bfd_005fgeneric_005fis_005fgroup_005fsection"><code>bfd_generic_is_group_section</code></a></li>
 <li><a href="#bfd_005fgeneric_005fgroup_005fname"><code>bfd_generic_group_name</code></a></li>
 <li><a href="#bfd_005fgeneric_005fdiscard_005fgroup"><code>bfd_generic_discard_group</code></a></li>
+<li><a href="#g_t_005fbfd_005fsection_005fsize_005finsane"><code>_bfd_section_size_insane</code></a></li>
 </ul>
 <div class="subsubsection" id="bfd_005fsection_005flist_005fclear">
 <h4 class="subsubsection">2.6.5.1 <code>bfd_section_list_clear</code></h4>
@@ -3139,6 +3078,19 @@ Returns group name if <var>sec</var> is a member of a group.
 </pre></div>
 <p><strong>Description</strong><br>
 Remove all members of <var>group</var> from the output.
+</p>
+<span id="index-_005fbfd_005fsection_005fsize_005finsane"></span>
+</div>
+<div class="subsubsection" id="g_t_005fbfd_005fsection_005fsize_005finsane">
+<h4 class="subsubsection">2.6.5.24 <code>_bfd_section_size_insane</code></h4>
+<p><strong>Synopsis</strong>
+</p><div class="example">
+<pre class="example">bool _bfd_section_size_insane (bfd *abfd, asection *sec);
+</pre></div>
+<p><strong>Description</strong><br>
+Returns true if the given section has a size that indicates
+it cannot be read from file.  Return false if the size is OK
+or* this function can&rsquo;t say one way or the other.
 </p>
 
 <hr>
@@ -4024,7 +3976,7 @@ typedef enum bfd_reloc_status
   /* Unsupported relocation size requested.  */
   bfd_reloc_notsupported,
 
-  /* Unused.  */
+  /* Target specific meaning.  */
   bfd_reloc_other,
 
   /* The symbol to relocate against was undefined.  */
@@ -4202,12 +4154,11 @@ but it would be possible to create each howto field on demand.
 <li><a href="#enum-complain_005foverflow" accesskey="1"><code>enum complain_overflow</code></a></li>
 <li><a href="#reloc_005fhowto_005ftype" accesskey="2"><code>reloc_howto_type</code></a></li>
 <li><a href="#The-HOWTO-Macro" accesskey="3"><code>The HOWTO Macro</code></a></li>
-<li><a href="#bfd_005fget_005freloc_005fsize" accesskey="4"><code>bfd_get_reloc_size</code></a></li>
-<li><a href="#arelent_005fchain" accesskey="5"><code>arelent_chain</code></a></li>
-<li><a href="#bfd_005fcheck_005foverflow" accesskey="6"><code>bfd_check_overflow</code></a></li>
-<li><a href="#bfd_005freloc_005foffset_005fin_005frange" accesskey="7"><code>bfd_reloc_offset_in_range</code></a></li>
-<li><a href="#bfd_005fperform_005frelocation" accesskey="8"><code>bfd_perform_relocation</code></a></li>
-<li><a href="#bfd_005finstall_005frelocation" accesskey="9"><code>bfd_install_relocation</code></a></li>
+<li><a href="#arelent_005fchain" accesskey="4"><code>arelent_chain</code></a></li>
+<li><a href="#bfd_005fcheck_005foverflow" accesskey="5"><code>bfd_check_overflow</code></a></li>
+<li><a href="#bfd_005freloc_005foffset_005fin_005frange" accesskey="6"><code>bfd_reloc_offset_in_range</code></a></li>
+<li><a href="#bfd_005fperform_005frelocation" accesskey="7"><code>bfd_perform_relocation</code></a></li>
+<li><a href="#bfd_005finstall_005frelocation" accesskey="8"><code>bfd_install_relocation</code></a></li>
 </ul>
 <div class="subsubsection" id="enum-complain_005foverflow">
 <h4 class="subsubsection">2.10.1.1 <code>enum complain_overflow</code></h4>
@@ -4252,10 +4203,8 @@ information that libbfd needs to know to tie up a back end&rsquo;s data.
      an external reloc number is stored in this field.  */
   unsigned int type;
 
-  /* The encoded size of the item to be relocated.  This is *not* a
-     power-of-two measure.  Use bfd_get_reloc_size to find the size
-     of the item in bytes.  */
-  unsigned int size:3;
+  /* The size of the item to be relocated in bytes.  */
+  unsigned int size:4;
 
   /* The number of bits in the field to be relocated.  This is used
      when doing overflow checking.  */
@@ -4338,9 +4287,10 @@ information that libbfd needs to know to tie up a back end&rsquo;s data.
 The HOWTO macro fills in a reloc_howto_type (a typedef for
 const struct reloc_howto_struct).
 </p><div class="example">
-<pre class="example">#define HOWTO(type, right, size, bits, pcrel, left, ovf, func, name,   \
+<pre class="example">#define HOWTO_RSIZE(sz) ((sz) &lt; 0 ? -(sz) : (sz))
+#define HOWTO(type, right, size, bits, pcrel, left, ovf, func, name,   \
               inplace, src_mask, dst_mask, pcrel_off)                  \
-  { (unsigned) type, size &lt; 0 ? -size : size, bits, right, left, ovf,  \
+  { (unsigned) type, HOWTO_RSIZE (size), bits, right, left, ovf,       \
     size &lt; 0, pcrel, inplace, pcrel_off, src_mask, dst_mask, func, name }
 </pre></div>
 
@@ -4348,27 +4298,21 @@ const struct reloc_howto_struct).
 This is used to fill in an empty howto entry in an array.
 </p><div class="example">
 <pre class="example">#define EMPTY_HOWTO(C) \
-  HOWTO ((C), 0, 0, 0, false, 0, complain_overflow_dont, NULL, \
+  HOWTO ((C), 0, 1, 0, false, 0, complain_overflow_dont, NULL, \
          NULL, false, 0, 0, false)
 
+static inline unsigned int
+bfd_get_reloc_size (reloc_howto_type *howto)
+{
+  return howto-&gt;size;
+}
+
 </pre></div>
 
-<span id="index-bfd_005fget_005freloc_005fsize"></span>
-</div>
-<div class="subsubsection" id="bfd_005fget_005freloc_005fsize">
-<h4 class="subsubsection">2.10.1.4 <code>bfd_get_reloc_size</code></h4>
-<p><strong>Synopsis</strong>
-</p><div class="example">
-<pre class="example">unsigned int bfd_get_reloc_size (reloc_howto_type *);
-</pre></div>
-<p><strong>Description</strong><br>
-For a reloc_howto_type that operates on a fixed number of bytes,
-this returns the number of bytes operated on.
-</p>
 <span id="index-arelent_005fchain"></span>
 </div>
 <div class="subsubsection" id="arelent_005fchain">
-<h4 class="subsubsection">2.10.1.5 <code>arelent_chain</code></h4>
+<h4 class="subsubsection">2.10.1.4 <code>arelent_chain</code></h4>
 <p><strong>Description</strong><br>
 How relocs are tied together in an <code>asection</code>:
 </p><div class="example">
@@ -4384,7 +4328,7 @@ arelent_chain;
 <span id="index-bfd_005fcheck_005foverflow"></span>
 </div>
 <div class="subsubsection" id="bfd_005fcheck_005foverflow">
-<h4 class="subsubsection">2.10.1.6 <code>bfd_check_overflow</code></h4>
+<h4 class="subsubsection">2.10.1.5 <code>bfd_check_overflow</code></h4>
 <p><strong>Synopsis</strong>
 </p><div class="example">
 <pre class="example">bfd_reloc_status_type bfd_check_overflow
@@ -4404,7 +4348,7 @@ Perform overflow checking on <var>relocation</var> which has
 <span id="index-bfd_005freloc_005foffset_005fin_005frange"></span>
 </div>
 <div class="subsubsection" id="bfd_005freloc_005foffset_005fin_005frange">
-<h4 class="subsubsection">2.10.1.7 <code>bfd_reloc_offset_in_range</code></h4>
+<h4 class="subsubsection">2.10.1.6 <code>bfd_reloc_offset_in_range</code></h4>
 <p><strong>Synopsis</strong>
 </p><div class="example">
 <pre class="example">bool bfd_reloc_offset_in_range
@@ -4420,7 +4364,7 @@ applied at <var>OFFSET</var> octets in <var>SECTION</var>.
 <span id="index-bfd_005fperform_005frelocation"></span>
 </div>
 <div class="subsubsection" id="bfd_005fperform_005frelocation">
-<h4 class="subsubsection">2.10.1.8 <code>bfd_perform_relocation</code></h4>
+<h4 class="subsubsection">2.10.1.7 <code>bfd_perform_relocation</code></h4>
 <p><strong>Synopsis</strong>
 </p><div class="example">
 <pre class="example">bfd_reloc_status_type bfd_perform_relocation
@@ -4450,7 +4394,7 @@ this return <code>bfd_reloc_dangerous</code>.
 <span id="index-bfd_005finstall_005frelocation"></span>
 </div>
 <div class="subsubsection" id="bfd_005finstall_005frelocation">
-<h4 class="subsubsection">2.10.1.9 <code>bfd_install_relocation</code></h4>
+<h4 class="subsubsection">2.10.1.8 <code>bfd_install_relocation</code></h4>
 <p><strong>Synopsis</strong>
 </p><div class="example">
 <pre class="example">bfd_reloc_status_type bfd_install_relocation
@@ -4534,6 +4478,7 @@ the section containing the relocation.  It depends on the specific target.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005f32_005fSECREL"><span class="category">: </span><span><strong>BFD_RELOC_32_SECREL</strong><a href='#index-BFD_005fRELOC_005f32_005fSECREL' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005f16_005fSECIDX"><span class="category">: </span><span><strong>BFD_RELOC_16_SECIDX</strong><a href='#index-BFD_005fRELOC_005f16_005fSECIDX' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Section relative relocations.  Some targets need this for DWARF2.
 </p></dd></dl>
 <dl class="def">
@@ -4984,7 +4929,7 @@ to compensate for the borrow when the low bits are added.
 <dt id="index-BFD_005fRELOC_005fMICROMIPS_005fHIGHER"><span class="category">: </span><span><strong>BFD_RELOC_MICROMIPS_HIGHER</strong><a href='#index-BFD_005fRELOC_005fMICROMIPS_005fHIGHER' class='copiable-anchor'> &para;</a></span></dt>
 <dt id="index-BFD_005fRELOC_005fMIPS_005fSCN_005fDISP"><span class="category">: </span><span><strong>BFD_RELOC_MIPS_SCN_DISP</strong><a href='#index-BFD_005fRELOC_005fMIPS_005fSCN_005fDISP' class='copiable-anchor'> &para;</a></span></dt>
 <dt id="index-BFD_005fRELOC_005fMICROMIPS_005fSCN_005fDISP"><span class="category">: </span><span><strong>BFD_RELOC_MICROMIPS_SCN_DISP</strong><a href='#index-BFD_005fRELOC_005fMICROMIPS_005fSCN_005fDISP' class='copiable-anchor'> &para;</a></span></dt>
-<dt id="index-BFD_005fRELOC_005fMIPS_005fREL16"><span class="category">: </span><span><strong>BFD_RELOC_MIPS_REL16</strong><a href='#index-BFD_005fRELOC_005fMIPS_005fREL16' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fMIPS_005f16"><span class="category">: </span><span><strong>BFD_RELOC_MIPS_16</strong><a href='#index-BFD_005fRELOC_005fMIPS_005f16' class='copiable-anchor'> &para;</a></span></dt>
 <dt id="index-BFD_005fRELOC_005fMIPS_005fRELGOT"><span class="category">: </span><span><strong>BFD_RELOC_MIPS_RELGOT</strong><a href='#index-BFD_005fRELOC_005fMIPS_005fRELGOT' class='copiable-anchor'> &para;</a></span></dt>
 <dt id="index-BFD_005fRELOC_005fMIPS_005fJALR"><span class="category">: </span><span><strong>BFD_RELOC_MIPS_JALR</strong><a href='#index-BFD_005fRELOC_005fMIPS_005fJALR' class='copiable-anchor'> &para;</a></span></dt>
 <dt id="index-BFD_005fRELOC_005fMICROMIPS_005fJALR"><span class="category">: </span><span><strong>BFD_RELOC_MICROMIPS_JALR</strong><a href='#index-BFD_005fRELOC_005fMICROMIPS_005fJALR' class='copiable-anchor'> &para;</a></span></dt>
@@ -7749,13 +7694,6 @@ then it may be truncated to 8 bits.
 <dd><p>Self-describing complex relocations.
 </p></dd></dl>
 <dl class="def">
-<dt id="index-BFD_005fRELOC_005fXC16X_005fPAG"><span class="category">: </span><span><strong>BFD_RELOC_XC16X_PAG</strong><a href='#index-BFD_005fRELOC_005fXC16X_005fPAG' class='copiable-anchor'> &para;</a></span></dt>
-<dt id="index-BFD_005fRELOC_005fXC16X_005fPOF"><span class="category">: </span><span><strong>BFD_RELOC_XC16X_POF</strong><a href='#index-BFD_005fRELOC_005fXC16X_005fPOF' class='copiable-anchor'> &para;</a></span></dt>
-<dt id="index-BFD_005fRELOC_005fXC16X_005fSEG"><span class="category">: </span><span><strong>BFD_RELOC_XC16X_SEG</strong><a href='#index-BFD_005fRELOC_005fXC16X_005fSEG' class='copiable-anchor'> &para;</a></span></dt>
-<dt id="index-BFD_005fRELOC_005fXC16X_005fSOF"><span class="category">: </span><span><strong>BFD_RELOC_XC16X_SOF</strong><a href='#index-BFD_005fRELOC_005fXC16X_005fSOF' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Infineon Relocations.
-</p></dd></dl>
-<dl class="def">
 <dt id="index-BFD_005fRELOC_005fVAX_005fGLOB_005fDAT"><span class="category">: </span><span><strong>BFD_RELOC_VAX_GLOB_DAT</strong><a href='#index-BFD_005fRELOC_005fVAX_005fGLOB_005fDAT' class='copiable-anchor'> &para;</a></span></dt>
 <dt id="index-BFD_005fRELOC_005fVAX_005fJMP_005fSLOT"><span class="category">: </span><span><strong>BFD_RELOC_VAX_JMP_SLOT</strong><a href='#index-BFD_005fRELOC_005fVAX_005fJMP_005fSLOT' class='copiable-anchor'> &para;</a></span></dt>
 <dt id="index-BFD_005fRELOC_005fVAX_005fRELATIVE"><span class="category">: </span><span><strong>BFD_RELOC_VAX_RELATIVE</strong><a href='#index-BFD_005fRELOC_005fVAX_005fRELATIVE' class='copiable-anchor'> &para;</a></span></dt>
@@ -9218,6 +9156,43 @@ assembler and not (currently) written to any object files.
 <dt id="index-BFD_005fRELOC_005fLARCH_005fSUB24"><span class="category">: </span><span><strong>BFD_RELOC_LARCH_SUB24</strong><a href='#index-BFD_005fRELOC_005fLARCH_005fSUB24' class='copiable-anchor'> &para;</a></span></dt>
 <dt id="index-BFD_005fRELOC_005fLARCH_005fSUB32"><span class="category">: </span><span><strong>BFD_RELOC_LARCH_SUB32</strong><a href='#index-BFD_005fRELOC_005fLARCH_005fSUB32' class='copiable-anchor'> &para;</a></span></dt>
 <dt id="index-BFD_005fRELOC_005fLARCH_005fSUB64"><span class="category">: </span><span><strong>BFD_RELOC_LARCH_SUB64</strong><a href='#index-BFD_005fRELOC_005fLARCH_005fSUB64' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fLARCH_005fB16"><span class="category">: </span><span><strong>BFD_RELOC_LARCH_B16</strong><a href='#index-BFD_005fRELOC_005fLARCH_005fB16' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fLARCH_005fB21"><span class="category">: </span><span><strong>BFD_RELOC_LARCH_B21</strong><a href='#index-BFD_005fRELOC_005fLARCH_005fB21' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fLARCH_005fB26"><span class="category">: </span><span><strong>BFD_RELOC_LARCH_B26</strong><a href='#index-BFD_005fRELOC_005fLARCH_005fB26' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fLARCH_005fABS_005fHI20"><span class="category">: </span><span><strong>BFD_RELOC_LARCH_ABS_HI20</strong><a href='#index-BFD_005fRELOC_005fLARCH_005fABS_005fHI20' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fLARCH_005fABS_005fLO12"><span class="category">: </span><span><strong>BFD_RELOC_LARCH_ABS_LO12</strong><a href='#index-BFD_005fRELOC_005fLARCH_005fABS_005fLO12' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fLARCH_005fABS64_005fLO20"><span class="category">: </span><span><strong>BFD_RELOC_LARCH_ABS64_LO20</strong><a href='#index-BFD_005fRELOC_005fLARCH_005fABS64_005fLO20' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fLARCH_005fABS64_005fHI12"><span class="category">: </span><span><strong>BFD_RELOC_LARCH_ABS64_HI12</strong><a href='#index-BFD_005fRELOC_005fLARCH_005fABS64_005fHI12' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fLARCH_005fPCALA_005fHI20"><span class="category">: </span><span><strong>BFD_RELOC_LARCH_PCALA_HI20</strong><a href='#index-BFD_005fRELOC_005fLARCH_005fPCALA_005fHI20' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fLARCH_005fPCALA_005fLO12"><span class="category">: </span><span><strong>BFD_RELOC_LARCH_PCALA_LO12</strong><a href='#index-BFD_005fRELOC_005fLARCH_005fPCALA_005fLO12' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fLARCH_005fPCALA64_005fLO20"><span class="category">: </span><span><strong>BFD_RELOC_LARCH_PCALA64_LO20</strong><a href='#index-BFD_005fRELOC_005fLARCH_005fPCALA64_005fLO20' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fLARCH_005fPCALA64_005fHI12"><span class="category">: </span><span><strong>BFD_RELOC_LARCH_PCALA64_HI12</strong><a href='#index-BFD_005fRELOC_005fLARCH_005fPCALA64_005fHI12' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fLARCH_005fGOT_005fPC_005fHI20"><span class="category">: </span><span><strong>BFD_RELOC_LARCH_GOT_PC_HI20</strong><a href='#index-BFD_005fRELOC_005fLARCH_005fGOT_005fPC_005fHI20' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fLARCH_005fGOT_005fPC_005fLO12"><span class="category">: </span><span><strong>BFD_RELOC_LARCH_GOT_PC_LO12</strong><a href='#index-BFD_005fRELOC_005fLARCH_005fGOT_005fPC_005fLO12' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fLARCH_005fGOT64_005fPC_005fLO20"><span class="category">: </span><span><strong>BFD_RELOC_LARCH_GOT64_PC_LO20</strong><a href='#index-BFD_005fRELOC_005fLARCH_005fGOT64_005fPC_005fLO20' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fLARCH_005fGOT64_005fPC_005fHI12"><span class="category">: </span><span><strong>BFD_RELOC_LARCH_GOT64_PC_HI12</strong><a href='#index-BFD_005fRELOC_005fLARCH_005fGOT64_005fPC_005fHI12' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fLARCH_005fGOT_005fHI20"><span class="category">: </span><span><strong>BFD_RELOC_LARCH_GOT_HI20</strong><a href='#index-BFD_005fRELOC_005fLARCH_005fGOT_005fHI20' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fLARCH_005fGOT_005fLO12"><span class="category">: </span><span><strong>BFD_RELOC_LARCH_GOT_LO12</strong><a href='#index-BFD_005fRELOC_005fLARCH_005fGOT_005fLO12' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fLARCH_005fGOT64_005fLO20"><span class="category">: </span><span><strong>BFD_RELOC_LARCH_GOT64_LO20</strong><a href='#index-BFD_005fRELOC_005fLARCH_005fGOT64_005fLO20' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fLARCH_005fGOT64_005fHI12"><span class="category">: </span><span><strong>BFD_RELOC_LARCH_GOT64_HI12</strong><a href='#index-BFD_005fRELOC_005fLARCH_005fGOT64_005fHI12' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fLARCH_005fTLS_005fLE_005fHI20"><span class="category">: </span><span><strong>BFD_RELOC_LARCH_TLS_LE_HI20</strong><a href='#index-BFD_005fRELOC_005fLARCH_005fTLS_005fLE_005fHI20' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fLARCH_005fTLS_005fLE_005fLO12"><span class="category">: </span><span><strong>BFD_RELOC_LARCH_TLS_LE_LO12</strong><a href='#index-BFD_005fRELOC_005fLARCH_005fTLS_005fLE_005fLO12' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fLARCH_005fTLS_005fLE64_005fLO20"><span class="category">: </span><span><strong>BFD_RELOC_LARCH_TLS_LE64_LO20</strong><a href='#index-BFD_005fRELOC_005fLARCH_005fTLS_005fLE64_005fLO20' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fLARCH_005fTLS_005fLE64_005fHI12"><span class="category">: </span><span><strong>BFD_RELOC_LARCH_TLS_LE64_HI12</strong><a href='#index-BFD_005fRELOC_005fLARCH_005fTLS_005fLE64_005fHI12' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fLARCH_005fTLS_005fIE_005fPC_005fHI20"><span class="category">: </span><span><strong>BFD_RELOC_LARCH_TLS_IE_PC_HI20</strong><a href='#index-BFD_005fRELOC_005fLARCH_005fTLS_005fIE_005fPC_005fHI20' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fLARCH_005fTLS_005fIE_005fPC_005fLO12"><span class="category">: </span><span><strong>BFD_RELOC_LARCH_TLS_IE_PC_LO12</strong><a href='#index-BFD_005fRELOC_005fLARCH_005fTLS_005fIE_005fPC_005fLO12' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fLARCH_005fTLS_005fIE64_005fPC_005fLO20"><span class="category">: </span><span><strong>BFD_RELOC_LARCH_TLS_IE64_PC_LO20</strong><a href='#index-BFD_005fRELOC_005fLARCH_005fTLS_005fIE64_005fPC_005fLO20' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fLARCH_005fTLS_005fIE64_005fPC_005fHI12"><span class="category">: </span><span><strong>BFD_RELOC_LARCH_TLS_IE64_PC_HI12</strong><a href='#index-BFD_005fRELOC_005fLARCH_005fTLS_005fIE64_005fPC_005fHI12' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fLARCH_005fTLS_005fIE_005fHI20"><span class="category">: </span><span><strong>BFD_RELOC_LARCH_TLS_IE_HI20</strong><a href='#index-BFD_005fRELOC_005fLARCH_005fTLS_005fIE_005fHI20' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fLARCH_005fTLS_005fIE_005fLO12"><span class="category">: </span><span><strong>BFD_RELOC_LARCH_TLS_IE_LO12</strong><a href='#index-BFD_005fRELOC_005fLARCH_005fTLS_005fIE_005fLO12' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fLARCH_005fTLS_005fIE64_005fLO20"><span class="category">: </span><span><strong>BFD_RELOC_LARCH_TLS_IE64_LO20</strong><a href='#index-BFD_005fRELOC_005fLARCH_005fTLS_005fIE64_005fLO20' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fLARCH_005fTLS_005fIE64_005fHI12"><span class="category">: </span><span><strong>BFD_RELOC_LARCH_TLS_IE64_HI12</strong><a href='#index-BFD_005fRELOC_005fLARCH_005fTLS_005fIE64_005fHI12' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fLARCH_005fTLS_005fLD_005fPC_005fHI20"><span class="category">: </span><span><strong>BFD_RELOC_LARCH_TLS_LD_PC_HI20</strong><a href='#index-BFD_005fRELOC_005fLARCH_005fTLS_005fLD_005fPC_005fHI20' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fLARCH_005fTLS_005fLD_005fHI20"><span class="category">: </span><span><strong>BFD_RELOC_LARCH_TLS_LD_HI20</strong><a href='#index-BFD_005fRELOC_005fLARCH_005fTLS_005fLD_005fHI20' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fLARCH_005fTLS_005fGD_005fPC_005fHI20"><span class="category">: </span><span><strong>BFD_RELOC_LARCH_TLS_GD_PC_HI20</strong><a href='#index-BFD_005fRELOC_005fLARCH_005fTLS_005fGD_005fPC_005fHI20' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fLARCH_005fTLS_005fGD_005fHI20"><span class="category">: </span><span><strong>BFD_RELOC_LARCH_TLS_GD_HI20</strong><a href='#index-BFD_005fRELOC_005fLARCH_005fTLS_005fGD_005fHI20' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fLARCH_005f32_005fPCREL"><span class="category">: </span><span><strong>BFD_RELOC_LARCH_32_PCREL</strong><a href='#index-BFD_005fRELOC_005fLARCH_005f32_005fPCREL' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fLARCH_005fRELAX"><span class="category">: </span><span><strong>BFD_RELOC_LARCH_RELAX</strong><a href='#index-BFD_005fRELOC_005fLARCH_005fRELAX' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>LARCH relocations.
 </p></dd></dl>
 
@@ -9677,9 +9652,9 @@ typedef struct bfd_target
   /* Entries for byte swapping for data. These are different from the
      other entry points, since they don't take a BFD as the first argument.
      Certain other handlers could do the same.  */
-  bfd_uint64_t   (*bfd_getx64) (const void *);
-  bfd_int64_t    (*bfd_getx_signed_64) (const void *);
-  void           (*bfd_putx64) (bfd_uint64_t, void *);
+  uint64_t       (*bfd_getx64) (const void *);
+  int64_t        (*bfd_getx_signed_64) (const void *);
+  void           (*bfd_putx64) (uint64_t, void *);
   bfd_vma        (*bfd_getx32) (const void *);
   bfd_signed_vma (*bfd_getx_signed_32) (const void *);
   void           (*bfd_putx32) (bfd_vma, void *);
@@ -9688,9 +9663,9 @@ typedef struct bfd_target
   void           (*bfd_putx16) (bfd_vma, void *);
 
   /* Byte swapping for the headers.  */
-  bfd_uint64_t   (*bfd_h_getx64) (const void *);
-  bfd_int64_t    (*bfd_h_getx_signed_64) (const void *);
-  void           (*bfd_h_putx64) (bfd_uint64_t, void *);
+  uint64_t       (*bfd_h_getx64) (const void *);
+  int64_t        (*bfd_h_getx_signed_64) (const void *);
+  void           (*bfd_h_putx64) (uint64_t, void *);
   bfd_vma        (*bfd_h_getx32) (const void *);
   bfd_signed_vma (*bfd_h_getx_signed_32) (const void *);
   void           (*bfd_h_putx32) (bfd_vma, void *);
@@ -9831,6 +9806,7 @@ BFD_JUMP_TABLE macros.
   NAME##_bfd_is_target_special_symbol, \
   NAME##_get_lineno, \
   NAME##_find_nearest_line, \
+  NAME##_find_nearest_line_with_alt, \
   NAME##_find_line, \
   NAME##_find_inliner_info, \
   NAME##_bfd_make_debug_symbol, \
@@ -9861,6 +9837,11 @@ BFD_JUMP_TABLE macros.
                                   struct bfd_section *, bfd_vma,
                                   const char **, const char **,
                                   unsigned int *, unsigned int *);
+  bool (*_bfd_find_nearest_line_with_alt) (bfd *, const char *,
+                                           struct bfd_symbol **,
+                                           struct bfd_section *, bfd_vma,
+                                           const char **, const char **,
+                                           unsigned int *, unsigned int *);
   bool (*_bfd_find_line) (bfd *, struct bfd_symbol **,
                           struct bfd_symbol *, const char **,
                           unsigned int *);
@@ -10121,17 +10102,46 @@ bfd_keep_unused_section_symbols (const bfd *abfd)
 
 </pre></div>
 
-<span id="index-bfd_005fset_005fdefault_005ftarget"></span>
+
+<div class="example">
+<pre class="example">/* Cached _bfd_check_format messages are put in this.  */
+struct per_xvec_message
+{
+  struct per_xvec_message *next;
+  char message[];
+};
+
+</pre></div>
+<span id="index-_005fbfd_005fper_005fxvec_005fwarn"></span>
 <ul class="section-toc">
-<li><a href="#bfd_005fset_005fdefault_005ftarget" accesskey="1"><code>bfd_set_default_target</code></a></li>
-<li><a href="#bfd_005ffind_005ftarget" accesskey="2"><code>bfd_find_target</code></a></li>
-<li><a href="#bfd_005fget_005ftarget_005finfo" accesskey="3"><code>bfd_get_target_info</code></a></li>
-<li><a href="#bfd_005ftarget_005flist" accesskey="4"><code>bfd_target_list</code></a></li>
-<li><a href="#bfd_005fiterate_005fover_005ftargets" accesskey="5"><code>bfd_iterate_over_targets</code></a></li>
-<li><a href="#bfd_005fflavour_005fname" accesskey="6"><code>bfd_flavour_name</code></a></li>
+<li><a href="#g_t_005fbfd_005fper_005fxvec_005fwarn" accesskey="1"><code>_bfd_per_xvec_warn</code></a></li>
+<li><a href="#bfd_005fset_005fdefault_005ftarget" accesskey="2"><code>bfd_set_default_target</code></a></li>
+<li><a href="#bfd_005ffind_005ftarget" accesskey="3"><code>bfd_find_target</code></a></li>
+<li><a href="#bfd_005fget_005ftarget_005finfo" accesskey="4"><code>bfd_get_target_info</code></a></li>
+<li><a href="#bfd_005ftarget_005flist" accesskey="5"><code>bfd_target_list</code></a></li>
+<li><a href="#bfd_005fiterate_005fover_005ftargets" accesskey="6"><code>bfd_iterate_over_targets</code></a></li>
+<li><a href="#bfd_005fflavour_005fname" accesskey="7"><code>bfd_flavour_name</code></a></li>
 </ul>
+<div class="subsubsection" id="g_t_005fbfd_005fper_005fxvec_005fwarn">
+<h4 class="subsubsection">2.12.1.1 <code>_bfd_per_xvec_warn</code></h4>
+<p><strong>Synopsis</strong>
+</p><div class="example">
+<pre class="example">struct per_xvec_message **_bfd_per_xvec_warn (const bfd_target *, size_t);
+</pre></div>
+<p><strong>Description</strong><br>
+Return a location for the given target xvec to use for
+warnings specific to that target.  If TARG is NULL, returns
+the array of per_xvec_message pointers, otherwise if ALLOC is
+zero, returns a pointer to a pointer to the list of messages
+for TARG, otherwise (both TARG and ALLOC non-zero), allocates
+a new   per_xvec_message with space for a string of ALLOC
+bytes and returns a pointer to a pointer to it.  May return a
+pointer to a NULL pointer on allocation failure.
+</p>
+<span id="index-bfd_005fset_005fdefault_005ftarget"></span>
+</div>
 <div class="subsubsection" id="bfd_005fset_005fdefault_005ftarget">
-<h4 class="subsubsection">2.12.1.1 <code>bfd_set_default_target</code></h4>
+<h4 class="subsubsection">2.12.1.2 <code>bfd_set_default_target</code></h4>
 <p><strong>Synopsis</strong>
 </p><div class="example">
 <pre class="example">bool bfd_set_default_target (const char *name);
@@ -10144,7 +10154,7 @@ name or a configuration triplet.
 <span id="index-bfd_005ffind_005ftarget"></span>
 </div>
 <div class="subsubsection" id="bfd_005ffind_005ftarget">
-<h4 class="subsubsection">2.12.1.2 <code>bfd_find_target</code></h4>
+<h4 class="subsubsection">2.12.1.3 <code>bfd_find_target</code></h4>
 <p><strong>Synopsis</strong>
 </p><div class="example">
 <pre class="example">const bfd_target *bfd_find_target (const char *target_name, bfd *abfd);
@@ -10164,7 +10174,7 @@ one that matches the file being read.
 <span id="index-bfd_005fget_005ftarget_005finfo"></span>
 </div>
 <div class="subsubsection" id="bfd_005fget_005ftarget_005finfo">
-<h4 class="subsubsection">2.12.1.3 <code>bfd_get_target_info</code></h4>
+<h4 class="subsubsection">2.12.1.4 <code>bfd_get_target_info</code></h4>
 <p><strong>Synopsis</strong>
 </p><div class="example">
 <pre class="example">const bfd_target *bfd_get_target_info (const char *target_name,
@@ -10196,7 +10206,7 @@ string specified by the target_name.
 <span id="index-bfd_005ftarget_005flist"></span>
 </div>
 <div class="subsubsection" id="bfd_005ftarget_005flist">
-<h4 class="subsubsection">2.12.1.4 <code>bfd_target_list</code></h4>
+<h4 class="subsubsection">2.12.1.5 <code>bfd_target_list</code></h4>
 <p><strong>Synopsis</strong>
 </p><div class="example">
 <pre class="example">const char ** bfd_target_list (void);
@@ -10209,7 +10219,7 @@ modify the names.
 <span id="index-bfd_005fiterate_005fover_005ftargets"></span>
 </div>
 <div class="subsubsection" id="bfd_005fiterate_005fover_005ftargets">
-<h4 class="subsubsection">2.12.1.5 <code>bfd_iterate_over_targets</code></h4>
+<h4 class="subsubsection">2.12.1.6 <code>bfd_iterate_over_targets</code></h4>
 <p><strong>Synopsis</strong>
 </p><div class="example">
 <pre class="example">const bfd_target *bfd_iterate_over_targets
@@ -10225,7 +10235,7 @@ vector.  Return NULL if <var>func</var> always returns zero.
 <span id="index-bfd_005fflavour_005fname"></span>
 </div>
 <div class="subsubsection" id="bfd_005fflavour_005fname">
-<h4 class="subsubsection">2.12.1.6 <code>bfd_flavour_name</code></h4>
+<h4 class="subsubsection">2.12.1.7 <code>bfd_flavour_name</code></h4>
 <p><strong>Synopsis</strong>
 </p><div class="example">
 <pre class="example">const char *bfd_flavour_name (enum bfd_flavour flavour);
@@ -10422,12 +10432,6 @@ containing, for example, 68020 for Motorola 68020.
 #define bfd_mach_i386_i386_intel_syntax (bfd_mach_i386_i386 | bfd_mach_i386_intel_syntax)
 #define bfd_mach_x86_64_intel_syntax   (bfd_mach_x86_64 | bfd_mach_i386_intel_syntax)
 #define bfd_mach_x64_32_intel_syntax   (bfd_mach_x64_32 | bfd_mach_i386_intel_syntax)
-  bfd_arch_l1om,      /* Intel L1OM.  */
-#define bfd_mach_l1om                  (1 &lt;&lt; 5)
-#define bfd_mach_l1om_intel_syntax     (bfd_mach_l1om | bfd_mach_i386_intel_syntax)
-  bfd_arch_k1om,      /* Intel K1OM.  */
-#define bfd_mach_k1om                  (1 &lt;&lt; 6)
-#define bfd_mach_k1om_intel_syntax     (bfd_mach_k1om | bfd_mach_i386_intel_syntax)
   bfd_arch_iamcu,     /* Intel MCU.  */
 #define bfd_mach_iamcu                 (1 &lt;&lt; 8)
 #define bfd_mach_i386_iamcu            (bfd_mach_i386_i386 | bfd_mach_iamcu)
@@ -10710,10 +10714,6 @@ containing, for example, 68020 for Motorola 68020.
 #define bfd_mach_msp46         46
 #define bfd_mach_msp47         47
 #define bfd_mach_msp54         54
-  bfd_arch_xc16x,     /* Infineon's XC16X Series.  */
-#define bfd_mach_xc16x         1
-#define bfd_mach_xc16xl        2
-#define bfd_mach_xc16xs        3
   bfd_arch_xgate,     /* Freescale XGATE.  */
 #define bfd_mach_xgate         1
   bfd_arch_xtensa,    /* Tensilica's Xtensa cores.  */
@@ -10750,6 +10750,7 @@ containing, for example, 68020 for Motorola 68020.
 #define bfd_mach_aarch64 0
 #define bfd_mach_aarch64_8R    1
 #define bfd_mach_aarch64_ilp32 32
+#define bfd_mach_aarch64_llp64 64
   bfd_arch_nios2,     /* Nios II.  */
 #define bfd_mach_nios2         0
 #define bfd_mach_nios2r1       1
@@ -10789,6 +10790,9 @@ containing, for example, 68020 for Motorola 68020.
 #define bfd_mach_amdgcn_gfx1030 0x036
 #define bfd_mach_amdgcn_gfx1031 0x037
 #define bfd_mach_amdgcn_gfx1032 0x038
+#define bfd_mach_amdgcn_gfx1100 0x041
+#define bfd_mach_amdgcn_gfx1101 0x046
+#define bfd_mach_amdgcn_gfx1102 0x047
   bfd_arch_last
   };
 </pre></div>
@@ -13004,10 +13008,10 @@ Swap the information in an internal exec header structure
 <h4 class="subsubsection">3.2.2.3 <code>aout_<var>size</var>_some_aout_object_p</code></h4>
 <p><strong>Synopsis</strong>
 </p><div class="example">
-<pre class="example">const bfd_target *aout_<var>size</var>_some_aout_object_p
+<pre class="example">bfd_cleanup aout_<var>size</var>_some_aout_object_p
    (bfd *abfd,
     struct internal_exec *execp,
-    const bfd_target *(*callback_to_real_object_p) (bfd *));
+    bfd_cleanup (*callback_to_real_object_p) (bfd *));
 </pre></div>
 <p><strong>Description</strong><br>
 Some a.out variant thinks that the file open in <var>abfd</var>
@@ -14751,10 +14755,14 @@ Previous: <a href="#GNU-Free-Documentation-License" accesskey="p" rel="prev">GNU
 <tr><td></td><td valign="top"><a href="#index-_005fbfd_005fgeneric_005fmake_005fempty_005fsymbol">_bfd_generic_make_empty_symbol</a>:</td><td>&nbsp;</td><td valign="top"><a href="#symbol-handling-functions">symbol handling functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_005fbfd_005fgeneric_005fset_005freloc">_bfd_generic_set_reloc</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_005fbfd_005fgeneric_005fverify_005fendian_005fmatch">_bfd_generic_verify_endian_match</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Writing-the-symbol-table">Writing the symbol table</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-_005fbfd_005fget_005ferror_005fprogram_005fname">_bfd_get_error_program_name</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Error-reporting">Error reporting</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_005fbfd_005flink_005fadd_005fsymbols-in-target-vector">_bfd_link_add_symbols in target vector</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Adding-Symbols-to-the-Hash-Table">Adding Symbols to the Hash Table</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_005fbfd_005flink_005ffinal_005flink-in-target-vector">_bfd_link_final_link in target vector</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Performing-the-Final-Link">Performing the Final Link</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_005fbfd_005flink_005fhash_005ftable_005fcreate-in-target-vector">_bfd_link_hash_table_create in target vector</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Creating-a-Linker-Hash-Table">Creating a Linker Hash Table</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-_005fbfd_005fper_005fxvec_005fwarn">_bfd_per_xvec_warn</a>:</td><td>&nbsp;</td><td valign="top"><a href="#bfd_005ftarget">bfd_target</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_005fbfd_005frelocate_005fcontents">_bfd_relocate_contents</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Relocating-the-section-contents">Relocating the section contents</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-_005fbfd_005fsection_005fsize_005finsane">_bfd_section_size_insane</a>:</td><td>&nbsp;</td><td valign="top"><a href="#section-prototypes">section prototypes</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-_005fbfd_005fset_005ferror_005fhandler_005fcaching">_bfd_set_error_handler_caching</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Error-reporting">Error reporting</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_005fbfd_005funrecognized_005freloc">_bfd_unrecognized_reloc</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
 <tr><td colspan="4"> <hr></td></tr>
 <tr><th id="BFD-Index_cp_letter-A">A</th><td></td><td></td></tr>
@@ -14804,15 +14812,12 @@ Previous: <a href="#GNU-Free-Documentation-License" accesskey="p" rel="prev">GNU
 <tr><td></td><td valign="top"><a href="#index-bfd_005fcalc_005fgnu_005fdebuglink_005fcrc32">bfd_calc_gnu_debuglink_crc32</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Opening-and-Closing">Opening and Closing</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-bfd_005fcanonicalize_005freloc">bfd_canonicalize_reloc</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Miscellaneous">Miscellaneous</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-bfd_005fcanonicalize_005fsymtab">bfd_canonicalize_symtab</a>:</td><td>&nbsp;</td><td valign="top"><a href="#symbol-handling-functions">symbol handling functions</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-bfd_005fcheck_005fcompression_005fheader">bfd_check_compression_header</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Miscellaneous">Miscellaneous</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-bfd_005fcheck_005fformat">bfd_check_format</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Formats">Formats</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-bfd_005fcheck_005fformat_005fmatches">bfd_check_format_matches</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Formats">Formats</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-bfd_005fcheck_005foverflow">bfd_check_overflow</a>:</td><td>&nbsp;</td><td valign="top"><a href="#typedef-arelent">typedef arelent</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-bfd_005fclose">bfd_close</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Opening-and-Closing">Opening and Closing</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-bfd_005fclose_005fall_005fdone">bfd_close_all_done</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Opening-and-Closing">Opening and Closing</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-bfd_005fcoff_005fbackend_005fdata">bfd_coff_backend_data</a>:</td><td>&nbsp;</td><td valign="top"><a href="#coff">coff</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-bfd_005fconvert_005fsection_005fcontents">bfd_convert_section_contents</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Miscellaneous">Miscellaneous</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-bfd_005fconvert_005fsection_005fsize">bfd_convert_section_size</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Miscellaneous">Miscellaneous</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-bfd_005fcopy_005fprivate_005fbfd_005fdata">bfd_copy_private_bfd_data</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Miscellaneous">Miscellaneous</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-bfd_005fcopy_005fprivate_005fheader_005fdata">bfd_copy_private_header_data</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Miscellaneous">Miscellaneous</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-bfd_005fcopy_005fprivate_005fsection_005fdata">bfd_copy_private_section_data</a>:</td><td>&nbsp;</td><td valign="top"><a href="#section-prototypes">section prototypes</a></td></tr>
@@ -14857,7 +14862,6 @@ Previous: <a href="#GNU-Free-Documentation-License" accesskey="p" rel="prev">GNU
 <tr><td></td><td valign="top"><a href="#index-bfd_005fget_005farch">bfd_get_arch</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Architectures">Architectures</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-bfd_005fget_005farch_005finfo">bfd_get_arch_info</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Architectures">Architectures</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-bfd_005fget_005farch_005fsize">bfd_get_arch_size</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Miscellaneous">Miscellaneous</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-bfd_005fget_005fcompression_005fheader_005fsize">bfd_get_compression_header_size</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Miscellaneous">Miscellaneous</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-bfd_005fget_005fdebug_005flink_005finfo">bfd_get_debug_link_info</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Opening-and-Closing">Opening and Closing</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-bfd_005fget_005fdebug_005flink_005finfo_005f1">bfd_get_debug_link_info_1</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Opening-and-Closing">Opening and Closing</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-bfd_005fget_005ferror">bfd_get_error</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Error-reporting">Error reporting</a></td></tr>
@@ -14869,7 +14873,6 @@ Previous: <a href="#GNU-Free-Documentation-License" accesskey="p" rel="prev">GNU
 <tr><td></td><td valign="top"><a href="#index-bfd_005fget_005fnext_005fmapent">bfd_get_next_mapent</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Archives">Archives</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-bfd_005fget_005fnext_005fsection_005fby_005fname">bfd_get_next_section_by_name</a>:</td><td>&nbsp;</td><td valign="top"><a href="#section-prototypes">section prototypes</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-bfd_005fget_005freloc_005fcode_005fname">bfd_get_reloc_code_name</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-bfd_005fget_005freloc_005fsize">bfd_get_reloc_size</a>:</td><td>&nbsp;</td><td valign="top"><a href="#typedef-arelent">typedef arelent</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-bfd_005fget_005freloc_005fupper_005fbound">bfd_get_reloc_upper_bound</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Miscellaneous">Miscellaneous</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-bfd_005fget_005fsection_005fby_005fname">bfd_get_section_by_name</a>:</td><td>&nbsp;</td><td valign="top"><a href="#section-prototypes">section prototypes</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-bfd_005fget_005fsection_005fby_005fname_005fif">bfd_get_section_by_name_if</a>:</td><td>&nbsp;</td><td valign="top"><a href="#section-prototypes">section prototypes</a></td></tr>
@@ -14933,6 +14936,7 @@ Previous: <a href="#GNU-Free-Documentation-License" accesskey="p" rel="prev">GNU
 <tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005f16_005fPCREL_005fS2">BFD_RELOC_16_PCREL_S2</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005f16_005fPLTOFF">BFD_RELOC_16_PLTOFF</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005f16_005fPLT_005fPCREL">BFD_RELOC_16_PLT_PCREL</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005f16_005fSECIDX">BFD_RELOC_16_SECIDX</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005f23_005fPCREL_005fS2">BFD_RELOC_23_PCREL_S2</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005f24">BFD_RELOC_24</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005f24_005fPCREL">BFD_RELOC_24_PCREL</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
@@ -15835,13 +15839,34 @@ Previous: <a href="#GNU-Free-Documentation-License" accesskey="p" rel="prev">GNU
 <tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fIQ2000_005fOFFSET_005f16">BFD_RELOC_IQ2000_OFFSET_16</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fIQ2000_005fOFFSET_005f21">BFD_RELOC_IQ2000_OFFSET_21</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fIQ2000_005fUHI16">BFD_RELOC_IQ2000_UHI16</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fLARCH_005f32_005fPCREL">BFD_RELOC_LARCH_32_PCREL</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fLARCH_005fABS64_005fHI12">BFD_RELOC_LARCH_ABS64_HI12</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fLARCH_005fABS64_005fLO20">BFD_RELOC_LARCH_ABS64_LO20</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fLARCH_005fABS_005fHI20">BFD_RELOC_LARCH_ABS_HI20</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fLARCH_005fABS_005fLO12">BFD_RELOC_LARCH_ABS_LO12</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fLARCH_005fADD16">BFD_RELOC_LARCH_ADD16</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fLARCH_005fADD24">BFD_RELOC_LARCH_ADD24</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fLARCH_005fADD32">BFD_RELOC_LARCH_ADD32</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fLARCH_005fADD64">BFD_RELOC_LARCH_ADD64</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fLARCH_005fADD8">BFD_RELOC_LARCH_ADD8</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fLARCH_005fB16">BFD_RELOC_LARCH_B16</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fLARCH_005fB21">BFD_RELOC_LARCH_B21</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fLARCH_005fB26">BFD_RELOC_LARCH_B26</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fLARCH_005fGOT64_005fHI12">BFD_RELOC_LARCH_GOT64_HI12</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fLARCH_005fGOT64_005fLO20">BFD_RELOC_LARCH_GOT64_LO20</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fLARCH_005fGOT64_005fPC_005fHI12">BFD_RELOC_LARCH_GOT64_PC_HI12</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fLARCH_005fGOT64_005fPC_005fLO20">BFD_RELOC_LARCH_GOT64_PC_LO20</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fLARCH_005fGOT_005fHI20">BFD_RELOC_LARCH_GOT_HI20</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fLARCH_005fGOT_005fLO12">BFD_RELOC_LARCH_GOT_LO12</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fLARCH_005fGOT_005fPC_005fHI20">BFD_RELOC_LARCH_GOT_PC_HI20</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fLARCH_005fGOT_005fPC_005fLO12">BFD_RELOC_LARCH_GOT_PC_LO12</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fLARCH_005fMARK_005fLA">BFD_RELOC_LARCH_MARK_LA</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fLARCH_005fMARK_005fPCREL">BFD_RELOC_LARCH_MARK_PCREL</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fLARCH_005fPCALA64_005fHI12">BFD_RELOC_LARCH_PCALA64_HI12</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fLARCH_005fPCALA64_005fLO20">BFD_RELOC_LARCH_PCALA64_LO20</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fLARCH_005fPCALA_005fHI20">BFD_RELOC_LARCH_PCALA_HI20</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fLARCH_005fPCALA_005fLO12">BFD_RELOC_LARCH_PCALA_LO12</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fLARCH_005fRELAX">BFD_RELOC_LARCH_RELAX</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fLARCH_005fSOP_005fADD">BFD_RELOC_LARCH_SOP_ADD</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fLARCH_005fSOP_005fAND">BFD_RELOC_LARCH_SOP_AND</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fLARCH_005fSOP_005fASSERT">BFD_RELOC_LARCH_SOP_ASSERT</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
@@ -15876,6 +15901,22 @@ Previous: <a href="#GNU-Free-Documentation-License" accesskey="p" rel="prev">GNU
 <tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fLARCH_005fTLS_005fDTPMOD64">BFD_RELOC_LARCH_TLS_DTPMOD64</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fLARCH_005fTLS_005fDTPREL32">BFD_RELOC_LARCH_TLS_DTPREL32</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fLARCH_005fTLS_005fDTPREL64">BFD_RELOC_LARCH_TLS_DTPREL64</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fLARCH_005fTLS_005fGD_005fHI20">BFD_RELOC_LARCH_TLS_GD_HI20</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fLARCH_005fTLS_005fGD_005fPC_005fHI20">BFD_RELOC_LARCH_TLS_GD_PC_HI20</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fLARCH_005fTLS_005fIE64_005fHI12">BFD_RELOC_LARCH_TLS_IE64_HI12</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fLARCH_005fTLS_005fIE64_005fLO20">BFD_RELOC_LARCH_TLS_IE64_LO20</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fLARCH_005fTLS_005fIE64_005fPC_005fHI12">BFD_RELOC_LARCH_TLS_IE64_PC_HI12</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fLARCH_005fTLS_005fIE64_005fPC_005fLO20">BFD_RELOC_LARCH_TLS_IE64_PC_LO20</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fLARCH_005fTLS_005fIE_005fHI20">BFD_RELOC_LARCH_TLS_IE_HI20</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fLARCH_005fTLS_005fIE_005fLO12">BFD_RELOC_LARCH_TLS_IE_LO12</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fLARCH_005fTLS_005fIE_005fPC_005fHI20">BFD_RELOC_LARCH_TLS_IE_PC_HI20</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fLARCH_005fTLS_005fIE_005fPC_005fLO12">BFD_RELOC_LARCH_TLS_IE_PC_LO12</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fLARCH_005fTLS_005fLD_005fHI20">BFD_RELOC_LARCH_TLS_LD_HI20</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fLARCH_005fTLS_005fLD_005fPC_005fHI20">BFD_RELOC_LARCH_TLS_LD_PC_HI20</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fLARCH_005fTLS_005fLE64_005fHI12">BFD_RELOC_LARCH_TLS_LE64_HI12</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fLARCH_005fTLS_005fLE64_005fLO20">BFD_RELOC_LARCH_TLS_LE64_LO20</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fLARCH_005fTLS_005fLE_005fHI20">BFD_RELOC_LARCH_TLS_LE_HI20</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fLARCH_005fTLS_005fLE_005fLO12">BFD_RELOC_LARCH_TLS_LE_LO12</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fLARCH_005fTLS_005fTPREL32">BFD_RELOC_LARCH_TLS_TPREL32</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fLARCH_005fTLS_005fTPREL64">BFD_RELOC_LARCH_TLS_TPREL64</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fLM32_005f16_005fGOT">BFD_RELOC_LM32_16_GOT</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
@@ -16085,6 +16126,7 @@ Previous: <a href="#GNU-Free-Documentation-License" accesskey="p" rel="prev">GNU
 <tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fMIPS16_005fTLS_005fLDM">BFD_RELOC_MIPS16_TLS_LDM</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fMIPS16_005fTLS_005fTPREL_005fHI16">BFD_RELOC_MIPS16_TLS_TPREL_HI16</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fMIPS16_005fTLS_005fTPREL_005fLO16">BFD_RELOC_MIPS16_TLS_TPREL_LO16</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fMIPS_005f16">BFD_RELOC_MIPS_16</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fMIPS_005f18_005fPCREL_005fS3">BFD_RELOC_MIPS_18_PCREL_S3</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fMIPS_005f19_005fPCREL_005fS2">BFD_RELOC_MIPS_19_PCREL_S2</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fMIPS_005f21_005fPCREL_005fS2">BFD_RELOC_MIPS_21_PCREL_S2</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
@@ -16109,7 +16151,6 @@ Previous: <a href="#GNU-Free-Documentation-License" accesskey="p" rel="prev">GNU
 <tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fMIPS_005fJMP">BFD_RELOC_MIPS_JMP</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fMIPS_005fJUMP_005fSLOT">BFD_RELOC_MIPS_JUMP_SLOT</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fMIPS_005fLITERAL">BFD_RELOC_MIPS_LITERAL</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fMIPS_005fREL16">BFD_RELOC_MIPS_REL16</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fMIPS_005fRELGOT">BFD_RELOC_MIPS_RELGOT</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fMIPS_005fSCN_005fDISP">BFD_RELOC_MIPS_SCN_DISP</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fMIPS_005fSHIFT5">BFD_RELOC_MIPS_SHIFT5</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
@@ -17247,10 +17288,6 @@ Previous: <a href="#GNU-Free-Documentation-License" accesskey="p" rel="prev">GNU
 <tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fX86_005f64_005fTLSLD">BFD_RELOC_X86_64_TLSLD</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fX86_005f64_005fTPOFF32">BFD_RELOC_X86_64_TPOFF32</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fX86_005f64_005fTPOFF64">BFD_RELOC_X86_64_TPOFF64</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fXC16X_005fPAG">BFD_RELOC_XC16X_PAG</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fXC16X_005fPOF">BFD_RELOC_XC16X_POF</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fXC16X_005fSEG">BFD_RELOC_XC16X_SEG</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fXC16X_005fSOF">BFD_RELOC_XC16X_SOF</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fXGATE_005f24">BFD_RELOC_XGATE_24</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fXGATE_005fGPAGE">BFD_RELOC_XGATE_GPAGE</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fXGATE_005fIMM3">BFD_RELOC_XGATE_IMM3</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
@@ -17362,7 +17399,6 @@ Previous: <a href="#GNU-Free-Documentation-License" accesskey="p" rel="prev">GNU
 <tr><td></td><td valign="top"><a href="#index-bfd_005fset_005fsymtab">bfd_set_symtab</a>:</td><td>&nbsp;</td><td valign="top"><a href="#symbol-handling-functions">symbol handling functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-bfd_005fsymbol_005finfo">bfd_symbol_info</a>:</td><td>&nbsp;</td><td valign="top"><a href="#symbol-handling-functions">symbol handling functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-bfd_005ftarget_005flist">bfd_target_list</a>:</td><td>&nbsp;</td><td valign="top"><a href="#bfd_005ftarget">bfd_target</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-bfd_005fupdate_005fcompression_005fheader">bfd_update_compression_header</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Miscellaneous">Miscellaneous</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-bfd_005fzalloc">bfd_zalloc</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Opening-and-Closing">Opening and Closing</a></td></tr>
 <tr><td colspan="4"> <hr></td></tr>
 <tr><th id="BFD-Index_cp_letter-C">C</th><td></td><td></td></tr>

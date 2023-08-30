@@ -208,9 +208,9 @@ typedef struct bfd_target
   /* Entries for byte swapping for data. These are different from the
      other entry points, since they don't take a BFD as the first argument.
      Certain other handlers could do the same.  */
-  bfd_uint64_t   (*bfd_getx64) (const void *);
-  bfd_int64_t    (*bfd_getx_signed_64) (const void *);
-  void           (*bfd_putx64) (bfd_uint64_t, void *);
+  uint64_t       (*bfd_getx64) (const void *);
+  int64_t        (*bfd_getx_signed_64) (const void *);
+  void           (*bfd_putx64) (uint64_t, void *);
   bfd_vma        (*bfd_getx32) (const void *);
   bfd_signed_vma (*bfd_getx_signed_32) (const void *);
   void           (*bfd_putx32) (bfd_vma, void *);
@@ -219,9 +219,9 @@ typedef struct bfd_target
   void           (*bfd_putx16) (bfd_vma, void *);
 
   /* Byte swapping for the headers.  */
-  bfd_uint64_t   (*bfd_h_getx64) (const void *);
-  bfd_int64_t    (*bfd_h_getx_signed_64) (const void *);
-  void           (*bfd_h_putx64) (bfd_uint64_t, void *);
+  uint64_t       (*bfd_h_getx64) (const void *);
+  int64_t        (*bfd_h_getx_signed_64) (const void *);
+  void           (*bfd_h_putx64) (uint64_t, void *);
   bfd_vma        (*bfd_h_getx32) (const void *);
   bfd_signed_vma (*bfd_h_getx_signed_32) (const void *);
   void           (*bfd_h_putx32) (bfd_vma, void *);
@@ -362,6 +362,7 @@ BFD_JUMP_TABLE macros.
   NAME##_bfd_is_target_special_symbol, \
   NAME##_get_lineno, \
   NAME##_find_nearest_line, \
+  NAME##_find_nearest_line_with_alt, \
   NAME##_find_line, \
   NAME##_find_inliner_info, \
   NAME##_bfd_make_debug_symbol, \
@@ -392,6 +393,11 @@ BFD_JUMP_TABLE macros.
                                   struct bfd_section *, bfd_vma,
                                   const char **, const char **,
                                   unsigned int *, unsigned int *);
+  bool (*_bfd_find_nearest_line_with_alt) (bfd *, const char *,
+                                           struct bfd_symbol **,
+                                           struct bfd_section *, bfd_vma,
+                                           const char **, const char **,
+                                           unsigned int *, unsigned int *);
   bool (*_bfd_find_line) (bfd *, struct bfd_symbol **,
                           struct bfd_symbol *, const char **,
                           unsigned int *);
@@ -652,17 +658,46 @@ bfd_keep_unused_section_symbols (const bfd *abfd)
 
 </pre></div>
 
-<span id="index-bfd_005fset_005fdefault_005ftarget"></span>
+
+<div class="example">
+<pre class="example">/* Cached _bfd_check_format messages are put in this.  */
+struct per_xvec_message
+{
+  struct per_xvec_message *next;
+  char message[];
+};
+
+</pre></div>
+<span id="index-_005fbfd_005fper_005fxvec_005fwarn"></span>
 <ul class="section-toc">
-<li><a href="#bfd_005fset_005fdefault_005ftarget" accesskey="1"><code>bfd_set_default_target</code></a></li>
-<li><a href="#bfd_005ffind_005ftarget" accesskey="2"><code>bfd_find_target</code></a></li>
-<li><a href="#bfd_005fget_005ftarget_005finfo" accesskey="3"><code>bfd_get_target_info</code></a></li>
-<li><a href="#bfd_005ftarget_005flist" accesskey="4"><code>bfd_target_list</code></a></li>
-<li><a href="#bfd_005fiterate_005fover_005ftargets" accesskey="5"><code>bfd_iterate_over_targets</code></a></li>
-<li><a href="#bfd_005fflavour_005fname" accesskey="6"><code>bfd_flavour_name</code></a></li>
+<li><a href="#g_t_005fbfd_005fper_005fxvec_005fwarn" accesskey="1"><code>_bfd_per_xvec_warn</code></a></li>
+<li><a href="#bfd_005fset_005fdefault_005ftarget" accesskey="2"><code>bfd_set_default_target</code></a></li>
+<li><a href="#bfd_005ffind_005ftarget" accesskey="3"><code>bfd_find_target</code></a></li>
+<li><a href="#bfd_005fget_005ftarget_005finfo" accesskey="4"><code>bfd_get_target_info</code></a></li>
+<li><a href="#bfd_005ftarget_005flist" accesskey="5"><code>bfd_target_list</code></a></li>
+<li><a href="#bfd_005fiterate_005fover_005ftargets" accesskey="6"><code>bfd_iterate_over_targets</code></a></li>
+<li><a href="#bfd_005fflavour_005fname" accesskey="7"><code>bfd_flavour_name</code></a></li>
 </ul>
+<div class="subsubsection" id="g_t_005fbfd_005fper_005fxvec_005fwarn">
+<h4 class="subsubsection">2.12.1.1 <code>_bfd_per_xvec_warn</code></h4>
+<p><strong>Synopsis</strong>
+</p><div class="example">
+<pre class="example">struct per_xvec_message **_bfd_per_xvec_warn (const bfd_target *, size_t);
+</pre></div>
+<p><strong>Description</strong><br>
+Return a location for the given target xvec to use for
+warnings specific to that target.  If TARG is NULL, returns
+the array of per_xvec_message pointers, otherwise if ALLOC is
+zero, returns a pointer to a pointer to the list of messages
+for TARG, otherwise (both TARG and ALLOC non-zero), allocates
+a new   per_xvec_message with space for a string of ALLOC
+bytes and returns a pointer to a pointer to it.  May return a
+pointer to a NULL pointer on allocation failure.
+</p>
+<span id="index-bfd_005fset_005fdefault_005ftarget"></span>
+</div>
 <div class="subsubsection" id="bfd_005fset_005fdefault_005ftarget">
-<h4 class="subsubsection">2.12.1.1 <code>bfd_set_default_target</code></h4>
+<h4 class="subsubsection">2.12.1.2 <code>bfd_set_default_target</code></h4>
 <p><strong>Synopsis</strong>
 </p><div class="example">
 <pre class="example">bool bfd_set_default_target (const char *name);
@@ -675,7 +710,7 @@ name or a configuration triplet.
 <span id="index-bfd_005ffind_005ftarget"></span>
 </div>
 <div class="subsubsection" id="bfd_005ffind_005ftarget">
-<h4 class="subsubsection">2.12.1.2 <code>bfd_find_target</code></h4>
+<h4 class="subsubsection">2.12.1.3 <code>bfd_find_target</code></h4>
 <p><strong>Synopsis</strong>
 </p><div class="example">
 <pre class="example">const bfd_target *bfd_find_target (const char *target_name, bfd *abfd);
@@ -695,7 +730,7 @@ one that matches the file being read.
 <span id="index-bfd_005fget_005ftarget_005finfo"></span>
 </div>
 <div class="subsubsection" id="bfd_005fget_005ftarget_005finfo">
-<h4 class="subsubsection">2.12.1.3 <code>bfd_get_target_info</code></h4>
+<h4 class="subsubsection">2.12.1.4 <code>bfd_get_target_info</code></h4>
 <p><strong>Synopsis</strong>
 </p><div class="example">
 <pre class="example">const bfd_target *bfd_get_target_info (const char *target_name,
@@ -727,7 +762,7 @@ string specified by the target_name.
 <span id="index-bfd_005ftarget_005flist"></span>
 </div>
 <div class="subsubsection" id="bfd_005ftarget_005flist">
-<h4 class="subsubsection">2.12.1.4 <code>bfd_target_list</code></h4>
+<h4 class="subsubsection">2.12.1.5 <code>bfd_target_list</code></h4>
 <p><strong>Synopsis</strong>
 </p><div class="example">
 <pre class="example">const char ** bfd_target_list (void);
@@ -740,7 +775,7 @@ modify the names.
 <span id="index-bfd_005fiterate_005fover_005ftargets"></span>
 </div>
 <div class="subsubsection" id="bfd_005fiterate_005fover_005ftargets">
-<h4 class="subsubsection">2.12.1.5 <code>bfd_iterate_over_targets</code></h4>
+<h4 class="subsubsection">2.12.1.6 <code>bfd_iterate_over_targets</code></h4>
 <p><strong>Synopsis</strong>
 </p><div class="example">
 <pre class="example">const bfd_target *bfd_iterate_over_targets
@@ -756,7 +791,7 @@ vector.  Return NULL if <var>func</var> always returns zero.
 <span id="index-bfd_005fflavour_005fname"></span>
 </div>
 <div class="subsubsection" id="bfd_005fflavour_005fname">
-<h4 class="subsubsection">2.12.1.6 <code>bfd_flavour_name</code></h4>
+<h4 class="subsubsection">2.12.1.7 <code>bfd_flavour_name</code></h4>
 <p><strong>Synopsis</strong>
 </p><div class="example">
 <pre class="example">const char *bfd_flavour_name (enum bfd_flavour flavour);

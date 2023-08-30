@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the GNU linker LD
 (GNU Binutils)
-version 2.38.50.
+version 2.39.50.
 
 Copyright (C) 1991-2022 Free Software Foundation, Inc.
 
@@ -1058,10 +1058,6 @@ for Solaris compatibility.
 <dt><span><code>-z <var>keyword</var></code></span></dt>
 <dd><p>The recognized keywords are:
 </p><dl compact="compact">
-<dt><span>&lsquo;<samp>bndplt</samp>&rsquo;</span></dt>
-<dd><p>Always generate BND prefix in PLT entries. Supported for Linux/x86_64.
-</p>
-</dd>
 <dt><span>&lsquo;<samp>call-nop=prefix-addr</samp>&rsquo;</span></dt>
 <dt><span>&lsquo;<samp>call-nop=suffix-nop</samp>&rsquo;</span></dt>
 <dt><span>&lsquo;<samp>call-nop=prefix-<var>byte</var></samp>&rsquo;</span></dt>
@@ -1801,6 +1797,16 @@ in filename invoked by -R or &ndash;just-symbols
 <dt><span><code>--no-fatal-warnings</code></span></dt>
 <dd><p>Treat all warnings as errors.  The default behaviour can be restored
 with the option <samp>--no-fatal-warnings</samp>.
+</p>
+<span id="index-_002dw"></span>
+<span id="index-_002d_002dno_002dwarnings"></span>
+</dd>
+<dt><span><code>-w</code></span></dt>
+<dt><span><code>--no-warnings</code></span></dt>
+<dd><p>Do not display any warning or error messages.  This overrides
+<samp>--fatal-warnings</samp> if it has been enabled.  This option can be
+used when it is known that the output binary will not work, but there
+is still a need to create it.
 </p>
 <span id="index-_002d_002dforce_002dexe_002dsuffix"></span>
 </dd>
@@ -2591,6 +2597,34 @@ encountered in a different order.
 object file formats.  For formats like COFF or ELF, the linker can not
 detect the use of global constructors.
 </p>
+<span id="index-_002d_002dwarn_002dexecstack"></span>
+<span id="index-warnings_002c-on-executable-stack"></span>
+<span id="index-executable-stack_002c-warnings-on"></span>
+</dd>
+<dt><span><code>--warn-execstack</code></span></dt>
+<dt><span><code>--no-warn-execstack</code></span></dt>
+<dd><p>On ELF platforms this option controls how the linker generates warning
+messages when it creates an output file with an executable stack.  By
+default the linker will not warn if the <code>-z execstack</code> command
+line option has been used, but this behaviour can be overridden by the
+<samp>--warn-execstack</samp> option.
+</p>
+<p>On the other hand the linker will normally warn if the stack is made
+executable because one or more of the input files need an execuable
+stack and neither of the <code>-z execstack</code> or <code>-z
+noexecstack</code> command line options have been specified.  This warning
+can be disabled via the <code>--no-warn-execstack</code> option.
+</p>
+<p>Note: ELF format input files specify that they need an executable
+stack by having a <var>.note.GNU-stack</var> section with the executable
+bit set in its section flags.  They can specify that they do not need
+an executable stack by having that section, but without the executable
+flag bit set.  If an input file does not have a <var>.note.GNU-stack</var>
+section present then the default behaviour is target specific.  For
+some targets, then absence of such a section implies that an
+executable stack <em>is</em> required.  This is often a problem for hand
+crafted assembler files.
+</p>
 <span id="index-_002d_002dwarn_002dmultiple_002dgp"></span>
 </dd>
 <dt><span><code>--warn-multiple-gp</code></span></dt>
@@ -2613,6 +2647,23 @@ option causes a warning to be issued whenever this case occurs.
 <dt><span><code>--warn-once</code></span></dt>
 <dd><p>Only warn once for each undefined symbol, rather than once per module
 which refers to it.
+</p>
+<span id="index-_002d_002dwarn_002drwx_002dsegments"></span>
+<span id="index-warnings_002c-on-writeable-and-exectuable-segments"></span>
+<span id="index-executable-segments_002c-warnings-on"></span>
+</dd>
+<dt><span><code>--warn-rwx-segments</code></span></dt>
+<dt><span><code>--no-warn-rwx-segments</code></span></dt>
+<dd><p>Warn if the linker creates a loadable, non-zero sized segment that has
+all three of the read, write and execute permission flags set.  Such a
+segment represents a potential security vulnerability.  In addition
+warnings will be generated if a thread local storage segment is
+created with the execute permission flag set, regardless of whether or
+not it has the read and/or write flags set.
+</p>
+<p>These warnings are enabled by default.  They can be disabled via the
+<samp>--no-warn-rwx-segments</samp> option and re-enabled via the
+<samp>--warn-rwx-segments</samp> option.
 </p>
 <span id="index-_002d_002dwarn_002dsection_002dalign"></span>
 <span id="index-warnings_002c-on-section-alignment"></span>
@@ -2734,7 +2785,9 @@ section and ELF <code>PT_GNU_EH_FRAME</code> segment header.
 <dt><span><code>--no-ld-generated-unwind-info</code></span></dt>
 <dd><p>Request creation of <code>.eh_frame</code> unwind info for linker
 generated code sections like PLT.  This option is on by default
-if linker generated unwind info is supported.
+if linker generated unwind info is supported.  This option also
+controls the generation of <code>.sframe</code> unwind info for linker
+generated code sections like PLT.
 </p>
 <span id="index-_002d_002denable_002dnew_002ddtags"></span>
 <span id="index-_002d_002ddisable_002dnew_002ddtags"></span>
@@ -2772,11 +2825,13 @@ but for most Linux based systems it will be <code>both</code>.
 <span id="index-_002d_002dcompress_002ddebug_002dsections_003dzlib"></span>
 <span id="index-_002d_002dcompress_002ddebug_002dsections_003dzlib_002dgnu"></span>
 <span id="index-_002d_002dcompress_002ddebug_002dsections_003dzlib_002dgabi"></span>
+<span id="index-_002d_002dcompress_002ddebug_002dsections_003dzstd"></span>
 </dd>
 <dt><span><code>--compress-debug-sections=none</code></span></dt>
 <dt><span><code>--compress-debug-sections=zlib</code></span></dt>
 <dt><span><code>--compress-debug-sections=zlib-gnu</code></span></dt>
 <dt><span><code>--compress-debug-sections=zlib-gabi</code></span></dt>
+<dt><span><code>--compress-debug-sections=zstd</code></span></dt>
 <dd><p>On ELF platforms, these options control how DWARF debug sections are
 compressed using zlib.
 </p>
@@ -2789,6 +2844,9 @@ sets the SHF_COMPRESSED flag in the sections&rsquo; headers.
 </p>
 <p>The <samp>--compress-debug-sections=zlib</samp> option is an alias for
 <samp>--compress-debug-sections=zlib-gabi</samp>.
+</p>
+<p><samp>--compress-debug-sections=zstd</samp> compresses DWARF debug sections using
+zstd.
 </p>
 <p>Note that this option overrides any compression in input debug
 sections, so if a binary is linked with <samp>--compress-debug-sections=none</samp>
@@ -2848,6 +2906,19 @@ string identifying the original linked file does not change.
 </p>
 <p>Passing <code>none</code> for <var>style</var> disables the setting from any
 <code>--build-id</code> options earlier on the command line.
+</p>
+<span id="index-_002d_002dpackage_002dmetadata_003dJSON"></span>
+</dd>
+<dt><span><code>--package-metadata=<var>JSON</var></code></span></dt>
+<dd><p>Request the creation of a <code>.note.package</code> ELF note section.  The
+contents of the note are in JSON format, as per the package metadata
+specification.  For more information see:
+https://systemd.io/ELF_PACKAGE_METADATA/
+If the JSON argument is missing/empty then this will disable the
+creation of the metadata note, if one had been enabled by an earlier
+occurrence of the &ndash;package-metdata option.
+If the linker has been built with libjansson, then the JSON string
+will be validated.
 </p></dd>
 </dl>
 

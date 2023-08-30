@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the GNU linker LD
 (GNU Binutils)
-version 2.38.50.
+version 2.39.50.
 
 Copyright (C) 1991-2022 Free Software Foundation, Inc.
 
@@ -70,7 +70,7 @@ Next: <a href="#Overview" accesskey="n" rel="next">Overview</a> &nbsp; [<a href=
 <span id="LD"></span><h1 class="top">LD</h1>
 <p>This file documents the <small>GNU</small> linker ld
 (GNU Binutils)
-version 2.38.50.
+version 2.39.50.
 </p>
 <p>This document is distributed under the terms of the GNU Free
 Documentation License version 1.3.  A copy of the license is included
@@ -1272,10 +1272,6 @@ for Solaris compatibility.
 <dt><span><code>-z <var>keyword</var></code></span></dt>
 <dd><p>The recognized keywords are:
 </p><dl compact="compact">
-<dt><span>&lsquo;<samp>bndplt</samp>&rsquo;</span></dt>
-<dd><p>Always generate BND prefix in PLT entries. Supported for Linux/x86_64.
-</p>
-</dd>
 <dt><span>&lsquo;<samp>call-nop=prefix-addr</samp>&rsquo;</span></dt>
 <dt><span>&lsquo;<samp>call-nop=suffix-nop</samp>&rsquo;</span></dt>
 <dt><span>&lsquo;<samp>call-nop=prefix-<var>byte</var></samp>&rsquo;</span></dt>
@@ -2015,6 +2011,16 @@ in filename invoked by -R or &ndash;just-symbols
 <dt><span><code>--no-fatal-warnings</code></span></dt>
 <dd><p>Treat all warnings as errors.  The default behaviour can be restored
 with the option <samp>--no-fatal-warnings</samp>.
+</p>
+<span id="index-_002dw"></span>
+<span id="index-_002d_002dno_002dwarnings"></span>
+</dd>
+<dt><span><code>-w</code></span></dt>
+<dt><span><code>--no-warnings</code></span></dt>
+<dd><p>Do not display any warning or error messages.  This overrides
+<samp>--fatal-warnings</samp> if it has been enabled.  This option can be
+used when it is known that the output binary will not work, but there
+is still a need to create it.
 </p>
 <span id="index-_002d_002dforce_002dexe_002dsuffix"></span>
 </dd>
@@ -2805,6 +2811,34 @@ encountered in a different order.
 object file formats.  For formats like COFF or ELF, the linker can not
 detect the use of global constructors.
 </p>
+<span id="index-_002d_002dwarn_002dexecstack"></span>
+<span id="index-warnings_002c-on-executable-stack"></span>
+<span id="index-executable-stack_002c-warnings-on"></span>
+</dd>
+<dt><span><code>--warn-execstack</code></span></dt>
+<dt><span><code>--no-warn-execstack</code></span></dt>
+<dd><p>On ELF platforms this option controls how the linker generates warning
+messages when it creates an output file with an executable stack.  By
+default the linker will not warn if the <code>-z execstack</code> command
+line option has been used, but this behaviour can be overridden by the
+<samp>--warn-execstack</samp> option.
+</p>
+<p>On the other hand the linker will normally warn if the stack is made
+executable because one or more of the input files need an execuable
+stack and neither of the <code>-z execstack</code> or <code>-z
+noexecstack</code> command line options have been specified.  This warning
+can be disabled via the <code>--no-warn-execstack</code> option.
+</p>
+<p>Note: ELF format input files specify that they need an executable
+stack by having a <var>.note.GNU-stack</var> section with the executable
+bit set in its section flags.  They can specify that they do not need
+an executable stack by having that section, but without the executable
+flag bit set.  If an input file does not have a <var>.note.GNU-stack</var>
+section present then the default behaviour is target specific.  For
+some targets, then absence of such a section implies that an
+executable stack <em>is</em> required.  This is often a problem for hand
+crafted assembler files.
+</p>
 <span id="index-_002d_002dwarn_002dmultiple_002dgp"></span>
 </dd>
 <dt><span><code>--warn-multiple-gp</code></span></dt>
@@ -2827,6 +2861,23 @@ option causes a warning to be issued whenever this case occurs.
 <dt><span><code>--warn-once</code></span></dt>
 <dd><p>Only warn once for each undefined symbol, rather than once per module
 which refers to it.
+</p>
+<span id="index-_002d_002dwarn_002drwx_002dsegments"></span>
+<span id="index-warnings_002c-on-writeable-and-exectuable-segments"></span>
+<span id="index-executable-segments_002c-warnings-on"></span>
+</dd>
+<dt><span><code>--warn-rwx-segments</code></span></dt>
+<dt><span><code>--no-warn-rwx-segments</code></span></dt>
+<dd><p>Warn if the linker creates a loadable, non-zero sized segment that has
+all three of the read, write and execute permission flags set.  Such a
+segment represents a potential security vulnerability.  In addition
+warnings will be generated if a thread local storage segment is
+created with the execute permission flag set, regardless of whether or
+not it has the read and/or write flags set.
+</p>
+<p>These warnings are enabled by default.  They can be disabled via the
+<samp>--no-warn-rwx-segments</samp> option and re-enabled via the
+<samp>--warn-rwx-segments</samp> option.
 </p>
 <span id="index-_002d_002dwarn_002dsection_002dalign"></span>
 <span id="index-warnings_002c-on-section-alignment"></span>
@@ -2948,7 +2999,9 @@ section and ELF <code>PT_GNU_EH_FRAME</code> segment header.
 <dt><span><code>--no-ld-generated-unwind-info</code></span></dt>
 <dd><p>Request creation of <code>.eh_frame</code> unwind info for linker
 generated code sections like PLT.  This option is on by default
-if linker generated unwind info is supported.
+if linker generated unwind info is supported.  This option also
+controls the generation of <code>.sframe</code> unwind info for linker
+generated code sections like PLT.
 </p>
 <span id="index-_002d_002denable_002dnew_002ddtags"></span>
 <span id="index-_002d_002ddisable_002dnew_002ddtags"></span>
@@ -2986,11 +3039,13 @@ but for most Linux based systems it will be <code>both</code>.
 <span id="index-_002d_002dcompress_002ddebug_002dsections_003dzlib"></span>
 <span id="index-_002d_002dcompress_002ddebug_002dsections_003dzlib_002dgnu"></span>
 <span id="index-_002d_002dcompress_002ddebug_002dsections_003dzlib_002dgabi"></span>
+<span id="index-_002d_002dcompress_002ddebug_002dsections_003dzstd"></span>
 </dd>
 <dt><span><code>--compress-debug-sections=none</code></span></dt>
 <dt><span><code>--compress-debug-sections=zlib</code></span></dt>
 <dt><span><code>--compress-debug-sections=zlib-gnu</code></span></dt>
 <dt><span><code>--compress-debug-sections=zlib-gabi</code></span></dt>
+<dt><span><code>--compress-debug-sections=zstd</code></span></dt>
 <dd><p>On ELF platforms, these options control how DWARF debug sections are
 compressed using zlib.
 </p>
@@ -3003,6 +3058,9 @@ sets the SHF_COMPRESSED flag in the sections&rsquo; headers.
 </p>
 <p>The <samp>--compress-debug-sections=zlib</samp> option is an alias for
 <samp>--compress-debug-sections=zlib-gabi</samp>.
+</p>
+<p><samp>--compress-debug-sections=zstd</samp> compresses DWARF debug sections using
+zstd.
 </p>
 <p>Note that this option overrides any compression in input debug
 sections, so if a binary is linked with <samp>--compress-debug-sections=none</samp>
@@ -3062,6 +3120,19 @@ string identifying the original linked file does not change.
 </p>
 <p>Passing <code>none</code> for <var>style</var> disables the setting from any
 <code>--build-id</code> options earlier on the command line.
+</p>
+<span id="index-_002d_002dpackage_002dmetadata_003dJSON"></span>
+</dd>
+<dt><span><code>--package-metadata=<var>JSON</var></code></span></dt>
+<dd><p>Request the creation of a <code>.note.package</code> ELF note section.  The
+contents of the note are in JSON format, as per the package metadata
+specification.  For more information see:
+https://systemd.io/ELF_PACKAGE_METADATA/
+If the JSON argument is missing/empty then this will disable the
+creation of the metadata note, if one had been enabled by an earlier
+occurrence of the &ndash;package-metdata option.
+If the linker has been built with libjansson, then the JSON string
+will be validated.
 </p></dd>
 </dl>
 
@@ -5842,10 +5913,12 @@ parentheses.  The following types are defined:
 <dt><span><code>NOLOAD</code></span></dt>
 <dd><p>The section should be marked as not loadable, so that it will not be
 loaded into memory when the program is run.
-</p></dd>
+</p>
+</dd>
 <dt><span><code>READONLY</code></span></dt>
 <dd><p>The section should be marked as read-only.
-</p></dd>
+</p>
+</dd>
 <dt><span><code>DSECT</code></span></dt>
 <dt><span><code>COPY</code></span></dt>
 <dt><span><code>INFO</code></span></dt>
@@ -5854,7 +5927,8 @@ loaded into memory when the program is run.
 rarely used.  They all have the same effect: the section should be
 marked as not allocatable, so that no memory is allocated for the
 section when the program is run.
-</p></dd>
+</p>
+</dd>
 <dt><span><code>TYPE = <var>type</var></code></span></dt>
 <dd><p>Set the section type to the integer <var>type</var>. When generating an ELF
 output file, type names <code>SHT_PROGBITS</code>, <code>SHT_STRTAB</code>,
@@ -5862,11 +5936,31 @@ output file, type names <code>SHT_PROGBITS</code>, <code>SHT_STRTAB</code>,
 <code>SHT_FINI_ARRAY</code>, and <code>SHT_PREINIT_ARRAY</code> are also allowed
 for <var>type</var>.  It is the user&rsquo;s responsibility to ensure that any
 special requirements of the section type are met.
-</p></dd>
+</p>
+<p>Note - the TYPE only is used if some or all of the contents of the
+section do not have an implicit type of their own.  So for example:
+</p><div class="example">
+<pre class="example">  .foo . TYPE = SHT_PROGBITS { *(.bar) }
+</pre></div>
+<p>will set the type of section &lsquo;<samp>.foo</samp>&rsquo; to the type of the section
+&lsquo;<samp>.bar</samp>&rsquo; in the input files, which may not be the SHT_PROGBITS
+type.  Whereas:
+</p><div class="example">
+<pre class="example">  .foo . TYPE = SHT_PROGBITS { BYTE(1) }
+</pre></div>
+<p>will set the type of &lsquo;<samp>.foo</samp>&rsquo; to SHT_PROGBBITS.  If it is necessary
+to override the type of incoming sections and force the output section
+type then an extra piece of untyped data will be needed:
+</p><div class="example">
+<pre class="example">  .foo . TYPE = SHT_PROGBITS { BYTE(1); *(.bar) }
+</pre></div>
+
+</dd>
 <dt><span><code>READONLY ( TYPE = <var>type</var> )</code></span></dt>
 <dd><p>This form of the syntax combines the <var>READONLY</var> type with the
 type specified by <var>type</var>.
-</p></dd>
+</p>
+</dd>
 </dl>
 
 <span id="index-NOLOAD"></span>
@@ -10513,6 +10607,7 @@ Previous: <a href="#GNU-Free-Documentation-License" accesskey="p" rel="prev">GNU
 <tr><td></td><td valign="top"><a href="#index-_002d_002dcompress_002ddebug_002dsections_003dzlib"><code>--compress-debug-sections=zlib</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002d_002dcompress_002ddebug_002dsections_003dzlib_002dgabi"><code>--compress-debug-sections=zlib-gabi</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002d_002dcompress_002ddebug_002dsections_003dzlib_002dgnu"><code>--compress-debug-sections=zlib-gnu</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-_002d_002dcompress_002ddebug_002dsections_003dzstd"><code>--compress-debug-sections=zstd</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002d_002dcopy_002ddt_002dneeded_002dentries"><code>--copy-dt-needed-entries</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002d_002dcref"><code>--cref</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002d_002dctf_002dshare_002dtypes"><code>--ctf-share-types</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
@@ -10688,6 +10783,7 @@ Previous: <a href="#GNU-Free-Documentation-License" accesskey="p" rel="prev">GNU
 <tr><td></td><td valign="top"><a href="#index-_002d_002dno_002dundefined_002dversion"><code>--no-undefined-version</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002d_002dno_002dwarn_002dmismatch"><code>--no-warn-mismatch</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002d_002dno_002dwarn_002dsearch_002dmismatch"><code>--no-warn-search-mismatch</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-_002d_002dno_002dwarnings"><code>--no-warnings</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002d_002dno_002dwchar_002dsize_002dwarning"><code>--no-wchar-size-warning</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#ARM">ARM</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002d_002dno_002dwhole_002darchive"><code>--no-whole-archive</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002d_002dnoinhibit_002dexec"><code>--noinhibit-exec</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
@@ -10700,6 +10796,7 @@ Previous: <a href="#GNU-Free-Documentation-License" accesskey="p" rel="prev">GNU
 <tr><td></td><td valign="top"><a href="#index-_002d_002dout_002dimplib"><code>--out-implib</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002d_002doutput_002ddef"><code>--output-def</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002d_002doutput_003doutput"><code>--output=<var>output</var></code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-_002d_002dpackage_002dmetadata_003dJSON"><code>--package-metadata=<var>JSON</var></code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002d_002dpic_002dexecutable"><code>--pic-executable</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002d_002dpic_002dveneer"><code>--pic-veneer</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#ARM">ARM</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002d_002dplt_002dalign"><code>--plt-align</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#PowerPC64-ELF64">PowerPC64 ELF64</a></td></tr>
@@ -10773,8 +10870,10 @@ Previous: <a href="#GNU-Free-Documentation-License" accesskey="p" rel="prev">GNU
 <tr><td></td><td valign="top"><a href="#index-_002d_002dwarn_002dalternate_002dem"><code>--warn-alternate-em</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002d_002dwarn_002dcommon"><code>--warn-common</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002d_002dwarn_002dconstructors"><code>--warn-constructors</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-_002d_002dwarn_002dexecstack"><code>--warn-execstack</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002d_002dwarn_002dmultiple_002dgp"><code>--warn-multiple-gp</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002d_002dwarn_002donce"><code>--warn-once</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-_002d_002dwarn_002drwx_002dsegments"><code>--warn-rwx-segments</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002d_002dwarn_002dsection_002dalign"><code>--warn-section-align</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002d_002dwarn_002dtextrel"><code>--warn-textrel</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002d_002dwarn_002dunresolved_002dsymbols"><code>--warn-unresolved-symbols</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
@@ -10854,6 +10953,7 @@ Previous: <a href="#GNU-Free-Documentation-License" accesskey="p" rel="prev">GNU
 <tr><td></td><td valign="top"><a href="#index-_002dUr"><code>-Ur</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002dv"><code>-v</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002dV"><code>-V</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-_002dw"><code>-w</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002dx"><code>-x</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002dX"><code>-X</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002dY-path"><code>-Y <var>path</var></code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
@@ -11008,6 +11108,8 @@ Previous: <a href="#GNU-Free-Documentation-License" accesskey="p" rel="prev">GNU
 <tr><td></td><td valign="top"><a href="#index-error-on-valid-input">error on valid input</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Bug-Criteria">Bug Criteria</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-example-of-linker-script">example of linker script</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Simple-Example">Simple Example</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-EXCLUDE_005fFILE">EXCLUDE_FILE</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Input-Section-Basics">Input Section Basics</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-executable-segments_002c-warnings-on">executable segments, warnings on</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-executable-stack_002c-warnings-on">executable stack, warnings on</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-export-dynamic-symbol">export dynamic symbol</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-export-dynamic-symbol-list">export dynamic symbol list</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-exporting-DLL-symbols">exporting DLL symbols</a>:</td><td>&nbsp;</td><td valign="top"><a href="#WIN32">WIN32</a></td></tr>
@@ -11397,8 +11499,10 @@ Previous: <a href="#GNU-Free-Documentation-License" accesskey="p" rel="prev">GNU
 <tr><td colspan="4"> <hr></td></tr>
 <tr><th id="LD-Index_cp_letter-W">W</th><td></td><td></td></tr>
 <tr><td></td><td valign="top"><a href="#index-warnings_002c-on-combining-symbols">warnings, on combining symbols</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-warnings_002c-on-executable-stack">warnings, on executable stack</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-warnings_002c-on-section-alignment">warnings, on section alignment</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-warnings_002c-on-undefined-symbols">warnings, on undefined symbols</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-warnings_002c-on-writeable-and-exectuable-segments">warnings, on writeable and exectuable segments</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-weak-externals">weak externals</a>:</td><td>&nbsp;</td><td valign="top"><a href="#WIN32">WIN32</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-what-is-this_003f">what is this?</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Overview">Overview</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-wildcard-file-name-patterns">wildcard file name patterns</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Input-Section-Wildcards">Input Section Wildcards</a></td></tr>

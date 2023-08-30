@@ -222,11 +222,15 @@ struct bfd
   /* Put pathnames into archives (non-POSIX).  */
 #define BFD_ARCHIVE_FULL_PATH  0x100000
 
+#define BFD_CLOSED_BY_CACHE    0x200000
+  /* Compress sections in this BFD with SHF_COMPRESSED zstd.  */
+#define BFD_COMPRESS_ZSTD      0x400000
+
   /* Flags bits to be saved in bfd_preserve_save.  */
 #define BFD_FLAGS_SAVED \
   (BFD_IN_MEMORY | BFD_COMPRESS | BFD_DECOMPRESS | BFD_LINKER_CREATED \
    | BFD_PLUGIN | BFD_COMPRESS_GABI | BFD_CONVERT_ELF_COMMON \
-   | BFD_USE_ELF_STT_COMMON)
+   | BFD_USE_ELF_STT_COMMON | BFD_COMPRESS_ZSTD)
 
   /* Flags bits which are for BFD use only.  */
 #define BFD_FLAGS_FOR_BFD_USE_MASK \
@@ -557,6 +561,14 @@ bfd_get_section_limit (const bfd *abfd, const asection *sec)
 {
   return (bfd_get_section_limit_octets (abfd, sec)
           / bfd_octets_per_byte (abfd, sec));
+}
+
+static inline bfd_size_type
+bfd_get_section_alloc_size (const bfd *abfd, const asection *sec)
+{
+  if (abfd-&gt;direction != write_direction &amp;&amp; sec-&gt;rawsize &gt; sec-&gt;size)
+    return sec-&gt;rawsize;
+  return sec-&gt;size;
 }
 
 /* Functions to handle insertion and deletion of a bfd's sections.  These

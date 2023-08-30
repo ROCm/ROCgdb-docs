@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- Copyright (C) 2021-2022 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU General Public License, Version 3 or any
+later version published by the Free Software Foundation.  A copy of the
+license is included in the section entitled "GNU General Public
+License".
+ -->
+<title>The SFrame FRE types (The SFrame Format)</title>
+
+<meta name="description" content="The SFrame FRE types (The SFrame Format)">
+<meta name="keywords" content="The SFrame FRE types (The SFrame Format)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="SFrame-Function-Descriptor-Entries.html" rel="up" title="SFrame Function Descriptor Entries">
+<link href="The-SFrame-FDE-types.html" rel="prev" title="The SFrame FDE types">
+<style type="text/css">
+<!--
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<div class="subsection" id="The-SFrame-FRE-types">
+<div class="header">
+<p>
+Previous: <a href="The-SFrame-FDE-types.html" accesskey="p" rel="prev">The SFrame FDE types</a>, Up: <a href="SFrame-Function-Descriptor-Entries.html" accesskey="u" rel="up">SFrame FDE</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<span id="The-SFrame-FRE-types-1"></span><h4 class="subsection">1.3.3 The SFrame FRE types</h4>
+
+<p>A real world application can have functions of size big and small.  SFrame
+format defines three types of SFrame FRE entries to represent the unwind
+information for such a variety of function sizes.  These representations vary
+in the number of bits needed to encode the start address offset in the SFrame
+FRE.
+</p>
+<p>The following constants are defined and used to identify the SFrame FRE types:
+</p>
+<table>
+<thead><tr><th>Name</th><th>Value</th><th>Description
+
+<span id="index-SFRAME_005fFRE_005fTYPE_005fADDR1"></span></th></tr></thead>
+<tr><td><code>SFRAME_FRE_TYPE_ADDR1</code></td><td>0</td><td>The start address offset (in bytes) of the SFrame FRE is an unsigned
+8-bit value.
+
+<span id="index-SFRAME_005fFRE_005fTYPE_005fADDR2"></span></td></tr>
+<tr><td><code>SFRAME_FRE_TYPE_ADDR2</code></td><td>1</td><td>The start address offset (in bytes) of the SFrame FRE is an unsigned
+16-bit value.
+
+<span id="index-SFRAME_005fFRE_005fTYPE_005fADDR4"></span></td></tr>
+<tr><td><code>SFRAME_FRE_TYPE_ADDR4</code></td><td>2</td><td>The start address offset (in bytes) of the SFrame FRE is an unsigned
+32-bit value.</td></tr>
+</table>
+
+<p>A single function must use the same type of FRE throughout.  The choice of
+which SFrame FRE is used to encode the unwind information of a function, is
+stored in the See <a href="The-SFrame-FDE-info-word.html">The SFrame FDE info word</a>.
+</p>
+</div>
+
+
+
+</body>
+</html>

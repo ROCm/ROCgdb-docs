@@ -3,7 +3,7 @@
 <!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright (C) 1988-2022 Free Software Foundation, Inc.
+<!-- Copyright (C) 1988-2023 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -16,35 +16,47 @@ and with the Back-Cover Texts as in (a) below.
 this GNU Manual.  Buying copies from GNU Press supports the FSF in
 developing GNU and promoting software freedom."
 
-Disclaimer
+Legal Disclaimer and Copyright Information
 
-The information contained herein is for informational purposes only,
-and is subject to change without notice.  While every precaution has
-been taken in the preparation of this document, it may contain
-technical inaccuracies, omissions and typographical errors, and AMD is
-under no obligation to update or otherwise correct this information.
-Advanced Micro Devices, Inc. makes no representations or warranties
-with respect to the accuracy or completeness of the contents of this
-document, and assumes no liability of any kind, including the implied
-warranties of noninfringement, merchantability or fitness for
-particular purposes, with respect to the operation or use of AMD
-hardware, software or other products described herein.  No license,
-including implied or arising by estoppel, to any intellectual property
-rights is granted by this document.  Terms and limitations applicable
-to the purchase or use of AMD’s products are as set forth in a signed
-agreement between the parties or in AMD's Standard Terms and
-Conditions of Sale.
+AMD ROCm software is made available by Advanced Micro Devices, Inc. under the
+open source license identified in the top-level directory for the library in
+the repository on Github.com (Portions of AMD ROCm software are
+licensed under MITx11 and UIL/NCSA. For more information on the license, review
+the license.txt in the top-level directory for the library on
+Github.com).  The additional terms and conditions below apply to your use
+of AMD ROCm technical documentation.
 
-AMD(R), the AMD Arrow logo, AMD Instinct(R),
-Radeon(R), ROCm(R) and combinations thereof are
-trademarks of Advanced Micro Devices, Inc.  Linux(R) is the
-registered trademark of Linus Torvalds in the U.S. and other countries.
-PCIe(R) is a registered trademark of PCI-SIG Corporation. Other
-product names used in this publication are for identification purposes only and
-may be trademarks of their respective companies.
+(C)2019-2023 Advanced Micro Devices, Inc.  All rights reserved.
 
-Copyright (C) 2019-2022 Advanced Micro Devices, Inc.  All
-rights reserved. -->
+The information presented in this document is for informational purposes only
+and may contain technical inaccuracies, omissions, and typographical errors.
+The information contained herein is subject to change and may be rendered
+inaccurate for many reasons, including but not limited to product and roadmap
+changes, component and motherboard version changes, new model and/or product
+releases, product differences between differing manufacturers, software
+changes, BIOS flashes, firmware upgrades, or the like.  Any computer system has
+risks of security vulnerabilities that cannot be completely prevented or
+mitigated.  AMD assumes no obligation to update or otherwise correct or revise
+this information.  However, AMD reserves the right to revise this information
+and to make changes from time to time to the content hereof without obligation
+of AMD to notify any person of such revisions or changes.
+
+THIS INFORMATION IS PROVIDED "AS IS."  AMD MAKES NO REPRESENTATIONS OR
+WARRANTIES WITH RESPECT TO THE CONTENTS HEREOF AND ASSUMES NO RESPONSIBILITY
+FOR ANY INACCURACIES, ERRORS, OR OMISSIONS THAT MAY APPEAR IN THIS INFORMATION.
+AMD SPECIFICALLY DISCLAIMS ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT,
+MERCHANTABILITY, OR FITNESS FOR ANY PARTICULAR PURPOSE.  IN NO EVENT WILL AMD
+BE LIABLE TO ANY PERSON FOR ANY RELIANCE, DIRECT, INDIRECT, SPECIAL, OR OTHER
+CONSEQUENTIAL DAMAGES ARISING FROM THE USE OF ANY INFORMATION CONTAINED HEREIN,
+EVEN IF AMD IS EXPRESSLY ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+
+AMD, the AMD Arrow logo, AMD Instinct™, Radeon™, AMD ROCm™, and combinations
+thereof are trademarks of Advanced Micro Devices, Inc.
+Linux(R) is the registered trademark of Linus Torvalds in the
+U.S. and other countries. PCIe(R) is a registered trademark of
+PCI-SIG Corporation.  Other product names used in this publication are for
+identification purposes only and may be trademarks of their respective
+companies. -->
 <title>All-Stop Mode (Debugging with ROCGDB)</title>
 
 <meta name="description" content="All-Stop Mode (Debugging with ROCGDB)">
@@ -132,20 +144,38 @@ locking the OS scheduler to allow only a single thread to run.
 <dt id='index-scheduler-locking-mode'><span><code>set scheduler-locking <var>mode</var></code><a href='#index-scheduler-locking-mode' class='copiable-anchor'> &para;</a></span></dt>
 <dd><span id="index-lock-scheduler"></span>
 <span id="set-scheduler_002dlocking"></span><p>Set the scheduler locking mode.  It applies to normal execution,
-record mode, and replay mode.  If it is <code>off</code>, then there is no
-locking and any thread may run at any time.  If <code>on</code>, then only
-the current thread may run when the inferior is resumed.  The
-<code>step</code> mode optimizes for single-stepping; it prevents other
-threads from preempting the current thread while you are stepping, so
-that the focus of debugging does not change unexpectedly.  Other
-threads never get a chance to run when you step, and they are
-completely free to run when you use commands like &lsquo;<samp>continue</samp>&rsquo;,
-&lsquo;<samp>until</samp>&rsquo;, or &lsquo;<samp>finish</samp>&rsquo;.  However, unless another thread hits a
-breakpoint during its timeslice, <small>ROCGDB</small> does not change the
-current thread away from the thread that you are debugging.  The
-<code>replay</code> mode behaves like <code>off</code> in record mode and like
-<code>on</code> in replay mode.
+record mode, and replay mode.  <var>mode</var> can be one of
+the following:
 </p>
+<dl compact="compact">
+<dt><span><code>off</code></span></dt>
+<dd><p>There is no locking and any thread may run at any time.
+</p>
+</dd>
+<dt><span><code>on</code></span></dt>
+<dd><p>Only the current thread may run when the inferior is resumed.
+</p>
+</dd>
+<dt><span><code>step</code></span></dt>
+<dd><p>Behaves like <code>on</code> when stepping, and <code>off</code> otherwise.
+Threads other than the current never get a chance to run when you
+step, and they are completely free to run when you use commands like
+&lsquo;<samp>continue</samp>&rsquo;, &lsquo;<samp>until</samp>&rsquo;, or &lsquo;<samp>finish</samp>&rsquo;.
+</p>
+<p>This mode optimizes for single-stepping; it prevents other threads
+from preempting the current thread while you are stepping, so that the
+focus of debugging does not change unexpectedly.  However, unless
+another thread hits a breakpoint during its timeslice, <small>ROCGDB</small>
+does not change the current thread away from the thread that you are
+debugging.
+</p>
+</dd>
+<dt><span><code>replay</code></span></dt>
+<dd><p>Behaves like <code>on</code> in replay mode, and <code>off</code> in either record
+mode or during normal execution.  This is the default mode.
+</p></dd>
+</dl>
+
 <p>If supported by the target, when scheduler-locking is in effect, new
 threads created by the resumed thread are held stopped.
 </p>
