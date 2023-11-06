@@ -97,6 +97,7 @@ Next: <a href="ranlib.html" accesskey="n" rel="next">ranlib</a>, Previous: <a hr
         [<samp>-wE</samp>|<samp>--dwarf=do-not-use-debuginfod</samp>]
         [<samp>-L</samp>|<samp>--process-links</samp>]
         [<samp>--ctf=</samp><var>section</var>]
+        [<samp>--sframe=</samp><var>section</var>]
         [<samp>-G</samp>|<samp>--stabs</samp>]
         [<samp>-t</samp>|<samp>--syms</samp>]
         [<samp>-T</samp>|<samp>--dynamic-syms</samp>]
@@ -108,6 +109,7 @@ Next: <a href="ranlib.html" accesskey="n" rel="next">ranlib</a>, Previous: <a hr
         [<samp>--prefix-addresses</samp>]
         [<samp>--[no-]show-raw-insn</samp>]
         [<samp>--adjust-vma=</samp><var>offset</var>]
+        [<samp>--show-all-symbols</samp>]
         [<samp>--dwarf-depth=<var>n</var></samp>]
         [<samp>--dwarf-start=<var>n</var></samp>]
         [<samp>--ctf-parent=</samp><var>section</var>]
@@ -117,6 +119,7 @@ Next: <a href="ranlib.html" accesskey="n" rel="next">ranlib</a>, Previous: <a hr
         [<samp>--prefix-strip=</samp><var>level</var>]
         [<samp>--insn-width=</samp><var>width</var>]
         [<samp>--visualize-jumps[=color|=extended-color|=off]</samp>
+        [<samp>--disassembler-color=[off|terminal|on|extended]</samp>
         [<samp>-U</samp> <var>method</var>] [<samp>--unicode=</samp><var>method</var>]
         [<samp>-V</samp>|<samp>--version</samp>]
         [<samp>-H</samp>|<samp>--help</samp>]
@@ -361,6 +364,12 @@ can be useful when disassembling object files which do not describe
 architecture information, such as S-records.  You can list the available
 architectures with the <samp>-i</samp> option.
 </p>
+<p>For most architectures it is possible to supply an architecture
+name and a machine name, separated by a colon.  For example
+&lsquo;<samp>foo:bar</samp>&rsquo; would refer to the &lsquo;<samp>bar</samp>&rsquo; machine type in the
+&lsquo;<samp>foo</samp>&rsquo; architecture.  This can be helpful if objdump has been
+configured to support multiple architectures.
+</p>
 <p>If the target is an ARM architecture then this switch has an
 additional effect.  It restricts the disassembly to only those
 instructions supported by the architecture specified by <var>machine</var>.
@@ -475,7 +484,7 @@ rather than <code>li</code>.  All of the <samp>-m</samp> arguments for
 <samp>601</samp>, <samp>603</samp>, <samp>604</samp>, <samp>620</samp>, <samp>7400</samp>,
 <samp>7410</samp>, <samp>7450</samp>, <samp>7455</samp>, <samp>750cl</samp>,
 <samp>821</samp>, <samp>850</samp>, <samp>860</samp>, <samp>a2</samp>, <samp>booke</samp>,
-<samp>booke32</samp>, <samp>cell</samp>, <samp>com</samp>, <samp>e200z4</samp>,
+<samp>booke32</samp>, <samp>cell</samp>, <samp>com</samp>, <samp>e200z2</samp>, <samp>e200z4</samp>,
 <samp>e300</samp>, <samp>e500</samp>, <samp>e500mc</samp>, <samp>e500mc64</samp>,
 <samp>e500x2</samp>, <samp>e5500</samp>, <samp>e6500</samp>, <samp>efs</samp>,
 <samp>power4</samp>, <samp>power5</samp>, <samp>power6</samp>, <samp>power7</samp>,
@@ -483,12 +492,13 @@ rather than <code>li</code>.  All of the <samp>-m</samp> arguments for
 <samp>ppc32</samp>, <samp>ppc64</samp>, <samp>ppc64bridge</samp>, <samp>ppcps</samp>,
 <samp>pwr</samp>, <samp>pwr2</samp>, <samp>pwr4</samp>, <samp>pwr5</samp>, <samp>pwr5x</samp>,
 <samp>pwr6</samp>, <samp>pwr7</samp>, <samp>pwr8</samp>, <samp>pwr9</samp>, <samp>pwr10</samp>,
-<samp>pwrx</samp>, <samp>titan</samp>, and <samp>vle</samp>.
+<samp>pwrx</samp>, <samp>titan</samp>, <samp>vle</samp>, and <samp>future</samp>.
 <samp>32</samp> and <samp>64</samp> modify the default or a prior CPU
 selection, disabling and enabling 64-bit insns respectively.  In
-addition, <samp>altivec</samp>, <samp>any</samp>, <samp>htm</samp>, <samp>vsx</samp>,
-and <samp>spe</samp> add capabilities to a previous <em>or later</em> CPU
-selection.  <samp>any</samp> will disassemble any opcode known to
+addition, <samp>altivec</samp>, <samp>any</samp>, <samp>lsp</samp>, <samp>htm</samp>,
+<samp>vsx</samp>, <samp>spe</samp> and  <samp>spe2</samp> add capabilities to a
+previous <em>or later</em> CPU selection.
+<samp>any</samp> will disassemble any opcode known to
 binutils, but in cases where an opcode has two different meanings or
 different arguments, you may not see the disassembly you expect.
 If you disassemble without giving a CPU selection, a default will be
@@ -632,6 +642,11 @@ non-empty sections are displayed.
 <samp>-d</samp>.
 </p>
 </dd>
+<dt><span><code>--show-all-symbols</code></span></dt>
+<dd><p>When disassembling, show all the symbols that match a given address,
+not just the first one.
+</p>
+</dd>
 <dt id='index-source-disassembly-1'><span><code>--source-comment[=<var>txt</var>]</code><a href='#index-source-disassembly-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><span id="index-disassembly_002c-with-source-1"></span>
 <p>Like the <samp>-S</samp> option, but all source code lines are displayed
@@ -677,6 +692,28 @@ colors, but these might not work on all terminals.
 <p>If it is necessary to disable the <samp>visualize-jumps</samp> option
 after it has previously been enabled then use
 <samp>visualize-jumps=off</samp>.
+</p>
+</dd>
+<dt><span><code>--disassembler-color=off</code></span></dt>
+<dt><span><code>--disassembler-color=terminal</code></span></dt>
+<dt><span><code>--disassembler-color=on|color|colour</code></span></dt>
+<dt><span><code>--disassembler-color=extened|extended-color|extened-colour</code></span></dt>
+<dd><p>Enables or disables the use of colored syntax highlighting in
+disassembly output.  The default behaviour is determined via a
+configure time option.  Note, not all architectures support colored
+syntax highlighting, and depending upon the terminal used, colored
+output may not actually be legible.
+</p>
+<p>The <samp>on</samp> argument adds colors using simple terminal colors.
+</p>
+<p>The <samp>terminal</samp> argument does the same, but only if the output
+device is a terminal.
+</p>
+<p>The <samp>extended-color</samp> argument is similar to the <samp>on</samp>
+argument, but it uses 8-bit colors.  These may not work on all
+terminals.
+</p>
+<p>The <samp>off</samp> argument disables colored disassembly.
 </p>
 </dd>
 <dt><span><code>-W[lLiaprmfFsoORtUuTgAckK]</code></span></dt>
@@ -908,6 +945,15 @@ function at link time.  When looking at CTF archives that have been
 created by a linker that uses the name changer to rename the parent
 archive member, <samp>--ctf-parent</samp> can be used to specify the name
 used for the parent.
+</p>
+
+</dd>
+<dt id='index-SFrame'><span><code>--sframe[=<var>section</var>]</code><a href='#index-SFrame' class='copiable-anchor'> &para;</a></span></dt>
+<dd>
+<p>Display the contents of the specified SFrame section.
+</p>
+<p>By default, display the name of the section named <var>.sframe</var>, which is the
+name emitted by <code>ld</code>.
 </p>
 </dd>
 <dt id='index-stab'><span><code>-G</code><a href='#index-stab' class='copiable-anchor'> &para;</a></span></dt>

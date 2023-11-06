@@ -70,27 +70,42 @@ see <a href="Invoking.html">Command-Line Options</a>.
 
 
 <div class="example">
-<pre class="example">as [<b>-a</b>[<b>cdghlns</b>][=<var>file</var>]] [<b>&ndash;alternate</b>] [<b>-D</b>]
- [<b>&ndash;compress-debug-sections</b>]  [<b>&ndash;nocompress-debug-sections</b>]
+<pre class="example">as [<b>-a</b>[<b>cdghlns</b>][=<var>file</var>]]
+ [<b>&ndash;alternate</b>]
+ [<b>&ndash;compress-debug-sections</b>] [<b>&ndash;nocompress-debug-sections</b>]
+ [<b>-D</b>]
+ [<b>&ndash;dump-config</b>]
  [<b>&ndash;debug-prefix-map</b> <var>old</var>=<var>new</var>]
- [<b>&ndash;defsym</b> <var>sym</var>=<var>val</var>] [<b>-f</b>] [<b>-g</b>] [<b>&ndash;gstabs</b>]
- [<b>&ndash;gstabs+</b>] [<b>&ndash;gdwarf-&lt;N&gt;</b>] [<b>&ndash;gdwarf-sections</b>]
+ [<b>&ndash;defsym</b> <var>sym</var>=<var>val</var>]
+ [<b>&ndash;elf-stt-common=[no|yes]</b>]
+ [<b>&ndash;emulation</b>=<var>name</var>]
+ [<b>-f</b>]
+ [<b>-g</b>] [<b>&ndash;gstabs</b>] [<b>&ndash;gstabs+</b>]
+ [<b>&ndash;gdwarf-&lt;N&gt;</b>] [<b>&ndash;gdwarf-sections</b>]
  [<b>&ndash;gdwarf-cie-version</b>=<var>VERSION</var>]
- [<b>&ndash;help</b>] [<b>-I</b> <var>dir</var>] [<b>-J</b>]
- [<b>-K</b>] [<b>-L</b>] [<b>&ndash;listing-lhs-width</b>=<var>NUM</var>]
- [<b>&ndash;listing-lhs-width2</b>=<var>NUM</var>] [<b>&ndash;listing-rhs-width</b>=<var>NUM</var>]
- [<b>&ndash;listing-cont-lines</b>=<var>NUM</var>] [<b>&ndash;keep-locals</b>]
+ [<b>&ndash;generate-missing-build-notes=[no|yes]</b>]
+ [<b>&ndash;gsframe</b>]
+ [<b>&ndash;hash-size</b>=<var>N</var>]
+ [<b>&ndash;help</b>] [<b>&ndash;target-help</b>]
+ [<b>-I</b> <var>dir</var>]
+ [<b>-J</b>]
+ [<b>-K</b>]
+ [<b>&ndash;keep-locals</b>]
+ [<b>-L</b>]
+ [<b>&ndash;listing-lhs-width</b>=<var>NUM</var>]
+ [<b>&ndash;listing-lhs-width2</b>=<var>NUM</var>]
+ [<b>&ndash;listing-rhs-width</b>=<var>NUM</var>]
+ [<b>&ndash;listing-cont-lines</b>=<var>NUM</var>]
+ [<b>&ndash;multibyte-handling=[allow|warn|warn-sym-only]</b>]
  [<b>&ndash;no-pad-sections</b>]
  [<b>-o</b> <var>objfile</var>] [<b>-R</b>]
+ [<b>&ndash;sectname-subst</b>]
+ [<b>&ndash;size-check=[error|warning]</b>]
  [<b>&ndash;statistics</b>]
  [<b>-v</b>] [<b>-version</b>] [<b>&ndash;version</b>]
  [<b>-W</b>] [<b>&ndash;warn</b>] [<b>&ndash;fatal-warnings</b>] [<b>-w</b>] [<b>-x</b>]
  [<b>-Z</b>] [<b>@<var>FILE</var></b>]
- [<b>&ndash;sectname-subst</b>] [<b>&ndash;size-check=[error|warning]</b>]
- [<b>&ndash;elf-stt-common=[no|yes]</b>]
- [<b>&ndash;generate-missing-build-notes=[no|yes]</b>]
- [<b>&ndash;multibyte-handling=[allow|warn|warn-sym-only]</b>]
- [<b>&ndash;target-help</b>] [<var>target-options</var>]
+ [<var>target-options</var>]
  [<b>&ndash;</b>|<var>files</var> &hellip;]
 
 <em>Target AArch64 options:</em>
@@ -463,16 +478,19 @@ given section <em>larger</em> then it is not compressed.
 <dt><span><code>--compress-debug-sections=zlib</code></span></dt>
 <dt><span><code>--compress-debug-sections=zlib-gnu</code></span></dt>
 <dt><span><code>--compress-debug-sections=zlib-gabi</code></span></dt>
+<dt><span><code>--compress-debug-sections=zstd</code></span></dt>
 <dd><p>These options control how DWARF debug sections are compressed.
 <samp>--compress-debug-sections=none</samp> is equivalent to
 <samp>--nocompress-debug-sections</samp>.
 <samp>--compress-debug-sections=zlib</samp> and
 <samp>--compress-debug-sections=zlib-gabi</samp> are equivalent to
 <samp>--compress-debug-sections</samp>.
-<samp>--compress-debug-sections=zlib-gnu</samp> compresses DWARF debug
-sections using zlib.  The debug sections are renamed to begin with
-&lsquo;<samp>.zdebug</samp>&rsquo;.  Note if compression would make a given section
-<em>larger</em> then it is not compressed nor renamed.
+<samp>--compress-debug-sections=zlib-gnu</samp> compresses DWARF debug sections
+using the obsoleted zlib-gnu format.  The debug sections are renamed to begin
+with &lsquo;<samp>.zdebug</samp>&rsquo;.
+<samp>--compress-debug-sections=zstd</samp> compresses DWARF debug
+sections using zstd.  Note - if compression would actually make a section
+<em>larger</em>, then it is not compressed nor renamed.
 </p>
 
 </dd>
@@ -483,7 +501,8 @@ override this.
 </p>
 </dd>
 <dt><span><code>-D</code></span></dt>
-<dd><p>Ignored.  This option is accepted for script compatibility with calls to
+<dd><p>Enable denugging in target specific backends, if supported.  Otherwise ignored.
+Even if ignored, this option is accepted for script compatibility with calls to
 other assemblers.
 </p>
 </dd>
@@ -498,6 +517,22 @@ information describing them as in <samp><var>new</var></samp> instead.
 indicates a hexadecimal value, and a leading &lsquo;<samp>0</samp>&rsquo; indicates an octal
 value.  The value of the symbol can be overridden inside a source file via the
 use of a <code>.set</code> pseudo-op.
+</p>
+</dd>
+<dt><span><code>--dump-config</code></span></dt>
+<dd><p>Displays how the assembler is configured and then exits.
+</p>
+</dd>
+<dt><span><code>--elf-stt-common=no</code></span></dt>
+<dt><span><code>--elf-stt-common=yes</code></span></dt>
+<dd><p>These options control whether the ELF assembler should generate common
+symbols with the <code>STT_COMMON</code> type.  The default can be controlled
+by a configure option <samp>--enable-elf-stt-common</samp>.
+</p>
+</dd>
+<dt><span><code>--emulation=<var>name</var></code></span></dt>
+<dd><p>If the assembler is configured to support multiple different target
+configurations then this option can be used to select the desired form.
 </p>
 </dd>
 <dt><span><code>-f</code></span></dt>
@@ -573,18 +608,6 @@ When this flag is not specificed the default is version 1, though some targets
 can modify this default.  Other possible values for <var>version</var> are 3 or 4.
 </p>
 </dd>
-<dt><span><code>--size-check=error</code></span></dt>
-<dt><span><code>--size-check=warning</code></span></dt>
-<dd><p>Issue an error or warning for invalid ELF .size directive.
-</p>
-</dd>
-<dt><span><code>--elf-stt-common=no</code></span></dt>
-<dt><span><code>--elf-stt-common=yes</code></span></dt>
-<dd><p>These options control whether the ELF assembler should generate common
-symbols with the <code>STT_COMMON</code> type.  The default can be controlled
-by a configure option <samp>--enable-elf-stt-common</samp>.
-</p>
-</dd>
 <dt><span><code>--generate-missing-build-notes=yes</code></span></dt>
 <dt><span><code>--generate-missing-build-notes=no</code></span></dt>
 <dd><p>These options control whether the ELF assembler should generate GNU Build
@@ -592,7 +615,16 @@ attribute notes if none are present in the input sources.
 The default can be controlled by the <samp>--enable-generate-build-notes</samp>
 configure option.
 </p>
+</dd>
+<dt><span><code>--gsframe</code></span></dt>
+<dt><span><code>--gsframe</code></span></dt>
+<dd><p>Create <var>.sframe</var> section from CFI directives.
+</p>
 
+</dd>
+<dt><span><code>--hash-size <var>N</var></code></span></dt>
+<dd><p>Ignored.  Supported for command line compatibility with other assemblers.
+</p>
 </dd>
 <dt><span><code>--help</code></span></dt>
 <dd><p>Print a summary of the command-line options and exit.
@@ -645,6 +677,7 @@ to <var>number</var> + 1.
 <dt><span><code>--multibyte-handling=allow</code></span></dt>
 <dt><span><code>--multibyte-handling=warn</code></span></dt>
 <dt><span><code>--multibyte-handling=warn-sym-only</code></span></dt>
+<dt><span><code>--multibyte-handling=warn_sym_only</code></span></dt>
 <dd><p>Controls how the assembler handles multibyte characters in the input.  The
 default (which can be restored by using the <samp>allow</samp> argument) is to
 allow such characters without complaint.  Using the <samp>warn</samp> argument will
@@ -669,9 +702,19 @@ which might be needed on targets which have tight memory constraints.
 <dd><p>Fold the data section into the text section.
 </p>
 </dd>
+<dt><span><code>--reduce-memory-overheads</code></span></dt>
+<dd><p>Ignored.  Supported for compatibility with tools that apss the same option to
+both the assembler and the linker.
+</p>
+</dd>
 <dt><span><code>--sectname-subst</code></span></dt>
 <dd><p>Honor substitution sequences in section names.
 See <a href="Section.html#Section-Name-Substitutions"><code>.section <var>name</var></code></a>.
+</p>
+</dd>
+<dt><span><code>--size-check=error</code></span></dt>
+<dt><span><code>--size-check=warning</code></span></dt>
+<dd><p>Issue an error or warning for invalid ELF .size directive.
 </p>
 </dd>
 <dt><span><code>--statistics</code></span></dt>
@@ -1529,8 +1572,8 @@ Architecture (esa) or the z/Architecture mode (zarch).
 &lsquo;<samp>arch3</samp>&rsquo;), &lsquo;<samp>g6</samp>&rsquo;, &lsquo;<samp>z900</samp>&rsquo; (or &lsquo;<samp>arch5</samp>&rsquo;), &lsquo;<samp>z990</samp>&rsquo; (or
 &lsquo;<samp>arch6</samp>&rsquo;), &lsquo;<samp>z9-109</samp>&rsquo;, &lsquo;<samp>z9-ec</samp>&rsquo; (or &lsquo;<samp>arch7</samp>&rsquo;), &lsquo;<samp>z10</samp>&rsquo; (or
 &lsquo;<samp>arch8</samp>&rsquo;), &lsquo;<samp>z196</samp>&rsquo; (or &lsquo;<samp>arch9</samp>&rsquo;), &lsquo;<samp>zEC12</samp>&rsquo; (or &lsquo;<samp>arch10</samp>&rsquo;),
-&lsquo;<samp>z13</samp>&rsquo; (or &lsquo;<samp>arch11</samp>&rsquo;), &lsquo;<samp>z14</samp>&rsquo; (or &lsquo;<samp>arch12</samp>&rsquo;), or &lsquo;<samp>z15</samp>&rsquo;
-(or &lsquo;<samp>arch13</samp>&rsquo;).
+&lsquo;<samp>z13</samp>&rsquo; (or &lsquo;<samp>arch11</samp>&rsquo;), &lsquo;<samp>z14</samp>&rsquo; (or &lsquo;<samp>arch12</samp>&rsquo;), &lsquo;<samp>z15</samp>&rsquo;
+(or &lsquo;<samp>arch13</samp>&rsquo;), or &lsquo;<samp>z16</samp>&rsquo; (or &lsquo;<samp>arch14</samp>&rsquo;).
 </p></dd>
 <dt><span><code>-mregnames</code></span></dt>
 <dt><span><code>-mno-regnames</code></span></dt>

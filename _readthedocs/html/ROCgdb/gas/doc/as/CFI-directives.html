@@ -91,11 +91,15 @@ Next: <a href="Comm.html" accesskey="n" rel="next"><code>.comm <var>symbol</var>
 <h4 class="subsection">7.12.1 <code>.cfi_sections <var>section_list</var></code></h4>
 <span id="index-cfi_005fsections-directive"></span>
 <p><code>.cfi_sections</code> may be used to specify whether CFI directives
-should emit <code>.eh_frame</code> section and/or <code>.debug_frame</code> section.
-If <var>section_list</var> is <code>.eh_frame</code>, <code>.eh_frame</code> is emitted,
-if <var>section_list</var> is <code>.debug_frame</code>, <code>.debug_frame</code> is emitted.
-To emit both use <code>.eh_frame, .debug_frame</code>.  The default if this
-directive is not used is <code>.cfi_sections .eh_frame</code>.
+should emit <code>.eh_frame</code> section, <code>.debug_frame</code> section and/or
+<code>.sframe</code> section.  If <var>section_list</var> contains <code>.eh_frame</code>,
+<code>.eh_frame</code> is emitted, if <var>section_list</var> contains
+<code>.debug_frame</code>, <code>.debug_frame</code> is emitted, and finally, if
+<var>section_list</var> contains <code>.sframe</code>, <code>.sframe</code> is emitted.
+To emit multiple sections, specify them together in a list.  For example, to
+emit both <code>.eh_frame</code> and <code>.debug_frame</code>, use
+<code>.eh_frame, .debug_frame</code>.  The default if this directive is not used
+is <code>.cfi_sections .eh_frame</code>.
 </p>
 <p>On targets that support compact unwinding tables these can be generated
 by specifying <code>.eh_frame_entry</code> instead of <code>.eh_frame</code>.

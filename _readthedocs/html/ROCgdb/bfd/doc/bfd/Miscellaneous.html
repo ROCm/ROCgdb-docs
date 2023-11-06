@@ -100,11 +100,6 @@ Next: <a href="Memory-Usage.html" accesskey="n" rel="next">Memory Usage</a>, Pre
 <li><a href="#bfd_005femul_005fget_005fmaxpagesize"><code>bfd_emul_get_maxpagesize</code></a></li>
 <li><a href="#bfd_005femul_005fget_005fcommonpagesize"><code>bfd_emul_get_commonpagesize</code></a></li>
 <li><a href="#bfd_005fdemangle"><code>bfd_demangle</code></a></li>
-<li><a href="#bfd_005fupdate_005fcompression_005fheader"><code>bfd_update_compression_header</code></a></li>
-<li><a href="#bfd_005fcheck_005fcompression_005fheader"><code>bfd_check_compression_header</code></a></li>
-<li><a href="#bfd_005fget_005fcompression_005fheader_005fsize"><code>bfd_get_compression_header_size</code></a></li>
-<li><a href="#bfd_005fconvert_005fsection_005fsize"><code>bfd_convert_section_size</code></a></li>
-<li><a href="#bfd_005fconvert_005fsection_005fcontents"><code>bfd_convert_section_contents</code></a></li>
 <li><a href="#struct-bfd_005fiovec"><code>struct bfd_iovec</code></a></li>
 <li><a href="#bfd_005fget_005fmtime"><code>bfd_get_mtime</code></a></li>
 <li><a href="#bfd_005fget_005fsize"><code>bfd_get_size</code></a></li>
@@ -378,6 +373,11 @@ The following functions exist but have not yet been documented.
        BFD_SEND (abfd, _bfd_find_nearest_line, \
                  (abfd, syms, sec, off, file, func, line, NULL))
 
+#define bfd_find_nearest_line_with_alt(abfd, alt_filename, sec, syms, off, \
+                                       file, func, line, disc) \
+       BFD_SEND (abfd, _bfd_find_nearest_line_with_alt, \
+                 (abfd, alt_filename, syms, sec, off, file, func, line, disc))
+
 #define bfd_find_nearest_line_discriminator(abfd, sec, syms, off, file, func, \
                                            line, disc) \
        BFD_SEND (abfd, _bfd_find_nearest_line, \
@@ -531,87 +531,10 @@ If passed a g++ v3 ABI mangled name, returns a buffer allocated
 with malloc holding the demangled name.  Returns NULL otherwise
 and on memory alloc failure.
 </p>
-<span id="index-bfd_005fupdate_005fcompression_005fheader"></span>
-</div>
-<div class="subsubsection" id="bfd_005fupdate_005fcompression_005fheader">
-<h4 class="subsubsection">2.3.1.20 <code>bfd_update_compression_header</code></h4>
-<p><strong>Synopsis</strong>
-</p><div class="example">
-<pre class="example">void bfd_update_compression_header
-   (bfd *abfd, bfd_byte *contents, asection *sec);
-</pre></div>
-<p><strong>Description</strong><br>
-Set the compression header at CONTENTS of SEC in ABFD and update
-elf_section_flags for compression.
-</p>
-<span id="index-bfd_005fcheck_005fcompression_005fheader"></span>
-</div>
-<div class="subsubsection" id="bfd_005fcheck_005fcompression_005fheader">
-<h4 class="subsubsection">2.3.1.21 <code>bfd_check_compression_header</code></h4>
-<p><strong>Synopsis</strong>
-</p><div class="example">
-<pre class="example">bool bfd_check_compression_header
-   (bfd *abfd, bfd_byte *contents, asection *sec,
-    bfd_size_type *uncompressed_size,
-    unsigned int *uncompressed_alignment_power);
-</pre></div>
-<p><strong>Description</strong><br>
-Check the compression header at CONTENTS of SEC in ABFD and
-store the uncompressed size in UNCOMPRESSED_SIZE and the
-uncompressed data alignment in UNCOMPRESSED_ALIGNMENT_POWER
-if the compression header is valid.
-</p>
-<p><strong>Returns</strong><br>
-Return TRUE if the compression header is valid.
-</p>
-<span id="index-bfd_005fget_005fcompression_005fheader_005fsize"></span>
-</div>
-<div class="subsubsection" id="bfd_005fget_005fcompression_005fheader_005fsize">
-<h4 class="subsubsection">2.3.1.22 <code>bfd_get_compression_header_size</code></h4>
-<p><strong>Synopsis</strong>
-</p><div class="example">
-<pre class="example">int bfd_get_compression_header_size (bfd *abfd, asection *sec);
-</pre></div>
-<p><strong>Description</strong><br>
-Return the size of the compression header of SEC in ABFD.
-</p>
-<p><strong>Returns</strong><br>
-Return the size of the compression header in bytes.
-</p>
-<span id="index-bfd_005fconvert_005fsection_005fsize"></span>
-</div>
-<div class="subsubsection" id="bfd_005fconvert_005fsection_005fsize">
-<h4 class="subsubsection">2.3.1.23 <code>bfd_convert_section_size</code></h4>
-<p><strong>Synopsis</strong>
-</p><div class="example">
-<pre class="example">bfd_size_type bfd_convert_section_size
-   (bfd *ibfd, asection *isec, bfd *obfd, bfd_size_type size);
-</pre></div>
-<p><strong>Description</strong><br>
-Convert the size <var>size</var> of the section <var>isec</var> in input
-BFD <var>ibfd</var> to the section size in output BFD <var>obfd</var>.
-</p>
-<span id="index-bfd_005fconvert_005fsection_005fcontents"></span>
-</div>
-<div class="subsubsection" id="bfd_005fconvert_005fsection_005fcontents">
-<h4 class="subsubsection">2.3.1.24 <code>bfd_convert_section_contents</code></h4>
-<p><strong>Synopsis</strong>
-</p><div class="example">
-<pre class="example">bool bfd_convert_section_contents
-   (bfd *ibfd, asection *isec, bfd *obfd,
-    bfd_byte **ptr, bfd_size_type *ptr_size);
-</pre></div>
-<p><strong>Description</strong><br>
-Convert the contents, stored in <var>*ptr</var>, of the section
-<var>isec</var> in input BFD <var>ibfd</var> to output BFD <var>obfd</var>
-if needed.  The original buffer pointed to by <var>*ptr</var> may
-be freed and <var>*ptr</var> is returned with memory malloc&rsquo;d by this
-function, and the new size written to <var>ptr_size</var>.
-</p>
 <span id="index-struct-bfd_005fiovec"></span>
 </div>
 <div class="subsubsection" id="struct-bfd_005fiovec">
-<h4 class="subsubsection">2.3.1.25 <code>struct bfd_iovec</code></h4>
+<h4 class="subsubsection">2.3.1.20 <code>struct bfd_iovec</code></h4>
 <p><strong>Description</strong><br>
 The <code>struct bfd_iovec</code> contains the internal file I/O class.
 Each <code>BFD</code> has an instance of this class and all file I/O is
@@ -654,7 +577,7 @@ extern const struct bfd_iovec _bfd_memory_iovec;
 <span id="index-bfd_005fget_005fmtime"></span>
 </div>
 <div class="subsubsection" id="bfd_005fget_005fmtime">
-<h4 class="subsubsection">2.3.1.26 <code>bfd_get_mtime</code></h4>
+<h4 class="subsubsection">2.3.1.21 <code>bfd_get_mtime</code></h4>
 <p><strong>Synopsis</strong>
 </p><div class="example">
 <pre class="example">long bfd_get_mtime (bfd *abfd);
@@ -666,7 +589,7 @@ from the archive header for archive members).
 <span id="index-bfd_005fget_005fsize"></span>
 </div>
 <div class="subsubsection" id="bfd_005fget_005fsize">
-<h4 class="subsubsection">2.3.1.27 <code>bfd_get_size</code></h4>
+<h4 class="subsubsection">2.3.1.22 <code>bfd_get_size</code></h4>
 <p><strong>Synopsis</strong>
 </p><div class="example">
 <pre class="example">ufile_ptr bfd_get_size (bfd *abfd);
@@ -701,7 +624,7 @@ size reasonable?&quot;.
 <span id="index-bfd_005fget_005ffile_005fsize"></span>
 </div>
 <div class="subsubsection" id="bfd_005fget_005ffile_005fsize">
-<h4 class="subsubsection">2.3.1.28 <code>bfd_get_file_size</code></h4>
+<h4 class="subsubsection">2.3.1.23 <code>bfd_get_file_size</code></h4>
 <p><strong>Synopsis</strong>
 </p><div class="example">
 <pre class="example">ufile_ptr bfd_get_file_size (bfd *abfd);
@@ -714,7 +637,7 @@ and archive elements.
 <span id="index-bfd_005fmmap"></span>
 </div>
 <div class="subsubsection" id="bfd_005fmmap">
-<h4 class="subsubsection">2.3.1.29 <code>bfd_mmap</code></h4>
+<h4 class="subsubsection">2.3.1.24 <code>bfd_mmap</code></h4>
 <p><strong>Synopsis</strong>
 </p><div class="example">
 <pre class="example">void *bfd_mmap (bfd *abfd, void *addr, bfd_size_type len,

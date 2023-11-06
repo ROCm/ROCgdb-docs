@@ -215,7 +215,9 @@ typedef void (*bfd_error_handler_type) (const char *, va_list);
 <ul class="section-toc">
 <li><a href="#g_t_005fbfd_005ferror_005fhandler" accesskey="1"><code>_bfd_error_handler</code></a></li>
 <li><a href="#bfd_005fset_005ferror_005fhandler" accesskey="2"><code>bfd_set_error_handler</code></a></li>
-<li><a href="#bfd_005fset_005ferror_005fprogram_005fname" accesskey="3"><code>bfd_set_error_program_name</code></a></li>
+<li><a href="#g_t_005fbfd_005fset_005ferror_005fhandler_005fcaching" accesskey="3"><code>_bfd_set_error_handler_caching</code></a></li>
+<li><a href="#bfd_005fset_005ferror_005fprogram_005fname" accesskey="4"><code>bfd_set_error_program_name</code></a></li>
+<li><a href="#g_t_005fbfd_005fget_005ferror_005fprogram_005fname" accesskey="5"><code>_bfd_get_error_program_name</code></a></li>
 </ul>
 <div class="subsubsection" id="g_t_005fbfd_005ferror_005fhandler">
 <h4 class="subsubsection">2.2.2.1 <code>_bfd_error_handler</code></h4>
@@ -247,10 +249,22 @@ archive too.
 Set the BFD error handler function.  Returns the previous
 function.
 </p>
+<span id="index-_005fbfd_005fset_005ferror_005fhandler_005fcaching"></span>
+</div>
+<div class="subsubsection" id="g_t_005fbfd_005fset_005ferror_005fhandler_005fcaching">
+<h4 class="subsubsection">2.2.2.3 <code>_bfd_set_error_handler_caching</code></h4>
+<p><strong>Synopsis</strong>
+</p><div class="example">
+<pre class="example">bfd_error_handler_type _bfd_set_error_handler_caching (bfd *);
+</pre></div>
+<p><strong>Description</strong><br>
+Set the BFD error handler function to one that stores messages
+to the per_xvec_warn array.  Returns the previous function.
+</p>
 <span id="index-bfd_005fset_005ferror_005fprogram_005fname"></span>
 </div>
 <div class="subsubsection" id="bfd_005fset_005ferror_005fprogram_005fname">
-<h4 class="subsubsection">2.2.2.3 <code>bfd_set_error_program_name</code></h4>
+<h4 class="subsubsection">2.2.2.4 <code>bfd_set_error_program_name</code></h4>
 <p><strong>Synopsis</strong>
 </p><div class="example">
 <pre class="example">void bfd_set_error_program_name (const char *);
@@ -260,6 +274,17 @@ Set the program name to use when printing a BFD error.  This
 is printed before the error message followed by a colon and
 space.  The string must not be changed after it is passed to
 this function.
+</p>
+<span id="index-_005fbfd_005fget_005ferror_005fprogram_005fname"></span>
+</div>
+<div class="subsubsection" id="g_t_005fbfd_005fget_005ferror_005fprogram_005fname">
+<h4 class="subsubsection">2.2.2.5 <code>_bfd_get_error_program_name</code></h4>
+<p><strong>Synopsis</strong>
+</p><div class="example">
+<pre class="example">const char *_bfd_get_error_program_name (void);
+</pre></div>
+<p><strong>Description</strong><br>
+Get the program name used when printing a BFD error.
 </p>
 </div>
 </div>

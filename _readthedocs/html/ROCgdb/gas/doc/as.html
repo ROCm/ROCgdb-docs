@@ -76,7 +76,7 @@ Next: <a href="#Overview" accesskey="n" rel="next">Overview</a> &nbsp; [<a href=
 
 <p>This file is a user guide to the <small>GNU</small> assembler <code>as</code>
 (GNU Binutils)
-version 2.38.50.
+version 2.39.50.
 </p>
 <p>This document is distributed under the terms of the GNU Free
 Documentation License.  A copy of the license is included in the
@@ -804,6 +804,7 @@ section entitled &ldquo;GNU Free Documentation License&rdquo;.
       <li><a id="toc-RISC_002dV-Assembler-Modifiers" href="#RISC_002dV_002dModifiers">9.38.3 RISC-V Assembler Modifiers</a></li>
       <li><a id="toc-RISC_002dV-Instruction-Formats" href="#RISC_002dV_002dFormats">9.38.4 RISC-V Instruction Formats</a></li>
       <li><a id="toc-RISC_002dV-Object-Attribute" href="#RISC_002dV_002dATTRIBUTE">9.38.5 RISC-V Object Attribute</a></li>
+      <li><a id="toc-RISC_002dV-Custom-_0028Vendor_002dDefined_0029-Extensions" href="#RISC_002dV_002dCustomExts">9.38.6 RISC-V Custom (Vendor-Defined) Extensions</a></li>
     </ul></li>
     <li><a id="toc-RL78-Dependent-Features" href="#RL78_002dDependent">9.39 RL78 Dependent Features</a>
     <ul class="no-bullet">
@@ -1079,27 +1080,42 @@ see <a href="#Invoking">Command-Line Options</a>.
 
 
 <div class="example">
-<pre class="example">as [<b>-a</b>[<b>cdghlns</b>][=<var>file</var>]] [<b>&ndash;alternate</b>] [<b>-D</b>]
- [<b>&ndash;compress-debug-sections</b>]  [<b>&ndash;nocompress-debug-sections</b>]
+<pre class="example">as [<b>-a</b>[<b>cdghlns</b>][=<var>file</var>]]
+ [<b>&ndash;alternate</b>]
+ [<b>&ndash;compress-debug-sections</b>] [<b>&ndash;nocompress-debug-sections</b>]
+ [<b>-D</b>]
+ [<b>&ndash;dump-config</b>]
  [<b>&ndash;debug-prefix-map</b> <var>old</var>=<var>new</var>]
- [<b>&ndash;defsym</b> <var>sym</var>=<var>val</var>] [<b>-f</b>] [<b>-g</b>] [<b>&ndash;gstabs</b>]
- [<b>&ndash;gstabs+</b>] [<b>&ndash;gdwarf-&lt;N&gt;</b>] [<b>&ndash;gdwarf-sections</b>]
+ [<b>&ndash;defsym</b> <var>sym</var>=<var>val</var>]
+ [<b>&ndash;elf-stt-common=[no|yes]</b>]
+ [<b>&ndash;emulation</b>=<var>name</var>]
+ [<b>-f</b>]
+ [<b>-g</b>] [<b>&ndash;gstabs</b>] [<b>&ndash;gstabs+</b>]
+ [<b>&ndash;gdwarf-&lt;N&gt;</b>] [<b>&ndash;gdwarf-sections</b>]
  [<b>&ndash;gdwarf-cie-version</b>=<var>VERSION</var>]
- [<b>&ndash;help</b>] [<b>-I</b> <var>dir</var>] [<b>-J</b>]
- [<b>-K</b>] [<b>-L</b>] [<b>&ndash;listing-lhs-width</b>=<var>NUM</var>]
- [<b>&ndash;listing-lhs-width2</b>=<var>NUM</var>] [<b>&ndash;listing-rhs-width</b>=<var>NUM</var>]
- [<b>&ndash;listing-cont-lines</b>=<var>NUM</var>] [<b>&ndash;keep-locals</b>]
+ [<b>&ndash;generate-missing-build-notes=[no|yes]</b>]
+ [<b>&ndash;gsframe</b>]
+ [<b>&ndash;hash-size</b>=<var>N</var>]
+ [<b>&ndash;help</b>] [<b>&ndash;target-help</b>]
+ [<b>-I</b> <var>dir</var>]
+ [<b>-J</b>]
+ [<b>-K</b>]
+ [<b>&ndash;keep-locals</b>]
+ [<b>-L</b>]
+ [<b>&ndash;listing-lhs-width</b>=<var>NUM</var>]
+ [<b>&ndash;listing-lhs-width2</b>=<var>NUM</var>]
+ [<b>&ndash;listing-rhs-width</b>=<var>NUM</var>]
+ [<b>&ndash;listing-cont-lines</b>=<var>NUM</var>]
+ [<b>&ndash;multibyte-handling=[allow|warn|warn-sym-only]</b>]
  [<b>&ndash;no-pad-sections</b>]
  [<b>-o</b> <var>objfile</var>] [<b>-R</b>]
+ [<b>&ndash;sectname-subst</b>]
+ [<b>&ndash;size-check=[error|warning]</b>]
  [<b>&ndash;statistics</b>]
  [<b>-v</b>] [<b>-version</b>] [<b>&ndash;version</b>]
  [<b>-W</b>] [<b>&ndash;warn</b>] [<b>&ndash;fatal-warnings</b>] [<b>-w</b>] [<b>-x</b>]
  [<b>-Z</b>] [<b>@<var>FILE</var></b>]
- [<b>&ndash;sectname-subst</b>] [<b>&ndash;size-check=[error|warning]</b>]
- [<b>&ndash;elf-stt-common=[no|yes]</b>]
- [<b>&ndash;generate-missing-build-notes=[no|yes]</b>]
- [<b>&ndash;multibyte-handling=[allow|warn|warn-sym-only]</b>]
- [<b>&ndash;target-help</b>] [<var>target-options</var>]
+ [<var>target-options</var>]
  [<b>&ndash;</b>|<var>files</var> &hellip;]
 
 <em>Target AArch64 options:</em>
@@ -1472,16 +1488,19 @@ given section <em>larger</em> then it is not compressed.
 <dt><span><code>--compress-debug-sections=zlib</code></span></dt>
 <dt><span><code>--compress-debug-sections=zlib-gnu</code></span></dt>
 <dt><span><code>--compress-debug-sections=zlib-gabi</code></span></dt>
+<dt><span><code>--compress-debug-sections=zstd</code></span></dt>
 <dd><p>These options control how DWARF debug sections are compressed.
 <samp>--compress-debug-sections=none</samp> is equivalent to
 <samp>--nocompress-debug-sections</samp>.
 <samp>--compress-debug-sections=zlib</samp> and
 <samp>--compress-debug-sections=zlib-gabi</samp> are equivalent to
 <samp>--compress-debug-sections</samp>.
-<samp>--compress-debug-sections=zlib-gnu</samp> compresses DWARF debug
-sections using zlib.  The debug sections are renamed to begin with
-&lsquo;<samp>.zdebug</samp>&rsquo;.  Note if compression would make a given section
-<em>larger</em> then it is not compressed nor renamed.
+<samp>--compress-debug-sections=zlib-gnu</samp> compresses DWARF debug sections
+using the obsoleted zlib-gnu format.  The debug sections are renamed to begin
+with &lsquo;<samp>.zdebug</samp>&rsquo;.
+<samp>--compress-debug-sections=zstd</samp> compresses DWARF debug
+sections using zstd.  Note - if compression would actually make a section
+<em>larger</em>, then it is not compressed nor renamed.
 </p>
 
 </dd>
@@ -1492,7 +1511,8 @@ override this.
 </p>
 </dd>
 <dt><span><code>-D</code></span></dt>
-<dd><p>Ignored.  This option is accepted for script compatibility with calls to
+<dd><p>Enable denugging in target specific backends, if supported.  Otherwise ignored.
+Even if ignored, this option is accepted for script compatibility with calls to
 other assemblers.
 </p>
 </dd>
@@ -1507,6 +1527,22 @@ information describing them as in <samp><var>new</var></samp> instead.
 indicates a hexadecimal value, and a leading &lsquo;<samp>0</samp>&rsquo; indicates an octal
 value.  The value of the symbol can be overridden inside a source file via the
 use of a <code>.set</code> pseudo-op.
+</p>
+</dd>
+<dt><span><code>--dump-config</code></span></dt>
+<dd><p>Displays how the assembler is configured and then exits.
+</p>
+</dd>
+<dt><span><code>--elf-stt-common=no</code></span></dt>
+<dt><span><code>--elf-stt-common=yes</code></span></dt>
+<dd><p>These options control whether the ELF assembler should generate common
+symbols with the <code>STT_COMMON</code> type.  The default can be controlled
+by a configure option <samp>--enable-elf-stt-common</samp>.
+</p>
+</dd>
+<dt><span><code>--emulation=<var>name</var></code></span></dt>
+<dd><p>If the assembler is configured to support multiple different target
+configurations then this option can be used to select the desired form.
 </p>
 </dd>
 <dt><span><code>-f</code></span></dt>
@@ -1582,18 +1618,6 @@ When this flag is not specificed the default is version 1, though some targets
 can modify this default.  Other possible values for <var>version</var> are 3 or 4.
 </p>
 </dd>
-<dt><span><code>--size-check=error</code></span></dt>
-<dt><span><code>--size-check=warning</code></span></dt>
-<dd><p>Issue an error or warning for invalid ELF .size directive.
-</p>
-</dd>
-<dt><span><code>--elf-stt-common=no</code></span></dt>
-<dt><span><code>--elf-stt-common=yes</code></span></dt>
-<dd><p>These options control whether the ELF assembler should generate common
-symbols with the <code>STT_COMMON</code> type.  The default can be controlled
-by a configure option <samp>--enable-elf-stt-common</samp>.
-</p>
-</dd>
 <dt><span><code>--generate-missing-build-notes=yes</code></span></dt>
 <dt><span><code>--generate-missing-build-notes=no</code></span></dt>
 <dd><p>These options control whether the ELF assembler should generate GNU Build
@@ -1601,7 +1625,16 @@ attribute notes if none are present in the input sources.
 The default can be controlled by the <samp>--enable-generate-build-notes</samp>
 configure option.
 </p>
+</dd>
+<dt><span><code>--gsframe</code></span></dt>
+<dt><span><code>--gsframe</code></span></dt>
+<dd><p>Create <var>.sframe</var> section from CFI directives.
+</p>
 
+</dd>
+<dt><span><code>--hash-size <var>N</var></code></span></dt>
+<dd><p>Ignored.  Supported for command line compatibility with other assemblers.
+</p>
 </dd>
 <dt><span><code>--help</code></span></dt>
 <dd><p>Print a summary of the command-line options and exit.
@@ -1654,6 +1687,7 @@ to <var>number</var> + 1.
 <dt><span><code>--multibyte-handling=allow</code></span></dt>
 <dt><span><code>--multibyte-handling=warn</code></span></dt>
 <dt><span><code>--multibyte-handling=warn-sym-only</code></span></dt>
+<dt><span><code>--multibyte-handling=warn_sym_only</code></span></dt>
 <dd><p>Controls how the assembler handles multibyte characters in the input.  The
 default (which can be restored by using the <samp>allow</samp> argument) is to
 allow such characters without complaint.  Using the <samp>warn</samp> argument will
@@ -1678,9 +1712,19 @@ which might be needed on targets which have tight memory constraints.
 <dd><p>Fold the data section into the text section.
 </p>
 </dd>
+<dt><span><code>--reduce-memory-overheads</code></span></dt>
+<dd><p>Ignored.  Supported for compatibility with tools that apss the same option to
+both the assembler and the linker.
+</p>
+</dd>
 <dt><span><code>--sectname-subst</code></span></dt>
 <dd><p>Honor substitution sequences in section names.
 See <a href="#Section-Name-Substitutions"><code>.section <var>name</var></code></a>.
+</p>
+</dd>
+<dt><span><code>--size-check=error</code></span></dt>
+<dt><span><code>--size-check=warning</code></span></dt>
+<dd><p>Issue an error or warning for invalid ELF .size directive.
 </p>
 </dd>
 <dt><span><code>--statistics</code></span></dt>
@@ -2538,8 +2582,8 @@ Architecture (esa) or the z/Architecture mode (zarch).
 &lsquo;<samp>arch3</samp>&rsquo;), &lsquo;<samp>g6</samp>&rsquo;, &lsquo;<samp>z900</samp>&rsquo; (or &lsquo;<samp>arch5</samp>&rsquo;), &lsquo;<samp>z990</samp>&rsquo; (or
 &lsquo;<samp>arch6</samp>&rsquo;), &lsquo;<samp>z9-109</samp>&rsquo;, &lsquo;<samp>z9-ec</samp>&rsquo; (or &lsquo;<samp>arch7</samp>&rsquo;), &lsquo;<samp>z10</samp>&rsquo; (or
 &lsquo;<samp>arch8</samp>&rsquo;), &lsquo;<samp>z196</samp>&rsquo; (or &lsquo;<samp>arch9</samp>&rsquo;), &lsquo;<samp>zEC12</samp>&rsquo; (or &lsquo;<samp>arch10</samp>&rsquo;),
-&lsquo;<samp>z13</samp>&rsquo; (or &lsquo;<samp>arch11</samp>&rsquo;), &lsquo;<samp>z14</samp>&rsquo; (or &lsquo;<samp>arch12</samp>&rsquo;), or &lsquo;<samp>z15</samp>&rsquo;
-(or &lsquo;<samp>arch13</samp>&rsquo;).
+&lsquo;<samp>z13</samp>&rsquo; (or &lsquo;<samp>arch11</samp>&rsquo;), &lsquo;<samp>z14</samp>&rsquo; (or &lsquo;<samp>arch12</samp>&rsquo;), &lsquo;<samp>z15</samp>&rsquo;
+(or &lsquo;<samp>arch13</samp>&rsquo;), or &lsquo;<samp>z16</samp>&rsquo; (or &lsquo;<samp>arch14</samp>&rsquo;).
 </p></dd>
 <dt><span><code>-mregnames</code></span></dt>
 <dt><span><code>-mno-regnames</code></span></dt>
@@ -3000,8 +3044,9 @@ Next: <a href="#f" accesskey="n" rel="next">Work Faster: <samp>-f</samp></a>, Pr
 <span id="g_t_002dD"></span><h3 class="section">2.3 <samp>-D</samp></h3>
 
 <span id="index-_002dD"></span>
-<p>This option has no effect whatsoever, but it is accepted to make it more
-likely that scripts written for other assemblers also work with
+<p>This option enables debugging, if it is supported by the assembler&rsquo;s
+configuration.  Otherwise it does nothing as is ignored.  This allows scripts
+designed to work with other assemblers to also work with GAS.
 <code>as</code>.
 </p>
 <hr>
@@ -3509,9 +3554,9 @@ preprocessed.
 <p>If the first line of an input file is <code>#NO_APP</code> or if you use the
 &lsquo;<samp>-f</samp>&rsquo; option, whitespace and comments are not removed from the input file.
 Within an input file, you can ask for whitespace and comment removal in
-specific portions of the by putting a line that says <code>#APP</code> before the
+specific portions of the file by putting a line that says <code>#APP</code> before the
 text that may contain whitespace or comments, and putting a line that says
-<code>#NO_APP</code> after this text.  This feature is mainly intend to support
+<code>#NO_APP</code> after this text.  This feature is mainly intended to support
 <code>asm</code> statements in compilers whose output is otherwise free of comments
 and whitespace.
 </p>
@@ -3559,12 +3604,13 @@ This means you may not nest these comments.
 <span id="index-line-comment-character"></span>
 <p>Anything from a <em>line comment</em> character up to the next newline is
 considered a comment and is ignored.  The line comment character is target
-specific, and some targets multiple comment characters.  Some targets also have
-line comment characters that only work if they are the first character on a
-line.  Some targets use a sequence of two characters to introduce a line
-comment.  Some targets can also change their line comment characters depending
-upon command-line options that have been used.  For more details see the
-<em>Syntax</em> section in the documentation for individual targets.
+specific, and some targets support multiple comment characters.  Some targets
+also have line comment characters that only work if they are the first
+character on a line.  Some targets use a sequence of two characters to
+introduce a line comment.  Some targets can also change their line comment
+characters depending upon command-line options that have been used.  For more
+details see the <em>Syntax</em> section in the documentation for individual
+targets.
 </p>
 <p>If the line comment character is the hash sign (&lsquo;<samp>#</samp>&rsquo;) then it still has the
 special ability to enable and disable preprocessing (see <a href="#Preprocessing">Preprocessing</a>) and
@@ -3843,7 +3889,7 @@ immediately following an acute accent is taken as a literal character
 and does not count as the end of a statement.  The value of a character
 constant in a numeric expression is the machine&rsquo;s byte-wide code for
 that character.  <code>as</code> assumes your character code is ASCII:
-<kbd>'A</kbd> means 65, <kbd>'B</kbd> means 66, and so on. 
+<kbd>'A</kbd> means 65, <kbd>'B</kbd> means 66, and so on.
 </p>
 <hr>
 </div>
@@ -4232,7 +4278,7 @@ bug in the assembler.
 <span id="index-expr-_0028internal-section_0029"></span>
 </dd>
 <dt><span><b>expr section</b></span></dt>
-<dd><p>The assembler stores complex expression internally as combinations of
+<dd><p>The assembler stores complex expressions internally as combinations of
 symbols.  When it needs to represent an expression as a symbol, it puts
 it in the expr section.
 </p></dd>
@@ -5013,7 +5059,7 @@ You may not subtract arguments from different sections.
 <dd><p><em>Is Less Than Or Equal To</em>
 </p>
 <p>The comparison operators can be used as infix operators.  A true result has a
-value of -1 whereas a false result has a value of 0.   Note, these operators
+value of -1 whereas a false result has a value of 0.  Note, these operators
 perform signed comparisons.
 </p></dd>
 </dl>
@@ -5030,7 +5076,7 @@ perform signed comparisons.
 </p>
 <p>These two logical operations can be used to combine the results of sub
 expressions.  Note, unlike the comparison operators a true result returns a
-value of 1 but a false results does still return 0.  Also note that the logical
+value of 1 but a false result does still return 0.  Also note that the logical
 or operator has a slightly lower precedence than logical and.
 </p>
 </dd>
@@ -5539,11 +5585,15 @@ Next: <a href="#Comm" accesskey="n" rel="next"><code>.comm <var>symbol</var> , <
 <h4 class="subsection">7.12.1 <code>.cfi_sections <var>section_list</var></code></h4>
 <span id="index-cfi_005fsections-directive"></span>
 <p><code>.cfi_sections</code> may be used to specify whether CFI directives
-should emit <code>.eh_frame</code> section and/or <code>.debug_frame</code> section.
-If <var>section_list</var> is <code>.eh_frame</code>, <code>.eh_frame</code> is emitted,
-if <var>section_list</var> is <code>.debug_frame</code>, <code>.debug_frame</code> is emitted.
-To emit both use <code>.eh_frame, .debug_frame</code>.  The default if this
-directive is not used is <code>.cfi_sections .eh_frame</code>.
+should emit <code>.eh_frame</code> section, <code>.debug_frame</code> section and/or
+<code>.sframe</code> section.  If <var>section_list</var> contains <code>.eh_frame</code>,
+<code>.eh_frame</code> is emitted, if <var>section_list</var> contains
+<code>.debug_frame</code>, <code>.debug_frame</code> is emitted, and finally, if
+<var>section_list</var> contains <code>.sframe</code>, <code>.sframe</code> is emitted.
+To emit multiple sections, specify them together in a list.  For example, to
+emit both <code>.eh_frame</code> and <code>.debug_frame</code>, use
+<code>.eh_frame, .debug_frame</code>.  The default if this directive is not used
+is <code>.cfi_sections .eh_frame</code>.
 </p>
 <p>On targets that support compact unwinding tables these can be generated
 by specifying <code>.eh_frame_entry</code> instead of <code>.eh_frame</code>.
@@ -9373,6 +9423,7 @@ automatically cause those extensions to be disabled.
 <tr><td width="12%"><code>fp16</code></td><td width="17%">ARMv8.2-A</td><td width="17%">ARMv8.2-A or later</td><td width="54%">Enable ARMv8.2 16-bit floating-point support.  This implies <code>fp</code>.</td></tr>
 <tr><td width="12%"><code>fp</code></td><td width="17%">ARMv8-A</td><td width="17%">ARMv8-A or later</td><td width="54%">Enable floating-point extensions.</td></tr>
 <tr><td width="12%"><code>hbc</code></td><td width="17%"></td><td width="17%">Armv8.8-A or later</td><td width="54%">Enable Armv8.8-A hinted conditional branch instructions</td></tr>
+<tr><td width="12%"><code>cssc</code></td><td width="17%"></td><td width="17%">Armv8.7-A or later</td><td width="54%">Enable Armv8.9-A Common Short Sequence Compression instructions.</td></tr>
 <tr><td width="12%"><code>i8mm</code></td><td width="17%">ARMv8.2-A</td><td width="17%">ARMv8.6-A or later</td><td width="54%">Enable Int8 Matrix Multiply extension.</td></tr>
 <tr><td width="12%"><code>lor</code></td><td width="17%">ARMv8-A</td><td width="17%">ARMv8.1-A or later</td><td width="54%">Enable Limited Ordering Regions extensions.</td></tr>
 <tr><td width="12%"><code>ls64</code></td><td width="17%">ARMv8.6-A</td><td width="17%">ARMv8.7-A or later</td><td width="54%">Enable 64 Byte Loads/Stores.</td></tr>
@@ -11350,6 +11401,7 @@ recognized:
 <code>cortex-m0</code>,
 <code>cortex-m0plus</code>,
 <code>cortex-x1</code>,
+<code>cortex-x1c</code>,
 <code>exynos-m1</code>,
 <code>marvell-pj4</code>,
 <code>marvell-whitney</code>,
@@ -12341,6 +12393,12 @@ Typically this is useful when code uses runtime detection of CPU features.
 <dd><p>This directive writes 12-byte packed floating-point values to the
 output section.  These are not compatible with current ARM processors
 or ABIs.
+</p>
+<span id="arm_005fpacspval"></span><span id="index-_002epacspval-directive_002c-ARM"></span>
+</dd>
+<dt><span><code>.pacspval</code></span></dt>
+<dd><p>Generate unwinder annotations to use effective vsp as modifier in PAC
+validation.
 </p>
 <span id="arm_005fpad"></span><span id="index-_002epad-directive_002c-ARM"></span>
 </dd>
@@ -16690,6 +16748,7 @@ processor names are recognized:
 <code>znver1</code>,
 <code>znver2</code>,
 <code>znver3</code>,
+<code>znver4</code>,
 <code>btver1</code>,
 <code>btver2</code>,
 <code>generic32</code> and
@@ -16703,16 +16762,9 @@ accept various extension mnemonics.  For example,
 <code>287</code>,
 <code>387</code>,
 <code>687</code>,
-<code>no87</code>,
-<code>no287</code>,
-<code>no387</code>,
-<code>no687</code>,
 <code>cmov</code>,
-<code>nocmov</code>,
 <code>fxsr</code>,
-<code>nofxsr</code>,
 <code>mmx</code>,
-<code>nommx</code>,
 <code>sse</code>,
 <code>sse2</code>,
 <code>sse3</code>,
@@ -16721,18 +16773,8 @@ accept various extension mnemonics.  For example,
 <code>sse4.1</code>,
 <code>sse4.2</code>,
 <code>sse4</code>,
-<code>nosse</code>,
-<code>nosse2</code>,
-<code>nosse3</code>,
-<code>nosse4a</code>,
-<code>nossse3</code>,
-<code>nosse4.1</code>,
-<code>nosse4.2</code>,
-<code>nosse4</code>,
 <code>avx</code>,
 <code>avx2</code>,
-<code>noavx</code>,
-<code>noavx2</code>,
 <code>adx</code>,
 <code>rdseed</code>,
 <code>prfchw</code>,
@@ -16755,9 +16797,7 @@ accept various extension mnemonics.  For example,
 <code>serialize</code>,
 <code>tsxldtrk</code>,
 <code>kl</code>,
-<code>nokl</code>,
 <code>widekl</code>,
-<code>nowidekl</code>,
 <code>hreset</code>,
 <code>avx512f</code>,
 <code>avx512cd</code>,
@@ -16779,37 +16819,18 @@ accept various extension mnemonics.  For example,
 <code>avx512_bf16</code>,
 <code>avx_vnni</code>,
 <code>avx512_fp16</code>,
-<code>noavx512f</code>,
-<code>noavx512cd</code>,
-<code>noavx512er</code>,
-<code>noavx512pf</code>,
-<code>noavx512vl</code>,
-<code>noavx512bw</code>,
-<code>noavx512dq</code>,
-<code>noavx512ifma</code>,
-<code>noavx512vbmi</code>,
-<code>noavx512_4fmaps</code>,
-<code>noavx512_4vnniw</code>,
-<code>noavx512_vpopcntdq</code>,
-<code>noavx512_vbmi2</code>,
-<code>noavx512_vnni</code>,
-<code>noavx512_bitalg</code>,
-<code>noavx512_vp2intersect</code>,
-<code>notdx</code>,
-<code>noavx512_bf16</code>,
-<code>noavx_vnni</code>,
-<code>noavx512_fp16</code>,
-<code>noenqcmd</code>,
-<code>noserialize</code>,
-<code>notsxldtrk</code>,
+<code>prefetchi</code>,
+<code>avx_ifma</code>,
+<code>avx_vnni_int8</code>,
+<code>cmpccxadd</code>,
+<code>wrmsrns</code>,
+<code>msrlist</code>,
+<code>avx_ne_convert</code>,
+<code>rao_int</code>,
 <code>amx_int8</code>,
-<code>noamx_int8</code>,
 <code>amx_bf16</code>,
-<code>noamx_bf16</code>,
+<code>amx_fp16</code>,
 <code>amx_tile</code>,
-<code>noamx_tile</code>,
-<code>nouintr</code>,
-<code>nohreset</code>,
 <code>vmx</code>,
 <code>vmfunc</code>,
 <code>smx</code>,
@@ -16857,8 +16878,8 @@ accept various extension mnemonics.  For example,
 <code>tlbsync</code>,
 <code>svme</code> and
 <code>padlock</code>.
-Note that rather than extending a basic instruction set, the extension
-mnemonics starting with <code>no</code> revoke the respective functionality.
+Note that these extension mnemonics can be prefixed with <code>no</code> to revoke
+the respective (and any dependent) functionality.
 </p>
 <p>When the <code>.arch</code> directive is used with <samp>-march</samp>, the
 <code>.arch</code> directive will take precedent.
@@ -17486,9 +17507,9 @@ prefix which generates REX prefix unconditionally.
 </li><li> &lsquo;<samp>{nooptimize}</samp>&rsquo; &ndash; disable instruction size optimization.
 </li></ul>
 
-<p>Mnemonics of Intel VNNI instructions are encoded with the EVEX prefix
+<p>Mnemonics of Intel VNNI/IFMA instructions are encoded with the EVEX prefix
 by default.  The pseudo &lsquo;<samp>{vex}</samp>&rsquo; prefix can be used to encode
-mnemonics of Intel VNNI instructions with the VEX prefix.
+mnemonics of Intel VNNI/IFMA instructions with the VEX prefix.
 </p>
 <span id="index-conversion-instructions_002c-i386"></span>
 <span id="index-i386-conversion-instructions"></span>
@@ -18139,6 +18160,7 @@ directive enables a warning when gas detects an instruction that is not
 supported on the CPU specified.  The choices for <var>cpu_type</var> are:
 </p>
 <table>
+<tr><td width="20%">&lsquo;<samp>default</samp>&rsquo;</td><td width="20%">&lsquo;<samp>push</samp>&rsquo;</td><td width="20%">&lsquo;<samp>pop</samp>&rsquo;</td></tr>
 <tr><td width="20%">&lsquo;<samp>i8086</samp>&rsquo;</td><td width="20%">&lsquo;<samp>i186</samp>&rsquo;</td><td width="20%">&lsquo;<samp>i286</samp>&rsquo;</td><td width="20%">&lsquo;<samp>i386</samp>&rsquo;</td></tr>
 <tr><td width="20%">&lsquo;<samp>i486</samp>&rsquo;</td><td width="20%">&lsquo;<samp>i586</samp>&rsquo;</td><td width="20%">&lsquo;<samp>i686</samp>&rsquo;</td><td width="20%">&lsquo;<samp>pentium</samp>&rsquo;</td></tr>
 <tr><td width="20%">&lsquo;<samp>pentiumpro</samp>&rsquo;</td><td width="20%">&lsquo;<samp>pentiumii</samp>&rsquo;</td><td width="20%">&lsquo;<samp>pentiumiii</samp>&rsquo;</td><td width="20%">&lsquo;<samp>pentium4</samp>&rsquo;</td></tr>
@@ -18147,8 +18169,8 @@ supported on the CPU specified.  The choices for <var>cpu_type</var> are:
 <tr><td width="20%">&lsquo;<samp>k6</samp>&rsquo;</td><td width="20%">&lsquo;<samp>k6_2</samp>&rsquo;</td><td width="20%">&lsquo;<samp>athlon</samp>&rsquo;</td><td width="20%">&lsquo;<samp>k8</samp>&rsquo;</td></tr>
 <tr><td width="20%">&lsquo;<samp>amdfam10</samp>&rsquo;</td><td width="20%">&lsquo;<samp>bdver1</samp>&rsquo;</td><td width="20%">&lsquo;<samp>bdver2</samp>&rsquo;</td><td width="20%">&lsquo;<samp>bdver3</samp>&rsquo;</td></tr>
 <tr><td width="20%">&lsquo;<samp>bdver4</samp>&rsquo;</td><td width="20%">&lsquo;<samp>znver1</samp>&rsquo;</td><td width="20%">&lsquo;<samp>znver2</samp>&rsquo;</td><td width="20%">&lsquo;<samp>znver3</samp>&rsquo;</td></tr>
-<tr><td width="20%">&lsquo;<samp>btver1</samp>&rsquo;</td><td width="20%">&lsquo;<samp>btver2</samp>&rsquo;</td><td width="20%">&lsquo;<samp>generic32</samp>&rsquo;</td><td width="20%">&lsquo;<samp>generic64</samp>&rsquo;</td></tr>
-<tr><td width="20%">&lsquo;<samp>.cmov</samp>&rsquo;</td><td width="20%">&lsquo;<samp>.fxsr</samp>&rsquo;</td><td width="20%">&lsquo;<samp>.mmx</samp>&rsquo;</td></tr>
+<tr><td width="20%">&lsquo;<samp>znver4</samp>&rsquo;</td><td width="20%">&lsquo;<samp>btver1</samp>&rsquo;</td><td width="20%">&lsquo;<samp>btver2</samp>&rsquo;</td><td width="20%">&lsquo;<samp>generic32</samp>&rsquo;</td></tr>
+<tr><td width="20%">&lsquo;<samp>generic64</samp>&rsquo;</td><td width="20%">&lsquo;<samp>.cmov</samp>&rsquo;</td><td width="20%">&lsquo;<samp>.fxsr</samp>&rsquo;</td><td width="20%">&lsquo;<samp>.mmx</samp>&rsquo;</td></tr>
 <tr><td width="20%">&lsquo;<samp>.sse</samp>&rsquo;</td><td width="20%">&lsquo;<samp>.sse2</samp>&rsquo;</td><td width="20%">&lsquo;<samp>.sse3</samp>&rsquo;</td><td width="20%">&lsquo;<samp>.sse4a</samp>&rsquo;</td></tr>
 <tr><td width="20%">&lsquo;<samp>.ssse3</samp>&rsquo;</td><td width="20%">&lsquo;<samp>.sse4.1</samp>&rsquo;</td><td width="20%">&lsquo;<samp>.sse4.2</samp>&rsquo;</td><td width="20%">&lsquo;<samp>.sse4</samp>&rsquo;</td></tr>
 <tr><td width="20%">&lsquo;<samp>.avx</samp>&rsquo;</td><td width="20%">&lsquo;<samp>.vmx</samp>&rsquo;</td><td width="20%">&lsquo;<samp>.smx</samp>&rsquo;</td><td width="20%">&lsquo;<samp>.ept</samp>&rsquo;</td></tr>
@@ -18166,12 +18188,14 @@ supported on the CPU specified.  The choices for <var>cpu_type</var> are:
 <tr><td width="20%">&lsquo;<samp>.avx512_vpopcntdq</samp>&rsquo;</td><td width="20%">&lsquo;<samp>.avx512_vbmi2</samp>&rsquo;</td><td width="20%">&lsquo;<samp>.avx512_vnni</samp>&rsquo;</td></tr>
 <tr><td width="20%">&lsquo;<samp>.avx512_bitalg</samp>&rsquo;</td><td width="20%">&lsquo;<samp>.avx512_bf16</samp>&rsquo;</td><td width="20%">&lsquo;<samp>.avx512_vp2intersect</samp>&rsquo;</td></tr>
 <tr><td width="20%">&lsquo;<samp>.tdx</samp>&rsquo;</td><td width="20%">&lsquo;<samp>.avx_vnni</samp>&rsquo;</td><td width="20%">&lsquo;<samp>.avx512_fp16</samp>&rsquo;</td></tr>
-<tr><td width="20%">&lsquo;<samp>.clwb</samp>&rsquo;</td><td width="20%">&lsquo;<samp>.rdpid</samp>&rsquo;</td><td width="20%">&lsquo;<samp>.ptwrite</samp>&rsquo;</td><td width="20%"></td></tr>
-<tr><td width="20%">&lsquo;<samp>.ibt</samp>&rsquo;</td></tr>
+<tr><td width="20%">&lsquo;<samp>.clwb</samp>&rsquo;</td><td width="20%">&lsquo;<samp>.rdpid</samp>&rsquo;</td><td width="20%">&lsquo;<samp>.ptwrite</samp>&rsquo;</td><td width="20%">&lsquo;<samp>.ibt</samp>&rsquo;</td></tr>
+<tr><td width="20%">&lsquo;<samp>.prefetchi</samp>&rsquo;</td><td width="20%">&lsquo;<samp>.avx_ifma</samp>&rsquo;</td><td width="20%">&lsquo;<samp>.avx_vnni_int8</samp>&rsquo;</td></tr>
+<tr><td width="20%">&lsquo;<samp>.cmpccxadd</samp>&rsquo;</td><td width="20%">&lsquo;<samp>.wrmsrns</samp>&rsquo;</td><td width="20%">&lsquo;<samp>.msrlist</samp>&rsquo;</td></tr>
+<tr><td width="20%">&lsquo;<samp>.avx_ne_convert</samp>&rsquo;</td><td width="20%">&lsquo;<samp>.rao_int</samp>&rsquo;</td></tr>
 <tr><td width="20%">&lsquo;<samp>.wbnoinvd</samp>&rsquo;</td><td width="20%">&lsquo;<samp>.pconfig</samp>&rsquo;</td><td width="20%">&lsquo;<samp>.waitpkg</samp>&rsquo;</td><td width="20%">&lsquo;<samp>.cldemote</samp>&rsquo;</td></tr>
 <tr><td width="20%">&lsquo;<samp>.shstk</samp>&rsquo;</td><td width="20%">&lsquo;<samp>.gfni</samp>&rsquo;</td><td width="20%">&lsquo;<samp>.vaes</samp>&rsquo;</td><td width="20%">&lsquo;<samp>.vpclmulqdq</samp>&rsquo;</td></tr>
 <tr><td width="20%">&lsquo;<samp>.movdiri</samp>&rsquo;</td><td width="20%">&lsquo;<samp>.movdir64b</samp>&rsquo;</td><td width="20%">&lsquo;<samp>.enqcmd</samp>&rsquo;</td><td width="20%">&lsquo;<samp>.tsxldtrk</samp>&rsquo;</td></tr>
-<tr><td width="20%">&lsquo;<samp>.amx_int8</samp>&rsquo;</td><td width="20%">&lsquo;<samp>.amx_bf16</samp>&rsquo;</td><td width="20%">&lsquo;<samp>.amx_tile</samp>&rsquo;</td></tr>
+<tr><td width="20%">&lsquo;<samp>.amx_int8</samp>&rsquo;</td><td width="20%">&lsquo;<samp>.amx_bf16</samp>&rsquo;</td><td width="20%">&lsquo;<samp>.amx_fp16</samp>&rsquo;</td><td width="20%">&lsquo;<samp>.amx_tile</samp>&rsquo;</td></tr>
 <tr><td width="20%">&lsquo;<samp>.kl</samp>&rsquo;</td><td width="20%">&lsquo;<samp>.widekl</samp>&rsquo;</td><td width="20%">&lsquo;<samp>.uintr</samp>&rsquo;</td><td width="20%">&lsquo;<samp>.hreset</samp>&rsquo;</td></tr>
 <tr><td width="20%">&lsquo;<samp>.3dnow</samp>&rsquo;</td><td width="20%">&lsquo;<samp>.3dnowa</samp>&rsquo;</td><td width="20%">&lsquo;<samp>.sse4a</samp>&rsquo;</td><td width="20%">&lsquo;<samp>.sse5</samp>&rsquo;</td></tr>
 <tr><td width="20%">&lsquo;<samp>.syscall</samp>&rsquo;</td><td width="20%">&lsquo;<samp>.rdtscp</samp>&rsquo;</td><td width="20%">&lsquo;<samp>.svme</samp>&rsquo;</td></tr>
@@ -18193,6 +18217,9 @@ Secondly, if you specify &lsquo;<samp>i8086</samp>&rsquo;, &lsquo;<samp>i186</sa
 conditional jumps will be promoted when necessary to a two instruction
 sequence consisting of a conditional jump of the opposite sense around
 an unconditional jump to the target.
+</p>
+<p>Note that the sub-architecture specifiers (starting with a dot) can be prefixed
+with <code>no</code> to revoke the respective (and any dependent) functionality.
 </p>
 <p>Following the CPU architecture (but not a sub-architecture, which are those
 starting with a dot), you may specify &lsquo;<samp>jumps</samp>&rsquo; or &lsquo;<samp>nojumps</samp>&rsquo; to
@@ -25664,6 +25691,14 @@ reference manual.
 <dd><p>Generate code for PowerPC 620/625/630.
 </p>
 </dd>
+<dt><span><code>-me200z2, -me200z4</code></span></dt>
+<dd><p>Generate code for e200 variants, e200z2 with LSP, e200z4 with SPE.
+</p>
+</dd>
+<dt><span><code>-me300</code></span></dt>
+<dd><p>Generate code for PowerPC e300 family.
+</p>
+</dd>
 <dt><span><code>-me500, -me500x2</code></span></dt>
 <dd><p>Generate code for Motorola e500 core complex.
 </p>
@@ -25684,12 +25719,16 @@ reference manual.
 <dd><p>Generate code for Freescale e6500 core complex.
 </p>
 </dd>
+<dt><span><code>-mlsp</code></span></dt>
+<dd><p>Enable LSP instructions.  (Disables SPE and SPE2.)
+</p>
+</dd>
 <dt><span><code>-mspe</code></span></dt>
-<dd><p>Generate code for Motorola SPE instructions.
+<dd><p>Generate code for Motorola SPE instructions.  (Disables LSP.)
 </p>
 </dd>
 <dt><span><code>-mspe2</code></span></dt>
-<dd><p>Generate code for Freescale SPE2 instructions.
+<dd><p>Generate code for Freescale SPE2 instructions.  (Disables LSP.)
 </p>
 </dd>
 <dt><span><code>-mtitan</code></span></dt>
@@ -25706,10 +25745,6 @@ reference manual.
 </dd>
 <dt><span><code>-ma2</code></span></dt>
 <dd><p>Generate code for A2 architecture.
-</p>
-</dd>
-<dt><span><code>-me300</code></span></dt>
-<dd><p>Generate code for PowerPC e300 family.
 </p>
 </dd>
 <dt><span><code>-maltivec</code></span></dt>
@@ -25754,6 +25789,10 @@ reference manual.
 </dd>
 <dt><span><code>-mpower10, -mpwr10</code></span></dt>
 <dd><p>Generate code for Power10 architecture.
+</p>
+</dd>
+<dt><span><code>-mfuture</code></span></dt>
+<dd><p>Generate code for &rsquo;future&rsquo; architecture.
 </p>
 </dd>
 <dt><span><code>-mcell</code></span></dt>
@@ -26095,6 +26134,7 @@ Next: <a href="#RL78_002dDependent" accesskey="n" rel="next">RL78 Dependent Feat
 <li><a href="#RISC_002dV_002dModifiers" accesskey="3">RISC-V Assembler Modifiers</a></li>
 <li><a href="#RISC_002dV_002dFormats" accesskey="4">RISC-V Instruction Formats</a></li>
 <li><a href="#RISC_002dV_002dATTRIBUTE" accesskey="5">RISC-V Object Attribute</a></li>
+<li><a href="#RISC_002dV_002dCustomExts" accesskey="6">RISC-V Custom (Vendor-Defined) Extensions</a></li>
 </ul>
 <hr>
 <div class="section" id="RISC_002dV_002dOptions">
@@ -26797,7 +26837,7 @@ The RISC-V Instruction Set Manual Volume I: User-Level ISA.
 <div class="section" id="RISC_002dV_002dATTRIBUTE">
 <div class="header">
 <p>
-Previous: <a href="#RISC_002dV_002dFormats" accesskey="p" rel="prev">RISC-V Instruction Formats</a>, Up: <a href="#RISC_002dV_002dDependent" accesskey="u" rel="up">RISC-V Dependent Features</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
+Next: <a href="#RISC_002dV_002dCustomExts" accesskey="n" rel="next">RISC-V Custom (Vendor-Defined) Extensions</a>, Previous: <a href="#RISC_002dV_002dFormats" accesskey="p" rel="prev">RISC-V Instruction Formats</a>, Up: <a href="#RISC_002dV_002dDependent" accesskey="u" rel="up">RISC-V Dependent Features</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
 <span id="RISC_002dV-Object-Attribute"></span><h4 class="subsection">9.38.5 RISC-V Object Attribute</h4>
 <span id="index-Object-Attribute_002c-RISC_002dV"></span>
@@ -26841,6 +26881,96 @@ memory accesses, and 1 for files that do allow unaligned memory accesses.
 <dd><p>Tag_RISCV_priv_spec contains the major/minor/revision version information of
 the privileged specification.  It will report errors if object files of
 different privileged specification versions are merged.
+</p>
+</dd>
+</dl>
+
+<hr>
+</div>
+<div class="section" id="RISC_002dV_002dCustomExts">
+<div class="header">
+<p>
+Previous: <a href="#RISC_002dV_002dATTRIBUTE" accesskey="p" rel="prev">RISC-V Object Attribute</a>, Up: <a href="#RISC_002dV_002dDependent" accesskey="u" rel="up">RISC-V Dependent Features</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="RISC_002dV-Custom-_0028Vendor_002dDefined_0029-Extensions"></span><h4 class="subsection">9.38.6 RISC-V Custom (Vendor-Defined) Extensions</h4>
+<span id="index-custom-_0028vendor_002ddefined_0029-extensions_002c-RISC_002dV"></span>
+<span id="index-RISC_002dV-custom-_0028vendor_002ddefined_0029-extensions"></span>
+
+<p>The following table lists the custom (vendor-defined) RISC-V
+extensions supported and provides the location of their
+publicly-released documentation:
+</p>
+<dl compact="compact">
+<dt><span><span class="roman">XTheadBa</span></span></dt>
+<dd><p>The XTheadBa extension provides instructions for address calculations.
+</p>
+<p>It is documented in <a href="https://github.com/T-head-Semi/thead-extension-spec/releases/download/2.0.0/xthead-2022-09-05-2.0.0.pdf">https://github.com/T-head-Semi/thead-extension-spec/releases/download/2.0.0/xthead-2022-09-05-2.0.0.pdf</a>.
+</p>
+</dd>
+<dt><span><span class="roman">XTheadBb</span></span></dt>
+<dd><p>The XTheadBb extension provides instructions for basic bit-manipulation
+</p>
+<p>It is documented in <a href="https://github.com/T-head-Semi/thead-extension-spec/releases/download/2.0.0/xthead-2022-09-05-2.0.0.pdf">https://github.com/T-head-Semi/thead-extension-spec/releases/download/2.0.0/xthead-2022-09-05-2.0.0.pdf</a>.
+</p>
+</dd>
+<dt><span><span class="roman">XTheadBs</span></span></dt>
+<dd><p>The XTheadBs extension provides single-bit instructions.
+</p>
+<p>It is documented in <a href="https://github.com/T-head-Semi/thead-extension-spec/releases/download/2.0.0/xthead-2022-09-05-2.0.0.pdf">https://github.com/T-head-Semi/thead-extension-spec/releases/download/2.0.0/xthead-2022-09-05-2.0.0.pdf</a>.
+</p>
+</dd>
+<dt><span><span class="roman">XTheadCmo</span></span></dt>
+<dd><p>The XTheadCmo extension provides instructions for cache management.
+</p>
+<p>It is documented in <a href="https://github.com/T-head-Semi/thead-extension-spec/releases/download/2.0.0/xthead-2022-09-05-2.0.0.pdf">https://github.com/T-head-Semi/thead-extension-spec/releases/download/2.0.0/xthead-2022-09-05-2.0.0.pdf</a>.
+</p>
+</dd>
+<dt><span><span class="roman">XTheadCondMov</span></span></dt>
+<dd><p>The XTheadCondMov extension provides instructions for conditional moves.
+</p>
+<p>It is documented in <a href="https://github.com/T-head-Semi/thead-extension-spec/releases/download/2.0.0/xthead-2022-09-05-2.0.0.pdf">https://github.com/T-head-Semi/thead-extension-spec/releases/download/2.0.0/xthead-2022-09-05-2.0.0.pdf</a>.
+</p>
+</dd>
+<dt><span><span class="roman">XTheadFMemIdx</span></span></dt>
+<dd><p>The XTheadFMemIdx extension provides floating-point memory operations.
+</p>
+<p>It is documented in <a href="https://github.com/T-head-Semi/thead-extension-spec/releases/download/2.0.0/xthead-2022-09-05-2.0.0.pdf">https://github.com/T-head-Semi/thead-extension-spec/releases/download/2.0.0/xthead-2022-09-05-2.0.0.pdf</a>.
+</p>
+</dd>
+<dt><span><span class="roman">XTheadFmv</span></span></dt>
+<dd><p>The XTheadFmv extension provides access to the upper 32 bits of a doulbe-precision floating point register.
+</p>
+<p>It is documented in <a href="https://github.com/T-head-Semi/thead-extension-spec/releases/download/2.1.0/xthead-2022-11-07-2.1.0.pdf">https://github.com/T-head-Semi/thead-extension-spec/releases/download/2.1.0/xthead-2022-11-07-2.1.0.pdf</a>.
+</p>
+</dd>
+<dt><span><span class="roman">XTheadInt</span></span></dt>
+<dd><p>The XTheadInt extension provides access to ISR stack management instructions.
+</p>
+<p>It is documented in <a href="https://github.com/T-head-Semi/thead-extension-spec/releases/download/2.1.0/xthead-2022-11-07-2.1.0.pdf">https://github.com/T-head-Semi/thead-extension-spec/releases/download/2.1.0/xthead-2022-11-07-2.1.0.pdf</a>.
+</p>
+</dd>
+<dt><span><span class="roman">XTheadMac</span></span></dt>
+<dd><p>The XTheadMac extension provides multiply-accumulate instructions.
+</p>
+<p>It is documented in <a href="https://github.com/T-head-Semi/thead-extension-spec/releases/download/2.0.0/xthead-2022-09-05-2.0.0.pdf">https://github.com/T-head-Semi/thead-extension-spec/releases/download/2.0.0/xthead-2022-09-05-2.0.0.pdf</a>.
+</p>
+</dd>
+<dt><span><span class="roman">XTheadMemIdx</span></span></dt>
+<dd><p>The XTheadMemIdx extension provides GPR memory operations.
+</p>
+<p>It is documented in <a href="https://github.com/T-head-Semi/thead-extension-spec/releases/download/2.0.0/xthead-2022-09-05-2.0.0.pdf">https://github.com/T-head-Semi/thead-extension-spec/releases/download/2.0.0/xthead-2022-09-05-2.0.0.pdf</a>.
+</p>
+</dd>
+<dt><span><span class="roman">XTheadMemPair</span></span></dt>
+<dd><p>The XTheadMemPair extension provides two-GP-register memory operations.
+</p>
+<p>It is documented in <a href="https://github.com/T-head-Semi/thead-extension-spec/releases/download/2.0.0/xthead-2022-09-05-2.0.0.pdf">https://github.com/T-head-Semi/thead-extension-spec/releases/download/2.0.0/xthead-2022-09-05-2.0.0.pdf</a>.
+</p>
+</dd>
+<dt><span><span class="roman">XTheadSync</span></span></dt>
+<dd><p>The XTheadSync extension provides instructions for multi-processor synchronization.
+</p>
+<p>It is documented in <a href="https://github.com/T-head-Semi/thead-extension-spec/releases/download/2.0.0/xthead-2022-09-05-2.0.0.pdf">https://github.com/T-head-Semi/thead-extension-spec/releases/download/2.0.0/xthead-2022-09-05-2.0.0.pdf</a>.
 </p>
 </dd>
 </dl>
@@ -27354,7 +27484,7 @@ and eleven chip levels. The architecture modes are the Enterprise System
 Architecture (ESA) and the newer z/Architecture mode. The chip levels
 are g5 (or arch3), g6, z900 (or arch5), z990 (or arch6), z9-109, z9-ec
 (or arch7), z10 (or arch8), z196 (or arch9), zEC12 (or arch10), z13
-(or arch11), z14 (or arch12), z15 (or arch13), or arch14.
+(or arch11), z14 (or arch12), z15 (or arch13), or z16 (or arch14).
 </p>
 
 <ul class="section-toc">
@@ -27416,7 +27546,7 @@ are recognized:
 <code>z13</code> (or <code>arch11</code>),
 <code>z14</code> (or <code>arch12</code>),
 <code>z15</code> (or <code>arch13</code>), and
-<code>arch14</code>.
+<code>z16</code> (or <code>arch14</code>).
 </p>
 <p>Assembling an instruction that is not supported on the target
 processor results in an error message.
@@ -36843,6 +36973,7 @@ Previous: <a href="#GNU-Free-Documentation-License" accesskey="p" rel="prev">GNU
 <tr><td></td><td valign="top"><a href="#index-_002eo"><code>.o</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Object">Object</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002eobject_005farch-directive_002c-ARM"><code>.object_arch</code> directive, ARM</a>:</td><td>&nbsp;</td><td valign="top"><a href="#ARM-Directives">ARM Directives</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002epacked-directive_002c-ARM"><code>.packed</code> directive, ARM</a>:</td><td>&nbsp;</td><td valign="top"><a href="#ARM-Directives">ARM Directives</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-_002epacspval-directive_002c-ARM"><code>.pacspval</code> directive, ARM</a>:</td><td>&nbsp;</td><td valign="top"><a href="#ARM-Directives">ARM Directives</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002epad-directive_002c-ARM"><code>.pad</code> directive, ARM</a>:</td><td>&nbsp;</td><td valign="top"><a href="#ARM-Directives">ARM Directives</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002eparam-on-HPPA"><code>.param</code> on HPPA</a>:</td><td>&nbsp;</td><td valign="top"><a href="#HPPA-Directives">HPPA Directives</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002epersonality-directive_002c-ARM"><code>.personality</code> directive, ARM</a>:</td><td>&nbsp;</td><td valign="top"><a href="#ARM-Directives">ARM Directives</a></td></tr>
@@ -37342,6 +37473,7 @@ Previous: <a href="#GNU-Free-Documentation-License" accesskey="p" rel="prev">GNU
 <tr><td></td><td valign="top"><a href="#index-ctpsw-register_002c-V850"><code>ctpsw</code> register, V850</a>:</td><td>&nbsp;</td><td valign="top"><a href="#V850_002dRegs">V850-Regs</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-current-address">current address</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Dot">Dot</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-current-address_002c-advancing">current address, advancing</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Org">Org</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-custom-_0028vendor_002ddefined_0029-extensions_002c-RISC_002dV">custom (vendor-defined) extensions, RISC-V</a>:</td><td>&nbsp;</td><td valign="top"><a href="#RISC_002dV_002dCustomExts">RISC-V-CustomExts</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-c_005fmode-directive_002c-TIC54X"><code>c_mode</code> directive, TIC54X</a>:</td><td>&nbsp;</td><td valign="top"><a href="#TIC54X_002dDirectives">TIC54X-Directives</a></td></tr>
 <tr><td colspan="4"> <hr></td></tr>
 <tr><th id="AS-Index_cp_letter-D">D</th><td></td><td></td></tr>
@@ -38545,6 +38677,7 @@ Previous: <a href="#GNU-Free-Documentation-License" accesskey="p" rel="prev">GNU
 <tr><td></td><td valign="top"><a href="#index-return-instructions_002c-i386">return instructions, i386</a>:</td><td>&nbsp;</td><td valign="top"><a href="#i386_002dVariations">i386-Variations</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-return-instructions_002c-x86_002d64">return instructions, x86-64</a>:</td><td>&nbsp;</td><td valign="top"><a href="#i386_002dVariations">i386-Variations</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-REX-prefixes_002c-i386">REX prefixes, i386</a>:</td><td>&nbsp;</td><td valign="top"><a href="#i386_002dPrefixes">i386-Prefixes</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-RISC_002dV-custom-_0028vendor_002ddefined_0029-extensions">RISC-V custom (vendor-defined) extensions</a>:</td><td>&nbsp;</td><td valign="top"><a href="#RISC_002dV_002dCustomExts">RISC-V-CustomExts</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-RISC_002dV-instruction-formats">RISC-V instruction formats</a>:</td><td>&nbsp;</td><td valign="top"><a href="#RISC_002dV_002dFormats">RISC-V-Formats</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-RISC_002dV-machine-directives">RISC-V machine directives</a>:</td><td>&nbsp;</td><td valign="top"><a href="#RISC_002dV_002dDirectives">RISC-V-Directives</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-RISC_002dV-support">RISC-V support</a>:</td><td>&nbsp;</td><td valign="top"><a href="#RISC_002dV_002dDependent">RISC-V-Dependent</a></td></tr>
