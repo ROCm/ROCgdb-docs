@@ -17,5 +17,5 @@ os.system("cp -v --parents `find ROCgdb/ -name '*.html'` _readthedocs/html")
 
 # OPTIONAL: also generate the ROCgdb-docs documentation
 # os.chdir("docs")
-# os.system("pip3 install -r .sphinx/requirements.txt")
+# os.system("pip3 install -r sphinx/requirements.txt")
 # os.system("python3 -m sphinx -T -E -b html -d _build/doctrees -D language=en . _build/html")
