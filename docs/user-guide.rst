@@ -1,3 +1,9 @@
+.. meta::
+   :description: Source-level debugger for Linux, based on the GNU Debugger
+   :keywords: ROCgdb, ROCm, library, API, tool
+
+.. _user-guide:
+
 ========================
 ROCgdb user guide
 ========================
