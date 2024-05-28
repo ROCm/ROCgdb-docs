@@ -5,7 +5,7 @@
 .. _user-guide:
 
 ========================
-ROCgdb user guide
+User guide
 ========================
 
 You can use the standard GNU debugger (GDB) commands for both CPU and GPU code debugging. 
@@ -28,4 +28,4 @@ For more information on GDB, visit the official page of `GNU Debugger <http://ww
 
 .. |ROCgdb user guide| raw:: html
 
-   <a href="../ROCgdb/gdb/doc/gdb/index.html" target="_blank">ROCgdb Documentation</a>
+   <a href="../ROCgdb/gdb/doc/gdb/index.html" target="_blank">ROCgdb debugger manual</a>
