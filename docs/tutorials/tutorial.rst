@@ -1,14 +1,15 @@
 .. meta::
-  :description: This chapter describes the usage of ROCgdb, a tool for debugging
-  ROCm software.
-  :keywords: AMD, ROCm, HIP, ROCgdb, performance, debugging
+   :description: This chapter describes the usage of ROCgdb, a tool for debugging ROCm software.
+   :keywords: AMD, ROCm, HIP, ROCgdb, performance, debugging
 
 .. _tutorial:
+
 *******************************************************************************
 ROCgdb debugger tutorial
 *******************************************************************************
 
 .. _rocgdb_introduction:
+
 Introduction
 ===============================================================================
 `ROCgdb <https://github.com/ROCm/ROCgdb>`_ is the AMD ROCm debugger for Linux targets.
@@ -28,12 +29,14 @@ ROCm applications, and inspect and modify the memory and variables of any given 
 running on the hardware.
 
 .. _rocgdb_installation:
+
 Installation
 ===============================================================================
 The ROCm installation also installs the ROCgdb debugger, but some steps are necessary
 before using the debugger.
 
 .. _rocgdb_setup:
+
 Setup
 ===============================================================================
 Before debugging, compile your software with debug information. Add the ‘-g’ flag to your
@@ -42,6 +45,7 @@ are turned on. Notice that higher optimization levels make the debugging more di
 so it might be helpful to turn off these optimizations using the ‘-O0’ compiler option.
 
 .. _rocgdb_debugging:
+
 Debugging
 ===============================================================================
 This section introduces how to use ROCgdb. For more information about GDB, see the `GDB

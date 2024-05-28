@@ -28,4 +28,4 @@ For more information on GDB, visit the official page of `GNU Debugger <http://ww
 
 .. |ROCgdb user guide| raw:: html
 
-   <a href="ROCgdb/gdb/doc/gdb/index.html" target="_blank">GDB Documentation</a>
+   <a href="../ROCgdb/gdb/doc/gdb/index.html" target="_blank">GDB Documentation</a>
