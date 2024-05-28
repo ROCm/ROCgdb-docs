@@ -30,6 +30,7 @@ The documentation is structured as follows:
     
   .. grid-item-card:: Conceptual
 
+    * :ref:`tutorial`
     * :ref:`user-guide`
          
 To contribute to the documentation, refer to
