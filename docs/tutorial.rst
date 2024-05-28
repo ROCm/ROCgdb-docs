@@ -3,8 +3,9 @@
   ROCm software.
   :keywords: AMD, ROCm, HIP, ROCgdb, performance, debugging
 
+.. _tutorial:
 *******************************************************************************
-ROCgdb debugger for Linux targets
+ROCgdb debugger tutorial
 *******************************************************************************
 
 .. _rocgdb_introduction:
