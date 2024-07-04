@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the BFD library.
 
-Copyright (C) 1991-2022 Free Software Foundation, Inc.
+Copyright (C) 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -66,10 +66,10 @@ ul.no-bullet {list-style: none}
 <div class="section" id="File-Caching">
 <div class="header">
 <p>
-Next: <a href="Linker-Functions.html" accesskey="n" rel="next">Linker Functions</a>, Previous: <a href="Internal.html" accesskey="p" rel="prev">Internal</a>, Up: <a href="BFD-front-end.html" accesskey="u" rel="up">BFD Front End</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="BFD-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Linker-Functions.html" accesskey="n" rel="next">Linker Functions</a>, Previous: <a href="Internal.html" accesskey="p" rel="prev">Implementation details</a>, Up: <a href="BFD-front-end.html" accesskey="u" rel="up">BFD Front End</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="BFD-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="File-caching"></span><h3 class="section">2.15 File caching</h3>
+<span id="File-caching"></span><h3 class="section">2.16 File caching</h3>
 <p>The file caching mechanism is embedded within BFD and allows
 the application to open as many BFDs as it wants without
 regard to the underlying operating system&rsquo;s file descriptor
@@ -85,7 +85,7 @@ handle.
 <li><a href="#Caching-functions" accesskey="1">Caching functions</a></li>
 </ul>
 <div class="subsection" id="Caching-functions">
-<h4 class="subsection">2.15.1 Caching functions</h4>
+<h4 class="subsection">2.16.1 Caching functions</h4>
 
 
 <span id="index-bfd_005fcache_005finit"></span>
@@ -93,64 +93,82 @@ handle.
 <li><a href="#bfd_005fcache_005finit" accesskey="1"><code>bfd_cache_init</code></a></li>
 <li><a href="#bfd_005fcache_005fclose" accesskey="2"><code>bfd_cache_close</code></a></li>
 <li><a href="#bfd_005fcache_005fclose_005fall" accesskey="3"><code>bfd_cache_close_all</code></a></li>
-<li><a href="#bfd_005fopen_005ffile" accesskey="4"><code>bfd_open_file</code></a></li>
+<li><a href="#bfd_005fcache_005fset_005funcloseable" accesskey="4"><code>bfd_cache_set_uncloseable</code></a></li>
+<li><a href="#bfd_005fcache_005fsize" accesskey="5"><code>bfd_cache_size</code></a></li>
+<li><a href="#bfd_005fopen_005ffile" accesskey="6"><code>bfd_open_file</code></a></li>
 </ul>
 <div class="subsubsection" id="bfd_005fcache_005finit">
-<h4 class="subsubsection">2.15.1.1 <code>bfd_cache_init</code></h4>
-<p><strong>Synopsis</strong>
-</p><div class="example">
-<pre class="example">bool bfd_cache_init (bfd *abfd);
-</pre></div>
-<p><strong>Description</strong><br>
-Add a newly opened BFD to the cache.
+<h4 class="subsubsection">2.16.1.1 <code>bfd_cache_init</code></h4>
+<dl class="def">
+<dt id="index-bfd_005fcache_005finit-1"><span class="category">Function: </span><span><em>bool</em> <strong>bfd_cache_init</strong> <em>(bfd *abfd);</em><a href='#index-bfd_005fcache_005finit-1' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Add a newly opened BFD to the cache.
 </p>
+</dd></dl>
 <span id="index-bfd_005fcache_005fclose"></span>
 </div>
 <div class="subsubsection" id="bfd_005fcache_005fclose">
-<h4 class="subsubsection">2.15.1.2 <code>bfd_cache_close</code></h4>
-<p><strong>Synopsis</strong>
-</p><div class="example">
-<pre class="example">bool bfd_cache_close (bfd *abfd);
-</pre></div>
-<p><strong>Description</strong><br>
-Remove the BFD <var>abfd</var> from the cache. If the attached file is open,
+<h4 class="subsubsection">2.16.1.2 <code>bfd_cache_close</code></h4>
+<dl class="def">
+<dt id="index-bfd_005fcache_005fclose-1"><span class="category">Function: </span><span><em>bool</em> <strong>bfd_cache_close</strong> <em>(bfd *abfd);</em><a href='#index-bfd_005fcache_005fclose-1' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Remove the BFD <var>abfd</var> from the cache. If the attached file is open,
 then close it too.
 </p>
-<p><strong>Returns</strong><br>
-<code>FALSE</code> is returned if closing the file fails, <code>TRUE</code> is
+<p><code>FALSE</code> is returned if closing the file fails, <code>TRUE</code> is
 returned if all is well.
 </p>
+</dd></dl>
 <span id="index-bfd_005fcache_005fclose_005fall"></span>
 </div>
 <div class="subsubsection" id="bfd_005fcache_005fclose_005fall">
-<h4 class="subsubsection">2.15.1.3 <code>bfd_cache_close_all</code></h4>
-<p><strong>Synopsis</strong>
-</p><div class="example">
-<pre class="example">bool bfd_cache_close_all (void);
-</pre></div>
-<p><strong>Description</strong><br>
-Remove all BFDs from the cache. If the attached file is open,
-then close it too.
+<h4 class="subsubsection">2.16.1.3 <code>bfd_cache_close_all</code></h4>
+<dl class="def">
+<dt id="index-bfd_005fcache_005fclose_005fall-1"><span class="category">Function: </span><span><em>bool</em> <strong>bfd_cache_close_all</strong> <em>(void);</em><a href='#index-bfd_005fcache_005fclose_005fall-1' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Remove all BFDs from the cache. If the attached file is open,
+then close it too.  Note - despite its name this function will
+close a BFD even if it is not marked as being cacheable, ie
+even if bfd_get_cacheable() returns false.
 </p>
-<p><strong>Returns</strong><br>
-<code>FALSE</code> is returned if closing one of the file fails, <code>TRUE</code> is
+<p><code>FALSE</code> is returned if closing one of the file fails, <code>TRUE</code> is
 returned if all is well.
 </p>
+</dd></dl>
+<span id="index-bfd_005fcache_005fset_005funcloseable"></span>
+</div>
+<div class="subsubsection" id="bfd_005fcache_005fset_005funcloseable">
+<h4 class="subsubsection">2.16.1.4 <code>bfd_cache_set_uncloseable</code></h4>
+<dl class="def">
+<dt id="index-bfd_005fcache_005fset_005funcloseable-1"><span class="category">Function: </span><span><em>bool</em> <strong>bfd_cache_set_uncloseable</strong> <em>(bfd *abfd, bool value, bool *old);</em><a href='#index-bfd_005fcache_005fset_005funcloseable-1' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Internal function to mark ABFD as either closeable or not.
+This is used by bfd_check_format_matches to avoid races
+where bfd_cache_close_all is called in another thread.
+VALUE is true to mark the BFD as temporarily uncloseable
+by the cache; false to mark it as closeable once again.
+OLD, if non-NULL, is set to the previous value of the flag.
+Returns false on error, true on success.
+</p>
+</dd></dl>
+<span id="index-bfd_005fcache_005fsize"></span>
+</div>
+<div class="subsubsection" id="bfd_005fcache_005fsize">
+<h4 class="subsubsection">2.16.1.5 <code>bfd_cache_size</code></h4>
+<dl class="def">
+<dt id="index-bfd_005fcache_005fsize-1"><span class="category">Function: </span><span><em>unsigned</em> <strong>bfd_cache_size</strong> <em>(void);</em><a href='#index-bfd_005fcache_005fsize-1' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Return the number of open files in the cache.
+</p>
+</dd></dl>
 <span id="index-bfd_005fopen_005ffile"></span>
 </div>
 <div class="subsubsection" id="bfd_005fopen_005ffile">
-<h4 class="subsubsection">2.15.1.4 <code>bfd_open_file</code></h4>
-<p><strong>Synopsis</strong>
-</p><div class="example">
-<pre class="example">FILE* bfd_open_file (bfd *abfd);
-</pre></div>
-<p><strong>Description</strong><br>
-Call the OS to open a file for <var>abfd</var>.  Return the <code>FILE *</code>
+<h4 class="subsubsection">2.16.1.6 <code>bfd_open_file</code></h4>
+<dl class="def">
+<dt id="index-bfd_005fopen_005ffile-1"><span class="category">Function: </span><span><em>FILE*</em> <strong>bfd_open_file</strong> <em>(bfd *abfd);</em><a href='#index-bfd_005fopen_005ffile-1' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Call the OS to open a file for <var>abfd</var>.  Return the <code>FILE *</code>
 (possibly <code>NULL</code>) that results from this operation.  Set up the
 BFD so that future accesses know the file is open. If the <code>FILE *</code>
 returned is <code>NULL</code>, then it won&rsquo;t have been put in the
 cache, so it won&rsquo;t have to be removed from it.
 </p>
+</dd></dl>
 
 </div>
 </div>
@@ -158,7 +176,7 @@ cache, so it won&rsquo;t have to be removed from it.
 <hr>
 <div class="header">
 <p>
-Next: <a href="Linker-Functions.html">Linker Functions</a>, Previous: <a href="Internal.html">Internal</a>, Up: <a href="BFD-front-end.html">BFD Front End</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="BFD-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Linker-Functions.html">Linker Functions</a>, Previous: <a href="Internal.html">Implementation details</a>, Up: <a href="BFD-front-end.html">BFD Front End</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="BFD-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

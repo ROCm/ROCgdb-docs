@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the BFD library.
 
-Copyright (C) 1991-2022 Free Software Foundation, Inc.
+Copyright (C) 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -73,9 +73,9 @@ Previous: <a href="typedef-arelent.html" accesskey="p" rel="prev">typedef arelen
 know what the target machine might call it, it can find out by
 using this bit of code.
 </p>
-<span id="index-bfd_005freloc_005fcode_005ftype"></span>
+<span id="index-bfd_005freloc_005fcode_005freal_005ftype"></span>
 <ul class="section-toc">
-<li><a href="#bfd_005freloc_005fcode_005ftype" accesskey="1"><code>bfd_reloc_code_type</code></a></li>
+<li><a href="#bfd_005freloc_005fcode_005freal_005ftype" accesskey="1"><code>bfd_reloc_code_real_type</code></a></li>
 <li><a href="#bfd_005freloc_005ftype_005flookup" accesskey="2"><code>bfd_reloc_type_lookup</code></a></li>
 <li><a href="#bfd_005fdefault_005freloc_005ftype_005flookup" accesskey="3"><code>bfd_default_reloc_type_lookup</code></a></li>
 <li><a href="#bfd_005fget_005freloc_005fcode_005fname" accesskey="4"><code>bfd_get_reloc_code_name</code></a></li>
@@ -87,10 +87,9 @@ using this bit of code.
 <li><a href="#g_t_005fbfd_005fgeneric_005fset_005freloc"><code>_bfd_generic_set_reloc</code></a></li>
 <li><a href="#g_t_005fbfd_005funrecognized_005freloc"><code>_bfd_unrecognized_reloc</code></a></li>
 </ul>
-<div class="subsubsection" id="bfd_005freloc_005fcode_005ftype">
-<h4 class="subsubsection">2.10.2.1 <code>bfd_reloc_code_type</code></h4>
-<p><strong>Description</strong><br>
-The insides of a reloc code.  The idea is that, eventually, there
+<div class="subsubsection" id="bfd_005freloc_005fcode_005freal_005ftype">
+<h4 class="subsubsection">2.10.2.1 <code>bfd_reloc_code_real_type</code></h4>
+<p>The insides of a reloc code.  The idea is that, eventually, there
 will be one enumerator for every type of relocation we ever do.
 Pass one of these values to <code>bfd_reloc_type_lookup</code>, and it&rsquo;ll
 return a howto pointer.
@@ -118,9 +117,10 @@ of attributes.
 <dt id="index-BFD_005fRELOC_005f16_005fPCREL"><span class="category">: </span><span><strong>BFD_RELOC_16_PCREL</strong><a href='#index-BFD_005fRELOC_005f16_005fPCREL' class='copiable-anchor'> &para;</a></span></dt>
 <dt id="index-BFD_005fRELOC_005f12_005fPCREL"><span class="category">: </span><span><strong>BFD_RELOC_12_PCREL</strong><a href='#index-BFD_005fRELOC_005f12_005fPCREL' class='copiable-anchor'> &para;</a></span></dt>
 <dt id="index-BFD_005fRELOC_005f8_005fPCREL"><span class="category">: </span><span><strong>BFD_RELOC_8_PCREL</strong><a href='#index-BFD_005fRELOC_005f8_005fPCREL' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>PC-relative relocations.  Sometimes these are relative to the address
-of the relocation itself; sometimes they are relative to the start of
-the section containing the relocation.  It depends on the specific target.
+<dd><p>PC-relative relocations.  Sometimes these are relative to the
+address of the relocation itself; sometimes they are relative to the
+start of the section containing the relocation.  It depends on the
+specific target.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005f32_005fSECREL"><span class="category">: </span><span><strong>BFD_RELOC_32_SECREL</strong><a href='#index-BFD_005fRELOC_005f32_005fSECREL' class='copiable-anchor'> &para;</a></span></dt>
@@ -205,8 +205,8 @@ displacement is used on the Alpha.
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fHI22"><span class="category">: </span><span><strong>BFD_RELOC_HI22</strong><a href='#index-BFD_005fRELOC_005fHI22' class='copiable-anchor'> &para;</a></span></dt>
 <dt id="index-BFD_005fRELOC_005fLO10"><span class="category">: </span><span><strong>BFD_RELOC_LO10</strong><a href='#index-BFD_005fRELOC_005fLO10' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>High 22 bits and low 10 bits of 32-bit value, placed into lower bits of
-the target word.  These are used on the SPARC.
+<dd><p>High 22 bits and low 10 bits of 32-bit value, placed into lower bits
+of the target word.  These are used on the SPARC.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fGPREL16"><span class="category">: </span><span><strong>BFD_RELOC_GPREL16</strong><a href='#index-BFD_005fRELOC_005fGPREL16' class='copiable-anchor'> &para;</a></span></dt>
@@ -278,11 +278,11 @@ relocation types already defined.
 <dt id="index-BFD_005fRELOC_005fSPARC_005fSIZE32"><span class="category">: </span><span><strong>BFD_RELOC_SPARC_SIZE32</strong><a href='#index-BFD_005fRELOC_005fSPARC_005fSIZE32' class='copiable-anchor'> &para;</a></span></dt>
 <dt id="index-BFD_005fRELOC_005fSPARC_005fSIZE64"><span class="category">: </span><span><strong>BFD_RELOC_SPARC_SIZE64</strong><a href='#index-BFD_005fRELOC_005fSPARC_005fSIZE64' class='copiable-anchor'> &para;</a></span></dt>
 <dt id="index-BFD_005fRELOC_005fSPARC_005fWDISP10"><span class="category">: </span><span><strong>BFD_RELOC_SPARC_WDISP10</strong><a href='#index-BFD_005fRELOC_005fSPARC_005fWDISP10' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>SPARC64 relocations
+<dd><p>SPARC64 relocations.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fSPARC_005fREV32"><span class="category">: </span><span><strong>BFD_RELOC_SPARC_REV32</strong><a href='#index-BFD_005fRELOC_005fSPARC_005fREV32' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>SPARC little endian relocation
+<dd><p>SPARC little endian relocation.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fSPARC_005fTLS_005fGD_005fHI22"><span class="category">: </span><span><strong>BFD_RELOC_SPARC_TLS_GD_HI22</strong><a href='#index-BFD_005fRELOC_005fSPARC_005fTLS_005fGD_005fHI22' class='copiable-anchor'> &para;</a></span></dt>
@@ -309,7 +309,7 @@ relocation types already defined.
 <dt id="index-BFD_005fRELOC_005fSPARC_005fTLS_005fDTPOFF64"><span class="category">: </span><span><strong>BFD_RELOC_SPARC_TLS_DTPOFF64</strong><a href='#index-BFD_005fRELOC_005fSPARC_005fTLS_005fDTPOFF64' class='copiable-anchor'> &para;</a></span></dt>
 <dt id="index-BFD_005fRELOC_005fSPARC_005fTLS_005fTPOFF32"><span class="category">: </span><span><strong>BFD_RELOC_SPARC_TLS_TPOFF32</strong><a href='#index-BFD_005fRELOC_005fSPARC_005fTLS_005fTPOFF32' class='copiable-anchor'> &para;</a></span></dt>
 <dt id="index-BFD_005fRELOC_005fSPARC_005fTLS_005fTPOFF64"><span class="category">: </span><span><strong>BFD_RELOC_SPARC_TLS_TPOFF64</strong><a href='#index-BFD_005fRELOC_005fSPARC_005fTLS_005fTPOFF64' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>SPARC TLS relocations
+<dd><p>SPARC TLS relocations.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fSPU_005fIMM7"><span class="category">: </span><span><strong>BFD_RELOC_SPU_IMM7</strong><a href='#index-BFD_005fRELOC_005fSPU_005fIMM7' class='copiable-anchor'> &para;</a></span></dt>
@@ -473,21 +473,21 @@ to compensate for the borrow when the low bits are added.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fHI16_005fPCREL"><span class="category">: </span><span><strong>BFD_RELOC_HI16_PCREL</strong><a href='#index-BFD_005fRELOC_005fHI16_005fPCREL' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>High 16 bits of 32-bit pc-relative value
+<dd><p>High 16 bits of 32-bit pc-relative value.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fHI16_005fS_005fPCREL"><span class="category">: </span><span><strong>BFD_RELOC_HI16_S_PCREL</strong><a href='#index-BFD_005fRELOC_005fHI16_005fS_005fPCREL' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>High 16 bits of 32-bit pc-relative value, adjusted
+<dd><p>High 16 bits of 32-bit pc-relative value, adjusted.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fLO16_005fPCREL"><span class="category">: </span><span><strong>BFD_RELOC_LO16_PCREL</strong><a href='#index-BFD_005fRELOC_005fLO16_005fPCREL' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Low 16 bits of pc-relative value
+<dd><p>Low 16 bits of pc-relative value.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fMIPS16_005fGOT16"><span class="category">: </span><span><strong>BFD_RELOC_MIPS16_GOT16</strong><a href='#index-BFD_005fRELOC_005fMIPS16_005fGOT16' class='copiable-anchor'> &para;</a></span></dt>
 <dt id="index-BFD_005fRELOC_005fMIPS16_005fCALL16"><span class="category">: </span><span><strong>BFD_RELOC_MIPS16_CALL16</strong><a href='#index-BFD_005fRELOC_005fMIPS16_005fCALL16' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Equivalent of BFD_RELOC_MIPS_*, but with the MIPS16 layout of
-16-bit immediate fields
+16-bit immediate fields.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fMIPS16_005fHI16"><span class="category">: </span><span><strong>BFD_RELOC_MIPS16_HI16</strong><a href='#index-BFD_005fRELOC_005fMIPS16_005fHI16' class='copiable-anchor'> &para;</a></span></dt>
@@ -512,7 +512,7 @@ to compensate for the borrow when the low bits are added.
 <dt id="index-BFD_005fRELOC_005fMIPS16_005fTLS_005fGOTTPREL"><span class="category">: </span><span><strong>BFD_RELOC_MIPS16_TLS_GOTTPREL</strong><a href='#index-BFD_005fRELOC_005fMIPS16_005fTLS_005fGOTTPREL' class='copiable-anchor'> &para;</a></span></dt>
 <dt id="index-BFD_005fRELOC_005fMIPS16_005fTLS_005fTPREL_005fHI16"><span class="category">: </span><span><strong>BFD_RELOC_MIPS16_TLS_TPREL_HI16</strong><a href='#index-BFD_005fRELOC_005fMIPS16_005fTLS_005fTPREL_005fHI16' class='copiable-anchor'> &para;</a></span></dt>
 <dt id="index-BFD_005fRELOC_005fMIPS16_005fTLS_005fTPREL_005fLO16"><span class="category">: </span><span><strong>BFD_RELOC_MIPS16_TLS_TPREL_LO16</strong><a href='#index-BFD_005fRELOC_005fMIPS16_005fTLS_005fTPREL_005fLO16' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>MIPS16 TLS relocations
+<dd><p>MIPS16 TLS relocations.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fMIPS_005fLITERAL"><span class="category">: </span><span><strong>BFD_RELOC_MIPS_LITERAL</strong><a href='#index-BFD_005fRELOC_005fMIPS_005fLITERAL' class='copiable-anchor'> &para;</a></span></dt>
@@ -671,18 +671,18 @@ to compensate for the borrow when the low bits are added.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fMN10300_005fGOT32"><span class="category">: </span><span><strong>BFD_RELOC_MN10300_GOT32</strong><a href='#index-BFD_005fRELOC_005fMN10300_005fGOT32' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>This is a 32bit GOT-relative reloc for the mn10300, offset by two bytes
-in the instruction.
+<dd><p>This is a 32bit GOT-relative reloc for the mn10300, offset by two
+bytes in the instruction.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fMN10300_005fGOT24"><span class="category">: </span><span><strong>BFD_RELOC_MN10300_GOT24</strong><a href='#index-BFD_005fRELOC_005fMN10300_005fGOT24' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>This is a 24bit GOT-relative reloc for the mn10300, offset by two bytes
-in the instruction.
+<dd><p>This is a 24bit GOT-relative reloc for the mn10300, offset by two
+bytes in the instruction.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fMN10300_005fGOT16"><span class="category">: </span><span><strong>BFD_RELOC_MN10300_GOT16</strong><a href='#index-BFD_005fRELOC_005fMN10300_005fGOT16' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>This is a 16bit GOT-relative reloc for the mn10300, offset by two bytes
-in the instruction.
+<dd><p>This is a 16bit GOT-relative reloc for the mn10300, offset by two
+bytes in the instruction.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fMN10300_005fCOPY"><span class="category">: </span><span><strong>BFD_RELOC_MN10300_COPY</strong><a href='#index-BFD_005fRELOC_005fMN10300_005fCOPY' class='copiable-anchor'> &para;</a></span></dt>
@@ -702,15 +702,14 @@ in the instruction.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fMN10300_005fSYM_005fDIFF"><span class="category">: </span><span><strong>BFD_RELOC_MN10300_SYM_DIFF</strong><a href='#index-BFD_005fRELOC_005fMN10300_005fSYM_005fDIFF' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Together with another reloc targeted at the same location,
-allows for a value that is the difference of two symbols
-in the same section.
+<dd><p>Together with another reloc targeted at the same location, allows
+for a value that is the difference of two symbols in the same
+section.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fMN10300_005fALIGN"><span class="category">: </span><span><strong>BFD_RELOC_MN10300_ALIGN</strong><a href='#index-BFD_005fRELOC_005fMN10300_005fALIGN' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>The addend of this reloc is an alignment power that must
-be honoured at the offset&rsquo;s location, regardless of linker
-relaxation.
+<dd><p>The addend of this reloc is an alignment power that must be honoured
+at the offset&rsquo;s location, regardless of linker relaxation.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fMN10300_005fTLS_005fGD"><span class="category">: </span><span><strong>BFD_RELOC_MN10300_TLS_GD</strong><a href='#index-BFD_005fRELOC_005fMN10300_005fTLS_005fGD' class='copiable-anchor'> &para;</a></span></dt>
@@ -726,13 +725,13 @@ relaxation.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fMN10300_005f32_005fPCREL"><span class="category">: </span><span><strong>BFD_RELOC_MN10300_32_PCREL</strong><a href='#index-BFD_005fRELOC_005fMN10300_005f32_005fPCREL' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>This is a 32bit pcrel reloc for the mn10300, offset by two bytes in the
-instruction.
+<dd><p>This is a 32bit pcrel reloc for the mn10300, offset by two bytes in
+the instruction.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fMN10300_005f16_005fPCREL"><span class="category">: </span><span><strong>BFD_RELOC_MN10300_16_PCREL</strong><a href='#index-BFD_005fRELOC_005fMN10300_005f16_005fPCREL' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>This is a 16bit pcrel reloc for the mn10300, offset by two bytes in the
-instruction.
+<dd><p>This is a 16bit pcrel reloc for the mn10300, offset by two bytes in
+the instruction.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005f386_005fGOT32"><span class="category">: </span><span><strong>BFD_RELOC_386_GOT32</strong><a href='#index-BFD_005fRELOC_005f386_005fGOT32' class='copiable-anchor'> &para;</a></span></dt>
@@ -760,7 +759,7 @@ instruction.
 <dt id="index-BFD_005fRELOC_005f386_005fTLS_005fDESC"><span class="category">: </span><span><strong>BFD_RELOC_386_TLS_DESC</strong><a href='#index-BFD_005fRELOC_005f386_005fTLS_005fDESC' class='copiable-anchor'> &para;</a></span></dt>
 <dt id="index-BFD_005fRELOC_005f386_005fIRELATIVE"><span class="category">: </span><span><strong>BFD_RELOC_386_IRELATIVE</strong><a href='#index-BFD_005fRELOC_005f386_005fIRELATIVE' class='copiable-anchor'> &para;</a></span></dt>
 <dt id="index-BFD_005fRELOC_005f386_005fGOT32X"><span class="category">: </span><span><strong>BFD_RELOC_386_GOT32X</strong><a href='#index-BFD_005fRELOC_005f386_005fGOT32X' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>i386/elf relocations
+<dd><p>i386/elf relocations.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fX86_005f64_005fGOT32"><span class="category">: </span><span><strong>BFD_RELOC_X86_64_GOT32</strong><a href='#index-BFD_005fRELOC_005fX86_005f64_005fGOT32' class='copiable-anchor'> &para;</a></span></dt>
@@ -794,7 +793,16 @@ instruction.
 <dt id="index-BFD_005fRELOC_005fX86_005f64_005fPLT32_005fBND"><span class="category">: </span><span><strong>BFD_RELOC_X86_64_PLT32_BND</strong><a href='#index-BFD_005fRELOC_005fX86_005f64_005fPLT32_005fBND' class='copiable-anchor'> &para;</a></span></dt>
 <dt id="index-BFD_005fRELOC_005fX86_005f64_005fGOTPCRELX"><span class="category">: </span><span><strong>BFD_RELOC_X86_64_GOTPCRELX</strong><a href='#index-BFD_005fRELOC_005fX86_005f64_005fGOTPCRELX' class='copiable-anchor'> &para;</a></span></dt>
 <dt id="index-BFD_005fRELOC_005fX86_005f64_005fREX_005fGOTPCRELX"><span class="category">: </span><span><strong>BFD_RELOC_X86_64_REX_GOTPCRELX</strong><a href='#index-BFD_005fRELOC_005fX86_005f64_005fREX_005fGOTPCRELX' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>x86-64/elf relocations
+<dt id="index-BFD_005fRELOC_005fX86_005f64_005fCODE_005f4_005fGOTPCRELX"><span class="category">: </span><span><strong>BFD_RELOC_X86_64_CODE_4_GOTPCRELX</strong><a href='#index-BFD_005fRELOC_005fX86_005f64_005fCODE_005f4_005fGOTPCRELX' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fX86_005f64_005fCODE_005f4_005fGOTTPOFF"><span class="category">: </span><span><strong>BFD_RELOC_X86_64_CODE_4_GOTTPOFF</strong><a href='#index-BFD_005fRELOC_005fX86_005f64_005fCODE_005f4_005fGOTTPOFF' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fX86_005f64_005fCODE_005f4_005fGOTPC32_005fTLSDESC"><span class="category">: </span><span><strong>BFD_RELOC_X86_64_CODE_4_GOTPC32_TLSDESC</strong><a href='#index-BFD_005fRELOC_005fX86_005f64_005fCODE_005f4_005fGOTPC32_005fTLSDESC' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fX86_005f64_005fCODE_005f5_005fGOTPCRELX"><span class="category">: </span><span><strong>BFD_RELOC_X86_64_CODE_5_GOTPCRELX</strong><a href='#index-BFD_005fRELOC_005fX86_005f64_005fCODE_005f5_005fGOTPCRELX' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fX86_005f64_005fCODE_005f5_005fGOTTPOFF"><span class="category">: </span><span><strong>BFD_RELOC_X86_64_CODE_5_GOTTPOFF</strong><a href='#index-BFD_005fRELOC_005fX86_005f64_005fCODE_005f5_005fGOTTPOFF' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fX86_005f64_005fCODE_005f5_005fGOTPC32_005fTLSDESC"><span class="category">: </span><span><strong>BFD_RELOC_X86_64_CODE_5_GOTPC32_TLSDESC</strong><a href='#index-BFD_005fRELOC_005fX86_005f64_005fCODE_005f5_005fGOTPC32_005fTLSDESC' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fX86_005f64_005fCODE_005f6_005fGOTPCRELX"><span class="category">: </span><span><strong>BFD_RELOC_X86_64_CODE_6_GOTPCRELX</strong><a href='#index-BFD_005fRELOC_005fX86_005f64_005fCODE_005f6_005fGOTPCRELX' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fX86_005f64_005fCODE_005f6_005fGOTTPOFF"><span class="category">: </span><span><strong>BFD_RELOC_X86_64_CODE_6_GOTTPOFF</strong><a href='#index-BFD_005fRELOC_005fX86_005f64_005fCODE_005f6_005fGOTTPOFF' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fX86_005f64_005fCODE_005f6_005fGOTPC32_005fTLSDESC"><span class="category">: </span><span><strong>BFD_RELOC_X86_64_CODE_6_GOTPC32_TLSDESC</strong><a href='#index-BFD_005fRELOC_005fX86_005f64_005fCODE_005f6_005fGOTPC32_005fTLSDESC' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>x86-64/elf relocations.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fNS32K_005fIMM_005f8"><span class="category">: </span><span><strong>BFD_RELOC_NS32K_IMM_8</strong><a href='#index-BFD_005fRELOC_005fNS32K_005fIMM_005f8' class='copiable-anchor'> &para;</a></span></dt>
@@ -809,12 +817,12 @@ instruction.
 <dt id="index-BFD_005fRELOC_005fNS32K_005fDISP_005f8_005fPCREL"><span class="category">: </span><span><strong>BFD_RELOC_NS32K_DISP_8_PCREL</strong><a href='#index-BFD_005fRELOC_005fNS32K_005fDISP_005f8_005fPCREL' class='copiable-anchor'> &para;</a></span></dt>
 <dt id="index-BFD_005fRELOC_005fNS32K_005fDISP_005f16_005fPCREL"><span class="category">: </span><span><strong>BFD_RELOC_NS32K_DISP_16_PCREL</strong><a href='#index-BFD_005fRELOC_005fNS32K_005fDISP_005f16_005fPCREL' class='copiable-anchor'> &para;</a></span></dt>
 <dt id="index-BFD_005fRELOC_005fNS32K_005fDISP_005f32_005fPCREL"><span class="category">: </span><span><strong>BFD_RELOC_NS32K_DISP_32_PCREL</strong><a href='#index-BFD_005fRELOC_005fNS32K_005fDISP_005f32_005fPCREL' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>ns32k relocations
+<dd><p>ns32k relocations.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fPDP11_005fDISP_005f8_005fPCREL"><span class="category">: </span><span><strong>BFD_RELOC_PDP11_DISP_8_PCREL</strong><a href='#index-BFD_005fRELOC_005fPDP11_005fDISP_005f8_005fPCREL' class='copiable-anchor'> &para;</a></span></dt>
 <dt id="index-BFD_005fRELOC_005fPDP11_005fDISP_005f6_005fPCREL"><span class="category">: </span><span><strong>BFD_RELOC_PDP11_DISP_6_PCREL</strong><a href='#index-BFD_005fRELOC_005fPDP11_005fDISP_005f6_005fPCREL' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>PDP11 relocations
+<dd><p>PDP11 relocations.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fPJ_005fCODE_005fHI16"><span class="category">: </span><span><strong>BFD_RELOC_PJ_CODE_HI16</strong><a href='#index-BFD_005fRELOC_005fPJ_005fCODE_005fHI16' class='copiable-anchor'> &para;</a></span></dt>
@@ -1000,7 +1008,7 @@ instruction.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fI370_005fD12"><span class="category">: </span><span><strong>BFD_RELOC_I370_D12</strong><a href='#index-BFD_005fRELOC_005fI370_005fD12' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>IBM 370/390 relocations
+<dd><p>IBM 370/390 relocations.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fCTOR"><span class="category">: </span><span><strong>BFD_RELOC_CTOR</strong><a href='#index-BFD_005fRELOC_005fCTOR' class='copiable-anchor'> &para;</a></span></dt>
@@ -1010,8 +1018,8 @@ It generally does map to one of the other relocation types.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fARM_005fPCREL_005fBRANCH"><span class="category">: </span><span><strong>BFD_RELOC_ARM_PCREL_BRANCH</strong><a href='#index-BFD_005fRELOC_005fARM_005fPCREL_005fBRANCH' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>ARM 26 bit pc-relative branch.  The lowest two bits must be zero and are
-not stored in the instruction.
+<dd><p>ARM 26 bit pc-relative branch.  The lowest two bits must be zero and
+are not stored in the instruction.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fARM_005fPCREL_005fBLX"><span class="category">: </span><span><strong>BFD_RELOC_ARM_PCREL_BLX</strong><a href='#index-BFD_005fRELOC_005fARM_005fPCREL_005fBLX' class='copiable-anchor'> &para;</a></span></dt>
@@ -1027,7 +1035,8 @@ field in the instruction.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fARM_005fPCREL_005fCALL"><span class="category">: </span><span><strong>BFD_RELOC_ARM_PCREL_CALL</strong><a href='#index-BFD_005fRELOC_005fARM_005fPCREL_005fCALL' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>ARM 26-bit pc-relative branch for an unconditional BL or BLX instruction.
+<dd><p>ARM 26-bit pc-relative branch for an unconditional BL or BLX
+instruction.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fARM_005fPCREL_005fJUMP"><span class="category">: </span><span><strong>BFD_RELOC_ARM_PCREL_JUMP</strong><a href='#index-BFD_005fRELOC_005fARM_005fPCREL_005fJUMP' class='copiable-anchor'> &para;</a></span></dt>
@@ -1093,9 +1102,9 @@ entries in .init_array sections.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fARM_005fTARGET2"><span class="category">: </span><span><strong>BFD_RELOC_ARM_TARGET2</strong><a href='#index-BFD_005fRELOC_005fARM_005fTARGET2' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>This reloc is used for references to RTTI data from exception handling
-tables.  The actual definition depends on the target.  It may be a
-pc-relative or some form of GOT-indirect relocation.
+<dd><p>This reloc is used for references to RTTI data from exception
+handling tables.  The actual definition depends on the target.  It
+may be a pc-relative or some form of GOT-indirect relocation.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fARM_005fPREL31"><span class="category">: </span><span><strong>BFD_RELOC_ARM_PREL31</strong><a href='#index-BFD_005fRELOC_005fARM_005fPREL31' class='copiable-anchor'> &para;</a></span></dt>
@@ -1551,26 +1560,22 @@ pc-relative or some form of GOT-indirect relocation.
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fD10V_005f10_005fPCREL_005fR"><span class="category">: </span><span><strong>BFD_RELOC_D10V_10_PCREL_R</strong><a href='#index-BFD_005fRELOC_005fD10V_005f10_005fPCREL_005fR' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Mitsubishi D10V relocs.
-This is a 10-bit reloc with the right 2 bits
-assumed to be 0.
+This is a 10-bit reloc with the right 2 bits assumed to be 0.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fD10V_005f10_005fPCREL_005fL"><span class="category">: </span><span><strong>BFD_RELOC_D10V_10_PCREL_L</strong><a href='#index-BFD_005fRELOC_005fD10V_005f10_005fPCREL_005fL' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Mitsubishi D10V relocs.
-This is a 10-bit reloc with the right 2 bits
-assumed to be 0.  This is the same as the previous reloc
-except it is in the left container, i.e.,
-shifted left 15 bits.
+This is a 10-bit reloc with the right 2 bits assumed to be 0.  This
+is the same as the previous reloc except it is in the left
+container, i.e., shifted left 15 bits.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fD10V_005f18"><span class="category">: </span><span><strong>BFD_RELOC_D10V_18</strong><a href='#index-BFD_005fRELOC_005fD10V_005f18' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>This is an 18-bit reloc with the right 2 bits
-assumed to be 0.
+<dd><p>This is an 18-bit reloc with the right 2 bits assumed to be 0.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fD10V_005f18_005fPCREL"><span class="category">: </span><span><strong>BFD_RELOC_D10V_18_PCREL</strong><a href='#index-BFD_005fRELOC_005fD10V_005f18_005fPCREL' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>This is an 18-bit reloc with the right 2 bits
-assumed to be 0.
+<dd><p>This is an 18-bit reloc with the right 2 bits assumed to be 0.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fD30V_005f6"><span class="category">: </span><span><strong>BFD_RELOC_D30V_6</strong><a href='#index-BFD_005fRELOC_005fD30V_005f6' class='copiable-anchor'> &para;</a></span></dt>
@@ -1579,49 +1584,46 @@ This is a 6-bit absolute reloc.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fD30V_005f9_005fPCREL"><span class="category">: </span><span><strong>BFD_RELOC_D30V_9_PCREL</strong><a href='#index-BFD_005fRELOC_005fD30V_005f9_005fPCREL' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>This is a 6-bit pc-relative reloc with
-the right 3 bits assumed to be 0.
+<dd><p>This is a 6-bit pc-relative reloc with the right 3 bits assumed to
+be 0.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fD30V_005f9_005fPCREL_005fR"><span class="category">: </span><span><strong>BFD_RELOC_D30V_9_PCREL_R</strong><a href='#index-BFD_005fRELOC_005fD30V_005f9_005fPCREL_005fR' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>This is a 6-bit pc-relative reloc with
-the right 3 bits assumed to be 0. Same
-as the previous reloc but on the right side
-of the container.
+<dd><p>This is a 6-bit pc-relative reloc with the right 3 bits assumed to
+be 0.  Same as the previous reloc but on the right side of the
+container.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fD30V_005f15"><span class="category">: </span><span><strong>BFD_RELOC_D30V_15</strong><a href='#index-BFD_005fRELOC_005fD30V_005f15' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>This is a 12-bit absolute reloc with the
-right 3 bitsassumed to be 0.
+<dd><p>This is a 12-bit absolute reloc with the right 3 bitsassumed to
+be 0.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fD30V_005f15_005fPCREL"><span class="category">: </span><span><strong>BFD_RELOC_D30V_15_PCREL</strong><a href='#index-BFD_005fRELOC_005fD30V_005f15_005fPCREL' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>This is a 12-bit pc-relative reloc with
-the right 3 bits assumed to be 0.
+<dd><p>This is a 12-bit pc-relative reloc with the right 3 bits assumed to
+be 0.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fD30V_005f15_005fPCREL_005fR"><span class="category">: </span><span><strong>BFD_RELOC_D30V_15_PCREL_R</strong><a href='#index-BFD_005fRELOC_005fD30V_005f15_005fPCREL_005fR' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>This is a 12-bit pc-relative reloc with
-the right 3 bits assumed to be 0. Same
-as the previous reloc but on the right side
-of the container.
+<dd><p>This is a 12-bit pc-relative reloc with the right 3 bits assumed to
+be 0.  Same as the previous reloc but on the right side of the
+container.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fD30V_005f21"><span class="category">: </span><span><strong>BFD_RELOC_D30V_21</strong><a href='#index-BFD_005fRELOC_005fD30V_005f21' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>This is an 18-bit absolute reloc with
-the right 3 bits assumed to be 0.
+<dd><p>This is an 18-bit absolute reloc with the right 3 bits assumed to
+be 0.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fD30V_005f21_005fPCREL"><span class="category">: </span><span><strong>BFD_RELOC_D30V_21_PCREL</strong><a href='#index-BFD_005fRELOC_005fD30V_005f21_005fPCREL' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>This is an 18-bit pc-relative reloc with
-the right 3 bits assumed to be 0.
+<dd><p>This is an 18-bit pc-relative reloc with the right 3 bits assumed to
+be 0.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fD30V_005f21_005fPCREL_005fR"><span class="category">: </span><span><strong>BFD_RELOC_D30V_21_PCREL_R</strong><a href='#index-BFD_005fRELOC_005fD30V_005f21_005fPCREL_005fR' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>This is an 18-bit pc-relative reloc with
-the right 3 bits assumed to be 0. Same
-as the previous reloc but on the right side
-of the container.
+<dd><p>This is an 18-bit pc-relative reloc with the right 3 bits assumed to
+be 0.  Same as the previous reloc but on the right side of the
+container.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fD30V_005f32"><span class="category">: </span><span><strong>BFD_RELOC_D30V_32</strong><a href='#index-BFD_005fRELOC_005fD30V_005f32' class='copiable-anchor'> &para;</a></span></dt>
@@ -1633,15 +1635,9 @@ of the container.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fDLX_005fHI16_005fS"><span class="category">: </span><span><strong>BFD_RELOC_DLX_HI16_S</strong><a href='#index-BFD_005fRELOC_005fDLX_005fHI16_005fS' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>DLX relocs
-</p></dd></dl>
-<dl class="def">
 <dt id="index-BFD_005fRELOC_005fDLX_005fLO16"><span class="category">: </span><span><strong>BFD_RELOC_DLX_LO16</strong><a href='#index-BFD_005fRELOC_005fDLX_005fLO16' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>DLX relocs
-</p></dd></dl>
-<dl class="def">
 <dt id="index-BFD_005fRELOC_005fDLX_005fJMP26"><span class="category">: </span><span><strong>BFD_RELOC_DLX_JMP26</strong><a href='#index-BFD_005fRELOC_005fDLX_005fJMP26' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>DLX relocs
+<dd><p>DLX relocs.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fM32C_005fHI8"><span class="category">: </span><span><strong>BFD_RELOC_M32C_HI8</strong><a href='#index-BFD_005fRELOC_005fM32C_005fHI8' class='copiable-anchor'> &para;</a></span></dt>
@@ -1657,7 +1653,8 @@ This is a 24 bit absolute address.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fM32R_005f10_005fPCREL"><span class="category">: </span><span><strong>BFD_RELOC_M32R_10_PCREL</strong><a href='#index-BFD_005fRELOC_005fM32R_005f10_005fPCREL' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>This is a 10-bit pc-relative reloc with the right 2 bits assumed to be 0.
+<dd><p>This is a 10-bit pc-relative reloc with the right 2 bits assumed to
+be 0.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fM32R_005f18_005fPCREL"><span class="category">: </span><span><strong>BFD_RELOC_M32R_18_PCREL</strong><a href='#index-BFD_005fRELOC_005fM32R_005f18_005fPCREL' class='copiable-anchor'> &para;</a></span></dt>
@@ -1683,8 +1680,8 @@ used when the lower 16 bits are treated as signed.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fM32R_005fSDA16"><span class="category">: </span><span><strong>BFD_RELOC_M32R_SDA16</strong><a href='#index-BFD_005fRELOC_005fM32R_005fSDA16' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>This is a 16-bit reloc containing the small data area offset for use in
-add3, load, and store instructions.
+<dd><p>This is a 16-bit reloc containing the small data area offset for use
+in add3, load, and store instructions.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fM32R_005fGOT24"><span class="category">: </span><span><strong>BFD_RELOC_M32R_GOT24</strong><a href='#index-BFD_005fRELOC_005fM32R_005fGOT24' class='copiable-anchor'> &para;</a></span></dt>
@@ -1713,11 +1710,13 @@ This is a 20 bit absolute address.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fNDS32_005f9_005fPCREL"><span class="category">: </span><span><strong>BFD_RELOC_NDS32_9_PCREL</strong><a href='#index-BFD_005fRELOC_005fNDS32_005f9_005fPCREL' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>This is a 9-bit pc-relative reloc with the right 1 bit assumed to be 0.
+<dd><p>This is a 9-bit pc-relative reloc with the right 1 bit assumed to
+be 0.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fNDS32_005fWORD_005f9_005fPCREL"><span class="category">: </span><span><strong>BFD_RELOC_NDS32_WORD_9_PCREL</strong><a href='#index-BFD_005fRELOC_005fNDS32_005fWORD_005f9_005fPCREL' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>This is a 9-bit pc-relative reloc with the right 1 bit assumed to be 0.
+<dd><p>This is a 9-bit pc-relative reloc with the right 1 bit assumed to
+be 0.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fNDS32_005f15_005fPCREL"><span class="category">: </span><span><strong>BFD_RELOC_NDS32_15_PCREL</strong><a href='#index-BFD_005fRELOC_005fNDS32_005f15_005fPCREL' class='copiable-anchor'> &para;</a></span></dt>
@@ -1734,72 +1733,72 @@ This is a 20 bit absolute address.
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fNDS32_005fHI20"><span class="category">: </span><span><strong>BFD_RELOC_NDS32_HI20</strong><a href='#index-BFD_005fRELOC_005fNDS32_005fHI20' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>This is a 20-bit reloc containing the high 20 bits of an address
-used with the lower 12 bits
+used with the lower 12 bits.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fNDS32_005fLO12S3"><span class="category">: </span><span><strong>BFD_RELOC_NDS32_LO12S3</strong><a href='#index-BFD_005fRELOC_005fNDS32_005fLO12S3' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>This is a 12-bit reloc containing the lower 12 bits of an address
-then shift right by 3. This is used with ldi,sdi...
+then shift right by 3.  This is used with ldi,sdi.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fNDS32_005fLO12S2"><span class="category">: </span><span><strong>BFD_RELOC_NDS32_LO12S2</strong><a href='#index-BFD_005fRELOC_005fNDS32_005fLO12S2' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>This is a 12-bit reloc containing the lower 12 bits of an address
-then shift left by 2. This is used with lwi,swi...
+then shift left by 2.  This is used with lwi,swi.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fNDS32_005fLO12S1"><span class="category">: </span><span><strong>BFD_RELOC_NDS32_LO12S1</strong><a href='#index-BFD_005fRELOC_005fNDS32_005fLO12S1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>This is a 12-bit reloc containing the lower 12 bits of an address
-then shift left by 1. This is used with lhi,shi...
+then shift left by 1.  This is used with lhi,shi.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fNDS32_005fLO12S0"><span class="category">: </span><span><strong>BFD_RELOC_NDS32_LO12S0</strong><a href='#index-BFD_005fRELOC_005fNDS32_005fLO12S0' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>This is a 12-bit reloc containing the lower 12 bits of an address
-then shift left by 0. This is used with lbisbi...
+then shift left by 0.  This is used with lbisbi.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fNDS32_005fLO12S0_005fORI"><span class="category">: </span><span><strong>BFD_RELOC_NDS32_LO12S0_ORI</strong><a href='#index-BFD_005fRELOC_005fNDS32_005fLO12S0_005fORI' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>This is a 12-bit reloc containing the lower 12 bits of an address
-then shift left by 0. This is only used with branch relaxations
+then shift left by 0.  This is only used with branch relaxations.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fNDS32_005fSDA15S3"><span class="category">: </span><span><strong>BFD_RELOC_NDS32_SDA15S3</strong><a href='#index-BFD_005fRELOC_005fNDS32_005fSDA15S3' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>This is a 15-bit reloc containing the small data area 18-bit signed offset
-and shift left by 3 for use in ldi, sdi...
+<dd><p>This is a 15-bit reloc containing the small data area 18-bit signed
+offset and shift left by 3 for use in ldi, sdi.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fNDS32_005fSDA15S2"><span class="category">: </span><span><strong>BFD_RELOC_NDS32_SDA15S2</strong><a href='#index-BFD_005fRELOC_005fNDS32_005fSDA15S2' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>This is a 15-bit reloc containing the small data area 17-bit signed offset
-and shift left by 2 for use in lwi, swi...
+<dd><p>This is a 15-bit reloc containing the small data area 17-bit signed
+offset and shift left by 2 for use in lwi, swi.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fNDS32_005fSDA15S1"><span class="category">: </span><span><strong>BFD_RELOC_NDS32_SDA15S1</strong><a href='#index-BFD_005fRELOC_005fNDS32_005fSDA15S1' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>This is a 15-bit reloc containing the small data area 16-bit signed offset
-and shift left by 1 for use in lhi, shi...
+<dd><p>This is a 15-bit reloc containing the small data area 16-bit signed
+offset and shift left by 1 for use in lhi, shi.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fNDS32_005fSDA15S0"><span class="category">: </span><span><strong>BFD_RELOC_NDS32_SDA15S0</strong><a href='#index-BFD_005fRELOC_005fNDS32_005fSDA15S0' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>This is a 15-bit reloc containing the small data area 15-bit signed offset
-and shift left by 0 for use in lbi, sbi...
+<dd><p>This is a 15-bit reloc containing the small data area 15-bit signed
+offset and shift left by 0 for use in lbi, sbi.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fNDS32_005fSDA16S3"><span class="category">: </span><span><strong>BFD_RELOC_NDS32_SDA16S3</strong><a href='#index-BFD_005fRELOC_005fNDS32_005fSDA16S3' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>This is a 16-bit reloc containing the small data area 16-bit signed offset
-and shift left by 3
+<dd><p>This is a 16-bit reloc containing the small data area 16-bit signed
+offset and shift left by 3.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fNDS32_005fSDA17S2"><span class="category">: </span><span><strong>BFD_RELOC_NDS32_SDA17S2</strong><a href='#index-BFD_005fRELOC_005fNDS32_005fSDA17S2' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>This is a 17-bit reloc containing the small data area 17-bit signed offset
-and shift left by 2 for use in lwi.gp, swi.gp...
+<dd><p>This is a 17-bit reloc containing the small data area 17-bit signed
+offset and shift left by 2 for use in lwi.gp, swi.gp.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fNDS32_005fSDA18S1"><span class="category">: </span><span><strong>BFD_RELOC_NDS32_SDA18S1</strong><a href='#index-BFD_005fRELOC_005fNDS32_005fSDA18S1' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>This is a 18-bit reloc containing the small data area 18-bit signed offset
-and shift left by 1 for use in lhi.gp, shi.gp...
+<dd><p>This is a 18-bit reloc containing the small data area 18-bit signed
+offset and shift left by 1 for use in lhi.gp, shi.gp.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fNDS32_005fSDA19S0"><span class="category">: </span><span><strong>BFD_RELOC_NDS32_SDA19S0</strong><a href='#index-BFD_005fRELOC_005fNDS32_005fSDA19S0' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>This is a 19-bit reloc containing the small data area 19-bit signed offset
-and shift left by 0 for use in lbi.gp, sbi.gp...
+<dd><p>This is a 19-bit reloc containing the small data area 19-bit signed
+offset and shift left by 0 for use in lbi.gp, sbi.gp.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fNDS32_005fGOT20"><span class="category">: </span><span><strong>BFD_RELOC_NDS32_GOT20</strong><a href='#index-BFD_005fRELOC_005fNDS32_005fGOT20' class='copiable-anchor'> &para;</a></span></dt>
@@ -1817,7 +1816,7 @@ and shift left by 0 for use in lbi.gp, sbi.gp...
 <dt id="index-BFD_005fRELOC_005fNDS32_005fGOT_005fLO12"><span class="category">: </span><span><strong>BFD_RELOC_NDS32_GOT_LO12</strong><a href='#index-BFD_005fRELOC_005fNDS32_005fGOT_005fLO12' class='copiable-anchor'> &para;</a></span></dt>
 <dt id="index-BFD_005fRELOC_005fNDS32_005fGOTPC_005fHI20"><span class="category">: </span><span><strong>BFD_RELOC_NDS32_GOTPC_HI20</strong><a href='#index-BFD_005fRELOC_005fNDS32_005fGOTPC_005fHI20' class='copiable-anchor'> &para;</a></span></dt>
 <dt id="index-BFD_005fRELOC_005fNDS32_005fGOTPC_005fLO12"><span class="category">: </span><span><strong>BFD_RELOC_NDS32_GOTPC_LO12</strong><a href='#index-BFD_005fRELOC_005fNDS32_005fGOTPC_005fLO12' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>for PIC
+<dd><p>For PIC.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fNDS32_005fINSN16"><span class="category">: </span><span><strong>BFD_RELOC_NDS32_INSN16</strong><a href='#index-BFD_005fRELOC_005fNDS32_005fINSN16' class='copiable-anchor'> &para;</a></span></dt>
@@ -1840,31 +1839,31 @@ and shift left by 0 for use in lbi.gp, sbi.gp...
 <dt id="index-BFD_005fRELOC_005fNDS32_005fLONGJUMP5"><span class="category">: </span><span><strong>BFD_RELOC_NDS32_LONGJUMP5</strong><a href='#index-BFD_005fRELOC_005fNDS32_005fLONGJUMP5' class='copiable-anchor'> &para;</a></span></dt>
 <dt id="index-BFD_005fRELOC_005fNDS32_005fLONGJUMP6"><span class="category">: </span><span><strong>BFD_RELOC_NDS32_LONGJUMP6</strong><a href='#index-BFD_005fRELOC_005fNDS32_005fLONGJUMP6' class='copiable-anchor'> &para;</a></span></dt>
 <dt id="index-BFD_005fRELOC_005fNDS32_005fLONGJUMP7"><span class="category">: </span><span><strong>BFD_RELOC_NDS32_LONGJUMP7</strong><a href='#index-BFD_005fRELOC_005fNDS32_005fLONGJUMP7' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>for relax
+<dd><p>For relax.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fNDS32_005fPLTREL_005fHI20"><span class="category">: </span><span><strong>BFD_RELOC_NDS32_PLTREL_HI20</strong><a href='#index-BFD_005fRELOC_005fNDS32_005fPLTREL_005fHI20' class='copiable-anchor'> &para;</a></span></dt>
 <dt id="index-BFD_005fRELOC_005fNDS32_005fPLTREL_005fLO12"><span class="category">: </span><span><strong>BFD_RELOC_NDS32_PLTREL_LO12</strong><a href='#index-BFD_005fRELOC_005fNDS32_005fPLTREL_005fLO12' class='copiable-anchor'> &para;</a></span></dt>
 <dt id="index-BFD_005fRELOC_005fNDS32_005fPLT_005fGOTREL_005fHI20"><span class="category">: </span><span><strong>BFD_RELOC_NDS32_PLT_GOTREL_HI20</strong><a href='#index-BFD_005fRELOC_005fNDS32_005fPLT_005fGOTREL_005fHI20' class='copiable-anchor'> &para;</a></span></dt>
 <dt id="index-BFD_005fRELOC_005fNDS32_005fPLT_005fGOTREL_005fLO12"><span class="category">: </span><span><strong>BFD_RELOC_NDS32_PLT_GOTREL_LO12</strong><a href='#index-BFD_005fRELOC_005fNDS32_005fPLT_005fGOTREL_005fLO12' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>for PIC
+<dd><p>For PIC.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fNDS32_005fSDA12S2_005fDP"><span class="category">: </span><span><strong>BFD_RELOC_NDS32_SDA12S2_DP</strong><a href='#index-BFD_005fRELOC_005fNDS32_005fSDA12S2_005fDP' class='copiable-anchor'> &para;</a></span></dt>
 <dt id="index-BFD_005fRELOC_005fNDS32_005fSDA12S2_005fSP"><span class="category">: </span><span><strong>BFD_RELOC_NDS32_SDA12S2_SP</strong><a href='#index-BFD_005fRELOC_005fNDS32_005fSDA12S2_005fSP' class='copiable-anchor'> &para;</a></span></dt>
 <dt id="index-BFD_005fRELOC_005fNDS32_005fLO12S2_005fDP"><span class="category">: </span><span><strong>BFD_RELOC_NDS32_LO12S2_DP</strong><a href='#index-BFD_005fRELOC_005fNDS32_005fLO12S2_005fDP' class='copiable-anchor'> &para;</a></span></dt>
 <dt id="index-BFD_005fRELOC_005fNDS32_005fLO12S2_005fSP"><span class="category">: </span><span><strong>BFD_RELOC_NDS32_LO12S2_SP</strong><a href='#index-BFD_005fRELOC_005fNDS32_005fLO12S2_005fSP' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>for floating point
+<dd><p>For floating point.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fNDS32_005fDWARF2_005fOP1"><span class="category">: </span><span><strong>BFD_RELOC_NDS32_DWARF2_OP1</strong><a href='#index-BFD_005fRELOC_005fNDS32_005fDWARF2_005fOP1' class='copiable-anchor'> &para;</a></span></dt>
 <dt id="index-BFD_005fRELOC_005fNDS32_005fDWARF2_005fOP2"><span class="category">: </span><span><strong>BFD_RELOC_NDS32_DWARF2_OP2</strong><a href='#index-BFD_005fRELOC_005fNDS32_005fDWARF2_005fOP2' class='copiable-anchor'> &para;</a></span></dt>
 <dt id="index-BFD_005fRELOC_005fNDS32_005fDWARF2_005fLEB"><span class="category">: </span><span><strong>BFD_RELOC_NDS32_DWARF2_LEB</strong><a href='#index-BFD_005fRELOC_005fNDS32_005fDWARF2_005fLEB' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>for dwarf2 debug_line.
+<dd><p>For dwarf2 debug_line.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fNDS32_005fUPDATE_005fTA"><span class="category">: </span><span><strong>BFD_RELOC_NDS32_UPDATE_TA</strong><a href='#index-BFD_005fRELOC_005fNDS32_005fUPDATE_005fTA' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>for eliminate 16-bit instructions
+<dd><p>For eliminating 16-bit instructions.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fNDS32_005fPLT_005fGOTREL_005fLO20"><span class="category">: </span><span><strong>BFD_RELOC_NDS32_PLT_GOTREL_LO20</strong><a href='#index-BFD_005fRELOC_005fNDS32_005fPLT_005fGOTREL_005fLO20' class='copiable-anchor'> &para;</a></span></dt>
@@ -1876,7 +1875,7 @@ and shift left by 0 for use in lbi.gp, sbi.gp...
 <dt id="index-BFD_005fRELOC_005fNDS32_005fGOTOFF_005fLO19"><span class="category">: </span><span><strong>BFD_RELOC_NDS32_GOTOFF_LO19</strong><a href='#index-BFD_005fRELOC_005fNDS32_005fGOTOFF_005fLO19' class='copiable-anchor'> &para;</a></span></dt>
 <dt id="index-BFD_005fRELOC_005fNDS32_005fGOT15S2"><span class="category">: </span><span><strong>BFD_RELOC_NDS32_GOT15S2</strong><a href='#index-BFD_005fRELOC_005fNDS32_005fGOT15S2' class='copiable-anchor'> &para;</a></span></dt>
 <dt id="index-BFD_005fRELOC_005fNDS32_005fGOT17S2"><span class="category">: </span><span><strong>BFD_RELOC_NDS32_GOT17S2</strong><a href='#index-BFD_005fRELOC_005fNDS32_005fGOT17S2' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>for PIC object relaxation
+<dd><p>For PIC object relaxation.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fNDS32_005f5"><span class="category">: </span><span><strong>BFD_RELOC_NDS32_5</strong><a href='#index-BFD_005fRELOC_005fNDS32_005f5' class='copiable-anchor'> &para;</a></span></dt>
@@ -1885,7 +1884,8 @@ This is a 5 bit absolute address.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fNDS32_005f10_005fUPCREL"><span class="category">: </span><span><strong>BFD_RELOC_NDS32_10_UPCREL</strong><a href='#index-BFD_005fRELOC_005fNDS32_005f10_005fUPCREL' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>This is a 10-bit unsigned pc-relative reloc with the right 1 bit assumed to be 0.
+<dd><p>This is a 10-bit unsigned pc-relative reloc with the right 1 bit
+assumed to be 0.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fNDS32_005fSDA_005fFP7U2_005fRELA"><span class="category">: </span><span><strong>BFD_RELOC_NDS32_SDA_FP7U2_RELA</strong><a href='#index-BFD_005fRELOC_005fNDS32_005fSDA_005fFP7U2_005fRELA' class='copiable-anchor'> &para;</a></span></dt>
@@ -1910,7 +1910,7 @@ This is a 5 bit absolute address.
 <dt id="index-BFD_005fRELOC_005fNDS32_005fDIFF32"><span class="category">: </span><span><strong>BFD_RELOC_NDS32_DIFF32</strong><a href='#index-BFD_005fRELOC_005fNDS32_005fDIFF32' class='copiable-anchor'> &para;</a></span></dt>
 <dt id="index-BFD_005fRELOC_005fNDS32_005fDIFF_005fULEB128"><span class="category">: </span><span><strong>BFD_RELOC_NDS32_DIFF_ULEB128</strong><a href='#index-BFD_005fRELOC_005fNDS32_005fDIFF_005fULEB128' class='copiable-anchor'> &para;</a></span></dt>
 <dt id="index-BFD_005fRELOC_005fNDS32_005fEMPTY"><span class="category">: </span><span><strong>BFD_RELOC_NDS32_EMPTY</strong><a href='#index-BFD_005fRELOC_005fNDS32_005fEMPTY' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>relaxation relative relocation types
+<dd><p>Relaxation relative relocation types.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fNDS32_005f25_005fABS"><span class="category">: </span><span><strong>BFD_RELOC_NDS32_25_ABS</strong><a href='#index-BFD_005fRELOC_005fNDS32_005f25_005fABS' class='copiable-anchor'> &para;</a></span></dt>
@@ -1960,11 +1960,11 @@ This is a 5 bit absolute address.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fV850_005f9_005fPCREL"><span class="category">: </span><span><strong>BFD_RELOC_V850_9_PCREL</strong><a href='#index-BFD_005fRELOC_005fV850_005f9_005fPCREL' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>This is a 9-bit reloc
+<dd><p>This is a 9-bit reloc.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fV850_005f22_005fPCREL"><span class="category">: </span><span><strong>BFD_RELOC_V850_22_PCREL</strong><a href='#index-BFD_005fRELOC_005fV850_005f22_005fPCREL' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>This is a 22-bit reloc
+<dd><p>This is a 22-bit reloc.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fV850_005fSDA_005f16_005f16_005fOFFSET"><span class="category">: </span><span><strong>BFD_RELOC_V850_SDA_16_16_OFFSET</strong><a href='#index-BFD_005fRELOC_005fV850_005fSDA_005f16_005f16_005fOFFSET' class='copiable-anchor'> &para;</a></span></dt>
@@ -2043,8 +2043,8 @@ bits placed non-contiguously in the instruction.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fV850_005fLO16_005fSPLIT_005fOFFSET"><span class="category">: </span><span><strong>BFD_RELOC_V850_LO16_SPLIT_OFFSET</strong><a href='#index-BFD_005fRELOC_005fV850_005fLO16_005fSPLIT_005fOFFSET' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>This is a variation of BFD_RELOC_LO16 that can be used in v850e ld.bu
-instructions.
+<dd><p>This is a variation of BFD_RELOC_LO16 that can be used in v850e
+ld.bu instructions.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fV850_005f16_005fPCREL"><span class="category">: </span><span><strong>BFD_RELOC_V850_16_PCREL</strong><a href='#index-BFD_005fRELOC_005fV850_005f16_005fPCREL' class='copiable-anchor'> &para;</a></span></dt>
@@ -2076,7 +2076,7 @@ instructions.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fV850_005fLO16_005fS1"><span class="category">: </span><span><strong>BFD_RELOC_V850_LO16_S1</strong><a href='#index-BFD_005fRELOC_005fV850_005fLO16_005fS1' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Low 16 bits. 16 bit shifted by 1.
+<dd><p>Low 16 bits.  16 bit shifted by 1.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fV850_005fCALLT_005f15_005f16_005fOFFSET"><span class="category">: </span><span><strong>BFD_RELOC_V850_CALLT_15_16_OFFSET</strong><a href='#index-BFD_005fRELOC_005fV850_005fCALLT_005f15_005f16_005fOFFSET' class='copiable-anchor'> &para;</a></span></dt>
@@ -2084,55 +2084,25 @@ instructions.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fV850_005f32_005fGOTPCREL"><span class="category">: </span><span><strong>BFD_RELOC_V850_32_GOTPCREL</strong><a href='#index-BFD_005fRELOC_005fV850_005f32_005fGOTPCREL' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>DSO relocations.
-</p></dd></dl>
-<dl class="def">
 <dt id="index-BFD_005fRELOC_005fV850_005f16_005fGOT"><span class="category">: </span><span><strong>BFD_RELOC_V850_16_GOT</strong><a href='#index-BFD_005fRELOC_005fV850_005f16_005fGOT' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>DSO relocations.
-</p></dd></dl>
-<dl class="def">
 <dt id="index-BFD_005fRELOC_005fV850_005f32_005fGOT"><span class="category">: </span><span><strong>BFD_RELOC_V850_32_GOT</strong><a href='#index-BFD_005fRELOC_005fV850_005f32_005fGOT' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>DSO relocations.
-</p></dd></dl>
-<dl class="def">
 <dt id="index-BFD_005fRELOC_005fV850_005f22_005fPLT_005fPCREL"><span class="category">: </span><span><strong>BFD_RELOC_V850_22_PLT_PCREL</strong><a href='#index-BFD_005fRELOC_005fV850_005f22_005fPLT_005fPCREL' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>DSO relocations.
-</p></dd></dl>
-<dl class="def">
 <dt id="index-BFD_005fRELOC_005fV850_005f32_005fPLT_005fPCREL"><span class="category">: </span><span><strong>BFD_RELOC_V850_32_PLT_PCREL</strong><a href='#index-BFD_005fRELOC_005fV850_005f32_005fPLT_005fPCREL' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>DSO relocations.
-</p></dd></dl>
-<dl class="def">
 <dt id="index-BFD_005fRELOC_005fV850_005fCOPY"><span class="category">: </span><span><strong>BFD_RELOC_V850_COPY</strong><a href='#index-BFD_005fRELOC_005fV850_005fCOPY' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>DSO relocations.
-</p></dd></dl>
-<dl class="def">
 <dt id="index-BFD_005fRELOC_005fV850_005fGLOB_005fDAT"><span class="category">: </span><span><strong>BFD_RELOC_V850_GLOB_DAT</strong><a href='#index-BFD_005fRELOC_005fV850_005fGLOB_005fDAT' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>DSO relocations.
-</p></dd></dl>
-<dl class="def">
 <dt id="index-BFD_005fRELOC_005fV850_005fJMP_005fSLOT"><span class="category">: </span><span><strong>BFD_RELOC_V850_JMP_SLOT</strong><a href='#index-BFD_005fRELOC_005fV850_005fJMP_005fSLOT' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>DSO relocations.
-</p></dd></dl>
-<dl class="def">
 <dt id="index-BFD_005fRELOC_005fV850_005fRELATIVE"><span class="category">: </span><span><strong>BFD_RELOC_V850_RELATIVE</strong><a href='#index-BFD_005fRELOC_005fV850_005fRELATIVE' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>DSO relocations.
-</p></dd></dl>
-<dl class="def">
 <dt id="index-BFD_005fRELOC_005fV850_005f16_005fGOTOFF"><span class="category">: </span><span><strong>BFD_RELOC_V850_16_GOTOFF</strong><a href='#index-BFD_005fRELOC_005fV850_005f16_005fGOTOFF' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>DSO relocations.
-</p></dd></dl>
-<dl class="def">
 <dt id="index-BFD_005fRELOC_005fV850_005f32_005fGOTOFF"><span class="category">: </span><span><strong>BFD_RELOC_V850_32_GOTOFF</strong><a href='#index-BFD_005fRELOC_005fV850_005f32_005fGOTOFF' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>DSO relocations.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fV850_005fCODE"><span class="category">: </span><span><strong>BFD_RELOC_V850_CODE</strong><a href='#index-BFD_005fRELOC_005fV850_005fCODE' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>start code.
+<dd><p>Start code.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fV850_005fDATA"><span class="category">: </span><span><strong>BFD_RELOC_V850_DATA</strong><a href='#index-BFD_005fRELOC_005fV850_005fDATA' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>start data in text.
+<dd><p>Start data in text.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fTIC30_005fLDP"><span class="category">: </span><span><strong>BFD_RELOC_TIC30_LDP</strong><a href='#index-BFD_005fRELOC_005fTIC30_005fLDP' class='copiable-anchor'> &para;</a></span></dt>
@@ -2207,13 +2177,13 @@ the opcode.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fFR30_005f20"><span class="category">: </span><span><strong>BFD_RELOC_FR30_20</strong><a href='#index-BFD_005fRELOC_005fFR30_005f20' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>This is a 32 bit reloc for the FR30 that stores 20 bits split up into
-two sections.
+<dd><p>This is a 32 bit reloc for the FR30 that stores 20 bits split up
+into two sections.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fFR30_005f6_005fIN_005f4"><span class="category">: </span><span><strong>BFD_RELOC_FR30_6_IN_4</strong><a href='#index-BFD_005fRELOC_005fFR30_005f6_005fIN_005f4' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>This is a 16 bit reloc for the FR30 that stores a 6 bit word offset in
-4 bits.
+<dd><p>This is a 16 bit reloc for the FR30 that stores a 6 bit word offset
+in 4 bits.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fFR30_005f8_005fIN_005f8"><span class="category">: </span><span><strong>BFD_RELOC_FR30_8_IN_8</strong><a href='#index-BFD_005fRELOC_005fFR30_005f8_005fIN_005f8' class='copiable-anchor'> &para;</a></span></dt>
@@ -2345,8 +2315,8 @@ short offset into 11 bits.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fMMIX_005fADDR19"><span class="category">: </span><span><strong>BFD_RELOC_MMIX_ADDR19</strong><a href='#index-BFD_005fRELOC_005fMMIX_005fADDR19' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>This is a relocation for a relative address as in a GETA instruction or
-a branch.
+<dd><p>This is a relocation for a relative address as in a GETA instruction
+or a branch.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fMMIX_005fADDR27"><span class="category">: </span><span><strong>BFD_RELOC_MMIX_ADDR27</strong><a href='#index-BFD_005fRELOC_005fMMIX_005fADDR27' class='copiable-anchor'> &para;</a></span></dt>
@@ -2364,13 +2334,13 @@ register.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fMMIX_005fBASE_005fPLUS_005fOFFSET"><span class="category">: </span><span><strong>BFD_RELOC_MMIX_BASE_PLUS_OFFSET</strong><a href='#index-BFD_005fRELOC_005fMMIX_005fBASE_005fPLUS_005fOFFSET' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>This is a relocation for two instruction fields holding a register and
-an offset, the equivalent of the relocation.
+<dd><p>This is a relocation for two instruction fields holding a register
+and an offset, the equivalent of the relocation.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fMMIX_005fLOCAL"><span class="category">: </span><span><strong>BFD_RELOC_MMIX_LOCAL</strong><a href='#index-BFD_005fRELOC_005fMMIX_005fLOCAL' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>This relocation is an assertion that the expression is not allocated as
-a global register.  It does not modify contents.
+<dd><p>This relocation is an assertion that the expression is not allocated
+as a global register.  It does not modify contents.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAVR_005f7_005fPCREL"><span class="category">: </span><span><strong>BFD_RELOC_AVR_7_PCREL</strong><a href='#index-BFD_005fRELOC_005fAVR_005f7_005fPCREL' class='copiable-anchor'> &para;</a></span></dt>
@@ -2399,13 +2369,14 @@ of data memory address) into 8 bit immediate value of LDI insn.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAVR_005fHH8_005fLDI"><span class="category">: </span><span><strong>BFD_RELOC_AVR_HH8_LDI</strong><a href='#index-BFD_005fRELOC_005fAVR_005fHH8_005fLDI' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>This is a 16 bit reloc for the AVR that stores 8 bit value (most high 8 bit
-of program memory address) into 8 bit immediate value of LDI insn.
+<dd><p>This is a 16 bit reloc for the AVR that stores 8 bit value (most
+high 8 bit of program memory address) into 8 bit immediate value of
+LDI insn.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAVR_005fMS8_005fLDI"><span class="category">: </span><span><strong>BFD_RELOC_AVR_MS8_LDI</strong><a href='#index-BFD_005fRELOC_005fAVR_005fMS8_005fLDI' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>This is a 16 bit reloc for the AVR that stores 8 bit value (most high 8 bit
-of 32 bit value) into 8 bit immediate value of LDI insn.
+<dd><p>This is a 16 bit reloc for the AVR that stores 8 bit value (most
+high 8 bit of 32 bit value) into 8 bit immediate value of LDI insn.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAVR_005fLO8_005fLDI_005fNEG"><span class="category">: </span><span><strong>BFD_RELOC_AVR_LO8_LDI_NEG</strong><a href='#index-BFD_005fRELOC_005fAVR_005fLO8_005fLDI_005fNEG' class='copiable-anchor'> &para;</a></span></dt>
@@ -2421,13 +2392,13 @@ SUBI insn.
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAVR_005fHH8_005fLDI_005fNEG"><span class="category">: </span><span><strong>BFD_RELOC_AVR_HH8_LDI_NEG</strong><a href='#index-BFD_005fRELOC_005fAVR_005fHH8_005fLDI_005fNEG' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>This is a 16 bit reloc for the AVR that stores negated 8 bit value
-(most high 8 bit of program memory address) into 8 bit immediate value
-of LDI or SUBI insn.
+(most high 8 bit of program memory address) into 8 bit immediate
+value of LDI or SUBI insn.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAVR_005fMS8_005fLDI_005fNEG"><span class="category">: </span><span><strong>BFD_RELOC_AVR_MS8_LDI_NEG</strong><a href='#index-BFD_005fRELOC_005fAVR_005fMS8_005fLDI_005fNEG' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>This is a 16 bit reloc for the AVR that stores negated 8 bit value (msb
-of 32 bit value) into 8 bit immediate value of LDI insn.
+<dd><p>This is a 16 bit reloc for the AVR that stores negated 8 bit value
+(msb of 32 bit value) into 8 bit immediate value of LDI insn.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAVR_005fLO8_005fLDI_005fPM"><span class="category">: </span><span><strong>BFD_RELOC_AVR_LO8_LDI_PM</strong><a href='#index-BFD_005fRELOC_005fAVR_005fLO8_005fLDI_005fPM' class='copiable-anchor'> &para;</a></span></dt>
@@ -2437,9 +2408,9 @@ command address) into 8 bit immediate value of LDI insn.
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAVR_005fLO8_005fLDI_005fGS"><span class="category">: </span><span><strong>BFD_RELOC_AVR_LO8_LDI_GS</strong><a href='#index-BFD_005fRELOC_005fAVR_005fLO8_005fLDI_005fGS' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>This is a 16 bit reloc for the AVR that stores 8 bit value
-(command address) into 8 bit immediate value of LDI insn. If the address
-is beyond the 128k boundary, the linker inserts a jump stub for this reloc
-in the lower 128k.
+(command address) into 8 bit immediate value of LDI insn. If the
+address is beyond the 128k boundary, the linker inserts a jump stub
+for this reloc in the lower 128k.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAVR_005fHI8_005fLDI_005fPM"><span class="category">: </span><span><strong>BFD_RELOC_AVR_HI8_LDI_PM</strong><a href='#index-BFD_005fRELOC_005fAVR_005fHI8_005fLDI_005fPM' class='copiable-anchor'> &para;</a></span></dt>
@@ -2449,14 +2420,15 @@ of command address) into 8 bit immediate value of LDI insn.
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAVR_005fHI8_005fLDI_005fGS"><span class="category">: </span><span><strong>BFD_RELOC_AVR_HI8_LDI_GS</strong><a href='#index-BFD_005fRELOC_005fAVR_005fHI8_005fLDI_005fGS' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>This is a 16 bit reloc for the AVR that stores 8 bit value (high 8 bit
-of command address) into 8 bit immediate value of LDI insn.  If the address
-is beyond the 128k boundary, the linker inserts a jump stub for this reloc
-below 128k.
+of command address) into 8 bit immediate value of LDI insn.  If the
+address is beyond the 128k boundary, the linker inserts a jump stub
+for this reloc below 128k.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAVR_005fHH8_005fLDI_005fPM"><span class="category">: </span><span><strong>BFD_RELOC_AVR_HH8_LDI_PM</strong><a href='#index-BFD_005fRELOC_005fAVR_005fHH8_005fLDI_005fPM' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>This is a 16 bit reloc for the AVR that stores 8 bit value (most high 8 bit
-of command address) into 8 bit immediate value of LDI insn.
+<dd><p>This is a 16 bit reloc for the AVR that stores 8 bit value (most
+high 8 bit of command address) into 8 bit immediate value of LDI
+insn.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAVR_005fLO8_005fLDI_005fPM_005fNEG"><span class="category">: </span><span><strong>BFD_RELOC_AVR_LO8_LDI_PM_NEG</strong><a href='#index-BFD_005fRELOC_005fAVR_005fLO8_005fLDI_005fPM_005fNEG' class='copiable-anchor'> &para;</a></span></dt>
@@ -2483,32 +2455,32 @@ into 22 bits.
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAVR_005fLDI"><span class="category">: </span><span><strong>BFD_RELOC_AVR_LDI</strong><a href='#index-BFD_005fRELOC_005fAVR_005fLDI' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>This is a 16 bit reloc for the AVR that stores all needed bits
-for absolute addressing with ldi with overflow check to linktime
+for absolute addressing with ldi with overflow check to linktime.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAVR_005f6"><span class="category">: </span><span><strong>BFD_RELOC_AVR_6</strong><a href='#index-BFD_005fRELOC_005fAVR_005f6' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>This is a 6 bit reloc for the AVR that stores offset for ldd/std
-instructions
+instructions.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAVR_005f6_005fADIW"><span class="category">: </span><span><strong>BFD_RELOC_AVR_6_ADIW</strong><a href='#index-BFD_005fRELOC_005fAVR_005f6_005fADIW' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>This is a 6 bit reloc for the AVR that stores offset for adiw/sbiw
-instructions
+instructions.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAVR_005f8_005fLO"><span class="category">: </span><span><strong>BFD_RELOC_AVR_8_LO</strong><a href='#index-BFD_005fRELOC_005fAVR_005f8_005fLO' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>This is a 8 bit reloc for the AVR that stores bits 0..7 of a symbol
-in .byte lo8(symbol)
+in .byte lo8(symbol).
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAVR_005f8_005fHI"><span class="category">: </span><span><strong>BFD_RELOC_AVR_8_HI</strong><a href='#index-BFD_005fRELOC_005fAVR_005f8_005fHI' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>This is a 8 bit reloc for the AVR that stores bits 8..15 of a symbol
-in .byte hi8(symbol)
+in .byte hi8(symbol).
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAVR_005f8_005fHLO"><span class="category">: </span><span><strong>BFD_RELOC_AVR_8_HLO</strong><a href='#index-BFD_005fRELOC_005fAVR_005f8_005fHLO' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>This is a 8 bit reloc for the AVR that stores bits 16..23 of a symbol
-in .byte hlo8(symbol)
+in .byte hlo8(symbol).
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAVR_005fDIFF8"><span class="category">: </span><span><strong>BFD_RELOC_AVR_DIFF8</strong><a href='#index-BFD_005fRELOC_005fAVR_005fDIFF8' class='copiable-anchor'> &para;</a></span></dt>
@@ -2529,12 +2501,12 @@ lds and sts instructions supported only tiny core.
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAVR_005fPORT6"><span class="category">: </span><span><strong>BFD_RELOC_AVR_PORT6</strong><a href='#index-BFD_005fRELOC_005fAVR_005fPORT6' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>This is a 6 bit reloc for the AVR that stores an I/O register
-number for the IN and OUT instructions
+number for the IN and OUT instructions.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAVR_005fPORT5"><span class="category">: </span><span><strong>BFD_RELOC_AVR_PORT5</strong><a href='#index-BFD_005fRELOC_005fAVR_005fPORT5' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>This is a 5 bit reloc for the AVR that stores an I/O register
-number for the SBIC, SBIS, SBI and CBI instructions
+number for the SBIC, SBIS, SBI and CBI instructions.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fRISCV_005fHI20"><span class="category">: </span><span><strong>BFD_RELOC_RISCV_HI20</strong><a href='#index-BFD_005fRELOC_005fRISCV_005fHI20' class='copiable-anchor'> &para;</a></span></dt>
@@ -2569,14 +2541,13 @@ number for the SBIC, SBIS, SBI and CBI instructions
 <dt id="index-BFD_005fRELOC_005fRISCV_005fTLS_005fDTPREL64"><span class="category">: </span><span><strong>BFD_RELOC_RISCV_TLS_DTPREL64</strong><a href='#index-BFD_005fRELOC_005fRISCV_005fTLS_005fDTPREL64' class='copiable-anchor'> &para;</a></span></dt>
 <dt id="index-BFD_005fRELOC_005fRISCV_005fTLS_005fTPREL32"><span class="category">: </span><span><strong>BFD_RELOC_RISCV_TLS_TPREL32</strong><a href='#index-BFD_005fRELOC_005fRISCV_005fTLS_005fTPREL32' class='copiable-anchor'> &para;</a></span></dt>
 <dt id="index-BFD_005fRELOC_005fRISCV_005fTLS_005fTPREL64"><span class="category">: </span><span><strong>BFD_RELOC_RISCV_TLS_TPREL64</strong><a href='#index-BFD_005fRELOC_005fRISCV_005fTLS_005fTPREL64' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fRISCV_005fTLSDESC_005fHI20"><span class="category">: </span><span><strong>BFD_RELOC_RISCV_TLSDESC_HI20</strong><a href='#index-BFD_005fRELOC_005fRISCV_005fTLSDESC_005fHI20' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fRISCV_005fTLSDESC_005fLOAD_005fLO12"><span class="category">: </span><span><strong>BFD_RELOC_RISCV_TLSDESC_LOAD_LO12</strong><a href='#index-BFD_005fRELOC_005fRISCV_005fTLSDESC_005fLOAD_005fLO12' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fRISCV_005fTLSDESC_005fADD_005fLO12"><span class="category">: </span><span><strong>BFD_RELOC_RISCV_TLSDESC_ADD_LO12</strong><a href='#index-BFD_005fRELOC_005fRISCV_005fTLSDESC_005fADD_005fLO12' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fRISCV_005fTLSDESC_005fCALL"><span class="category">: </span><span><strong>BFD_RELOC_RISCV_TLSDESC_CALL</strong><a href='#index-BFD_005fRELOC_005fRISCV_005fTLSDESC_005fCALL' class='copiable-anchor'> &para;</a></span></dt>
 <dt id="index-BFD_005fRELOC_005fRISCV_005fALIGN"><span class="category">: </span><span><strong>BFD_RELOC_RISCV_ALIGN</strong><a href='#index-BFD_005fRELOC_005fRISCV_005fALIGN' class='copiable-anchor'> &para;</a></span></dt>
 <dt id="index-BFD_005fRELOC_005fRISCV_005fRVC_005fBRANCH"><span class="category">: </span><span><strong>BFD_RELOC_RISCV_RVC_BRANCH</strong><a href='#index-BFD_005fRELOC_005fRISCV_005fRVC_005fBRANCH' class='copiable-anchor'> &para;</a></span></dt>
 <dt id="index-BFD_005fRELOC_005fRISCV_005fRVC_005fJUMP"><span class="category">: </span><span><strong>BFD_RELOC_RISCV_RVC_JUMP</strong><a href='#index-BFD_005fRELOC_005fRISCV_005fRVC_005fJUMP' class='copiable-anchor'> &para;</a></span></dt>
-<dt id="index-BFD_005fRELOC_005fRISCV_005fRVC_005fLUI"><span class="category">: </span><span><strong>BFD_RELOC_RISCV_RVC_LUI</strong><a href='#index-BFD_005fRELOC_005fRISCV_005fRVC_005fLUI' class='copiable-anchor'> &para;</a></span></dt>
-<dt id="index-BFD_005fRELOC_005fRISCV_005fGPREL_005fI"><span class="category">: </span><span><strong>BFD_RELOC_RISCV_GPREL_I</strong><a href='#index-BFD_005fRELOC_005fRISCV_005fGPREL_005fI' class='copiable-anchor'> &para;</a></span></dt>
-<dt id="index-BFD_005fRELOC_005fRISCV_005fGPREL_005fS"><span class="category">: </span><span><strong>BFD_RELOC_RISCV_GPREL_S</strong><a href='#index-BFD_005fRELOC_005fRISCV_005fGPREL_005fS' class='copiable-anchor'> &para;</a></span></dt>
-<dt id="index-BFD_005fRELOC_005fRISCV_005fTPREL_005fI"><span class="category">: </span><span><strong>BFD_RELOC_RISCV_TPREL_I</strong><a href='#index-BFD_005fRELOC_005fRISCV_005fTPREL_005fI' class='copiable-anchor'> &para;</a></span></dt>
-<dt id="index-BFD_005fRELOC_005fRISCV_005fTPREL_005fS"><span class="category">: </span><span><strong>BFD_RELOC_RISCV_TPREL_S</strong><a href='#index-BFD_005fRELOC_005fRISCV_005fTPREL_005fS' class='copiable-anchor'> &para;</a></span></dt>
 <dt id="index-BFD_005fRELOC_005fRISCV_005fRELAX"><span class="category">: </span><span><strong>BFD_RELOC_RISCV_RELAX</strong><a href='#index-BFD_005fRELOC_005fRISCV_005fRELAX' class='copiable-anchor'> &para;</a></span></dt>
 <dt id="index-BFD_005fRELOC_005fRISCV_005fCFA"><span class="category">: </span><span><strong>BFD_RELOC_RISCV_CFA</strong><a href='#index-BFD_005fRELOC_005fRISCV_005fCFA' class='copiable-anchor'> &para;</a></span></dt>
 <dt id="index-BFD_005fRELOC_005fRISCV_005fSUB6"><span class="category">: </span><span><strong>BFD_RELOC_RISCV_SUB6</strong><a href='#index-BFD_005fRELOC_005fRISCV_005fSUB6' class='copiable-anchor'> &para;</a></span></dt>
@@ -2585,6 +2556,8 @@ number for the SBIC, SBIS, SBI and CBI instructions
 <dt id="index-BFD_005fRELOC_005fRISCV_005fSET16"><span class="category">: </span><span><strong>BFD_RELOC_RISCV_SET16</strong><a href='#index-BFD_005fRELOC_005fRISCV_005fSET16' class='copiable-anchor'> &para;</a></span></dt>
 <dt id="index-BFD_005fRELOC_005fRISCV_005fSET32"><span class="category">: </span><span><strong>BFD_RELOC_RISCV_SET32</strong><a href='#index-BFD_005fRELOC_005fRISCV_005fSET32' class='copiable-anchor'> &para;</a></span></dt>
 <dt id="index-BFD_005fRELOC_005fRISCV_005f32_005fPCREL"><span class="category">: </span><span><strong>BFD_RELOC_RISCV_32_PCREL</strong><a href='#index-BFD_005fRELOC_005fRISCV_005f32_005fPCREL' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fRISCV_005fSET_005fULEB128"><span class="category">: </span><span><strong>BFD_RELOC_RISCV_SET_ULEB128</strong><a href='#index-BFD_005fRELOC_005fRISCV_005fSET_005fULEB128' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fRISCV_005fSUB_005fULEB128"><span class="category">: </span><span><strong>BFD_RELOC_RISCV_SUB_ULEB128</strong><a href='#index-BFD_005fRELOC_005fRISCV_005fSUB_005fULEB128' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>RISC-V relocations.
 </p></dd></dl>
 <dl class="def">
@@ -2810,17 +2783,17 @@ number for the SBIC, SBIS, SBI and CBI instructions
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fSCORE_005fGPREL15"><span class="category">: </span><span><strong>BFD_RELOC_SCORE_GPREL15</strong><a href='#index-BFD_005fRELOC_005fSCORE_005fGPREL15' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Score relocations
-Low 16 bit for load/store
+<dd><p>Score relocations.
+Low 16 bit for load/store.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fSCORE_005fDUMMY2"><span class="category">: </span><span><strong>BFD_RELOC_SCORE_DUMMY2</strong><a href='#index-BFD_005fRELOC_005fSCORE_005fDUMMY2' class='copiable-anchor'> &para;</a></span></dt>
 <dt id="index-BFD_005fRELOC_005fSCORE_005fJMP"><span class="category">: </span><span><strong>BFD_RELOC_SCORE_JMP</strong><a href='#index-BFD_005fRELOC_005fSCORE_005fJMP' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>This is a 24-bit reloc with the right 1 bit assumed to be 0
+<dd><p>This is a 24-bit reloc with the right 1 bit assumed to be 0.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fSCORE_005fBRANCH"><span class="category">: </span><span><strong>BFD_RELOC_SCORE_BRANCH</strong><a href='#index-BFD_005fRELOC_005fSCORE_005fBRANCH' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>This is a 19-bit reloc with the right 1 bit assumed to be 0
+<dd><p>This is a 19-bit reloc with the right 1 bit assumed to be 0.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fSCORE_005fIMM30"><span class="category">: </span><span><strong>BFD_RELOC_SCORE_IMM30</strong><a href='#index-BFD_005fRELOC_005fSCORE_005fIMM30' class='copiable-anchor'> &para;</a></span></dt>
@@ -2832,53 +2805,53 @@ Low 16 bit for load/store
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fSCORE16_005fJMP"><span class="category">: </span><span><strong>BFD_RELOC_SCORE16_JMP</strong><a href='#index-BFD_005fRELOC_005fSCORE16_005fJMP' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>This is a 11-bit reloc with the right 1 bit assumed to be 0
+<dd><p>This is a 11-bit reloc with the right 1 bit assumed to be 0.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fSCORE16_005fBRANCH"><span class="category">: </span><span><strong>BFD_RELOC_SCORE16_BRANCH</strong><a href='#index-BFD_005fRELOC_005fSCORE16_005fBRANCH' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>This is a 8-bit reloc with the right 1 bit assumed to be 0
+<dd><p>This is a 8-bit reloc with the right 1 bit assumed to be 0.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fSCORE_005fBCMP"><span class="category">: </span><span><strong>BFD_RELOC_SCORE_BCMP</strong><a href='#index-BFD_005fRELOC_005fSCORE_005fBCMP' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>This is a 9-bit reloc with the right 1 bit assumed to be 0
+<dd><p>This is a 9-bit reloc with the right 1 bit assumed to be 0.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fSCORE_005fGOT15"><span class="category">: </span><span><strong>BFD_RELOC_SCORE_GOT15</strong><a href='#index-BFD_005fRELOC_005fSCORE_005fGOT15' class='copiable-anchor'> &para;</a></span></dt>
 <dt id="index-BFD_005fRELOC_005fSCORE_005fGOT_005fLO16"><span class="category">: </span><span><strong>BFD_RELOC_SCORE_GOT_LO16</strong><a href='#index-BFD_005fRELOC_005fSCORE_005fGOT_005fLO16' class='copiable-anchor'> &para;</a></span></dt>
 <dt id="index-BFD_005fRELOC_005fSCORE_005fCALL15"><span class="category">: </span><span><strong>BFD_RELOC_SCORE_CALL15</strong><a href='#index-BFD_005fRELOC_005fSCORE_005fCALL15' class='copiable-anchor'> &para;</a></span></dt>
 <dt id="index-BFD_005fRELOC_005fSCORE_005fDUMMY_005fHI16"><span class="category">: </span><span><strong>BFD_RELOC_SCORE_DUMMY_HI16</strong><a href='#index-BFD_005fRELOC_005fSCORE_005fDUMMY_005fHI16' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Undocumented Score relocs
+<dd><p>Undocumented Score relocs.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fIP2K_005fFR9"><span class="category">: </span><span><strong>BFD_RELOC_IP2K_FR9</strong><a href='#index-BFD_005fRELOC_005fIP2K_005fFR9' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Scenix IP2K - 9-bit register number / data address
+<dd><p>Scenix IP2K - 9-bit register number / data address.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fIP2K_005fBANK"><span class="category">: </span><span><strong>BFD_RELOC_IP2K_BANK</strong><a href='#index-BFD_005fRELOC_005fIP2K_005fBANK' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Scenix IP2K - 4-bit register/data bank number
+<dd><p>Scenix IP2K - 4-bit register/data bank number.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fIP2K_005fADDR16CJP"><span class="category">: </span><span><strong>BFD_RELOC_IP2K_ADDR16CJP</strong><a href='#index-BFD_005fRELOC_005fIP2K_005fADDR16CJP' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Scenix IP2K - low 13 bits of instruction word address
+<dd><p>Scenix IP2K - low 13 bits of instruction word address.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fIP2K_005fPAGE3"><span class="category">: </span><span><strong>BFD_RELOC_IP2K_PAGE3</strong><a href='#index-BFD_005fRELOC_005fIP2K_005fPAGE3' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Scenix IP2K - high 3 bits of instruction word address
+<dd><p>Scenix IP2K - high 3 bits of instruction word address.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fIP2K_005fLO8DATA"><span class="category">: </span><span><strong>BFD_RELOC_IP2K_LO8DATA</strong><a href='#index-BFD_005fRELOC_005fIP2K_005fLO8DATA' class='copiable-anchor'> &para;</a></span></dt>
 <dt id="index-BFD_005fRELOC_005fIP2K_005fHI8DATA"><span class="category">: </span><span><strong>BFD_RELOC_IP2K_HI8DATA</strong><a href='#index-BFD_005fRELOC_005fIP2K_005fHI8DATA' class='copiable-anchor'> &para;</a></span></dt>
 <dt id="index-BFD_005fRELOC_005fIP2K_005fEX8DATA"><span class="category">: </span><span><strong>BFD_RELOC_IP2K_EX8DATA</strong><a href='#index-BFD_005fRELOC_005fIP2K_005fEX8DATA' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Scenix IP2K - ext/low/high 8 bits of data address
+<dd><p>Scenix IP2K - ext/low/high 8 bits of data address.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fIP2K_005fLO8INSN"><span class="category">: </span><span><strong>BFD_RELOC_IP2K_LO8INSN</strong><a href='#index-BFD_005fRELOC_005fIP2K_005fLO8INSN' class='copiable-anchor'> &para;</a></span></dt>
 <dt id="index-BFD_005fRELOC_005fIP2K_005fHI8INSN"><span class="category">: </span><span><strong>BFD_RELOC_IP2K_HI8INSN</strong><a href='#index-BFD_005fRELOC_005fIP2K_005fHI8INSN' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Scenix IP2K - low/high 8 bits of instruction word address
+<dd><p>Scenix IP2K - low/high 8 bits of instruction word address.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fIP2K_005fPC_005fSKIP"><span class="category">: </span><span><strong>BFD_RELOC_IP2K_PC_SKIP</strong><a href='#index-BFD_005fRELOC_005fIP2K_005fPC_005fSKIP' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Scenix IP2K - even/odd PC modifier to modify snb pcl.0
+<dd><p>Scenix IP2K - even/odd PC modifier to modify snb pcl.0.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fIP2K_005fTEXT"><span class="category">: </span><span><strong>BFD_RELOC_IP2K_TEXT</strong><a href='#index-BFD_005fRELOC_005fIP2K_005fTEXT' class='copiable-anchor'> &para;</a></span></dt>
@@ -2886,21 +2859,21 @@ Low 16 bit for load/store
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fIP2K_005fFR_005fOFFSET"><span class="category">: </span><span><strong>BFD_RELOC_IP2K_FR_OFFSET</strong><a href='#index-BFD_005fRELOC_005fIP2K_005fFR_005fOFFSET' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Scenix IP2K - 7-bit sp or dp offset
+<dd><p>Scenix IP2K - 7-bit sp or dp offset.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fVPE4KMATH_005fDATA"><span class="category">: </span><span><strong>BFD_RELOC_VPE4KMATH_DATA</strong><a href='#index-BFD_005fRELOC_005fVPE4KMATH_005fDATA' class='copiable-anchor'> &para;</a></span></dt>
 <dt id="index-BFD_005fRELOC_005fVPE4KMATH_005fINSN"><span class="category">: </span><span><strong>BFD_RELOC_VPE4KMATH_INSN</strong><a href='#index-BFD_005fRELOC_005fVPE4KMATH_005fINSN' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Scenix VPE4K coprocessor - data/insn-space addressing
+<dd><p>Scenix VPE4K coprocessor - data/insn-space addressing.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fVTABLE_005fINHERIT"><span class="category">: </span><span><strong>BFD_RELOC_VTABLE_INHERIT</strong><a href='#index-BFD_005fRELOC_005fVTABLE_005fINHERIT' class='copiable-anchor'> &para;</a></span></dt>
 <dt id="index-BFD_005fRELOC_005fVTABLE_005fENTRY"><span class="category">: </span><span><strong>BFD_RELOC_VTABLE_ENTRY</strong><a href='#index-BFD_005fRELOC_005fVTABLE_005fENTRY' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>These two relocations are used by the linker to determine which of
 the entries in a C++ virtual function table are actually used.  When
-the &ndash;gc-sections option is given, the linker will zero out the entries
-that are not used, so that the code for those functions need not be
-included in the output.
+the &ndash;gc-sections option is given, the linker will zero out the
+entries that are not used, so that the code for those functions need
+not be included in the output.
 </p>
 <p>VTABLE_INHERIT is a zero-space relocation used to describe to the
 linker the inheritance tree of a C++ virtual function table.  The
@@ -2908,11 +2881,11 @@ relocation&rsquo;s symbol should be the parent class&rsquo; vtable, and the
 relocation should be located at the child vtable.
 </p>
 <p>VTABLE_ENTRY is a zero-space relocation that describes the use of a
-virtual function table entry.  The reloc&rsquo;s symbol should refer to the
-table of the class mentioned in the code.  Off of that base, an offset
-describes the entry that is being used.  For Rela hosts, this offset
-is stored in the reloc&rsquo;s addend.  For Rel hosts, we are forced to put
-this offset in the reloc&rsquo;s section offset.
+virtual function table entry.  The reloc&rsquo;s symbol should refer to
+the table of the class mentioned in the code.  Off of that base, an
+offset describes the entry that is being used.  For Rela hosts, this
+offset is stored in the reloc&rsquo;s addend.  For Rel hosts, we are
+forced to put this offset in the reloc&rsquo;s section offset.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fIA64_005fIMM14"><span class="category">: </span><span><strong>BFD_RELOC_IA64_IMM14</strong><a href='#index-BFD_005fRELOC_005fIA64_005fIMM14' class='copiable-anchor'> &para;</a></span></dt>
@@ -3045,7 +3018,8 @@ the symbol.
 <dd><p>Motorola 68HC11 reloc.
 This is a 24-bit reloc that represents the address with a 16-bit
 value and a 8-bit page number.  The symbol address is transformed
-to follow the 16K memory bank of 68HC12 (seen as mapped in the window).
+to follow the 16K memory bank of 68HC12 (seen as mapped in the
+window).
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fM68HC12_005f5B"><span class="category">: </span><span><strong>BFD_RELOC_M68HC12_5B</strong><a href='#index-BFD_005fRELOC_005fM68HC12_005f5B' class='copiable-anchor'> &para;</a></span></dt>
@@ -3067,8 +3041,8 @@ some of them.
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fXGATE_005fLO16"><span class="category">: </span><span><strong>BFD_RELOC_XGATE_LO16</strong><a href='#index-BFD_005fRELOC_005fXGATE_005fLO16' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Freescale XGATE reloc.
-This is the 16-bit lower part of an address.  It is used for the &rsquo;16-bit&rsquo;
-instructions.
+This is the 16-bit lower part of an address.  It is used for the
+&rsquo;16-bit&rsquo; instructions.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fXGATE_005fGPAGE"><span class="category">: </span><span><strong>BFD_RELOC_XGATE_GPAGE</strong><a href='#index-BFD_005fRELOC_005fXGATE_005fGPAGE' class='copiable-anchor'> &para;</a></span></dt>
@@ -3091,14 +3065,14 @@ This is a 10-bit pc-relative reloc.
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fXGATE_005fIMM8_005fLO"><span class="category">: </span><span><strong>BFD_RELOC_XGATE_IMM8_LO</strong><a href='#index-BFD_005fRELOC_005fXGATE_005fIMM8_005fLO' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Freescale XGATE reloc.
-This is the 16-bit lower part of an address.  It is used for the &rsquo;16-bit&rsquo;
-instructions.
+This is the 16-bit lower part of an address.  It is used for the
+&rsquo;16-bit&rsquo; instructions.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fXGATE_005fIMM8_005fHI"><span class="category">: </span><span><strong>BFD_RELOC_XGATE_IMM8_HI</strong><a href='#index-BFD_005fRELOC_005fXGATE_005fIMM8_005fHI' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Freescale XGATE reloc.
-This is the 16-bit higher part of an address.  It is used for the &rsquo;16-bit&rsquo;
-instructions.
+This is the 16-bit higher part of an address.  It is used for the
+&rsquo;16-bit&rsquo; instructions.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fXGATE_005fIMM3"><span class="category">: </span><span><strong>BFD_RELOC_XGATE_IMM3</strong><a href='#index-BFD_005fRELOC_005fXGATE_005fIMM3' class='copiable-anchor'> &para;</a></span></dt>
@@ -3138,20 +3112,20 @@ This is a PCREL10 branch.
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fM68HC12_005fLO8XG"><span class="category">: </span><span><strong>BFD_RELOC_M68HC12_LO8XG</strong><a href='#index-BFD_005fRELOC_005fM68HC12_005fLO8XG' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Motorola 68HC12/XGATE reloc.
-This is the 8 bit low part of an absolute address and immediately precedes
-a matching HI8XG part.
+This is the 8 bit low part of an absolute address and immediately
+precedes a matching HI8XG part.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fM68HC12_005fHI8XG"><span class="category">: </span><span><strong>BFD_RELOC_M68HC12_HI8XG</strong><a href='#index-BFD_005fRELOC_005fM68HC12_005fHI8XG' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Motorola 68HC12/XGATE reloc.
-This is the 8 bit high part of an absolute address and immediately follows
-a matching LO8XG part.
+This is the 8 bit high part of an absolute address and immediately
+follows a matching LO8XG part.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fS12Z_005f15_005fPCREL"><span class="category">: </span><span><strong>BFD_RELOC_S12Z_15_PCREL</strong><a href='#index-BFD_005fRELOC_005fS12Z_005f15_005fPCREL' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Freescale S12Z reloc.
-This is a 15 bit relative address.  If the most significant bits are all zero
-then it may be truncated to 8 bits.
+This is a 15 bit relative address.  If the most significant bits are
+all zero then it may be truncated to 8 bits.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fCR16_005fNUM8"><span class="category">: </span><span><strong>BFD_RELOC_CR16_NUM8</strong><a href='#index-BFD_005fRELOC_005fCR16_005fNUM8' class='copiable-anchor'> &para;</a></span></dt>
@@ -3259,7 +3233,8 @@ then it may be truncated to 8 bits.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fCRIS_005f32_005fPLT_005fPCREL"><span class="category">: </span><span><strong>BFD_RELOC_CRIS_32_PLT_PCREL</strong><a href='#index-BFD_005fRELOC_005fCRIS_005f32_005fPLT_005fPCREL' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>32-bit offset to symbol with PLT entry, relative to this relocation.
+<dd><p>32-bit offset to symbol with PLT entry, relative to this
+relocation.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fCRIS_005f32_005fGOT_005fGD"><span class="category">: </span><span><strong>BFD_RELOC_CRIS_32_GOT_GD</strong><a href='#index-BFD_005fRELOC_005fCRIS_005f32_005fGOT_005fGD' class='copiable-anchor'> &para;</a></span></dt>
@@ -3394,7 +3369,7 @@ then it may be truncated to 8 bits.
 <dt id="index-BFD_005fRELOC_005fMSP430_005fSYM_005fDIFF"><span class="category">: </span><span><strong>BFD_RELOC_MSP430_SYM_DIFF</strong><a href='#index-BFD_005fRELOC_005fMSP430_005fSYM_005fDIFF' class='copiable-anchor'> &para;</a></span></dt>
 <dt id="index-BFD_005fRELOC_005fMSP430_005fSET_005fULEB128"><span class="category">: </span><span><strong>BFD_RELOC_MSP430_SET_ULEB128</strong><a href='#index-BFD_005fRELOC_005fMSP430_005fSET_005fULEB128' class='copiable-anchor'> &para;</a></span></dt>
 <dt id="index-BFD_005fRELOC_005fMSP430_005fSUB_005fULEB128"><span class="category">: </span><span><strong>BFD_RELOC_MSP430_SUB_ULEB128</strong><a href='#index-BFD_005fRELOC_005fMSP430_005fSUB_005fULEB128' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>msp430 specific relocation codes
+<dd><p>msp430 specific relocation codes.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fNIOS2_005fS16"><span class="category">: </span><span><strong>BFD_RELOC_NIOS2_S16</strong><a href='#index-BFD_005fRELOC_005fNIOS2_005fS16' class='copiable-anchor'> &para;</a></span></dt>
@@ -3476,8 +3451,8 @@ the second instruction may be relaxed.
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fPRU_005f32_005fPMEM"><span class="category">: </span><span><strong>BFD_RELOC_PRU_32_PMEM</strong><a href='#index-BFD_005fRELOC_005fPRU_005f32_005fPMEM' class='copiable-anchor'> &para;</a></span></dt>
 <dt id="index-BFD_005fRELOC_005fPRU_005f16_005fPMEM"><span class="category">: </span><span><strong>BFD_RELOC_PRU_16_PMEM</strong><a href='#index-BFD_005fRELOC_005fPRU_005f16_005fPMEM' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>PRU Program Memory relocations.  Used to convert from byte addressing to
-32-bit word addressing.
+<dd><p>PRU Program Memory relocations.  Used to convert from byte
+addressing to 32-bit word addressing.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fPRU_005fGNU_005fDIFF8"><span class="category">: </span><span><strong>BFD_RELOC_PRU_GNU_DIFF8</strong><a href='#index-BFD_005fRELOC_005fPRU_005fGNU_005fDIFF8' class='copiable-anchor'> &para;</a></span></dt>
@@ -3486,12 +3461,12 @@ the second instruction may be relaxed.
 <dt id="index-BFD_005fRELOC_005fPRU_005fGNU_005fDIFF16_005fPMEM"><span class="category">: </span><span><strong>BFD_RELOC_PRU_GNU_DIFF16_PMEM</strong><a href='#index-BFD_005fRELOC_005fPRU_005fGNU_005fDIFF16_005fPMEM' class='copiable-anchor'> &para;</a></span></dt>
 <dt id="index-BFD_005fRELOC_005fPRU_005fGNU_005fDIFF32_005fPMEM"><span class="category">: </span><span><strong>BFD_RELOC_PRU_GNU_DIFF32_PMEM</strong><a href='#index-BFD_005fRELOC_005fPRU_005fGNU_005fDIFF32_005fPMEM' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>PRU relocations to mark the difference of two local symbols.
-These are only needed to support linker relaxation and can be ignored
-when not relaxing.  The field is set to the value of the difference
-assuming no relaxation.  The relocation encodes the position of the
-second symbol so the linker can determine whether to adjust the field
-value. The PMEM variants encode the word difference, instead of byte
-difference between symbols.
+These are only needed to support linker relaxation and can be
+ignored when not relaxing.  The field is set to the value of the
+difference assuming no relaxation.  The relocation encodes the
+position of the second symbol so the linker can determine whether to
+adjust the field value.  The PMEM variants encode the word
+difference, instead of byte difference between symbols.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fIQ2000_005fOFFSET_005f16"><span class="category">: </span><span><strong>BFD_RELOC_IQ2000_OFFSET_16</strong><a href='#index-BFD_005fRELOC_005fIQ2000_005fOFFSET_005f16' class='copiable-anchor'> &para;</a></span></dt>
@@ -3513,21 +3488,22 @@ to one of its own internal functions or data structures.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fXTENSA_005fPLT"><span class="category">: </span><span><strong>BFD_RELOC_XTENSA_PLT</strong><a href='#index-BFD_005fRELOC_005fXTENSA_005fPLT' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Xtensa relocation used in ELF object files for symbols that may require
-PLT entries.  Otherwise, this is just a generic 32-bit relocation.
+<dd><p>Xtensa relocation used in ELF object files for symbols that may
+require PLT entries.  Otherwise, this is just a generic 32-bit
+relocation.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fXTENSA_005fDIFF8"><span class="category">: </span><span><strong>BFD_RELOC_XTENSA_DIFF8</strong><a href='#index-BFD_005fRELOC_005fXTENSA_005fDIFF8' class='copiable-anchor'> &para;</a></span></dt>
 <dt id="index-BFD_005fRELOC_005fXTENSA_005fDIFF16"><span class="category">: </span><span><strong>BFD_RELOC_XTENSA_DIFF16</strong><a href='#index-BFD_005fRELOC_005fXTENSA_005fDIFF16' class='copiable-anchor'> &para;</a></span></dt>
 <dt id="index-BFD_005fRELOC_005fXTENSA_005fDIFF32"><span class="category">: </span><span><strong>BFD_RELOC_XTENSA_DIFF32</strong><a href='#index-BFD_005fRELOC_005fXTENSA_005fDIFF32' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Xtensa relocations for backward compatibility.  These have been replaced
-by BFD_RELOC_XTENSA_PDIFF and BFD_RELOC_XTENSA_NDIFF.
+<dd><p>Xtensa relocations for backward compatibility.  These have been
+replaced by BFD_RELOC_XTENSA_PDIFF and BFD_RELOC_XTENSA_NDIFF.
 Xtensa relocations to mark the difference of two local symbols.
-These are only needed to support linker relaxation and can be ignored
-when not relaxing.  The field is set to the value of the difference
-assuming no relaxation.  The relocation encodes the position of the
-first symbol so the linker can determine whether to adjust the field
-value.
+These are only needed to support linker relaxation and can be
+ignored when not relaxing.  The field is set to the value of the
+difference assuming no relaxation.  The relocation encodes the
+position of the first symbol so the linker can determine whether to
+adjust the field value.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fXTENSA_005fSLOT0_005fOP"><span class="category">: </span><span><strong>BFD_RELOC_XTENSA_SLOT0_OP</strong><a href='#index-BFD_005fRELOC_005fXTENSA_005fSLOT0_005fOP' class='copiable-anchor'> &para;</a></span></dt>
@@ -3607,14 +3583,14 @@ BFD_RELOC_XTENSA_ASM_EXPAND.
 <dt id="index-BFD_005fRELOC_005fXTENSA_005fNDIFF16"><span class="category">: </span><span><strong>BFD_RELOC_XTENSA_NDIFF16</strong><a href='#index-BFD_005fRELOC_005fXTENSA_005fNDIFF16' class='copiable-anchor'> &para;</a></span></dt>
 <dt id="index-BFD_005fRELOC_005fXTENSA_005fNDIFF32"><span class="category">: </span><span><strong>BFD_RELOC_XTENSA_NDIFF32</strong><a href='#index-BFD_005fRELOC_005fXTENSA_005fNDIFF32' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Xtensa relocations to mark the difference of two local symbols.
-These are only needed to support linker relaxation and can be ignored
-when not relaxing.  The field is set to the value of the difference
-assuming no relaxation.  The relocation encodes the position of the
-subtracted symbol so the linker can determine whether to adjust the field
-value.  PDIFF relocations are used for positive differences, NDIFF
-relocations are used for negative differences.  The difference value
-is treated as unsigned with these relocation types, giving full
-8/16 value ranges.
+These are only needed to support linker relaxation and can be
+ignored when not relaxing.  The field is set to the value of the
+difference assuming no relaxation.  The relocation encodes the
+position of the subtracted symbol so the linker can determine
+whether to adjust the field value.  PDIFF relocations are used for
+positive differences, NDIFF relocations are used for negative
+differences.  The difference value is treated as unsigned with these
+relocation types, giving full 8/16 value ranges.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fZ80_005fDISP8"><span class="category">: </span><span><strong>BFD_RELOC_Z80_DISP8</strong><a href='#index-BFD_005fRELOC_005fZ80_005fDISP8' class='copiable-anchor'> &para;</a></span></dt>
@@ -3705,8 +3681,8 @@ required.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fMACH_005fO_005fX86_005f64_005fGOT_005fLOAD"><span class="category">: </span><span><strong>BFD_RELOC_MACH_O_X86_64_GOT_LOAD</strong><a href='#index-BFD_005fRELOC_005fMACH_005fO_005fX86_005f64_005fGOT_005fLOAD' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Used when loading a GOT entry with movq.  It is specially marked so that
-the linker could optimize the movq to a leaq if possible.
+<dd><p>Used when loading a GOT entry with movq.  It is specially marked so
+that the linker could optimize the movq to a leaq if possible.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fMACH_005fO_005fX86_005f64_005fPCREL32_005f1"><span class="category">: </span><span><strong>BFD_RELOC_MACH_O_X86_64_PCREL32_1</strong><a href='#index-BFD_005fRELOC_005fMACH_005fO_005fX86_005f64_005fPCREL32_005f1' class='copiable-anchor'> &para;</a></span></dt>
@@ -3742,63 +3718,69 @@ the linker could optimize the movq to a leaq if possible.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fMICROBLAZE_005f32_005fLO"><span class="category">: </span><span><strong>BFD_RELOC_MICROBLAZE_32_LO</strong><a href='#index-BFD_005fRELOC_005fMICROBLAZE_005f32_005fLO' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>This is a 32 bit reloc for the microblaze that stores the
-low 16 bits of a value
+<dd><p>This is a 32 bit reloc for the microblaze that stores the low 16
+bits of a value.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fMICROBLAZE_005f32_005fLO_005fPCREL"><span class="category">: </span><span><strong>BFD_RELOC_MICROBLAZE_32_LO_PCREL</strong><a href='#index-BFD_005fRELOC_005fMICROBLAZE_005f32_005fLO_005fPCREL' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>This is a 32 bit pc-relative reloc for the microblaze that
-stores the low 16 bits of a value
+<dd><p>This is a 32 bit pc-relative reloc for the microblaze that stores
+the low 16 bits of a value.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fMICROBLAZE_005f32_005fROSDA"><span class="category">: </span><span><strong>BFD_RELOC_MICROBLAZE_32_ROSDA</strong><a href='#index-BFD_005fRELOC_005fMICROBLAZE_005f32_005fROSDA' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>This is a 32 bit reloc for the microblaze that stores a
-value relative to the read-only small data area anchor
+<dd><p>This is a 32 bit reloc for the microblaze that stores a value
+relative to the read-only small data area anchor.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fMICROBLAZE_005f32_005fRWSDA"><span class="category">: </span><span><strong>BFD_RELOC_MICROBLAZE_32_RWSDA</strong><a href='#index-BFD_005fRELOC_005fMICROBLAZE_005f32_005fRWSDA' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>This is a 32 bit reloc for the microblaze that stores a
-value relative to the read-write small data area anchor
+<dd><p>This is a 32 bit reloc for the microblaze that stores a value
+relative to the read-write small data area anchor.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fMICROBLAZE_005f32_005fSYM_005fOP_005fSYM"><span class="category">: </span><span><strong>BFD_RELOC_MICROBLAZE_32_SYM_OP_SYM</strong><a href='#index-BFD_005fRELOC_005fMICROBLAZE_005f32_005fSYM_005fOP_005fSYM' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>This is a 32 bit reloc for the microblaze to handle
-expressions of the form &quot;Symbol Op Symbol&quot;
+<dd><p>This is a 32 bit reloc for the microblaze to handle expressions of
+the form &quot;Symbol Op Symbol&quot;.
+</p></dd></dl>
+<dl class="def">
+<dt id="index-BFD_005fRELOC_005fMICROBLAZE_005f32_005fNONE"><span class="category">: </span><span><strong>BFD_RELOC_MICROBLAZE_32_NONE</strong><a href='#index-BFD_005fRELOC_005fMICROBLAZE_005f32_005fNONE' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>This is a 32 bit reloc that stores the 32 bit pc relative value in
+two words (with an imm instruction).  No relocation is done here -
+only used for relaxing.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fMICROBLAZE_005f64_005fNONE"><span class="category">: </span><span><strong>BFD_RELOC_MICROBLAZE_64_NONE</strong><a href='#index-BFD_005fRELOC_005fMICROBLAZE_005f64_005fNONE' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>This is a 64 bit reloc that stores the 32 bit pc relative
-value in two words (with an imm instruction).  No relocation is
-done here - only used for relaxing
+<dd><p>This is a 64 bit reloc that stores the 32 bit pc relative value in
+two words (with an imm instruction).  No relocation is done here -
+only used for relaxing.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fMICROBLAZE_005f64_005fGOTPC"><span class="category">: </span><span><strong>BFD_RELOC_MICROBLAZE_64_GOTPC</strong><a href='#index-BFD_005fRELOC_005fMICROBLAZE_005f64_005fGOTPC' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>This is a 64 bit reloc that stores the 32 bit pc relative
-value in two words (with an imm instruction).  The relocation is
-PC-relative GOT offset
+<dd><p>This is a 64 bit reloc that stores the 32 bit pc relative value in
+two words (with an imm instruction).  The relocation is PC-relative
+GOT offset.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fMICROBLAZE_005f64_005fGOT"><span class="category">: </span><span><strong>BFD_RELOC_MICROBLAZE_64_GOT</strong><a href='#index-BFD_005fRELOC_005fMICROBLAZE_005f64_005fGOT' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>This is a 64 bit reloc that stores the 32 bit pc relative
-value in two words (with an imm instruction).  The relocation is
-GOT offset
+<dd><p>This is a 64 bit reloc that stores the 32 bit pc relative value in
+two words (with an imm instruction).  The relocation is GOT offset.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fMICROBLAZE_005f64_005fPLT"><span class="category">: </span><span><strong>BFD_RELOC_MICROBLAZE_64_PLT</strong><a href='#index-BFD_005fRELOC_005fMICROBLAZE_005f64_005fPLT' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>This is a 64 bit reloc that stores the 32 bit pc relative
-value in two words (with an imm instruction).  The relocation is
-PC-relative offset into PLT
+<dd><p>This is a 64 bit reloc that stores the 32 bit pc relative value in
+two words (with an imm instruction).  The relocation is PC-relative
+offset into PLT.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fMICROBLAZE_005f64_005fGOTOFF"><span class="category">: </span><span><strong>BFD_RELOC_MICROBLAZE_64_GOTOFF</strong><a href='#index-BFD_005fRELOC_005fMICROBLAZE_005f64_005fGOTOFF' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>This is a 64 bit reloc that stores the 32 bit GOT relative
-value in two words (with an imm instruction).  The relocation is
-relative offset from _GLOBAL_OFFSET_TABLE_
+<dd><p>This is a 64 bit reloc that stores the 32 bit GOT relative value in
+two words (with an imm instruction).  The relocation is relative
+offset from _GLOBAL_OFFSET_TABLE_.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fMICROBLAZE_005f32_005fGOTOFF"><span class="category">: </span><span><strong>BFD_RELOC_MICROBLAZE_32_GOTOFF</strong><a href='#index-BFD_005fRELOC_005fMICROBLAZE_005f32_005fGOTOFF' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>This is a 32 bit reloc that stores the 32 bit GOT relative
-value in a word.  The relocation is relative offset from
+<dd><p>This is a 32 bit reloc that stores the 32 bit GOT relative value in
+a word.  The relocation is relative offset from
+_GLOBAL_OFFSET_TABLE_.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fMICROBLAZE_005fCOPY"><span class="category">: </span><span><strong>BFD_RELOC_MICROBLAZE_COPY</strong><a href='#index-BFD_005fRELOC_005fMICROBLAZE_005fCOPY' class='copiable-anchor'> &para;</a></span></dt>
@@ -3807,19 +3789,19 @@ the dynamic object into the runtime process image.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fMICROBLAZE_005f64_005fTLS"><span class="category">: </span><span><strong>BFD_RELOC_MICROBLAZE_64_TLS</strong><a href='#index-BFD_005fRELOC_005fMICROBLAZE_005f64_005fTLS' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Unused Reloc
+<dd><p>Unused Reloc.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fMICROBLAZE_005f64_005fTLSGD"><span class="category">: </span><span><strong>BFD_RELOC_MICROBLAZE_64_TLSGD</strong><a href='#index-BFD_005fRELOC_005fMICROBLAZE_005f64_005fTLSGD' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>This is a 64 bit reloc that stores the 32 bit GOT relative value
-of the GOT TLS GD info entry in two words (with an imm instruction). The
-relocation is GOT offset.
+of the GOT TLS GD info entry in two words (with an imm instruction).
+The relocation is GOT offset.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fMICROBLAZE_005f64_005fTLSLD"><span class="category">: </span><span><strong>BFD_RELOC_MICROBLAZE_64_TLSLD</strong><a href='#index-BFD_005fRELOC_005fMICROBLAZE_005f64_005fTLSLD' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>This is a 64 bit reloc that stores the 32 bit GOT relative value
-of the GOT TLS LD info entry in two words (with an imm instruction). The
-relocation is GOT offset.
+of the GOT TLS LD info entry in two words (with an imm instruction).
+The relocation is GOT offset.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fMICROBLAZE_005f32_005fTLSDTPMOD"><span class="category">: </span><span><strong>BFD_RELOC_MICROBLAZE_32_TLSDTPMOD</strong><a href='#index-BFD_005fRELOC_005fMICROBLAZE_005f32_005fTLSDTPMOD' class='copiable-anchor'> &para;</a></span></dt>
@@ -3832,29 +3814,133 @@ relocation is GOT offset.
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fMICROBLAZE_005f64_005fTLSDTPREL"><span class="category">: </span><span><strong>BFD_RELOC_MICROBLAZE_64_TLSDTPREL</strong><a href='#index-BFD_005fRELOC_005fMICROBLAZE_005f64_005fTLSDTPREL' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>This is a 32 bit reloc for storing TLS offset to two words (uses imm
-instruction)
+instruction).
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fMICROBLAZE_005f64_005fTLSGOTTPREL"><span class="category">: </span><span><strong>BFD_RELOC_MICROBLAZE_64_TLSGOTTPREL</strong><a href='#index-BFD_005fRELOC_005fMICROBLAZE_005f64_005fTLSGOTTPREL' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>This is a 64 bit reloc that stores 32-bit thread pointer relative offset
-to two words (uses imm instruction).
+<dd><p>This is a 64 bit reloc that stores 32-bit thread pointer relative
+offset to two words (uses imm instruction).
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fMICROBLAZE_005f64_005fTLSTPREL"><span class="category">: </span><span><strong>BFD_RELOC_MICROBLAZE_64_TLSTPREL</strong><a href='#index-BFD_005fRELOC_005fMICROBLAZE_005f64_005fTLSTPREL' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>This is a 64 bit reloc that stores 32-bit thread pointer relative offset
-to two words (uses imm instruction).
+<dd><p>This is a 64 bit reloc that stores 32-bit thread pointer relative
+offset to two words (uses imm instruction).
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fMICROBLAZE_005f64_005fTEXTPCREL"><span class="category">: </span><span><strong>BFD_RELOC_MICROBLAZE_64_TEXTPCREL</strong><a href='#index-BFD_005fRELOC_005fMICROBLAZE_005f64_005fTEXTPCREL' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>This is a 64 bit reloc that stores the 32 bit pc relative
-value in two words (with an imm instruction).  The relocation is
-PC-relative offset from start of TEXT.
+<dd><p>This is a 64 bit reloc that stores the 32 bit pc relative value in
+two words (with an imm instruction).  The relocation is PC-relative
+offset from start of TEXT.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fMICROBLAZE_005f64_005fTEXTREL"><span class="category">: </span><span><strong>BFD_RELOC_MICROBLAZE_64_TEXTREL</strong><a href='#index-BFD_005fRELOC_005fMICROBLAZE_005f64_005fTEXTREL' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>This is a 64 bit reloc that stores the 32 bit offset
-value in two words (with an imm instruction).  The relocation is
-relative offset from start of TEXT.
+<dd><p>This is a 64 bit reloc that stores the 32 bit offset value in two
+words (with an imm instruction).  The relocation is relative offset
+from start of TEXT.
+</p></dd></dl>
+<dl class="def">
+<dt id="index-BFD_005fRELOC_005fKVX_005fRELOC_005fSTART"><span class="category">: </span><span><strong>BFD_RELOC_KVX_RELOC_START</strong><a href='#index-BFD_005fRELOC_005fKVX_005fRELOC_005fSTART' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>KVX pseudo relocation code to mark the start of the KVX relocation
+enumerators.  N.B. the order of the enumerators is important as
+several tables in the KVX bfd backend are indexed by these
+enumerators; make sure they are all synced.
+</p></dd></dl>
+<dl class="def">
+<dt id="index-BFD_005fRELOC_005fKVX_005fNONE"><span class="category">: </span><span><strong>BFD_RELOC_KVX_NONE</strong><a href='#index-BFD_005fRELOC_005fKVX_005fNONE' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>KVX null relocation code.
+</p></dd></dl>
+<dl class="def">
+<dt id="index-BFD_005fRELOC_005fKVX_005f16"><span class="category">: </span><span><strong>BFD_RELOC_KVX_16</strong><a href='#index-BFD_005fRELOC_005fKVX_005f16' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005f32"><span class="category">: </span><span><strong>BFD_RELOC_KVX_32</strong><a href='#index-BFD_005fRELOC_005fKVX_005f32' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005f64"><span class="category">: </span><span><strong>BFD_RELOC_KVX_64</strong><a href='#index-BFD_005fRELOC_005fKVX_005f64' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005fS16_005fPCREL"><span class="category">: </span><span><strong>BFD_RELOC_KVX_S16_PCREL</strong><a href='#index-BFD_005fRELOC_005fKVX_005fS16_005fPCREL' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005fPCREL17"><span class="category">: </span><span><strong>BFD_RELOC_KVX_PCREL17</strong><a href='#index-BFD_005fRELOC_005fKVX_005fPCREL17' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005fPCREL27"><span class="category">: </span><span><strong>BFD_RELOC_KVX_PCREL27</strong><a href='#index-BFD_005fRELOC_005fKVX_005fPCREL27' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005f32_005fPCREL"><span class="category">: </span><span><strong>BFD_RELOC_KVX_32_PCREL</strong><a href='#index-BFD_005fRELOC_005fKVX_005f32_005fPCREL' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005fS37_005fPCREL_005fLO10"><span class="category">: </span><span><strong>BFD_RELOC_KVX_S37_PCREL_LO10</strong><a href='#index-BFD_005fRELOC_005fKVX_005fS37_005fPCREL_005fLO10' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005fS37_005fPCREL_005fUP27"><span class="category">: </span><span><strong>BFD_RELOC_KVX_S37_PCREL_UP27</strong><a href='#index-BFD_005fRELOC_005fKVX_005fS37_005fPCREL_005fUP27' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005fS43_005fPCREL_005fLO10"><span class="category">: </span><span><strong>BFD_RELOC_KVX_S43_PCREL_LO10</strong><a href='#index-BFD_005fRELOC_005fKVX_005fS43_005fPCREL_005fLO10' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005fS43_005fPCREL_005fUP27"><span class="category">: </span><span><strong>BFD_RELOC_KVX_S43_PCREL_UP27</strong><a href='#index-BFD_005fRELOC_005fKVX_005fS43_005fPCREL_005fUP27' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005fS43_005fPCREL_005fEX6"><span class="category">: </span><span><strong>BFD_RELOC_KVX_S43_PCREL_EX6</strong><a href='#index-BFD_005fRELOC_005fKVX_005fS43_005fPCREL_005fEX6' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005fS64_005fPCREL_005fLO10"><span class="category">: </span><span><strong>BFD_RELOC_KVX_S64_PCREL_LO10</strong><a href='#index-BFD_005fRELOC_005fKVX_005fS64_005fPCREL_005fLO10' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005fS64_005fPCREL_005fUP27"><span class="category">: </span><span><strong>BFD_RELOC_KVX_S64_PCREL_UP27</strong><a href='#index-BFD_005fRELOC_005fKVX_005fS64_005fPCREL_005fUP27' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005fS64_005fPCREL_005fEX27"><span class="category">: </span><span><strong>BFD_RELOC_KVX_S64_PCREL_EX27</strong><a href='#index-BFD_005fRELOC_005fKVX_005fS64_005fPCREL_005fEX27' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005f64_005fPCREL"><span class="category">: </span><span><strong>BFD_RELOC_KVX_64_PCREL</strong><a href='#index-BFD_005fRELOC_005fKVX_005f64_005fPCREL' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005fS16"><span class="category">: </span><span><strong>BFD_RELOC_KVX_S16</strong><a href='#index-BFD_005fRELOC_005fKVX_005fS16' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005fS32_005fLO5"><span class="category">: </span><span><strong>BFD_RELOC_KVX_S32_LO5</strong><a href='#index-BFD_005fRELOC_005fKVX_005fS32_005fLO5' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005fS32_005fUP27"><span class="category">: </span><span><strong>BFD_RELOC_KVX_S32_UP27</strong><a href='#index-BFD_005fRELOC_005fKVX_005fS32_005fUP27' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005fS37_005fLO10"><span class="category">: </span><span><strong>BFD_RELOC_KVX_S37_LO10</strong><a href='#index-BFD_005fRELOC_005fKVX_005fS37_005fLO10' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005fS37_005fUP27"><span class="category">: </span><span><strong>BFD_RELOC_KVX_S37_UP27</strong><a href='#index-BFD_005fRELOC_005fKVX_005fS37_005fUP27' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005fS37_005fGOTOFF_005fLO10"><span class="category">: </span><span><strong>BFD_RELOC_KVX_S37_GOTOFF_LO10</strong><a href='#index-BFD_005fRELOC_005fKVX_005fS37_005fGOTOFF_005fLO10' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005fS37_005fGOTOFF_005fUP27"><span class="category">: </span><span><strong>BFD_RELOC_KVX_S37_GOTOFF_UP27</strong><a href='#index-BFD_005fRELOC_005fKVX_005fS37_005fGOTOFF_005fUP27' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005fS43_005fGOTOFF_005fLO10"><span class="category">: </span><span><strong>BFD_RELOC_KVX_S43_GOTOFF_LO10</strong><a href='#index-BFD_005fRELOC_005fKVX_005fS43_005fGOTOFF_005fLO10' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005fS43_005fGOTOFF_005fUP27"><span class="category">: </span><span><strong>BFD_RELOC_KVX_S43_GOTOFF_UP27</strong><a href='#index-BFD_005fRELOC_005fKVX_005fS43_005fGOTOFF_005fUP27' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005fS43_005fGOTOFF_005fEX6"><span class="category">: </span><span><strong>BFD_RELOC_KVX_S43_GOTOFF_EX6</strong><a href='#index-BFD_005fRELOC_005fKVX_005fS43_005fGOTOFF_005fEX6' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005f32_005fGOTOFF"><span class="category">: </span><span><strong>BFD_RELOC_KVX_32_GOTOFF</strong><a href='#index-BFD_005fRELOC_005fKVX_005f32_005fGOTOFF' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005f64_005fGOTOFF"><span class="category">: </span><span><strong>BFD_RELOC_KVX_64_GOTOFF</strong><a href='#index-BFD_005fRELOC_005fKVX_005f64_005fGOTOFF' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005f32_005fGOT"><span class="category">: </span><span><strong>BFD_RELOC_KVX_32_GOT</strong><a href='#index-BFD_005fRELOC_005fKVX_005f32_005fGOT' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005fS37_005fGOT_005fLO10"><span class="category">: </span><span><strong>BFD_RELOC_KVX_S37_GOT_LO10</strong><a href='#index-BFD_005fRELOC_005fKVX_005fS37_005fGOT_005fLO10' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005fS37_005fGOT_005fUP27"><span class="category">: </span><span><strong>BFD_RELOC_KVX_S37_GOT_UP27</strong><a href='#index-BFD_005fRELOC_005fKVX_005fS37_005fGOT_005fUP27' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005fS43_005fGOT_005fLO10"><span class="category">: </span><span><strong>BFD_RELOC_KVX_S43_GOT_LO10</strong><a href='#index-BFD_005fRELOC_005fKVX_005fS43_005fGOT_005fLO10' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005fS43_005fGOT_005fUP27"><span class="category">: </span><span><strong>BFD_RELOC_KVX_S43_GOT_UP27</strong><a href='#index-BFD_005fRELOC_005fKVX_005fS43_005fGOT_005fUP27' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005fS43_005fGOT_005fEX6"><span class="category">: </span><span><strong>BFD_RELOC_KVX_S43_GOT_EX6</strong><a href='#index-BFD_005fRELOC_005fKVX_005fS43_005fGOT_005fEX6' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005f64_005fGOT"><span class="category">: </span><span><strong>BFD_RELOC_KVX_64_GOT</strong><a href='#index-BFD_005fRELOC_005fKVX_005f64_005fGOT' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005fGLOB_005fDAT"><span class="category">: </span><span><strong>BFD_RELOC_KVX_GLOB_DAT</strong><a href='#index-BFD_005fRELOC_005fKVX_005fGLOB_005fDAT' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005fCOPY"><span class="category">: </span><span><strong>BFD_RELOC_KVX_COPY</strong><a href='#index-BFD_005fRELOC_005fKVX_005fCOPY' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005fJMP_005fSLOT"><span class="category">: </span><span><strong>BFD_RELOC_KVX_JMP_SLOT</strong><a href='#index-BFD_005fRELOC_005fKVX_005fJMP_005fSLOT' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005fRELATIVE"><span class="category">: </span><span><strong>BFD_RELOC_KVX_RELATIVE</strong><a href='#index-BFD_005fRELOC_005fKVX_005fRELATIVE' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005fS43_005fLO10"><span class="category">: </span><span><strong>BFD_RELOC_KVX_S43_LO10</strong><a href='#index-BFD_005fRELOC_005fKVX_005fS43_005fLO10' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005fS43_005fUP27"><span class="category">: </span><span><strong>BFD_RELOC_KVX_S43_UP27</strong><a href='#index-BFD_005fRELOC_005fKVX_005fS43_005fUP27' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005fS43_005fEX6"><span class="category">: </span><span><strong>BFD_RELOC_KVX_S43_EX6</strong><a href='#index-BFD_005fRELOC_005fKVX_005fS43_005fEX6' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005fS64_005fLO10"><span class="category">: </span><span><strong>BFD_RELOC_KVX_S64_LO10</strong><a href='#index-BFD_005fRELOC_005fKVX_005fS64_005fLO10' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005fS64_005fUP27"><span class="category">: </span><span><strong>BFD_RELOC_KVX_S64_UP27</strong><a href='#index-BFD_005fRELOC_005fKVX_005fS64_005fUP27' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005fS64_005fEX27"><span class="category">: </span><span><strong>BFD_RELOC_KVX_S64_EX27</strong><a href='#index-BFD_005fRELOC_005fKVX_005fS64_005fEX27' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005fS37_005fGOTADDR_005fLO10"><span class="category">: </span><span><strong>BFD_RELOC_KVX_S37_GOTADDR_LO10</strong><a href='#index-BFD_005fRELOC_005fKVX_005fS37_005fGOTADDR_005fLO10' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005fS37_005fGOTADDR_005fUP27"><span class="category">: </span><span><strong>BFD_RELOC_KVX_S37_GOTADDR_UP27</strong><a href='#index-BFD_005fRELOC_005fKVX_005fS37_005fGOTADDR_005fUP27' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005fS43_005fGOTADDR_005fLO10"><span class="category">: </span><span><strong>BFD_RELOC_KVX_S43_GOTADDR_LO10</strong><a href='#index-BFD_005fRELOC_005fKVX_005fS43_005fGOTADDR_005fLO10' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005fS43_005fGOTADDR_005fUP27"><span class="category">: </span><span><strong>BFD_RELOC_KVX_S43_GOTADDR_UP27</strong><a href='#index-BFD_005fRELOC_005fKVX_005fS43_005fGOTADDR_005fUP27' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005fS43_005fGOTADDR_005fEX6"><span class="category">: </span><span><strong>BFD_RELOC_KVX_S43_GOTADDR_EX6</strong><a href='#index-BFD_005fRELOC_005fKVX_005fS43_005fGOTADDR_005fEX6' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005fS64_005fGOTADDR_005fLO10"><span class="category">: </span><span><strong>BFD_RELOC_KVX_S64_GOTADDR_LO10</strong><a href='#index-BFD_005fRELOC_005fKVX_005fS64_005fGOTADDR_005fLO10' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005fS64_005fGOTADDR_005fUP27"><span class="category">: </span><span><strong>BFD_RELOC_KVX_S64_GOTADDR_UP27</strong><a href='#index-BFD_005fRELOC_005fKVX_005fS64_005fGOTADDR_005fUP27' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005fS64_005fGOTADDR_005fEX27"><span class="category">: </span><span><strong>BFD_RELOC_KVX_S64_GOTADDR_EX27</strong><a href='#index-BFD_005fRELOC_005fKVX_005fS64_005fGOTADDR_005fEX27' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005f64_005fDTPMOD"><span class="category">: </span><span><strong>BFD_RELOC_KVX_64_DTPMOD</strong><a href='#index-BFD_005fRELOC_005fKVX_005f64_005fDTPMOD' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005f64_005fDTPOFF"><span class="category">: </span><span><strong>BFD_RELOC_KVX_64_DTPOFF</strong><a href='#index-BFD_005fRELOC_005fKVX_005f64_005fDTPOFF' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005fS37_005fTLS_005fDTPOFF_005fLO10"><span class="category">: </span><span><strong>BFD_RELOC_KVX_S37_TLS_DTPOFF_LO10</strong><a href='#index-BFD_005fRELOC_005fKVX_005fS37_005fTLS_005fDTPOFF_005fLO10' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005fS37_005fTLS_005fDTPOFF_005fUP27"><span class="category">: </span><span><strong>BFD_RELOC_KVX_S37_TLS_DTPOFF_UP27</strong><a href='#index-BFD_005fRELOC_005fKVX_005fS37_005fTLS_005fDTPOFF_005fUP27' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005fS43_005fTLS_005fDTPOFF_005fLO10"><span class="category">: </span><span><strong>BFD_RELOC_KVX_S43_TLS_DTPOFF_LO10</strong><a href='#index-BFD_005fRELOC_005fKVX_005fS43_005fTLS_005fDTPOFF_005fLO10' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005fS43_005fTLS_005fDTPOFF_005fUP27"><span class="category">: </span><span><strong>BFD_RELOC_KVX_S43_TLS_DTPOFF_UP27</strong><a href='#index-BFD_005fRELOC_005fKVX_005fS43_005fTLS_005fDTPOFF_005fUP27' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005fS43_005fTLS_005fDTPOFF_005fEX6"><span class="category">: </span><span><strong>BFD_RELOC_KVX_S43_TLS_DTPOFF_EX6</strong><a href='#index-BFD_005fRELOC_005fKVX_005fS43_005fTLS_005fDTPOFF_005fEX6' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005fS37_005fTLS_005fGD_005fLO10"><span class="category">: </span><span><strong>BFD_RELOC_KVX_S37_TLS_GD_LO10</strong><a href='#index-BFD_005fRELOC_005fKVX_005fS37_005fTLS_005fGD_005fLO10' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005fS37_005fTLS_005fGD_005fUP27"><span class="category">: </span><span><strong>BFD_RELOC_KVX_S37_TLS_GD_UP27</strong><a href='#index-BFD_005fRELOC_005fKVX_005fS37_005fTLS_005fGD_005fUP27' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005fS43_005fTLS_005fGD_005fLO10"><span class="category">: </span><span><strong>BFD_RELOC_KVX_S43_TLS_GD_LO10</strong><a href='#index-BFD_005fRELOC_005fKVX_005fS43_005fTLS_005fGD_005fLO10' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005fS43_005fTLS_005fGD_005fUP27"><span class="category">: </span><span><strong>BFD_RELOC_KVX_S43_TLS_GD_UP27</strong><a href='#index-BFD_005fRELOC_005fKVX_005fS43_005fTLS_005fGD_005fUP27' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005fS43_005fTLS_005fGD_005fEX6"><span class="category">: </span><span><strong>BFD_RELOC_KVX_S43_TLS_GD_EX6</strong><a href='#index-BFD_005fRELOC_005fKVX_005fS43_005fTLS_005fGD_005fEX6' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005fS37_005fTLS_005fLD_005fLO10"><span class="category">: </span><span><strong>BFD_RELOC_KVX_S37_TLS_LD_LO10</strong><a href='#index-BFD_005fRELOC_005fKVX_005fS37_005fTLS_005fLD_005fLO10' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005fS37_005fTLS_005fLD_005fUP27"><span class="category">: </span><span><strong>BFD_RELOC_KVX_S37_TLS_LD_UP27</strong><a href='#index-BFD_005fRELOC_005fKVX_005fS37_005fTLS_005fLD_005fUP27' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005fS43_005fTLS_005fLD_005fLO10"><span class="category">: </span><span><strong>BFD_RELOC_KVX_S43_TLS_LD_LO10</strong><a href='#index-BFD_005fRELOC_005fKVX_005fS43_005fTLS_005fLD_005fLO10' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005fS43_005fTLS_005fLD_005fUP27"><span class="category">: </span><span><strong>BFD_RELOC_KVX_S43_TLS_LD_UP27</strong><a href='#index-BFD_005fRELOC_005fKVX_005fS43_005fTLS_005fLD_005fUP27' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005fS43_005fTLS_005fLD_005fEX6"><span class="category">: </span><span><strong>BFD_RELOC_KVX_S43_TLS_LD_EX6</strong><a href='#index-BFD_005fRELOC_005fKVX_005fS43_005fTLS_005fLD_005fEX6' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005f64_005fTPOFF"><span class="category">: </span><span><strong>BFD_RELOC_KVX_64_TPOFF</strong><a href='#index-BFD_005fRELOC_005fKVX_005f64_005fTPOFF' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005fS37_005fTLS_005fIE_005fLO10"><span class="category">: </span><span><strong>BFD_RELOC_KVX_S37_TLS_IE_LO10</strong><a href='#index-BFD_005fRELOC_005fKVX_005fS37_005fTLS_005fIE_005fLO10' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005fS37_005fTLS_005fIE_005fUP27"><span class="category">: </span><span><strong>BFD_RELOC_KVX_S37_TLS_IE_UP27</strong><a href='#index-BFD_005fRELOC_005fKVX_005fS37_005fTLS_005fIE_005fUP27' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005fS43_005fTLS_005fIE_005fLO10"><span class="category">: </span><span><strong>BFD_RELOC_KVX_S43_TLS_IE_LO10</strong><a href='#index-BFD_005fRELOC_005fKVX_005fS43_005fTLS_005fIE_005fLO10' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005fS43_005fTLS_005fIE_005fUP27"><span class="category">: </span><span><strong>BFD_RELOC_KVX_S43_TLS_IE_UP27</strong><a href='#index-BFD_005fRELOC_005fKVX_005fS43_005fTLS_005fIE_005fUP27' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005fS43_005fTLS_005fIE_005fEX6"><span class="category">: </span><span><strong>BFD_RELOC_KVX_S43_TLS_IE_EX6</strong><a href='#index-BFD_005fRELOC_005fKVX_005fS43_005fTLS_005fIE_005fEX6' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005fS37_005fTLS_005fLE_005fLO10"><span class="category">: </span><span><strong>BFD_RELOC_KVX_S37_TLS_LE_LO10</strong><a href='#index-BFD_005fRELOC_005fKVX_005fS37_005fTLS_005fLE_005fLO10' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005fS37_005fTLS_005fLE_005fUP27"><span class="category">: </span><span><strong>BFD_RELOC_KVX_S37_TLS_LE_UP27</strong><a href='#index-BFD_005fRELOC_005fKVX_005fS37_005fTLS_005fLE_005fUP27' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005fS43_005fTLS_005fLE_005fLO10"><span class="category">: </span><span><strong>BFD_RELOC_KVX_S43_TLS_LE_LO10</strong><a href='#index-BFD_005fRELOC_005fKVX_005fS43_005fTLS_005fLE_005fLO10' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005fS43_005fTLS_005fLE_005fUP27"><span class="category">: </span><span><strong>BFD_RELOC_KVX_S43_TLS_LE_UP27</strong><a href='#index-BFD_005fRELOC_005fKVX_005fS43_005fTLS_005fLE_005fUP27' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005fS43_005fTLS_005fLE_005fEX6"><span class="category">: </span><span><strong>BFD_RELOC_KVX_S43_TLS_LE_EX6</strong><a href='#index-BFD_005fRELOC_005fKVX_005fS43_005fTLS_005fLE_005fEX6' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fKVX_005f8"><span class="category">: </span><span><strong>BFD_RELOC_KVX_8</strong><a href='#index-BFD_005fRELOC_005fKVX_005f8' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>KVX Relocations.
+</p></dd></dl>
+<dl class="def">
+<dt id="index-BFD_005fRELOC_005fKVX_005fRELOC_005fEND"><span class="category">: </span><span><strong>BFD_RELOC_KVX_RELOC_END</strong><a href='#index-BFD_005fRELOC_005fKVX_005fRELOC_005fEND' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>KVX pseudo relocation code to mark the end of the KVX relocation
+enumerators that have direct mapping to ELF reloc codes.  There are
+a few more enumerators after this one; those are mainly used by the
+KVX assembler for the internal fixup or to select one of the above
+enumerators.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fRELOC_005fSTART"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_RELOC_START</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fRELOC_005fSTART' class='copiable-anchor'> &para;</a></span></dt>
@@ -3888,8 +3974,8 @@ and they were added to assist the indexing of the howto table.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fMOVW_005fG0"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_MOVW_G0</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fMOVW_005fG0' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>AArch64 MOV[NZK] instruction with most significant bits 0 to 15
-of an unsigned address/value.
+<dd><p>AArch64 MOV[NZK] instruction with most significant bits 0 to 15 of
+an unsigned address/value.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fMOVW_005fG0_005fNC"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_MOVW_G0_NC</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fMOVW_005fG0_005fNC' class='copiable-anchor'> &para;</a></span></dt>
@@ -3898,83 +3984,83 @@ an address/value.  No overflow checking.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fMOVW_005fG1"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_MOVW_G1</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fMOVW_005fG1' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>AArch64 MOV[NZK] instruction with most significant bits 16 to 31
-of an unsigned address/value.
+<dd><p>AArch64 MOV[NZK] instruction with most significant bits 16 to 31 of
+an unsigned address/value.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fMOVW_005fG1_005fNC"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_MOVW_G1_NC</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fMOVW_005fG1_005fNC' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>AArch64 MOV[NZK] instruction with less significant bits 16 to 31
-of an address/value.  No overflow checking.
+<dd><p>AArch64 MOV[NZK] instruction with less significant bits 16 to 31 of
+an address/value.  No overflow checking.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fMOVW_005fG2"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_MOVW_G2</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fMOVW_005fG2' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>AArch64 MOV[NZK] instruction with most significant bits 32 to 47
-of an unsigned address/value.
+<dd><p>AArch64 MOV[NZK] instruction with most significant bits 32 to 47 of
+an unsigned address/value.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fMOVW_005fG2_005fNC"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_MOVW_G2_NC</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fMOVW_005fG2_005fNC' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>AArch64 MOV[NZK] instruction with less significant bits 32 to 47
-of an address/value.  No overflow checking.
+<dd><p>AArch64 MOV[NZK] instruction with less significant bits 32 to 47 of
+an address/value.  No overflow checking.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fMOVW_005fG3"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_MOVW_G3</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fMOVW_005fG3' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>AArch64 MOV[NZK] instruction with most signficant bits 48 to 64
-of a signed or unsigned address/value.
+<dd><p>AArch64 MOV[NZK] instruction with most signficant bits 48 to 64 of a
+signed or unsigned address/value.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fMOVW_005fG0_005fS"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_MOVW_G0_S</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fMOVW_005fG0_005fS' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>AArch64 MOV[NZ] instruction with most significant bits 0 to 15
-of a signed value.  Changes instruction to MOVZ or MOVN depending on the
+<dd><p>AArch64 MOV[NZ] instruction with most significant bits 0 to 15 of a
+signed value.  Changes instruction to MOVZ or MOVN depending on the
 value&rsquo;s sign.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fMOVW_005fG1_005fS"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_MOVW_G1_S</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fMOVW_005fG1_005fS' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>AArch64 MOV[NZ] instruction with most significant bits 16 to 31
-of a signed value.  Changes instruction to MOVZ or MOVN depending on the
+<dd><p>AArch64 MOV[NZ] instruction with most significant bits 16 to 31 of a
+signed value.  Changes instruction to MOVZ or MOVN depending on the
 value&rsquo;s sign.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fMOVW_005fG2_005fS"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_MOVW_G2_S</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fMOVW_005fG2_005fS' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>AArch64 MOV[NZ] instruction with most significant bits 32 to 47
-of a signed value.  Changes instruction to MOVZ or MOVN depending on the
+<dd><p>AArch64 MOV[NZ] instruction with most significant bits 32 to 47 of a
+signed value.  Changes instruction to MOVZ or MOVN depending on the
 value&rsquo;s sign.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fMOVW_005fPREL_005fG0"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_MOVW_PREL_G0</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fMOVW_005fPREL_005fG0' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>AArch64 MOV[NZ] instruction with most significant bits 0 to 15
-of a signed value.  Changes instruction to MOVZ or MOVN depending on the
+<dd><p>AArch64 MOV[NZ] instruction with most significant bits 0 to 15 of a
+signed value.  Changes instruction to MOVZ or MOVN depending on the
 value&rsquo;s sign.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fMOVW_005fPREL_005fG0_005fNC"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_MOVW_PREL_G0_NC</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fMOVW_005fPREL_005fG0_005fNC' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>AArch64 MOV[NZ] instruction with most significant bits 0 to 15
-of a signed value.  Changes instruction to MOVZ or MOVN depending on the
+<dd><p>AArch64 MOV[NZ] instruction with most significant bits 0 to 15 of a
+signed value.  Changes instruction to MOVZ or MOVN depending on the
 value&rsquo;s sign.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fMOVW_005fPREL_005fG1"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_MOVW_PREL_G1</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fMOVW_005fPREL_005fG1' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>AArch64 MOVK instruction with most significant bits 16 to 31
-of a signed value.
+<dd><p>AArch64 MOVK instruction with most significant bits 16 to 31 of a
+signed value.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fMOVW_005fPREL_005fG1_005fNC"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_MOVW_PREL_G1_NC</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fMOVW_005fPREL_005fG1_005fNC' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>AArch64 MOVK instruction with most significant bits 16 to 31
-of a signed value.
+<dd><p>AArch64 MOVK instruction with most significant bits 16 to 31 of a
+signed value.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fMOVW_005fPREL_005fG2"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_MOVW_PREL_G2</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fMOVW_005fPREL_005fG2' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>AArch64 MOVK instruction with most significant bits 32 to 47
-of a signed value.
+<dd><p>AArch64 MOVK instruction with most significant bits 32 to 47 of a
+signed value.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fMOVW_005fPREL_005fG2_005fNC"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_MOVW_PREL_G2_NC</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fMOVW_005fPREL_005fG2_005fNC' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>AArch64 MOVK instruction with most significant bits 32 to 47
-of a signed value.
+<dd><p>AArch64 MOVK instruction with most significant bits 32 to 47 of a
+signed value.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fMOVW_005fPREL_005fG3"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_MOVW_PREL_G3</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fMOVW_005fPREL_005fG3' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>AArch64 MOVK instruction with most significant bits 47 to 63
-of a signed value.
+<dd><p>AArch64 MOVK instruction with most significant bits 47 to 63 of a
+signed value.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fLD_005fLO19_005fPCREL"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_LD_LO19_PCREL</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fLD_005fLO19_005fPCREL' class='copiable-anchor'> &para;</a></span></dt>
@@ -3984,7 +4070,8 @@ instruction, giving a 21 bit signed byte offset.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fADR_005fLO21_005fPCREL"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_ADR_LO21_PCREL</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fADR_005fLO21_005fPCREL' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>AArch64 ADR instruction, holding a simple 21 bit pc-relative byte offset.
+<dd><p>AArch64 ADR instruction, holding a simple 21 bit pc-relative byte
+offset.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fADR_005fHI21_005fPCREL"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_ADR_HI21_PCREL</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fADR_005fHI21_005fPCREL' class='copiable-anchor'> &para;</a></span></dt>
@@ -3999,8 +4086,8 @@ checking.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fADD_005fLO12"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_ADD_LO12</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fADD_005fLO12' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>AArch64 ADD immediate instruction, holding bits 0 to 11 of the address.
-Used in conjunction with BFD_RELOC_AARCH64_ADR_HI21_PCREL.
+<dd><p>AArch64 ADD immediate instruction, holding bits 0 to 11 of the
+address.  Used in conjunction with BFD_RELOC_AARCH64_ADR_HI21_PCREL.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fLDST8_005fLO12"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_LDST8_LO12</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fLDST8_005fLO12' class='copiable-anchor'> &para;</a></span></dt>
@@ -4010,26 +4097,26 @@ address.  Used in conjunction with BFD_RELOC_AARCH64_ADR_HI21_PCREL.
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fTSTBR14"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_TSTBR14</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fTSTBR14' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>AArch64 14 bit pc-relative test bit and branch.
-The lowest two bits must be zero and are not stored in the instruction,
-giving a 16 bit signed byte offset.
+The lowest two bits must be zero and are not stored in the
+instruction, giving a 16 bit signed byte offset.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fBRANCH19"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_BRANCH19</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fBRANCH19' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>AArch64 19 bit pc-relative conditional branch and compare &amp; branch.
-The lowest two bits must be zero and are not stored in the instruction,
-giving a 21 bit signed byte offset.
+The lowest two bits must be zero and are not stored in the
+instruction, giving a 21 bit signed byte offset.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fJUMP26"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_JUMP26</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fJUMP26' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>AArch64 26 bit pc-relative unconditional branch.
-The lowest two bits must be zero and are not stored in the instruction,
-giving a 28 bit signed byte offset.
+The lowest two bits must be zero and are not stored in the
+instruction, giving a 28 bit signed byte offset.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fCALL26"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_CALL26</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fCALL26' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>AArch64 26 bit pc-relative unconditional branch and link.
-The lowest two bits must be zero and are not stored in the instruction,
-giving a 28 bit signed byte offset.
+The lowest two bits must be zero and are not stored in the
+instruction, giving a 28 bit signed byte offset.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fLDST16_005fLO12"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_LDST16_LO12</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fLDST16_005fLO12' class='copiable-anchor'> &para;</a></span></dt>
@@ -4054,16 +4141,16 @@ address.  Used in conjunction with BFD_RELOC_AARCH64_ADR_HI21_PCREL.
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fGOT_005fLD_005fPREL19"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_GOT_LD_PREL19</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fGOT_005fLD_005fPREL19' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>AArch64 Load Literal instruction, holding a 19 bit PC relative word
-offset of the global offset table entry for a symbol.  The lowest two
-bits must be zero and are not stored in the instruction, giving a 21
-bit signed byte offset.  This relocation type requires signed overflow
-checking.
+offset of the global offset table entry for a symbol.  The lowest
+two bits must be zero and are not stored in the instruction, giving
+a 21 bit signed byte offset.  This relocation type requires signed
+overflow checking.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fADR_005fGOT_005fPAGE"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_ADR_GOT_PAGE</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fADR_005fGOT_005fPAGE' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Get to the page base of the global offset table entry for a symbol as
-part of an ADRP instruction using a 21 bit PC relative value.Used in
-conjunction with BFD_RELOC_AARCH64_LD64_GOT_LO12_NC.
+<dd><p>Get to the page base of the global offset table entry for a symbol
+as part of an ADRP instruction using a 21 bit PC relative value.
+Used in conjunction with BFD_RELOC_AARCH64_LD64_GOT_LO12_NC.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fLD64_005fGOT_005fLO12_005fNC"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_LD64_GOT_LO12_NC</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fLD64_005fGOT_005fLO12_005fNC' class='copiable-anchor'> &para;</a></span></dt>
@@ -4084,8 +4171,8 @@ for this symbol.  Valid in LP64 ABI only.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fMOVW_005fGOTOFF_005fG1"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_MOVW_GOTOFF_G1</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fMOVW_005fGOTOFF_005fG1' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Unsigned 16 bit byte higher offset for 64 bit load/store from the GOT entry
-for this symbol.  Valid in LP64 ABI only.
+<dd><p>Unsigned 16 bit byte higher offset for 64 bit load/store from the
+GOT entry for this symbol.  Valid in LP64 ABI only.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fLD64_005fGOTOFF_005fLO15"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_LD64_GOTOFF_LO15</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fLD64_005fGOTOFF_005fLO15' class='copiable-anchor'> &para;</a></span></dt>
@@ -4094,11 +4181,13 @@ the GOT entry for this symbol.  Valid in LP64 ABI only.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fLD32_005fGOTPAGE_005fLO14"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_LD32_GOTPAGE_LO14</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fLD32_005fGOTPAGE_005fLO14' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Scaled 14 bit byte offset to the page base of the global offset table.
+<dd><p>Scaled 14 bit byte offset to the page base of the global offset
+table.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fLD64_005fGOTPAGE_005fLO15"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_LD64_GOTPAGE_LO15</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fLD64_005fGOTPAGE_005fLO15' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Scaled 15 bit byte offset to the page base of the global offset table.
+<dd><p>Scaled 15 bit byte offset to the page base of the global offset
+table.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fTLSGD_005fADR_005fPAGE21"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_TLSGD_ADR_PAGE21</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fTLSGD_005fADR_005fPAGE21' class='copiable-anchor'> &para;</a></span></dt>
@@ -4109,12 +4198,12 @@ BFD_RELOC_AARCH64_TLSGD_ADD_LO12_NC.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fTLSGD_005fADR_005fPREL21"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_TLSGD_ADR_PREL21</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fTLSGD_005fADR_005fPREL21' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>AArch64 TLS General Dynamic
+<dd><p>AArch64 TLS General Dynamic.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fTLSGD_005fADD_005fLO12_005fNC"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_TLSGD_ADD_LO12_NC</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fTLSGD_005fADD_005fLO12_005fNC' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Unsigned 12 bit byte offset to global offset table entry for a symbols
-tls_index structure.  Used in conjunction with
+<dd><p>Unsigned 12 bit byte offset to global offset table entry for a
+symbol&rsquo;s tls_index structure.  Used in conjunction with
 BFD_RELOC_AARCH64_TLSGD_ADR_PAGE21.
 </p></dd></dl>
 <dl class="def">
@@ -4159,12 +4248,13 @@ BFD_RELOC_AARCH64_TLSGD_ADR_PAGE21.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fTLSLD_005fADD_005fDTPREL_005fLO12_005fNC"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_TLSLD_ADD_DTPREL_LO12_NC</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fTLSLD_005fADD_005fDTPREL_005fLO12_005fNC' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>No overflow check version of BFD_RELOC_AARCH64_TLSLD_ADD_DTPREL_LO12.
+<dd><p>No overflow check version of
+BFD_RELOC_AARCH64_TLSLD_ADD_DTPREL_LO12.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fTLSLD_005fADD_005fLO12_005fNC"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_TLSLD_ADD_LO12_NC</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fTLSLD_005fADD_005fLO12_005fNC' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Unsigned 12 bit byte offset to global offset table entry for a symbols
-tls_index structure.  Used in conjunction with
+<dd><p>Unsigned 12 bit byte offset to global offset table entry for a
+symbol&rsquo;s tls_index structure.  Used in conjunction with
 BFD_RELOC_AARCH64_TLSLD_ADR_PAGE21.
 </p></dd></dl>
 <dl class="def">
@@ -4174,7 +4264,8 @@ instruction.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fTLSLD_005fADR_005fPREL21"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_TLSLD_ADR_PREL21</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fTLSLD_005fADR_005fPREL21' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>GOT entry address for AArch64 TLS Local Dynamic, used with ADR instruction.
+<dd><p>GOT entry address for AArch64 TLS Local Dynamic, used with ADR
+instruction.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fTLSLD_005fLDST16_005fDTPREL_005fLO12"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_TLSLD_LDST16_DTPREL_LO12</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fTLSLD_005fLDST16_005fDTPREL_005fLO12' class='copiable-anchor'> &para;</a></span></dt>
@@ -4183,7 +4274,8 @@ instructions.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fTLSLD_005fLDST16_005fDTPREL_005fLO12_005fNC"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_TLSLD_LDST16_DTPREL_LO12_NC</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fTLSLD_005fLDST16_005fDTPREL_005fLO12_005fNC' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Similar as BFD_RELOC_AARCH64_TLSLD_LDST16_DTPREL_LO12, but no overflow check.
+<dd><p>Similar to BFD_RELOC_AARCH64_TLSLD_LDST16_DTPREL_LO12, but no
+overflow check.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fTLSLD_005fLDST32_005fDTPREL_005fLO12"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_TLSLD_LDST32_DTPREL_LO12</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fTLSLD_005fLDST32_005fDTPREL_005fLO12' class='copiable-anchor'> &para;</a></span></dt>
@@ -4192,7 +4284,8 @@ instructions.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fTLSLD_005fLDST32_005fDTPREL_005fLO12_005fNC"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_TLSLD_LDST32_DTPREL_LO12_NC</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fTLSLD_005fLDST32_005fDTPREL_005fLO12_005fNC' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Similar as BFD_RELOC_AARCH64_TLSLD_LDST32_DTPREL_LO12, but no overflow check.
+<dd><p>Similar to BFD_RELOC_AARCH64_TLSLD_LDST32_DTPREL_LO12, but no
+overflow check.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fTLSLD_005fLDST64_005fDTPREL_005fLO12"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_TLSLD_LDST64_DTPREL_LO12</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fTLSLD_005fLDST64_005fDTPREL_005fLO12' class='copiable-anchor'> &para;</a></span></dt>
@@ -4201,7 +4294,8 @@ instructions.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fTLSLD_005fLDST64_005fDTPREL_005fLO12_005fNC"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_TLSLD_LDST64_DTPREL_LO12_NC</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fTLSLD_005fLDST64_005fDTPREL_005fLO12_005fNC' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Similar as BFD_RELOC_AARCH64_TLSLD_LDST64_DTPREL_LO12, but no overflow check.
+<dd><p>Similar to BFD_RELOC_AARCH64_TLSLD_LDST64_DTPREL_LO12, but no
+overflow check.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fTLSLD_005fLDST8_005fDTPREL_005fLO12"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_TLSLD_LDST8_DTPREL_LO12</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fTLSLD_005fLDST8_005fDTPREL_005fLO12' class='copiable-anchor'> &para;</a></span></dt>
@@ -4210,7 +4304,8 @@ instructions.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fTLSLD_005fLDST8_005fDTPREL_005fLO12_005fNC"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_TLSLD_LDST8_DTPREL_LO12_NC</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fTLSLD_005fLDST8_005fDTPREL_005fLO12_005fNC' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Similar as BFD_RELOC_AARCH64_TLSLD_LDST8_DTPREL_LO12, but no overflow check.
+<dd><p>Similar to BFD_RELOC_AARCH64_TLSLD_LDST8_DTPREL_LO12, but no
+overflow check.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fTLSLD_005fMOVW_005fDTPREL_005fG0"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_TLSLD_MOVW_DTPREL_G0</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fTLSLD_005fMOVW_005fDTPREL_005fG0' class='copiable-anchor'> &para;</a></span></dt>
@@ -4218,7 +4313,7 @@ instructions.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fTLSLD_005fMOVW_005fDTPREL_005fG0_005fNC"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_TLSLD_MOVW_DTPREL_G0_NC</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fTLSLD_005fMOVW_005fDTPREL_005fG0_005fNC' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>No overflow check version of BFD_RELOC_AARCH64_TLSLD_MOVW_DTPREL_G0
+<dd><p>No overflow check version of BFD_RELOC_AARCH64_TLSLD_MOVW_DTPREL_G0.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fTLSLD_005fMOVW_005fDTPREL_005fG1"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_TLSLD_MOVW_DTPREL_G1</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fTLSLD_005fMOVW_005fDTPREL_005fG1' class='copiable-anchor'> &para;</a></span></dt>
@@ -4226,7 +4321,7 @@ instructions.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fTLSLD_005fMOVW_005fDTPREL_005fG1_005fNC"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_TLSLD_MOVW_DTPREL_G1_NC</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fTLSLD_005fMOVW_005fDTPREL_005fG1_005fNC' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>No overflow check version of BFD_RELOC_AARCH64_TLSLD_MOVW_DTPREL_G1
+<dd><p>No overflow check version of BFD_RELOC_AARCH64_TLSLD_MOVW_DTPREL_G1.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fTLSLD_005fMOVW_005fDTPREL_005fG2"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_TLSLD_MOVW_DTPREL_G2</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fTLSLD_005fMOVW_005fDTPREL_005fG2' class='copiable-anchor'> &para;</a></span></dt>
@@ -4271,7 +4366,8 @@ instructions.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fTLSLE_005fLDST16_005fTPREL_005fLO12_005fNC"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_TLSLE_LDST16_TPREL_LO12_NC</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fTLSLE_005fLDST16_005fTPREL_005fLO12_005fNC' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Similar as BFD_RELOC_AARCH64_TLSLE_LDST16_TPREL_LO12, but no overflow check.
+<dd><p>Similar to BFD_RELOC_AARCH64_TLSLE_LDST16_TPREL_LO12, but no
+overflow check.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fTLSLE_005fLDST32_005fTPREL_005fLO12"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_TLSLE_LDST32_TPREL_LO12</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fTLSLE_005fLDST32_005fTPREL_005fLO12' class='copiable-anchor'> &para;</a></span></dt>
@@ -4280,7 +4376,8 @@ instructions.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fTLSLE_005fLDST32_005fTPREL_005fLO12_005fNC"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_TLSLE_LDST32_TPREL_LO12_NC</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fTLSLE_005fLDST32_005fTPREL_005fLO12_005fNC' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Similar as BFD_RELOC_AARCH64_TLSLE_LDST32_TPREL_LO12, but no overflow check.
+<dd><p>Similar to BFD_RELOC_AARCH64_TLSLE_LDST32_TPREL_LO12, but no
+overflow check.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fTLSLE_005fLDST64_005fTPREL_005fLO12"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_TLSLE_LDST64_TPREL_LO12</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fTLSLE_005fLDST64_005fTPREL_005fLO12' class='copiable-anchor'> &para;</a></span></dt>
@@ -4289,7 +4386,8 @@ instructions.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fTLSLE_005fLDST64_005fTPREL_005fLO12_005fNC"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_TLSLE_LDST64_TPREL_LO12_NC</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fTLSLE_005fLDST64_005fTPREL_005fLO12_005fNC' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Similar as BFD_RELOC_AARCH64_TLSLE_LDST64_TPREL_LO12, but no overflow check.
+<dd><p>Similar to BFD_RELOC_AARCH64_TLSLE_LDST64_TPREL_LO12, but no
+overflow check.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fTLSLE_005fLDST8_005fTPREL_005fLO12"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_TLSLE_LDST8_TPREL_LO12</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fTLSLE_005fLDST8_005fTPREL_005fLO12' class='copiable-anchor'> &para;</a></span></dt>
@@ -4298,83 +4396,36 @@ instructions.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fTLSLE_005fLDST8_005fTPREL_005fLO12_005fNC"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_TLSLE_LDST8_TPREL_LO12_NC</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fTLSLE_005fLDST8_005fTPREL_005fLO12_005fNC' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Similar as BFD_RELOC_AARCH64_TLSLE_LDST8_TPREL_LO12, but no overflow check.
+<dd><p>Similar to BFD_RELOC_AARCH64_TLSLE_LDST8_TPREL_LO12, but no overflow
+check.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fTLSDESC_005fLD_005fPREL19"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_TLSDESC_LD_PREL19</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fTLSDESC_005fLD_005fPREL19' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>AArch64 TLS DESC relocation.
-</p></dd></dl>
-<dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fTLSDESC_005fADR_005fPREL21"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_TLSDESC_ADR_PREL21</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fTLSDESC_005fADR_005fPREL21' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>AArch64 TLS DESC relocation.
-</p></dd></dl>
-<dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fTLSDESC_005fADR_005fPAGE21"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_TLSDESC_ADR_PAGE21</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fTLSDESC_005fADR_005fPAGE21' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>AArch64 TLS DESC relocation.
-</p></dd></dl>
-<dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fTLSDESC_005fLD64_005fLO12"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_TLSDESC_LD64_LO12</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fTLSDESC_005fLD64_005fLO12' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>AArch64 TLS DESC relocation.
-</p></dd></dl>
-<dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fTLSDESC_005fLD32_005fLO12_005fNC"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_TLSDESC_LD32_LO12_NC</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fTLSDESC_005fLD32_005fLO12_005fNC' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>AArch64 TLS DESC relocation.
-</p></dd></dl>
-<dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fTLSDESC_005fADD_005fLO12"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_TLSDESC_ADD_LO12</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fTLSDESC_005fADD_005fLO12' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>AArch64 TLS DESC relocation.
-</p></dd></dl>
-<dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fTLSDESC_005fOFF_005fG1"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_TLSDESC_OFF_G1</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fTLSDESC_005fOFF_005fG1' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>AArch64 TLS DESC relocation.
-</p></dd></dl>
-<dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fTLSDESC_005fOFF_005fG0_005fNC"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_TLSDESC_OFF_G0_NC</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fTLSDESC_005fOFF_005fG0_005fNC' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>AArch64 TLS DESC relocation.
-</p></dd></dl>
-<dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fTLSDESC_005fLDR"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_TLSDESC_LDR</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fTLSDESC_005fLDR' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>AArch64 TLS DESC relocation.
-</p></dd></dl>
-<dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fTLSDESC_005fADD"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_TLSDESC_ADD</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fTLSDESC_005fADD' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>AArch64 TLS DESC relocation.
-</p></dd></dl>
-<dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fTLSDESC_005fCALL"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_TLSDESC_CALL</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fTLSDESC_005fCALL' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>AArch64 TLS DESC relocation.
+<dd><p>AArch64 TLS DESC relocations.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fCOPY"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_COPY</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fCOPY' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>AArch64 TLS relocation.
-</p></dd></dl>
-<dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fGLOB_005fDAT"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_GLOB_DAT</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fGLOB_005fDAT' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>AArch64 TLS relocation.
-</p></dd></dl>
-<dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fJUMP_005fSLOT"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_JUMP_SLOT</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fJUMP_005fSLOT' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>AArch64 TLS relocation.
-</p></dd></dl>
-<dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fRELATIVE"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_RELATIVE</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fRELATIVE' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>AArch64 TLS relocation.
+<dd><p>AArch64 DSO relocations.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fTLS_005fDTPMOD"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_TLS_DTPMOD</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fTLS_005fDTPMOD' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>AArch64 TLS relocation.
-</p></dd></dl>
-<dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fTLS_005fDTPREL"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_TLS_DTPREL</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fTLS_005fDTPREL' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>AArch64 TLS relocation.
-</p></dd></dl>
-<dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fTLS_005fTPREL"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_TLS_TPREL</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fTLS_005fTPREL' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>AArch64 TLS relocation.
-</p></dd></dl>
-<dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fTLSDESC"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_TLSDESC</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fTLSDESC' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>AArch64 TLS relocation.
+<dd><p>AArch64 TLS relocations.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fIRELATIVE"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_IRELATIVE</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fIRELATIVE' class='copiable-anchor'> &para;</a></span></dt>
@@ -4400,23 +4451,25 @@ address.  Used in conjunction with BFD_RELOC_AARCH64_ADR_HI21_PCREL.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fTLSLD_005fLDST_005fDTPREL_005fLO12"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_TLSLD_LDST_DTPREL_LO12</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fTLSLD_005fLDST_005fDTPREL_005fLO12' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>AArch64 pseudo relocation code for TLS local dynamic mode.  It&rsquo;s to be
-used internally by the AArch64 assembler and not (currently) written to
-any object files.
+<dd><p>AArch64 pseudo relocation code for TLS local dynamic mode.  It&rsquo;s to
+be used internally by the AArch64 assembler and not (currently)
+written to any object files.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fTLSLD_005fLDST_005fDTPREL_005fLO12_005fNC"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_TLSLD_LDST_DTPREL_LO12_NC</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fTLSLD_005fLDST_005fDTPREL_005fLO12_005fNC' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Similar as BFD_RELOC_AARCH64_TLSLD_LDST_DTPREL_LO12, but no overflow check.
+<dd><p>Similar to BFD_RELOC_AARCH64_TLSLD_LDST_DTPREL_LO12, but no overflow
+check.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fTLSLE_005fLDST_005fTPREL_005fLO12"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_TLSLE_LDST_TPREL_LO12</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fTLSLE_005fLDST_005fTPREL_005fLO12' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>AArch64 pseudo relocation code for TLS local exec mode.  It&rsquo;s to be
-used internally by the AArch64 assembler and not (currently) written to
-any object files.
+used internally by the AArch64 assembler and not (currently) written
+to any object files.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fTLSLE_005fLDST_005fTPREL_005fLO12_005fNC"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_TLSLE_LDST_TPREL_LO12_NC</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fTLSLE_005fLDST_005fTPREL_005fLO12_005fNC' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Similar as BFD_RELOC_AARCH64_TLSLE_LDST_TPREL_LO12, but no overflow check.
+<dd><p>Similar to BFD_RELOC_AARCH64_TLSLE_LDST_TPREL_LO12, but no overflow
+check.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fAARCH64_005fLD_005fGOT_005fLO12_005fNC"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_LD_GOT_LO12_NC</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fLD_005fGOT_005fLO12_005fNC' class='copiable-anchor'> &para;</a></span></dt>
@@ -4629,35 +4682,35 @@ assembler and not (currently) written to any object files.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fBPF_005f64"><span class="category">: </span><span><strong>BFD_RELOC_BPF_64</strong><a href='#index-BFD_005fRELOC_005fBPF_005f64' class='copiable-anchor'> &para;</a></span></dt>
-<dt id="index-BFD_005fRELOC_005fBPF_005f32"><span class="category">: </span><span><strong>BFD_RELOC_BPF_32</strong><a href='#index-BFD_005fRELOC_005fBPF_005f32' class='copiable-anchor'> &para;</a></span></dt>
-<dt id="index-BFD_005fRELOC_005fBPF_005f16"><span class="category">: </span><span><strong>BFD_RELOC_BPF_16</strong><a href='#index-BFD_005fRELOC_005fBPF_005f16' class='copiable-anchor'> &para;</a></span></dt>
-<dt id="index-BFD_005fRELOC_005fBPF_005fDISP16"><span class="category">: </span><span><strong>BFD_RELOC_BPF_DISP16</strong><a href='#index-BFD_005fRELOC_005fBPF_005fDISP16' class='copiable-anchor'> &para;</a></span></dt>
 <dt id="index-BFD_005fRELOC_005fBPF_005fDISP32"><span class="category">: </span><span><strong>BFD_RELOC_BPF_DISP32</strong><a href='#index-BFD_005fRELOC_005fBPF_005fDISP32' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fBPF_005fDISPCALL32"><span class="category">: </span><span><strong>BFD_RELOC_BPF_DISPCALL32</strong><a href='#index-BFD_005fRELOC_005fBPF_005fDISPCALL32' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fBPF_005fDISP16"><span class="category">: </span><span><strong>BFD_RELOC_BPF_DISP16</strong><a href='#index-BFD_005fRELOC_005fBPF_005fDISP16' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Linux eBPF relocations.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fEPIPHANY_005fSIMM8"><span class="category">: </span><span><strong>BFD_RELOC_EPIPHANY_SIMM8</strong><a href='#index-BFD_005fRELOC_005fEPIPHANY_005fSIMM8' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Adapteva EPIPHANY - 8 bit signed pc-relative displacement
+<dd><p>Adapteva EPIPHANY - 8 bit signed pc-relative displacement.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fEPIPHANY_005fSIMM24"><span class="category">: </span><span><strong>BFD_RELOC_EPIPHANY_SIMM24</strong><a href='#index-BFD_005fRELOC_005fEPIPHANY_005fSIMM24' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Adapteva EPIPHANY - 24 bit signed pc-relative displacement
+<dd><p>Adapteva EPIPHANY - 24 bit signed pc-relative displacement.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fEPIPHANY_005fHIGH"><span class="category">: </span><span><strong>BFD_RELOC_EPIPHANY_HIGH</strong><a href='#index-BFD_005fRELOC_005fEPIPHANY_005fHIGH' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Adapteva EPIPHANY - 16 most-significant bits of absolute address
+<dd><p>Adapteva EPIPHANY - 16 most-significant bits of absolute address.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fEPIPHANY_005fLOW"><span class="category">: </span><span><strong>BFD_RELOC_EPIPHANY_LOW</strong><a href='#index-BFD_005fRELOC_005fEPIPHANY_005fLOW' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Adapteva EPIPHANY - 16 least-significant bits of absolute address
+<dd><p>Adapteva EPIPHANY - 16 least-significant bits of absolute address.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fEPIPHANY_005fSIMM11"><span class="category">: </span><span><strong>BFD_RELOC_EPIPHANY_SIMM11</strong><a href='#index-BFD_005fRELOC_005fEPIPHANY_005fSIMM11' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Adapteva EPIPHANY - 11 bit signed number - add/sub immediate
+<dd><p>Adapteva EPIPHANY - 11 bit signed number - add/sub immediate.
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fEPIPHANY_005fIMM11"><span class="category">: </span><span><strong>BFD_RELOC_EPIPHANY_IMM11</strong><a href='#index-BFD_005fRELOC_005fEPIPHANY_005fIMM11' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Adapteva EPIPHANY - 11 bit sign-magnitude number (ld/st displacement)
+<dd><p>Adapteva EPIPHANY - 11 bit sign-magnitude number (ld/st
+displacement).
 </p></dd></dl>
 <dl class="def">
 <dt id="index-BFD_005fRELOC_005fEPIPHANY_005fIMM8"><span class="category">: </span><span><strong>BFD_RELOC_EPIPHANY_IMM8</strong><a href='#index-BFD_005fRELOC_005fEPIPHANY_005fIMM8' class='copiable-anchor'> &para;</a></span></dt>
@@ -4765,6 +4818,8 @@ assembler and not (currently) written to any object files.
 <dt id="index-BFD_005fRELOC_005fLARCH_005fTLS_005fDTPREL64"><span class="category">: </span><span><strong>BFD_RELOC_LARCH_TLS_DTPREL64</strong><a href='#index-BFD_005fRELOC_005fLARCH_005fTLS_005fDTPREL64' class='copiable-anchor'> &para;</a></span></dt>
 <dt id="index-BFD_005fRELOC_005fLARCH_005fTLS_005fTPREL32"><span class="category">: </span><span><strong>BFD_RELOC_LARCH_TLS_TPREL32</strong><a href='#index-BFD_005fRELOC_005fLARCH_005fTLS_005fTPREL32' class='copiable-anchor'> &para;</a></span></dt>
 <dt id="index-BFD_005fRELOC_005fLARCH_005fTLS_005fTPREL64"><span class="category">: </span><span><strong>BFD_RELOC_LARCH_TLS_TPREL64</strong><a href='#index-BFD_005fRELOC_005fLARCH_005fTLS_005fTPREL64' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fLARCH_005fTLS_005fDESC32"><span class="category">: </span><span><strong>BFD_RELOC_LARCH_TLS_DESC32</strong><a href='#index-BFD_005fRELOC_005fLARCH_005fTLS_005fDESC32' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fLARCH_005fTLS_005fDESC64"><span class="category">: </span><span><strong>BFD_RELOC_LARCH_TLS_DESC64</strong><a href='#index-BFD_005fRELOC_005fLARCH_005fTLS_005fDESC64' class='copiable-anchor'> &para;</a></span></dt>
 <dt id="index-BFD_005fRELOC_005fLARCH_005fMARK_005fLA"><span class="category">: </span><span><strong>BFD_RELOC_LARCH_MARK_LA</strong><a href='#index-BFD_005fRELOC_005fLARCH_005fMARK_005fLA' class='copiable-anchor'> &para;</a></span></dt>
 <dt id="index-BFD_005fRELOC_005fLARCH_005fMARK_005fPCREL"><span class="category">: </span><span><strong>BFD_RELOC_LARCH_MARK_PCREL</strong><a href='#index-BFD_005fRELOC_005fLARCH_005fMARK_005fPCREL' class='copiable-anchor'> &para;</a></span></dt>
 <dt id="index-BFD_005fRELOC_005fLARCH_005fSOP_005fPUSH_005fPCREL"><span class="category">: </span><span><strong>BFD_RELOC_LARCH_SOP_PUSH_PCREL</strong><a href='#index-BFD_005fRELOC_005fLARCH_005fSOP_005fPUSH_005fPCREL' class='copiable-anchor'> &para;</a></span></dt>
@@ -4839,159 +4894,140 @@ assembler and not (currently) written to any object files.
 <dt id="index-BFD_005fRELOC_005fLARCH_005fTLS_005fGD_005fHI20"><span class="category">: </span><span><strong>BFD_RELOC_LARCH_TLS_GD_HI20</strong><a href='#index-BFD_005fRELOC_005fLARCH_005fTLS_005fGD_005fHI20' class='copiable-anchor'> &para;</a></span></dt>
 <dt id="index-BFD_005fRELOC_005fLARCH_005f32_005fPCREL"><span class="category">: </span><span><strong>BFD_RELOC_LARCH_32_PCREL</strong><a href='#index-BFD_005fRELOC_005fLARCH_005f32_005fPCREL' class='copiable-anchor'> &para;</a></span></dt>
 <dt id="index-BFD_005fRELOC_005fLARCH_005fRELAX"><span class="category">: </span><span><strong>BFD_RELOC_LARCH_RELAX</strong><a href='#index-BFD_005fRELOC_005fLARCH_005fRELAX' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fLARCH_005fDELETE"><span class="category">: </span><span><strong>BFD_RELOC_LARCH_DELETE</strong><a href='#index-BFD_005fRELOC_005fLARCH_005fDELETE' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fLARCH_005fALIGN"><span class="category">: </span><span><strong>BFD_RELOC_LARCH_ALIGN</strong><a href='#index-BFD_005fRELOC_005fLARCH_005fALIGN' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fLARCH_005fPCREL20_005fS2"><span class="category">: </span><span><strong>BFD_RELOC_LARCH_PCREL20_S2</strong><a href='#index-BFD_005fRELOC_005fLARCH_005fPCREL20_005fS2' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fLARCH_005fCFA"><span class="category">: </span><span><strong>BFD_RELOC_LARCH_CFA</strong><a href='#index-BFD_005fRELOC_005fLARCH_005fCFA' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fLARCH_005fADD6"><span class="category">: </span><span><strong>BFD_RELOC_LARCH_ADD6</strong><a href='#index-BFD_005fRELOC_005fLARCH_005fADD6' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fLARCH_005fSUB6"><span class="category">: </span><span><strong>BFD_RELOC_LARCH_SUB6</strong><a href='#index-BFD_005fRELOC_005fLARCH_005fSUB6' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fLARCH_005fADD_005fULEB128"><span class="category">: </span><span><strong>BFD_RELOC_LARCH_ADD_ULEB128</strong><a href='#index-BFD_005fRELOC_005fLARCH_005fADD_005fULEB128' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fLARCH_005fSUB_005fULEB128"><span class="category">: </span><span><strong>BFD_RELOC_LARCH_SUB_ULEB128</strong><a href='#index-BFD_005fRELOC_005fLARCH_005fSUB_005fULEB128' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fLARCH_005f64_005fPCREL"><span class="category">: </span><span><strong>BFD_RELOC_LARCH_64_PCREL</strong><a href='#index-BFD_005fRELOC_005fLARCH_005f64_005fPCREL' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fLARCH_005fCALL36"><span class="category">: </span><span><strong>BFD_RELOC_LARCH_CALL36</strong><a href='#index-BFD_005fRELOC_005fLARCH_005fCALL36' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fLARCH_005fTLS_005fDESC_005fPC_005fHI20"><span class="category">: </span><span><strong>BFD_RELOC_LARCH_TLS_DESC_PC_HI20</strong><a href='#index-BFD_005fRELOC_005fLARCH_005fTLS_005fDESC_005fPC_005fHI20' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fLARCH_005fTLS_005fDESC_005fPC_005fLO12"><span class="category">: </span><span><strong>BFD_RELOC_LARCH_TLS_DESC_PC_LO12</strong><a href='#index-BFD_005fRELOC_005fLARCH_005fTLS_005fDESC_005fPC_005fLO12' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fLARCH_005fTLS_005fDESC64_005fPC_005fLO20"><span class="category">: </span><span><strong>BFD_RELOC_LARCH_TLS_DESC64_PC_LO20</strong><a href='#index-BFD_005fRELOC_005fLARCH_005fTLS_005fDESC64_005fPC_005fLO20' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fLARCH_005fTLS_005fDESC64_005fPC_005fHI12"><span class="category">: </span><span><strong>BFD_RELOC_LARCH_TLS_DESC64_PC_HI12</strong><a href='#index-BFD_005fRELOC_005fLARCH_005fTLS_005fDESC64_005fPC_005fHI12' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fLARCH_005fTLS_005fDESC_005fHI20"><span class="category">: </span><span><strong>BFD_RELOC_LARCH_TLS_DESC_HI20</strong><a href='#index-BFD_005fRELOC_005fLARCH_005fTLS_005fDESC_005fHI20' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fLARCH_005fTLS_005fDESC_005fLO12"><span class="category">: </span><span><strong>BFD_RELOC_LARCH_TLS_DESC_LO12</strong><a href='#index-BFD_005fRELOC_005fLARCH_005fTLS_005fDESC_005fLO12' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fLARCH_005fTLS_005fDESC64_005fLO20"><span class="category">: </span><span><strong>BFD_RELOC_LARCH_TLS_DESC64_LO20</strong><a href='#index-BFD_005fRELOC_005fLARCH_005fTLS_005fDESC64_005fLO20' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fLARCH_005fTLS_005fDESC64_005fHI12"><span class="category">: </span><span><strong>BFD_RELOC_LARCH_TLS_DESC64_HI12</strong><a href='#index-BFD_005fRELOC_005fLARCH_005fTLS_005fDESC64_005fHI12' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fLARCH_005fTLS_005fDESC_005fLD"><span class="category">: </span><span><strong>BFD_RELOC_LARCH_TLS_DESC_LD</strong><a href='#index-BFD_005fRELOC_005fLARCH_005fTLS_005fDESC_005fLD' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fLARCH_005fTLS_005fDESC_005fCALL"><span class="category">: </span><span><strong>BFD_RELOC_LARCH_TLS_DESC_CALL</strong><a href='#index-BFD_005fRELOC_005fLARCH_005fTLS_005fDESC_005fCALL' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fLARCH_005fTLS_005fLE_005fHI20_005fR"><span class="category">: </span><span><strong>BFD_RELOC_LARCH_TLS_LE_HI20_R</strong><a href='#index-BFD_005fRELOC_005fLARCH_005fTLS_005fLE_005fHI20_005fR' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fLARCH_005fTLS_005fLE_005fADD_005fR"><span class="category">: </span><span><strong>BFD_RELOC_LARCH_TLS_LE_ADD_R</strong><a href='#index-BFD_005fRELOC_005fLARCH_005fTLS_005fLE_005fADD_005fR' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fLARCH_005fTLS_005fLE_005fLO12_005fR"><span class="category">: </span><span><strong>BFD_RELOC_LARCH_TLS_LE_LO12_R</strong><a href='#index-BFD_005fRELOC_005fLARCH_005fTLS_005fLE_005fLO12_005fR' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fLARCH_005fTLS_005fLD_005fPCREL20_005fS2"><span class="category">: </span><span><strong>BFD_RELOC_LARCH_TLS_LD_PCREL20_S2</strong><a href='#index-BFD_005fRELOC_005fLARCH_005fTLS_005fLD_005fPCREL20_005fS2' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fLARCH_005fTLS_005fGD_005fPCREL20_005fS2"><span class="category">: </span><span><strong>BFD_RELOC_LARCH_TLS_GD_PCREL20_S2</strong><a href='#index-BFD_005fRELOC_005fLARCH_005fTLS_005fGD_005fPCREL20_005fS2' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fLARCH_005fTLS_005fDESC_005fPCREL20_005fS2"><span class="category">: </span><span><strong>BFD_RELOC_LARCH_TLS_DESC_PCREL20_S2</strong><a href='#index-BFD_005fRELOC_005fLARCH_005fTLS_005fDESC_005fPCREL20_005fS2' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>LARCH relocations.
 </p></dd></dl>
 
 <div class="example">
-<pre class="example">
+<pre class="example">typedef enum bfd_reloc_code_real bfd_reloc_code_real_type;
 
-typedef enum bfd_reloc_code_real bfd_reloc_code_real_type;
 </pre></div>
 <span id="index-bfd_005freloc_005ftype_005flookup"></span>
 </div>
 <div class="subsubsection" id="bfd_005freloc_005ftype_005flookup">
 <h4 class="subsubsection">2.10.2.2 <code>bfd_reloc_type_lookup</code></h4>
-<p><strong>Synopsis</strong>
-</p><div class="example">
-<pre class="example">reloc_howto_type *bfd_reloc_type_lookup
-   (bfd *abfd, bfd_reloc_code_real_type code);
-reloc_howto_type *bfd_reloc_name_lookup
-   (bfd *abfd, const char *reloc_name);
-</pre></div>
-<p><strong>Description</strong><br>
-Return a pointer to a howto structure which, when
+<dl class="def">
+<dt id="index-_002abfd_005freloc_005ftype_005flookup"><span class="category">Function: </span><span><em>reloc_howto_type</em> <strong>*bfd_reloc_type_lookup</strong> <em>(bfd *abfd, bfd_reloc_code_real_type code); reloc_howto_type *bfd_reloc_name_lookup (bfd *abfd, const char *reloc_name);</em><a href='#index-_002abfd_005freloc_005ftype_005flookup' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Return a pointer to a howto structure which, when
 invoked, will perform the relocation <var>code</var> on data from the
 architecture noted.
 </p>
+</dd></dl>
 <span id="index-bfd_005fdefault_005freloc_005ftype_005flookup"></span>
 </div>
 <div class="subsubsection" id="bfd_005fdefault_005freloc_005ftype_005flookup">
 <h4 class="subsubsection">2.10.2.3 <code>bfd_default_reloc_type_lookup</code></h4>
-<p><strong>Synopsis</strong>
-</p><div class="example">
-<pre class="example">reloc_howto_type *bfd_default_reloc_type_lookup
-   (bfd *abfd, bfd_reloc_code_real_type  code);
-</pre></div>
-<p><strong>Description</strong><br>
-Provides a default relocation lookup routine for any architecture.
+<dl class="def">
+<dt id="index-_002abfd_005fdefault_005freloc_005ftype_005flookup"><span class="category">Function: </span><span><em>reloc_howto_type</em> <strong>*bfd_default_reloc_type_lookup</strong> <em>(bfd *abfd, bfd_reloc_code_real_type code);</em><a href='#index-_002abfd_005fdefault_005freloc_005ftype_005flookup' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Provides a default relocation lookup routine for any architecture.
 </p>
+</dd></dl>
 <span id="index-bfd_005fget_005freloc_005fcode_005fname"></span>
 </div>
 <div class="subsubsection" id="bfd_005fget_005freloc_005fcode_005fname">
 <h4 class="subsubsection">2.10.2.4 <code>bfd_get_reloc_code_name</code></h4>
-<p><strong>Synopsis</strong>
-</p><div class="example">
-<pre class="example">const char *bfd_get_reloc_code_name (bfd_reloc_code_real_type code);
-</pre></div>
-<p><strong>Description</strong><br>
-Provides a printable name for the supplied relocation code.
+<dl class="def">
+<dt id="index-char-4"><span class="category">Function: </span><span><em>const</em> <strong>char</strong> <em>*bfd_get_reloc_code_name (bfd_reloc_code_real_type code);</em><a href='#index-char-4' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Provides a printable name for the supplied relocation code.
 Useful mainly for printing error messages.
 </p>
+</dd></dl>
 <span id="index-bfd_005fgeneric_005frelax_005fsection"></span>
 </div>
 <div class="subsubsection" id="bfd_005fgeneric_005frelax_005fsection">
 <h4 class="subsubsection">2.10.2.5 <code>bfd_generic_relax_section</code></h4>
-<p><strong>Synopsis</strong>
-</p><div class="example">
-<pre class="example">bool bfd_generic_relax_section
-   (bfd *abfd,
-    asection *section,
-    struct bfd_link_info *,
-    bool *);
-</pre></div>
-<p><strong>Description</strong><br>
-Provides default handling for relaxing for back ends which
+<dl class="def">
+<dt id="index-bfd_005fgeneric_005frelax_005fsection-1"><span class="category">Function: </span><span><em>bool</em> <strong>bfd_generic_relax_section</strong> <em>(bfd *abfd, asection *section, struct bfd_link_info *, bool *);</em><a href='#index-bfd_005fgeneric_005frelax_005fsection-1' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Provides default handling for relaxing for back ends which
 don&rsquo;t do relaxing.
 </p>
+</dd></dl>
 <span id="index-bfd_005fgeneric_005fgc_005fsections"></span>
 </div>
 <div class="subsubsection" id="bfd_005fgeneric_005fgc_005fsections">
 <h4 class="subsubsection">2.10.2.6 <code>bfd_generic_gc_sections</code></h4>
-<p><strong>Synopsis</strong>
-</p><div class="example">
-<pre class="example">bool bfd_generic_gc_sections
-   (bfd *, struct bfd_link_info *);
-</pre></div>
-<p><strong>Description</strong><br>
-Provides default handling for relaxing for back ends which
+<dl class="def">
+<dt id="index-bfd_005fgeneric_005fgc_005fsections-1"><span class="category">Function: </span><span><em>bool</em> <strong>bfd_generic_gc_sections</strong> <em>(bfd *, struct bfd_link_info *);</em><a href='#index-bfd_005fgeneric_005fgc_005fsections-1' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Provides default handling for relaxing for back ends which
 don&rsquo;t do section gc &ndash; i.e., does nothing.
 </p>
+</dd></dl>
 <span id="index-bfd_005fgeneric_005flookup_005fsection_005fflags"></span>
 </div>
 <div class="subsubsection" id="bfd_005fgeneric_005flookup_005fsection_005fflags">
 <h4 class="subsubsection">2.10.2.7 <code>bfd_generic_lookup_section_flags</code></h4>
-<p><strong>Synopsis</strong>
-</p><div class="example">
-<pre class="example">bool bfd_generic_lookup_section_flags
-   (struct bfd_link_info *, struct flag_info *, asection *);
-</pre></div>
-<p><strong>Description</strong><br>
-Provides default handling for section flags lookup
+<dl class="def">
+<dt id="index-bfd_005fgeneric_005flookup_005fsection_005fflags-1"><span class="category">Function: </span><span><em>bool</em> <strong>bfd_generic_lookup_section_flags</strong> <em>(struct bfd_link_info *, struct flag_info *, asection *);</em><a href='#index-bfd_005fgeneric_005flookup_005fsection_005fflags-1' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Provides default handling for section flags lookup
 &ndash; i.e., does nothing.
 Returns FALSE if the section should be omitted, otherwise TRUE.
 </p>
+</dd></dl>
 <span id="index-bfd_005fgeneric_005fmerge_005fsections"></span>
 </div>
 <div class="subsubsection" id="bfd_005fgeneric_005fmerge_005fsections">
 <h4 class="subsubsection">2.10.2.8 <code>bfd_generic_merge_sections</code></h4>
-<p><strong>Synopsis</strong>
-</p><div class="example">
-<pre class="example">bool bfd_generic_merge_sections
-   (bfd *, struct bfd_link_info *);
-</pre></div>
-<p><strong>Description</strong><br>
-Provides default handling for SEC_MERGE section merging for back ends
+<dl class="def">
+<dt id="index-bfd_005fgeneric_005fmerge_005fsections-1"><span class="category">Function: </span><span><em>bool</em> <strong>bfd_generic_merge_sections</strong> <em>(bfd *, struct bfd_link_info *);</em><a href='#index-bfd_005fgeneric_005fmerge_005fsections-1' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Provides default handling for SEC_MERGE section merging for back ends
 which don&rsquo;t have SEC_MERGE support &ndash; i.e., does nothing.
 </p>
+</dd></dl>
 <span id="index-bfd_005fgeneric_005fget_005frelocated_005fsection_005fcontents"></span>
 </div>
 <div class="subsubsection" id="bfd_005fgeneric_005fget_005frelocated_005fsection_005fcontents">
 <h4 class="subsubsection">2.10.2.9 <code>bfd_generic_get_relocated_section_contents</code></h4>
-<p><strong>Synopsis</strong>
-</p><div class="example">
-<pre class="example">bfd_byte *bfd_generic_get_relocated_section_contents
-   (bfd *abfd,
-    struct bfd_link_info *link_info,
-    struct bfd_link_order *link_order,
-    bfd_byte *data,
-    bool relocatable,
-    asymbol **symbols);
-</pre></div>
-<p><strong>Description</strong><br>
-Provides default handling of relocation effort for back ends
+<dl class="def">
+<dt id="index-_002abfd_005fgeneric_005fget_005frelocated_005fsection_005fcontents"><span class="category">Function: </span><span><em>bfd_byte</em> <strong>*bfd_generic_get_relocated_section_contents</strong> <em>(bfd *abfd, struct bfd_link_info *link_info, struct bfd_link_order *link_order, bfd_byte *data, bool relocatable, asymbol **symbols);</em><a href='#index-_002abfd_005fgeneric_005fget_005frelocated_005fsection_005fcontents' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Provides default handling of relocation effort for back ends
 which can&rsquo;t be bothered to do it efficiently.
 </p>
+</dd></dl>
 <span id="index-_005fbfd_005fgeneric_005fset_005freloc"></span>
 </div>
 <div class="subsubsection" id="g_t_005fbfd_005fgeneric_005fset_005freloc">
 <h4 class="subsubsection">2.10.2.10 <code>_bfd_generic_set_reloc</code></h4>
-<p><strong>Synopsis</strong>
-</p><div class="example">
-<pre class="example">void _bfd_generic_set_reloc
-   (bfd *abfd,
-    sec_ptr section,
-    arelent **relptr,
-    unsigned int count);
-</pre></div>
-<p><strong>Description</strong><br>
-Installs a new set of internal relocations in SECTION.
+<dl class="def">
+<dt id="index-_005fbfd_005fgeneric_005fset_005freloc-1"><span class="category">Function: </span><span><em>void</em> <strong>_bfd_generic_set_reloc</strong> <em>(bfd *abfd, sec_ptr section, arelent **relptr, unsigned int count);</em><a href='#index-_005fbfd_005fgeneric_005fset_005freloc-1' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Installs a new set of internal relocations in SECTION.
 </p>
+</dd></dl>
 <span id="index-_005fbfd_005funrecognized_005freloc"></span>
 </div>
 <div class="subsubsection" id="g_t_005fbfd_005funrecognized_005freloc">
 <h4 class="subsubsection">2.10.2.11 <code>_bfd_unrecognized_reloc</code></h4>
-<p><strong>Synopsis</strong>
-</p><div class="example">
-<pre class="example">bool _bfd_unrecognized_reloc
-   (bfd * abfd,
-    sec_ptr section,
-    unsigned int r_type);
-</pre></div>
-<p><strong>Description</strong><br>
-Reports an unrecognized reloc.
+<dl class="def">
+<dt id="index-_005fbfd_005funrecognized_005freloc-1"><span class="category">Function: </span><span><em>bool</em> <strong>_bfd_unrecognized_reloc</strong> <em>(bfd * abfd, sec_ptr section, unsigned int r_type);</em><a href='#index-_005fbfd_005funrecognized_005freloc-1' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Reports an unrecognized reloc.
 Written as a function in order to reduce code duplication.
 Returns FALSE so that it can be called from a return statement.
 </p>
+</dd></dl>
 
 </div>
 </div>

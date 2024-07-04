@@ -3,7 +3,7 @@
 <!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright (C) 1988-2022 Free Software Foundation, Inc.
+<!-- Copyright (C) 1988-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -16,35 +16,47 @@ and with the Back-Cover Texts as in (a) below.
 this GNU Manual.  Buying copies from GNU Press supports the FSF in
 developing GNU and promoting software freedom."
 
-Disclaimer
+Legal Disclaimer and Copyright Information
 
-The information contained herein is for informational purposes only,
-and is subject to change without notice.  While every precaution has
-been taken in the preparation of this document, it may contain
-technical inaccuracies, omissions and typographical errors, and AMD is
-under no obligation to update or otherwise correct this information.
-Advanced Micro Devices, Inc. makes no representations or warranties
-with respect to the accuracy or completeness of the contents of this
-document, and assumes no liability of any kind, including the implied
-warranties of noninfringement, merchantability or fitness for
-particular purposes, with respect to the operation or use of AMD
-hardware, software or other products described herein.  No license,
-including implied or arising by estoppel, to any intellectual property
-rights is granted by this document.  Terms and limitations applicable
-to the purchase or use of AMD’s products are as set forth in a signed
-agreement between the parties or in AMD's Standard Terms and
-Conditions of Sale.
+AMD ROCm software is made available by Advanced Micro Devices, Inc. under the
+open source license identified in the top-level directory for the library in
+the repository on Github.com (Portions of AMD ROCm software are
+licensed under MITx11 and UIL/NCSA. For more information on the license, review
+the license.txt in the top-level directory for the library on
+Github.com).  The additional terms and conditions below apply to your use
+of AMD ROCm technical documentation.
 
-AMD(R), the AMD Arrow logo, AMD Instinct(R),
-Radeon(R), ROCm(R) and combinations thereof are
-trademarks of Advanced Micro Devices, Inc.  Linux(R) is the
-registered trademark of Linus Torvalds in the U.S. and other countries.
-PCIe(R) is a registered trademark of PCI-SIG Corporation. Other
-product names used in this publication are for identification purposes only and
-may be trademarks of their respective companies.
+(C)2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
 
-Copyright (C) 2019-2022 Advanced Micro Devices, Inc.  All
-rights reserved. -->
+The information presented in this document is for informational purposes only
+and may contain technical inaccuracies, omissions, and typographical errors.
+The information contained herein is subject to change and may be rendered
+inaccurate for many reasons, including but not limited to product and roadmap
+changes, component and motherboard version changes, new model and/or product
+releases, product differences between differing manufacturers, software
+changes, BIOS flashes, firmware upgrades, or the like.  Any computer system has
+risks of security vulnerabilities that cannot be completely prevented or
+mitigated.  AMD assumes no obligation to update or otherwise correct or revise
+this information.  However, AMD reserves the right to revise this information
+and to make changes from time to time to the content hereof without obligation
+of AMD to notify any person of such revisions or changes.
+
+THIS INFORMATION IS PROVIDED "AS IS."  AMD MAKES NO REPRESENTATIONS OR
+WARRANTIES WITH RESPECT TO THE CONTENTS HEREOF AND ASSUMES NO RESPONSIBILITY
+FOR ANY INACCURACIES, ERRORS, OR OMISSIONS THAT MAY APPEAR IN THIS INFORMATION.
+AMD SPECIFICALLY DISCLAIMS ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT,
+MERCHANTABILITY, OR FITNESS FOR ANY PARTICULAR PURPOSE.  IN NO EVENT WILL AMD
+BE LIABLE TO ANY PERSON FOR ANY RELIANCE, DIRECT, INDIRECT, SPECIAL, OR OTHER
+CONSEQUENTIAL DAMAGES ARISING FROM THE USE OF ANY INFORMATION CONTAINED HEREIN,
+EVEN IF AMD IS EXPRESSLY ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+
+AMD, the AMD Arrow logo, AMD Instinct™, Radeon™, AMD ROCm™, and combinations
+thereof are trademarks of Advanced Micro Devices, Inc.
+Linux(R) is the registered trademark of Linus Torvalds in the
+U.S. and other countries. PCIe(R) is a registered trademark of
+PCI-SIG Corporation.  Other product names used in this publication are for
+identification purposes only and may be trademarks of their respective
+companies. -->
 <title>Inferiors Connections and Programs (Debugging with ROCGDB)</title>
 
 <meta name="description" content="Inferiors Connections and Programs (Debugging with ROCGDB)">
@@ -113,6 +125,15 @@ embedded targets may have several inferiors running in different parts
 of a single address space.  Each inferior may in turn have multiple
 threads running in it.
 </p>
+<span id="index-ID-list"></span>
+<p>The commands <code>info inferiors</code> and <code>info connections</code>, which will be
+introduced below, accept a space-separated <em>ID list</em> as their argument
+specifying one or more elements on which to operate.  A list element can be
+either a single non-negative number, like &lsquo;<samp>5</samp>&rsquo;, or an ascending range of
+such numbers, like &lsquo;<samp>5-7</samp>&rsquo;.  A list can consist of any combination of such
+elements, even duplicates or overlapping ranges are valid.  E.g.
+&lsquo;<samp>1 4-6 5 4-4</samp>&rsquo; or &lsquo;<samp>1 2 4-7</samp>&rsquo;.
+</p>
 <p>To find out what inferiors exist at any moment, use <code>info&nbsp;inferiors</code><!-- /@w -->:
 </p>
 <dl compact="compact">
@@ -120,9 +141,8 @@ threads running in it.
 </dd>
 <dt><span><code>info inferiors</code></span></dt>
 <dd><p>Print a list of all inferiors currently being managed by <small>ROCGDB</small>.
-By default all inferiors are printed, but the argument <var>id</var>&hellip;
-&ndash; a space separated list of inferior numbers &ndash; can be used to limit
-the display to just the requested inferiors.
+By default all inferiors are printed, but the ID list <var>id</var>&hellip; can be
+used to limit the display to just the requested inferiors.
 </p>
 <p><small>ROCGDB</small> displays for each inferior (in this order):
 </p>
@@ -153,7 +173,7 @@ indicates the current inferior.
   2    process 2307      2 (extended-remote host:10000)  hello
 </pre></div>
 
-<p>To get informations about the current inferior, use <code>inferior</code>:
+<p>To get information about the current inferior, use <code>inferior</code>:
 </p>
 <dl compact="compact">
 <dd><span id="index-inferior-1"></span>
@@ -178,9 +198,8 @@ indicates the current inferior.
 </dd>
 <dt><span><code>info connections</code></span></dt>
 <dd><p>Print a list of all open target connections currently being managed by
-<small>ROCGDB</small>.  By default all connections are printed, but the
-argument <var>id</var>&hellip; &ndash; a space separated list of connections
-numbers &ndash; can be used to limit the display to just the requested
+<small>ROCGDB</small>.  By default all connections are printed, but the ID list
+<var>id</var>&hellip; can be used to limit the display to just the requested
 connections.
 </p>
 <p><small>ROCGDB</small> displays for each connection (in this order):
@@ -281,7 +300,7 @@ Added inferior 2.
 
 <p>You can now simply switch focus to inferior 2 and run it.
 </p>
-<span id="index-remove_002dinferiors"></span>
+<span id="remove_005finferiors_005fcli"></span><span id="index-remove_002dinferiors"></span>
 </dd>
 <dt><span><code>remove-inferiors <var>infno</var>&hellip;</code></span></dt>
 <dd><p>Removes the inferior or inferiors <var>infno</var>&hellip;.  It is not
@@ -367,6 +386,9 @@ spaces in a debug session.  You can do that with the <code>maint&nbsp;info&nbsp;
 </li><li> the name of the executable loaded into the program space, with e.g.,
 the <code>file</code> command.
 
+</li><li> the name of the core file loaded into the program space, with e.g.,
+the <code>core-file</code> command.
+
 </li></ol>
 
 <p>An asterisk &lsquo;<samp>*</samp>&rsquo; preceding the <small>ROCGDB</small> program space number
@@ -378,7 +400,7 @@ example, the list of inferiors bound to the program space.
 </p>
 <div class="example">
 <pre class="example">(gdb) maint info program-spaces
-  Id   Executable
+  Id   Executable        Core File
 * 1    hello
   2    goodbye
         Bound inferiors: ID 1 (process 21561)
@@ -392,7 +414,7 @@ the parent and child processes of a <code>vfork</code> call.  For example,
 </p>
 <div class="example">
 <pre class="example">(gdb) maint info program-spaces
-  Id   Executable
+  Id   Executable        Core File
 * 1    vfork-test
         Bound inferiors: ID 2 (process 18050), ID 1 (process 18045)
 </pre></div>
@@ -402,6 +424,10 @@ space as a result of inferior 1 having executed a <code>vfork</code> call.
 </p></dd>
 </dl>
 
+
+<ul class="section-toc">
+<li><a href="Inferior_002dSpecific-Breakpoints.html" accesskey="1">Inferior-Specific Breakpoints</a></li>
+</ul>
 </div>
 <hr>
 <div class="header">

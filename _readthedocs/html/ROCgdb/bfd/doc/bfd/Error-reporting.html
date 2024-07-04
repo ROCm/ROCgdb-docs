@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the BFD library.
 
-Copyright (C) 1991-2022 Free Software Foundation, Inc.
+Copyright (C) 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -37,7 +37,7 @@ You have freedom to copy and modify this GNU Manual, like GNU
 <link href="BFD-Index.html" rel="index" title="BFD Index">
 <link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
 <link href="BFD-front-end.html" rel="up" title="BFD front end">
-<link href="Miscellaneous.html" rel="next" title="Miscellaneous">
+<link href="Initialization.html" rel="next" title="Initialization">
 <link href="typedef-bfd.html" rel="prev" title="typedef bfd">
 <style type="text/css">
 <!--
@@ -66,7 +66,7 @@ ul.no-bullet {list-style: none}
 <div class="section" id="Error-reporting">
 <div class="header">
 <p>
-Next: <a href="Miscellaneous.html" accesskey="n" rel="next">Miscellaneous</a>, Previous: <a href="typedef-bfd.html" accesskey="p" rel="prev"><code>typedef bfd</code></a>, Up: <a href="BFD-front-end.html" accesskey="u" rel="up">BFD Front End</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="BFD-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Initialization.html" accesskey="n" rel="next"><code>bfd_init</code></a>, Previous: <a href="typedef-bfd.html" accesskey="p" rel="prev"><code>typedef bfd</code></a>, Up: <a href="BFD-front-end.html" accesskey="u" rel="up">BFD Front End</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="BFD-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
 <span id="Error-reporting-1"></span><h3 class="section">2.2 Error reporting</h3>
@@ -80,6 +80,8 @@ If that returns <code>bfd_error_system_call</code>, then check
 <p>The easiest way to report a BFD error to the user is to
 use <code>bfd_perror</code>.
 </p>
+<p>The BFD error is thread-local.
+</p>
 <ul class="section-toc">
 <li><a href="#Type-bfd_005ferror_005ftype" accesskey="1">Type <code>bfd_error_type</code></a></li>
 <li><a href="#BFD-error-handler" accesskey="2">BFD error handler</a></li>
@@ -92,9 +94,7 @@ enumerated type <code>bfd_error_type</code>.
 </p>
 
 <div class="example">
-<pre class="example">
-
-typedef enum bfd_error
+<pre class="example">typedef enum bfd_error
 {
   bfd_error_no_error = 0,
   bfd_error_system_call,
@@ -130,70 +130,86 @@ bfd_error_type;
 <li><a href="#bfd_005fset_005finput_005ferror" accesskey="3"><code>bfd_set_input_error</code></a></li>
 <li><a href="#bfd_005ferrmsg" accesskey="4"><code>bfd_errmsg</code></a></li>
 <li><a href="#bfd_005fperror" accesskey="5"><code>bfd_perror</code></a></li>
+<li><a href="#g_t_005fbfd_005fclear_005ferror_005fdata" accesskey="6"><code>_bfd_clear_error_data</code></a></li>
+<li><a href="#bfd_005fasprintf" accesskey="7"><code>bfd_asprintf</code></a></li>
 </ul>
 <div class="subsubsection" id="bfd_005fget_005ferror">
 <h4 class="subsubsection">2.2.1.1 <code>bfd_get_error</code></h4>
-<p><strong>Synopsis</strong>
-</p><div class="example">
-<pre class="example">bfd_error_type bfd_get_error (void);
-</pre></div>
-<p><strong>Description</strong><br>
-Return the current BFD error condition.
+<dl class="def">
+<dt id="index-bfd_005fget_005ferror-1"><span class="category">Function: </span><span><em>bfd_error_type</em> <strong>bfd_get_error</strong> <em>(void);</em><a href='#index-bfd_005fget_005ferror-1' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Return the current BFD error condition.
 </p>
+</dd></dl>
 <span id="index-bfd_005fset_005ferror"></span>
 </div>
 <div class="subsubsection" id="bfd_005fset_005ferror">
 <h4 class="subsubsection">2.2.1.2 <code>bfd_set_error</code></h4>
-<p><strong>Synopsis</strong>
-</p><div class="example">
-<pre class="example">void bfd_set_error (bfd_error_type error_tag);
-</pre></div>
-<p><strong>Description</strong><br>
-Set the BFD error condition to be <var>error_tag</var>.
+<dl class="def">
+<dt id="index-bfd_005fset_005ferror-1"><span class="category">Function: </span><span><em>void</em> <strong>bfd_set_error</strong> <em>(bfd_error_type error_tag);</em><a href='#index-bfd_005fset_005ferror-1' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Set the BFD error condition to be <var>error_tag</var>.
 </p>
 <p><var>error_tag</var> must not be bfd_error_on_input.  Use
 bfd_set_input_error for input errors instead.
 </p>
+</dd></dl>
 <span id="index-bfd_005fset_005finput_005ferror"></span>
 </div>
 <div class="subsubsection" id="bfd_005fset_005finput_005ferror">
 <h4 class="subsubsection">2.2.1.3 <code>bfd_set_input_error</code></h4>
-<p><strong>Synopsis</strong>
-</p><div class="example">
-<pre class="example">void bfd_set_input_error (bfd *input, bfd_error_type error_tag);
-</pre></div>
-<p><strong>Description</strong><br>
-Set the BFD error condition to be bfd_error_on_input.
+<dl class="def">
+<dt id="index-bfd_005fset_005finput_005ferror-1"><span class="category">Function: </span><span><em>void</em> <strong>bfd_set_input_error</strong> <em>(bfd *input, bfd_error_type error_tag);</em><a href='#index-bfd_005fset_005finput_005ferror-1' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Set the BFD error condition to be bfd_error_on_input.
 <var>input</var> is the input bfd where the error occurred, and
 <var>error_tag</var> the bfd_error_type error.
 </p>
+</dd></dl>
 <span id="index-bfd_005ferrmsg"></span>
 </div>
 <div class="subsubsection" id="bfd_005ferrmsg">
 <h4 class="subsubsection">2.2.1.4 <code>bfd_errmsg</code></h4>
-<p><strong>Synopsis</strong>
-</p><div class="example">
-<pre class="example">const char *bfd_errmsg (bfd_error_type error_tag);
-</pre></div>
-<p><strong>Description</strong><br>
-Return a string describing the error <var>error_tag</var>, or
+<dl class="def">
+<dt id="index-char"><span class="category">Function: </span><span><em>const</em> <strong>char</strong> <em>*bfd_errmsg (bfd_error_type error_tag);</em><a href='#index-char' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Return a string describing the error <var>error_tag</var>, or
 the system error if <var>error_tag</var> is <code>bfd_error_system_call</code>.
 </p>
+</dd></dl>
 <span id="index-bfd_005fperror"></span>
 </div>
 <div class="subsubsection" id="bfd_005fperror">
 <h4 class="subsubsection">2.2.1.5 <code>bfd_perror</code></h4>
-<p><strong>Synopsis</strong>
-</p><div class="example">
-<pre class="example">void bfd_perror (const char *message);
-</pre></div>
-<p><strong>Description</strong><br>
-Print to the standard error stream a string describing the
+<dl class="def">
+<dt id="index-bfd_005fperror-1"><span class="category">Function: </span><span><em>void</em> <strong>bfd_perror</strong> <em>(const char *message);</em><a href='#index-bfd_005fperror-1' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Print to the standard error stream a string describing the
 last BFD error that occurred, or the last system error if
 the last BFD error was a system call failure.  If <var>message</var>
 is non-NULL and non-empty, the error string printed is preceded
 by <var>message</var>, a colon, and a space.  It is followed by a newline.
 </p>
+</dd></dl>
+<span id="index-_005fbfd_005fclear_005ferror_005fdata"></span>
+</div>
+<div class="subsubsection" id="g_t_005fbfd_005fclear_005ferror_005fdata">
+<h4 class="subsubsection">2.2.1.6 <code>_bfd_clear_error_data</code></h4>
+<dl class="def">
+<dt id="index-_005fbfd_005fclear_005ferror_005fdata-1"><span class="category">Function: </span><span><em>void</em> <strong>_bfd_clear_error_data</strong> <em>(void);</em><a href='#index-_005fbfd_005fclear_005ferror_005fdata-1' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Free any data associated with the BFD error.
+</p>
+</dd></dl>
+<span id="index-bfd_005fasprintf"></span>
+</div>
+<div class="subsubsection" id="bfd_005fasprintf">
+<h4 class="subsubsection">2.2.1.7 <code>bfd_asprintf</code></h4>
+<dl class="def">
+<dt id="index-_002abfd_005fasprintf"><span class="category">Function: </span><span><em>char</em> <strong>*bfd_asprintf</strong> <em>(const char *fmt, ...);</em><a href='#index-_002abfd_005fasprintf' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Primarily for error reporting, this function is like
+libiberty&rsquo;s xasprintf except that it can return NULL on no
+memory and the returned string should not be freed.  Uses a
+thread-local malloc&rsquo;d buffer managed by libbfd, _bfd_error_buf.
+Be aware that a call to this function frees the result of any
+previous call.  bfd_errmsg (bfd_error_on_input) also calls
+this function.
+</p>
+</dd></dl>
 </div>
 </div>
 <div class="subsection" id="BFD-error-handler">
@@ -206,27 +222,42 @@ function may be overridden by the program.
 </p>
 
 <div class="example">
-<pre class="example">
-
-typedef void (*bfd_error_handler_type) (const char *, va_list);
+<pre class="example">typedef void (*bfd_error_handler_type) (const char *, va_list);
 
 </pre></div>
-<span id="index-_005fbfd_005ferror_005fhandler"></span>
+
+<div class="example">
+<pre class="example">typedef int (*bfd_print_callback) (void *, const char *, ...);
+</pre></div>
+<span id="index-bfd_005fprint_005ferror"></span>
 <ul class="section-toc">
-<li><a href="#g_t_005fbfd_005ferror_005fhandler" accesskey="1"><code>_bfd_error_handler</code></a></li>
-<li><a href="#bfd_005fset_005ferror_005fhandler" accesskey="2"><code>bfd_set_error_handler</code></a></li>
-<li><a href="#g_t_005fbfd_005fset_005ferror_005fhandler_005fcaching" accesskey="3"><code>_bfd_set_error_handler_caching</code></a></li>
-<li><a href="#bfd_005fset_005ferror_005fprogram_005fname" accesskey="4"><code>bfd_set_error_program_name</code></a></li>
-<li><a href="#g_t_005fbfd_005fget_005ferror_005fprogram_005fname" accesskey="5"><code>_bfd_get_error_program_name</code></a></li>
+<li><a href="#bfd_005fprint_005ferror" accesskey="1"><code>bfd_print_error</code></a></li>
+<li><a href="#g_t_005fbfd_005ferror_005fhandler" accesskey="2"><code>_bfd_error_handler</code></a></li>
+<li><a href="#bfd_005fset_005ferror_005fhandler" accesskey="3"><code>bfd_set_error_handler</code></a></li>
+<li><a href="#g_t_005fbfd_005fset_005ferror_005fhandler_005fcaching" accesskey="4"><code>_bfd_set_error_handler_caching</code></a></li>
+<li><a href="#g_t_005fbfd_005frestore_005ferror_005fhandler_005fcaching" accesskey="5"><code>_bfd_restore_error_handler_caching</code></a></li>
+<li><a href="#bfd_005fset_005ferror_005fprogram_005fname" accesskey="6"><code>bfd_set_error_program_name</code></a></li>
+<li><a href="#g_t_005fbfd_005fget_005ferror_005fprogram_005fname" accesskey="7"><code>_bfd_get_error_program_name</code></a></li>
 </ul>
+<div class="subsubsection" id="bfd_005fprint_005ferror">
+<h4 class="subsubsection">2.2.2.1 <code>bfd_print_error</code></h4>
+<dl class="def">
+<dt id="index-bfd_005fprint_005ferror-1"><span class="category">Function: </span><span><em>void</em> <strong>bfd_print_error</strong> <em>(bfd_print_callback print_func, void *stream, const char *fmt, va_list ap);</em><a href='#index-bfd_005fprint_005ferror-1' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>This formats FMT and AP according to BFD &quot;printf&quot; rules,
+sending the output to STREAM by repeated calls to PRINT_FUNC.
+PRINT_FUNC is a printf-like function; it does not need to
+implement the BFD printf format extensions.  This can be used
+in a callback that is set via bfd_set_error_handler to turn
+the error into ordinary output.
+</p>
+</dd></dl>
+<span id="index-_005fbfd_005ferror_005fhandler"></span>
+</div>
 <div class="subsubsection" id="g_t_005fbfd_005ferror_005fhandler">
-<h4 class="subsubsection">2.2.2.1 <code>_bfd_error_handler</code></h4>
-<p><strong>Synopsis</strong>
-</p><div class="example">
-<pre class="example">void _bfd_error_handler (const char *fmt, ...) ATTRIBUTE_PRINTF_1;
-</pre></div>
-<p><strong>Description</strong><br>
-This is the default routine to handle BFD error messages.
+<h4 class="subsubsection">2.2.2.2 <code>_bfd_error_handler</code></h4>
+<dl class="def">
+<dt id="index-_005fbfd_005ferror_005fhandler-1"><span class="category">Function: </span><span><em>void</em> <strong>_bfd_error_handler</strong> <em>(const char *fmt, ...) ATTRIBUTE_PRINTF_1;</em><a href='#index-_005fbfd_005ferror_005fhandler-1' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>This is the default routine to handle BFD error messages.
 Like fprintf (stderr, ...), but also handles some extra format
 specifiers.
 </p>
@@ -237,55 +268,60 @@ archive too.
 </p>
 <p>Beware: Only supports a maximum of 9 format arguments.
 </p>
+</dd></dl>
 <span id="index-bfd_005fset_005ferror_005fhandler"></span>
 </div>
 <div class="subsubsection" id="bfd_005fset_005ferror_005fhandler">
-<h4 class="subsubsection">2.2.2.2 <code>bfd_set_error_handler</code></h4>
-<p><strong>Synopsis</strong>
-</p><div class="example">
-<pre class="example">bfd_error_handler_type bfd_set_error_handler (bfd_error_handler_type);
-</pre></div>
-<p><strong>Description</strong><br>
-Set the BFD error handler function.  Returns the previous
+<h4 class="subsubsection">2.2.2.3 <code>bfd_set_error_handler</code></h4>
+<dl class="def">
+<dt id="index-bfd_005fset_005ferror_005fhandler-1"><span class="category">Function: </span><span><em>bfd_error_handler_type</em> <strong>bfd_set_error_handler</strong> <em>(bfd_error_handler_type);</em><a href='#index-bfd_005fset_005ferror_005fhandler-1' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Set the BFD error handler function.  Returns the previous
 function.
 </p>
+</dd></dl>
 <span id="index-_005fbfd_005fset_005ferror_005fhandler_005fcaching"></span>
 </div>
 <div class="subsubsection" id="g_t_005fbfd_005fset_005ferror_005fhandler_005fcaching">
-<h4 class="subsubsection">2.2.2.3 <code>_bfd_set_error_handler_caching</code></h4>
-<p><strong>Synopsis</strong>
-</p><div class="example">
-<pre class="example">bfd_error_handler_type _bfd_set_error_handler_caching (bfd *);
-</pre></div>
-<p><strong>Description</strong><br>
-Set the BFD error handler function to one that stores messages
-to the per_xvec_warn array.  Returns the previous function.
+<h4 class="subsubsection">2.2.2.4 <code>_bfd_set_error_handler_caching</code></h4>
+<dl class="def">
+<dt id="index-per_005fxvec_005fmessages"><span class="category">Function: </span><span><em>struct</em> <strong>per_xvec_messages</strong> <em>*_bfd_set_error_handler_caching (struct per_xvec_messages *);</em><a href='#index-per_005fxvec_005fmessages' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Set the BFD error handler function to one that stores messages
+to the per_xvec_messages object.  Returns the previous object
+to which messages are stored.  Note that two sequential calls
+to this with a non-NULL argument will cause output to be
+dropped, rather than gathered.
 </p>
+</dd></dl>
+<span id="index-_005fbfd_005frestore_005ferror_005fhandler_005fcaching"></span>
+</div>
+<div class="subsubsection" id="g_t_005fbfd_005frestore_005ferror_005fhandler_005fcaching">
+<h4 class="subsubsection">2.2.2.5 <code>_bfd_restore_error_handler_caching</code></h4>
+<dl class="def">
+<dt id="index-_005fbfd_005frestore_005ferror_005fhandler_005fcaching-1"><span class="category">Function: </span><span><em>void</em> <strong>_bfd_restore_error_handler_caching</strong> <em>(struct per_xvec_messages *);</em><a href='#index-_005fbfd_005frestore_005ferror_005fhandler_005fcaching-1' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Reset the BFD error handler object to an earlier value.
+</p>
+</dd></dl>
 <span id="index-bfd_005fset_005ferror_005fprogram_005fname"></span>
 </div>
 <div class="subsubsection" id="bfd_005fset_005ferror_005fprogram_005fname">
-<h4 class="subsubsection">2.2.2.4 <code>bfd_set_error_program_name</code></h4>
-<p><strong>Synopsis</strong>
-</p><div class="example">
-<pre class="example">void bfd_set_error_program_name (const char *);
-</pre></div>
-<p><strong>Description</strong><br>
-Set the program name to use when printing a BFD error.  This
+<h4 class="subsubsection">2.2.2.6 <code>bfd_set_error_program_name</code></h4>
+<dl class="def">
+<dt id="index-bfd_005fset_005ferror_005fprogram_005fname-1"><span class="category">Function: </span><span><em>void</em> <strong>bfd_set_error_program_name</strong> <em>(const char *);</em><a href='#index-bfd_005fset_005ferror_005fprogram_005fname-1' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Set the program name to use when printing a BFD error.  This
 is printed before the error message followed by a colon and
 space.  The string must not be changed after it is passed to
 this function.
 </p>
+</dd></dl>
 <span id="index-_005fbfd_005fget_005ferror_005fprogram_005fname"></span>
 </div>
 <div class="subsubsection" id="g_t_005fbfd_005fget_005ferror_005fprogram_005fname">
-<h4 class="subsubsection">2.2.2.5 <code>_bfd_get_error_program_name</code></h4>
-<p><strong>Synopsis</strong>
-</p><div class="example">
-<pre class="example">const char *_bfd_get_error_program_name (void);
-</pre></div>
-<p><strong>Description</strong><br>
-Get the program name used when printing a BFD error.
+<h4 class="subsubsection">2.2.2.7 <code>_bfd_get_error_program_name</code></h4>
+<dl class="def">
+<dt id="index-char-1"><span class="category">Function: </span><span><em>const</em> <strong>char</strong> <em>*_bfd_get_error_program_name (void);</em><a href='#index-char-1' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Get the program name used when printing a BFD error.
 </p>
+</dd></dl>
 </div>
 </div>
 <div class="subsection" id="BFD-assert-handler">
@@ -300,9 +336,7 @@ _bfd_error_handler and continues.
 </p>
 
 <div class="example">
-<pre class="example">
-
-typedef void (*bfd_assert_handler_type) (const char *bfd_formatmsg,
+<pre class="example">typedef void (*bfd_assert_handler_type) (const char *bfd_formatmsg,
                                          const char *bfd_version,
                                          const char *bfd_file,
                                          int bfd_line);
@@ -311,24 +345,23 @@ typedef void (*bfd_assert_handler_type) (const char *bfd_formatmsg,
 <span id="index-bfd_005fset_005fassert_005fhandler"></span>
 <ul class="section-toc">
 <li><a href="#bfd_005fset_005fassert_005fhandler" accesskey="1"><code>bfd_set_assert_handler</code></a></li>
+<li><a href="Initialization.html" accesskey="2"><code>bfd_init</code></a></li>
 </ul>
 <div class="subsubsection" id="bfd_005fset_005fassert_005fhandler">
 <h4 class="subsubsection">2.2.3.1 <code>bfd_set_assert_handler</code></h4>
-<p><strong>Synopsis</strong>
-</p><div class="example">
-<pre class="example">bfd_assert_handler_type bfd_set_assert_handler (bfd_assert_handler_type);
-</pre></div>
-<p><strong>Description</strong><br>
-Set the BFD assert handler function.  Returns the previous
+<dl class="def">
+<dt id="index-bfd_005fset_005fassert_005fhandler-1"><span class="category">Function: </span><span><em>bfd_assert_handler_type</em> <strong>bfd_set_assert_handler</strong> <em>(bfd_assert_handler_type);</em><a href='#index-bfd_005fset_005fassert_005fhandler-1' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Set the BFD assert handler function.  Returns the previous
 function.
 </p>
+</dd></dl>
 </div>
 </div>
 </div>
 <hr>
 <div class="header">
 <p>
-Next: <a href="Miscellaneous.html">Miscellaneous</a>, Previous: <a href="typedef-bfd.html"><code>typedef bfd</code></a>, Up: <a href="BFD-front-end.html">BFD Front End</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="BFD-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Initialization.html"><code>bfd_init</code></a>, Previous: <a href="typedef-bfd.html"><code>typedef bfd</code></a>, Up: <a href="BFD-front-end.html">BFD Front End</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="BFD-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the GNU Assembler "as".
 
-Copyright (C) 1991-2022 Free Software Foundation, Inc.
+Copyright (C) 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -77,7 +77,7 @@ Next: <a href="Overview.html" accesskey="n" rel="next">Overview</a> &nbsp; [<a h
 
 <p>This file is a user guide to the <small>GNU</small> assembler <code>as</code>
 (GNU Binutils)
-version 2.39.50.
+version 2.42.50.
 </p>
 <p>This document is distributed under the terms of the GNU Free
 Documentation License.  A copy of the license is included in the
@@ -102,7 +102,7 @@ section entitled &ldquo;GNU Free Documentation License&rdquo;.
   </ul></li>
   <li><a id="toc-Command_002dLine-Options" href="Invoking.html">2 Command-Line Options</a>
   <ul class="no-bullet">
-    <li><a id="toc-Enable-Listings_003a-_002da_005bcdghlns_005d" href="a.html">2.1 Enable Listings: <samp>-a[cdghlns]</samp></a></li>
+    <li><a id="toc-Enable-Listings_003a-_002da_005bcdghilns_005d" href="a.html">2.1 Enable Listings: <samp>-a[cdghilns]</samp></a></li>
     <li><a id="toc-_002d_002dalternate" href="alternate.html">2.2 <samp>--alternate</samp></a></li>
     <li><a id="toc-_002dD" href="D.html">2.3 <samp>-D</samp></a></li>
     <li><a id="toc-Work-Faster_003a-_002df" href="f.html">2.4 Work Faster: <samp>-f</samp></a></li>
@@ -268,7 +268,7 @@ section entitled &ldquo;GNU Free Documentation License&rdquo;.
     <li><a id="toc-_002einclude-_0022file_0022" href="Include.html">7.48 <code>.include &quot;<var>file</var>&quot;</code></a></li>
     <li><a id="toc-_002eint-expressions" href="Int.html">7.49 <code>.int <var>expressions</var></code></a></li>
     <li><a id="toc-_002einternal-names" href="Internal.html">7.50 <code>.internal <var>names</var></code></a></li>
-    <li><a id="toc-_002eirp-symbol_002cvalues_2026" href="Irp.html">7.51 <code>.irp <var>symbol</var>,<var>values</var></code>&hellip;</a></li>
+    <li><a id="toc-_002eirp-symbol_002cvalue_2026" href="Irp.html">7.51 <code>.irp <var>symbol</var>,<var>value</var></code>&hellip;</a></li>
     <li><a id="toc-_002eirpc-symbol_002cvalues_2026" href="Irpc.html">7.52 <code>.irpc <var>symbol</var>,<var>values</var></code>&hellip;</a></li>
     <li><a id="toc-_002elcomm-symbol-_002c-length" href="Lcomm.html">7.53 <code>.lcomm <var>symbol</var> , <var>length</var></code></a></li>
     <li><a id="toc-_002elflags" href="Lflags.html">7.54 <code>.lflags</code></a></li>
@@ -297,7 +297,7 @@ section entitled &ldquo;GNU Free Documentation License&rdquo;.
     <li><a id="toc-_002epsize-lines-_002c-columns" href="Psize.html">7.77 <code>.psize <var>lines</var> , <var>columns</var></code></a></li>
     <li><a id="toc-_002epurgem-name" href="Purgem.html">7.78 <code>.purgem <var>name</var></code></a></li>
     <li><a id="toc-_002epushsection-name-_005b_002c-subsection_005d-_005b_002c-_0022flags_0022_005b_002c-_0040type_005b_002carguments_005d_005d_005d" href="PushSection.html">7.79 <code>.pushsection <var>name</var> [, <var>subsection</var>] [, &quot;<var>flags</var>&quot;[, @<var>type</var>[,<var>arguments</var>]]]</code></a></li>
-    <li><a id="toc-_002equad-bignums" href="Quad.html">7.80 <code>.quad <var>bignums</var></code></a></li>
+    <li><a id="toc-_002equad-expressions" href="Quad.html">7.80 <code>.quad <var>expressions</var></code></a></li>
     <li><a id="toc-_002ereloc-offset_002c-reloc_005fname_005b_002c-expression_005d" href="Reloc.html">7.81 <code>.reloc <var>offset</var>, <var>reloc_name</var>[, <var>expression</var>]</code></a></li>
     <li><a id="toc-_002erept-count" href="Rept.html">7.82 <code>.rept <var>count</var></code></a></li>
     <li><a id="toc-_002esbttl-_0022subheading_0022" href="Sbttl.html">7.83 <code>.sbttl &quot;<var>subheading</var>&quot;</code></a></li>
@@ -429,24 +429,23 @@ section entitled &ldquo;GNU Free Documentation License&rdquo;.
     </ul></li>
     <li><a id="toc-BPF-Dependent-Features" href="BPF_002dDependent.html">9.7 BPF Dependent Features</a>
     <ul class="no-bullet">
-      <li><a id="toc-Options-6" href="BPF-Options.html">9.7.1 Options</a></li>
-      <li><a id="toc-Syntax-8" href="BPF-Syntax.html">9.7.2 Syntax</a>
+      <li><a id="toc-BPF-Options-1" href="BPF-Options.html">9.7.1 BPF Options</a></li>
+      <li><a id="toc-BPF-Special-Characters-1" href="BPF-Special-Characters.html">9.7.2 BPF Special Characters</a></li>
+      <li><a id="toc-BPF-Registers-1" href="BPF-Registers.html">9.7.3 BPF Registers</a></li>
+      <li><a id="toc-BPF-Directives-1" href="BPF-Directives.html">9.7.4 BPF Directives</a></li>
+      <li><a id="toc-BPF-Instructions-1" href="BPF-Instructions.html">9.7.5 BPF Instructions</a>
       <ul class="no-bullet">
-        <li><a id="toc-Special-Characters-5" href="BPF_002dChars.html">9.7.2.1 Special Characters</a></li>
-        <li><a id="toc-Register-Names-5" href="BPF_002dRegs.html">9.7.2.2 Register Names</a></li>
-        <li><a id="toc-Pseudo-Maps" href="BPF_002dPseudo_002dMaps.html">9.7.2.3 Pseudo Maps</a></li>
-      </ul></li>
-      <li><a id="toc-Machine-Directives" href="BPF-Directives.html">9.7.3 Machine Directives</a></li>
-      <li><a id="toc-Opcodes-5" href="BPF-Opcodes.html">9.7.4 Opcodes</a>
-      <ul class="no-bullet">
-        <li><a id="toc-Arithmetic-instructions" href="BPF-Opcodes.html#Arithmetic-instructions">9.7.4.1 Arithmetic instructions</a></li>
-        <li><a id="toc-32_002dbit-arithmetic-instructions" href="BPF-Opcodes.html#g_t32_002dbit-arithmetic-instructions">9.7.4.2 32-bit arithmetic instructions</a></li>
-        <li><a id="toc-Endianness-conversion-instructions" href="BPF-Opcodes.html#Endianness-conversion-instructions">9.7.4.3 Endianness conversion instructions</a></li>
-        <li><a id="toc-64_002dbit-load-and-pseudo-maps" href="BPF-Opcodes.html#g_t64_002dbit-load-and-pseudo-maps">9.7.4.4 64-bit load and pseudo maps</a></li>
-        <li><a id="toc-Load-instructions-for-socket-filters" href="BPF-Opcodes.html#Load-instructions-for-socket-filters">9.7.4.5 Load instructions for socket filters</a></li>
-        <li><a id="toc-Generic-load_002fstore-instructions" href="BPF-Opcodes.html#Generic-load_002fstore-instructions">9.7.4.6 Generic load/store instructions</a></li>
-        <li><a id="toc-Jump-instructions" href="BPF-Opcodes.html#Jump-instructions">9.7.4.7 Jump instructions</a></li>
-        <li><a id="toc-Atomic-instructions" href="BPF-Opcodes.html#Atomic-instructions">9.7.4.8 Atomic instructions</a></li>
+        <li><a id="toc-Arithmetic-instructions" href="BPF-Instructions.html#Arithmetic-instructions">9.7.5.1 Arithmetic instructions</a></li>
+        <li><a id="toc-32_002dbit-arithmetic-instructions" href="BPF-Instructions.html#g_t32_002dbit-arithmetic-instructions">9.7.5.2 32-bit arithmetic instructions</a></li>
+        <li><a id="toc-Endianness-conversion-instructions" href="BPF-Instructions.html#Endianness-conversion-instructions">9.7.5.3 Endianness conversion instructions</a></li>
+        <li><a id="toc-Byte-swap-instructions" href="BPF-Instructions.html#Byte-swap-instructions">9.7.5.4 Byte swap instructions</a></li>
+        <li><a id="toc-64_002dbit-load-and-pseudo-maps" href="BPF-Instructions.html#g_t64_002dbit-load-and-pseudo-maps">9.7.5.5 64-bit load and pseudo maps</a></li>
+        <li><a id="toc-Load-instructions-for-socket-filters" href="BPF-Instructions.html#Load-instructions-for-socket-filters">9.7.5.6 Load instructions for socket filters</a></li>
+        <li><a id="toc-Generic-load_002fstore-instructions" href="BPF-Instructions.html#Generic-load_002fstore-instructions">9.7.5.7 Generic load/store instructions</a></li>
+        <li><a id="toc-Jump-instructions" href="BPF-Instructions.html#Jump-instructions">9.7.5.8 Jump instructions</a></li>
+        <li><a id="toc-32_002dbit-jump-instructions" href="BPF-Instructions.html#g_t32_002dbit-jump-instructions">9.7.5.9 32-bit jump instructions</a></li>
+        <li><a id="toc-Atomic-instructions" href="BPF-Instructions.html#Atomic-instructions">9.7.5.10 Atomic instructions</a></li>
+        <li><a id="toc-32_002dbit-atomic-instructions" href="BPF-Instructions.html#g_t32_002dbit-atomic-instructions">9.7.5.11 32-bit atomic instructions</a></li>
       </ul></li>
     </ul></li>
     <li><a id="toc-CR16-Dependent-Features" href="CR16_002dDependent.html">9.8 CR16 Dependent Features</a>
@@ -454,7 +453,7 @@ section entitled &ldquo;GNU Free Documentation License&rdquo;.
       <li><a id="toc-CR16-Operand-Qualifiers-1" href="CR16-Operand-Qualifiers.html">9.8.1 CR16 Operand Qualifiers</a></li>
       <li><a id="toc-CR16-Syntax-1" href="CR16-Syntax.html">9.8.2 CR16 Syntax</a>
       <ul class="no-bullet">
-        <li><a id="toc-Special-Characters-6" href="CR16_002dChars.html">9.8.2.1 Special Characters</a></li>
+        <li><a id="toc-Special-Characters-5" href="CR16_002dChars.html">9.8.2.1 Special Characters</a></li>
       </ul></li>
     </ul></li>
     <li><a id="toc-CRIS-Dependent-Features" href="CRIS_002dDependent.html">9.9 CRIS Dependent Features</a>
@@ -462,9 +461,9 @@ section entitled &ldquo;GNU Free Documentation License&rdquo;.
       <li><a id="toc-Command_002dline-Options" href="CRIS_002dOpts.html">9.9.1 Command-line Options</a></li>
       <li><a id="toc-Instruction-expansion" href="CRIS_002dExpand.html">9.9.2 Instruction expansion</a></li>
       <li><a id="toc-Symbols-3" href="CRIS_002dSymbols.html">9.9.3 Symbols</a></li>
-      <li><a id="toc-Syntax-9" href="CRIS_002dSyntax.html">9.9.4 Syntax</a>
+      <li><a id="toc-Syntax-8" href="CRIS_002dSyntax.html">9.9.4 Syntax</a>
       <ul class="no-bullet">
-        <li><a id="toc-Special-Characters-7" href="CRIS_002dChars.html">9.9.4.1 Special Characters</a></li>
+        <li><a id="toc-Special-Characters-6" href="CRIS_002dChars.html">9.9.4.1 Special Characters</a></li>
         <li><a id="toc-Symbols-in-position_002dindependent-code" href="CRIS_002dPic.html">9.9.4.2 Symbols in position-independent code</a></li>
         <li><a id="toc-Register-names" href="CRIS_002dRegs.html">9.9.4.3 Register names</a></li>
         <li><a id="toc-Assembler-Directives-1" href="CRIS_002dPseudos.html">9.9.4.4 Assembler Directives</a></li>
@@ -472,77 +471,77 @@ section entitled &ldquo;GNU Free Documentation License&rdquo;.
     </ul></li>
     <li><a id="toc-C_002dSKY-Dependent-Features" href="C_002dSKY_002dDependent.html">9.10 C-SKY Dependent Features</a>
     <ul class="no-bullet">
-      <li><a id="toc-Options-7" href="C_002dSKY-Options.html">9.10.1 Options</a></li>
-      <li><a id="toc-Syntax-10" href="C_002dSKY-Syntax.html">9.10.2 Syntax</a></li>
+      <li><a id="toc-Options-6" href="C_002dSKY-Options.html">9.10.1 Options</a></li>
+      <li><a id="toc-Syntax-9" href="C_002dSKY-Syntax.html">9.10.2 Syntax</a></li>
     </ul></li>
     <li><a id="toc-D10V-Dependent-Features" href="D10V_002dDependent.html">9.11 D10V Dependent Features</a>
     <ul class="no-bullet">
       <li><a id="toc-D10V-Options" href="D10V_002dOpts.html">9.11.1 D10V Options</a></li>
-      <li><a id="toc-Syntax-11" href="D10V_002dSyntax.html">9.11.2 Syntax</a>
+      <li><a id="toc-Syntax-10" href="D10V_002dSyntax.html">9.11.2 Syntax</a>
       <ul class="no-bullet">
         <li><a id="toc-Size-Modifiers" href="D10V_002dSize.html">9.11.2.1 Size Modifiers</a></li>
         <li><a id="toc-Sub_002dInstructions" href="D10V_002dSubs.html">9.11.2.2 Sub-Instructions</a></li>
-        <li><a id="toc-Special-Characters-8" href="D10V_002dChars.html">9.11.2.3 Special Characters</a></li>
-        <li><a id="toc-Register-Names-6" href="D10V_002dRegs.html">9.11.2.4 Register Names</a></li>
+        <li><a id="toc-Special-Characters-7" href="D10V_002dChars.html">9.11.2.3 Special Characters</a></li>
+        <li><a id="toc-Register-Names-5" href="D10V_002dRegs.html">9.11.2.4 Register Names</a></li>
         <li><a id="toc-Addressing-Modes" href="D10V_002dAddressing.html">9.11.2.5 Addressing Modes</a></li>
         <li><a id="toc-_0040WORD-Modifier" href="D10V_002dWord.html">9.11.2.6 @WORD Modifier</a></li>
       </ul></li>
       <li><a id="toc-Floating-Point-3" href="D10V_002dFloat.html">9.11.3 Floating Point</a></li>
-      <li><a id="toc-Opcodes-6" href="D10V_002dOpcodes.html">9.11.4 Opcodes</a></li>
+      <li><a id="toc-Opcodes-5" href="D10V_002dOpcodes.html">9.11.4 Opcodes</a></li>
     </ul></li>
     <li><a id="toc-D30V-Dependent-Features" href="D30V_002dDependent.html">9.12 D30V Dependent Features</a>
     <ul class="no-bullet">
       <li><a id="toc-D30V-Options" href="D30V_002dOpts.html">9.12.1 D30V Options</a></li>
-      <li><a id="toc-Syntax-12" href="D30V_002dSyntax.html">9.12.2 Syntax</a>
+      <li><a id="toc-Syntax-11" href="D30V_002dSyntax.html">9.12.2 Syntax</a>
       <ul class="no-bullet">
         <li><a id="toc-Size-Modifiers-1" href="D30V_002dSize.html">9.12.2.1 Size Modifiers</a></li>
         <li><a id="toc-Sub_002dInstructions-1" href="D30V_002dSubs.html">9.12.2.2 Sub-Instructions</a></li>
-        <li><a id="toc-Special-Characters-9" href="D30V_002dChars.html">9.12.2.3 Special Characters</a></li>
+        <li><a id="toc-Special-Characters-8" href="D30V_002dChars.html">9.12.2.3 Special Characters</a></li>
         <li><a id="toc-Guarded-Execution" href="D30V_002dGuarded.html">9.12.2.4 Guarded Execution</a></li>
-        <li><a id="toc-Register-Names-7" href="D30V_002dRegs.html">9.12.2.5 Register Names</a></li>
+        <li><a id="toc-Register-Names-6" href="D30V_002dRegs.html">9.12.2.5 Register Names</a></li>
         <li><a id="toc-Addressing-Modes-1" href="D30V_002dAddressing.html">9.12.2.6 Addressing Modes</a></li>
       </ul></li>
       <li><a id="toc-Floating-Point-4" href="D30V_002dFloat.html">9.12.3 Floating Point</a></li>
-      <li><a id="toc-Opcodes-7" href="D30V_002dOpcodes.html">9.12.4 Opcodes</a></li>
+      <li><a id="toc-Opcodes-6" href="D30V_002dOpcodes.html">9.12.4 Opcodes</a></li>
     </ul></li>
     <li><a id="toc-Epiphany-Dependent-Features" href="Epiphany_002dDependent.html">9.13 Epiphany Dependent Features</a>
     <ul class="no-bullet">
-      <li><a id="toc-Options-8" href="Epiphany-Options.html">9.13.1 Options</a></li>
+      <li><a id="toc-Options-7" href="Epiphany-Options.html">9.13.1 Options</a></li>
       <li><a id="toc-Epiphany-Syntax-1" href="Epiphany-Syntax.html">9.13.2 Epiphany Syntax</a>
       <ul class="no-bullet">
-        <li><a id="toc-Special-Characters-10" href="Epiphany_002dChars.html">9.13.2.1 Special Characters</a></li>
+        <li><a id="toc-Special-Characters-9" href="Epiphany_002dChars.html">9.13.2.1 Special Characters</a></li>
       </ul></li>
     </ul></li>
     <li><a id="toc-H8_002f300-Dependent-Features" href="H8_002f300_002dDependent.html">9.14 H8/300 Dependent Features</a>
     <ul class="no-bullet">
-      <li><a id="toc-Options-9" href="H8_002f300-Options.html">9.14.1 Options</a></li>
-      <li><a id="toc-Syntax-13" href="H8_002f300-Syntax.html">9.14.2 Syntax</a>
+      <li><a id="toc-Options-8" href="H8_002f300-Options.html">9.14.1 Options</a></li>
+      <li><a id="toc-Syntax-12" href="H8_002f300-Syntax.html">9.14.2 Syntax</a>
       <ul class="no-bullet">
-        <li><a id="toc-Special-Characters-11" href="H8_002f300_002dChars.html">9.14.2.1 Special Characters</a></li>
-        <li><a id="toc-Register-Names-8" href="H8_002f300_002dRegs.html">9.14.2.2 Register Names</a></li>
+        <li><a id="toc-Special-Characters-10" href="H8_002f300_002dChars.html">9.14.2.1 Special Characters</a></li>
+        <li><a id="toc-Register-Names-7" href="H8_002f300_002dRegs.html">9.14.2.2 Register Names</a></li>
         <li><a id="toc-Addressing-Modes-2" href="H8_002f300_002dAddressing.html">9.14.2.3 Addressing Modes</a></li>
       </ul></li>
       <li><a id="toc-Floating-Point-5" href="H8_002f300-Floating-Point.html">9.14.3 Floating Point</a></li>
       <li><a id="toc-H8_002f300-Machine-Directives" href="H8_002f300-Directives.html">9.14.4 H8/300 Machine Directives</a></li>
-      <li><a id="toc-Opcodes-8" href="H8_002f300-Opcodes.html">9.14.5 Opcodes</a></li>
+      <li><a id="toc-Opcodes-7" href="H8_002f300-Opcodes.html">9.14.5 Opcodes</a></li>
     </ul></li>
     <li><a id="toc-HPPA-Dependent-Features" href="HPPA_002dDependent.html">9.15 HPPA Dependent Features</a>
     <ul class="no-bullet">
       <li><a id="toc-Notes-1" href="HPPA-Notes.html">9.15.1 Notes</a></li>
-      <li><a id="toc-Options-10" href="HPPA-Options.html">9.15.2 Options</a></li>
-      <li><a id="toc-Syntax-14" href="HPPA-Syntax.html">9.15.3 Syntax</a></li>
+      <li><a id="toc-Options-9" href="HPPA-Options.html">9.15.2 Options</a></li>
+      <li><a id="toc-Syntax-13" href="HPPA-Syntax.html">9.15.3 Syntax</a></li>
       <li><a id="toc-Floating-Point-6" href="HPPA-Floating-Point.html">9.15.4 Floating Point</a></li>
       <li><a id="toc-HPPA-Assembler-Directives" href="HPPA-Directives.html">9.15.5 HPPA Assembler Directives</a></li>
-      <li><a id="toc-Opcodes-9" href="HPPA-Opcodes.html">9.15.6 Opcodes</a></li>
+      <li><a id="toc-Opcodes-8" href="HPPA-Opcodes.html">9.15.6 Opcodes</a></li>
     </ul></li>
     <li><a id="toc-80386-Dependent-Features" href="i386_002dDependent.html">9.16 80386 Dependent Features</a>
     <ul class="no-bullet">
-      <li><a id="toc-Options-11" href="i386_002dOptions.html">9.16.1 Options</a></li>
+      <li><a id="toc-Options-10" href="i386_002dOptions.html">9.16.1 Options</a></li>
       <li><a id="toc-x86-specific-Directives" href="i386_002dDirectives.html">9.16.2 x86 specific Directives</a></li>
       <li><a id="toc-i386-Syntactical-Considerations" href="i386_002dSyntax.html">9.16.3 i386 Syntactical Considerations</a>
       <ul class="no-bullet">
         <li><a id="toc-AT_0026T-Syntax-versus-Intel-Syntax" href="i386_002dVariations.html">9.16.3.1 AT&amp;T Syntax versus Intel Syntax</a></li>
-        <li><a id="toc-Special-Characters-12" href="i386_002dChars.html">9.16.3.2 Special Characters</a></li>
+        <li><a id="toc-Special-Characters-11" href="i386_002dChars.html">9.16.3.2 Special Characters</a></li>
       </ul></li>
       <li><a id="toc-i386_002dMnemonics-1" href="i386_002dMnemonics.html">9.16.4 i386-Mnemonics</a>
       <ul class="no-bullet">
@@ -566,491 +565,498 @@ section entitled &ldquo;GNU Free Documentation License&rdquo;.
     </ul></li>
     <li><a id="toc-IA_002d64-Dependent-Features" href="IA_002d64_002dDependent.html">9.17 IA-64 Dependent Features</a>
     <ul class="no-bullet">
-      <li><a id="toc-Options-12" href="IA_002d64-Options.html">9.17.1 Options</a></li>
-      <li><a id="toc-Syntax-15" href="IA_002d64-Syntax.html">9.17.2 Syntax</a>
+      <li><a id="toc-Options-11" href="IA_002d64-Options.html">9.17.1 Options</a></li>
+      <li><a id="toc-Syntax-14" href="IA_002d64-Syntax.html">9.17.2 Syntax</a>
       <ul class="no-bullet">
-        <li><a id="toc-Special-Characters-13" href="IA_002d64_002dChars.html">9.17.2.1 Special Characters</a></li>
-        <li><a id="toc-Register-Names-9" href="IA_002d64_002dRegs.html">9.17.2.2 Register Names</a></li>
+        <li><a id="toc-Special-Characters-12" href="IA_002d64_002dChars.html">9.17.2.1 Special Characters</a></li>
+        <li><a id="toc-Register-Names-8" href="IA_002d64_002dRegs.html">9.17.2.2 Register Names</a></li>
         <li><a id="toc-IA_002d64-Processor_002dStatus_002dRegister-_0028PSR_0029-Bit-Names" href="IA_002d64_002dBits.html">9.17.2.3 IA-64 Processor-Status-Register (PSR) Bit Names</a></li>
         <li><a id="toc-Relocations-2" href="IA_002d64_002dRelocs.html">9.17.2.4 Relocations</a></li>
       </ul></li>
-      <li><a id="toc-Opcodes-10" href="IA_002d64-Opcodes.html">9.17.3 Opcodes</a></li>
+      <li><a id="toc-Opcodes-9" href="IA_002d64-Opcodes.html">9.17.3 Opcodes</a></li>
     </ul></li>
     <li><a id="toc-IP2K-Dependent-Features" href="IP2K_002dDependent.html">9.18 IP2K Dependent Features</a>
     <ul class="no-bullet">
       <li><a id="toc-IP2K-Options" href="IP2K_002dOpts.html">9.18.1 IP2K Options</a></li>
       <li><a id="toc-IP2K-Syntax" href="IP2K_002dSyntax.html">9.18.2 IP2K Syntax</a>
       <ul class="no-bullet">
-        <li><a id="toc-Special-Characters-14" href="IP2K_002dChars.html">9.18.2.1 Special Characters</a></li>
+        <li><a id="toc-Special-Characters-13" href="IP2K_002dChars.html">9.18.2.1 Special Characters</a></li>
       </ul></li>
     </ul></li>
     <li><a id="toc-LM32-Dependent-Features" href="LM32_002dDependent.html">9.19 LM32 Dependent Features</a>
     <ul class="no-bullet">
-      <li><a id="toc-Options-13" href="LM32-Options.html">9.19.1 Options</a></li>
-      <li><a id="toc-Syntax-16" href="LM32-Syntax.html">9.19.2 Syntax</a>
+      <li><a id="toc-Options-12" href="LM32-Options.html">9.19.1 Options</a></li>
+      <li><a id="toc-Syntax-15" href="LM32-Syntax.html">9.19.2 Syntax</a>
       <ul class="no-bullet">
-        <li><a id="toc-Register-Names-10" href="LM32_002dRegs.html">9.19.2.1 Register Names</a></li>
+        <li><a id="toc-Register-Names-9" href="LM32_002dRegs.html">9.19.2.1 Register Names</a></li>
         <li><a id="toc-Relocatable-Expression-Modifiers-1" href="LM32_002dModifiers.html">9.19.2.2 Relocatable Expression Modifiers</a></li>
-        <li><a id="toc-Special-Characters-15" href="LM32_002dChars.html">9.19.2.3 Special Characters</a></li>
+        <li><a id="toc-Special-Characters-14" href="LM32_002dChars.html">9.19.2.3 Special Characters</a></li>
       </ul></li>
-      <li><a id="toc-Opcodes-11" href="LM32-Opcodes.html">9.19.3 Opcodes</a></li>
+      <li><a id="toc-Opcodes-10" href="LM32-Opcodes.html">9.19.3 Opcodes</a></li>
     </ul></li>
-    <li><a id="toc-M32C-Dependent-Features" href="M32C_002dDependent.html">9.20 M32C Dependent Features</a>
+    <li><a id="toc-KVX-Dependent-Features" href="KVX_002dDependent.html">9.20 KVX Dependent Features</a>
     <ul class="no-bullet">
-      <li><a id="toc-M32C-Options" href="M32C_002dOpts.html">9.20.1 M32C Options</a></li>
-      <li><a id="toc-M32C-Syntax" href="M32C_002dSyntax.html">9.20.2 M32C Syntax</a>
+      <li><a id="toc-Options-13" href="KVX-Options.html">9.20.1 Options</a></li>
+      <li><a id="toc-KVX-Machine-Directives" href="KVX-Directives.html">9.20.2 KVX Machine Directives</a></li>
+    </ul></li>
+    <li><a id="toc-M32C-Dependent-Features" href="M32C_002dDependent.html">9.21 M32C Dependent Features</a>
+    <ul class="no-bullet">
+      <li><a id="toc-M32C-Options" href="M32C_002dOpts.html">9.21.1 M32C Options</a></li>
+      <li><a id="toc-M32C-Syntax" href="M32C_002dSyntax.html">9.21.2 M32C Syntax</a>
       <ul class="no-bullet">
-        <li><a id="toc-Symbolic-Operand-Modifiers" href="M32C_002dModifiers.html">9.20.2.1 Symbolic Operand Modifiers</a></li>
-        <li><a id="toc-Special-Characters-16" href="M32C_002dChars.html">9.20.2.2 Special Characters</a></li>
-      </ul></li>
-    </ul></li>
-    <li><a id="toc-M32R-Dependent-Features" href="M32R_002dDependent.html">9.21 M32R Dependent Features</a>
-    <ul class="no-bullet">
-      <li><a id="toc-M32R-Options" href="M32R_002dOpts.html">9.21.1 M32R Options</a></li>
-      <li><a id="toc-M32R-Directives" href="M32R_002dDirectives.html">9.21.2 M32R Directives</a></li>
-      <li><a id="toc-M32R-Warnings" href="M32R_002dWarnings.html">9.21.3 M32R Warnings</a></li>
-    </ul></li>
-    <li><a id="toc-M680x0-Dependent-Features" href="M68K_002dDependent.html">9.22 M680x0 Dependent Features</a>
-    <ul class="no-bullet">
-      <li><a id="toc-M680x0-Options" href="M68K_002dOpts.html">9.22.1 M680x0 Options</a></li>
-      <li><a id="toc-Syntax-17" href="M68K_002dSyntax.html">9.22.2 Syntax</a></li>
-      <li><a id="toc-Motorola-Syntax" href="M68K_002dMoto_002dSyntax.html">9.22.3 Motorola Syntax</a></li>
-      <li><a id="toc-Floating-Point-8" href="M68K_002dFloat.html">9.22.4 Floating Point</a></li>
-      <li><a id="toc-680x0-Machine-Directives" href="M68K_002dDirectives.html">9.22.5 680x0 Machine Directives</a></li>
-      <li><a id="toc-Opcodes-12" href="M68K_002dopcodes.html">9.22.6 Opcodes</a>
-      <ul class="no-bullet">
-        <li><a id="toc-Branch-Improvement" href="M68K_002dBranch.html">9.22.6.1 Branch Improvement</a></li>
-        <li><a id="toc-Special-Characters-17" href="M68K_002dChars.html">9.22.6.2 Special Characters</a></li>
+        <li><a id="toc-Symbolic-Operand-Modifiers" href="M32C_002dModifiers.html">9.21.2.1 Symbolic Operand Modifiers</a></li>
+        <li><a id="toc-Special-Characters-15" href="M32C_002dChars.html">9.21.2.2 Special Characters</a></li>
       </ul></li>
     </ul></li>
-    <li><a id="toc-M68HC11-and-M68HC12-Dependent-Features" href="M68HC11_002dDependent.html">9.23 M68HC11 and M68HC12 Dependent Features</a>
+    <li><a id="toc-M32R-Dependent-Features" href="M32R_002dDependent.html">9.22 M32R Dependent Features</a>
     <ul class="no-bullet">
-      <li><a id="toc-M68HC11-and-M68HC12-Options" href="M68HC11_002dOpts.html">9.23.1 M68HC11 and M68HC12 Options</a></li>
-      <li><a id="toc-Syntax-18" href="M68HC11_002dSyntax.html">9.23.2 Syntax</a></li>
-      <li><a id="toc-Symbolic-Operand-Modifiers-1" href="M68HC11_002dModifiers.html">9.23.3 Symbolic Operand Modifiers</a></li>
-      <li><a id="toc-Assembler-Directives-2" href="M68HC11_002dDirectives.html">9.23.4 Assembler Directives</a></li>
-      <li><a id="toc-Floating-Point-9" href="M68HC11_002dFloat.html">9.23.5 Floating Point</a></li>
-      <li><a id="toc-Opcodes-13" href="M68HC11_002dopcodes.html">9.23.6 Opcodes</a>
+      <li><a id="toc-M32R-Options" href="M32R_002dOpts.html">9.22.1 M32R Options</a></li>
+      <li><a id="toc-M32R-Directives" href="M32R_002dDirectives.html">9.22.2 M32R Directives</a></li>
+      <li><a id="toc-M32R-Warnings" href="M32R_002dWarnings.html">9.22.3 M32R Warnings</a></li>
+    </ul></li>
+    <li><a id="toc-M680x0-Dependent-Features" href="M68K_002dDependent.html">9.23 M680x0 Dependent Features</a>
+    <ul class="no-bullet">
+      <li><a id="toc-M680x0-Options" href="M68K_002dOpts.html">9.23.1 M680x0 Options</a></li>
+      <li><a id="toc-Syntax-16" href="M68K_002dSyntax.html">9.23.2 Syntax</a></li>
+      <li><a id="toc-Motorola-Syntax" href="M68K_002dMoto_002dSyntax.html">9.23.3 Motorola Syntax</a></li>
+      <li><a id="toc-Floating-Point-8" href="M68K_002dFloat.html">9.23.4 Floating Point</a></li>
+      <li><a id="toc-680x0-Machine-Directives" href="M68K_002dDirectives.html">9.23.5 680x0 Machine Directives</a></li>
+      <li><a id="toc-Opcodes-11" href="M68K_002dopcodes.html">9.23.6 Opcodes</a>
       <ul class="no-bullet">
-        <li><a id="toc-Branch-Improvement-1" href="M68HC11_002dBranch.html">9.23.6.1 Branch Improvement</a></li>
+        <li><a id="toc-Branch-Improvement" href="M68K_002dBranch.html">9.23.6.1 Branch Improvement</a></li>
+        <li><a id="toc-Special-Characters-16" href="M68K_002dChars.html">9.23.6.2 Special Characters</a></li>
       </ul></li>
     </ul></li>
-    <li><a id="toc-S12Z-Dependent-Features" href="S12Z_002dDependent.html">9.24 S12Z Dependent Features</a>
+    <li><a id="toc-M68HC11-and-M68HC12-Dependent-Features" href="M68HC11_002dDependent.html">9.24 M68HC11 and M68HC12 Dependent Features</a>
     <ul class="no-bullet">
-      <li><a id="toc-S12Z-Options-1" href="S12Z-Options.html">9.24.1 S12Z Options</a></li>
-      <li><a id="toc-Syntax-19" href="S12Z-Syntax.html">9.24.2 Syntax</a>
+      <li><a id="toc-M68HC11-and-M68HC12-Options" href="M68HC11_002dOpts.html">9.24.1 M68HC11 and M68HC12 Options</a></li>
+      <li><a id="toc-Syntax-17" href="M68HC11_002dSyntax.html">9.24.2 Syntax</a></li>
+      <li><a id="toc-Symbolic-Operand-Modifiers-1" href="M68HC11_002dModifiers.html">9.24.3 Symbolic Operand Modifiers</a></li>
+      <li><a id="toc-Assembler-Directives-2" href="M68HC11_002dDirectives.html">9.24.4 Assembler Directives</a></li>
+      <li><a id="toc-Floating-Point-9" href="M68HC11_002dFloat.html">9.24.5 Floating Point</a></li>
+      <li><a id="toc-Opcodes-12" href="M68HC11_002dopcodes.html">9.24.6 Opcodes</a>
       <ul class="no-bullet">
-        <li><a id="toc-Overview-2" href="S12Z-Syntax-Overview.html">9.24.2.1 Overview</a></li>
-        <li><a id="toc-Addressing-Modes-3" href="S12Z-Addressing-Modes.html">9.24.2.2 Addressing Modes</a></li>
-        <li><a id="toc-Register-Notation" href="S12Z-Register-Notation.html">9.24.2.3 Register Notation</a></li>
+        <li><a id="toc-Branch-Improvement-1" href="M68HC11_002dBranch.html">9.24.6.1 Branch Improvement</a></li>
       </ul></li>
     </ul></li>
-    <li><a id="toc-Meta-Dependent-Features" href="Meta_002dDependent.html">9.25 Meta Dependent Features</a>
+    <li><a id="toc-S12Z-Dependent-Features" href="S12Z_002dDependent.html">9.25 S12Z Dependent Features</a>
     <ul class="no-bullet">
-      <li><a id="toc-Options-14" href="Meta-Options.html">9.25.1 Options</a></li>
-      <li><a id="toc-Syntax-20" href="Meta-Syntax.html">9.25.2 Syntax</a>
+      <li><a id="toc-S12Z-Options-1" href="S12Z-Options.html">9.25.1 S12Z Options</a></li>
+      <li><a id="toc-Syntax-18" href="S12Z-Syntax.html">9.25.2 Syntax</a>
       <ul class="no-bullet">
-        <li><a id="toc-Special-Characters-18" href="Meta_002dChars.html">9.25.2.1 Special Characters</a></li>
-        <li><a id="toc-Register-Names-11" href="Meta_002dRegs.html">9.25.2.2 Register Names</a></li>
+        <li><a id="toc-Overview-2" href="S12Z-Syntax-Overview.html">9.25.2.1 Overview</a></li>
+        <li><a id="toc-Addressing-Modes-3" href="S12Z-Addressing-Modes.html">9.25.2.2 Addressing Modes</a></li>
+        <li><a id="toc-Register-Notation" href="S12Z-Register-Notation.html">9.25.2.3 Register Notation</a></li>
       </ul></li>
     </ul></li>
-    <li><a id="toc-MicroBlaze-Dependent-Features" href="MicroBlaze_002dDependent.html">9.26 MicroBlaze Dependent Features</a>
+    <li><a id="toc-Meta-Dependent-Features" href="Meta_002dDependent.html">9.26 Meta Dependent Features</a>
     <ul class="no-bullet">
-      <li><a id="toc-Directives-1" href="MicroBlaze-Directives.html">9.26.1 Directives</a></li>
-      <li><a id="toc-Syntax-for-the-MicroBlaze" href="MicroBlaze-Syntax.html">9.26.2 Syntax for the MicroBlaze</a>
+      <li><a id="toc-Options-14" href="Meta-Options.html">9.26.1 Options</a></li>
+      <li><a id="toc-Syntax-19" href="Meta-Syntax.html">9.26.2 Syntax</a>
       <ul class="no-bullet">
-        <li><a id="toc-Special-Characters-19" href="MicroBlaze_002dChars.html">9.26.2.1 Special Characters</a></li>
+        <li><a id="toc-Special-Characters-17" href="Meta_002dChars.html">9.26.2.1 Special Characters</a></li>
+        <li><a id="toc-Register-Names-10" href="Meta_002dRegs.html">9.26.2.2 Register Names</a></li>
       </ul></li>
     </ul></li>
-    <li><a id="toc-MIPS-Dependent-Features" href="MIPS_002dDependent.html">9.27 MIPS Dependent Features</a>
+    <li><a id="toc-MicroBlaze-Dependent-Features" href="MicroBlaze_002dDependent.html">9.27 MicroBlaze Dependent Features</a>
     <ul class="no-bullet">
-      <li><a id="toc-Assembler-options" href="MIPS-Options.html">9.27.1 Assembler options</a></li>
-      <li><a id="toc-High_002dlevel-assembly-macros" href="MIPS-Macros.html">9.27.2 High-level assembly macros</a></li>
-      <li><a id="toc-Directives-to-override-the-size-of-symbols" href="MIPS-Symbol-Sizes.html">9.27.3 Directives to override the size of symbols</a></li>
-      <li><a id="toc-Controlling-the-use-of-small-data-accesses" href="MIPS-Small-Data.html">9.27.4 Controlling the use of small data accesses</a></li>
-      <li><a id="toc-Directives-to-override-the-ISA-level" href="MIPS-ISA.html">9.27.5 Directives to override the ISA level</a></li>
-      <li><a id="toc-Directives-to-control-code-generation" href="MIPS-assembly-options.html">9.27.6 Directives to control code generation</a></li>
-      <li><a id="toc-Directives-for-extending-MIPS-16-bit-instructions" href="MIPS-autoextend.html">9.27.7 Directives for extending MIPS 16 bit instructions</a></li>
-      <li><a id="toc-Directive-to-mark-data-as-an-instruction" href="MIPS-insn.html">9.27.8 Directive to mark data as an instruction</a></li>
-      <li><a id="toc-Directives-to-control-the-FP-ABI" href="MIPS-FP-ABIs.html">9.27.9 Directives to control the FP ABI</a>
+      <li><a id="toc-Directives-1" href="MicroBlaze-Directives.html">9.27.1 Directives</a></li>
+      <li><a id="toc-Syntax-for-the-MicroBlaze" href="MicroBlaze-Syntax.html">9.27.2 Syntax for the MicroBlaze</a>
       <ul class="no-bullet">
-        <li><a id="toc-History-of-FP-ABIs" href="MIPS-FP-ABI-History.html">9.27.9.1 History of FP ABIs</a></li>
-        <li><a id="toc-Supported-FP-ABIs" href="MIPS-FP-ABI-Variants.html">9.27.9.2 Supported FP ABIs</a></li>
-        <li><a id="toc-Automatic-selection-of-FP-ABI" href="MIPS-FP-ABI-Selection.html">9.27.9.3 Automatic selection of FP ABI</a></li>
-        <li><a id="toc-Linking-different-FP-ABI-variants" href="MIPS-FP-ABI-Compatibility.html">9.27.9.4 Linking different FP ABI variants</a></li>
+        <li><a id="toc-Special-Characters-18" href="MicroBlaze_002dChars.html">9.27.2.1 Special Characters</a></li>
       </ul></li>
-      <li><a id="toc-Directives-to-record-which-NaN-encoding-is-being-used" href="MIPS-NaN-Encodings.html">9.27.10 Directives to record which NaN encoding is being used</a></li>
-      <li><a id="toc-Directives-to-save-and-restore-options" href="MIPS-Option-Stack.html">9.27.11 Directives to save and restore options</a></li>
-      <li><a id="toc-Directives-to-control-generation-of-MIPS-ASE-instructions" href="MIPS-ASE-Instruction-Generation-Overrides.html">9.27.12 Directives to control generation of MIPS ASE instructions</a></li>
-      <li><a id="toc-Directives-to-override-floating_002dpoint-options" href="MIPS-Floating_002dPoint.html">9.27.13 Directives to override floating-point options</a></li>
-      <li><a id="toc-Syntactical-considerations-for-the-MIPS-assembler" href="MIPS-Syntax.html">9.27.14 Syntactical considerations for the MIPS assembler</a>
+      <li><a id="toc-Options-15" href="MicroBlaze-Options.html">9.27.3 Options</a></li>
+    </ul></li>
+    <li><a id="toc-MIPS-Dependent-Features" href="MIPS_002dDependent.html">9.28 MIPS Dependent Features</a>
+    <ul class="no-bullet">
+      <li><a id="toc-Assembler-options" href="MIPS-Options.html">9.28.1 Assembler options</a></li>
+      <li><a id="toc-High_002dlevel-assembly-macros" href="MIPS-Macros.html">9.28.2 High-level assembly macros</a></li>
+      <li><a id="toc-Directives-to-override-the-size-of-symbols" href="MIPS-Symbol-Sizes.html">9.28.3 Directives to override the size of symbols</a></li>
+      <li><a id="toc-Controlling-the-use-of-small-data-accesses" href="MIPS-Small-Data.html">9.28.4 Controlling the use of small data accesses</a></li>
+      <li><a id="toc-Directives-to-override-the-ISA-level" href="MIPS-ISA.html">9.28.5 Directives to override the ISA level</a></li>
+      <li><a id="toc-Directives-to-control-code-generation" href="MIPS-assembly-options.html">9.28.6 Directives to control code generation</a></li>
+      <li><a id="toc-Directives-for-extending-MIPS-16-bit-instructions" href="MIPS-autoextend.html">9.28.7 Directives for extending MIPS 16 bit instructions</a></li>
+      <li><a id="toc-Directive-to-mark-data-as-an-instruction" href="MIPS-insn.html">9.28.8 Directive to mark data as an instruction</a></li>
+      <li><a id="toc-Directives-to-control-the-FP-ABI" href="MIPS-FP-ABIs.html">9.28.9 Directives to control the FP ABI</a>
       <ul class="no-bullet">
-        <li><a id="toc-Special-Characters-20" href="MIPS_002dChars.html">9.27.14.1 Special Characters</a></li>
+        <li><a id="toc-History-of-FP-ABIs" href="MIPS-FP-ABI-History.html">9.28.9.1 History of FP ABIs</a></li>
+        <li><a id="toc-Supported-FP-ABIs" href="MIPS-FP-ABI-Variants.html">9.28.9.2 Supported FP ABIs</a></li>
+        <li><a id="toc-Automatic-selection-of-FP-ABI" href="MIPS-FP-ABI-Selection.html">9.28.9.3 Automatic selection of FP ABI</a></li>
+        <li><a id="toc-Linking-different-FP-ABI-variants" href="MIPS-FP-ABI-Compatibility.html">9.28.9.4 Linking different FP ABI variants</a></li>
+      </ul></li>
+      <li><a id="toc-Directives-to-record-which-NaN-encoding-is-being-used" href="MIPS-NaN-Encodings.html">9.28.10 Directives to record which NaN encoding is being used</a></li>
+      <li><a id="toc-Directives-to-save-and-restore-options" href="MIPS-Option-Stack.html">9.28.11 Directives to save and restore options</a></li>
+      <li><a id="toc-Directives-to-control-generation-of-MIPS-ASE-instructions" href="MIPS-ASE-Instruction-Generation-Overrides.html">9.28.12 Directives to control generation of MIPS ASE instructions</a></li>
+      <li><a id="toc-Directives-to-override-floating_002dpoint-options" href="MIPS-Floating_002dPoint.html">9.28.13 Directives to override floating-point options</a></li>
+      <li><a id="toc-Syntactical-considerations-for-the-MIPS-assembler" href="MIPS-Syntax.html">9.28.14 Syntactical considerations for the MIPS assembler</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Special-Characters-19" href="MIPS_002dChars.html">9.28.14.1 Special Characters</a></li>
       </ul></li>
     </ul></li>
-    <li><a id="toc-MMIX-Dependent-Features" href="MMIX_002dDependent.html">9.28 MMIX Dependent Features</a>
+    <li><a id="toc-MMIX-Dependent-Features" href="MMIX_002dDependent.html">9.29 MMIX Dependent Features</a>
     <ul class="no-bullet">
-      <li><a id="toc-Command_002dline-Options-1" href="MMIX_002dOpts.html">9.28.1 Command-line Options</a></li>
-      <li><a id="toc-Instruction-expansion-1" href="MMIX_002dExpand.html">9.28.2 Instruction expansion</a></li>
-      <li><a id="toc-Syntax-21" href="MMIX_002dSyntax.html">9.28.3 Syntax</a>
+      <li><a id="toc-Command_002dline-Options-1" href="MMIX_002dOpts.html">9.29.1 Command-line Options</a></li>
+      <li><a id="toc-Instruction-expansion-1" href="MMIX_002dExpand.html">9.29.2 Instruction expansion</a></li>
+      <li><a id="toc-Syntax-20" href="MMIX_002dSyntax.html">9.29.3 Syntax</a>
       <ul class="no-bullet">
-        <li><a id="toc-Special-Characters-21" href="MMIX_002dChars.html">9.28.3.1 Special Characters</a></li>
-        <li><a id="toc-Symbols-4" href="MMIX_002dSymbols.html">9.28.3.2 Symbols</a></li>
-        <li><a id="toc-Register-names-1" href="MMIX_002dRegs.html">9.28.3.3 Register names</a></li>
-        <li><a id="toc-Assembler-Directives-3" href="MMIX_002dPseudos.html">9.28.3.4 Assembler Directives</a></li>
+        <li><a id="toc-Special-Characters-20" href="MMIX_002dChars.html">9.29.3.1 Special Characters</a></li>
+        <li><a id="toc-Symbols-4" href="MMIX_002dSymbols.html">9.29.3.2 Symbols</a></li>
+        <li><a id="toc-Register-names-1" href="MMIX_002dRegs.html">9.29.3.3 Register names</a></li>
+        <li><a id="toc-Assembler-Directives-3" href="MMIX_002dPseudos.html">9.29.3.4 Assembler Directives</a></li>
       </ul></li>
-      <li><a id="toc-Differences-to-mmixal" href="MMIX_002dmmixal.html">9.28.4 Differences to <code>mmixal</code></a></li>
+      <li><a id="toc-Differences-to-mmixal" href="MMIX_002dmmixal.html">9.29.4 Differences to <code>mmixal</code></a></li>
     </ul></li>
-    <li><a id="toc-MSP-430-Dependent-Features" href="MSP430_002dDependent.html">9.29 MSP 430 Dependent Features</a>
+    <li><a id="toc-MSP-430-Dependent-Features" href="MSP430_002dDependent.html">9.30 MSP 430 Dependent Features</a>
     <ul class="no-bullet">
-      <li><a id="toc-Options-15" href="MSP430-Options.html">9.29.1 Options</a></li>
-      <li><a id="toc-Syntax-22" href="MSP430-Syntax.html">9.29.2 Syntax</a>
+      <li><a id="toc-Options-16" href="MSP430-Options.html">9.30.1 Options</a></li>
+      <li><a id="toc-Syntax-21" href="MSP430-Syntax.html">9.30.2 Syntax</a>
       <ul class="no-bullet">
-        <li><a id="toc-Macros" href="MSP430_002dMacros.html">9.29.2.1 Macros</a></li>
-        <li><a id="toc-Special-Characters-22" href="MSP430_002dChars.html">9.29.2.2 Special Characters</a></li>
-        <li><a id="toc-Register-Names-12" href="MSP430_002dRegs.html">9.29.2.3 Register Names</a></li>
-        <li><a id="toc-Assembler-Extensions" href="MSP430_002dExt.html">9.29.2.4 Assembler Extensions</a></li>
+        <li><a id="toc-Macros" href="MSP430_002dMacros.html">9.30.2.1 Macros</a></li>
+        <li><a id="toc-Special-Characters-21" href="MSP430_002dChars.html">9.30.2.2 Special Characters</a></li>
+        <li><a id="toc-Register-Names-11" href="MSP430_002dRegs.html">9.30.2.3 Register Names</a></li>
+        <li><a id="toc-Assembler-Extensions" href="MSP430_002dExt.html">9.30.2.4 Assembler Extensions</a></li>
       </ul></li>
-      <li><a id="toc-Floating-Point-10" href="MSP430-Floating-Point.html">9.29.3 Floating Point</a></li>
-      <li><a id="toc-MSP-430-Machine-Directives" href="MSP430-Directives.html">9.29.4 MSP 430 Machine Directives</a></li>
-      <li><a id="toc-Opcodes-14" href="MSP430-Opcodes.html">9.29.5 Opcodes</a></li>
-      <li><a id="toc-Profiling-Capability" href="MSP430-Profiling-Capability.html">9.29.6 Profiling Capability</a></li>
+      <li><a id="toc-Floating-Point-10" href="MSP430-Floating-Point.html">9.30.3 Floating Point</a></li>
+      <li><a id="toc-MSP-430-Machine-Directives" href="MSP430-Directives.html">9.30.4 MSP 430 Machine Directives</a></li>
+      <li><a id="toc-Opcodes-13" href="MSP430-Opcodes.html">9.30.5 Opcodes</a></li>
+      <li><a id="toc-Profiling-Capability" href="MSP430-Profiling-Capability.html">9.30.6 Profiling Capability</a></li>
     </ul></li>
-    <li><a id="toc-NDS32-Dependent-Features" href="NDS32_002dDependent.html">9.30 NDS32 Dependent Features</a>
+    <li><a id="toc-NDS32-Dependent-Features" href="NDS32_002dDependent.html">9.31 NDS32 Dependent Features</a>
     <ul class="no-bullet">
-      <li><a id="toc-NDS32-Options-1" href="NDS32-Options.html">9.30.1 NDS32 Options</a></li>
-      <li><a id="toc-Syntax-23" href="NDS32-Syntax.html">9.30.2 Syntax</a>
+      <li><a id="toc-NDS32-Options-1" href="NDS32-Options.html">9.31.1 NDS32 Options</a></li>
+      <li><a id="toc-Syntax-22" href="NDS32-Syntax.html">9.31.2 Syntax</a>
       <ul class="no-bullet">
-        <li><a id="toc-Special-Characters-23" href="NDS32_002dChars.html">9.30.2.1 Special Characters</a></li>
-        <li><a id="toc-Register-Names-13" href="NDS32_002dRegs.html">9.30.2.2 Register Names</a></li>
-        <li><a id="toc-Pseudo-Instructions-1" href="NDS32_002dOps.html">9.30.2.3 Pseudo Instructions</a></li>
-      </ul></li>
-    </ul></li>
-    <li><a id="toc-Nios-II-Dependent-Features" href="NiosII_002dDependent.html">9.31 Nios II Dependent Features</a>
-    <ul class="no-bullet">
-      <li><a id="toc-Options-16" href="Nios-II-Options.html">9.31.1 Options</a></li>
-      <li><a id="toc-Syntax-24" href="Nios-II-Syntax.html">9.31.2 Syntax</a>
-      <ul class="no-bullet">
-        <li><a id="toc-Special-Characters-24" href="Nios-II-Chars.html">9.31.2.1 Special Characters</a></li>
-      </ul></li>
-      <li><a id="toc-Nios-II-Machine-Relocations" href="Nios-II-Relocations.html">9.31.3 Nios II Machine Relocations</a></li>
-      <li><a id="toc-Nios-II-Machine-Directives" href="Nios-II-Directives.html">9.31.4 Nios II Machine Directives</a></li>
-      <li><a id="toc-Opcodes-15" href="Nios-II-Opcodes.html">9.31.5 Opcodes</a></li>
-    </ul></li>
-    <li><a id="toc-NS32K-Dependent-Features" href="NS32K_002dDependent.html">9.32 NS32K Dependent Features</a>
-    <ul class="no-bullet">
-      <li><a id="toc-Syntax-25" href="NS32K-Syntax.html">9.32.1 Syntax</a>
-      <ul class="no-bullet">
-        <li><a id="toc-Special-Characters-25" href="NS32K_002dChars.html">9.32.1.1 Special Characters</a></li>
+        <li><a id="toc-Special-Characters-22" href="NDS32_002dChars.html">9.31.2.1 Special Characters</a></li>
+        <li><a id="toc-Register-Names-12" href="NDS32_002dRegs.html">9.31.2.2 Register Names</a></li>
+        <li><a id="toc-Pseudo-Instructions-1" href="NDS32_002dOps.html">9.31.2.3 Pseudo Instructions</a></li>
       </ul></li>
     </ul></li>
-    <li><a id="toc-OPENRISC-Dependent-Features" href="OpenRISC_002dDependent.html">9.33 OPENRISC Dependent Features</a>
+    <li><a id="toc-Nios-II-Dependent-Features" href="NiosII_002dDependent.html">9.32 Nios II Dependent Features</a>
     <ul class="no-bullet">
-      <li><a id="toc-OpenRISC-Syntax" href="OpenRISC_002dSyntax.html">9.33.1 OpenRISC Syntax</a>
+      <li><a id="toc-Options-17" href="Nios-II-Options.html">9.32.1 Options</a></li>
+      <li><a id="toc-Syntax-23" href="Nios-II-Syntax.html">9.32.2 Syntax</a>
       <ul class="no-bullet">
-        <li><a id="toc-Special-Characters-26" href="OpenRISC_002dChars.html">9.33.1.1 Special Characters</a></li>
-        <li><a id="toc-Register-Names-14" href="OpenRISC_002dRegs.html">9.33.1.2 Register Names</a></li>
-        <li><a id="toc-Relocations-3" href="OpenRISC_002dRelocs.html">9.33.1.3 Relocations</a></li>
+        <li><a id="toc-Special-Characters-23" href="Nios-II-Chars.html">9.32.2.1 Special Characters</a></li>
       </ul></li>
-      <li><a id="toc-Floating-Point-11" href="OpenRISC_002dFloat.html">9.33.2 Floating Point</a></li>
-      <li><a id="toc-OpenRISC-Machine-Directives" href="OpenRISC_002dDirectives.html">9.33.3 OpenRISC Machine Directives</a></li>
-      <li><a id="toc-Opcodes-16" href="OpenRISC_002dOpcodes.html">9.33.4 Opcodes</a></li>
+      <li><a id="toc-Nios-II-Machine-Relocations" href="Nios-II-Relocations.html">9.32.3 Nios II Machine Relocations</a></li>
+      <li><a id="toc-Nios-II-Machine-Directives" href="Nios-II-Directives.html">9.32.4 Nios II Machine Directives</a></li>
+      <li><a id="toc-Opcodes-14" href="Nios-II-Opcodes.html">9.32.5 Opcodes</a></li>
     </ul></li>
-    <li><a id="toc-PDP_002d11-Dependent-Features" href="PDP_002d11_002dDependent.html">9.34 PDP-11 Dependent Features</a>
+    <li><a id="toc-NS32K-Dependent-Features" href="NS32K_002dDependent.html">9.33 NS32K Dependent Features</a>
     <ul class="no-bullet">
-      <li><a id="toc-Options-17" href="PDP_002d11_002dOptions.html">9.34.1 Options</a>
+      <li><a id="toc-Syntax-24" href="NS32K-Syntax.html">9.33.1 Syntax</a>
       <ul class="no-bullet">
-        <li><a id="toc-Code-Generation-Options" href="PDP_002d11_002dOptions.html#Code-Generation-Options">9.34.1.1 Code Generation Options</a></li>
-        <li><a id="toc-Instruction-Set-Extension-Options" href="PDP_002d11_002dOptions.html#Instruction-Set-Extension-Options">9.34.1.2 Instruction Set Extension Options</a></li>
-        <li><a id="toc-CPU-Model-Options" href="PDP_002d11_002dOptions.html#CPU-Model-Options">9.34.1.3 CPU Model Options</a></li>
-        <li><a id="toc-Machine-Model-Options" href="PDP_002d11_002dOptions.html#Machine-Model-Options">9.34.1.4 Machine Model Options</a></li>
-      </ul></li>
-      <li><a id="toc-Assembler-Directives-4" href="PDP_002d11_002dPseudos.html">9.34.2 Assembler Directives</a></li>
-      <li><a id="toc-PDP_002d11-Assembly-Language-Syntax" href="PDP_002d11_002dSyntax.html">9.34.3 PDP-11 Assembly Language Syntax</a></li>
-      <li><a id="toc-Instruction-Naming-1" href="PDP_002d11_002dMnemonics.html">9.34.4 Instruction Naming</a></li>
-      <li><a id="toc-Synthetic-Instructions" href="PDP_002d11_002dSynthetic.html">9.34.5 Synthetic Instructions</a></li>
-    </ul></li>
-    <li><a id="toc-picoJava-Dependent-Features" href="PJ_002dDependent.html">9.35 picoJava Dependent Features</a>
-    <ul class="no-bullet">
-      <li><a id="toc-Options-18" href="PJ-Options.html">9.35.1 Options</a></li>
-      <li><a id="toc-PJ-Syntax-1" href="PJ-Syntax.html">9.35.2 PJ Syntax</a>
-      <ul class="no-bullet">
-        <li><a id="toc-Special-Characters-27" href="PJ_002dChars.html">9.35.2.1 Special Characters</a></li>
+        <li><a id="toc-Special-Characters-24" href="NS32K_002dChars.html">9.33.1.1 Special Characters</a></li>
       </ul></li>
     </ul></li>
-    <li><a id="toc-PowerPC-Dependent-Features" href="PPC_002dDependent.html">9.36 PowerPC Dependent Features</a>
+    <li><a id="toc-OPENRISC-Dependent-Features" href="OpenRISC_002dDependent.html">9.34 OPENRISC Dependent Features</a>
     <ul class="no-bullet">
-      <li><a id="toc-Options-19" href="PowerPC_002dOpts.html">9.36.1 Options</a></li>
-      <li><a id="toc-PowerPC-Assembler-Directives" href="PowerPC_002dPseudo.html">9.36.2 PowerPC Assembler Directives</a></li>
-      <li><a id="toc-PowerPC-Syntax" href="PowerPC_002dSyntax.html">9.36.3 PowerPC Syntax</a>
+      <li><a id="toc-OpenRISC-Syntax" href="OpenRISC_002dSyntax.html">9.34.1 OpenRISC Syntax</a>
       <ul class="no-bullet">
-        <li><a id="toc-Special-Characters-28" href="PowerPC_002dChars.html">9.36.3.1 Special Characters</a></li>
+        <li><a id="toc-Special-Characters-25" href="OpenRISC_002dChars.html">9.34.1.1 Special Characters</a></li>
+        <li><a id="toc-Register-Names-13" href="OpenRISC_002dRegs.html">9.34.1.2 Register Names</a></li>
+        <li><a id="toc-Relocations-3" href="OpenRISC_002dRelocs.html">9.34.1.3 Relocations</a></li>
+      </ul></li>
+      <li><a id="toc-Floating-Point-11" href="OpenRISC_002dFloat.html">9.34.2 Floating Point</a></li>
+      <li><a id="toc-OpenRISC-Machine-Directives" href="OpenRISC_002dDirectives.html">9.34.3 OpenRISC Machine Directives</a></li>
+      <li><a id="toc-Opcodes-15" href="OpenRISC_002dOpcodes.html">9.34.4 Opcodes</a></li>
+    </ul></li>
+    <li><a id="toc-PDP_002d11-Dependent-Features" href="PDP_002d11_002dDependent.html">9.35 PDP-11 Dependent Features</a>
+    <ul class="no-bullet">
+      <li><a id="toc-Options-18" href="PDP_002d11_002dOptions.html">9.35.1 Options</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Code-Generation-Options" href="PDP_002d11_002dOptions.html#Code-Generation-Options">9.35.1.1 Code Generation Options</a></li>
+        <li><a id="toc-Instruction-Set-Extension-Options" href="PDP_002d11_002dOptions.html#Instruction-Set-Extension-Options">9.35.1.2 Instruction Set Extension Options</a></li>
+        <li><a id="toc-CPU-Model-Options" href="PDP_002d11_002dOptions.html#CPU-Model-Options">9.35.1.3 CPU Model Options</a></li>
+        <li><a id="toc-Machine-Model-Options" href="PDP_002d11_002dOptions.html#Machine-Model-Options">9.35.1.4 Machine Model Options</a></li>
+      </ul></li>
+      <li><a id="toc-Assembler-Directives-4" href="PDP_002d11_002dPseudos.html">9.35.2 Assembler Directives</a></li>
+      <li><a id="toc-PDP_002d11-Assembly-Language-Syntax" href="PDP_002d11_002dSyntax.html">9.35.3 PDP-11 Assembly Language Syntax</a></li>
+      <li><a id="toc-Instruction-Naming-1" href="PDP_002d11_002dMnemonics.html">9.35.4 Instruction Naming</a></li>
+      <li><a id="toc-Synthetic-Instructions" href="PDP_002d11_002dSynthetic.html">9.35.5 Synthetic Instructions</a></li>
+    </ul></li>
+    <li><a id="toc-picoJava-Dependent-Features" href="PJ_002dDependent.html">9.36 picoJava Dependent Features</a>
+    <ul class="no-bullet">
+      <li><a id="toc-Options-19" href="PJ-Options.html">9.36.1 Options</a></li>
+      <li><a id="toc-PJ-Syntax-1" href="PJ-Syntax.html">9.36.2 PJ Syntax</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Special-Characters-26" href="PJ_002dChars.html">9.36.2.1 Special Characters</a></li>
       </ul></li>
     </ul></li>
-    <li><a id="toc-PRU-Dependent-Features" href="PRU_002dDependent.html">9.37 PRU Dependent Features</a>
+    <li><a id="toc-PowerPC-Dependent-Features" href="PPC_002dDependent.html">9.37 PowerPC Dependent Features</a>
     <ul class="no-bullet">
-      <li><a id="toc-Options-20" href="PRU-Options.html">9.37.1 Options</a></li>
-      <li><a id="toc-Syntax-26" href="PRU-Syntax.html">9.37.2 Syntax</a>
+      <li><a id="toc-Options-20" href="PowerPC_002dOpts.html">9.37.1 Options</a></li>
+      <li><a id="toc-PowerPC-Assembler-Directives" href="PowerPC_002dPseudo.html">9.37.2 PowerPC Assembler Directives</a></li>
+      <li><a id="toc-PowerPC-Syntax" href="PowerPC_002dSyntax.html">9.37.3 PowerPC Syntax</a>
       <ul class="no-bullet">
-        <li><a id="toc-Special-Characters-29" href="PRU-Chars.html">9.37.2.1 Special Characters</a></li>
-      </ul></li>
-      <li><a id="toc-PRU-Machine-Relocations" href="PRU-Relocations.html">9.37.3 PRU Machine Relocations</a></li>
-      <li><a id="toc-PRU-Machine-Directives" href="PRU-Directives.html">9.37.4 PRU Machine Directives</a></li>
-      <li><a id="toc-Opcodes-17" href="PRU-Opcodes.html">9.37.5 Opcodes</a></li>
-    </ul></li>
-    <li><a id="toc-RISC_002dV-Dependent-Features" href="RISC_002dV_002dDependent.html">9.38 RISC-V Dependent Features</a>
-    <ul class="no-bullet">
-      <li><a id="toc-RISC_002dV-Options" href="RISC_002dV_002dOptions.html">9.38.1 RISC-V Options</a></li>
-      <li><a id="toc-RISC_002dV-Directives" href="RISC_002dV_002dDirectives.html">9.38.2 RISC-V Directives</a></li>
-      <li><a id="toc-RISC_002dV-Assembler-Modifiers" href="RISC_002dV_002dModifiers.html">9.38.3 RISC-V Assembler Modifiers</a></li>
-      <li><a id="toc-RISC_002dV-Instruction-Formats" href="RISC_002dV_002dFormats.html">9.38.4 RISC-V Instruction Formats</a></li>
-      <li><a id="toc-RISC_002dV-Object-Attribute" href="RISC_002dV_002dATTRIBUTE.html">9.38.5 RISC-V Object Attribute</a></li>
-      <li><a id="toc-RISC_002dV-Custom-_0028Vendor_002dDefined_0029-Extensions" href="RISC_002dV_002dCustomExts.html">9.38.6 RISC-V Custom (Vendor-Defined) Extensions</a></li>
-    </ul></li>
-    <li><a id="toc-RL78-Dependent-Features" href="RL78_002dDependent.html">9.39 RL78 Dependent Features</a>
-    <ul class="no-bullet">
-      <li><a id="toc-RL78-Options" href="RL78_002dOpts.html">9.39.1 RL78 Options</a></li>
-      <li><a id="toc-Symbolic-Operand-Modifiers-2" href="RL78_002dModifiers.html">9.39.2 Symbolic Operand Modifiers</a></li>
-      <li><a id="toc-Assembler-Directives-5" href="RL78_002dDirectives.html">9.39.3 Assembler Directives</a></li>
-      <li><a id="toc-Syntax-for-the-RL78" href="RL78_002dSyntax.html">9.39.4 Syntax for the RL78</a>
-      <ul class="no-bullet">
-        <li><a id="toc-Special-Characters-30" href="RL78_002dChars.html">9.39.4.1 Special Characters</a></li>
+        <li><a id="toc-Special-Characters-27" href="PowerPC_002dChars.html">9.37.3.1 Special Characters</a></li>
       </ul></li>
     </ul></li>
-    <li><a id="toc-RX-Dependent-Features" href="RX_002dDependent.html">9.40 RX Dependent Features</a>
+    <li><a id="toc-PRU-Dependent-Features" href="PRU_002dDependent.html">9.38 PRU Dependent Features</a>
     <ul class="no-bullet">
-      <li><a id="toc-RX-Options" href="RX_002dOpts.html">9.40.1 RX Options</a></li>
-      <li><a id="toc-Symbolic-Operand-Modifiers-3" href="RX_002dModifiers.html">9.40.2 Symbolic Operand Modifiers</a></li>
-      <li><a id="toc-Assembler-Directives-6" href="RX_002dDirectives.html">9.40.3 Assembler Directives</a></li>
-      <li><a id="toc-Floating-Point-12" href="RX_002dFloat.html">9.40.4 Floating Point</a></li>
-      <li><a id="toc-Syntax-for-the-RX" href="RX_002dSyntax.html">9.40.5 Syntax for the RX</a>
+      <li><a id="toc-Options-21" href="PRU-Options.html">9.38.1 Options</a></li>
+      <li><a id="toc-Syntax-25" href="PRU-Syntax.html">9.38.2 Syntax</a>
       <ul class="no-bullet">
-        <li><a id="toc-Special-Characters-31" href="RX_002dChars.html">9.40.5.1 Special Characters</a></li>
+        <li><a id="toc-Special-Characters-28" href="PRU-Chars.html">9.38.2.1 Special Characters</a></li>
+      </ul></li>
+      <li><a id="toc-PRU-Machine-Relocations" href="PRU-Relocations.html">9.38.3 PRU Machine Relocations</a></li>
+      <li><a id="toc-PRU-Machine-Directives" href="PRU-Directives.html">9.38.4 PRU Machine Directives</a></li>
+      <li><a id="toc-Opcodes-16" href="PRU-Opcodes.html">9.38.5 Opcodes</a></li>
+    </ul></li>
+    <li><a id="toc-RISC_002dV-Dependent-Features" href="RISC_002dV_002dDependent.html">9.39 RISC-V Dependent Features</a>
+    <ul class="no-bullet">
+      <li><a id="toc-RISC_002dV-Options" href="RISC_002dV_002dOptions.html">9.39.1 RISC-V Options</a></li>
+      <li><a id="toc-RISC_002dV-Directives" href="RISC_002dV_002dDirectives.html">9.39.2 RISC-V Directives</a></li>
+      <li><a id="toc-RISC_002dV-Assembler-Modifiers" href="RISC_002dV_002dModifiers.html">9.39.3 RISC-V Assembler Modifiers</a></li>
+      <li><a id="toc-RISC_002dV-Floating-Point" href="RISC_002dV_002dFloating_002dPoint.html">9.39.4 RISC-V Floating Point</a></li>
+      <li><a id="toc-RISC_002dV-Instruction-Formats" href="RISC_002dV_002dFormats.html">9.39.5 RISC-V Instruction Formats</a></li>
+      <li><a id="toc-RISC_002dV-Object-Attribute" href="RISC_002dV_002dATTRIBUTE.html">9.39.6 RISC-V Object Attribute</a></li>
+      <li><a id="toc-RISC_002dV-Custom-_0028Vendor_002dDefined_0029-Extensions" href="RISC_002dV_002dCustomExts.html">9.39.7 RISC-V Custom (Vendor-Defined) Extensions</a></li>
+    </ul></li>
+    <li><a id="toc-RL78-Dependent-Features" href="RL78_002dDependent.html">9.40 RL78 Dependent Features</a>
+    <ul class="no-bullet">
+      <li><a id="toc-RL78-Options" href="RL78_002dOpts.html">9.40.1 RL78 Options</a></li>
+      <li><a id="toc-Symbolic-Operand-Modifiers-2" href="RL78_002dModifiers.html">9.40.2 Symbolic Operand Modifiers</a></li>
+      <li><a id="toc-Assembler-Directives-5" href="RL78_002dDirectives.html">9.40.3 Assembler Directives</a></li>
+      <li><a id="toc-Syntax-for-the-RL78" href="RL78_002dSyntax.html">9.40.4 Syntax for the RL78</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Special-Characters-29" href="RL78_002dChars.html">9.40.4.1 Special Characters</a></li>
       </ul></li>
     </ul></li>
-    <li><a id="toc-IBM-S_002f390-Dependent-Features" href="S_002f390_002dDependent.html">9.41 IBM S/390 Dependent Features</a>
+    <li><a id="toc-RX-Dependent-Features" href="RX_002dDependent.html">9.41 RX Dependent Features</a>
     <ul class="no-bullet">
-      <li><a id="toc-Options-21" href="s390-Options.html">9.41.1 Options</a></li>
-      <li><a id="toc-Special-Characters-32" href="s390-Characters.html">9.41.2 Special Characters</a></li>
-      <li><a id="toc-Instruction-syntax" href="s390-Syntax.html">9.41.3 Instruction syntax</a>
+      <li><a id="toc-RX-Options" href="RX_002dOpts.html">9.41.1 RX Options</a></li>
+      <li><a id="toc-Symbolic-Operand-Modifiers-3" href="RX_002dModifiers.html">9.41.2 Symbolic Operand Modifiers</a></li>
+      <li><a id="toc-Assembler-Directives-6" href="RX_002dDirectives.html">9.41.3 Assembler Directives</a></li>
+      <li><a id="toc-Floating-Point-12" href="RX_002dFloat.html">9.41.4 Floating Point</a></li>
+      <li><a id="toc-Syntax-for-the-RX" href="RX_002dSyntax.html">9.41.5 Syntax for the RX</a>
       <ul class="no-bullet">
-        <li><a id="toc-Register-naming" href="s390-Register.html">9.41.3.1 Register naming</a></li>
-        <li><a id="toc-Instruction-Mnemonics" href="s390-Mnemonics.html">9.41.3.2 Instruction Mnemonics</a></li>
-        <li><a id="toc-Instruction-Operands" href="s390-Operands.html">9.41.3.3 Instruction Operands</a></li>
-        <li><a id="toc-Instruction-Formats" href="s390-Formats.html">9.41.3.4 Instruction Formats</a></li>
-        <li><a id="toc-Instruction-Aliases" href="s390-Aliases.html">9.41.3.5 Instruction Aliases</a></li>
-        <li><a id="toc-Instruction-Operand-Modifier" href="s390-Operand-Modifier.html">9.41.3.6 Instruction Operand Modifier</a></li>
-        <li><a id="toc-Instruction-Marker" href="s390-Instruction-Marker.html">9.41.3.7 Instruction Marker</a></li>
-        <li><a id="toc-Literal-Pool-Entries" href="s390-Literal-Pool-Entries.html">9.41.3.8 Literal Pool Entries</a></li>
-      </ul></li>
-      <li><a id="toc-Assembler-Directives-7" href="s390-Directives.html">9.41.4 Assembler Directives</a></li>
-      <li><a id="toc-Floating-Point-13" href="s390-Floating-Point.html">9.41.5 Floating Point</a></li>
-    </ul></li>
-    <li><a id="toc-SCORE-Dependent-Features" href="SCORE_002dDependent.html">9.42 SCORE Dependent Features</a>
-    <ul class="no-bullet">
-      <li><a id="toc-Options-22" href="SCORE_002dOpts.html">9.42.1 Options</a></li>
-      <li><a id="toc-SCORE-Assembler-Directives" href="SCORE_002dPseudo.html">9.42.2 SCORE Assembler Directives</a></li>
-      <li><a id="toc-SCORE-Syntax" href="SCORE_002dSyntax.html">9.42.3 SCORE Syntax</a>
-      <ul class="no-bullet">
-        <li><a id="toc-Special-Characters-33" href="SCORE_002dChars.html">9.42.3.1 Special Characters</a></li>
+        <li><a id="toc-Special-Characters-30" href="RX_002dChars.html">9.41.5.1 Special Characters</a></li>
       </ul></li>
     </ul></li>
-    <li><a id="toc-Renesas-_002f-SuperH-SH-Dependent-Features" href="SH_002dDependent.html">9.43 Renesas / SuperH SH Dependent Features</a>
+    <li><a id="toc-IBM-S_002f390-Dependent-Features" href="S_002f390_002dDependent.html">9.42 IBM S/390 Dependent Features</a>
     <ul class="no-bullet">
-      <li><a id="toc-Options-23" href="SH-Options.html">9.43.1 Options</a></li>
-      <li><a id="toc-Syntax-27" href="SH-Syntax.html">9.43.2 Syntax</a>
+      <li><a id="toc-Options-22" href="s390-Options.html">9.42.1 Options</a></li>
+      <li><a id="toc-Special-Characters-31" href="s390-Characters.html">9.42.2 Special Characters</a></li>
+      <li><a id="toc-Instruction-syntax" href="s390-Syntax.html">9.42.3 Instruction syntax</a>
       <ul class="no-bullet">
-        <li><a id="toc-Special-Characters-34" href="SH_002dChars.html">9.43.2.1 Special Characters</a></li>
-        <li><a id="toc-Register-Names-15" href="SH_002dRegs.html">9.43.2.2 Register Names</a></li>
-        <li><a id="toc-Addressing-Modes-4" href="SH_002dAddressing.html">9.43.2.3 Addressing Modes</a></li>
+        <li><a id="toc-Register-naming" href="s390-Register.html">9.42.3.1 Register naming</a></li>
+        <li><a id="toc-Instruction-Mnemonics" href="s390-Mnemonics.html">9.42.3.2 Instruction Mnemonics</a></li>
+        <li><a id="toc-Instruction-Operands" href="s390-Operands.html">9.42.3.3 Instruction Operands</a></li>
+        <li><a id="toc-Instruction-Formats" href="s390-Formats.html">9.42.3.4 Instruction Formats</a></li>
+        <li><a id="toc-Instruction-Aliases" href="s390-Aliases.html">9.42.3.5 Instruction Aliases</a></li>
+        <li><a id="toc-Instruction-Operand-Modifier" href="s390-Operand-Modifier.html">9.42.3.6 Instruction Operand Modifier</a></li>
+        <li><a id="toc-Instruction-Marker" href="s390-Instruction-Marker.html">9.42.3.7 Instruction Marker</a></li>
+        <li><a id="toc-Literal-Pool-Entries" href="s390-Literal-Pool-Entries.html">9.42.3.8 Literal Pool Entries</a></li>
       </ul></li>
-      <li><a id="toc-Floating-Point-14" href="SH-Floating-Point.html">9.43.3 Floating Point</a></li>
-      <li><a id="toc-SH-Machine-Directives" href="SH-Directives.html">9.43.4 SH Machine Directives</a></li>
-      <li><a id="toc-Opcodes-18" href="SH-Opcodes.html">9.43.5 Opcodes</a></li>
+      <li><a id="toc-Assembler-Directives-7" href="s390-Directives.html">9.42.4 Assembler Directives</a></li>
+      <li><a id="toc-Floating-Point-13" href="s390-Floating-Point.html">9.42.5 Floating Point</a></li>
     </ul></li>
-    <li><a id="toc-SPARC-Dependent-Features" href="Sparc_002dDependent.html">9.44 SPARC Dependent Features</a>
+    <li><a id="toc-SCORE-Dependent-Features" href="SCORE_002dDependent.html">9.43 SCORE Dependent Features</a>
     <ul class="no-bullet">
-      <li><a id="toc-Options-24" href="Sparc_002dOpts.html">9.44.1 Options</a></li>
-      <li><a id="toc-Enforcing-aligned-data" href="Sparc_002dAligned_002dData.html">9.44.2 Enforcing aligned data</a></li>
-      <li><a id="toc-Sparc-Syntax" href="Sparc_002dSyntax.html">9.44.3 Sparc Syntax</a>
+      <li><a id="toc-Options-23" href="SCORE_002dOpts.html">9.43.1 Options</a></li>
+      <li><a id="toc-SCORE-Assembler-Directives" href="SCORE_002dPseudo.html">9.43.2 SCORE Assembler Directives</a></li>
+      <li><a id="toc-SCORE-Syntax" href="SCORE_002dSyntax.html">9.43.3 SCORE Syntax</a>
       <ul class="no-bullet">
-        <li><a id="toc-Special-Characters-35" href="Sparc_002dChars.html">9.44.3.1 Special Characters</a></li>
-        <li><a id="toc-Register-Names-16" href="Sparc_002dRegs.html">9.44.3.2 Register Names</a></li>
-        <li><a id="toc-Constants-2" href="Sparc_002dConstants.html">9.44.3.3 Constants</a></li>
-        <li><a id="toc-Relocations-4" href="Sparc_002dRelocs.html">9.44.3.4 Relocations</a></li>
-        <li><a id="toc-Size-Translations" href="Sparc_002dSize_002dTranslations.html">9.44.3.5 Size Translations</a></li>
-      </ul></li>
-      <li><a id="toc-Floating-Point-15" href="Sparc_002dFloat.html">9.44.4 Floating Point</a></li>
-      <li><a id="toc-Sparc-Machine-Directives" href="Sparc_002dDirectives.html">9.44.5 Sparc Machine Directives</a></li>
-    </ul></li>
-    <li><a id="toc-TIC54X-Dependent-Features" href="TIC54X_002dDependent.html">9.45 TIC54X Dependent Features</a>
-    <ul class="no-bullet">
-      <li><a id="toc-Options-25" href="TIC54X_002dOpts.html">9.45.1 Options</a></li>
-      <li><a id="toc-Blocking" href="TIC54X_002dBlock.html">9.45.2 Blocking</a></li>
-      <li><a id="toc-Environment-Settings" href="TIC54X_002dEnv.html">9.45.3 Environment Settings</a></li>
-      <li><a id="toc-Constants-Syntax" href="TIC54X_002dConstants.html">9.45.4 Constants Syntax</a></li>
-      <li><a id="toc-String-Substitution" href="TIC54X_002dSubsyms.html">9.45.5 String Substitution</a></li>
-      <li><a id="toc-Local-Labels" href="TIC54X_002dLocals.html">9.45.6 Local Labels</a></li>
-      <li><a id="toc-Math-Builtins" href="TIC54X_002dBuiltins.html">9.45.7 Math Builtins</a></li>
-      <li><a id="toc-Extended-Addressing" href="TIC54X_002dExt.html">9.45.8 Extended Addressing</a></li>
-      <li><a id="toc-Directives-2" href="TIC54X_002dDirectives.html">9.45.9 Directives</a></li>
-      <li><a id="toc-Macros-1" href="TIC54X_002dMacros.html">9.45.10 Macros</a></li>
-      <li><a id="toc-Memory_002dmapped-Registers" href="TIC54X_002dMMRegs.html">9.45.11 Memory-mapped Registers</a></li>
-      <li><a id="toc-TIC54X-Syntax" href="TIC54X_002dSyntax.html">9.45.12 TIC54X Syntax</a>
-      <ul class="no-bullet">
-        <li><a id="toc-Special-Characters-36" href="TIC54X_002dChars.html">9.45.12.1 Special Characters</a></li>
+        <li><a id="toc-Special-Characters-32" href="SCORE_002dChars.html">9.43.3.1 Special Characters</a></li>
       </ul></li>
     </ul></li>
-    <li><a id="toc-TIC6X-Dependent-Features" href="TIC6X_002dDependent.html">9.46 TIC6X Dependent Features</a>
+    <li><a id="toc-Renesas-_002f-SuperH-SH-Dependent-Features" href="SH_002dDependent.html">9.44 Renesas / SuperH SH Dependent Features</a>
     <ul class="no-bullet">
-      <li><a id="toc-TIC6X-Options-1" href="TIC6X-Options.html">9.46.1 TIC6X Options</a></li>
-      <li><a id="toc-TIC6X-Syntax-1" href="TIC6X-Syntax.html">9.46.2 TIC6X Syntax</a></li>
-      <li><a id="toc-TIC6X-Directives-1" href="TIC6X-Directives.html">9.46.3 TIC6X Directives</a></li>
-    </ul></li>
-    <li><a id="toc-TILE_002dGx-Dependent-Features" href="TILE_002dGx_002dDependent.html">9.47 TILE-Gx Dependent Features</a>
-    <ul class="no-bullet">
-      <li><a id="toc-Options-26" href="TILE_002dGx-Options.html">9.47.1 Options</a></li>
-      <li><a id="toc-Syntax-28" href="TILE_002dGx-Syntax.html">9.47.2 Syntax</a>
+      <li><a id="toc-Options-24" href="SH-Options.html">9.44.1 Options</a></li>
+      <li><a id="toc-Syntax-26" href="SH-Syntax.html">9.44.2 Syntax</a>
       <ul class="no-bullet">
-        <li><a id="toc-Opcode-Names" href="TILE_002dGx-Opcodes.html">9.47.2.1 Opcode Names</a></li>
-        <li><a id="toc-Register-Names-17" href="TILE_002dGx-Registers.html">9.47.2.2 Register Names</a></li>
-        <li><a id="toc-Symbolic-Operand-Modifiers-4" href="TILE_002dGx-Modifiers.html">9.47.2.3 Symbolic Operand Modifiers</a></li>
+        <li><a id="toc-Special-Characters-33" href="SH_002dChars.html">9.44.2.1 Special Characters</a></li>
+        <li><a id="toc-Register-Names-14" href="SH_002dRegs.html">9.44.2.2 Register Names</a></li>
+        <li><a id="toc-Addressing-Modes-4" href="SH_002dAddressing.html">9.44.2.3 Addressing Modes</a></li>
       </ul></li>
-      <li><a id="toc-TILE_002dGx-Directives-1" href="TILE_002dGx-Directives.html">9.47.3 TILE-Gx Directives</a></li>
+      <li><a id="toc-Floating-Point-14" href="SH-Floating-Point.html">9.44.3 Floating Point</a></li>
+      <li><a id="toc-SH-Machine-Directives" href="SH-Directives.html">9.44.4 SH Machine Directives</a></li>
+      <li><a id="toc-Opcodes-17" href="SH-Opcodes.html">9.44.5 Opcodes</a></li>
     </ul></li>
-    <li><a id="toc-TILEPro-Dependent-Features" href="TILEPro_002dDependent.html">9.48 TILEPro Dependent Features</a>
+    <li><a id="toc-SPARC-Dependent-Features" href="Sparc_002dDependent.html">9.45 SPARC Dependent Features</a>
     <ul class="no-bullet">
-      <li><a id="toc-Options-27" href="TILEPro-Options.html">9.48.1 Options</a></li>
-      <li><a id="toc-Syntax-29" href="TILEPro-Syntax.html">9.48.2 Syntax</a>
+      <li><a id="toc-Options-25" href="Sparc_002dOpts.html">9.45.1 Options</a></li>
+      <li><a id="toc-Enforcing-aligned-data" href="Sparc_002dAligned_002dData.html">9.45.2 Enforcing aligned data</a></li>
+      <li><a id="toc-Sparc-Syntax" href="Sparc_002dSyntax.html">9.45.3 Sparc Syntax</a>
       <ul class="no-bullet">
-        <li><a id="toc-Opcode-Names-1" href="TILEPro-Opcodes.html">9.48.2.1 Opcode Names</a></li>
-        <li><a id="toc-Register-Names-18" href="TILEPro-Registers.html">9.48.2.2 Register Names</a></li>
-        <li><a id="toc-Symbolic-Operand-Modifiers-5" href="TILEPro-Modifiers.html">9.48.2.3 Symbolic Operand Modifiers</a></li>
+        <li><a id="toc-Special-Characters-34" href="Sparc_002dChars.html">9.45.3.1 Special Characters</a></li>
+        <li><a id="toc-Register-Names-15" href="Sparc_002dRegs.html">9.45.3.2 Register Names</a></li>
+        <li><a id="toc-Constants-2" href="Sparc_002dConstants.html">9.45.3.3 Constants</a></li>
+        <li><a id="toc-Relocations-4" href="Sparc_002dRelocs.html">9.45.3.4 Relocations</a></li>
+        <li><a id="toc-Size-Translations" href="Sparc_002dSize_002dTranslations.html">9.45.3.5 Size Translations</a></li>
       </ul></li>
-      <li><a id="toc-TILEPro-Directives-1" href="TILEPro-Directives.html">9.48.3 TILEPro Directives</a></li>
+      <li><a id="toc-Floating-Point-15" href="Sparc_002dFloat.html">9.45.4 Floating Point</a></li>
+      <li><a id="toc-Sparc-Machine-Directives" href="Sparc_002dDirectives.html">9.45.5 Sparc Machine Directives</a></li>
     </ul></li>
-    <li><a id="toc-v850-Dependent-Features" href="V850_002dDependent.html">9.49 v850 Dependent Features</a>
+    <li><a id="toc-TIC54X-Dependent-Features" href="TIC54X_002dDependent.html">9.46 TIC54X Dependent Features</a>
     <ul class="no-bullet">
-      <li><a id="toc-Options-28" href="V850-Options.html">9.49.1 Options</a></li>
-      <li><a id="toc-Syntax-30" href="V850-Syntax.html">9.49.2 Syntax</a>
+      <li><a id="toc-Options-26" href="TIC54X_002dOpts.html">9.46.1 Options</a></li>
+      <li><a id="toc-Blocking" href="TIC54X_002dBlock.html">9.46.2 Blocking</a></li>
+      <li><a id="toc-Environment-Settings" href="TIC54X_002dEnv.html">9.46.3 Environment Settings</a></li>
+      <li><a id="toc-Constants-Syntax" href="TIC54X_002dConstants.html">9.46.4 Constants Syntax</a></li>
+      <li><a id="toc-String-Substitution" href="TIC54X_002dSubsyms.html">9.46.5 String Substitution</a></li>
+      <li><a id="toc-Local-Labels" href="TIC54X_002dLocals.html">9.46.6 Local Labels</a></li>
+      <li><a id="toc-Math-Builtins" href="TIC54X_002dBuiltins.html">9.46.7 Math Builtins</a></li>
+      <li><a id="toc-Extended-Addressing" href="TIC54X_002dExt.html">9.46.8 Extended Addressing</a></li>
+      <li><a id="toc-Directives-2" href="TIC54X_002dDirectives.html">9.46.9 Directives</a></li>
+      <li><a id="toc-Macros-1" href="TIC54X_002dMacros.html">9.46.10 Macros</a></li>
+      <li><a id="toc-Memory_002dmapped-Registers" href="TIC54X_002dMMRegs.html">9.46.11 Memory-mapped Registers</a></li>
+      <li><a id="toc-TIC54X-Syntax" href="TIC54X_002dSyntax.html">9.46.12 TIC54X Syntax</a>
       <ul class="no-bullet">
-        <li><a id="toc-Special-Characters-37" href="V850_002dChars.html">9.49.2.1 Special Characters</a></li>
-        <li><a id="toc-Register-Names-19" href="V850_002dRegs.html">9.49.2.2 Register Names</a></li>
-      </ul></li>
-      <li><a id="toc-Floating-Point-16" href="V850-Floating-Point.html">9.49.3 Floating Point</a></li>
-      <li><a id="toc-V850-Machine-Directives" href="V850-Directives.html">9.49.4 V850 Machine Directives</a></li>
-      <li><a id="toc-Opcodes-19" href="V850-Opcodes.html">9.49.5 Opcodes</a></li>
-    </ul></li>
-    <li><a id="toc-VAX-Dependent-Features" href="Vax_002dDependent.html">9.50 VAX Dependent Features</a>
-    <ul class="no-bullet">
-      <li><a id="toc-VAX-Command_002dLine-Options" href="VAX_002dOpts.html">9.50.1 VAX Command-Line Options</a></li>
-      <li><a id="toc-VAX-Floating-Point" href="VAX_002dfloat.html">9.50.2 VAX Floating Point</a></li>
-      <li><a id="toc-Vax-Machine-Directives" href="VAX_002ddirectives.html">9.50.3 Vax Machine Directives</a></li>
-      <li><a id="toc-VAX-Opcodes" href="VAX_002dopcodes.html">9.50.4 VAX Opcodes</a></li>
-      <li><a id="toc-VAX-Branch-Improvement" href="VAX_002dbranch.html">9.50.5 VAX Branch Improvement</a></li>
-      <li><a id="toc-VAX-Operands" href="VAX_002doperands.html">9.50.6 VAX Operands</a></li>
-      <li><a id="toc-Not-Supported-on-VAX" href="VAX_002dno.html">9.50.7 Not Supported on VAX</a></li>
-      <li><a id="toc-VAX-Syntax" href="VAX_002dSyntax.html">9.50.8 VAX Syntax</a>
-      <ul class="no-bullet">
-        <li><a id="toc-Special-Characters-38" href="VAX_002dChars.html">9.50.8.1 Special Characters</a></li>
+        <li><a id="toc-Special-Characters-35" href="TIC54X_002dChars.html">9.46.12.1 Special Characters</a></li>
       </ul></li>
     </ul></li>
-    <li><a id="toc-Visium-Dependent-Features" href="Visium_002dDependent.html">9.51 Visium Dependent Features</a>
+    <li><a id="toc-TIC6X-Dependent-Features" href="TIC6X_002dDependent.html">9.47 TIC6X Dependent Features</a>
     <ul class="no-bullet">
-      <li><a id="toc-Options-29" href="Visium-Options.html">9.51.1 Options</a></li>
-      <li><a id="toc-Syntax-31" href="Visium-Syntax.html">9.51.2 Syntax</a>
-      <ul class="no-bullet">
-        <li><a id="toc-Special-Characters-39" href="Visium-Characters.html">9.51.2.1 Special Characters</a></li>
-        <li><a id="toc-Register-Names-20" href="Visium-Registers.html">9.51.2.2 Register Names</a></li>
-      </ul></li>
-      <li><a id="toc-Opcodes-20" href="Visium-Opcodes.html">9.51.3 Opcodes</a></li>
+      <li><a id="toc-TIC6X-Options-1" href="TIC6X-Options.html">9.47.1 TIC6X Options</a></li>
+      <li><a id="toc-TIC6X-Syntax-1" href="TIC6X-Syntax.html">9.47.2 TIC6X Syntax</a></li>
+      <li><a id="toc-TIC6X-Directives-1" href="TIC6X-Directives.html">9.47.3 TIC6X Directives</a></li>
     </ul></li>
-    <li><a id="toc-WebAssembly-Dependent-Features" href="WebAssembly_002dDependent.html">9.52 WebAssembly Dependent Features</a>
+    <li><a id="toc-TILE_002dGx-Dependent-Features" href="TILE_002dGx_002dDependent.html">9.48 TILE-Gx Dependent Features</a>
     <ul class="no-bullet">
-      <li><a id="toc-Notes-3" href="WebAssembly_002dNotes.html">9.52.1 Notes</a></li>
-      <li><a id="toc-Syntax-32" href="WebAssembly_002dSyntax.html">9.52.2 Syntax</a>
+      <li><a id="toc-Options-27" href="TILE_002dGx-Options.html">9.48.1 Options</a></li>
+      <li><a id="toc-Syntax-27" href="TILE_002dGx-Syntax.html">9.48.2 Syntax</a>
       <ul class="no-bullet">
-        <li><a id="toc-Special-Characters-40" href="WebAssembly_002dChars.html">9.52.2.1 Special Characters</a></li>
-        <li><a id="toc-Relocations-5" href="WebAssembly_002dRelocs.html">9.52.2.2 Relocations</a></li>
-        <li><a id="toc-Signatures" href="WebAssembly_002dSignatures.html">9.52.2.3 Signatures</a></li>
+        <li><a id="toc-Opcode-Names" href="TILE_002dGx-Opcodes.html">9.48.2.1 Opcode Names</a></li>
+        <li><a id="toc-Register-Names-16" href="TILE_002dGx-Registers.html">9.48.2.2 Register Names</a></li>
+        <li><a id="toc-Symbolic-Operand-Modifiers-4" href="TILE_002dGx-Modifiers.html">9.48.2.3 Symbolic Operand Modifiers</a></li>
       </ul></li>
-      <li><a id="toc-Floating-Point-17" href="WebAssembly_002dFloating_002dPoint.html">9.52.3 Floating Point</a></li>
-      <li><a id="toc-Regular-Opcodes" href="WebAssembly_002dOpcodes.html">9.52.4 Regular Opcodes</a></li>
-      <li><a id="toc-WebAssembly-Module-Layout" href="WebAssembly_002dmodule_002dlayout.html">9.52.5 WebAssembly Module Layout</a></li>
+      <li><a id="toc-TILE_002dGx-Directives-1" href="TILE_002dGx-Directives.html">9.48.3 TILE-Gx Directives</a></li>
     </ul></li>
-    <li><a id="toc-XGATE-Dependent-Features" href="XGATE_002dDependent.html">9.53 XGATE Dependent Features</a>
+    <li><a id="toc-TILEPro-Dependent-Features" href="TILEPro_002dDependent.html">9.49 TILEPro Dependent Features</a>
     <ul class="no-bullet">
-      <li><a id="toc-XGATE-Options" href="XGATE_002dOpts.html">9.53.1 XGATE Options</a></li>
-      <li><a id="toc-Syntax-33" href="XGATE_002dSyntax.html">9.53.2 Syntax</a></li>
-      <li><a id="toc-Assembler-Directives-8" href="XGATE_002dDirectives.html">9.53.3 Assembler Directives</a></li>
-      <li><a id="toc-Floating-Point-18" href="XGATE_002dFloat.html">9.53.4 Floating Point</a></li>
-      <li><a id="toc-Opcodes-21" href="XGATE_002dopcodes.html">9.53.5 Opcodes</a></li>
+      <li><a id="toc-Options-28" href="TILEPro-Options.html">9.49.1 Options</a></li>
+      <li><a id="toc-Syntax-28" href="TILEPro-Syntax.html">9.49.2 Syntax</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Opcode-Names-1" href="TILEPro-Opcodes.html">9.49.2.1 Opcode Names</a></li>
+        <li><a id="toc-Register-Names-17" href="TILEPro-Registers.html">9.49.2.2 Register Names</a></li>
+        <li><a id="toc-Symbolic-Operand-Modifiers-5" href="TILEPro-Modifiers.html">9.49.2.3 Symbolic Operand Modifiers</a></li>
+      </ul></li>
+      <li><a id="toc-TILEPro-Directives-1" href="TILEPro-Directives.html">9.49.3 TILEPro Directives</a></li>
     </ul></li>
-    <li><a id="toc-XStormy16-Dependent-Features" href="XSTORMY16_002dDependent.html">9.54 XStormy16 Dependent Features</a>
+    <li><a id="toc-v850-Dependent-Features" href="V850_002dDependent.html">9.50 v850 Dependent Features</a>
     <ul class="no-bullet">
-      <li><a id="toc-Syntax-34" href="XStormy16-Syntax.html">9.54.1 Syntax</a>
+      <li><a id="toc-Options-29" href="V850-Options.html">9.50.1 Options</a></li>
+      <li><a id="toc-Syntax-29" href="V850-Syntax.html">9.50.2 Syntax</a>
       <ul class="no-bullet">
-        <li><a id="toc-Special-Characters-41" href="XStormy16_002dChars.html">9.54.1.1 Special Characters</a></li>
+        <li><a id="toc-Special-Characters-36" href="V850_002dChars.html">9.50.2.1 Special Characters</a></li>
+        <li><a id="toc-Register-Names-18" href="V850_002dRegs.html">9.50.2.2 Register Names</a></li>
       </ul></li>
-      <li><a id="toc-XStormy16-Machine-Directives" href="XStormy16-Directives.html">9.54.2 XStormy16 Machine Directives</a></li>
-      <li><a id="toc-XStormy16-Pseudo_002dOpcodes" href="XStormy16-Opcodes.html">9.54.3 XStormy16 Pseudo-Opcodes</a></li>
+      <li><a id="toc-Floating-Point-16" href="V850-Floating-Point.html">9.50.3 Floating Point</a></li>
+      <li><a id="toc-V850-Machine-Directives" href="V850-Directives.html">9.50.4 V850 Machine Directives</a></li>
+      <li><a id="toc-Opcodes-18" href="V850-Opcodes.html">9.50.5 Opcodes</a></li>
     </ul></li>
-    <li><a id="toc-Xtensa-Dependent-Features" href="Xtensa_002dDependent.html">9.55 Xtensa Dependent Features</a>
+    <li><a id="toc-VAX-Dependent-Features" href="Vax_002dDependent.html">9.51 VAX Dependent Features</a>
     <ul class="no-bullet">
-      <li><a id="toc-Command_002dline-Options-2" href="Xtensa-Options.html">9.55.1 Command-line Options</a></li>
-      <li><a id="toc-Assembler-Syntax" href="Xtensa-Syntax.html">9.55.2 Assembler Syntax</a>
+      <li><a id="toc-VAX-Command_002dLine-Options" href="VAX_002dOpts.html">9.51.1 VAX Command-Line Options</a></li>
+      <li><a id="toc-VAX-Floating-Point" href="VAX_002dfloat.html">9.51.2 VAX Floating Point</a></li>
+      <li><a id="toc-Vax-Machine-Directives" href="VAX_002ddirectives.html">9.51.3 Vax Machine Directives</a></li>
+      <li><a id="toc-VAX-Opcodes" href="VAX_002dopcodes.html">9.51.4 VAX Opcodes</a></li>
+      <li><a id="toc-VAX-Branch-Improvement" href="VAX_002dbranch.html">9.51.5 VAX Branch Improvement</a></li>
+      <li><a id="toc-VAX-Operands" href="VAX_002doperands.html">9.51.6 VAX Operands</a></li>
+      <li><a id="toc-Not-Supported-on-VAX" href="VAX_002dno.html">9.51.7 Not Supported on VAX</a></li>
+      <li><a id="toc-VAX-Syntax" href="VAX_002dSyntax.html">9.51.8 VAX Syntax</a>
       <ul class="no-bullet">
-        <li><a id="toc-Opcode-Names-2" href="Xtensa-Opcodes.html">9.55.2.1 Opcode Names</a></li>
-        <li><a id="toc-Register-Names-21" href="Xtensa-Registers.html">9.55.2.2 Register Names</a></li>
-      </ul></li>
-      <li><a id="toc-Xtensa-Optimizations-1" href="Xtensa-Optimizations.html">9.55.3 Xtensa Optimizations</a>
-      <ul class="no-bullet">
-        <li><a id="toc-Using-Density-Instructions" href="Density-Instructions.html">9.55.3.1 Using Density Instructions</a></li>
-        <li><a id="toc-Automatic-Instruction-Alignment" href="Xtensa-Automatic-Alignment.html">9.55.3.2 Automatic Instruction Alignment</a></li>
-      </ul></li>
-      <li><a id="toc-Xtensa-Relaxation-1" href="Xtensa-Relaxation.html">9.55.4 Xtensa Relaxation</a>
-      <ul class="no-bullet">
-        <li><a id="toc-Conditional-Branch-Relaxation" href="Xtensa-Branch-Relaxation.html">9.55.4.1 Conditional Branch Relaxation</a></li>
-        <li><a id="toc-Function-Call-Relaxation" href="Xtensa-Call-Relaxation.html">9.55.4.2 Function Call Relaxation</a></li>
-        <li><a id="toc-Jump-Relaxation" href="Xtensa-Jump-Relaxation.html">9.55.4.3 Jump Relaxation</a></li>
-        <li><a id="toc-Other-Immediate-Field-Relaxation" href="Xtensa-Immediate-Relaxation.html">9.55.4.4 Other Immediate Field Relaxation</a></li>
-      </ul></li>
-      <li><a id="toc-Directives-3" href="Xtensa-Directives.html">9.55.5 Directives</a>
-      <ul class="no-bullet">
-        <li><a id="toc-schedule" href="Schedule-Directive.html">9.55.5.1 schedule</a></li>
-        <li><a id="toc-longcalls" href="Longcalls-Directive.html">9.55.5.2 longcalls</a></li>
-        <li><a id="toc-transform" href="Transform-Directive.html">9.55.5.3 transform</a></li>
-        <li><a id="toc-literal" href="Literal-Directive.html">9.55.5.4 literal</a></li>
-        <li><a id="toc-literal_005fposition" href="Literal-Position-Directive.html">9.55.5.5 literal_position</a></li>
-        <li><a id="toc-literal_005fprefix" href="Literal-Prefix-Directive.html">9.55.5.6 literal_prefix</a></li>
-        <li><a id="toc-absolute_002dliterals" href="Absolute-Literals-Directive.html">9.55.5.7 absolute-literals</a></li>
+        <li><a id="toc-Special-Characters-37" href="VAX_002dChars.html">9.51.8.1 Special Characters</a></li>
       </ul></li>
     </ul></li>
-    <li><a id="toc-Z80-Dependent-Features" href="Z80_002dDependent.html">9.56 Z80 Dependent Features</a>
+    <li><a id="toc-Visium-Dependent-Features" href="Visium_002dDependent.html">9.52 Visium Dependent Features</a>
     <ul class="no-bullet">
-      <li><a id="toc-Command_002dline-Options-3" href="Z80-Options.html">9.56.1 Command-line Options</a></li>
-      <li><a id="toc-Syntax-35" href="Z80-Syntax.html">9.56.2 Syntax</a>
+      <li><a id="toc-Options-30" href="Visium-Options.html">9.52.1 Options</a></li>
+      <li><a id="toc-Syntax-30" href="Visium-Syntax.html">9.52.2 Syntax</a>
       <ul class="no-bullet">
-        <li><a id="toc-Special-Characters-42" href="Z80_002dChars.html">9.56.2.1 Special Characters</a></li>
-        <li><a id="toc-Register-Names-22" href="Z80_002dRegs.html">9.56.2.2 Register Names</a></li>
-        <li><a id="toc-Case-Sensitivity" href="Z80_002dCase.html">9.56.2.3 Case Sensitivity</a></li>
-        <li><a id="toc-Labels-2" href="Z80_002dLabels.html">9.56.2.4 Labels</a></li>
+        <li><a id="toc-Special-Characters-38" href="Visium-Characters.html">9.52.2.1 Special Characters</a></li>
+        <li><a id="toc-Register-Names-19" href="Visium-Registers.html">9.52.2.2 Register Names</a></li>
       </ul></li>
-      <li><a id="toc-Floating-Point-19" href="Z80-Floating-Point.html">9.56.3 Floating Point</a></li>
-      <li><a id="toc-Z80-Assembler-Directives" href="Z80-Directives.html">9.56.4 Z80 Assembler Directives</a></li>
-      <li><a id="toc-Opcodes-22" href="Z80-Opcodes.html">9.56.5 Opcodes</a></li>
+      <li><a id="toc-Opcodes-19" href="Visium-Opcodes.html">9.52.3 Opcodes</a></li>
     </ul></li>
-    <li><a id="toc-Z8000-Dependent-Features" href="Z8000_002dDependent.html">9.57 Z8000 Dependent Features</a>
+    <li><a id="toc-WebAssembly-Dependent-Features" href="WebAssembly_002dDependent.html">9.53 WebAssembly Dependent Features</a>
     <ul class="no-bullet">
-      <li><a id="toc-Options-30" href="Z8000-Options.html">9.57.1 Options</a></li>
-      <li><a id="toc-Syntax-36" href="Z8000-Syntax.html">9.57.2 Syntax</a>
+      <li><a id="toc-Notes-3" href="WebAssembly_002dNotes.html">9.53.1 Notes</a></li>
+      <li><a id="toc-Syntax-31" href="WebAssembly_002dSyntax.html">9.53.2 Syntax</a>
       <ul class="no-bullet">
-        <li><a id="toc-Special-Characters-43" href="Z8000_002dChars.html">9.57.2.1 Special Characters</a></li>
-        <li><a id="toc-Register-Names-23" href="Z8000_002dRegs.html">9.57.2.2 Register Names</a></li>
-        <li><a id="toc-Addressing-Modes-5" href="Z8000_002dAddressing.html">9.57.2.3 Addressing Modes</a></li>
+        <li><a id="toc-Special-Characters-39" href="WebAssembly_002dChars.html">9.53.2.1 Special Characters</a></li>
+        <li><a id="toc-Relocations-5" href="WebAssembly_002dRelocs.html">9.53.2.2 Relocations</a></li>
+        <li><a id="toc-Signatures" href="WebAssembly_002dSignatures.html">9.53.2.3 Signatures</a></li>
       </ul></li>
-      <li><a id="toc-Assembler-Directives-for-the-Z8000" href="Z8000-Directives.html">9.57.3 Assembler Directives for the Z8000</a></li>
-      <li><a id="toc-Opcodes-23" href="Z8000-Opcodes.html">9.57.4 Opcodes</a></li>
+      <li><a id="toc-Floating-Point-17" href="WebAssembly_002dFloating_002dPoint.html">9.53.3 Floating Point</a></li>
+      <li><a id="toc-Regular-Opcodes" href="WebAssembly_002dOpcodes.html">9.53.4 Regular Opcodes</a></li>
+      <li><a id="toc-WebAssembly-Module-Layout" href="WebAssembly_002dmodule_002dlayout.html">9.53.5 WebAssembly Module Layout</a></li>
+    </ul></li>
+    <li><a id="toc-XGATE-Dependent-Features" href="XGATE_002dDependent.html">9.54 XGATE Dependent Features</a>
+    <ul class="no-bullet">
+      <li><a id="toc-XGATE-Options" href="XGATE_002dOpts.html">9.54.1 XGATE Options</a></li>
+      <li><a id="toc-Syntax-32" href="XGATE_002dSyntax.html">9.54.2 Syntax</a></li>
+      <li><a id="toc-Assembler-Directives-8" href="XGATE_002dDirectives.html">9.54.3 Assembler Directives</a></li>
+      <li><a id="toc-Floating-Point-18" href="XGATE_002dFloat.html">9.54.4 Floating Point</a></li>
+      <li><a id="toc-Opcodes-20" href="XGATE_002dopcodes.html">9.54.5 Opcodes</a></li>
+    </ul></li>
+    <li><a id="toc-XStormy16-Dependent-Features" href="XSTORMY16_002dDependent.html">9.55 XStormy16 Dependent Features</a>
+    <ul class="no-bullet">
+      <li><a id="toc-Syntax-33" href="XStormy16-Syntax.html">9.55.1 Syntax</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Special-Characters-40" href="XStormy16_002dChars.html">9.55.1.1 Special Characters</a></li>
+      </ul></li>
+      <li><a id="toc-XStormy16-Machine-Directives" href="XStormy16-Directives.html">9.55.2 XStormy16 Machine Directives</a></li>
+      <li><a id="toc-XStormy16-Pseudo_002dOpcodes" href="XStormy16-Opcodes.html">9.55.3 XStormy16 Pseudo-Opcodes</a></li>
+    </ul></li>
+    <li><a id="toc-Xtensa-Dependent-Features" href="Xtensa_002dDependent.html">9.56 Xtensa Dependent Features</a>
+    <ul class="no-bullet">
+      <li><a id="toc-Command_002dline-Options-2" href="Xtensa-Options.html">9.56.1 Command-line Options</a></li>
+      <li><a id="toc-Assembler-Syntax" href="Xtensa-Syntax.html">9.56.2 Assembler Syntax</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Opcode-Names-2" href="Xtensa-Opcodes.html">9.56.2.1 Opcode Names</a></li>
+        <li><a id="toc-Register-Names-20" href="Xtensa-Registers.html">9.56.2.2 Register Names</a></li>
+      </ul></li>
+      <li><a id="toc-Xtensa-Optimizations-1" href="Xtensa-Optimizations.html">9.56.3 Xtensa Optimizations</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Using-Density-Instructions" href="Density-Instructions.html">9.56.3.1 Using Density Instructions</a></li>
+        <li><a id="toc-Automatic-Instruction-Alignment" href="Xtensa-Automatic-Alignment.html">9.56.3.2 Automatic Instruction Alignment</a></li>
+      </ul></li>
+      <li><a id="toc-Xtensa-Relaxation-1" href="Xtensa-Relaxation.html">9.56.4 Xtensa Relaxation</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Conditional-Branch-Relaxation" href="Xtensa-Branch-Relaxation.html">9.56.4.1 Conditional Branch Relaxation</a></li>
+        <li><a id="toc-Function-Call-Relaxation" href="Xtensa-Call-Relaxation.html">9.56.4.2 Function Call Relaxation</a></li>
+        <li><a id="toc-Jump-Relaxation" href="Xtensa-Jump-Relaxation.html">9.56.4.3 Jump Relaxation</a></li>
+        <li><a id="toc-Other-Immediate-Field-Relaxation" href="Xtensa-Immediate-Relaxation.html">9.56.4.4 Other Immediate Field Relaxation</a></li>
+      </ul></li>
+      <li><a id="toc-Directives-3" href="Xtensa-Directives.html">9.56.5 Directives</a>
+      <ul class="no-bullet">
+        <li><a id="toc-schedule" href="Schedule-Directive.html">9.56.5.1 schedule</a></li>
+        <li><a id="toc-longcalls" href="Longcalls-Directive.html">9.56.5.2 longcalls</a></li>
+        <li><a id="toc-transform" href="Transform-Directive.html">9.56.5.3 transform</a></li>
+        <li><a id="toc-literal" href="Literal-Directive.html">9.56.5.4 literal</a></li>
+        <li><a id="toc-literal_005fposition" href="Literal-Position-Directive.html">9.56.5.5 literal_position</a></li>
+        <li><a id="toc-literal_005fprefix" href="Literal-Prefix-Directive.html">9.56.5.6 literal_prefix</a></li>
+        <li><a id="toc-absolute_002dliterals" href="Absolute-Literals-Directive.html">9.56.5.7 absolute-literals</a></li>
+      </ul></li>
+    </ul></li>
+    <li><a id="toc-Z80-Dependent-Features" href="Z80_002dDependent.html">9.57 Z80 Dependent Features</a>
+    <ul class="no-bullet">
+      <li><a id="toc-Command_002dline-Options-3" href="Z80-Options.html">9.57.1 Command-line Options</a></li>
+      <li><a id="toc-Syntax-34" href="Z80-Syntax.html">9.57.2 Syntax</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Special-Characters-41" href="Z80_002dChars.html">9.57.2.1 Special Characters</a></li>
+        <li><a id="toc-Register-Names-21" href="Z80_002dRegs.html">9.57.2.2 Register Names</a></li>
+        <li><a id="toc-Case-Sensitivity" href="Z80_002dCase.html">9.57.2.3 Case Sensitivity</a></li>
+        <li><a id="toc-Labels-2" href="Z80_002dLabels.html">9.57.2.4 Labels</a></li>
+      </ul></li>
+      <li><a id="toc-Floating-Point-19" href="Z80-Floating-Point.html">9.57.3 Floating Point</a></li>
+      <li><a id="toc-Z80-Assembler-Directives" href="Z80-Directives.html">9.57.4 Z80 Assembler Directives</a></li>
+      <li><a id="toc-Opcodes-21" href="Z80-Opcodes.html">9.57.5 Opcodes</a></li>
+    </ul></li>
+    <li><a id="toc-Z8000-Dependent-Features" href="Z8000_002dDependent.html">9.58 Z8000 Dependent Features</a>
+    <ul class="no-bullet">
+      <li><a id="toc-Options-31" href="Z8000-Options.html">9.58.1 Options</a></li>
+      <li><a id="toc-Syntax-35" href="Z8000-Syntax.html">9.58.2 Syntax</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Special-Characters-42" href="Z8000_002dChars.html">9.58.2.1 Special Characters</a></li>
+        <li><a id="toc-Register-Names-22" href="Z8000_002dRegs.html">9.58.2.2 Register Names</a></li>
+        <li><a id="toc-Addressing-Modes-5" href="Z8000_002dAddressing.html">9.58.2.3 Addressing Modes</a></li>
+      </ul></li>
+      <li><a id="toc-Assembler-Directives-for-the-Z8000" href="Z8000-Directives.html">9.58.3 Assembler Directives for the Z8000</a></li>
+      <li><a id="toc-Opcodes-22" href="Z8000-Opcodes.html">9.58.4 Opcodes</a></li>
     </ul></li>
   </ul></li>
   <li><a id="toc-Reporting-Bugs-1" href="Reporting-Bugs.html">10 Reporting Bugs</a>

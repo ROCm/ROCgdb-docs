@@ -3,7 +3,10 @@
 <!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright (C) 1991-2022 Free Software Foundation, Inc.
+<!-- Copyright (C) 2023-2024 Advanced Micro Devices, Inc.
+
+
+Copyright (C) 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -78,6 +81,7 @@ Next: <a href="elfedit.html" accesskey="n" rel="next">elfedit</a>, Previous: <a 
         [<samp>--quiet</samp>]
         [<samp>--recurse-limit</samp>|<samp>--no-recurse-limit</samp>]
         [<samp>-U</samp> <var>method</var>|<samp>--unicode=</samp><var>method</var>]
+        [<samp>-X</samp>|<samp>--extra-sym-info</samp>|<samp>--no-extra-sym-info</samp>]
         [<samp>-n</samp>|<samp>--notes</samp>]
         [<samp>-r</samp>|<samp>--relocs</samp>]
         [<samp>-u</samp>|<samp>--unwind</samp>]
@@ -89,6 +93,7 @@ Next: <a href="elfedit.html" accesskey="n" rel="next">elfedit</a>, Previous: <a 
         [<samp>-x</samp> &lt;number or name&gt;|<samp>--hex-dump=</samp>&lt;number or name&gt;]
         [<samp>-p</samp> &lt;number or name&gt;|<samp>--string-dump=</samp>&lt;number or name&gt;]
         [<samp>-R</samp> &lt;number or name&gt;|<samp>--relocated-dump=</samp>&lt;number or name&gt;]
+        [<samp>-j</samp> &lt;number or name&gt;|<samp>--display-section=</samp>&lt;number or name&gt;]
         [<samp>-z</samp>|<samp>--decompress</samp>]
         [<samp>-c</samp>|<samp>--archive-index</samp>]
         [<samp>-w[lLiaprmfFsoORtUuTgAck]</samp>|
@@ -269,6 +274,22 @@ colouring is intended to draw attention to the presence of unicode
 sequences when they might not be expected.
 </p>
 </dd>
+<dt><span><code>-X</code></span></dt>
+<dt><span><code>--extra-sym-info</code></span></dt>
+<dd><p>When displaying details of symbols, include extra information not
+normally presented.  Currently this just adds the name of the section
+referenced by the symbol&rsquo;s index field, if there is one.  In the
+future more information may be displayed when this option is enabled.
+</p>
+<p>Enabling this option effectively enables the <samp>--wide</samp> option as
+well, at least when displaying symbol information.
+</p>
+</dd>
+<dt><span><code>--no-extra-sym-info</code></span></dt>
+<dd><p>Disables the effect of the <samp>--extra-sym-info</samp> option.  This
+is the default.
+</p>
+</dd>
 <dt><span><code>-e</code></span></dt>
 <dt><span><code>--headers</code></span></dt>
 <dd><p>Display all the headers in the file.  Equivalent to <samp>-h -l -S</samp>.
@@ -337,6 +358,8 @@ displayed.
 <dd><p>Displays the contents of the indicated section as a hexadecimal bytes.
 A number identifies a particular section by index in the section table;
 any other string identifies all sections with that name in the object file.
+This option can be repeated multiple times on the command line in
+order to request multiple hex dumps.
 </p>
 </dd>
 <dt><span><code>-R &lt;number or name&gt;</code></span></dt>
@@ -346,6 +369,8 @@ bytes.  A number identifies a particular section by index in the
 section table; any other string identifies all sections with that name
 in the object file.  The contents of the section will be relocated
 before they are displayed.
+This option can be repeated multiple times on the command line in
+order to request multiple relocated dumps.
 </p>
 </dd>
 <dt><span><code>-p &lt;number or name&gt;</code></span></dt>
@@ -353,6 +378,24 @@ before they are displayed.
 <dd><p>Displays the contents of the indicated section as printable strings.
 A number identifies a particular section by index in the section table;
 any other string identifies all sections with that name in the object file.
+This option can be repeated multiple times on the command line in
+order to request multiple string dumps.
+</p>
+</dd>
+<dt><span><code>-j &lt;number or name&gt;</code></span></dt>
+<dt><span><code>--display-section</code></span></dt>
+<dd><p>Displays the contents of the indicated section according to its
+section header type.  Sections containing relocations will be
+displayed as if the <samp>--relocations</samp> option had been used,
+sections contains symbols will be displayed as if the <samp>--syms</samp>
+option had been used and so on.
+</p>
+<p>A number identifies a particular section by index in the section
+table; any other string identifies all sections with that name in the
+input file(s).
+</p>
+<p>This option can be repeated multiple times on the command line in
+order to request multiple section dumps.
 </p>
 </dd>
 <dt><span><code>-z</code></span></dt>
@@ -602,6 +645,17 @@ function at link time.  When looking at CTF archives that have been
 created by a linker that uses the name changer to rename the parent
 archive member, <samp>--ctf-parent</samp> can be used to specify the name
 used for the parent.
+</p>
+</dd>
+<dt><span><code>--ctf-parent-section=<var>section</var></code></span></dt>
+<dd>
+<p>This option lets you pick a completely different section for the CTF
+parent dictionary containing unambiguous types than for the child
+dictionaries that contain the ambiguous remainder.  The linker does
+not emit ELF objects structured like this, but some third-party linkers
+may.  It&rsquo;s also convenient to inspect CTF written out as multiple raw
+files to compose them with objcopy, which can put them in different
+ELF sections but not in different members of a single CTF dict.
 </p></dd>
 <dt><span><code>--ctf-symbols=<var>section</var></code></span></dt>
 <dt><span><code>--ctf-strings=<var>section</var></code></span></dt>

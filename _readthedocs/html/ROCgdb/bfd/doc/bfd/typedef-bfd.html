@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the BFD library.
 
-Copyright (C) 1991-2022 Free Software Foundation, Inc.
+Copyright (C) 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -80,30 +80,7 @@ to the rest of the data.
 </p>
 
 <div class="example">
-<pre class="example">
-
-enum bfd_direction
-  {
-    no_direction = 0,
-    read_direction = 1,
-    write_direction = 2,
-    both_direction = 3
-  };
-
-enum bfd_plugin_format
-  {
-    bfd_plugin_unknown = 0,
-    bfd_plugin_yes = 1,
-    bfd_plugin_no = 2
-  };
-
-struct bfd_build_id
-  {
-    bfd_size_type size;
-    bfd_byte data[1];
-  };
-
-struct bfd
+<pre class="example">struct bfd
 {
   /* The filename the application opened the BFD with.  */
   const char *filename;
@@ -187,8 +164,8 @@ struct bfd
 #define BFD_TRADITIONAL_FORMAT    0x400
 
   /* This flag indicates that the BFD contents are actually cached
-     in memory.  If this is set, iostream points to a bfd_in_memory
-     struct.  */
+     in memory.  If this is set, iostream points to a malloc'd
+     bfd_in_memory struct.  */
 #define BFD_IN_MEMORY             0x800
 
   /* This BFD has been created by the linker and doesn't correspond
@@ -226,23 +203,35 @@ struct bfd
   /* Compress sections in this BFD with SHF_COMPRESSED zstd.  */
 #define BFD_COMPRESS_ZSTD      0x400000
 
-  /* Flags bits to be saved in bfd_preserve_save.  */
-#define BFD_FLAGS_SAVED \
-  (BFD_IN_MEMORY | BFD_COMPRESS | BFD_DECOMPRESS | BFD_LINKER_CREATED \
-   | BFD_PLUGIN | BFD_COMPRESS_GABI | BFD_CONVERT_ELF_COMMON \
-   | BFD_USE_ELF_STT_COMMON | BFD_COMPRESS_ZSTD)
+  /* Don't generate ELF section header.  */
+#define BFD_NO_SECTION_HEADER  0x800000
 
   /* Flags bits which are for BFD use only.  */
 #define BFD_FLAGS_FOR_BFD_USE_MASK \
   (BFD_IN_MEMORY | BFD_COMPRESS | BFD_DECOMPRESS | BFD_LINKER_CREATED \
    | BFD_PLUGIN | BFD_TRADITIONAL_FORMAT | BFD_DETERMINISTIC_OUTPUT \
-   | BFD_COMPRESS_GABI | BFD_CONVERT_ELF_COMMON | BFD_USE_ELF_STT_COMMON)
+   | BFD_COMPRESS_GABI | BFD_CONVERT_ELF_COMMON | BFD_USE_ELF_STT_COMMON \
+   | BFD_NO_SECTION_HEADER)
 
   /* The format which belongs to the BFD. (object, core, etc.)  */
   ENUM_BITFIELD (bfd_format) format : 3;
 
   /* The direction with which the BFD was opened.  */
   ENUM_BITFIELD (bfd_direction) direction : 2;
+
+  /* POSIX.1-2017 (IEEE Std 1003.1) says of fopen : &quot;When a file is
+     opened with update mode ('+' as the second or third character in
+     the mode argument), both input and output may be performed on
+     the associated stream.  However, the application shall ensure
+     that output is not directly followed by input without an
+     intervening call to fflush() or to a file positioning function
+     (fseek(), fsetpos(), or rewind()), and input is not directly
+     followed by output without an intervening call to a file
+     positioning function, unless the input operation encounters
+     end-of-file.&quot;
+     This field tracks the last IO operation, so that bfd can insert
+     a seek when IO direction changes.  */
+  ENUM_BITFIELD (bfd_last_io) last_io : 2;
 
   /* Is the file descriptor being cached?  That is, can it be closed as
      needed, and re-opened when accessed later?  */
@@ -292,12 +281,18 @@ struct bfd
   /* Set if this is a plugin output file.  */
   unsigned int lto_output : 1;
 
-  /* Set if this is a slim LTO object not loaded with a compiler plugin.  */
-  unsigned int lto_slim_object : 1;
-
   /* Do not attempt to modify this file.  Set when detecting errors
      that BFD is not prepared to handle for objcopy/strip.  */
   unsigned int read_only : 1;
+
+  /* LTO object type.  */
+  ENUM_BITFIELD (bfd_lto_object_type) lto_type : 2;
+
+  /* Set if this BFD is currently being processed by
+     bfd_check_format_matches.  This is checked by the cache to
+     avoid closing the BFD in this case.  This should only be
+     examined or modified while the BFD lock is held.  */
+  unsigned int in_format_matches : 1;
 
   /* Set to dummy BFD created when claimed by a compiler plug-in
      library.  */
@@ -391,8 +386,6 @@ struct bfd
       struct tekhex_data_struct *tekhex_data;
       struct elf_obj_tdata *elf_obj_data;
       struct mmo_data_struct *mmo_data;
-      struct sun_core_struct *sun_core_data;
-      struct sco5_core_struct *sco5_core_data;
       struct trad_core_struct *trad_core_data;
       struct som_data_struct *som_data;
       struct hpux_core_struct *hpux_core_data;
@@ -401,7 +394,6 @@ struct bfd
       struct lynx_core_struct *lynx_core_data;
       struct osf_core_struct *osf_core_data;
       struct cisco_core_struct *cisco_core_data;
-      struct versados_data_struct *versados_data;
       struct netbsd_core_struct *netbsd_core_data;
       struct mach_o_data_struct *mach_o_data;
       struct mach_o_fat_data_struct *mach_o_fat_data;
@@ -423,237 +415,10 @@ struct bfd
 
   /* For input BFDs, the build ID, if the object has one. */
   const struct bfd_build_id *build_id;
+
+  /* For input BFDs, mmapped entries. */
+  struct bfd_mmapped *mmapped;
 };
-
-static inline const char *
-bfd_get_filename (const bfd *abfd)
-{
-  return abfd-&gt;filename;
-}
-
-static inline bool
-bfd_get_cacheable (const bfd *abfd)
-{
-  return abfd-&gt;cacheable;
-}
-
-static inline enum bfd_format
-bfd_get_format (const bfd *abfd)
-{
-  return abfd-&gt;format;
-}
-
-static inline flagword
-bfd_get_file_flags (const bfd *abfd)
-{
-  return abfd-&gt;flags;
-}
-
-static inline bfd_vma
-bfd_get_start_address (const bfd *abfd)
-{
-  return abfd-&gt;start_address;
-}
-
-static inline unsigned int
-bfd_get_symcount (const bfd *abfd)
-{
-  return abfd-&gt;symcount;
-}
-
-static inline unsigned int
-bfd_get_dynamic_symcount (const bfd *abfd)
-{
-  return abfd-&gt;dynsymcount;
-}
-
-static inline struct bfd_symbol **
-bfd_get_outsymbols (const bfd *abfd)
-{
-  return abfd-&gt;outsymbols;
-}
-
-static inline unsigned int
-bfd_count_sections (const bfd *abfd)
-{
-  return abfd-&gt;section_count;
-}
-
-static inline bool
-bfd_has_map (const bfd *abfd)
-{
-  return abfd-&gt;has_armap;
-}
-
-static inline bool
-bfd_is_thin_archive (const bfd *abfd)
-{
-  return abfd-&gt;is_thin_archive;
-}
-
-static inline void *
-bfd_usrdata (const bfd *abfd)
-{
-  return abfd-&gt;usrdata;
-}
-
-/* See note beside bfd_set_section_userdata.  */
-static inline bool
-bfd_set_cacheable (bfd * abfd, bool val)
-{
-  abfd-&gt;cacheable = val;
-  return true;
-}
-
-static inline void
-bfd_set_thin_archive (bfd *abfd, bool val)
-{
-  abfd-&gt;is_thin_archive = val;
-}
-
-static inline void
-bfd_set_usrdata (bfd *abfd, void *val)
-{
-  abfd-&gt;usrdata = val;
-}
-
-static inline asection *
-bfd_asymbol_section (const asymbol *sy)
-{
-  return sy-&gt;section;
-}
-
-static inline bfd_vma
-bfd_asymbol_value (const asymbol *sy)
-{
-  return sy-&gt;section-&gt;vma + sy-&gt;value;
-}
-
-static inline const char *
-bfd_asymbol_name (const asymbol *sy)
-{
-  return sy-&gt;name;
-}
-
-static inline struct bfd *
-bfd_asymbol_bfd (const asymbol *sy)
-{
-  return sy-&gt;the_bfd;
-}
-
-static inline void
-bfd_set_asymbol_name (asymbol *sy, const char *name)
-{
-  sy-&gt;name = name;
-}
-
-static inline bfd_size_type
-bfd_get_section_limit_octets (const bfd *abfd, const asection *sec)
-{
-  if (abfd-&gt;direction != write_direction &amp;&amp; sec-&gt;rawsize != 0)
-    return sec-&gt;rawsize;
-  return sec-&gt;size;
-}
-
-/* Find the address one past the end of SEC.  */
-static inline bfd_size_type
-bfd_get_section_limit (const bfd *abfd, const asection *sec)
-{
-  return (bfd_get_section_limit_octets (abfd, sec)
-          / bfd_octets_per_byte (abfd, sec));
-}
-
-static inline bfd_size_type
-bfd_get_section_alloc_size (const bfd *abfd, const asection *sec)
-{
-  if (abfd-&gt;direction != write_direction &amp;&amp; sec-&gt;rawsize &gt; sec-&gt;size)
-    return sec-&gt;rawsize;
-  return sec-&gt;size;
-}
-
-/* Functions to handle insertion and deletion of a bfd's sections.  These
-   only handle the list pointers, ie. do not adjust section_count,
-   target_index etc.  */
-static inline void
-bfd_section_list_remove (bfd *abfd, asection *s)
-{
-  asection *next = s-&gt;next;
-  asection *prev = s-&gt;prev;
-  if (prev)
-    prev-&gt;next = next;
-  else
-    abfd-&gt;sections = next;
-  if (next)
-    next-&gt;prev = prev;
-  else
-    abfd-&gt;section_last = prev;
-}
-
-static inline void
-bfd_section_list_append (bfd *abfd, asection *s)
-{
-  s-&gt;next = 0;
-  if (abfd-&gt;section_last)
-    {
-      s-&gt;prev = abfd-&gt;section_last;
-      abfd-&gt;section_last-&gt;next = s;
-    }
-  else
-    {
-      s-&gt;prev = 0;
-      abfd-&gt;sections = s;
-    }
-  abfd-&gt;section_last = s;
-}
-
-static inline void
-bfd_section_list_prepend (bfd *abfd, asection *s)
-{
-  s-&gt;prev = 0;
-  if (abfd-&gt;sections)
-    {
-      s-&gt;next = abfd-&gt;sections;
-      abfd-&gt;sections-&gt;prev = s;
-    }
-  else
-    {
-      s-&gt;next = 0;
-      abfd-&gt;section_last = s;
-    }
-  abfd-&gt;sections = s;
-}
-
-static inline void
-bfd_section_list_insert_after (bfd *abfd, asection *a, asection *s)
-{
-  asection *next = a-&gt;next;
-  s-&gt;next = next;
-  s-&gt;prev = a;
-  a-&gt;next = s;
-  if (next)
-    next-&gt;prev = s;
-  else
-    abfd-&gt;section_last = s;
-}
-
-static inline void
-bfd_section_list_insert_before (bfd *abfd, asection *b, asection *s)
-{
-  asection *prev = b-&gt;prev;
-  s-&gt;prev = prev;
-  s-&gt;next = b;
-  b-&gt;prev = s;
-  if (prev)
-    prev-&gt;next = s;
-  else
-    abfd-&gt;sections = s;
-}
-
-static inline bool
-bfd_section_removed_from_list (const bfd *abfd, const asection *s)
-{
-  return s-&gt;next ? s-&gt;next-&gt;prev != s : abfd-&gt;section_last != s;
-}
 
 </pre></div>
 </div>

@@ -3,7 +3,7 @@
 <!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright (C) 1988-2022 Free Software Foundation, Inc.
+<!-- Copyright (C) 1988-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -16,35 +16,47 @@ and with the Back-Cover Texts as in (a) below.
 this GNU Manual.  Buying copies from GNU Press supports the FSF in
 developing GNU and promoting software freedom."
 
-Disclaimer
+Legal Disclaimer and Copyright Information
 
-The information contained herein is for informational purposes only,
-and is subject to change without notice.  While every precaution has
-been taken in the preparation of this document, it may contain
-technical inaccuracies, omissions and typographical errors, and AMD is
-under no obligation to update or otherwise correct this information.
-Advanced Micro Devices, Inc. makes no representations or warranties
-with respect to the accuracy or completeness of the contents of this
-document, and assumes no liability of any kind, including the implied
-warranties of noninfringement, merchantability or fitness for
-particular purposes, with respect to the operation or use of AMD
-hardware, software or other products described herein.  No license,
-including implied or arising by estoppel, to any intellectual property
-rights is granted by this document.  Terms and limitations applicable
-to the purchase or use of AMD’s products are as set forth in a signed
-agreement between the parties or in AMD's Standard Terms and
-Conditions of Sale.
+AMD ROCm software is made available by Advanced Micro Devices, Inc. under the
+open source license identified in the top-level directory for the library in
+the repository on Github.com (Portions of AMD ROCm software are
+licensed under MITx11 and UIL/NCSA. For more information on the license, review
+the license.txt in the top-level directory for the library on
+Github.com).  The additional terms and conditions below apply to your use
+of AMD ROCm technical documentation.
 
-AMD(R), the AMD Arrow logo, AMD Instinct(R),
-Radeon(R), ROCm(R) and combinations thereof are
-trademarks of Advanced Micro Devices, Inc.  Linux(R) is the
-registered trademark of Linus Torvalds in the U.S. and other countries.
-PCIe(R) is a registered trademark of PCI-SIG Corporation. Other
-product names used in this publication are for identification purposes only and
-may be trademarks of their respective companies.
+(C)2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
 
-Copyright (C) 2019-2022 Advanced Micro Devices, Inc.  All
-rights reserved. -->
+The information presented in this document is for informational purposes only
+and may contain technical inaccuracies, omissions, and typographical errors.
+The information contained herein is subject to change and may be rendered
+inaccurate for many reasons, including but not limited to product and roadmap
+changes, component and motherboard version changes, new model and/or product
+releases, product differences between differing manufacturers, software
+changes, BIOS flashes, firmware upgrades, or the like.  Any computer system has
+risks of security vulnerabilities that cannot be completely prevented or
+mitigated.  AMD assumes no obligation to update or otherwise correct or revise
+this information.  However, AMD reserves the right to revise this information
+and to make changes from time to time to the content hereof without obligation
+of AMD to notify any person of such revisions or changes.
+
+THIS INFORMATION IS PROVIDED "AS IS."  AMD MAKES NO REPRESENTATIONS OR
+WARRANTIES WITH RESPECT TO THE CONTENTS HEREOF AND ASSUMES NO RESPONSIBILITY
+FOR ANY INACCURACIES, ERRORS, OR OMISSIONS THAT MAY APPEAR IN THIS INFORMATION.
+AMD SPECIFICALLY DISCLAIMS ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT,
+MERCHANTABILITY, OR FITNESS FOR ANY PARTICULAR PURPOSE.  IN NO EVENT WILL AMD
+BE LIABLE TO ANY PERSON FOR ANY RELIANCE, DIRECT, INDIRECT, SPECIAL, OR OTHER
+CONSEQUENTIAL DAMAGES ARISING FROM THE USE OF ANY INFORMATION CONTAINED HEREIN,
+EVEN IF AMD IS EXPRESSLY ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+
+AMD, the AMD Arrow logo, AMD Instinct™, Radeon™, AMD ROCm™, and combinations
+thereof are trademarks of Advanced Micro Devices, Inc.
+Linux(R) is the registered trademark of Linus Torvalds in the
+U.S. and other countries. PCIe(R) is a registered trademark of
+PCI-SIG Corporation.  Other product names used in this publication are for
+identification purposes only and may be trademarks of their respective
+companies. -->
 <title>Basic Python (Debugging with ROCGDB)</title>
 
 <meta name="description" content="Basic Python (Debugging with ROCGDB)">
@@ -58,7 +70,7 @@ rights reserved. -->
 <link href="Concept-Index.html" rel="index" title="Concept Index">
 <link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
 <link href="Python-API.html" rel="up" title="Python API">
-<link href="Exception-Handling.html" rel="next" title="Exception Handling">
+<link href="Threading-in-GDB.html" rel="next" title="Threading in GDB">
 <style type="text/css">
 <!--
 a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
@@ -86,7 +98,7 @@ ul.no-bullet {list-style: none}
 <div class="subsubsection" id="Basic-Python">
 <div class="header">
 <p>
-Next: <a href="Exception-Handling.html" accesskey="n" rel="next">Exception Handling</a>, Up: <a href="Python-API.html" accesskey="u" rel="up">Python API</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Threading-in-GDB.html" accesskey="n" rel="next">Threading in GDB</a>, Up: <a href="Python-API.html" accesskey="u" rel="up">Python API</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
 <span id="Basic-Python-1"></span><h4 class="subsubsection">24.3.2.1 Basic Python</h4>
@@ -103,12 +115,14 @@ situation, a Python <code>KeyboardInterrupt</code> exception is thrown.
 <small>ROCGDB</small>.  Two things worth noting in particular:
 </p>
 <ul>
-<li> <small>ROCGDB</small> install handlers for <code>SIGCHLD</code> and <code>SIGINT</code>.
+<li> <small>ROCGDB</small> installs handlers for <code>SIGCHLD</code> and <code>SIGINT</code>.
 Python code must not override these, or even change the options using
 <code>sigaction</code>.  If your program changes the handling of these
 signals, <small>ROCGDB</small> will most likely stop working correctly.  Note
 that it is unfortunately common for GUI toolkits to install a
-<code>SIGCHLD</code> handler.
+<code>SIGCHLD</code> handler.  When creating a new Python thread, you can
+use <code>gdb.block_signals</code> or <code>gdb.Thread</code> to handle this
+correctly; see <a href="Threading-in-GDB.html">Threading in GDB</a>.
 
 </li><li> <small>ROCGDB</small> takes care to mark its internal file descriptors as
 close-on-exec.  However, this cannot be done in a thread-safe way on
@@ -130,15 +144,13 @@ use in all scripts evaluated by the <code>python</code> command.
 (accessible through the <code>repr</code> or <code>str</code> functions).  These are
 offered for debugging purposes only, expect them to change over time.
 </p>
-<span id="index-gdb_002ePYTHONDIR"></span>
 <dl class="def">
-<dt id="index-gdb_002ePYTHONDIR-1"><span class="category">Variable: </span><span><strong>gdb.PYTHONDIR</strong><a href='#index-gdb_002ePYTHONDIR-1' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-gdb_002ePYTHONDIR"><span class="category">Variable: </span><span><strong>gdb.PYTHONDIR</strong><a href='#index-gdb_002ePYTHONDIR' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>A string containing the python directory (see <a href="Python.html">Extending <small>ROCGDB</small> using Python</a>).
 </p></dd></dl>
 
-<span id="index-gdb_002eexecute"></span>
 <dl class="def">
-<dt id="index-gdb_002eexecute-1"><span class="category">Function: </span><span><strong>gdb.execute</strong> <em>(command <span class="roman">[</span>, from_tty <span class="roman">[</span>, to_string<span class="roman">]]</span>)</em><a href='#index-gdb_002eexecute-1' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-gdb_002eexecute"><span class="category">Function: </span><span><strong>gdb.execute</strong> <em>(command <span class="roman">[</span>, from_tty <span class="roman">[</span>, to_string<span class="roman">]]</span>)</em><a href='#index-gdb_002eexecute' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Evaluate <var>command</var>, a string, as a <small>ROCGDB</small> CLI command.
 If a GDB exception happens while <var>command</var> runs, it is
 translated as described in <a href="Exception-Handling.html">Exception Handling</a>.
@@ -157,9 +169,8 @@ return value is <code>None</code>.  If <var>to_string</var> is <code>True</code>
 and height, and its pagination will be disabled; see <a href="Screen-Size.html">Screen Size</a>.
 </p></dd></dl>
 
-<span id="index-gdb_002ebreakpoints"></span>
 <dl class="def">
-<dt id="index-gdb_002ebreakpoints-1"><span class="category">Function: </span><span><strong>gdb.breakpoints</strong> <em>()</em><a href='#index-gdb_002ebreakpoints-1' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-gdb_002ebreakpoints"><span class="category">Function: </span><span><strong>gdb.breakpoints</strong> <em>()</em><a href='#index-gdb_002ebreakpoints' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Return a sequence holding all of <small>ROCGDB</small>&rsquo;s breakpoints.
 See <a href="Breakpoints-In-Python.html">Manipulating breakpoints using Python</a>, for more information.  In <small>ROCGDB</small>
 version 7.11 and earlier, this function returned <code>None</code> if there
@@ -185,9 +196,8 @@ of <code>gdb.Symtab</code> objects and will restrict the search to those
 functions only contained within the <code>gdb.Symtab</code> objects.
 </p></dd></dl>
 
-<span id="index-gdb_002eparameter"></span>
 <dl class="def">
-<dt id="index-gdb_002eparameter-1"><span class="category">Function: </span><span><strong>gdb.parameter</strong> <em>(parameter)</em><a href='#index-gdb_002eparameter-1' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-gdb_002eparameter"><span class="category">Function: </span><span><strong>gdb.parameter</strong> <em>(parameter)</em><a href='#index-gdb_002eparameter' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Return the value of a <small>ROCGDB</small> <var>parameter</var> given by its name,
 a string; the parameter name string may contain spaces if the parameter has a
 multi-part name.  For example, &lsquo;<samp>print object</samp>&rsquo; is a valid
@@ -199,17 +209,15 @@ parameter&rsquo;s value is converted to a Python value of the appropriate
 type, and returned.
 </p></dd></dl>
 
-<span id="index-gdb_002eset_005fparameter"></span>
 <dl class="def">
-<dt id="index-gdb_002eset_005fparameter-1"><span class="category">Function: </span><span><strong>gdb.set_parameter</strong> <em>(name, value)</em><a href='#index-gdb_002eset_005fparameter-1' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-gdb_002eset_005fparameter"><span class="category">Function: </span><span><strong>gdb.set_parameter</strong> <em>(name, value)</em><a href='#index-gdb_002eset_005fparameter' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Sets the gdb parameter <var>name</var> to <var>value</var>.  As with
 <code>gdb.parameter</code>, the parameter name string may contain spaces if
 the parameter has a multi-part name.
 </p></dd></dl>
 
-<span id="index-gdb_002ewith_005fparameter"></span>
 <dl class="def">
-<dt id="index-gdb_002ewith_005fparameter-1"><span class="category">Function: </span><span><strong>gdb.with_parameter</strong> <em>(name, value)</em><a href='#index-gdb_002ewith_005fparameter-1' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-gdb_002ewith_005fparameter"><span class="category">Function: </span><span><strong>gdb.with_parameter</strong> <em>(name, value)</em><a href='#index-gdb_002ewith_005fparameter' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Create a Python context manager (for use with the Python
 <code>with</code> statement) that temporarily sets the gdb parameter
 <var>name</var> to <var>value</var>.  On exit from the context, the previous
@@ -227,9 +235,8 @@ particular gdb language:
 </pre></div>
 </dd></dl>
 
-<span id="index-gdb_002ehistory"></span>
 <dl class="def">
-<dt id="index-gdb_002ehistory-1"><span class="category">Function: </span><span><strong>gdb.history</strong> <em>(number)</em><a href='#index-gdb_002ehistory-1' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-gdb_002ehistory"><span class="category">Function: </span><span><strong>gdb.history</strong> <em>(number)</em><a href='#index-gdb_002ehistory' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Return a value from <small>ROCGDB</small>&rsquo;s value history (see <a href="Value-History.html">Value History</a>).  The <var>number</var> argument indicates which history element to return.
 If <var>number</var> is negative, then <small>ROCGDB</small> will take its absolute value
 and count backward from the last element (i.e., the most recent element) to
@@ -262,18 +269,16 @@ user convenient access to those values via CLI history facilities.
 value history (see <a href="Value-History.html">Value History</a>).
 </p></dd></dl>
 
-<span id="index-gdb_002econvenience_005fvariable"></span>
 <dl class="def">
-<dt id="index-gdb_002econvenience_005fvariable-1"><span class="category">Function: </span><span><strong>gdb.convenience_variable</strong> <em>(name)</em><a href='#index-gdb_002econvenience_005fvariable-1' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-gdb_002econvenience_005fvariable"><span class="category">Function: </span><span><strong>gdb.convenience_variable</strong> <em>(name)</em><a href='#index-gdb_002econvenience_005fvariable' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Return the value of the convenience variable (see <a href="Convenience-Vars.html">Convenience Variables</a>) named <var>name</var>.  <var>name</var> must be a string.  The name
 should not include the &lsquo;<samp>$</samp>&rsquo; that is used to mark a convenience
 variable in an expression.  If the convenience variable does not
 exist, then <code>None</code> is returned.
 </p></dd></dl>
 
-<span id="index-gdb_002eset_005fconvenience_005fvariable"></span>
 <dl class="def">
-<dt id="index-gdb_002eset_005fconvenience_005fvariable-1"><span class="category">Function: </span><span><strong>gdb.set_convenience_variable</strong> <em>(name, value)</em><a href='#index-gdb_002eset_005fconvenience_005fvariable-1' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-gdb_002eset_005fconvenience_005fvariable"><span class="category">Function: </span><span><strong>gdb.set_convenience_variable</strong> <em>(name, value)</em><a href='#index-gdb_002eset_005fconvenience_005fvariable' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Set the value of the convenience variable (see <a href="Convenience-Vars.html">Convenience Variables</a>)
 named <var>name</var>.  <var>name</var> must be a string.  The name should not
 include the &lsquo;<samp>$</samp>&rsquo; that is used to mark a convenience variable in an
@@ -283,12 +288,16 @@ variable is removed.  Otherwise, if <var>value</var> is not a
 using the <code>gdb.Value</code> constructor.
 </p></dd></dl>
 
-<span id="index-gdb_002eparse_005fand_005feval"></span>
 <dl class="def">
-<dt id="index-gdb_002eparse_005fand_005feval-1"><span class="category">Function: </span><span><strong>gdb.parse_and_eval</strong> <em>(expression)</em><a href='#index-gdb_002eparse_005fand_005feval-1' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-gdb_002eparse_005fand_005feval"><span class="category">Function: </span><span><strong>gdb.parse_and_eval</strong> <em>(expression <span class="roman">[</span>, global_context<span class="roman">]</span>)</em><a href='#index-gdb_002eparse_005fand_005feval' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Parse <var>expression</var>, which must be a string, as an expression in
 the current language, evaluate it, and return the result as a
 <code>gdb.Value</code>.
+</p>
+<p><var>global_context</var>, if provided, is a boolean indicating whether the
+parsing should be done in the global context.  The default is
+&lsquo;<samp>False</samp>&rsquo;, meaning that the current frame or current static context
+should be used.
 </p>
 <p>This function can be useful when implementing a new command
 (see <a href="CLI-Commands-In-Python.html">CLI Commands In Python</a>, see <a href="GDB_002fMI-Commands-In-Python.html"><small>GDB/MI</small> Commands In Python</a>),
@@ -297,9 +306,8 @@ command&rsquo;s argument as an expression.  It is also useful simply to
 compute values.
 </p></dd></dl>
 
-<span id="index-gdb_002efind_005fpc_005fline"></span>
 <dl class="def">
-<dt id="index-gdb_002efind_005fpc_005fline-1"><span class="category">Function: </span><span><strong>gdb.find_pc_line</strong> <em>(pc)</em><a href='#index-gdb_002efind_005fpc_005fline-1' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-gdb_002efind_005fpc_005fline"><span class="category">Function: </span><span><strong>gdb.find_pc_line</strong> <em>(pc)</em><a href='#index-gdb_002efind_005fpc_005fline' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Return the <code>gdb.Symtab_and_line</code> object corresponding to the
 <var>pc</var> value.  See <a href="Symbol-Tables-In-Python.html">Symbol table representation in Python</a>.  If an invalid
 value of <var>pc</var> is passed as an argument, then the <code>symtab</code> and
@@ -309,49 +317,8 @@ will be <code>None</code> and 0 respectively.  This is identical to
 historical compatibility.
 </p></dd></dl>
 
-<span id="index-gdb_002epost_005fevent"></span>
 <dl class="def">
-<dt id="index-gdb_002epost_005fevent-1"><span class="category">Function: </span><span><strong>gdb.post_event</strong> <em>(event)</em><a href='#index-gdb_002epost_005fevent-1' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Put <var>event</var>, a callable object taking no arguments, into
-<small>ROCGDB</small>&rsquo;s internal event queue.  This callable will be invoked at
-some later point, during <small>ROCGDB</small>&rsquo;s event processing.  Events
-posted using <code>post_event</code> will be run in the order in which they
-were posted; however, there is no way to know when they will be
-processed relative to other events inside <small>ROCGDB</small>.
-</p>
-<p><small>ROCGDB</small> is not thread-safe.  If your Python program uses multiple
-threads, you must be careful to only call <small>ROCGDB</small>-specific
-functions in the <small>ROCGDB</small> thread.  <code>post_event</code> ensures
-this.  For example:
-</p>
-<div class="example">
-<pre class="example">(gdb) python
-&gt;import threading
-&gt;
-&gt;class Writer():
-&gt; def __init__(self, message):
-&gt;        self.message = message;
-&gt; def __call__(self):
-&gt;        gdb.write(self.message)
-&gt;
-&gt;class MyThread1 (threading.Thread):
-&gt; def run (self):
-&gt;        gdb.post_event(Writer(&quot;Hello &quot;))
-&gt;
-&gt;class MyThread2 (threading.Thread):
-&gt; def run (self):
-&gt;        gdb.post_event(Writer(&quot;World\n&quot;))
-&gt;
-&gt;MyThread1().start()
-&gt;MyThread2().start()
-&gt;end
-(gdb) Hello World
-</pre></div>
-</dd></dl>
-
-<span id="index-gdb_002ewrite"></span>
-<dl class="def">
-<dt id="index-gdb_002ewrite-1"><span class="category">Function: </span><span><strong>gdb.write</strong> <em>(string <span class="roman">[</span>, stream<span class="roman">]</span>)</em><a href='#index-gdb_002ewrite-1' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-gdb_002ewrite"><span class="category">Function: </span><span><strong>gdb.write</strong> <em>(string <span class="roman">[</span>, stream<span class="roman">]</span>)</em><a href='#index-gdb_002ewrite' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Print a string to <small>ROCGDB</small>&rsquo;s paginated output stream.  The
 optional <var>stream</var> determines the stream to print to.  The default
 stream is <small>ROCGDB</small>&rsquo;s standard output stream.  Possible stream
@@ -383,9 +350,8 @@ call this function and will automatically direct the output to the
 relevant stream.
 </p></dd></dl>
 
-<span id="index-gdb_002eflush"></span>
 <dl class="def">
-<dt id="index-gdb_002eflush-1"><span class="category">Function: </span><span><strong>gdb.flush</strong> <em>()</em><a href='#index-gdb_002eflush-1' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-gdb_002eflush"><span class="category">Function: </span><span><strong>gdb.flush</strong> <em>(<span class="roman">[</span>, stream<span class="roman">]</span>)</em><a href='#index-gdb_002eflush' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Flush the buffer of a <small>ROCGDB</small> paginated stream so that the
 contents are displayed immediately.  <small>ROCGDB</small> will flush the
 contents of a stream automatically when it encounters a newline in the
@@ -419,43 +385,38 @@ stream values are:
 call this function for the relevant stream.
 </p></dd></dl>
 
-<span id="index-gdb_002etarget_005fcharset"></span>
 <dl class="def">
-<dt id="index-gdb_002etarget_005fcharset-1"><span class="category">Function: </span><span><strong>gdb.target_charset</strong> <em>()</em><a href='#index-gdb_002etarget_005fcharset-1' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-gdb_002etarget_005fcharset"><span class="category">Function: </span><span><strong>gdb.target_charset</strong> <em>()</em><a href='#index-gdb_002etarget_005fcharset' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Return the name of the current target character set (see <a href="Character-Sets.html">Character Sets</a>).  This differs from <code>gdb.parameter('target-charset')</code> in
 that &lsquo;<samp>auto</samp>&rsquo; is never returned.
 </p></dd></dl>
 
-<span id="index-gdb_002etarget_005fwide_005fcharset"></span>
 <dl class="def">
-<dt id="index-gdb_002etarget_005fwide_005fcharset-1"><span class="category">Function: </span><span><strong>gdb.target_wide_charset</strong> <em>()</em><a href='#index-gdb_002etarget_005fwide_005fcharset-1' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-gdb_002etarget_005fwide_005fcharset"><span class="category">Function: </span><span><strong>gdb.target_wide_charset</strong> <em>()</em><a href='#index-gdb_002etarget_005fwide_005fcharset' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Return the name of the current target wide character set
 (see <a href="Character-Sets.html">Character Sets</a>).  This differs from
 <code>gdb.parameter('target-wide-charset')</code> in that &lsquo;<samp>auto</samp>&rsquo; is
 never returned.
 </p></dd></dl>
 
-<span id="index-gdb_002ehost_005fcharset"></span>
 <dl class="def">
-<dt id="index-gdb_002ehost_005fcharset-1"><span class="category">Function: </span><span><strong>gdb.host_charset</strong> <em>()</em><a href='#index-gdb_002ehost_005fcharset-1' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-gdb_002ehost_005fcharset"><span class="category">Function: </span><span><strong>gdb.host_charset</strong> <em>()</em><a href='#index-gdb_002ehost_005fcharset' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Return a string, the name of the current host character set
 (see <a href="Character-Sets.html">Character Sets</a>).  This differs from
 <code>gdb.parameter('host-charset')</code> in that &lsquo;<samp>auto</samp>&rsquo; is never
 returned.
 </p></dd></dl>
 
-<span id="index-gdb_002esolib_005fname"></span>
 <dl class="def">
-<dt id="index-gdb_002esolib_005fname-1"><span class="category">Function: </span><span><strong>gdb.solib_name</strong> <em>(address)</em><a href='#index-gdb_002esolib_005fname-1' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-gdb_002esolib_005fname"><span class="category">Function: </span><span><strong>gdb.solib_name</strong> <em>(address)</em><a href='#index-gdb_002esolib_005fname' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Return the name of the shared library holding the given <var>address</var>
 as a string, or <code>None</code>.  This is identical to
 <code>gdb.current_progspace().solib_name(address)</code> and is included for
 historical compatibility.
 </p></dd></dl>
 
-<span id="index-gdb_002edecode_005fline"></span>
 <dl class="def">
-<dt id="index-gdb_002edecode_005fline-1"><span class="category">Function: </span><span><strong>gdb.decode_line</strong> <em>(<span class="roman">[</span>expression<span class="roman">]</span>)</em><a href='#index-gdb_002edecode_005fline-1' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-gdb_002edecode_005fline"><span class="category">Function: </span><span><strong>gdb.decode_line</strong> <em>(<span class="roman">[</span>expression<span class="roman">]</span>)</em><a href='#index-gdb_002edecode_005fline' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Return locations of the line specified by <var>expression</var>, or of the
 current line if no argument was given.  This function returns a Python
 tuple containing two elements.  The first element contains a string
@@ -465,7 +426,7 @@ either <code>None</code> or another tuple that contains all the locations
 that match the expression represented as <code>gdb.Symtab_and_line</code>
 objects (see <a href="Symbol-Tables-In-Python.html">Symbol table representation in Python</a>).  If <var>expression</var> is
 provided, it is decoded the way that <small>ROCGDB</small>&rsquo;s inbuilt
-<code>break</code> or <code>edit</code> commands do (see <a href="Specify-Location.html">Specifying a Location</a>).
+<code>break</code> or <code>edit</code> commands do (see <a href="Location-Specifications.html">Location Specifications</a>).
 </p></dd></dl>
 
 <dl class="def">
@@ -486,7 +447,7 @@ such as those used by readline for command input, and annotation
 related prompts are prohibited from being changed.
 </p></dd></dl>
 
-<dl class="def">
+<span id="gdb_005farchitecture_005fnames"></span><dl class="def">
 <dt id="index-gdb_002earchitecture_005fnames"><span class="category">Function: </span><span><strong>gdb.architecture_names</strong> <em>()</em><a href='#index-gdb_002earchitecture_005fnames' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Return a list containing all of the architecture names that the
 current build of <small>ROCGDB</small> supports.  Each architecture name is a
@@ -503,7 +464,7 @@ connection objects are in no particular order in the returned list.
 </p></dd></dl>
 
 <dl class="def">
-<dt id="index-gdb_002eformat_005faddress"><span class="category">Function: </span><span><strong>gdb.format_address</strong> <em>(<var>address</var> <span class="roman">[</span>, <var>progspace</var>, <var>architecture</var><span class="roman">]</span>)</em><a href='#index-gdb_002eformat_005faddress' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-gdb_002eformat_005faddress"><span class="category">Function: </span><span><strong>gdb.format_address</strong> <em>(address <span class="roman">[</span>, progspace, architecture<span class="roman">]</span>)</em><a href='#index-gdb_002eformat_005faddress' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Return a string in the format &lsquo;<samp><var>addr</var>
 &lt;<var>symbol</var>+<var>offset</var>&gt;</samp>&rsquo;, where <var>addr</var> is <var>address</var>
 formatted in hexadecimal, <var>symbol</var> is the symbol whose address is
@@ -557,11 +518,19 @@ and offset information as core <small>ROCGDB</small> does in commands such as
 </pre></div>
 </dd></dl>
 
+<dl class="def">
+<dt id="index-gdb_002ecurrent_005flanguage"><span class="category">Function: </span><span><strong>gdb.current_language</strong> <em>()</em><a href='#index-gdb_002ecurrent_005flanguage' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Return the name of the current language as a string.  Unlike
+<code>gdb.parameter('language')</code>, this function will never return
+&lsquo;<samp>auto</samp>&rsquo;.  If a <code>gdb.Frame</code> object is available (see <a href="Frames-In-Python.html">Accessing inferior stack frames from Python</a>), the <code>language</code> method might be preferable in some
+cases, as that is not affected by the user&rsquo;s language setting.
+</p></dd></dl>
+
 </div>
 <hr>
 <div class="header">
 <p>
-Next: <a href="Exception-Handling.html">Exception Handling</a>, Up: <a href="Python-API.html">Python API</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Threading-in-GDB.html">Threading in GDB</a>, Up: <a href="Python-API.html">Python API</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

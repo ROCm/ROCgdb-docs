@@ -3,7 +3,7 @@
 <!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright (C) 1988-2022 Free Software Foundation, Inc.
+<!-- Copyright (C) 1988-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -16,35 +16,47 @@ and with the Back-Cover Texts as in (a) below.
 this GNU Manual.  Buying copies from GNU Press supports the FSF in
 developing GNU and promoting software freedom."
 
-Disclaimer
+Legal Disclaimer and Copyright Information
 
-The information contained herein is for informational purposes only,
-and is subject to change without notice.  While every precaution has
-been taken in the preparation of this document, it may contain
-technical inaccuracies, omissions and typographical errors, and AMD is
-under no obligation to update or otherwise correct this information.
-Advanced Micro Devices, Inc. makes no representations or warranties
-with respect to the accuracy or completeness of the contents of this
-document, and assumes no liability of any kind, including the implied
-warranties of noninfringement, merchantability or fitness for
-particular purposes, with respect to the operation or use of AMD
-hardware, software or other products described herein.  No license,
-including implied or arising by estoppel, to any intellectual property
-rights is granted by this document.  Terms and limitations applicable
-to the purchase or use of AMD’s products are as set forth in a signed
-agreement between the parties or in AMD's Standard Terms and
-Conditions of Sale.
+AMD ROCm software is made available by Advanced Micro Devices, Inc. under the
+open source license identified in the top-level directory for the library in
+the repository on Github.com (Portions of AMD ROCm software are
+licensed under MITx11 and UIL/NCSA. For more information on the license, review
+the license.txt in the top-level directory for the library on
+Github.com).  The additional terms and conditions below apply to your use
+of AMD ROCm technical documentation.
 
-AMD(R), the AMD Arrow logo, AMD Instinct(R),
-Radeon(R), ROCm(R) and combinations thereof are
-trademarks of Advanced Micro Devices, Inc.  Linux(R) is the
-registered trademark of Linus Torvalds in the U.S. and other countries.
-PCIe(R) is a registered trademark of PCI-SIG Corporation. Other
-product names used in this publication are for identification purposes only and
-may be trademarks of their respective companies.
+(C)2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
 
-Copyright (C) 2019-2022 Advanced Micro Devices, Inc.  All
-rights reserved. -->
+The information presented in this document is for informational purposes only
+and may contain technical inaccuracies, omissions, and typographical errors.
+The information contained herein is subject to change and may be rendered
+inaccurate for many reasons, including but not limited to product and roadmap
+changes, component and motherboard version changes, new model and/or product
+releases, product differences between differing manufacturers, software
+changes, BIOS flashes, firmware upgrades, or the like.  Any computer system has
+risks of security vulnerabilities that cannot be completely prevented or
+mitigated.  AMD assumes no obligation to update or otherwise correct or revise
+this information.  However, AMD reserves the right to revise this information
+and to make changes from time to time to the content hereof without obligation
+of AMD to notify any person of such revisions or changes.
+
+THIS INFORMATION IS PROVIDED "AS IS."  AMD MAKES NO REPRESENTATIONS OR
+WARRANTIES WITH RESPECT TO THE CONTENTS HEREOF AND ASSUMES NO RESPONSIBILITY
+FOR ANY INACCURACIES, ERRORS, OR OMISSIONS THAT MAY APPEAR IN THIS INFORMATION.
+AMD SPECIFICALLY DISCLAIMS ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT,
+MERCHANTABILITY, OR FITNESS FOR ANY PARTICULAR PURPOSE.  IN NO EVENT WILL AMD
+BE LIABLE TO ANY PERSON FOR ANY RELIANCE, DIRECT, INDIRECT, SPECIAL, OR OTHER
+CONSEQUENTIAL DAMAGES ARISING FROM THE USE OF ANY INFORMATION CONTAINED HEREIN,
+EVEN IF AMD IS EXPRESSLY ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+
+AMD, the AMD Arrow logo, AMD Instinct™, Radeon™, AMD ROCm™, and combinations
+thereof are trademarks of Advanced Micro Devices, Inc.
+Linux(R) is the registered trademark of Linus Torvalds in the
+U.S. and other countries. PCIe(R) is a registered trademark of
+PCI-SIG Corporation.  Other product names used in this publication are for
+identification purposes only and may be trademarks of their respective
+companies. -->
 <title>GDB/MI Program Execution (Debugging with ROCGDB)</title>
 
 <meta name="description" content="GDB/MI Program Execution (Debugging with ROCGDB)">
@@ -97,8 +109,8 @@ record &lsquo;<samp>*stopped</samp>&rsquo;.  Currently <small>ROCGDB</small> onl
 asynchronously with remote targets and this interaction is mimicked in
 other cases.
 </p>
-<span id="The-_002dexec_002dcontinue-Command"></span><h4 class="subheading">The <code>-exec-continue</code> Command</h4>
 <span id="index-_002dexec_002dcontinue"></span>
+<span id="The-_002dexec_002dcontinue-Command"></span><h4 class="subheading">The <code>-exec-continue</code> Command</h4>
 
 <span id="Synopsis-31"></span><h4 class="subsubheading">Synopsis</h4>
 
@@ -111,7 +123,7 @@ to execute until it reaches a debugger stop event.  If the
 &lsquo;<samp>--reverse</samp>&rsquo; option is specified, execution resumes in reverse until 
 it reaches a stop event.  Stop events may include
 </p><ul>
-<li> breakpoints or watchpoints
+<li> breakpoints, watchpoints, tracepoints, or catchpoints
 </li><li> signals or exceptions
 </li><li> the end of the process (or its beginning under &lsquo;<samp>--reverse</samp>&rsquo;)
 </li><li> the end or beginning of a replay log if one is being used.
@@ -139,9 +151,23 @@ line=&quot;13&quot;,arch=&quot;i386:x86_64&quot;}
 (gdb)
 </pre></div>
 
+<p>For a &lsquo;<samp>breakpoint-hit</samp>&rsquo; stopped reason, when the breakpoint
+encountered has multiple locations, the field &lsquo;<samp>bkptno</samp>&rsquo; is
+followed by the field &lsquo;<samp>locno</samp>&rsquo;.
+</p>
+<div class="example">
+<pre class="example">-exec-continue
+^running
+(gdb)
+@Hello world
+*stopped,reason=&quot;breakpoint-hit&quot;,disp=&quot;keep&quot;,bkptno=&quot;2&quot;,locno=&quot;3&quot;,frame={
+func=&quot;foo&quot;,args=[],file=&quot;hello.c&quot;,fullname=&quot;/home/foo/bar/hello.c&quot;,
+line=&quot;13&quot;,arch=&quot;i386:x86_64&quot;}
+(gdb)
+</pre></div>
 
-<span id="The-_002dexec_002dfinish-Command"></span><h4 class="subheading">The <code>-exec-finish</code> Command</h4>
 <span id="index-_002dexec_002dfinish"></span>
+<span id="The-_002dexec_002dfinish-Command"></span><h4 class="subheading">The <code>-exec-finish</code> Command</h4>
 
 <span id="Synopsis-32"></span><h4 class="subsubheading">Synopsis</h4>
 
@@ -190,8 +216,8 @@ gdb-result-var=&quot;$1&quot;,return-value=&quot;0&quot;
 </pre></div>
 
 
-<span id="The-_002dexec_002dinterrupt-Command"></span><h4 class="subheading">The <code>-exec-interrupt</code> Command</h4>
 <span id="index-_002dexec_002dinterrupt"></span>
+<span id="The-_002dexec_002dinterrupt-Command"></span><h4 class="subheading">The <code>-exec-interrupt</code> Command</h4>
 
 <span id="Synopsis-33"></span><h4 class="subsubheading">Synopsis</h4>
 
@@ -241,18 +267,18 @@ fullname=&quot;/home/foo/bar/try.c&quot;,line=&quot;13&quot;,arch=&quot;i386:x86
 (gdb)
 </pre></div>
 
-<span id="The-_002dexec_002djump-Command"></span><h4 class="subheading">The <code>-exec-jump</code> Command</h4>
 <span id="index-_002dexec_002djump"></span>
+<span id="The-_002dexec_002djump-Command"></span><h4 class="subheading">The <code>-exec-jump</code> Command</h4>
 
 <span id="Synopsis-34"></span><h4 class="subsubheading">Synopsis</h4>
 
 <div class="example">
-<pre class="example"> -exec-jump <var>location</var>
+<pre class="example"> -exec-jump <var>locspec</var>
 </pre></div>
 
-<p>Resumes execution of the inferior program at the location specified by
-parameter.  See <a href="Specify-Location.html">Specifying a Location</a>, for a description of the
-different forms of <var>location</var>.
+<p>Resumes execution of the inferior program at the address to
+which <var>locspec</var> resolves.  See <a href="Location-Specifications.html">Location Specifications</a>,
+for a description of the different forms of <var>locspec</var>.
 </p>
 <span id="ROCGDB-Command-33"></span><h4 class="subsubheading"><small>ROCGDB</small> Command</h4>
 
@@ -267,8 +293,8 @@ different forms of <var>location</var>.
 </pre></div>
 
 
-<span id="The-_002dexec_002dnext-Command"></span><h4 class="subheading">The <code>-exec-next</code> Command</h4>
 <span id="index-_002dexec_002dnext"></span>
+<span id="The-_002dexec_002dnext-Command"></span><h4 class="subheading">The <code>-exec-next</code> Command</h4>
 
 <span id="Synopsis-35"></span><h4 class="subsubheading">Synopsis</h4>
 
@@ -301,8 +327,8 @@ source line where the function was called.
 </pre></div>
 
 
-<span id="The-_002dexec_002dnext_002dinstruction-Command"></span><h4 class="subheading">The <code>-exec-next-instruction</code> Command</h4>
 <span id="index-_002dexec_002dnext_002dinstruction"></span>
+<span id="The-_002dexec_002dnext_002dinstruction-Command"></span><h4 class="subheading">The <code>-exec-next-instruction</code> Command</h4>
 
 <span id="Synopsis-36"></span><h4 class="subsubheading">Synopsis</h4>
 
@@ -339,8 +365,8 @@ addr=&quot;0x000100d4&quot;,line=&quot;5&quot;,file=&quot;hello.c&quot;
 </pre></div>
 
 
-<span id="The-_002dexec_002dreturn-Command"></span><h4 class="subheading">The <code>-exec-return</code> Command</h4>
 <span id="index-_002dexec_002dreturn"></span>
+<span id="The-_002dexec_002dreturn-Command"></span><h4 class="subheading">The <code>-exec-return</code> Command</h4>
 
 <span id="Synopsis-37"></span><h4 class="subsubheading">Synopsis</h4>
 
@@ -386,8 +412,8 @@ arch=&quot;i386:x86_64&quot;}
 </pre></div>
 
 
-<span id="The-_002dexec_002drun-Command"></span><h4 class="subheading">The <code>-exec-run</code> Command</h4>
 <span id="index-_002dexec_002drun"></span>
+<span id="The-_002dexec_002drun-Command"></span><h4 class="subheading">The <code>-exec-run</code> Command</h4>
 
 <span id="Synopsis-38"></span><h4 class="subsubheading">Synopsis</h4>
 
@@ -467,8 +493,8 @@ signal-meaning=&quot;Interrupt&quot;
 
 
 
-<span id="The-_002dexec_002dstep-Command"></span><h4 class="subheading">The <code>-exec-step</code> Command</h4>
 <span id="index-_002dexec_002dstep"></span>
+<span id="The-_002dexec_002dstep-Command"></span><h4 class="subheading">The <code>-exec-step</code> Command</h4>
 
 <span id="Synopsis-39"></span><h4 class="subsubheading">Synopsis</h4>
 
@@ -513,8 +539,8 @@ fullname=&quot;/home/foo/bar/recursive2.c&quot;,line=&quot;11&quot;,arch=&quot;i
 </pre></div>
 
 
-<span id="The-_002dexec_002dstep_002dinstruction-Command"></span><h4 class="subheading">The <code>-exec-step-instruction</code> Command</h4>
 <span id="index-_002dexec_002dstep_002dinstruction"></span>
+<span id="The-_002dexec_002dstep_002dinstruction-Command"></span><h4 class="subheading">The <code>-exec-step-instruction</code> Command</h4>
 
 <span id="Synopsis-40"></span><h4 class="subsubheading">Synopsis</h4>
 
@@ -557,19 +583,19 @@ fullname=&quot;/home/foo/bar/try.c&quot;,line=&quot;10&quot;,arch=&quot;i386:x86
 </pre></div>
 
 
-<span id="The-_002dexec_002duntil-Command"></span><h4 class="subheading">The <code>-exec-until</code> Command</h4>
 <span id="index-_002dexec_002duntil"></span>
+<span id="The-_002dexec_002duntil-Command"></span><h4 class="subheading">The <code>-exec-until</code> Command</h4>
 
 <span id="Synopsis-41"></span><h4 class="subsubheading">Synopsis</h4>
 
 <div class="example">
-<pre class="example"> -exec-until [ <var>location</var> ]
+<pre class="example"> -exec-until [ <var>locspec</var> ]
 </pre></div>
 
-<p>Executes the inferior until the <var>location</var> specified in the
-argument is reached.  If there is no argument, the inferior executes
-until a source line greater than the current one is reached.  The
-reason for stopping in this case will be &lsquo;<samp>location-reached</samp>&rsquo;.
+<p>Executes the inferior until it reaches the address to which
+<var>locspec</var> resolves.  If there is no argument, the inferior
+executes until it reaches a source line greater than the current one.
+The reason for stopping in this case will be &lsquo;<samp>location-reached</samp>&rsquo;.
 </p>
 <span id="ROCGDB-Command-40"></span><h4 class="subsubheading"><small>ROCGDB</small> Command</h4>
 

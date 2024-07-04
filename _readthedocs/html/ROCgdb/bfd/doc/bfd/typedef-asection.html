@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the BFD library.
 
-Copyright (C) 1991-2022 Free Software Foundation, Inc.
+Copyright (C) 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -74,9 +74,7 @@ Next: <a href="section-prototypes.html" accesskey="n" rel="next">Section prototy
 </p>
 
 <div class="example">
-<pre class="example">
-
-typedef struct bfd_section
+<pre class="example">typedef struct bfd_section
 {
   /* The name of the section; the name isn't a copy, the pointer is
      the same as that passed to bfd_make_section.  */
@@ -277,6 +275,9 @@ typedef struct bfd_section
      TMS320C54X only.  */
 #define SEC_TIC54X_BLOCK           0x10000000
 
+  /* This section has the SHF_X86_64_LARGE flag.  This is ELF x86-64 only.  */
+#define SEC_ELF_LARGE              0x10000000
+
   /* Conditionally link this section; do not link if there are no
      references found to any symbol in the section.  This is for TI
      TMS320C54X only.  */
@@ -336,6 +337,9 @@ typedef struct bfd_section
 
   /* Nonzero if this section uses RELA relocations, rather than REL.  */
   unsigned int use_rela_p:1;
+
+  /* Nonzero if this section contents are mmapped, rather than malloced.  */
+  unsigned int mmapped_p:1;
 
   /* Bits used by various backends.  The generic code doesn't touch
      these fields.  */
@@ -424,7 +428,7 @@ typedef struct bfd_section
 
   /* If the SEC_IN_MEMORY flag is set, this points to the actual
      contents.  */
-  unsigned char *contents;
+  bfd_byte *contents;
 
   /* Attached line number information.  */
   alent *lineno;
@@ -479,194 +483,6 @@ typedef struct bfd_section
   unsigned int type;
 
 } asection;
-
-static inline const char *
-bfd_section_name (const asection *sec)
-{
-  return sec-&gt;name;
-}
-
-static inline bfd_size_type
-bfd_section_size (const asection *sec)
-{
-  return sec-&gt;size;
-}
-
-static inline bfd_vma
-bfd_section_vma (const asection *sec)
-{
-  return sec-&gt;vma;
-}
-
-static inline bfd_vma
-bfd_section_lma (const asection *sec)
-{
-  return sec-&gt;lma;
-}
-
-static inline unsigned int
-bfd_section_alignment (const asection *sec)
-{
-  return sec-&gt;alignment_power;
-}
-
-static inline flagword
-bfd_section_flags (const asection *sec)
-{
-  return sec-&gt;flags;
-}
-
-static inline void *
-bfd_section_userdata (const asection *sec)
-{
-  return sec-&gt;userdata;
-}
-static inline bool
-bfd_is_com_section (const asection *sec)
-{
-  return (sec-&gt;flags &amp; SEC_IS_COMMON) != 0;
-}
-
-/* Note: the following are provided as inline functions rather than macros
-   because not all callers use the return value.  A macro implementation
-   would use a comma expression, eg: &quot;((ptr)-&gt;foo = val, TRUE)&quot; and some
-   compilers will complain about comma expressions that have no effect.  */
-static inline bool
-bfd_set_section_userdata (asection *sec, void *val)
-{
-  sec-&gt;userdata = val;
-  return true;
-}
-
-static inline bool
-bfd_set_section_vma (asection *sec, bfd_vma val)
-{
-  sec-&gt;vma = sec-&gt;lma = val;
-  sec-&gt;user_set_vma = true;
-  return true;
-}
-
-static inline bool
-bfd_set_section_lma (asection *sec, bfd_vma val)
-{
-  sec-&gt;lma = val;
-  return true;
-}
-
-static inline bool
-bfd_set_section_alignment (asection *sec, unsigned int val)
-{
-  if (val &gt;= sizeof (bfd_vma) * 8 - 1)
-    return false;
-  sec-&gt;alignment_power = val;
-  return true;
-}
-
-/* These sections are global, and are managed by BFD.  The application
-   and target back end are not permitted to change the values in
-   these sections.  */
-extern asection _bfd_std_section[4];
-
-#define BFD_ABS_SECTION_NAME &quot;*ABS*&quot;
-#define BFD_UND_SECTION_NAME &quot;*UND*&quot;
-#define BFD_COM_SECTION_NAME &quot;*COM*&quot;
-#define BFD_IND_SECTION_NAME &quot;*IND*&quot;
-
-/* Pointer to the common section.  */
-#define bfd_com_section_ptr (&amp;_bfd_std_section[0])
-/* Pointer to the undefined section.  */
-#define bfd_und_section_ptr (&amp;_bfd_std_section[1])
-/* Pointer to the absolute section.  */
-#define bfd_abs_section_ptr (&amp;_bfd_std_section[2])
-/* Pointer to the indirect section.  */
-#define bfd_ind_section_ptr (&amp;_bfd_std_section[3])
-
-static inline bool
-bfd_is_und_section (const asection *sec)
-{
-  return sec == bfd_und_section_ptr;
-}
-
-static inline bool
-bfd_is_abs_section (const asection *sec)
-{
-  return sec == bfd_abs_section_ptr;
-}
-
-static inline bool
-bfd_is_ind_section (const asection *sec)
-{
-  return sec == bfd_ind_section_ptr;
-}
-
-static inline bool
-bfd_is_const_section (const asection *sec)
-{
-  return (sec &gt;= _bfd_std_section
-          &amp;&amp; sec &lt; _bfd_std_section + (sizeof (_bfd_std_section)
-                                       / sizeof (_bfd_std_section[0])));
-}
-
-/* Return TRUE if input section SEC has been discarded.  */
-static inline bool
-discarded_section (const asection *sec)
-{
-  return (!bfd_is_abs_section (sec)
-          &amp;&amp; bfd_is_abs_section (sec-&gt;output_section)
-          &amp;&amp; sec-&gt;sec_info_type != SEC_INFO_TYPE_MERGE
-          &amp;&amp; sec-&gt;sec_info_type != SEC_INFO_TYPE_JUST_SYMS);
-}
-
-#define BFD_FAKE_SECTION(SEC, SYM, NAME, IDX, FLAGS)                   \
-  /* name, next, prev, id,  section_id, index, flags, user_set_vma, */ \
-  {  NAME, NULL, NULL, IDX, 0,          0,     FLAGS, 0,               \
-                                                                       \
-  /* linker_mark, linker_has_input, gc_mark, decompress_status,     */ \
-     0,           0,                1,       0,                        \
-                                                                       \
-  /* segment_mark, sec_info_type, use_rela_p,                       */ \
-     0,            0,             0,                                   \
-                                                                       \
-  /* sec_flg0, sec_flg1, sec_flg2, sec_flg3, sec_flg4, sec_flg5,    */ \
-     0,        0,        0,        0,        0,        0,              \
-                                                                       \
-  /* vma, lma, size, rawsize, compressed_size,                      */ \
-     0,   0,   0,    0,       0,                                       \
-                                                                       \
-  /* output_offset, output_section, relocation, orelocation,        */ \
-     0,             &amp;SEC,           NULL,       NULL,                  \
-                                                                       \
-  /* reloc_count, alignment_power, filepos, rel_filepos,            */ \
-     0,           0,               0,       0,                         \
-                                                                       \
-  /* line_filepos, userdata, contents, lineno, lineno_count,        */ \
-     0,            NULL,     NULL,     NULL,   0,                      \
-                                                                       \
-  /* entsize, kept_section, moving_line_filepos,                    */ \
-     0,       NULL,         0,                                         \
-                                                                       \
-  /* target_index, used_by_bfd, constructor_chain, owner,           */ \
-     0,            NULL,        NULL,              NULL,               \
-                                                                       \
-  /* symbol,                    symbol_ptr_ptr,                     */ \
-     (struct bfd_symbol *) SYM, &amp;SEC.symbol,                           \
-                                                                       \
-  /* map_head, map_tail, already_assigned, type                     */ \
-     { NULL }, { NULL }, NULL,             0                           \
-                                                                       \
-    }
-
-/* We use a macro to initialize the static asymbol structures because
-   traditional C does not permit us to initialize a union member while
-   gcc warns if we don't initialize it.
-   the_bfd, name, value, attr, section [, udata]  */
-#ifdef __STDC__
-#define GLOBAL_SYM_INIT(NAME, SECTION) \
-  { 0, NAME, 0, BSF_SECTION_SYM, SECTION, { 0 }}
-#else
-#define GLOBAL_SYM_INIT(NAME, SECTION) \
-  { 0, NAME, 0, BSF_SECTION_SYM, SECTION }
-#endif
 
 </pre></div>
 

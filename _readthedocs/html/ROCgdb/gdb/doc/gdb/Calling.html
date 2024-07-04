@@ -3,7 +3,7 @@
 <!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright (C) 1988-2022 Free Software Foundation, Inc.
+<!-- Copyright (C) 1988-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -16,35 +16,47 @@ and with the Back-Cover Texts as in (a) below.
 this GNU Manual.  Buying copies from GNU Press supports the FSF in
 developing GNU and promoting software freedom."
 
-Disclaimer
+Legal Disclaimer and Copyright Information
 
-The information contained herein is for informational purposes only,
-and is subject to change without notice.  While every precaution has
-been taken in the preparation of this document, it may contain
-technical inaccuracies, omissions and typographical errors, and AMD is
-under no obligation to update or otherwise correct this information.
-Advanced Micro Devices, Inc. makes no representations or warranties
-with respect to the accuracy or completeness of the contents of this
-document, and assumes no liability of any kind, including the implied
-warranties of noninfringement, merchantability or fitness for
-particular purposes, with respect to the operation or use of AMD
-hardware, software or other products described herein.  No license,
-including implied or arising by estoppel, to any intellectual property
-rights is granted by this document.  Terms and limitations applicable
-to the purchase or use of AMD’s products are as set forth in a signed
-agreement between the parties or in AMD's Standard Terms and
-Conditions of Sale.
+AMD ROCm software is made available by Advanced Micro Devices, Inc. under the
+open source license identified in the top-level directory for the library in
+the repository on Github.com (Portions of AMD ROCm software are
+licensed under MITx11 and UIL/NCSA. For more information on the license, review
+the license.txt in the top-level directory for the library on
+Github.com).  The additional terms and conditions below apply to your use
+of AMD ROCm technical documentation.
 
-AMD(R), the AMD Arrow logo, AMD Instinct(R),
-Radeon(R), ROCm(R) and combinations thereof are
-trademarks of Advanced Micro Devices, Inc.  Linux(R) is the
-registered trademark of Linus Torvalds in the U.S. and other countries.
-PCIe(R) is a registered trademark of PCI-SIG Corporation. Other
-product names used in this publication are for identification purposes only and
-may be trademarks of their respective companies.
+(C)2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
 
-Copyright (C) 2019-2022 Advanced Micro Devices, Inc.  All
-rights reserved. -->
+The information presented in this document is for informational purposes only
+and may contain technical inaccuracies, omissions, and typographical errors.
+The information contained herein is subject to change and may be rendered
+inaccurate for many reasons, including but not limited to product and roadmap
+changes, component and motherboard version changes, new model and/or product
+releases, product differences between differing manufacturers, software
+changes, BIOS flashes, firmware upgrades, or the like.  Any computer system has
+risks of security vulnerabilities that cannot be completely prevented or
+mitigated.  AMD assumes no obligation to update or otherwise correct or revise
+this information.  However, AMD reserves the right to revise this information
+and to make changes from time to time to the content hereof without obligation
+of AMD to notify any person of such revisions or changes.
+
+THIS INFORMATION IS PROVIDED "AS IS."  AMD MAKES NO REPRESENTATIONS OR
+WARRANTIES WITH RESPECT TO THE CONTENTS HEREOF AND ASSUMES NO RESPONSIBILITY
+FOR ANY INACCURACIES, ERRORS, OR OMISSIONS THAT MAY APPEAR IN THIS INFORMATION.
+AMD SPECIFICALLY DISCLAIMS ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT,
+MERCHANTABILITY, OR FITNESS FOR ANY PARTICULAR PURPOSE.  IN NO EVENT WILL AMD
+BE LIABLE TO ANY PERSON FOR ANY RELIANCE, DIRECT, INDIRECT, SPECIAL, OR OTHER
+CONSEQUENTIAL DAMAGES ARISING FROM THE USE OF ANY INFORMATION CONTAINED HEREIN,
+EVEN IF AMD IS EXPRESSLY ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+
+AMD, the AMD Arrow logo, AMD Instinct™, Radeon™, AMD ROCm™, and combinations
+thereof are trademarks of Advanced Micro Devices, Inc.
+Linux(R) is the registered trademark of Linus Torvalds in the
+U.S. and other countries. PCIe(R) is a registered trademark of
+PCI-SIG Corporation.  Other product names used in this publication are for
+identification purposes only and may be trademarks of their respective
+companies. -->
 <title>Calling (Debugging with ROCGDB)</title>
 
 <meta name="description" content="Calling (Debugging with ROCGDB)">
@@ -119,7 +131,7 @@ value history.
 <p>It is possible for the function you call via the <code>print</code> or
 <code>call</code> command to generate a signal (e.g., if there&rsquo;s a bug in
 the function, or if you passed it incorrect arguments).  What happens
-in that case is controlled by the <code>set unwindonsignal</code> command.
+in that case is controlled by the <code>set unwind-on-signal</code> command.
 </p>
 <p>Similarly, with a C<tt>++</tt> program it is possible for the function you
 call via the <code>print</code> or <code>call</code> command to generate an
@@ -131,9 +143,10 @@ seek for exception handlers outside of this dummy-frame.  What happens
 in that case is controlled by the
 <code>set unwind-on-terminating-exception</code> command.
 </p>
-<dl compact="compact">
-<dt id='index-set-unwindonsignal'><span><code>set unwindonsignal</code><a href='#index-set-unwindonsignal' class='copiable-anchor'> &para;</a></span></dt>
-<dd><span id="index-unwind-stack-in-called-functions"></span>
+<span id="stack-unwind-settings"></span><dl compact="compact">
+<dt id='index-set-unwind_002don_002dsignal'><span><code>set unwind-on-signal</code><a href='#index-set-unwind_002don_002dsignal' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="index-set-unwindonsignal"></span>
+<span id="index-unwind-stack-in-called-functions"></span>
 <span id="index-call-dummy-stack-unwinding"></span>
 <p>Set unwinding of the stack if a signal is received while in a function
 that <small>ROCGDB</small> called in the program being debugged.  If set to on,
@@ -142,10 +155,17 @@ the context to what it was before the call.  If set to off (the
 default), <small>ROCGDB</small> stops in the frame where the signal was
 received.
 </p>
+<p>The command <code>set unwindonsignal</code> is an alias for this command,
+and is maintained for backward compatibility.
+</p>
 </dd>
-<dt id='index-show-unwindonsignal'><span><code>show unwindonsignal</code><a href='#index-show-unwindonsignal' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Show the current setting of stack unwinding in the functions called by
+<dt id='index-show-unwind_002don_002dsignal'><span><code>show unwind-on-signal</code><a href='#index-show-unwind_002don_002dsignal' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="index-show-unwindonsignal"></span>
+<p>Show the current setting of stack unwinding in the functions called by
 <small>ROCGDB</small>.
+</p>
+<p>The command <code>show unwindonsignal</code> is an alias for this command,
+and is maintained for backward compatibility.
 </p>
 </dd>
 <dt id='index-set-unwind_002don_002dterminating_002dexception'><span><code>set unwind-on-terminating-exception</code><a href='#index-set-unwind_002don_002dterminating_002dexception' class='copiable-anchor'> &para;</a></span></dt>
@@ -162,6 +182,21 @@ the default C<tt>++</tt> exception handler and the inferior terminated.
 <dt id='index-show-unwind_002don_002dterminating_002dexception'><span><code>show unwind-on-terminating-exception</code><a href='#index-show-unwind_002don_002dterminating_002dexception' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Show the current setting of stack unwinding in the functions called by
 <small>ROCGDB</small>.
+</p>
+<span id="set-unwind_002don_002dtimeout"></span></dd>
+<dt id='index-set-unwind_002don_002dtimeout'><span><code>set unwind-on-timeout</code><a href='#index-set-unwind_002don_002dtimeout' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="index-unwind-stack-in-called-functions-when-timing-out"></span>
+<span id="index-call-dummy-stack-unwinding-on-timeout_002e"></span>
+<p>Set unwinding of the stack if a function called from <small>ROCGDB</small>
+times out.  If set to <code>off</code> (the default), <small>ROCGDB</small> stops in
+the frame where the timeout occurred.  If set to <code>on</code>,
+<small>ROCGDB</small> unwinds the stack it created for the call and restores
+the context to what it was before the call.
+</p>
+</dd>
+<dt id='index-show-unwind_002don_002dtimeout'><span><code>show unwind-on-timeout</code><a href='#index-show-unwind_002don_002dtimeout' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Show whether <small>ROCGDB</small> will unwind the stack if a function called
+from <small>ROCGDB</small> times out.
 </p>
 </dd>
 <dt id='index-set-may_002dcall_002dfunctions'><span><code>set may-call-functions</code><a href='#index-set-may_002dcall_002dfunctions' class='copiable-anchor'> &para;</a></span></dt>
@@ -186,6 +221,106 @@ an expression) starts a function call in the program.
 <dd><p>Show permission to call functions in the program.
 </p>
 </dd>
+</dl>
+
+<p>When calling a function within a program, it is possible that the
+program could enter a state from which the called function may never
+return.  If this happens then it is possible to interrupt the function
+call by typing the interrupt character (often <kbd>Ctrl-c</kbd>).
+</p>
+<p>If a called function is interrupted for any reason, including hitting
+a breakpoint, or triggering a watchpoint, and the stack is not unwound
+due to <code>set unwind-on-terminating-exception on</code>, <code>set
+unwind-on-timeout on</code>, or <code>set unwind-on-signal on</code> (see <a href="#stack-unwind-settings">stack unwind settings</a>), then the dummy-frame, created by <small>ROCGDB</small> to
+facilitate the call to the program function, will be visible in the
+backtrace, for example frame <code>#3</code> in the following backtrace:
+</p>
+<div class="example">
+<pre class="example">(gdb) backtrace
+#0  0x00007ffff7b3d1e7 in nanosleep () from /lib64/libc.so.6
+#1  0x00007ffff7b3d11e in sleep () from /lib64/libc.so.6
+#2  0x000000000040113f in deadlock () at test.cc:13
+#3  &lt;function called from gdb&gt;
+#4  breakpt () at test.cc:20
+#5  0x0000000000401151 in main () at test.cc:25
+</pre></div>
+
+<p>At this point it is possible to examine the state of the inferior just
+like any other stop.
+</p>
+<p>Depending on why the function was interrupted then it may be possible
+to resume the inferior (using commands like <code>continue</code>,
+<code>step</code>, etc).  In this case, when the inferior finally returns to
+the dummy-frame, <small>ROCGDB</small> will once again halt the inferior.
+</p>
+<p>On targets that support asynchronous execution (see <a href="Background-Execution.html">Background Execution</a>) <small>ROCGDB</small> can place a timeout on any functions called
+from <small>ROCGDB</small>.  If the timeout expires and the function call is
+still ongoing, then <small>ROCGDB</small> will interrupt the program.
+</p>
+<p>If a function called from <small>ROCGDB</small> is interrupted by a timeout,
+then by default the inferior is left in the frame where the timeout
+occurred, this behaviour can be adjusted with &lsquo;<samp>set
+unwind-on-timeout</samp>&rsquo; (see <a href="#set-unwind_002don_002dtimeout">set unwind-on-timeout</a>).
+</p>
+<p>For targets that don&rsquo;t support asynchronous execution
+(see <a href="Background-Execution.html">Background Execution</a>) then timeouts for functions called from
+<small>ROCGDB</small> are not supported, the timeout settings described below
+will be treated as <code>unlimited</code>, meaning <small>ROCGDB</small> will wait
+indefinitely for function call to complete, unless interrupted by the
+user using <kbd>Ctrl-C</kbd>.
+</p>
+<dl compact="compact">
+<dt id='index-set-direct_002dcall_002dtimeout'><span><code>set direct-call-timeout <var>seconds</var></code><a href='#index-set-direct_002dcall_002dtimeout' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="index-timeout-for-called-functions"></span>
+<p>Set the timeout used when calling functions in the program to
+<var>seconds</var>, which should be an integer greater than zero, or the
+special value <code>unlimited</code>, which indicates no timeout should be
+used.  The default for this setting is <code>unlimited</code>.
+</p>
+<p>This setting is used when the user calls a function directly from the
+command prompt, for example with a <code>call</code> or <code>print</code>
+command.
+</p>
+<p>This setting only works for targets that support asynchronous
+execution (see <a href="Background-Execution.html">Background Execution</a>), for any other target the
+setting is treated as <code>unlimited</code>.
+</p>
+</dd>
+<dt id='index-show-direct_002dcall_002dtimeout'><span><code>show direct-call-timeout</code><a href='#index-show-direct_002dcall_002dtimeout' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="index-timeout-for-called-functions-1"></span>
+<p>Show the timeout used when calling functions in the program with a
+<code>call</code> or <code>print</code> command.
+</p></dd>
+</dl>
+
+<p>It is also possible to call functions within the program from the
+condition of a conditional breakpoint (see <a href="Conditions.html">Break
+Conditions</a>).  A different setting controls the timeout used for
+function calls made from a breakpoint condition.
+</p>
+<dl compact="compact">
+<dt id='index-set-indirect_002dcall_002dtimeout'><span><code>set indirect-call-timeout <var>seconds</var></code><a href='#index-set-indirect_002dcall_002dtimeout' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="index-timeout-for-called-functions-2"></span>
+<p>Set the timeout used when calling functions in the program from a
+breakpoint or watchpoint condition to <var>seconds</var>, which should be
+an integer greater than zero, or the special value <code>unlimited</code>,
+which indicates no timeout should be used.  The default for this
+setting is <code>30</code> seconds.
+</p>
+<p>This setting only works for targets that support asynchronous
+execution (see <a href="Background-Execution.html">Background Execution</a>), for any other target the
+setting is treated as <code>unlimited</code>.
+</p>
+<p>If a function called from a breakpoint or watchpoint condition times
+out, then <small>ROCGDB</small> will stop at the point where the timeout
+occurred.  The breakpoint condition evaluation will be abandoned.
+</p>
+</dd>
+<dt id='index-show-indirect_002dcall_002dtimeout'><span><code>show indirect-call-timeout</code><a href='#index-show-indirect_002dcall_002dtimeout' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="index-timeout-for-called-functions-3"></span>
+<p>Show the timeout used when calling functions in the program from a
+breakpoint or watchpoint condition.
+</p></dd>
 </dl>
 
 <ul class="section-toc">

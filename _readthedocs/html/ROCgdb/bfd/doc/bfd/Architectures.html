@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the BFD library.
 
-Copyright (C) 1991-2022 Free Software Foundation, Inc.
+Copyright (C) 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -100,8 +100,7 @@ default case (an item with a machine field of 0).
 <h4 class="subsection">2.13.1 bfd_architecture</h4>
 
 
-<p><strong>Description</strong><br>
-This enum gives the object file&rsquo;s CPU architecture, in a
+<p>This enum gives the object file&rsquo;s CPU architecture, in a
 global sense&mdash;i.e., what processor family does it belong to?
 Another field indicates which processor within
 the family is in use.  The machine gives a number which
@@ -216,6 +215,7 @@ containing, for example, 68020 for Motorola 68020.
 #define bfd_mach_mips16000             16000
 #define bfd_mach_mips16                16
 #define bfd_mach_mips5                 5
+#define bfd_mach_mips_allegrex         10111431 /* octal 'AL', 31.  */
 #define bfd_mach_mips_loongson_2e      3001
 #define bfd_mach_mips_loongson_2f      3002
 #define bfd_mach_mips_gs464            3003
@@ -557,6 +557,17 @@ containing, for example, 68020 for Motorola 68020.
   bfd_arch_lm32,      /* Lattice Mico32.  */
 #define bfd_mach_lm32          1
   bfd_arch_microblaze,/* Xilinx MicroBlaze.  */
+  bfd_arch_kvx,        /* Kalray VLIW core of the MPPA processor family */
+#define bfd_mach_kv3_unknown       0
+#define bfd_mach_kv3_1             1
+#define bfd_mach_kv3_1_64          2
+#define bfd_mach_kv3_1_usr         3
+#define bfd_mach_kv3_2             4
+#define bfd_mach_kv3_2_64          5
+#define bfd_mach_kv3_2_usr         6
+#define bfd_mach_kv4_1             7
+#define bfd_mach_kv4_1_64          8
+#define bfd_mach_kv4_1_usr         9
   bfd_arch_tilepro,   /* Tilera TILEPro.  */
   bfd_arch_tilegx,    /* Tilera TILE-Gx.  */
 #define bfd_mach_tilepro       1
@@ -600,6 +611,9 @@ containing, for example, 68020 for Motorola 68020.
 #define bfd_mach_amdgcn_gfx906  0x02f
 #define bfd_mach_amdgcn_gfx908  0x030
 #define bfd_mach_amdgcn_gfx90a  0x03f
+#define bfd_mach_amdgcn_gfx940  0x040
+#define bfd_mach_amdgcn_gfx941  0x04b
+#define bfd_mach_amdgcn_gfx942  0x04c
 #define bfd_mach_amdgcn_gfx1010 0x033
 #define bfd_mach_amdgcn_gfx1011 0x034
 #define bfd_mach_amdgcn_gfx1012 0x035
@@ -609,6 +623,8 @@ containing, for example, 68020 for Motorola 68020.
 #define bfd_mach_amdgcn_gfx1100 0x041
 #define bfd_mach_amdgcn_gfx1101 0x046
 #define bfd_mach_amdgcn_gfx1102 0x047
+#define bfd_mach_amdgcn_gfx1200 0x048
+#define bfd_mach_amdgcn_gfx1201 0x04e
   bfd_arch_last
   };
 </pre></div>
@@ -618,8 +634,7 @@ containing, for example, 68020 for Motorola 68020.
 <h4 class="subsection">2.13.2 bfd_arch_info</h4>
 
 
-<p><strong>Description</strong><br>
-This structure contains information on architectures for use
+<p>This structure contains information on architectures for use
 within BFD.
 </p><div class="example">
 <pre class="example">
@@ -688,253 +703,207 @@ bfd_arch_info_type;
 </ul>
 <div class="subsubsection" id="bfd_005fprintable_005fname">
 <h4 class="subsubsection">2.13.2.1 <code>bfd_printable_name</code></h4>
-<p><strong>Synopsis</strong>
-</p><div class="example">
-<pre class="example">const char *bfd_printable_name (bfd *abfd);
-</pre></div>
-<p><strong>Description</strong><br>
-Return a printable string representing the architecture and machine
+<dl class="def">
+<dt id="index-char-8"><span class="category">Function: </span><span><em>const</em> <strong>char</strong> <em>*bfd_printable_name (bfd *abfd);</em><a href='#index-char-8' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Return a printable string representing the architecture and machine
 from the pointer to the architecture info structure.
 </p>
+</dd></dl>
 <span id="index-bfd_005fscan_005farch"></span>
 </div>
 <div class="subsubsection" id="bfd_005fscan_005farch">
 <h4 class="subsubsection">2.13.2.2 <code>bfd_scan_arch</code></h4>
-<p><strong>Synopsis</strong>
-</p><div class="example">
-<pre class="example">const bfd_arch_info_type *bfd_scan_arch (const char *string);
-</pre></div>
-<p><strong>Description</strong><br>
-Figure out if BFD supports any cpu which could be described with
+<dl class="def">
+<dt id="index-bfd_005farch_005finfo_005ftype"><span class="category">Function: </span><span><em>const</em> <strong>bfd_arch_info_type</strong> <em>*bfd_scan_arch (const char *string);</em><a href='#index-bfd_005farch_005finfo_005ftype' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Figure out if BFD supports any cpu which could be described with
 the name <var>string</var>.  Return a pointer to an <code>arch_info</code>
 structure if a machine is found, otherwise NULL.
 </p>
+</dd></dl>
 <span id="index-bfd_005farch_005flist"></span>
 </div>
 <div class="subsubsection" id="bfd_005farch_005flist">
 <h4 class="subsubsection">2.13.2.3 <code>bfd_arch_list</code></h4>
-<p><strong>Synopsis</strong>
-</p><div class="example">
-<pre class="example">const char **bfd_arch_list (void);
-</pre></div>
-<p><strong>Description</strong><br>
-Return a freshly malloced NULL-terminated vector of the names
+<dl class="def">
+<dt id="index-char-9"><span class="category">Function: </span><span><em>const</em> <strong>char</strong> <em>**bfd_arch_list (void);</em><a href='#index-char-9' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Return a freshly malloced NULL-terminated vector of the names
 of all the valid BFD architectures.  Do not modify the names.
 </p>
+</dd></dl>
 <span id="index-bfd_005farch_005fget_005fcompatible"></span>
 </div>
 <div class="subsubsection" id="bfd_005farch_005fget_005fcompatible">
 <h4 class="subsubsection">2.13.2.4 <code>bfd_arch_get_compatible</code></h4>
-<p><strong>Synopsis</strong>
-</p><div class="example">
-<pre class="example">const bfd_arch_info_type *bfd_arch_get_compatible
-   (const bfd *abfd, const bfd *bbfd, bool accept_unknowns);
-</pre></div>
-<p><strong>Description</strong><br>
-Determine whether two BFDs&rsquo; architectures and machine types
+<dl class="def">
+<dt id="index-bfd_005farch_005finfo_005ftype-1"><span class="category">Function: </span><span><em>const</em> <strong>bfd_arch_info_type</strong> <em>*bfd_arch_get_compatible (const bfd *abfd, const bfd *bbfd, bool accept_unknowns);</em><a href='#index-bfd_005farch_005finfo_005ftype-1' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Determine whether two BFDs&rsquo; architectures and machine types
 are compatible.  Calculates the lowest common denominator
 between the two architectures and machine types implied by
 the BFDs and returns a pointer to an <code>arch_info</code> structure
 describing the compatible machine.
 </p>
+</dd></dl>
 <span id="index-bfd_005fdefault_005farch_005fstruct"></span>
 </div>
 <div class="subsubsection" id="bfd_005fdefault_005farch_005fstruct">
 <h4 class="subsubsection">2.13.2.5 <code>bfd_default_arch_struct</code></h4>
-<p><strong>Description</strong><br>
-The <code>bfd_default_arch_struct</code> is an item of
+<p>The <code>bfd_default_arch_struct</code> is an item of
 <code>bfd_arch_info_type</code> which has been initialized to a fairly
 generic state.  A BFD starts life by pointing to this
 structure, until the correct back end has determined the real
 architecture of the file.
 </p><div class="example">
 <pre class="example">extern const bfd_arch_info_type bfd_default_arch_struct;
+
 </pre></div>
 
 <span id="index-bfd_005fset_005farch_005finfo"></span>
 </div>
 <div class="subsubsection" id="bfd_005fset_005farch_005finfo">
 <h4 class="subsubsection">2.13.2.6 <code>bfd_set_arch_info</code></h4>
-<p><strong>Synopsis</strong>
-</p><div class="example">
-<pre class="example">void bfd_set_arch_info (bfd *abfd, const bfd_arch_info_type *arg);
-</pre></div>
-<p><strong>Description</strong><br>
-Set the architecture info of <var>abfd</var> to <var>arg</var>.
+<dl class="def">
+<dt id="index-bfd_005fset_005farch_005finfo-1"><span class="category">Function: </span><span><em>void</em> <strong>bfd_set_arch_info</strong> <em>(bfd *abfd, const bfd_arch_info_type *arg);</em><a href='#index-bfd_005fset_005farch_005finfo-1' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Set the architecture info of <var>abfd</var> to <var>arg</var>.
 </p>
+</dd></dl>
 <span id="index-bfd_005fdefault_005fset_005farch_005fmach"></span>
 </div>
 <div class="subsubsection" id="bfd_005fdefault_005fset_005farch_005fmach">
 <h4 class="subsubsection">2.13.2.7 <code>bfd_default_set_arch_mach</code></h4>
-<p><strong>Synopsis</strong>
-</p><div class="example">
-<pre class="example">bool bfd_default_set_arch_mach
-   (bfd *abfd, enum bfd_architecture arch, unsigned long mach);
-</pre></div>
-<p><strong>Description</strong><br>
-Set the architecture and machine type in BFD <var>abfd</var>
+<dl class="def">
+<dt id="index-bfd_005fdefault_005fset_005farch_005fmach-1"><span class="category">Function: </span><span><em>bool</em> <strong>bfd_default_set_arch_mach</strong> <em>(bfd *abfd, enum bfd_architecture arch, unsigned long mach);</em><a href='#index-bfd_005fdefault_005fset_005farch_005fmach-1' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Set the architecture and machine type in BFD <var>abfd</var>
 to <var>arch</var> and <var>mach</var>.  Find the correct
 pointer to a structure and insert it into the <code>arch_info</code>
 pointer.
 </p>
+</dd></dl>
 <span id="index-bfd_005fget_005farch"></span>
 </div>
 <div class="subsubsection" id="bfd_005fget_005farch">
 <h4 class="subsubsection">2.13.2.8 <code>bfd_get_arch</code></h4>
-<p><strong>Synopsis</strong>
-</p><div class="example">
-<pre class="example">enum bfd_architecture bfd_get_arch (const bfd *abfd);
-</pre></div>
-<p><strong>Description</strong><br>
-Return the enumerated type which describes the BFD <var>abfd</var>&rsquo;s
+<dl class="def">
+<dt id="index-bfd_005farchitecture"><span class="category">Function: </span><span><em>enum</em> <strong>bfd_architecture</strong> <em>bfd_get_arch (const bfd *abfd);</em><a href='#index-bfd_005farchitecture' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Return the enumerated type which describes the BFD <var>abfd</var>&rsquo;s
 architecture.
 </p>
+</dd></dl>
 <span id="index-bfd_005fget_005fmach"></span>
 </div>
 <div class="subsubsection" id="bfd_005fget_005fmach">
 <h4 class="subsubsection">2.13.2.9 <code>bfd_get_mach</code></h4>
-<p><strong>Synopsis</strong>
-</p><div class="example">
-<pre class="example">unsigned long bfd_get_mach (const bfd *abfd);
-</pre></div>
-<p><strong>Description</strong><br>
-Return the long type which describes the BFD <var>abfd</var>&rsquo;s
+<dl class="def">
+<dt id="index-long"><span class="category">Function: </span><span><em>unsigned</em> <strong>long</strong> <em>bfd_get_mach (const bfd *abfd);</em><a href='#index-long' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Return the long type which describes the BFD <var>abfd</var>&rsquo;s
 machine.
 </p>
+</dd></dl>
 <span id="index-bfd_005farch_005fbits_005fper_005fbyte"></span>
 </div>
 <div class="subsubsection" id="bfd_005farch_005fbits_005fper_005fbyte">
 <h4 class="subsubsection">2.13.2.10 <code>bfd_arch_bits_per_byte</code></h4>
-<p><strong>Synopsis</strong>
-</p><div class="example">
-<pre class="example">unsigned int bfd_arch_bits_per_byte (const bfd *abfd);
-</pre></div>
-<p><strong>Description</strong><br>
-Return the number of bits in one of the BFD <var>abfd</var>&rsquo;s
+<dl class="def">
+<dt id="index-int-2"><span class="category">Function: </span><span><em>unsigned</em> <strong>int</strong> <em>bfd_arch_bits_per_byte (const bfd *abfd);</em><a href='#index-int-2' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Return the number of bits in one of the BFD <var>abfd</var>&rsquo;s
 architecture&rsquo;s bytes.
 </p>
+</dd></dl>
 <span id="index-bfd_005farch_005fbits_005fper_005faddress"></span>
 </div>
 <div class="subsubsection" id="bfd_005farch_005fbits_005fper_005faddress">
 <h4 class="subsubsection">2.13.2.11 <code>bfd_arch_bits_per_address</code></h4>
-<p><strong>Synopsis</strong>
-</p><div class="example">
-<pre class="example">unsigned int bfd_arch_bits_per_address (const bfd *abfd);
-</pre></div>
-<p><strong>Description</strong><br>
-Return the number of bits in one of the BFD <var>abfd</var>&rsquo;s
+<dl class="def">
+<dt id="index-int-3"><span class="category">Function: </span><span><em>unsigned</em> <strong>int</strong> <em>bfd_arch_bits_per_address (const bfd *abfd);</em><a href='#index-int-3' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Return the number of bits in one of the BFD <var>abfd</var>&rsquo;s
 architecture&rsquo;s addresses.
 </p>
+</dd></dl>
 <span id="index-bfd_005fdefault_005fcompatible"></span>
 </div>
 <div class="subsubsection" id="bfd_005fdefault_005fcompatible">
 <h4 class="subsubsection">2.13.2.12 <code>bfd_default_compatible</code></h4>
-<p><strong>Synopsis</strong>
-</p><div class="example">
-<pre class="example">const bfd_arch_info_type *bfd_default_compatible
-   (const bfd_arch_info_type *a, const bfd_arch_info_type *b);
-</pre></div>
-<p><strong>Description</strong><br>
-The default function for testing for compatibility.
+<dl class="def">
+<dt id="index-bfd_005farch_005finfo_005ftype-2"><span class="category">Function: </span><span><em>const</em> <strong>bfd_arch_info_type</strong> <em>*bfd_default_compatible (const bfd_arch_info_type *a, const bfd_arch_info_type *b);</em><a href='#index-bfd_005farch_005finfo_005ftype-2' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>The default function for testing for compatibility.
 </p>
+</dd></dl>
 <span id="index-bfd_005fdefault_005fscan"></span>
 </div>
 <div class="subsubsection" id="bfd_005fdefault_005fscan">
 <h4 class="subsubsection">2.13.2.13 <code>bfd_default_scan</code></h4>
-<p><strong>Synopsis</strong>
-</p><div class="example">
-<pre class="example">bool bfd_default_scan
-   (const struct bfd_arch_info *info, const char *string);
-</pre></div>
-<p><strong>Description</strong><br>
-The default function for working out whether this is an
+<dl class="def">
+<dt id="index-bfd_005fdefault_005fscan-1"><span class="category">Function: </span><span><em>bool</em> <strong>bfd_default_scan</strong> <em>(const struct bfd_arch_info *info, const char *string);</em><a href='#index-bfd_005fdefault_005fscan-1' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>The default function for working out whether this is an
 architecture hit and a machine hit.
 </p>
+</dd></dl>
 <span id="index-bfd_005fget_005farch_005finfo"></span>
 </div>
 <div class="subsubsection" id="bfd_005fget_005farch_005finfo">
 <h4 class="subsubsection">2.13.2.14 <code>bfd_get_arch_info</code></h4>
-<p><strong>Synopsis</strong>
-</p><div class="example">
-<pre class="example">const bfd_arch_info_type *bfd_get_arch_info (bfd *abfd);
-</pre></div>
-<p><strong>Description</strong><br>
-Return the architecture info struct in <var>abfd</var>.
+<dl class="def">
+<dt id="index-bfd_005farch_005finfo_005ftype-3"><span class="category">Function: </span><span><em>const</em> <strong>bfd_arch_info_type</strong> <em>*bfd_get_arch_info (bfd *abfd);</em><a href='#index-bfd_005farch_005finfo_005ftype-3' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Return the architecture info struct in <var>abfd</var>.
 </p>
+</dd></dl>
 <span id="index-bfd_005flookup_005farch"></span>
 </div>
 <div class="subsubsection" id="bfd_005flookup_005farch">
 <h4 class="subsubsection">2.13.2.15 <code>bfd_lookup_arch</code></h4>
-<p><strong>Synopsis</strong>
-</p><div class="example">
-<pre class="example">const bfd_arch_info_type *bfd_lookup_arch
-   (enum bfd_architecture arch, unsigned long machine);
-</pre></div>
-<p><strong>Description</strong><br>
-Look for the architecture info structure which matches the
+<dl class="def">
+<dt id="index-bfd_005farch_005finfo_005ftype-4"><span class="category">Function: </span><span><em>const</em> <strong>bfd_arch_info_type</strong> <em>*bfd_lookup_arch (enum bfd_architecture arch, unsigned long machine);</em><a href='#index-bfd_005farch_005finfo_005ftype-4' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Look for the architecture info structure which matches the
 arguments <var>arch</var> and <var>machine</var>. A machine of 0 matches the
 machine/architecture structure which marks itself as the
 default.
 </p>
+</dd></dl>
 <span id="index-bfd_005fprintable_005farch_005fmach"></span>
 </div>
 <div class="subsubsection" id="bfd_005fprintable_005farch_005fmach">
 <h4 class="subsubsection">2.13.2.16 <code>bfd_printable_arch_mach</code></h4>
-<p><strong>Synopsis</strong>
-</p><div class="example">
-<pre class="example">const char *bfd_printable_arch_mach
-   (enum bfd_architecture arch, unsigned long machine);
-</pre></div>
-<p><strong>Description</strong><br>
-Return a printable string representing the architecture and
+<dl class="def">
+<dt id="index-char-10"><span class="category">Function: </span><span><em>const</em> <strong>char</strong> <em>*bfd_printable_arch_mach (enum bfd_architecture arch, unsigned long machine);</em><a href='#index-char-10' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Return a printable string representing the architecture and
 machine type.
 </p>
 <p>This routine is depreciated.
 </p>
+</dd></dl>
 <span id="index-bfd_005foctets_005fper_005fbyte"></span>
 </div>
 <div class="subsubsection" id="bfd_005foctets_005fper_005fbyte">
 <h4 class="subsubsection">2.13.2.17 <code>bfd_octets_per_byte</code></h4>
-<p><strong>Synopsis</strong>
-</p><div class="example">
-<pre class="example">unsigned int bfd_octets_per_byte (const bfd *abfd,
-    const asection *sec);
-</pre></div>
-<p><strong>Description</strong><br>
-Return the number of octets (8-bit quantities) per target byte
+<dl class="def">
+<dt id="index-int-4"><span class="category">Function: </span><span><em>unsigned</em> <strong>int</strong> <em>bfd_octets_per_byte (const bfd *abfd, const asection *sec);</em><a href='#index-int-4' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Return the number of octets (8-bit quantities) per target byte
 (minimum addressable unit).  In most cases, this will be one, but some
 DSP targets have 16, 32, or even 48 bits per byte.
 </p>
+</dd></dl>
 <span id="index-bfd_005farch_005fmach_005foctets_005fper_005fbyte"></span>
 </div>
 <div class="subsubsection" id="bfd_005farch_005fmach_005foctets_005fper_005fbyte">
 <h4 class="subsubsection">2.13.2.18 <code>bfd_arch_mach_octets_per_byte</code></h4>
-<p><strong>Synopsis</strong>
-</p><div class="example">
-<pre class="example">unsigned int bfd_arch_mach_octets_per_byte
-   (enum bfd_architecture arch, unsigned long machine);
-</pre></div>
-<p><strong>Description</strong><br>
-See bfd_octets_per_byte.
+<dl class="def">
+<dt id="index-int-5"><span class="category">Function: </span><span><em>unsigned</em> <strong>int</strong> <em>bfd_arch_mach_octets_per_byte (enum bfd_architecture arch, unsigned long machine);</em><a href='#index-int-5' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>See bfd_octets_per_byte.
 </p>
 <p>This routine is provided for those cases where a bfd * is not
 available
 </p>
+</dd></dl>
 <span id="index-bfd_005farch_005fdefault_005ffill"></span>
 </div>
 <div class="subsubsection" id="bfd_005farch_005fdefault_005ffill">
 <h4 class="subsubsection">2.13.2.19 <code>bfd_arch_default_fill</code></h4>
-<p><strong>Synopsis</strong>
-</p><div class="example">
-<pre class="example">void *bfd_arch_default_fill (bfd_size_type count,
-    bool is_bigendian,
-    bool code);
-</pre></div>
-<p><strong>Description</strong><br>
-Allocate via bfd_malloc and return a fill buffer of size COUNT.
+<dl class="def">
+<dt id="index-_002abfd_005farch_005fdefault_005ffill"><span class="category">Function: </span><span><em>void</em> <strong>*bfd_arch_default_fill</strong> <em>(bfd_size_type count, bool is_bigendian, bool code);</em><a href='#index-_002abfd_005farch_005fdefault_005ffill' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Allocate via bfd_malloc and return a fill buffer of size COUNT.
 If IS_BIGENDIAN is TRUE, the order of bytes is big endian.  If
 CODE is TRUE, the buffer contains code.
 </p>
+</dd></dl>
 
 </div>
 </div>

@@ -3,7 +3,7 @@
 <!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright (C) 1988-2022 Free Software Foundation, Inc.
+<!-- Copyright (C) 1988-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -16,35 +16,47 @@ and with the Back-Cover Texts as in (a) below.
 this GNU Manual.  Buying copies from GNU Press supports the FSF in
 developing GNU and promoting software freedom."
 
-Disclaimer
+Legal Disclaimer and Copyright Information
 
-The information contained herein is for informational purposes only,
-and is subject to change without notice.  While every precaution has
-been taken in the preparation of this document, it may contain
-technical inaccuracies, omissions and typographical errors, and AMD is
-under no obligation to update or otherwise correct this information.
-Advanced Micro Devices, Inc. makes no representations or warranties
-with respect to the accuracy or completeness of the contents of this
-document, and assumes no liability of any kind, including the implied
-warranties of noninfringement, merchantability or fitness for
-particular purposes, with respect to the operation or use of AMD
-hardware, software or other products described herein.  No license,
-including implied or arising by estoppel, to any intellectual property
-rights is granted by this document.  Terms and limitations applicable
-to the purchase or use of AMD’s products are as set forth in a signed
-agreement between the parties or in AMD's Standard Terms and
-Conditions of Sale.
+AMD ROCm software is made available by Advanced Micro Devices, Inc. under the
+open source license identified in the top-level directory for the library in
+the repository on Github.com (Portions of AMD ROCm software are
+licensed under MITx11 and UIL/NCSA. For more information on the license, review
+the license.txt in the top-level directory for the library on
+Github.com).  The additional terms and conditions below apply to your use
+of AMD ROCm technical documentation.
 
-AMD(R), the AMD Arrow logo, AMD Instinct(R),
-Radeon(R), ROCm(R) and combinations thereof are
-trademarks of Advanced Micro Devices, Inc.  Linux(R) is the
-registered trademark of Linus Torvalds in the U.S. and other countries.
-PCIe(R) is a registered trademark of PCI-SIG Corporation. Other
-product names used in this publication are for identification purposes only and
-may be trademarks of their respective companies.
+(C)2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
 
-Copyright (C) 2019-2022 Advanced Micro Devices, Inc.  All
-rights reserved. -->
+The information presented in this document is for informational purposes only
+and may contain technical inaccuracies, omissions, and typographical errors.
+The information contained herein is subject to change and may be rendered
+inaccurate for many reasons, including but not limited to product and roadmap
+changes, component and motherboard version changes, new model and/or product
+releases, product differences between differing manufacturers, software
+changes, BIOS flashes, firmware upgrades, or the like.  Any computer system has
+risks of security vulnerabilities that cannot be completely prevented or
+mitigated.  AMD assumes no obligation to update or otherwise correct or revise
+this information.  However, AMD reserves the right to revise this information
+and to make changes from time to time to the content hereof without obligation
+of AMD to notify any person of such revisions or changes.
+
+THIS INFORMATION IS PROVIDED "AS IS."  AMD MAKES NO REPRESENTATIONS OR
+WARRANTIES WITH RESPECT TO THE CONTENTS HEREOF AND ASSUMES NO RESPONSIBILITY
+FOR ANY INACCURACIES, ERRORS, OR OMISSIONS THAT MAY APPEAR IN THIS INFORMATION.
+AMD SPECIFICALLY DISCLAIMS ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT,
+MERCHANTABILITY, OR FITNESS FOR ANY PARTICULAR PURPOSE.  IN NO EVENT WILL AMD
+BE LIABLE TO ANY PERSON FOR ANY RELIANCE, DIRECT, INDIRECT, SPECIAL, OR OTHER
+CONSEQUENTIAL DAMAGES ARISING FROM THE USE OF ANY INFORMATION CONTAINED HEREIN,
+EVEN IF AMD IS EXPRESSLY ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+
+AMD, the AMD Arrow logo, AMD Instinct™, Radeon™, AMD ROCm™, and combinations
+thereof are trademarks of Advanced Micro Devices, Inc.
+Linux(R) is the registered trademark of Linus Torvalds in the
+U.S. and other countries. PCIe(R) is a registered trademark of
+PCI-SIG Corporation.  Other product names used in this publication are for
+identification purposes only and may be trademarks of their respective
+companies. -->
 <title>Values From Inferior (Debugging with ROCGDB)</title>
 
 <meta name="description" content="Values From Inferior (Debugging with ROCGDB)">
@@ -90,7 +102,7 @@ ul.no-bullet {list-style: none}
 Next: <a href="Types-In-Python.html" accesskey="n" rel="next">Types In Python</a>, Previous: <a href="Exception-Handling.html" accesskey="p" rel="prev">Exception Handling</a>, Up: <a href="Python-API.html" accesskey="u" rel="up">Python API</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="Values-From-Inferior-1"></span><h4 class="subsubsection">24.3.2.3 Values From Inferior</h4>
+<span id="Values-From-Inferior-1"></span><h4 class="subsubsection">24.3.2.4 Values From Inferior</h4>
 <span id="index-values-from-inferior_002c-with-Python"></span>
 <span id="index-python_002c-working-with-values-from-inferior"></span>
 
@@ -148,6 +160,13 @@ structure, then <code>bar</code> can also be accessed as follows:
 </p>
 <div class="example">
 <pre class="example">bar = some_val[foo_field]
+</pre></div>
+
+<p>If a <code>gdb.Value</code> has array or pointer type, an integer index can
+be used to access elements.
+</p>
+<div class="example">
+<pre class="example">result = some_array[23]
 </pre></div>
 
 <p>A <code>gdb.Value</code> that represents a function can be executed via
@@ -221,10 +240,26 @@ fetched when the value is needed, or when the <code>fetch_lazy</code>
 method is invoked.  
 </p></dd></dl>
 
+<dl class="def">
+<dt id="index-Value_002ebytes"><span class="category">Variable: </span><span><strong>Value.bytes</strong><a href='#index-Value_002ebytes' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>The value of this attribute is a <code>bytes</code> object containing the
+bytes that make up this <code>Value</code>&rsquo;s complete value in little endian
+order.  If the complete contents of this value are not available then
+accessing this attribute will raise an exception.
+</p>
+<p>This attribute can also be assigned to.  The new value should be a
+buffer object (e.g. a <code>bytes</code> object), the length of the new
+buffer must exactly match the length of this <code>Value</code>&rsquo;s type.  The
+bytes values in the new buffer should be in little endian order.
+</p>
+<p>As with <code>Value.assign</code> (see <a href="#Value_002eassign">Value.assign</a>), if this value
+cannot be assigned to, then an exception will be thrown.
+</p></dd></dl>
+
 <p>The following methods are provided:
 </p>
 <dl class="def">
-<dt id="index-Value_002e_005f_005finit_005f_005f"><span class="category">Function: </span><span><strong>Value.__init__</strong> <em>(<var>val</var>)</em><a href='#index-Value_002e_005f_005finit_005f_005f' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-Value_002e_005f_005finit_005f_005f"><span class="category">Function: </span><span><strong>Value.__init__</strong> <em>(val)</em><a href='#index-Value_002e_005f_005finit_005f_005f' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Many Python values can be converted directly to a <code>gdb.Value</code> via
 this object initializer.  Specifically:
 </p>
@@ -268,7 +303,7 @@ its result is used.
 </dd></dl>
 
 <dl class="def">
-<dt id="index-Value_002e_005f_005finit_005f_005f-1"><span class="category">Function: </span><span><strong>Value.__init__</strong> <em>(<var>val</var>, <var>type</var>)</em><a href='#index-Value_002e_005f_005finit_005f_005f-1' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-Value_002e_005f_005finit_005f_005f-1"><span class="category">Function: </span><span><strong>Value.__init__</strong> <em>(val, type)</em><a href='#index-Value_002e_005f_005finit_005f_005f-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>This second form of the <code>gdb.Value</code> constructor returns a
 <code>gdb.Value</code> of type <var>type</var> where the value contents are taken
 from the Python buffer object specified by <var>val</var>.  The number of
@@ -277,6 +312,13 @@ size of <var>type</var>.
 </p>
 <p>If <var>type</var> is <code>None</code> then this version of <code>__init__</code>
 behaves as though <var>type</var> was not passed at all.
+</p></dd></dl>
+
+<span id="Value_002eassign"></span><dl class="def">
+<dt id="index-Value_002eassign"><span class="category">Function: </span><span><strong>Value.assign</strong> <em>(rhs)</em><a href='#index-Value_002eassign' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Assign <var>rhs</var> to this value, and return <code>None</code>.  If this value
+cannot be assigned to, or if the assignment is invalid for some reason
+(for example a type-checking failure), an exception will be thrown.
 </p></dd></dl>
 
 <dl class="def">
@@ -460,6 +502,11 @@ address, <code>False</code> if it shouldn&rsquo;t (see <code>set print address</
 <a href="Print-Settings.html">Print Settings</a>).
 </p>
 </dd>
+<dt><span><code>nibbles</code></span></dt>
+<dd><p><code>True</code> if binary values should be displayed in groups of four bits,
+known as nibbles.  <code>False</code> if it shouldn&rsquo;t (see <a href="Print-Settings.html">set print nibbles</a>).
+</p>
+</dd>
 <dt><span><code>deref_refs</code></span></dt>
 <dd><p><code>True</code> if C<tt>++</tt> references should be resolved to the value they
 refer to, <code>False</code> (the default) if they shouldn&rsquo;t.  Note that, unlike
@@ -481,6 +528,12 @@ the <em>declared</em> type should be used.  (See <code>set print object</code> i
 <dd><p><code>True</code> if static members should be included in the string
 representation of a C<tt>++</tt> object, <code>False</code> if they shouldn&rsquo;t (see
 <code>set print static-members</code> in <a href="Print-Settings.html">Print Settings</a>).
+</p>
+</dd>
+<dt><span><code>max_characters</code></span></dt>
+<dd><p>Number of string characters to print, <code>0</code> to follow
+<code>max_elements</code>, or <code>UINT_MAX</code> to print an unlimited number
+of characters (see <code>set print characters</code> in <a href="Print-Settings.html">Print Settings</a>).
 </p>
 </dd>
 <dt><span><code>max_elements</code></span></dt>
@@ -516,9 +569,24 @@ Additionally, <small>ROCGDB</small> only styles some value contents, so not
 every output string will contain escape sequences.
 </p>
 <p>When <code>False</code>, which is the default, no output styling is applied.
+</p>
+</dd>
+<dt><span><code>summary</code></span></dt>
+<dd><p><code>True</code> when just a summary should be printed.  In this mode,
+scalar values are printed in their entirety, but aggregates such as
+structures or unions are omitted.  This mode is used by <code>set
+print frame-arguments scalars</code> (see <a href="Print-Settings.html">Print Settings</a>).
 </p></dd>
 </dl>
 </dd></dl>
+
+<dl class="def">
+<dt id="index-Value_002eto_005farray"><span class="category">Function: </span><span><strong>Value.to_array</strong> <em>()</em><a href='#index-Value_002eto_005farray' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>If this value is array-like (see <a href="Types-In-Python.html#Type_002eis_005farray_005flike">Type.is_array_like</a>), then this
+method converts it to an array, which is returned.  If this value is
+already an array, it is simply returned.  Otherwise, an exception is
+throw.
+</p></dd></dl>
 
 <dl class="def">
 <dt id="index-Value_002estring"><span class="category">Function: </span><span><strong>Value.string</strong> <em>(<span class="roman">[</span>encoding<span class="roman">[</span>, errors<span class="roman">[</span>, length<span class="roman">]]]</span>)</em><a href='#index-Value_002estring' class='copiable-anchor'> &para;</a></span></dt>

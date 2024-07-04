@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the BFD library.
 
-Copyright (C) 1991-2022 Free Software Foundation, Inc.
+Copyright (C) 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -74,42 +74,7 @@ Next: <a href="howto-manager.html" accesskey="n" rel="next">The howto manager</a
 </p>
 
 <div class="example">
-<pre class="example">
-
-typedef enum bfd_reloc_status
-{
-  /* No errors detected.  Note - the value 2 is used so that it
-     will not be mistaken for the boolean TRUE or FALSE values.  */
-  bfd_reloc_ok = 2,
-
-  /* The relocation was performed, but there was an overflow.  */
-  bfd_reloc_overflow,
-
-  /* The address to relocate was not within the section supplied.  */
-  bfd_reloc_outofrange,
-
-  /* Used by special functions.  */
-  bfd_reloc_continue,
-
-  /* Unsupported relocation size requested.  */
-  bfd_reloc_notsupported,
-
-  /* Target specific meaning.  */
-  bfd_reloc_other,
-
-  /* The symbol to relocate against was undefined.  */
-  bfd_reloc_undefined,
-
-  /* The relocation was performed, but may not be ok.  If this type is
-     returned, the error_message argument to bfd_perform_relocation
-     will be set.  */
-  bfd_reloc_dangerous
- }
- bfd_reloc_status_type;
-
-typedef const struct reloc_howto_struct reloc_howto_type;
-
-typedef struct reloc_cache_entry
+<pre class="example">struct reloc_cache_entry
 {
   /* A pointer into the canonical table of pointers.  */
   struct bfd_symbol **sym_ptr_ptr;
@@ -123,12 +88,10 @@ typedef struct reloc_cache_entry
   /* Pointer to how to perform the required relocation.  */
   reloc_howto_type *howto;
 
-}
-arelent;
+};
 
 </pre></div>
-<p><strong>Description</strong><br>
-Here is a description of each of the fields within an <code>arelent</code>:
+<p>Here is a description of each of the fields within an <code>arelent</code>:
 </p>
 <ul>
 <li> <code>sym_ptr_ptr</code>
@@ -285,9 +248,7 @@ performing a relocation.
 </p>
 
 <div class="example">
-<pre class="example">
-
-enum complain_overflow
+<pre class="example">enum complain_overflow
 {
   /* Do not complain on overflow.  */
   complain_overflow_dont,
@@ -305,6 +266,7 @@ enum complain_overflow
      unsigned number.  */
   complain_overflow_unsigned
 };
+
 </pre></div>
 </div>
 <div class="subsubsection" id="reloc_005fhowto_005ftype">
@@ -371,6 +333,11 @@ information that libbfd needs to know to tie up a back end&rsquo;s data.
      empty (e.g., ELF); this flag signals the fact.  */
   unsigned int pcrel_offset:1;
 
+  /* Whether bfd_install_relocation should just install the addend,
+     or should follow the practice of some older object formats and
+     install a value including the symbol.  */
+  unsigned int install_addend:1;
+
   /* src_mask selects the part of the instruction (or data) to be used
      in the relocation sum.  If the target relocations don't have an
      addend in the reloc, eg. ELF USE_REL, src_mask will normally equal
@@ -401,19 +368,19 @@ information that libbfd needs to know to tie up a back end&rsquo;s data.
 </div>
 <div class="subsubsection" id="The-HOWTO-Macro">
 <h4 class="subsubsection">2.10.1.3 <code>The HOWTO Macro</code></h4>
-<p><strong>Description</strong><br>
-The HOWTO macro fills in a reloc_howto_type (a typedef for
+<p>The HOWTO macro fills in a reloc_howto_type (a typedef for
 const struct reloc_howto_struct).
 </p><div class="example">
-<pre class="example">#define HOWTO_RSIZE(sz) ((sz) &lt; 0 ? -(sz) : (sz))
+<pre class="example">#define HOWTO_INSTALL_ADDEND 0
+#define HOWTO_RSIZE(sz) ((sz) &lt; 0 ? -(sz) : (sz))
 #define HOWTO(type, right, size, bits, pcrel, left, ovf, func, name,   \
               inplace, src_mask, dst_mask, pcrel_off)                  \
   { (unsigned) type, HOWTO_RSIZE (size), bits, right, left, ovf,       \
-    size &lt; 0, pcrel, inplace, pcrel_off, src_mask, dst_mask, func, name }
+    size &lt; 0, pcrel, inplace, pcrel_off, HOWTO_INSTALL_ADDEND,         \
+    src_mask, dst_mask, func, name }
 </pre></div>
 
-<p><strong>Description</strong><br>
-This is used to fill in an empty howto entry in an array.
+<p>This is used to fill in an empty howto entry in an array.
 </p><div class="example">
 <pre class="example">#define EMPTY_HOWTO(C) \
   HOWTO ((C), 0, 1, 0, false, 0, complain_overflow_dont, NULL, \
@@ -431,8 +398,7 @@ bfd_get_reloc_size (reloc_howto_type *howto)
 </div>
 <div class="subsubsection" id="arelent_005fchain">
 <h4 class="subsubsection">2.10.1.4 <code>arelent_chain</code></h4>
-<p><strong>Description</strong><br>
-How relocs are tied together in an <code>asection</code>:
+<p>How relocs are tied together in an <code>asection</code>:
 </p><div class="example">
 <pre class="example">typedef struct relent_chain
 {
@@ -447,54 +413,32 @@ arelent_chain;
 </div>
 <div class="subsubsection" id="bfd_005fcheck_005foverflow">
 <h4 class="subsubsection">2.10.1.5 <code>bfd_check_overflow</code></h4>
-<p><strong>Synopsis</strong>
-</p><div class="example">
-<pre class="example">bfd_reloc_status_type bfd_check_overflow
-   (enum complain_overflow how,
-    unsigned int bitsize,
-    unsigned int rightshift,
-    unsigned int addrsize,
-    bfd_vma relocation);
-</pre></div>
-<p><strong>Description</strong><br>
-Perform overflow checking on <var>relocation</var> which has
+<dl class="def">
+<dt id="index-bfd_005fcheck_005foverflow-1"><span class="category">Function: </span><span><em>bfd_reloc_status_type</em> <strong>bfd_check_overflow</strong> <em>(enum complain_overflow how, unsigned int bitsize, unsigned int rightshift, unsigned int addrsize, bfd_vma relocation);</em><a href='#index-bfd_005fcheck_005foverflow-1' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Perform overflow checking on <var>relocation</var> which has
 <var>bitsize</var> significant bits and will be shifted right by
 <var>rightshift</var> bits, on a machine with addresses containing
 <var>addrsize</var> significant bits.  The result is either of
 <code>bfd_reloc_ok</code> or <code>bfd_reloc_overflow</code>.
 </p>
+</dd></dl>
 <span id="index-bfd_005freloc_005foffset_005fin_005frange"></span>
 </div>
 <div class="subsubsection" id="bfd_005freloc_005foffset_005fin_005frange">
 <h4 class="subsubsection">2.10.1.6 <code>bfd_reloc_offset_in_range</code></h4>
-<p><strong>Synopsis</strong>
-</p><div class="example">
-<pre class="example">bool bfd_reloc_offset_in_range
-   (reloc_howto_type *howto,
-    bfd *abfd,
-    asection *section,
-    bfd_size_type offset);
-</pre></div>
-<p><strong>Description</strong><br>
-Returns TRUE if the reloc described by <var>HOWTO</var> can be
+<dl class="def">
+<dt id="index-bfd_005freloc_005foffset_005fin_005frange-1"><span class="category">Function: </span><span><em>bool</em> <strong>bfd_reloc_offset_in_range</strong> <em>(reloc_howto_type *howto, bfd *abfd, asection *section, bfd_size_type offset);</em><a href='#index-bfd_005freloc_005foffset_005fin_005frange-1' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Returns TRUE if the reloc described by <var>HOWTO</var> can be
 applied at <var>OFFSET</var> octets in <var>SECTION</var>.
 </p>
+</dd></dl>
 <span id="index-bfd_005fperform_005frelocation"></span>
 </div>
 <div class="subsubsection" id="bfd_005fperform_005frelocation">
 <h4 class="subsubsection">2.10.1.7 <code>bfd_perform_relocation</code></h4>
-<p><strong>Synopsis</strong>
-</p><div class="example">
-<pre class="example">bfd_reloc_status_type bfd_perform_relocation
-   (bfd *abfd,
-    arelent *reloc_entry,
-    void *data,
-    asection *input_section,
-    bfd *output_bfd,
-    char **error_message);
-</pre></div>
-<p><strong>Description</strong><br>
-If <var>output_bfd</var> is supplied to this function, the
+<dl class="def">
+<dt id="index-bfd_005fperform_005frelocation-1"><span class="category">Function: </span><span><em>bfd_reloc_status_type</em> <strong>bfd_perform_relocation</strong> <em>(bfd *abfd, arelent *reloc_entry, void *data, asection *input_section, bfd *output_bfd, char **error_message);</em><a href='#index-bfd_005fperform_005frelocation-1' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>If <var>output_bfd</var> is supplied to this function, the
 generated image will be relocatable; the relocations are
 copied to the output file after they have been changed to
 reflect the new state of the world. There are two ways of
@@ -509,21 +453,14 @@ types with addends were invented to solve just this problem.
 The <var>error_message</var> argument is set to an error message if
 this return <code>bfd_reloc_dangerous</code>.
 </p>
+</dd></dl>
 <span id="index-bfd_005finstall_005frelocation"></span>
 </div>
 <div class="subsubsection" id="bfd_005finstall_005frelocation">
 <h4 class="subsubsection">2.10.1.8 <code>bfd_install_relocation</code></h4>
-<p><strong>Synopsis</strong>
-</p><div class="example">
-<pre class="example">bfd_reloc_status_type bfd_install_relocation
-   (bfd *abfd,
-    arelent *reloc_entry,
-    void *data, bfd_vma data_start,
-    asection *input_section,
-    char **error_message);
-</pre></div>
-<p><strong>Description</strong><br>
-This looks remarkably like <code>bfd_perform_relocation</code>, except it
+<dl class="def">
+<dt id="index-bfd_005finstall_005frelocation-1"><span class="category">Function: </span><span><em>bfd_reloc_status_type</em> <strong>bfd_install_relocation</strong> <em>(bfd *abfd, arelent *reloc_entry, void *data, bfd_vma data_start, asection *input_section, char **error_message);</em><a href='#index-bfd_005finstall_005frelocation-1' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>This looks remarkably like <code>bfd_perform_relocation</code>, except it
 does not expect that the section contents have been filled in.
 I.e., it&rsquo;s suitable for use when creating, rather than applying
 a relocation.
@@ -531,6 +468,7 @@ a relocation.
 <p>For now, this function should be considered reserved for the
 assembler.
 </p>
+</dd></dl>
 
 </div>
 </div>

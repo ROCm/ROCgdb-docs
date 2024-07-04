@@ -3,7 +3,7 @@
 <!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright (C) 1988-2022 Free Software Foundation, Inc.
+<!-- Copyright (C) 1988-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -16,35 +16,47 @@ and with the Back-Cover Texts as in (a) below.
 this GNU Manual.  Buying copies from GNU Press supports the FSF in
 developing GNU and promoting software freedom."
 
-Disclaimer
+Legal Disclaimer and Copyright Information
 
-The information contained herein is for informational purposes only,
-and is subject to change without notice.  While every precaution has
-been taken in the preparation of this document, it may contain
-technical inaccuracies, omissions and typographical errors, and AMD is
-under no obligation to update or otherwise correct this information.
-Advanced Micro Devices, Inc. makes no representations or warranties
-with respect to the accuracy or completeness of the contents of this
-document, and assumes no liability of any kind, including the implied
-warranties of noninfringement, merchantability or fitness for
-particular purposes, with respect to the operation or use of AMD
-hardware, software or other products described herein.  No license,
-including implied or arising by estoppel, to any intellectual property
-rights is granted by this document.  Terms and limitations applicable
-to the purchase or use of AMD’s products are as set forth in a signed
-agreement between the parties or in AMD's Standard Terms and
-Conditions of Sale.
+AMD ROCm software is made available by Advanced Micro Devices, Inc. under the
+open source license identified in the top-level directory for the library in
+the repository on Github.com (Portions of AMD ROCm software are
+licensed under MITx11 and UIL/NCSA. For more information on the license, review
+the license.txt in the top-level directory for the library on
+Github.com).  The additional terms and conditions below apply to your use
+of AMD ROCm technical documentation.
 
-AMD(R), the AMD Arrow logo, AMD Instinct(R),
-Radeon(R), ROCm(R) and combinations thereof are
-trademarks of Advanced Micro Devices, Inc.  Linux(R) is the
-registered trademark of Linus Torvalds in the U.S. and other countries.
-PCIe(R) is a registered trademark of PCI-SIG Corporation. Other
-product names used in this publication are for identification purposes only and
-may be trademarks of their respective companies.
+(C)2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
 
-Copyright (C) 2019-2022 Advanced Micro Devices, Inc.  All
-rights reserved. -->
+The information presented in this document is for informational purposes only
+and may contain technical inaccuracies, omissions, and typographical errors.
+The information contained herein is subject to change and may be rendered
+inaccurate for many reasons, including but not limited to product and roadmap
+changes, component and motherboard version changes, new model and/or product
+releases, product differences between differing manufacturers, software
+changes, BIOS flashes, firmware upgrades, or the like.  Any computer system has
+risks of security vulnerabilities that cannot be completely prevented or
+mitigated.  AMD assumes no obligation to update or otherwise correct or revise
+this information.  However, AMD reserves the right to revise this information
+and to make changes from time to time to the content hereof without obligation
+of AMD to notify any person of such revisions or changes.
+
+THIS INFORMATION IS PROVIDED "AS IS."  AMD MAKES NO REPRESENTATIONS OR
+WARRANTIES WITH RESPECT TO THE CONTENTS HEREOF AND ASSUMES NO RESPONSIBILITY
+FOR ANY INACCURACIES, ERRORS, OR OMISSIONS THAT MAY APPEAR IN THIS INFORMATION.
+AMD SPECIFICALLY DISCLAIMS ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT,
+MERCHANTABILITY, OR FITNESS FOR ANY PARTICULAR PURPOSE.  IN NO EVENT WILL AMD
+BE LIABLE TO ANY PERSON FOR ANY RELIANCE, DIRECT, INDIRECT, SPECIAL, OR OTHER
+CONSEQUENTIAL DAMAGES ARISING FROM THE USE OF ANY INFORMATION CONTAINED HEREIN,
+EVEN IF AMD IS EXPRESSLY ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+
+AMD, the AMD Arrow logo, AMD Instinct™, Radeon™, AMD ROCm™, and combinations
+thereof are trademarks of Advanced Micro Devices, Inc.
+Linux(R) is the registered trademark of Linus Torvalds in the
+U.S. and other countries. PCIe(R) is a registered trademark of
+PCI-SIG Corporation.  Other product names used in this publication are for
+identification purposes only and may be trademarks of their respective
+companies. -->
 <title>Debugging Output (Debugging with ROCGDB)</title>
 
 <meta name="description" content="Debugging Output (Debugging with ROCGDB)">
@@ -133,14 +145,6 @@ ARM AArch64.
 <dd><p>Displays the current state of displaying gdbarch debugging info.
 </p>
 </dd>
-<dt id='index-AIX-shared-library-debugging'><span><code>set debug aix-solib</code><a href='#index-AIX-shared-library-debugging' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Control display of debugging messages from the AIX shared library
-support module.  The default is off.
-</p></dd>
-<dt><span><code>show debug aix-solib</code></span></dt>
-<dd><p>Show the current state of displaying AIX shared library debugging messages.
-</p>
-</dd>
 <dt id='index-AIX-threads'><span><code>set debug aix-thread</code><a href='#index-AIX-threads' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Display debugging messages about inner workings of the AIX thread
 module.
@@ -149,12 +153,12 @@ module.
 <dd><p>Show the current state of AIX thread debugging info display.
 </p>
 <span id="index-AMD-GPU-debugging-info"></span>
-<span id="set-debug-amdgpu"></span></dd>
-<dt><span><code>set debug amdgpu</code></span></dt>
-<dt><span><code>show debug amdgpu</code></span></dt>
+<span id="set-debug-amd_002ddbgapi_002dlib"></span></dd>
+<dt><span><code>set debug amd-dbgapi-lib</code></span></dt>
+<dt><span><code>show debug amd-dbgapi-lib</code></span></dt>
 <dd>
-<p>The <code>set debug amdgpu log-level <var>level</var></code> command can be used
-to enable diagnostic messages for the <acronym>AMD GPU</acronym> target, where
+<p>The <code>set debug amd-dbgapi-lib log-level <var>level</var></code> command can be used
+to enable diagnostic messages from the  &lsquo;<samp>amd-dbgapi</samp>&rsquo; library, where
 <var>level</var> can be:
 </p>
 <dl compact="compact">
@@ -180,8 +184,17 @@ to enable diagnostic messages for the <acronym>AMD GPU</acronym> target, where
 </dd>
 </dl>
 
-<p>The <code>show debug amdgpu log-level</code> command displays the current
-<acronym>AMD GPU</acronym> target log level.
+<p>The <code>show debug amd-dbgapi-lib log-level</code> command displays the current
+<acronym>amd-dbgapi</acronym> library log level.
+</p>
+<span id="set-debug-amd_002ddbgapi"></span></dd>
+<dt><span><code>set debug amd-dbgapi</code></span></dt>
+<dt><span><code>show debug amd-dbgapi</code></span></dt>
+<dd>
+<p>The &lsquo;<samp>set debug amd-dbgapi</samp>&rsquo; command can be used
+to enable diagnostic messages in the &lsquo;<samp>amd-dbgapi</samp>&rsquo; target.  The
+&lsquo;<samp>show debug amd-dbgapi</samp>&rsquo; command displays the current setting.
+See <a href="#set-debug-amd_002ddbgapi">set debug amd-dbgapi</a>.
 </p>
 </dd>
 <dt id='index-physname'><span><code>set debug check-physname</code><a href='#index-physname' class='copiable-anchor'> &para;</a></span></dt>
@@ -321,6 +334,14 @@ for implementing operations such as single-stepping the inferior.
 <dd><p>Displays the current state of <small>ROCGDB</small> inferior debugging.
 </p>
 </dd>
+<dt id='index-inferior-function-call-debugging-info'><span><code>set debug infcall</code><a href='#index-inferior-function-call-debugging-info' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Turns on or off display of debugging info related to inferior function
+calls made by <small>ROCGDB</small>.
+</p></dd>
+<dt><span><code>show debug infcall</code></span></dt>
+<dd><p>Displays the current state of <small>ROCGDB</small> inferior function call debugging.
+</p>
+</dd>
 <dt id='index-just_002din_002dtime-compilation_002c-debugging-messages'><span><code>set debug jit</code><a href='#index-just_002din_002dtime-compilation_002c-debugging-messages' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Turn on or off debugging messages from JIT debug support.
 </p></dd>
@@ -435,12 +456,12 @@ default is off.
 info.
 </p>
 </dd>
-<dt id='index-FR_002dV-shared_002dlibrary-debugging'><span><code>set debug solib-frv</code><a href='#index-FR_002dV-shared_002dlibrary-debugging' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Turn on or off debugging messages for FR-V shared-library code.
+<dt><span><code>set debug solib</code></span></dt>
+<dd><p>Turns on or off display of debugging messages related to shared libraries.
+The default is off.
 </p></dd>
-<dt><span><code>show debug solib-frv</code></span></dt>
-<dd><p>Display the current state of FR-V shared-library code debugging
-messages.
+<dt><span><code>show debug solib</code></span></dt>
+<dd><p>Show the current state of solib debugging messages.
 </p>
 </dd>
 <dt id='index-symbol-lookup'><span><code>set debug symbol-lookup</code><a href='#index-symbol-lookup' class='copiable-anchor'> &para;</a></span></dt>
@@ -506,6 +527,15 @@ debugging info.
 </p></dd>
 <dt><span><code>show debug xml</code></span></dt>
 <dd><p>Displays the current state of XML debugging messages.
+</p>
+</dd>
+<dt id='index-breakpoint-debugging-info'><span><code>set debug breakpoints</code><a href='#index-breakpoint-debugging-info' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Turns on or off display of <small>ROCGDB</small> debugging info for breakpoint insertion
+and removal.  The default is off.
+</p></dd>
+<dt><span><code>show debug breakpoints</code></span></dt>
+<dd><p>Displays the current state of displaying <small>ROCGDB</small> debugging info for
+breakpoint insertion and removal.
 </p></dd>
 </dl>
 

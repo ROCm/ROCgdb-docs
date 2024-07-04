@@ -3,7 +3,7 @@
 <!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright (C) 1988-2022 Free Software Foundation, Inc.
+<!-- Copyright (C) 1988-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -16,35 +16,47 @@ and with the Back-Cover Texts as in (a) below.
 this GNU Manual.  Buying copies from GNU Press supports the FSF in
 developing GNU and promoting software freedom."
 
-Disclaimer
+Legal Disclaimer and Copyright Information
 
-The information contained herein is for informational purposes only,
-and is subject to change without notice.  While every precaution has
-been taken in the preparation of this document, it may contain
-technical inaccuracies, omissions and typographical errors, and AMD is
-under no obligation to update or otherwise correct this information.
-Advanced Micro Devices, Inc. makes no representations or warranties
-with respect to the accuracy or completeness of the contents of this
-document, and assumes no liability of any kind, including the implied
-warranties of noninfringement, merchantability or fitness for
-particular purposes, with respect to the operation or use of AMD
-hardware, software or other products described herein.  No license,
-including implied or arising by estoppel, to any intellectual property
-rights is granted by this document.  Terms and limitations applicable
-to the purchase or use of AMD’s products are as set forth in a signed
-agreement between the parties or in AMD's Standard Terms and
-Conditions of Sale.
+AMD ROCm software is made available by Advanced Micro Devices, Inc. under the
+open source license identified in the top-level directory for the library in
+the repository on Github.com (Portions of AMD ROCm software are
+licensed under MITx11 and UIL/NCSA. For more information on the license, review
+the license.txt in the top-level directory for the library on
+Github.com).  The additional terms and conditions below apply to your use
+of AMD ROCm technical documentation.
 
-AMD(R), the AMD Arrow logo, AMD Instinct(R),
-Radeon(R), ROCm(R) and combinations thereof are
-trademarks of Advanced Micro Devices, Inc.  Linux(R) is the
-registered trademark of Linus Torvalds in the U.S. and other countries.
-PCIe(R) is a registered trademark of PCI-SIG Corporation. Other
-product names used in this publication are for identification purposes only and
-may be trademarks of their respective companies.
+(C)2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
 
-Copyright (C) 2019-2022 Advanced Micro Devices, Inc.  All
-rights reserved. -->
+The information presented in this document is for informational purposes only
+and may contain technical inaccuracies, omissions, and typographical errors.
+The information contained herein is subject to change and may be rendered
+inaccurate for many reasons, including but not limited to product and roadmap
+changes, component and motherboard version changes, new model and/or product
+releases, product differences between differing manufacturers, software
+changes, BIOS flashes, firmware upgrades, or the like.  Any computer system has
+risks of security vulnerabilities that cannot be completely prevented or
+mitigated.  AMD assumes no obligation to update or otherwise correct or revise
+this information.  However, AMD reserves the right to revise this information
+and to make changes from time to time to the content hereof without obligation
+of AMD to notify any person of such revisions or changes.
+
+THIS INFORMATION IS PROVIDED "AS IS."  AMD MAKES NO REPRESENTATIONS OR
+WARRANTIES WITH RESPECT TO THE CONTENTS HEREOF AND ASSUMES NO RESPONSIBILITY
+FOR ANY INACCURACIES, ERRORS, OR OMISSIONS THAT MAY APPEAR IN THIS INFORMATION.
+AMD SPECIFICALLY DISCLAIMS ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT,
+MERCHANTABILITY, OR FITNESS FOR ANY PARTICULAR PURPOSE.  IN NO EVENT WILL AMD
+BE LIABLE TO ANY PERSON FOR ANY RELIANCE, DIRECT, INDIRECT, SPECIAL, OR OTHER
+CONSEQUENTIAL DAMAGES ARISING FROM THE USE OF ANY INFORMATION CONTAINED HEREIN,
+EVEN IF AMD IS EXPRESSLY ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+
+AMD, the AMD Arrow logo, AMD Instinct™, Radeon™, AMD ROCm™, and combinations
+thereof are trademarks of Advanced Micro Devices, Inc.
+Linux(R) is the registered trademark of Linus Torvalds in the
+U.S. and other countries. PCIe(R) is a registered trademark of
+PCI-SIG Corporation.  Other product names used in this publication are for
+identification purposes only and may be trademarks of their respective
+companies. -->
 <title>General Query Packets (Debugging with ROCGDB)</title>
 
 <meta name="description" content="General Query Packets (Debugging with ROCGDB)">
@@ -90,7 +102,7 @@ ul.no-bullet {list-style: none}
 Next: <a href="Architecture_002dSpecific-Protocol-Details.html" accesskey="n" rel="next">Architecture-Specific Protocol Details</a>, Previous: <a href="Stop-Reply-Packets.html" accesskey="p" rel="prev">Stop Reply Packets</a>, Up: <a href="Remote-Protocol.html" accesskey="u" rel="up"><small>ROCGDB</small> Remote Serial Protocol</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="General-Query-Packets-1"></span><h3 class="section">E.4 General Query Packets</h3>
+<span id="General-Query-Packets-1"></span><h3 class="section">E.5 General Query Packets</h3>
 <span id="index-remote-query-requests"></span>
 
 <p>Packets starting with &lsquo;<samp>q</samp>&rsquo; are <em>general query packets</em>;
@@ -180,9 +192,6 @@ detect trailing zeros.
 </p>
 <p>Reply:
 </p><dl compact="compact">
-<dt><span>&lsquo;<samp>E <var>NN</var></samp>&rsquo;</span></dt>
-<dd><p>An error (such as memory fault)
-</p></dd>
 <dt><span>&lsquo;<samp>C <var>crc32</var></samp>&rsquo;</span></dt>
 <dd><p>The specified memory region&rsquo;s checksum is <var>crc32</var>.
 </p></dd>
@@ -206,15 +215,6 @@ randomization.
 </p><dl compact="compact">
 <dt><span>&lsquo;<samp>OK</samp>&rsquo;</span></dt>
 <dd><p>The request succeeded.
-</p>
-</dd>
-<dt><span>&lsquo;<samp>E <var>nn</var></samp>&rsquo;</span></dt>
-<dd><p>An error occurred.  The error number <var>nn</var> is given as hex digits.
-</p>
-</dd>
-<dt><span>&lsquo;<samp><!-- /@w --></samp>&rsquo;</span></dt>
-<dd><p>An empty reply indicates that &lsquo;<samp>QDisableRandomization</samp>&rsquo; is not supported
-by the stub.
 </p></dd>
 </dl>
 
@@ -243,10 +243,6 @@ values are considered an error.
 </p><dl compact="compact">
 <dt><span>&lsquo;<samp>OK</samp>&rsquo;</span></dt>
 <dd><p>The request succeeded.
-</p>
-</dd>
-<dt><span>&lsquo;<samp>E <var>nn</var></samp>&rsquo;</span></dt>
-<dd><p>An error occurred.  The error number <var>nn</var> is given as hex digits.
 </p></dd>
 </dl>
 
@@ -439,14 +435,6 @@ differently, so the precise meaning of this parameter will vary.
 <dt><span>&lsquo;<samp><var>XX</var>&hellip;</samp>&rsquo;</span></dt>
 <dd><p>Hex encoded (big endian) bytes representing the address of the thread
 local storage requested.
-</p>
-</dd>
-<dt><span>&lsquo;<samp>E <var>nn</var></samp>&rsquo;</span></dt>
-<dd><p>An error occurred.  The error number <var>nn</var> is given as hex digits.
-</p>
-</dd>
-<dt><span>&lsquo;<samp><!-- /@w --></samp>&rsquo;</span></dt>
-<dd><p>An empty reply indicates that &lsquo;<samp>qGetTLSAddr</samp>&rsquo; is not supported by the stub.
 </p></dd>
 </dl>
 
@@ -462,15 +450,6 @@ local storage requested.
 <dt><span>&lsquo;<samp><var>XX</var>&hellip;</samp>&rsquo;</span></dt>
 <dd><p>Hex encoded (big endian) bytes representing the linear address of the
 thread information block.
-</p>
-</dd>
-<dt><span>&lsquo;<samp>E <var>nn</var></samp>&rsquo;</span></dt>
-<dd><p>An error occured.  This means that either the thread was not found, or the
-address could not be retrieved.
-</p>
-</dd>
-<dt><span>&lsquo;<samp><!-- /@w --></samp>&rsquo;</span></dt>
-<dd><p>An empty reply indicates that &lsquo;<samp>qGetTIBAddr</samp>&rsquo; is not supported by the stub.
 </p></dd>
 </dl>
 
@@ -513,6 +492,9 @@ is architecture-specific.
 <p><var>type</var> is the type of tag the request wants to fetch.  The type is a signed
 integer.
 </p>
+<p><small>ROCGDB</small> will only send this packet if the stub has advertised
+support for memory tagging via &lsquo;<samp>qSupported</samp>&rsquo;.
+</p>
 <p>Reply:
 </p><dl compact="compact">
 <dt><span>&lsquo;<samp><var>mxx</var>&hellip;</samp>&rsquo;</span></dt>
@@ -520,15 +502,29 @@ integer.
 tags found in the requested memory range.
 </p>
 </dd>
-<dt><span>&lsquo;<samp>E <var>nn</var></samp>&rsquo;</span></dt>
-<dd><p>An error occured.  This means that fetching of memory tags failed for some
-reason.
+</dl>
+
+<span id="index-check-if-a-given-address-is-in-a-memory-tagged-region"></span>
+<span id="index-qIsAddressTagged-packet"></span>
+</dd>
+<dt><span>&lsquo;<samp>qIsAddressTagged:<var>address</var></samp>&rsquo;</span></dt>
+<dd><span id="qIsAddressTagged"></span><p>Check if address <var>address</var> is in a memory tagged region; if it is, it&rsquo;s
+said to be <em>tagged</em>.  The target is responsible for checking it, as this
+is architecture-specific.
+</p>
+<p><var>address</var> is the address to be checked.
+</p>
+<p>Reply:
+</p><dl compact="compact">
+<dd><p>Replies to this packet should all be in two hex digit format, as follows:
 </p>
 </dd>
-<dt><span>&lsquo;<samp><!-- /@w --></samp>&rsquo;</span></dt>
-<dd><p>An empty reply indicates that &lsquo;<samp>qMemTags</samp>&rsquo; is not supported by the stub,
-although this should not happen given <small>ROCGDB</small> will only send this packet
-if the stub has advertised support for memory tagging via &lsquo;<samp>qSupported</samp>&rsquo;.
+<dt><span>&lsquo;<samp>&lsquo;<samp>01</samp>&rsquo;</samp>&rsquo;</span></dt>
+<dd><p>Address <var>address</var> is tagged.
+</p>
+</dd>
+<dt><span>&lsquo;<samp>&lsquo;<samp>00</samp>&rsquo;</samp>&rsquo;</span></dt>
+<dd><p>Address <var>address</var> is not tagged.
 </p></dd>
 </dl>
 
@@ -565,22 +561,14 @@ integer.
 interpreted by the target.  Each pair of hex digits is interpreted as a
 single byte.
 </p>
+<p><small>ROCGDB</small> will only send this packet if the stub has advertised
+support for memory tagging via &lsquo;<samp>qSupported</samp>&rsquo;.
+</p>
 <p>Reply:
 </p><dl compact="compact">
 <dt><span>&lsquo;<samp>OK</samp>&rsquo;</span></dt>
 <dd><p>The request was successful and the memory tag granules were modified
 accordingly.
-</p>
-</dd>
-<dt><span>&lsquo;<samp>E <var>nn</var></samp>&rsquo;</span></dt>
-<dd><p>An error occured.  This means that modifying the memory tag granules failed
-for some reason.
-</p>
-</dd>
-<dt><span>&lsquo;<samp><!-- /@w --></samp>&rsquo;</span></dt>
-<dd><p>An empty reply indicates that &lsquo;<samp>QMemTags</samp>&rsquo; is not supported by the stub,
-although this should not happen given <small>ROCGDB</small> will only send this packet
-if the stub has advertised support for memory tagging via &lsquo;<samp>qSupported</samp>&rsquo;.
 </p></dd>
 </dl>
 
@@ -639,15 +627,6 @@ See <a href="Remote-Non_002dStop.html">Remote Protocol Support for Non-Stop Mode
 </p><dl compact="compact">
 <dt><span>&lsquo;<samp>OK</samp>&rsquo;</span></dt>
 <dd><p>The request succeeded.
-</p>
-</dd>
-<dt><span>&lsquo;<samp>E <var>nn</var></samp>&rsquo;</span></dt>
-<dd><p>An error occurred.  The error number <var>nn</var> is given as hex digits.
-</p>
-</dd>
-<dt><span>&lsquo;<samp><!-- /@w --></samp>&rsquo;</span></dt>
-<dd><p>An empty reply indicates that &lsquo;<samp>QNonStop</samp>&rsquo; is not supported by
-the stub.
 </p></dd>
 </dl>
 
@@ -684,15 +663,6 @@ client should send a new packet with the new syscall list.
 </p><dl compact="compact">
 <dt><span>&lsquo;<samp>OK</samp>&rsquo;</span></dt>
 <dd><p>The request succeeded.
-</p>
-</dd>
-<dt><span>&lsquo;<samp>E <var>nn</var></samp>&rsquo;</span></dt>
-<dd><p>An error occurred.  <var>nn</var> are hex digits.
-</p>
-</dd>
-<dt><span>&lsquo;<samp><!-- /@w --></samp>&rsquo;</span></dt>
-<dd><p>An empty reply indicates that &lsquo;<samp>QCatchSyscalls</samp>&rsquo; is not supported by
-the stub.
 </p></dd>
 </dl>
 
@@ -718,15 +688,6 @@ new list.  This packet improves performance when using &lsquo;<samp>handle
 </p><dl compact="compact">
 <dt><span>&lsquo;<samp>OK</samp>&rsquo;</span></dt>
 <dd><p>The request succeeded.
-</p>
-</dd>
-<dt><span>&lsquo;<samp>E <var>nn</var></samp>&rsquo;</span></dt>
-<dd><p>An error occurred.  The error number <var>nn</var> is given as hex digits.
-</p>
-</dd>
-<dt><span>&lsquo;<samp><!-- /@w --></samp>&rsquo;</span></dt>
-<dd><p>An empty reply indicates that &lsquo;<samp>QPassSignals</samp>&rsquo; is not supported by
-the stub.
 </p></dd>
 </dl>
 
@@ -762,15 +723,6 @@ strictly greater than the previous item.  Multiple
 </p><dl compact="compact">
 <dt><span>&lsquo;<samp>OK</samp>&rsquo;</span></dt>
 <dd><p>The request succeeded.
-</p>
-</dd>
-<dt><span>&lsquo;<samp>E <var>nn</var></samp>&rsquo;</span></dt>
-<dd><p>An error occurred.  The error number <var>nn</var> is given as hex digits.
-</p>
-</dd>
-<dt><span>&lsquo;<samp><!-- /@w --></samp>&rsquo;</span></dt>
-<dd><p>An empty reply indicates that &lsquo;<samp>QProgramSignals</samp>&rsquo; is not supported
-by the stub.
 </p></dd>
 </dl>
 
@@ -794,24 +746,99 @@ same thread.  <small>ROCGDB</small> does not enable this feature unless the
 stub reports that it supports it by including &lsquo;<samp>QThreadEvents+</samp>&rsquo; in
 its &lsquo;<samp>qSupported</samp>&rsquo; reply.
 </p>
+<p>This packet always enables/disables event reporting for all threads of
+all processes under control of the remote stub.  For per-thread
+control of optional event reporting, see the <a href="#QThreadOptions">QThreadOptions</a>
+packet.
+</p>
 <p>Reply:
 </p><dl compact="compact">
 <dt><span>&lsquo;<samp>OK</samp>&rsquo;</span></dt>
 <dd><p>The request succeeded.
-</p>
-</dd>
-<dt><span>&lsquo;<samp>E <var>nn</var></samp>&rsquo;</span></dt>
-<dd><p>An error occurred.  The error number <var>nn</var> is given as hex digits.
-</p>
-</dd>
-<dt><span>&lsquo;<samp><!-- /@w --></samp>&rsquo;</span></dt>
-<dd><p>An empty reply indicates that &lsquo;<samp>QThreadEvents</samp>&rsquo; is not supported by
-the stub.
 </p></dd>
 </dl>
 
 <p>Use of this packet is controlled by the <code>set remote thread-events</code>
 command (see <a href="Remote-Configuration.html">set remote thread-events</a>).
+</p>
+<span id="QThreadOptions"></span></dd>
+<dt id='index-thread-options_002c-remote-request'><span>&lsquo;<samp>QThreadOptions<span class="roman">[</span>;<var>options</var><span class="roman">[</span>:<var>thread-id</var><span class="roman">]]</span>&hellip;</samp>&rsquo;<a href='#index-thread-options_002c-remote-request' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="index-QThreadOptions-packet"></span>
+
+<p>For each inferior thread, the last <var>options</var> in the list with a
+matching <var>thread-id</var> are applied.  Any options previously set on a
+thread are discarded and replaced by the new options specified.
+Threads that do not match any <var>thread-id</var> retain their
+previously-set options.  Thread IDs are specified using the syntax
+described in <a href="Packets.html#thread_002did-syntax">thread-id syntax</a>.  If multiprocess extensions
+(see <a href="#multiprocess-extensions">multiprocess extensions</a>) are supported, options can be
+specified to apply to all threads of a process by using the
+&lsquo;<samp>p<var>pid</var>.-1</samp>&rsquo; form of <var>thread-id</var>.  Options with no
+<var>thread-id</var> apply to all threads.  Specifying no options value is
+an error.  Zero is a valid value.
+</p>
+<p><var>options</var> is an hexadecimal integer specifying the enabled thread
+options, and is the bitwise <code>OR</code> of the following values.  All
+values are given in hexadecimal representation.
+</p>
+<dl compact="compact">
+<dt><span><code>GDB_THREAD_OPTION_CLONE (0x1)</code></span></dt>
+<dd><p>Report thread clone events (see <a href="Stop-Reply-Packets.html#thread-clone-event">thread clone event</a>).  This is only
+meaningful for targets that support clone events (e.g., GNU/Linux
+systems).
+</p>
+</dd>
+<dt><span><code>GDB_THREAD_OPTION_EXIT (0x2)</code></span></dt>
+<dd><p>Report thread exit events (see <a href="Stop-Reply-Packets.html#thread-exit-event">thread exit event</a>).
+</p></dd>
+</dl>
+
+
+<p>For example, <small>ROCGDB</small> enables the <code>GDB_THREAD_OPTION_EXIT</code>
+and <code>GDB_THREAD_OPTION_CLONE</code> options when single-stepping a
+thread past a breakpoint, for the following reasons:
+</p>
+<ul>
+<li> If the single-stepped thread exits (e.g., it executes a thread exit
+system call), enabling <code>GDB_THREAD_OPTION_EXIT</code> prevents
+<small>ROCGDB</small> from waiting forever, not knowing that it should no
+longer expect a stop for that same thread, and blocking other threads
+from progressing.
+
+</li><li> If the single-stepped thread spawns a new clone child (i.e., it
+executes a clone system call), enabling <code>GDB_THREAD_OPTION_CLONE</code>
+halts the cloned thread before it executes any instructions, and thus
+prevents the following problematic situations:
+
+<ul class="no-bullet">
+<li>- If the breakpoint is stepped-over in-line, the spawned thread would
+incorrectly run free while the breakpoint being stepped over is not
+inserted, and thus the cloned thread may potentially run past the
+breakpoint without stopping for it;
+
+</li><li>- If displaced (out-of-line) stepping is used, the cloned thread starts
+running at the out-of-line PC, leading to undefined behavior, usually
+crashing or corrupting data.
+</li></ul>
+
+</li></ul>
+
+<p>New threads start with thread options cleared.
+</p>
+<p><small>ROCGDB</small> does not enable this feature unless the stub reports that
+it supports it by including
+&lsquo;<samp>QThreadOptions=<var>supported_options</var></samp>&rsquo; in its &lsquo;<samp>qSupported</samp>&rsquo;
+reply.
+</p>
+<p>Reply:
+</p><dl compact="compact">
+<dt><span>&lsquo;<samp>OK</samp>&rsquo;</span></dt>
+<dd><p>The request succeeded.
+</p></dd>
+</dl>
+
+<p>Use of this packet is controlled by the <code>set remote thread-options</code>
+command (see <a href="Remote-Configuration.html">set remote thread-options</a>).
 </p>
 </dd>
 <dt id='index-execute-remote-command_002c-remote-request'><span>&lsquo;<samp>qRcmd,<var>command</var></samp>&rsquo;<a href='#index-execute-remote-command_002c-remote-request' class='copiable-anchor'> &para;</a></span></dt>
@@ -831,14 +858,13 @@ stubs&rsquo;s interpreter may have security implications</em>.
 <dt><span>&lsquo;<samp><var>OUTPUT</var></samp>&rsquo;</span></dt>
 <dd><p>A command response with the hex encoded output string <var>OUTPUT</var>.
 </p></dd>
-<dt><span>&lsquo;<samp>E <var>NN</var></samp>&rsquo;</span></dt>
-<dd><p>Indicate a badly formed request.
-</p></dd>
-<dt><span>&lsquo;<samp><!-- /@w --></samp>&rsquo;</span></dt>
-<dd><p>An empty reply indicates that &lsquo;<samp>qRcmd</samp>&rsquo; is not recognized.
-</p></dd>
 </dl>
 
+<p>Unlike most packets, this packet does not support
+&lsquo;<samp>E.<var>errtext</var></samp>&rsquo;-style textual error replies (see <a href="Standard-Replies.html#textual-error-reply">textual error reply</a>) by default.  Stubs should be careful to only send such a
+reply if <small>ROCGDB</small> reported support for it with the
+<code>error-message</code> feature (see <a href="#error_002dmessage">error-message</a>).
+</p>
 <p>(Note that the <code>qRcmd</code> packet&rsquo;s name is separated from the
 command by a &lsquo;<samp>,</samp>&rsquo;, not a &lsquo;<samp>:</samp>&rsquo;, contrary to the naming
 conventions above.  Please don&rsquo;t use this packet as a model for new
@@ -860,12 +886,6 @@ Both <var>address</var> and <var>length</var> are encoded in hex;
 <dt><span>&lsquo;<samp>1,address</samp>&rsquo;</span></dt>
 <dd><p>The pattern was found at <var>address</var>.
 </p></dd>
-<dt><span>&lsquo;<samp>E <var>NN</var></samp>&rsquo;</span></dt>
-<dd><p>A badly formed request or an error was encountered while searching memory.
-</p></dd>
-<dt><span>&lsquo;<samp><!-- /@w --></samp>&rsquo;</span></dt>
-<dd><p>An empty reply indicates that &lsquo;<samp>qSearch:memory</samp>&rsquo; is not recognized.
-</p></dd>
 </dl>
 
 </dd>
@@ -880,9 +900,6 @@ protocol acknowledgments (see <a href="Packet-Acknowledgment.html">Packet Acknow
 <small>ROCGDB</small> acknowledges this response,
 but neither the stub nor <small>ROCGDB</small> shall send or expect further
 &lsquo;<samp>+</samp>&rsquo;/&lsquo;<samp>-</samp>&rsquo; acknowledgments in the current connection.
-</p></dd>
-<dt><span>&lsquo;<samp><!-- /@w --></samp>&rsquo;</span></dt>
-<dd><p>An empty reply indicates that the stub does not support no-acknowledgment mode.
 </p></dd>
 </dl>
 
@@ -911,10 +928,6 @@ versions of <small>ROCGDB</small> which support increasing numbers of packets.
 <dd><p>The stub supports or does not support each returned <var>stubfeature</var>,
 depending on the form of each <var>stubfeature</var> (see below for the
 possible forms).
-</p></dd>
-<dt><span>&lsquo;<samp><!-- /@w --></samp>&rsquo;</span></dt>
-<dd><p>An empty reply indicates that &lsquo;<samp>qSupported</samp>&rsquo; is not recognized,
-or that no features needed to be reported to <small>ROCGDB</small>.
 </p></dd>
 </dl>
 
@@ -1008,6 +1021,17 @@ including &lsquo;<samp>exec-events+</samp>&rsquo; in its &lsquo;<samp>qSupported
 <dt><span>&lsquo;<samp>vContSupported</samp>&rsquo;</span></dt>
 <dd><p>This feature indicates whether <small>ROCGDB</small> wants to know the
 supported actions in the reply to &lsquo;<samp>vCont?</samp>&rsquo; packet.
+</p>
+<span id="error_002dmessage"></span></dd>
+<dt><span>&lsquo;<samp>error-message</samp>&rsquo;</span></dt>
+<dd><p>This feature indicates whether <small>ROCGDB</small> supports accepting a reply
+in &lsquo;<samp>E.<var>errtext</var></samp>&rsquo; format (See <a href="Standard-Replies.html#textual-error-reply">textual error reply</a>) from the
+&lsquo;<samp>qRcmd</samp>&rsquo; and &lsquo;<samp>m</samp>&rsquo; packets.  These packets, historically,
+didn&rsquo;t support &lsquo;<samp>E.<var>errtext</var></samp>&rsquo;, and older versions of
+<small>ROCGDB</small> didn&rsquo;t expect to see a reply in this format.
+</p>
+<p>New packets should be written to support &lsquo;<samp>E.<var>errtext</var></samp>&rsquo;
+regardless of this feature being true or not.
 </p></dd>
 </dl>
 
@@ -1091,8 +1115,10 @@ stubs which may be configured for multiple targets.
 <tr><td width="35%">&lsquo;<samp>vfork-events</samp>&rsquo;</td><td width="20%">No</td><td width="12%">&lsquo;<samp>-</samp>&rsquo;</td><td width="20%">No</td></tr>
 <tr><td width="35%">&lsquo;<samp>exec-events</samp>&rsquo;</td><td width="20%">No</td><td width="12%">&lsquo;<samp>-</samp>&rsquo;</td><td width="20%">No</td></tr>
 <tr><td width="35%">&lsquo;<samp>QThreadEvents</samp>&rsquo;</td><td width="20%">No</td><td width="12%">&lsquo;<samp>-</samp>&rsquo;</td><td width="20%">No</td></tr>
+<tr><td width="35%">&lsquo;<samp>QThreadOptions</samp>&rsquo;</td><td width="20%">Yes</td><td width="12%">&lsquo;<samp>-</samp>&rsquo;</td><td width="20%">No</td></tr>
 <tr><td width="35%">&lsquo;<samp>no-resumed</samp>&rsquo;</td><td width="20%">No</td><td width="12%">&lsquo;<samp>-</samp>&rsquo;</td><td width="20%">No</td></tr>
 <tr><td width="35%">&lsquo;<samp>memory-tagging</samp>&rsquo;</td><td width="20%">No</td><td width="12%">&lsquo;<samp>-</samp>&rsquo;</td><td width="20%">No</td></tr>
+<tr><td width="35%">&lsquo;<samp>error-message</samp>&rsquo;</td><td width="20%">No</td><td width="12%">&lsquo;<samp>+</samp>&rsquo;</td><td width="20%">No</td></tr>
 </table>
 
 <p>These are the currently defined stub features, in more detail:
@@ -1104,7 +1130,7 @@ stubs which may be configured for multiple targets.
 <dd><p>The remote stub can accept packets up to at least <var>bytes</var> in
 length.  <small>ROCGDB</small> will send packets up to this size for bulk
 transfers, and will never send larger packets.  This is a limit on the
-data characters in the packet, including the frame and checksum.
+data characters in the packet, not including the frame and checksum.
 There is no trailing NUL byte in a remote protocol packet; if the stub
 stores packets in a NUL-terminated format, it should allow an extra
 byte in its buffer for the NUL.  If this stub feature is not supported,
@@ -1349,6 +1375,14 @@ and vforkdone events.
 <dd><p>The remote stub understands the &lsquo;<samp>QThreadEvents</samp>&rsquo; packet.
 </p>
 </dd>
+<dt><span>&lsquo;<samp>QThreadOptions=<var>supported_options</var></samp>&rsquo;</span></dt>
+<dd><p>The remote stub understands the &lsquo;<samp>QThreadOptions</samp>&rsquo; packet.
+<var>supported_options</var> indicates the set of thread options the remote
+stub supports.  <var>supported_options</var> has the same format as the
+<var>options</var> parameter of the <code>QThreadOptions</code> packet, described
+at <a href="#QThreadOptions">QThreadOptions</a>.
+</p>
+</dd>
 <dt><span>&lsquo;<samp>no-resumed</samp>&rsquo;</span></dt>
 <dd><p>The remote stub reports the &lsquo;<samp>N</samp>&rsquo; stop reply.
 </p>
@@ -1359,11 +1393,21 @@ and vforkdone events.
 functionality and understands the &lsquo;<samp>qMemTags</samp>&rsquo; (see <a href="#qMemTags">qMemTags</a>) and
 &lsquo;<samp>QMemTags</samp>&rsquo; (see <a href="#QMemTags">QMemTags</a>) packets.
 </p>
-<p>For AArch64 GNU/Linux systems, this feature also requires access to the
-<samp>/proc/<var>pid</var>/smaps</samp> file so memory mapping page flags can be inspected.
-This is done via the &lsquo;<samp>vFile</samp>&rsquo; requests.
+<p>For AArch64 GNU/Linux systems, this feature can require access to the
+<samp>/proc/<var>pid</var>/smaps</samp> file so memory mapping page flags can be
+inspected, if &lsquo;<samp>qIsAddressTagged</samp>&rsquo; (see <a href="#qIsAddressTagged">qIsAddressTagged</a>) packet
+is not supported by the stub.  Access to the <samp>/proc/<var>pid</var>/smaps</samp>
+file is done via &lsquo;<samp>vFile</samp>&rsquo; requests.
 </p>
 </dd>
+<dt><span>&lsquo;<samp>error-message</samp>&rsquo;</span></dt>
+<dd><p>The remote stub supports replying with an error in a
+&lsquo;<samp>E.<var>errtext</var></samp>&rsquo; (See <a href="Standard-Replies.html#textual-error-reply">textual error reply</a>) format from the
+&lsquo;<samp>m</samp>&rsquo; and &lsquo;<samp>qRcmd</samp>&rsquo; packets.  It is not usually necessary to
+send this feature back to <small>ROCGDB</small> in the &lsquo;<samp>qSupported</samp>&rsquo; reply,
+<small>ROCGDB</small> will always support &lsquo;<samp>E.<var>errtext</var></samp>&rsquo; format replies
+if it sent the &lsquo;<samp>error-message</samp>&rsquo; feature.
+</p></dd>
 </dl>
 
 </dd>
@@ -1496,20 +1540,6 @@ have fewer bytes than the <var>length</var> in the request.
 <dt><span>&lsquo;<samp>l</samp>&rsquo;</span></dt>
 <dd><p>The <var>offset</var> in the request is at the end of the data.
 There is no more data to be read.
-</p>
-</dd>
-<dt><span>&lsquo;<samp>E00</samp>&rsquo;</span></dt>
-<dd><p>The request was malformed, or <var>annex</var> was invalid.
-</p>
-</dd>
-<dt><span>&lsquo;<samp>E <var>nn</var></samp>&rsquo;</span></dt>
-<dd><p>The offset was invalid, or there was an error encountered reading the data.
-The <var>nn</var> part is a hex-encoded <code>errno</code> value.
-</p>
-</dd>
-<dt><span>&lsquo;<samp><!-- /@w --></samp>&rsquo;</span></dt>
-<dd><p>An empty reply indicates the <var>object</var> string was not recognized by
-the stub, or that the object does not support reading.
 </p></dd>
 </dl>
 
@@ -1632,6 +1662,13 @@ the remote stub will expect that no &lsquo;<samp>struct link_map</samp>&rsquo;
 exists prior to the starting point.
 </p>
 </dd>
+<dt><span><code>lmid=<var>lmid</var></code></span></dt>
+<dd><p>A hexadecimal number specifying a namespace identifier.  This is
+currently only used together with &lsquo;<samp>start</samp>&rsquo; to provide the
+namespace identifier back to <small>ROCGDB</small> in the response.
+<small>ROCGDB</small> will only provide values that were previously reported to
+it.  If unset, the response will include &lsquo;<samp>lmid=&quot;0x0&quot;</samp>&rsquo;.
+</p></dd>
 </dl>
 
 <p>Arguments that are not understood by the remote stub will be silently
@@ -1726,20 +1763,6 @@ to access.
 <dt><span>&lsquo;<samp><var>nn</var></samp>&rsquo;</span></dt>
 <dd><p><var>nn</var> (hex encoded) is the number of bytes written.
 This may be fewer bytes than supplied in the request.
-</p>
-</dd>
-<dt><span>&lsquo;<samp>E00</samp>&rsquo;</span></dt>
-<dd><p>The request was malformed, or <var>annex</var> was invalid.
-</p>
-</dd>
-<dt><span>&lsquo;<samp>E <var>nn</var></samp>&rsquo;</span></dt>
-<dd><p>The offset was invalid, or there was an error encountered writing the data.
-The <var>nn</var> part is a hex-encoded <code>errno</code> value.
-</p>
-</dd>
-<dt><span>&lsquo;<samp><!-- /@w --></samp>&rsquo;</span></dt>
-<dd><p>An empty reply indicates the <var>object</var> string was not
-recognized by the stub, or that the object does not support writing.
 </p></dd>
 </dl>
 
@@ -1788,9 +1811,6 @@ the <code>quit</code> command.
 <dt><span>&lsquo;<samp>0</samp>&rsquo;</span></dt>
 <dd><p>The remote server created a new process.
 </p></dd>
-<dt><span>&lsquo;<samp>E <var>NN</var></samp>&rsquo;</span></dt>
-<dd><p>A badly formed request or an error was encountered.
-</p></dd>
 </dl>
 
 </dd>
@@ -1801,9 +1821,6 @@ the <code>quit</code> command.
 </p><dl compact="compact">
 <dt><span>&lsquo;<samp>OK</samp>&rsquo;</span></dt>
 <dd><p>Branch tracing has been enabled.
-</p></dd>
-<dt><span>&lsquo;<samp>E.errtext</samp>&rsquo;</span></dt>
-<dd><p>A badly formed request or an error was encountered.
 </p></dd>
 </dl>
 
@@ -1816,9 +1833,6 @@ the <code>quit</code> command.
 <dt><span>&lsquo;<samp>OK</samp>&rsquo;</span></dt>
 <dd><p>Branch tracing has been enabled.
 </p></dd>
-<dt><span>&lsquo;<samp>E.errtext</samp>&rsquo;</span></dt>
-<dd><p>A badly formed request or an error was encountered.
-</p></dd>
 </dl>
 
 </dd>
@@ -1829,9 +1843,6 @@ the <code>quit</code> command.
 </p><dl compact="compact">
 <dt><span>&lsquo;<samp>OK</samp>&rsquo;</span></dt>
 <dd><p>Branch tracing has been disabled.
-</p></dd>
-<dt><span>&lsquo;<samp>E.errtext</samp>&rsquo;</span></dt>
-<dd><p>A badly formed request or an error was encountered.
 </p></dd>
 </dl>
 
@@ -1845,9 +1856,6 @@ btrace recording method in bts format.
 <dt><span>&lsquo;<samp>OK</samp>&rsquo;</span></dt>
 <dd><p>The ring buffer size has been set.
 </p></dd>
-<dt><span>&lsquo;<samp>E.errtext</samp>&rsquo;</span></dt>
-<dd><p>A badly formed request or an error was encountered.
-</p></dd>
 </dl>
 
 </dd>
@@ -1859,9 +1867,6 @@ btrace recording method in pt format.
 </p><dl compact="compact">
 <dt><span>&lsquo;<samp>OK</samp>&rsquo;</span></dt>
 <dd><p>The ring buffer size has been set.
-</p></dd>
-<dt><span>&lsquo;<samp>E.errtext</samp>&rsquo;</span></dt>
-<dd><p>A badly formed request or an error was encountered.
 </p></dd>
 </dl>
 

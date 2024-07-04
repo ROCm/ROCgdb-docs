@@ -3,7 +3,10 @@
 <!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright (C) 1991-2022 Free Software Foundation, Inc.
+<!-- Copyright (C) 2023-2024 Advanced Micro Devices, Inc.
+
+
+Copyright (C) 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -67,7 +70,7 @@ Next: <a href="#ar" accesskey="n" rel="next">ar</a> &nbsp; [<a href="#SEC_Conten
 <p>This brief manual contains documentation for the <small>GNU</small> binary
 utilities
 (GNU Binutils)
-version 2.39.50:
+version 2.42.50:
 </p>
 
 <p>This document is distributed under the terms of the GNU Free
@@ -103,17 +106,18 @@ in the section entitled &ldquo;GNU Free Documentation License&rdquo;.
   </ul></li>
   <li><a id="toc-readelf-1" href="#readelf">14 readelf</a></li>
   <li><a id="toc-elfedit-1" href="#elfedit">15 elfedit</a></li>
-  <li><a id="toc-Common-Options-1" href="#Common-Options">16 Common Options</a></li>
-  <li><a id="toc-Selecting-the-Target-System-1" href="#Selecting-the-Target-System">17 Selecting the Target System</a>
+  <li><a id="toc-coremerge-1" href="#coremerge">16 coremerge</a></li>
+  <li><a id="toc-Common-Options-1" href="#Common-Options">17 Common Options</a></li>
+  <li><a id="toc-Selecting-the-Target-System-1" href="#Selecting-the-Target-System">18 Selecting the Target System</a>
   <ul class="no-bullet">
-    <li><a id="toc-Target-Selection-1" href="#Target-Selection">17.1 Target Selection</a></li>
-    <li><a id="toc-Architecture-Selection-1" href="#Architecture-Selection">17.2 Architecture Selection</a></li>
+    <li><a id="toc-Target-Selection-1" href="#Target-Selection">18.1 Target Selection</a></li>
+    <li><a id="toc-Architecture-Selection-1" href="#Architecture-Selection">18.2 Architecture Selection</a></li>
   </ul></li>
-  <li><a id="toc-debuginfod-1" href="#debuginfod">18 debuginfod</a></li>
-  <li><a id="toc-Reporting-Bugs-1" href="#Reporting-Bugs">19 Reporting Bugs</a>
+  <li><a id="toc-debuginfod-1" href="#debuginfod">19 debuginfod</a></li>
+  <li><a id="toc-Reporting-Bugs-1" href="#Reporting-Bugs">20 Reporting Bugs</a>
   <ul class="no-bullet">
-    <li><a id="toc-Have-You-Found-a-Bug_003f" href="#Bug-Criteria">19.1 Have You Found a Bug?</a></li>
-    <li><a id="toc-How-to-Report-Bugs" href="#Bug-Reporting">19.2 How to Report Bugs</a></li>
+    <li><a id="toc-Have-You-Found-a-Bug_003f" href="#Bug-Criteria">20.1 Have You Found a Bug?</a></li>
+    <li><a id="toc-How-to-Report-Bugs" href="#Bug-Reporting">20.2 How to Report Bugs</a></li>
   </ul></li>
   <li><a id="toc-GNU-Free-Documentation-License-1" href="#GNU-Free-Documentation-License">Appendix A GNU Free Documentation License</a></li>
   <li><a id="toc-Binutils-Index-1" href="#Binutils-Index" rel="index">Binutils Index</a></li>
@@ -418,7 +422,7 @@ member must be present as the <var>relpos</var> argument, before the
 follow this option character, must use the same syntax as the linker
 command line, and must be specified within a single argument.  I.e., if
 multiple items are needed, they must be quoted to form a single command
-line argument.  For example &lsquo;<samp>L &quot;-L/usr/local/lib -lmydep1 -lmydep2&quot;</samp>&rsquo;
+line argument.  For example &lsquo;<samp>l &quot;-L/usr/local/lib -lmydep1 -lmydep2&quot;</samp>&rsquo;
 </p>
 </dd>
 <dt><span>&lsquo;<samp>N</samp>&rsquo;</span></dt>
@@ -484,6 +488,10 @@ names, use this modifier.  The &lsquo;<samp>u</samp>&rsquo; modifier is allowed 
 operation &lsquo;<samp>r</samp>&rsquo; (replace).  In particular, the combination &lsquo;<samp>qu</samp>&rsquo; is
 not allowed, since checking the timestamps would lose any speed
 advantage from the operation &lsquo;<samp>q</samp>&rsquo;.
+</p>
+<p>Note - if an archive has been created in a deterministic manner, eg
+via the use of the <samp>D</samp> modifier, then replacement will always
+happen and the <samp>u</samp> modifier will be ineffective.
 </p>
 </dd>
 <dt id='index-deterministic-archives-1'><span>&lsquo;<samp>U</samp>&rsquo;<a href='#index-deterministic-archives-1' class='copiable-anchor'> &para;</a></span></dt>
@@ -884,7 +892,7 @@ symbols.
 </p>
 </dd>
 <dt><span><code>n</code></span></dt>
-<dd><p>The symbol is in the read-only data section.
+<dd><p>The symbol is in a non-data, non-code, non-debug read-only section.
 </p>
 </dd>
 <dt><span><code>p</code></span></dt>
@@ -1271,6 +1279,7 @@ Next: <a href="#objdump" accesskey="n" rel="next">objdump</a>, Previous: <a href
         [<samp>-R</samp> <var>sectionpattern</var>|<samp>--remove-section=</samp><var>sectionpattern</var>]
         [<samp>--keep-section=</samp><var>sectionpattern</var>]
         [<samp>--remove-relocations=</samp><var>sectionpattern</var>]
+        [<samp>--strip-section-headers</samp>]
         [<samp>-p</samp>|<samp>--preserve-dates</samp>]
         [<samp>-D</samp>|<samp>--enable-deterministic-archives</samp>]
         [<samp>-U</samp>|<samp>--disable-deterministic-archives</samp>]
@@ -1318,10 +1327,10 @@ Next: <a href="#objdump" accesskey="n" rel="next">objdump</a>, Previous: <a href
         [<samp>--pure</samp>]
         [<samp>--impure</samp>]
         [<samp>--file-alignment=</samp><var>num</var>]
-        [<samp>--heap=</samp><var>size</var>]
+        [<samp>--heap=</samp><var>reserve</var>[,<var>commit</var>]]
         [<samp>--image-base=</samp><var>address</var>]
         [<samp>--section-alignment=</samp><var>num</var>]
-        [<samp>--stack=</samp><var>size</var>]
+        [<samp>--stack=</samp><var>reserve</var>[,<var>commit</var>]]
         [<samp>--subsystem=</samp><var>which</var>:<var>major</var>.<var>minor</var>]
         [<samp>--compress-debug-sections</samp>]
         [<samp>--decompress-debug-sections</samp>]
@@ -1492,6 +1501,11 @@ For example:
 &rsquo;.text.foo&rsquo;.
 </p>
 </dd>
+<dt><span><code>--strip-section-headers</code></span></dt>
+<dd><p>Strip section header   This option is specific to ELF files.
+Implies <samp>--strip-all</samp> and <samp>--merge-notes</samp>.
+</p>
+</dd>
 <dt><span><code>-S</code></span></dt>
 <dt><span><code>--strip-all</code></span></dt>
 <dd><p>Do not copy relocation and symbol information from the source file.
@@ -1635,6 +1649,11 @@ commands.  If the input was &rsquo;12345678&rsquo; then the outputs would be
 <dd><p>Set the access and modification dates of the output file to be the same
 as those of the input file.
 </p>
+<p>This option also copies the date stored in a PE format file&rsquo;s header,
+unless the SOURCE_DATE_EPOCH environment variable is defined.  If it
+is defined then this variable will be used as the date stored in the
+header, interpreted as the number of seconds since the Unix epoch.
+</p>
 </dd>
 <dt id='index-deterministic-archives-2'><span><code>-D</code><a href='#index-deterministic-archives-2' class='copiable-anchor'> &para;</a></span></dt>
 <dt><span><code>--enable-deterministic-archives</code></span></dt>
@@ -1741,6 +1760,10 @@ above.  If <var>sectionpattern</var> does not match any sections in the
 input file, a warning will be issued, unless
 <samp>--no-change-warnings</samp> is used.
 </p>
+<p>Note - changing the VMA of sections in a fully linked binary can be
+dangerous since there may be code that expects the sections to be
+located at their old address.
+</p>
 </dd>
 <dt><span><code>--change-warnings</code></span></dt>
 <dt><span><code>--adjust-warnings</code></span></dt>
@@ -1761,19 +1784,27 @@ if the section pattern does not match any sections.
 <var>flags</var> argument is a comma separated string of flag names.  The
 recognized names are &lsquo;<samp>alloc</samp>&rsquo;, &lsquo;<samp>contents</samp>&rsquo;, &lsquo;<samp>load</samp>&rsquo;,
 &lsquo;<samp>noload</samp>&rsquo;, &lsquo;<samp>readonly</samp>&rsquo;, &lsquo;<samp>code</samp>&rsquo;, &lsquo;<samp>data</samp>&rsquo;, &lsquo;<samp>rom</samp>&rsquo;,
-&lsquo;<samp>exclude</samp>&rsquo;, &lsquo;<samp>share</samp>&rsquo;, and &lsquo;<samp>debug</samp>&rsquo;.  You can set the
-&lsquo;<samp>contents</samp>&rsquo; flag for a section which does not have contents, but it
-is not meaningful to clear the &lsquo;<samp>contents</samp>&rsquo; flag of a section which
-does have contents&ndash;just remove the section instead.  Not all flags are
-meaningful for all object file formats.  In particular the
-&lsquo;<samp>share</samp>&rsquo; flag is only meaningful for COFF format files and not for
-ELF format files.
+&lsquo;<samp>exclude</samp>&rsquo;, &lsquo;<samp>share</samp>&rsquo;, &lsquo;<samp>debug</samp>&rsquo;, and &lsquo;<samp>large</samp>&rsquo;.
+You can set the &lsquo;<samp>contents</samp>&rsquo; flag for a section which does not have
+contents, but it is not meaningful to clear the &lsquo;<samp>contents</samp>&rsquo; flag of a
+section which does have contents&ndash;just remove the section instead.  Not all
+flags are meaningful for all object file formats.  In particular the
+&lsquo;<samp>share</samp>&rsquo; flag is only meaningful for COFF format files and not for ELF
+format files.  The ELF x86-64 specific flag &lsquo;<samp>large</samp>&rsquo; corresponds to
+SHF_X86_64_LARGE.
 </p>
 </dd>
 <dt><span><code>--set-section-alignment <var>sectionpattern</var>=<var>align</var></code></span></dt>
 <dd><p>Set the alignment for any sections matching <var>sectionpattern</var>.
 <var>align</var> specifies the alignment in bytes and must be a power of
-two, i.e. 1, 2, 4, 8&hellip;. 
+two, i.e. 1, 2, 4, 8&hellip;.
+</p>
+<p>Note - setting a section&rsquo;s alignment will not automatically align its
+LMA or VMA addresses.  If those need to be changed as well then the
+<samp>--change-section-lma</samp> and/or <samp>--change-section-vma</samp>
+options should be used.  Also note that changing VMAs can cause
+problems in fully linked binaries where there may be code that expects
+the contents of the sections to be located at their old address.
 </p>
 </dd>
 <dt><span><code>--add-section <var>sectionname</var>=<var>filename</var></code></span></dt>
@@ -1830,7 +1861,7 @@ changing the section&rsquo;s flags to <var>flags</var> in the process.  This has
 the advantage over using a linker script to perform the rename in that
 the output stays as an object file and does not become a linked
 executable.  This option accepts the same set of flags as the
-<samp>--sect-section-flags</samp> option.
+<samp>--set-section-flags</samp> option.
 </p>
 <p>This option is particularly helpful when the input format is binary,
 since this will always create a section called .data.  If for example,
@@ -2068,7 +2099,7 @@ locations before the debugger is run everything should work
 correctly.
 </p>
 </dd>
-<dt><span><code>--keep-section-symbils</code></span></dt>
+<dt><span><code>--keep-section-symbols</code></span></dt>
 <dd><p>When stripping a file, perhaps with <samp>--strip-debug</samp> or
 <samp>--strip-unneeded</samp>, retain any symbols specifying section names,
 which would otherwise get stripped.
@@ -2174,10 +2205,20 @@ for dlls.
 </p>
 </dd>
 <dt><span><code>--section-alignment <var>num</var></code></span></dt>
-<dd><p>Sets the section alignment field in the PE header.  Sections in memory
-will always begin at addresses which are a multiple of this number.
-Defaults to 0x1000.
-[This option is specific to PE targets.]
+<dd><p>[This option is specific to PE targets.]
+</p>
+<p>Sets the section alignment field in the PE header - if one is present
+in the binary.  Sections in memory will always begin at addresses
+which are a multiple of this number.  Defaults to 0x1000.
+</p>
+<p>Note - this option will also set the alignment field in each section&rsquo;s
+flags.
+</p>
+<p>Note - if a section&rsquo;s LMA or VMA addresses are no longer aligned, and
+those addresses have not been set via the <samp>--set-section-lma</samp> or
+<samp>--set-section-vma</samp> options, and the file has been fully
+relocated then a warning message will be issued.  It will then be up
+to the user to decide if the LMA and VMA need updating.
 </p>
 </dd>
 <dt><span><code>--stack <var>reserve</var></code></span></dt>
@@ -2326,6 +2367,7 @@ Next: <a href="#ranlib" accesskey="n" rel="next">ranlib</a>, Previous: <a href="
         [<samp>-r</samp>|<samp>--reloc</samp>]
         [<samp>-R</samp>|<samp>--dynamic-reloc</samp>]
         [<samp>-s</samp>|<samp>--full-contents</samp>]
+        [<samp>-Z</samp>|<samp>--decompress</samp>]
         [<samp>-W[lLiaprmfFsoORtUuTgAck]</samp>|
          <samp>--dwarf</samp>[=rawline,=decodedline,=info,=abbrev,=pubnames,=aranges,=macro,=frames,=frames-interp,=str,=str-offsets,=loc,=Ranges,=pubtypes,=trace_info,=trace_abbrev,=trace_aranges,=gdb_index,=addr,=cu_index,=links]]
         [<samp>-WK</samp>|<samp>--dwarf=follow-links</samp>]
@@ -2477,8 +2519,9 @@ used when disassembling.
 </dd>
 <dt><span><code>-D</code></span></dt>
 <dt><span><code>--disassemble-all</code></span></dt>
-<dd><p>Like <samp>-d</samp>, but disassemble the contents of all sections, not just
-those expected to contain instructions.
+<dd><p>Like <samp>-d</samp>, but disassemble the contents of all non-empty
+non-bss sections, not just those expected to contain instructions.
+<samp>-j</samp> may be used to select specific sections.
 </p>
 <p>This option also has a subtle effect on the disassembly of
 instructions in code sections.  When option <samp>-d</samp> is in effect
@@ -2575,7 +2618,8 @@ for specification with <samp>-b</samp> or <samp>-m</samp>.
 </dd>
 <dt id='index-section-information'><span><code>-j <var>name</var></code><a href='#index-section-information' class='copiable-anchor'> &para;</a></span></dt>
 <dt><span><code>--section=<var>name</var></code></span></dt>
-<dd><p>Display information only for section <var>name</var>.
+<dd><p>Display information for section <var>name</var>.  This option may be
+specified multiple times.
 </p>
 </dd>
 <dt><span><code>-L</code></span></dt>
@@ -2725,11 +2769,12 @@ rather than <code>li</code>.  All of the <samp>-m</samp> arguments for
 <samp>e300</samp>, <samp>e500</samp>, <samp>e500mc</samp>, <samp>e500mc64</samp>,
 <samp>e500x2</samp>, <samp>e5500</samp>, <samp>e6500</samp>, <samp>efs</samp>,
 <samp>power4</samp>, <samp>power5</samp>, <samp>power6</samp>, <samp>power7</samp>,
-<samp>power8</samp>, <samp>power9</samp>, <samp>power10</samp>, <samp>ppc</samp>,
-<samp>ppc32</samp>, <samp>ppc64</samp>, <samp>ppc64bridge</samp>, <samp>ppcps</samp>,
-<samp>pwr</samp>, <samp>pwr2</samp>, <samp>pwr4</samp>, <samp>pwr5</samp>, <samp>pwr5x</samp>,
-<samp>pwr6</samp>, <samp>pwr7</samp>, <samp>pwr8</samp>, <samp>pwr9</samp>, <samp>pwr10</samp>,
-<samp>pwrx</samp>, <samp>titan</samp>, <samp>vle</samp>, and <samp>future</samp>.
+<samp>power8</samp>, <samp>power9</samp>, <samp>power10</samp>, <samp>power11</samp>,
+<samp>ppc</samp>, <samp>ppc32</samp>, <samp>ppc64</samp>, <samp>ppc64bridge</samp>,
+<samp>ppcps</samp>, <samp>pwr</samp>, <samp>pwr2</samp>, <samp>pwr4</samp>, <samp>pwr5</samp>,
+<samp>pwr5x</samp>, <samp>pwr6</samp>, <samp>pwr7</samp>, <samp>pwr8</samp>, <samp>pwr9</samp>,
+<samp>pwr10</samp>, <samp>pwr11</samp>, <samp>pwrx</samp>, <samp>titan</samp>, <samp>vle</samp>,
+and <samp>future</samp>.
 <samp>32</samp> and <samp>64</samp> modify the default or a prior CPU
 selection, disabling and enabling 64-bit insns respectively.  In
 addition, <samp>altivec</samp>, <samp>any</samp>, <samp>lsp</samp>, <samp>htm</samp>,
@@ -2845,6 +2890,12 @@ format (the lists of options is displayed with the help).
 <dt><span><code>ldinfo</code></span></dt>
 </dl>
 
+<p>For PE, the available options are:
+</p><dl compact="compact">
+<dt><span><code>header</code></span></dt>
+<dt><span><code>sections</code></span></dt>
+</dl>
+
 <p>Not all object formats support this option.  In particular the ELF
 format does not use it.
 </p>
@@ -2868,8 +2919,12 @@ disassembly.
 <dt id='index-sections_002c-full-contents'><span><code>-s</code><a href='#index-sections_002c-full-contents' class='copiable-anchor'> &para;</a></span></dt>
 <dt><span><code>--full-contents</code></span></dt>
 <dd><span id="index-object-file-sections"></span>
-<p>Display the full contents of any sections requested.  By default all
-non-empty sections are displayed.
+<p>Display the full contents of sections, often used in combination with
+<samp>-j</samp> to request specific sections.  By default all non-empty
+non-bss sections are displayed.  By default any compressed section
+will be displayed in its compressed form.  In order to see the
+contents in a decompressed form add the <samp>-Z</samp> option to the
+command line.
 </p>
 </dd>
 <dt id='index-source-disassembly'><span><code>-S</code><a href='#index-source-disassembly' class='copiable-anchor'> &para;</a></span></dt>
@@ -3183,6 +3238,17 @@ created by a linker that uses the name changer to rename the parent
 archive member, <samp>--ctf-parent</samp> can be used to specify the name
 used for the parent.
 </p>
+</dd>
+<dt><span><code>--ctf-parent-section=<var>section</var></code></span></dt>
+<dd>
+<p>This option lets you pick a completely different section for the CTF
+parent dictionary containing unambiguous types than for the child
+dictionaries that contain the ambiguous remainder.  The linker does
+not emit ELF objects structured like this, but some third-party linkers
+may.  It&rsquo;s also convenient to inspect CTF written out as multiple raw
+files to compose them with objcopy, which can put them in different
+ELF sections but not in different members of a single CTF dict.
+</p>
 
 </dd>
 <dt id='index-SFrame'><span><code>--sframe[=<var>section</var>]</code><a href='#index-SFrame' class='copiable-anchor'> &para;</a></span></dt>
@@ -3370,6 +3436,15 @@ Also do not truncate symbol names when they are displayed.
 <dd><p>Normally the disassembly output will skip blocks of zeroes.  This
 option directs the disassembler to disassemble those blocks, just like
 any other data.
+</p>
+</dd>
+<dt id='index-sections_002c-full-contents-1'><span><code>-Z</code><a href='#index-sections_002c-full-contents-1' class='copiable-anchor'> &para;</a></span></dt>
+<dt><span><code>--decompress</code></span></dt>
+<dd><span id="index-object-file-sections-1"></span>
+<span id="index-compressed-section-contents"></span>
+<p>The <samp>-Z</samp> option is meant to be used in conunction with the
+<samp>-s</samp> option.  It instructs <code>objdump</code> to decompress any
+compressed sections before displaying their contents.
 </p></dd>
 </dl>
 
@@ -3809,6 +3884,7 @@ Next: <a href="#c_002b_002bfilt" accesskey="n" rel="next">c++filt</a>, Previous:
       [<samp>-R</samp> <var>sectionname</var> |<samp>--remove-section=</samp><var>sectionname</var>]
       [<samp>--keep-section=</samp><var>sectionpattern</var>]
       [<samp>--remove-relocations=</samp><var>sectionpattern</var>]
+      [<samp>--strip-section-headers</samp>]
       [<samp>-o</samp> <var>file</var>] [<samp>-p</samp>|<samp>--preserve-dates</samp>]
       [<samp>-D</samp>|<samp>--enable-deterministic-archives</samp>]
       [<samp>-U</samp>|<samp>--disable-deterministic-archives</samp>]
@@ -3913,6 +3989,11 @@ For example:
 <p>will remove all relocations for sections matching the pattern
 &rsquo;.text.*&rsquo;, but will not remove relocations for the section
 &rsquo;.text.foo&rsquo;.
+</p>
+</dd>
+<dt><span><code>--strip-section-headers</code></span></dt>
+<dd><p>Strip section headers.  This option is specific to ELF files.  Implies
+<samp>--strip-all</samp> and <samp>--merge-notes</samp>.
 </p>
 </dd>
 <dt><span><code>-s</code></span></dt>
@@ -5367,6 +5448,7 @@ Next: <a href="#elfedit" accesskey="n" rel="next">elfedit</a>, Previous: <a href
         [<samp>--quiet</samp>]
         [<samp>--recurse-limit</samp>|<samp>--no-recurse-limit</samp>]
         [<samp>-U</samp> <var>method</var>|<samp>--unicode=</samp><var>method</var>]
+        [<samp>-X</samp>|<samp>--extra-sym-info</samp>|<samp>--no-extra-sym-info</samp>]
         [<samp>-n</samp>|<samp>--notes</samp>]
         [<samp>-r</samp>|<samp>--relocs</samp>]
         [<samp>-u</samp>|<samp>--unwind</samp>]
@@ -5378,6 +5460,7 @@ Next: <a href="#elfedit" accesskey="n" rel="next">elfedit</a>, Previous: <a href
         [<samp>-x</samp> &lt;number or name&gt;|<samp>--hex-dump=</samp>&lt;number or name&gt;]
         [<samp>-p</samp> &lt;number or name&gt;|<samp>--string-dump=</samp>&lt;number or name&gt;]
         [<samp>-R</samp> &lt;number or name&gt;|<samp>--relocated-dump=</samp>&lt;number or name&gt;]
+        [<samp>-j</samp> &lt;number or name&gt;|<samp>--display-section=</samp>&lt;number or name&gt;]
         [<samp>-z</samp>|<samp>--decompress</samp>]
         [<samp>-c</samp>|<samp>--archive-index</samp>]
         [<samp>-w[lLiaprmfFsoORtUuTgAck]</samp>|
@@ -5558,6 +5641,22 @@ colouring is intended to draw attention to the presence of unicode
 sequences when they might not be expected.
 </p>
 </dd>
+<dt><span><code>-X</code></span></dt>
+<dt><span><code>--extra-sym-info</code></span></dt>
+<dd><p>When displaying details of symbols, include extra information not
+normally presented.  Currently this just adds the name of the section
+referenced by the symbol&rsquo;s index field, if there is one.  In the
+future more information may be displayed when this option is enabled.
+</p>
+<p>Enabling this option effectively enables the <samp>--wide</samp> option as
+well, at least when displaying symbol information.
+</p>
+</dd>
+<dt><span><code>--no-extra-sym-info</code></span></dt>
+<dd><p>Disables the effect of the <samp>--extra-sym-info</samp> option.  This
+is the default.
+</p>
+</dd>
 <dt><span><code>-e</code></span></dt>
 <dt><span><code>--headers</code></span></dt>
 <dd><p>Display all the headers in the file.  Equivalent to <samp>-h -l -S</samp>.
@@ -5626,6 +5725,8 @@ displayed.
 <dd><p>Displays the contents of the indicated section as a hexadecimal bytes.
 A number identifies a particular section by index in the section table;
 any other string identifies all sections with that name in the object file.
+This option can be repeated multiple times on the command line in
+order to request multiple hex dumps.
 </p>
 </dd>
 <dt><span><code>-R &lt;number or name&gt;</code></span></dt>
@@ -5635,6 +5736,8 @@ bytes.  A number identifies a particular section by index in the
 section table; any other string identifies all sections with that name
 in the object file.  The contents of the section will be relocated
 before they are displayed.
+This option can be repeated multiple times on the command line in
+order to request multiple relocated dumps.
 </p>
 </dd>
 <dt><span><code>-p &lt;number or name&gt;</code></span></dt>
@@ -5642,6 +5745,24 @@ before they are displayed.
 <dd><p>Displays the contents of the indicated section as printable strings.
 A number identifies a particular section by index in the section table;
 any other string identifies all sections with that name in the object file.
+This option can be repeated multiple times on the command line in
+order to request multiple string dumps.
+</p>
+</dd>
+<dt><span><code>-j &lt;number or name&gt;</code></span></dt>
+<dt><span><code>--display-section</code></span></dt>
+<dd><p>Displays the contents of the indicated section according to its
+section header type.  Sections containing relocations will be
+displayed as if the <samp>--relocations</samp> option had been used,
+sections contains symbols will be displayed as if the <samp>--syms</samp>
+option had been used and so on.
+</p>
+<p>A number identifies a particular section by index in the section
+table; any other string identifies all sections with that name in the
+input file(s).
+</p>
+<p>This option can be repeated multiple times on the command line in
+order to request multiple section dumps.
 </p>
 </dd>
 <dt><span><code>-z</code></span></dt>
@@ -5891,6 +6012,17 @@ function at link time.  When looking at CTF archives that have been
 created by a linker that uses the name changer to rename the parent
 archive member, <samp>--ctf-parent</samp> can be used to specify the name
 used for the parent.
+</p>
+</dd>
+<dt><span><code>--ctf-parent-section=<var>section</var></code></span></dt>
+<dd>
+<p>This option lets you pick a completely different section for the CTF
+parent dictionary containing unambiguous types than for the child
+dictionaries that contain the ambiguous remainder.  The linker does
+not emit ELF objects structured like this, but some third-party linkers
+may.  It&rsquo;s also convenient to inspect CTF written out as multiple raw
+files to compose them with objcopy, which can put them in different
+ELF sections but not in different members of a single CTF dict.
 </p></dd>
 <dt><span><code>--ctf-symbols=<var>section</var></code></span></dt>
 <dt><span><code>--ctf-strings=<var>section</var></code></span></dt>
@@ -5946,7 +6078,7 @@ displayed and restoring the old behaviour of readelf (prior to release
 <div class="chapter" id="elfedit">
 <div class="header">
 <p>
-Next: <a href="#Common-Options" accesskey="n" rel="next">Common Options</a>, Previous: <a href="#readelf" accesskey="p" rel="prev">readelf</a>, Up: <a href="#Top" accesskey="u" rel="up">Introduction</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Binutils-Index" title="Index" rel="index">Index</a>]</p>
+Next: <a href="#coremerge" accesskey="n" rel="next">coremerge</a>, Previous: <a href="#readelf" accesskey="p" rel="prev">readelf</a>, Up: <a href="#Top" accesskey="u" rel="up">Introduction</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Binutils-Index" title="Index" rel="index">Index</a>]</p>
 </div>
 <span id="elfedit-1"></span><h2 class="chapter">15 elfedit</h2>
 
@@ -6073,12 +6205,60 @@ are available only on hosts with &lsquo;<samp>mmap</samp>&rsquo; support.
 
 <hr>
 </div>
+<div class="chapter" id="coremerge">
+<div class="header">
+<p>
+Next: <a href="#Common-Options" accesskey="n" rel="next">Common Options</a>, Previous: <a href="#elfedit" accesskey="p" rel="prev">elfedit</a>, Up: <a href="#Top" accesskey="u" rel="up">Introduction</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Binutils-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="coremerge-1"></span><h2 class="chapter">16 coremerge</h2>
+<span id="index-AMDGPU-coredump"></span>
+
+
+<div class="example">
+<pre class="example">coremerge [<samp>-f</samp>|<samp>--force</samp>]
+          [<samp>-V</samp>|<samp>--verbose</samp>]
+          [<samp>-v</samp>|<samp>--versioan</samp>]
+          [<samp>-h</samp>|<samp>--help</samp>]
+          <var>combined</var> <var>cpucore</var> <var>amdgpucore</var>
+</pre></div>
+
+<p>When an exception occurs on an AMDGPU device, the ROCr runtime produces
+a GPU core dump, and then the Linux kernel produces a host core dump.
+<code>coremerge</code> merges the GPU core dump <var>amdgpucore</var> and the
+corresponding <var>cpucore</var> host core dump into the unified core dump
+<var>combined</var>.
+</p>
+<dl compact="compact">
+<dt><span><code>-V</code></span></dt>
+<dt><span><code>--verbose</code></span></dt>
+<dd><p>Produce verbose output.
+</p>
+</dd>
+<dt><span><code>-f</code></span></dt>
+<dt><span><code>--force</code></span></dt>
+<dd><p>Override the file <var>combined</var> if it already exists.
+</p>
+</dd>
+<dt><span><code>-v</code></span></dt>
+<dt><span><code>--version</code></span></dt>
+<dd><p>Display the version number of <code>coremerge</code>.
+</p>
+</dd>
+<dt><span><code>-h</code></span></dt>
+<dt><span><code>--help</code></span></dt>
+<dd><p>Display the command-line options understood by <code>coremerge</code>.
+</p></dd>
+</dl>
+
+
+<hr>
+</div>
 <div class="chapter" id="Common-Options">
 <div class="header">
 <p>
-Next: <a href="#Selecting-the-Target-System" accesskey="n" rel="next">Selecting the Target System</a>, Previous: <a href="#elfedit" accesskey="p" rel="prev">elfedit</a>, Up: <a href="#Top" accesskey="u" rel="up">Introduction</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Binutils-Index" title="Index" rel="index">Index</a>]</p>
+Next: <a href="#Selecting-the-Target-System" accesskey="n" rel="next">Selecting the Target System</a>, Previous: <a href="#coremerge" accesskey="p" rel="prev">coremerge</a>, Up: <a href="#Top" accesskey="u" rel="up">Introduction</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Binutils-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="Common-Options-1"></span><h2 class="chapter">16 Common Options</h2>
+<span id="Common-Options-1"></span><h2 class="chapter">17 Common Options</h2>
 
 <p>The following command-line options are supported by all of the
 programs described in this manual.
@@ -6115,7 +6295,7 @@ with a backslash.  The <var>file</var> may itself contain additional
 <p>
 Next: <a href="#debuginfod" accesskey="n" rel="next">debuginfod</a>, Previous: <a href="#Common-Options" accesskey="p" rel="prev">Common Options</a>, Up: <a href="#Top" accesskey="u" rel="up">Introduction</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Binutils-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="Selecting-the-Target-System-1"></span><h2 class="chapter">17 Selecting the Target System</h2>
+<span id="Selecting-the-Target-System-1"></span><h2 class="chapter">18 Selecting the Target System</h2>
 
 <p>You can specify two aspects of the target system to the <small>GNU</small>
 binary file utilities, each in several ways:
@@ -6148,7 +6328,7 @@ with the same type as the target system).
 <p>
 Next: <a href="#Architecture-Selection" accesskey="n" rel="next">Architecture Selection</a>, Up: <a href="#Selecting-the-Target-System" accesskey="u" rel="up">Selecting the Target System</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Binutils-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="Target-Selection-1"></span><h3 class="section">17.1 Target Selection</h3>
+<span id="Target-Selection-1"></span><h3 class="section">18.1 Target Selection</h3>
 
 <p>A <em>target</em> is an object file format.  A given target may be
 supported for multiple architectures (see <a href="#Architecture-Selection">Architecture Selection</a>).
@@ -6228,7 +6408,7 @@ sources.
 <p>
 Previous: <a href="#Target-Selection" accesskey="p" rel="prev">Target Selection</a>, Up: <a href="#Selecting-the-Target-System" accesskey="u" rel="up">Selecting the Target System</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Binutils-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="Architecture-Selection-1"></span><h3 class="section">17.2 Architecture Selection</h3>
+<span id="Architecture-Selection-1"></span><h3 class="section">18.2 Architecture Selection</h3>
 
 <p>An <em>architecture</em> is a type of <small>CPU</small> on which an object file is
 to run.  Its name may contain a colon, separating the name of the
@@ -6265,7 +6445,7 @@ second column contains the relevant information).
 <p>
 Next: <a href="#Reporting-Bugs" accesskey="n" rel="next">Reporting Bugs</a>, Previous: <a href="#Selecting-the-Target-System" accesskey="p" rel="prev">Selecting the Target System</a>, Up: <a href="#Top" accesskey="u" rel="up">Introduction</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Binutils-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="debuginfod-1"></span><h2 class="chapter">18 debuginfod</h2>
+<span id="debuginfod-1"></span><h2 class="chapter">19 debuginfod</h2>
 <span id="index-separate-debug-files"></span>
 
 <p>debuginfod is a web service that indexes ELF/DWARF debugging resources
@@ -6293,7 +6473,7 @@ servers.  By default this access is enabled.
 <p>
 Next: <a href="#GNU-Free-Documentation-License" accesskey="n" rel="next">GNU Free Documentation License</a>, Previous: <a href="#debuginfod" accesskey="p" rel="prev">debuginfod</a>, Up: <a href="#Top" accesskey="u" rel="up">Introduction</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Binutils-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="Reporting-Bugs-1"></span><h2 class="chapter">19 Reporting Bugs</h2>
+<span id="Reporting-Bugs-1"></span><h2 class="chapter">20 Reporting Bugs</h2>
 <span id="index-bugs"></span>
 <span id="index-reporting-bugs"></span>
 
@@ -6320,7 +6500,7 @@ information that enables us to fix the bug.
 <p>
 Next: <a href="#Bug-Reporting" accesskey="n" rel="next">How to Report Bugs</a>, Up: <a href="#Reporting-Bugs" accesskey="u" rel="up">Reporting Bugs</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Binutils-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="Have-You-Found-a-Bug_003f"></span><h3 class="section">19.1 Have You Found a Bug?</h3>
+<span id="Have-You-Found-a-Bug_003f"></span><h3 class="section">20.1 Have You Found a Bug?</h3>
 <span id="index-bug-criteria"></span>
 
 <p>If you are not sure whether you have found a bug, here are some guidelines:
@@ -6346,7 +6526,7 @@ improvement are welcome in any case.
 <p>
 Previous: <a href="#Bug-Criteria" accesskey="p" rel="prev">Have You Found a Bug?</a>, Up: <a href="#Reporting-Bugs" accesskey="u" rel="up">Reporting Bugs</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Binutils-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="How-to-Report-Bugs"></span><h3 class="section">19.2 How to Report Bugs</h3>
+<span id="How-to-Report-Bugs"></span><h3 class="section">20.2 How to Report Bugs</h3>
 <span id="index-bug-reports"></span>
 <span id="index-bugs_002c-reporting"></span>
 
@@ -7048,6 +7228,7 @@ Previous: <a href="#GNU-Free-Documentation-License" accesskey="p" rel="prev">GNU
 <tr><td></td><td valign="top"><a href="#index-addr2line">addr2line</a>:</td><td>&nbsp;</td><td valign="top"><a href="#addr2line">addr2line</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-address-to-file-name-and-line-number">address to file name and line number</a>:</td><td>&nbsp;</td><td valign="top"><a href="#addr2line">addr2line</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-all-header-information_002c-object-file">all header information, object file</a>:</td><td>&nbsp;</td><td valign="top"><a href="#objdump">objdump</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-AMDGPU-coredump">AMDGPU coredump</a>:</td><td>&nbsp;</td><td valign="top"><a href="#coremerge">coremerge</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-ar">ar</a>:</td><td>&nbsp;</td><td valign="top"><a href="#ar">ar</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-ar-compatibility"><code>ar</code> compatibility</a>:</td><td>&nbsp;</td><td valign="top"><a href="#ar">ar</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-architecture">architecture</a>:</td><td>&nbsp;</td><td valign="top"><a href="#objdump">objdump</a></td></tr>
@@ -7075,6 +7256,7 @@ Previous: <a href="#GNU-Free-Documentation-License" accesskey="p" rel="prev">GNU
 <tr><td></td><td valign="top"><a href="#index-Compact-Type-Format">Compact Type Format</a>:</td><td>&nbsp;</td><td valign="top"><a href="#objdump">objdump</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Compact-Type-Format-1">Compact Type Format</a>:</td><td>&nbsp;</td><td valign="top"><a href="#readelf">readelf</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-compatibility_002c-ar">compatibility, <code>ar</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#ar">ar</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-compressed-section-contents">compressed section contents</a>:</td><td>&nbsp;</td><td valign="top"><a href="#objdump">objdump</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-contents-of-archive">contents of archive</a>:</td><td>&nbsp;</td><td valign="top"><a href="#ar-cmdline">ar cmdline</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-crash">crash</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Bug-Criteria">Bug Criteria</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-creating-archives">creating archives</a>:</td><td>&nbsp;</td><td valign="top"><a href="#ar-cmdline">ar cmdline</a></td></tr>
@@ -7180,6 +7362,7 @@ Previous: <a href="#GNU-Free-Documentation-License" accesskey="p" rel="prev">GNU
 <tr><td></td><td valign="top"><a href="#index-object-file-information">object file information</a>:</td><td>&nbsp;</td><td valign="top"><a href="#objdump">objdump</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-object-file-offsets">object file offsets</a>:</td><td>&nbsp;</td><td valign="top"><a href="#objdump">objdump</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-object-file-sections">object file sections</a>:</td><td>&nbsp;</td><td valign="top"><a href="#objdump">objdump</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-object-file-sections-1">object file sections</a>:</td><td>&nbsp;</td><td valign="top"><a href="#objdump">objdump</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-object-formats-available">object formats available</a>:</td><td>&nbsp;</td><td valign="top"><a href="#objdump">objdump</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-offsets-of-files">offsets of files</a>:</td><td>&nbsp;</td><td valign="top"><a href="#ar-cmdline">ar cmdline</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-operations-on-archive">operations on archive</a>:</td><td>&nbsp;</td><td valign="top"><a href="#ar-cmdline">ar cmdline</a></td></tr>
@@ -7213,6 +7396,7 @@ Previous: <a href="#GNU-Free-Documentation-License" accesskey="p" rel="prev">GNU
 <tr><td></td><td valign="top"><a href="#index-section-information">section information</a>:</td><td>&nbsp;</td><td valign="top"><a href="#objdump">objdump</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-section-sizes">section sizes</a>:</td><td>&nbsp;</td><td valign="top"><a href="#size">size</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-sections_002c-full-contents">sections, full contents</a>:</td><td>&nbsp;</td><td valign="top"><a href="#objdump">objdump</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-sections_002c-full-contents-1">sections, full contents</a>:</td><td>&nbsp;</td><td valign="top"><a href="#objdump">objdump</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-separate-debug-files">separate debug files</a>:</td><td>&nbsp;</td><td valign="top"><a href="#debuginfod">debuginfod</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-SFrame">SFrame</a>:</td><td>&nbsp;</td><td valign="top"><a href="#objdump">objdump</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-size">size</a>:</td><td>&nbsp;</td><td valign="top"><a href="#size">size</a></td></tr>

@@ -5,9 +5,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the GNU linker LD
 (GNU Binutils)
-version 2.38.50.
+version 2.42.50.
 
-Copyright (C) 1991-2022 Free Software Foundation, Inc.
+Copyright (C) 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -103,7 +103,7 @@ and the script command language.  If <em>no</em> binary input files at all
 are specified, the linker does not produce any output, and issues the
 message &lsquo;<samp>No input files</samp>&rsquo;.
 </p>
-<p>If the linker cannot recognize the format of an object file, it will
+<span id="unrecognised_002dinput_002dfiles"></span><p>If the linker cannot recognize the format of an object file, it will
 assume that it is a linker script.  A script specified in this way
 augments the main linker script used for the link (either the default
 linker script or the one specified by using &lsquo;<samp>-T</samp>&rsquo;).  This feature
@@ -269,6 +269,24 @@ will contain a colon separated list of audit interfaces to use.  This
 option is only meaningful on ELF platforms supporting the rtld-audit interface.
 The -P option is provided for Solaris compatibility.
 </p>
+<span id="index-_002d_002denable_002dlinker_002dversion"></span>
+</dd>
+<dt><span><code>--enable-linker-version</code></span></dt>
+<dd><p>Enables the <code>LINKER_VERSION</code> linker script directive, described
+in <a href="Output-Section-Data.html">Output Section Data</a>.  If this directive is used in a linker
+script and this option has been enabled then a string containing the
+linker version will be inserted at the current point.
+</p>
+<p>Note - this location of this option on the linker command line is
+significant.  It will only affect linker scripts that come after it on
+the command line, or which are built into the linker.
+</p>
+<span id="index-_002d_002ddisable_002dlinker_002dversion"></span>
+</dd>
+<dt><span><code>--disable-linker-version</code></span></dt>
+<dd><p>Disables the <code>LINKER_VERSION</code> linker script directive, so that it
+does not insert a version string.  This is the default.
+</p>
 <span id="index-_002d_002denable_002dnon_002dcontiguous_002dregions"></span>
 </dd>
 <dt><span><code>--enable-non-contiguous-regions</code></span></dt>
@@ -282,14 +300,14 @@ sections are evaluated does not change, for instance:
 </p>
 <div class="example">
 <pre class="example">  MEMORY {
-    MEM1 (rwx) : ORIGIN : 0x1000, LENGTH = 0x14
-    MEM2 (rwx) : ORIGIN : 0x1000, LENGTH = 0x40
-    MEM3 (rwx) : ORIGIN : 0x2000, LENGTH = 0x40
+    MEM1 (rwx) : ORIGIN = 0x1000, LENGTH = 0x14
+    MEM2 (rwx) : ORIGIN = 0x1000, LENGTH = 0x40
+    MEM3 (rwx) : ORIGIN = 0x2000, LENGTH = 0x40
   }
   SECTIONS {
     mem1 : { *(.data.*); } &gt; MEM1
     mem2 : { *(.data.*); } &gt; MEM2
-    mem3 : { *(.data.*); } &gt; MEM2
+    mem3 : { *(.data.*); } &gt; MEM3
   }
 
   with input sections:
@@ -563,7 +581,7 @@ behaviour of the AIX linker.
 </dd>
 <dt><span><code>-L <var>searchdir</var></code></span></dt>
 <dt><span><code>--library-path=<var>searchdir</var></code></span></dt>
-<dd><p>Add path <var>searchdir</var> to the list of paths that <code>ld</code> will search
+<dd><span id="g_t_002dL"></span><p>Add path <var>searchdir</var> to the list of paths that <code>ld</code> will search
 for archive libraries and <code>ld</code> control scripts.  You may use this
 option any number of times.  The directories are searched in the order
 in which they are specified on the command line.  Directories specified
@@ -597,6 +615,67 @@ emulations with the &lsquo;<samp>--verbose</samp>&rsquo; or &lsquo;<samp>-V</sam
 </p>
 <p>Otherwise, the default emulation depends upon how the linker was
 configured.
+</p>
+<span id="index-remapping-inputs"></span>
+<span id="index-_002d_002dremap_002dinputs_003dpattern_003dfilename"></span>
+<span id="index-_002d_002dremap_002dinputs_002dfile_003dfile"></span>
+</dd>
+<dt><span><code>--remap-inputs=<samp>pattern</samp>=<samp>filename</samp></code></span></dt>
+<dt><span><code>--remap-inputs-file=<samp>file</samp></code></span></dt>
+<dd><p>These options allow the names of input files to be changed before the
+linker attempts to open them.  The option
+<samp>--remap-inputs=foo.o=bar.o</samp> will cause any attempt to load a
+file called <samp>foo.o</samp> to instead try to load a file called
+<samp>bar.o</samp>.  Wildcard patterns are permitted in the first filename,
+so <samp>--remap-inputs=foo*.o=bar.o</samp> will rename any input file that
+matches <samp>foo*.o</samp> to <samp>bar.o</samp>.
+</p>
+<p>An alternative form of the option
+<samp>--remap-inputs-file=filename</samp> allows the remappings to be read
+from a file.  Each line in the file can contain a single remapping.
+Blank lines are ignored.  Anything from a hash character (&lsquo;<samp>#</samp>&rsquo;) to
+the end of a line is considered to be a comment and is also ignored.
+The mapping pattern can be separated from the filename by whitespace
+or an equals (&lsquo;<samp>=</samp>&rsquo;) character.
+</p>
+<p>The options can be specified multiple times.  Their contents
+accumulate.  The remappings will be processed in the order in which
+they occur on the command line, and if they come from a file, in the
+order in which they occur in the file.  If a match is made, no further
+checking for that filename will be performed.
+</p>
+<p>If the replacement filename is <samp>/dev/null</samp> or just <samp>NUL</samp>
+then the remapping will actually cause the input file to be ignored.
+This can be a convenient way to experiment with removing input files
+from a complicated build environment.
+</p>
+<p>Note that this option is position dependent and only affects filenames
+that come after it on the command line.  Thus:
+</p>
+<div class="example">
+<pre class="example">  ld foo.o --remap-inputs=foo.o=bar.o
+</pre></div>
+
+<p>Will have no effect, whereas:
+</p>
+<div class="example">
+<pre class="example">  ld --remap-inputs=foo.o=bar.o foo.o 
+</pre></div>
+
+<p>Will rename the input file <samp>foo.o</samp> to <samp>bar.o</samp>.
+</p>
+<p>Note - these options also affect files referenced by <em>INPUT</em>
+statements in linker scripts.  But since linker scripts are processed
+after the entire command line is read, the position of the remap
+options on the command line is not significant.
+</p>
+<p>If the <samp>verbose</samp> option is enabled then any mappings that match
+will be reported, although again the <samp>verbose</samp> option needs to
+be enabled on the command line <em>before</em> the remaped filenames
+appear.
+</p>
+<p>If the <samp>-Map</samp> or <samp>--print-map</samp> options are enabled then
+the remapping list will be included in the map output.
 </p>
 <span id="index-link-map"></span>
 <span id="index-_002dM"></span>
@@ -661,7 +740,17 @@ is 0x1, and <samp>bar.o</samp>, which doesn&rsquo;t have property 0xc0000002.
 <p>This indicates that property 0xc0010001 value is updated to 0x1 in output
 when merging properties in  <samp>foo.o</samp>, whose 0xc0010001 property value
 is 0x1, and <samp>bar.o</samp>, whose 0xc0010001 property value is 0x1.
-</p></li></ul>
+</p>
+</li><li> On some ELF targets, a list of fixups inserted by <samp>--relax</samp>
+
+<div class="example">
+<pre class="example">foo.o: Adjusting branch at 0x00000008 towards &quot;far&quot; in section .text
+</pre></div>
+
+<p>This indicates that the branch at 0x00000008 in foo.o, targeting
+the symbol &quot;far&quot; in section .text, has been replaced by a trampoline.
+</p>
+</li></ul>
 
 <span id="index-link-map-discarded"></span>
 <span id="index-_002d_002dprint_002dmap_002ddiscarded"></span>
@@ -671,6 +760,17 @@ is 0x1, and <samp>bar.o</samp>, whose 0xc0010001 property value is 0x1.
 <dt><span><code>--no-print-map-discarded</code></span></dt>
 <dd><p>Print (or do not print) the list of discarded and garbage collected sections
 in the link map.  Enabled by default.
+</p>
+<span id="index-_002d_002dprint_002dmap_002dlocals"></span>
+<span id="index-_002d_002dno_002dprint_002dmap_002dlocals"></span>
+</dd>
+<dt><span><code>--print-map-locals</code></span></dt>
+<dt><span><code>--no-print-map-locals</code></span></dt>
+<dd><p>Print (or do not print) local symbols in the link map.  Local symbols
+will have the text &lsquo;<samp>(local)</samp>&rsquo; printed before their name, and will
+be listed after all of the global symbols in a given section.
+Temporary local symbols (typically those that start with &lsquo;<samp>.L</samp>&rsquo;)
+will not be included in the output.  Disabled by default.
 </p>
 <span id="index-_002dn"></span>
 <span id="index-read_002donly-text"></span>
@@ -715,6 +815,28 @@ shared libraries.  Use <samp>-Bdynamic</samp> for this.
 <dd><p>Use <var>output</var> as the name for the program produced by <code>ld</code>; if this
 option is not specified, the name <samp>a.out</samp> is used by default.  The
 script command <code>OUTPUT</code> can also specify the output file name.
+</p>
+<p>Note - the linker will delete the output file before it starts to
+write to it.  It will do this even if it turns out that the link
+cannot be completed due to errors.
+</p>
+<p>Note - the linker will check to make sure that the output file name
+does not match the name of any of the input files, but that is all.
+In particular it will not complain if the output file might overwrite
+a source file or some other important file.  Therefore in build
+systems it is recommended to use the <samp>-o</samp> option as the last
+option on the linker command line.  For example consider:
+</p>
+<div class="example">
+<pre class="example">  ld -o $(EXE) $(OBJS)
+  ld $(OBJS) -o $(EXE)
+</pre></div>
+
+<p>If the &lsquo;<samp>EXE</samp>&rsquo; variable is not defined for some reason, the first
+version of the linker command could end up deleting one of the object
+files (the first one in the &lsquo;<samp>OBJS</samp>&rsquo; list) whereas the second
+version of the linker command will generate an error message and not
+delete anything.
 </p>
 <span id="index-_002d_002ddependency_002dfile_003ddepfile"></span>
 <span id="index-dependency-file"></span>
@@ -851,6 +973,22 @@ programs.  You may use this option more than once.
 followed by a directory name, rather than a file name, it is treated as
 the <samp>-rpath</samp> option.
 </p>
+</dd>
+<dt><span><code>--rosegment</code></span></dt>
+<dt><span><code>--no-rosegment</code></span></dt>
+<dd><p>Attempt to ensure that only a single read-only, non-code segment is
+created.  Only useful when used in conjunction with the <samp>-z
+separate-code</samp> option.  The resulting binaries should be smaller than
+if <samp>-z separate-code</samp> is used on its own.  Without this option,
+or if <samp>--no-rosegment</samp> is specified, the <samp>-z separate-code</samp>
+option will create two read-only segments, one before the code segment
+and one after it.
+</p>
+<p>The name of the options are misleading, but they have been chosen in
+order for the linker to be compatible with the LLD and GOLD linkers.
+</p>
+<p>Thse options are only supported by ELF targets.
+</p>
 <span id="index-_002ds"></span>
 <span id="index-_002d_002dstrip_002dall"></span>
 <span id="index-strip-all-symbols"></span>
@@ -875,6 +1013,11 @@ the <samp>-rpath</samp> option.
 <dd><p>Omit (or do not omit) global symbols defined in discarded sections.
 Enabled by default.
 </p>
+<span id="index-_002dplugin_002dsave_002dtemps"></span>
+</dd>
+<dt><span><code>-plugin-save-temps</code></span></dt>
+<dd><p>Store the plugin &ldquo;temporary&rdquo; intermediate files permanently.
+</p>
 <span id="index-_002dt"></span>
 <span id="index-_002d_002dtrace"></span>
 <span id="index-input-files_002c-displaying"></span>
@@ -894,12 +1037,26 @@ a linker bug report.
 <dt><span><code>-T <var>scriptfile</var></code></span></dt>
 <dt><span><code>--script=<var>scriptfile</var></code></span></dt>
 <dd><p>Use <var>scriptfile</var> as the linker script.  This script replaces
-<code>ld</code>&rsquo;s default linker script (rather than adding to it), so
-<var>commandfile</var> must specify everything necessary to describe the
-output file.  See <a href="Scripts.html">Linker Scripts</a>.  If <var>scriptfile</var> does not exist in
-the current directory, <code>ld</code> looks for it in the directories
-specified by any preceding &lsquo;<samp>-L</samp>&rsquo; options.  Multiple &lsquo;<samp>-T</samp>&rsquo;
-options accumulate.
+<code>ld</code>&rsquo;s default linker script (rather than adding to it),
+unless the script contains <code>INSERT</code>, so <var>commandfile</var> must
+specify everything necessary to describe the output file.
+See <a href="Scripts.html">Linker Scripts</a>.
+</p>
+<p>If <var>scriptfile</var> does not exist in the current directory, <code>ld</code>
+looks for it in the directories specified by any preceding &lsquo;<samp>-L</samp>&rsquo;
+options.
+</p>
+<p>Command line options that appear before the <samp>-T</samp> option can
+affect the script, but command line options that appear after it do
+not.
+</p>
+<p>Multiple &lsquo;<samp>-T</samp>&rsquo; options will accumulate if they are augmenting the
+current script, otherwise the last, non-augmenting, <samp>-T</samp> option
+will be used.
+</p>
+<p>There are other ways of specifying linker scripts.  See
+See <a href="#g_t_002d_002ddefault_002dscript">--default-script</a>, See <a href="#g_t_002d_002dsection_002dordering_002dfile">--section-ordering-file</a>, and
+See <a href="#unrecognised_002dinput_002dfiles">unrecognised-input-files</a>.
 </p>
 <span id="index-_002ddT-script"></span>
 <span id="index-_002d_002ddefault_002dscript_003dscript"></span>
@@ -907,7 +1064,7 @@ options accumulate.
 </dd>
 <dt><span><code>-dT <var>scriptfile</var></code></span></dt>
 <dt><span><code>--default-script=<var>scriptfile</var></code></span></dt>
-<dd><p>Use <var>scriptfile</var> as the default linker script.  See <a href="Scripts.html">Linker Scripts</a>.
+<dd><span id="g_t_002d_002ddefault_002dscript"></span><p>Use <var>scriptfile</var> as the default linker script.  See <a href="Scripts.html">Linker Scripts</a>.
 </p>
 <p>This option is similar to the <samp>--script</samp> option except that
 processing of the script is delayed until after the rest of the
@@ -951,14 +1108,19 @@ can be used multiple times to require additional symbols.
 <span id="index-constructors"></span>
 </dd>
 <dt><span><code>-Ur</code></span></dt>
-<dd><p>For anything other than C++ programs, this option is equivalent to
-&lsquo;<samp>-r</samp>&rsquo;: it generates relocatable output&mdash;i.e., an output file that can in
-turn serve as input to <code>ld</code>.  When linking C++ programs, &lsquo;<samp>-Ur</samp>&rsquo;
-<em>does</em> resolve references to constructors, unlike &lsquo;<samp>-r</samp>&rsquo;.
-It does not work to use &lsquo;<samp>-Ur</samp>&rsquo; on files that were themselves linked
-with &lsquo;<samp>-Ur</samp>&rsquo;; once the constructor table has been built, it cannot
-be added to.  Use &lsquo;<samp>-Ur</samp>&rsquo; only for the last partial link, and
-&lsquo;<samp>-r</samp>&rsquo; for the others.
+<dd>
+<p>For programs that do not use constructors or destructors, or for ELF
+based systems this option is equivalent to <samp>-r</samp>:  it generates
+relocatable output&mdash;i.e., an output file that can in turn serve as
+input to <code>ld</code>.  For other binaries however the <samp>-Ur</samp>
+option is similar to <samp>-r</samp> but it also resolves references to
+constructors and destructors.
+</p>
+<p>For those systems where <samp>-r</samp> and <samp>-Ur</samp> behave
+differently, it does not work to use <samp>-Ur</samp> on files that were
+themselves linked with <samp>-Ur</samp>; once the constructor table has
+been built, it cannot be added to.  Use <samp>-Ur</samp> only for the last
+partial link, and <samp>-r</samp> for the others.
 </p>
 <span id="index-_002d_002dorphan_002dhandling_003dMODE"></span>
 <span id="index-orphan-sections"></span>
@@ -1014,7 +1176,9 @@ in a linker script.
 <dt><span><code>--version</code></span></dt>
 <dt><span><code>-V</code></span></dt>
 <dd><p>Display the version number for <code>ld</code>.  The <samp>-V</samp> option also
-lists the supported emulations.
+lists the supported emulations.  See also the description of the
+<samp>--enable-linker-version</samp> in <a href="#Options">Command-line Options</a>
+which can be used to insert the linker version string into a binary.
 </p>
 <span id="index-_002dx"></span>
 <span id="index-_002d_002ddiscard_002dall"></span>
@@ -1058,10 +1222,6 @@ for Solaris compatibility.
 <dt><span><code>-z <var>keyword</var></code></span></dt>
 <dd><p>The recognized keywords are:
 </p><dl compact="compact">
-<dt><span>&lsquo;<samp>bndplt</samp>&rsquo;</span></dt>
-<dd><p>Always generate BND prefix in PLT entries. Supported for Linux/x86_64.
-</p>
-</dd>
 <dt><span>&lsquo;<samp>call-nop=prefix-addr</samp>&rsquo;</span></dt>
 <dt><span>&lsquo;<samp>call-nop=suffix-nop</samp>&rsquo;</span></dt>
 <dt><span>&lsquo;<samp>call-nop=prefix-<var>byte</var></samp>&rsquo;</span></dt>
@@ -1259,6 +1419,18 @@ Lazy binding is the default.
 <dd><p>Set the maximum memory page size supported to <var>value</var>.
 </p>
 </dd>
+<dt><span>&lsquo;<samp>mark-plt</samp>&rsquo;</span></dt>
+<dt><span>&lsquo;<samp>nomark-plt</samp>&rsquo;</span></dt>
+<dd><p>Mark PLT entries with dynamic tags, DT_X86_64_PLT, DT_X86_64_PLTSZ and
+DT_X86_64_PLTENT.  Since this option stores a non-zero value in the
+r_addend field of R_X86_64_JUMP_SLOT relocations, the resulting
+executables and shared libraries are incompatible with dynamic linkers,
+such as those in older versions of glibc without the change to ignore
+r_addend in R_X86_64_GLOB_DAT and R_X86_64_JUMP_SLOT relocations, which
+don&rsquo;t ignore the r_addend field of R_X86_64_JUMP_SLOT relocations.
+Supported for x86_64.
+</p>
+</dd>
 <dt><span>&lsquo;<samp>muldefs</samp>&rsquo;</span></dt>
 <dd><p>Allow multiple definitions.
 </p>
@@ -1342,6 +1514,12 @@ Don&rsquo;t create an ELF <code>PT_GNU_RELRO</code> segment if &lsquo;<samp>nore
 Linux/i386 and Linux/x86_64.
 </p>
 </dd>
+<dt><span>&lsquo;<samp>sectionheader</samp>&rsquo;</span></dt>
+<dt><span>&lsquo;<samp>nosectionheader</samp>&rsquo;</span></dt>
+<dd><p>Generate section header.  Don&rsquo;t generate section header if
+&lsquo;<samp>nosectionheader</samp>&rsquo; is used.  <samp>sectionheader</samp> is the default.
+</p>
+</dd>
 <dt><span>&lsquo;<samp>separate-code</samp>&rsquo;</span></dt>
 <dt><span>&lsquo;<samp>noseparate-code</samp>&rsquo;</span></dt>
 <dd><p>Create separate code <code>PT_LOAD</code> segment header in the object.  This
@@ -1421,6 +1599,22 @@ is used.  <samp>nounique-symbol</samp> is the default.
 <samp>x86-64-v2</samp> generates <code>GNU_PROPERTY_X86_ISA_1_V2</code>.
 <samp>x86-64-v3</samp> generates <code>GNU_PROPERTY_X86_ISA_1_V3</code>.
 <samp>x86-64-v4</samp> generates <code>GNU_PROPERTY_X86_ISA_1_V4</code>.
+Supported for Linux/i386 and Linux/x86_64.
+</p>
+</dd>
+<dt><span>&lsquo;<samp>isa-level-report=none</samp>&rsquo;</span></dt>
+<dt><span>&lsquo;<samp>isa-level-report=all</samp>&rsquo;</span></dt>
+<dt><span>&lsquo;<samp>isa-level-report=needed</samp>&rsquo;</span></dt>
+<dt><span>&lsquo;<samp>isa-level-report=used</samp>&rsquo;</span></dt>
+<dd><p>Specify how to report x86-64 ISA levels in input relocatable files.
+<samp>isa-level-report=none</samp>, which is the default, will make the
+linker not report x86-64 ISA levels in input files.
+<samp>isa-level-report=all</samp> will make the linker report needed and
+used x86-64 ISA levels in input files.
+<samp>isa-level-report=needed</samp> will make the linker report needed
+x86-64 ISA levels in input files.
+<samp>isa-level-report=used</samp> will make the linker report used
+x86-64 ISA levels in input files.
 Supported for Linux/i386 and Linux/x86_64.
 </p>
 </dd>
@@ -1802,6 +1996,16 @@ in filename invoked by -R or &ndash;just-symbols
 <dd><p>Treat all warnings as errors.  The default behaviour can be restored
 with the option <samp>--no-fatal-warnings</samp>.
 </p>
+<span id="index-_002dw"></span>
+<span id="index-_002d_002dno_002dwarnings"></span>
+</dd>
+<dt><span><code>-w</code></span></dt>
+<dt><span><code>--no-warnings</code></span></dt>
+<dd><p>Do not display any warning or error messages.  This overrides
+<samp>--fatal-warnings</samp> if it has been enabled.  This option can be
+used when it is known that the output binary will not work, but there
+is still a need to create it.
+</p>
 <span id="index-_002d_002dforce_002dexe_002dsuffix"></span>
 </dd>
 <dt><span><code>--force-exe-suffix</code></span></dt>
@@ -2112,12 +2316,13 @@ the i386 PE and ELF targetted ports of the linker.
 </dd>
 <dt id='index-position-independent-executables'><span><code>-pie</code><a href='#index-position-independent-executables' class='copiable-anchor'> &para;</a></span></dt>
 <dt><span><code>--pic-executable</code></span></dt>
-<dd><p>Create a position independent executable.  This is currently only supported on
-ELF platforms.  Position independent executables are similar to shared
-libraries in that they are relocated by the dynamic linker to the virtual
-address the OS chooses for them (which can vary between invocations).  Like
-normal dynamically linked executables they can be executed and symbols
-defined in the executable cannot be overridden by shared libraries.
+<dd><p>Create a position independent executable.  This is currently only
+supported on ELF platforms.  Position independent executables are
+relocated by the dynamic linker to the virtual address the OS chooses
+for them, which can vary between invocations.  They are marked ET_DYN
+in the ELF file header, but differ from shared libraries in a number
+of ways.  In particular, defined symbols in a PIE by default can not
+be overridden by another object as they can be in a shared library.
 </p>
 <span id="index-_002dno_002dpie"></span>
 </dd>
@@ -2226,11 +2431,11 @@ of the input files.
 <p>When the linker encounters such a dependency when doing a non-shared,
 non-relocatable link, it will automatically try to locate the required
 shared library and include it in the link, if it is not included
-explicitly.  In such a case, the <samp>-rpath-link</samp> option
-specifies the first set of directories to search.  The
-<samp>-rpath-link</samp> option may specify a sequence of directory names
-either by specifying a list of names separated by colons, or by
-appearing multiple times.
+explicitly.  In such a case, several directories are searched as
+described below.  The <samp>-rpath-link</samp> option specifies the first
+set of directories to search.  This option may specify a sequence of
+directory names either by providing a list of names separated by
+colons, or by appearing multiple times.
 </p>
 <p>The tokens <var>$ORIGIN</var> and <var>$LIB</var> can appear in these search
 directories.  They will be replaced by the full path to the directory
@@ -2242,13 +2447,18 @@ and either &lsquo;<samp>lib</samp>&rsquo; - for 32-bit binaries - or &lsquo;<sam
 <var>${LIB}</var> can also be used.  The token <var>$PLATFORM</var> is not
 supported.
 </p>
-<p>This option should be used with caution as it overrides the search path
-that may have been hard compiled into a shared library. In such a case it
-is possible to use unintentionally a different search path than the
-runtime linker would do.
+<p>The <samp>--rpath-link</samp> option should be used with caution as it
+overrides the search path that may have been hard compiled into a
+shared library.  In such a case it is possible to unintentionally use
+a different search path than the runtime linker would have used.
 </p>
-<p>The linker uses the following search paths to locate required shared
-libraries:
+<p>When additional shared libraries are required, the linker will search
+directories in the order listed below in order to find them.  Note
+however that this only applies to additional libraries needed to
+satisfy already included shared libraries.  It does <em>not</em>
+apply to libraries that are included via the <samp>-l</samp> command line
+option.  Searches for <samp>-l</samp> libraries are only conducted in
+directories specified by the <samp>-L</samp> option (see <a href="#g_t_002dL">-L</a>).
 </p>
 <ol>
 <li> Any directories specified by <samp>-rpath-link</samp> options.
@@ -2301,6 +2511,51 @@ of the first.
 warning and continue with the link.
 </p>
 
+<span id="index-_002d_002dsection_002dordering_002dfile"></span>
+</dd>
+<dt><span><code>--section-ordering-file=<var>script</var></code></span></dt>
+<dd><span id="g_t_002d_002dsection_002dordering_002dfile"></span><p>This option is used to augment the current linker script with
+additional mapping of input sections to output sections.  This file
+must use the same syntax for <code>SECTIONS</code> as is used in normal
+linker scripts, but it should not do anything other than place input
+sections into output sections. see <a href="SECTIONS.html">SECTIONS Command</a>
+</p>
+<p>A second constraint on the section ordering script is that it can only
+reference output sections that are already defined by whichever linker
+script is currently in use.  (Ie the default linker script or a script
+specified on the command line).  The benefit of the section ordering
+script however is that the input sections are mapped to the start of
+the output sections, so that they can ensure the ordering of sections
+in the output section.  For example, imagine that the default linker
+script looks like this:
+</p>
+<div class="example">
+<pre class="example">SECTIONS {
+  .text : { *(.text.hot) ; *(.text .text.*) }
+  .data : { *(.data.big) ; *(.data .data.*) }
+  }
+</pre></div>
+
+<p>Then if a section ordering file like this is used:
+</p>
+<div class="example">
+<pre class="example">  .text : { *(.text.first) ; *(.text.z*) }
+  .data : { foo.o(.data.first) ; *(.data.small) }
+</pre></div>
+
+<p>This would be equivalent to a linker script like this:
+</p>
+<div class="example">
+<pre class="example">SECTIONS {
+  .text : { *(.text.first) ; *(.text.z*) ; *(.text.hot) ; *(.text .text.*) }
+  .data : { foo.o(.data.first) ; *(.data.small) ; *(.data.big) ; *(.data .data.*) }
+  }
+</pre></div>
+
+<p>The advantage of the section ordering file is that it can be used to
+order those sections that matter to the user without having to worry
+about any other sections, or memory regions, or anything else.
+</p>
 <span id="index-_002dshared"></span>
 <span id="index-_002dBshareable"></span>
 </dd>
@@ -2426,7 +2681,10 @@ sign (&ldquo;<tt class="key">=</tt>&rdquo;), and <var>org</var>.
 </dd>
 <dt id='index-text-segment-origin_002c-cmd-line'><span><code>-Ttext-segment=<var>org</var></code><a href='#index-text-segment-origin_002c-cmd-line' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>When creating an ELF executable, it will set the address of the first
-byte of the text segment.
+byte of the text segment.  Note that when <samp>-pie</samp> is used with
+<samp>-Ttext-segment=<var>org</var></samp>, the output executable is marked
+ET_EXEC so that the address of the first byte of the text segment will
+be guaranteed to be <var>org</var> at run time.
 </p>
 <span id="index-_002dTrodata_002dsegment_003dorg"></span>
 </dd>
@@ -2591,6 +2849,55 @@ encountered in a different order.
 object file formats.  For formats like COFF or ELF, the linker can not
 detect the use of global constructors.
 </p>
+<span id="index-_002d_002dwarn_002dexecstack"></span>
+<span id="index-warnings_002c-on-executable-stack"></span>
+<span id="index-executable-stack_002c-warnings-on"></span>
+</dd>
+<dt><span><code>--warn-execstack</code></span></dt>
+<dt><span><code>--warn-execstack-objects</code></span></dt>
+<dt><span><code>--no-warn-execstack</code></span></dt>
+<dd><p>On ELF platforms the linker may generate warning messages if it is
+asked to create an output file that contains an executable stack.
+There are three possible states:
+</p><ol>
+<li> Do not generate any warnings.
+</li><li> Always generate warnings, even if the executable stack is requested
+via the <samp>-z execstack</samp> command line option.
+</li><li> Only generate a warning if an object file requests an executable
+stack, but not if the <samp>-z execstack</samp> option is used.
+</li></ol>
+
+<p>The default state depends upon how the linker was configured when it
+was built.  The <samp>--no-warn-execstack</samp> option always puts the
+linker into the no-warnings state.  The <samp>--warn-execstack</samp>
+option puts the linker into the warn-always state.  The
+<samp>--warn-execstack-objects</samp> option puts the linker into the
+warn-for-object-files-only state.
+</p>
+<p>Note: ELF format input files can specify that they need an executable
+stack by having a <var>.note.GNU-stack</var> section with the executable
+bit set in its section flags.  They can specify that they do not need
+an executable stack by having the same section, but without the
+executable flag bit set.  If an input file does not have a
+<var>.note.GNU-stack</var> section then the default behaviour is target
+specific.  For some targets, then absence of such a section implies
+that an executable stack <em>is</em> required.  This is often a problem
+for hand crafted assembler files.
+</p>
+<span id="index-_002d_002derror_002dexecstack"></span>
+</dd>
+<dt><span><code>--error-execstack</code></span></dt>
+<dt><span><code>--no-error-execstack</code></span></dt>
+<dd><p>If the linker is going to generate a warning message about an
+executable stack then the <samp>--error-execstack</samp> option will
+instead change that warning into an error.  Note - this option does
+not change the linker&rsquo;s execstack warning generation state.  Use
+<samp>--warn-execstack</samp> or <samp>--warn-execstack-objects</samp> to set
+a specific warning state.
+</p>
+<p>The <samp>--no-error-execstack</samp> option will restore the default
+behaviour of generating warning messages.
+</p>
 <span id="index-_002d_002dwarn_002dmultiple_002dgp"></span>
 </dd>
 <dt><span><code>--warn-multiple-gp</code></span></dt>
@@ -2613,6 +2920,38 @@ option causes a warning to be issued whenever this case occurs.
 <dt><span><code>--warn-once</code></span></dt>
 <dd><p>Only warn once for each undefined symbol, rather than once per module
 which refers to it.
+</p>
+<span id="index-_002d_002dwarn_002drwx_002dsegments"></span>
+<span id="index-warnings_002c-on-writeable-and-exectuable-segments"></span>
+<span id="index-executable-segments_002c-warnings-on"></span>
+</dd>
+<dt><span><code>--warn-rwx-segments</code></span></dt>
+<dt><span><code>--no-warn-rwx-segments</code></span></dt>
+<dd><p>Warn if the linker creates a loadable, non-zero sized segment that has
+all three of the read, write and execute permission flags set.  Such a
+segment represents a potential security vulnerability.  In addition
+warnings will be generated if a thread local storage segment is
+created with the execute permission flag set, regardless of whether or
+not it has the read and/or write flags set.
+</p>
+<p>These warnings are enabled by default.  They can be disabled via the
+<samp>--no-warn-rwx-segments</samp> option and re-enabled via the
+<samp>--warn-rwx-segments</samp> option.
+</p>
+<span id="index-_002d_002derror_002drwx_002dsegments"></span>
+</dd>
+<dt><span><code>--error-rwx-segments</code></span></dt>
+<dt><span><code>--no-error-rwx-segments</code></span></dt>
+<dd><p>If the linker is going to generate a warning message about an
+executable, writeable segment, or an executable TLS segment, then the
+<samp>--error-rwx-segments</samp> option will turn this warning into an
+error instead.  The <samp>--no-error-rwx-segments</samp> option will
+restore the default behaviour of just generating a warning message.
+</p>
+<p>Note - the <samp>--error-rwx-segments</samp> option does not by itself
+turn on warnings about these segments.  These warnings are either
+enabled by default, if the linker was configured that way, or via the
+<samp>--warn-rwx-segments</samp> command line option.
 </p>
 <span id="index-_002d_002dwarn_002dsection_002dalign"></span>
 <span id="index-warnings_002c-on-section-alignment"></span>
@@ -2734,7 +3073,9 @@ section and ELF <code>PT_GNU_EH_FRAME</code> segment header.
 <dt><span><code>--no-ld-generated-unwind-info</code></span></dt>
 <dd><p>Request creation of <code>.eh_frame</code> unwind info for linker
 generated code sections like PLT.  This option is on by default
-if linker generated unwind info is supported.
+if linker generated unwind info is supported.  This option also
+controls the generation of <code>.sframe</code> stack trace info for linker
+generated code sections like PLT.
 </p>
 <span id="index-_002d_002denable_002dnew_002ddtags"></span>
 <span id="index-_002d_002ddisable_002dnew_002ddtags"></span>
@@ -2772,11 +3113,13 @@ but for most Linux based systems it will be <code>both</code>.
 <span id="index-_002d_002dcompress_002ddebug_002dsections_003dzlib"></span>
 <span id="index-_002d_002dcompress_002ddebug_002dsections_003dzlib_002dgnu"></span>
 <span id="index-_002d_002dcompress_002ddebug_002dsections_003dzlib_002dgabi"></span>
+<span id="index-_002d_002dcompress_002ddebug_002dsections_003dzstd"></span>
 </dd>
 <dt><span><code>--compress-debug-sections=none</code></span></dt>
 <dt><span><code>--compress-debug-sections=zlib</code></span></dt>
 <dt><span><code>--compress-debug-sections=zlib-gnu</code></span></dt>
 <dt><span><code>--compress-debug-sections=zlib-gabi</code></span></dt>
+<dt><span><code>--compress-debug-sections=zstd</code></span></dt>
 <dd><p>On ELF platforms, these options control how DWARF debug sections are
 compressed using zlib.
 </p>
@@ -2789,6 +3132,9 @@ sets the SHF_COMPRESSED flag in the sections&rsquo; headers.
 </p>
 <p>The <samp>--compress-debug-sections=zlib</samp> option is an alias for
 <samp>--compress-debug-sections=zlib-gabi</samp>.
+</p>
+<p><samp>--compress-debug-sections=zstd</samp> compresses DWARF debug sections using
+zstd.
 </p>
 <p>Note that this option overrides any compression in input debug
 sections, so if a binary is linked with <samp>--compress-debug-sections=none</samp>
@@ -2848,6 +3194,19 @@ string identifying the original linked file does not change.
 </p>
 <p>Passing <code>none</code> for <var>style</var> disables the setting from any
 <code>--build-id</code> options earlier on the command line.
+</p>
+<span id="index-_002d_002dpackage_002dmetadata_003dJSON"></span>
+</dd>
+<dt><span><code>--package-metadata=<var>JSON</var></code></span></dt>
+<dd><p>Request the creation of a <code>.note.package</code> ELF note section.  The
+contents of the note are in JSON format, as per the package metadata
+specification.  For more information see:
+https://systemd.io/ELF_PACKAGE_METADATA/
+If the JSON argument is missing/empty then this will disable the
+creation of the metadata note, if one had been enabled by an earlier
+occurrence of the &ndash;package-metadata option.
+If the linker has been built with libjansson, then the JSON string
+will be validated.
 </p></dd>
 </dl>
 
@@ -3411,6 +3770,11 @@ same sources are linked.  The option <samp>--no-insert-timestamp</samp>
 can be used to insert a zero value for the timestamp, this ensuring
 that binaries produced from identical sources will compare
 identically.
+</p>
+<p>If <samp>--insert-timestamp</samp> is active then the time inserted is
+either the time that the linking takes place or, if the
+<code>SOURCE_DATE_EPOCH</code> environment variable is defined, the number
+of seconds since Unix epoch as specified by that variable.
 </p>
 <span id="index-_002d_002denable_002dreloc_002dsection"></span>
 </dd>

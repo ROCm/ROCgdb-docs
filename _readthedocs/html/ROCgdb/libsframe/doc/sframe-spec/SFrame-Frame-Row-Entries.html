@@ -1,0 +1,145 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- Copyright (C) 2021-2024 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU General Public License, Version 3 or any
+later version published by the Free Software Foundation.  A copy of the
+license is included in the section entitled "GNU General Public
+License".
+ -->
+<title>SFrame Frame Row Entries (The SFrame Format)</title>
+
+<meta name="description" content="SFrame Frame Row Entries (The SFrame Format)">
+<meta name="keywords" content="SFrame Frame Row Entries (The SFrame Format)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="SFrame-Section.html" rel="up" title="SFrame Section">
+<link href="SFrame-Function-Descriptor-Entries.html" rel="prev" title="SFrame Function Descriptor Entries">
+<style type="text/css">
+<!--
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<div class="section" id="SFrame-Frame-Row-Entries">
+<div class="header">
+<p>
+Previous: <a href="SFrame-Function-Descriptor-Entries.html" accesskey="p" rel="prev">SFrame FDE</a>, Up: <a href="SFrame-Section.html" accesskey="u" rel="up">SFrame Section</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<span id="SFrame-FRE"></span><h3 class="section">2.4 SFrame FRE</h3>
+<span id="index-SFrame-FRE"></span>
+
+<p>The SFrame frame row entry sub-section contains the core of the stack trace
+information.
+</p>
+<p>An SFrame frame row entry is a self-sufficient record containing SFrame stack
+trace information for a range of contiguous addresses, starting at the
+specified offset from the start of the function.  Each SFrame frame row entry
+is followed by S*N bytes, where:
+</p>
+<ul class="no-bullet">
+<li>- <code>S</code> is the size of the stack frame offset for the FRE, and
+</li><li>- <code>N</code> is the number of stack frame offsets in the FRE
+</li></ul>
+
+<p>The stack offsets, following the FRE, are interpreted in order as follows:
+</p>
+<ul class="no-bullet">
+<li>- The first offset is always used to locate the CFA, by interpreting it as:
+CFA = <code>BASE_REG</code> + offset1.
+</li><li>- If RA is being tracked, the second offset is always used to locate the RA, by
+interpreting it as: RA = CFA + offset2.  If RA is <em>not</em> being tracked
+<em>and</em> FP is being tracked, the second offset will be used to locate the
+FP, by interpreting it as: FP = CFA + offset2.
+</li><li>- If both RA and FP are being tracked, the third offset will be used to locate
+the FP, by interpreting it as FP = CFA + offset3.
+</li></ul>
+
+<p>The entities <code>S</code>, <code>N</code> and <code>BASE_REG</code> are identified using the
+SFrame FRE info word, a.k.a. the <code>sframe_fre_info</code>
+See <a href="The-SFrame-FRE-Info-Word.html">The SFrame FRE Info Word</a>.
+</p>
+<p>Following are the definitions of the allowed SFrame FRE:
+</p>
+<div class="example">
+<pre class="example">typedef struct sframe_frame_row_entry_addr1
+{
+  uint8_t sfre_start_address;
+  sframe_fre_info sfre_info;
+} ATTRIBUTE_PACKED sframe_frame_row_entry_addr1;
+</pre></div>
+
+<div class="example">
+<pre class="example">typedef struct sframe_frame_row_entry_addr2
+{
+  uint16_t sfre_start_address;
+  sframe_fre_info sfre_info;
+} ATTRIBUTE_PACKED sframe_frame_row_entry_addr2;
+</pre></div>
+
+<div class="example">
+<pre class="example">typedef struct sframe_frame_row_entry_addr4
+{
+  uint32_t sfre_start_address;
+  sframe_fre_info sfre_info;
+} ATTRIBUTE_PACKED sframe_frame_row_entry_addr4;
+</pre></div>
+
+<p>For ensuring compactness, SFrame frame row entries are stored unaligned on
+disk.  Appropriate mechanisms need to be employed, as necessary, by the
+serializing and deserializing entities, if unaligned accesses need to be
+avoided.
+</p>
+<p><code>sfre_start_address</code> is an unsigned 8-bit/16-bit/32-bit integral field
+identifies the start address of the range of program counters, for which the
+SFrame FRE applies.  The value encoded in the <code>sfre_start_address</code> field
+is the offset in bytes of the start address of the SFrame FRE, from the start
+address of the function.
+</p>
+<p>Further FRE types may be added in future.
+</p>
+
+<span id="index-The-SFrame-FRE-Info-Word"></span>
+<ul class="section-toc">
+<li><a href="The-SFrame-FRE-Info-Word.html" accesskey="1">The SFrame FRE Info Word</a></li>
+</ul>
+</div>
+<hr>
+<div class="header">
+<p>
+Previous: <a href="SFrame-Function-Descriptor-Entries.html">SFrame FDE</a>, Up: <a href="SFrame-Section.html">SFrame Section</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

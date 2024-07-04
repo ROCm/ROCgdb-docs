@@ -3,7 +3,7 @@
 <!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright (C) 1988-2022 Free Software Foundation, Inc.
+<!-- Copyright (C) 1988-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -16,35 +16,47 @@ and with the Back-Cover Texts as in (a) below.
 this GNU Manual.  Buying copies from GNU Press supports the FSF in
 developing GNU and promoting software freedom."
 
-Disclaimer
+Legal Disclaimer and Copyright Information
 
-The information contained herein is for informational purposes only,
-and is subject to change without notice.  While every precaution has
-been taken in the preparation of this document, it may contain
-technical inaccuracies, omissions and typographical errors, and AMD is
-under no obligation to update or otherwise correct this information.
-Advanced Micro Devices, Inc. makes no representations or warranties
-with respect to the accuracy or completeness of the contents of this
-document, and assumes no liability of any kind, including the implied
-warranties of noninfringement, merchantability or fitness for
-particular purposes, with respect to the operation or use of AMD
-hardware, software or other products described herein.  No license,
-including implied or arising by estoppel, to any intellectual property
-rights is granted by this document.  Terms and limitations applicable
-to the purchase or use of AMD’s products are as set forth in a signed
-agreement between the parties or in AMD's Standard Terms and
-Conditions of Sale.
+AMD ROCm software is made available by Advanced Micro Devices, Inc. under the
+open source license identified in the top-level directory for the library in
+the repository on Github.com (Portions of AMD ROCm software are
+licensed under MITx11 and UIL/NCSA. For more information on the license, review
+the license.txt in the top-level directory for the library on
+Github.com).  The additional terms and conditions below apply to your use
+of AMD ROCm technical documentation.
 
-AMD(R), the AMD Arrow logo, AMD Instinct(R),
-Radeon(R), ROCm(R) and combinations thereof are
-trademarks of Advanced Micro Devices, Inc.  Linux(R) is the
-registered trademark of Linus Torvalds in the U.S. and other countries.
-PCIe(R) is a registered trademark of PCI-SIG Corporation. Other
-product names used in this publication are for identification purposes only and
-may be trademarks of their respective companies.
+(C)2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
 
-Copyright (C) 2019-2022 Advanced Micro Devices, Inc.  All
-rights reserved. -->
+The information presented in this document is for informational purposes only
+and may contain technical inaccuracies, omissions, and typographical errors.
+The information contained herein is subject to change and may be rendered
+inaccurate for many reasons, including but not limited to product and roadmap
+changes, component and motherboard version changes, new model and/or product
+releases, product differences between differing manufacturers, software
+changes, BIOS flashes, firmware upgrades, or the like.  Any computer system has
+risks of security vulnerabilities that cannot be completely prevented or
+mitigated.  AMD assumes no obligation to update or otherwise correct or revise
+this information.  However, AMD reserves the right to revise this information
+and to make changes from time to time to the content hereof without obligation
+of AMD to notify any person of such revisions or changes.
+
+THIS INFORMATION IS PROVIDED "AS IS."  AMD MAKES NO REPRESENTATIONS OR
+WARRANTIES WITH RESPECT TO THE CONTENTS HEREOF AND ASSUMES NO RESPONSIBILITY
+FOR ANY INACCURACIES, ERRORS, OR OMISSIONS THAT MAY APPEAR IN THIS INFORMATION.
+AMD SPECIFICALLY DISCLAIMS ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT,
+MERCHANTABILITY, OR FITNESS FOR ANY PARTICULAR PURPOSE.  IN NO EVENT WILL AMD
+BE LIABLE TO ANY PERSON FOR ANY RELIANCE, DIRECT, INDIRECT, SPECIAL, OR OTHER
+CONSEQUENTIAL DAMAGES ARISING FROM THE USE OF ANY INFORMATION CONTAINED HEREIN,
+EVEN IF AMD IS EXPRESSLY ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+
+AMD, the AMD Arrow logo, AMD Instinct™, Radeon™, AMD ROCm™, and combinations
+thereof are trademarks of Advanced Micro Devices, Inc.
+Linux(R) is the registered trademark of Linus Torvalds in the
+U.S. and other countries. PCIe(R) is a registered trademark of
+PCI-SIG Corporation.  Other product names used in this publication are for
+identification purposes only and may be trademarks of their respective
+companies. -->
 <title>Index Section Format (Debugging with ROCGDB)</title>
 
 <meta name="description" content="Index Section Format (Debugging with ROCGDB)">
@@ -113,13 +125,14 @@ laid out such that alignment is always respected.
 unless otherwise noted:
 
 <ol>
-<li> The version number, currently 8.  Versions 1, 2 and 3 are obsolete.
+<li> The version number, currently 9.  Versions 1, 2 and 3 are obsolete.
 Version 4 uses a different hashing function from versions 5 and 6.
 Version 6 includes symbols for inlined functions, whereas versions 4
 and 5 do not.  Version 7 adds attributes to the CU indices in the
 symbol table.  Version 8 specifies that symbols from DWARF type units
 (&lsquo;<samp>DW_TAG_type_unit</samp>&rsquo;) refer to the type unit&rsquo;s symbol table and not the
-compilation unit (&lsquo;<samp>DW_TAG_comp_unit</samp>&rsquo;) using the type.
+compilation unit (&lsquo;<samp>DW_TAG_comp_unit</samp>&rsquo;) using the type.  Version 9 adds
+the name and the language of the main function to the index.
 
 <p><small>ROCGDB</small> will only read version 4, 5, or 6 indices
 by specifying <code>set use-deprecated-index-sections on</code>.
@@ -135,6 +148,8 @@ to the next offset.
 </li><li> The offset, from the start of the file, of the address area.
 
 </li><li> The offset, from the start of the file, of the symbol table.
+
+</li><li> The offset, from the start of the file, of the shortcut table.
 
 </li><li> The offset, from the start of the file, of the constant pool.
 </li></ol>
@@ -206,6 +221,23 @@ don&rsquo;t currently have a simple description of the canonicalization
 algorithm; if you intend to create new index sections, you must read
 the code.
 </p>
+</li><li> The shortcut table
+This is a data structure with the following fields:
+
+<dl compact="compact">
+<dt><span>Language of main</span></dt>
+<dd><p>An <code>offset_type</code> value indicating the language of the main function as a
+<code>DW_LANG_</code> constant.  This value will be zero if main function information
+is not present.
+</p>
+</dd>
+<dt><span>Name of main</span></dt>
+<dd><p>An <code>offset_type</code> value indicating the offset of the main function&rsquo;s name
+in the constant pool.  This value must be ignored if the value for the language
+of main is zero.
+</p></dd>
+</dl>
+
 </li><li> The constant pool.  This is simply a bunch of bytes.  It is organized
 so that alignment is correct: CU vectors are stored first, followed by
 strings.
@@ -265,7 +297,7 @@ with previous versions of the index.
 <dd><p>This bit is zero if the value is global and one if it is static.
 </p>
 <p>The determination of whether a symbol is global or static is complicated.
-The authorative reference is the file <samp>dwarf2read.c</samp> in
+The authoritative reference is the file <samp>dwarf2read.c</samp> in
 <small>ROCGDB</small> sources.
 </p>
 </dd>

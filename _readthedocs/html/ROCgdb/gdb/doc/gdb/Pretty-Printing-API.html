@@ -3,7 +3,7 @@
 <!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright (C) 1988-2022 Free Software Foundation, Inc.
+<!-- Copyright (C) 1988-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -16,35 +16,47 @@ and with the Back-Cover Texts as in (a) below.
 this GNU Manual.  Buying copies from GNU Press supports the FSF in
 developing GNU and promoting software freedom."
 
-Disclaimer
+Legal Disclaimer and Copyright Information
 
-The information contained herein is for informational purposes only,
-and is subject to change without notice.  While every precaution has
-been taken in the preparation of this document, it may contain
-technical inaccuracies, omissions and typographical errors, and AMD is
-under no obligation to update or otherwise correct this information.
-Advanced Micro Devices, Inc. makes no representations or warranties
-with respect to the accuracy or completeness of the contents of this
-document, and assumes no liability of any kind, including the implied
-warranties of noninfringement, merchantability or fitness for
-particular purposes, with respect to the operation or use of AMD
-hardware, software or other products described herein.  No license,
-including implied or arising by estoppel, to any intellectual property
-rights is granted by this document.  Terms and limitations applicable
-to the purchase or use of AMD’s products are as set forth in a signed
-agreement between the parties or in AMD's Standard Terms and
-Conditions of Sale.
+AMD ROCm software is made available by Advanced Micro Devices, Inc. under the
+open source license identified in the top-level directory for the library in
+the repository on Github.com (Portions of AMD ROCm software are
+licensed under MITx11 and UIL/NCSA. For more information on the license, review
+the license.txt in the top-level directory for the library on
+Github.com).  The additional terms and conditions below apply to your use
+of AMD ROCm technical documentation.
 
-AMD(R), the AMD Arrow logo, AMD Instinct(R),
-Radeon(R), ROCm(R) and combinations thereof are
-trademarks of Advanced Micro Devices, Inc.  Linux(R) is the
-registered trademark of Linus Torvalds in the U.S. and other countries.
-PCIe(R) is a registered trademark of PCI-SIG Corporation. Other
-product names used in this publication are for identification purposes only and
-may be trademarks of their respective companies.
+(C)2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
 
-Copyright (C) 2019-2022 Advanced Micro Devices, Inc.  All
-rights reserved. -->
+The information presented in this document is for informational purposes only
+and may contain technical inaccuracies, omissions, and typographical errors.
+The information contained herein is subject to change and may be rendered
+inaccurate for many reasons, including but not limited to product and roadmap
+changes, component and motherboard version changes, new model and/or product
+releases, product differences between differing manufacturers, software
+changes, BIOS flashes, firmware upgrades, or the like.  Any computer system has
+risks of security vulnerabilities that cannot be completely prevented or
+mitigated.  AMD assumes no obligation to update or otherwise correct or revise
+this information.  However, AMD reserves the right to revise this information
+and to make changes from time to time to the content hereof without obligation
+of AMD to notify any person of such revisions or changes.
+
+THIS INFORMATION IS PROVIDED "AS IS."  AMD MAKES NO REPRESENTATIONS OR
+WARRANTIES WITH RESPECT TO THE CONTENTS HEREOF AND ASSUMES NO RESPONSIBILITY
+FOR ANY INACCURACIES, ERRORS, OR OMISSIONS THAT MAY APPEAR IN THIS INFORMATION.
+AMD SPECIFICALLY DISCLAIMS ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT,
+MERCHANTABILITY, OR FITNESS FOR ANY PARTICULAR PURPOSE.  IN NO EVENT WILL AMD
+BE LIABLE TO ANY PERSON FOR ANY RELIANCE, DIRECT, INDIRECT, SPECIAL, OR OTHER
+CONSEQUENTIAL DAMAGES ARISING FROM THE USE OF ANY INFORMATION CONTAINED HEREIN,
+EVEN IF AMD IS EXPRESSLY ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+
+AMD, the AMD Arrow logo, AMD Instinct™, Radeon™, AMD ROCm™, and combinations
+thereof are trademarks of Advanced Micro Devices, Inc.
+Linux(R) is the registered trademark of Linus Torvalds in the
+U.S. and other countries. PCIe(R) is a registered trademark of
+PCI-SIG Corporation.  Other product names used in this publication are for
+identification purposes only and may be trademarks of their respective
+companies. -->
 <title>Pretty Printing API (Debugging with ROCGDB)</title>
 
 <meta name="description" content="Pretty Printing API (Debugging with ROCGDB)">
@@ -90,12 +102,28 @@ ul.no-bullet {list-style: none}
 Next: <a href="Selecting-Pretty_002dPrinters.html" accesskey="n" rel="next">Selecting Pretty-Printers</a>, Previous: <a href="Types-In-Python.html" accesskey="p" rel="prev">Types In Python</a>, Up: <a href="Python-API.html" accesskey="u" rel="up">Python API</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="Pretty-Printing-API-1"></span><h4 class="subsubsection">24.3.2.5 Pretty Printing API</h4>
+<span id="Pretty-Printing-API-1"></span><h4 class="subsubsection">24.3.2.6 Pretty Printing API</h4>
 <span id="index-python-pretty-printing-api"></span>
 
 <p>A pretty-printer is just an object that holds a value and implements a
 specific interface, defined here.  An example output is provided
 (see <a href="Pretty-Printing.html">Pretty Printing</a>).
+</p>
+<p>Because <small>ROCGDB</small> did not document extensibility for
+pretty-printers, by default <small>ROCGDB</small> will assume that only the
+basic pretty-printer methods may be available.  The basic methods are
+marked as such, below.
+</p>
+<p>To allow extensibility, <small>ROCGDB</small> provides the
+<code>gdb.ValuePrinter</code> base class.  This class does not provide any
+attributes or behavior, but instead serves as a tag that can be
+recognized by <small>ROCGDB</small>.  For such printers, <small>ROCGDB</small> reserves
+all attributes starting with a lower-case letter.  That is, in the
+future, <small>ROCGDB</small> may add a new method or attribute to the
+pretty-printer protocol, and <code>gdb.ValuePrinter</code>-based printers
+are expected to handle this gracefully.  A simple way to do this would
+be to use a leading underscore (or two, following the Python
+name-mangling scheme) to any attributes local to the implementation.
 </p>
 <dl class="def">
 <dt id="index-pretty_005fprinter_002echildren"><span class="category">Function: </span><span><strong>pretty_printer.children</strong> <em>(self)</em><a href='#index-pretty_005fprinter_002echildren' class='copiable-anchor'> &para;</a></span></dt>
@@ -108,8 +136,8 @@ two elements.  The first element is the &ldquo;name&rdquo; of the child; the
 second element is the child&rsquo;s value.  The value can be any Python
 object which is convertible to a <small>ROCGDB</small> value.
 </p>
-<p>This method is optional.  If it does not exist, <small>ROCGDB</small> will act
-as though the value has no children.
+<p>This is a basic method, and is optional.  If it does not exist,
+<small>ROCGDB</small> will act as though the value has no children.
 </p>
 <p>For efficiency, the <code>children</code> method should lazily compute its
 results.  This will let <small>ROCGDB</small> read as few elements as
@@ -126,8 +154,8 @@ formatting of a value.  The result will also be supplied to an MI
 consumer as a &lsquo;<samp>displayhint</samp>&rsquo; attribute of the variable being
 printed.
 </p>
-<p>This method is optional.  If it does exist, this method must return a
-string or the special value <code>None</code>.
+<p>This is a basic method, and is optional.  If it does exist, this
+method must return a string or the special value <code>None</code>.
 </p>
 <p>Some display hints are predefined by <small>ROCGDB</small>:
 </p>
@@ -163,6 +191,8 @@ display rules.
 <dd><p><small>ROCGDB</small> will call this method to display the string
 representation of the value passed to the object&rsquo;s constructor.
 </p>
+<p>This is a basic method, and is optional.
+</p>
 <p>When printing from the CLI, if the <code>to_string</code> method exists,
 then <small>ROCGDB</small> will prepend its result to the values returned by
 <code>children</code>.  Exactly how this formatting is done is dependent on
@@ -184,21 +214,57 @@ pretty-printer.  Python scalars (integers, floats, and booleans) and
 strings are convertible to <code>gdb.Value</code>; other types are not.
 </p>
 <p>Finally, if this method returns <code>None</code> then no further operations
-are peformed in this method and nothing is printed.
+are performed in this method and nothing is printed.
 </p>
 <p>If the result is not one of these types, an exception is raised.
+</p></dd></dl>
+
+<dl class="def">
+<dt id="index-pretty_005fprinter_002enum_005fchildren"><span class="category">Function: </span><span><strong>pretty_printer.num_children</strong> <em>()</em><a href='#index-pretty_005fprinter_002enum_005fchildren' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>This is not a basic method, so <small>ROCGDB</small> will only ever call it for
+objects derived from <code>gdb.ValuePrinter</code>.
+</p>
+<p>If available, this method should return the number of children.
+<code>None</code> may be returned if the number can&rsquo;t readily be computed.
+</p></dd></dl>
+
+<dl class="def">
+<dt id="index-pretty_005fprinter_002echild"><span class="category">Function: </span><span><strong>pretty_printer.child</strong> <em>(n)</em><a href='#index-pretty_005fprinter_002echild' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>This is not a basic method, so <small>ROCGDB</small> will only ever call it for
+objects derived from <code>gdb.ValuePrinter</code>.
+</p>
+<p>If available, this method should return the child item (that is, a
+tuple holding the name and value of this child) indicated by <var>n</var>.
+Indices start at zero.
 </p></dd></dl>
 
 <p><small>ROCGDB</small> provides a function which can be used to look up the
 default pretty-printer for a <code>gdb.Value</code>:
 </p>
-<span id="index-gdb_002edefault_005fvisualizer"></span>
 <dl class="def">
-<dt id="index-gdb_002edefault_005fvisualizer-1"><span class="category">Function: </span><span><strong>gdb.default_visualizer</strong> <em>(value)</em><a href='#index-gdb_002edefault_005fvisualizer-1' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-gdb_002edefault_005fvisualizer"><span class="category">Function: </span><span><strong>gdb.default_visualizer</strong> <em>(value)</em><a href='#index-gdb_002edefault_005fvisualizer' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>This function takes a <code>gdb.Value</code> object as an argument.  If a
 pretty-printer for this value exists, then it is returned.  If no such
 printer exists, then this returns <code>None</code>.
 </p></dd></dl>
+
+<p>Normally, a pretty-printer can respect the user&rsquo;s print settings
+(including temporarily applied settings, such as &lsquo;<samp>/x</samp>&rsquo;) simply by
+calling <code>Value.format_string</code> (see <a href="Values-From-Inferior.html">Values From Inferior</a>).
+However, these settings can also be queried directly:
+</p>
+<dl class="def">
+<dt id="index-gdb_002eprint_005foptions"><span class="category">Function: </span><span><strong>gdb.print_options</strong> <em>()</em><a href='#index-gdb_002eprint_005foptions' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Return a dictionary whose keys are the valid keywords that can be
+given to <code>Value.format_string</code>, and whose values are the user&rsquo;s
+settings.  During a <code>print</code> or other operation, the values will
+reflect any flags that are temporarily in effect.
+</p>
+<div class="example">
+<pre class="example">(gdb) python print (gdb.print_options ()['max_elements'])
+200
+</pre></div>
+</dd></dl>
 
 </div>
 <hr>

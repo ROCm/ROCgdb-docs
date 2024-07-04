@@ -3,7 +3,10 @@
 <!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright (C) 1991-2022 Free Software Foundation, Inc.
+<!-- Copyright (C) 2023-2024 Advanced Micro Devices, Inc.
+
+
+Copyright (C) 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -89,6 +92,7 @@ Next: <a href="objdump.html" accesskey="n" rel="next">objdump</a>, Previous: <a 
         [<samp>-R</samp> <var>sectionpattern</var>|<samp>--remove-section=</samp><var>sectionpattern</var>]
         [<samp>--keep-section=</samp><var>sectionpattern</var>]
         [<samp>--remove-relocations=</samp><var>sectionpattern</var>]
+        [<samp>--strip-section-headers</samp>]
         [<samp>-p</samp>|<samp>--preserve-dates</samp>]
         [<samp>-D</samp>|<samp>--enable-deterministic-archives</samp>]
         [<samp>-U</samp>|<samp>--disable-deterministic-archives</samp>]
@@ -136,10 +140,10 @@ Next: <a href="objdump.html" accesskey="n" rel="next">objdump</a>, Previous: <a 
         [<samp>--pure</samp>]
         [<samp>--impure</samp>]
         [<samp>--file-alignment=</samp><var>num</var>]
-        [<samp>--heap=</samp><var>size</var>]
+        [<samp>--heap=</samp><var>reserve</var>[,<var>commit</var>]]
         [<samp>--image-base=</samp><var>address</var>]
         [<samp>--section-alignment=</samp><var>num</var>]
-        [<samp>--stack=</samp><var>size</var>]
+        [<samp>--stack=</samp><var>reserve</var>[,<var>commit</var>]]
         [<samp>--subsystem=</samp><var>which</var>:<var>major</var>.<var>minor</var>]
         [<samp>--compress-debug-sections</samp>]
         [<samp>--decompress-debug-sections</samp>]
@@ -310,6 +314,11 @@ For example:
 &rsquo;.text.foo&rsquo;.
 </p>
 </dd>
+<dt><span><code>--strip-section-headers</code></span></dt>
+<dd><p>Strip section header   This option is specific to ELF files.
+Implies <samp>--strip-all</samp> and <samp>--merge-notes</samp>.
+</p>
+</dd>
 <dt><span><code>-S</code></span></dt>
 <dt><span><code>--strip-all</code></span></dt>
 <dd><p>Do not copy relocation and symbol information from the source file.
@@ -453,6 +462,11 @@ commands.  If the input was &rsquo;12345678&rsquo; then the outputs would be
 <dd><p>Set the access and modification dates of the output file to be the same
 as those of the input file.
 </p>
+<p>This option also copies the date stored in a PE format file&rsquo;s header,
+unless the SOURCE_DATE_EPOCH environment variable is defined.  If it
+is defined then this variable will be used as the date stored in the
+header, interpreted as the number of seconds since the Unix epoch.
+</p>
 </dd>
 <dt id='index-deterministic-archives-2'><span><code>-D</code><a href='#index-deterministic-archives-2' class='copiable-anchor'> &para;</a></span></dt>
 <dt><span><code>--enable-deterministic-archives</code></span></dt>
@@ -559,6 +573,10 @@ above.  If <var>sectionpattern</var> does not match any sections in the
 input file, a warning will be issued, unless
 <samp>--no-change-warnings</samp> is used.
 </p>
+<p>Note - changing the VMA of sections in a fully linked binary can be
+dangerous since there may be code that expects the sections to be
+located at their old address.
+</p>
 </dd>
 <dt><span><code>--change-warnings</code></span></dt>
 <dt><span><code>--adjust-warnings</code></span></dt>
@@ -579,19 +597,27 @@ if the section pattern does not match any sections.
 <var>flags</var> argument is a comma separated string of flag names.  The
 recognized names are &lsquo;<samp>alloc</samp>&rsquo;, &lsquo;<samp>contents</samp>&rsquo;, &lsquo;<samp>load</samp>&rsquo;,
 &lsquo;<samp>noload</samp>&rsquo;, &lsquo;<samp>readonly</samp>&rsquo;, &lsquo;<samp>code</samp>&rsquo;, &lsquo;<samp>data</samp>&rsquo;, &lsquo;<samp>rom</samp>&rsquo;,
-&lsquo;<samp>exclude</samp>&rsquo;, &lsquo;<samp>share</samp>&rsquo;, and &lsquo;<samp>debug</samp>&rsquo;.  You can set the
-&lsquo;<samp>contents</samp>&rsquo; flag for a section which does not have contents, but it
-is not meaningful to clear the &lsquo;<samp>contents</samp>&rsquo; flag of a section which
-does have contents&ndash;just remove the section instead.  Not all flags are
-meaningful for all object file formats.  In particular the
-&lsquo;<samp>share</samp>&rsquo; flag is only meaningful for COFF format files and not for
-ELF format files.
+&lsquo;<samp>exclude</samp>&rsquo;, &lsquo;<samp>share</samp>&rsquo;, &lsquo;<samp>debug</samp>&rsquo;, and &lsquo;<samp>large</samp>&rsquo;.
+You can set the &lsquo;<samp>contents</samp>&rsquo; flag for a section which does not have
+contents, but it is not meaningful to clear the &lsquo;<samp>contents</samp>&rsquo; flag of a
+section which does have contents&ndash;just remove the section instead.  Not all
+flags are meaningful for all object file formats.  In particular the
+&lsquo;<samp>share</samp>&rsquo; flag is only meaningful for COFF format files and not for ELF
+format files.  The ELF x86-64 specific flag &lsquo;<samp>large</samp>&rsquo; corresponds to
+SHF_X86_64_LARGE.
 </p>
 </dd>
 <dt><span><code>--set-section-alignment <var>sectionpattern</var>=<var>align</var></code></span></dt>
 <dd><p>Set the alignment for any sections matching <var>sectionpattern</var>.
 <var>align</var> specifies the alignment in bytes and must be a power of
-two, i.e. 1, 2, 4, 8&hellip;. 
+two, i.e. 1, 2, 4, 8&hellip;.
+</p>
+<p>Note - setting a section&rsquo;s alignment will not automatically align its
+LMA or VMA addresses.  If those need to be changed as well then the
+<samp>--change-section-lma</samp> and/or <samp>--change-section-vma</samp>
+options should be used.  Also note that changing VMAs can cause
+problems in fully linked binaries where there may be code that expects
+the contents of the sections to be located at their old address.
 </p>
 </dd>
 <dt><span><code>--add-section <var>sectionname</var>=<var>filename</var></code></span></dt>
@@ -648,7 +674,7 @@ changing the section&rsquo;s flags to <var>flags</var> in the process.  This has
 the advantage over using a linker script to perform the rename in that
 the output stays as an object file and does not become a linked
 executable.  This option accepts the same set of flags as the
-<samp>--sect-section-flags</samp> option.
+<samp>--set-section-flags</samp> option.
 </p>
 <p>This option is particularly helpful when the input format is binary,
 since this will always create a section called .data.  If for example,
@@ -886,7 +912,7 @@ locations before the debugger is run everything should work
 correctly.
 </p>
 </dd>
-<dt><span><code>--keep-section-symbils</code></span></dt>
+<dt><span><code>--keep-section-symbols</code></span></dt>
 <dd><p>When stripping a file, perhaps with <samp>--strip-debug</samp> or
 <samp>--strip-unneeded</samp>, retain any symbols specifying section names,
 which would otherwise get stripped.
@@ -992,10 +1018,20 @@ for dlls.
 </p>
 </dd>
 <dt><span><code>--section-alignment <var>num</var></code></span></dt>
-<dd><p>Sets the section alignment field in the PE header.  Sections in memory
-will always begin at addresses which are a multiple of this number.
-Defaults to 0x1000.
-[This option is specific to PE targets.]
+<dd><p>[This option is specific to PE targets.]
+</p>
+<p>Sets the section alignment field in the PE header - if one is present
+in the binary.  Sections in memory will always begin at addresses
+which are a multiple of this number.  Defaults to 0x1000.
+</p>
+<p>Note - this option will also set the alignment field in each section&rsquo;s
+flags.
+</p>
+<p>Note - if a section&rsquo;s LMA or VMA addresses are no longer aligned, and
+those addresses have not been set via the <samp>--set-section-lma</samp> or
+<samp>--set-section-vma</samp> options, and the file has been fully
+relocated then a warning message will be issued.  It will then be up
+to the user to decide if the LMA and VMA need updating.
 </p>
 </dd>
 <dt><span><code>--stack <var>reserve</var></code></span></dt>

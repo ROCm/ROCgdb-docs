@@ -5,9 +5,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the GNU linker LD
 (GNU Binutils)
-version 2.38.50.
+version 2.42.50.
 
-Copyright (C) 1991-2022 Free Software Foundation, Inc.
+Copyright (C) 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -64,6 +64,7 @@ Next: <a href="Output-Section-Keywords.html" accesskey="n" rel="next">Output Sec
 <span id="index-data"></span>
 <span id="index-section-data"></span>
 <span id="index-output-section-data"></span>
+<span id="index-ASCIZ-_0060_0060string_0027_0027"></span>
 <span id="index-BYTE_0028expression_0029"></span>
 <span id="index-SHORT_0028expression_0029"></span>
 <span id="index-LONG_0028expression_0029"></span>
@@ -100,6 +101,18 @@ When the object file format does not have an explicit endianness, as is
 true of, for example, S-records, the value will be stored in the
 endianness of the first input object file.
 </p>
+<p>You can include a zero-terminated string in an output section by using
+<code>ASCIZ</code>.  The keyword is followed by a string which is stored at
+the current value of the location counter adding a zero byte at the
+end.  If the string includes spaces it must be enclosed in double
+quotes.  The string may contain &rsquo;\n&rsquo;, &rsquo;\r&rsquo;, &rsquo;\t&rsquo; and octal numbers.
+Hex numbers are not supported.
+</p>
+<p>For example, this string of 16 characters will create a 17 byte area
+</p><div class="example">
+<pre class="example">  ASCIZ &quot;This is 16 bytes&quot;
+</pre></div>
+
 <p>Note&mdash;these commands only work inside a section description and not
 between them, so the following will produce an error from the linker:
 </p><div class="example">
@@ -133,6 +146,46 @@ part of the section following the <code>FILL</code> command, rather than the
 entire section.  If both are used, the <code>FILL</code> command takes
 precedence.  See <a href="Output-Section-Fill.html">Output Section Fill</a>, for details on the fill
 expression.
+</p>
+<p>Note - normally the value of <code>expression</code> is zero extended to 4
+bytes when used to fill gaps.  Thus &lsquo;<samp>FILL(144)</samp>&rsquo; will fill a
+region with repeats of the pattern &lsquo;<samp>0 0 0 144</samp>&rsquo;.  The value is
+treated as a big-endian number, so for example
+&lsquo;<samp>FILL(22 * 256 + 23)</samp>&rsquo; will fill the region with repeats of the
+pattern &lsquo;<samp>0 0 22 23</samp>&rsquo;.  If the expression results in a value with
+more than 4 significant bytes only the least 4 bytes of the value will
+be used.
+</p>
+<p>The above rules do not apply when the <code>expression</code> is a simple
+hexadecimal number.  In this case zero extension is not performed and
+all bytes are significant.  So &lsquo;<samp>FILL(0x90)</samp>&rsquo; will fill a region with
+repeats of &lsquo;<samp>0x90</samp>&rsquo; with no zero bytes, and &lsquo;<samp>FILL(0x9192)</samp>&rsquo;
+will fill the region with repeats of &lsquo;<samp>0x91 0x92</samp>&rsquo;.  Zero bytes
+in a hexadecimal expression are significant even at the start, so
+&lsquo;<samp>FILL(0x0090)</samp>&rsquo; will fill a region with repeats of &lsquo;<samp>0x00 0x90</samp>&rsquo;.
+</p>
+<p>Hexadecimal numbers can be longer than 4 bytes, and all of the bytes
+are significant, so &lsquo;<samp>FILL(0x123456789a)</samp>&rsquo; will fill a region with
+repeats of the 5 byte sequence &lsquo;<samp>0x12 0x34 0x56 0x78 0x9a</samp>&rsquo;.
+Excess bytes in a hexadecimal value beyond the size of a region will 
+be silently ignored.
+</p>
+<p>The above only applies to hexadecimal numbers specified as
+&lsquo;<samp>0x[0-9][a-f][A-F]</samp>&rsquo;.  Hexadecimal numbers specified with a
+&lsquo;<samp>$</samp>&rsquo; prefix, or a &lsquo;<samp>h</samp>&rsquo;, &lsquo;<samp>H</samp>&rsquo;, &lsquo;<samp>x</samp>&rsquo; or &lsquo;<samp>X</samp>&rsquo; suffix
+will follow the normal fill value rules.  This also applies to
+expressions that involve hexadecimal numbers, and hexadecimal numbers
+that have a magnitude suffix.
+</p>
+<span id="index-LINKER_005fVERSION-1"></span>
+<span id="index-LINKER_005fVERSION"></span>
+<p>The <code>LINKER_VERSION</code> command inserts a string containing the
+version of the linker at the current point.  Note - by default this
+directive is disabled and will do nothing.  It only becomes active if
+the <samp>--enable-linker-version</samp> command line option is used.
+</p>
+<p>Built-in linker scripts for ELF based targets already include this
+directive in their &lsquo;<samp>.comment</samp>&rsquo; section.
 </p>
 </div>
 <hr>

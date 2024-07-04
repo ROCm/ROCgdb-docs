@@ -5,9 +5,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the GNU linker LD
 (GNU Binutils)
-version 2.38.50.
+version 2.42.50.
 
-Copyright (C) 1991-2022 Free Software Foundation, Inc.
+Copyright (C) 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -70,7 +70,7 @@ Next: <a href="#Overview" accesskey="n" rel="next">Overview</a> &nbsp; [<a href=
 <span id="LD"></span><h1 class="top">LD</h1>
 <p>This file documents the <small>GNU</small> linker ld
 (GNU Binutils)
-version 2.38.50.
+version 2.42.50.
 </p>
 <p>This document is distributed under the terms of the GNU Free
 Documentation License version 1.3.  A copy of the license is included
@@ -168,43 +168,45 @@ in the section entitled &ldquo;GNU Free Documentation License&rdquo;.
   <li><a id="toc-Linker-Plugins" href="#Plugins">4 Linker Plugins</a>
   <ul class="no-bullet">
     <li><a id="toc-Static-Library-Dependencies-Plugin" href="#libdep-Plugin">4.1 Static Library Dependencies Plugin</a></li>
+    <li><a id="toc-LTO-Plugin" href="#lto-Plugin">4.2 LTO Plugin</a></li>
   </ul></li>
-  <li><a id="toc-Machine-Dependent-Features" href="#Machine-Dependent">5 Machine Dependent Features</a>
+  <li><a id="toc-Special-Sections-1" href="#Special-Sections">5 Special Sections</a></li>
+  <li><a id="toc-Machine-Dependent-Features" href="#Machine-Dependent">6 Machine Dependent Features</a>
   <ul class="no-bullet">
-    <li><a id="toc-ld-and-the-H8_002f300" href="#H8_002f300">5.1 <code>ld</code> and the H8/300</a></li>
-    <li><a id="toc-ld-and-the-Motorola-68HC11-and-68HC12-families" href="#M68HC11_002f68HC12">5.2 <code>ld</code> and the Motorola 68HC11 and 68HC12 families</a>
+    <li><a id="toc-ld-and-the-H8_002f300" href="#H8_002f300">6.1 <code>ld</code> and the H8/300</a></li>
+    <li><a id="toc-ld-and-the-Motorola-68HC11-and-68HC12-families" href="#M68HC11_002f68HC12">6.2 <code>ld</code> and the Motorola 68HC11 and 68HC12 families</a>
     <ul class="no-bullet">
-      <li><a id="toc-Linker-Relaxation" href="#Linker-Relaxation">5.2.1 Linker Relaxation</a></li>
-      <li><a id="toc-Trampoline-Generation" href="#Trampoline-Generation">5.2.2 Trampoline Generation</a></li>
+      <li><a id="toc-Linker-Relaxation" href="#Linker-Relaxation">6.2.1 Linker Relaxation</a></li>
+      <li><a id="toc-Trampoline-Generation" href="#Trampoline-Generation">6.2.2 Trampoline Generation</a></li>
     </ul></li>
-    <li><a id="toc-ld-and-the-ARM-family" href="#ARM">5.3 <code>ld</code> and the ARM family</a></li>
-    <li><a id="toc-ld-and-HPPA-32_002dbit-ELF-Support" href="#HPPA-ELF32">5.4 <code>ld</code> and HPPA 32-bit ELF Support</a></li>
-    <li><a id="toc-ld-and-the-Motorola-68K-family" href="#M68K">5.5 <code>ld</code> and the Motorola 68K family</a></li>
-    <li><a id="toc-ld-and-the-MIPS-family" href="#MIPS">5.6 <code>ld</code> and the MIPS family</a></li>
-    <li><a id="toc-ld-and-MMIX" href="#MMIX">5.7 <code>ld</code> and MMIX</a></li>
-    <li><a id="toc-ld-and-MSP430" href="#MSP430">5.8 <code>ld</code> and MSP430</a></li>
-    <li><a id="toc-ld-and-NDS32" href="#NDS32">5.9 <code>ld</code> and NDS32</a></li>
-    <li><a id="toc-ld-and-the-Altera-Nios-II" href="#Nios-II">5.10 <code>ld</code> and the Altera Nios II</a></li>
-    <li><a id="toc-ld-and-PowerPC-32_002dbit-ELF-Support" href="#PowerPC-ELF32">5.11 <code>ld</code> and PowerPC 32-bit ELF Support</a></li>
-    <li><a id="toc-ld-and-PowerPC64-64_002dbit-ELF-Support" href="#PowerPC64-ELF64">5.12 <code>ld</code> and PowerPC64 64-bit ELF Support</a></li>
-    <li><a id="toc-ld-and-S_002f390-ELF-Support" href="#S_002f390-ELF">5.13 <code>ld</code> and S/390 ELF Support</a></li>
-    <li><a id="toc-ld-and-SPU-ELF-Support" href="#SPU-ELF">5.14 <code>ld</code> and SPU ELF Support</a></li>
-    <li><a id="toc-ld_0027s-Support-for-Various-TI-COFF-Versions" href="#TI-COFF">5.15 <code>ld</code>&rsquo;s Support for Various TI COFF Versions</a></li>
-    <li><a id="toc-ld-and-WIN32-_0028cygwin_002fmingw_0029" href="#WIN32">5.16 <code>ld</code> and WIN32 (cygwin/mingw)</a></li>
-    <li><a id="toc-ld-and-Xtensa-Processors" href="#Xtensa">5.17 <code>ld</code> and Xtensa Processors</a></li>
+    <li><a id="toc-ld-and-the-ARM-family" href="#ARM">6.3 <code>ld</code> and the ARM family</a></li>
+    <li><a id="toc-ld-and-HPPA-32_002dbit-ELF-Support" href="#HPPA-ELF32">6.4 <code>ld</code> and HPPA 32-bit ELF Support</a></li>
+    <li><a id="toc-ld-and-the-Motorola-68K-family" href="#M68K">6.5 <code>ld</code> and the Motorola 68K family</a></li>
+    <li><a id="toc-ld-and-the-MIPS-family" href="#MIPS">6.6 <code>ld</code> and the MIPS family</a></li>
+    <li><a id="toc-ld-and-MMIX" href="#MMIX">6.7 <code>ld</code> and MMIX</a></li>
+    <li><a id="toc-ld-and-MSP430" href="#MSP430">6.8 <code>ld</code> and MSP430</a></li>
+    <li><a id="toc-ld-and-NDS32" href="#NDS32">6.9 <code>ld</code> and NDS32</a></li>
+    <li><a id="toc-ld-and-the-Altera-Nios-II" href="#Nios-II">6.10 <code>ld</code> and the Altera Nios II</a></li>
+    <li><a id="toc-ld-and-PowerPC-32_002dbit-ELF-Support" href="#PowerPC-ELF32">6.11 <code>ld</code> and PowerPC 32-bit ELF Support</a></li>
+    <li><a id="toc-ld-and-PowerPC64-64_002dbit-ELF-Support" href="#PowerPC64-ELF64">6.12 <code>ld</code> and PowerPC64 64-bit ELF Support</a></li>
+    <li><a id="toc-ld-and-S_002f390-ELF-Support" href="#S_002f390-ELF">6.13 <code>ld</code> and S/390 ELF Support</a></li>
+    <li><a id="toc-ld-and-SPU-ELF-Support" href="#SPU-ELF">6.14 <code>ld</code> and SPU ELF Support</a></li>
+    <li><a id="toc-ld_0027s-Support-for-Various-TI-COFF-Versions" href="#TI-COFF">6.15 <code>ld</code>&rsquo;s Support for Various TI COFF Versions</a></li>
+    <li><a id="toc-ld-and-WIN32-_0028cygwin_002fmingw_0029" href="#WIN32">6.16 <code>ld</code> and WIN32 (cygwin/mingw)</a></li>
+    <li><a id="toc-ld-and-Xtensa-Processors" href="#Xtensa">6.17 <code>ld</code> and Xtensa Processors</a></li>
   </ul></li>
-  <li><a id="toc-BFD-1" href="#BFD">6 BFD</a>
+  <li><a id="toc-BFD-1" href="#BFD">7 BFD</a>
   <ul class="no-bullet">
-    <li><a id="toc-How-It-Works_003a-An-Outline-of-BFD" href="#BFD-outline">6.1 How It Works: An Outline of BFD</a>
+    <li><a id="toc-How-It-Works_003a-An-Outline-of-BFD" href="#BFD-outline">7.1 How It Works: An Outline of BFD</a>
     <ul class="no-bullet">
-      <li><a id="toc-Information-Loss" href="#BFD-information-loss">6.1.1 Information Loss</a></li>
-      <li><a id="toc-The-BFD-canonical-object_002dfile-format" href="#Canonical-format">6.1.2 The BFD canonical object-file format</a></li>
+      <li><a id="toc-Information-Loss" href="#BFD-information-loss">7.1.1 Information Loss</a></li>
+      <li><a id="toc-The-BFD-canonical-object_002dfile-format" href="#Canonical-format">7.1.2 The BFD canonical object-file format</a></li>
     </ul></li>
   </ul></li>
-  <li><a id="toc-Reporting-Bugs-1" href="#Reporting-Bugs">7 Reporting Bugs</a>
+  <li><a id="toc-Reporting-Bugs-1" href="#Reporting-Bugs">8 Reporting Bugs</a>
   <ul class="no-bullet">
-    <li><a id="toc-Have-You-Found-a-Bug_003f" href="#Bug-Criteria">7.1 Have You Found a Bug?</a></li>
-    <li><a id="toc-How-to-Report-Bugs" href="#Bug-Reporting">7.2 How to Report Bugs</a></li>
+    <li><a id="toc-Have-You-Found-a-Bug_003f" href="#Bug-Criteria">8.1 Have You Found a Bug?</a></li>
+    <li><a id="toc-How-to-Report-Bugs" href="#Bug-Reporting">8.2 How to Report Bugs</a></li>
   </ul></li>
   <li><a id="toc-MRI-Compatible-Script-Files" href="#MRI">Appendix A MRI Compatible Script Files</a></li>
   <li><a id="toc-GNU-Free-Documentation-License-1" href="#GNU-Free-Documentation-License">Appendix B GNU Free Documentation License</a></li>
@@ -317,7 +319,7 @@ and the script command language.  If <em>no</em> binary input files at all
 are specified, the linker does not produce any output, and issues the
 message &lsquo;<samp>No input files</samp>&rsquo;.
 </p>
-<p>If the linker cannot recognize the format of an object file, it will
+<span id="unrecognised_002dinput_002dfiles"></span><p>If the linker cannot recognize the format of an object file, it will
 assume that it is a linker script.  A script specified in this way
 augments the main linker script used for the link (either the default
 linker script or the one specified by using &lsquo;<samp>-T</samp>&rsquo;).  This feature
@@ -483,6 +485,24 @@ will contain a colon separated list of audit interfaces to use.  This
 option is only meaningful on ELF platforms supporting the rtld-audit interface.
 The -P option is provided for Solaris compatibility.
 </p>
+<span id="index-_002d_002denable_002dlinker_002dversion"></span>
+</dd>
+<dt><span><code>--enable-linker-version</code></span></dt>
+<dd><p>Enables the <code>LINKER_VERSION</code> linker script directive, described
+in <a href="#Output-Section-Data">Output Section Data</a>.  If this directive is used in a linker
+script and this option has been enabled then a string containing the
+linker version will be inserted at the current point.
+</p>
+<p>Note - this location of this option on the linker command line is
+significant.  It will only affect linker scripts that come after it on
+the command line, or which are built into the linker.
+</p>
+<span id="index-_002d_002ddisable_002dlinker_002dversion"></span>
+</dd>
+<dt><span><code>--disable-linker-version</code></span></dt>
+<dd><p>Disables the <code>LINKER_VERSION</code> linker script directive, so that it
+does not insert a version string.  This is the default.
+</p>
 <span id="index-_002d_002denable_002dnon_002dcontiguous_002dregions"></span>
 </dd>
 <dt><span><code>--enable-non-contiguous-regions</code></span></dt>
@@ -496,14 +516,14 @@ sections are evaluated does not change, for instance:
 </p>
 <div class="example">
 <pre class="example">  MEMORY {
-    MEM1 (rwx) : ORIGIN : 0x1000, LENGTH = 0x14
-    MEM2 (rwx) : ORIGIN : 0x1000, LENGTH = 0x40
-    MEM3 (rwx) : ORIGIN : 0x2000, LENGTH = 0x40
+    MEM1 (rwx) : ORIGIN = 0x1000, LENGTH = 0x14
+    MEM2 (rwx) : ORIGIN = 0x1000, LENGTH = 0x40
+    MEM3 (rwx) : ORIGIN = 0x2000, LENGTH = 0x40
   }
   SECTIONS {
     mem1 : { *(.data.*); } &gt; MEM1
     mem2 : { *(.data.*); } &gt; MEM2
-    mem3 : { *(.data.*); } &gt; MEM2
+    mem3 : { *(.data.*); } &gt; MEM3
   }
 
   with input sections:
@@ -777,7 +797,7 @@ behaviour of the AIX linker.
 </dd>
 <dt><span><code>-L <var>searchdir</var></code></span></dt>
 <dt><span><code>--library-path=<var>searchdir</var></code></span></dt>
-<dd><p>Add path <var>searchdir</var> to the list of paths that <code>ld</code> will search
+<dd><span id="g_t_002dL"></span><p>Add path <var>searchdir</var> to the list of paths that <code>ld</code> will search
 for archive libraries and <code>ld</code> control scripts.  You may use this
 option any number of times.  The directories are searched in the order
 in which they are specified on the command line.  Directories specified
@@ -811,6 +831,67 @@ emulations with the &lsquo;<samp>--verbose</samp>&rsquo; or &lsquo;<samp>-V</sam
 </p>
 <p>Otherwise, the default emulation depends upon how the linker was
 configured.
+</p>
+<span id="index-remapping-inputs"></span>
+<span id="index-_002d_002dremap_002dinputs_003dpattern_003dfilename"></span>
+<span id="index-_002d_002dremap_002dinputs_002dfile_003dfile"></span>
+</dd>
+<dt><span><code>--remap-inputs=<samp>pattern</samp>=<samp>filename</samp></code></span></dt>
+<dt><span><code>--remap-inputs-file=<samp>file</samp></code></span></dt>
+<dd><p>These options allow the names of input files to be changed before the
+linker attempts to open them.  The option
+<samp>--remap-inputs=foo.o=bar.o</samp> will cause any attempt to load a
+file called <samp>foo.o</samp> to instead try to load a file called
+<samp>bar.o</samp>.  Wildcard patterns are permitted in the first filename,
+so <samp>--remap-inputs=foo*.o=bar.o</samp> will rename any input file that
+matches <samp>foo*.o</samp> to <samp>bar.o</samp>.
+</p>
+<p>An alternative form of the option
+<samp>--remap-inputs-file=filename</samp> allows the remappings to be read
+from a file.  Each line in the file can contain a single remapping.
+Blank lines are ignored.  Anything from a hash character (&lsquo;<samp>#</samp>&rsquo;) to
+the end of a line is considered to be a comment and is also ignored.
+The mapping pattern can be separated from the filename by whitespace
+or an equals (&lsquo;<samp>=</samp>&rsquo;) character.
+</p>
+<p>The options can be specified multiple times.  Their contents
+accumulate.  The remappings will be processed in the order in which
+they occur on the command line, and if they come from a file, in the
+order in which they occur in the file.  If a match is made, no further
+checking for that filename will be performed.
+</p>
+<p>If the replacement filename is <samp>/dev/null</samp> or just <samp>NUL</samp>
+then the remapping will actually cause the input file to be ignored.
+This can be a convenient way to experiment with removing input files
+from a complicated build environment.
+</p>
+<p>Note that this option is position dependent and only affects filenames
+that come after it on the command line.  Thus:
+</p>
+<div class="example">
+<pre class="example">  ld foo.o --remap-inputs=foo.o=bar.o
+</pre></div>
+
+<p>Will have no effect, whereas:
+</p>
+<div class="example">
+<pre class="example">  ld --remap-inputs=foo.o=bar.o foo.o 
+</pre></div>
+
+<p>Will rename the input file <samp>foo.o</samp> to <samp>bar.o</samp>.
+</p>
+<p>Note - these options also affect files referenced by <em>INPUT</em>
+statements in linker scripts.  But since linker scripts are processed
+after the entire command line is read, the position of the remap
+options on the command line is not significant.
+</p>
+<p>If the <samp>verbose</samp> option is enabled then any mappings that match
+will be reported, although again the <samp>verbose</samp> option needs to
+be enabled on the command line <em>before</em> the remaped filenames
+appear.
+</p>
+<p>If the <samp>-Map</samp> or <samp>--print-map</samp> options are enabled then
+the remapping list will be included in the map output.
 </p>
 <span id="index-link-map"></span>
 <span id="index-_002dM"></span>
@@ -875,7 +956,17 @@ is 0x1, and <samp>bar.o</samp>, which doesn&rsquo;t have property 0xc0000002.
 <p>This indicates that property 0xc0010001 value is updated to 0x1 in output
 when merging properties in  <samp>foo.o</samp>, whose 0xc0010001 property value
 is 0x1, and <samp>bar.o</samp>, whose 0xc0010001 property value is 0x1.
-</p></li></ul>
+</p>
+</li><li> On some ELF targets, a list of fixups inserted by <samp>--relax</samp>
+
+<div class="example">
+<pre class="example">foo.o: Adjusting branch at 0x00000008 towards &quot;far&quot; in section .text
+</pre></div>
+
+<p>This indicates that the branch at 0x00000008 in foo.o, targeting
+the symbol &quot;far&quot; in section .text, has been replaced by a trampoline.
+</p>
+</li></ul>
 
 <span id="index-link-map-discarded"></span>
 <span id="index-_002d_002dprint_002dmap_002ddiscarded"></span>
@@ -885,6 +976,17 @@ is 0x1, and <samp>bar.o</samp>, whose 0xc0010001 property value is 0x1.
 <dt><span><code>--no-print-map-discarded</code></span></dt>
 <dd><p>Print (or do not print) the list of discarded and garbage collected sections
 in the link map.  Enabled by default.
+</p>
+<span id="index-_002d_002dprint_002dmap_002dlocals"></span>
+<span id="index-_002d_002dno_002dprint_002dmap_002dlocals"></span>
+</dd>
+<dt><span><code>--print-map-locals</code></span></dt>
+<dt><span><code>--no-print-map-locals</code></span></dt>
+<dd><p>Print (or do not print) local symbols in the link map.  Local symbols
+will have the text &lsquo;<samp>(local)</samp>&rsquo; printed before their name, and will
+be listed after all of the global symbols in a given section.
+Temporary local symbols (typically those that start with &lsquo;<samp>.L</samp>&rsquo;)
+will not be included in the output.  Disabled by default.
 </p>
 <span id="index-_002dn"></span>
 <span id="index-read_002donly-text"></span>
@@ -929,6 +1031,28 @@ shared libraries.  Use <samp>-Bdynamic</samp> for this.
 <dd><p>Use <var>output</var> as the name for the program produced by <code>ld</code>; if this
 option is not specified, the name <samp>a.out</samp> is used by default.  The
 script command <code>OUTPUT</code> can also specify the output file name.
+</p>
+<p>Note - the linker will delete the output file before it starts to
+write to it.  It will do this even if it turns out that the link
+cannot be completed due to errors.
+</p>
+<p>Note - the linker will check to make sure that the output file name
+does not match the name of any of the input files, but that is all.
+In particular it will not complain if the output file might overwrite
+a source file or some other important file.  Therefore in build
+systems it is recommended to use the <samp>-o</samp> option as the last
+option on the linker command line.  For example consider:
+</p>
+<div class="example">
+<pre class="example">  ld -o $(EXE) $(OBJS)
+  ld $(OBJS) -o $(EXE)
+</pre></div>
+
+<p>If the &lsquo;<samp>EXE</samp>&rsquo; variable is not defined for some reason, the first
+version of the linker command could end up deleting one of the object
+files (the first one in the &lsquo;<samp>OBJS</samp>&rsquo; list) whereas the second
+version of the linker command will generate an error message and not
+delete anything.
 </p>
 <span id="index-_002d_002ddependency_002dfile_003ddepfile"></span>
 <span id="index-dependency-file"></span>
@@ -1065,6 +1189,22 @@ programs.  You may use this option more than once.
 followed by a directory name, rather than a file name, it is treated as
 the <samp>-rpath</samp> option.
 </p>
+</dd>
+<dt><span><code>--rosegment</code></span></dt>
+<dt><span><code>--no-rosegment</code></span></dt>
+<dd><p>Attempt to ensure that only a single read-only, non-code segment is
+created.  Only useful when used in conjunction with the <samp>-z
+separate-code</samp> option.  The resulting binaries should be smaller than
+if <samp>-z separate-code</samp> is used on its own.  Without this option,
+or if <samp>--no-rosegment</samp> is specified, the <samp>-z separate-code</samp>
+option will create two read-only segments, one before the code segment
+and one after it.
+</p>
+<p>The name of the options are misleading, but they have been chosen in
+order for the linker to be compatible with the LLD and GOLD linkers.
+</p>
+<p>Thse options are only supported by ELF targets.
+</p>
 <span id="index-_002ds"></span>
 <span id="index-_002d_002dstrip_002dall"></span>
 <span id="index-strip-all-symbols"></span>
@@ -1089,6 +1229,11 @@ the <samp>-rpath</samp> option.
 <dd><p>Omit (or do not omit) global symbols defined in discarded sections.
 Enabled by default.
 </p>
+<span id="index-_002dplugin_002dsave_002dtemps"></span>
+</dd>
+<dt><span><code>-plugin-save-temps</code></span></dt>
+<dd><p>Store the plugin &ldquo;temporary&rdquo; intermediate files permanently.
+</p>
 <span id="index-_002dt"></span>
 <span id="index-_002d_002dtrace"></span>
 <span id="index-input-files_002c-displaying"></span>
@@ -1108,12 +1253,26 @@ a linker bug report.
 <dt><span><code>-T <var>scriptfile</var></code></span></dt>
 <dt><span><code>--script=<var>scriptfile</var></code></span></dt>
 <dd><p>Use <var>scriptfile</var> as the linker script.  This script replaces
-<code>ld</code>&rsquo;s default linker script (rather than adding to it), so
-<var>commandfile</var> must specify everything necessary to describe the
-output file.  See <a href="#Scripts">Linker Scripts</a>.  If <var>scriptfile</var> does not exist in
-the current directory, <code>ld</code> looks for it in the directories
-specified by any preceding &lsquo;<samp>-L</samp>&rsquo; options.  Multiple &lsquo;<samp>-T</samp>&rsquo;
-options accumulate.
+<code>ld</code>&rsquo;s default linker script (rather than adding to it),
+unless the script contains <code>INSERT</code>, so <var>commandfile</var> must
+specify everything necessary to describe the output file.
+See <a href="#Scripts">Linker Scripts</a>.
+</p>
+<p>If <var>scriptfile</var> does not exist in the current directory, <code>ld</code>
+looks for it in the directories specified by any preceding &lsquo;<samp>-L</samp>&rsquo;
+options.
+</p>
+<p>Command line options that appear before the <samp>-T</samp> option can
+affect the script, but command line options that appear after it do
+not.
+</p>
+<p>Multiple &lsquo;<samp>-T</samp>&rsquo; options will accumulate if they are augmenting the
+current script, otherwise the last, non-augmenting, <samp>-T</samp> option
+will be used.
+</p>
+<p>There are other ways of specifying linker scripts.  See
+See <a href="#g_t_002d_002ddefault_002dscript">--default-script</a>, See <a href="#g_t_002d_002dsection_002dordering_002dfile">--section-ordering-file</a>, and
+See <a href="#unrecognised_002dinput_002dfiles">unrecognised-input-files</a>.
 </p>
 <span id="index-_002ddT-script"></span>
 <span id="index-_002d_002ddefault_002dscript_003dscript"></span>
@@ -1121,7 +1280,7 @@ options accumulate.
 </dd>
 <dt><span><code>-dT <var>scriptfile</var></code></span></dt>
 <dt><span><code>--default-script=<var>scriptfile</var></code></span></dt>
-<dd><p>Use <var>scriptfile</var> as the default linker script.  See <a href="#Scripts">Linker Scripts</a>.
+<dd><span id="g_t_002d_002ddefault_002dscript"></span><p>Use <var>scriptfile</var> as the default linker script.  See <a href="#Scripts">Linker Scripts</a>.
 </p>
 <p>This option is similar to the <samp>--script</samp> option except that
 processing of the script is delayed until after the rest of the
@@ -1165,14 +1324,19 @@ can be used multiple times to require additional symbols.
 <span id="index-constructors"></span>
 </dd>
 <dt><span><code>-Ur</code></span></dt>
-<dd><p>For anything other than C++ programs, this option is equivalent to
-&lsquo;<samp>-r</samp>&rsquo;: it generates relocatable output&mdash;i.e., an output file that can in
-turn serve as input to <code>ld</code>.  When linking C++ programs, &lsquo;<samp>-Ur</samp>&rsquo;
-<em>does</em> resolve references to constructors, unlike &lsquo;<samp>-r</samp>&rsquo;.
-It does not work to use &lsquo;<samp>-Ur</samp>&rsquo; on files that were themselves linked
-with &lsquo;<samp>-Ur</samp>&rsquo;; once the constructor table has been built, it cannot
-be added to.  Use &lsquo;<samp>-Ur</samp>&rsquo; only for the last partial link, and
-&lsquo;<samp>-r</samp>&rsquo; for the others.
+<dd>
+<p>For programs that do not use constructors or destructors, or for ELF
+based systems this option is equivalent to <samp>-r</samp>:  it generates
+relocatable output&mdash;i.e., an output file that can in turn serve as
+input to <code>ld</code>.  For other binaries however the <samp>-Ur</samp>
+option is similar to <samp>-r</samp> but it also resolves references to
+constructors and destructors.
+</p>
+<p>For those systems where <samp>-r</samp> and <samp>-Ur</samp> behave
+differently, it does not work to use <samp>-Ur</samp> on files that were
+themselves linked with <samp>-Ur</samp>; once the constructor table has
+been built, it cannot be added to.  Use <samp>-Ur</samp> only for the last
+partial link, and <samp>-r</samp> for the others.
 </p>
 <span id="index-_002d_002dorphan_002dhandling_003dMODE"></span>
 <span id="index-orphan-sections"></span>
@@ -1228,7 +1392,9 @@ in a linker script.
 <dt><span><code>--version</code></span></dt>
 <dt><span><code>-V</code></span></dt>
 <dd><p>Display the version number for <code>ld</code>.  The <samp>-V</samp> option also
-lists the supported emulations.
+lists the supported emulations.  See also the description of the
+<samp>--enable-linker-version</samp> in <a href="#Options">Command-line Options</a>
+which can be used to insert the linker version string into a binary.
 </p>
 <span id="index-_002dx"></span>
 <span id="index-_002d_002ddiscard_002dall"></span>
@@ -1272,10 +1438,6 @@ for Solaris compatibility.
 <dt><span><code>-z <var>keyword</var></code></span></dt>
 <dd><p>The recognized keywords are:
 </p><dl compact="compact">
-<dt><span>&lsquo;<samp>bndplt</samp>&rsquo;</span></dt>
-<dd><p>Always generate BND prefix in PLT entries. Supported for Linux/x86_64.
-</p>
-</dd>
 <dt><span>&lsquo;<samp>call-nop=prefix-addr</samp>&rsquo;</span></dt>
 <dt><span>&lsquo;<samp>call-nop=suffix-nop</samp>&rsquo;</span></dt>
 <dt><span>&lsquo;<samp>call-nop=prefix-<var>byte</var></samp>&rsquo;</span></dt>
@@ -1473,6 +1635,18 @@ Lazy binding is the default.
 <dd><p>Set the maximum memory page size supported to <var>value</var>.
 </p>
 </dd>
+<dt><span>&lsquo;<samp>mark-plt</samp>&rsquo;</span></dt>
+<dt><span>&lsquo;<samp>nomark-plt</samp>&rsquo;</span></dt>
+<dd><p>Mark PLT entries with dynamic tags, DT_X86_64_PLT, DT_X86_64_PLTSZ and
+DT_X86_64_PLTENT.  Since this option stores a non-zero value in the
+r_addend field of R_X86_64_JUMP_SLOT relocations, the resulting
+executables and shared libraries are incompatible with dynamic linkers,
+such as those in older versions of glibc without the change to ignore
+r_addend in R_X86_64_GLOB_DAT and R_X86_64_JUMP_SLOT relocations, which
+don&rsquo;t ignore the r_addend field of R_X86_64_JUMP_SLOT relocations.
+Supported for x86_64.
+</p>
+</dd>
 <dt><span>&lsquo;<samp>muldefs</samp>&rsquo;</span></dt>
 <dd><p>Allow multiple definitions.
 </p>
@@ -1556,6 +1730,12 @@ Don&rsquo;t create an ELF <code>PT_GNU_RELRO</code> segment if &lsquo;<samp>nore
 Linux/i386 and Linux/x86_64.
 </p>
 </dd>
+<dt><span>&lsquo;<samp>sectionheader</samp>&rsquo;</span></dt>
+<dt><span>&lsquo;<samp>nosectionheader</samp>&rsquo;</span></dt>
+<dd><p>Generate section header.  Don&rsquo;t generate section header if
+&lsquo;<samp>nosectionheader</samp>&rsquo; is used.  <samp>sectionheader</samp> is the default.
+</p>
+</dd>
 <dt><span>&lsquo;<samp>separate-code</samp>&rsquo;</span></dt>
 <dt><span>&lsquo;<samp>noseparate-code</samp>&rsquo;</span></dt>
 <dd><p>Create separate code <code>PT_LOAD</code> segment header in the object.  This
@@ -1635,6 +1815,22 @@ is used.  <samp>nounique-symbol</samp> is the default.
 <samp>x86-64-v2</samp> generates <code>GNU_PROPERTY_X86_ISA_1_V2</code>.
 <samp>x86-64-v3</samp> generates <code>GNU_PROPERTY_X86_ISA_1_V3</code>.
 <samp>x86-64-v4</samp> generates <code>GNU_PROPERTY_X86_ISA_1_V4</code>.
+Supported for Linux/i386 and Linux/x86_64.
+</p>
+</dd>
+<dt><span>&lsquo;<samp>isa-level-report=none</samp>&rsquo;</span></dt>
+<dt><span>&lsquo;<samp>isa-level-report=all</samp>&rsquo;</span></dt>
+<dt><span>&lsquo;<samp>isa-level-report=needed</samp>&rsquo;</span></dt>
+<dt><span>&lsquo;<samp>isa-level-report=used</samp>&rsquo;</span></dt>
+<dd><p>Specify how to report x86-64 ISA levels in input relocatable files.
+<samp>isa-level-report=none</samp>, which is the default, will make the
+linker not report x86-64 ISA levels in input files.
+<samp>isa-level-report=all</samp> will make the linker report needed and
+used x86-64 ISA levels in input files.
+<samp>isa-level-report=needed</samp> will make the linker report needed
+x86-64 ISA levels in input files.
+<samp>isa-level-report=used</samp> will make the linker report used
+x86-64 ISA levels in input files.
 Supported for Linux/i386 and Linux/x86_64.
 </p>
 </dd>
@@ -2016,6 +2212,16 @@ in filename invoked by -R or &ndash;just-symbols
 <dd><p>Treat all warnings as errors.  The default behaviour can be restored
 with the option <samp>--no-fatal-warnings</samp>.
 </p>
+<span id="index-_002dw"></span>
+<span id="index-_002d_002dno_002dwarnings"></span>
+</dd>
+<dt><span><code>-w</code></span></dt>
+<dt><span><code>--no-warnings</code></span></dt>
+<dd><p>Do not display any warning or error messages.  This overrides
+<samp>--fatal-warnings</samp> if it has been enabled.  This option can be
+used when it is known that the output binary will not work, but there
+is still a need to create it.
+</p>
 <span id="index-_002d_002dforce_002dexe_002dsuffix"></span>
 </dd>
 <dt><span><code>--force-exe-suffix</code></span></dt>
@@ -2326,12 +2532,13 @@ the i386 PE and ELF targetted ports of the linker.
 </dd>
 <dt id='index-position-independent-executables'><span><code>-pie</code><a href='#index-position-independent-executables' class='copiable-anchor'> &para;</a></span></dt>
 <dt><span><code>--pic-executable</code></span></dt>
-<dd><p>Create a position independent executable.  This is currently only supported on
-ELF platforms.  Position independent executables are similar to shared
-libraries in that they are relocated by the dynamic linker to the virtual
-address the OS chooses for them (which can vary between invocations).  Like
-normal dynamically linked executables they can be executed and symbols
-defined in the executable cannot be overridden by shared libraries.
+<dd><p>Create a position independent executable.  This is currently only
+supported on ELF platforms.  Position independent executables are
+relocated by the dynamic linker to the virtual address the OS chooses
+for them, which can vary between invocations.  They are marked ET_DYN
+in the ELF file header, but differ from shared libraries in a number
+of ways.  In particular, defined symbols in a PIE by default can not
+be overridden by another object as they can be in a shared library.
 </p>
 <span id="index-_002dno_002dpie"></span>
 </dd>
@@ -2440,11 +2647,11 @@ of the input files.
 <p>When the linker encounters such a dependency when doing a non-shared,
 non-relocatable link, it will automatically try to locate the required
 shared library and include it in the link, if it is not included
-explicitly.  In such a case, the <samp>-rpath-link</samp> option
-specifies the first set of directories to search.  The
-<samp>-rpath-link</samp> option may specify a sequence of directory names
-either by specifying a list of names separated by colons, or by
-appearing multiple times.
+explicitly.  In such a case, several directories are searched as
+described below.  The <samp>-rpath-link</samp> option specifies the first
+set of directories to search.  This option may specify a sequence of
+directory names either by providing a list of names separated by
+colons, or by appearing multiple times.
 </p>
 <p>The tokens <var>$ORIGIN</var> and <var>$LIB</var> can appear in these search
 directories.  They will be replaced by the full path to the directory
@@ -2456,13 +2663,18 @@ and either &lsquo;<samp>lib</samp>&rsquo; - for 32-bit binaries - or &lsquo;<sam
 <var>${LIB}</var> can also be used.  The token <var>$PLATFORM</var> is not
 supported.
 </p>
-<p>This option should be used with caution as it overrides the search path
-that may have been hard compiled into a shared library. In such a case it
-is possible to use unintentionally a different search path than the
-runtime linker would do.
+<p>The <samp>--rpath-link</samp> option should be used with caution as it
+overrides the search path that may have been hard compiled into a
+shared library.  In such a case it is possible to unintentionally use
+a different search path than the runtime linker would have used.
 </p>
-<p>The linker uses the following search paths to locate required shared
-libraries:
+<p>When additional shared libraries are required, the linker will search
+directories in the order listed below in order to find them.  Note
+however that this only applies to additional libraries needed to
+satisfy already included shared libraries.  It does <em>not</em>
+apply to libraries that are included via the <samp>-l</samp> command line
+option.  Searches for <samp>-l</samp> libraries are only conducted in
+directories specified by the <samp>-L</samp> option (see <a href="#g_t_002dL">-L</a>).
 </p>
 <ol>
 <li> Any directories specified by <samp>-rpath-link</samp> options.
@@ -2515,6 +2727,51 @@ of the first.
 warning and continue with the link.
 </p>
 
+<span id="index-_002d_002dsection_002dordering_002dfile"></span>
+</dd>
+<dt><span><code>--section-ordering-file=<var>script</var></code></span></dt>
+<dd><span id="g_t_002d_002dsection_002dordering_002dfile"></span><p>This option is used to augment the current linker script with
+additional mapping of input sections to output sections.  This file
+must use the same syntax for <code>SECTIONS</code> as is used in normal
+linker scripts, but it should not do anything other than place input
+sections into output sections. see <a href="#SECTIONS">SECTIONS Command</a>
+</p>
+<p>A second constraint on the section ordering script is that it can only
+reference output sections that are already defined by whichever linker
+script is currently in use.  (Ie the default linker script or a script
+specified on the command line).  The benefit of the section ordering
+script however is that the input sections are mapped to the start of
+the output sections, so that they can ensure the ordering of sections
+in the output section.  For example, imagine that the default linker
+script looks like this:
+</p>
+<div class="example">
+<pre class="example">SECTIONS {
+  .text : { *(.text.hot) ; *(.text .text.*) }
+  .data : { *(.data.big) ; *(.data .data.*) }
+  }
+</pre></div>
+
+<p>Then if a section ordering file like this is used:
+</p>
+<div class="example">
+<pre class="example">  .text : { *(.text.first) ; *(.text.z*) }
+  .data : { foo.o(.data.first) ; *(.data.small) }
+</pre></div>
+
+<p>This would be equivalent to a linker script like this:
+</p>
+<div class="example">
+<pre class="example">SECTIONS {
+  .text : { *(.text.first) ; *(.text.z*) ; *(.text.hot) ; *(.text .text.*) }
+  .data : { foo.o(.data.first) ; *(.data.small) ; *(.data.big) ; *(.data .data.*) }
+  }
+</pre></div>
+
+<p>The advantage of the section ordering file is that it can be used to
+order those sections that matter to the user without having to worry
+about any other sections, or memory regions, or anything else.
+</p>
 <span id="index-_002dshared"></span>
 <span id="index-_002dBshareable"></span>
 </dd>
@@ -2640,7 +2897,10 @@ sign (&ldquo;<tt class="key">=</tt>&rdquo;), and <var>org</var>.
 </dd>
 <dt id='index-text-segment-origin_002c-cmd-line'><span><code>-Ttext-segment=<var>org</var></code><a href='#index-text-segment-origin_002c-cmd-line' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>When creating an ELF executable, it will set the address of the first
-byte of the text segment.
+byte of the text segment.  Note that when <samp>-pie</samp> is used with
+<samp>-Ttext-segment=<var>org</var></samp>, the output executable is marked
+ET_EXEC so that the address of the first byte of the text segment will
+be guaranteed to be <var>org</var> at run time.
 </p>
 <span id="index-_002dTrodata_002dsegment_003dorg"></span>
 </dd>
@@ -2805,6 +3065,55 @@ encountered in a different order.
 object file formats.  For formats like COFF or ELF, the linker can not
 detect the use of global constructors.
 </p>
+<span id="index-_002d_002dwarn_002dexecstack"></span>
+<span id="index-warnings_002c-on-executable-stack"></span>
+<span id="index-executable-stack_002c-warnings-on"></span>
+</dd>
+<dt><span><code>--warn-execstack</code></span></dt>
+<dt><span><code>--warn-execstack-objects</code></span></dt>
+<dt><span><code>--no-warn-execstack</code></span></dt>
+<dd><p>On ELF platforms the linker may generate warning messages if it is
+asked to create an output file that contains an executable stack.
+There are three possible states:
+</p><ol>
+<li> Do not generate any warnings.
+</li><li> Always generate warnings, even if the executable stack is requested
+via the <samp>-z execstack</samp> command line option.
+</li><li> Only generate a warning if an object file requests an executable
+stack, but not if the <samp>-z execstack</samp> option is used.
+</li></ol>
+
+<p>The default state depends upon how the linker was configured when it
+was built.  The <samp>--no-warn-execstack</samp> option always puts the
+linker into the no-warnings state.  The <samp>--warn-execstack</samp>
+option puts the linker into the warn-always state.  The
+<samp>--warn-execstack-objects</samp> option puts the linker into the
+warn-for-object-files-only state.
+</p>
+<p>Note: ELF format input files can specify that they need an executable
+stack by having a <var>.note.GNU-stack</var> section with the executable
+bit set in its section flags.  They can specify that they do not need
+an executable stack by having the same section, but without the
+executable flag bit set.  If an input file does not have a
+<var>.note.GNU-stack</var> section then the default behaviour is target
+specific.  For some targets, then absence of such a section implies
+that an executable stack <em>is</em> required.  This is often a problem
+for hand crafted assembler files.
+</p>
+<span id="index-_002d_002derror_002dexecstack"></span>
+</dd>
+<dt><span><code>--error-execstack</code></span></dt>
+<dt><span><code>--no-error-execstack</code></span></dt>
+<dd><p>If the linker is going to generate a warning message about an
+executable stack then the <samp>--error-execstack</samp> option will
+instead change that warning into an error.  Note - this option does
+not change the linker&rsquo;s execstack warning generation state.  Use
+<samp>--warn-execstack</samp> or <samp>--warn-execstack-objects</samp> to set
+a specific warning state.
+</p>
+<p>The <samp>--no-error-execstack</samp> option will restore the default
+behaviour of generating warning messages.
+</p>
 <span id="index-_002d_002dwarn_002dmultiple_002dgp"></span>
 </dd>
 <dt><span><code>--warn-multiple-gp</code></span></dt>
@@ -2827,6 +3136,38 @@ option causes a warning to be issued whenever this case occurs.
 <dt><span><code>--warn-once</code></span></dt>
 <dd><p>Only warn once for each undefined symbol, rather than once per module
 which refers to it.
+</p>
+<span id="index-_002d_002dwarn_002drwx_002dsegments"></span>
+<span id="index-warnings_002c-on-writeable-and-exectuable-segments"></span>
+<span id="index-executable-segments_002c-warnings-on"></span>
+</dd>
+<dt><span><code>--warn-rwx-segments</code></span></dt>
+<dt><span><code>--no-warn-rwx-segments</code></span></dt>
+<dd><p>Warn if the linker creates a loadable, non-zero sized segment that has
+all three of the read, write and execute permission flags set.  Such a
+segment represents a potential security vulnerability.  In addition
+warnings will be generated if a thread local storage segment is
+created with the execute permission flag set, regardless of whether or
+not it has the read and/or write flags set.
+</p>
+<p>These warnings are enabled by default.  They can be disabled via the
+<samp>--no-warn-rwx-segments</samp> option and re-enabled via the
+<samp>--warn-rwx-segments</samp> option.
+</p>
+<span id="index-_002d_002derror_002drwx_002dsegments"></span>
+</dd>
+<dt><span><code>--error-rwx-segments</code></span></dt>
+<dt><span><code>--no-error-rwx-segments</code></span></dt>
+<dd><p>If the linker is going to generate a warning message about an
+executable, writeable segment, or an executable TLS segment, then the
+<samp>--error-rwx-segments</samp> option will turn this warning into an
+error instead.  The <samp>--no-error-rwx-segments</samp> option will
+restore the default behaviour of just generating a warning message.
+</p>
+<p>Note - the <samp>--error-rwx-segments</samp> option does not by itself
+turn on warnings about these segments.  These warnings are either
+enabled by default, if the linker was configured that way, or via the
+<samp>--warn-rwx-segments</samp> command line option.
 </p>
 <span id="index-_002d_002dwarn_002dsection_002dalign"></span>
 <span id="index-warnings_002c-on-section-alignment"></span>
@@ -2948,7 +3289,9 @@ section and ELF <code>PT_GNU_EH_FRAME</code> segment header.
 <dt><span><code>--no-ld-generated-unwind-info</code></span></dt>
 <dd><p>Request creation of <code>.eh_frame</code> unwind info for linker
 generated code sections like PLT.  This option is on by default
-if linker generated unwind info is supported.
+if linker generated unwind info is supported.  This option also
+controls the generation of <code>.sframe</code> stack trace info for linker
+generated code sections like PLT.
 </p>
 <span id="index-_002d_002denable_002dnew_002ddtags"></span>
 <span id="index-_002d_002ddisable_002dnew_002ddtags"></span>
@@ -2986,11 +3329,13 @@ but for most Linux based systems it will be <code>both</code>.
 <span id="index-_002d_002dcompress_002ddebug_002dsections_003dzlib"></span>
 <span id="index-_002d_002dcompress_002ddebug_002dsections_003dzlib_002dgnu"></span>
 <span id="index-_002d_002dcompress_002ddebug_002dsections_003dzlib_002dgabi"></span>
+<span id="index-_002d_002dcompress_002ddebug_002dsections_003dzstd"></span>
 </dd>
 <dt><span><code>--compress-debug-sections=none</code></span></dt>
 <dt><span><code>--compress-debug-sections=zlib</code></span></dt>
 <dt><span><code>--compress-debug-sections=zlib-gnu</code></span></dt>
 <dt><span><code>--compress-debug-sections=zlib-gabi</code></span></dt>
+<dt><span><code>--compress-debug-sections=zstd</code></span></dt>
 <dd><p>On ELF platforms, these options control how DWARF debug sections are
 compressed using zlib.
 </p>
@@ -3003,6 +3348,9 @@ sets the SHF_COMPRESSED flag in the sections&rsquo; headers.
 </p>
 <p>The <samp>--compress-debug-sections=zlib</samp> option is an alias for
 <samp>--compress-debug-sections=zlib-gabi</samp>.
+</p>
+<p><samp>--compress-debug-sections=zstd</samp> compresses DWARF debug sections using
+zstd.
 </p>
 <p>Note that this option overrides any compression in input debug
 sections, so if a binary is linked with <samp>--compress-debug-sections=none</samp>
@@ -3062,6 +3410,19 @@ string identifying the original linked file does not change.
 </p>
 <p>Passing <code>none</code> for <var>style</var> disables the setting from any
 <code>--build-id</code> options earlier on the command line.
+</p>
+<span id="index-_002d_002dpackage_002dmetadata_003dJSON"></span>
+</dd>
+<dt><span><code>--package-metadata=<var>JSON</var></code></span></dt>
+<dd><p>Request the creation of a <code>.note.package</code> ELF note section.  The
+contents of the note are in JSON format, as per the package metadata
+specification.  For more information see:
+https://systemd.io/ELF_PACKAGE_METADATA/
+If the JSON argument is missing/empty then this will disable the
+creation of the metadata note, if one had been enabled by an earlier
+occurrence of the &ndash;package-metadata option.
+If the linker has been built with libjansson, then the JSON string
+will be validated.
 </p></dd>
 </dl>
 
@@ -3625,6 +3986,11 @@ same sources are linked.  The option <samp>--no-insert-timestamp</samp>
 can be used to insert a zero value for the timestamp, this ensuring
 that binaries produced from identical sources will compare
 identically.
+</p>
+<p>If <samp>--insert-timestamp</samp> is active then the time inserted is
+either the time that the linking takes place or, if the
+<code>SOURCE_DATE_EPOCH</code> environment variable is defined, the number
+of seconds since Unix epoch as specified by that variable.
 </p>
 <span id="index-_002d_002denable_002dreloc_002dsection"></span>
 </dd>
@@ -4628,6 +4994,12 @@ is an example of how a &lsquo;<samp>-T</samp>&rsquo; script using <code>INSERT</
 INSERT AFTER .text;
 </pre></div>
 
+<p>Note that when &lsquo;<samp>-T</samp>&rsquo; is used twice, once to override the default
+script and once to augment that script using <code>INSERT</code> the order
+of parsing and section assignments apply as for the default script.
+The script with <code>INSERT</code> should be specified <em>first</em> on the
+command line.
+</p>
 </dd>
 <dt id='index-NOCROSSREFS_0028sections_0029'><span><code>NOCROSSREFS(<var>section</var> <var>section</var> &hellip;)</code><a href='#index-NOCROSSREFS_0028sections_0029' class='copiable-anchor'> &para;</a></span></dt>
 <dd><span id="index-cross-references"></span>
@@ -5405,6 +5777,35 @@ the init_priority.  In <code>.ctors.NNNNN</code> and <code>.dtors.NNNNN</code>,
 <span id="index-SORT"></span>
 <p><code>SORT</code> is an alias for <code>SORT_BY_NAME</code>.
 </p>
+<span id="index-REVERSE"></span>
+<p><code>REVERSE</code> indicates that the sorting should be reversed.  If used
+on its own then <code>REVERSE</code> implies <code>SORT_BY_NAME</code>, otherwise
+it reverses the enclosed <code>SORT..</code> command.  Note - reverse
+sorting of alignment is not currently supported.
+</p>
+<p>Note - the sorting commands only accept a single wildcard pattern.  So
+for example the following will not work:
+</p><div class="example">
+<pre class="example">  *(REVERSE(.text* .init*))
+</pre></div>
+<p>To resolve this problem list the patterns individually, like this:
+</p><div class="example">
+<pre class="example">  *(REVERSE(.text*))
+  *(REVERSE(.init*))
+</pre></div>
+
+<p>Note - you can put the <code>EXCLUDE_FILE</code> command inside a sorting
+command, but not the other way around.  So for example:
+</p><div class="example">
+<pre class="example">  *(SORT_BY_NAME(EXCLUDE_FILE(foo) .text*))
+</pre></div>
+<p>will work, but:
+</p><div class="example">
+<pre class="example">  *(EXCLUDE_FILE(foo) SORT_BY_NAME(.text*))
+</pre></div>
+<p>will not.
+</p>
+
 <p>When there are nested section sorting commands in linker script, there
 can be at most 1 level of nesting for section sorting commands.
 </p>
@@ -5419,6 +5820,12 @@ sections have the same alignment.
 treated the same as <code>SORT_BY_NAME</code> (wildcard section pattern).
 </li><li> <code>SORT_BY_ALIGNMENT</code> (<code>SORT_BY_ALIGNMENT</code> (wildcard section pattern))
 is treated the same as <code>SORT_BY_ALIGNMENT</code> (wildcard section pattern).
+</li><li> <code>SORT_BY_NAME</code> (<code>REVERSE</code> (wildcard section pattern))
+reverse sorts by name.
+</li><li> <code>REVERSE</code> (<code>SORT_BY_NAME</code> (wildcard section pattern))
+reverse sorts by name.
+</li><li> <code>SORT_BY_INIT_PRIORITY</code> (<code>REVERSE</code> (wildcard section pattern))
+reverse sorts by init priority.
 </li><li> All other nested section sorting commands are invalid.
 </li></ol>
 
@@ -5581,6 +5988,7 @@ Next: <a href="#Output-Section-Keywords" accesskey="n" rel="next">Output Section
 <span id="index-data"></span>
 <span id="index-section-data"></span>
 <span id="index-output-section-data"></span>
+<span id="index-ASCIZ-_0060_0060string_0027_0027"></span>
 <span id="index-BYTE_0028expression_0029"></span>
 <span id="index-SHORT_0028expression_0029"></span>
 <span id="index-LONG_0028expression_0029"></span>
@@ -5617,6 +6025,18 @@ When the object file format does not have an explicit endianness, as is
 true of, for example, S-records, the value will be stored in the
 endianness of the first input object file.
 </p>
+<p>You can include a zero-terminated string in an output section by using
+<code>ASCIZ</code>.  The keyword is followed by a string which is stored at
+the current value of the location counter adding a zero byte at the
+end.  If the string includes spaces it must be enclosed in double
+quotes.  The string may contain &rsquo;\n&rsquo;, &rsquo;\r&rsquo;, &rsquo;\t&rsquo; and octal numbers.
+Hex numbers are not supported.
+</p>
+<p>For example, this string of 16 characters will create a 17 byte area
+</p><div class="example">
+<pre class="example">  ASCIZ &quot;This is 16 bytes&quot;
+</pre></div>
+
 <p>Note&mdash;these commands only work inside a section description and not
 between them, so the following will produce an error from the linker:
 </p><div class="example">
@@ -5650,6 +6070,46 @@ part of the section following the <code>FILL</code> command, rather than the
 entire section.  If both are used, the <code>FILL</code> command takes
 precedence.  See <a href="#Output-Section-Fill">Output Section Fill</a>, for details on the fill
 expression.
+</p>
+<p>Note - normally the value of <code>expression</code> is zero extended to 4
+bytes when used to fill gaps.  Thus &lsquo;<samp>FILL(144)</samp>&rsquo; will fill a
+region with repeats of the pattern &lsquo;<samp>0 0 0 144</samp>&rsquo;.  The value is
+treated as a big-endian number, so for example
+&lsquo;<samp>FILL(22 * 256 + 23)</samp>&rsquo; will fill the region with repeats of the
+pattern &lsquo;<samp>0 0 22 23</samp>&rsquo;.  If the expression results in a value with
+more than 4 significant bytes only the least 4 bytes of the value will
+be used.
+</p>
+<p>The above rules do not apply when the <code>expression</code> is a simple
+hexadecimal number.  In this case zero extension is not performed and
+all bytes are significant.  So &lsquo;<samp>FILL(0x90)</samp>&rsquo; will fill a region with
+repeats of &lsquo;<samp>0x90</samp>&rsquo; with no zero bytes, and &lsquo;<samp>FILL(0x9192)</samp>&rsquo;
+will fill the region with repeats of &lsquo;<samp>0x91 0x92</samp>&rsquo;.  Zero bytes
+in a hexadecimal expression are significant even at the start, so
+&lsquo;<samp>FILL(0x0090)</samp>&rsquo; will fill a region with repeats of &lsquo;<samp>0x00 0x90</samp>&rsquo;.
+</p>
+<p>Hexadecimal numbers can be longer than 4 bytes, and all of the bytes
+are significant, so &lsquo;<samp>FILL(0x123456789a)</samp>&rsquo; will fill a region with
+repeats of the 5 byte sequence &lsquo;<samp>0x12 0x34 0x56 0x78 0x9a</samp>&rsquo;.
+Excess bytes in a hexadecimal value beyond the size of a region will 
+be silently ignored.
+</p>
+<p>The above only applies to hexadecimal numbers specified as
+&lsquo;<samp>0x[0-9][a-f][A-F]</samp>&rsquo;.  Hexadecimal numbers specified with a
+&lsquo;<samp>$</samp>&rsquo; prefix, or a &lsquo;<samp>h</samp>&rsquo;, &lsquo;<samp>H</samp>&rsquo;, &lsquo;<samp>x</samp>&rsquo; or &lsquo;<samp>X</samp>&rsquo; suffix
+will follow the normal fill value rules.  This also applies to
+expressions that involve hexadecimal numbers, and hexadecimal numbers
+that have a magnitude suffix.
+</p>
+<span id="index-LINKER_005fVERSION-1"></span>
+<span id="index-LINKER_005fVERSION"></span>
+<p>The <code>LINKER_VERSION</code> command inserts a string containing the
+version of the linker at the current point.  Note - by default this
+directive is disabled and will do nothing.  It only becomes active if
+the <samp>--enable-linker-version</samp> command line option is used.
+</p>
+<p>Built-in linker scripts for ELF based targets already include this
+directive in their &lsquo;<samp>.comment</samp>&rsquo; section.
 </p>
 <hr>
 </div>
@@ -5842,10 +6302,12 @@ parentheses.  The following types are defined:
 <dt><span><code>NOLOAD</code></span></dt>
 <dd><p>The section should be marked as not loadable, so that it will not be
 loaded into memory when the program is run.
-</p></dd>
+</p>
+</dd>
 <dt><span><code>READONLY</code></span></dt>
 <dd><p>The section should be marked as read-only.
-</p></dd>
+</p>
+</dd>
 <dt><span><code>DSECT</code></span></dt>
 <dt><span><code>COPY</code></span></dt>
 <dt><span><code>INFO</code></span></dt>
@@ -5854,7 +6316,8 @@ loaded into memory when the program is run.
 rarely used.  They all have the same effect: the section should be
 marked as not allocatable, so that no memory is allocated for the
 section when the program is run.
-</p></dd>
+</p>
+</dd>
 <dt><span><code>TYPE = <var>type</var></code></span></dt>
 <dd><p>Set the section type to the integer <var>type</var>. When generating an ELF
 output file, type names <code>SHT_PROGBITS</code>, <code>SHT_STRTAB</code>,
@@ -5862,11 +6325,31 @@ output file, type names <code>SHT_PROGBITS</code>, <code>SHT_STRTAB</code>,
 <code>SHT_FINI_ARRAY</code>, and <code>SHT_PREINIT_ARRAY</code> are also allowed
 for <var>type</var>.  It is the user&rsquo;s responsibility to ensure that any
 special requirements of the section type are met.
-</p></dd>
+</p>
+<p>Note - the TYPE only is used if some or all of the contents of the
+section do not have an implicit type of their own.  So for example:
+</p><div class="example">
+<pre class="example">  .foo . TYPE = SHT_PROGBITS { *(.bar) }
+</pre></div>
+<p>will set the type of section &lsquo;<samp>.foo</samp>&rsquo; to the type of the section
+&lsquo;<samp>.bar</samp>&rsquo; in the input files, which may not be the SHT_PROGBITS
+type.  Whereas:
+</p><div class="example">
+<pre class="example">  .foo . TYPE = SHT_PROGBITS { BYTE(1) }
+</pre></div>
+<p>will set the type of &lsquo;<samp>.foo</samp>&rsquo; to SHT_PROGBBITS.  If it is necessary
+to override the type of incoming sections and force the output section
+type then an extra piece of untyped data will be needed:
+</p><div class="example">
+<pre class="example">  .foo . TYPE = SHT_PROGBITS { BYTE(1); *(.bar) }
+</pre></div>
+
+</dd>
 <dt><span><code>READONLY ( TYPE = <var>type</var> )</code></span></dt>
 <dd><p>This form of the syntax combines the <var>READONLY</var> type with the
 type specified by <var>type</var>.
-</p></dd>
+</p>
+</dd>
 </dl>
 
 <span id="index-NOLOAD"></span>
@@ -6086,8 +6569,16 @@ an arbitrarily long sequence of hex digits can be used to specify the
 fill pattern;  Leading zeros become part of the pattern too.  For all
 other cases, including extra parentheses or a unary <code>+</code>, the fill
 pattern is the four least significant bytes of the value of the
-expression.  In all cases, the number is big-endian.
+expression.  If the value is less than four bytes in size then it will
+be zero extended to four bytes.  In all cases, the number is big-endian.
 </p>
+<div class="example">
+<pre class="example">Fill Value     Fill Pattern
+0x90           90 90 90 90
+0x0090         00 90 00 90
+144            00 00 00 90
+</pre></div>
+
 <p>You can also change the fill value with a <code>FILL</code> command in the
 output section commands; (see <a href="#Output-Section-Data">Output Section Data</a>).
 </p>
@@ -7037,19 +7528,21 @@ Next: <a href="#Evaluation" accesskey="n" rel="next">Evaluation</a>, Previous: <
 <p>The linker recognizes the standard C set of arithmetic operators, with
 the standard bindings and precedence levels:
 </p><div class="example">
-<pre class="example">precedence      associativity   Operators                Notes
+<pre class="example">precedence      associativity   Operators                           Notes
 (highest)
-1               left            !  -  ~                  (1)
+1               left            !  -  ~                             (1)
 2               left            *  /  %
 3               left            +  -
 4               left            &gt;&gt;  &lt;&lt;
-5               left            ==  !=  &gt;  &lt;  &lt;=  &gt;=
-6               left            &amp;
-7               left            |
-8               left            &amp;&amp;
-9               left            ||
-10              right           ? :
-11              right           &amp;=  +=  -=  *=  /=       (2)
+5               left            &gt;  &lt;  &lt;=  &gt;=
+6               left            ==  !=
+7               left            &amp;
+8               left            ^
+9               left            |
+10              left            &amp;&amp;
+11              left            ||
+12              right           ? :
+13              right           +=  -=  *=  /=  &lt;&lt;=  &gt;&gt;=  &amp;=  |= ^= (2)
 (lowest)
 </pre></div>
 <p>Notes:
@@ -7288,10 +7781,13 @@ of <code>ALIGN</code> is used to defines the value of a symbol.
 <dt id='index-ALIGNOF_0028section_0029'><span><code>ALIGNOF(<var>section</var>)</code><a href='#index-ALIGNOF_0028section_0029' class='copiable-anchor'> &para;</a></span></dt>
 <dd><span id="index-section-alignment"></span>
 <p>Return the alignment in bytes of the named <var>section</var>, if that section has
-been allocated.  If the section has not been allocated when this is
-evaluated, the linker will report an error. In the following example,
-the alignment of the <code>.output</code> section is stored as the first
-value in that section.
+been allocated, or zero if the section has not been allocated.  If the
+section does not exist in the linker script the linker will report an
+error.  If <var>section</var> is <code>NEXT_SECTION</code> then <code>ALIGNOF</code> will
+return the alignment of the next allocated section specified in the
+linker script, or zero if there is no such section.  In the following
+example, the alignment of the <code>.output</code> section is stored as the
+first value in that section.
 </p><div class="example">
 <pre class="example">SECTIONS{ &hellip;
   .output {
@@ -7435,9 +7931,13 @@ name.
 <dt id='index-SIZEOF_0028section_0029'><span><code>SIZEOF(<var>section</var>)</code><a href='#index-SIZEOF_0028section_0029' class='copiable-anchor'> &para;</a></span></dt>
 <dd><span id="index-section-size"></span>
 <p>Return the size in bytes of the named <var>section</var>, if that section has
-been allocated.  If the section has not been allocated when this is
-evaluated, the linker will report an error.  In the following example,
-<code>symbol_1</code> and <code>symbol_2</code> are assigned identical values:
+been allocated, or zero if the section has not been allocated.  If the
+section does not exist in the linker script the linker will report an
+error.  If <var>section</var> is <code>NEXT_SECTION</code> then <code>SIZEOF</code> will
+return the alignment of the next allocated section specified in the
+linker script, or zero if there is no such section.  In the following
+example, <code>symbol_1</code> and <code>symbol_2</code> are assigned identical
+values:
 </p><div class="example">
 <pre class="example">SECTIONS{ &hellip;
   .output {
@@ -7504,7 +8004,7 @@ read.  This can affect archive searching.
 <div class="chapter" id="Plugins">
 <div class="header">
 <p>
-Next: <a href="#Machine-Dependent" accesskey="n" rel="next">Machine Dependent Features</a>, Previous: <a href="#Scripts" accesskey="p" rel="prev">Linker Scripts</a>, Up: <a href="#Top" accesskey="u" rel="up">LD</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#LD-Index" title="Index" rel="index">Index</a>]</p>
+Next: <a href="#Special-Sections" accesskey="n" rel="next">Special Sections</a>, Previous: <a href="#Scripts" accesskey="p" rel="prev">Linker Scripts</a>, Up: <a href="#Top" accesskey="u" rel="up">LD</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#LD-Index" title="Index" rel="index">Index</a>]</p>
 </div>
 <span id="Linker-Plugins"></span><h2 class="chapter">4 Linker Plugins</h2>
 
@@ -7517,15 +8017,19 @@ support is implemented with a linker plugin.
 <p>Currently there is only one plugin shipped by default, but more may
 be added here later.
 </p>
+<p>Plugins are enabled via the use of the <samp>-plugin <var>name</var></samp>
+command line option. See <a href="#Options">Command-line Options</a>.
+</p>
 
 <ul class="section-toc">
 <li><a href="#libdep-Plugin" accesskey="1">Static Library Dependencies Plugin</a></li>
+<li><a href="#lto-Plugin" accesskey="2">LTO Plugin</a></li>
 </ul>
 <hr>
 <div class="section" id="libdep-Plugin">
 <div class="header">
 <p>
-Up: <a href="#Plugins" accesskey="u" rel="up">Linker Plugins</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#LD-Index" title="Index" rel="index">Index</a>]</p>
+Next: <a href="#lto-Plugin" accesskey="n" rel="next">LTO Plugin</a>, Up: <a href="#Plugins" accesskey="u" rel="up">Linker Plugins</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#LD-Index" title="Index" rel="index">Index</a>]</p>
 </div>
 <span id="Static-Library-Dependencies-Plugin"></span><h3 class="section">4.1 Static Library Dependencies Plugin</h3>
 <span id="index-static-library-dependencies"></span>
@@ -7562,15 +8066,93 @@ the &lsquo;<samp>__.LIBDEP</samp>&rsquo; member of <samp>libssl.a</samp> would c
 <pre class="example">-L/usr/local/lib -lcrypto
 </pre></div>
 
+<p>Note any library search directories added in this way are only used to
+search for libraries which are also added the same plugin.  They are
+not used for searching for libraries specified on the linker command
+line, linker scripts or other plugins.  This does however present a
+problem if multiple archives with &lsquo;<samp>__.LIBDEP</samp>&rsquo; entries are present
+as they will all be handled by the libdep plugin and thus they will
+share library search paths.  This could result in a library being
+loaded from an unexpected location.
+</p>
 <hr>
 </div>
+<div class="section" id="lto-Plugin">
+<div class="header">
+<p>
+Previous: <a href="#libdep-Plugin" accesskey="p" rel="prev">Static Library Dependencies Plugin</a>, Up: <a href="#Plugins" accesskey="u" rel="up">Linker Plugins</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#LD-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="LTO-Plugin"></span><h3 class="section">4.2 LTO Plugin</h3>
+<p>Although not shipped with the binutils the LTO Plugin from the GCC
+project is nevertheless a plugin that is designed to work with the
+linker.  The plugin intercepts object files as they are loaded by the
+linker and instead sends them to the LTO compiler.  When that compiler
+finishes the resulting object file(s) are passed back to the linker
+for normal processing.
+</p>
+<hr>
+</div>
+</div>
+<div class="chapter" id="Special-Sections">
+<div class="header">
+<p>
+Next: <a href="#Machine-Dependent" accesskey="n" rel="next">Machine Dependent Features</a>, Previous: <a href="#Plugins" accesskey="p" rel="prev">Linker Plugins</a>, Up: <a href="#Top" accesskey="u" rel="up">LD</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#LD-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Special-Sections-1"></span><h2 class="chapter">5 Special Sections</h2>
+<p>When linking ELF format object files <code>ld</code> treats some sections
+in a special, non standard manner.  This part of the manual describes
+these sections.
+</p>
+<dl compact="compact">
+<dt><span><code>.gnu.warning</code></span></dt>
+<dd><p>The contents of any section with this name are assumed to be an ascii
+format warning message.  The contents will be displayed to the user if
+the sections appears in any input file, but the section will not be
+copied into the output image.  If the <samp>--fatal-warnings</samp> option
+is enabled then the warnings - if any are encountered - will also stop
+the link from completing.
+</p>
+<p>Note - the &lsquo;<samp>.gnu.warning</samp>&rsquo; section is not subject to linker
+garbage collection or orphan handling.
+</p>
+</dd>
+<dt><span><code>.gnu.warning.<var>SYM</var></code></span></dt>
+<dd><p>The contents of any section whoes name starts with the prefix
+&lsquo;<samp>.gnu.warning.</samp>&rsquo; and then finishes with the name of a symbol is
+treated in a similar fashion to the &lsquo;<samp>.gnu.warning</samp>&rsquo; section, but
+only if the named symbol is referenced.  So for example the contents
+of a section called &lsquo;<samp>.gnu.warning.foo</samp>&rsquo; will be displayed as
+warning message if, and only if, the symbol &lsquo;<samp>foo</samp>&rsquo; is referenced
+by one or more of the input files.  This includes object files pulled
+in from static libraries, shared objects needed to complete the link
+and so on.
+</p>
+<p>Note - because these warning messages are generated before the linker
+performs garbage collection (if enabled) it is possible for a warning
+to be displayed for a symbol that is later removed and then never
+appears in the final output.
+</p>
+</dd>
+<dt><span><code>.note.gnu.property</code></span></dt>
+<dd><p>When the linker combines sections of this name it will merge them
+together according to various rules encoded into the notes
+themselves.  Therefore the contents of the output .note.gnu.property
+section may not correspond to a simple concatenation of the input
+sections.  If the <samp>-Map</samp> option has been used to request a
+linker map then details of any property merging will be included in
+the map.
+</p>
+</dd>
+</dl>
+
+<hr>
 </div>
 <div class="chapter" id="Machine-Dependent">
 <div class="header">
 <p>
-Next: <a href="#BFD" accesskey="n" rel="next">BFD</a>, Previous: <a href="#Plugins" accesskey="p" rel="prev">Linker Plugins</a>, Up: <a href="#Top" accesskey="u" rel="up">LD</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#LD-Index" title="Index" rel="index">Index</a>]</p>
+Next: <a href="#BFD" accesskey="n" rel="next">BFD</a>, Previous: <a href="#Special-Sections" accesskey="p" rel="prev">Special Sections</a>, Up: <a href="#Top" accesskey="u" rel="up">LD</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#LD-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="Machine-Dependent-Features"></span><h2 class="chapter">5 Machine Dependent Features</h2>
+<span id="Machine-Dependent-Features"></span><h2 class="chapter">6 Machine Dependent Features</h2>
 
 <span id="index-machine-dependencies"></span>
 <p><code>ld</code> has additional features on some platforms; the following
@@ -7604,7 +8186,7 @@ functionality are not listed.
 <p>
 Next: <a href="#M68HC11_002f68HC12" accesskey="n" rel="next"><code>ld</code> and the Motorola 68HC11 and 68HC12 families</a>, Up: <a href="#Machine-Dependent" accesskey="u" rel="up">Machine Dependent Features</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#LD-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="ld-and-the-H8_002f300"></span><h3 class="section">5.1 <code>ld</code> and the H8/300</h3>
+<span id="ld-and-the-H8_002f300"></span><h3 class="section">6.1 <code>ld</code> and the H8/300</h3>
 
 <span id="index-H8_002f300-support"></span>
 <p>For the H8/300, <code>ld</code> can perform these global optimizations when
@@ -7669,7 +8251,7 @@ the top page of memory).
 <p>
 Next: <a href="#ARM" accesskey="n" rel="next"><code>ld</code> and the ARM family</a>, Previous: <a href="#H8_002f300" accesskey="p" rel="prev"><code>ld</code> and the H8/300</a>, Up: <a href="#Machine-Dependent" accesskey="u" rel="up">Machine Dependent Features</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#LD-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="ld-and-the-Motorola-68HC11-and-68HC12-families"></span><h3 class="section">5.2 <code>ld</code> and the Motorola 68HC11 and 68HC12 families</h3>
+<span id="ld-and-the-Motorola-68HC11-and-68HC12-families"></span><h3 class="section">6.2 <code>ld</code> and the Motorola 68HC11 and 68HC12 families</h3>
 
 <span id="index-M68HC11-and-68HC12-support"></span>
 
@@ -7678,7 +8260,7 @@ Next: <a href="#ARM" accesskey="n" rel="next"><code>ld</code> and the ARM family
 <li><a href="#Trampoline-Generation" accesskey="2">Trampoline Generation</a></li>
 </ul>
 <div class="subsection" id="Linker-Relaxation">
-<h4 class="subsection">5.2.1 Linker Relaxation</h4>
+<h4 class="subsection">6.2.1 Linker Relaxation</h4>
 
 <p>For the Motorola 68HC11, <code>ld</code> can perform these global
 optimizations when you specify the &lsquo;<samp>--relax</samp>&rsquo; command-line option.
@@ -7708,7 +8290,7 @@ addressing mode. These instructions consists of <code>bclr</code> or
 
 </div>
 <div class="subsection" id="Trampoline-Generation">
-<h4 class="subsection">5.2.2 Trampoline Generation</h4>
+<h4 class="subsection">6.2.2 Trampoline Generation</h4>
 
 <span id="index-trampoline-generation-on-M68HC11"></span>
 <span id="index-trampoline-generation-on-M68HC12"></span>
@@ -7728,7 +8310,7 @@ point to the function trampoline.
 <p>
 Next: <a href="#HPPA-ELF32" accesskey="n" rel="next"><code>ld</code> and HPPA 32-bit ELF Support</a>, Previous: <a href="#M68HC11_002f68HC12" accesskey="p" rel="prev"><code>ld</code> and the Motorola 68HC11 and 68HC12 families</a>, Up: <a href="#Machine-Dependent" accesskey="u" rel="up">Machine Dependent Features</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#LD-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="ld-and-the-ARM-family"></span><h3 class="section">5.3 <code>ld</code> and the ARM family</h3>
+<span id="ld-and-the-ARM-family"></span><h3 class="section">6.3 <code>ld</code> and the ARM family</h3>
 
 <span id="index-ARM-interworking-support"></span>
 <span id="index-_002d_002dsupport_002dold_002dcode"></span>
@@ -8032,7 +8614,7 @@ specified.
 <p>
 Next: <a href="#M68K" accesskey="n" rel="next"><code>ld</code> and the Motorola 68K family</a>, Previous: <a href="#ARM" accesskey="p" rel="prev"><code>ld</code> and the ARM family</a>, Up: <a href="#Machine-Dependent" accesskey="u" rel="up">Machine Dependent Features</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#LD-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="ld-and-HPPA-32_002dbit-ELF-Support"></span><h3 class="section">5.4 <code>ld</code> and HPPA 32-bit ELF Support</h3>
+<span id="ld-and-HPPA-32_002dbit-ELF-Support"></span><h3 class="section">6.4 <code>ld</code> and HPPA 32-bit ELF Support</h3>
 <span id="index-HPPA-multiple-sub_002dspace-stubs"></span>
 <span id="index-_002d_002dmulti_002dsubspace"></span>
 <p>When generating a shared library, <code>ld</code> will by default generate
@@ -8072,7 +8654,7 @@ large, it may not be possible for a branch to reach its stub.
 <p>
 Next: <a href="#MIPS" accesskey="n" rel="next"><code>ld</code> and the MIPS family</a>, Previous: <a href="#HPPA-ELF32" accesskey="p" rel="prev"><code>ld</code> and HPPA 32-bit ELF Support</a>, Up: <a href="#Machine-Dependent" accesskey="u" rel="up">Machine Dependent Features</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#LD-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="ld-and-the-Motorola-68K-family"></span><h3 class="section">5.5 <code>ld</code> and the Motorola 68K family</h3>
+<span id="ld-and-the-Motorola-68K-family"></span><h3 class="section">6.5 <code>ld</code> and the Motorola 68K family</h3>
 
 <span id="index-Motorola-68K-GOT-generation"></span>
 <span id="index-_002d_002dgot_003dtype"></span>
@@ -8099,7 +8681,7 @@ files might access different GOTs.  Not all environments support such GOTs.
 <p>
 Next: <a href="#MMIX" accesskey="n" rel="next"><code>ld</code> and MMIX</a>, Previous: <a href="#M68K" accesskey="p" rel="prev"><code>ld</code> and the Motorola 68K family</a>, Up: <a href="#Machine-Dependent" accesskey="u" rel="up">Machine Dependent Features</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#LD-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="ld-and-the-MIPS-family"></span><h3 class="section">5.6 <code>ld</code> and the MIPS family</h3>
+<span id="ld-and-the-MIPS-family"></span><h3 class="section">6.6 <code>ld</code> and the MIPS family</h3>
 
 <span id="index-MIPS-microMIPS-instruction-choice-selection"></span>
 <span id="index-_002d_002dinsn32-1"></span>
@@ -8133,7 +8715,7 @@ the loss of an ISA mode transition to produce an error.
 <p>
 Next: <a href="#MSP430" accesskey="n" rel="next"><code>ld</code> and MSP430</a>, Previous: <a href="#MIPS" accesskey="p" rel="prev"><code>ld</code> and the MIPS family</a>, Up: <a href="#Machine-Dependent" accesskey="u" rel="up">Machine Dependent Features</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#LD-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="ld-and-MMIX"></span><h3 class="section">5.7 <code>ld</code> and MMIX</h3>
+<span id="ld-and-MMIX"></span><h3 class="section">6.7 <code>ld</code> and MMIX</h3>
 <p>For MMIX, there is a choice of generating <code>ELF</code> object files or
 <code>mmo</code> object files when linking.  The simulator <code>mmix</code>
 understands the <code>mmo</code> format.  The binutils <code>objcopy</code> utility
@@ -8165,7 +8747,7 @@ are left out from an mmo file.
 <p>
 Next: <a href="#NDS32" accesskey="n" rel="next"><code>ld</code> and NDS32</a>, Previous: <a href="#MMIX" accesskey="p" rel="prev"><code>ld</code> and MMIX</a>, Up: <a href="#Machine-Dependent" accesskey="u" rel="up">Machine Dependent Features</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#LD-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="ld-and-MSP430"></span><h3 class="section">5.8 <code>ld</code> and MSP430</h3>
+<span id="ld-and-MSP430"></span><h3 class="section">6.8 <code>ld</code> and MSP430</h3>
 <p>For the MSP430 it is possible to select the MPU architecture.  The flag &lsquo;<samp>-m [mpu type]</samp>&rsquo;
 will select an appropriate linker script for selected MPU type.  (To get a list of known MPUs
 just pass &lsquo;<samp>-m help</samp>&rsquo; option to the linker).
@@ -8236,7 +8818,7 @@ not transform the sections for prebuilt libraries and objects.
 <p>
 Next: <a href="#Nios-II" accesskey="n" rel="next"><code>ld</code> and the Altera Nios II</a>, Previous: <a href="#MSP430" accesskey="p" rel="prev"><code>ld</code> and MSP430</a>, Up: <a href="#Machine-Dependent" accesskey="u" rel="up">Machine Dependent Features</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#LD-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="ld-and-NDS32"></span><h3 class="section">5.9 <code>ld</code> and NDS32</h3>
+<span id="ld-and-NDS32"></span><h3 class="section">6.9 <code>ld</code> and NDS32</h3>
 <span id="index-relaxing-on-NDS32"></span>
 <p>For NDS32, there are some options to select relaxation behavior.  The linker
 relaxes objects according to these options.
@@ -8292,7 +8874,7 @@ relaxes objects according to these options.
 <p>
 Next: <a href="#PowerPC-ELF32" accesskey="n" rel="next"><code>ld</code> and PowerPC 32-bit ELF Support</a>, Previous: <a href="#NDS32" accesskey="p" rel="prev"><code>ld</code> and NDS32</a>, Up: <a href="#Machine-Dependent" accesskey="u" rel="up">Machine Dependent Features</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#LD-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="ld-and-the-Altera-Nios-II"></span><h3 class="section">5.10 <code>ld</code> and the Altera Nios II</h3>
+<span id="ld-and-the-Altera-Nios-II"></span><h3 class="section">6.10 <code>ld</code> and the Altera Nios II</h3>
 <span id="index-Nios-II-call-relaxation"></span>
 <span id="index-_002d_002drelax-on-Nios-II"></span>
 
@@ -8327,7 +8909,7 @@ option interferes with the linker&rsquo;s more selective call instruction relaxa
 <p>
 Next: <a href="#PowerPC64-ELF64" accesskey="n" rel="next"><code>ld</code> and PowerPC64 64-bit ELF Support</a>, Previous: <a href="#Nios-II" accesskey="p" rel="prev"><code>ld</code> and the Altera Nios II</a>, Up: <a href="#Machine-Dependent" accesskey="u" rel="up">Machine Dependent Features</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#LD-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="ld-and-PowerPC-32_002dbit-ELF-Support"></span><h3 class="section">5.11 <code>ld</code> and PowerPC 32-bit ELF Support</h3>
+<span id="ld-and-PowerPC-32_002dbit-ELF-Support"></span><h3 class="section">6.11 <code>ld</code> and PowerPC 32-bit ELF Support</h3>
 <span id="index-PowerPC-long-branches"></span>
 <span id="index-_002d_002drelax-on-PowerPC"></span>
 <p>Branches on PowerPC processors are limited to a signed 26-bit
@@ -8408,7 +8990,7 @@ disable the optimization.
 <p>
 Next: <a href="#S_002f390-ELF" accesskey="n" rel="next"><code>ld</code> and S/390 ELF Support</a>, Previous: <a href="#PowerPC-ELF32" accesskey="p" rel="prev"><code>ld</code> and PowerPC 32-bit ELF Support</a>, Up: <a href="#Machine-Dependent" accesskey="u" rel="up">Machine Dependent Features</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#LD-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="ld-and-PowerPC64-64_002dbit-ELF-Support"></span><h3 class="section">5.12 <code>ld</code> and PowerPC64 64-bit ELF Support</h3>
+<span id="ld-and-PowerPC64-64_002dbit-ELF-Support"></span><h3 class="section">6.12 <code>ld</code> and PowerPC64 64-bit ELF Support</h3>
 
 <span id="index-PowerPC64-ELF64-options"></span>
 <dl compact="compact">
@@ -8666,7 +9248,7 @@ auto mode.
 <p>
 Next: <a href="#SPU-ELF" accesskey="n" rel="next"><code>ld</code> and SPU ELF Support</a>, Previous: <a href="#PowerPC64-ELF64" accesskey="p" rel="prev"><code>ld</code> and PowerPC64 64-bit ELF Support</a>, Up: <a href="#Machine-Dependent" accesskey="u" rel="up">Machine Dependent Features</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#LD-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="ld-and-S_002f390-ELF-Support"></span><h3 class="section">5.13 <code>ld</code> and S/390 ELF Support</h3>
+<span id="ld-and-S_002f390-ELF-Support"></span><h3 class="section">6.13 <code>ld</code> and S/390 ELF Support</h3>
 
 <span id="index-S_002f390-ELF-options"></span>
 <dl compact="compact">
@@ -8690,7 +9272,7 @@ binaries marked that way.
 <p>
 Next: <a href="#TI-COFF" accesskey="n" rel="next"><code>ld</code>&rsquo;s Support for Various TI COFF Versions</a>, Previous: <a href="#S_002f390-ELF" accesskey="p" rel="prev"><code>ld</code> and S/390 ELF Support</a>, Up: <a href="#Machine-Dependent" accesskey="u" rel="up">Machine Dependent Features</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#LD-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="ld-and-SPU-ELF-Support"></span><h3 class="section">5.14 <code>ld</code> and SPU ELF Support</h3>
+<span id="ld-and-SPU-ELF-Support"></span><h3 class="section">6.14 <code>ld</code> and SPU ELF Support</h3>
 
 <span id="index-SPU-ELF-options"></span>
 <dl compact="compact">
@@ -8777,7 +9359,7 @@ The symbol size will be zero, type <code>STT_NOTYPE</code>, binding
 <p>
 Next: <a href="#WIN32" accesskey="n" rel="next"><code>ld</code> and WIN32 (cygwin/mingw)</a>, Previous: <a href="#SPU-ELF" accesskey="p" rel="prev"><code>ld</code> and SPU ELF Support</a>, Up: <a href="#Machine-Dependent" accesskey="u" rel="up">Machine Dependent Features</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#LD-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="ld_0027s-Support-for-Various-TI-COFF-Versions"></span><h3 class="section">5.15 <code>ld</code>&rsquo;s Support for Various TI COFF Versions</h3>
+<span id="ld_0027s-Support-for-Various-TI-COFF-Versions"></span><h3 class="section">6.15 <code>ld</code>&rsquo;s Support for Various TI COFF Versions</h3>
 <span id="index-TI-COFF-versions"></span>
 <span id="index-_002d_002dformat_003dversion"></span>
 <p>The &lsquo;<samp>--format</samp>&rsquo; switch allows selection of one of the various
@@ -8795,7 +9377,7 @@ header format depends on the default specified by the specific target.
 <p>
 Next: <a href="#Xtensa" accesskey="n" rel="next"><code>ld</code> and Xtensa Processors</a>, Previous: <a href="#TI-COFF" accesskey="p" rel="prev"><code>ld</code>&rsquo;s Support for Various TI COFF Versions</a>, Up: <a href="#Machine-Dependent" accesskey="u" rel="up">Machine Dependent Features</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#LD-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="ld-and-WIN32-_0028cygwin_002fmingw_0029"></span><h3 class="section">5.16 <code>ld</code> and WIN32 (cygwin/mingw)</h3>
+<span id="ld-and-WIN32-_0028cygwin_002fmingw_0029"></span><h3 class="section">6.16 <code>ld</code> and WIN32 (cygwin/mingw)</h3>
 
 <p>This section describes some of the win32 specific <code>ld</code> issues.
 See <a href="#Options">Command-line Options</a> for detailed description of the
@@ -8812,6 +9394,40 @@ archive.  The cygwin and mingw ports of <code>ld</code> have specific
 support for creating such libraries provided with the
 &lsquo;<samp>--out-implib</samp>&rsquo; command-line option.
 </p>
+</dd>
+<dt><span><em>Resource only DLLs</em></span></dt>
+<dd><p>It is possible to create a DLL that only contains resources, ie just a
+&lsquo;<samp>.rsrc</samp>&rsquo; section, but in order to do so a custom linker script
+must be used.  This is because the built-in default linker scripts
+will always create &lsquo;<samp>.text</samp>&rsquo; and &lsquo;<samp>.idata</samp>&rsquo; sections, even if
+there is no input to go into them.
+</p>
+<p>The script should look like this, although the <code>OUTPUT_FORMAT</code>
+should be changed to match the desired format.
+</p>
+<div class="example">
+<pre class="example">OUTPUT_FORMAT(pei-i386)
+SECTIONS
+{
+  . = SIZEOF_HEADERS;
+  . = ALIGN(__section_alignment__);
+  .rsrc __image_base__ + __section_alignment__ : ALIGN(4)
+  {
+    KEEP (*(.rsrc))
+    KEEP (*(.rsrc$*))
+  }
+  /DISCARD/ : { *(*) }
+}
+</pre></div>
+
+<p>With this script saved to a file called, eg <samp>rsrc.ld</samp>, a command
+line like this can be used to create the resource only DLL
+<samp>rsrc.dll</samp> from an input file called <samp>rsrc.o</samp>:
+</p>
+<div class="example">
+<pre class="example">ld -dll --subsystem windows -e 0 -s rsrc.o -o rsrc.dll -T rsrc.ld
+</pre></div>
+
 </dd>
 <dt id='index-exporting-DLL-symbols'><span><em>exporting DLL symbols</em><a href='#index-exporting-DLL-symbols' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>The cygwin/mingw <code>ld</code> has several ways to export symbols for dll&rsquo;s.
@@ -9274,7 +9890,7 @@ warnings about unknown linker directives.
 <p>
 Previous: <a href="#WIN32" accesskey="p" rel="prev"><code>ld</code> and WIN32 (cygwin/mingw)</a>, Up: <a href="#Machine-Dependent" accesskey="u" rel="up">Machine Dependent Features</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#LD-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="ld-and-Xtensa-Processors"></span><h3 class="section">5.17 <code>ld</code> and Xtensa Processors</h3>
+<span id="ld-and-Xtensa-Processors"></span><h3 class="section">6.17 <code>ld</code> and Xtensa Processors</h3>
 
 <span id="index-Xtensa-processors"></span>
 <p>The default <code>ld</code> behavior for Xtensa processors is to interpret
@@ -9363,7 +9979,7 @@ or the chosen output object ABI.
 <p>
 Next: <a href="#Reporting-Bugs" accesskey="n" rel="next">Reporting Bugs</a>, Previous: <a href="#Machine-Dependent" accesskey="p" rel="prev">Machine Dependent Features</a>, Up: <a href="#Top" accesskey="u" rel="up">LD</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#LD-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="BFD-1"></span><h2 class="chapter">6 BFD</h2>
+<span id="BFD-1"></span><h2 class="chapter">7 BFD</h2>
 
 <span id="index-back-end"></span>
 <span id="index-object-file-management"></span>
@@ -9404,7 +10020,7 @@ conversion and during output. See <a href="#BFD-information-loss">Information Lo
 <p>
 Up: <a href="#BFD" accesskey="u" rel="up">BFD</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#LD-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="How-It-Works_003a-An-Outline-of-BFD"></span><h3 class="section">6.1 How It Works: An Outline of BFD</h3>
+<span id="How-It-Works_003a-An-Outline-of-BFD"></span><h3 class="section">7.1 How It Works: An Outline of BFD</h3>
 <span id="index-opening-object-files"></span>
 
 <p>When an object file is opened, BFD subroutines automatically determine
@@ -9436,7 +10052,7 @@ created symbol table and convert it into the chosen output format.
 <p>
 Next: <a href="#Canonical-format" accesskey="n" rel="next">The BFD canonical object-file format</a>, Up: <a href="#BFD-outline" accesskey="u" rel="up">How It Works: An Outline of BFD</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#LD-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="Information-Loss"></span><h4 class="subsection">6.1.1 Information Loss</h4>
+<span id="Information-Loss"></span><h4 class="subsection">7.1.1 Information Loss</h4>
 
 <p><em>Information can be lost during output.</em> The output formats
 supported by BFD do not provide identical facilities, and
@@ -9487,7 +10103,7 @@ only lost from the files whose format differs from the destination.
 <p>
 Previous: <a href="#BFD-information-loss" accesskey="p" rel="prev">Information Loss</a>, Up: <a href="#BFD-outline" accesskey="u" rel="up">How It Works: An Outline of BFD</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#LD-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="The-BFD-canonical-object_002dfile-format"></span><h4 class="subsection">6.1.2 The BFD canonical object-file format</h4>
+<span id="The-BFD-canonical-object_002dfile-format"></span><h4 class="subsection">7.1.2 The BFD canonical object-file format</h4>
 
 <p>The greatest potential for loss of information occurs when there is the least
 overlap between the information provided by the source format, that
@@ -9580,7 +10196,7 @@ between formats.
 <p>
 Next: <a href="#MRI" accesskey="n" rel="next">MRI Compatible Script Files</a>, Previous: <a href="#BFD" accesskey="p" rel="prev">BFD</a>, Up: <a href="#Top" accesskey="u" rel="up">LD</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#LD-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="Reporting-Bugs-1"></span><h2 class="chapter">7 Reporting Bugs</h2>
+<span id="Reporting-Bugs-1"></span><h2 class="chapter">8 Reporting Bugs</h2>
 <span id="index-bugs-in-ld"></span>
 <span id="index-reporting-bugs-in-ld"></span>
 
@@ -9606,7 +10222,7 @@ information that enables us to fix the bug.
 <p>
 Next: <a href="#Bug-Reporting" accesskey="n" rel="next">How to Report Bugs</a>, Up: <a href="#Reporting-Bugs" accesskey="u" rel="up">Reporting Bugs</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#LD-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="Have-You-Found-a-Bug_003f"></span><h3 class="section">7.1 Have You Found a Bug?</h3>
+<span id="Have-You-Found-a-Bug_003f"></span><h3 class="section">8.1 Have You Found a Bug?</h3>
 <span id="index-bug-criteria"></span>
 
 <p>If you are not sure whether you have found a bug, here are some guidelines:
@@ -9637,7 +10253,7 @@ improvement of <code>ld</code> are welcome in any case.
 <p>
 Previous: <a href="#Bug-Criteria" accesskey="p" rel="prev">Have You Found a Bug?</a>, Up: <a href="#Reporting-Bugs" accesskey="u" rel="up">Reporting Bugs</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#LD-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="How-to-Report-Bugs"></span><h3 class="section">7.2 How to Report Bugs</h3>
+<span id="How-to-Report-Bugs"></span><h3 class="section">8.2 How to Report Bugs</h3>
 <span id="index-bug-reports"></span>
 <span id="index-ld-bugs_002c-reporting"></span>
 
@@ -10513,6 +11129,7 @@ Previous: <a href="#GNU-Free-Documentation-License" accesskey="p" rel="prev">GNU
 <tr><td></td><td valign="top"><a href="#index-_002d_002dcompress_002ddebug_002dsections_003dzlib"><code>--compress-debug-sections=zlib</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002d_002dcompress_002ddebug_002dsections_003dzlib_002dgabi"><code>--compress-debug-sections=zlib-gabi</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002d_002dcompress_002ddebug_002dsections_003dzlib_002dgnu"><code>--compress-debug-sections=zlib-gnu</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-_002d_002dcompress_002ddebug_002dsections_003dzstd"><code>--compress-debug-sections=zstd</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002d_002dcopy_002ddt_002dneeded_002dentries"><code>--copy-dt-needed-entries</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002d_002dcref"><code>--cref</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002d_002dctf_002dshare_002dtypes"><code>--ctf-share-types</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
@@ -10528,6 +11145,7 @@ Previous: <a href="#GNU-Free-Documentation-License" accesskey="p" rel="prev">GNU
 <tr><td></td><td valign="top"><a href="#index-_002d_002ddisable_002dauto_002dimage_002dbase"><code>--disable-auto-image-base</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002d_002ddisable_002dauto_002dimport"><code>--disable-auto-import</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002d_002ddisable_002dlarge_002daddress_002daware"><code>--disable-large-address-aware</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-_002d_002ddisable_002dlinker_002dversion"><code>--disable-linker-version</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002d_002ddisable_002dlong_002dsection_002dnames"><code>--disable-long-section-names</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002d_002ddisable_002dmultiple_002dabs_002ddefs"><code>--disable-multiple-abs-defs</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002d_002ddisable_002dnew_002ddtags"><code>--disable-new-dtags</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
@@ -10557,6 +11175,7 @@ Previous: <a href="#GNU-Free-Documentation-License" accesskey="p" rel="prev">GNU
 <tr><td></td><td valign="top"><a href="#index-_002d_002denable_002dauto_002dimage_002dbase"><code>--enable-auto-image-base</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002d_002denable_002dauto_002dimport"><code>--enable-auto-import</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002d_002denable_002dextra_002dpe_002ddebug"><code>--enable-extra-pe-debug</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-_002d_002denable_002dlinker_002dversion"><code>--enable-linker-version</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002d_002denable_002dlong_002dsection_002dnames"><code>--enable-long-section-names</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002d_002denable_002dnew_002ddtags"><code>--enable-new-dtags</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002d_002denable_002dnon_002dcontiguous_002dregions"><code>--enable-non-contiguous-regions</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
@@ -10565,7 +11184,9 @@ Previous: <a href="#GNU-Free-Documentation-License" accesskey="p" rel="prev">GNU
 <tr><td></td><td valign="top"><a href="#index-_002d_002denable_002druntime_002dpseudo_002dreloc"><code>--enable-runtime-pseudo-reloc</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002d_002denable_002dstdcall_002dfixup"><code>--enable-stdcall-fixup</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002d_002dentry_003dentry"><code>--entry=<var>entry</var></code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-_002d_002derror_002dexecstack"><code>--error-execstack</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002d_002derror_002dhandling_002dscript_003dscriptname"><code>--error-handling-script=<var>scriptname</var></code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-_002d_002derror_002drwx_002dsegments"><code>--error-rwx-segments</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002d_002derror_002dunresolved_002dsymbols"><code>--error-unresolved-symbols</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002d_002dexclude_002dall_002dsymbols"><code>--exclude-all-symbols</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002d_002dexclude_002dlibs"><code>--exclude-libs</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
@@ -10674,6 +11295,7 @@ Previous: <a href="#GNU-Free-Documentation-License" accesskey="p" rel="prev">GNU
 <tr><td></td><td valign="top"><a href="#index-_002d_002dno_002dpower10_002dstubs"><code>--no-power10-stubs</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#PowerPC64-ELF64">PowerPC64 ELF64</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002d_002dno_002dprint_002dgc_002dsections"><code>--no-print-gc-sections</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002d_002dno_002dprint_002dmap_002ddiscarded"><code>--no-print-map-discarded</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-_002d_002dno_002dprint_002dmap_002dlocals"><code>--no-print-map-locals</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002d_002dno_002dsave_002drestore_002dfuncs"><code>--no-save-restore-funcs</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#PowerPC64-ELF64">PowerPC64 ELF64</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002d_002dno_002dseh"><code>--no-seh</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002d_002dno_002dstrip_002ddiscarded"><code>--no-strip-discarded</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
@@ -10688,6 +11310,7 @@ Previous: <a href="#GNU-Free-Documentation-License" accesskey="p" rel="prev">GNU
 <tr><td></td><td valign="top"><a href="#index-_002d_002dno_002dundefined_002dversion"><code>--no-undefined-version</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002d_002dno_002dwarn_002dmismatch"><code>--no-warn-mismatch</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002d_002dno_002dwarn_002dsearch_002dmismatch"><code>--no-warn-search-mismatch</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-_002d_002dno_002dwarnings"><code>--no-warnings</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002d_002dno_002dwchar_002dsize_002dwarning"><code>--no-wchar-size-warning</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#ARM">ARM</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002d_002dno_002dwhole_002darchive"><code>--no-whole-archive</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002d_002dnoinhibit_002dexec"><code>--noinhibit-exec</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
@@ -10700,6 +11323,7 @@ Previous: <a href="#GNU-Free-Documentation-License" accesskey="p" rel="prev">GNU
 <tr><td></td><td valign="top"><a href="#index-_002d_002dout_002dimplib"><code>--out-implib</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002d_002doutput_002ddef"><code>--output-def</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002d_002doutput_003doutput"><code>--output=<var>output</var></code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-_002d_002dpackage_002dmetadata_003dJSON"><code>--package-metadata=<var>JSON</var></code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002d_002dpic_002dexecutable"><code>--pic-executable</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002d_002dpic_002dveneer"><code>--pic-veneer</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#ARM">ARM</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002d_002dplt_002dalign"><code>--plt-align</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#PowerPC64-ELF64">PowerPC64 ELF64</a></td></tr>
@@ -10712,6 +11336,7 @@ Previous: <a href="#GNU-Free-Documentation-License" accesskey="p" rel="prev">GNU
 <tr><td></td><td valign="top"><a href="#index-_002d_002dprint_002dgc_002dsections"><code>--print-gc-sections</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002d_002dprint_002dmap"><code>--print-map</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002d_002dprint_002dmap_002ddiscarded"><code>--print-map-discarded</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-_002d_002dprint_002dmap_002dlocals"><code>--print-map-locals</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002d_002dprint_002dmemory_002dusage"><code>--print-memory-usage</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002d_002dprint_002doutput_002dformat"><code>--print-output-format</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002d_002dpush_002dstate"><code>--push-state</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
@@ -10721,6 +11346,8 @@ Previous: <a href="#GNU-Free-Documentation-License" accesskey="p" rel="prev">GNU
 <tr><td></td><td valign="top"><a href="#index-_002d_002drelax-on-PowerPC"><code>--relax on PowerPC</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#PowerPC-ELF32">PowerPC ELF32</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002d_002drelax-on-Xtensa"><samp>--relax</samp> on Xtensa</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Xtensa">Xtensa</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002d_002drelocatable"><code>--relocatable</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-_002d_002dremap_002dinputs_002dfile_003dfile"><code>--remap-inputs-file=<samp>file</samp></code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-_002d_002dremap_002dinputs_003dpattern_003dfilename"><code>--remap-inputs=<samp>pattern</samp>=<samp>filename</samp></code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002d_002drequire_002ddefined_003dsymbol"><code>--require-defined=<var>symbol</var></code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002d_002dretain_002dsymbols_002dfile_003dfilename"><code>--retain-symbols-file=<var>filename</var></code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002d_002ds390_002dpgste"><code>--s390-pgste</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#S_002f390-ELF">S/390 ELF</a></td></tr>
@@ -10728,6 +11355,7 @@ Previous: <a href="#GNU-Free-Documentation-License" accesskey="p" rel="prev">GNU
 <tr><td></td><td valign="top"><a href="#index-_002d_002dscript_003dscript"><code>--script=<var>script</var></code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002d_002dsdata_002dgot"><code>--sdata-got</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#PowerPC-ELF32">PowerPC ELF32</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002d_002dsection_002dalignment"><code>--section-alignment</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-_002d_002dsection_002dordering_002dfile"><code>--section-ordering-file</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002d_002dsection_002dstart_003dsectionname_003dorg"><code>--section-start=<var>sectionname</var>=<var>org</var></code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002d_002dsecure_002dplt"><code>--secure-plt</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#PowerPC-ELF32">PowerPC ELF32</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002d_002dsort_002dcommon"><code>--sort-common</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
@@ -10773,8 +11401,10 @@ Previous: <a href="#GNU-Free-Documentation-License" accesskey="p" rel="prev">GNU
 <tr><td></td><td valign="top"><a href="#index-_002d_002dwarn_002dalternate_002dem"><code>--warn-alternate-em</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002d_002dwarn_002dcommon"><code>--warn-common</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002d_002dwarn_002dconstructors"><code>--warn-constructors</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-_002d_002dwarn_002dexecstack"><code>--warn-execstack</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002d_002dwarn_002dmultiple_002dgp"><code>--warn-multiple-gp</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002d_002dwarn_002donce"><code>--warn-once</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-_002d_002dwarn_002drwx_002dsegments"><code>--warn-rwx-segments</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002d_002dwarn_002dsection_002dalign"><code>--warn-section-align</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002d_002dwarn_002dtextrel"><code>--warn-textrel</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002d_002dwarn_002dunresolved_002dsymbols"><code>--warn-unresolved-symbols</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
@@ -10830,6 +11460,7 @@ Previous: <a href="#GNU-Free-Documentation-License" accesskey="p" rel="prev">GNU
 <tr><td></td><td valign="top"><a href="#index-_002dP-AUDITLIB"><code>-P <var>AUDITLIB</var></code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002dpie"><code>-pie</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002dplugin-name"><code>-plugin <var>name</var></code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-_002dplugin_002dsave_002dtemps"><code>-plugin-save-temps</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002dq"><code>-q</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002dqmagic"><code>-qmagic</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002dQy"><code>-Qy</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
@@ -10854,6 +11485,7 @@ Previous: <a href="#GNU-Free-Documentation-License" accesskey="p" rel="prev">GNU
 <tr><td></td><td valign="top"><a href="#index-_002dUr"><code>-Ur</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002dv"><code>-v</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002dV"><code>-V</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-_002dw"><code>-w</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002dx"><code>-x</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002dX"><code>-X</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002dY-path"><code>-Y <var>path</var></code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
@@ -10910,6 +11542,7 @@ Previous: <a href="#GNU-Free-Documentation-License" accesskey="p" rel="prev">GNU
 <tr><td></td><td valign="top"><a href="#index-arithmetic-operators">arithmetic operators</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Operators">Operators</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-ARM-interworking-support">ARM interworking support</a>:</td><td>&nbsp;</td><td valign="top"><a href="#ARM">ARM</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-ARM1176-erratum-workaround">ARM1176 erratum workaround</a>:</td><td>&nbsp;</td><td valign="top"><a href="#ARM">ARM</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-ASCIZ-_0060_0060string_0027_0027"><code>ASCIZ ``<var>string</var>''</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Output-Section-Data">Output Section Data</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-ASSERT"><code>ASSERT</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Miscellaneous-Commands">Miscellaneous Commands</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-assertion-in-linker-script">assertion in linker script</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Miscellaneous-Commands">Miscellaneous Commands</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-assignment-in-scripts">assignment in scripts</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Assignments">Assignments</a></td></tr>
@@ -11008,6 +11641,8 @@ Previous: <a href="#GNU-Free-Documentation-License" accesskey="p" rel="prev">GNU
 <tr><td></td><td valign="top"><a href="#index-error-on-valid-input">error on valid input</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Bug-Criteria">Bug Criteria</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-example-of-linker-script">example of linker script</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Simple-Example">Simple Example</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-EXCLUDE_005fFILE">EXCLUDE_FILE</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Input-Section-Basics">Input Section Basics</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-executable-segments_002c-warnings-on">executable segments, warnings on</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-executable-stack_002c-warnings-on">executable stack, warnings on</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-export-dynamic-symbol">export dynamic symbol</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-export-dynamic-symbol-list">export dynamic symbol list</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-exporting-DLL-symbols">exporting DLL symbols</a>:</td><td>&nbsp;</td><td valign="top"><a href="#WIN32">WIN32</a></td></tr>
@@ -11120,6 +11755,8 @@ Previous: <a href="#GNU-Free-Documentation-License" accesskey="p" rel="prev">GNU
 <tr><td></td><td valign="top"><a href="#index-linker-script-input-object-files">linker script input object files</a>:</td><td>&nbsp;</td><td valign="top"><a href="#File-Commands">File Commands</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-linker-script-simple-commands">linker script simple commands</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Simple-Commands">Simple Commands</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-linker-scripts">linker scripts</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Scripts">Scripts</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-LINKER_005fVERSION">LINKER_VERSION</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Output-Section-Data">Output Section Data</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-LINKER_005fVERSION-1"><code>LINKER_VERSION</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Output-Section-Data">Output Section Data</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-LIST-_0028MRI_0029"><code>LIST</code> (MRI)</a>:</td><td>&nbsp;</td><td valign="top"><a href="#MRI">MRI</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-little_002dendian-objects">little-endian objects</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-LOAD-_0028MRI_0029"><code>LOAD</code> (MRI)</a>:</td><td>&nbsp;</td><td valign="top"><a href="#MRI">MRI</a></td></tr>
@@ -11267,11 +11904,13 @@ Previous: <a href="#GNU-Free-Documentation-License" accesskey="p" rel="prev">GNU
 <tr><td></td><td valign="top"><a href="#index-relaxing-on-Xtensa">relaxing on Xtensa</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Xtensa">Xtensa</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-relocatable-and-absolute-symbols">relocatable and absolute symbols</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Expression-Section">Expression Section</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-relocatable-output">relocatable output</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-remapping-inputs">remapping inputs</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-removing-sections">removing sections</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Output-Section-Discarding">Output Section Discarding</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-reporting-bugs-in-ld">reporting bugs in <code>ld</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Reporting-Bugs">Reporting Bugs</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-requirements-for-BFD">requirements for BFD</a>:</td><td>&nbsp;</td><td valign="top"><a href="#BFD">BFD</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-retain-relocations-in-final-executable">retain relocations in final executable</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-retaining-specified-symbols">retaining specified symbols</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-REVERSE">REVERSE</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Input-Section-Wildcards">Input Section Wildcards</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-rodata-segment-origin_002c-cmd-line">rodata segment origin, cmd line</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-ROM-initialized-data">ROM initialized data</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Output-Section-LMA">Output Section LMA</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-round-up-expression">round up expression</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Builtin-Functions">Builtin Functions</a></td></tr>
@@ -11397,8 +12036,10 @@ Previous: <a href="#GNU-Free-Documentation-License" accesskey="p" rel="prev">GNU
 <tr><td colspan="4"> <hr></td></tr>
 <tr><th id="LD-Index_cp_letter-W">W</th><td></td><td></td></tr>
 <tr><td></td><td valign="top"><a href="#index-warnings_002c-on-combining-symbols">warnings, on combining symbols</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-warnings_002c-on-executable-stack">warnings, on executable stack</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-warnings_002c-on-section-alignment">warnings, on section alignment</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-warnings_002c-on-undefined-symbols">warnings, on undefined symbols</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-warnings_002c-on-writeable-and-exectuable-segments">warnings, on writeable and exectuable segments</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-weak-externals">weak externals</a>:</td><td>&nbsp;</td><td valign="top"><a href="#WIN32">WIN32</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-what-is-this_003f">what is this?</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Overview">Overview</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-wildcard-file-name-patterns">wildcard file name patterns</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Input-Section-Wildcards">Input Section Wildcards</a></td></tr>

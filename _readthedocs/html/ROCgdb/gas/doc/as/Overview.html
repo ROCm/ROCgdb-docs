@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the GNU Assembler "as".
 
-Copyright (C) 1991-2022 Free Software Foundation, Inc.
+Copyright (C) 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -70,7 +70,7 @@ see <a href="Invoking.html">Command-Line Options</a>.
 
 
 <div class="example">
-<pre class="example">as [<b>-a</b>[<b>cdghlns</b>][=<var>file</var>]]
+<pre class="example">as [<b>-a</b>[<b>cdghilns</b>][=<var>file</var>]]
  [<b>&ndash;alternate</b>]
  [<b>&ndash;compress-debug-sections</b>] [<b>&ndash;nocompress-debug-sections</b>]
  [<b>-D</b>]
@@ -99,6 +99,7 @@ see <a href="Invoking.html">Command-Line Options</a>.
  [<b>&ndash;multibyte-handling=[allow|warn|warn-sym-only]</b>]
  [<b>&ndash;no-pad-sections</b>]
  [<b>-o</b> <var>objfile</var>] [<b>-R</b>]
+ [<b>&ndash;scfi=experimental</b>]
  [<b>&ndash;sectname-subst</b>]
  [<b>&ndash;size-check=[error|warning]</b>]
  [<b>&ndash;statistics</b>]
@@ -224,6 +225,7 @@ see <a href="Invoking.html">Command-Line Options</a>.
 <em>Target Meta options:</em>
    [<b>-mcpu=<var>cpu</var></b>] [<b>-mfpu=<var>cpu</var></b>] [<b>-mdsp=<var>cpu</var></b>]
 <em>Target MICROBLAZE options:</em>
+   [<b>-mlittle-endian</b>] [<b>-mbig-endian</b>]
 
 <em>Target MIPS options:</em>
    [<b>-nocpp</b>] [<b>-EL</b>] [<b>-EB</b>] [<b>-O</b>[<var>optimization level</var>]]
@@ -340,6 +342,10 @@ see <a href="Invoking.html">Command-Line Options</a>.
    [<b>-m31</b>|<b>-m64</b>] [<b>-mesa</b>|<b>-mzarch</b>] [<b>-march</b>=<var>CPU</var>]
    [<b>-mregnames</b>|<b>-mno-regnames</b>]
    [<b>-mwarn-areg-zero</b>]
+   [<b>-mwarn-regtype-mismatch=strict</b>
+    <b>-mwarn-regtype-mismatch=relaxed</b>
+    <b>-mwarn-regtype-mismatch=no</b>
+    <b>-mno-warn-regtype-mismatch</b>]
 
 <em>Target SCORE options:</em>
    [<b>-EB</b>][<b>-EL</b>][<b>-FIXDD</b>][<b>-NWARN</b>]
@@ -415,7 +421,7 @@ with a backslash.  The <var>file</var> may itself contain additional
 @<var>file</var> options; any such options will be processed recursively.
 </p>
 </dd>
-<dt><span><code>-a[cdghlmns]</code></span></dt>
+<dt><span><code>-a[cdghilmns]</code></span></dt>
 <dd><p>Turn on listings, in any of a variety of ways:
 </p>
 <dl compact="compact">
@@ -437,6 +443,10 @@ with a backslash.  The <var>file</var> may itself contain additional
 </dd>
 <dt><span><code>-al</code></span></dt>
 <dd><p>include assembly
+</p>
+</dd>
+<dt><span><code>-ali</code></span></dt>
+<dd><p>include assembly with ginsn
 </p>
 </dd>
 <dt><span><code>-am</code></span></dt>
@@ -501,7 +511,7 @@ override this.
 </p>
 </dd>
 <dt><span><code>-D</code></span></dt>
-<dd><p>Enable denugging in target specific backends, if supported.  Otherwise ignored.
+<dd><p>Enable debugging in target specific backends, if supported.  Otherwise ignored.
 Even if ignored, this option is accepted for script compatibility with calls to
 other assemblers.
 </p>
@@ -604,7 +614,7 @@ suffix.
 </dd>
 <dt><span><code>--gdwarf-cie-version=<var>version</var></code></span></dt>
 <dd><p>Control which version of DWARF Common Information Entries (CIEs) are produced.
-When this flag is not specificed the default is version 1, though some targets
+When this flag is not specified the default is version 1, though some targets
 can modify this default.  Other possible values for <var>version</var> are 3 or 4.
 </p>
 </dd>
@@ -703,8 +713,23 @@ which might be needed on targets which have tight memory constraints.
 </p>
 </dd>
 <dt><span><code>--reduce-memory-overheads</code></span></dt>
-<dd><p>Ignored.  Supported for compatibility with tools that apss the same option to
+<dd><p>Ignored.  Supported for compatibility with tools that pass the same option to
 both the assembler and the linker.
+</p>
+</dd>
+<dt><span><code>--scfi=experimental</code></span></dt>
+<dd><p>This option controls whether the assembler should synthesize CFI for
+hand-written input.  If the input already contains some synthesizable CFI
+directives, the assembler ignores them and emits a warning.  Note that
+<code>--scfi=experimental</code> is not intended to be used for compiler-generated
+code, including inline assembly.  This experimental support is work in
+progress.  Only System V AMD64 ABI is supported.
+</p>
+<p>Each input function in assembly must begin with the <code>.type</code> directive, and
+should ideally be closed off using a <code>.size</code> directive.  When using SCFI,
+each <code>.type</code> directive prompts GAS to start a new FDE (a.k.a., Function
+Descriptor Entry).  This implies that with each <code>.type</code> directive, a
+previous block of instructions, if any, is finalised as a distinct FDE.
 </p>
 </dd>
 <dt><span><code>--sectname-subst</code></span></dt>
@@ -837,7 +862,7 @@ configured for the Blackfin processor family.
 
 
 
-<p>See <a href="BPF-Options.html">Options</a>, for the options available when as is
+<p>See <a href="BPF-Options.html">BPF Options</a>, for the options available when as is
 configured for the Linux kernel BPF processor family.
 </p>
 
@@ -1582,6 +1607,23 @@ Architecture (esa) or the z/Architecture mode (zarch).
 <dt><span><code>-mwarn-areg-zero</code></span></dt>
 <dd><p>Warn whenever the operand for a base or index register has been specified
 but evaluates to zero.
+</p></dd>
+<dt><span><code>-mwarn-regtype-mismatch=strict</code></span></dt>
+<dt><span><code>-mwarn-regtype-mismatch=relaxed</code></span></dt>
+<dt><span><code>-mwarn-regtype-mismatch=no</code></span></dt>
+<dt><span><code>-mno-warn-regtype-mismatch</code></span></dt>
+<dd><p>Controls whether the assembler performs register name type checks and generates
+a warning message in case of a mismatch with the operand register type.
+The default (which can be restored by using the <samp>relaxed</samp> argument) is
+to perform relaxed register name type checks, which allow floating point
+register (FPR) names %f0 to %f15 to be specified as argument to vector register
+(VR) operands and vector register (VR) names %v0 to %v15 to be specified as
+argument to floating point register (FPR) operands.  This is acceptable as the
+FPR are embedded into the lower half of the VR.
+Using the <samp>strict</samp> argument strict register name type checks are
+performed.
+The <samp>no</samp> argument, which is equivalent to
+&lsquo;<samp>-mno-warn-regtype-mismatch</samp>&rsquo;, disables any register name type checks.
 </p></dd>
 </dl>
 

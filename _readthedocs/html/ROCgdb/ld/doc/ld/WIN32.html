@@ -5,9 +5,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the GNU linker LD
 (GNU Binutils)
-version 2.38.50.
+version 2.42.50.
 
-Copyright (C) 1991-2022 Free Software Foundation, Inc.
+Copyright (C) 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -60,7 +60,7 @@ ul.no-bullet {list-style: none}
 Next: <a href="Xtensa.html" accesskey="n" rel="next"><code>ld</code> and Xtensa Processors</a>, Previous: <a href="TI-COFF.html" accesskey="p" rel="prev"><code>ld</code>&rsquo;s Support for Various TI COFF Versions</a>, Up: <a href="Machine-Dependent.html" accesskey="u" rel="up">Machine Dependent Features</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="LD-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="ld-and-WIN32-_0028cygwin_002fmingw_0029"></span><h3 class="section">5.16 <code>ld</code> and WIN32 (cygwin/mingw)</h3>
+<span id="ld-and-WIN32-_0028cygwin_002fmingw_0029"></span><h3 class="section">6.16 <code>ld</code> and WIN32 (cygwin/mingw)</h3>
 
 <p>This section describes some of the win32 specific <code>ld</code> issues.
 See <a href="Options.html">Command-line Options</a> for detailed description of the
@@ -77,6 +77,40 @@ archive.  The cygwin and mingw ports of <code>ld</code> have specific
 support for creating such libraries provided with the
 &lsquo;<samp>--out-implib</samp>&rsquo; command-line option.
 </p>
+</dd>
+<dt><span><em>Resource only DLLs</em></span></dt>
+<dd><p>It is possible to create a DLL that only contains resources, ie just a
+&lsquo;<samp>.rsrc</samp>&rsquo; section, but in order to do so a custom linker script
+must be used.  This is because the built-in default linker scripts
+will always create &lsquo;<samp>.text</samp>&rsquo; and &lsquo;<samp>.idata</samp>&rsquo; sections, even if
+there is no input to go into them.
+</p>
+<p>The script should look like this, although the <code>OUTPUT_FORMAT</code>
+should be changed to match the desired format.
+</p>
+<div class="example">
+<pre class="example">OUTPUT_FORMAT(pei-i386)
+SECTIONS
+{
+  . = SIZEOF_HEADERS;
+  . = ALIGN(__section_alignment__);
+  .rsrc __image_base__ + __section_alignment__ : ALIGN(4)
+  {
+    KEEP (*(.rsrc))
+    KEEP (*(.rsrc$*))
+  }
+  /DISCARD/ : { *(*) }
+}
+</pre></div>
+
+<p>With this script saved to a file called, eg <samp>rsrc.ld</samp>, a command
+line like this can be used to create the resource only DLL
+<samp>rsrc.dll</samp> from an input file called <samp>rsrc.o</samp>:
+</p>
+<div class="example">
+<pre class="example">ld -dll --subsystem windows -e 0 -s rsrc.o -o rsrc.dll -T rsrc.ld
+</pre></div>
+
 </dd>
 <dt id='index-exporting-DLL-symbols'><span><em>exporting DLL symbols</em><a href='#index-exporting-DLL-symbols' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>The cygwin/mingw <code>ld</code> has several ways to export symbols for dll&rsquo;s.

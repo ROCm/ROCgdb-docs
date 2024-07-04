@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the BFD library.
 
-Copyright (C) 1991-2022 Free Software Foundation, Inc.
+Copyright (C) 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -63,13 +63,351 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<span id="Internal"></span><div class="header">
+<div class="section" id="Internal">
+<div class="header">
 <p>
 Next: <a href="File-Caching.html" accesskey="n" rel="next">File caching</a>, Previous: <a href="Opening-and-Closing.html" accesskey="p" rel="prev">Opening and closing BFDs</a>, Up: <a href="BFD-front-end.html" accesskey="u" rel="up">BFD Front End</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="BFD-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h4 class="node-heading">Internal</h4>
+<span id="Implementation-details"></span><h3 class="section">2.15 Implementation details</h3>
 
+
+<ul class="section-toc">
+<li><a href="#Internal-functions" accesskey="1">Internal functions</a></li>
+</ul>
+<div class="subsection" id="Internal-functions">
+<h4 class="subsection">2.15.1 Internal functions</h4>
+
+
+<p>These routines are used within BFD.
+They are not intended for export, but are documented here for
+completeness.
+</p>
+<span id="index-bfd_005fmalloc"></span>
+<ul class="section-toc">
+<li><a href="#bfd_005fmalloc" accesskey="1"><code>bfd_malloc</code></a></li>
+<li><a href="#bfd_005frealloc" accesskey="2"><code>bfd_realloc</code></a></li>
+<li><a href="#bfd_005frealloc_005for_005ffree" accesskey="3"><code>bfd_realloc_or_free</code></a></li>
+<li><a href="#bfd_005fzmalloc" accesskey="4"><code>bfd_zmalloc</code></a></li>
+<li><a href="#bfd_005falloc" accesskey="5"><code>bfd_alloc</code></a></li>
+<li><a href="#bfd_005fzalloc" accesskey="6"><code>bfd_zalloc</code></a></li>
+<li><a href="#bfd_005frelease" accesskey="7"><code>bfd_release</code></a></li>
+<li><a href="#bfd_005fwrite_005fbigendian_005f4byte_005fint" accesskey="8"><code>bfd_write_bigendian_4byte_int</code></a></li>
+<li><a href="#bfd_005fput_005fsize" accesskey="9"><code>bfd_put_size</code></a></li>
+<li><a href="#bfd_005fget_005fsize-1"><code>bfd_get_size</code></a></li>
+<li><a href="#bfd_005fh_005fput_005fsize"><code>bfd_h_put_size</code></a></li>
+<li><a href="#Byte-swapping-routines_002e"><code>Byte swapping routines.</code></a></li>
+<li><a href="#bfd_005flog2"><code>bfd_log2</code></a></li>
+</ul>
+<div class="subsubsection" id="bfd_005fmalloc">
+<h4 class="subsubsection">2.15.1.1 <code>bfd_malloc</code></h4>
+<dl class="def">
+<dt id="index-_002abfd_005fmalloc"><span class="category">Function: </span><span><em>void</em> <strong>*bfd_malloc</strong> <em>(bfd_size_type *size*);</em><a href='#index-_002abfd_005fmalloc' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Returns a pointer to an allocated block of memory that is at least
+SIZE bytes long.  If SIZE is 0 then it will be treated as if it were
+1.  If SIZE is too big then NULL will be returned.
+Returns NULL upon error and sets bfd_error.
+</p>
+</dd></dl>
+<span id="index-bfd_005frealloc"></span>
+</div>
+<div class="subsubsection" id="bfd_005frealloc">
+<h4 class="subsubsection">2.15.1.2 <code>bfd_realloc</code></h4>
+<dl class="def">
+<dt id="index-_002abfd_005frealloc"><span class="category">Function: </span><span><em>void</em> <strong>*bfd_realloc</strong> <em>(void **mem*, bfd_size_type *size*);</em><a href='#index-_002abfd_005frealloc' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Returns a pointer to an allocated block of memory that is at least
+SIZE bytes long.  If SIZE is 0 then it will be treated as if it were
+1.  If SIZE is too big then NULL will be returned.
+If MEM is not NULL then it must point to an allocated block of memory.
+If this block is large enough then MEM may be used as the return
+value for this function, but this is not guaranteed.
+</p>
+<p>If MEM is not returned then the first N bytes in the returned block
+will be identical to the first N bytes in region pointed to by MEM,
+where N is the lessor of SIZE and the length of the region of memory
+currently addressed by MEM.
+</p>
+<p>Returns NULL upon error and sets bfd_error.
+</p>
+</dd></dl>
+<span id="index-bfd_005frealloc_005for_005ffree"></span>
+</div>
+<div class="subsubsection" id="bfd_005frealloc_005for_005ffree">
+<h4 class="subsubsection">2.15.1.3 <code>bfd_realloc_or_free</code></h4>
+<dl class="def">
+<dt id="index-_002abfd_005frealloc_005for_005ffree"><span class="category">Function: </span><span><em>void</em> <strong>*bfd_realloc_or_free</strong> <em>(void **mem*, bfd_size_type *size*);</em><a href='#index-_002abfd_005frealloc_005for_005ffree' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Returns a pointer to an allocated block of memory that is at least
+SIZE bytes long.  If SIZE is 0 then no memory will be allocated,
+MEM will be freed, and NULL will be returned.  This will not cause
+bfd_error to be set.
+</p>
+<p>If SIZE is too big then NULL will be returned and bfd_error will be
+set. 
+If MEM is not NULL then it must point to an allocated block of memory.
+If this block is large enough then MEM may be used as the return
+value for this function, but this is not guaranteed.
+</p>
+<p>If MEM is not returned then the first N bytes in the returned block
+will be identical to the first N bytes in region pointed to by MEM,
+where N is the lessor of SIZE and the length of the region of memory
+currently addressed by MEM.
+</p>
+</dd></dl>
+<span id="index-bfd_005fzmalloc"></span>
+</div>
+<div class="subsubsection" id="bfd_005fzmalloc">
+<h4 class="subsubsection">2.15.1.4 <code>bfd_zmalloc</code></h4>
+<dl class="def">
+<dt id="index-_002abfd_005fzmalloc"><span class="category">Function: </span><span><em>void</em> <strong>*bfd_zmalloc</strong> <em>(bfd_size_type *size*);</em><a href='#index-_002abfd_005fzmalloc' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Returns a pointer to an allocated block of memory that is at least
+SIZE bytes long.  If SIZE is 0 then it will be treated as if it were
+1.  If SIZE is too big then NULL will be returned.
+Returns NULL upon error and sets bfd_error.
+</p>
+<p>If NULL is not returned then the allocated block of memory will
+have been cleared.
+</p>
+</dd></dl>
+<span id="index-bfd_005falloc"></span>
+</div>
+<div class="subsubsection" id="bfd_005falloc">
+<h4 class="subsubsection">2.15.1.5 <code>bfd_alloc</code></h4>
+<dl class="def">
+<dt id="index-_002abfd_005falloc"><span class="category">Function: </span><span><em>void</em> <strong>*bfd_alloc</strong> <em>(bfd *abfd, bfd_size_type wanted);</em><a href='#index-_002abfd_005falloc' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Allocate a block of <var>wanted</var> bytes of memory attached to
+<code>abfd</code> and return a pointer to it.
+</p>
+</dd></dl>
+<span id="index-bfd_005fzalloc"></span>
+</div>
+<div class="subsubsection" id="bfd_005fzalloc">
+<h4 class="subsubsection">2.15.1.6 <code>bfd_zalloc</code></h4>
+<dl class="def">
+<dt id="index-_002abfd_005fzalloc"><span class="category">Function: </span><span><em>void</em> <strong>*bfd_zalloc</strong> <em>(bfd *abfd, bfd_size_type wanted);</em><a href='#index-_002abfd_005fzalloc' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Allocate a block of <var>wanted</var> bytes of zeroed memory
+attached to <code>abfd</code> and return a pointer to it.
+</p>
+</dd></dl>
+<span id="index-bfd_005frelease"></span>
+</div>
+<div class="subsubsection" id="bfd_005frelease">
+<h4 class="subsubsection">2.15.1.7 <code>bfd_release</code></h4>
+<dl class="def">
+<dt id="index-bfd_005frelease-1"><span class="category">Function: </span><span><em>void</em> <strong>bfd_release</strong> <em>(bfd *, void *);</em><a href='#index-bfd_005frelease-1' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Free a block allocated for a BFD.
+Note: Also frees all more recently allocated blocks!
+</p>
+</dd></dl>
+<span id="index-bfd_005fwrite_005fbigendian_005f4byte_005fint"></span>
+</div>
+<div class="subsubsection" id="bfd_005fwrite_005fbigendian_005f4byte_005fint">
+<h4 class="subsubsection">2.15.1.8 <code>bfd_write_bigendian_4byte_int</code></h4>
+<dl class="def">
+<dt id="index-bfd_005fwrite_005fbigendian_005f4byte_005fint-1"><span class="category">Function: </span><span><em>bool</em> <strong>bfd_write_bigendian_4byte_int</strong> <em>(bfd *, unsigned int);</em><a href='#index-bfd_005fwrite_005fbigendian_005f4byte_005fint-1' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Write a 4 byte integer <var>i</var> to the output BFD <var>abfd</var>, in big
+endian order regardless of what else is going on.  This is useful in
+archives.
+</p>
+</dd></dl>
+<span id="index-bfd_005fput_005fsize"></span>
+</div>
+<div class="subsubsection" id="bfd_005fput_005fsize">
+<h4 class="subsubsection">2.15.1.9 <code>bfd_put_size</code></h4>
+<span id="index-bfd_005fget_005fsize-2"></span>
+</div>
+<div class="subsubsection" id="bfd_005fget_005fsize-1">
+<h4 class="subsubsection">2.15.1.10 <code>bfd_get_size</code></h4>
+<p>These macros as used for reading and writing raw data in
+sections; each access (except for bytes) is vectored through
+the target format of the BFD and mangled accordingly. The
+mangling performs any necessary endian translations and
+removes alignment restrictions.  Note that types accepted and
+returned by these macros are identical so they can be swapped
+around in macros&mdash;for example, <samp>libaout.h</samp> defines <code>GET_WORD</code>
+to either <code>bfd_get_32</code> or <code>bfd_get_64</code>.
+</p>
+<p>In the put routines, <var>val</var> must be a <code>bfd_vma</code>.  If we are on a
+system without prototypes, the caller is responsible for making
+sure that is true, with a cast if necessary.  We don&rsquo;t cast
+them in the macro definitions because that would prevent <code>lint</code>
+or <code>gcc -Wall</code> from detecting sins such as passing a pointer.
+To detect calling these with less than a <code>bfd_vma</code>, use
+<code>gcc -Wconversion</code> on a host with 64 bit <code>bfd_vma</code>&rsquo;s.
+</p><div class="example">
+<pre class="example">
+
+/* Byte swapping macros for user section data.  */
+
+#define bfd_put_8(abfd, val, ptr) \
+  ((void) (*((bfd_byte *) (ptr)) = (val) &amp; 0xff))
+#define bfd_put_signed_8 \
+  bfd_put_8
+#define bfd_get_8(abfd, ptr) \
+  ((bfd_vma) *(const bfd_byte *) (ptr) &amp; 0xff)
+#define bfd_get_signed_8(abfd, ptr) \
+  ((((bfd_signed_vma) *(const bfd_byte *) (ptr) &amp; 0xff) ^ 0x80) - 0x80)
+
+#define bfd_put_16(abfd, val, ptr) \
+  BFD_SEND (abfd, bfd_putx16, ((val),(ptr)))
+#define bfd_put_signed_16 \
+  bfd_put_16
+#define bfd_get_16(abfd, ptr) \
+  BFD_SEND (abfd, bfd_getx16, (ptr))
+#define bfd_get_signed_16(abfd, ptr) \
+  BFD_SEND (abfd, bfd_getx_signed_16, (ptr))
+
+#define bfd_put_24(abfd, val, ptr) \
+  do                                   \
+    if (bfd_big_endian (abfd))         \
+      bfd_putb24 ((val), (ptr));       \
+    else                               \
+      bfd_putl24 ((val), (ptr));       \
+  while (0)
+
+bfd_vma bfd_getb24 (const void *p);
+bfd_vma bfd_getl24 (const void *p);
+
+#define bfd_get_24(abfd, ptr) \
+  (bfd_big_endian (abfd) ? bfd_getb24 (ptr) : bfd_getl24 (ptr))
+
+#define bfd_put_32(abfd, val, ptr) \
+  BFD_SEND (abfd, bfd_putx32, ((val),(ptr)))
+#define bfd_put_signed_32 \
+  bfd_put_32
+#define bfd_get_32(abfd, ptr) \
+  BFD_SEND (abfd, bfd_getx32, (ptr))
+#define bfd_get_signed_32(abfd, ptr) \
+  BFD_SEND (abfd, bfd_getx_signed_32, (ptr))
+
+#define bfd_put_64(abfd, val, ptr) \
+  BFD_SEND (abfd, bfd_putx64, ((val), (ptr)))
+#define bfd_put_signed_64 \
+  bfd_put_64
+#define bfd_get_64(abfd, ptr) \
+  BFD_SEND (abfd, bfd_getx64, (ptr))
+#define bfd_get_signed_64(abfd, ptr) \
+  BFD_SEND (abfd, bfd_getx_signed_64, (ptr))
+
+#define bfd_get(bits, abfd, ptr)                       \
+  ((bits) == 8 ? bfd_get_8 (abfd, ptr)                 \
+   : (bits) == 16 ? bfd_get_16 (abfd, ptr)             \
+   : (bits) == 32 ? bfd_get_32 (abfd, ptr)             \
+   : (bits) == 64 ? bfd_get_64 (abfd, ptr)             \
+   : (abort (), (bfd_vma) - 1))
+
+#define bfd_put(bits, abfd, val, ptr)                  \
+  ((bits) == 8 ? bfd_put_8  (abfd, val, ptr)           \
+   : (bits) == 16 ? bfd_put_16 (abfd, val, ptr)        \
+   : (bits) == 32 ? bfd_put_32 (abfd, val, ptr)        \
+   : (bits) == 64 ? bfd_put_64 (abfd, val, ptr)        \
+   : (abort (), (void) 0))
+
+</pre></div>
+
+<span id="index-bfd_005fh_005fput_005fsize"></span>
+</div>
+<div class="subsubsection" id="bfd_005fh_005fput_005fsize">
+<h4 class="subsubsection">2.15.1.11 <code>bfd_h_put_size</code></h4>
+<p>These macros have the same function as their <code>bfd_get_x</code>
+brethren, except that they are used for removing information
+for the header records of object files. Believe it or not,
+some object files keep their header records in big endian
+order and their data in little endian order.
+</p><div class="example">
+<pre class="example">
+
+/* Byte swapping macros for file header data.  */
+
+#define bfd_h_put_8(abfd, val, ptr) \
+  bfd_put_8 (abfd, val, ptr)
+#define bfd_h_put_signed_8(abfd, val, ptr) \
+  bfd_put_8 (abfd, val, ptr)
+#define bfd_h_get_8(abfd, ptr) \
+  bfd_get_8 (abfd, ptr)
+#define bfd_h_get_signed_8(abfd, ptr) \
+  bfd_get_signed_8 (abfd, ptr)
+
+#define bfd_h_put_16(abfd, val, ptr) \
+  BFD_SEND (abfd, bfd_h_putx16, (val, ptr))
+#define bfd_h_put_signed_16 \
+  bfd_h_put_16
+#define bfd_h_get_16(abfd, ptr) \
+  BFD_SEND (abfd, bfd_h_getx16, (ptr))
+#define bfd_h_get_signed_16(abfd, ptr) \
+  BFD_SEND (abfd, bfd_h_getx_signed_16, (ptr))
+
+#define bfd_h_put_32(abfd, val, ptr) \
+  BFD_SEND (abfd, bfd_h_putx32, (val, ptr))
+#define bfd_h_put_signed_32 \
+  bfd_h_put_32
+#define bfd_h_get_32(abfd, ptr) \
+  BFD_SEND (abfd, bfd_h_getx32, (ptr))
+#define bfd_h_get_signed_32(abfd, ptr) \
+  BFD_SEND (abfd, bfd_h_getx_signed_32, (ptr))
+
+#define bfd_h_put_64(abfd, val, ptr) \
+  BFD_SEND (abfd, bfd_h_putx64, (val, ptr))
+#define bfd_h_put_signed_64 \
+  bfd_h_put_64
+#define bfd_h_get_64(abfd, ptr) \
+  BFD_SEND (abfd, bfd_h_getx64, (ptr))
+#define bfd_h_get_signed_64(abfd, ptr) \
+  BFD_SEND (abfd, bfd_h_getx_signed_64, (ptr))
+
+/* Aliases for the above, which should eventually go away.  */
+
+#define H_PUT_64  bfd_h_put_64
+#define H_PUT_32  bfd_h_put_32
+#define H_PUT_16  bfd_h_put_16
+#define H_PUT_8   bfd_h_put_8
+#define H_PUT_S64 bfd_h_put_signed_64
+#define H_PUT_S32 bfd_h_put_signed_32
+#define H_PUT_S16 bfd_h_put_signed_16
+#define H_PUT_S8  bfd_h_put_signed_8
+#define H_GET_64  bfd_h_get_64
+#define H_GET_32  bfd_h_get_32
+#define H_GET_16  bfd_h_get_16
+#define H_GET_8   bfd_h_get_8
+#define H_GET_S64 bfd_h_get_signed_64
+#define H_GET_S32 bfd_h_get_signed_32
+#define H_GET_S16 bfd_h_get_signed_16
+#define H_GET_S8  bfd_h_get_signed_8
+
+
+</pre></div>
+
+<span id="index-Byte-swapping-routines_002e"></span>
+</div>
+<div class="subsubsection" id="Byte-swapping-routines_002e">
+<h4 class="subsubsection">2.15.1.12 <code>Byte swapping routines.</code></h4>
+<dl class="def">
+<dt id="index-bfd_005fgetb64"><span class="category">Function: </span><span><em>uint64_t</em> <strong>bfd_getb64</strong> <em>(const void *); uint64_t bfd_getl64 (const void *); int64_t bfd_getb_signed_64 (const void *); int64_t bfd_getl_signed_64 (const void *); bfd_vma bfd_getb32 (const void *); bfd_vma bfd_getl32 (const void *); bfd_signed_vma bfd_getb_signed_32 (const void *); bfd_signed_vma bfd_getl_signed_32 (const void *); bfd_vma bfd_getb16 (const void *); bfd_vma bfd_getl16 (const void *); bfd_signed_vma bfd_getb_signed_16 (const void *); bfd_signed_vma bfd_getl_signed_16 (const void *); void bfd_putb64 (uint64_t, void *); void bfd_putl64 (uint64_t, void *); void bfd_putb32 (bfd_vma, void *); void bfd_putl32 (bfd_vma, void *); void bfd_putb24 (bfd_vma, void *); void bfd_putl24 (bfd_vma, void *); void bfd_putb16 (bfd_vma, void *); void bfd_putl16 (bfd_vma, void *); uint64_t bfd_get_bits (const void *, int, bool); void bfd_put_bits (uint64_t, void *, int, bool);</em><a href='#index-bfd_005fgetb64' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Read and write integers in a particular endian order.  getb
+and putb functions handle big-endian, getl and putl handle
+little-endian.  bfd_get_bits and bfd_put_bits specify
+big-endian by passing TRUE in the last parameter,
+little-endian by passing FALSE.
+</p>
+</dd></dl>
+<span id="index-bfd_005flog2"></span>
+</div>
+<div class="subsubsection" id="bfd_005flog2">
+<h4 class="subsubsection">2.15.1.13 <code>bfd_log2</code></h4>
+<dl class="def">
+<dt id="index-int-6"><span class="category">Function: </span><span><em>unsigned</em> <strong>int</strong> <em>bfd_log2 (bfd_vma x);</em><a href='#index-int-6' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Return the log base 2 of the value supplied, rounded up.  E.g., an
+<var>x</var> of 1025 returns 11.  A <var>x</var> of 0 returns 0.
+</p>
+</dd></dl>
+
+</div>
+</div>
+</div>
+<hr>
+<div class="header">
+<p>
+Next: <a href="File-Caching.html">File caching</a>, Previous: <a href="Opening-and-Closing.html">Opening and closing BFDs</a>, Up: <a href="BFD-front-end.html">BFD Front End</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="BFD-Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
 
 
 

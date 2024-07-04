@@ -3,7 +3,7 @@
 <!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright (C) 1988-2022 Free Software Foundation, Inc.
+<!-- Copyright (C) 1988-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -16,35 +16,47 @@ and with the Back-Cover Texts as in (a) below.
 this GNU Manual.  Buying copies from GNU Press supports the FSF in
 developing GNU and promoting software freedom."
 
-Disclaimer
+Legal Disclaimer and Copyright Information
 
-The information contained herein is for informational purposes only,
-and is subject to change without notice.  While every precaution has
-been taken in the preparation of this document, it may contain
-technical inaccuracies, omissions and typographical errors, and AMD is
-under no obligation to update or otherwise correct this information.
-Advanced Micro Devices, Inc. makes no representations or warranties
-with respect to the accuracy or completeness of the contents of this
-document, and assumes no liability of any kind, including the implied
-warranties of noninfringement, merchantability or fitness for
-particular purposes, with respect to the operation or use of AMD
-hardware, software or other products described herein.  No license,
-including implied or arising by estoppel, to any intellectual property
-rights is granted by this document.  Terms and limitations applicable
-to the purchase or use of AMD’s products are as set forth in a signed
-agreement between the parties or in AMD's Standard Terms and
-Conditions of Sale.
+AMD ROCm software is made available by Advanced Micro Devices, Inc. under the
+open source license identified in the top-level directory for the library in
+the repository on Github.com (Portions of AMD ROCm software are
+licensed under MITx11 and UIL/NCSA. For more information on the license, review
+the license.txt in the top-level directory for the library on
+Github.com).  The additional terms and conditions below apply to your use
+of AMD ROCm technical documentation.
 
-AMD(R), the AMD Arrow logo, AMD Instinct(R),
-Radeon(R), ROCm(R) and combinations thereof are
-trademarks of Advanced Micro Devices, Inc.  Linux(R) is the
-registered trademark of Linus Torvalds in the U.S. and other countries.
-PCIe(R) is a registered trademark of PCI-SIG Corporation. Other
-product names used in this publication are for identification purposes only and
-may be trademarks of their respective companies.
+(C)2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
 
-Copyright (C) 2019-2022 Advanced Micro Devices, Inc.  All
-rights reserved. -->
+The information presented in this document is for informational purposes only
+and may contain technical inaccuracies, omissions, and typographical errors.
+The information contained herein is subject to change and may be rendered
+inaccurate for many reasons, including but not limited to product and roadmap
+changes, component and motherboard version changes, new model and/or product
+releases, product differences between differing manufacturers, software
+changes, BIOS flashes, firmware upgrades, or the like.  Any computer system has
+risks of security vulnerabilities that cannot be completely prevented or
+mitigated.  AMD assumes no obligation to update or otherwise correct or revise
+this information.  However, AMD reserves the right to revise this information
+and to make changes from time to time to the content hereof without obligation
+of AMD to notify any person of such revisions or changes.
+
+THIS INFORMATION IS PROVIDED "AS IS."  AMD MAKES NO REPRESENTATIONS OR
+WARRANTIES WITH RESPECT TO THE CONTENTS HEREOF AND ASSUMES NO RESPONSIBILITY
+FOR ANY INACCURACIES, ERRORS, OR OMISSIONS THAT MAY APPEAR IN THIS INFORMATION.
+AMD SPECIFICALLY DISCLAIMS ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT,
+MERCHANTABILITY, OR FITNESS FOR ANY PARTICULAR PURPOSE.  IN NO EVENT WILL AMD
+BE LIABLE TO ANY PERSON FOR ANY RELIANCE, DIRECT, INDIRECT, SPECIAL, OR OTHER
+CONSEQUENTIAL DAMAGES ARISING FROM THE USE OF ANY INFORMATION CONTAINED HEREIN,
+EVEN IF AMD IS EXPRESSLY ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+
+AMD, the AMD Arrow logo, AMD Instinct™, Radeon™, AMD ROCm™, and combinations
+thereof are trademarks of Advanced Micro Devices, Inc.
+Linux(R) is the registered trademark of Linus Torvalds in the
+U.S. and other countries. PCIe(R) is a registered trademark of
+PCI-SIG Corporation.  Other product names used in this publication are for
+identification purposes only and may be trademarks of their respective
+companies. -->
 <title>AMD GPU (Debugging with ROCGDB)</title>
 
 <meta name="description" content="AMD GPU (Debugging with ROCGDB)">
@@ -95,8 +107,7 @@ Previous: <a href="S12Z.html" accesskey="p" rel="prev">S12Z</a>, Up: <a href="Ar
 <p><small>ROCGDB</small> provides support for systems that have heterogeneous
 agents associated with commercially available <acronym>AMD GPU</acronym>
 devices (see <a href="Heterogeneous-Debugging.html">Debugging Heterogeneous Programs</a>) when the
-<a href="https://rocmdocs.amd.com/"><acronym>AMD ROCm</acronym></a> platform is
-installed.
+<a href="https://docs.amd.com"><acronym>AMD ROCm</acronym></a> platform is installed.
 </p>
 <ul class="section-toc">
 <li><a href="#AMD-GPU-Architectures" accesskey="1"><acronym>AMD GPU</acronym> Architectures</a></li>
@@ -114,61 +125,94 @@ installed.
 <li><a href="#AMD-GPU-Memory-Violation-Reporting"><acronym>AMD GPU</acronym> Memory Violation Reporting</a></li>
 <li><a href="#AMD-GPU-Logging"><acronym>AMD GPU</acronym> Logging</a></li>
 <li><a href="#AMD-GPU-Version"><acronym>AMD GPU</acronym> Version</a></li>
+<li><a href="#AMD-GPU-core-dumps-1"><acronym>AMD GPU</acronym> core dumps</a></li>
 <li><a href="#AMD-GPU-Restrictions"><acronym>AMD GPU</acronym> Restrictions</a></li>
 </ul>
 <div class="subsubsection" id="AMD-GPU-Architectures">
 <h4 class="subsubsection">22.4.10.1 <acronym>AMD GPU</acronym> Architectures</h4>
 
-<p>The following <acronym>AMD GPU</acronym> achitetures are supported:
+<p>The following <acronym>AMD GPU</acronym> architectures are supported:
 </p>
 <dl compact="compact">
-<dt><span><em>AMD Vega 10</em></span></dt>
-<dd><p>Displayed as &lsquo;<samp>vega10</samp>&rsquo; by <small>ROCGDB</small> and denoted as
-&lsquo;<samp>gfx900</samp>&rsquo; by the compiler.
+<dt><span><em><code>gfx900</code></em></span></dt>
+<dd><p>AMD Vega 10 devices.
 </p>
 </dd>
-<dt><span><em>AMD Vega 7nm</em></span></dt>
-<dd><p>Displayed as &lsquo;<samp>vega20</samp>&rsquo; by <small>ROCGDB</small> and denoted as
-&lsquo;<samp>gfx906</samp>&rsquo; by the compiler.
+<dt><span><em><code>gfx906</code></em></span></dt>
+<dd><p>AMD Vega 7nm devices.
 </p>
 </dd>
-<dt><span><em>AMD Instinct&reg; MI100 accelerator</em></span></dt>
-<dd><p>Displayed as &lsquo;<samp>arcturus</samp>&rsquo; by <small>ROCGDB</small> and denoted as
-&lsquo;<samp>gfx908</samp>&rsquo; by the compiler.
+<dt><span><em><code>gfx908</code></em></span></dt>
+<dd><p>AMD Instinct&reg; MI100 accelerator devices.
 </p>
 </dd>
-<dt><span><em>Aldebaran</em></span></dt>
-<dd><p>Displayed as &lsquo;<samp>aldebaran</samp>&rsquo; by <small>ROCGDB</small> and denoted as
-&lsquo;<samp>gfx90a</samp>&rsquo; by the compiler.
+<dt><span><em><code>gfx90a</code></em></span></dt>
+<dd><p>AMD Instinct&reg; MI200 Series accelerator devices.
 </p>
 </dd>
-<dt><span><em>Navi10</em></span></dt>
-<dd><p>Displayed as &lsquo;<samp>navi10</samp>&rsquo; by <small>ROCGDB</small> and denoted as
-&lsquo;<samp>gfx1010</samp>&rsquo; by the compiler.
+<dt><span><em><code>gfx940</code></em></span></dt>
+<dd><p>Aqua Vanjaram devices.
 </p>
 </dd>
-<dt><span><em>Navi12</em></span></dt>
-<dd><p>Displayed as &lsquo;<samp>navi12</samp>&rsquo; by <small>ROCGDB</small> and denoted as
-&lsquo;<samp>gfx1011</samp>&rsquo; by the compiler.
+<dt><span><em><code>gfx941</code></em></span></dt>
+<dd><p>&lsquo;<samp>gfx941</samp>&rsquo; devices.
 </p>
 </dd>
-<dt><span><em>Navi14</em></span></dt>
-<dd><p>Displayed as &lsquo;<samp>navi14</samp>&rsquo; by <small>ROCGDB</small> and denoted as
-&lsquo;<samp>gfx1012</samp>&rsquo; by the compiler.
+<dt><span><em><code>gfx942</code></em></span></dt>
+<dd><p>&lsquo;<samp>gfx942</samp>&rsquo; devices.
 </p>
 </dd>
-<dt><span><em>Sienna Cichlid</em></span></dt>
-<dd><p>Displayed as &lsquo;<samp>sienna_cichlid</samp>&rsquo; by <small>ROCGDB</small> and denoted as
-&lsquo;<samp>gfx1030</samp>&rsquo; by the compiler.
+<dt><span><em><code>gfx1010</code></em></span></dt>
+<dd><p>Navi 10 devices.
 </p>
 </dd>
-<dt><span><em>Navy Flounder</em></span></dt>
-<dd><p>Displayed as &lsquo;<samp>navy_flounder</samp>&rsquo; by <small>ROCGDB</small> and denoted as
-&lsquo;<samp>gfx1031</samp>&rsquo; by the compiler.
+<dt><span><em><code>gfx1011</code></em></span></dt>
+<dd><p>Navi 12 devices.
+</p>
+</dd>
+<dt><span><em><code>gfx1012</code></em></span></dt>
+<dd><p>Navi 14 devices.
+</p>
+</dd>
+<dt><span><em><code>gfx1030</code></em></span></dt>
+<dd><p>Sienna Cichlid devices.
+</p>
+</dd>
+<dt><span><em><code>gfx1031</code></em></span></dt>
+<dd><p>Navy Flounder devices.
+</p>
+</dd>
+<dt><span><em><code>gfx1032</code></em></span></dt>
+<dd><p>Dimgrey Cavefish devices.
+</p>
+</dd>
+<dt><span><em><code>gfx1100</code></em></span></dt>
+<dd><p>Plum Bonito devices.
+</p>
+</dd>
+<dt><span><em><code>gfx1101</code></em></span></dt>
+<dd><p>Wheat Nas devices.
+</p>
+</dd>
+<dt><span><em><code>gfx1102</code></em></span></dt>
+<dd><p>Hotpink Bonefish devices.
+</p>
+</dd>
+<dt><span><em><code>gfx1200</code></em></span></dt>
+<dd><p>Gfx1200 devices.
+</p>
+</dd>
+<dt><span><em><code>gfx1201</code></em></span></dt>
+<dd><p>Gfx1201 devices.
 </p>
 </dd>
 </dl>
 
+<p>You can consult the
+<a href="https://llvm.org/docs/AMDGPUUsage.html#processors">LLVM
+documentation</a> for the correspondence between architecture names and
+examples of product names.
+</p>
 </div>
 <div class="subsubsection" id="AMD-ROCm-Source-Languages">
 <h4 class="subsubsection">22.4.10.2 <acronym>AMD ROCm</acronym> Source Languages</h4>
@@ -271,10 +315,7 @@ or the firmware version is not supported by <small>ROCGDB</small>.
 </p>
 <dl compact="compact">
 <dt><span><em>HSA</em></span></dt>
-<dd><p>An HSA AQL queue.  The &lsquo;<samp>(Single)</samp>&rsquo; suffix indicates it uses the
-single-producer protocol, &lsquo;<samp>(Multi)</samp>&rsquo; suffix indicates the multi-producer
-protocol, and &lsquo;<samp>(Coop)</samp>&rsquo; suffix indicates the multi-producer cooperative
-dispatch protocol.
+<dd><p>An HSA AQL queue.
 </p>
 </dd>
 <dt><span><em>PM4</em></span></dt>
@@ -680,26 +721,25 @@ spaces:
 </p>
 <dl compact="compact">
 <dt><span><code>global</code></span></dt>
-<dd><p>the default global virtual address space
+<dd><p>The default global virtual address space.
 </p>
 </dd>
-<dt><span><code>region</code></span></dt>
-<dd><p>the per heterogeneous agent shared address space (<acronym title="Global
-Data Store">GDS</acronym> (Global
-Data Store)) (see <a href="#AMD-GPU-region-Address-Space-Restrictions"><acronym>AMD GPU</acronym> <code>region</code> Address Space Restrictions</a>)
+<dt><span><code>local</code></span></dt>
+<dd><p>The per heterogeneous work-group shared address space (<acronym title="Local Data Store">LDS</acronym> (Local Data Store)).
 </p>
 </dd>
-<dt><span><code>group</code></span></dt>
-<dd><p>the per heterogeneous work-group shared address space (<acronym title="Local Data Store">LDS</acronym> (Local Data Store))
+<dt><span><code>private_lane</code></span></dt>
+<dd><p>The per heterogeneous lane private address space (Scratch).
 </p>
 </dd>
-<dt><span><code>private</code></span></dt>
-<dd><p>the per heterogeneous lane private address space (Scratch)
+<dt><span><code>private_wave</code></span></dt>
+<dd><p>The per wave  private address space (Scratch).  This memory is
+the per wavefront unswizzled backing memory for <var>private_lane</var>.
 </p>
 </dd>
 <dt><span><code>generic</code></span></dt>
-<dd><p>the generic address space that can access the <var>global</var>,
-<var>group</var>, or <var>private</var> address spaces (Flat)
+<dd><p>The generic address space that can access the <var>global</var>,
+<var>local</var>, or <var>private_lane</var> address spaces (Flat).
 </p>
 </dd>
 </dl>
@@ -825,7 +865,7 @@ on supressing delivering signals to a wavefront (see <a href="#AMD-GPU-Signal-Re
 </div>
 <div class="subsubsection" id="AMD-GPU-Memory-Violation-Reporting">
 <h4 class="subsubsection">22.4.10.13 <acronym>AMD GPU</acronym> Memory Violation Reporting</h4>
-
+<span id="AMDGPU-Memory-Violation-Reporting"></span>
 <p>A wavefront can report memory violation and address watch access
 events.  However, the program location at which they are reported may
 be after the machine instruction that caused them.  This can result in
@@ -838,9 +878,8 @@ can be used to control this behavior:
 <span id="index-AMD-GPU-precise-memory-event-reporting"></span>
 </dd>
 <dt><span><code>set amdgpu precise-memory <var>mode</var></code></span></dt>
-<dd><p>&lsquo;<samp>set amdgpu precise-memory</samp>&rsquo; controls how <acronym>AMD GPU</acronym>
-devices detect memory violations and address watch events.  Where
-<var>mode</var> can be:
+<dd><p>Controls how <acronym>AMD GPU</acronym> devices detect memory violations and address
+watch events, where <var>mode</var> can be:
 </p>
 <dl compact="compact">
 <dt><span><code>off</code></span></dt>
@@ -933,24 +972,17 @@ AMDGPU precise memory access reporting is on (currently enabled)
 (gdb)
 </pre></div>
 
-<p>The <code>set amdgpu precise-memory</code> parameter is per-inferior.  When an
-inferior forks and a child inferior is created as a result, the child inferior
-inherits the parameter value of the parent inferior.
+<p>The <code>amdgpu precise-memory</code> parameter is per-inferior.  When an
+inferior forks or execs, or the user uses the <code>clone-inferior</code> command,
+and an inferior is created as a result, the newly created inferior inherits
+the parameter value of the original inferior.
 </p>
 <span id="index-show-amdgpu-precise_002dmemory"></span>
 <span id="index-AMD-GPU-precise-memory-event-reporting-1"></span>
 </dd>
 <dt><span><code>show amdgpu precise-memory</code></span></dt>
-<dd><p>&lsquo;<samp>show amdgpu precise-memory</samp>&rsquo; displays the currently requested AMD
-GPU precise memory setting.  If &lsquo;<samp>on</samp>&rsquo; has been requested, the
-message also indicates if it is currently enabled.  For example:
+<dd><p>Displays the currently requested AMD GPU precise memory setting.
 </p>
-<div class="example">
-<pre class="example">(gdb) show amdgpu precise-memory
-AMDGPU precise memory access reporting is on (currently disabled)
-(gdb)
-</pre></div>
-
 </dd>
 </dl>
 
@@ -958,20 +990,26 @@ AMDGPU precise memory access reporting is on (currently disabled)
 <div class="subsubsection" id="AMD-GPU-Logging">
 <h4 class="subsubsection">22.4.10.14 <acronym>AMD GPU</acronym> Logging</h4>
 
-<p>The &lsquo;<samp>set debug amdgpu log-level <var>level</var></samp>&rsquo; command can be used
-to enable diagnostic messages for the <acronym>AMD GPU</acronym> target.  The
-&lsquo;<samp>show debug amdgpu log-level</samp>&rsquo; command displays the current
-<acronym>AMD GPU</acronym> target log level.  See <a href="Debugging-Output.html#set-debug-amdgpu">set debug amdgpu</a>.
+<p>The &lsquo;<samp>set debug amd-dbgapi-lib log-level <var>level</var></samp>&rsquo; command can be used
+to enable diagnostic messages from the &lsquo;<samp>amd-dbgapi</samp>&rsquo; library.  The
+&lsquo;<samp>show debug amd-dbgapi-lib log-level</samp>&rsquo; command displays the current
+&lsquo;<samp>amd-dbgapi</samp>&rsquo; library log level.  See <a href="Debugging-Output.html#set-debug-amd_002ddbgapi_002dlib">set debug amd-dbgapi-lib</a>.
+</p>
+<p>The &lsquo;<samp>set debug amd-dbgapi</samp>&rsquo; command can be used
+to enable diagnostic messages in the &lsquo;<samp>amd-dbgapi</samp>&rsquo; target.  The
+&lsquo;<samp>show debug amd-dbgapi</samp>&rsquo; command displays the current setting.
+See <a href="Debugging-Output.html#set-debug-amd_002ddbgapi">set debug amd-dbgapi</a>.
 </p>
 <p>For example, the following will enable information messages and send
 the log to a new file:
 </p>
 <div class="example">
-<pre class="example">(gdb) set debug amdgpu log-level info
+<pre class="example">(gdb) set debug amd-dbgapi-lib log-level info
+(gdb) set debug amd-dbgapi on
 (gdb) set logging overwrite
 (gdb) set logging file log.out
 (gdb) set logging debugredirect on
-(gdb) set logging on
+(gdb) set logging enabled on
 </pre></div>
 
 <p>If you want to print the log to both the console and a file, omit the
@@ -990,9 +1028,106 @@ ROCdbgapi 0.56.0 (0.56.0-rocm-rel-4.5-56)
 Loaded from `/opt/rocm-4.5.0/lib/librocm-dbgapi.so.0'
 </pre></div>
 
+<span id="AMD-GPU-core-dumps"></span></div>
+<div class="subsubsection" id="AMD-GPU-core-dumps-1">
+<h4 class="subsubsection">22.4.10.16 <acronym>AMD GPU</acronym> core dumps</h4>
+
+<p><small>ROCGDB</small> supports core files describing the state of a heterogeneous
+process including host (CPU) and device (GPU) threads.  Such file can be
+generated either by <small>ROCGDB</small> itself using the <code>gcore</code> command
+(see <a href="Core-File-Generation.html">How to Produce a Core File from Your Program</a>) or by the <acronym>AMD ROCm</acronym> runtime and the
+Linux kernel.
+</p>
+<p>When the core dump is generated outside of <small>ROCGDB</small>, then two distinct
+files are produced:
+</p>
+<dl compact="compact">
+<dt id='index-AMD-GPU-core-dump-file'><span>GPU core dump<a href='#index-AMD-GPU-core-dump-file' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>This file is produced by the <acronym>AMD ROCm</acronym> runtime.  It contains
+the state of all the agents, queues and waves running on those agents
+when a fault occurred.  After this file has been generated, the
+<acronym>AMD ROCm</acronym> runtime aborts the host process so the Linux kernel
+can generate the host core file describing the state of the host
+threads, and the inferior memory.
+</p>
+<p>The file produced by the <acronym>AMD GPU</acronym> runtime is named
+<samp>gpucore.<var>pid</var></samp> where <var>pid</var> is the process identifier of the host
+process.  The file is produced in the working directory of the process.
+</p>
+<p>By default, for some <acronym>AMD GPU</acronym> architectures, when the heterogeneous
+process is not executed under <small>ROCGDB</small>, the <acronym>AMD GPU</acronym> device driver
+does not initialize some metadata associated with the wavefronts (see <a href="#AMD-GPU-Attaching-Restrictions">AMD GPU Attaching Restrictions</a>).  In order to have the <acronym>AMD ROCm</acronym> runtime
+generate a core dump with wavefronts&rsquo; positions in their dispatches, it is
+recommended to set the <code>HSA_ENABLE_DEBUG</code> environment variable to &lsquo;<samp>1</samp>&rsquo;
+before the runtime is initialized.
+</p>
+</dd>
+<dt id='index-core-dump-file-1'><span>Host core dump<a href='#index-core-dump-file-1' class='copiable-anchor'> &para;</a></span></dt>
+<dd>
+<p>This file is produced by the Linux kernel.  It contains the state and
+memory of the host side of the heterogeneous process.  The name of the
+file is controlled by the <code>core_pattern</code> system setting (see
+<code>core(5)</code>).
+</p>
+<p>For example, the following command can be used to tell the Linux kernel
+to save core dumps in the working directory of the crashing process, and
+to name them <samp>core.<var>pid</var></samp>, where <var>pid</var> is the process id:
+</p>
+<div class="example">
+<pre class="example">sysctl kernel.core_pattern=/proc/%p/cwd/core.%p
+</pre></div>
+
+</dd>
+</dl>
+
+<p>Both the <acronym>AMD GPU</acronym> runtime and the Linux kernel obey the resource
+limitations set by the user via the shell&rsquo;s <kbd>ulimit</kbd> command.  The limit is
+per core file, so if a heterogeneous process generates two core files (one for
+the agents and one for the host), the total core size can be up to twice the
+limit set using <kbd>ulimit</kbd>.
+</p>
+<p>A user can use the following command to prevent both the <acronym>AMD ROCm</acronym>
+runtime and the Linux kernel to generate an <acronym>AMD GPU</acronym> core dump if a
+fault occurs on a GPU agent:
+</p>
+<div class="example">
+<pre class="example">ulimit -c 0
+</pre></div>
+
+<p>If however the user wants to ensure that the <acronym>AMD ROCm</acronym> runtime and the
+Linux kernel generate a core dump if a fault occurs on an agent, the following
+command can be used:
+</p>
+<div class="example">
+<pre class="example">ulimit -c unlimited
+</pre></div>
+
+<p><small>ROCGDB</small> needs to be presented a unified core file to inspect the state of
+a heterogeneous process.  You can use the <small>ROCCOREMERGE</small> utility
+program to merge the core files generated by the <acronym>AMD GPU</acronym>
+runtime and the Linux kernel into a unified core file:
+</p>
+<div class="example">
+<pre class="example">$ sysctl kernel.core_pattern=/proc/%p/cwd/core.%p
+$ ulimit -c unlimited
+$ HSA_ENABLE_DEBUG=1 ./a.out
+File gpucore.745818 created
+Aborted (core dumped)
+$ roccoremerge ./combined.745818 ./core.745818 ./gpucore.745818
+$ gdb ./a.out -core combined.745818
+[...]
+Core was generated by `./a.out'.
+Program terminated with signal SIGABRT, Aborted.
+Thread 3 (AMDGPU Wave 1:1:1:1 (0,0,0)/0) stopped because of SIGSEGV.
+#0  faulty_kernel () at pagefault-core.cpp:45
+45      }
+[Current thread is 3, lane 0 (AMDGPU Lane 1:1:1:1/0 (0,0,0)[0,0,0])]
+(gdb)
+</pre></div>
+
 </div>
 <div class="subsubsection" id="AMD-GPU-Restrictions">
-<h4 class="subsubsection">22.4.10.16 <acronym>AMD GPU</acronym> Restrictions</h4>
+<h4 class="subsubsection">22.4.10.17 <acronym>AMD GPU</acronym> Restrictions</h4>
 
 <p><small>ROCGDB</small> <acronym>AMD GPU</acronym> support is currently a prototype and
 has the following restrictions.  Future releases aim to address these
@@ -1103,9 +1238,9 @@ hit.
 
 </li></ul>
 
-</li><li> Some <acronym>AMD GPU</acronym> devices, such as &lsquo;<samp>gfx90a</samp>&rsquo;, can be in use
-by multiple processes that are being debugged by <small>ROCGDB</small>.  For
-other devices the following warning message may be displayed.
+</li><li> Some <acronym>AMD GPU</acronym> devices, such as &lsquo;<samp>gfx908</samp>&rsquo;, cannot be in use by
+multiple processes that are being debugged by <small>ROCGDB</small>.  For such devices
+the following warning message may be displayed.
 
 <div class="example">
 <pre class="example">amd-dbgapi: warning: At least one agent is busy (debugging may be enabled by another process)
@@ -1307,9 +1442,6 @@ available as part of releases before ROCm 3.5.
 </li><li> <acronym>AMD GPU</acronym> target does not currently support the compiler
 address, memory, or thread sanitizers.
 
-</li><li> <small>ROCGDB</small> support for <acronym>AMD GPU</acronym> devices is not currently
-available under virtualization.
-
 <span id="AMD-GPU-Signal-Restrictions"></span></li><li> Supressing delivering some signals to a wavefront for some
 <acronym>AMD GPU</acronym> architectures may not prevent the <acronym>AMD ROCm</acronym>
 runtime putting the associated queue into the queue error state.  For
@@ -1372,9 +1504,6 @@ the &lsquo;<samp>#</samp>&rsquo; address space qualifier is large enough to have
 eight bits non-zero.
 
 
-<span id="AMD-GPU-region-Address-Space-Restrictions"></span></li><li> <small>ROCGDB</small> does not support reading or writing to the <code>region</code>
-address space.  A memory access error is reported.
-
 </li><li> If an <acronym>AMD GPU</acronym> wavefront has the <code>DX10_CLAMP</code> bit set in
 the <code>MODE</code> register, enabled arithmetic exceptions will not be
 reported as <code>SIGFPE</code> signals.  This happens if the
@@ -1383,8 +1512,39 @@ reported as <code>SIGFPE</code> signals.  This happens if the
 <p>See <a href="#AMD-GPU-Signals"><acronym>AMD GPU</acronym> Signals</a>.
 </p>
 </li><li> <small>ROCGDB</small> does not support single root I/O virtualization (SR-IOV)
-on any AMD GPU architecture that supports it.  That includes
-&lsquo;<samp>gfx1030</samp>&rsquo; and &lsquo;<samp>gfx1031</samp>&rsquo;.
+on any <acronym>AMD GPU</acronym> architecture that supports it.  That includes
+&lsquo;<samp>gfx1030</samp>&rsquo;, &lsquo;<samp>gfx1031</samp>&rsquo;, and &lsquo;<samp>gfx1032</samp>&rsquo;.
+
+</li><li> <small>ROCGDB</small> does not support debugging programs that use cooperative
+groups or CU masking for <acronym>AMD GPU</acronym> architectures &lsquo;<samp>gfx1100</samp>&rsquo;,
+&lsquo;<samp>gfx1101</samp>&rsquo;, and &lsquo;<samp>gfx11102</samp>&rsquo;.  A restriction will be reported
+when attaching to a process that has already created cooperative group
+queues or CU masked queues.  Any attempt to create a cooperative queue
+or CU masked queue when <small>ROCGDB</small> is attached will fail.
+
+</li><li> For <acronym>AMD GPU</acronym> architectures &lsquo;<samp>gfx1100</samp>&rsquo;, &lsquo;<samp>gfx1101</samp>&rsquo;,
+&lsquo;<samp>gfx1102</samp>&rsquo;, &lsquo;<samp>gfx1200</samp>&rsquo; and &lsquo;<samp>gfx1201</samp>&rsquo;, <small>ROCGDB</small> cannot
+debug a program past a &lsquo;<samp>s_sendmsg sendmsg(MSG_DEALLOC_VGPRS)</samp>&rsquo;
+instruction.  If an asynchronous exception is reported after this
+instruction has been executed and the debugger is attached, the wave is
+killed, and the exception is only reported by the <acronym>AMD ROCm</acronym>
+runtime.  Note that on <acronym>AMD GPU</acronym> devices, memory errors are
+reported asynchronously so a memory fault caused by an instruction
+before the &lsquo;<samp>s_sendmsg</samp>&rsquo; might be reported after it.  Enabling
+precise memory event reporting (see <a href="#AMDGPU-Memory-Violation-Reporting">AMDGPU Memory Violation Reporting</a>) ensures that such memory fault would be reported before the
+&lsquo;<samp>s_sendmsg</samp>&rsquo; instruction is executed.
+
+</li><li> The <acronym>AMD ROCm</acronym> runtime cannot generate an <acronym>AMD GPU</acronym> core dump
+(see <a href="#AMD-GPU-core-dumps">AMD GPU core dumps</a>) when <small>ROCGDB</small> is attached to the process.
+
+</li><li> If a fault on the host side of a heterogeneous application causes a core dump
+to be generated, then the <acronym>AMD ROCm</acronym> runtime does not produce the
+<acronym>AMD GPU</acronym> core file.  Only the host side of the process is captured in
+the file produced by the Linux kernel.
+
+</li><li> For <acronym>AMD GPU</acronym> architectures &lsquo;<samp>gfx1100</samp>&rsquo;, &lsquo;<samp>gfx1101</samp>&rsquo; and
+&lsquo;<samp>gfx1102</samp>&rsquo;, the <acronym>AMD ROCm</acronym> runtime cannot create a
+<acronym>AMD GPU</acronym> core dump (see <a href="#AMD-GPU-core-dumps">AMD GPU core dumps</a>).
 
 </li></ol>
 

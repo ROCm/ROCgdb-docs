@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the GNU Assembler "as".
 
-Copyright (C) 1991-2022 Free Software Foundation, Inc.
+Copyright (C) 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -58,7 +58,7 @@ ul.no-bullet {list-style: none}
 Next: <a href="i386_002dDirectives.html" accesskey="n" rel="next">x86 specific Directives</a>, Up: <a href="i386_002dDependent.html" accesskey="u" rel="up">80386 Dependent Features</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="Options-11"></span><h4 class="subsection">9.16.1 Options</h4>
+<span id="Options-10"></span><h4 class="subsection">9.16.1 Options</h4>
 
 <span id="index-options-for-i386"></span>
 <span id="index-options-for-x86_002d64"></span>
@@ -143,6 +143,7 @@ processor names are recognized:
 <code>znver2</code>,
 <code>znver3</code>,
 <code>znver4</code>,
+<code>znver5</code>,
 <code>btver1</code>,
 <code>btver2</code>,
 <code>generic32</code> and
@@ -169,6 +170,8 @@ accept various extension mnemonics.  For example,
 <code>sse4</code>,
 <code>avx</code>,
 <code>avx2</code>,
+<code>lahf_sahf</code>,
+<code>monitor</code>,
 <code>adx</code>,
 <code>rdseed</code>,
 <code>prfchw</code>,
@@ -221,9 +224,23 @@ accept various extension mnemonics.  For example,
 <code>msrlist</code>,
 <code>avx_ne_convert</code>,
 <code>rao_int</code>,
+<code>fred</code>,
+<code>lkgs</code>,
+<code>avx_vnni_int16</code>,
+<code>sha512</code>,
+<code>sm3</code>,
+<code>sm4</code>,
+<code>pbndkb</code>,
+<code>avx10.1</code>,
+<code>avx10.1/512</code>,
+<code>avx10.1/256</code>,
+<code>avx10.1/128</code>,
+<code>user_msr</code>,
+<code>apx_f</code>,
 <code>amx_int8</code>,
 <code>amx_bf16</code>,
 <code>amx_fp16</code>,
+<code>amx_complex</code>,
 <code>amx_tile</code>,
 <code>vmx</code>,
 <code>vmfunc</code>,
@@ -245,6 +262,7 @@ accept various extension mnemonics.  For example,
 <code>popcnt</code>,
 <code>hle</code>,
 <code>rtm</code>,
+<code>tsx</code>,
 <code>invpcid</code>,
 <code>clflush</code>,
 <code>mwaitx</code>,
@@ -273,7 +291,11 @@ accept various extension mnemonics.  For example,
 <code>svme</code> and
 <code>padlock</code>.
 Note that these extension mnemonics can be prefixed with <code>no</code> to revoke
-the respective (and any dependent) functionality.
+the respective (and any dependent) functionality.  Note further that the
+suffixes permitted on <code>-march=avx10.&lt;N&gt;</code> enforce a vector length
+restriction, i.e. despite these otherwise being &quot;enabling&quot; options, using
+these suffixes will disable all insns with wider vector or mask register
+operands.
 </p>
 <p>When the <code>.arch</code> directive is used with <samp>-march</samp>, the
 <code>.arch</code> directive will take precedent.
@@ -290,12 +312,30 @@ generated.
 <p>Valid <var>CPU</var> values are identical to the processor list of
 <samp>-march=<var>CPU</var></samp>.
 </p>
+<span id="index-_002dmoperand_002dcheck_003d-option_002c-i386"></span>
+<span id="index-_002dmoperand_002dcheck_003d-option_002c-x86_002d64"></span>
+</dd>
+<dt><span><code>-moperand-check=<var>none</var></code></span></dt>
+<dt><span><code>-moperand-check=<var>warning</var></code></span></dt>
+<dt><span><code>-moperand-check=<var>error</var></code></span></dt>
+<dd><p>These options control if the assembler should check certain instruction
+operands or operand combinations.  An example instructions where operand size
+cannot be inferred from its operands and also hasn&rsquo;t been specified by way of
+an instruction suffix.
+<samp>-moperand-check=<var>none</var></samp> will make the assembler not perform
+these checks.  <samp>-moperand-check=<var>warning</var></samp> will make the assembler
+issue a warning when respective checks fail, which is the default.
+<samp>-moperand-check=<var>error</var></samp> will make the assembler issue an error
+when respective checks fail.
+</p>
 <span id="index-_002dmsse2avx-option_002c-i386"></span>
 <span id="index-_002dmsse2avx-option_002c-x86_002d64"></span>
 </dd>
 <dt><span><code>-msse2avx</code></span></dt>
 <dd><p>This option specifies that the assembler should encode SSE instructions
-with VEX prefix.
+with VEX prefix, requiring AVX to be available.  SSE instructions using
+extended GPRs will be encoded with EVEX prefix, requiring AVX512 or AVX10 to
+be available.
 </p>
 <span id="index-_002dmuse_002dunaligned_002dvector_002dmove-option_002c-i386"></span>
 <span id="index-_002dmuse_002dunaligned_002dvector_002dmove-option_002c-x86_002d64"></span>

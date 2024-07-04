@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the BFD library.
 
-Copyright (C) 1991-2022 Free Software Foundation, Inc.
+Copyright (C) 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -72,8 +72,7 @@ Previous: <a href="Targets.html" accesskey="p" rel="prev">Targets</a>, Up: <a hr
 <span id="bfd_005ftarget-1"></span><h4 class="subsection">2.12.1 bfd_target</h4>
 
 
-<p><strong>Description</strong><br>
-This structure contains everything that BFD knows about a
+<p>This structure contains everything that BFD knows about a
 target. It includes things like its byte order, name, and which
 routines to call to do various operations.
 </p>
@@ -128,44 +127,10 @@ defines one of these.
 <p>FIXME, these names should be rationalised with the names of
 the entry points which call them. Too bad we can&rsquo;t have one
 macro to define them both!
-</p><div class="example">
-<pre class="example">enum bfd_flavour
-{
-  /* N.B. Update bfd_flavour_name if you change this.  */
-  bfd_target_unknown_flavour,
-  bfd_target_aout_flavour,
-  bfd_target_coff_flavour,
-  bfd_target_ecoff_flavour,
-  bfd_target_xcoff_flavour,
-  bfd_target_elf_flavour,
-  bfd_target_tekhex_flavour,
-  bfd_target_srec_flavour,
-  bfd_target_verilog_flavour,
-  bfd_target_ihex_flavour,
-  bfd_target_som_flavour,
-  bfd_target_os9k_flavour,
-  bfd_target_versados_flavour,
-  bfd_target_msdos_flavour,
-  bfd_target_ovax_flavour,
-  bfd_target_evax_flavour,
-  bfd_target_mmo_flavour,
-  bfd_target_mach_o_flavour,
-  bfd_target_pef_flavour,
-  bfd_target_pef_xlib_flavour,
-  bfd_target_sym_flavour
-};
+</p>
 
-enum bfd_endian { BFD_ENDIAN_BIG, BFD_ENDIAN_LITTLE, BFD_ENDIAN_UNKNOWN };
-
-/* Forward declaration.  */
-typedef struct bfd_link_info _bfd_link_info;
-
-/* Forward declaration.  */
-typedef struct flag_info flag_info;
-
-typedef void (*bfd_cleanup) (bfd *);
-
-typedef struct bfd_target
+<div class="example">
+<pre class="example">typedef struct bfd_target
 {
   /* Identifies the kind of target, e.g., SunOS4, Ultrix, etc.  */
   const char *name;
@@ -246,15 +211,12 @@ typedef struct bfd_target
 <p>The general target vector.  These vectors are initialized using the
 BFD_JUMP_TABLE macros.
 </p><div class="example">
-<pre class="example">
-
-  /* Generic entry points.  */
+<pre class="example">  /* Generic entry points.  */
 #define BFD_JUMP_TABLE_GENERIC(NAME) \
   NAME##_close_and_cleanup, \
   NAME##_bfd_free_cached_info, \
   NAME##_new_section_hook, \
-  NAME##_get_section_contents, \
-  NAME##_get_section_contents_in_window
+  NAME##_get_section_contents
 
   /* Called when the BFD is being closed to do any necessary cleanup.  */
   bool (*_close_and_cleanup) (bfd *);
@@ -265,14 +227,12 @@ BFD_JUMP_TABLE macros.
   /* Read the contents of a section.  */
   bool (*_bfd_get_section_contents) (bfd *, sec_ptr, void *, file_ptr,
                                      bfd_size_type);
-  bool (*_bfd_get_section_contents_in_window) (bfd *, sec_ptr, bfd_window *,
-                                               file_ptr, bfd_size_type);
 
   /* Entry points to copy private data.  */
 #define BFD_JUMP_TABLE_COPY(NAME) \
   NAME##_bfd_copy_private_bfd_data, \
   NAME##_bfd_merge_private_bfd_data, \
-  _bfd_generic_init_private_section_data, \
+  NAME##_init_private_section_data, \
   NAME##_bfd_copy_private_section_data, \
   NAME##_bfd_copy_private_symbol_data, \
   NAME##_bfd_copy_private_header_data, \
@@ -407,7 +367,7 @@ BFD_JUMP_TABLE macros.
     while using BFD for everything else.  Currently used by the assembler
     when creating COFF files.  */
   asymbol *
-       (*_bfd_make_debug_symbol) (bfd *, void *, unsigned long size);
+       (*_bfd_make_debug_symbol) (bfd *);
 #define bfd_read_minisymbols(b, d, m, s) \
        BFD_SEND (b, _read_minisymbols, (b, d, m, s))
   long (*_read_minisymbols) (bfd *, bool, void **, unsigned int *);
@@ -657,66 +617,31 @@ bfd_keep_unused_section_symbols (const bfd *abfd)
 }
 
 </pre></div>
-
-
-<div class="example">
-<pre class="example">/* Cached _bfd_check_format messages are put in this.  */
-struct per_xvec_message
-{
-  struct per_xvec_message *next;
-  char message[];
-};
-
-</pre></div>
-<span id="index-_005fbfd_005fper_005fxvec_005fwarn"></span>
-<ul class="section-toc">
-<li><a href="#g_t_005fbfd_005fper_005fxvec_005fwarn" accesskey="1"><code>_bfd_per_xvec_warn</code></a></li>
-<li><a href="#bfd_005fset_005fdefault_005ftarget" accesskey="2"><code>bfd_set_default_target</code></a></li>
-<li><a href="#bfd_005ffind_005ftarget" accesskey="3"><code>bfd_find_target</code></a></li>
-<li><a href="#bfd_005fget_005ftarget_005finfo" accesskey="4"><code>bfd_get_target_info</code></a></li>
-<li><a href="#bfd_005ftarget_005flist" accesskey="5"><code>bfd_target_list</code></a></li>
-<li><a href="#bfd_005fiterate_005fover_005ftargets" accesskey="6"><code>bfd_iterate_over_targets</code></a></li>
-<li><a href="#bfd_005fflavour_005fname" accesskey="7"><code>bfd_flavour_name</code></a></li>
-</ul>
-<div class="subsubsection" id="g_t_005fbfd_005fper_005fxvec_005fwarn">
-<h4 class="subsubsection">2.12.1.1 <code>_bfd_per_xvec_warn</code></h4>
-<p><strong>Synopsis</strong>
-</p><div class="example">
-<pre class="example">struct per_xvec_message **_bfd_per_xvec_warn (const bfd_target *, size_t);
-</pre></div>
-<p><strong>Description</strong><br>
-Return a location for the given target xvec to use for
-warnings specific to that target.  If TARG is NULL, returns
-the array of per_xvec_message pointers, otherwise if ALLOC is
-zero, returns a pointer to a pointer to the list of messages
-for TARG, otherwise (both TARG and ALLOC non-zero), allocates
-a new   per_xvec_message with space for a string of ALLOC
-bytes and returns a pointer to a pointer to it.  May return a
-pointer to a NULL pointer on allocation failure.
-</p>
 <span id="index-bfd_005fset_005fdefault_005ftarget"></span>
-</div>
+<ul class="section-toc">
+<li><a href="#bfd_005fset_005fdefault_005ftarget" accesskey="1"><code>bfd_set_default_target</code></a></li>
+<li><a href="#bfd_005ffind_005ftarget" accesskey="2"><code>bfd_find_target</code></a></li>
+<li><a href="#bfd_005fget_005ftarget_005finfo" accesskey="3"><code>bfd_get_target_info</code></a></li>
+<li><a href="#bfd_005ftarget_005flist" accesskey="4"><code>bfd_target_list</code></a></li>
+<li><a href="#bfd_005fiterate_005fover_005ftargets" accesskey="5"><code>bfd_iterate_over_targets</code></a></li>
+<li><a href="#bfd_005fflavour_005fname" accesskey="6"><code>bfd_flavour_name</code></a></li>
+</ul>
 <div class="subsubsection" id="bfd_005fset_005fdefault_005ftarget">
-<h4 class="subsubsection">2.12.1.2 <code>bfd_set_default_target</code></h4>
-<p><strong>Synopsis</strong>
-</p><div class="example">
-<pre class="example">bool bfd_set_default_target (const char *name);
-</pre></div>
-<p><strong>Description</strong><br>
-Set the default target vector to use when recognizing a BFD.
+<h4 class="subsubsection">2.12.1.1 <code>bfd_set_default_target</code></h4>
+<dl class="def">
+<dt id="index-bfd_005fset_005fdefault_005ftarget-1"><span class="category">Function: </span><span><em>bool</em> <strong>bfd_set_default_target</strong> <em>(const char *name);</em><a href='#index-bfd_005fset_005fdefault_005ftarget-1' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Set the default target vector to use when recognizing a BFD.
 This takes the name of the target, which may be a BFD target
 name or a configuration triplet.
 </p>
+</dd></dl>
 <span id="index-bfd_005ffind_005ftarget"></span>
 </div>
 <div class="subsubsection" id="bfd_005ffind_005ftarget">
-<h4 class="subsubsection">2.12.1.3 <code>bfd_find_target</code></h4>
-<p><strong>Synopsis</strong>
-</p><div class="example">
-<pre class="example">const bfd_target *bfd_find_target (const char *target_name, bfd *abfd);
-</pre></div>
-<p><strong>Description</strong><br>
-Return a pointer to the transfer vector for the object target
+<h4 class="subsubsection">2.12.1.2 <code>bfd_find_target</code></h4>
+<dl class="def">
+<dt id="index-bfd_005ftarget"><span class="category">Function: </span><span><em>const</em> <strong>bfd_target</strong> <em>*bfd_find_target (const char *target_name, bfd *abfd);</em><a href='#index-bfd_005ftarget' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Return a pointer to the transfer vector for the object target
 named <var>target_name</var>.  If <var>target_name</var> is <code>NULL</code>,
 choose the one in the environment variable <code>GNUTARGET</code>; if
 that is null or not defined, then choose the first entry in the
@@ -727,20 +652,14 @@ set in the BFD if <var>abfd</var> isn&rsquo;t <code>NULL</code>.  This causes
 <code>bfd_check_format</code> to loop over all the targets to find the
 one that matches the file being read.
 </p>
+</dd></dl>
 <span id="index-bfd_005fget_005ftarget_005finfo"></span>
 </div>
 <div class="subsubsection" id="bfd_005fget_005ftarget_005finfo">
-<h4 class="subsubsection">2.12.1.4 <code>bfd_get_target_info</code></h4>
-<p><strong>Synopsis</strong>
-</p><div class="example">
-<pre class="example">const bfd_target *bfd_get_target_info (const char *target_name,
-    bfd *abfd,
-    bool *is_bigendian,
-    int *underscoring,
-    const char **def_target_arch);
-</pre></div>
-<p><strong>Description</strong><br>
-Return a pointer to the transfer vector for the object target
+<h4 class="subsubsection">2.12.1.3 <code>bfd_get_target_info</code></h4>
+<dl class="def">
+<dt id="index-bfd_005ftarget-1"><span class="category">Function: </span><span><em>const</em> <strong>bfd_target</strong> <em>*bfd_get_target_info (const char *target_name, bfd *abfd, bool *is_bigendian, int *underscoring, const char **def_target_arch);</em><a href='#index-bfd_005ftarget-1' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Return a pointer to the transfer vector for the object target
 named <var>target_name</var>.  If <var>target_name</var> is <code>NULL</code>,
 choose the one in the environment variable <code>GNUTARGET</code>; if
 that is null or not defined, then choose the first entry in the
@@ -759,46 +678,39 @@ else the value of target vector&rsquo;s symbol underscoring.
 If <var>def_target_arch</var> is not <code>NULL</code>, then set it to the architecture
 string specified by the target_name.
 </p>
+</dd></dl>
 <span id="index-bfd_005ftarget_005flist"></span>
 </div>
 <div class="subsubsection" id="bfd_005ftarget_005flist">
-<h4 class="subsubsection">2.12.1.5 <code>bfd_target_list</code></h4>
-<p><strong>Synopsis</strong>
-</p><div class="example">
-<pre class="example">const char ** bfd_target_list (void);
-</pre></div>
-<p><strong>Description</strong><br>
-Return a freshly malloced NULL-terminated
+<h4 class="subsubsection">2.12.1.4 <code>bfd_target_list</code></h4>
+<dl class="def">
+<dt id="index-char-6"><span class="category">Function: </span><span><em>const</em> <strong>char</strong> <em>** bfd_target_list (void);</em><a href='#index-char-6' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Return a freshly malloced NULL-terminated
 vector of the names of all the valid BFD targets. Do not
 modify the names.
 </p>
+</dd></dl>
 <span id="index-bfd_005fiterate_005fover_005ftargets"></span>
 </div>
 <div class="subsubsection" id="bfd_005fiterate_005fover_005ftargets">
-<h4 class="subsubsection">2.12.1.6 <code>bfd_iterate_over_targets</code></h4>
-<p><strong>Synopsis</strong>
-</p><div class="example">
-<pre class="example">const bfd_target *bfd_iterate_over_targets
-   (int (*func) (const bfd_target *, void *),
-    void *data);
-</pre></div>
-<p><strong>Description</strong><br>
-Call <var>func</var> for each target in the list of BFD target
+<h4 class="subsubsection">2.12.1.5 <code>bfd_iterate_over_targets</code></h4>
+<dl class="def">
+<dt id="index-bfd_005ftarget-2"><span class="category">Function: </span><span><em>const</em> <strong>bfd_target</strong> <em>*bfd_iterate_over_targets (int (*func) (const bfd_target *, void *), void *data);</em><a href='#index-bfd_005ftarget-2' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Call <var>func</var> for each target in the list of BFD target
 vectors, passing <var>data</var> to <var>func</var>.  Stop iterating if
 <var>func</var> returns a non-zero result, and return that target
 vector.  Return NULL if <var>func</var> always returns zero.
 </p>
+</dd></dl>
 <span id="index-bfd_005fflavour_005fname"></span>
 </div>
 <div class="subsubsection" id="bfd_005fflavour_005fname">
-<h4 class="subsubsection">2.12.1.7 <code>bfd_flavour_name</code></h4>
-<p><strong>Synopsis</strong>
-</p><div class="example">
-<pre class="example">const char *bfd_flavour_name (enum bfd_flavour flavour);
-</pre></div>
-<p><strong>Description</strong><br>
-Return the string form of <var>flavour</var>.
+<h4 class="subsubsection">2.12.1.6 <code>bfd_flavour_name</code></h4>
+<dl class="def">
+<dt id="index-char-7"><span class="category">Function: </span><span><em>const</em> <strong>char</strong> <em>*bfd_flavour_name (enum bfd_flavour flavour);</em><a href='#index-char-7' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Return the string form of <var>flavour</var>.
 </p>
+</dd></dl>
 
 </div>
 </div>

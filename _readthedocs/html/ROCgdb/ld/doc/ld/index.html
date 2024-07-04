@@ -5,9 +5,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the GNU linker LD
 (GNU Binutils)
-version 2.38.50.
+version 2.42.50.
 
-Copyright (C) 1991-2022 Free Software Foundation, Inc.
+Copyright (C) 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -71,7 +71,7 @@ Next: <a href="Overview.html" accesskey="n" rel="next">Overview</a> &nbsp; [<a h
 <span id="LD"></span><h1 class="top">LD</h1>
 <p>This file documents the <small>GNU</small> linker ld
 (GNU Binutils)
-version 2.38.50.
+version 2.42.50.
 </p>
 <p>This document is distributed under the terms of the GNU Free
 Documentation License version 1.3.  A copy of the license is included
@@ -169,43 +169,45 @@ in the section entitled &ldquo;GNU Free Documentation License&rdquo;.
   <li><a id="toc-Linker-Plugins" href="Plugins.html">4 Linker Plugins</a>
   <ul class="no-bullet">
     <li><a id="toc-Static-Library-Dependencies-Plugin" href="libdep-Plugin.html">4.1 Static Library Dependencies Plugin</a></li>
+    <li><a id="toc-LTO-Plugin" href="lto-Plugin.html">4.2 LTO Plugin</a></li>
   </ul></li>
-  <li><a id="toc-Machine-Dependent-Features" href="Machine-Dependent.html">5 Machine Dependent Features</a>
+  <li><a id="toc-Special-Sections-1" href="Special-Sections.html">5 Special Sections</a></li>
+  <li><a id="toc-Machine-Dependent-Features" href="Machine-Dependent.html">6 Machine Dependent Features</a>
   <ul class="no-bullet">
-    <li><a id="toc-ld-and-the-H8_002f300" href="H8_002f300.html">5.1 <code>ld</code> and the H8/300</a></li>
-    <li><a id="toc-ld-and-the-Motorola-68HC11-and-68HC12-families" href="M68HC11_002f68HC12.html">5.2 <code>ld</code> and the Motorola 68HC11 and 68HC12 families</a>
+    <li><a id="toc-ld-and-the-H8_002f300" href="H8_002f300.html">6.1 <code>ld</code> and the H8/300</a></li>
+    <li><a id="toc-ld-and-the-Motorola-68HC11-and-68HC12-families" href="M68HC11_002f68HC12.html">6.2 <code>ld</code> and the Motorola 68HC11 and 68HC12 families</a>
     <ul class="no-bullet">
-      <li><a id="toc-Linker-Relaxation" href="M68HC11_002f68HC12.html#Linker-Relaxation">5.2.1 Linker Relaxation</a></li>
-      <li><a id="toc-Trampoline-Generation" href="M68HC11_002f68HC12.html#Trampoline-Generation">5.2.2 Trampoline Generation</a></li>
+      <li><a id="toc-Linker-Relaxation" href="M68HC11_002f68HC12.html#Linker-Relaxation">6.2.1 Linker Relaxation</a></li>
+      <li><a id="toc-Trampoline-Generation" href="M68HC11_002f68HC12.html#Trampoline-Generation">6.2.2 Trampoline Generation</a></li>
     </ul></li>
-    <li><a id="toc-ld-and-the-ARM-family" href="ARM.html">5.3 <code>ld</code> and the ARM family</a></li>
-    <li><a id="toc-ld-and-HPPA-32_002dbit-ELF-Support" href="HPPA-ELF32.html">5.4 <code>ld</code> and HPPA 32-bit ELF Support</a></li>
-    <li><a id="toc-ld-and-the-Motorola-68K-family" href="M68K.html">5.5 <code>ld</code> and the Motorola 68K family</a></li>
-    <li><a id="toc-ld-and-the-MIPS-family" href="MIPS.html">5.6 <code>ld</code> and the MIPS family</a></li>
-    <li><a id="toc-ld-and-MMIX" href="MMIX.html">5.7 <code>ld</code> and MMIX</a></li>
-    <li><a id="toc-ld-and-MSP430" href="MSP430.html">5.8 <code>ld</code> and MSP430</a></li>
-    <li><a id="toc-ld-and-NDS32" href="NDS32.html">5.9 <code>ld</code> and NDS32</a></li>
-    <li><a id="toc-ld-and-the-Altera-Nios-II" href="Nios-II.html">5.10 <code>ld</code> and the Altera Nios II</a></li>
-    <li><a id="toc-ld-and-PowerPC-32_002dbit-ELF-Support" href="PowerPC-ELF32.html">5.11 <code>ld</code> and PowerPC 32-bit ELF Support</a></li>
-    <li><a id="toc-ld-and-PowerPC64-64_002dbit-ELF-Support" href="PowerPC64-ELF64.html">5.12 <code>ld</code> and PowerPC64 64-bit ELF Support</a></li>
-    <li><a id="toc-ld-and-S_002f390-ELF-Support" href="S_002f390-ELF.html">5.13 <code>ld</code> and S/390 ELF Support</a></li>
-    <li><a id="toc-ld-and-SPU-ELF-Support" href="SPU-ELF.html">5.14 <code>ld</code> and SPU ELF Support</a></li>
-    <li><a id="toc-ld_0027s-Support-for-Various-TI-COFF-Versions" href="TI-COFF.html">5.15 <code>ld</code>&rsquo;s Support for Various TI COFF Versions</a></li>
-    <li><a id="toc-ld-and-WIN32-_0028cygwin_002fmingw_0029" href="WIN32.html">5.16 <code>ld</code> and WIN32 (cygwin/mingw)</a></li>
-    <li><a id="toc-ld-and-Xtensa-Processors" href="Xtensa.html">5.17 <code>ld</code> and Xtensa Processors</a></li>
+    <li><a id="toc-ld-and-the-ARM-family" href="ARM.html">6.3 <code>ld</code> and the ARM family</a></li>
+    <li><a id="toc-ld-and-HPPA-32_002dbit-ELF-Support" href="HPPA-ELF32.html">6.4 <code>ld</code> and HPPA 32-bit ELF Support</a></li>
+    <li><a id="toc-ld-and-the-Motorola-68K-family" href="M68K.html">6.5 <code>ld</code> and the Motorola 68K family</a></li>
+    <li><a id="toc-ld-and-the-MIPS-family" href="MIPS.html">6.6 <code>ld</code> and the MIPS family</a></li>
+    <li><a id="toc-ld-and-MMIX" href="MMIX.html">6.7 <code>ld</code> and MMIX</a></li>
+    <li><a id="toc-ld-and-MSP430" href="MSP430.html">6.8 <code>ld</code> and MSP430</a></li>
+    <li><a id="toc-ld-and-NDS32" href="NDS32.html">6.9 <code>ld</code> and NDS32</a></li>
+    <li><a id="toc-ld-and-the-Altera-Nios-II" href="Nios-II.html">6.10 <code>ld</code> and the Altera Nios II</a></li>
+    <li><a id="toc-ld-and-PowerPC-32_002dbit-ELF-Support" href="PowerPC-ELF32.html">6.11 <code>ld</code> and PowerPC 32-bit ELF Support</a></li>
+    <li><a id="toc-ld-and-PowerPC64-64_002dbit-ELF-Support" href="PowerPC64-ELF64.html">6.12 <code>ld</code> and PowerPC64 64-bit ELF Support</a></li>
+    <li><a id="toc-ld-and-S_002f390-ELF-Support" href="S_002f390-ELF.html">6.13 <code>ld</code> and S/390 ELF Support</a></li>
+    <li><a id="toc-ld-and-SPU-ELF-Support" href="SPU-ELF.html">6.14 <code>ld</code> and SPU ELF Support</a></li>
+    <li><a id="toc-ld_0027s-Support-for-Various-TI-COFF-Versions" href="TI-COFF.html">6.15 <code>ld</code>&rsquo;s Support for Various TI COFF Versions</a></li>
+    <li><a id="toc-ld-and-WIN32-_0028cygwin_002fmingw_0029" href="WIN32.html">6.16 <code>ld</code> and WIN32 (cygwin/mingw)</a></li>
+    <li><a id="toc-ld-and-Xtensa-Processors" href="Xtensa.html">6.17 <code>ld</code> and Xtensa Processors</a></li>
   </ul></li>
-  <li><a id="toc-BFD-1" href="BFD.html">6 BFD</a>
+  <li><a id="toc-BFD-1" href="BFD.html">7 BFD</a>
   <ul class="no-bullet">
-    <li><a id="toc-How-It-Works_003a-An-Outline-of-BFD" href="BFD-outline.html">6.1 How It Works: An Outline of BFD</a>
+    <li><a id="toc-How-It-Works_003a-An-Outline-of-BFD" href="BFD-outline.html">7.1 How It Works: An Outline of BFD</a>
     <ul class="no-bullet">
-      <li><a id="toc-Information-Loss" href="BFD-information-loss.html">6.1.1 Information Loss</a></li>
-      <li><a id="toc-The-BFD-canonical-object_002dfile-format" href="Canonical-format.html">6.1.2 The BFD canonical object-file format</a></li>
+      <li><a id="toc-Information-Loss" href="BFD-information-loss.html">7.1.1 Information Loss</a></li>
+      <li><a id="toc-The-BFD-canonical-object_002dfile-format" href="Canonical-format.html">7.1.2 The BFD canonical object-file format</a></li>
     </ul></li>
   </ul></li>
-  <li><a id="toc-Reporting-Bugs-1" href="Reporting-Bugs.html">7 Reporting Bugs</a>
+  <li><a id="toc-Reporting-Bugs-1" href="Reporting-Bugs.html">8 Reporting Bugs</a>
   <ul class="no-bullet">
-    <li><a id="toc-Have-You-Found-a-Bug_003f" href="Bug-Criteria.html">7.1 Have You Found a Bug?</a></li>
-    <li><a id="toc-How-to-Report-Bugs" href="Bug-Reporting.html">7.2 How to Report Bugs</a></li>
+    <li><a id="toc-Have-You-Found-a-Bug_003f" href="Bug-Criteria.html">8.1 Have You Found a Bug?</a></li>
+    <li><a id="toc-How-to-Report-Bugs" href="Bug-Reporting.html">8.2 How to Report Bugs</a></li>
   </ul></li>
   <li><a id="toc-MRI-Compatible-Script-Files" href="MRI.html">Appendix A MRI Compatible Script Files</a></li>
   <li><a id="toc-GNU-Free-Documentation-License-1" href="GNU-Free-Documentation-License.html">Appendix B GNU Free Documentation License</a></li>

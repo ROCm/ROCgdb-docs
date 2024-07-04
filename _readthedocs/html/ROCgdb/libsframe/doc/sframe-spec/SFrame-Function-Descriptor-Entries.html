@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- Copyright (C) 2021-2024 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU General Public License, Version 3 or any
+later version published by the Free Software Foundation.  A copy of the
+license is included in the section entitled "GNU General Public
+License".
+ -->
+<title>SFrame Function Descriptor Entries (The SFrame Format)</title>
+
+<meta name="description" content="SFrame Function Descriptor Entries (The SFrame Format)">
+<meta name="keywords" content="SFrame Function Descriptor Entries (The SFrame Format)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="SFrame-Section.html" rel="up" title="SFrame Section">
+<link href="SFrame-Frame-Row-Entries.html" rel="next" title="SFrame Frame Row Entries">
+<link href="SFrame-Header.html" rel="prev" title="SFrame Header">
+<style type="text/css">
+<!--
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<div class="section" id="SFrame-Function-Descriptor-Entries">
+<div class="header">
+<p>
+Next: <a href="SFrame-Frame-Row-Entries.html" accesskey="n" rel="next">SFrame FRE</a>, Previous: <a href="SFrame-Header.html" accesskey="p" rel="prev">SFrame Header</a>, Up: <a href="SFrame-Section.html" accesskey="u" rel="up">SFrame Section</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<span id="SFrame-FDE"></span><h3 class="section">2.3 SFrame FDE</h3>
+<span id="index-SFrame-FDE"></span>
+
+<p>The SFrame function descriptor entry sub-section is an array of the
+fixed-length SFrame function descriptor entries (SFrame FDEs).  Each SFrame FDE
+is a packed structure which contains information to describe a function&rsquo;s stack
+trace information at a high-level.
+</p>
+<p>The array of SFrame FDEs is sorted on the <code>sfde_func_start_address</code> if
+the SFrame section header flag <code>sfp_flags</code> has <code>SFRAME_F_FDE_SORTED</code>
+set.  Typically (as is the case with GNU ld) a linked object or executable
+will have the <code>SFRAME_F_FDE_SORTED</code> set.  This makes the job of a stack
+tracer easier as it may then employ binary search schemes to look for the
+pertinent SFrame FDE.
+</p>
+<div class="example">
+<pre class="example">typedef struct sframe_func_desc_entry
+{
+  int32_t sfde_func_start_address;
+  uint32_t sfde_func_size;
+  uint32_t sfde_func_start_fre_off;
+  uint32_t sfde_func_num_fres;
+  uint8_t sfde_func_info;
+  uint8_t sfde_func_rep_size;
+  uint16_t sfde_func_padding2;
+} ATTRIBUTE_PACKED sframe_func_desc_entry;
+</pre></div>
+
+<p>Every element of the SFrame function descriptor entry is naturally aligned.
+</p>
+<p><code>sfde_func_start_fre_off</code> is the offset to the first SFrame FRE for the
+function.  This offset is relative to the <em>end of the SFrame FDE</em>
+sub-section (unlike the sub-section offsets in the SFrame header, which are
+relative to the <em>end</em> of the SFrame header).
+</p>
+<p><code>sfde_func_info</code> is the SFrame FDE &quot;info word&quot;, containing information on
+the FRE type and the FDE type for the function See <a href="The-SFrame-FDE-Info-Word.html">The SFrame FDE Info Word</a>.
+</p>
+<span id="index-Provisions-for-future-ABIs-1"></span>
+<p>Apart from the <code>sfde_func_padding2</code>, the SFrame FDE has some currently
+unused bits in the SFrame FDE info word, See <a href="The-SFrame-FDE-Info-Word.html">The SFrame FDE Info Word</a>, that
+may be used for the purpose of extending the SFrame file format specification
+for future ABIs.
+</p>
+<p>Following table describes each component of the SFrame FDE structure:
+</p>
+<table>
+<thead><tr><th>Offset</th><th>Type</th><th>Name</th><th>Description</th></tr></thead>
+<tr><td>0x00</td><td><code>int32_t</code></td><td><code>sfde_func_start_address</code></td><td>Signed 32-bit integral field denoting the virtual memory address of the
+described function.</td></tr>
+<tr><td>0x04</td><td><code>uint32_t</code></td><td><code>sfde_func_size</code></td><td>Unsigned 32-bit integral field specifying the size of the function in
+bytes.</td></tr>
+<tr><td>0x08</td><td><code>uint32_t</code></td><td><code>sfde_func_start_fre_off</code></td><td>Unsigned 32-bit integral field specifying the offset in bytes of the
+function&rsquo;s first SFrame FRE in the SFrame section.</td></tr>
+<tr><td>0x0c</td><td><code>uint32_t</code></td><td><code>sfde_func_num_fres</code></td><td>Unsigned 32-bit integral field specifying the total number of SFrame FREs
+used for the function.</td></tr>
+<tr><td>0x10</td><td><code>uint8_t</code></td><td><code>sfde_func_info</code></td><td>Unsigned 8-bit integral field specifying the SFrame FDE info word.
+See <a href="The-SFrame-FDE-Info-Word.html">The SFrame FDE Info Word</a>.</td></tr>
+<tr><td>0x11</td><td><code>uint8_t</code></td><td><code>sfde_func_rep_size</code></td><td>Unsigned 8-bit integral field specifying the size of the repetitive code
+block for which an SFrame FDE of type SFRAME_FDE_TYPE_PCMASK is used.  For
+example, in AMD64, the size of a pltN entry is 16 bytes.</td></tr>
+<tr><td>0x12</td><td><code>uint16_t</code></td><td><code>sfde_func_padding2</code></td><td>Padding of 2 bytes.  Currently unused bytes.</td></tr>
+</table>
+
+
+<span id="index-The-SFrame-FDE-Info-Word"></span>
+<ul class="section-toc">
+<li><a href="The-SFrame-FDE-Info-Word.html" accesskey="1">The SFrame FDE Info Word</a></li>
+<li><a href="The-SFrame-FDE-Types.html" accesskey="2">The SFrame FDE Types</a></li>
+<li><a href="The-SFrame-FRE-Types.html" accesskey="3">The SFrame FRE Types</a></li>
+</ul>
+</div>
+<hr>
+<div class="header">
+<p>
+Next: <a href="SFrame-Frame-Row-Entries.html">SFrame FRE</a>, Previous: <a href="SFrame-Header.html">SFrame Header</a>, Up: <a href="SFrame-Section.html">SFrame Section</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

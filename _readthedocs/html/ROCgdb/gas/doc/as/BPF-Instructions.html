@@ -1,0 +1,953 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- This file documents the GNU Assembler "as".
+
+Copyright (C) 1991-2024 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3
+or any later version published by the Free Software Foundation;
+with no Invariant Sections, with no Front-Cover Texts, and with no
+Back-Cover Texts.  A copy of the license is included in the
+section entitled "GNU Free Documentation License".
+ -->
+<title>BPF Instructions (Using as)</title>
+
+<meta name="description" content="BPF Instructions (Using as)">
+<meta name="keywords" content="BPF Instructions (Using as)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="AS-Index.html" rel="index" title="AS Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="BPF_002dDependent.html" rel="up" title="BPF-Dependent">
+<link href="BPF-Directives.html" rel="prev" title="BPF Directives">
+<style type="text/css">
+<!--
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<div class="section" id="BPF-Instructions">
+<div class="header">
+<p>
+Previous: <a href="BPF-Directives.html" accesskey="p" rel="prev">BPF Directives</a>, Up: <a href="BPF_002dDependent.html" accesskey="u" rel="up">BPF Dependent Features</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<span id="BPF-Instructions-1"></span><h4 class="subsection">9.7.5 BPF Instructions</h4>
+
+<span id="index-BPF-opcodes"></span>
+<span id="index-opcodes-for-BPF"></span>
+<p>In the instruction descriptions below the following field descriptors
+are used:
+</p>
+<dl compact="compact">
+<dt><span><code>rd</code></span></dt>
+<dd><p>Destination general-purpose register whose role is to be the
+destination of an operation.
+</p></dd>
+<dt><span><code>rs</code></span></dt>
+<dd><p>Source general-purpose register whose role is to be the source of an
+operation.
+</p></dd>
+<dt><span><code>disp16</code></span></dt>
+<dd><p>16-bit signed PC-relative offset, measured in number of 64-bit words,
+minus one.
+</p></dd>
+<dt><span><code>disp32</code></span></dt>
+<dd><p>32-bit signed PC-relative offset, measured in number of 64-bit words,
+minus one.
+</p></dd>
+<dt><span><code>offset16</code></span></dt>
+<dd><p>Signed 16-bit immediate representing an offset in bytes.
+</p></dd>
+<dt><span><code>disp16</code></span></dt>
+<dd><p>Signed 16-bit immediate representing a displacement to a target,
+measured in number of 64-bit words <em>minus one</em>.
+</p></dd>
+<dt><span><code>disp32</code></span></dt>
+<dd><p>Signed 32-bit immediate representing a displacement to a target,
+measured in number of 64-bit words <em>minus one</em>.
+</p></dd>
+<dt><span><code>imm32</code></span></dt>
+<dd><p>Signed 32-bit immediate.
+</p></dd>
+<dt><span><code>imm64</code></span></dt>
+<dd><p>Signed 64-bit immediate.
+</p></dd>
+</dl>
+
+<p>Note that the assembler allows to express the value for an immediate
+using any numerical literal whose two&rsquo;s complement encoding fits in
+the immediate field.  For example, <code>-2</code>, <code>0xfffffffe</code> and
+<code>4294967294</code> all denote the same encoded 32-bit immediate, whose
+value may be then interpreted by different instructions as either as a
+negative or a positive number.
+</p>
+<ul class="section-toc">
+<li><a href="#Arithmetic-instructions" accesskey="1">Arithmetic instructions</a></li>
+<li><a href="#g_t32_002dbit-arithmetic-instructions" accesskey="2">32-bit arithmetic instructions</a></li>
+<li><a href="#Endianness-conversion-instructions" accesskey="3">Endianness conversion instructions</a></li>
+<li><a href="#Byte-swap-instructions" accesskey="4">Byte swap instructions</a></li>
+<li><a href="#g_t64_002dbit-load-and-pseudo-maps" accesskey="5">64-bit load and pseudo maps</a></li>
+<li><a href="#Load-instructions-for-socket-filters" accesskey="6">Load instructions for socket filters</a></li>
+<li><a href="#Generic-load_002fstore-instructions" accesskey="7">Generic load/store instructions</a></li>
+<li><a href="#Jump-instructions" accesskey="8">Jump instructions</a></li>
+<li><a href="#g_t32_002dbit-jump-instructions" accesskey="9">32-bit jump instructions</a></li>
+<li><a href="#Atomic-instructions">Atomic instructions</a></li>
+<li><a href="#g_t32_002dbit-atomic-instructions">32-bit atomic instructions</a></li>
+</ul>
+<div class="subsection" id="Arithmetic-instructions">
+<h4 class="subsubsection">9.7.5.1 Arithmetic instructions</h4>
+
+<p>The destination register in these instructions act like an
+accumulator.
+</p>
+<p>Note that in pseudoc syntax these instructions should use <code>r</code>
+registers.
+</p>
+<dl compact="compact">
+<dt><span><code>add rd, rs</code></span></dt>
+<dt><span><code>add rd, imm32</code></span></dt>
+<dt><span><code>rd += rs</code></span></dt>
+<dt><span><code>rd += imm32</code></span></dt>
+<dd><p>64-bit arithmetic addition.
+</p>
+</dd>
+<dt><span><code>sub rd, rs</code></span></dt>
+<dt><span><code>sub rd, rs</code></span></dt>
+<dt><span><code>rd -= rs</code></span></dt>
+<dt><span><code>rd -= imm32</code></span></dt>
+<dd><p>64-bit arithmetic subtraction.
+</p>
+</dd>
+<dt><span><code>mul rd, rs</code></span></dt>
+<dt><span><code>mul rd, imm32</code></span></dt>
+<dt><span><code>rd *= rs</code></span></dt>
+<dt><span><code>rd *= imm32</code></span></dt>
+<dd><p>64-bit arithmetic multiplication.
+</p>
+</dd>
+<dt><span><code>div rd, rs</code></span></dt>
+<dt><span><code>div rd, imm32</code></span></dt>
+<dt><span><code>rd /= rs</code></span></dt>
+<dt><span><code>rd /= imm32</code></span></dt>
+<dd><p>64-bit arithmetic integer division.
+</p>
+</dd>
+<dt><span><code>mod rd, rs</code></span></dt>
+<dt><span><code>mod rd, imm32</code></span></dt>
+<dt><span><code>rd %= rs</code></span></dt>
+<dt><span><code>rd %= imm32</code></span></dt>
+<dd><p>64-bit integer remainder.
+</p>
+</dd>
+<dt><span><code>and rd, rs</code></span></dt>
+<dt><span><code>and rd, imm32</code></span></dt>
+<dt><span><code>rd &amp;= rs</code></span></dt>
+<dt><span><code>rd &amp;= imm32</code></span></dt>
+<dd><p>64-bit bit-wise &ldquo;and&rdquo; operation.
+</p>
+</dd>
+<dt><span><code>or rd, rs</code></span></dt>
+<dt><span><code>or rd, imm32</code></span></dt>
+<dt><span><code>rd |= rs</code></span></dt>
+<dt><span><code>rd |= imm32</code></span></dt>
+<dd><p>64-bit bit-wise &ldquo;or&rdquo; operation.
+</p>
+</dd>
+<dt><span><code>xor rd, imm32</code></span></dt>
+<dt><span><code>xor rd, rs</code></span></dt>
+<dt><span><code>rd ^= rs</code></span></dt>
+<dt><span><code>rd ^= imm32</code></span></dt>
+<dd><p>64-bit bit-wise exclusive-or operation.
+</p>
+</dd>
+<dt><span><code>lsh rd, rs</code></span></dt>
+<dt><span><code>ldh rd, imm32</code></span></dt>
+<dt><span><code>rd &lt;&lt;= rs</code></span></dt>
+<dt><span><code>rd &lt;&lt;= imm32</code></span></dt>
+<dd><p>64-bit left shift, by <code>rs</code> or <code>imm32</code> bits.
+</p>
+</dd>
+<dt><span><code>rsh %d, %s</code></span></dt>
+<dt><span><code>rsh rd, imm32</code></span></dt>
+<dt><span><code>rd &gt;&gt;= rs</code></span></dt>
+<dt><span><code>rd &gt;&gt;= imm32</code></span></dt>
+<dd><p>64-bit right logical shift, by <code>rs</code> or <code>imm32</code> bits.
+</p>
+</dd>
+<dt><span><code>arsh rd, rs</code></span></dt>
+<dt><span><code>arsh rd, imm32</code></span></dt>
+<dt><span><code>rd s&gt;&gt;= rs</code></span></dt>
+<dt><span><code>rd s&gt;&gt;= imm32</code></span></dt>
+<dd><p>64-bit right arithmetic shift, by <code>rs</code> or <code>imm32</code> bits.
+</p>
+</dd>
+<dt><span><code>neg rd</code></span></dt>
+<dt><span><code>rd = - rd</code></span></dt>
+<dd><p>64-bit arithmetic negation.
+</p>
+</dd>
+<dt><span><code>mov rd, rs</code></span></dt>
+<dt><span><code>mov rd, imm32</code></span></dt>
+<dt><span><code>rd = rs</code></span></dt>
+<dt><span><code>rd = imm32</code></span></dt>
+<dd><p>Move the 64-bit value of <code>rs</code> in <code>rd</code>, or load <code>imm32</code>
+in <code>rd</code>.
+</p>
+</dd>
+<dt><span><code>movs rd, rs, 8</code></span></dt>
+<dt><span><code>rd = (s8) rs</code></span></dt>
+<dd><p>Move the sign-extended 8-bit value in <code>rs</code> to <code>rd</code>.
+</p>
+</dd>
+<dt><span><code>movs rd, rs, 16</code></span></dt>
+<dt><span><code>rd = (s16) rs</code></span></dt>
+<dd><p>Move the sign-extended 16-bit value in <code>rs</code> to <code>rd</code>.
+</p>
+</dd>
+<dt><span><code>movs rd, rs, 32</code></span></dt>
+<dt><span><code>rd = (s32) rs</code></span></dt>
+<dd><p>Move the sign-extended 32-bit value in <code>rs</code> to <code>rd</code>.
+</p></dd>
+</dl>
+
+</div>
+<div class="subsection" id="g_t32_002dbit-arithmetic-instructions">
+<h4 class="subsubsection">9.7.5.2 32-bit arithmetic instructions</h4>
+
+<p>The destination register in these instructions act as an accumulator.
+</p>
+<p>Note that in pseudoc syntax these instructions should use <code>w</code>
+registers.  It is not allowed to mix <code>w</code> and <code>r</code> registers
+in the same instruction.
+</p>
+<dl compact="compact">
+<dt><span><code>add32 rd, rs</code></span></dt>
+<dt><span><code>add32 rd, imm32</code></span></dt>
+<dt><span><code>rd += rs</code></span></dt>
+<dt><span><code>rd += imm32</code></span></dt>
+<dd><p>32-bit arithmetic addition.
+</p>
+</dd>
+<dt><span><code>sub32 rd, rs</code></span></dt>
+<dt><span><code>sub32 rd, imm32</code></span></dt>
+<dt><span><code>rd -= rs</code></span></dt>
+<dt><span><code>rd += imm32</code></span></dt>
+<dd><p>32-bit arithmetic subtraction.
+</p>
+</dd>
+<dt><span><code>mul32 rd, rs</code></span></dt>
+<dt><span><code>mul32 rd, imm32</code></span></dt>
+<dt><span><code>rd *= rs</code></span></dt>
+<dt><span><code>rd *= imm32</code></span></dt>
+<dd><p>32-bit arithmetic multiplication.
+</p>
+</dd>
+<dt><span><code>div32 rd, rs</code></span></dt>
+<dt><span><code>div32 rd, imm32</code></span></dt>
+<dt><span><code>rd /= rs</code></span></dt>
+<dt><span><code>rd /= imm32</code></span></dt>
+<dd><p>32-bit arithmetic integer division.
+</p>
+</dd>
+<dt><span><code>mod32 rd, rs</code></span></dt>
+<dt><span><code>mod32 rd, imm32</code></span></dt>
+<dt><span><code>rd %= rs</code></span></dt>
+<dt><span><code>rd %= imm32</code></span></dt>
+<dd><p>32-bit integer remainder.
+</p>
+</dd>
+<dt><span><code>and32 rd, rs</code></span></dt>
+<dt><span><code>and32 rd, imm32</code></span></dt>
+<dt><span><code>rd &amp;= rs</code></span></dt>
+<dt><span><code>rd &amp;= imm32</code></span></dt>
+<dd><p>32-bit bit-wise &ldquo;and&rdquo; operation.
+</p>
+</dd>
+<dt><span><code>or32 rd, rs</code></span></dt>
+<dt><span><code>or32 rd, imm32</code></span></dt>
+<dt><span><code>rd |= rs</code></span></dt>
+<dt><span><code>rd |= imm32</code></span></dt>
+<dd><p>32-bit bit-wise &ldquo;or&rdquo; operation.
+</p>
+</dd>
+<dt><span><code>xor32 rd, rs</code></span></dt>
+<dt><span><code>xor32 rd, imm32</code></span></dt>
+<dt><span><code>rd ^= rs</code></span></dt>
+<dt><span><code>rd ^= imm32</code></span></dt>
+<dd><p>32-bit bit-wise exclusive-or operation.
+</p>
+</dd>
+<dt><span><code>lsh32 rd, rs</code></span></dt>
+<dt><span><code>lsh32 rd, imm32</code></span></dt>
+<dt><span><code>rd &lt;&lt;= rs</code></span></dt>
+<dt><span><code>rd &lt;&lt;= imm32</code></span></dt>
+<dd><p>32-bit left shift, by <code>rs</code> or <code>imm32</code> bits.
+</p>
+</dd>
+<dt><span><code>rsh32 rd, rs</code></span></dt>
+<dt><span><code>rsh32 rd, imm32</code></span></dt>
+<dt><span><code>rd &gt;&gt;= rs</code></span></dt>
+<dt><span><code>rd &gt;&gt;= imm32</code></span></dt>
+<dd><p>32-bit right logical shift, by <code>rs</code> or <code>imm32</code> bits.
+</p>
+</dd>
+<dt><span><code>arsh32 rd, rs</code></span></dt>
+<dt><span><code>arsh32 rd, imm32</code></span></dt>
+<dt><span><code>rd s&gt;&gt;= rs</code></span></dt>
+<dt><span><code>rd s&gt;&gt;= imm32</code></span></dt>
+<dd><p>32-bit right arithmetic shift, by <code>rs</code> or <code>imm32</code> bits.
+</p>
+</dd>
+<dt><span><code>neg32 rd</code></span></dt>
+<dt><span><code>rd = - rd</code></span></dt>
+<dd><p>32-bit arithmetic negation.
+</p>
+</dd>
+<dt><span><code>mov32 rd, rs</code></span></dt>
+<dt><span><code>mov32 rd, imm32</code></span></dt>
+<dt><span><code>rd = rs</code></span></dt>
+<dt><span><code>rd = imm32</code></span></dt>
+<dd><p>Move the 32-bit value of <code>rs</code> in <code>rd</code>, or load <code>imm32</code>
+in <code>rd</code>.
+</p>
+</dd>
+<dt><span><code>mov32s rd, rs, 8</code></span></dt>
+<dt><span><code>rd = (s8) rs</code></span></dt>
+<dd><p>Move the sign-extended 8-bit value in <code>rs</code> to <code>rd</code>.
+</p>
+</dd>
+<dt><span><code>mov32s rd, rs, 16</code></span></dt>
+<dt><span><code>rd = (s16) rs</code></span></dt>
+<dd><p>Move the sign-extended 16-bit value in <code>rs</code> to <code>rd</code>.
+</p>
+</dd>
+<dt><span><code>mov32s rd, rs, 32</code></span></dt>
+<dt><span><code>rd = (s32) rs</code></span></dt>
+<dd><p>Move the sign-extended 32-bit value in <code>rs</code> to <code>rd</code>.
+</p></dd>
+</dl>
+
+</div>
+<div class="subsection" id="Endianness-conversion-instructions">
+<h4 class="subsubsection">9.7.5.3 Endianness conversion instructions</h4>
+
+<dl compact="compact">
+<dt><span><code>endle rd, 16</code></span></dt>
+<dt><span><code>endle rd, 32</code></span></dt>
+<dt><span><code>endle rd, 64</code></span></dt>
+<dt><span><code>rd = le16 rd</code></span></dt>
+<dt><span><code>rd = le32 rd</code></span></dt>
+<dt><span><code>rd = le64 rd</code></span></dt>
+<dd><p>Convert the 16-bit, 32-bit or 64-bit value in <code>rd</code> to
+little-endian and store it back in <code>rd</code>.
+</p></dd>
+<dt><span><code>endbe %d, 16</code></span></dt>
+<dt><span><code>endbe %d, 32</code></span></dt>
+<dt><span><code>endbe %d, 64</code></span></dt>
+<dt><span><code>rd = be16 rd</code></span></dt>
+<dt><span><code>rd = be32 rd</code></span></dt>
+<dt><span><code>rd = be64 rd</code></span></dt>
+<dd><p>Convert the 16-bit, 32-bit or 64-bit value in <code>rd</code> to big-endian
+and store it back in <code>rd</code>.
+</p></dd>
+</dl>
+
+</div>
+<div class="subsection" id="Byte-swap-instructions">
+<h4 class="subsubsection">9.7.5.4 Byte swap instructions</h4>
+
+<dl compact="compact">
+<dt><span><code>bswap rd, 16</code></span></dt>
+<dt><span><code>rd = bswap16 rd</code></span></dt>
+<dd><p>Swap the least-significant 16-bit word in <code>rd</code> with the
+most-significant 16-bit word.
+</p>
+</dd>
+<dt><span><code>bswap rd, 32</code></span></dt>
+<dt><span><code>rd = bswap32 rd</code></span></dt>
+<dd><p>Swap the least-significant 32-bit word in <code>rd</code> with the
+most-significant 32-bit word.
+</p>
+</dd>
+<dt><span><code>bswap rd, 64</code></span></dt>
+<dt><span><code>rd = bswap64 rd</code></span></dt>
+<dd><p>Swap the least-significant 64-bit word in <code>rd</code> with the
+most-significant 64-bit word.
+</p></dd>
+</dl>
+
+
+</div>
+<div class="subsection" id="g_t64_002dbit-load-and-pseudo-maps">
+<h4 class="subsubsection">9.7.5.5 64-bit load and pseudo maps</h4>
+
+<dl compact="compact">
+<dt><span><code>lddw rd, imm64</code></span></dt>
+<dt><span><code>rd = imm64 ll</code></span></dt>
+<dd><p>Load the given signed 64-bit immediate to the destination register
+<code>rd</code>.
+</p></dd>
+</dl>
+
+</div>
+<div class="subsection" id="Load-instructions-for-socket-filters">
+<h4 class="subsubsection">9.7.5.6 Load instructions for socket filters</h4>
+
+<p>The following instructions are intended to be used in socket filters,
+and are therefore not general-purpose: they make assumptions on the
+contents of several registers.  See the file
+<samp>Documentation/networking/filter.txt</samp> in the Linux kernel source
+tree for more information.
+</p>
+<p>Absolute loads:
+</p>
+<dl compact="compact">
+<dt><span><code>ldabsw imm32</code></span></dt>
+<dt><span><code>r0 = *(u32 *) skb[imm32]</code></span></dt>
+<dd><p>Absolute 32-bit load.
+</p>
+</dd>
+<dt><span><code>ldabsh imm32</code></span></dt>
+<dt><span><code>r0 = *(u16 *) skb[imm32]</code></span></dt>
+<dd><p>Absolute 16-bit load.
+</p>
+</dd>
+<dt><span><code>ldabsb imm32</code></span></dt>
+<dt><span><code>r0 = *(u8 *) skb[imm32]</code></span></dt>
+<dd><p>Absolute 8-bit load.
+</p></dd>
+</dl>
+
+<p>Indirect loads:
+</p>
+<dl compact="compact">
+<dt><span><code>ldindw rs, imm32</code></span></dt>
+<dt><span><code>r0 = *(u32 *) skb[rs + imm32]</code></span></dt>
+<dd><p>Indirect 32-bit load.
+</p>
+</dd>
+<dt><span><code>ldindh rs, imm32</code></span></dt>
+<dt><span><code>r0 = *(u16 *) skb[rs + imm32]</code></span></dt>
+<dd><p>Indirect 16-bit load.
+</p>
+</dd>
+<dt><span><code>ldindb %s, imm32</code></span></dt>
+<dt><span><code>r0 = *(u8 *) skb[rs + imm32]</code></span></dt>
+<dd><p>Indirect 8-bit load.
+</p></dd>
+</dl>
+
+</div>
+<div class="subsection" id="Generic-load_002fstore-instructions">
+<h4 class="subsubsection">9.7.5.7 Generic load/store instructions</h4>
+
+<p>General-purpose load and store instructions are provided for several
+word sizes.
+</p>
+<p>Load to register instructions:
+</p>
+<dl compact="compact">
+<dt><span><code>ldxdw rd, [rs + offset16]</code></span></dt>
+<dt><span><code>rd = *(u64 *) (rs + offset16)</code></span></dt>
+<dd><p>Generic 64-bit load.
+</p>
+</dd>
+<dt><span><code>ldxw rd, [rs + offset16]</code></span></dt>
+<dt><span><code>rd = *(u32 *) (rs + offset16)</code></span></dt>
+<dd><p>Generic 32-bit load.
+</p>
+</dd>
+<dt><span><code>ldxh rd, [rs + offset16]</code></span></dt>
+<dt><span><code>rd = *(u16 *) (rs + offset16)</code></span></dt>
+<dd><p>Generic 16-bit load.
+</p>
+</dd>
+<dt><span><code>ldxb rd, [rs + offset16]</code></span></dt>
+<dt><span><code>rd = *(u8 *) (rs + offset16)</code></span></dt>
+<dd><p>Generic 8-bit load.
+</p></dd>
+</dl>
+
+<p>Signed load to register instructions:
+</p>
+<dl compact="compact">
+<dt><span><code>ldxsdw rd, [rs + offset16]</code></span></dt>
+<dt><span><code>rd = *(s64 *) (rs + offset16)</code></span></dt>
+<dd><p>Generic 64-bit signed load.
+</p>
+</dd>
+<dt><span><code>ldxsw rd, [rs + offset16]</code></span></dt>
+<dt><span><code>rd = *(s32 *) (rs + offset16)</code></span></dt>
+<dd><p>Generic 32-bit signed load.
+</p>
+</dd>
+<dt><span><code>ldxsh rd, [rs + offset16]</code></span></dt>
+<dt><span><code>rd = *(s16 *) (rs + offset16)</code></span></dt>
+<dd><p>Generic 16-bit signed load.
+</p>
+</dd>
+<dt><span><code>ldxsb rd, [rs + offset16]</code></span></dt>
+<dt><span><code>rd = *(s8 *) (rs + offset16)</code></span></dt>
+<dd><p>Generic 8-bit signed load.
+</p></dd>
+</dl>
+
+<p>Store from register instructions:
+</p>
+<dl compact="compact">
+<dt><span><code>stxdw [rd + offset16], %s</code></span></dt>
+<dt><span><code>*(u64 *) (rd + offset16)</code></span></dt>
+<dd><p>Generic 64-bit store.
+</p>
+</dd>
+<dt><span><code>stxw [rd + offset16], %s</code></span></dt>
+<dt><span><code>*(u32 *) (rd + offset16)</code></span></dt>
+<dd><p>Generic 32-bit store.
+</p>
+</dd>
+<dt><span><code>stxh [rd + offset16], %s</code></span></dt>
+<dt><span><code>*(u16 *) (rd + offset16)</code></span></dt>
+<dd><p>Generic 16-bit store.
+</p>
+</dd>
+<dt><span><code>stxb [rd + offset16], %s</code></span></dt>
+<dt><span><code>*(u8 *) (rd + offset16)</code></span></dt>
+<dd><p>Generic 8-bit store.
+</p></dd>
+</dl>
+
+<p>Store from immediates instructions:
+</p>
+<dl compact="compact">
+<dt><span><code>stdw [rd + offset16], imm32</code></span></dt>
+<dt><span><code>*(u64 *) (rd + offset16) = imm32</code></span></dt>
+<dd><p>Store immediate as 64-bit.
+</p>
+</dd>
+<dt><span><code>stw [rd + offset16], imm32</code></span></dt>
+<dt><span><code>*(u32 *) (rd + offset16) = imm32</code></span></dt>
+<dd><p>Store immediate as 32-bit.
+</p>
+</dd>
+<dt><span><code>sth [rd + offset16], imm32</code></span></dt>
+<dt><span><code>*(u16 *) (rd + offset16) = imm32</code></span></dt>
+<dd><p>Store immediate as 16-bit.
+</p>
+</dd>
+<dt><span><code>stb [rd + offset16], imm32</code></span></dt>
+<dt><span><code>*(u8 *) (rd + offset16) = imm32</code></span></dt>
+<dd><p>Store immediate as 8-bit.
+</p></dd>
+</dl>
+
+</div>
+<div class="subsection" id="Jump-instructions">
+<h4 class="subsubsection">9.7.5.8 Jump instructions</h4>
+
+<p>eBPF provides the following compare-and-jump instructions, which
+compare the values of the two given registers, or the values of a
+register and an immediate, and perform a branch in case the comparison
+holds true.
+</p>
+<dl compact="compact">
+<dt><span><code>ja disp16</code></span></dt>
+<dt><span><code>goto disp16</code></span></dt>
+<dd><p>Jump-always.
+</p>
+</dd>
+<dt><span><code>jal disp32</code></span></dt>
+<dt><span><code>gotol disp32</code></span></dt>
+<dd><p>Jump-always, long range.
+</p>
+</dd>
+<dt><span><code>jeq rd, rs, disp16</code></span></dt>
+<dt><span><code>jeq rd, imm32, disp16</code></span></dt>
+<dt><span><code>if rd == rs goto disp16</code></span></dt>
+<dt><span><code>if rd == imm32 goto disp16</code></span></dt>
+<dd><p>Jump if equal, unsigned.
+</p>
+</dd>
+<dt><span><code>jgt rd, rs, disp16</code></span></dt>
+<dt><span><code>jgt rd, imm32, disp16</code></span></dt>
+<dt><span><code>if rd &gt; rs goto disp16</code></span></dt>
+<dt><span><code>if rd &gt; imm32 goto disp16</code></span></dt>
+<dd><p>Jump if greater, unsigned.
+</p>
+</dd>
+<dt><span><code>jge rd, rs, disp16</code></span></dt>
+<dt><span><code>jge rd, imm32, disp16</code></span></dt>
+<dt><span><code>if rd &gt;= rs goto disp16</code></span></dt>
+<dt><span><code>if rd &gt;= imm32 goto disp16</code></span></dt>
+<dd><p>Jump if greater or equal.
+</p>
+</dd>
+<dt><span><code>jlt rd, rs, disp16</code></span></dt>
+<dt><span><code>jlt rd, imm32, disp16</code></span></dt>
+<dt><span><code>if rd &lt; rs goto disp16</code></span></dt>
+<dt><span><code>if rd &lt; imm32 goto disp16</code></span></dt>
+<dd><p>Jump if lesser.
+</p>
+</dd>
+<dt><span><code>jle rd , rs, disp16</code></span></dt>
+<dt><span><code>jle rd, imm32, disp16</code></span></dt>
+<dt><span><code>if rd &lt;= rs goto disp16</code></span></dt>
+<dt><span><code>if rd &lt;= imm32 goto disp16</code></span></dt>
+<dd><p>Jump if lesser or equal.
+</p>
+</dd>
+<dt><span><code>jset rd, rs, disp16</code></span></dt>
+<dt><span><code>jset rd, imm32, disp16</code></span></dt>
+<dt><span><code>if rd &amp; rs goto disp16</code></span></dt>
+<dt><span><code>if rd &amp; imm32 goto disp16</code></span></dt>
+<dd><p>Jump if signed equal.
+</p>
+</dd>
+<dt><span><code>jne rd, rs, disp16</code></span></dt>
+<dt><span><code>jne rd, imm32, disp16</code></span></dt>
+<dt><span><code>if rd != rs goto disp16</code></span></dt>
+<dt><span><code>if rd != imm32 goto disp16</code></span></dt>
+<dd><p>Jump if not equal.
+</p>
+</dd>
+<dt><span><code>jsgt rd, rs, disp16</code></span></dt>
+<dt><span><code>jsgt rd, imm32, disp16</code></span></dt>
+<dt><span><code>if rd s&gt; rs goto disp16</code></span></dt>
+<dt><span><code>if rd s&gt; imm32 goto disp16</code></span></dt>
+<dd><p>Jump if signed greater.
+</p>
+</dd>
+<dt><span><code>jsge rd, rs, disp16</code></span></dt>
+<dt><span><code>jsge rd, imm32, disp16</code></span></dt>
+<dt><span><code>if rd s&gt;= rd goto disp16</code></span></dt>
+<dt><span><code>if rd s&gt;= imm32 goto disp16</code></span></dt>
+<dd><p>Jump if signed greater or equal.
+</p>
+</dd>
+<dt><span><code>jslt rd, rs, disp16</code></span></dt>
+<dt><span><code>jslt rd, imm32, disp16</code></span></dt>
+<dt><span><code>if rd s&lt; rs goto disp16</code></span></dt>
+<dt><span><code>if rd s&lt; imm32 goto disp16</code></span></dt>
+<dd><p>Jump if signed lesser.
+</p>
+</dd>
+<dt><span><code>jsle rd, rs, disp16</code></span></dt>
+<dt><span><code>jsle rd, imm32, disp16</code></span></dt>
+<dt><span><code>if rd s&lt;= rs goto disp16</code></span></dt>
+<dt><span><code>if rd s&lt;= imm32 goto disp16</code></span></dt>
+<dd><p>Jump if signed lesser or equal.
+</p></dd>
+</dl>
+
+<p>A call instruction is provided in order to perform calls to other eBPF
+functions, or to external kernel helpers:
+</p>
+<dl compact="compact">
+<dt><span><code>call disp32</code></span></dt>
+<dt><span><code>call imm32</code></span></dt>
+<dd><p>Jump and link to the offset <em>disp32</em>, or to the kernel helper
+function identified by <em>imm32</em>.
+</p></dd>
+</dl>
+
+<p>Finally:
+</p>
+<dl compact="compact">
+<dt><span><code>exit</code></span></dt>
+<dd><p>Terminate the eBPF program.
+</p></dd>
+</dl>
+
+</div>
+<div class="subsection" id="g_t32_002dbit-jump-instructions">
+<h4 class="subsubsection">9.7.5.9 32-bit jump instructions</h4>
+
+<p>eBPF provides the following compare-and-jump instructions, which
+compare the 32-bit values of the two given registers, or the values of
+a register and an immediate, and perform a branch in case the
+comparison holds true.
+</p>
+<p>These instructions are only available in BPF v3 or later.
+</p>
+<dl compact="compact">
+<dt><span><code>jeq32 rd, rs, disp16</code></span></dt>
+<dt><span><code>jeq32 rd, imm32, disp16</code></span></dt>
+<dt><span><code>if rd == rs goto disp16</code></span></dt>
+<dt><span><code>if rd == imm32 goto disp16</code></span></dt>
+<dd><p>Jump if equal, unsigned.
+</p>
+</dd>
+<dt><span><code>jgt32 rd, rs, disp16</code></span></dt>
+<dt><span><code>jgt32 rd, imm32, disp16</code></span></dt>
+<dt><span><code>if rd &gt; rs goto disp16</code></span></dt>
+<dt><span><code>if rd &gt; imm32 goto disp16</code></span></dt>
+<dd><p>Jump if greater, unsigned.
+</p>
+</dd>
+<dt><span><code>jge32 rd, rs, disp16</code></span></dt>
+<dt><span><code>jge32 rd, imm32, disp16</code></span></dt>
+<dt><span><code>if rd &gt;= rs goto disp16</code></span></dt>
+<dt><span><code>if rd &gt;= imm32 goto disp16</code></span></dt>
+<dd><p>Jump if greater or equal.
+</p>
+</dd>
+<dt><span><code>jlt32 rd, rs, disp16</code></span></dt>
+<dt><span><code>jlt32 rd, imm32, disp16</code></span></dt>
+<dt><span><code>if rd &lt; rs goto disp16</code></span></dt>
+<dt><span><code>if rd &lt; imm32 goto disp16</code></span></dt>
+<dd><p>Jump if lesser.
+</p>
+</dd>
+<dt><span><code>jle32 rd , rs, disp16</code></span></dt>
+<dt><span><code>jle32 rd, imm32, disp16</code></span></dt>
+<dt><span><code>if rd &lt;= rs goto disp16</code></span></dt>
+<dt><span><code>if rd &lt;= imm32 goto disp16</code></span></dt>
+<dd><p>Jump if lesser or equal.
+</p>
+</dd>
+<dt><span><code>jset32 rd, rs, disp16</code></span></dt>
+<dt><span><code>jset32 rd, imm32, disp16</code></span></dt>
+<dt><span><code>if rd &amp; rs goto disp16</code></span></dt>
+<dt><span><code>if rd &amp; imm32 goto disp16</code></span></dt>
+<dd><p>Jump if signed equal.
+</p>
+</dd>
+<dt><span><code>jne32 rd, rs, disp16</code></span></dt>
+<dt><span><code>jne32 rd, imm32, disp16</code></span></dt>
+<dt><span><code>if rd != rs goto disp16</code></span></dt>
+<dt><span><code>if rd != imm32 goto disp16</code></span></dt>
+<dd><p>Jump if not equal.
+</p>
+</dd>
+<dt><span><code>jsgt32 rd, rs, disp16</code></span></dt>
+<dt><span><code>jsgt32 rd, imm32, disp16</code></span></dt>
+<dt><span><code>if rd s&gt; rs goto disp16</code></span></dt>
+<dt><span><code>if rd s&gt; imm32 goto disp16</code></span></dt>
+<dd><p>Jump if signed greater.
+</p>
+</dd>
+<dt><span><code>jsge32 rd, rs, disp16</code></span></dt>
+<dt><span><code>jsge32 rd, imm32, disp16</code></span></dt>
+<dt><span><code>if rd s&gt;= rd goto disp16</code></span></dt>
+<dt><span><code>if rd s&gt;= imm32 goto disp16</code></span></dt>
+<dd><p>Jump if signed greater or equal.
+</p>
+</dd>
+<dt><span><code>jslt32 rd, rs, disp16</code></span></dt>
+<dt><span><code>jslt32 rd, imm32, disp16</code></span></dt>
+<dt><span><code>if rd s&lt; rs goto disp16</code></span></dt>
+<dt><span><code>if rd s&lt; imm32 goto disp16</code></span></dt>
+<dd><p>Jump if signed lesser.
+</p>
+</dd>
+<dt><span><code>jsle32 rd, rs, disp16</code></span></dt>
+<dt><span><code>jsle32 rd, imm32, disp16</code></span></dt>
+<dt><span><code>if rd s&lt;= rs goto disp16</code></span></dt>
+<dt><span><code>if rd s&lt;= imm32 goto disp16</code></span></dt>
+<dd><p>Jump if signed lesser or equal.
+</p></dd>
+</dl>
+
+</div>
+<div class="subsection" id="Atomic-instructions">
+<h4 class="subsubsection">9.7.5.10 Atomic instructions</h4>
+
+<p>Atomic exchange instructions are provided in two flavors: one for
+compare-and-swap, one for unconditional exchange.
+</p>
+<dl compact="compact">
+<dt><span><code>acmp [rd + offset16], rs</code></span></dt>
+<dt><span><code>r0 = cmpxchg_64 (rd + offset16, r0, rs)</code></span></dt>
+<dd><p>Atomic compare-and-swap.  Compares value in <code>r0</code> to value
+addressed by <code>rd + offset16</code>.  On match, the value addressed by
+<code>rd + offset16</code> is replaced with the value in <code>rs</code>.
+Regardless, the value that was at <code>rd + offset16</code> is
+zero-extended and loaded into <code>r0</code>.
+</p>
+</dd>
+<dt><span><code>axchg [rd + offset16], rs</code></span></dt>
+<dt><span><code>rs = xchg_64 (rd + offset16, rs)</code></span></dt>
+<dd><p>Atomic exchange.  Atomically exchanges the value in <code>rs</code> with
+the value addressed by <code>rd + offset16</code>.
+</p></dd>
+</dl>
+
+<p>The following instructions provide atomic arithmetic operations.
+</p>
+<dl compact="compact">
+<dt><span><code>aadd [rd + offset16], rs</code></span></dt>
+<dt><span><code>lock *(u64 *)(rd + offset16) = rs</code></span></dt>
+<dd><p>Atomic add instruction.
+</p>
+</dd>
+<dt><span><code>aor [rd + offset16], rs</code></span></dt>
+<dt><span><code>lock *(u64 *) (rd + offset16) |= rs</code></span></dt>
+<dd><p>Atomic or instruction.
+</p>
+</dd>
+<dt><span><code>aand [rd + offset16], rs</code></span></dt>
+<dt><span><code>lock *(u64 *) (rd + offset16) &amp;= rs</code></span></dt>
+<dd><p>Atomic and instruction.
+</p>
+</dd>
+<dt><span><code>axor [rd + offset16], rs</code></span></dt>
+<dt><span><code>lock *(u64 *) (rd + offset16) ^= rs</code></span></dt>
+<dd><p>Atomic xor instruction.
+</p></dd>
+</dl>
+
+<p>The following variants perform fetching before the atomic operation.
+</p>
+<dl compact="compact">
+<dt><span><code>afadd [rd + offset16], rs</code></span></dt>
+<dt><span><code>rs = atomic_fetch_add ((u64 *)(rd + offset16), rs)</code></span></dt>
+<dd><p>Atomic fetch-and-add instruction.
+</p>
+</dd>
+<dt><span><code>afor [rd + offset16], rs</code></span></dt>
+<dt><span><code>rs = atomic_fetch_or ((u64 *)(rd + offset16), rs)</code></span></dt>
+<dd><p>Atomic fetch-and-or instruction.
+</p>
+</dd>
+<dt><span><code>afand [rd + offset16], rs</code></span></dt>
+<dt><span><code>rs = atomic_fetch_and ((u64 *)(rd + offset16), rs)</code></span></dt>
+<dd><p>Atomic fetch-and-and instruction.
+</p>
+</dd>
+<dt><span><code>afxor [rd + offset16], rs</code></span></dt>
+<dt><span><code>rs = atomic_fetch_xor ((u64 *)(rd + offset16), rs)</code></span></dt>
+<dd><p>Atomic fetch-and-or instruction.
+</p></dd>
+</dl>
+
+<p>The above instructions were introduced in the V3 of the BPF
+instruction set.  The following instruction is supported for backwards
+compatibility:
+</p>
+<dl compact="compact">
+<dt><span><code>xadddw [rd + offset16], rs</code></span></dt>
+<dd><p>Alias to <code>aadd</code>.
+</p></dd>
+</dl>
+
+</div>
+<div class="subsection" id="g_t32_002dbit-atomic-instructions">
+<h4 class="subsubsection">9.7.5.11 32-bit atomic instructions</h4>
+
+<p>32-bit atomic exchange instructions are provided in two flavors: one
+for compare-and-swap, one for unconditional exchange.
+</p>
+<dl compact="compact">
+<dt><span><code>acmp32 [rd + offset16], rs</code></span></dt>
+<dt><span><code>w0 = cmpxchg32_32 (rd + offset16, w0, ws)</code></span></dt>
+<dd><p>Atomic compare-and-swap.  Compares value in <code>w0</code> to value
+addressed by <code>rd + offset16</code>.  On match, the value addressed by
+<code>rd + offset16</code> is replaced with the value in <code>ws</code>.
+Regardless, the value that was at <code>rd + offset16</code> is
+zero-extended and loaded into <code>w0</code>.
+</p>
+</dd>
+<dt><span><code>axchg [rd + offset16], rs</code></span></dt>
+<dt><span><code>ws = xchg32_32 (rd + offset16, ws)</code></span></dt>
+<dd><p>Atomic exchange.  Atomically exchanges the value in <code>ws</code> with
+the value addressed by <code>rd + offset16</code>.
+</p></dd>
+</dl>
+
+<p>The following instructions provide 32-bit atomic arithmetic operations.
+</p>
+<dl compact="compact">
+<dt><span><code>aadd32 [rd + offset16], rs</code></span></dt>
+<dt><span><code>lock *(u32 *)(rd + offset16) = rs</code></span></dt>
+<dd><p>Atomic add instruction.
+</p>
+</dd>
+<dt><span><code>aor32 [rd + offset16], rs</code></span></dt>
+<dt><span><code>lock *(u32 *) (rd + offset16) |= rs</code></span></dt>
+<dd><p>Atomic or instruction.
+</p>
+</dd>
+<dt><span><code>aand32 [rd + offset16], rs</code></span></dt>
+<dt><span><code>lock *(u32 *) (rd + offset16) &amp;= rs</code></span></dt>
+<dd><p>Atomic and instruction.
+</p>
+</dd>
+<dt><span><code>axor32 [rd + offset16], rs</code></span></dt>
+<dt><span><code>lock *(u32 *) (rd + offset16) ^= rs</code></span></dt>
+<dd><p>Atomic xor instruction
+</p></dd>
+</dl>
+
+<p>The following variants perform fetching before the atomic operation.
+</p>
+<dl compact="compact">
+<dt><span><code>afadd32 [dr + offset16], rs</code></span></dt>
+<dt><span><code>ws = atomic_fetch_add ((u32 *)(rd + offset16), ws)</code></span></dt>
+<dd><p>Atomic fetch-and-add instruction.
+</p>
+</dd>
+<dt><span><code>afor32 [dr + offset16], rs</code></span></dt>
+<dt><span><code>ws = atomic_fetch_or ((u32 *)(rd + offset16), ws)</code></span></dt>
+<dd><p>Atomic fetch-and-or instruction.
+</p>
+</dd>
+<dt><span><code>afand32 [dr + offset16], rs</code></span></dt>
+<dt><span><code>ws = atomic_fetch_and ((u32 *)(rd + offset16), ws)</code></span></dt>
+<dd><p>Atomic fetch-and-and instruction.
+</p>
+</dd>
+<dt><span><code>afxor32 [dr + offset16], rs</code></span></dt>
+<dt><span><code>ws = atomic_fetch_xor ((u32 *)(rd + offset16), ws)</code></span></dt>
+<dd><p>Atomic fetch-and-or instruction
+</p></dd>
+</dl>
+
+<p>The above instructions were introduced in the V3 of the BPF
+instruction set.  The following instruction is supported for backwards
+compatibility:
+</p>
+<dl compact="compact">
+<dt><span><code>xaddw [rd + offset16], rs</code></span></dt>
+<dd><p>Alias to <code>aadd32</code>.
+</p></dd>
+</dl>
+
+
+</div>
+</div>
+<hr>
+<div class="header">
+<p>
+Previous: <a href="BPF-Directives.html">BPF Directives</a>, Up: <a href="BPF_002dDependent.html">BPF Dependent Features</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

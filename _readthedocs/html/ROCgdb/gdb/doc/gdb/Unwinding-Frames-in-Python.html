@@ -3,7 +3,7 @@
 <!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright (C) 1988-2022 Free Software Foundation, Inc.
+<!-- Copyright (C) 1988-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -16,35 +16,47 @@ and with the Back-Cover Texts as in (a) below.
 this GNU Manual.  Buying copies from GNU Press supports the FSF in
 developing GNU and promoting software freedom."
 
-Disclaimer
+Legal Disclaimer and Copyright Information
 
-The information contained herein is for informational purposes only,
-and is subject to change without notice.  While every precaution has
-been taken in the preparation of this document, it may contain
-technical inaccuracies, omissions and typographical errors, and AMD is
-under no obligation to update or otherwise correct this information.
-Advanced Micro Devices, Inc. makes no representations or warranties
-with respect to the accuracy or completeness of the contents of this
-document, and assumes no liability of any kind, including the implied
-warranties of noninfringement, merchantability or fitness for
-particular purposes, with respect to the operation or use of AMD
-hardware, software or other products described herein.  No license,
-including implied or arising by estoppel, to any intellectual property
-rights is granted by this document.  Terms and limitations applicable
-to the purchase or use of AMD’s products are as set forth in a signed
-agreement between the parties or in AMD's Standard Terms and
-Conditions of Sale.
+AMD ROCm software is made available by Advanced Micro Devices, Inc. under the
+open source license identified in the top-level directory for the library in
+the repository on Github.com (Portions of AMD ROCm software are
+licensed under MITx11 and UIL/NCSA. For more information on the license, review
+the license.txt in the top-level directory for the library on
+Github.com).  The additional terms and conditions below apply to your use
+of AMD ROCm technical documentation.
 
-AMD(R), the AMD Arrow logo, AMD Instinct(R),
-Radeon(R), ROCm(R) and combinations thereof are
-trademarks of Advanced Micro Devices, Inc.  Linux(R) is the
-registered trademark of Linus Torvalds in the U.S. and other countries.
-PCIe(R) is a registered trademark of PCI-SIG Corporation. Other
-product names used in this publication are for identification purposes only and
-may be trademarks of their respective companies.
+(C)2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
 
-Copyright (C) 2019-2022 Advanced Micro Devices, Inc.  All
-rights reserved. -->
+The information presented in this document is for informational purposes only
+and may contain technical inaccuracies, omissions, and typographical errors.
+The information contained herein is subject to change and may be rendered
+inaccurate for many reasons, including but not limited to product and roadmap
+changes, component and motherboard version changes, new model and/or product
+releases, product differences between differing manufacturers, software
+changes, BIOS flashes, firmware upgrades, or the like.  Any computer system has
+risks of security vulnerabilities that cannot be completely prevented or
+mitigated.  AMD assumes no obligation to update or otherwise correct or revise
+this information.  However, AMD reserves the right to revise this information
+and to make changes from time to time to the content hereof without obligation
+of AMD to notify any person of such revisions or changes.
+
+THIS INFORMATION IS PROVIDED "AS IS."  AMD MAKES NO REPRESENTATIONS OR
+WARRANTIES WITH RESPECT TO THE CONTENTS HEREOF AND ASSUMES NO RESPONSIBILITY
+FOR ANY INACCURACIES, ERRORS, OR OMISSIONS THAT MAY APPEAR IN THIS INFORMATION.
+AMD SPECIFICALLY DISCLAIMS ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT,
+MERCHANTABILITY, OR FITNESS FOR ANY PARTICULAR PURPOSE.  IN NO EVENT WILL AMD
+BE LIABLE TO ANY PERSON FOR ANY RELIANCE, DIRECT, INDIRECT, SPECIAL, OR OTHER
+CONSEQUENTIAL DAMAGES ARISING FROM THE USE OF ANY INFORMATION CONTAINED HEREIN,
+EVEN IF AMD IS EXPRESSLY ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+
+AMD, the AMD Arrow logo, AMD Instinct™, Radeon™, AMD ROCm™, and combinations
+thereof are trademarks of Advanced Micro Devices, Inc.
+Linux(R) is the registered trademark of Linus Torvalds in the
+U.S. and other countries. PCIe(R) is a registered trademark of
+PCI-SIG Corporation.  Other product names used in this publication are for
+identification purposes only and may be trademarks of their respective
+companies. -->
 <title>Unwinding Frames in Python (Debugging with ROCGDB)</title>
 
 <meta name="description" content="Unwinding Frames in Python (Debugging with ROCGDB)">
@@ -90,7 +102,7 @@ ul.no-bullet {list-style: none}
 Next: <a href="Xmethods-In-Python.html" accesskey="n" rel="next">Xmethods In Python</a>, Previous: <a href="Writing-a-Frame-Filter.html" accesskey="p" rel="prev">Writing a Frame Filter</a>, Up: <a href="Python-API.html" accesskey="u" rel="up">Python API</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="Unwinding-Frames-in-Python-1"></span><h4 class="subsubsection">24.3.2.12 Unwinding Frames in Python</h4>
+<span id="Unwinding-Frames-in-Python-1"></span><h4 class="subsubsection">24.3.2.13 Unwinding Frames in Python</h4>
 <span id="index-unwinding-frames-in-Python"></span>
 
 <p>In <small>ROCGDB</small> terminology &ldquo;unwinding&rdquo; is the process of finding
@@ -99,7 +111,7 @@ unwinder has three methods.  The first one checks if it can handle
 given frame (&ldquo;sniff&rdquo; it).  For the frames it can sniff an unwinder
 provides two additional methods: it can return frame&rsquo;s ID, and it can
 fetch registers from the previous frame.  A running <small>ROCGDB</small>
-mantains a list of the unwinders and calls each unwinder&rsquo;s sniffer in
+maintains a list of the unwinders and calls each unwinder&rsquo;s sniffer in
 turn until it finds the one that recognizes the current frame.  There
 is an API to register an unwinder.
 </p>
@@ -120,7 +132,7 @@ frame registers when <small>ROCGDB</small> core asks for them.
 </p>
 <p>An unwinder should do as little work as possible.  Some otherwise
 innocuous operations can cause problems (even crashes, as this code is
-not not well-hardened yet).  For example, making an inferior call from
+not well-hardened yet).  For example, making an inferior call from
 an unwinder is unadvisable, as an inferior call will reset
 <small>ROCGDB</small>&rsquo;s stack unwinding process, potentially causing re-entrant
 unwinding.
@@ -131,11 +143,11 @@ unwinding.
 provides a method to read frame&rsquo;s registers:
 </p>
 <dl class="def">
-<dt id="index-PendingFrame_002eread_005fregister"><span class="category">Function: </span><span><strong>PendingFrame.read_register</strong> <em>(reg)</em><a href='#index-PendingFrame_002eread_005fregister' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>This method returns the contents of the register <var>reg</var> in the
+<dt id="index-PendingFrame_002eread_005fregister"><span class="category">Function: </span><span><strong>PendingFrame.read_register</strong> <em>(register)</em><a href='#index-PendingFrame_002eread_005fregister' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>This method returns the contents of <var>register</var> in the
 frame as a <code>gdb.Value</code> object.  For a description of the
-acceptable values of <var>reg</var> see
-<a href="Frames-In-Python.html#gdbpy_005fframe_005fread_005fregister">Frame.read_register</a>.  If <var>reg</var>
+acceptable values of <var>register</var> see
+<a href="Frames-In-Python.html#gdbpy_005fframe_005fread_005fregister">Frame.read_register</a>.  If <var>register</var>
 does not name a register for the current architecture, this method
 will throw an exception.
 </p>
@@ -157,12 +169,13 @@ pointer, pointer-to-function, floating point or vector types.
 <p>It also provides a factory method to create a <code>gdb.UnwindInfo</code>
 instance to be returned to <small>ROCGDB</small>:
 </p>
-<dl class="def">
+<span id="gdb_002ePendingFrame_002ecreate_005funwind_005finfo"></span><dl class="def">
 <dt id="index-PendingFrame_002ecreate_005funwind_005finfo"><span class="category">Function: </span><span><strong>PendingFrame.create_unwind_info</strong> <em>(frame_id)</em><a href='#index-PendingFrame_002ecreate_005funwind_005finfo' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Returns a new <code>gdb.UnwindInfo</code> instance identified by given
-<var>frame_id</var>.  The argument is used to build <small>ROCGDB</small>&rsquo;s frame ID
-using one of functions provided by <small>ROCGDB</small>.  <var>frame_id</var>&rsquo;s attributes
-determine which function will be used, as follows:
+<var>frame_id</var>.  The <var>frame_id</var> is used internally by <small>ROCGDB</small>
+to identify the frames within the current thread&rsquo;s stack.  The
+attributes of <var>frame_id</var> determine what type of frame is
+created within <small>ROCGDB</small>:
 </p>
 <dl compact="compact">
 <dt><span><code>sp, pc</code></span></dt>
@@ -193,7 +206,12 @@ this.
 </p></dd>
 </dl>
 
-<p>Each attribute value should be an instance of <code>gdb.Value</code>.
+<p>Each attribute value should either be an instance of <code>gdb.Value</code>
+or an integer.
+</p>
+<p>A helper class is provided in the <code>gdb.unwinder</code> module that can
+be used to represent a frame-id
+(see <a href="#gdb_002eunwinder_002eFrameId">gdb.unwinder.FrameId</a>).
 </p>
 </dd></dl>
 
@@ -210,6 +228,52 @@ the particular frame being unwound.
 See <a href="Frames.html">Stack Frames</a>.
 </p></dd></dl>
 
+<dl class="def">
+<dt id="index-PendingFrame_002ename"><span class="category">Function: </span><span><strong>PendingFrame.name</strong> <em>()</em><a href='#index-PendingFrame_002ename' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Returns the function name of this pending frame, or <code>None</code> if it
+can&rsquo;t be obtained.
+</p></dd></dl>
+
+<dl class="def">
+<dt id="index-PendingFrame_002eis_005fvalid"><span class="category">Function: </span><span><strong>PendingFrame.is_valid</strong> <em>()</em><a href='#index-PendingFrame_002eis_005fvalid' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Returns true if the <code>gdb.PendingFrame</code> object is valid, false if
+not.  A pending frame object becomes invalid when the call to the
+unwinder, for which the pending frame was created, returns.
+</p>
+<p>All <code>gdb.PendingFrame</code> methods, except this one, will raise an
+exception if the pending frame object is invalid at the time the
+method is called.
+</p></dd></dl>
+
+<dl class="def">
+<dt id="index-PendingFrame_002epc"><span class="category">Function: </span><span><strong>PendingFrame.pc</strong> <em>()</em><a href='#index-PendingFrame_002epc' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Returns the pending frame&rsquo;s resume address.
+</p></dd></dl>
+
+<dl class="def">
+<dt id="index-PendingFrame_002eblock"><span class="category">Function: </span><span><strong>PendingFrame.block</strong> <em>()</em><a href='#index-PendingFrame_002eblock' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Return the pending frame&rsquo;s code block (see <a href="Blocks-In-Python.html">Accessing blocks from Python</a>).  If
+the frame does not have a block &ndash; for example, if there is no
+debugging information for the code in question &ndash; then this will raise
+a <code>RuntimeError</code> exception.
+</p></dd></dl>
+
+<dl class="def">
+<dt id="index-PendingFrame_002efunction"><span class="category">Function: </span><span><strong>PendingFrame.function</strong> <em>()</em><a href='#index-PendingFrame_002efunction' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Return the symbol for the function corresponding to this pending frame.
+See <a href="Symbols-In-Python.html">Python representation of Symbols</a>.
+</p></dd></dl>
+
+<dl class="def">
+<dt id="index-PendingFrame_002efind_005fsal"><span class="category">Function: </span><span><strong>PendingFrame.find_sal</strong> <em>()</em><a href='#index-PendingFrame_002efind_005fsal' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Return the pending frame&rsquo;s symtab and line object (see <a href="Symbol-Tables-In-Python.html">Symbol table representation in Python</a>).
+</p></dd></dl>
+
+<dl class="def">
+<dt id="index-PendingFrame_002elanguage"><span class="category">Function: </span><span><strong>PendingFrame.language</strong> <em>()</em><a href='#index-PendingFrame_002elanguage' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Return the language of this frame, as a string, or None.
+</p></dd></dl>
+
 <span id="Unwinder-Output_003a-UnwindInfo"></span><h4 class="subheading">Unwinder Output: UnwindInfo</h4>
 
 <p>Use <code>PendingFrame.create_unwind_info</code> method described above to
@@ -217,76 +281,171 @@ create a <code>gdb.UnwindInfo</code> instance.  Use the following method to
 specify caller registers that have been saved in this frame:
 </p>
 <dl class="def">
-<dt id="index-gdb_002eUnwindInfo_002eadd_005fsaved_005fregister"><span class="category">Function: </span><span><strong>gdb.UnwindInfo.add_saved_register</strong> <em>(reg, value)</em><a href='#index-gdb_002eUnwindInfo_002eadd_005fsaved_005fregister' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p><var>reg</var> identifies the register, for a description of the acceptable
+<dt id="index-gdb_002eUnwindInfo_002eadd_005fsaved_005fregister"><span class="category">Function: </span><span><strong>gdb.UnwindInfo.add_saved_register</strong> <em>(register, value)</em><a href='#index-gdb_002eUnwindInfo_002eadd_005fsaved_005fregister' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p><var>register</var> identifies the register, for a description of the acceptable
 values see <a href="Frames-In-Python.html#gdbpy_005fframe_005fread_005fregister">Frame.read_register</a>.
 <var>value</var> is a register value (a <code>gdb.Value</code> object).
 </p></dd></dl>
 
+<span id="The-gdb_002eunwinder-Module"></span><h4 class="subheading">The <code>gdb.unwinder</code> Module</h4>
+
+<p><small>ROCGDB</small> comes with a <code>gdb.unwinder</code> module which contains
+the following classes:
+</p>
+<dl class="def">
+<dt id="index-gdb_002eunwinder_002eUnwinder"><span class="category">class: </span><span><strong>gdb.unwinder.Unwinder</strong><a href='#index-gdb_002eunwinder_002eUnwinder' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>The <code>Unwinder</code> class is a base class from which user created
+unwinders can derive, though it is not required that unwinders derive
+from this class, so long as any user created unwinder has the required
+<code>name</code> and <code>enabled</code> attributes.
+</p>
+<dl class="def">
+<dt id="index-gdb_002eunwinder_002eUnwinder_002e_005f_005finit_005f_005f_0028name_0029"><span class="category">Function: </span><span><strong>gdb.unwinder.Unwinder.__init__(name)</strong><a href='#index-gdb_002eunwinder_002eUnwinder_002e_005f_005finit_005f_005f_0028name_0029' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>The <var>name</var> is a string used to reference this unwinder within some
+<small>ROCGDB</small> commands (see <a href="#Managing-Registered-Unwinders">Managing Registered Unwinders</a>).
+</p></dd></dl>
+
+<dl class="def">
+<dt id="index-gdb_002eunwinder_002ename"><span class="category">Variable: </span><span><strong>gdb.unwinder.name</strong><a href='#index-gdb_002eunwinder_002ename' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>A read-only attribute which is a string, the name of this unwinder.
+</p></dd></dl>
+
+<dl class="def">
+<dt id="index-gdb_002eunwinder_002eenabled"><span class="category">Variable: </span><span><strong>gdb.unwinder.enabled</strong><a href='#index-gdb_002eunwinder_002eenabled' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>A modifiable attribute containing a boolean; when <code>True</code>, the
+unwinder is enabled, and will be used by <small>ROCGDB</small>.  When
+<code>False</code>, the unwinder has been disabled, and will not be used.
+</p></dd></dl>
+</dd></dl>
+
+<span id="gdb_002eunwinder_002eFrameId"></span><dl class="def">
+<dt id="index-gdb_002eunwinder_002eFrameId"><span class="category">class: </span><span><strong>gdb.unwinder.FrameId</strong><a href='#index-gdb_002eunwinder_002eFrameId' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>This is a class suitable for being used as the frame-id when calling
+<code>gdb.PendingFrame.create_unwind_info</code>.  It is not required to use
+this class, any class with the required attribute
+(see <a href="#gdb_002ePendingFrame_002ecreate_005funwind_005finfo">gdb.PendingFrame.create_unwind_info</a>) will be accepted, but in
+most cases this class will be sufficient.
+</p>
+<p><code>gdb.unwinder.FrameId</code> has the following method:
+</p>
+<dl class="def">
+<dt id="index-gdb_002eunwinder_002eFrameId_002e_005f_005finit_005f_005f_0028sp_002c"><span class="category">Function: </span><span><strong>gdb.unwinder.FrameId.__init__(sp,</strong> <em>pc, special = <code>None</code>)</em><a href='#index-gdb_002eunwinder_002eFrameId_002e_005f_005finit_005f_005f_0028sp_002c' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>The <var>sp</var> and <var>pc</var> arguments are required and should be either
+a <code>gdb.Value</code> object, or an integer.
+</p>
+<p>The <var>special</var> argument is optional; if specified, it should be a
+<code>gdb.Value</code> object, or an integer.
+</p></dd></dl>
+
+<p><code>gdb.unwinder.FrameId</code> has the following read-only attributes:
+</p>
+<dl class="def">
+<dt id="index-gdb_002eunwinder_002esp"><span class="category">Variable: </span><span><strong>gdb.unwinder.sp</strong><a href='#index-gdb_002eunwinder_002esp' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>The <var>sp</var> value passed to the constructor.
+</p></dd></dl>
+
+<dl class="def">
+<dt id="index-gdb_002eunwinder_002epc"><span class="category">Variable: </span><span><strong>gdb.unwinder.pc</strong><a href='#index-gdb_002eunwinder_002epc' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>The <var>pc</var> value passed to the constructor.
+</p></dd></dl>
+
+<dl class="def">
+<dt id="index-gdb_002eunwinder_002especial"><span class="category">Variable: </span><span><strong>gdb.unwinder.special</strong><a href='#index-gdb_002eunwinder_002especial' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>The <var>special</var> value passed to the constructor, or <code>None</code> if
+no such value was passed.
+</p></dd></dl>
+</dd></dl>
+
+<span id="Registering-an-Unwinder"></span><h4 class="subheading">Registering an Unwinder</h4>
+
+<p>Object files and program spaces can have unwinders registered with
+them.  In addition, you can register unwinders globally.
+</p>
+<p>The <code>gdb.unwinders</code> module provides the function to register an
+unwinder:
+</p>
+<dl class="def">
+<dt id="index-gdb_002eunwinder_002eregister_005funwinder"><span class="category">Function: </span><span><strong>gdb.unwinder.register_unwinder</strong> <em>(locus, unwinder, replace=False)</em><a href='#index-gdb_002eunwinder_002eregister_005funwinder' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p><var>locus</var> specifies to which unwinder list to prepend the
+<var>unwinder</var>.  It can be either an object file (see <a href="Objfiles-In-Python.html">Objfiles In Python</a>), a program space (see <a href="Progspaces-In-Python.html">Program Spaces In Python</a>), or
+<code>None</code>, in which case the unwinder is registered globally.  The
+newly added <var>unwinder</var> will be called before any other unwinder
+from the same locus.  Two unwinders in the same locus cannot have the
+same name.  An attempt to add an unwinder with an already existing
+name raises an exception unless <var>replace</var> is <code>True</code>, in which
+case the old unwinder is deleted and the new unwinder is registered in
+its place.
+</p>
+<p><small>ROCGDB</small> first calls the unwinders from all the object files in no
+particular order, then the unwinders from the current program space,
+then the globally registered unwinders, and finally the unwinders
+builtin to <small>ROCGDB</small>.
+</p></dd></dl>
+
 <span id="Unwinder-Skeleton-Code"></span><h4 class="subheading">Unwinder Skeleton Code</h4>
 
-<p><small>ROCGDB</small> comes with the module containing the base <code>Unwinder</code>
-class.  Derive your unwinder class from it and structure the code as
-follows:
+<p>Here is an example of how to structure a user created unwinder:
 </p>
 <div class="example">
-<pre class="example">from gdb.unwinders import Unwinder
-
-class FrameId(object):
-    def __init__(self, sp, pc):
-        self.sp = sp
-        self.pc = pc
-
+<pre class="example">from gdb.unwinder import Unwinder, FrameId
 
 class MyUnwinder(Unwinder):
-    def __init__(....):
-        super(MyUnwinder, self).__init___(&lt;expects unwinder name argument&gt;)
+    def __init__(self):
+        super().__init___(&quot;MyUnwinder_Name&quot;)
 
-    def __call__(pending_frame):
+    def __call__(self, pending_frame):
         if not &lt;we recognize frame&gt;:
             return None
-        # Create UnwindInfo.  Usually the frame is identified by the stack 
-        # pointer and the program counter.
-        sp = pending_frame.read_register(&lt;SP number&gt;)
-        pc = pending_frame.read_register(&lt;PC number&gt;)
+
+        # Create a FrameID.  Usually the frame is identified by a
+        # stack pointer and the function address.
+        sp = ... compute a stack address ...
+        pc = ... compute function address ...
         unwind_info = pending_frame.create_unwind_info(FrameId(sp, pc))
 
-        # Find the values of the registers in the caller's frame and 
+        # Find the values of the registers in the caller's frame and
         # save them in the result:
-        unwind_info.add_saved_register(&lt;register&gt;, &lt;value&gt;)
+        unwind_info.add_saved_register(&lt;register-number&gt;, &lt;register-value&gt;)
         ....
 
         # Return the result:
         return unwind_info
 
+gdb.unwinder.register_unwinder(&lt;locus&gt;, MyUnwinder(), &lt;replace&gt;)
 </pre></div>
 
-<span id="Registering-a-Unwinder"></span><h4 class="subheading">Registering a Unwinder</h4>
-
-<p>An object file, a program space, and the <small>ROCGDB</small> proper can have
-unwinders registered with it.
+<span id="Managing-Registered-Unwinders"></span><span id="Managing-Registered-Unwinders-1"></span><h4 class="subheading">Managing Registered Unwinders</h4>
+<p><small>ROCGDB</small> defines 3 commands to manage registered unwinders.  These
+are:
 </p>
-<p>The <code>gdb.unwinders</code> module provides the function to register a
-unwinder:
+<dl compact="compact">
+<dt><span><code>info unwinder <span class="roman">[</span> <var>locus</var> <span class="roman">[</span> <var>name-regexp</var> <span class="roman">]</span> <span class="roman">]</span></code></span></dt>
+<dd><p>Lists all registered unwinders.  Arguments <var>locus</var> and
+<var>name-regexp</var> are both optional and can be used to filter which
+unwinders are listed.
 </p>
-<dl class="def">
-<dt id="index-gdb_002eunwinder_002eregister_005funwinder"><span class="category">Function: </span><span><strong>gdb.unwinder.register_unwinder</strong> <em>(locus, unwinder, replace=False)</em><a href='#index-gdb_002eunwinder_002eregister_005funwinder' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p><var>locus</var> is specifies an object file or a program space to which
-<var>unwinder</var> is added.  Passing <code>None</code> or <code>gdb</code> adds
-<var>unwinder</var> to the <small>ROCGDB</small>&rsquo;s global unwinder list.  The newly
-added <var>unwinder</var> will be called before any other unwinder from the
-same locus.  Two unwinders in the same locus cannot have the same
-name.  An attempt to add a unwinder with already existing name raises
-an exception unless <var>replace</var> is <code>True</code>, in which case the
-old unwinder is deleted.
-</p></dd></dl>
-
-<span id="Unwinder-Precedence"></span><h4 class="subheading">Unwinder Precedence</h4>
-
-<p><small>ROCGDB</small> first calls the unwinders from all the object files in no
-particular order, then the unwinders from the current program space,
-and finally the unwinders from <small>ROCGDB</small>.
+<p>The <var>locus</var> argument should be either <kbd>global</kbd>,
+<kbd>progspace</kbd>, or the name of an object file.  Only unwinders
+registered for the specified locus will be listed.
 </p>
+<p>The <var>name-regexp</var> is a regular expression used to match against
+unwinder names.  When trying to match against unwinder names that
+include a string enclose <var>name-regexp</var> in quotes.
+</p></dd>
+<dt><span><code>disable unwinder <span class="roman">[</span> <var>locus</var> <span class="roman">[</span> <var>name-regexp</var> <span class="roman">]</span> <span class="roman">]</span></code></span></dt>
+<dd><p>The <var>locus</var> and <var>name-regexp</var> are interpreted as in <kbd>info
+unwinder</kbd> above, but instead of listing the matching unwinders, all of
+the matching unwinders are disabled.  The <code>enabled</code> field of each
+matching unwinder is set to <code>False</code>.
+</p></dd>
+<dt><span><code>enable unwinder <span class="roman">[</span> <var>locus</var> <span class="roman">[</span> <var>name-regexp</var> <span class="roman">]</span> <span class="roman">]</span></code></span></dt>
+<dd><p>The <var>locus</var> and <var>name-regexp</var> are interpreted as in <kbd>info
+unwinder</kbd> above, but instead of listing the matching unwinders, all of
+the matching unwinders are enabled.  The <code>enabled</code> field of each
+matching unwinder is set to <code>True</code>.
+</p></dd>
+</dl>
+
 </div>
 <hr>
 <div class="header">

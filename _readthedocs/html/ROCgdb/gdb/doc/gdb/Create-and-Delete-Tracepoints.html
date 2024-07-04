@@ -3,7 +3,7 @@
 <!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright (C) 1988-2022 Free Software Foundation, Inc.
+<!-- Copyright (C) 1988-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -16,35 +16,47 @@ and with the Back-Cover Texts as in (a) below.
 this GNU Manual.  Buying copies from GNU Press supports the FSF in
 developing GNU and promoting software freedom."
 
-Disclaimer
+Legal Disclaimer and Copyright Information
 
-The information contained herein is for informational purposes only,
-and is subject to change without notice.  While every precaution has
-been taken in the preparation of this document, it may contain
-technical inaccuracies, omissions and typographical errors, and AMD is
-under no obligation to update or otherwise correct this information.
-Advanced Micro Devices, Inc. makes no representations or warranties
-with respect to the accuracy or completeness of the contents of this
-document, and assumes no liability of any kind, including the implied
-warranties of noninfringement, merchantability or fitness for
-particular purposes, with respect to the operation or use of AMD
-hardware, software or other products described herein.  No license,
-including implied or arising by estoppel, to any intellectual property
-rights is granted by this document.  Terms and limitations applicable
-to the purchase or use of AMD’s products are as set forth in a signed
-agreement between the parties or in AMD's Standard Terms and
-Conditions of Sale.
+AMD ROCm software is made available by Advanced Micro Devices, Inc. under the
+open source license identified in the top-level directory for the library in
+the repository on Github.com (Portions of AMD ROCm software are
+licensed under MITx11 and UIL/NCSA. For more information on the license, review
+the license.txt in the top-level directory for the library on
+Github.com).  The additional terms and conditions below apply to your use
+of AMD ROCm technical documentation.
 
-AMD(R), the AMD Arrow logo, AMD Instinct(R),
-Radeon(R), ROCm(R) and combinations thereof are
-trademarks of Advanced Micro Devices, Inc.  Linux(R) is the
-registered trademark of Linus Torvalds in the U.S. and other countries.
-PCIe(R) is a registered trademark of PCI-SIG Corporation. Other
-product names used in this publication are for identification purposes only and
-may be trademarks of their respective companies.
+(C)2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
 
-Copyright (C) 2019-2022 Advanced Micro Devices, Inc.  All
-rights reserved. -->
+The information presented in this document is for informational purposes only
+and may contain technical inaccuracies, omissions, and typographical errors.
+The information contained herein is subject to change and may be rendered
+inaccurate for many reasons, including but not limited to product and roadmap
+changes, component and motherboard version changes, new model and/or product
+releases, product differences between differing manufacturers, software
+changes, BIOS flashes, firmware upgrades, or the like.  Any computer system has
+risks of security vulnerabilities that cannot be completely prevented or
+mitigated.  AMD assumes no obligation to update or otherwise correct or revise
+this information.  However, AMD reserves the right to revise this information
+and to make changes from time to time to the content hereof without obligation
+of AMD to notify any person of such revisions or changes.
+
+THIS INFORMATION IS PROVIDED "AS IS."  AMD MAKES NO REPRESENTATIONS OR
+WARRANTIES WITH RESPECT TO THE CONTENTS HEREOF AND ASSUMES NO RESPONSIBILITY
+FOR ANY INACCURACIES, ERRORS, OR OMISSIONS THAT MAY APPEAR IN THIS INFORMATION.
+AMD SPECIFICALLY DISCLAIMS ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT,
+MERCHANTABILITY, OR FITNESS FOR ANY PARTICULAR PURPOSE.  IN NO EVENT WILL AMD
+BE LIABLE TO ANY PERSON FOR ANY RELIANCE, DIRECT, INDIRECT, SPECIAL, OR OTHER
+CONSEQUENTIAL DAMAGES ARISING FROM THE USE OF ANY INFORMATION CONTAINED HEREIN,
+EVEN IF AMD IS EXPRESSLY ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+
+AMD, the AMD Arrow logo, AMD Instinct™, Radeon™, AMD ROCm™, and combinations
+thereof are trademarks of Advanced Micro Devices, Inc.
+Linux(R) is the registered trademark of Linus Torvalds in the
+U.S. and other countries. PCIe(R) is a registered trademark of
+PCI-SIG Corporation.  Other product names used in this publication are for
+identification purposes only and may be trademarks of their respective
+companies. -->
 <title>Create and Delete Tracepoints (Debugging with ROCGDB)</title>
 
 <meta name="description" content="Create and Delete Tracepoints (Debugging with ROCGDB)">
@@ -95,10 +107,10 @@ Next: <a href="Enable-and-Disable-Tracepoints.html" accesskey="n" rel="next">Ena
 <dd><span id="index-set-tracepoint"></span>
 <span id="index-trace"></span>
 </dd>
-<dt><span><code>trace <var>location</var></code></span></dt>
+<dt><span><code>trace <var>locspec</var></code></span></dt>
 <dd><p>The <code>trace</code> command is very similar to the <code>break</code> command.
-Its argument <var>location</var> can be any valid location.
-See <a href="Specify-Location.html">Specifying a Location</a>.  The <code>trace</code> command defines a tracepoint,
+Its argument <var>locspec</var> can be any valid location specification.
+See <a href="Location-Specifications.html">Location Specifications</a>.  The <code>trace</code> command defines a tracepoint,
 which is a point in the target program where the debugger will briefly stop,
 collect some data, and then allow the program to continue.  Setting a tracepoint
 or changing its actions takes effect immediately if the remote stub
@@ -132,7 +144,7 @@ the remote stub) while <small>ROCGDB</small> is disconnected.
 <p>You can abbreviate <code>trace</code> as <code>tr</code>.
 </p>
 </dd>
-<dt><span><code>trace <var>location</var> if <var>cond</var></code></span></dt>
+<dt><span><code>trace <var>locspec</var> if <var>cond</var></code></span></dt>
 <dd><p>Set a tracepoint with condition <var>cond</var>; evaluate the expression
 <var>cond</var> each time the tracepoint is reached, and collect data only
 if the value is nonzero&mdash;that is, if <var>cond</var> evaluates as true.
@@ -140,7 +152,7 @@ See <a href="Tracepoint-Conditions.html">Tracepoint Conditions</a>, for more
 information on tracepoint conditions.
 </p>
 </dd>
-<dt id='index-set-fast-tracepoint'><span><code>ftrace <var>location</var> [ if <var>cond</var> ]</code><a href='#index-set-fast-tracepoint' class='copiable-anchor'> &para;</a></span></dt>
+<dt id='index-set-fast-tracepoint'><span><code>ftrace <var>locspec</var> [ if <var>cond</var> ]</code><a href='#index-set-fast-tracepoint' class='copiable-anchor'> &para;</a></span></dt>
 <dd><span id="index-fast-tracepoints_002c-setting"></span>
 <span id="index-ftrace"></span>
 <p>The <code>ftrace</code> command sets a fast tracepoint.  For targets that
@@ -171,19 +183,20 @@ to set the <code>mmap_min_addr</code> kernel parameter, as in
 trampolines.  The minimum address should be set to a page boundary.
 </p>
 </dd>
-<dt id='index-set-static-tracepoint'><span><code>strace <var>location</var> [ if <var>cond</var> ]</code><a href='#index-set-static-tracepoint' class='copiable-anchor'> &para;</a></span></dt>
+<dt id='index-set-static-tracepoint'><span><code>strace [<var>locspec</var> | -m <var>marker</var>] [ if <var>cond</var> ]</code><a href='#index-set-static-tracepoint' class='copiable-anchor'> &para;</a></span></dt>
 <dd><span id="index-static-tracepoints_002c-setting"></span>
 <span id="index-probe-static-tracepoint-marker"></span>
 <span id="index-strace"></span>
 <p>The <code>strace</code> command sets a static tracepoint.  For targets that
 support it, setting a static tracepoint probes a static
-instrumentation point, or marker, found at <var>location</var>.  It may not
-be possible to set a static tracepoint at the desired location, in
-which case the command will exit with an explanatory message.
+instrumentation point, or marker, found at the code locations that
+result from resolving <var>locspec</var>.  It may not be possible to set a
+static tracepoint at the desired code location, in which case the
+command will exit with an explanatory message.
 </p>
 <p><small>ROCGDB</small> handles arguments to <code>strace</code> exactly as for
 <code>trace</code>, with the addition that the user can also specify
-<code>-m <var>marker</var></code> as <var>location</var>.  This probes the marker
+<code>-m <var>marker</var></code> instead of a location spec.  This probes the marker
 identified by the <var>marker</var> string identifier.  This identifier
 depends on the static tracepoint backend library your program is
 using.  You can find all the marker identifiers in the &lsquo;<samp>ID</samp>&rsquo; field

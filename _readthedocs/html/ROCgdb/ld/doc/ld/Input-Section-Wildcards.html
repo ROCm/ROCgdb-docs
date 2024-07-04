@@ -5,9 +5,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the GNU linker LD
 (GNU Binutils)
-version 2.38.50.
+version 2.42.50.
 
-Copyright (C) 1991-2022 Free Software Foundation, Inc.
+Copyright (C) 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -131,6 +131,35 @@ the init_priority.  In <code>.ctors.NNNNN</code> and <code>.dtors.NNNNN</code>,
 <span id="index-SORT"></span>
 <p><code>SORT</code> is an alias for <code>SORT_BY_NAME</code>.
 </p>
+<span id="index-REVERSE"></span>
+<p><code>REVERSE</code> indicates that the sorting should be reversed.  If used
+on its own then <code>REVERSE</code> implies <code>SORT_BY_NAME</code>, otherwise
+it reverses the enclosed <code>SORT..</code> command.  Note - reverse
+sorting of alignment is not currently supported.
+</p>
+<p>Note - the sorting commands only accept a single wildcard pattern.  So
+for example the following will not work:
+</p><div class="example">
+<pre class="example">  *(REVERSE(.text* .init*))
+</pre></div>
+<p>To resolve this problem list the patterns individually, like this:
+</p><div class="example">
+<pre class="example">  *(REVERSE(.text*))
+  *(REVERSE(.init*))
+</pre></div>
+
+<p>Note - you can put the <code>EXCLUDE_FILE</code> command inside a sorting
+command, but not the other way around.  So for example:
+</p><div class="example">
+<pre class="example">  *(SORT_BY_NAME(EXCLUDE_FILE(foo) .text*))
+</pre></div>
+<p>will work, but:
+</p><div class="example">
+<pre class="example">  *(EXCLUDE_FILE(foo) SORT_BY_NAME(.text*))
+</pre></div>
+<p>will not.
+</p>
+
 <p>When there are nested section sorting commands in linker script, there
 can be at most 1 level of nesting for section sorting commands.
 </p>
@@ -145,6 +174,12 @@ sections have the same alignment.
 treated the same as <code>SORT_BY_NAME</code> (wildcard section pattern).
 </li><li> <code>SORT_BY_ALIGNMENT</code> (<code>SORT_BY_ALIGNMENT</code> (wildcard section pattern))
 is treated the same as <code>SORT_BY_ALIGNMENT</code> (wildcard section pattern).
+</li><li> <code>SORT_BY_NAME</code> (<code>REVERSE</code> (wildcard section pattern))
+reverse sorts by name.
+</li><li> <code>REVERSE</code> (<code>SORT_BY_NAME</code> (wildcard section pattern))
+reverse sorts by name.
+</li><li> <code>SORT_BY_INIT_PRIORITY</code> (<code>REVERSE</code> (wildcard section pattern))
+reverse sorts by init priority.
 </li><li> All other nested section sorting commands are invalid.
 </li></ol>
 

@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the BFD library.
 
-Copyright (C) 1991-2022 Free Software Foundation, Inc.
+Copyright (C) 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -37,8 +37,8 @@ You have freedom to copy and modify this GNU Manual, like GNU
 <link href="BFD-Index.html" rel="index" title="BFD Index">
 <link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
 <link href="BFD-front-end.html" rel="up" title="BFD front end">
-<link href="Sections.html" rel="next" title="Sections">
-<link href="Memory-Usage.html" rel="prev" title="Memory Usage">
+<link href="Threading.html" rel="next" title="Threading">
+<link href="Error-reporting.html" rel="prev" title="Error reporting">
 <style type="text/css">
 <!--
 a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
@@ -63,48 +63,27 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<div class="section" id="Initialization">
+<div class="subsubsection" id="Initialization">
 <div class="header">
 <p>
-Next: <a href="Sections.html" accesskey="n" rel="next">Sections</a>, Previous: <a href="Memory-Usage.html" accesskey="p" rel="prev">Memory Usage</a>, Up: <a href="BFD-front-end.html" accesskey="u" rel="up">BFD Front End</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="BFD-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Threading.html" accesskey="n" rel="next">Threading</a>, Previous: <a href="Error-reporting.html" accesskey="p" rel="prev">Error reporting</a>, Up: <a href="BFD-front-end.html" accesskey="u" rel="up">BFD Front End</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="BFD-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="Initialization-1"></span><h3 class="section">2.5 Initialization</h3>
-
-
-<ul class="section-toc">
-<li><a href="#Initialization-functions" accesskey="1">Initialization functions</a></li>
-</ul>
-<div class="subsection" id="Initialization-functions">
-<h4 class="subsection">2.5.1 Initialization functions</h4>
-<p>These are the functions that handle initializing a BFD.
-</p>
 <span id="index-bfd_005finit"></span>
-<ul class="section-toc">
-<li><a href="#bfd_005finit" accesskey="1"><code>bfd_init</code></a></li>
-</ul>
-<div class="subsubsection" id="bfd_005finit">
-<h4 class="subsubsection">2.5.1.1 <code>bfd_init</code></h4>
-<p><strong>Synopsis</strong>
-</p><div class="example">
-<pre class="example">unsigned int bfd_init (void);
-</pre></div>
-<p><strong>Description</strong><br>
-This routine must be called before any other BFD function to
+<span id="bfd_005finit"></span><h4 class="subsubsection">2.2.3.2 <code>bfd_init</code></h4>
+<dl class="def">
+<dt id="index-int"><span class="category">Function: </span><span><em>unsigned</em> <strong>int</strong> <em>bfd_init (void);</em><a href='#index-int' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>This routine must be called before any other BFD function to
 initialize magical internal data structures.
 Returns a magic number, which may be used to check
 that the bfd library is configured as expected by users.
 </p><div class="example">
-<pre class="example">
-
-/* Value returned by bfd_init.  */
-
+<pre class="example">/* Value returned by bfd_init.  */
 #define BFD_INIT_MAGIC (sizeof (struct bfd_section))
+
 </pre></div>
 
-
-</div>
-</div>
+</dd></dl>
 </div>
 
 

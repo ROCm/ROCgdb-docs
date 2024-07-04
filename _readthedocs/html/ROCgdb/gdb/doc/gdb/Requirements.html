@@ -3,7 +3,7 @@
 <!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright (C) 1988-2022 Free Software Foundation, Inc.
+<!-- Copyright (C) 1988-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -16,35 +16,47 @@ and with the Back-Cover Texts as in (a) below.
 this GNU Manual.  Buying copies from GNU Press supports the FSF in
 developing GNU and promoting software freedom."
 
-Disclaimer
+Legal Disclaimer and Copyright Information
 
-The information contained herein is for informational purposes only,
-and is subject to change without notice.  While every precaution has
-been taken in the preparation of this document, it may contain
-technical inaccuracies, omissions and typographical errors, and AMD is
-under no obligation to update or otherwise correct this information.
-Advanced Micro Devices, Inc. makes no representations or warranties
-with respect to the accuracy or completeness of the contents of this
-document, and assumes no liability of any kind, including the implied
-warranties of noninfringement, merchantability or fitness for
-particular purposes, with respect to the operation or use of AMD
-hardware, software or other products described herein.  No license,
-including implied or arising by estoppel, to any intellectual property
-rights is granted by this document.  Terms and limitations applicable
-to the purchase or use of AMD’s products are as set forth in a signed
-agreement between the parties or in AMD's Standard Terms and
-Conditions of Sale.
+AMD ROCm software is made available by Advanced Micro Devices, Inc. under the
+open source license identified in the top-level directory for the library in
+the repository on Github.com (Portions of AMD ROCm software are
+licensed under MITx11 and UIL/NCSA. For more information on the license, review
+the license.txt in the top-level directory for the library on
+Github.com).  The additional terms and conditions below apply to your use
+of AMD ROCm technical documentation.
 
-AMD(R), the AMD Arrow logo, AMD Instinct(R),
-Radeon(R), ROCm(R) and combinations thereof are
-trademarks of Advanced Micro Devices, Inc.  Linux(R) is the
-registered trademark of Linus Torvalds in the U.S. and other countries.
-PCIe(R) is a registered trademark of PCI-SIG Corporation. Other
-product names used in this publication are for identification purposes only and
-may be trademarks of their respective companies.
+(C)2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
 
-Copyright (C) 2019-2022 Advanced Micro Devices, Inc.  All
-rights reserved. -->
+The information presented in this document is for informational purposes only
+and may contain technical inaccuracies, omissions, and typographical errors.
+The information contained herein is subject to change and may be rendered
+inaccurate for many reasons, including but not limited to product and roadmap
+changes, component and motherboard version changes, new model and/or product
+releases, product differences between differing manufacturers, software
+changes, BIOS flashes, firmware upgrades, or the like.  Any computer system has
+risks of security vulnerabilities that cannot be completely prevented or
+mitigated.  AMD assumes no obligation to update or otherwise correct or revise
+this information.  However, AMD reserves the right to revise this information
+and to make changes from time to time to the content hereof without obligation
+of AMD to notify any person of such revisions or changes.
+
+THIS INFORMATION IS PROVIDED "AS IS."  AMD MAKES NO REPRESENTATIONS OR
+WARRANTIES WITH RESPECT TO THE CONTENTS HEREOF AND ASSUMES NO RESPONSIBILITY
+FOR ANY INACCURACIES, ERRORS, OR OMISSIONS THAT MAY APPEAR IN THIS INFORMATION.
+AMD SPECIFICALLY DISCLAIMS ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT,
+MERCHANTABILITY, OR FITNESS FOR ANY PARTICULAR PURPOSE.  IN NO EVENT WILL AMD
+BE LIABLE TO ANY PERSON FOR ANY RELIANCE, DIRECT, INDIRECT, SPECIAL, OR OTHER
+CONSEQUENTIAL DAMAGES ARISING FROM THE USE OF ANY INFORMATION CONTAINED HEREIN,
+EVEN IF AMD IS EXPRESSLY ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+
+AMD, the AMD Arrow logo, AMD Instinct™, Radeon™, AMD ROCm™, and combinations
+thereof are trademarks of Advanced Micro Devices, Inc.
+Linux(R) is the registered trademark of Linus Torvalds in the
+U.S. and other countries. PCIe(R) is a registered trademark of
+PCI-SIG Corporation.  Other product names used in this publication are for
+identification purposes only and may be trademarks of their respective
+companies. -->
 <title>Requirements (Debugging with ROCGDB)</title>
 
 <meta name="description" content="Requirements (Debugging with ROCGDB)">
@@ -97,9 +109,9 @@ Other packages will be used only if they are found.
 </p>
 <span id="Tools_002fPackages-Necessary-for-Building-ROCGDB"></span><h3 class="heading">Tools/Packages Necessary for Building <small>ROCGDB</small></h3>
 <dl compact="compact">
-<dt><span>C<tt>++</tt>11 compiler</span></dt>
-<dd><p><small>ROCGDB</small> is written in C<tt>++</tt>11.  It should be buildable with any
-recent C<tt>++</tt>11 compiler, e.g. GCC.
+<dt><span>C<tt>++</tt>17 compiler</span></dt>
+<dd><p><small>ROCGDB</small> is written in C<tt>++</tt>17.  It should be buildable with any
+recent C<tt>++</tt>17 compiler, e.g. GCC.
 </p>
 </dd>
 <dt><span>GNU make</span></dt>
@@ -107,28 +119,73 @@ recent C<tt>++</tt>11 compiler, e.g. GCC.
 make program.  Other variants of <code>make</code> will not work.
 </p>
 </dd>
-<dt><span>GMP (The GNU Multiple Precision Arithmetic Library)</span></dt>
-<dd><p><small>ROCGDB</small> now uses GMP to perform some of its arithmetics.
-This library may be included with your operating system distribution;
-if it is not, you can get the latest version from
-<a href="https://gmplib.org/">https://gmplib.org/</a>. If GMP is installed at an unusual path,
-you can use the <samp>--with-libgmp-prefix</samp> option to specify
-its location.
+<dt><span>Libraries</span></dt>
+<dd><p>The following libraries are mandatory for building <small>ROCGDB</small>.  The
+<samp>configure</samp> script searches for each of these libraries in
+several standard locations; if some library is installed in an unusual
+place, you can use either the <samp>--with-<var>lib</var></samp>
+<samp>configure</samp> option to specify its installation directory, or
+the two separate options <samp>---with-<var>library</var>-include</samp> (to
+specify the location of its header files) and
+<samp>--with-<var>library</var>-lib</samp> (to specify the location of its
+libraries).  For example, for the GMP library, the 3 options are
+<samp>--with-gmp</samp>, <samp>--with-gmp-include</samp>, and
+<samp>--with-gmp-lib</samp>.  See <a href="Configure-Options.html"><samp>configure</samp> Options</a>.  We mention below
+the home site of each library, so that you could download and install
+them if your system doesn&rsquo;t already include them.
 </p>
+<dl compact="compact">
+<dt><span>GMP (The GNU Multiple Precision arithmetic library)</span></dt>
+<dd><p><small>ROCGDB</small> uses GMP to perform some of its extended-precision
+arithmetic.  The latest version of GMP is available from
+<a href="https://gmplib.org/">https://gmplib.org/</a>.
+</p>
+<span id="MPFR"></span></dd>
+<dt><span>MPFR (The GNU Multiple-precision floating-point library)</span></dt>
+<dd><p><small>ROCGDB</small> uses MPFR to emulate the target floating-point
+arithmetic during expression evaluation, if the target uses different
+floating-point formats than the host.  The latest version of MPFR is
+available from <a href="http://www.mpfr.org">http://www.mpfr.org</a>.
+</p></dd>
+</dl>
+
 </dd>
 </dl>
 
 <span id="Tools_002fPackages-Optional-for-Building-ROCGDB"></span><h3 class="heading">Tools/Packages Optional for Building <small>ROCGDB</small></h3>
-<dl compact="compact">
-<dt><span>Expat</span></dt>
-<dd><span id="Expat"></span><p><small>ROCGDB</small> can use the Expat XML parsing library.  This library may be
-included with your operating system distribution; if it is not, you
-can get the latest version from <a href="http://expat.sourceforge.net">http://expat.sourceforge.net</a>.
-The <samp>configure</samp> script will search for this library in several
-standard locations; if it is installed in an unusual path, you can
-use the <samp>--with-libexpat-prefix</samp> option to specify its location.
+<p>The tools/packages and libraries listed below are optional;
+<small>ROCGDB</small> can be build without them, at the expense of some run-time
+functionality that will be missing.  As above, we list the home sites
+for each package/library, and the command-line options supported by
+the <samp>configure</samp> script to specify their installation directories
+if they are non-standard.  In addition, for each package you can use
+the option <samp>--with-<var>package</var></samp> to force <small>ROCGDB</small> to be
+compiled with the named <var>package</var>, and
+<samp>--without-<var>package</var></samp> to disable building with it even if
+it is available.  See <a href="Configure-Options.html"><samp>configure</samp> Options</a>, for detailed description
+of the options to <samp>configure</samp>.
 </p>
-<p>Expat is used for:
+<dl compact="compact">
+<dt><span>Python</span></dt>
+<dd><p><small>ROCGDB</small> can be scripted using Python language.  See <a href="Python.html">Extending <small>ROCGDB</small> using Python</a>.
+The latest version is available from
+<a href="https://www.python.org/downloads/">https://www.python.org/downloads/</a>.  Use the
+<samp>--with-python=<var>dir</var></samp> to specify the non-standard directory
+where Python is installed.
+</p>
+</dd>
+<dt><span>Guile</span></dt>
+<dd><p><small>ROCGDB</small> can also be scripted using GNU Guile.  See <a href="Guile.html">Extending <small>ROCGDB</small> using Guile</a>.  The
+latest version can be found on
+<a href="https://www.gnu.org/software/guile/download/">https://www.gnu.org/software/guile/download/</a>.  If you have more
+than one version of Guile installed, use the
+<samp>--with-guile=<var>guile-version</var></samp> to specify the Guile version
+to include in the build.
+</p>
+<span id="Expat"></span></dd>
+<dt><span>Expat</span></dt>
+<dd><p>If available, <small>ROCGDB</small> uses the Expat library for parsing XML
+files.  <small>ROCGDB</small> uses XML files for the following functionalities:
 </p>
 <ul>
 <li> Remote protocol memory maps (see <a href="Memory-Map-Format.html">Memory Map Format</a>)
@@ -141,90 +198,58 @@ or alternatively see <a href="Library-List-Format-for-SVR4-Targets.html">Library
 see <a href="Branch-Trace-Configuration-Format.html">Branch Trace Configuration Format</a>)
 </li></ul>
 
-</dd>
-<dt><span>Guile</span></dt>
-<dd><p><small>ROCGDB</small> can be scripted using GNU Guile.  See <a href="Guile.html">Extending <small>ROCGDB</small> using Guile</a>.  By
-default, <small>ROCGDB</small> will be compiled if the Guile libraries are
-installed and are found by <samp>configure</samp>.  You can use the
-<code>--with-guile</code> option to request Guile, and pass either the Guile
-version number or the file name of the relevant <code>pkg-config</code>
-program to choose a particular version of Guile.
+<p>The latest version of Expat is available from
+<a href="http://expat.sourceforge.net">http://expat.sourceforge.net</a>.  Use the
+<samp>--with-libexpat-prefix</samp> to specify non-standard installation
+places for Expat.
 </p>
 </dd>
 <dt><span>iconv</span></dt>
 <dd><p><small>ROCGDB</small>&rsquo;s features related to character sets (see <a href="Character-Sets.html">Character Sets</a>) require a functioning <code>iconv</code> implementation.  If you are
 on a GNU system, then this is provided by the GNU C Library.  Some
-other systems also provide a working <code>iconv</code>.
+other systems also provide a working <code>iconv</code>.  Use the option
+<samp>--with-iconv-bin</samp> to specify where to find the <code>iconv</code>
+program.
 </p>
-<p>If <small>ROCGDB</small> is using the <code>iconv</code> program which is installed
-in a non-standard place, you will need to tell <small>ROCGDB</small> where to
-find it.  This is done with <samp>--with-iconv-bin</samp> which specifies
-the directory that contains the <code>iconv</code> program.  This program is
-run in order to make a list of the available character sets.
+<p>On systems without <code>iconv</code>, you can install the GNU Libiconv
+library; its latest version can be found on
+<a href="https://ftp.gnu.org/pub/gnu/libiconv/">https://ftp.gnu.org/pub/gnu/libiconv/</a> if your system doesn&rsquo;t
+provide it.  Use the <samp>--with-libiconv-prefix</samp> option to
+<samp>configure</samp> to specify non-standard installation place for it.
 </p>
-<p>On systems without <code>iconv</code>, you can install GNU Libiconv.  If
-Libiconv is installed in a standard place, <small>ROCGDB</small> will
-automatically use it if it is needed.  If you have previously
-installed Libiconv in a non-standard place, you can use the
-<samp>--with-libiconv-prefix</samp> option to <samp>configure</samp>.
+<p>Alternatively, <small>ROCGDB</small>&rsquo;s top-level <samp>configure</samp> and
+<samp>Makefile</samp> will arrange to build Libiconv if a directory named
+<samp>libiconv</samp> appears in the top-most source directory.  If Libiconv
+is built this way, and if the operating system does not provide a
+suitable <code>iconv</code> implementation, then the just-built library will
+automatically be used by <small>ROCGDB</small>.  One easy way to set this up is
+to download GNU Libiconv, unpack it inside the top-level directory of
+the <small>ROCGDB</small> source tree, and then rename the directory holding
+the Libiconv source code to &lsquo;<samp>libiconv</samp>&rsquo;.
 </p>
-<p><small>ROCGDB</small>&rsquo;s top-level <samp>configure</samp> and <samp>Makefile</samp> will
-arrange to build Libiconv if a directory named <samp>libiconv</samp> appears
-in the top-most source directory.  If Libiconv is built this way, and
-if the operating system does not provide a suitable <code>iconv</code>
-implementation, then the just-built library will automatically be used
-by <small>ROCGDB</small>.  One easy way to set this up is to download GNU
-Libiconv, unpack it inside the top-level directory of the <small>ROCGDB</small>
-source tree, and then rename the directory holding the Libiconv source
-code to &lsquo;<samp>libiconv</samp>&rsquo;.
-</p>
+<span id="index-compressed-debug-sections"></span>
 </dd>
 <dt><span>lzma</span></dt>
 <dd><p><small>ROCGDB</small> can support debugging sections that are compressed with
 the LZMA library.  See <a href="MiniDebugInfo.html">Debugging information in a special section</a>.  If this library is not
 included with your operating system, you can find it in the xz package
-at <a href="http://tukaani.org/xz/">http://tukaani.org/xz/</a>.  If the LZMA library is available in
-the usual place, then the <samp>configure</samp> script will use it
-automatically.  If it is installed in an unusual path, you can use the
-<samp>--with-liblzma-prefix</samp> option to specify its location.
+at <a href="http://tukaani.org/xz/">http://tukaani.org/xz/</a>.  Use the
+<samp>--with-liblzma-prefix</samp> option to specify its non-standard
+location.
 </p>
 </dd>
-<dt><span>MPFR</span></dt>
-<dd><span id="MPFR"></span><p><small>ROCGDB</small> can use the GNU MPFR multiple-precision floating-point
-library.  This library may be included with your operating system
-distribution; if it is not, you can get the latest version from
-<a href="http://www.mpfr.org">http://www.mpfr.org</a>.  The <samp>configure</samp> script will search
-for this library in several standard locations; if it is installed
-in an unusual path, you can use the <samp>--with-libmpfr-prefix</samp>
-option to specify its location.
-</p>
-<p>GNU MPFR is used to emulate target floating-point arithmetic during
-expression evaluation when the target uses different floating-point
-formats than the host.  If GNU MPFR it is not available, <small>ROCGDB</small>
-will fall back to using host floating-point arithmetic.
-</p>
-</dd>
-<dt><span>Python</span></dt>
-<dd><p><small>ROCGDB</small> can be scripted using Python language.  See <a href="Python.html">Extending <small>ROCGDB</small> using Python</a>.
-By default, <small>ROCGDB</small> will be compiled if the Python libraries are
-installed and are found by <samp>configure</samp>.  You can use the
-<code>--with-python</code> option to request Python, and pass either the
-file name of the relevant <code>python</code> executable, or the name of the
-directory in which Python is installed, to choose a particular
-installation of Python.
-</p>
-</dd>
-<dt id='index-compressed-debug-sections'><span>zlib<a href='#index-compressed-debug-sections' class='copiable-anchor'> &para;</a></span></dt>
+<dt><span>zlib</span></dt>
 <dd><p><small>ROCGDB</small> will use the &lsquo;<samp>zlib</samp>&rsquo; library, if available, to read
-compressed debug sections.  Some linkers, such as GNU gold, are capable
-of producing binaries with compressed debug sections.  If <small>ROCGDB</small>
-is compiled with &lsquo;<samp>zlib</samp>&rsquo;, it will be able to read the debug
-information in such binaries.
+compressed debug sections.  Some linkers, such as GNU <code>gold</code>,
+are capable of producing binaries with compressed debug sections.  If
+<small>ROCGDB</small> is compiled with &lsquo;<samp>zlib</samp>&rsquo;, it will be able to read the
+debug information in such binaries.
 </p>
 <p>The &lsquo;<samp>zlib</samp>&rsquo; library is likely included with your operating system
 distribution; if it is not, you can get the latest version from
 <a href="http://zlib.net">http://zlib.net</a>.
-</p></dd>
+</p>
+</dd>
 </dl>
 
 </div>
