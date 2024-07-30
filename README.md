@@ -2,6 +2,12 @@
 
 Documentation repository for [ROCgdb](https://github.com/ROCm-Developer-Tools/ROCgdb)
 
+## Important files from the submodule
+
+The HTML files in the base GDB needs to be built.
+
+The `build_docs.py` script handles this.
+
 ## How to build documentation locally
 
 Run the following steps to build the base documentation site:
