@@ -8,6 +8,20 @@ The HTML files in the base GDB needs to be built.
 
 The `build_docs.py` script handles this.
 
+Simply update the submodule to the desired branch, then run the script.
+
+```bash
+# update submodule
+cd ROCgdb
+git fetch origin
+git checkout <desired branch>
+git pull
+cd ..
+# build the HTML docs for GDB
+# and prepare them for hosting by Read the Docs
+python build_docs.py
+```
+
 ## How to build documentation locally
 
 Run the following steps to build the base documentation site:
