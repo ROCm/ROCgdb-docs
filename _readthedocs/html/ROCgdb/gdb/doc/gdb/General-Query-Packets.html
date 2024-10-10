@@ -131,7 +131,7 @@ parameters by a &lsquo;<samp>:</samp>&rsquo;; the parameters themselves should b
 separated by &lsquo;<samp>,</samp>&rsquo; or &lsquo;<samp>;</samp>&rsquo;.  Stubs must be careful to match the
 full packet name, and check for a separator or the end of the packet,
 in case two packet names share a common prefix.  New packets should not begin
-with &lsquo;<samp>qC</samp>&rsquo;, &lsquo;<samp>qP</samp>&rsquo;, or &lsquo;<samp>qL</samp>&rsquo;<a id="DOCF22" href="#FOOT22"><sup>22</sup></a>.
+with &lsquo;<samp>qC</samp>&rsquo;, &lsquo;<samp>qP</samp>&rsquo;, or &lsquo;<samp>qL</samp>&rsquo;<a id="DOCF21" href="#FOOT21"><sup>21</sup></a>.
 </p>
 <p>Like the descriptions of the other packets, each description here
 has a template showing the packet&rsquo;s overall syntax, followed by an
@@ -1092,6 +1092,8 @@ stubs which may be configured for multiple targets.
 <tr><td width="35%">&lsquo;<samp>Qbtrace:pt</samp>&rsquo;</td><td width="20%">Yes</td><td width="12%">&lsquo;<samp>-</samp>&rsquo;</td><td width="20%">Yes</td></tr>
 <tr><td width="35%">&lsquo;<samp>Qbtrace-conf:bts:size</samp>&rsquo;</td><td width="20%">Yes</td><td width="12%">&lsquo;<samp>-</samp>&rsquo;</td><td width="20%">Yes</td></tr>
 <tr><td width="35%">&lsquo;<samp>Qbtrace-conf:pt:size</samp>&rsquo;</td><td width="20%">Yes</td><td width="12%">&lsquo;<samp>-</samp>&rsquo;</td><td width="20%">Yes</td></tr>
+<tr><td width="35%">&lsquo;<samp>Qbtrace-conf:pt:ptwrite</samp>&rsquo;</td><td width="20%">Yes</td><td width="12%">&lsquo;<samp>-</samp>&rsquo;</td><td width="20%">Yes</td></tr>
+<tr><td width="35%">&lsquo;<samp>Qbtrace-conf:pt:event-tracing</samp>&rsquo;</td><td width="20%">Yes</td><td width="12%">&lsquo;<samp>-</samp>&rsquo;</td><td width="20%">Yes</td></tr>
 <tr><td width="35%">&lsquo;<samp>QNonStop</samp>&rsquo;</td><td width="20%">No</td><td width="12%">&lsquo;<samp>-</samp>&rsquo;</td><td width="20%">Yes</td></tr>
 <tr><td width="35%">&lsquo;<samp>QCatchSyscalls</samp>&rsquo;</td><td width="20%">No</td><td width="12%">&lsquo;<samp>-</samp>&rsquo;</td><td width="20%">Yes</td></tr>
 <tr><td width="35%">&lsquo;<samp>QPassSignals</samp>&rsquo;</td><td width="20%">No</td><td width="12%">&lsquo;<samp>-</samp>&rsquo;</td><td width="20%">Yes</td></tr>
@@ -1341,6 +1343,14 @@ rather than reporting the hit to <small>ROCGDB</small>.
 </dd>
 <dt><span>&lsquo;<samp>Qbtrace-conf:pt:size</samp>&rsquo;</span></dt>
 <dd><p>The remote stub understands the &lsquo;<samp>Qbtrace-conf:pt:size</samp>&rsquo; packet.
+</p>
+</dd>
+<dt><span>&lsquo;<samp>Qbtrace-conf:pt:ptwrite</samp>&rsquo;</span></dt>
+<dd><p>The remote stub understands the &lsquo;<samp>Qbtrace-conf:pt:ptwrite</samp>&rsquo; packet.
+</p>
+</dd>
+<dt><span>&lsquo;<samp>Qbtrace-conf:pt:event-tracing</samp>&rsquo;</span></dt>
+<dd><p>The remote stub understands the &lsquo;<samp>Qbtrace-conf:pt:event-tracing</samp>&rsquo; packet.
 </p>
 </dd>
 <dt><span>&lsquo;<samp>swbreak</samp>&rsquo;</span></dt>
@@ -1871,6 +1881,36 @@ btrace recording method in pt format.
 </dl>
 
 </dd>
+<dt><span>&lsquo;<samp>Qbtrace-conf:pt:ptwrite=<var>(yes|no)</var></samp>&rsquo;</span></dt>
+<dd><p>Indicate support for <code>PTWRITE</code> packets.  This allows for backwards
+compatibility.
+</p>
+<p>Reply:
+</p><dl compact="compact">
+<dt><span>&lsquo;<samp>OK</samp>&rsquo;</span></dt>
+<dd><p>The ptwrite config parameter has been set.
+</p></dd>
+<dt><span>&lsquo;<samp>E.errtext</samp>&rsquo;</span></dt>
+<dd><p>A badly formed request or an error was encountered.
+</p></dd>
+</dl>
+
+</dd>
+<dt><span>&lsquo;<samp>Qbtrace-conf:pt:event-tracing=<var>(yes|no)</var></samp>&rsquo;</span></dt>
+<dd><p>Indicate support for event-tracing packets.  This allows for backwards
+compatibility.
+</p>
+<p>Reply:
+</p><dl compact="compact">
+<dt><span>&lsquo;<samp>OK</samp>&rsquo;</span></dt>
+<dd><p>The event-tracing config parameter has been set.
+</p></dd>
+<dt><span>&lsquo;<samp>E.errtext</samp>&rsquo;</span></dt>
+<dd><p>A badly formed request or an error was encountered.
+</p></dd>
+</dl>
+
+</dd>
 </dl>
 
 </div>
@@ -1878,7 +1918,7 @@ btrace recording method in pt format.
 <hr>
 <h4 class="footnotes-heading">Footnotes</h4>
 
-<h5><a id="FOOT22" href="#DOCF22">(22)</a></h5>
+<h5><a id="FOOT21" href="#DOCF21">(21)</a></h5>
 <p>The &lsquo;<samp>qP</samp>&rsquo; and &lsquo;<samp>qL</samp>&rsquo;
 packets predate these conventions, and have arguments without any terminator
 for the packet name; we suspect they are in widespread use in places that

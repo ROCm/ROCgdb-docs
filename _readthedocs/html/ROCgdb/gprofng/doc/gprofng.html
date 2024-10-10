@@ -3,7 +3,7 @@
 <!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- This document is the manual for gprofng, last updated 4 January 2024.
+<!-- This document is the manual for gprofng, last updated 19 July 2024.
 
 Copyright (C) 2022-2024 Free Software Foundation, Inc.
 
@@ -79,6 +79,8 @@ ul.no-bullet {list-style: none}
 
 
 
+
+
 <div class="top" id="Top">
 <div class="header">
 <p>
@@ -86,7 +88,7 @@ Next: <a href="#Introduction" accesskey="n" rel="next">Introduction</a> &nbsp; [
 </div>
 <span id="GNU-Gprofng"></span><h1 class="top">GNU Gprofng</h1>
 
-<p>This document is the manual for gprofng, last updated 4 January 2024.
+<p>This document is the manual for gprofng, last updated 19 July 2024.
 </p>
 <p>Copyright &copy; 2022-2024 Free Software Foundation, Inc.
 </p>
@@ -264,14 +266,14 @@ Next: <a href="#Sampling-versus-Tracing" accesskey="n" rel="next">Sampling versu
 <li> Profiling is supported for an application written in C, C++, Java, or Scala.
 
 
-</li><li> Shared libraries are supported.  The information is presented at the instruction
-level.
+</li><li> Shared libraries are supported.  The information is presented at the
+instruction level.
 
 </li><li> The following multithreading programming models are supported: Pthreads,
 OpenMP, and Java threads.
 
-</li><li> This tool works with unmodified production level executables.  There is no need to
-recompile the code, but if the &lsquo;<samp>-g</samp>&rsquo; option has been used when building
+</li><li> This tool works with unmodified production level executables.  There is no need
+to recompile the code, but if the &lsquo;<samp>-g</samp>&rsquo; option has been used when building
 the application, source line level information is available.
 
 </li><li> The focus is on support for code generated with the <code>gcc</code> compiler, but
@@ -289,8 +291,9 @@ a caller-callees overview are available.
 
 </li><li> Through filters, the user can zoom in on an area of interest.
 
-</li><li> Two or more profiles can be aggregated, or used in a comparison.  This comparison
-can be obtained at the function, source line, and disassembly level.
+</li><li> Two or more profiles can be aggregated, or used in a comparison.  This
+comparison can be obtained at the function, source line, and disassembly
+level.
 
 </li><li> Through a simple scripting language, and customization of the metrics shown,
 the generation and creation of a profile can be fully automated and provide
@@ -340,12 +343,13 @@ used in production runs.
 the calls to the instrumentation library may affect the compiler optimizations
 and run time behaviour.
 </p>
-</li><li> With sampling, there are very few restrictions on what can be profiled and even without
-access to the source code, a basic profile can be made.
+</li><li> With sampling, there are very few restrictions on what can be profiled and
+even without access to the source code, a basic profile can be made.
 
 </li><li> A downside of sampling is that, depending on the sampling frequency, small
 functions may be missed or not captured accurately.  Although this is rare,
-this may happen and is the reason why the user has control over the sampling rate.
+this may happen and is the reason why the user has control over the sampling
+rate.
 
 </li><li> While tracing produces precise information, sampling is statistical in nature.
 As a result, small variations may occur across seemingly identical runs.  We
@@ -371,10 +375,11 @@ generated.  This is followed by a viewing step to create a report from the
 information that has been gathered.
 </p>
 <p>Every gprofng command starts with <code>gprofng</code>, the name of the driver.
-This is followed by a keyword to define the high level functionality.  Depending
-on this keyword, a third qualifier may be needed to further narrow down the request.
-This combination is then followed by options that are specific to the functionality
-desired.
+This is followed by a keyword to define the high level functionality.
+Depending on this keyword, a third qualifier may be needed to further narrow
+down the request.
+This combination is then followed by options that are specific to the
+functionality desired.
 </p>
 <p>The command to gather, or &ldquo;collect&rdquo;, the performance data is called
 <code>gprofng collect app</code>.  Aside from numerous options, this command takes the name
@@ -486,9 +491,9 @@ is
 <code>mxv-pthreads</code>.
 </p>
 <p>The matrix sizes can be set through the <code>-m</code> and <code>-n</code> options.  The
-number of threads is set with the <code>-t</code> option.  These are additional threads
-that are used in the multiplication. To increase the duration of the run, the
-computations are executed repeatedly.
+number of threads is set with the <code>-t</code> option.  These are additional
+threads that are used in the multiplication.  To increase the duration of
+the run, the computations are executed repeatedly.
 </p>
 <p>This is an example that multiplies a <em class='math'>8000</em> by <em class='math'>4000</em> matrix with
 a vector of length <em class='math'>4000</em>.  Although this is a multithreaded application,
@@ -536,16 +541,17 @@ mxv: error check passed - rows = 8000 columns = 4000 threads = 1
 </pre></div>
 
 <p>We see a message that an experiment directory with the name <samp>test.1.er</samp>
-has been created.  The process id is also echoed. The application completes
+has been created.  The process id is also echoed.  The application completes
 as usual and we have our first experiment directory that can be analyzed.
 </p>
 <p>The tool we use for this is called <code>gprofng display text</code>.  It takes the name of
 the experiment directory as an argument.
 </p>
 <span id="index-Interpreter-mode"></span>
-<p>If invoked this way, the tool starts in the interactive <em>interpreter</em> mode.
-While in this environment, commands can be given and the tool responds.  This is
-illustrated below:
+<p>If invoked this way, the tool starts in the interactive <em>interpreter</em>
+mode.
+While in this environment, commands can be given and the tool responds.  This
+is illustrated below:
 </p>
 <div class="example">
 <pre class="verbatim">$ gprofng display text test.1.er
@@ -578,9 +584,7 @@ that have been executed, plus their respective CPU times:
 </td></tr></table>
 
 <div class="example">
-<pre class="verbatim">$ gprofng display text -functions test.1.er
-
-Functions sorted by metric: Exclusive Total CPU Time
+<pre class="verbatim">Functions sorted by metric: Exclusive Total CPU Time
 
 Excl. Total   Incl. Total    Name
 CPU           CPU
@@ -602,7 +606,8 @@ CPU           CPU
 0.      0.    8.926  95.30   start_thread
 </pre></div>
 
-<p>As easy and simple as these steps are, we do have a first profile of our program!
+<p>As easy and simple as these steps are, we do have a first profile of our
+program!
 </p>
 <p>There are five columns.  The first four contain the
 <span id="index-Total-CPU-time"></span>
@@ -611,14 +616,14 @@ is the sum of the user and system time. See <a href="#Inclusive-and-Exclusive-Me
 for an explanation of &ldquo;exclusive&rdquo; and &ldquo;inclusive&rdquo; times.
 </p>
 <p>The first line echoes the metric that is used to sort the output.  By default,
-this is the exclusive CPU time, but through the <code>sort</code> command, the sort
-metric can be changed by the user.
+this is the exclusive CPU time, but through the <code>sort</code> command, the
+sort metric can be changed by the user.
 </p>
 <p>Next, there are four columns with the exclusive and inclusive CPU times and the
 respective percentages.  This is followed by the name of the function.
 </p>
 <span id="index-Miscellaneous_002c-_003cTotal_003e"></span>
-<p>The function with the name <code>&lt;Total&gt;</code> is not a user function. It is a 
+<p>The function with the name <code>&lt;Total&gt;</code> is not a user function.  It is a
 pseudo function introduced by <code>gprofng</code>.  It is used to display the
 accumulated measured metric values.  In this example, we see that the total
 CPU time of this job was 9.367 seconds and it is scaled to 100%.  All
@@ -626,9 +631,9 @@ other percentages in the same column are relative to this number.
 </p>
 
 <p>With 8.926 seconds, function <code>mxv_core</code> takes 95.30% of the
-total time and is by far the most time consuming function.  
-The exclusive and inclusive metrics are identical, which means that is a 
-leaf function not calling any other functions.
+total time and is by far the most time consuming function.
+The exclusive and inclusive metrics are identical, which means that it
+is a leaf function not calling any other functions.
 </p>
 <p>The next function in the list is <code>init_data</code>.  Although with 4.49%,
 the CPU time spent in this part is modest, this is an interesting entry because
@@ -644,7 +649,7 @@ certainly not familiar.  It is one of the internal functions used by
 the exclusive time is zero.  This means it doesn&rsquo;t contribute to the
 performance.
 </p>
-<p>The question is how we know where this function originates from?  There are
+<p>The question is how we know where this function originates from.  There are
 several commands to dig deeper an get more details on a function.
 See <a href="#Information-on-Load-Objects">Information on Load Objects</a>.
 </p>
@@ -872,16 +877,16 @@ Load Object: mxv-pthreads (found as test.1.er/archives/...)
    0.        0.           [58]   401da5:  ret
 </pre></div>
 
-<p>For each instruction, the timing values are given and we can immediately 
+<p>For each instruction, the timing values are given and we can immediately
 identify the most expensive instructions.  As with the source level view,
 these are marked with the <code>##</code> symbol.
 </p>
 <p>It comes as no surprise that the time consuming instructions originate from
 the source code at lines 54-55.
 One thing to note is that the source line numbers no longer appear in
-sequential order. 
+sequential order.
 This is because the compiler has re-ordered the instructions as part of
-the code optimizations it has performed. 
+the code optimizations it has performed.
 </p>
 <p>As illustrated below and similar to the <code>lines</code> command, we can get
 an overview of the instructions executed by using the
@@ -1086,9 +1091,9 @@ Next: <a href="#Sorting-the-Performance-Data" accesskey="n" rel="next">Sorting t
 
 <span id="index-Options_002c-_002dlimit"></span>
 <span id="index-Commands_002c-limit"></span>
-<p>The <code>limit</code> <var>&lt;n&gt;</var> command can be used to control the number of lines
-printed in various views. For example it impacts the function view, but also
-takes effect for other display commands, like <code>lines</code>.
+<p>The <code>limit</code> <var>&lt;n&gt;</var> command can be used to control the number of
+lines printed in various views.  For example it impacts the function view, but
+also takes effect for other display commands, like <code>lines</code>.
 </p>
 <p>The argument <var>&lt;n&gt;</var> should be a positive integer number.  It sets the number
 of lines in the (function) view.  A value of zero resets the limit to the
@@ -1242,11 +1247,12 @@ CPU           CPU
 </pre></div>
 
 <p>In the first part of the output the comment lines in the script file are
-echoed.  These are interleaved with an acknowledgement message for the commands.
+echoed.  These are interleaved with an acknowledgement message for the
+commands.
 </p>
 <p>This is followed by a profile consisting of 5 lines only.  For both metrics,
-the percentages plus the timings are given.  The numbers are sorted with respect
-to the exclusive total CPU time.  Although this is the default, for
+the percentages plus the timings are given.  The numbers are sorted with
+respect to the exclusive total CPU time.  Although this is the default, for
 demonstration purposes we use the <code>sort</code> command to explicitly define
 the metric for the sort.
 </p>
@@ -1267,7 +1273,7 @@ Next: <a href="#More-Information-on-the-Experiment" accesskey="n" rel="next">Mor
 
 <p>The call tree shows the dynamic structure of the application by displaying the
 functions executed and their parent.  The CPU time attributed to each function
-is shown as well. This view helps to find the most expensive
+is shown as well.  This view helps to find the most expensive
 execution path in the program.
 </p>
 <span id="index-Options_002c-_002dcalltree"></span>
@@ -1533,12 +1539,11 @@ By default, clock profiling  is enabled when conducting hardware event counter
 experiments (See <a href="#Profile-Hardware-Event-Counters">Profile Hardware Event Counters</a>).
 With the <code>-p off</code> option, this can be disabled.
 </p>
-<p>If an explicit value is set for the sampling, the number can be an integer or a
-floating-point number.
-A suffix of &lsquo;<samp>u</samp>&rsquo; for microseconds, or &lsquo;<samp>m</samp>&rsquo; for milliseconds is supported.
-If no suffix is used, the value is assumed to be in milliseconds.
-</p>
-<p>For example, the following command sets the sampling rate to
+<p>If an explicit value is set for the sampling, the number can be an integer or
+a floating-point number.
+A suffix of &lsquo;<samp>u</samp>&rsquo; for microseconds, or &lsquo;<samp>m</samp>&rsquo; for milliseconds is
+supported.  If no suffix is used, the value is assumed to be in milliseconds.
+For example, the following command sets the sampling rate to
 5123.4 microseconds:
 </p>
 <table class="cartouche" border="1"><tr><td>
@@ -1547,12 +1552,12 @@ If no suffix is used, the value is assumed to be in milliseconds.
 </pre></div>
 </td></tr></table>
 
-<p>If the value is smaller than the clock profiling minimum, a warning message is issued
-and it is set to the minimum.
-In case it is not a multiple of the clock profiling resolution, it is silently rounded
-down to the nearest multiple of the clock resolution.
-If the value exceeds the clock profiling maximum, is negative, or zero, an error is
-reported.
+<p>If the value is smaller than the clock profiling minimum, a warning message
+is issued and it is set to the minimum.
+In case it is not a multiple of the clock profiling resolution, it is
+silently rounded down to the nearest multiple of the clock resolution.
+If the value exceeds the clock profiling maximum, is negative, or zero, an
+error is reported.
 </p>
 <span id="index-Options_002c-_002dheader-1"></span>
 <span id="index-Commands_002c-header-1"></span>
@@ -1577,8 +1582,8 @@ Luckily there are three commands that come in handy then.
 <span id="index-Commands_002c-fsingle-1"></span>
 <span id="index-Options_002c-_002dfsummary"></span>
 <span id="index-Commands_002c-fsummary"></span>
-<p>These commands are <code>objects</code>, <code>fsingle</code>, and <code>fsummary</code>.
-They provide details on
+<p>These commands are <code>objects</code>, <code>fsingle</code>, and
+<code>fsummary</code>.  They provide details on
 <span id="index-Load-objects"></span>
 load objects (See <a href="#Load-Objects-and-Functions">Load Objects and Functions</a>).
 </p>
@@ -1612,9 +1617,10 @@ some path names in the output have been shortened and replaced by the
 
 <span id="index-Options_002c-_002dfsingle-2"></span>
 <span id="index-Commands_002c-fsingle-2"></span>
-<p>The <code>fsingle</code> command may be used to get more details on a specific entry
-in the function view, say.  For example, the command below provides additional
-information on the <code>pthread_create</code> function shown in the function overview.
+<p>The <code>fsingle</code> command may be used to get more details on a specific
+entry in the function view, say.  For example, the command below provides
+additional information on the <code>pthread_create</code> function shown in the
+function overview.
 </p>
 <table class="cartouche" border="1"><tr><td>
 <div class="example">
@@ -1622,8 +1628,8 @@ information on the <code>pthread_create</code> function shown in the function ov
 </pre></div>
 </td></tr></table>
 
-<p>Below the output from this command.  It has been somewhat modified to match the
-display requirements.
+<p>Below the output from this command.  It has been somewhat modified to match
+the display requirements.
 </p>
 <div class="example">
 <pre class="verbatim">+ gprofng display text -fsingle pthread_create mxv.1.thr.er
@@ -1660,26 +1666,26 @@ including <code>&lt;Total&gt;</code>:
 <pre class="verbatim">Functions sorted by metric: Exclusive Total CPU Time
 
 &lt;Total&gt;
-        Exclusive Total CPU Time: 9.703 (100.0%)
-        Inclusive Total CPU Time: 9.703 (100.0%)
-                            Size:     0
-                      PC Address: 1:0x00000000
-                     Source File: (unknown)
-                     Object File: (unknown)
-                     Load Object: &lt;Total&gt;
-                    Mangled Name:
-                         Aliases:
+       Exclusive Total CPU Time: 9.703 (100.0%)
+       Inclusive Total CPU Time: 9.703 (100.0%)
+                           Size:     0
+                     PC Address: 1:0x00000000
+                    Source File: (unknown)
+                    Object File: (unknown)
+                    Load Object: &lt;Total&gt;
+                   Mangled Name:
+                        Aliases:
 
 mxv_core
-        Exclusive Total CPU Time: 9.226 ( 95.1%)
-        Inclusive Total CPU Time: 9.226 ( 95.1%)
-                            Size:    80
-                      PC Address: 2:0x00001d56
-                     Source File: &lt;apath&gt;/src/mxv.c
-                     Object File: mxv.1.thr.er/archives/mxv-pthreads_ss_pf53V__5
-                     Load Object: &lt;apath&gt;/mxv-pthreads
-                    Mangled Name:
-                         Aliases:
+       Exclusive Total CPU Time: 9.226 ( 95.1%)
+       Inclusive Total CPU Time: 9.226 ( 95.1%)
+                           Size:    80
+                     PC Address: 2:0x00001d56
+                    Source File: &lt;apath&gt;/src/mxv.c
+                    Object File: mxv.1.thr.er/archives/mxv-pthreads_ss_pf53V__5
+                    Load Object: &lt;apath&gt;/mxv-pthreads
+                   Mangled Name:
+                        Aliases:
 
           ... etc ...
 </pre></div>
@@ -1727,11 +1733,12 @@ $ gprofng collect app -O mxv.2.thr.er ./$exe -m $m -n $n -t 2
 </td></tr></table>
 
 <p>First of all, in as far as gprofng is concerned, no changes are needed.
-Nothing special is needed to profile a multithreaded job when using <code>gprofng</code>.
+Nothing special is needed to profile a multithreaded job when using
+<code>gprofng</code>.
 </p>
 <p>The same is true when displaying the performance results.  The same commands
-that were used before work unmodified.  For example, this is all that is needed to
-get a function overview:
+that were used before work unmodified.  For example, this is all that is
+needed to get a function overview:
 </p>
 <table class="cartouche" border="1"><tr><td>
 <div class="example">
@@ -1878,7 +1885,7 @@ number(s) specified.  This means that the script above shows which
 function(s) each thread executes and how much CPU time they consumed.
 Both the exclusive timings and their percentages are given.
 </p>
-<p>Note that technically this command is a filter and persistent.  The 
+<p>Note that technically this command is a filter and persistent.  The
 selection remains active until changed through another thread selection
 command, or when it is reset with the &lsquo;<samp>all</samp>&rsquo; selection list.
 </p>
@@ -1948,8 +1955,8 @@ CPU
 
 <p>When analyzing the performance of a multithreaded application, it is sometimes
 useful to know whether threads have mostly executed on the same core, say, or
-if they have wandered across multiple cores.  This sort of stickiness is usually
-referred to as
+if they have wandered across multiple cores.  This sort of stickiness is
+usually referred to as
 <span id="index-Thread-affinity"></span>
 <em>thread affinity</em>.
 </p>
@@ -1964,8 +1971,8 @@ displays how many CPUs have been used.
 <span id="index-Options_002c-_002dcpus"></span>
 <span id="index-Commands_002c-cpus"></span>
 The equivalent of the <code>threads</code> threads command, is the <code>cpus</code>
-command, which shows the numbers of the CPUs that were used and the metric values
-for each one of them.  Both commands are demonstrated below.
+command, which shows the numbers of the CPUs that were used and the metric
+values for each one of them.  Both commands are demonstrated below.
 </p>
 <table class="cartouche" border="1"><tr><td>
 <div class="example">
@@ -1996,7 +2003,7 @@ CPU
 four CPUs have been selected.  The second table shows the exclusive metrics
 for each of the CPUs that have been used.
 </p>
-<p>As also echoed in the output, the data is sorted with respect to the 
+<p>As also echoed in the output, the data is sorted with respect to the
 exclusive CPU time, but it is very easy to sort the data by the CPU id
 <span id="index-Options_002c-_002dsort-1"></span>
 <span id="index-Commands_002c-sort-1"></span>
@@ -2126,10 +2133,10 @@ Next: <a href="#Profile-Hardware-Event-Counters" accesskey="n" rel="next">Profil
 </div>
 <span id="View-Multiple-Experiments-1"></span><h3 class="section">3.3 View Multiple Experiments</h3>
 
-<p>One thing we did not cover sofar is that <code>gprofng</code> fully supports the analysis
-of multiple experiments.  The <code>gprofng display text</code> tool accepts a list of experiments.
-The data can either be aggregated across the experiments, or used in a
-comparison.
+<p>One thing we did not cover sofar is that <code>gprofng</code> fully supports the
+analysis of multiple experiments.  The <code>gprofng display text</code> tool accepts a list of
+experiments.  The data can either be aggregated across the experiments, or
+used in a comparison.
 </p>
 <p>The default is to aggregate the metric values across the experiments that have
 been loaded.  The <code>compare</code> command can be used to enable the
@@ -2155,7 +2162,7 @@ Next: <a href="#Comparison-of-Experiments" accesskey="n" rel="next">Comparison o
 shows the combined results.
 For example, below is the script to show the function view for the data
 aggregated over two experiments, drop the first experiment and then show
-the function view fo the second experiment only. 
+the function view for the second experiment only.
 We will call it <samp>my-script-agg</samp>.
 </p>
 <table class="cartouche" border="1"><tr><td>
@@ -2248,7 +2255,7 @@ Previous: <a href="#Aggregation-of-Experiments" accesskey="p" rel="prev">Aggrega
 </div>
 <span id="Comparison-of-Experiments-1"></span><h4 class="subsection">3.3.2 Comparison of Experiments</h4>
 
-<p>The support for multiple experiments really shines in comparison mode.  
+<p>The support for multiple experiments really shines in comparison mode.
 <span id="index-Compare-experiments"></span>
 In comparison mode, the data for the various experiments is shown side by
 side, as illustrated below where we compare the results for the multithreaded
@@ -2317,7 +2324,7 @@ experiment as a reference.
 is below one, it means the reference value was higher.
 </p>
 <p>In the example below, we use the same two experiments used in the comparison
-above. The script is also nearly identical.  The only change is that we now
+above.  The script is also nearly identical.  The only change is that we now
 use the &lsquo;<samp>delta</samp>&rsquo; keyword.
 </p>
 <p>As before, the number of lines is restricted to 5 and we focus on
@@ -3286,7 +3293,7 @@ analysis of one or more experiments that have been created using
 <p>The GUI part of gprofng is a GNU project.  This is the link to the
 <a href="https://savannah.gnu.org/projects/gprofng-gui">gprofng GUI page</a>.
 This page contains more information (e.g. how to clone the repo).
-There is also a 
+There is also a
 <a href="https://ftp.gnu.org/gnu/gprofng-gui">tar file distribution directory</a>
 with tar files that include everything that is needed to build and install
 the GUI code.  Various versions are available here.
@@ -3309,7 +3316,7 @@ Next: <a href="#Filters" accesskey="n" rel="next">Filters</a>, Previous: <a href
 file is used to define default settings for the <code>gprofng display text</code>, <code>gprofng archive</code>,
 and <code>gprofng display src</code> tools, but the user can override these defaults through
 local configuration settings when building and installing from the source
-code..
+code.
 </p>
 <p>There are three files that are checked when the tool starts up.  The first
 file has pre-defined settings and comes with the installation, but through
@@ -3320,7 +3327,7 @@ mentioned tools:
 </p>
 <ol>
 <li> The system-wide filename is called <samp>gprofng.rc</samp> and is located in
-the <samp>/etc</samp> subdirectory in case an RPM was used for the installation..
+the <samp>/etc</samp> subdirectory in case an RPM was used for the installation.
 
 <p>If gprofng has been built from the source, this file is in
 subdirectory <samp>etc</samp> in the top level installation directory.
@@ -3398,7 +3405,7 @@ metric corresponding to the default sort metric for the function list.
 <dd><span id="index-Commands_002c-en_005fdesc"></span>
 
 <p>Set the mode for reading descendant experiments to &lsquo;<samp>on</samp>&rsquo; (enable all
-descendants) or &lsquo;<samp>off</samp>&rsquo; to disable all descendants. If
+descendants) or &lsquo;<samp>off</samp>&rsquo; to disable all descendants.  If
 &lsquo;<samp>=</samp>&rsquo;<var>regex</var> is used, enable data from those experiments whose
 executable name matches the regular expression.
 </p>
@@ -3419,7 +3426,7 @@ Next: <a href="#Supported-Environment-Variables" accesskey="n" rel="next">Suppor
 <span id="Filters-1"></span><h3 class="section">4.3 Filters</h3>
 
 <p>Various filter commands are supported by <code>gprofng display text</code>.
-Thanks to the use of filters, the user can zoom in on a certain area of 
+Thanks to the use of filters, the user can zoom in on a certain area of
 interest.  With filters, it is possible to select one or more threads to
 focus on, define a window in time, select specific call stacks, etc.
 <span id="index-Filters_002c-Intro"></span>
@@ -3488,7 +3495,7 @@ cpu_select 2
 functions
 </pre></div>
 
-<p>In general, filters behave differently than commands or options. In 
+<p>In general, filters behave differently than commands or options.  In
 particular there may be an interaction between different filter definitions.
 </p>
 <p>For example, as explained above, in the first script file the
@@ -3659,8 +3666,8 @@ a process id (PID), which can be used for advanced filtering.
 <span id="index-Commands_002c-cpus-1"></span>
 
 <p>Show a list of CPUs that were used by the application, along with the metrics
-that have been recorded. The CPUs are represented by a CPU number and show the
-Total CPU time by default.
+that have been recorded.  The CPUs are represented by a CPU number and show
+the Total CPU time by default.
 </p>
 <p>Note that since the data is sorted with respect to the default metric, it may
 be useful to use the <code>sort name</code> command to show the list sorted with
@@ -3672,7 +3679,7 @@ respect to the CPU id.
 <span id="index-Commands_002c-GCEvents"></span>
 
 <p>This commands is for Java applications only.  It shows any Garbage Collection
-(GC) events that have occurred while the application was executing..
+(GC) events that have occurred while the application was executing.
 </p>
 </dd>
 <dt><span><code>lwp_list</code></span></dt>
@@ -3689,7 +3696,7 @@ respect to the CPU id.
 <p>For each experiment that has been loaded, this command displays a list of
 processes that were created by the application, along with their metrics.
 The processes are represented by process ID (PID) numbers and show the
-Total CPU time metric by default. If additional metrics are recorded in
+Total CPU time metric by default.  If additional metrics are recorded in
 an experiment, these are shown as well.
 </p>
 </dd>
@@ -3697,7 +3704,7 @@ an experiment, these are shown as well.
 <dd><span id="index-Options_002c-_002dsamples"></span>
 <span id="index-Commands_002c-samples"></span>
 
-<p>Display a list of sample points and their metrics,  which reflect the
+<p>Display a list of sample points and their metrics, which reflect the
 microstates recorded at each sample point in the loaded experiment.
 The samples are represented by sample numbers and show the Total CPU time
 by default.  Other metrics might also be displayed if enabled.
@@ -3793,7 +3800,7 @@ instruction line in the file, the line on which the metrics occur has a
 <dd><span id="index-Options_002c-_002dprintmode"></span>
 <span id="index-Commands_002c-printmode"></span>
 
-<p>Set the print mode. If the keyword is <code>text</code>, printing will be done in
+<p>Set the print mode.  If the keyword is <code>text</code>, printing will be done in
 tabular form using plain text.  In case the <code>html</code> keyword is selected,
 the output is formatted as an HTML table.
 </p>
@@ -3888,7 +3895,7 @@ be concatenated.
 <span id="index-Commands_002c-pathmap"></span>
 
 <p>If a file cannot be found using the path list set by <code>addpath</code>, or
-the <code>setpath</code> command, one or more path remappings may be set with the 
+the <code>setpath</code> command, one or more path remappings may be set with the
 <code>pathmap</code> command.
 </p>
 <p>With path mapping, the user can specify how to replace the leading component
@@ -3902,7 +3909,7 @@ The resulting path is used to find the file.
 <p>For example, if a source file located in directory <samp>/tmp</samp>
 is shown in the <code>gprofng display text</code> output, but should instead be taken from
 <samp>/home/demo</samp>, the following <samp>pathmap</samp> command redefines the
-path: 
+path:
 </p>
 <div class="example">
 <pre class="example">$ gprofng diplay text -pathmap /tmp /home/demo -source ...
@@ -3916,8 +3923,8 @@ tried until the file is found.
 <dd><span id="index-Options_002c-_002dsetpath"></span>
 <span id="index-Commands_002c-setpath"></span>
 
-<p>Set the path used to find source and object files. The path is defined
-through the <var>path-list</var> keyword. It is a colon separated list of
+<p>Set the path used to find source and object files.  The path is defined
+through the <var>path-list</var> keyword.  It is a colon separated list of
 directories, jar files, or zip files.
 If any directory has a colon character in it, escape it with a
 backslash (&lsquo;<samp>\</samp>&rsquo;).
@@ -3929,7 +3936,7 @@ You can abbreviate it with a single &lsquo;<samp>$</samp>&rsquo; character.
 <p>The default path is &lsquo;<samp>$expts:..</samp>&rsquo; which is the directories of the
 loaded experiments and the current working directory.
 </p>
-<p>Use <code>setpath</code> with no argument to display the current path. 
+<p>Use <code>setpath</code> with no argument to display the current path.
 </p>
 <p>Note that <code>setpath</code> commands <em>are not allowed .gprofng.rc
 configuration files</em>.
@@ -3981,9 +3988,9 @@ Next: <a href="#Inclusive-and-Exclusive-Metrics" accesskey="n" rel="next">Inclus
 
 <span id="index-PC"></span>
 <span id="index-Program-Counter"></span>
-<p>The <em>Program Counter</em>, or PC for short, keeps track where program execution is.
-The address of the next instruction to be executed is stored in a special
-purpose register in the processor, or core.
+<p>The <em>Program Counter</em>, or PC for short, keeps track where program
+execution is.  The address of the next instruction to be executed is stored
+in a special purpose register in the processor, or core.
 </p>
 <span id="index-Instruction-pointer"></span>
 <p>The PC is sometimes also referred to as the <em>instruction pointer</em>, but
@@ -4009,9 +4016,9 @@ includes the CPU time spent in <code>B</code> and <code>C</code>.
 </p>
 <span id="index-Exclusive-metric"></span>
 <p>In contrast with this, the <em>exclusive</em> value for a metric is computed
-by excluding the metric values used by other functions called.  In our imaginary
-example, the exclusive CPU time for function <code>A</code> is the time spent outside
-calling functions <code>B</code> and <code>C</code>.
+by excluding the metric values used by other functions called.  In our
+imaginary example, the exclusive CPU time for function <code>A</code> is the
+time spent outside calling functions <code>B</code> and <code>C</code>.
 </p>
 <span id="index-Leaf-function"></span>
 <p>In case of a <em>leaf function</em>, the inclusive and exclusive values for the
@@ -4191,12 +4198,12 @@ by a plus sign.
 </dl>
 
 <p>Recall that there are several list commands that show the mapping between the
-numbers and the targets. 
+numbers and the targets.
 </p>
 <span id="index-Options_002c-_002dexperiment_005flist-2"></span>
 <span id="index-Commands_002c-experiment_005flist-2"></span>
 <p>For example, the <code>experiment_list</code> command shows the name(s) of the
-experiment(s) loaded and the associated number. In this example it is used
+experiment(s) loaded and the associated number.  In this example it is used
 to get this information for a range of experiments:
 </p>
 <table class="cartouche" border="1"><tr><td>
@@ -4230,41 +4237,45 @@ the executable.
 During execution, the program may also dynamically load objects.
 </p>
 <span id="index-Load-object"></span>
-<p>A <em>load object</em> is defined to be an executable, or shared object.  A shared
-library is an example of a load object in <code>gprofng</code>.
+<p>A <em>load object</em> is defined to be an executable, or shared object.  A
+shared library is an example of a load object in <code>gprofng</code>.
 </p>
-<p>Each load object, contains a text section with the instructions generated by the
-compiler, a data section for data, and various symbol tables.
+<p>Each load object, contains a text section with the instructions generated by
+the compiler, a data section for data, and various symbol tables.
 All load objects must contain an
 <span id="index-ELF"></span>
 ELF
 symbol table, which gives the names and addresses of all the globally known
 functions in that object.
 </p>
-<p>Load objects compiled with the -g option contain additional symbolic information
-that can augment the ELF symbol table and provide information about functions that
-are not global, additional information about object modules from which the functions
-came, and line number information relating addresses to source lines.
+<p>Load objects compiled with the -g option contain additional symbolic
+information that can augment the ELF symbol table and provide information
+about functions that are not global, additional information about object
+modules from which the functions came, and line number information relating
+addresses to source lines.
 </p>
 <p>The term
 <span id="index-Function"></span>
 <em>function</em>
 is used to describe a set of instructions that represent a high-level operation
-described in the source code.  The term also covers methods as used in C++ and in
-the Java programming language.
+described in the source code.  The term also covers methods as used in C++
+and in the Java programming language.
 </p>
 <p>In the <code>gprofng</code> context, functions are provided in source code format.
-Normally their names appear in the symbol table representing a set of addresses.
+Normally their names appear in the symbol table representing a set of
+addresses.
 <span id="index-Program-Counter-1"></span>
 <span id="index-PC-1"></span>
-If the Program Counter (PC) is within that set, the program is executing within that function.
+If the Program Counter (PC) is within that set, the program is executing within
+that function.
 </p>
-<p>In principle, any address within the text segment of a load object can be mapped to a
-function.  Exactly the same mapping is used for the leaf PC and all the other PCs on the
-call stack.
+<p>In principle, any address within the text segment of a load object can be
+mapped to a function.  Exactly the same mapping is used for the leaf PC and
+all the other PCs on the call stack.
 </p>
-<p>Most of the functions correspond directly to the source model of the program, but
-there are exceptions.  This topic is however outside of the scope of this guide.
+<p>Most of the functions correspond directly to the source model of the program,
+but there are exceptions.  This topic is however outside of the scope of this
+guide.
 </p>
 <hr>
 </div>
@@ -4306,8 +4317,8 @@ event counters.
 </p>
 <p>On the hardware side, this means that in the processor there are one or more
 registers dedicated to count certain activities, or &ldquo;events&rdquo;.
-Examples of such events are the number of instructions executed, or the number
-of cache misses at level 2 in the memory hierarchy.
+Examples of such events are the number of instructions executed, or the
+number of cache misses at level 2 in the memory hierarchy.
 </p>
 <p>While there is a limited set of such registers, the user can map events onto
 them.  In case more than one register is available, this allows for the
@@ -4317,9 +4328,10 @@ simultaenous measurement of various events.
 cycles and the number of instructions excuted.  These two numbers can then be
 used to compute the
 <span id="index-IPC"></span>
-<em>IPC</em> value.  IPC stands for &ldquo;Instructions Per Clockcycle&rdquo; and each processor
-has a maximum.  For example, if this maximum number is 2, it means the
-processor is capable of executing two instructions every clock cycle.
+<em>IPC</em> value.  IPC stands for &ldquo;Instructions Per Clockcycle&rdquo; and each
+processor has an architecturally defined maximum.  For example, if this
+maximum number is 2, it means the processor is capable of executing two
+instructions every clock cycle.
 </p>
 <p>Whether this is actually achieved, depends on several factors, including the
 instruction characteristics.
@@ -4427,8 +4439,9 @@ in the <code>gprofng/doc</code> subdirectory.
 <p>For example, if you have set the build directory to be <var>&lt;my-build-dir&gt;</var>,
 go to subdirectory <var>&lt;my-build-dir&gt;/gprofng/doc</var>.
 </p>
-<p>This subdirectory has a single filed called <samp>Makefile</samp> that can be used to
-build the documentation in various formats.  We recommend to use these commands.
+<p>This subdirectory has a single file called <samp>Makefile</samp> that can be used to
+build the documentation in various formats.  We recommend to use these
+commands.
 </p>
 <p>There are four commands to generate the documentation in the <code>html</code> or
 <code>pdf</code> format.  It is assumed that you are in directory <code>gprofng/doc</code>
@@ -4448,13 +4461,13 @@ under the main directory <var>&lt;my-build-dir&gt;</var>.
 </p>
 </dd>
 <dt><span><code>make install-pdf</code></span></dt>
-<dd><p>Creat and install the pdf file in the binutils documentation directory.
+<dd><p>Create and install the pdf file in the binutils documentation directory.
 </p>
 </dd>
 </dl>
 
-<p>For example, to install this document in the binutils documentation directory, the
-commands below may be executed.  In this notation, <var>&lt;format&gt;</var>
+<p>For example, to install this document in the binutils documentation directory,
+the commands below may be executed.  In this notation, <var>&lt;format&gt;</var>
 is one of <code>html</code>, or <code>pdf</code>:
 </p>
 <div class="example">
@@ -4462,9 +4475,10 @@ is one of <code>html</code>, or <code>pdf</code>:
 $ make install-&lt;format&gt;
 </pre></div>
 
-<p>The binutils installation directory is either the default <code>/usr/local</code> or the one
-that has been set with the <code>--prefix</code> option as part of the <code>configure</code>
-command.  In this example we symbolize this location with <code>&lt;install&gt;</code>.
+<p>The binutils installation directory is either the default <code>/usr/local</code> or
+the one that has been set with the <code>--prefix</code> option as part of the
+<code>configure</code> command.  In this example we symbolize this location with
+<code>&lt;install&gt;</code>.
 </p>
 <p>The documentation directory is <code>&lt;install&gt;/share/doc/gprofng</code> in case
 <code>html</code> or <code>pdf</code> is selected and <code>&lt;install&gt;/share/info</code> for the
@@ -4668,8 +4682,8 @@ to this configuration file to a non-default location.  If this is the case,
 the user may set the <code>GPROFNG_SYSCONFDIR</code> environment variable to point
 to this location.
 </p>
-<p>Otherwise, the <code>gp-display-text</code>, <code>gp-display-src</code>, and
-<code>gp-archive</code> tools cannot find this file.
+<p>Otherwise, the <code>gprofng display text</code>, <code>gprofng display src</code>,
+and <code>gprofng archive</code> tools cannot find this file.
 </p>
 </dd>
 </dl>
@@ -4729,6 +4743,11 @@ be installed seperately.
 these are subject to change, in particular the options, we recommend to
 use the driver.
 </p>
+<p>The <em>gprofng GUI</em> is an optional tool that provides a graphical interface
+for <code>gprofng</code>.  It is easy to use and supports many views into the
+performance data.  For those interested in this GUI, we
+recommend to search for <code>gprofng-gui</code> how to obtain, install and use it.
+</p>
 </blockquote>
 
 
@@ -4737,11 +4756,10 @@ use the driver.
 </p><blockquote class="indentedblock">
 
 <p>gp-archive(1),
-gp-collect-app(1),
-gp-display-gui(1),
-gp-display-html(1),
-gp-display-src(1),
-gp-display-text(1)
+gprofng-collect-app(1),
+gprofng-display-html(1),
+gprofng-display-src(1),
+gprofng-display-text(1)
 </p>
 
 <p>Each gprofng command also supports the <samp>--help</samp> option.  This lists the
@@ -5060,11 +5078,10 @@ gprofng can provide more details, but this is not a requirement.
 </p><blockquote class="indentedblock">
 
 <p>gprofng(1),
-gp-archive(1),
-gp-display-gui(1),
-gp-display-html(1),
-gp-display-src(1),
-gp-display-text(1)
+gprofng-archive(1),
+gprofng-display-html(1),
+gprofng-display-src(1),
+gprofng-display-text(1)
 </p>
 
 <p>The user guide for gprofng is maintained as a Texinfo manual.  If the
@@ -5425,11 +5442,10 @@ for C, C++, and Fortran.
 </p><blockquote class="indentedblock">
 
 <p>gprofng(1),
-gp-archive(1),
-gp-collect-app(1),
-gp-display-gui(1),
-gp-display-html(1),
-gp-display-src(1)
+gprofng-archive(1),
+gprofng-collect-app(1),
+gprofng-display-html(1),
+gprofng-display-src(1)
 </p>
 
 <p>The user guide for gprofng is maintained as a Texinfo manual.  If the
@@ -5645,11 +5661,10 @@ processing begins.
 </p><blockquote class="indentedblock">
 
 <p>gprofng(1),
-gp-archive(1),
-gp-collect-app(1),
-gp-display-gui(1),
-gp-display-src(1),
-gp-display-text(1)
+gprofng-archive(1),
+gprofng-collect-app(1),
+gprofng-display-src(1),
+gprofng-display-text(1)
 </p>
 
 <p>The user guide for gprofng is maintained as a Texinfo manual.  If the
@@ -5820,16 +5835,15 @@ indicate generating the source, or disassembly, for all functions in the
 </p><blockquote class="indentedblock">
 
 <p>gprofng(1),
-gp-archive(1),
-gp-collect-app(1),
-gp-display-gui(1),
-gp-display-html(1),
-gp-display-text(1)
+gprofng-archive(1),
+gprofng-collect-app(1),
+gprofng-display-html(1),
+gprofng-display-text(1)
 </p>
 
-<p>The user guide for gprofng is maintained as a Texinfo manual.  If the info
-and gprofng programs are correctly installed, the command
-<code>info gprofng</code> should give access to this document.
+<p>The user guide for gprofng is maintained as a Texinfo manual.  If the
+<code>info</code> and <code>gprofng</code> programs are correctly installed, the
+command <code>info gprofng</code> should give access to this document.
 </p>
 </blockquote>
 
@@ -6131,16 +6145,15 @@ experiment was recorded.
 </p><blockquote class="indentedblock">
 
 <p>gprofng(1),
-gp-collect-app(1),
-gp-display-gui(1),
-gp-display-html(1),
-gp-display-src(1),
-gp-display-text(1)
+gprofng-collect-app(1),
+gprofng-display-html(1),
+gprofng-display-src(1),
+gprofng-display-text(1)
 </p>
 
-<p>The user guide for gprofng is maintained as a Texinfo manual.  If the info
-and gprofng programs are correctly installed, the command
-<code>info gprofng</code> should give access to this document.
+<p>The user guide for gprofng is maintained as a Texinfo manual.  If the
+<code>info</code> and <code>gprofng</code> programs are correctly installed, the
+command <code>info gprofng</code> should give access to this document.
 </p>
 </blockquote>
 

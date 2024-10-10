@@ -76,7 +76,7 @@ Next: <a href="#Overview" accesskey="n" rel="next">Overview</a> &nbsp; [<a href=
 
 <p>This file is a user guide to the <small>GNU</small> assembler <code>as</code>
 (GNU Binutils)
-version 2.42.50.
+version 2.43.50.
 </p>
 <p>This document is distributed under the terms of the GNU Free
 Documentation License.  A copy of the license is included in the
@@ -117,7 +117,7 @@ section entitled &ldquo;GNU Free Documentation License&rdquo;.
     <li><a id="toc-Display-Assembly-Statistics_003a-_002d_002dstatistics" href="#statistics">2.14 Display Assembly Statistics: <samp>--statistics</samp></a></li>
     <li><a id="toc-Compatible-Output_003a-_002d_002dtraditional_002dformat" href="#traditional_002dformat">2.15 Compatible Output: <samp>--traditional-format</samp></a></li>
     <li><a id="toc-Announce-Version_003a-_002dv" href="#v">2.16 Announce Version: <samp>-v</samp></a></li>
-    <li><a id="toc-Control-Warnings_003a-_002dW_002c-_002d_002dwarn_002c-_002d_002dno_002dwarn_002c-_002d_002dfatal_002dwarnings" href="#W">2.17 Control Warnings: <samp>-W</samp>, <samp>--warn</samp>, <samp>--no-warn</samp>, <samp>--fatal-warnings</samp></a></li>
+    <li><a id="toc-Control-Warnings_003a-_002dW_002c-_002d_002dno_002dwarn_002c-_002d_002dwarn_002c-_002d_002dfatal_002dwarnings" href="#W">2.17 Control Warnings: <samp>-W</samp>, <samp>--no-warn</samp>, <samp>--warn</samp>, <samp>--fatal-warnings</samp></a></li>
     <li><a id="toc-Generate-Object-File-in-Spite-of-Errors_003a-_002dZ" href="#Z">2.18 Generate Object File in Spite of Errors: <samp>-Z</samp></a></li>
   </ul></li>
   <li><a id="toc-Syntax-1" href="#Syntax">3 Syntax</a>
@@ -194,145 +194,146 @@ section entitled &ldquo;GNU Free Documentation License&rdquo;.
     <li><a id="toc-_002easciz-_0022string_0022_2026" href="#Asciz">7.6 <code>.asciz &quot;<var>string</var>&quot;</code>&hellip;</a></li>
     <li><a id="toc-_002eattach_005fto_005fgroup-name" href="#Attach_005fto_005fgroup">7.7 <code>.attach_to_group <var>name</var></code></a></li>
     <li><a id="toc-_002ebalign_005bwl_005d-_005babs_002dexpr_005b_002c-abs_002dexpr_005b_002c-abs_002dexpr_005d_005d_005d" href="#Balign">7.8 <code>.balign[wl] [<var>abs-expr</var>[, <var>abs-expr</var>[, <var>abs-expr</var>]]]</code></a></li>
-    <li><a id="toc-_002ebss-subsection" href="#Bss">7.9 <code>.bss <var>subsection</var></code></a></li>
-    <li><a id="toc-Bundle-directives-1" href="#Bundle-directives">7.10 Bundle directives</a>
+    <li><a id="toc-_002ebase64-_0022string_0022_005b_002c-_2026_005d" href="#Base64">7.9 <code>.base64 &quot;<var>string</var>&quot;[, &hellip;]</code></a></li>
+    <li><a id="toc-_002ebss-subsection" href="#Bss">7.10 <code>.bss <var>subsection</var></code></a></li>
+    <li><a id="toc-Bundle-directives-1" href="#Bundle-directives">7.11 Bundle directives</a>
     <ul class="no-bullet">
-      <li><a id="toc-_002ebundle_005falign_005fmode-abs_002dexpr" href="#g_t_002ebundle_005falign_005fmode-abs_002dexpr">7.10.1 <code>.bundle_align_mode <var>abs-expr</var></code></a></li>
-      <li><a id="toc-_002ebundle_005flock-and-_002ebundle_005funlock" href="#g_t_002ebundle_005flock-and-_002ebundle_005funlock">7.10.2 <code>.bundle_lock</code> and <code>.bundle_unlock</code></a></li>
+      <li><a id="toc-_002ebundle_005falign_005fmode-abs_002dexpr" href="#g_t_002ebundle_005falign_005fmode-abs_002dexpr">7.11.1 <code>.bundle_align_mode <var>abs-expr</var></code></a></li>
+      <li><a id="toc-_002ebundle_005flock-and-_002ebundle_005funlock" href="#g_t_002ebundle_005flock-and-_002ebundle_005funlock">7.11.2 <code>.bundle_lock</code> and <code>.bundle_unlock</code></a></li>
     </ul></li>
-    <li><a id="toc-_002ebyte-expressions" href="#Byte">7.11 <code>.byte <var>expressions</var></code></a></li>
-    <li><a id="toc-CFI-directives-1" href="#CFI-directives">7.12 CFI directives</a>
+    <li><a id="toc-_002ebyte-expressions" href="#Byte">7.12 <code>.byte <var>expressions</var></code></a></li>
+    <li><a id="toc-CFI-directives-1" href="#CFI-directives">7.13 CFI directives</a>
     <ul class="no-bullet">
-      <li><a id="toc-_002ecfi_005fsections-section_005flist" href="#g_t_002ecfi_005fsections-section_005flist">7.12.1 <code>.cfi_sections <var>section_list</var></code></a></li>
-      <li><a id="toc-_002ecfi_005fstartproc-_005bsimple_005d" href="#g_t_002ecfi_005fstartproc-_005bsimple_005d">7.12.2 <code>.cfi_startproc [simple]</code></a></li>
-      <li><a id="toc-_002ecfi_005fendproc" href="#g_t_002ecfi_005fendproc">7.12.3 <code>.cfi_endproc</code></a></li>
-      <li><a id="toc-_002ecfi_005fpersonality-encoding-_005b_002c-exp_005d" href="#g_t_002ecfi_005fpersonality-encoding-_005b_002c-exp_005d">7.12.4 <code>.cfi_personality <var>encoding</var> [, <var>exp</var>]</code></a></li>
-      <li><a id="toc-_002ecfi_005fpersonality_005fid-id" href="#g_t_002ecfi_005fpersonality_005fid-id">7.12.5 <code>.cfi_personality_id <var>id</var></code></a></li>
-      <li><a id="toc-_002ecfi_005ffde_005fdata-_005bopcode1-_005b_002c-_2026_005d_005d" href="#g_t_002ecfi_005ffde_005fdata-_005bopcode1-_005b_002c-_2026_005d_005d">7.12.6 <code>.cfi_fde_data [<var>opcode1</var> [, &hellip;]]</code></a></li>
-      <li><a id="toc-_002ecfi_005flsda-encoding-_005b_002c-exp_005d" href="#g_t_002ecfi_005flsda-encoding-_005b_002c-exp_005d">7.12.7 <code>.cfi_lsda <var>encoding</var> [, <var>exp</var>]</code></a></li>
-      <li><a id="toc-_002ecfi_005finline_005flsda-_005balign_005d" href="#g_t_002ecfi_005finline_005flsda-_005balign_005d">7.12.8 <code>.cfi_inline_lsda</code> [<var>align</var>]</a></li>
-      <li><a id="toc-_002ecfi_005fdef_005fcfa-register_002c-offset" href="#g_t_002ecfi_005fdef_005fcfa-register_002c-offset">7.12.9 <code>.cfi_def_cfa <var>register</var>, <var>offset</var></code></a></li>
-      <li><a id="toc-_002ecfi_005fdef_005fcfa_005fregister-register" href="#g_t_002ecfi_005fdef_005fcfa_005fregister-register">7.12.10 <code>.cfi_def_cfa_register <var>register</var></code></a></li>
-      <li><a id="toc-_002ecfi_005fdef_005fcfa_005foffset-offset" href="#g_t_002ecfi_005fdef_005fcfa_005foffset-offset">7.12.11 <code>.cfi_def_cfa_offset <var>offset</var></code></a></li>
-      <li><a id="toc-_002ecfi_005fadjust_005fcfa_005foffset-offset" href="#g_t_002ecfi_005fadjust_005fcfa_005foffset-offset">7.12.12 <code>.cfi_adjust_cfa_offset <var>offset</var></code></a></li>
-      <li><a id="toc-_002ecfi_005foffset-register_002c-offset" href="#g_t_002ecfi_005foffset-register_002c-offset">7.12.13 <code>.cfi_offset <var>register</var>, <var>offset</var></code></a></li>
-      <li><a id="toc-_002ecfi_005fval_005foffset-register_002c-offset" href="#g_t_002ecfi_005fval_005foffset-register_002c-offset">7.12.14 <code>.cfi_val_offset <var>register</var>, <var>offset</var></code></a></li>
-      <li><a id="toc-_002ecfi_005frel_005foffset-register_002c-offset" href="#g_t_002ecfi_005frel_005foffset-register_002c-offset">7.12.15 <code>.cfi_rel_offset <var>register</var>, <var>offset</var></code></a></li>
-      <li><a id="toc-_002ecfi_005fregister-register1_002c-register2" href="#g_t_002ecfi_005fregister-register1_002c-register2">7.12.16 <code>.cfi_register <var>register1</var>, <var>register2</var></code></a></li>
-      <li><a id="toc-_002ecfi_005frestore-register" href="#g_t_002ecfi_005frestore-register">7.12.17 <code>.cfi_restore <var>register</var></code></a></li>
-      <li><a id="toc-_002ecfi_005fundefined-register" href="#g_t_002ecfi_005fundefined-register">7.12.18 <code>.cfi_undefined <var>register</var></code></a></li>
-      <li><a id="toc-_002ecfi_005fsame_005fvalue-register" href="#g_t_002ecfi_005fsame_005fvalue-register">7.12.19 <code>.cfi_same_value <var>register</var></code></a></li>
-      <li><a id="toc-_002ecfi_005fremember_005fstate-and-_002ecfi_005frestore_005fstate" href="#g_t_002ecfi_005fremember_005fstate-and-_002ecfi_005frestore_005fstate">7.12.20 <code>.cfi_remember_state</code> and <code>.cfi_restore_state</code></a></li>
-      <li><a id="toc-_002ecfi_005freturn_005fcolumn-register" href="#g_t_002ecfi_005freturn_005fcolumn-register">7.12.21 <code>.cfi_return_column <var>register</var></code></a></li>
-      <li><a id="toc-_002ecfi_005fsignal_005fframe" href="#g_t_002ecfi_005fsignal_005fframe">7.12.22 <code>.cfi_signal_frame</code></a></li>
-      <li><a id="toc-_002ecfi_005fwindow_005fsave" href="#g_t_002ecfi_005fwindow_005fsave">7.12.23 <code>.cfi_window_save</code></a></li>
-      <li><a id="toc-_002ecfi_005fescape-expression_005b_002c-_2026_005d" href="#g_t_002ecfi_005fescape-expression_005b_002c-_2026_005d">7.12.24 <code>.cfi_escape</code> <var>expression</var>[, &hellip;]</a></li>
-      <li><a id="toc-_002ecfi_005fval_005fencoded_005faddr-register_002c-encoding_002c-label" href="#g_t_002ecfi_005fval_005fencoded_005faddr-register_002c-encoding_002c-label">7.12.25 <code>.cfi_val_encoded_addr <var>register</var>, <var>encoding</var>, <var>label</var></code></a></li>
+      <li><a id="toc-_002ecfi_005fsections-section_005flist" href="#g_t_002ecfi_005fsections-section_005flist">7.13.1 <code>.cfi_sections <var>section_list</var></code></a></li>
+      <li><a id="toc-_002ecfi_005fstartproc-_005bsimple_005d" href="#g_t_002ecfi_005fstartproc-_005bsimple_005d">7.13.2 <code>.cfi_startproc [simple]</code></a></li>
+      <li><a id="toc-_002ecfi_005fendproc" href="#g_t_002ecfi_005fendproc">7.13.3 <code>.cfi_endproc</code></a></li>
+      <li><a id="toc-_002ecfi_005fpersonality-encoding-_005b_002c-exp_005d" href="#g_t_002ecfi_005fpersonality-encoding-_005b_002c-exp_005d">7.13.4 <code>.cfi_personality <var>encoding</var> [, <var>exp</var>]</code></a></li>
+      <li><a id="toc-_002ecfi_005fpersonality_005fid-id" href="#g_t_002ecfi_005fpersonality_005fid-id">7.13.5 <code>.cfi_personality_id <var>id</var></code></a></li>
+      <li><a id="toc-_002ecfi_005ffde_005fdata-_005bopcode1-_005b_002c-_2026_005d_005d" href="#g_t_002ecfi_005ffde_005fdata-_005bopcode1-_005b_002c-_2026_005d_005d">7.13.6 <code>.cfi_fde_data [<var>opcode1</var> [, &hellip;]]</code></a></li>
+      <li><a id="toc-_002ecfi_005flsda-encoding-_005b_002c-exp_005d" href="#g_t_002ecfi_005flsda-encoding-_005b_002c-exp_005d">7.13.7 <code>.cfi_lsda <var>encoding</var> [, <var>exp</var>]</code></a></li>
+      <li><a id="toc-_002ecfi_005finline_005flsda-_005balign_005d" href="#g_t_002ecfi_005finline_005flsda-_005balign_005d">7.13.8 <code>.cfi_inline_lsda</code> [<var>align</var>]</a></li>
+      <li><a id="toc-_002ecfi_005fdef_005fcfa-register_002c-offset" href="#g_t_002ecfi_005fdef_005fcfa-register_002c-offset">7.13.9 <code>.cfi_def_cfa <var>register</var>, <var>offset</var></code></a></li>
+      <li><a id="toc-_002ecfi_005fdef_005fcfa_005fregister-register" href="#g_t_002ecfi_005fdef_005fcfa_005fregister-register">7.13.10 <code>.cfi_def_cfa_register <var>register</var></code></a></li>
+      <li><a id="toc-_002ecfi_005fdef_005fcfa_005foffset-offset" href="#g_t_002ecfi_005fdef_005fcfa_005foffset-offset">7.13.11 <code>.cfi_def_cfa_offset <var>offset</var></code></a></li>
+      <li><a id="toc-_002ecfi_005fadjust_005fcfa_005foffset-offset" href="#g_t_002ecfi_005fadjust_005fcfa_005foffset-offset">7.13.12 <code>.cfi_adjust_cfa_offset <var>offset</var></code></a></li>
+      <li><a id="toc-_002ecfi_005foffset-register_002c-offset" href="#g_t_002ecfi_005foffset-register_002c-offset">7.13.13 <code>.cfi_offset <var>register</var>, <var>offset</var></code></a></li>
+      <li><a id="toc-_002ecfi_005fval_005foffset-register_002c-offset" href="#g_t_002ecfi_005fval_005foffset-register_002c-offset">7.13.14 <code>.cfi_val_offset <var>register</var>, <var>offset</var></code></a></li>
+      <li><a id="toc-_002ecfi_005frel_005foffset-register_002c-offset" href="#g_t_002ecfi_005frel_005foffset-register_002c-offset">7.13.15 <code>.cfi_rel_offset <var>register</var>, <var>offset</var></code></a></li>
+      <li><a id="toc-_002ecfi_005fregister-register1_002c-register2" href="#g_t_002ecfi_005fregister-register1_002c-register2">7.13.16 <code>.cfi_register <var>register1</var>, <var>register2</var></code></a></li>
+      <li><a id="toc-_002ecfi_005frestore-register" href="#g_t_002ecfi_005frestore-register">7.13.17 <code>.cfi_restore <var>register</var></code></a></li>
+      <li><a id="toc-_002ecfi_005fundefined-register" href="#g_t_002ecfi_005fundefined-register">7.13.18 <code>.cfi_undefined <var>register</var></code></a></li>
+      <li><a id="toc-_002ecfi_005fsame_005fvalue-register" href="#g_t_002ecfi_005fsame_005fvalue-register">7.13.19 <code>.cfi_same_value <var>register</var></code></a></li>
+      <li><a id="toc-_002ecfi_005fremember_005fstate-and-_002ecfi_005frestore_005fstate" href="#g_t_002ecfi_005fremember_005fstate-and-_002ecfi_005frestore_005fstate">7.13.20 <code>.cfi_remember_state</code> and <code>.cfi_restore_state</code></a></li>
+      <li><a id="toc-_002ecfi_005freturn_005fcolumn-register" href="#g_t_002ecfi_005freturn_005fcolumn-register">7.13.21 <code>.cfi_return_column <var>register</var></code></a></li>
+      <li><a id="toc-_002ecfi_005fsignal_005fframe" href="#g_t_002ecfi_005fsignal_005fframe">7.13.22 <code>.cfi_signal_frame</code></a></li>
+      <li><a id="toc-_002ecfi_005fwindow_005fsave" href="#g_t_002ecfi_005fwindow_005fsave">7.13.23 <code>.cfi_window_save</code></a></li>
+      <li><a id="toc-_002ecfi_005fescape-expression_005b_002c-_2026_005d" href="#g_t_002ecfi_005fescape-expression_005b_002c-_2026_005d">7.13.24 <code>.cfi_escape</code> <var>expression</var>[, &hellip;]</a></li>
+      <li><a id="toc-_002ecfi_005fval_005fencoded_005faddr-register_002c-encoding_002c-label" href="#g_t_002ecfi_005fval_005fencoded_005faddr-register_002c-encoding_002c-label">7.13.25 <code>.cfi_val_encoded_addr <var>register</var>, <var>encoding</var>, <var>label</var></code></a></li>
     </ul></li>
-    <li><a id="toc-_002ecomm-symbol-_002c-length-" href="#Comm">7.13 <code>.comm <var>symbol</var> , <var>length</var> </code></a></li>
-    <li><a id="toc-_002edata-subsection" href="#Data">7.14 <code>.data <var>subsection</var></code></a></li>
-    <li><a id="toc-_002edc_005bsize_005d-expressions" href="#Dc">7.15 <code>.dc[<var>size</var>] <var>expressions</var></code></a></li>
-    <li><a id="toc-_002edcb_005bsize_005d-number-_005b_002cfill_005d" href="#Dcb">7.16 <code>.dcb[<var>size</var>] <var>number</var> [,<var>fill</var>]</code></a></li>
-    <li><a id="toc-_002eds_005bsize_005d-number-_005b_002cfill_005d" href="#Ds">7.17 <code>.ds[<var>size</var>] <var>number</var> [,<var>fill</var>]</code></a></li>
-    <li><a id="toc-_002edef-name" href="#Def">7.18 <code>.def <var>name</var></code></a></li>
-    <li><a id="toc-_002edesc-symbol_002c-abs_002dexpression" href="#Desc">7.19 <code>.desc <var>symbol</var>, <var>abs-expression</var></code></a></li>
-    <li><a id="toc-_002edim" href="#Dim">7.20 <code>.dim</code></a></li>
-    <li><a id="toc-_002edouble-flonums" href="#Double">7.21 <code>.double <var>flonums</var></code></a></li>
-    <li><a id="toc-_002eeject" href="#Eject">7.22 <code>.eject</code></a></li>
-    <li><a id="toc-_002eelse" href="#Else">7.23 <code>.else</code></a></li>
-    <li><a id="toc-_002eelseif" href="#Elseif">7.24 <code>.elseif</code></a></li>
-    <li><a id="toc-_002eend" href="#End">7.25 <code>.end</code></a></li>
-    <li><a id="toc-_002eendef" href="#Endef">7.26 <code>.endef</code></a></li>
-    <li><a id="toc-_002eendfunc" href="#Endfunc">7.27 <code>.endfunc</code></a></li>
-    <li><a id="toc-_002eendif" href="#Endif">7.28 <code>.endif</code></a></li>
-    <li><a id="toc-_002eequ-symbol_002c-expression" href="#Equ">7.29 <code>.equ <var>symbol</var>, <var>expression</var></code></a></li>
-    <li><a id="toc-_002eequiv-symbol_002c-expression" href="#Equiv">7.30 <code>.equiv <var>symbol</var>, <var>expression</var></code></a></li>
-    <li><a id="toc-_002eeqv-symbol_002c-expression" href="#Eqv">7.31 <code>.eqv <var>symbol</var>, <var>expression</var></code></a></li>
-    <li><a id="toc-_002eerr" href="#Err">7.32 <code>.err</code></a></li>
-    <li><a id="toc-_002eerror-_0022string_0022" href="#Error">7.33 <code>.error &quot;<var>string</var>&quot;</code></a></li>
-    <li><a id="toc-_002eexitm" href="#Exitm">7.34 <code>.exitm</code></a></li>
-    <li><a id="toc-_002eextern" href="#Extern">7.35 <code>.extern</code></a></li>
-    <li><a id="toc-_002efail-expression" href="#Fail">7.36 <code>.fail <var>expression</var></code></a></li>
-    <li><a id="toc-_002efile" href="#File">7.37 <code>.file</code></a></li>
-    <li><a id="toc-_002efill-repeat-_002c-size-_002c-value" href="#Fill">7.38 <code>.fill <var>repeat</var> , <var>size</var> , <var>value</var></code></a></li>
-    <li><a id="toc-_002efloat-flonums" href="#Float">7.39 <code>.float <var>flonums</var></code></a></li>
-    <li><a id="toc-_002efunc-name_005b_002clabel_005d" href="#Func">7.40 <code>.func <var>name</var>[,<var>label</var>]</code></a></li>
-    <li><a id="toc-_002eglobal-symbol_002c-_002eglobl-symbol" href="#Global">7.41 <code>.global <var>symbol</var></code>, <code>.globl <var>symbol</var></code></a></li>
-    <li><a id="toc-_002egnu_005fattribute-tag_002cvalue" href="#Gnu_005fattribute">7.42 <code>.gnu_attribute <var>tag</var>,<var>value</var></code></a></li>
-    <li><a id="toc-_002ehidden-names" href="#Hidden">7.43 <code>.hidden <var>names</var></code></a></li>
-    <li><a id="toc-_002ehword-expressions" href="#hword">7.44 <code>.hword <var>expressions</var></code></a></li>
-    <li><a id="toc-_002eident" href="#Ident">7.45 <code>.ident</code></a></li>
-    <li><a id="toc-_002eif-absolute-expression" href="#If">7.46 <code>.if <var>absolute expression</var></code></a></li>
-    <li><a id="toc-_002eincbin-_0022file_0022_005b_002cskip_005b_002ccount_005d_005d" href="#Incbin">7.47 <code>.incbin &quot;<var>file</var>&quot;[,<var>skip</var>[,<var>count</var>]]</code></a></li>
-    <li><a id="toc-_002einclude-_0022file_0022" href="#Include">7.48 <code>.include &quot;<var>file</var>&quot;</code></a></li>
-    <li><a id="toc-_002eint-expressions" href="#Int">7.49 <code>.int <var>expressions</var></code></a></li>
-    <li><a id="toc-_002einternal-names" href="#Internal">7.50 <code>.internal <var>names</var></code></a></li>
-    <li><a id="toc-_002eirp-symbol_002cvalue_2026" href="#Irp">7.51 <code>.irp <var>symbol</var>,<var>value</var></code>&hellip;</a></li>
-    <li><a id="toc-_002eirpc-symbol_002cvalues_2026" href="#Irpc">7.52 <code>.irpc <var>symbol</var>,<var>values</var></code>&hellip;</a></li>
-    <li><a id="toc-_002elcomm-symbol-_002c-length" href="#Lcomm">7.53 <code>.lcomm <var>symbol</var> , <var>length</var></code></a></li>
-    <li><a id="toc-_002elflags" href="#Lflags">7.54 <code>.lflags</code></a></li>
-    <li><a id="toc-_002eline-line_002dnumber" href="#Line">7.55 <code>.line <var>line-number</var></code></a></li>
-    <li><a id="toc-_002elinkonce-_005btype_005d" href="#Linkonce">7.56 <code>.linkonce [<var>type</var>]</code></a></li>
-    <li><a id="toc-_002elist" href="#List">7.57 <code>.list</code></a></li>
-    <li><a id="toc-_002eln-line_002dnumber" href="#Ln">7.58 <code>.ln <var>line-number</var></code></a></li>
-    <li><a id="toc-_002eloc-fileno-lineno-_005bcolumn_005d-_005boptions_005d" href="#Loc">7.59 <code>.loc <var>fileno</var> <var>lineno</var> [<var>column</var>] [<var>options</var>]</code></a></li>
-    <li><a id="toc-_002eloc_005fmark_005flabels-enable" href="#Loc_005fmark_005flabels">7.60 <code>.loc_mark_labels <var>enable</var></code></a></li>
-    <li><a id="toc-_002elocal-names" href="#Local">7.61 <code>.local <var>names</var></code></a></li>
-    <li><a id="toc-_002elong-expressions" href="#Long">7.62 <code>.long <var>expressions</var></code></a></li>
-    <li><a id="toc-_002emacro" href="#Macro">7.63 <code>.macro</code></a></li>
-    <li><a id="toc-_002emri-val" href="#MRI">7.64 <code>.mri <var>val</var></code></a></li>
-    <li><a id="toc-_002enoaltmacro" href="#Noaltmacro">7.65 <code>.noaltmacro</code></a></li>
-    <li><a id="toc-_002enolist" href="#Nolist">7.66 <code>.nolist</code></a></li>
-    <li><a id="toc-_002enop-_005bsize_005d" href="#Nop">7.67 <code>.nop [<var>size</var>]</code></a></li>
-    <li><a id="toc-_002enops-size_005b_002c-control_005d" href="#Nops">7.68 <code>.nops <var>size</var>[, <var>control</var>]</code></a></li>
-    <li><a id="toc-_002eocta-bignums" href="#Octa">7.69 <code>.octa <var>bignums</var></code></a></li>
-    <li><a id="toc-_002eoffset-loc" href="#Offset">7.70 <code>.offset <var>loc</var></code></a></li>
-    <li><a id="toc-_002eorg-new_002dlc-_002c-fill" href="#Org">7.71 <code>.org <var>new-lc</var> , <var>fill</var></code></a></li>
-    <li><a id="toc-_002ep2align_005bwl_005d-_005babs_002dexpr_005b_002c-abs_002dexpr_005b_002c-abs_002dexpr_005d_005d_005d" href="#P2align">7.72 <code>.p2align[wl] [<var>abs-expr</var>[, <var>abs-expr</var>[, <var>abs-expr</var>]]]</code></a></li>
-    <li><a id="toc-_002epopsection" href="#PopSection">7.73 <code>.popsection</code></a></li>
-    <li><a id="toc-_002eprevious" href="#Previous">7.74 <code>.previous</code></a></li>
-    <li><a id="toc-_002eprint-string" href="#Print">7.75 <code>.print <var>string</var></code></a></li>
-    <li><a id="toc-_002eprotected-names" href="#Protected">7.76 <code>.protected <var>names</var></code></a></li>
-    <li><a id="toc-_002epsize-lines-_002c-columns" href="#Psize">7.77 <code>.psize <var>lines</var> , <var>columns</var></code></a></li>
-    <li><a id="toc-_002epurgem-name" href="#Purgem">7.78 <code>.purgem <var>name</var></code></a></li>
-    <li><a id="toc-_002epushsection-name-_005b_002c-subsection_005d-_005b_002c-_0022flags_0022_005b_002c-_0040type_005b_002carguments_005d_005d_005d" href="#PushSection">7.79 <code>.pushsection <var>name</var> [, <var>subsection</var>] [, &quot;<var>flags</var>&quot;[, @<var>type</var>[,<var>arguments</var>]]]</code></a></li>
-    <li><a id="toc-_002equad-expressions" href="#Quad">7.80 <code>.quad <var>expressions</var></code></a></li>
-    <li><a id="toc-_002ereloc-offset_002c-reloc_005fname_005b_002c-expression_005d" href="#Reloc">7.81 <code>.reloc <var>offset</var>, <var>reloc_name</var>[, <var>expression</var>]</code></a></li>
-    <li><a id="toc-_002erept-count" href="#Rept">7.82 <code>.rept <var>count</var></code></a></li>
-    <li><a id="toc-_002esbttl-_0022subheading_0022" href="#Sbttl">7.83 <code>.sbttl &quot;<var>subheading</var>&quot;</code></a></li>
-    <li><a id="toc-_002escl-class" href="#Scl">7.84 <code>.scl <var>class</var></code></a></li>
-    <li><a id="toc-_002esection-name" href="#Section">7.85 <code>.section <var>name</var></code></a></li>
-    <li><a id="toc-_002eset-symbol_002c-expression" href="#Set">7.86 <code>.set <var>symbol</var>, <var>expression</var></code></a></li>
-    <li><a id="toc-_002eshort-expressions" href="#Short">7.87 <code>.short <var>expressions</var></code></a></li>
-    <li><a id="toc-_002esingle-flonums" href="#Single">7.88 <code>.single <var>flonums</var></code></a></li>
-    <li><a id="toc-_002esize" href="#Size">7.89 <code>.size</code></a></li>
-    <li><a id="toc-_002eskip-size-_005b_002cfill_005d" href="#Skip">7.90 <code>.skip <var>size</var> [,<var>fill</var>]</code></a></li>
-    <li><a id="toc-_002esleb128-expressions" href="#Sleb128">7.91 <code>.sleb128 <var>expressions</var></code></a></li>
-    <li><a id="toc-_002espace-size-_005b_002cfill_005d" href="#Space">7.92 <code>.space <var>size</var> [,<var>fill</var>]</code></a></li>
-    <li><a id="toc-_002estabd_002c-_002estabn_002c-_002estabs" href="#Stab">7.93 <code>.stabd, .stabn, .stabs</code></a></li>
-    <li><a id="toc-_002estring-_0022str_0022_002c-_002estring8-_0022str_0022_002c-_002estring16" href="#String">7.94 <code>.string</code> &quot;<var>str</var>&quot;, <code>.string8</code> &quot;<var>str</var>&quot;, <code>.string16</code></a></li>
-    <li><a id="toc-_002estruct-expression" href="#Struct">7.95 <code>.struct <var>expression</var></code></a></li>
-    <li><a id="toc-_002esubsection-name" href="#SubSection">7.96 <code>.subsection <var>name</var></code></a></li>
-    <li><a id="toc-_002esymver" href="#Symver">7.97 <code>.symver</code></a></li>
-    <li><a id="toc-_002etag-structname" href="#Tag">7.98 <code>.tag <var>structname</var></code></a></li>
-    <li><a id="toc-_002etext-subsection" href="#Text">7.99 <code>.text <var>subsection</var></code></a></li>
-    <li><a id="toc-_002etitle-_0022heading_0022" href="#Title">7.100 <code>.title &quot;<var>heading</var>&quot;</code></a></li>
-    <li><a id="toc-_002etls_005fcommon-symbol_002c-length_005b_002c-alignment_005d" href="#Tls_005fcommon">7.101 <code>.tls_common <var>symbol</var>, <var>length</var>[, <var>alignment</var>]</code></a></li>
-    <li><a id="toc-_002etype" href="#Type">7.102 <code>.type</code></a></li>
-    <li><a id="toc-_002euleb128-expressions" href="#Uleb128">7.103 <code>.uleb128 <var>expressions</var></code></a></li>
-    <li><a id="toc-_002eval-addr" href="#Val">7.104 <code>.val <var>addr</var></code></a></li>
-    <li><a id="toc-_002eversion-_0022string_0022" href="#Version">7.105 <code>.version &quot;<var>string</var>&quot;</code></a></li>
-    <li><a id="toc-_002evtable_005fentry-table_002c-offset" href="#VTableEntry">7.106 <code>.vtable_entry <var>table</var>, <var>offset</var></code></a></li>
-    <li><a id="toc-_002evtable_005finherit-child_002c-parent" href="#VTableInherit">7.107 <code>.vtable_inherit <var>child</var>, <var>parent</var></code></a></li>
-    <li><a id="toc-_002ewarning-_0022string_0022" href="#Warning">7.108 <code>.warning &quot;<var>string</var>&quot;</code></a></li>
-    <li><a id="toc-_002eweak-names" href="#Weak">7.109 <code>.weak <var>names</var></code></a></li>
-    <li><a id="toc-_002eweakref-alias_002c-target" href="#Weakref">7.110 <code>.weakref <var>alias</var>, <var>target</var></code></a></li>
-    <li><a id="toc-_002eword-expressions" href="#Word">7.111 <code>.word <var>expressions</var></code></a></li>
-    <li><a id="toc-_002ezero-size" href="#Zero">7.112 <code>.zero <var>size</var></code></a></li>
-    <li><a id="toc-_002e2byte-expression-_005b_002c-expression_005d_002a" href="#g_t2byte">7.113 <code>.2byte <var>expression</var> [, <var>expression</var>]*</code></a></li>
-    <li><a id="toc-_002e4byte-expression-_005b_002c-expression_005d_002a" href="#g_t4byte">7.114 <code>.4byte <var>expression</var> [, <var>expression</var>]*</code></a></li>
-    <li><a id="toc-_002e8byte-expression-_005b_002c-expression_005d_002a" href="#g_t8byte">7.115 <code>.8byte <var>expression</var> [, <var>expression</var>]*</code></a></li>
-    <li><a id="toc-Deprecated-Directives" href="#Deprecated">7.116 Deprecated Directives</a></li>
+    <li><a id="toc-_002ecomm-symbol-_002c-length-" href="#Comm">7.14 <code>.comm <var>symbol</var> , <var>length</var> </code></a></li>
+    <li><a id="toc-_002edata-subsection" href="#Data">7.15 <code>.data <var>subsection</var></code></a></li>
+    <li><a id="toc-_002edc_005bsize_005d-expressions" href="#Dc">7.16 <code>.dc[<var>size</var>] <var>expressions</var></code></a></li>
+    <li><a id="toc-_002edcb_005bsize_005d-number-_005b_002cfill_005d" href="#Dcb">7.17 <code>.dcb[<var>size</var>] <var>number</var> [,<var>fill</var>]</code></a></li>
+    <li><a id="toc-_002eds_005bsize_005d-number-_005b_002cfill_005d" href="#Ds">7.18 <code>.ds[<var>size</var>] <var>number</var> [,<var>fill</var>]</code></a></li>
+    <li><a id="toc-_002edef-name" href="#Def">7.19 <code>.def <var>name</var></code></a></li>
+    <li><a id="toc-_002edesc-symbol_002c-abs_002dexpression" href="#Desc">7.20 <code>.desc <var>symbol</var>, <var>abs-expression</var></code></a></li>
+    <li><a id="toc-_002edim" href="#Dim">7.21 <code>.dim</code></a></li>
+    <li><a id="toc-_002edouble-flonums" href="#Double">7.22 <code>.double <var>flonums</var></code></a></li>
+    <li><a id="toc-_002eeject" href="#Eject">7.23 <code>.eject</code></a></li>
+    <li><a id="toc-_002eelse" href="#Else">7.24 <code>.else</code></a></li>
+    <li><a id="toc-_002eelseif" href="#Elseif">7.25 <code>.elseif</code></a></li>
+    <li><a id="toc-_002eend" href="#End">7.26 <code>.end</code></a></li>
+    <li><a id="toc-_002eendef" href="#Endef">7.27 <code>.endef</code></a></li>
+    <li><a id="toc-_002eendfunc" href="#Endfunc">7.28 <code>.endfunc</code></a></li>
+    <li><a id="toc-_002eendif" href="#Endif">7.29 <code>.endif</code></a></li>
+    <li><a id="toc-_002eequ-symbol_002c-expression" href="#Equ">7.30 <code>.equ <var>symbol</var>, <var>expression</var></code></a></li>
+    <li><a id="toc-_002eequiv-symbol_002c-expression" href="#Equiv">7.31 <code>.equiv <var>symbol</var>, <var>expression</var></code></a></li>
+    <li><a id="toc-_002eeqv-symbol_002c-expression" href="#Eqv">7.32 <code>.eqv <var>symbol</var>, <var>expression</var></code></a></li>
+    <li><a id="toc-_002eerr" href="#Err">7.33 <code>.err</code></a></li>
+    <li><a id="toc-_002eerror-_0022string_0022" href="#Error">7.34 <code>.error &quot;<var>string</var>&quot;</code></a></li>
+    <li><a id="toc-_002eexitm" href="#Exitm">7.35 <code>.exitm</code></a></li>
+    <li><a id="toc-_002eextern" href="#Extern">7.36 <code>.extern</code></a></li>
+    <li><a id="toc-_002efail-expression" href="#Fail">7.37 <code>.fail <var>expression</var></code></a></li>
+    <li><a id="toc-_002efile" href="#File">7.38 <code>.file</code></a></li>
+    <li><a id="toc-_002efill-repeat-_002c-size-_002c-value" href="#Fill">7.39 <code>.fill <var>repeat</var> , <var>size</var> , <var>value</var></code></a></li>
+    <li><a id="toc-_002efloat-flonums" href="#Float">7.40 <code>.float <var>flonums</var></code></a></li>
+    <li><a id="toc-_002efunc-name_005b_002clabel_005d" href="#Func">7.41 <code>.func <var>name</var>[,<var>label</var>]</code></a></li>
+    <li><a id="toc-_002eglobal-symbol_002c-_002eglobl-symbol" href="#Global">7.42 <code>.global <var>symbol</var></code>, <code>.globl <var>symbol</var></code></a></li>
+    <li><a id="toc-_002egnu_005fattribute-tag_002cvalue" href="#Gnu_005fattribute">7.43 <code>.gnu_attribute <var>tag</var>,<var>value</var></code></a></li>
+    <li><a id="toc-_002ehidden-names" href="#Hidden">7.44 <code>.hidden <var>names</var></code></a></li>
+    <li><a id="toc-_002ehword-expressions" href="#hword">7.45 <code>.hword <var>expressions</var></code></a></li>
+    <li><a id="toc-_002eident" href="#Ident">7.46 <code>.ident</code></a></li>
+    <li><a id="toc-_002eif-absolute-expression" href="#If">7.47 <code>.if <var>absolute expression</var></code></a></li>
+    <li><a id="toc-_002eincbin-_0022file_0022_005b_002cskip_005b_002ccount_005d_005d" href="#Incbin">7.48 <code>.incbin &quot;<var>file</var>&quot;[,<var>skip</var>[,<var>count</var>]]</code></a></li>
+    <li><a id="toc-_002einclude-_0022file_0022" href="#Include">7.49 <code>.include &quot;<var>file</var>&quot;</code></a></li>
+    <li><a id="toc-_002eint-expressions" href="#Int">7.50 <code>.int <var>expressions</var></code></a></li>
+    <li><a id="toc-_002einternal-names" href="#Internal">7.51 <code>.internal <var>names</var></code></a></li>
+    <li><a id="toc-_002eirp-symbol_002cvalue_2026" href="#Irp">7.52 <code>.irp <var>symbol</var>,<var>value</var></code>&hellip;</a></li>
+    <li><a id="toc-_002eirpc-symbol_002cvalues_2026" href="#Irpc">7.53 <code>.irpc <var>symbol</var>,<var>values</var></code>&hellip;</a></li>
+    <li><a id="toc-_002elcomm-symbol-_002c-length" href="#Lcomm">7.54 <code>.lcomm <var>symbol</var> , <var>length</var></code></a></li>
+    <li><a id="toc-_002elflags" href="#Lflags">7.55 <code>.lflags</code></a></li>
+    <li><a id="toc-_002eline-line_002dnumber" href="#Line">7.56 <code>.line <var>line-number</var></code></a></li>
+    <li><a id="toc-_002elinkonce-_005btype_005d" href="#Linkonce">7.57 <code>.linkonce [<var>type</var>]</code></a></li>
+    <li><a id="toc-_002elist" href="#List">7.58 <code>.list</code></a></li>
+    <li><a id="toc-_002eln-line_002dnumber" href="#Ln">7.59 <code>.ln <var>line-number</var></code></a></li>
+    <li><a id="toc-_002eloc-fileno-lineno-_005bcolumn_005d-_005boptions_005d" href="#Loc">7.60 <code>.loc <var>fileno</var> <var>lineno</var> [<var>column</var>] [<var>options</var>]</code></a></li>
+    <li><a id="toc-_002eloc_005fmark_005flabels-enable" href="#Loc_005fmark_005flabels">7.61 <code>.loc_mark_labels <var>enable</var></code></a></li>
+    <li><a id="toc-_002elocal-names" href="#Local">7.62 <code>.local <var>names</var></code></a></li>
+    <li><a id="toc-_002elong-expressions" href="#Long">7.63 <code>.long <var>expressions</var></code></a></li>
+    <li><a id="toc-_002emacro" href="#Macro">7.64 <code>.macro</code></a></li>
+    <li><a id="toc-_002emri-val" href="#MRI">7.65 <code>.mri <var>val</var></code></a></li>
+    <li><a id="toc-_002enoaltmacro" href="#Noaltmacro">7.66 <code>.noaltmacro</code></a></li>
+    <li><a id="toc-_002enolist" href="#Nolist">7.67 <code>.nolist</code></a></li>
+    <li><a id="toc-_002enop-_005bsize_005d" href="#Nop">7.68 <code>.nop [<var>size</var>]</code></a></li>
+    <li><a id="toc-_002enops-size_005b_002c-control_005d" href="#Nops">7.69 <code>.nops <var>size</var>[, <var>control</var>]</code></a></li>
+    <li><a id="toc-_002eocta-bignums" href="#Octa">7.70 <code>.octa <var>bignums</var></code></a></li>
+    <li><a id="toc-_002eoffset-loc" href="#Offset">7.71 <code>.offset <var>loc</var></code></a></li>
+    <li><a id="toc-_002eorg-new_002dlc-_002c-fill" href="#Org">7.72 <code>.org <var>new-lc</var> , <var>fill</var></code></a></li>
+    <li><a id="toc-_002ep2align_005bwl_005d-_005babs_002dexpr_005b_002c-abs_002dexpr_005b_002c-abs_002dexpr_005d_005d_005d" href="#P2align">7.73 <code>.p2align[wl] [<var>abs-expr</var>[, <var>abs-expr</var>[, <var>abs-expr</var>]]]</code></a></li>
+    <li><a id="toc-_002epopsection" href="#PopSection">7.74 <code>.popsection</code></a></li>
+    <li><a id="toc-_002eprevious" href="#Previous">7.75 <code>.previous</code></a></li>
+    <li><a id="toc-_002eprint-string" href="#Print">7.76 <code>.print <var>string</var></code></a></li>
+    <li><a id="toc-_002eprotected-names" href="#Protected">7.77 <code>.protected <var>names</var></code></a></li>
+    <li><a id="toc-_002epsize-lines-_002c-columns" href="#Psize">7.78 <code>.psize <var>lines</var> , <var>columns</var></code></a></li>
+    <li><a id="toc-_002epurgem-name" href="#Purgem">7.79 <code>.purgem <var>name</var></code></a></li>
+    <li><a id="toc-_002epushsection-name-_005b_002c-subsection_005d-_005b_002c-_0022flags_0022_005b_002c-_0040type_005b_002carguments_005d_005d_005d" href="#PushSection">7.80 <code>.pushsection <var>name</var> [, <var>subsection</var>] [, &quot;<var>flags</var>&quot;[, @<var>type</var>[,<var>arguments</var>]]]</code></a></li>
+    <li><a id="toc-_002equad-expressions" href="#Quad">7.81 <code>.quad <var>expressions</var></code></a></li>
+    <li><a id="toc-_002ereloc-offset_002c-reloc_005fname_005b_002c-expression_005d" href="#Reloc">7.82 <code>.reloc <var>offset</var>, <var>reloc_name</var>[, <var>expression</var>]</code></a></li>
+    <li><a id="toc-_002erept-count" href="#Rept">7.83 <code>.rept <var>count</var></code></a></li>
+    <li><a id="toc-_002esbttl-_0022subheading_0022" href="#Sbttl">7.84 <code>.sbttl &quot;<var>subheading</var>&quot;</code></a></li>
+    <li><a id="toc-_002escl-class" href="#Scl">7.85 <code>.scl <var>class</var></code></a></li>
+    <li><a id="toc-_002esection-name" href="#Section">7.86 <code>.section <var>name</var></code></a></li>
+    <li><a id="toc-_002eset-symbol_002c-expression" href="#Set">7.87 <code>.set <var>symbol</var>, <var>expression</var></code></a></li>
+    <li><a id="toc-_002eshort-expressions" href="#Short">7.88 <code>.short <var>expressions</var></code></a></li>
+    <li><a id="toc-_002esingle-flonums" href="#Single">7.89 <code>.single <var>flonums</var></code></a></li>
+    <li><a id="toc-_002esize" href="#Size">7.90 <code>.size</code></a></li>
+    <li><a id="toc-_002eskip-size-_005b_002cfill_005d" href="#Skip">7.91 <code>.skip <var>size</var> [,<var>fill</var>]</code></a></li>
+    <li><a id="toc-_002esleb128-expressions" href="#Sleb128">7.92 <code>.sleb128 <var>expressions</var></code></a></li>
+    <li><a id="toc-_002espace-size-_005b_002cfill_005d" href="#Space">7.93 <code>.space <var>size</var> [,<var>fill</var>]</code></a></li>
+    <li><a id="toc-_002estabd_002c-_002estabn_002c-_002estabs" href="#Stab">7.94 <code>.stabd, .stabn, .stabs</code></a></li>
+    <li><a id="toc-_002estring-_0022str_0022_002c-_002estring8-_0022str_0022_002c-_002estring16" href="#String">7.95 <code>.string</code> &quot;<var>str</var>&quot;, <code>.string8</code> &quot;<var>str</var>&quot;, <code>.string16</code></a></li>
+    <li><a id="toc-_002estruct-expression" href="#Struct">7.96 <code>.struct <var>expression</var></code></a></li>
+    <li><a id="toc-_002esubsection-name" href="#SubSection">7.97 <code>.subsection <var>name</var></code></a></li>
+    <li><a id="toc-_002esymver" href="#Symver">7.98 <code>.symver</code></a></li>
+    <li><a id="toc-_002etag-structname" href="#Tag">7.99 <code>.tag <var>structname</var></code></a></li>
+    <li><a id="toc-_002etext-subsection" href="#Text">7.100 <code>.text <var>subsection</var></code></a></li>
+    <li><a id="toc-_002etitle-_0022heading_0022" href="#Title">7.101 <code>.title &quot;<var>heading</var>&quot;</code></a></li>
+    <li><a id="toc-_002etls_005fcommon-symbol_002c-length_005b_002c-alignment_005d" href="#Tls_005fcommon">7.102 <code>.tls_common <var>symbol</var>, <var>length</var>[, <var>alignment</var>]</code></a></li>
+    <li><a id="toc-_002etype" href="#Type">7.103 <code>.type</code></a></li>
+    <li><a id="toc-_002euleb128-expressions" href="#Uleb128">7.104 <code>.uleb128 <var>expressions</var></code></a></li>
+    <li><a id="toc-_002eval-addr" href="#Val">7.105 <code>.val <var>addr</var></code></a></li>
+    <li><a id="toc-_002eversion-_0022string_0022" href="#Version">7.106 <code>.version &quot;<var>string</var>&quot;</code></a></li>
+    <li><a id="toc-_002evtable_005fentry-table_002c-offset" href="#VTableEntry">7.107 <code>.vtable_entry <var>table</var>, <var>offset</var></code></a></li>
+    <li><a id="toc-_002evtable_005finherit-child_002c-parent" href="#VTableInherit">7.108 <code>.vtable_inherit <var>child</var>, <var>parent</var></code></a></li>
+    <li><a id="toc-_002ewarning-_0022string_0022" href="#Warning">7.109 <code>.warning &quot;<var>string</var>&quot;</code></a></li>
+    <li><a id="toc-_002eweak-names" href="#Weak">7.110 <code>.weak <var>names</var></code></a></li>
+    <li><a id="toc-_002eweakref-alias_002c-target" href="#Weakref">7.111 <code>.weakref <var>alias</var>, <var>target</var></code></a></li>
+    <li><a id="toc-_002eword-expressions" href="#Word">7.112 <code>.word <var>expressions</var></code></a></li>
+    <li><a id="toc-_002ezero-size" href="#Zero">7.113 <code>.zero <var>size</var></code></a></li>
+    <li><a id="toc-_002e2byte-expression-_005b_002c-expression_005d_002a" href="#g_t2byte">7.114 <code>.2byte <var>expression</var> [, <var>expression</var>]*</code></a></li>
+    <li><a id="toc-_002e4byte-expression-_005b_002c-expression_005d_002a" href="#g_t4byte">7.115 <code>.4byte <var>expression</var> [, <var>expression</var>]*</code></a></li>
+    <li><a id="toc-_002e8byte-expression-_005b_002c-expression_005d_002a" href="#g_t8byte">7.116 <code>.8byte <var>expression</var> [, <var>expression</var>]*</code></a></li>
+    <li><a id="toc-Deprecated-Directives" href="#Deprecated">7.117 Deprecated Directives</a></li>
   </ul></li>
   <li><a id="toc-Object-Attributes-1" href="#Object-Attributes">8 Object Attributes</a>
   <ul class="no-bullet">
@@ -1120,7 +1121,8 @@ see <a href="#Invoking">Command-Line Options</a>.
  [<b>&ndash;size-check=[error|warning]</b>]
  [<b>&ndash;statistics</b>]
  [<b>-v</b>] [<b>-version</b>] [<b>&ndash;version</b>]
- [<b>-W</b>] [<b>&ndash;warn</b>] [<b>&ndash;fatal-warnings</b>] [<b>-w</b>] [<b>-x</b>]
+ [<b>-W</b>] [<b>&ndash;no-warn</b>] [<b>&ndash;warn</b>] [<b>&ndash;fatal-warnings</b>]
+ [<b>-w</b>] [<b>-x</b>]
  [<b>-Z</b>] [<b>@<var>FILE</var></b>]
  [<var>target-options</var>]
  [<b>&ndash;</b>|<var>files</var> &hellip;]
@@ -1781,12 +1783,12 @@ assembly.
 <dd><p>Suppress warning messages.
 </p>
 </dd>
-<dt><span><code>--fatal-warnings</code></span></dt>
-<dd><p>Treat warnings as errors.
-</p>
-</dd>
 <dt><span><code>--warn</code></span></dt>
 <dd><p>Don&rsquo;t suppress warning messages or treat them as errors.
+</p>
+</dd>
+<dt><span><code>--fatal-warnings</code></span></dt>
+<dd><p>Treat warnings as errors.
 </p>
 </dd>
 <dt><span><code>-w</code></span></dt>
@@ -3008,7 +3010,7 @@ assembler.)
 <li><a href="#statistics">Display Assembly Statistics: <samp>--statistics</samp></a></li>
 <li><a href="#traditional_002dformat">Compatible Output: <samp>--traditional-format</samp></a></li>
 <li><a href="#v">Announce Version: <samp>-v</samp></a></li>
-<li><a href="#W">Control Warnings: <samp>-W</samp>, <samp>--warn</samp>, <samp>--no-warn</samp>, <samp>--fatal-warnings</samp></a></li>
+<li><a href="#W">Control Warnings: <samp>-W</samp>, <samp>--no-warn</samp>, <samp>--warn</samp>, <samp>--fatal-warnings</samp></a></li>
 <li><a href="#Z">Generate Object File in Spite of Errors: <samp>-Z</samp></a></li>
 </ul>
 <hr>
@@ -3473,7 +3475,7 @@ from the output of some existing assembler.  This switch requests
 <div class="section" id="v">
 <div class="header">
 <p>
-Next: <a href="#W" accesskey="n" rel="next">Control Warnings: <samp>-W</samp>, <samp>--warn</samp>, <samp>--no-warn</samp>, <samp>--fatal-warnings</samp></a>, Previous: <a href="#traditional_002dformat" accesskey="p" rel="prev">Compatible Output: <samp>--traditional-format</samp></a>, Up: <a href="#Invoking" accesskey="u" rel="up">Command-Line Options</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
+Next: <a href="#W" accesskey="n" rel="next">Control Warnings: <samp>-W</samp>, <samp>--no-warn</samp>, <samp>--warn</samp>, <samp>--fatal-warnings</samp></a>, Previous: <a href="#traditional_002dformat" accesskey="p" rel="prev">Compatible Output: <samp>--traditional-format</samp></a>, Up: <a href="#Invoking" accesskey="u" rel="up">Command-Line Options</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
 <span id="Announce-Version_003a-_002dv"></span><h3 class="section">2.16 Announce Version: <samp>-v</samp></h3>
 
@@ -3492,7 +3494,7 @@ command line.
 <p>
 Next: <a href="#Z" accesskey="n" rel="next">Generate Object File in Spite of Errors: <samp>-Z</samp></a>, Previous: <a href="#v" accesskey="p" rel="prev">Announce Version: <samp>-v</samp></a>, Up: <a href="#Invoking" accesskey="u" rel="up">Command-Line Options</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="Control-Warnings_003a-_002dW_002c-_002d_002dwarn_002c-_002d_002dno_002dwarn_002c-_002d_002dfatal_002dwarnings"></span><h3 class="section">2.17 Control Warnings: <samp>-W</samp>, <samp>--warn</samp>, <samp>--no-warn</samp>, <samp>--fatal-warnings</samp></h3>
+<span id="Control-Warnings_003a-_002dW_002c-_002d_002dno_002dwarn_002c-_002d_002dwarn_002c-_002d_002dfatal_002dwarnings"></span><h3 class="section">2.17 Control Warnings: <samp>-W</samp>, <samp>--no-warn</samp>, <samp>--warn</samp>, <samp>--fatal-warnings</samp></h3>
 
 <p><code>as</code> should never give a warning or error message when
 assembling compiler output.  But programs written by people often
@@ -3503,10 +3505,17 @@ made.  All such warnings are directed to the standard error file.
 <span id="index-_002d_002dno_002dwarn"></span>
 <span id="index-suppressing-warnings"></span>
 <span id="index-warnings_002c-suppressing"></span>
-<p>If you use the <samp>-W</samp> and <samp>--no-warn</samp> options, no warnings are issued.
+<p>If you use the <samp>-W</samp> or <samp>--no-warn</samp> option, no warnings are issued.
 This only affects the warning messages: it does not change any particular of
 how <code>as</code> assembles your file.  Errors, which stop the assembly,
 are still reported.
+</p>
+<span id="index-_002d_002dwarn"></span>
+<span id="index-outputing-warnings"></span>
+<span id="index-warnings_002c-switching-on"></span>
+<p>Warnings are switched on by default. They can be switched off with <samp>-W</samp> or
+<samp>--no-warn</samp>. Specifying the <samp>--warn</samp> again later on the command line
+will switch on warnings again, and cause them to be output as usual.
 </p>
 <span id="index-_002d_002dfatal_002dwarnings"></span>
 <span id="index-errors_002c-caused-by-warnings"></span>
@@ -3514,17 +3523,12 @@ are still reported.
 <p>If you use the <samp>--fatal-warnings</samp> option, <code>as</code> considers
 files that generate warnings to be in error.
 </p>
-<span id="index-_002d_002dwarn"></span>
-<span id="index-warnings_002c-switching-on"></span>
-<p>You can switch these options off again by specifying <samp>--warn</samp>, which
-causes warnings to be output as usual.
-</p>
 <hr>
 </div>
 <div class="section" id="Z">
 <div class="header">
 <p>
-Previous: <a href="#W" accesskey="p" rel="prev">Control Warnings: <samp>-W</samp>, <samp>--warn</samp>, <samp>--no-warn</samp>, <samp>--fatal-warnings</samp></a>, Up: <a href="#Invoking" accesskey="u" rel="up">Command-Line Options</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
+Previous: <a href="#W" accesskey="p" rel="prev">Control Warnings: <samp>-W</samp>, <samp>--no-warn</samp>, <samp>--warn</samp>, <samp>--fatal-warnings</samp></a>, Up: <a href="#Invoking" accesskey="u" rel="up">Command-Line Options</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
 <span id="Generate-Object-File-in-Spite-of-Errors_003a-_002dZ"></span><h3 class="section">2.18 Generate Object File in Spite of Errors: <samp>-Z</samp></h3>
 <span id="index-object-file_002c-after-errors"></span>
@@ -3637,11 +3641,11 @@ Next: <a href="#Symbol-Intro" accesskey="n" rel="next">Symbols</a>, Previous: <a
 <span id="Comments-1"></span><h3 class="section">3.3 Comments</h3>
 
 <span id="index-comments"></span>
-<p>There are two ways of rendering comments to <code>as</code>.  In both
-cases the comment is equivalent to one space.
+<p>There are two ways of rendering comments to <code>as</code>.
 </p>
 <p>Anything from &lsquo;<samp>/*</samp>&rsquo; through the next &lsquo;<samp>*/</samp>&rsquo; is a comment.
-This means you may not nest these comments.
+This means you may not nest these comments.  Such a comment is equivalent to
+one space, plus bumping the line counter accordingly.
 </p>
 <div class="example">
 <pre class="example">/*
@@ -5170,7 +5174,8 @@ See <a href="#Machine-Dependencies">Machine Dependent Features</a>.
 <li><a href="#Asciz" accesskey="6"><code>.asciz &quot;<var>string</var>&quot;</code>&hellip;</a></li>
 <li><a href="#Attach_005fto_005fgroup" accesskey="7"><code>.attach_to_group <var>name</var></code></a></li>
 <li><a href="#Balign" accesskey="8"><code>.balign[wl] [<var>abs-expr</var>[, <var>abs-expr</var>[, <var>abs-expr</var>]]]</code></a></li>
-<li><a href="#Bss" accesskey="9"><code>.bss <var>subsection</var></code></a></li>
+<li><a href="#Base64" accesskey="9"><code>.base64 &quot;<var>string</var>&quot;[, &hellip;]</code></a></li>
+<li><a href="#Bss"><code>.bss <var>subsection</var></code></a></li>
 <li><a href="#Bundle-directives">Bundle directives</a></li>
 <li><a href="#Byte"><code>.byte <var>expressions</var></code></a></li>
 <li><a href="#CFI-directives">CFI directives</a></li>
@@ -5409,7 +5414,7 @@ and use the result as a string.
 </dd>
 <dt id='index-No-passing-arguments-to-macros-based-upon-keyword-assignment_002e'><span><code>No passing arguments to macros based upon keyword assignment.</code><a href='#index-No-passing-arguments-to-macros-based-upon-keyword-assignment_002e' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>In altmacro mode arguments cannot be passed to macros by keyword assignment.
-See See <a href="#altmacro_002dkeyword_002darguments">altmacro-keyword-arguments</a> for more details
+See See <a href="#altmacro_002dkeyword_002darguments">altmacro-keyword-arguments</a>.
 </p></dd>
 </dl>
 
@@ -5463,7 +5468,7 @@ this directive is used then it will be created.
 <div class="section" id="Balign">
 <div class="header">
 <p>
-Next: <a href="#Bss" accesskey="n" rel="next"><code>.bss <var>subsection</var></code></a>, Previous: <a href="#Attach_005fto_005fgroup" accesskey="p" rel="prev"><code>.attach_to_group <var>name</var></code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
+Next: <a href="#Base64" accesskey="n" rel="next"><code>.base64 &quot;<var>string</var>&quot;[, &hellip;]</code></a>, Previous: <a href="#Attach_005fto_005fgroup" accesskey="p" rel="prev"><code>.attach_to_group <var>name</var></code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
 <span id="g_t_002ebalign_005bwl_005d-_005babs_002dexpr_005b_002c-abs_002dexpr_005b_002c-abs_002dexpr_005d_005d_005d"></span><h3 class="section">7.8 <code>.balign[wl] [<var>abs-expr</var>[, <var>abs-expr</var>[, <var>abs-expr</var>]]]</code></h3>
 
@@ -5503,12 +5508,36 @@ undefined.
 </p>
 <hr>
 </div>
+<div class="section" id="Base64">
+<div class="header">
+<p>
+Next: <a href="#Bss" accesskey="n" rel="next"><code>.bss <var>subsection</var></code></a>, Previous: <a href="#Balign" accesskey="p" rel="prev"><code>.balign[wl] [<var>abs-expr</var>[, <var>abs-expr</var>[, <var>abs-expr</var>]]]</code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="g_t_002ebase64-_0022string_0022_005b_002c-_2026_005d"></span><h3 class="section">7.9 <code>.base64 &quot;<var>string</var>&quot;[, &hellip;]</code></h3>
+<p>Allows binary data to be entered into a section encoded as a base64 string.
+There is no maximum length to the strings, but they must be a multiple of four
+bytes long.  If necessary the ends of the strings can be padded with <code>=</code>
+characters.  Line breaks, control characters and escaped characters are not
+allowed in the strings.  The strings must be enclosed between double quote
+characters.  Multiple strings are allowed, but they must be separated by
+commas.
+</p>
+<p>As an example of how to create a base64 encoded string, see the
+<code>base64</code> program (with its <samp>-w0</samp> option to disable line breaks).
+</p>
+<p>Note: for targets where the size of a byte is larger than the size of an octet
+the <code>.base64</code> directive will, if necessary, pad the end of the <em>last</em>
+string so that the total number of octets generated are a multiple the number
+of octets in a byte.
+</p>
+<hr>
+</div>
 <div class="section" id="Bss">
 <div class="header">
 <p>
-Next: <a href="#Bundle-directives" accesskey="n" rel="next">Bundle directives</a>, Previous: <a href="#Balign" accesskey="p" rel="prev"><code>.balign[wl] [<var>abs-expr</var>[, <var>abs-expr</var>[, <var>abs-expr</var>]]]</code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
+Next: <a href="#Bundle-directives" accesskey="n" rel="next">Bundle directives</a>, Previous: <a href="#Base64" accesskey="p" rel="prev"><code>.base64 &quot;<var>string</var>&quot;[, &hellip;]</code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002ebss-subsection"></span><h3 class="section">7.9 <code>.bss <var>subsection</var></code></h3>
+<span id="g_t_002ebss-subsection"></span><h3 class="section">7.10 <code>.bss <var>subsection</var></code></h3>
 <span id="index-bss-directive"></span>
 
 <p><code>.bss</code> tells <code>as</code> to assemble the following statements
@@ -5524,13 +5553,13 @@ are appended to the end of the indicated bss subsection.
 <p>
 Next: <a href="#Byte" accesskey="n" rel="next"><code>.byte <var>expressions</var></code></a>, Previous: <a href="#Bss" accesskey="p" rel="prev"><code>.bss <var>subsection</var></code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="Bundle-directives-1"></span><h3 class="section">7.10 Bundle directives</h3>
+<span id="Bundle-directives-1"></span><h3 class="section">7.11 Bundle directives</h3>
 <ul class="section-toc">
 <li><a href="#g_t_002ebundle_005falign_005fmode-abs_002dexpr" accesskey="1"><code>.bundle_align_mode <var>abs-expr</var></code></a></li>
 <li><a href="#g_t_002ebundle_005flock-and-_002ebundle_005funlock" accesskey="2"><code>.bundle_lock</code> and <code>.bundle_unlock</code></a></li>
 </ul>
 <div class="subsection" id="g_t_002ebundle_005falign_005fmode-abs_002dexpr">
-<h4 class="subsection">7.10.1 <code>.bundle_align_mode <var>abs-expr</var></code></h4>
+<h4 class="subsection">7.11.1 <code>.bundle_align_mode <var>abs-expr</var></code></h4>
 <span id="index-bundle_005falign_005fmode-directive"></span>
 <span id="index-bundle"></span>
 <span id="index-instruction-bundle"></span>
@@ -5556,7 +5585,7 @@ instruction&rsquo;s encoding is longer than the bundle size.
 </p>
 </div>
 <div class="subsection" id="g_t_002ebundle_005flock-and-_002ebundle_005funlock">
-<h4 class="subsection">7.10.2 <code>.bundle_lock</code> and <code>.bundle_unlock</code></h4>
+<h4 class="subsection">7.11.2 <code>.bundle_lock</code> and <code>.bundle_unlock</code></h4>
 <span id="index-bundle_005flock-directive"></span>
 <span id="index-bundle_005funlock-directive"></span>
 <p>The <code>.bundle_lock</code> and directive <code>.bundle_unlock</code> directives
@@ -5595,7 +5624,7 @@ same number of <code>.bundle_lock</code> and <code>.bundle_unlock</code> directi
 <p>
 Next: <a href="#CFI-directives" accesskey="n" rel="next">CFI directives</a>, Previous: <a href="#Bundle-directives" accesskey="p" rel="prev">Bundle directives</a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002ebyte-expressions"></span><h3 class="section">7.11 <code>.byte <var>expressions</var></code></h3>
+<span id="g_t_002ebyte-expressions"></span><h3 class="section">7.12 <code>.byte <var>expressions</var></code></h3>
 
 <span id="index-byte-directive"></span>
 <span id="index-integers_002c-one-byte"></span>
@@ -5614,7 +5643,7 @@ instructions such as <code>.insn</code> or <code>.inst</code>.
 <p>
 Next: <a href="#Comm" accesskey="n" rel="next"><code>.comm <var>symbol</var> , <var>length</var> </code></a>, Previous: <a href="#Byte" accesskey="p" rel="prev"><code>.byte <var>expressions</var></code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="CFI-directives-1"></span><h3 class="section">7.12 CFI directives</h3>
+<span id="CFI-directives-1"></span><h3 class="section">7.13 CFI directives</h3>
 <ul class="section-toc">
 <li><a href="#g_t_002ecfi_005fsections-section_005flist" accesskey="1"><code>.cfi_sections <var>section_list</var></code></a></li>
 <li><a href="#g_t_002ecfi_005fstartproc-_005bsimple_005d" accesskey="2"><code>.cfi_startproc [simple]</code></a></li>
@@ -5643,7 +5672,7 @@ Next: <a href="#Comm" accesskey="n" rel="next"><code>.comm <var>symbol</var> , <
 <li><a href="#g_t_002ecfi_005fval_005fencoded_005faddr-register_002c-encoding_002c-label"><code>.cfi_val_encoded_addr <var>register</var>, <var>encoding</var>, <var>label</var></code></a></li>
 </ul>
 <div class="subsection" id="g_t_002ecfi_005fsections-section_005flist">
-<h4 class="subsection">7.12.1 <code>.cfi_sections <var>section_list</var></code></h4>
+<h4 class="subsection">7.13.1 <code>.cfi_sections <var>section_list</var></code></h4>
 <span id="index-cfi_005fsections-directive"></span>
 <p><code>.cfi_sections</code> may be used to specify whether CFI directives
 should emit <code>.eh_frame</code> section, <code>.debug_frame</code> section and/or
@@ -5669,7 +5698,7 @@ redefine it will result in an error.
 </p>
 </div>
 <div class="subsection" id="g_t_002ecfi_005fstartproc-_005bsimple_005d">
-<h4 class="subsection">7.12.2 <code>.cfi_startproc [simple]</code></h4>
+<h4 class="subsection">7.13.2 <code>.cfi_startproc [simple]</code></h4>
 <span id="index-cfi_005fstartproc-directive"></span>
 <p><code>.cfi_startproc</code> is used at the beginning of each function that
 should have an entry in <code>.eh_frame</code>. It initializes some internal
@@ -5681,7 +5710,7 @@ it also emits some architecture dependent initial CFI instructions.
 </p>
 </div>
 <div class="subsection" id="g_t_002ecfi_005fendproc">
-<h4 class="subsection">7.12.3 <code>.cfi_endproc</code></h4>
+<h4 class="subsection">7.13.3 <code>.cfi_endproc</code></h4>
 <span id="index-cfi_005fendproc-directive"></span>
 <p><code>.cfi_endproc</code> is used at the end of a function where it closes its
 unwind entry previously opened by
@@ -5689,7 +5718,7 @@ unwind entry previously opened by
 </p>
 </div>
 <div class="subsection" id="g_t_002ecfi_005fpersonality-encoding-_005b_002c-exp_005d">
-<h4 class="subsection">7.12.4 <code>.cfi_personality <var>encoding</var> [, <var>exp</var>]</code></h4>
+<h4 class="subsection">7.13.4 <code>.cfi_personality <var>encoding</var> [, <var>exp</var>]</code></h4>
 <span id="index-cfi_005fpersonality-directive"></span>
 <p><code>.cfi_personality</code> defines personality routine and its encoding.
 <var>encoding</var> must be a constant determining how the personality
@@ -5703,7 +5732,7 @@ no personality routine.
 </p>
 </div>
 <div class="subsection" id="g_t_002ecfi_005fpersonality_005fid-id">
-<h4 class="subsection">7.12.5 <code>.cfi_personality_id <var>id</var></code></h4>
+<h4 class="subsection">7.13.5 <code>.cfi_personality_id <var>id</var></code></h4>
 <span id="index-cfi_005fpersonality_005fid-directive"></span>
 <p><code>cfi_personality_id</code> defines a personality routine by its index as
 defined in a compact unwinding format.
@@ -5712,7 +5741,7 @@ with <code>.cfi_sections eh_frame_entry</code>.
 </p>
 </div>
 <div class="subsection" id="g_t_002ecfi_005ffde_005fdata-_005bopcode1-_005b_002c-_2026_005d_005d">
-<h4 class="subsection">7.12.6 <code>.cfi_fde_data [<var>opcode1</var> [, &hellip;]]</code></h4>
+<h4 class="subsection">7.13.6 <code>.cfi_fde_data [<var>opcode1</var> [, &hellip;]]</code></h4>
 <span id="index-cfi_005ffde_005fdata-directive"></span>
 <p><code>cfi_fde_data</code> is used to describe the compact unwind opcodes to be
 used for the current function.  These are emitted inline in the
@@ -5723,7 +5752,7 @@ with <code>.cfi_sections eh_frame_entry</code>.
 </p>
 </div>
 <div class="subsection" id="g_t_002ecfi_005flsda-encoding-_005b_002c-exp_005d">
-<h4 class="subsection">7.12.7 <code>.cfi_lsda <var>encoding</var> [, <var>exp</var>]</code></h4>
+<h4 class="subsection">7.13.7 <code>.cfi_lsda <var>encoding</var> [, <var>exp</var>]</code></h4>
 <p><code>.cfi_lsda</code> defines LSDA and its encoding.
 <var>encoding</var> must be a constant determining how the LSDA
 should be encoded.  If it is 255 (<code>DW_EH_PE_omit</code>), the second
@@ -5733,7 +5762,7 @@ meaning that no LSDA is present.
 </p>
 </div>
 <div class="subsection" id="g_t_002ecfi_005finline_005flsda-_005balign_005d">
-<h4 class="subsection">7.12.8 <code>.cfi_inline_lsda</code> [<var>align</var>]</h4>
+<h4 class="subsection">7.13.8 <code>.cfi_inline_lsda</code> [<var>align</var>]</h4>
 <p><code>.cfi_inline_lsda</code> marks the start of a LSDA data section and
 switches to the corresponding <code>.gnu.extab</code> section.
 Must be preceded by a CFI block containing a <code>.cfi_lsda</code> directive.
@@ -5752,20 +5781,20 @@ The alignment is specified as a power of two, as with the
 </p>
 </div>
 <div class="subsection" id="g_t_002ecfi_005fdef_005fcfa-register_002c-offset">
-<h4 class="subsection">7.12.9 <code>.cfi_def_cfa <var>register</var>, <var>offset</var></code></h4>
+<h4 class="subsection">7.13.9 <code>.cfi_def_cfa <var>register</var>, <var>offset</var></code></h4>
 <p><code>.cfi_def_cfa</code> defines a rule for computing CFA as: <i>take
 address from <var>register</var> and add <var>offset</var> to it</i>.
 </p>
 </div>
 <div class="subsection" id="g_t_002ecfi_005fdef_005fcfa_005fregister-register">
-<h4 class="subsection">7.12.10 <code>.cfi_def_cfa_register <var>register</var></code></h4>
+<h4 class="subsection">7.13.10 <code>.cfi_def_cfa_register <var>register</var></code></h4>
 <p><code>.cfi_def_cfa_register</code> modifies a rule for computing CFA. From
 now on <var>register</var> will be used instead of the old one. Offset
 remains the same.
 </p>
 </div>
 <div class="subsection" id="g_t_002ecfi_005fdef_005fcfa_005foffset-offset">
-<h4 class="subsection">7.12.11 <code>.cfi_def_cfa_offset <var>offset</var></code></h4>
+<h4 class="subsection">7.13.11 <code>.cfi_def_cfa_offset <var>offset</var></code></h4>
 <p><code>.cfi_def_cfa_offset</code> modifies a rule for computing CFA. Register
 remains the same, but <var>offset</var> is new. Note that it is the
 absolute offset that will be added to a defined register to compute
@@ -5773,24 +5802,24 @@ CFA address.
 </p>
 </div>
 <div class="subsection" id="g_t_002ecfi_005fadjust_005fcfa_005foffset-offset">
-<h4 class="subsection">7.12.12 <code>.cfi_adjust_cfa_offset <var>offset</var></code></h4>
+<h4 class="subsection">7.13.12 <code>.cfi_adjust_cfa_offset <var>offset</var></code></h4>
 <p>Same as <code>.cfi_def_cfa_offset</code> but <var>offset</var> is a relative
 value that is added/subtracted from the previous offset.
 </p>
 </div>
 <div class="subsection" id="g_t_002ecfi_005foffset-register_002c-offset">
-<h4 class="subsection">7.12.13 <code>.cfi_offset <var>register</var>, <var>offset</var></code></h4>
+<h4 class="subsection">7.13.13 <code>.cfi_offset <var>register</var>, <var>offset</var></code></h4>
 <p>Previous value of <var>register</var> is saved at offset <var>offset</var> from
 CFA.
 </p>
 </div>
 <div class="subsection" id="g_t_002ecfi_005fval_005foffset-register_002c-offset">
-<h4 class="subsection">7.12.14 <code>.cfi_val_offset <var>register</var>, <var>offset</var></code></h4>
+<h4 class="subsection">7.13.14 <code>.cfi_val_offset <var>register</var>, <var>offset</var></code></h4>
 <p>Previous value of <var>register</var> is CFA + <var>offset</var>.
 </p>
 </div>
 <div class="subsection" id="g_t_002ecfi_005frel_005foffset-register_002c-offset">
-<h4 class="subsection">7.12.15 <code>.cfi_rel_offset <var>register</var>, <var>offset</var></code></h4>
+<h4 class="subsection">7.13.15 <code>.cfi_rel_offset <var>register</var>, <var>offset</var></code></h4>
 <p>Previous value of <var>register</var> is saved at offset <var>offset</var> from
 the current CFA register.  This is transformed to <code>.cfi_offset</code>
 using the known displacement of the CFA register from the CFA.
@@ -5799,30 +5828,30 @@ code it&rsquo;s annotating.
 </p>
 </div>
 <div class="subsection" id="g_t_002ecfi_005fregister-register1_002c-register2">
-<h4 class="subsection">7.12.16 <code>.cfi_register <var>register1</var>, <var>register2</var></code></h4>
+<h4 class="subsection">7.13.16 <code>.cfi_register <var>register1</var>, <var>register2</var></code></h4>
 <p>Previous value of <var>register1</var> is saved in register <var>register2</var>.
 </p>
 </div>
 <div class="subsection" id="g_t_002ecfi_005frestore-register">
-<h4 class="subsection">7.12.17 <code>.cfi_restore <var>register</var></code></h4>
+<h4 class="subsection">7.13.17 <code>.cfi_restore <var>register</var></code></h4>
 <p><code>.cfi_restore</code> says that the rule for <var>register</var> is now the
 same as it was at the beginning of the function, after all initial
 instruction added by <code>.cfi_startproc</code> were executed.
 </p>
 </div>
 <div class="subsection" id="g_t_002ecfi_005fundefined-register">
-<h4 class="subsection">7.12.18 <code>.cfi_undefined <var>register</var></code></h4>
+<h4 class="subsection">7.13.18 <code>.cfi_undefined <var>register</var></code></h4>
 <p>From now on the previous value of <var>register</var> can&rsquo;t be restored anymore.
 </p>
 </div>
 <div class="subsection" id="g_t_002ecfi_005fsame_005fvalue-register">
-<h4 class="subsection">7.12.19 <code>.cfi_same_value <var>register</var></code></h4>
+<h4 class="subsection">7.13.19 <code>.cfi_same_value <var>register</var></code></h4>
 <p>Current value of <var>register</var> is the same like in the previous frame,
 i.e. no restoration needed.
 </p>
 </div>
 <div class="subsection" id="g_t_002ecfi_005fremember_005fstate-and-_002ecfi_005frestore_005fstate">
-<h4 class="subsection">7.12.20 <code>.cfi_remember_state</code> and <code>.cfi_restore_state</code></h4>
+<h4 class="subsection">7.13.20 <code>.cfi_remember_state</code> and <code>.cfi_restore_state</code></h4>
 <p><code>.cfi_remember_state</code> pushes the set of rules for every register onto an
 implicit stack, while <code>.cfi_restore_state</code> pops them off the stack and
 places them in the current row.  This is useful for situations where you have
@@ -5873,30 +5902,30 @@ as before the first <code>.cfi_restore</code> without having to use multiple
 </p>
 </div>
 <div class="subsection" id="g_t_002ecfi_005freturn_005fcolumn-register">
-<h4 class="subsection">7.12.21 <code>.cfi_return_column <var>register</var></code></h4>
+<h4 class="subsection">7.13.21 <code>.cfi_return_column <var>register</var></code></h4>
 <p>Change return column <var>register</var>, i.e. the return address is either
 directly in <var>register</var> or can be accessed by rules for <var>register</var>.
 </p>
 </div>
 <div class="subsection" id="g_t_002ecfi_005fsignal_005fframe">
-<h4 class="subsection">7.12.22 <code>.cfi_signal_frame</code></h4>
+<h4 class="subsection">7.13.22 <code>.cfi_signal_frame</code></h4>
 <p>Mark current function as signal trampoline.
 </p>
 </div>
 <div class="subsection" id="g_t_002ecfi_005fwindow_005fsave">
-<h4 class="subsection">7.12.23 <code>.cfi_window_save</code></h4>
+<h4 class="subsection">7.13.23 <code>.cfi_window_save</code></h4>
 <p>SPARC register window has been saved.
 </p>
 </div>
 <div class="subsection" id="g_t_002ecfi_005fescape-expression_005b_002c-_2026_005d">
-<h4 class="subsection">7.12.24 <code>.cfi_escape</code> <var>expression</var>[, &hellip;]</h4>
+<h4 class="subsection">7.13.24 <code>.cfi_escape</code> <var>expression</var>[, &hellip;]</h4>
 <p>Allows the user to add arbitrary bytes to the unwind info.  One
 might use this to add OS-specific CFI opcodes, or generic CFI
 opcodes that GAS does not yet support.
 </p>
 </div>
 <div class="subsection" id="g_t_002ecfi_005fval_005fencoded_005faddr-register_002c-encoding_002c-label">
-<h4 class="subsection">7.12.25 <code>.cfi_val_encoded_addr <var>register</var>, <var>encoding</var>, <var>label</var></code></h4>
+<h4 class="subsection">7.13.25 <code>.cfi_val_encoded_addr <var>register</var>, <var>encoding</var>, <var>label</var></code></h4>
 <p>The current value of <var>register</var> is <var>label</var>.  The value of <var>label</var>
 will be encoded in the output file according to <var>encoding</var>; see the
 description of <code>.cfi_personality</code> for details on this encoding.
@@ -5915,7 +5944,7 @@ or another register.
 <p>
 Next: <a href="#Data" accesskey="n" rel="next"><code>.data <var>subsection</var></code></a>, Previous: <a href="#CFI-directives" accesskey="p" rel="prev">CFI directives</a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002ecomm-symbol-_002c-length-"></span><h3 class="section">7.13 <code>.comm <var>symbol</var> , <var>length</var> </code></h3>
+<span id="g_t_002ecomm-symbol-_002c-length-"></span><h3 class="section">7.14 <code>.comm <var>symbol</var> , <var>length</var> </code></h3>
 
 <span id="index-comm-directive"></span>
 <span id="index-symbol_002c-common"></span>
@@ -5950,7 +5979,7 @@ maximum of 16 on ELF, or the default section alignment of 4 on PE<a id="DOCF1" h
 <p>
 Next: <a href="#Dc" accesskey="n" rel="next"><code>.dc[<var>size</var>] <var>expressions</var></code></a>, Previous: <a href="#Comm" accesskey="p" rel="prev"><code>.comm <var>symbol</var> , <var>length</var> </code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002edata-subsection"></span><h3 class="section">7.14 <code>.data <var>subsection</var></code></h3>
+<span id="g_t_002edata-subsection"></span><h3 class="section">7.15 <code>.data <var>subsection</var></code></h3>
 <span id="index-data-directive"></span>
 
 <p><code>.data</code> tells <code>as</code> to assemble the following statements onto the
@@ -5965,7 +5994,7 @@ to zero.
 <p>
 Next: <a href="#Dcb" accesskey="n" rel="next"><code>.dcb[<var>size</var>] <var>number</var> [,<var>fill</var>]</code></a>, Previous: <a href="#Data" accesskey="p" rel="prev"><code>.data <var>subsection</var></code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002edc_005bsize_005d-expressions"></span><h3 class="section">7.15 <code>.dc[<var>size</var>] <var>expressions</var></code></h3>
+<span id="g_t_002edc_005bsize_005d-expressions"></span><h3 class="section">7.16 <code>.dc[<var>size</var>] <var>expressions</var></code></h3>
 <span id="index-dc-directive"></span>
 
 <p>The <code>.dc</code> directive expects zero or more <var>expressions</var> separated by
@@ -6016,7 +6045,7 @@ instructions such as <code>.insn</code> or <code>.inst</code>.
 <p>
 Next: <a href="#Ds" accesskey="n" rel="next"><code>.ds[<var>size</var>] <var>number</var> [,<var>fill</var>]</code></a>, Previous: <a href="#Dc" accesskey="p" rel="prev"><code>.dc[<var>size</var>] <var>expressions</var></code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002edcb_005bsize_005d-number-_005b_002cfill_005d"></span><h3 class="section">7.16 <code>.dcb[<var>size</var>] <var>number</var> [,<var>fill</var>]</code></h3>
+<span id="g_t_002edcb_005bsize_005d-number-_005b_002cfill_005d"></span><h3 class="section">7.17 <code>.dcb[<var>size</var>] <var>number</var> [,<var>fill</var>]</code></h3>
 <span id="index-dcb-directive"></span>
 <p>This directive emits <var>number</var> copies of <var>fill</var>, each of <var>size</var>
 bytes.  Both <var>number</var> and <var>fill</var> are absolute expressions.  If the
@@ -6056,7 +6085,7 @@ point values.
 <p>
 Next: <a href="#Def" accesskey="n" rel="next"><code>.def <var>name</var></code></a>, Previous: <a href="#Dcb" accesskey="p" rel="prev"><code>.dcb[<var>size</var>] <var>number</var> [,<var>fill</var>]</code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002eds_005bsize_005d-number-_005b_002cfill_005d"></span><h3 class="section">7.17 <code>.ds[<var>size</var>] <var>number</var> [,<var>fill</var>]</code></h3>
+<span id="g_t_002eds_005bsize_005d-number-_005b_002cfill_005d"></span><h3 class="section">7.18 <code>.ds[<var>size</var>] <var>number</var> [,<var>fill</var>]</code></h3>
 <span id="index-ds-directive"></span>
 <p>This directive emits <var>number</var> copies of <var>fill</var>, each of <var>size</var>
 bytes.  Both <var>number</var> and <var>fill</var> are absolute expressions.  If the
@@ -6101,7 +6130,7 @@ suffixes do not indicate that floating-point values are to be inserted.
 <p>
 Next: <a href="#Desc" accesskey="n" rel="next"><code>.desc <var>symbol</var>, <var>abs-expression</var></code></a>, Previous: <a href="#Ds" accesskey="p" rel="prev"><code>.ds[<var>size</var>] <var>number</var> [,<var>fill</var>]</code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002edef-name"></span><h3 class="section">7.18 <code>.def <var>name</var></code></h3>
+<span id="g_t_002edef-name"></span><h3 class="section">7.19 <code>.def <var>name</var></code></h3>
 
 <span id="index-def-directive"></span>
 <span id="index-COFF-symbols_002c-debugging"></span>
@@ -6116,7 +6145,7 @@ definition extends until the <code>.endef</code> directive is encountered.
 <p>
 Next: <a href="#Dim" accesskey="n" rel="next"><code>.dim</code></a>, Previous: <a href="#Def" accesskey="p" rel="prev"><code>.def <var>name</var></code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002edesc-symbol_002c-abs_002dexpression"></span><h3 class="section">7.19 <code>.desc <var>symbol</var>, <var>abs-expression</var></code></h3>
+<span id="g_t_002edesc-symbol_002c-abs_002dexpression"></span><h3 class="section">7.20 <code>.desc <var>symbol</var>, <var>abs-expression</var></code></h3>
 
 <span id="index-desc-directive"></span>
 <span id="index-COFF-symbol-descriptor"></span>
@@ -6136,7 +6165,7 @@ it, but produces no output, when configured for COFF.
 <p>
 Next: <a href="#Double" accesskey="n" rel="next"><code>.double <var>flonums</var></code></a>, Previous: <a href="#Desc" accesskey="p" rel="prev"><code>.desc <var>symbol</var>, <var>abs-expression</var></code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002edim"></span><h3 class="section">7.20 <code>.dim</code></h3>
+<span id="g_t_002edim"></span><h3 class="section">7.21 <code>.dim</code></h3>
 
 <span id="index-dim-directive"></span>
 <span id="index-COFF-auxiliary-symbol-information"></span>
@@ -6152,7 +6181,7 @@ information in the symbol table.  It is only permitted inside
 <p>
 Next: <a href="#Eject" accesskey="n" rel="next"><code>.eject</code></a>, Previous: <a href="#Dim" accesskey="p" rel="prev"><code>.dim</code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002edouble-flonums"></span><h3 class="section">7.21 <code>.double <var>flonums</var></code></h3>
+<span id="g_t_002edouble-flonums"></span><h3 class="section">7.22 <code>.double <var>flonums</var></code></h3>
 
 <span id="index-double-directive"></span>
 <span id="index-floating-point-numbers-_0028double_0029"></span>
@@ -6168,7 +6197,7 @@ The exact kind of floating point numbers emitted depends on how
 <p>
 Next: <a href="#Else" accesskey="n" rel="next"><code>.else</code></a>, Previous: <a href="#Double" accesskey="p" rel="prev"><code>.double <var>flonums</var></code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002eeject"></span><h3 class="section">7.22 <code>.eject</code></h3>
+<span id="g_t_002eeject"></span><h3 class="section">7.23 <code>.eject</code></h3>
 
 <span id="index-eject-directive"></span>
 <span id="index-new-page_002c-in-listings"></span>
@@ -6183,7 +6212,7 @@ Next: <a href="#Else" accesskey="n" rel="next"><code>.else</code></a>, Previous:
 <p>
 Next: <a href="#Elseif" accesskey="n" rel="next"><code>.elseif</code></a>, Previous: <a href="#Eject" accesskey="p" rel="prev"><code>.eject</code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002eelse"></span><h3 class="section">7.23 <code>.else</code></h3>
+<span id="g_t_002eelse"></span><h3 class="section">7.24 <code>.else</code></h3>
 
 <span id="index-else-directive"></span>
 <p><code>.else</code> is part of the <code>as</code> support for conditional
@@ -6198,7 +6227,7 @@ was false.
 <p>
 Next: <a href="#End" accesskey="n" rel="next"><code>.end</code></a>, Previous: <a href="#Else" accesskey="p" rel="prev"><code>.else</code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002eelseif"></span><h3 class="section">7.24 <code>.elseif</code></h3>
+<span id="g_t_002eelseif"></span><h3 class="section">7.25 <code>.elseif</code></h3>
 
 <span id="index-elseif-directive"></span>
 <p><code>.elseif</code> is part of the <code>as</code> support for conditional
@@ -6212,7 +6241,7 @@ assembly; see <a href="#If"><code>.if</code></a>.  It is shorthand for beginning
 <p>
 Next: <a href="#Endef" accesskey="n" rel="next"><code>.endef</code></a>, Previous: <a href="#Elseif" accesskey="p" rel="prev"><code>.elseif</code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002eend"></span><h3 class="section">7.25 <code>.end</code></h3>
+<span id="g_t_002eend"></span><h3 class="section">7.26 <code>.end</code></h3>
 
 <span id="index-end-directive"></span>
 <p><code>.end</code> marks the end of the assembly file.  <code>as</code> does not
@@ -6225,7 +6254,7 @@ process anything in the file past the <code>.end</code> directive.
 <p>
 Next: <a href="#Endfunc" accesskey="n" rel="next"><code>.endfunc</code></a>, Previous: <a href="#End" accesskey="p" rel="prev"><code>.end</code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002eendef"></span><h3 class="section">7.26 <code>.endef</code></h3>
+<span id="g_t_002eendef"></span><h3 class="section">7.27 <code>.endef</code></h3>
 
 <span id="index-endef-directive"></span>
 <p>This directive flags the end of a symbol definition begun with
@@ -6238,7 +6267,7 @@ Next: <a href="#Endfunc" accesskey="n" rel="next"><code>.endfunc</code></a>, Pre
 <p>
 Next: <a href="#Endif" accesskey="n" rel="next"><code>.endif</code></a>, Previous: <a href="#Endef" accesskey="p" rel="prev"><code>.endef</code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002eendfunc"></span><h3 class="section">7.27 <code>.endfunc</code></h3>
+<span id="g_t_002eendfunc"></span><h3 class="section">7.28 <code>.endfunc</code></h3>
 <span id="index-endfunc-directive"></span>
 <p><code>.endfunc</code> marks the end of a function specified with <code>.func</code>.
 </p>
@@ -6249,7 +6278,7 @@ Next: <a href="#Endif" accesskey="n" rel="next"><code>.endif</code></a>, Previou
 <p>
 Next: <a href="#Equ" accesskey="n" rel="next"><code>.equ <var>symbol</var>, <var>expression</var></code></a>, Previous: <a href="#Endfunc" accesskey="p" rel="prev"><code>.endfunc</code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002eendif"></span><h3 class="section">7.28 <code>.endif</code></h3>
+<span id="g_t_002eendif"></span><h3 class="section">7.29 <code>.endif</code></h3>
 
 <span id="index-endif-directive"></span>
 <p><code>.endif</code> is part of the <code>as</code> support for conditional assembly;
@@ -6263,7 +6292,7 @@ conditionally.  See <a href="#If"><code>.if</code></a>.
 <p>
 Next: <a href="#Equiv" accesskey="n" rel="next"><code>.equiv <var>symbol</var>, <var>expression</var></code></a>, Previous: <a href="#Endif" accesskey="p" rel="prev"><code>.endif</code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002eequ-symbol_002c-expression"></span><h3 class="section">7.29 <code>.equ <var>symbol</var>, <var>expression</var></code></h3>
+<span id="g_t_002eequ-symbol_002c-expression"></span><h3 class="section">7.30 <code>.equ <var>symbol</var>, <var>expression</var></code></h3>
 
 <span id="index-equ-directive"></span>
 <span id="index-assigning-values-to-symbols-1"></span>
@@ -6287,7 +6316,7 @@ Compare <a href="#Equiv"><code>.equiv <var>symbol</var>, <var>expression</var></
 <p>
 Next: <a href="#Eqv" accesskey="n" rel="next"><code>.eqv <var>symbol</var>, <var>expression</var></code></a>, Previous: <a href="#Equ" accesskey="p" rel="prev"><code>.equ <var>symbol</var>, <var>expression</var></code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002eequiv-symbol_002c-expression"></span><h3 class="section">7.30 <code>.equiv <var>symbol</var>, <var>expression</var></code></h3>
+<span id="g_t_002eequiv-symbol_002c-expression"></span><h3 class="section">7.31 <code>.equiv <var>symbol</var>, <var>expression</var></code></h3>
 <span id="index-equiv-directive"></span>
 <p>The <code>.equiv</code> directive is like <code>.equ</code> and <code>.set</code>, except that
 the assembler will signal an error if <var>symbol</var> is already defined.  Note a
@@ -6310,7 +6339,7 @@ undefined.
 <p>
 Next: <a href="#Err" accesskey="n" rel="next"><code>.err</code></a>, Previous: <a href="#Equiv" accesskey="p" rel="prev"><code>.equiv <var>symbol</var>, <var>expression</var></code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002eeqv-symbol_002c-expression"></span><h3 class="section">7.31 <code>.eqv <var>symbol</var>, <var>expression</var></code></h3>
+<span id="g_t_002eeqv-symbol_002c-expression"></span><h3 class="section">7.32 <code>.eqv <var>symbol</var>, <var>expression</var></code></h3>
 <span id="index-eqv-directive"></span>
 <p>The <code>.eqv</code> directive is like <code>.equiv</code>, but no attempt is made to
 evaluate the expression or any part of it immediately.  Instead each time
@@ -6324,7 +6353,7 @@ value is taken.
 <p>
 Next: <a href="#Error" accesskey="n" rel="next"><code>.error &quot;<var>string</var>&quot;</code></a>, Previous: <a href="#Eqv" accesskey="p" rel="prev"><code>.eqv <var>symbol</var>, <var>expression</var></code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002eerr"></span><h3 class="section">7.32 <code>.err</code></h3>
+<span id="g_t_002eerr"></span><h3 class="section">7.33 <code>.err</code></h3>
 <span id="index-err-directive"></span>
 <p>If <code>as</code> assembles a <code>.err</code> directive, it will print an error
 message and, unless the <samp>-Z</samp> option was used, it will not generate an
@@ -6337,7 +6366,7 @@ object file.  This can be used to signal an error in conditionally compiled code
 <p>
 Next: <a href="#Exitm" accesskey="n" rel="next"><code>.exitm</code></a>, Previous: <a href="#Err" accesskey="p" rel="prev"><code>.err</code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002eerror-_0022string_0022"></span><h3 class="section">7.33 <code>.error &quot;<var>string</var>&quot;</code></h3>
+<span id="g_t_002eerror-_0022string_0022"></span><h3 class="section">7.34 <code>.error &quot;<var>string</var>&quot;</code></h3>
 <span id="index-error-directive"></span>
 
 <p>Similarly to <code>.err</code>, this directive emits an error, but you can specify a
@@ -6356,7 +6385,7 @@ See <a href="#Errors">Error and Warning Messages</a>.
 <p>
 Next: <a href="#Extern" accesskey="n" rel="next"><code>.extern</code></a>, Previous: <a href="#Error" accesskey="p" rel="prev"><code>.error &quot;<var>string</var>&quot;</code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002eexitm"></span><h3 class="section">7.34 <code>.exitm</code></h3>
+<span id="g_t_002eexitm"></span><h3 class="section">7.35 <code>.exitm</code></h3>
 <p>Exit early from the current macro definition.  See <a href="#Macro"><code>.macro</code></a>.
 </p>
 <hr>
@@ -6366,7 +6395,7 @@ Next: <a href="#Extern" accesskey="n" rel="next"><code>.extern</code></a>, Previ
 <p>
 Next: <a href="#Fail" accesskey="n" rel="next"><code>.fail <var>expression</var></code></a>, Previous: <a href="#Exitm" accesskey="p" rel="prev"><code>.exitm</code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002eextern"></span><h3 class="section">7.35 <code>.extern</code></h3>
+<span id="g_t_002eextern"></span><h3 class="section">7.36 <code>.extern</code></h3>
 
 <span id="index-extern-directive"></span>
 <p><code>.extern</code> is accepted in the source program&mdash;for compatibility
@@ -6380,7 +6409,7 @@ all undefined symbols as external.
 <p>
 Next: <a href="#File" accesskey="n" rel="next"><code>.file</code></a>, Previous: <a href="#Extern" accesskey="p" rel="prev"><code>.extern</code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002efail-expression"></span><h3 class="section">7.36 <code>.fail <var>expression</var></code></h3>
+<span id="g_t_002efail-expression"></span><h3 class="section">7.37 <code>.fail <var>expression</var></code></h3>
 
 <span id="index-fail-directive"></span>
 <p>Generates an error or a warning.  If the value of the <var>expression</var> is 500
@@ -6396,7 +6425,7 @@ complex nested macros or conditional assembly.
 <p>
 Next: <a href="#Fill" accesskey="n" rel="next"><code>.fill <var>repeat</var> , <var>size</var> , <var>value</var></code></a>, Previous: <a href="#Fail" accesskey="p" rel="prev"><code>.fail <var>expression</var></code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002efile"></span><h3 class="section">7.37 <code>.file</code></h3>
+<span id="g_t_002efile"></span><h3 class="section">7.38 <code>.file</code></h3>
 <span id="index-file-directive"></span>
 
 <p>There are two different versions of the <code>.file</code> directive.  Targets
@@ -6464,7 +6493,7 @@ contents of the compiled file.
 <p>
 Next: <a href="#Float" accesskey="n" rel="next"><code>.float <var>flonums</var></code></a>, Previous: <a href="#File" accesskey="p" rel="prev"><code>.file</code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002efill-repeat-_002c-size-_002c-value"></span><h3 class="section">7.38 <code>.fill <var>repeat</var> , <var>size</var> , <var>value</var></code></h3>
+<span id="g_t_002efill-repeat-_002c-size-_002c-value"></span><h3 class="section">7.39 <code>.fill <var>repeat</var> , <var>size</var> , <var>value</var></code></h3>
 
 <span id="index-fill-directive"></span>
 <span id="index-writing-patterns-in-memory"></span>
@@ -6493,7 +6522,7 @@ assumed zero.  If the first comma and following tokens are absent,
 <p>
 Next: <a href="#Func" accesskey="n" rel="next"><code>.func <var>name</var>[,<var>label</var>]</code></a>, Previous: <a href="#Fill" accesskey="p" rel="prev"><code>.fill <var>repeat</var> , <var>size</var> , <var>value</var></code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002efloat-flonums"></span><h3 class="section">7.39 <code>.float <var>flonums</var></code></h3>
+<span id="g_t_002efloat-flonums"></span><h3 class="section">7.40 <code>.float <var>flonums</var></code></h3>
 
 <span id="index-floating-point-numbers-_0028single_0029"></span>
 <span id="index-float-directive"></span>
@@ -6510,7 +6539,7 @@ See <a href="#Machine-Dependencies">Machine Dependent Features</a>.
 <p>
 Next: <a href="#Global" accesskey="n" rel="next"><code>.global <var>symbol</var></code>, <code>.globl <var>symbol</var></code></a>, Previous: <a href="#Float" accesskey="p" rel="prev"><code>.float <var>flonums</var></code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002efunc-name_005b_002clabel_005d"></span><h3 class="section">7.40 <code>.func <var>name</var>[,<var>label</var>]</code></h3>
+<span id="g_t_002efunc-name_005b_002clabel_005d"></span><h3 class="section">7.41 <code>.func <var>name</var>[,<var>label</var>]</code></h3>
 <span id="index-func-directive"></span>
 <p><code>.func</code> emits debugging information to denote function <var>name</var>, and
 is ignored unless the file is assembled with debugging enabled.
@@ -6528,7 +6557,7 @@ The function must be terminated with <code>.endfunc</code>.
 <p>
 Next: <a href="#Gnu_005fattribute" accesskey="n" rel="next"><code>.gnu_attribute <var>tag</var>,<var>value</var></code></a>, Previous: <a href="#Func" accesskey="p" rel="prev"><code>.func <var>name</var>[,<var>label</var>]</code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002eglobal-symbol_002c-_002eglobl-symbol"></span><h3 class="section">7.41 <code>.global <var>symbol</var></code>, <code>.globl <var>symbol</var></code></h3>
+<span id="g_t_002eglobal-symbol_002c-_002eglobl-symbol"></span><h3 class="section">7.42 <code>.global <var>symbol</var></code>, <code>.globl <var>symbol</var></code></h3>
 
 <span id="index-global-directive"></span>
 <span id="index-symbol_002c-making-visible-to-linker"></span>
@@ -6552,7 +6581,7 @@ See <a href="#HPPA-Directives">HPPA Assembler Directives</a>.
 <p>
 Next: <a href="#Hidden" accesskey="n" rel="next"><code>.hidden <var>names</var></code></a>, Previous: <a href="#Global" accesskey="p" rel="prev"><code>.global <var>symbol</var></code>, <code>.globl <var>symbol</var></code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002egnu_005fattribute-tag_002cvalue"></span><h3 class="section">7.42 <code>.gnu_attribute <var>tag</var>,<var>value</var></code></h3>
+<span id="g_t_002egnu_005fattribute-tag_002cvalue"></span><h3 class="section">7.43 <code>.gnu_attribute <var>tag</var>,<var>value</var></code></h3>
 <p>Record a <small>GNU</small> object attribute for this file.  See <a href="#Object-Attributes">Object Attributes</a>.
 </p>
 <hr>
@@ -6562,7 +6591,7 @@ Next: <a href="#Hidden" accesskey="n" rel="next"><code>.hidden <var>names</var><
 <p>
 Next: <a href="#hword" accesskey="n" rel="next"><code>.hword <var>expressions</var></code></a>, Previous: <a href="#Gnu_005fattribute" accesskey="p" rel="prev"><code>.gnu_attribute <var>tag</var>,<var>value</var></code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002ehidden-names"></span><h3 class="section">7.43 <code>.hidden <var>names</var></code></h3>
+<span id="g_t_002ehidden-names"></span><h3 class="section">7.44 <code>.hidden <var>names</var></code></h3>
 
 <span id="index-hidden-directive"></span>
 <span id="index-visibility"></span>
@@ -6582,7 +6611,7 @@ Such symbols are always considered to be <code>protected</code> as well.
 <p>
 Next: <a href="#Ident" accesskey="n" rel="next"><code>.ident</code></a>, Previous: <a href="#Hidden" accesskey="p" rel="prev"><code>.hidden <var>names</var></code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002ehword-expressions"></span><h3 class="section">7.44 <code>.hword <var>expressions</var></code></h3>
+<span id="g_t_002ehword-expressions"></span><h3 class="section">7.45 <code>.hword <var>expressions</var></code></h3>
 
 <span id="index-hword-directive"></span>
 <span id="index-integers_002c-16_002dbit"></span>
@@ -6601,7 +6630,7 @@ architecture, it may also be a synonym for &lsquo;<samp>.word</samp>&rsquo;.
 <p>
 Next: <a href="#If" accesskey="n" rel="next"><code>.if <var>absolute expression</var></code></a>, Previous: <a href="#hword" accesskey="p" rel="prev"><code>.hword <var>expressions</var></code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002eident"></span><h3 class="section">7.45 <code>.ident</code></h3>
+<span id="g_t_002eident"></span><h3 class="section">7.46 <code>.ident</code></h3>
 
 <span id="index-ident-directive"></span>
 
@@ -6620,7 +6649,7 @@ emitted to the <code>.comment</code> section.
 <p>
 Next: <a href="#Incbin" accesskey="n" rel="next"><code>.incbin &quot;<var>file</var>&quot;[,<var>skip</var>[,<var>count</var>]]</code></a>, Previous: <a href="#Ident" accesskey="p" rel="prev"><code>.ident</code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002eif-absolute-expression"></span><h3 class="section">7.46 <code>.if <var>absolute expression</var></code></h3>
+<span id="g_t_002eif-absolute-expression"></span><h3 class="section">7.47 <code>.if <var>absolute expression</var></code></h3>
 
 <span id="index-conditional-assembly"></span>
 <span id="index-if-directive"></span>
@@ -6730,7 +6759,7 @@ following section of code if the two strings are not the same.
 <p>
 Next: <a href="#Include" accesskey="n" rel="next"><code>.include &quot;<var>file</var>&quot;</code></a>, Previous: <a href="#If" accesskey="p" rel="prev"><code>.if <var>absolute expression</var></code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002eincbin-_0022file_0022_005b_002cskip_005b_002ccount_005d_005d"></span><h3 class="section">7.47 <code>.incbin &quot;<var>file</var>&quot;[,<var>skip</var>[,<var>count</var>]]</code></h3>
+<span id="g_t_002eincbin-_0022file_0022_005b_002cskip_005b_002ccount_005d_005d"></span><h3 class="section">7.48 <code>.incbin &quot;<var>file</var>&quot;[,<var>skip</var>[,<var>count</var>]]</code></h3>
 
 <span id="index-incbin-directive"></span>
 <span id="index-binary-files_002c-including"></span>
@@ -6752,7 +6781,7 @@ after the <code>incbin</code> directive.
 <p>
 Next: <a href="#Int" accesskey="n" rel="next"><code>.int <var>expressions</var></code></a>, Previous: <a href="#Incbin" accesskey="p" rel="prev"><code>.incbin &quot;<var>file</var>&quot;[,<var>skip</var>[,<var>count</var>]]</code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002einclude-_0022file_0022"></span><h3 class="section">7.48 <code>.include &quot;<var>file</var>&quot;</code></h3>
+<span id="g_t_002einclude-_0022file_0022"></span><h3 class="section">7.49 <code>.include &quot;<var>file</var>&quot;</code></h3>
 
 <span id="index-include-directive"></span>
 <span id="index-supporting-files_002c-including"></span>
@@ -6772,7 +6801,7 @@ around <var>file</var>.
 <p>
 Next: <a href="#Internal" accesskey="n" rel="next"><code>.internal <var>names</var></code></a>, Previous: <a href="#Include" accesskey="p" rel="prev"><code>.include &quot;<var>file</var>&quot;</code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002eint-expressions"></span><h3 class="section">7.49 <code>.int <var>expressions</var></code></h3>
+<span id="g_t_002eint-expressions"></span><h3 class="section">7.50 <code>.int <var>expressions</var></code></h3>
 
 <span id="index-int-directive"></span>
 <span id="index-integers_002c-32_002dbit"></span>
@@ -6794,7 +6823,7 @@ instructions such as eg <code>.insn</code> or <code>.inst</code>.
 <p>
 Next: <a href="#Irp" accesskey="n" rel="next"><code>.irp <var>symbol</var>,<var>value</var></code>&hellip;</a>, Previous: <a href="#Int" accesskey="p" rel="prev"><code>.int <var>expressions</var></code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002einternal-names"></span><h3 class="section">7.50 <code>.internal <var>names</var></code></h3>
+<span id="g_t_002einternal-names"></span><h3 class="section">7.51 <code>.internal <var>names</var></code></h3>
 
 <span id="index-internal-directive"></span>
 <span id="index-visibility-1"></span>
@@ -6815,7 +6844,7 @@ processing must also be performed upon the  symbols as well.
 <p>
 Next: <a href="#Irpc" accesskey="n" rel="next"><code>.irpc <var>symbol</var>,<var>values</var></code>&hellip;</a>, Previous: <a href="#Internal" accesskey="p" rel="prev"><code>.internal <var>names</var></code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002eirp-symbol_002cvalue_2026"></span><h3 class="section">7.51 <code>.irp <var>symbol</var>,<var>value</var></code>&hellip;</h3>
+<span id="g_t_002eirp-symbol_002cvalue_2026"></span><h3 class="section">7.52 <code>.irp <var>symbol</var>,<var>value</var></code>&hellip;</h3>
 
 <span id="index-irp-directive"></span>
 <p>Evaluate a sequence of statements assigning different values to <var>symbol</var>.
@@ -6851,7 +6880,7 @@ sequence of statements, use <var>\symbol</var>.
 <p>
 Next: <a href="#Lcomm" accesskey="n" rel="next"><code>.lcomm <var>symbol</var> , <var>length</var></code></a>, Previous: <a href="#Irp" accesskey="p" rel="prev"><code>.irp <var>symbol</var>,<var>value</var></code>&hellip;</a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002eirpc-symbol_002cvalues_2026"></span><h3 class="section">7.52 <code>.irpc <var>symbol</var>,<var>values</var></code>&hellip;</h3>
+<span id="g_t_002eirpc-symbol_002cvalues_2026"></span><h3 class="section">7.53 <code>.irpc <var>symbol</var>,<var>values</var></code>&hellip;</h3>
 
 <span id="index-irpc-directive"></span>
 <p>Evaluate a sequence of statements assigning different values to <var>symbol</var>.
@@ -6889,7 +6918,7 @@ at See <a href="#Macro"><code>.macro</code></a>.
 <p>
 Next: <a href="#Lflags" accesskey="n" rel="next"><code>.lflags</code></a>, Previous: <a href="#Irpc" accesskey="p" rel="prev"><code>.irpc <var>symbol</var>,<var>values</var></code>&hellip;</a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002elcomm-symbol-_002c-length"></span><h3 class="section">7.53 <code>.lcomm <var>symbol</var> , <var>length</var></code></h3>
+<span id="g_t_002elcomm-symbol-_002c-length"></span><h3 class="section">7.54 <code>.lcomm <var>symbol</var> , <var>length</var></code></h3>
 
 <span id="index-lcomm-directive"></span>
 <span id="index-local-common-symbols"></span>
@@ -6914,7 +6943,7 @@ argument specifies the desired alignment of the symbol in the bss section.
 <p>
 Next: <a href="#Line" accesskey="n" rel="next"><code>.line <var>line-number</var></code></a>, Previous: <a href="#Lcomm" accesskey="p" rel="prev"><code>.lcomm <var>symbol</var> , <var>length</var></code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002elflags"></span><h3 class="section">7.54 <code>.lflags</code></h3>
+<span id="g_t_002elflags"></span><h3 class="section">7.55 <code>.lflags</code></h3>
 
 <span id="index-lflags-directive-_0028ignored_0029"></span>
 <p><code>as</code> accepts this directive, for compatibility with other
@@ -6927,7 +6956,7 @@ assemblers, but ignores it.
 <p>
 Next: <a href="#Linkonce" accesskey="n" rel="next"><code>.linkonce [<var>type</var>]</code></a>, Previous: <a href="#Lflags" accesskey="p" rel="prev"><code>.lflags</code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002eline-line_002dnumber"></span><h3 class="section">7.55 <code>.line <var>line-number</var></code></h3>
+<span id="g_t_002eline-line_002dnumber"></span><h3 class="section">7.56 <code>.line <var>line-number</var></code></h3>
 
 <span id="index-line-directive"></span>
 <span id="index-logical-line-number"></span>
@@ -6955,7 +6984,7 @@ debugging.
 <p>
 Next: <a href="#List" accesskey="n" rel="next"><code>.list</code></a>, Previous: <a href="#Line" accesskey="p" rel="prev"><code>.line <var>line-number</var></code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002elinkonce-_005btype_005d"></span><h3 class="section">7.56 <code>.linkonce [<var>type</var>]</code></h3>
+<span id="g_t_002elinkonce-_005btype_005d"></span><h3 class="section">7.57 <code>.linkonce [<var>type</var>]</code></h3>
 <span id="index-COMDAT"></span>
 <span id="index-linkonce-directive"></span>
 <span id="index-common-sections"></span>
@@ -7002,7 +7031,7 @@ following strings.  For example:
 <p>
 Next: <a href="#Ln" accesskey="n" rel="next"><code>.ln <var>line-number</var></code></a>, Previous: <a href="#Linkonce" accesskey="p" rel="prev"><code>.linkonce [<var>type</var>]</code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002elist"></span><h3 class="section">7.57 <code>.list</code></h3>
+<span id="g_t_002elist"></span><h3 class="section">7.58 <code>.list</code></h3>
 
 <span id="index-list-directive"></span>
 <span id="index-listing-control_002c-turning-on"></span>
@@ -7023,7 +7052,7 @@ the initial value of the listing counter is one.
 <p>
 Next: <a href="#Loc" accesskey="n" rel="next"><code>.loc <var>fileno</var> <var>lineno</var> [<var>column</var>] [<var>options</var>]</code></a>, Previous: <a href="#List" accesskey="p" rel="prev"><code>.list</code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002eln-line_002dnumber"></span><h3 class="section">7.58 <code>.ln <var>line-number</var></code></h3>
+<span id="g_t_002eln-line_002dnumber"></span><h3 class="section">7.59 <code>.ln <var>line-number</var></code></h3>
 
 <span id="index-ln-directive"></span>
 <p>&lsquo;<samp>.ln</samp>&rsquo; is a synonym for &lsquo;<samp>.line</samp>&rsquo;.
@@ -7035,7 +7064,7 @@ Next: <a href="#Loc" accesskey="n" rel="next"><code>.loc <var>fileno</var> <var>
 <p>
 Next: <a href="#Loc_005fmark_005flabels" accesskey="n" rel="next"><code>.loc_mark_labels <var>enable</var></code></a>, Previous: <a href="#Ln" accesskey="p" rel="prev"><code>.ln <var>line-number</var></code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002eloc-fileno-lineno-_005bcolumn_005d-_005boptions_005d"></span><h3 class="section">7.59 <code>.loc <var>fileno</var> <var>lineno</var> [<var>column</var>] [<var>options</var>]</code></h3>
+<span id="g_t_002eloc-fileno-lineno-_005bcolumn_005d-_005boptions_005d"></span><h3 class="section">7.60 <code>.loc <var>fileno</var> <var>lineno</var> [<var>column</var>] [<var>options</var>]</code></h3>
 <span id="index-loc-directive"></span>
 <p>When emitting DWARF2 line number information,
 the <code>.loc</code> directive will add a row to the <code>.debug_line</code> line
@@ -7102,7 +7131,7 @@ the <code>view</code> register to be reset in this row, even if there are prior
 <p>
 Next: <a href="#Local" accesskey="n" rel="next"><code>.local <var>names</var></code></a>, Previous: <a href="#Loc" accesskey="p" rel="prev"><code>.loc <var>fileno</var> <var>lineno</var> [<var>column</var>] [<var>options</var>]</code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002eloc_005fmark_005flabels-enable"></span><h3 class="section">7.60 <code>.loc_mark_labels <var>enable</var></code></h3>
+<span id="g_t_002eloc_005fmark_005flabels-enable"></span><h3 class="section">7.61 <code>.loc_mark_labels <var>enable</var></code></h3>
 <span id="index-loc_005fmark_005flabels-directive"></span>
 <p>When emitting DWARF2 line number information,
 the <code>.loc_mark_labels</code> directive makes the assembler emit an entry
@@ -7118,7 +7147,7 @@ this function respectively.
 <p>
 Next: <a href="#Long" accesskey="n" rel="next"><code>.long <var>expressions</var></code></a>, Previous: <a href="#Loc_005fmark_005flabels" accesskey="p" rel="prev"><code>.loc_mark_labels <var>enable</var></code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002elocal-names"></span><h3 class="section">7.61 <code>.local <var>names</var></code></h3>
+<span id="g_t_002elocal-names"></span><h3 class="section">7.62 <code>.local <var>names</var></code></h3>
 
 <span id="index-local-directive"></span>
 <p>This directive, which is available for ELF targets, marks each symbol in
@@ -7138,7 +7167,7 @@ the <code>.local</code> directive can be used in combination with <code>.comm</c
 <p>
 Next: <a href="#Macro" accesskey="n" rel="next"><code>.macro</code></a>, Previous: <a href="#Local" accesskey="p" rel="prev"><code>.local <var>names</var></code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002elong-expressions"></span><h3 class="section">7.62 <code>.long <var>expressions</var></code></h3>
+<span id="g_t_002elong-expressions"></span><h3 class="section">7.63 <code>.long <var>expressions</var></code></h3>
 
 <span id="index-long-directive"></span>
 <p><code>.long</code> is the same as &lsquo;<samp>.int</samp>&rsquo;.  See <a href="#Int"><code>.int</code></a>.
@@ -7151,7 +7180,7 @@ Next: <a href="#Macro" accesskey="n" rel="next"><code>.macro</code></a>, Previou
 <p>
 Next: <a href="#MRI" accesskey="n" rel="next"><code>.mri <var>val</var></code></a>, Previous: <a href="#Long" accesskey="p" rel="prev"><code>.long <var>expressions</var></code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002emacro"></span><h3 class="section">7.63 <code>.macro</code></h3>
+<span id="g_t_002emacro"></span><h3 class="section">7.64 <code>.macro</code></h3>
 
 <span id="index-macros"></span>
 <p>The commands <code>.macro</code> and <code>.endm</code> allow you to define macros that
@@ -7395,7 +7424,7 @@ See <a href="#Altmacro"><code>.altmacro</code></a>.
 <p>
 Next: <a href="#Noaltmacro" accesskey="n" rel="next"><code>.noaltmacro</code></a>, Previous: <a href="#Macro" accesskey="p" rel="prev"><code>.macro</code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002emri-val"></span><h3 class="section">7.64 <code>.mri <var>val</var></code></h3>
+<span id="g_t_002emri-val"></span><h3 class="section">7.65 <code>.mri <var>val</var></code></h3>
 
 <span id="index-mri-directive"></span>
 <span id="index-MRI-mode_002c-temporarily"></span>
@@ -7411,7 +7440,7 @@ of the file.  See <a href="#M">MRI mode</a>.
 <p>
 Next: <a href="#Nolist" accesskey="n" rel="next"><code>.nolist</code></a>, Previous: <a href="#MRI" accesskey="p" rel="prev"><code>.mri <var>val</var></code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002enoaltmacro"></span><h3 class="section">7.65 <code>.noaltmacro</code></h3>
+<span id="g_t_002enoaltmacro"></span><h3 class="section">7.66 <code>.noaltmacro</code></h3>
 <p>Disable alternate macro mode.  See <a href="#Altmacro"><code>.altmacro</code></a>.
 </p>
 <hr>
@@ -7421,7 +7450,7 @@ Next: <a href="#Nolist" accesskey="n" rel="next"><code>.nolist</code></a>, Previ
 <p>
 Next: <a href="#Nop" accesskey="n" rel="next"><code>.nop [<var>size</var>]</code></a>, Previous: <a href="#Noaltmacro" accesskey="p" rel="prev"><code>.noaltmacro</code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002enolist"></span><h3 class="section">7.66 <code>.nolist</code></h3>
+<span id="g_t_002enolist"></span><h3 class="section">7.67 <code>.nolist</code></h3>
 
 <span id="index-nolist-directive"></span>
 <span id="index-listing-control_002c-turning-off"></span>
@@ -7438,7 +7467,7 @@ generated whenever the counter is greater than zero.
 <p>
 Next: <a href="#Nops" accesskey="n" rel="next"><code>.nops <var>size</var>[, <var>control</var>]</code></a>, Previous: <a href="#Nolist" accesskey="p" rel="prev"><code>.nolist</code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002enop-_005bsize_005d"></span><h3 class="section">7.67 <code>.nop [<var>size</var>]</code></h3>
+<span id="g_t_002enop-_005bsize_005d"></span><h3 class="section">7.68 <code>.nop [<var>size</var>]</code></h3>
 
 <span id="index-nop-directive"></span>
 <span id="index-filling-memory-with-no_002dop-instructions"></span>
@@ -7458,7 +7487,7 @@ Some targets do not support using <code>.nop</code> with <var>size</var>.
 <p>
 Next: <a href="#Octa" accesskey="n" rel="next"><code>.octa <var>bignums</var></code></a>, Previous: <a href="#Nop" accesskey="p" rel="prev"><code>.nop [<var>size</var>]</code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002enops-size_005b_002c-control_005d"></span><h3 class="section">7.68 <code>.nops <var>size</var>[, <var>control</var>]</code></h3>
+<span id="g_t_002enops-size_005b_002c-control_005d"></span><h3 class="section">7.69 <code>.nops <var>size</var>[, <var>control</var>]</code></h3>
 
 <span id="index-nops-directive"></span>
 <span id="index-filling-memory-with-no_002dop-instructions-1"></span>
@@ -7481,7 +7510,7 @@ instruction size limit is set to the maximum supported size.
 <p>
 Next: <a href="#Offset" accesskey="n" rel="next"><code>.offset <var>loc</var></code></a>, Previous: <a href="#Nops" accesskey="p" rel="prev"><code>.nops <var>size</var>[, <var>control</var>]</code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002eocta-bignums"></span><h3 class="section">7.69 <code>.octa <var>bignums</var></code></h3>
+<span id="g_t_002eocta-bignums"></span><h3 class="section">7.70 <code>.octa <var>bignums</var></code></h3>
 
 <span id="index-octa-directive"></span>
 <span id="index-integer_002c-16_002dbyte"></span>
@@ -7499,7 +7528,7 @@ hence <em>octa</em>-word for 16 bytes.
 <p>
 Next: <a href="#Org" accesskey="n" rel="next"><code>.org <var>new-lc</var> , <var>fill</var></code></a>, Previous: <a href="#Octa" accesskey="p" rel="prev"><code>.octa <var>bignums</var></code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002eoffset-loc"></span><h3 class="section">7.70 <code>.offset <var>loc</var></code></h3>
+<span id="g_t_002eoffset-loc"></span><h3 class="section">7.71 <code>.offset <var>loc</var></code></h3>
 
 <span id="index-offset-directive"></span>
 <p>Set the location counter to <var>loc</var> in the absolute section.  <var>loc</var> must
@@ -7514,7 +7543,7 @@ directive.
 <p>
 Next: <a href="#P2align" accesskey="n" rel="next"><code>.p2align[wl] [<var>abs-expr</var>[, <var>abs-expr</var>[, <var>abs-expr</var>]]]</code></a>, Previous: <a href="#Offset" accesskey="p" rel="prev"><code>.offset <var>loc</var></code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002eorg-new_002dlc-_002c-fill"></span><h3 class="section">7.71 <code>.org <var>new-lc</var> , <var>fill</var></code></h3>
+<span id="g_t_002eorg-new_002dlc-_002c-fill"></span><h3 class="section">7.72 <code>.org <var>new-lc</var> , <var>fill</var></code></h3>
 
 <span id="index-org-directive"></span>
 <span id="index-location-counter_002c-advancing"></span>
@@ -7553,7 +7582,7 @@ absolute expression.  If the comma and <var>fill</var> are omitted,
 <p>
 Next: <a href="#PopSection" accesskey="n" rel="next"><code>.popsection</code></a>, Previous: <a href="#Org" accesskey="p" rel="prev"><code>.org <var>new-lc</var> , <var>fill</var></code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002ep2align_005bwl_005d-_005babs_002dexpr_005b_002c-abs_002dexpr_005b_002c-abs_002dexpr_005d_005d_005d"></span><h3 class="section">7.72 <code>.p2align[wl] [<var>abs-expr</var>[, <var>abs-expr</var>[, <var>abs-expr</var>]]]</code></h3>
+<span id="g_t_002ep2align_005bwl_005d-_005babs_002dexpr_005b_002c-abs_002dexpr_005b_002c-abs_002dexpr_005d_005d_005d"></span><h3 class="section">7.73 <code>.p2align[wl] [<var>abs-expr</var>[, <var>abs-expr</var>[, <var>abs-expr</var>]]]</code></h3>
 
 <span id="index-padding-the-location-counter-given-a-power-of-two"></span>
 <span id="index-p2align-directive"></span>
@@ -7597,7 +7626,7 @@ undefined.
 <p>
 Next: <a href="#Previous" accesskey="n" rel="next"><code>.previous</code></a>, Previous: <a href="#P2align" accesskey="p" rel="prev"><code>.p2align[wl] [<var>abs-expr</var>[, <var>abs-expr</var>[, <var>abs-expr</var>]]]</code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002epopsection"></span><h3 class="section">7.73 <code>.popsection</code></h3>
+<span id="g_t_002epopsection"></span><h3 class="section">7.74 <code>.popsection</code></h3>
 
 <span id="index-popsection-directive"></span>
 <span id="index-Section-Stack"></span>
@@ -7617,7 +7646,7 @@ stack.
 <p>
 Next: <a href="#Print" accesskey="n" rel="next"><code>.print <var>string</var></code></a>, Previous: <a href="#PopSection" accesskey="p" rel="prev"><code>.popsection</code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002eprevious"></span><h3 class="section">7.74 <code>.previous</code></h3>
+<span id="g_t_002eprevious"></span><h3 class="section">7.75 <code>.previous</code></h3>
 
 <span id="index-previous-directive"></span>
 <span id="index-Section-Stack-1"></span>
@@ -7674,7 +7703,7 @@ the top section on the section stack.
 <p>
 Next: <a href="#Protected" accesskey="n" rel="next"><code>.protected <var>names</var></code></a>, Previous: <a href="#Previous" accesskey="p" rel="prev"><code>.previous</code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002eprint-string"></span><h3 class="section">7.75 <code>.print <var>string</var></code></h3>
+<span id="g_t_002eprint-string"></span><h3 class="section">7.76 <code>.print <var>string</var></code></h3>
 
 <span id="index-print-directive"></span>
 <p><code>as</code> will print <var>string</var> on the standard output during
@@ -7687,7 +7716,7 @@ assembly.  You must put <var>string</var> in double quotes.
 <p>
 Next: <a href="#Psize" accesskey="n" rel="next"><code>.psize <var>lines</var> , <var>columns</var></code></a>, Previous: <a href="#Print" accesskey="p" rel="prev"><code>.print <var>string</var></code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002eprotected-names"></span><h3 class="section">7.76 <code>.protected <var>names</var></code></h3>
+<span id="g_t_002eprotected-names"></span><h3 class="section">7.77 <code>.protected <var>names</var></code></h3>
 
 <span id="index-protected-directive"></span>
 <span id="index-visibility-2"></span>
@@ -7708,7 +7737,7 @@ this.
 <p>
 Next: <a href="#Purgem" accesskey="n" rel="next"><code>.purgem <var>name</var></code></a>, Previous: <a href="#Protected" accesskey="p" rel="prev"><code>.protected <var>names</var></code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002epsize-lines-_002c-columns"></span><h3 class="section">7.77 <code>.psize <var>lines</var> , <var>columns</var></code></h3>
+<span id="g_t_002epsize-lines-_002c-columns"></span><h3 class="section">7.78 <code>.psize <var>lines</var> , <var>columns</var></code></h3>
 
 <span id="index-psize-directive"></span>
 <span id="index-listing-control_003a-paper-size"></span>
@@ -7734,7 +7763,7 @@ those explicitly specified with <code>.eject</code>.
 <p>
 Next: <a href="#PushSection" accesskey="n" rel="next"><code>.pushsection <var>name</var> [, <var>subsection</var>] [, &quot;<var>flags</var>&quot;[, @<var>type</var>[,<var>arguments</var>]]]</code></a>, Previous: <a href="#Psize" accesskey="p" rel="prev"><code>.psize <var>lines</var> , <var>columns</var></code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002epurgem-name"></span><h3 class="section">7.78 <code>.purgem <var>name</var></code></h3>
+<span id="g_t_002epurgem-name"></span><h3 class="section">7.79 <code>.purgem <var>name</var></code></h3>
 
 <span id="index-purgem-directive"></span>
 <p>Undefine the macro <var>name</var>, so that later uses of the string will not be
@@ -7747,7 +7776,7 @@ expanded.  See <a href="#Macro"><code>.macro</code></a>.
 <p>
 Next: <a href="#Quad" accesskey="n" rel="next"><code>.quad <var>expressions</var></code></a>, Previous: <a href="#Purgem" accesskey="p" rel="prev"><code>.purgem <var>name</var></code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002epushsection-name-_005b_002c-subsection_005d-_005b_002c-_0022flags_0022_005b_002c-_0040type_005b_002carguments_005d_005d_005d"></span><h3 class="section">7.79 <code>.pushsection <var>name</var> [, <var>subsection</var>] [, &quot;<var>flags</var>&quot;[, @<var>type</var>[,<var>arguments</var>]]]</code></h3>
+<span id="g_t_002epushsection-name-_005b_002c-subsection_005d-_005b_002c-_0022flags_0022_005b_002c-_0040type_005b_002carguments_005d_005d_005d"></span><h3 class="section">7.80 <code>.pushsection <var>name</var> [, <var>subsection</var>] [, &quot;<var>flags</var>&quot;[, @<var>type</var>[,<var>arguments</var>]]]</code></h3>
 
 <span id="index-pushsection-directive"></span>
 <span id="index-Section-Stack-2"></span>
@@ -7769,7 +7798,7 @@ as in the <code>.section</code> (see <a href="#Section"><code>.section <var>name
 <p>
 Next: <a href="#Reloc" accesskey="n" rel="next"><code>.reloc <var>offset</var>, <var>reloc_name</var>[, <var>expression</var>]</code></a>, Previous: <a href="#PushSection" accesskey="p" rel="prev"><code>.pushsection <var>name</var> [, <var>subsection</var>] [, &quot;<var>flags</var>&quot;[, @<var>type</var>[,<var>arguments</var>]]]</code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002equad-expressions"></span><h3 class="section">7.80 <code>.quad <var>expressions</var></code></h3>
+<span id="g_t_002equad-expressions"></span><h3 class="section">7.81 <code>.quad <var>expressions</var></code></h3>
 
 <span id="index-quad-directive"></span>
 <p>For 64-bit architectures, or more generally with any GAS configured to support
@@ -7796,7 +7825,7 @@ instructions such as <code>.insn</code> or <code>.inst</code>.
 <p>
 Next: <a href="#Rept" accesskey="n" rel="next"><code>.rept <var>count</var></code></a>, Previous: <a href="#Quad" accesskey="p" rel="prev"><code>.quad <var>expressions</var></code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002ereloc-offset_002c-reloc_005fname_005b_002c-expression_005d"></span><h3 class="section">7.81 <code>.reloc <var>offset</var>, <var>reloc_name</var>[, <var>expression</var>]</code></h3>
+<span id="g_t_002ereloc-offset_002c-reloc_005fname_005b_002c-expression_005d"></span><h3 class="section">7.82 <code>.reloc <var>offset</var>, <var>reloc_name</var>[, <var>expression</var>]</code></h3>
 
 <span id="index-reloc-directive"></span>
 <p>Generate a relocation at <var>offset</var> of type <var>reloc_name</var> with value
@@ -7816,7 +7845,7 @@ section.
 <p>
 Next: <a href="#Sbttl" accesskey="n" rel="next"><code>.sbttl &quot;<var>subheading</var>&quot;</code></a>, Previous: <a href="#Reloc" accesskey="p" rel="prev"><code>.reloc <var>offset</var>, <var>reloc_name</var>[, <var>expression</var>]</code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002erept-count"></span><h3 class="section">7.82 <code>.rept <var>count</var></code></h3>
+<span id="g_t_002erept-count"></span><h3 class="section">7.83 <code>.rept <var>count</var></code></h3>
 
 <span id="index-rept-directive"></span>
 <p>Repeat the sequence of lines between the <code>.rept</code> directive and the next
@@ -7855,7 +7884,7 @@ using nested constructs.
 <p>
 Next: <a href="#Scl" accesskey="n" rel="next"><code>.scl <var>class</var></code></a>, Previous: <a href="#Rept" accesskey="p" rel="prev"><code>.rept <var>count</var></code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002esbttl-_0022subheading_0022"></span><h3 class="section">7.83 <code>.sbttl &quot;<var>subheading</var>&quot;</code></h3>
+<span id="g_t_002esbttl-_0022subheading_0022"></span><h3 class="section">7.84 <code>.sbttl &quot;<var>subheading</var>&quot;</code></h3>
 
 <span id="index-sbttl-directive"></span>
 <span id="index-subtitles-for-listings"></span>
@@ -7873,7 +7902,7 @@ it appears within ten lines of the top of a page.
 <p>
 Next: <a href="#Section" accesskey="n" rel="next"><code>.section <var>name</var></code></a>, Previous: <a href="#Sbttl" accesskey="p" rel="prev"><code>.sbttl &quot;<var>subheading</var>&quot;</code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002escl-class"></span><h3 class="section">7.84 <code>.scl <var>class</var></code></h3>
+<span id="g_t_002escl-class"></span><h3 class="section">7.85 <code>.scl <var>class</var></code></h3>
 
 <span id="index-scl-directive"></span>
 <span id="index-symbol-storage-class-_0028COFF_0029"></span>
@@ -7890,7 +7919,7 @@ symbolic debugging information.
 <p>
 Next: <a href="#Set" accesskey="n" rel="next"><code>.set <var>symbol</var>, <var>expression</var></code></a>, Previous: <a href="#Scl" accesskey="p" rel="prev"><code>.scl <var>class</var></code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002esection-name"></span><h3 class="section">7.85 <code>.section <var>name</var></code></h3>
+<span id="g_t_002esection-name"></span><h3 class="section">7.86 <code>.section <var>name</var></code></h3>
 
 <span id="index-named-section"></span>
 <p>Use the <code>.section</code> directive to assemble the following code into a section
@@ -8255,7 +8284,7 @@ work.
 <p>
 Next: <a href="#Short" accesskey="n" rel="next"><code>.short <var>expressions</var></code></a>, Previous: <a href="#Section" accesskey="p" rel="prev"><code>.section <var>name</var></code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002eset-symbol_002c-expression"></span><h3 class="section">7.86 <code>.set <var>symbol</var>, <var>expression</var></code></h3>
+<span id="g_t_002eset-symbol_002c-expression"></span><h3 class="section">7.87 <code>.set <var>symbol</var>, <var>expression</var></code></h3>
 
 <span id="index-set-directive"></span>
 <span id="index-symbol-value_002c-setting"></span>
@@ -8286,7 +8315,7 @@ file is the last value stored into it.
 <p>
 Next: <a href="#Single" accesskey="n" rel="next"><code>.single <var>flonums</var></code></a>, Previous: <a href="#Set" accesskey="p" rel="prev"><code>.set <var>symbol</var>, <var>expression</var></code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002eshort-expressions"></span><h3 class="section">7.87 <code>.short <var>expressions</var></code></h3>
+<span id="g_t_002eshort-expressions"></span><h3 class="section">7.88 <code>.short <var>expressions</var></code></h3>
 
 <span id="index-short-directive"></span>
 <p><code>.short</code> is normally the same as &lsquo;<samp>.word</samp>&rsquo;.
@@ -8307,7 +8336,7 @@ instructions such as <code>.insn</code> or <code>.inst</code>.
 <p>
 Next: <a href="#Size" accesskey="n" rel="next"><code>.size</code></a>, Previous: <a href="#Short" accesskey="p" rel="prev"><code>.short <var>expressions</var></code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002esingle-flonums"></span><h3 class="section">7.88 <code>.single <var>flonums</var></code></h3>
+<span id="g_t_002esingle-flonums"></span><h3 class="section">7.89 <code>.single <var>flonums</var></code></h3>
 
 <span id="index-single-directive"></span>
 <span id="index-floating-point-numbers-_0028single_0029-1"></span>
@@ -8323,7 +8352,7 @@ The exact kind of floating point numbers emitted depends on how
 <p>
 Next: <a href="#Skip" accesskey="n" rel="next"><code>.skip <var>size</var> [,<var>fill</var>]</code></a>, Previous: <a href="#Single" accesskey="p" rel="prev"><code>.single <var>flonums</var></code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002esize"></span><h3 class="section">7.89 <code>.size</code></h3>
+<span id="g_t_002esize"></span><h3 class="section">7.90 <code>.size</code></h3>
 
 <p>This directive is used to set the size associated with a symbol.
 </p>
@@ -8359,7 +8388,7 @@ symbols.
 <p>
 Next: <a href="#Sleb128" accesskey="n" rel="next"><code>.sleb128 <var>expressions</var></code></a>, Previous: <a href="#Size" accesskey="p" rel="prev"><code>.size</code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002eskip-size-_005b_002cfill_005d"></span><h3 class="section">7.90 <code>.skip <var>size</var> [,<var>fill</var>]</code></h3>
+<span id="g_t_002eskip-size-_005b_002cfill_005d"></span><h3 class="section">7.91 <code>.skip <var>size</var> [,<var>fill</var>]</code></h3>
 
 <span id="index-skip-directive"></span>
 <span id="index-filling-memory"></span>
@@ -8375,7 +8404,7 @@ Next: <a href="#Sleb128" accesskey="n" rel="next"><code>.sleb128 <var>expression
 <p>
 Next: <a href="#Space" accesskey="n" rel="next"><code>.space <var>size</var> [,<var>fill</var>]</code></a>, Previous: <a href="#Skip" accesskey="p" rel="prev"><code>.skip <var>size</var> [,<var>fill</var>]</code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002esleb128-expressions"></span><h3 class="section">7.91 <code>.sleb128 <var>expressions</var></code></h3>
+<span id="g_t_002esleb128-expressions"></span><h3 class="section">7.92 <code>.sleb128 <var>expressions</var></code></h3>
 
 <span id="index-sleb128-directive"></span>
 <p><var>sleb128</var> stands for &ldquo;signed little endian base 128.&rdquo;  This is a
@@ -8389,7 +8418,7 @@ symbolic debugging format.  See <a href="#Uleb128"><code>.uleb128</code></a>.
 <p>
 Next: <a href="#Stab" accesskey="n" rel="next"><code>.stabd, .stabn, .stabs</code></a>, Previous: <a href="#Sleb128" accesskey="p" rel="prev"><code>.sleb128 <var>expressions</var></code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002espace-size-_005b_002cfill_005d"></span><h3 class="section">7.92 <code>.space <var>size</var> [,<var>fill</var>]</code></h3>
+<span id="g_t_002espace-size-_005b_002cfill_005d"></span><h3 class="section">7.93 <code>.space <var>size</var> [,<var>fill</var>]</code></h3>
 
 <span id="index-space-directive"></span>
 <span id="index-filling-memory-1"></span>
@@ -8413,7 +8442,7 @@ for a summary.
 <p>
 Next: <a href="#String" accesskey="n" rel="next"><code>.string</code> &quot;<var>str</var>&quot;, <code>.string8</code> &quot;<var>str</var>&quot;, <code>.string16</code></a>, Previous: <a href="#Space" accesskey="p" rel="prev"><code>.space <var>size</var> [,<var>fill</var>]</code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002estabd_002c-_002estabn_002c-_002estabs"></span><h3 class="section">7.93 <code>.stabd, .stabn, .stabs</code></h3>
+<span id="g_t_002estabd_002c-_002estabn_002c-_002estabs"></span><h3 class="section">7.94 <code>.stabd, .stabn, .stabs</code></h3>
 
 <span id="index-symbolic-debuggers_002c-information-for"></span>
 <span id="index-stabx-directives"></span>
@@ -8491,7 +8520,7 @@ assembled.
 <p>
 Next: <a href="#Struct" accesskey="n" rel="next"><code>.struct <var>expression</var></code></a>, Previous: <a href="#Stab" accesskey="p" rel="prev"><code>.stabd, .stabn, .stabs</code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002estring-_0022str_0022_002c-_002estring8-_0022str_0022_002c-_002estring16"></span><h3 class="section">7.94 <code>.string</code> &quot;<var>str</var>&quot;, <code>.string8</code> &quot;<var>str</var>&quot;, <code>.string16</code></h3>
+<span id="g_t_002estring-_0022str_0022_002c-_002estring8-_0022str_0022_002c-_002estring16"></span><h3 class="section">7.95 <code>.string</code> &quot;<var>str</var>&quot;, <code>.string8</code> &quot;<var>str</var>&quot;, <code>.string16</code></h3>
 <p>&quot;<var>str</var>&quot;, <code>.string32</code> &quot;<var>str</var>&quot;, <code>.string64</code> &quot;<var>str</var>&quot;
 </p>
 <span id="index-string_002c-copying-to-object-file"></span>
@@ -8531,7 +8560,7 @@ expands to:
 <p>
 Next: <a href="#SubSection" accesskey="n" rel="next"><code>.subsection <var>name</var></code></a>, Previous: <a href="#String" accesskey="p" rel="prev"><code>.string</code> &quot;<var>str</var>&quot;, <code>.string8</code> &quot;<var>str</var>&quot;, <code>.string16</code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002estruct-expression"></span><h3 class="section">7.95 <code>.struct <var>expression</var></code></h3>
+<span id="g_t_002estruct-expression"></span><h3 class="section">7.96 <code>.struct <var>expression</var></code></h3>
 
 <span id="index-struct-directive"></span>
 <p>Switch to the absolute section, and set the section offset to <var>expression</var>,
@@ -8557,7 +8586,7 @@ before further assembly.
 <p>
 Next: <a href="#Symver" accesskey="n" rel="next"><code>.symver</code></a>, Previous: <a href="#Struct" accesskey="p" rel="prev"><code>.struct <var>expression</var></code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002esubsection-name"></span><h3 class="section">7.96 <code>.subsection <var>name</var></code></h3>
+<span id="g_t_002esubsection-name"></span><h3 class="section">7.97 <code>.subsection <var>name</var></code></h3>
 
 <span id="index-subsection-directive"></span>
 <span id="index-Section-Stack-4"></span>
@@ -8577,7 +8606,7 @@ in place of the then current top of stack subsection.
 <p>
 Next: <a href="#Tag" accesskey="n" rel="next"><code>.tag <var>structname</var></code></a>, Previous: <a href="#SubSection" accesskey="p" rel="prev"><code>.subsection <var>name</var></code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002esymver"></span><h3 class="section">7.97 <code>.symver</code></h3>
+<span id="g_t_002esymver"></span><h3 class="section">7.98 <code>.symver</code></h3>
 <span id="index-symver-directive"></span>
 <span id="index-symbol-versioning"></span>
 <span id="index-versions-of-symbols"></span>
@@ -8644,7 +8673,7 @@ name, <var>name</var>, will be changed to <var>name2@@nodename</var>.
 <p>
 Next: <a href="#Text" accesskey="n" rel="next"><code>.text <var>subsection</var></code></a>, Previous: <a href="#Symver" accesskey="p" rel="prev"><code>.symver</code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002etag-structname"></span><h3 class="section">7.98 <code>.tag <var>structname</var></code></h3>
+<span id="g_t_002etag-structname"></span><h3 class="section">7.99 <code>.tag <var>structname</var></code></h3>
 
 <span id="index-COFF-structure-debugging"></span>
 <span id="index-structure-debugging_002c-COFF"></span>
@@ -8661,7 +8690,7 @@ definitions in the symbol table with instances of those structures.
 <p>
 Next: <a href="#Title" accesskey="n" rel="next"><code>.title &quot;<var>heading</var>&quot;</code></a>, Previous: <a href="#Tag" accesskey="p" rel="prev"><code>.tag <var>structname</var></code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002etext-subsection"></span><h3 class="section">7.99 <code>.text <var>subsection</var></code></h3>
+<span id="g_t_002etext-subsection"></span><h3 class="section">7.100 <code>.text <var>subsection</var></code></h3>
 
 <span id="index-text-directive"></span>
 <p>Tells <code>as</code> to assemble the following statements onto the end of
@@ -8676,7 +8705,7 @@ is used.
 <p>
 Next: <a href="#Tls_005fcommon" accesskey="n" rel="next"><code>.tls_common <var>symbol</var>, <var>length</var>[, <var>alignment</var>]</code></a>, Previous: <a href="#Text" accesskey="p" rel="prev"><code>.text <var>subsection</var></code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002etitle-_0022heading_0022"></span><h3 class="section">7.100 <code>.title &quot;<var>heading</var>&quot;</code></h3>
+<span id="g_t_002etitle-_0022heading_0022"></span><h3 class="section">7.101 <code>.title &quot;<var>heading</var>&quot;</code></h3>
 
 <span id="index-title-directive"></span>
 <span id="index-listing-control_003a-title-line"></span>
@@ -8693,7 +8722,7 @@ it appears within ten lines of the top of a page.
 <p>
 Next: <a href="#Type" accesskey="n" rel="next"><code>.type</code></a>, Previous: <a href="#Title" accesskey="p" rel="prev"><code>.title &quot;<var>heading</var>&quot;</code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002etls_005fcommon-symbol_002c-length_005b_002c-alignment_005d"></span><h3 class="section">7.101 <code>.tls_common <var>symbol</var>, <var>length</var>[, <var>alignment</var>]</code></h3>
+<span id="g_t_002etls_005fcommon-symbol_002c-length_005b_002c-alignment_005d"></span><h3 class="section">7.102 <code>.tls_common <var>symbol</var>, <var>length</var>[, <var>alignment</var>]</code></h3>
 
 <span id="index-tls_005fcommon-directive"></span>
 <p>This directive behaves in the same way as the <code>.comm</code> directive
@@ -8707,7 +8736,7 @@ STT_OBJECT.
 <p>
 Next: <a href="#Uleb128" accesskey="n" rel="next"><code>.uleb128 <var>expressions</var></code></a>, Previous: <a href="#Tls_005fcommon" accesskey="p" rel="prev"><code>.tls_common <var>symbol</var>, <var>length</var>[, <var>alignment</var>]</code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002etype"></span><h3 class="section">7.102 <code>.type</code></h3>
+<span id="g_t_002etype"></span><h3 class="section">7.103 <code>.type</code></h3>
 
 <p>This directive is used to set the type of a symbol.
 </p>
@@ -8817,7 +8846,7 @@ this.
 <p>
 Next: <a href="#Val" accesskey="n" rel="next"><code>.val <var>addr</var></code></a>, Previous: <a href="#Type" accesskey="p" rel="prev"><code>.type</code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002euleb128-expressions"></span><h3 class="section">7.103 <code>.uleb128 <var>expressions</var></code></h3>
+<span id="g_t_002euleb128-expressions"></span><h3 class="section">7.104 <code>.uleb128 <var>expressions</var></code></h3>
 
 <span id="index-uleb128-directive"></span>
 <p><var>uleb128</var> stands for &ldquo;unsigned little endian base 128.&rdquo;  This is a
@@ -8831,7 +8860,7 @@ symbolic debugging format.  See <a href="#Sleb128"><code>.sleb128</code></a>.
 <p>
 Next: <a href="#Version" accesskey="n" rel="next"><code>.version &quot;<var>string</var>&quot;</code></a>, Previous: <a href="#Uleb128" accesskey="p" rel="prev"><code>.uleb128 <var>expressions</var></code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002eval-addr"></span><h3 class="section">7.104 <code>.val <var>addr</var></code></h3>
+<span id="g_t_002eval-addr"></span><h3 class="section">7.105 <code>.val <var>addr</var></code></h3>
 
 <span id="index-val-directive"></span>
 <span id="index-COFF-value-attribute"></span>
@@ -8847,7 +8876,7 @@ entry.
 <p>
 Next: <a href="#VTableEntry" accesskey="n" rel="next"><code>.vtable_entry <var>table</var>, <var>offset</var></code></a>, Previous: <a href="#Val" accesskey="p" rel="prev"><code>.val <var>addr</var></code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002eversion-_0022string_0022"></span><h3 class="section">7.105 <code>.version &quot;<var>string</var>&quot;</code></h3>
+<span id="g_t_002eversion-_0022string_0022"></span><h3 class="section">7.106 <code>.version &quot;<var>string</var>&quot;</code></h3>
 
 <span id="index-version-directive"></span>
 <p>This directive creates a <code>.note</code> section and places into it an ELF
@@ -8860,7 +8889,7 @@ formatted note of type NT_VERSION.  The note&rsquo;s name is set to <code>string
 <p>
 Next: <a href="#VTableInherit" accesskey="n" rel="next"><code>.vtable_inherit <var>child</var>, <var>parent</var></code></a>, Previous: <a href="#Version" accesskey="p" rel="prev"><code>.version &quot;<var>string</var>&quot;</code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002evtable_005fentry-table_002c-offset"></span><h3 class="section">7.106 <code>.vtable_entry <var>table</var>, <var>offset</var></code></h3>
+<span id="g_t_002evtable_005fentry-table_002c-offset"></span><h3 class="section">7.107 <code>.vtable_entry <var>table</var>, <var>offset</var></code></h3>
 
 <span id="index-vtable_005fentry-directive"></span>
 <p>This directive finds or creates a symbol <code>table</code> and creates a
@@ -8873,7 +8902,7 @@ Next: <a href="#VTableInherit" accesskey="n" rel="next"><code>.vtable_inherit <v
 <p>
 Next: <a href="#Warning" accesskey="n" rel="next"><code>.warning &quot;<var>string</var>&quot;</code></a>, Previous: <a href="#VTableEntry" accesskey="p" rel="prev"><code>.vtable_entry <var>table</var>, <var>offset</var></code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002evtable_005finherit-child_002c-parent"></span><h3 class="section">7.107 <code>.vtable_inherit <var>child</var>, <var>parent</var></code></h3>
+<span id="g_t_002evtable_005finherit-child_002c-parent"></span><h3 class="section">7.108 <code>.vtable_inherit <var>child</var>, <var>parent</var></code></h3>
 
 <span id="index-vtable_005finherit-directive"></span>
 <p>This directive finds the symbol <code>child</code> and finds or creates the symbol
@@ -8888,7 +8917,7 @@ parent name of <code>0</code> is treated as referring to the <code>*ABS*</code> 
 <p>
 Next: <a href="#Weak" accesskey="n" rel="next"><code>.weak <var>names</var></code></a>, Previous: <a href="#VTableInherit" accesskey="p" rel="prev"><code>.vtable_inherit <var>child</var>, <var>parent</var></code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002ewarning-_0022string_0022"></span><h3 class="section">7.108 <code>.warning &quot;<var>string</var>&quot;</code></h3>
+<span id="g_t_002ewarning-_0022string_0022"></span><h3 class="section">7.109 <code>.warning &quot;<var>string</var>&quot;</code></h3>
 <span id="index-warning-directive"></span>
 <p>Similar to the directive <code>.error</code>
 (see <a href="#Error"><code>.error &quot;<var>string</var>&quot;</code></a>), but just emits a warning.
@@ -8900,7 +8929,7 @@ Next: <a href="#Weak" accesskey="n" rel="next"><code>.weak <var>names</var></cod
 <p>
 Next: <a href="#Weakref" accesskey="n" rel="next"><code>.weakref <var>alias</var>, <var>target</var></code></a>, Previous: <a href="#Warning" accesskey="p" rel="prev"><code>.warning &quot;<var>string</var>&quot;</code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002eweak-names"></span><h3 class="section">7.109 <code>.weak <var>names</var></code></h3>
+<span id="g_t_002eweak-names"></span><h3 class="section">7.110 <code>.weak <var>names</var></code></h3>
 
 <span id="index-weak-directive"></span>
 <p>This directive sets the weak attribute on the comma separated list of symbol
@@ -8921,7 +8950,7 @@ alternate symbol to hold the default value.
 <p>
 Next: <a href="#Word" accesskey="n" rel="next"><code>.word <var>expressions</var></code></a>, Previous: <a href="#Weak" accesskey="p" rel="prev"><code>.weak <var>names</var></code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002eweakref-alias_002c-target"></span><h3 class="section">7.110 <code>.weakref <var>alias</var>, <var>target</var></code></h3>
+<span id="g_t_002eweakref-alias_002c-target"></span><h3 class="section">7.111 <code>.weakref <var>alias</var>, <var>target</var></code></h3>
 
 <span id="index-weakref-directive"></span>
 <p>This directive creates an alias to the target symbol that enables the symbol to
@@ -8946,7 +8975,7 @@ within the assembler.
 <p>
 Next: <a href="#Zero" accesskey="n" rel="next"><code>.zero <var>size</var></code></a>, Previous: <a href="#Weakref" accesskey="p" rel="prev"><code>.weakref <var>alias</var>, <var>target</var></code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002eword-expressions"></span><h3 class="section">7.111 <code>.word <var>expressions</var></code></h3>
+<span id="g_t_002eword-expressions"></span><h3 class="section">7.112 <code>.word <var>expressions</var></code></h3>
 
 <span id="index-word-directive"></span>
 <p>This directive expects zero or more <var>expressions</var>, of any section,
@@ -8996,7 +9025,7 @@ entries in the original jump table as necessary.
 <p>
 Next: <a href="#g_t2byte" accesskey="n" rel="next"><code>.2byte <var>expression</var> [, <var>expression</var>]*</code></a>, Previous: <a href="#Word" accesskey="p" rel="prev"><code>.word <var>expressions</var></code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002ezero-size"></span><h3 class="section">7.112 <code>.zero <var>size</var></code></h3>
+<span id="g_t_002ezero-size"></span><h3 class="section">7.113 <code>.zero <var>size</var></code></h3>
 
 <span id="index-zero-directive"></span>
 <span id="index-filling-memory-with-zero-bytes"></span>
@@ -9012,7 +9041,7 @@ instead of zero.  Using &lsquo;<samp>.zero</samp>&rsquo; in this way would be co
 <p>
 Next: <a href="#g_t4byte" accesskey="n" rel="next"><code>.4byte <var>expression</var> [, <var>expression</var>]*</code></a>, Previous: <a href="#Zero" accesskey="p" rel="prev"><code>.zero <var>size</var></code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002e2byte-expression-_005b_002c-expression_005d_002a"></span><h3 class="section">7.113 <code>.2byte <var>expression</var> [, <var>expression</var>]*</code></h3>
+<span id="g_t_002e2byte-expression-_005b_002c-expression_005d_002a"></span><h3 class="section">7.114 <code>.2byte <var>expression</var> [, <var>expression</var>]*</code></h3>
 <span id="index-2byte-directive"></span>
 <span id="index-two_002dbyte-integer"></span>
 <span id="index-integer_002c-2_002dbyte"></span>
@@ -9024,7 +9053,7 @@ section, using the endian model of the target.  If an expression will not fit
 in two bytes, a warning message is displayed and the least significant two
 bytes of the expression&rsquo;s value are used.  If an expression cannot be evaluated
 at assembly time then relocations will be generated in order to compute the
-value at link time.  
+value at link time.
 </p>
 <p>This directive does not apply any alignment before or after inserting the
 values.  As a result of this, if relocations are generated, they may be
@@ -9037,7 +9066,7 @@ different from those used for inserting values with a guaranteed alignment.
 <p>
 Next: <a href="#g_t8byte" accesskey="n" rel="next"><code>.8byte <var>expression</var> [, <var>expression</var>]*</code></a>, Previous: <a href="#g_t2byte" accesskey="p" rel="prev"><code>.2byte <var>expression</var> [, <var>expression</var>]*</code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002e4byte-expression-_005b_002c-expression_005d_002a"></span><h3 class="section">7.114 <code>.4byte <var>expression</var> [, <var>expression</var>]*</code></h3>
+<span id="g_t_002e4byte-expression-_005b_002c-expression_005d_002a"></span><h3 class="section">7.115 <code>.4byte <var>expression</var> [, <var>expression</var>]*</code></h3>
 <span id="index-4byte-directive"></span>
 <span id="index-four_002dbyte-integer"></span>
 <span id="index-integer_002c-4_002dbyte"></span>
@@ -9052,7 +9081,7 @@ long values into the output.
 <p>
 Next: <a href="#Deprecated" accesskey="n" rel="next">Deprecated Directives</a>, Previous: <a href="#g_t4byte" accesskey="p" rel="prev"><code>.4byte <var>expression</var> [, <var>expression</var>]*</code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="g_t_002e8byte-expression-_005b_002c-expression_005d_002a"></span><h3 class="section">7.115 <code>.8byte <var>expression</var> [, <var>expression</var>]*</code></h3>
+<span id="g_t_002e8byte-expression-_005b_002c-expression_005d_002a"></span><h3 class="section">7.116 <code>.8byte <var>expression</var> [, <var>expression</var>]*</code></h3>
 <span id="index-8byte-directive"></span>
 <span id="index-eight_002dbyte-integer-1"></span>
 <span id="index-integer_002c-8_002dbyte-1"></span>
@@ -9070,7 +9099,7 @@ more bignums, separated by commas.
 <p>
 Previous: <a href="#g_t8byte" accesskey="p" rel="prev"><code>.8byte <var>expression</var> [, <var>expression</var>]*</code></a>, Up: <a href="#Pseudo-Ops" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#AS-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="Deprecated-Directives"></span><h3 class="section">7.116 Deprecated Directives</h3>
+<span id="Deprecated-Directives"></span><h3 class="section">7.117 Deprecated Directives</h3>
 
 <span id="index-deprecated-directives"></span>
 <span id="index-obsolescent-directives"></span>
@@ -9562,7 +9591,6 @@ automatically cause those extensions to be disabled.
 <table>
 <thead><tr><th width="16%">Extension</th><th width="22%">Depends upon</th><th width="62%">Description</th></tr></thead>
 <tr><td width="16%"><code>aes</code></td><td width="22%"><code>simd</code></td><td width="62%">Enable the AES and PMULL cryptographic extensions.</td></tr>
-<tr><td width="16%"><code>b16b16</code></td><td width="22%"><code>sve2</code></td><td width="62%">Enable BFloat16 to BFloat16 arithmetic for SVE2 and SME2.</td></tr>
 <tr><td width="16%"><code>bf16</code></td><td width="22%"><code>fp</code></td><td width="62%">Enable BFloat16 extension.</td></tr>
 <tr><td width="16%"><code>brbe</code></td><td width="22%"></td><td width="62%">Enable the Branch Record Buffer extension.</td></tr>
 <tr><td width="16%"><code>chk</code></td><td width="22%"></td><td width="62%">Enable the Check Feature Status Extension.</td></tr>
@@ -17577,6 +17605,10 @@ accept various extension mnemonics.  For example,
 <code>avx10.1/128</code>,
 <code>user_msr</code>,
 <code>apx_f</code>,
+<code>avx10.2</code>,
+<code>avx10.2/512</code>,
+<code>avx10.2/256</code>,
+<code>avx10.2/128</code>,
 <code>amx_int8</code>,
 <code>amx_bf16</code>,
 <code>amx_fp16</code>,
@@ -17838,6 +17870,17 @@ R_X86_64_REX_GOTPCRELX, in 64-bit mode.
 <samp>-mrelax-relocations=<var>no</var></samp> will not generate relax
 relocations.  The default can be controlled by a configure option
 <samp>--enable-x86-relax-relocations</samp>.
+</p>
+<span id="index-_002dmtls_002dcheck_003d-option_002c-i386"></span>
+<span id="index-_002dmtls_002dcheck_003d-option_002c-x86_002d64"></span>
+</dd>
+<dt><span><code>-mtls-check=<var>no</var></code></span></dt>
+<dt><span><code>-mtls-check=<var>yes</var></code></span></dt>
+<dd><p>These options control whether the assembler check tls relocation.
+<samp>-mtls-check=<var>yes</var></samp> will check tls relocation.
+<samp>-mtls-check=<var>no</var></samp> will not check tls relocation
+The default can be controlled by a configure option
+<samp>--enable-x86-tls-check</samp>.
 </p>
 <span id="index-_002dmalign_002dbranch_002dboundary_003d-option_002c-i386"></span>
 <span id="index-_002dmalign_002dbranch_002dboundary_003d-option_002c-x86_002d64"></span>
@@ -19104,7 +19147,7 @@ supported on the CPU specified.  The choices for <var>cpu_type</var> are:
 <tr><td width="20%">&lsquo;<samp>.cmpccxadd</samp>&rsquo;</td><td width="20%">&lsquo;<samp>.wrmsrns</samp>&rsquo;</td><td width="20%">&lsquo;<samp>.msrlist</samp>&rsquo;</td></tr>
 <tr><td width="20%">&lsquo;<samp>.avx_ne_convert</samp>&rsquo;</td><td width="20%">&lsquo;<samp>.rao_int</samp>&rsquo;</td><td width="20%">&lsquo;<samp>.fred</samp>&rsquo;</td><td width="20%">&lsquo;<samp>.lkgs</samp>&rsquo;</td></tr>
 <tr><td width="20%">&lsquo;<samp>.avx_vnni_int16</samp>&rsquo;</td><td width="20%">&lsquo;<samp>.sha512</samp>&rsquo;</td><td width="20%">&lsquo;<samp>.sm3</samp>&rsquo;</td><td width="20%">&lsquo;<samp>.sm4</samp>&rsquo;</td></tr>
-<tr><td width="20%">&lsquo;<samp>.pbndkb</samp>&rsquo;</td><td width="20%">&lsquo;<samp>.user_msr</samp>&rsquo;</td></tr>
+<tr><td width="20%">&lsquo;<samp>.pbndkb</samp>&rsquo;</td><td width="20%">&lsquo;<samp>.user_msr</samp>&rsquo;</td><td width="20%">&lsquo;<samp>.avx10.2</samp>&rsquo;</td></tr>
 <tr><td width="20%">&lsquo;<samp>.wbnoinvd</samp>&rsquo;</td><td width="20%">&lsquo;<samp>.pconfig</samp>&rsquo;</td><td width="20%">&lsquo;<samp>.waitpkg</samp>&rsquo;</td><td width="20%">&lsquo;<samp>.cldemote</samp>&rsquo;</td></tr>
 <tr><td width="20%">&lsquo;<samp>.shstk</samp>&rsquo;</td><td width="20%">&lsquo;<samp>.gfni</samp>&rsquo;</td><td width="20%">&lsquo;<samp>.vaes</samp>&rsquo;</td><td width="20%">&lsquo;<samp>.vpclmulqdq</samp>&rsquo;</td></tr>
 <tr><td width="20%">&lsquo;<samp>.movdiri</samp>&rsquo;</td><td width="20%">&lsquo;<samp>.movdir64b</samp>&rsquo;</td><td width="20%">&lsquo;<samp>.enqcmd</samp>&rsquo;</td><td width="20%">&lsquo;<samp>.tsxldtrk</samp>&rsquo;</td></tr>
@@ -23102,10 +23145,12 @@ directive to the beginning of the source file.  See <a href="#MIPS-NaN-Encodings
 <dt><span><code>--trap</code></span></dt>
 <dt><span><code>--no-break</code></span></dt>
 <dd><p><code>as</code> automatically macro expands certain division and
-multiplication instructions to check for overflow and division by zero.  This
-option causes <code>as</code> to generate code to take a trap exception
-rather than a break exception when an error is detected.  The trap instructions
-are only supported at Instruction Set Architecture level 2 and higher.
+multiplication instructions to check for overflow and division by zero.
+This option causes <code>as</code> to generate code to take a trap
+exception rather than a break exception when an error is detected and the
+ISA selected for assembly at the originating place in source code permits
+the use of trap instructions.  The trap instructions are only supported at
+Instruction Set Architecture level 2 and higher.
 </p>
 </dd>
 <dt><span><code>--break</code></span></dt>
@@ -27446,7 +27491,12 @@ relaxed and should be emitted as something like
 <p>It&rsquo;s not expected that options are changed in this manner during regular use,
 but there are a handful of esoteric cases like the one above where users need
 to disable particular features of the assembler for particular code sequences.
-The complete list of option arguments is shown below:
+However, it&rsquo;s also useful to enable/disable the extensions for some specific
+code regions by &lsquo;<samp>.option arch, +-</samp>&rsquo;.  This is very common in the ifunc
+libraries.  We can support functions which are implemented by different
+extensions in the same library, but these should not affect any file-level
+settings, like the elf architecture attribute.  The complete list of option
+arguments is shown below:
 </p>
 <dl compact="compact">
 <dt><span><code>push</code></span></dt>
@@ -28068,20 +28118,8 @@ extensions supported and provides the location of their
 publicly-released documentation:
 </p>
 <dl compact="compact">
-<dt><span><span class="roman">XCvMac</span></span></dt>
-<dd><p>The XCvMac extension provides instructions for multiply-accumulate operations.
-</p>
-<p>It is documented in <a href="https://docs.openhwgroup.org/projects/cv32e40p-user-manual/en/latest/instruction_set_extensions.html">https://docs.openhwgroup.org/projects/cv32e40p-user-manual/en/latest/instruction_set_extensions.html</a>
-</p>
-</dd>
 <dt><span><span class="roman">XCvAlu</span></span></dt>
 <dd><p>The XCvAlu extension provides instructions for general ALU operations.
-</p>
-<p>It is documented in <a href="https://docs.openhwgroup.org/projects/cv32e40p-user-manual/en/latest/instruction_set_extensions.html">https://docs.openhwgroup.org/projects/cv32e40p-user-manual/en/latest/instruction_set_extensions.html</a>
-</p>
-</dd>
-<dt><span><span class="roman">XCvElw</span></span></dt>
-<dd><p>The XCvElw extension provides instructions for event load word operations.
 </p>
 <p>It is documented in <a href="https://docs.openhwgroup.org/projects/cv32e40p-user-manual/en/latest/instruction_set_extensions.html">https://docs.openhwgroup.org/projects/cv32e40p-user-manual/en/latest/instruction_set_extensions.html</a>
 </p>
@@ -28092,8 +28130,32 @@ publicly-released documentation:
 <p>It is documented in <a href="https://docs.openhwgroup.org/projects/cv32e40p-user-manual/en/latest/instruction_set_extensions.html">https://docs.openhwgroup.org/projects/cv32e40p-user-manual/en/latest/instruction_set_extensions.html</a>
 </p>
 </dd>
+<dt><span><span class="roman">XCvBitmanip</span></span></dt>
+<dd><p>The XCvBitmanip extension provides instructions for bitmanip operations.
+</p>
+<p>It is documented in <a href="https://docs.openhwgroup.org/projects/cv32e40p-user-manual/en/latest/instruction_set_extensions.html">https://docs.openhwgroup.org/projects/cv32e40p-user-manual/en/latest/instruction_set_extensions.html</a>
+</p>
+</dd>
+<dt><span><span class="roman">XCvElw</span></span></dt>
+<dd><p>The XCvElw extension provides instructions for event load word operations.
+</p>
+<p>It is documented in <a href="https://docs.openhwgroup.org/projects/cv32e40p-user-manual/en/latest/instruction_set_extensions.html">https://docs.openhwgroup.org/projects/cv32e40p-user-manual/en/latest/instruction_set_extensions.html</a>
+</p>
+</dd>
+<dt><span><span class="roman">XCvMac</span></span></dt>
+<dd><p>The XCvMac extension provides instructions for multiply-accumulate operations.
+</p>
+<p>It is documented in <a href="https://docs.openhwgroup.org/projects/cv32e40p-user-manual/en/latest/instruction_set_extensions.html">https://docs.openhwgroup.org/projects/cv32e40p-user-manual/en/latest/instruction_set_extensions.html</a>
+</p>
+</dd>
 <dt><span><span class="roman">XCvMem</span></span></dt>
 <dd><p>The XCvMem extension provides instructions for post inc load/store operations.
+</p>
+<p>It is documented in <a href="https://docs.openhwgroup.org/projects/cv32e40p-user-manual/en/latest/instruction_set_extensions.html">https://docs.openhwgroup.org/projects/cv32e40p-user-manual/en/latest/instruction_set_extensions.html</a>
+</p>
+</dd>
+<dt><span><span class="roman">XcvSimd</span></span></dt>
+<dd><p>The XcvSimd extension provides instructions for SIMD operations.
 </p>
 <p>It is documented in <a href="https://docs.openhwgroup.org/projects/cv32e40p-user-manual/en/latest/instruction_set_extensions.html">https://docs.openhwgroup.org/projects/cv32e40p-user-manual/en/latest/instruction_set_extensions.html</a>
 </p>
@@ -29042,10 +29104,11 @@ field. The notation changes as follows:
 <div class="display">
 <table>
 <thead><tr><th width="30%"><pre class="display">full notation</pre></th><th width="30%"><pre class="display">short notation</pre></th></tr></thead>
-<tr><td width="30%"><pre class="display">Dn(0,Bn)</pre></td><td width="30%"><pre class="display">Dn(Bn)</pre></td></tr>
+<tr><td width="30%"><pre class="display">Dn(Xn,0)</pre></td><td width="30%"><pre class="display">Dn(Xn,)</pre></td></tr>
+<tr><td width="30%"><pre class="display">Dn(0,Bn)</pre></td><td width="30%"><pre class="display">Dn(,Bn) or Dn(Bn)</pre></td></tr>
 <tr><td width="30%"><pre class="display">Dn(0,0)</pre></td><td width="30%"><pre class="display">Dn</pre></td></tr>
 <tr><td width="30%"><pre class="display">Dn(0)</pre></td><td width="30%"><pre class="display">Dn</pre></td></tr>
-<tr><td width="30%"><pre class="display">Dn(Ln,0)</pre></td><td width="30%"><pre class="display">Dn(Ln)</pre></td></tr>
+<tr><td width="30%"><pre class="display">Dn(Ln,0)</pre></td><td width="30%"><pre class="display">Dn(Ln,) or Dn(Ln)</pre></td></tr>
 </table>
 </div>
 
@@ -38077,6 +38140,8 @@ Previous: <a href="#GNU-Free-Documentation-License" accesskey="p" rel="prev">GNU
 <tr><td></td><td valign="top"><a href="#index-_002dmt11">-mt11</a>:</td><td>&nbsp;</td><td valign="top"><a href="#PDP_002d11_002dOptions">PDP-11-Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002dmthumb-command_002dline-option_002c-ARM"><code>-mthumb</code> command-line option, ARM</a>:</td><td>&nbsp;</td><td valign="top"><a href="#ARM-Options">ARM Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002dmthumb_002dinterwork-command_002dline-option_002c-ARM"><code>-mthumb-interwork</code> command-line option, ARM</a>:</td><td>&nbsp;</td><td valign="top"><a href="#ARM-Options">ARM Options</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-_002dmtls_002dcheck_003d-option_002c-i386">&lsquo;<samp>-mtls-check=</samp>&rsquo; option, i386</a>:</td><td>&nbsp;</td><td valign="top"><a href="#i386_002dOptions">i386-Options</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-_002dmtls_002dcheck_003d-option_002c-x86_002d64">&lsquo;<samp>-mtls-check=</samp>&rsquo; option, x86-64</a>:</td><td>&nbsp;</td><td valign="top"><a href="#i386_002dOptions">i386-Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002dmtune_003d-option_002c-i386">&lsquo;<samp>-mtune=</samp>&rsquo; option, i386</a>:</td><td>&nbsp;</td><td valign="top"><a href="#i386_002dOptions">i386-Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002dmtune_003d-option_002c-x86_002d64">&lsquo;<samp>-mtune=</samp>&rsquo; option, x86-64</a>:</td><td>&nbsp;</td><td valign="top"><a href="#i386_002dOptions">i386-Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002dmtune_003darch-command_002dline-option_002c-Visium"><code>-mtune=<var>arch</var></code> command-line option, Visium</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Visium-Options">Visium Options</a></td></tr>
@@ -39784,6 +39849,7 @@ Previous: <a href="#GNU-Free-Documentation-License" accesskey="p" rel="prev">GNU
 <tr><td></td><td valign="top"><a href="#index-other-attribute_002c-of-a_002eout-symbol">other attribute, of <code>a.out</code> symbol</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Symbol-Other">Symbol Other</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-output-file">output file</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Object">Object</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-output-section-padding">output section padding</a>:</td><td>&nbsp;</td><td valign="top"><a href="#no_002dpad_002dsections">no-pad-sections</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-outputing-warnings">outputing warnings</a>:</td><td>&nbsp;</td><td valign="top"><a href="#W">W</a></td></tr>
 <tr><td colspan="4"> <hr></td></tr>
 <tr><th id="AS-Index_cp_letter-P">P</th><td></td><td></td></tr>
 <tr><td></td><td valign="top"><a href="#index-p2align-directive"><code>p2align</code> directive</a>:</td><td>&nbsp;</td><td valign="top"><a href="#P2align">P2align</a></td></tr>

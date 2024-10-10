@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the GNU linker LD
 (GNU Binutils)
-version 2.42.50.
+version 2.43.50.
 
 Copyright (C) 1991-2024 Free Software Foundation, Inc.
 
@@ -70,7 +70,7 @@ Next: <a href="#Overview" accesskey="n" rel="next">Overview</a> &nbsp; [<a href=
 <span id="LD"></span><h1 class="top">LD</h1>
 <p>This file documents the <small>GNU</small> linker ld
 (GNU Binutils)
-version 2.42.50.
+version 2.43.50.
 </p>
 <p>This document is distributed under the terms of the GNU Free
 Documentation License version 1.3.  A copy of the license is included
@@ -3393,20 +3393,20 @@ maximum cache size to <var>size</var>.
 <dd><p>Request the creation of a <code>.note.gnu.build-id</code> ELF note section
 or a <code>.buildid</code> COFF section.  The contents of the note are
 unique bits identifying this linked file.  <var>style</var> can be
-<code>uuid</code> to use 128 random bits, <code>sha1</code> to use a 160-bit
-<small>SHA1</small> hash on the normative parts of the output contents,
-<code>md5</code> to use a 128-bit <small>MD5</small> hash on the normative parts of
-the output contents, or <code>0x<var>hexstring</var></code> to use a chosen bit
-string specified as an even number of hexadecimal digits (<code>-</code> and
+<code>uuid</code> to use 128 random bits; <code>sha1</code> to use a 160-bit
+<small>SHA1</small> hash, <code>md5</code> to use a 128-bit <small>MD5</small> hash, or <code>xx</code>
+to use a 128-bit <small>XXHASH</small> on the normative parts of the output
+contents; or <code>0x<var>hexstring</var></code> to use a chosen bit string
+specified as an even number of hexadecimal digits (<code>-</code> and
 <code>:</code> characters between digit pairs are ignored).  If <var>style</var>
 is omitted, <code>sha1</code> is used.
 </p>
-<p>The <code>md5</code> and <code>sha1</code> styles produces an identifier
-that is always the same in an identical output file, but will be
-unique among all nonidentical output files.  It is not intended
-to be compared as a checksum for the file&rsquo;s contents.  A linked
-file may be changed later by other tools, but the build ID bit
-string identifying the original linked file does not change.
+<p>The <code>md5</code>, <code>sha1</code>, and <code>xx</code> styles produces an
+identifier that is always the same in an identical output file, but
+are almost certainly unique among all nonidentical output files.  It
+is not intended to be compared as a checksum for the file&rsquo;s contents.
+A linked file may be changed later by other tools, but the build ID
+bit string identifying the original linked file does not change.
 </p>
 <p>Passing <code>none</code> for <var>style</var> disables the setting from any
 <code>--build-id</code> options earlier on the command line.
@@ -4293,6 +4293,13 @@ default to not demangling symbols.  This environment variable is used in
 a similar fashion by the <code>gcc</code> linker wrapper program.  The default
 may be overridden by the &lsquo;<samp>--demangle</samp>&rsquo; and &lsquo;<samp>--no-demangle</samp>&rsquo;
 options.
+</p>
+<span id="index-SOURCE_005fDATE_005fEPOCH"></span>
+<span id="index-timestamps"></span>
+<p>If the PE/COFF specific <samp>--insert-timestamp</samp> is active and the
+<code>SOURCE_DATE_EPOCH</code> environment variable is defined, then the
+timestamp value in this variable will be inserted into the COFF header
+instead of the current time.
 </p>
 
 <hr>
@@ -11963,6 +11970,7 @@ Previous: <a href="#GNU-Free-Documentation-License" accesskey="p" rel="prev">GNU
 <tr><td></td><td valign="top"><a href="#index-SORT_005fBY_005fINIT_005fPRIORITY">SORT_BY_INIT_PRIORITY</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Input-Section-Wildcards">Input Section Wildcards</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-SORT_005fBY_005fNAME">SORT_BY_NAME</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Input-Section-Wildcards">Input Section Wildcards</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-SORT_005fNONE">SORT_NONE</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Input-Section-Wildcards">Input Section Wildcards</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-SOURCE_005fDATE_005fEPOCH"><code>SOURCE_DATE_EPOCH</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Environment">Environment</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-SPU">SPU</a>:</td><td>&nbsp;</td><td valign="top"><a href="#SPU-ELF">SPU ELF</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-SPU-1">SPU</a>:</td><td>&nbsp;</td><td valign="top"><a href="#SPU-ELF">SPU ELF</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-SPU-ELF-options">SPU ELF options</a>:</td><td>&nbsp;</td><td valign="top"><a href="#SPU-ELF">SPU ELF</a></td></tr>
@@ -12006,6 +12014,7 @@ Previous: <a href="#GNU-Free-Documentation-License" accesskey="p" rel="prev">GNU
 <tr><td></td><td valign="top"><a href="#index-text-segment-origin_002c-cmd-line">text segment origin, cmd line</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-thumb-entry-point">thumb entry point</a>:</td><td>&nbsp;</td><td valign="top"><a href="#ARM">ARM</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-TI-COFF-versions">TI COFF versions</a>:</td><td>&nbsp;</td><td valign="top"><a href="#TI-COFF">TI COFF</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-timestamps">timestamps</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Environment">Environment</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-traditional-format">traditional format</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Options">Options</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-trampoline-generation-on-M68HC11">trampoline generation on M68HC11</a>:</td><td>&nbsp;</td><td valign="top"><a href="#M68HC11_002f68HC12">M68HC11/68HC12</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-trampoline-generation-on-M68HC12">trampoline generation on M68HC12</a>:</td><td>&nbsp;</td><td valign="top"><a href="#M68HC11_002f68HC12">M68HC11/68HC12</a></td></tr>

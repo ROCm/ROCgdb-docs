@@ -331,33 +331,6 @@ $1 = (void *) 0x7ffff7ff7000
 
 <p>Depending on target support, <code>$_siginfo</code> may also be writable.
 </p>
-<span id="index-Intel-MPX-boundary-violations"></span>
-<span id="index-boundary-violations_002c-Intel-MPX"></span>
-<p>On some targets, a <code>SIGSEGV</code> can be caused by a boundary
-violation, i.e., accessing an address outside of the allowed range.
-In those cases <small>ROCGDB</small> may displays additional information,
-depending on how <small>ROCGDB</small> has been told to handle the signal.
-With <code>handle stop SIGSEGV</code>, <small>ROCGDB</small> displays the violation
-kind: &quot;Upper&quot; or &quot;Lower&quot;, the memory address accessed and the
-bounds, while with <code>handle nostop SIGSEGV</code> no additional
-information is displayed.
-</p>
-<p>The usual output of a segfault is:
-</p><div class="example">
-<pre class="example">Program received signal SIGSEGV, Segmentation fault
-0x0000000000400d7c in upper () at i386-mpx-sigsegv.c:68
-68        value = *(p + len);
-</pre></div>
-
-<p>While a bound violation is presented as:
-</p><div class="example">
-<pre class="example">Program received signal SIGSEGV, Segmentation fault
-Upper bound violation while accessing address 0x7fffffffc3b3
-Bounds: [lower = 0x7fffffffc390, upper = 0x7fffffffc3a3]
-0x0000000000400d7c in upper () at i386-mpx-sigsegv.c:68
-68        value = *(p + len);
-</pre></div>
-
 </div>
 <hr>
 <div class="header">

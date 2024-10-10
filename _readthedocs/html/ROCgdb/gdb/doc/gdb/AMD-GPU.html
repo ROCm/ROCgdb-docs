@@ -123,6 +123,7 @@ devices (see <a href="Heterogeneous-Debugging.html">Debugging Heterogeneous Prog
 <li><a href="#AMD-GPU-Address-Spaces"><acronym>AMD GPU</acronym> Address Spaces</a></li>
 <li><a href="#AMD-GPU-Signals-1"><acronym>AMD GPU</acronym> Signals</a></li>
 <li><a href="#AMD-GPU-Memory-Violation-Reporting"><acronym>AMD GPU</acronym> Memory Violation Reporting</a></li>
+<li><a href="#AMD-GPU-ALU-Exception-Reporting"><acronym>AMD GPU</acronym> ALU Exception Reporting</a></li>
 <li><a href="#AMD-GPU-Logging"><acronym>AMD GPU</acronym> Logging</a></li>
 <li><a href="#AMD-GPU-Version"><acronym>AMD GPU</acronym> Version</a></li>
 <li><a href="#AMD-GPU-core-dumps-1"><acronym>AMD GPU</acronym> core dumps</a></li>
@@ -987,8 +988,74 @@ the parameter value of the original inferior.
 </dl>
 
 </div>
+<div class="subsubsection" id="AMD-GPU-ALU-Exception-Reporting">
+<h4 class="subsubsection">22.4.10.14 <acronym>AMD GPU</acronym> ALU Exception Reporting</h4>
+
+<p>A wavefront can report ALU exceptions.  However, the program location at
+which they are reported may be after the machine instruction that caused
+them.  This can result in the reported source statement being incorrect.
+</p>
+<p>The following commands can be used to control ALU exception reporting
+precision:
+</p>
+<dl compact="compact">
+<dd>
+<span id="index-set-amdgpu-precise_002dalu_002dexceptions"></span>
+<span id="index-AMD-GPU-precise-ALU-exceptions-reporting"></span>
+</dd>
+<dt><span><code>set amdgpu plecise-alu-exceptions <var>mode</var></code></span></dt>
+<dd><p>Controls how <acronym>AMD GPU</acronym> devices report ALU exceptions:
+</p>
+<dl compact="compact">
+<dt><span><code>off</code></span></dt>
+<dd><p>The program location may not be immediately after the instruction that
+caused the ALU exception.  This is the default.
+</p>
+</dd>
+<dt><span><code>on</code></span></dt>
+<dd><p>Request that the program location will be immediately after the
+instruction that caused the ALU exception.  Enabling this mode may make
+the <acronym>AMD GPU</acronym> device execution significantly slower as it has
+to wait for the ALU instruction to complete before executing the next
+instruction.
+</p>
+<p>The precise ALU exception reporting mode can be changed at any time in
+the life of the program.  If the precise ALU exception reporting mode is
+updated before the inferior is started, the update request is recorded
+and applies as soon as possible.  For example:
+</p>
+<div class="example">
+<pre class="example"> set amdgpu precise-alu-exceptions on
+(gdb) set amdgpu precise-alu-exceptions on
+(gdb) show amdgpu precise-alu-exceptions
+AMDGPU precise ALU exceptions reporting is on (currently disabled).
+(gdb) start
+Temporary breakpoint 1 at 0x218cc9: file /tmp/alu-exceptions.cpp, line 100.
+Starting program: /tmp/a.out
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library &quot;/lib/x86_64-linux-gnu/libthread_db.so.1&quot;.
+
+Temporary breakpoint 1, main (argc=1, argv=0x7fffffffe628) at /tmp/alu-exceptions.cpp:100
+100	  if (argc != 2)
+(gdb) show amdgpu precise-alu-exceptions
+AMDGPU precise ALU exceptions reporting is on (currently enabled).
+</pre></div>
+</dd>
+</dl>
+
+<span id="index-show-amdgpu-precise_002dalu_002dexceptions"></span>
+<span id="index-AMD-GPU-precise-ALU-exceptions-reporting-1"></span>
+</dd>
+<dt><span><code>show amdgpu precise-alu-exceptions</code></span></dt>
+<dd><p>Display the currently requested and effective <acronym>AMD GPU</acronym> precise
+ALU exceptions setting.
+</p>
+</dd>
+</dl>
+
+</div>
 <div class="subsubsection" id="AMD-GPU-Logging">
-<h4 class="subsubsection">22.4.10.14 <acronym>AMD GPU</acronym> Logging</h4>
+<h4 class="subsubsection">22.4.10.15 <acronym>AMD GPU</acronym> Logging</h4>
 
 <p>The &lsquo;<samp>set debug amd-dbgapi-lib log-level <var>level</var></samp>&rsquo; command can be used
 to enable diagnostic messages from the &lsquo;<samp>amd-dbgapi</samp>&rsquo; library.  The
@@ -1017,7 +1084,7 @@ the log to a new file:
 </p>
 </div>
 <div class="subsubsection" id="AMD-GPU-Version">
-<h4 class="subsubsection">22.4.10.15 <acronym>AMD GPU</acronym> Version</h4>
+<h4 class="subsubsection">22.4.10.16 <acronym>AMD GPU</acronym> Version</h4>
 
 <p>The &lsquo;<samp>show amdgpu version</samp>&rsquo; command can be used to print the ROCdbgapi
 library version and file path.  For example:
@@ -1030,7 +1097,7 @@ Loaded from `/opt/rocm-4.5.0/lib/librocm-dbgapi.so.0'
 
 <span id="AMD-GPU-core-dumps"></span></div>
 <div class="subsubsection" id="AMD-GPU-core-dumps-1">
-<h4 class="subsubsection">22.4.10.16 <acronym>AMD GPU</acronym> core dumps</h4>
+<h4 class="subsubsection">22.4.10.17 <acronym>AMD GPU</acronym> core dumps</h4>
 
 <p><small>ROCGDB</small> supports core files describing the state of a heterogeneous
 process including host (CPU) and device (GPU) threads.  Such file can be
@@ -1125,9 +1192,16 @@ Thread 3 (AMDGPU Wave 1:1:1:1 (0,0,0)/0) stopped because of SIGSEGV.
 (gdb)
 </pre></div>
 
+<p>When opening a core dump, <small>ROCGDB</small> tries to load GPU code objects at
+the same path they were on the system where the core dump got produced.
+If the code objects are not at the same location, <small>ROCGDB</small> can look
+in the <code>sysroot</code> (see <a href="Files.html#set-sysroot">set sysroot</a>), or use the
+<code>shared-library-path</code> (see <a href="Files.html#set-solib_002dsearch_002dpath">set
+solib-search-path</a>).
+</p>
 </div>
 <div class="subsubsection" id="AMD-GPU-Restrictions">
-<h4 class="subsubsection">22.4.10.17 <acronym>AMD GPU</acronym> Restrictions</h4>
+<h4 class="subsubsection">22.4.10.18 <acronym>AMD GPU</acronym> Restrictions</h4>
 
 <p><small>ROCGDB</small> <acronym>AMD GPU</acronym> support is currently a prototype and
 has the following restrictions.  Future releases aim to address these
@@ -1203,8 +1277,6 @@ will be reported for incompatible code objects:
 <pre class="example">Error while mapping shared library sections:
 `file:///rocm/bit_extract#offset=6751&amp;size=3136': ELF file ABI version (0) is not supported.
 </pre></div>
-
-</li><li> No support yet for <acronym>AMD GPU</acronym> core dumps.
 
 </li><li> When in non-stop mode, wavefronts may not hit breakpoints inserted
 while not stopped, nor see memory updates made while not stopped,
@@ -1325,27 +1397,6 @@ code object containing the source lines is loaded, the incorrect
 breakpoints will be removed and replaced by the correct ones.  This
 problem can be avoided by only setting breakpoints in unloaded code
 objects using symbol or function names.
-</p>
-<p>The <code>HIP_ENABLE_DEFERRED_LOADING</code> environment variable can be
-used to disable deferred code object loading by the HIP runtime.  This
-ensures all code objects will be loaded when the inferior reaches the
-beginning of the <code>main</code> function.
-</p>
-<p>For example,
-</p>
-<div class="example">
-<pre class="example">export HIP_ENABLE_DEFERRED_LOADING=0
-</pre></div>
-
-<p><em>Note:</em>  If deferred code object loading is disabled and the
-application performs a <code>fork</code>, then the program may crash.
-</p>
-<p><em>Note:</em>  Disabling code object loading can result in errors being
-reported when executing <small>ROCGDB</small> due to open file limitations when
-the application contains a large number of embedded device code
-objects.  With deferred code object loading enabled, only the device
-code objects actually invoked are loaded, and so <small>ROCGDB</small> opens
-fewer files.
 </p>
 </li><li> <small>ROCGDB</small> supports watchpoints, but limits the capabilities to the
 lowest common denominator of the heterogeneous agents in the system.
@@ -1545,6 +1596,18 @@ the file produced by the Linux kernel.
 </li><li> For <acronym>AMD GPU</acronym> architectures &lsquo;<samp>gfx1100</samp>&rsquo;, &lsquo;<samp>gfx1101</samp>&rsquo; and
 &lsquo;<samp>gfx1102</samp>&rsquo;, the <acronym>AMD ROCm</acronym> runtime cannot create a
 <acronym>AMD GPU</acronym> core dump (see <a href="#AMD-GPU-core-dumps">AMD GPU core dumps</a>).
+
+</li><li> For <acronym>AMD GPU</acronym> architectures &lsquo;<samp>gfx10*</samp>&rsquo;, &lsquo;<samp>gfx11*</samp>&rsquo; and
+&lsquo;<samp>gx12*</samp>&rsquo;, a watchpoint (see <a href="Set-Watchpoints.html">Setting
+Watchpoints</a>) might not be reported to the debugger if the memory is
+modified by the last instruction of the shader when precise memory
+is not enabled (see <a href="#AMDGPU-Memory-Violation-Reporting">AMDGPU Memory Violation Reporting</a>).
+
+</li><li> For architectures &lsquo;<samp>gfx10*</samp>&rsquo;, &lsquo;<samp>gfx11*</samp>&rsquo; and &lsquo;<samp>gfx12*</samp>&rsquo;, a
+breakpoint should not be placed in a clause (see the &lsquo;<samp>s_clause</samp>&rsquo;
+instruction in the relevant instruction set manual).  It is possible to
+step through a clause.  Waves can receive asynchronous exceptions
+while in a clause.
 
 </li></ol>
 
