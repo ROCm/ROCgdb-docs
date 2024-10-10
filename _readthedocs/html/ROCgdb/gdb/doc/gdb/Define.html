@@ -107,9 +107,21 @@ Next: <a href="Hooks.html" accesskey="n" rel="next">User-defined Command Hooks</
 <span id="index-arguments_002c-to-user_002ddefined-commands"></span>
 <p>A <em>user-defined command</em> is a sequence of <small>ROCGDB</small> commands to
 which you assign a new name as a command.  This is done with the
-<code>define</code> command.  User commands may accept an unlimited number of arguments
-separated by whitespace.  Arguments are accessed within the user command
-via <code>$arg0&hellip;$argN</code>.  A trivial example:
+<code>define</code> command.
+</p>
+<p>User commands may accept an unlimited number of arguments separated by
+whitespace.  Arguments are accessed within the user command via
+<code>$arg0&hellip;$argN</code>.  The arguments are text substitutions, so
+they may reference variables, use complex expressions, or even perform
+inferior functions calls.  Note, however, that this textual
+substitution means that working with certain arguments is difficult.
+For example, there is no way for the user to pass an argument
+containing a space; and while stringifying an argument can be done
+using an expression like <code>&quot;$arg1&quot;</code>, this will fail if the
+argument contains a quote.  For more complicated and robust commands,
+we recommend writing them in Python; see <a href="CLI-Commands-In-Python.html">CLI Commands In Python</a>.
+</p>
+<p>A trivial example:
 </p>
 <div class="example">
 <pre class="example">define adder
@@ -124,9 +136,7 @@ end
 </pre></div>
 
 <p>This defines the command <code>adder</code>, which prints the sum of
-its three arguments.  Note the arguments are text substitutions, so they may
-reference variables, use complex expressions, or even perform inferior
-functions calls.
+its three arguments.
 </p>
 <span id="index-argument-count-in-user_002ddefined-commands"></span>
 <span id="index-how-many-arguments-_0028user_002ddefined-commands_0029"></span>
