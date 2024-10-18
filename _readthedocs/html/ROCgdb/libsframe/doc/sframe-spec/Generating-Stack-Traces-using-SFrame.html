@@ -1,0 +1,146 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- Copyright (C) 2021-2024 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU General Public License, Version 3 or any
+later version published by the Free Software Foundation.  A copy of the
+license is included in the section entitled "GNU General Public
+License".
+ -->
+<title>Generating Stack Traces using SFrame (The SFrame Format)</title>
+
+<meta name="description" content="Generating Stack Traces using SFrame (The SFrame Format)">
+<meta name="keywords" content="Generating Stack Traces using SFrame (The SFrame Format)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="index.html" rel="up" title="Top">
+<link href="Index.html" rel="next" title="Index">
+<link href="ABI_002farch_002dspecific-Definition.html" rel="prev" title="ABI/arch-specific Definition">
+<style type="text/css">
+<!--
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<div class="appendix" id="Generating-Stack-Traces-using-SFrame">
+<div class="header">
+<p>
+Next: <a href="Index.html" accesskey="n" rel="next">Index</a>, Previous: <a href="ABI_002farch_002dspecific-Definition.html" accesskey="p" rel="prev">ABI/arch-specific Definition</a>, Up: <a href="index.html" accesskey="u" rel="up">The SFrame format</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<span id="Generating-Stack-Traces-using-SFrame-1"></span><h2 class="appendix">Appendix A Generating Stack Traces using SFrame</h2>
+
+<p>Using some C-like pseudocode, this section highlights how SFrame provides a
+simple, fast and low-overhead mechanism to generate stack traces.  Needless to
+say that for generating accurate and useful stack traces, several other aspects
+will need attention: finding and decoding bits of SFrame section(s) in the
+program binary, symbolization of addresses, to name a few.
+</p>
+<p>In the current context, a <code>frame</code> is the abstract construct that
+encapsulates the following information:
+</p><ul class="no-bullet">
+<li>- program counter (PC),
+</li><li>- stack pointer (SP), and
+</li><li>- frame pointer (FP)
+</li></ul>
+
+<p>With that said, establishing the first <code>frame</code> should be trivial:
+</p>
+<div class="example">
+<pre class="example">    // frame 0
+    frame-&gt;pc = current_IP;
+    frame-&gt;sp = get_reg_value (REG_SP);
+    frame-&gt;fp = get_reg_value (REG_FP);
+</pre></div>
+
+<p>where <code>REG_SP</code> and <code>REG_FP</code> are are ABI-designated stack pointer and
+frame pointer registers respectively.
+</p>
+<p>Next, given frame N, generating stack trace needs us to get frame N+1.  This
+can be done as follows:
+</p>
+<div class="example">
+<pre class="example">     // Get the PC, SP, and FP for frame N.
+     pc = frame-&gt;pc;
+     sp = frame-&gt;sp;
+     fp = frame-&gt;fp;
+     // Populate frame N+1.
+     int err = get_next_frame (&amp;next_frame, pc, sp, fp);
+</pre></div>
+
+<p>where given the values of the program counter, stack pointer and frame pointer
+from frame N, <code>get_next_frame</code> populates the provided <code>next_frame</code>
+object and returns the error code, if any. In the following pseudocode for
+<code>get_next_frame</code>, the <code>sframe_*</code> functions fetch information from the
+SFrame section.
+</p>
+<div class="example">
+<pre class="example">    fre = sframe_find_fre (pc);
+    if (fre)
+        // Whether the base register for CFA tracking is REG_FP.
+        base_reg_val = sframe_fre_base_reg_fp_p (fre) ? fp : sp;
+        // Get the CFA stack offset from the FRE.
+        cfa_offset = sframe_fre_get_cfa_offset (fre);
+        // Get the fixed RA offset or FRE stack offset as applicable.
+        ra_offset = sframe_fre_get_ra_offset (fre);
+        // Get the fixed FP offset or FRE stack offset as applicable.
+        fp_offset = sframe_fre_get_fp_offset (fre);
+
+        cfa = base_reg_val + cfa_offset;
+        next_frame-&gt;sp = cfa;
+
+        ra_stack_loc = cfa + ra_offset;
+        // Get the address stored in the stack location.
+        next_frame-&gt;pc = read_value (ra_stack_loc);
+
+        if (fp_offset is VALID)
+            fp_stack_loc = cfa + fp_offset;
+            // Get the value stored in the stack location.
+            next_frame-&gt;fp = read_value (fp_stack_loc);
+        else
+            // Continue to use the value of fp as it has not
+            // been clobbered by the current frame yet.
+            next_frame-&gt;fp = fp;
+    else
+        ret = ERR_NO_SFRAME_FRE;
+</pre></div>
+
+</div>
+<hr>
+<div class="header">
+<p>
+Next: <a href="Index.html">Index</a>, Previous: <a href="ABI_002farch_002dspecific-Definition.html">ABI/arch-specific Definition</a>, Up: <a href="index.html">The SFrame format</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>
