@@ -1,6 +1,6 @@
 .. meta::
    :description: Source-level debugger for Linux, based on the GNU Debugger
-   :keywords: ROCgdb, ROCm, library, API, tool
+   :keywords: ROCgdb documentation, AMD ROCm Debugger documentation
 
 .. _index:
 
@@ -9,15 +9,24 @@ ROCgdb documentation
 ===========================
 
 The AMD ROCm Debugger (ROCgdb) is the AMD source-level debugger for Linux,
-based on the GNU Debugger (GDB). ROCgdb enables heterogeneous debugging on the
+based on the `GNU Debugger (GDB) <https://www.sourceware.org/gdb/documentation/>`_. ROCgdb enables heterogeneous debugging on the
 ROCm software that comprises of an x86-based host architecture along with
-commercially available AMDGPU architectures supported by the AMD Debugger API
-Library (ROCdbgapi). ROCdbgapi is included with the ROCm release.
+commercially available AMDGPU architectures supported by the `AMD Debugger API
+Library (ROCdbgapi) <rocdbgapi:index>`. ROCdbgapi is included with the ROCm release.
+
+ROCgdb provides the following features:
+
+- Debugs ROCm applications running on actual hardware
+- Debugs applications without the potential variations introduced by simulation and emulation environments
+- Offers a seamless debugging environment that allows simultaneous GPU and CPU code debugging within the same application, just like programming in HIP, which is a seamless extension of C++ programming
+- Additional features to support debugging ROCm device code on top of the existing GDB debugging features, which are inherently present for debugging the host code
+- Supports :doc:`HIP <hip:index>` kernel debugging
+- Allows you to set breakpoints, single-step ROCm applications, and inspect and modify the memory and variables of any given thread running on the hardware
 
 .. note::
     The current version of ROCgdb is an initial prototype that focuses on source line debugging and doesn't support symbolic variable debugging capabilities.
 
-You can access ROCgdb code on our `<https://github.com/ROCm/ROCgdb>`_.
+The code is open source and hosted at: https://github.com/ROCm/ROCgdb
 
 .. grid:: 2
   :gutter: 3
@@ -25,11 +34,6 @@ You can access ROCgdb code on our `<https://github.com/ROCm/ROCgdb>`_.
   .. grid-item-card:: Install
 
     * :ref:`installation`
-
-The documentation is structured as follows:
-    
-.. grid:: 2
-  :gutter: 3
 
   .. grid-item-card:: Tutorials
 
@@ -42,7 +46,7 @@ The documentation is structured as follows:
   .. grid-item-card:: Reference
 
     * |ROCgdb user guide|
-         
+
 To contribute to the documentation, refer to
 `Contributing to ROCm  <https://rocm.docs.amd.com/en/latest/contribute/contributing.html>`_.
 
