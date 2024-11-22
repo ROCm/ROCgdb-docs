@@ -1,5 +1,5 @@
 .. meta::
-   :description: Source-level debugger for Linux, based on the GNU Debugger
+   :description: Source-level debugger for Linux based on the GNU Debugger
    :keywords: ROCgdb documentation, AMD ROCm Debugger documentation
 
 .. _index:
@@ -35,15 +35,9 @@ The code is open source and hosted at: https://github.com/ROCm/ROCgdb
 
     * :ref:`installation`
 
-  .. grid-item-card:: Tutorials
+  .. grid-item-card:: How to
 
-    * :ref:`tutorial`
-
-  .. grid-item-card:: Conceptual
-
-    * :ref:`user-guide`
-
-  .. grid-item-card:: Reference
+    * :ref:`rocgdb-quick-start`
 
     * |ROCgdb user guide|
 
@@ -54,4 +48,4 @@ You can find licensing information on the `Licensing <https://rocm.docs.amd.com/
 
 .. |ROCgdb user guide| raw:: html
 
-   <a href="ROCgdb/gdb/doc/gdb/index.html" target="_blank">ROCgdb debugger manual</a>
+   <a href="ROCgdb/gdb/doc/gdb/index.html" target="_blank">ROCgdb user guide</a>

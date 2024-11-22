@@ -1,4 +1,4 @@
 # License
 
-```{include} ../../ROCgdb/gdb/COPYING
+```{include} ../ROCgdb/gdb/COPYING
 ```
