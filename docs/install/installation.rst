@@ -24,7 +24,7 @@ Prerequisites
 
 .. tab-set::
 
-   .. tab-item:: Ubuntu 20.04 and Ubuntu 22.04
+   .. tab-item:: Ubuntu 20.04/22.04
       :sync: ubuntu
 
       .. code-block:: shell
@@ -32,7 +32,7 @@ Prerequisites
         apt install bison flex gcc make ncurses-dev texinfo g++ zlib1g-dev \
         libexpat-dev python3-dev liblzma-dev libgmp-dev libmpfr-dev
 
-   .. tab-item:: CentOS 8.1, RHEL 8.1, and RHEL 9.1
+   .. tab-item:: CentOS 8.1 and RHEL 8.1/9.1
       :sync: rhel
 
       .. code-block:: shell
