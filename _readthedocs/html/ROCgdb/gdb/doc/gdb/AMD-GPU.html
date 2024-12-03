@@ -1398,6 +1398,27 @@ breakpoints will be removed and replaced by the correct ones.  This
 problem can be avoided by only setting breakpoints in unloaded code
 objects using symbol or function names.
 </p>
+<p>The <code>HIP_ENABLE_DEFERRED_LOADING</code> environment variable can be
+used to disable deferred code object loading by the HIP runtime.  This
+ensures all code objects will be loaded when the inferior reaches the
+beginning of the <code>main</code> function.
+</p>
+<p>For example,
+</p>
+<div class="example">
+<pre class="example">export HIP_ENABLE_DEFERRED_LOADING=0
+</pre></div>
+
+<p><em>Note:</em>  If deferred code object loading is disabled and the
+application performs a <code>fork</code>, then the program may crash.
+</p>
+<p><em>Note:</em>  Disabling code object loading can result in errors being
+reported when executing <small>ROCGDB</small> due to open file limitations when
+the application contains a large number of embedded device code
+objects.  With deferred code object loading enabled, only the device
+code objects actually invoked are loaded, and so <small>ROCGDB</small> opens
+fewer files.
+</p>
 </li><li> <small>ROCGDB</small> supports watchpoints, but limits the capabilities to the
 lowest common denominator of the heterogeneous agents in the system.
 Hardware supported watchpoints are used when possible, otherwise
