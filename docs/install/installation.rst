@@ -15,7 +15,7 @@ Prerequisites
 
 - A system supporting ROCm. See the `supported operating systems <https://rocm.docs.amd.com/projects/install-on-linux/en/latest/reference/system-requirements.html#supported-operating-systems>`_.
 
-- A C++17 compiler such as GCC 9 or Clang 5.
+- A C++17 compiler such as `GCC 9 <https://gcc.gnu.org/projects/cxx-status.html#cxx17>`_ or `Clang 5 <https://clang.llvm.org/cxx_status.html>`_.
 
 - AMD Debugger API Library (``ROCdbgapi``) that can be installed as part of the
   ROCm release using the ``rocm-dbgapi`` package.
