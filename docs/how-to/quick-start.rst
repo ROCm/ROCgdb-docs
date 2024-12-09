@@ -4,16 +4,16 @@
 
 .. _rocgdb-quick-start:
 
-*******************************************************************************
+*********************
 ROCgdb quick start
-*******************************************************************************
+*********************
 
 After :ref:`installing ROCgdb <rocgdb-installation>`, follow the :ref:`setup <rocgdb-setup>` to start debugging your application.
 
 .. _rocgdb-setup:
 
 Setup
-===============================================================================
+=======
 
 Before debugging, compile your software with debug information. To achieve this, add the ``-g`` flag to your
 compilation command. This generates debug information even when optimizations
@@ -21,7 +21,7 @@ are turned on. Note that higher optimization levels make debugging more difficul
 so it might be helpful to turn off these optimizations using the ``-O0`` compiler option.
 
 Debugging using ROCgdb
-===============================================================================
+========================
 
 To start debugging your application, follow these steps:
 
@@ -41,14 +41,14 @@ To start debugging your application, follow these steps:
 
     tbreak my_app.cpp:458
 
-   This places a breakpoint at the specified line. To start your application, use:
+   This places a temporary breakpoint at the specified line. To start your application, use:
 
    .. code-block:: shell
 
     run
 
    If the breakpoint is in the device code, the debugger shows the device and host
-   threads. The device threads are not individual threads; instead, they represent a
+   threads. The device threads are not individual work items; instead, they represent a
    wavefront on the device. You can switch between the device wavefronts as you can
    between the host threads.
 
@@ -59,7 +59,7 @@ To start debugging your application, follow these steps:
     layout src
     layout asm
 
-   The ``src`` layout is the source code view, while the ``asm`` is the assembly view. For more layouts, see `GDB documentation <https://www.sourceware.org/gdb/documentation/>`_.
+   The ``src`` layout is the source code view, while the ``asm`` is the assembly view. For more layouts, see `GDB documentation <https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/TUI-Commands.html>`_.
 
    .. code-block:: shell
 
@@ -77,19 +77,27 @@ To start debugging your application, follow these steps:
 
    .. code-block:: shell
 
+    next
+
+    # Alternatively you can use the shorthand
+
     n
 
 6. To dump the content of the current wavefront's registers, use:
 
    .. code-block:: shell
 
+    info registers
+
+    # Alternatively you can use the shorthand
+
     i r
 
-   The result of the preceding command is just the register dump, which is all-inclusive data
-   about the state of the current wavefront. This data is very difficult to parse.
+   The preceding command only dumps the general purpose registers, which is all-inclusive data
+   about the state of the current wavefront. To get data for all registers, use command ``info all-registers``.
 
 ROCgdb user guide
-========================
+===================
 
 The |ROCgdb user guide| provides detailed information about using ROCgdb.
 This user guide is also installed in the following directories when you :doc:`install ROCm <rocm-install-on-linux>`:

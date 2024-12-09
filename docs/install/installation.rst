@@ -1,6 +1,6 @@
 .. meta::
    :description: Source-level debugger for Linux, based on the GNU Debugger
-   :keywords: ROCgdb, ROCm, library, API, tool
+   :keywords: Install ROCgdb, Build ROCgdb, Install AMD ROCm Debugger, Build AMD ROCm Debugger
 
 .. _rocgdb-installation:
 
