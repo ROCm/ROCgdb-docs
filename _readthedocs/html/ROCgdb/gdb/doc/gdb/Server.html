@@ -26,7 +26,7 @@ the license.txt in the top-level directory for the library on
 Github.com).  The additional terms and conditions below apply to your use
 of AMD ROCm technical documentation.
 
-(C)2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
+(C)2019-2025 Advanced Micro Devices, Inc.  All rights reserved.
 
 The information presented in this document is for informational purposes only
 and may contain technical inaccuracies, omissions, and typographical errors.
@@ -506,21 +506,13 @@ of a multi-process mode debug session.
 <h4 class="subsection">21.3.4 Tracepoints support in <code>gdbserver</code></h4>
 <span id="index-tracepoints-support-in-gdbserver"></span>
 
-<p>On some targets, <code>gdbserver</code> supports tracepoints, fast
-tracepoints and static tracepoints.
+<p>On some targets, <code>gdbserver</code> supports tracepoints and fast
+tracepoints.
 </p>
-<p>For fast or static tracepoints to work, a special library called the
+<p>For fast tracepoints to work, a special library called the
 <em>in-process agent</em> (IPA), must be loaded in the inferior process.
 This library is built and distributed as an integral part of
-<code>gdbserver</code>.  In addition, support for static tracepoints
-requires building the in-process agent library with static tracepoints
-support.  At present, the UST (LTTng Userspace Tracer,
-<a href="http://lttng.org/ust">http://lttng.org/ust</a>) tracing engine is supported.  This support
-is automatically available if UST development headers are found in the
-standard include path when <code>gdbserver</code> is built, or if
-<code>gdbserver</code> was explicitly configured using <samp>--with-ust</samp>
-to point at such headers.  You can explicitly disable the support
-using <samp>--with-ust=no</samp>.
+<code>gdbserver</code>.
 </p>
 <p>There are several ways to load the in-process agent in your program:
 </p>

@@ -26,7 +26,7 @@ the license.txt in the top-level directory for the library on
 Github.com).  The additional terms and conditions below apply to your use
 of AMD ROCm technical documentation.
 
-(C)2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
+(C)2019-2025 Advanced Micro Devices, Inc.  All rights reserved.
 
 The information presented in this document is for informational purposes only
 and may contain technical inaccuracies, omissions, and typographical errors.
@@ -109,7 +109,7 @@ ul.no-bullet {list-style: none}
 <p>This is the Tenth Edition, of <cite>Debugging with
 <small>ROCGDB</small>: the <small>GNU</small> Source-Level Debugger</cite> for <small>ROCGDB</small>
 (GDB)
-Version 16.0.50.20241009-git.
+Version 17.0.50.20250115-git.
 </p>
 <p>Copyright &copy; 1988-2024 Free Software Foundation, Inc.
 </p>
@@ -134,7 +134,7 @@ the <samp>license.txt</samp> in the top-level directory for the library on
 <a href="Github.com">Github.com</a>).  The additional terms and conditions below apply to your use
 of AMD ROCm technical documentation.
 </p>
-<p>&copy;2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
+<p>&copy;2019-2025 Advanced Micro Devices, Inc.  All rights reserved.
 </p>
 <p>The information presented in this document is for informational purposes only
 and may contain technical inaccuracies, omissions, and typographical errors.
@@ -180,7 +180,7 @@ Next: <a href="Summary.html" accesskey="n" rel="next">Summary of <small>ROCGDB</
 </p>
 <p>This is the Tenth Edition, for <small>ROCGDB</small>
 (GDB)
-Version 16.0.50.20241009-git.
+Version 17.0.50.20250115-git.
 </p>
 <p>Copyright (C) 1988-2024 Free Software Foundation, Inc.
 </p>
@@ -497,6 +497,7 @@ software in general.  We will miss him.
     <li><a id="toc-Index-Files-Speed-Up-ROCGDB" href="Index-Files.html">18.5 Index Files Speed Up <small>ROCGDB</small></a>
     <ul class="no-bullet">
       <li><a id="toc-Automatic-symbol-index-cache" href="Index-Files.html#Automatic-symbol-index-cache">18.5.1 Automatic symbol index cache</a></li>
+      <li><a id="toc-Building-the-index-with-GNU-gold" href="Index-Files.html#Building-the-index-with-GNU-gold">18.5.2 Building the index with GNU <code>gold</code></a></li>
     </ul></li>
     <li><a id="toc-Extensions-to-_002edebug_005fnames" href="Debug-Names.html">18.6 Extensions to &lsquo;<samp>.debug_names</samp>&rsquo;</a></li>
     <li><a id="toc-Errors-Reading-Symbol-Files" href="Symbol-Errors.html">18.7 Errors Reading Symbol Files</a></li>
@@ -588,32 +589,31 @@ software in general.  We will miss him.
       <li><a id="toc-MIPS-1" href="MIPS.html">22.4.4 <acronym>MIPS</acronym></a></li>
       <li><a id="toc-HPPA-1" href="HPPA.html">22.4.5 HPPA</a></li>
       <li><a id="toc-PowerPC-1" href="PowerPC.html">22.4.6 PowerPC</a></li>
-      <li><a id="toc-Nios-II-1" href="Nios-II.html">22.4.7 Nios II</a></li>
-      <li><a id="toc-Sparc64-1" href="Sparc64.html">22.4.8 Sparc64</a>
+      <li><a id="toc-Sparc64-1" href="Sparc64.html">22.4.7 Sparc64</a>
       <ul class="no-bullet">
-        <li><a id="toc-ADI-Support" href="Sparc64.html#ADI-Support">22.4.8.1 ADI Support</a></li>
+        <li><a id="toc-ADI-Support" href="Sparc64.html#ADI-Support">22.4.7.1 ADI Support</a></li>
       </ul></li>
-      <li><a id="toc-S12Z-1" href="S12Z.html">22.4.9 S12Z</a></li>
-      <li><a id="toc-AMD-GPU-1" href="AMD-GPU.html">22.4.10 <acronym>AMD GPU</acronym></a>
+      <li><a id="toc-S12Z-1" href="S12Z.html">22.4.8 S12Z</a></li>
+      <li><a id="toc-AMD-GPU-1" href="AMD-GPU.html">22.4.9 <acronym>AMD GPU</acronym></a>
       <ul class="no-bullet">
-        <li><a id="toc-AMD-GPU-Architectures" href="AMD-GPU.html#AMD-GPU-Architectures">22.4.10.1 <acronym>AMD GPU</acronym> Architectures</a></li>
-        <li><a id="toc-AMD-ROCm-Source-Languages" href="AMD-GPU.html#AMD-ROCm-Source-Languages">22.4.10.2 <acronym>AMD ROCm</acronym> Source Languages</a></li>
-        <li><a id="toc-AMD-GPU-Device-Driver-and-AMD-ROCm-Runtime" href="AMD-GPU.html#AMD-GPU-Device-Driver-and-AMD-ROCm-Runtime">22.4.10.3 <acronym>AMD GPU</acronym> Device Driver and <acronym>AMD ROCm</acronym> Runtime</a></li>
-        <li><a id="toc-AMD-GPU-Heterogeneous-Agents" href="AMD-GPU.html#AMD-GPU-Heterogeneous-Agents">22.4.10.4 <acronym>AMD GPU</acronym> Heterogeneous Agents</a></li>
-        <li><a id="toc-AMD-GPU-Heterogeneous-Queues" href="AMD-GPU.html#AMD-GPU-Heterogeneous-Queues">22.4.10.5 <acronym>AMD GPU</acronym> Heterogeneous Queues</a></li>
-        <li><a id="toc-AMD-GPU-Heterogeneous-Dispatches" href="AMD-GPU.html#AMD-GPU-Heterogeneous-Dispatches">22.4.10.6 <acronym>AMD GPU</acronym> Heterogeneous Dispatches</a></li>
-        <li><a id="toc-AMD-GPU-Wavefronts" href="AMD-GPU.html#AMD-GPU-Wavefronts">22.4.10.7 <acronym>AMD GPU</acronym> Wavefronts</a></li>
-        <li><a id="toc-AMD-GPU-Registers" href="AMD-GPU.html#AMD-GPU-Registers">22.4.10.8 <acronym>AMD GPU</acronym> Registers</a></li>
-        <li><a id="toc-AMD-GPU-Code-Objects" href="AMD-GPU.html#AMD-GPU-Code-Objects">22.4.10.9 <acronym>AMD GPU</acronym> Code Objects</a></li>
-        <li><a id="toc-AMD-GPU-Heterogeneous-Entity-Target-Identifies-and-Convenience-Variables" href="AMD-GPU.html#AMD-GPU-Heterogeneous-Entity-Target-Identifies-and-Convenience-Variables">22.4.10.10 <acronym>AMD GPU</acronym> Heterogeneous Entity Target Identifies and Convenience Variables</a></li>
-        <li><a id="toc-AMD-GPU-Address-Spaces" href="AMD-GPU.html#AMD-GPU-Address-Spaces">22.4.10.11 <acronym>AMD GPU</acronym> Address Spaces</a></li>
-        <li><a id="toc-AMD-GPU-Signals-1" href="AMD-GPU.html#AMD-GPU-Signals-1">22.4.10.12 <acronym>AMD GPU</acronym> Signals</a></li>
-        <li><a id="toc-AMD-GPU-Memory-Violation-Reporting" href="AMD-GPU.html#AMD-GPU-Memory-Violation-Reporting">22.4.10.13 <acronym>AMD GPU</acronym> Memory Violation Reporting</a></li>
-        <li><a id="toc-AMD-GPU-ALU-Exception-Reporting" href="AMD-GPU.html#AMD-GPU-ALU-Exception-Reporting">22.4.10.14 <acronym>AMD GPU</acronym> ALU Exception Reporting</a></li>
-        <li><a id="toc-AMD-GPU-Logging" href="AMD-GPU.html#AMD-GPU-Logging">22.4.10.15 <acronym>AMD GPU</acronym> Logging</a></li>
-        <li><a id="toc-AMD-GPU-Version" href="AMD-GPU.html#AMD-GPU-Version">22.4.10.16 <acronym>AMD GPU</acronym> Version</a></li>
-        <li><a id="toc-AMD-GPU-core-dumps-1" href="AMD-GPU.html#AMD-GPU-core-dumps-1">22.4.10.17 <acronym>AMD GPU</acronym> core dumps</a></li>
-        <li><a id="toc-AMD-GPU-Restrictions" href="AMD-GPU.html#AMD-GPU-Restrictions">22.4.10.18 <acronym>AMD GPU</acronym> Restrictions</a></li>
+        <li><a id="toc-AMD-GPU-Architectures" href="AMD-GPU.html#AMD-GPU-Architectures">22.4.9.1 <acronym>AMD GPU</acronym> Architectures</a></li>
+        <li><a id="toc-AMD-ROCm-Source-Languages" href="AMD-GPU.html#AMD-ROCm-Source-Languages">22.4.9.2 <acronym>AMD ROCm</acronym> Source Languages</a></li>
+        <li><a id="toc-AMD-GPU-Device-Driver-and-AMD-ROCm-Runtime" href="AMD-GPU.html#AMD-GPU-Device-Driver-and-AMD-ROCm-Runtime">22.4.9.3 <acronym>AMD GPU</acronym> Device Driver and <acronym>AMD ROCm</acronym> Runtime</a></li>
+        <li><a id="toc-AMD-GPU-Heterogeneous-Agents" href="AMD-GPU.html#AMD-GPU-Heterogeneous-Agents">22.4.9.4 <acronym>AMD GPU</acronym> Heterogeneous Agents</a></li>
+        <li><a id="toc-AMD-GPU-Heterogeneous-Queues" href="AMD-GPU.html#AMD-GPU-Heterogeneous-Queues">22.4.9.5 <acronym>AMD GPU</acronym> Heterogeneous Queues</a></li>
+        <li><a id="toc-AMD-GPU-Heterogeneous-Dispatches" href="AMD-GPU.html#AMD-GPU-Heterogeneous-Dispatches">22.4.9.6 <acronym>AMD GPU</acronym> Heterogeneous Dispatches</a></li>
+        <li><a id="toc-AMD-GPU-Wavefronts" href="AMD-GPU.html#AMD-GPU-Wavefronts">22.4.9.7 <acronym>AMD GPU</acronym> Wavefronts</a></li>
+        <li><a id="toc-AMD-GPU-Registers" href="AMD-GPU.html#AMD-GPU-Registers">22.4.9.8 <acronym>AMD GPU</acronym> Registers</a></li>
+        <li><a id="toc-AMD-GPU-Code-Objects" href="AMD-GPU.html#AMD-GPU-Code-Objects">22.4.9.9 <acronym>AMD GPU</acronym> Code Objects</a></li>
+        <li><a id="toc-AMD-GPU-Heterogeneous-Entity-Target-Identifies-and-Convenience-Variables" href="AMD-GPU.html#AMD-GPU-Heterogeneous-Entity-Target-Identifies-and-Convenience-Variables">22.4.9.10 <acronym>AMD GPU</acronym> Heterogeneous Entity Target Identifies and Convenience Variables</a></li>
+        <li><a id="toc-AMD-GPU-Address-Spaces" href="AMD-GPU.html#AMD-GPU-Address-Spaces">22.4.9.11 <acronym>AMD GPU</acronym> Address Spaces</a></li>
+        <li><a id="toc-AMD-GPU-Signals-1" href="AMD-GPU.html#AMD-GPU-Signals-1">22.4.9.12 <acronym>AMD GPU</acronym> Signals</a></li>
+        <li><a id="toc-AMD-GPU-Memory-Violation-Reporting" href="AMD-GPU.html#AMD-GPU-Memory-Violation-Reporting">22.4.9.13 <acronym>AMD GPU</acronym> Memory Violation Reporting</a></li>
+        <li><a id="toc-AMD-GPU-ALU-Exception-Reporting" href="AMD-GPU.html#AMD-GPU-ALU-Exception-Reporting">22.4.9.14 <acronym>AMD GPU</acronym> ALU Exception Reporting</a></li>
+        <li><a id="toc-AMD-GPU-Logging" href="AMD-GPU.html#AMD-GPU-Logging">22.4.9.15 <acronym>AMD GPU</acronym> Logging</a></li>
+        <li><a id="toc-AMD-GPU-Version" href="AMD-GPU.html#AMD-GPU-Version">22.4.9.16 <acronym>AMD GPU</acronym> Version</a></li>
+        <li><a id="toc-AMD-GPU-core-dumps-1" href="AMD-GPU.html#AMD-GPU-core-dumps-1">22.4.9.17 <acronym>AMD GPU</acronym> core dumps</a></li>
+        <li><a id="toc-AMD-GPU-Restrictions" href="AMD-GPU.html#AMD-GPU-Restrictions">22.4.9.18 <acronym>AMD GPU</acronym> Restrictions</a></li>
       </ul></li>
     </ul></li>
   </ul></li>
@@ -691,12 +691,14 @@ software in general.  We will miss him.
         <li><a id="toc-Manipulating-breakpoints-using-Python" href="Breakpoints-In-Python.html">24.3.2.33 Manipulating breakpoints using Python</a></li>
         <li><a id="toc-Finish-Breakpoints" href="Finish-Breakpoints-in-Python.html">24.3.2.34 Finish Breakpoints</a></li>
         <li><a id="toc-Python-representation-of-lazy-strings" href="Lazy-Strings-In-Python.html">24.3.2.35 Python representation of lazy strings</a></li>
-        <li><a id="toc-Python-representation-of-architectures" href="Architectures-In-Python.html">24.3.2.36 Python representation of architectures</a></li>
-        <li><a id="toc-Registers-In-Python-1" href="Registers-In-Python.html">24.3.2.37 Registers In Python</a></li>
-        <li><a id="toc-Connections-In-Python-1" href="Connections-In-Python.html">24.3.2.38 Connections In Python</a></li>
-        <li><a id="toc-Implementing-new-TUI-windows" href="TUI-Windows-In-Python.html">24.3.2.39 Implementing new TUI windows</a></li>
-        <li><a id="toc-Instruction-Disassembly-In-Python" href="Disassembly-In-Python.html">24.3.2.40 Instruction Disassembly In Python</a></li>
-        <li><a id="toc-Missing-Debug-Info-In-Python-1" href="Missing-Debug-Info-In-Python.html">24.3.2.41 Missing Debug Info In Python</a></li>
+        <li><a id="toc-Python-representation-of-colors" href="Colors-In-Python.html">24.3.2.36 Python representation of colors</a></li>
+        <li><a id="toc-Python-representation-of-architectures" href="Architectures-In-Python.html">24.3.2.37 Python representation of architectures</a></li>
+        <li><a id="toc-Registers-In-Python-1" href="Registers-In-Python.html">24.3.2.38 Registers In Python</a></li>
+        <li><a id="toc-Connections-In-Python-1" href="Connections-In-Python.html">24.3.2.39 Connections In Python</a></li>
+        <li><a id="toc-Implementing-new-TUI-windows" href="TUI-Windows-In-Python.html">24.3.2.40 Implementing new TUI windows</a></li>
+        <li><a id="toc-Instruction-Disassembly-In-Python" href="Disassembly-In-Python.html">24.3.2.41 Instruction Disassembly In Python</a></li>
+        <li><a id="toc-Missing-Debug-Info-In-Python-1" href="Missing-Debug-Info-In-Python.html">24.3.2.42 Missing Debug Info In Python</a></li>
+        <li><a id="toc-Missing-Objfiles-In-Python-1" href="Missing-Objfiles-In-Python.html">24.3.2.43 Missing Objfiles In Python</a></li>
       </ul></li>
       <li><a id="toc-Python-Auto_002dloading-1" href="Python-Auto_002dloading.html">24.3.3 Python Auto-loading</a></li>
       <li><a id="toc-Python-modules-1" href="Python-modules.html">24.3.4 Python modules</a>
@@ -738,6 +740,7 @@ software in general.  We will miss him.
         <li><a id="toc-I_002fO-Ports-in-Guile-1" href="I_002fO-Ports-in-Guile.html">24.4.3.23 I/O Ports in Guile</a></li>
         <li><a id="toc-Memory-Ports-in-Guile-1" href="Memory-Ports-in-Guile.html">24.4.3.24 Memory Ports in Guile</a></li>
         <li><a id="toc-Iterators-In-Guile-1" href="Iterators-In-Guile.html">24.4.3.25 Iterators In Guile</a></li>
+        <li><a id="toc-Colors-In-Guile-1" href="Colors-In-Guile.html">24.4.3.26 Colors In Guile</a></li>
       </ul></li>
       <li><a id="toc-Guile-Auto_002dloading-1" href="Guile-Auto_002dloading.html">24.4.4 Guile Auto-loading</a></li>
       <li><a id="toc-Guile-Modules-1" href="Guile-Modules.html">24.4.5 Guile Modules</a>
@@ -1056,14 +1059,13 @@ software in general.  We will miss him.
       <li><a id="toc-MIPS-Features-1" href="MIPS-Features.html">G.5.7 <acronym>MIPS</acronym> Features</a></li>
       <li><a id="toc-M68K-Features-1" href="M68K-Features.html">G.5.8 M68K Features</a></li>
       <li><a id="toc-NDS32-Features-1" href="NDS32-Features.html">G.5.9 NDS32 Features</a></li>
-      <li><a id="toc-Nios-II-Features-1" href="Nios-II-Features.html">G.5.10 Nios II Features</a></li>
-      <li><a id="toc-Openrisc-1000-Features" href="OpenRISC-1000-Features.html">G.5.11 Openrisc 1000 Features</a></li>
-      <li><a id="toc-PowerPC-Features-1" href="PowerPC-Features.html">G.5.12 PowerPC Features</a></li>
-      <li><a id="toc-RISC_002dV-Features-1" href="RISC_002dV-Features.html">G.5.13 RISC-V Features</a></li>
-      <li><a id="toc-RX-Features-1" href="RX-Features.html">G.5.14 RX Features</a></li>
-      <li><a id="toc-S_002f390-and-System-z-Features-1" href="S_002f390-and-System-z-Features.html">G.5.15 S/390 and System z Features</a></li>
-      <li><a id="toc-Sparc-Features-1" href="Sparc-Features.html">G.5.16 Sparc Features</a></li>
-      <li><a id="toc-TMS320C6x-Features" href="TIC6x-Features.html">G.5.17 TMS320C6x Features</a></li>
+      <li><a id="toc-Openrisc-1000-Features" href="OpenRISC-1000-Features.html">G.5.10 Openrisc 1000 Features</a></li>
+      <li><a id="toc-PowerPC-Features-1" href="PowerPC-Features.html">G.5.11 PowerPC Features</a></li>
+      <li><a id="toc-RISC_002dV-Features-1" href="RISC_002dV-Features.html">G.5.12 RISC-V Features</a></li>
+      <li><a id="toc-RX-Features-1" href="RX-Features.html">G.5.13 RX Features</a></li>
+      <li><a id="toc-S_002f390-and-System-z-Features-1" href="S_002f390-and-System-z-Features.html">G.5.14 S/390 and System z Features</a></li>
+      <li><a id="toc-Sparc-Features-1" href="Sparc-Features.html">G.5.15 Sparc Features</a></li>
+      <li><a id="toc-TMS320C6x-Features" href="TIC6x-Features.html">G.5.16 TMS320C6x Features</a></li>
     </ul></li>
   </ul></li>
   <li><a id="toc-Operating-System-Information-1" href="Operating-System-Information.html">Appendix H Operating System Information</a>

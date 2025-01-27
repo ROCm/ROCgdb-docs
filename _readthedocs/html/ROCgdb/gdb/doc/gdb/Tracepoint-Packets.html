@@ -26,7 +26,7 @@ the license.txt in the top-level directory for the library on
 Github.com).  The additional terms and conditions below apply to your use
 of AMD ROCm technical documentation.
 
-(C)2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
+(C)2019-2025 Advanced Micro Devices, Inc.  All rights reserved.
 
 The information presented in this document is for informational purposes only
 and may contain technical inaccuracies, omissions, and typographical errors.
@@ -110,14 +110,15 @@ Next: <a href="Host-I_002fO-Packets.html" accesskey="n" rel="next">Host I/O Pack
 tracepoints (see <a href="Tracepoints.html">Tracepoints</a>).
 </p>
 <dl compact="compact">
-<dt id='index-QTDP-packet'><span>&lsquo;<samp>QTDP:<var>n</var>:<var>addr</var>:<var>ena</var>:<var>step</var>:<var>pass</var>[:F<var>flen</var>][:X<var>len</var>,<var>bytes</var>]<span class="roman">[</span>-<span class="roman">]</span></samp>&rsquo;<a href='#index-QTDP-packet' class='copiable-anchor'> &para;</a></span></dt>
+<dt id='index-QTDP-packet'><span>&lsquo;<samp>QTDP:<var>n</var>:<var>addr</var>:<var>ena</var>:<var>step</var>:<var>pass</var>[:F<var>flen</var>][:S][:X<var>len</var>,<var>bytes</var>]<span class="roman">[</span>-<span class="roman">]</span></samp>&rsquo;<a href='#index-QTDP-packet' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Create a new tracepoint, number <var>n</var>, at <var>addr</var>.  If <var>ena</var>
 is &lsquo;<samp>E</samp>&rsquo;, then the tracepoint is enabled; if it is &lsquo;<samp>D</samp>&rsquo;, then
 the tracepoint is disabled.  The <var>step</var> gives the tracepoint&rsquo;s step
 count, and <var>pass</var> gives its pass count.  If an &lsquo;<samp>F</samp>&rsquo; is present,
 then the tracepoint is to be a fast tracepoint, and the <var>flen</var> is
 the number of bytes that the target should copy elsewhere to make room
-for the tracepoint.  If an &lsquo;<samp>X</samp>&rsquo; is present, it introduces a
+for the tracepoint.  If an &lsquo;<samp>S</samp>&rsquo; is present, the tracepoint is to be
+a static tracepoint.  If an &lsquo;<samp>X</samp>&rsquo; is present, it introduces a
 tracepoint condition, which consists of a hexadecimal length, followed
 by a comma and hex-encoded bytes, in a manner similar to action
 encodings as described below.  If the trailing &lsquo;<samp>-</samp>&rsquo; is present,
@@ -180,6 +181,10 @@ it directs.  The agent expression <var>expr</var> is as described in
 two-digit hex number in the packet; <var>len</var> is the number of bytes
 in the expression (and thus one-half the number of hex digits in the
 packet).
+</p>
+</dd>
+<dt><span>&lsquo;<samp>L</samp>&rsquo;</span></dt>
+<dd><p>Collect static trace data.
 </p>
 </dd>
 </dl>
@@ -563,9 +568,9 @@ query), until the target responds with &lsquo;<samp>l</samp>&rsquo; (lower-case 
 </dd>
 <dt><span>&lsquo;<samp>qTSTMat:<var>address</var></samp>&rsquo;</span></dt>
 <dd><span id="qTSTMat"></span><span id="index-qTSTMat-packet"></span>
-<p>This packets requests data about static tracepoint markers in the
+<p>This packet requests data about static tracepoint markers in the
 target program at <var>address</var>.  Replies to this packet follow the
-syntax of the &lsquo;<samp>qTfSTM</samp>&rsquo; and <code>qTsSTM</code> packets that list static
+syntax of the <code>qTfSTM</code> and <code>qTsSTM</code> packets that list static
 tracepoint markers.
 </p>
 </dd>
