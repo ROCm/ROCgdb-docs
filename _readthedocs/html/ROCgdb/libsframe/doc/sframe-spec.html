@@ -3,7 +3,7 @@
 <!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright (C) 2021-2024 Free Software Foundation, Inc.
+<!-- Copyright (C) 2021-2025 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU General Public License, Version 3 or any
@@ -109,6 +109,12 @@ low-overhead mechanism to generate stack traces.
       <li><a id="toc-The-SFrame-FRE-Info-Word-1" href="#The-SFrame-FRE-Info-Word">2.4.1 The SFrame FRE Info Word</a></li>
     </ul></li>
   </ul></li>
+  <li><a id="toc-ABI_002farch_002dspecific-Definition-1" href="#ABI_002farch_002dspecific-Definition">3 ABI/arch-specific Definition</a>
+  <ul class="no-bullet">
+    <li><a id="toc-AMD64-1" href="#AMD64">3.1 AMD64</a></li>
+    <li><a id="toc-AArch64-1" href="#AArch64">3.2 AArch64</a></li>
+  </ul></li>
+  <li><a id="toc-Generating-Stack-Traces-using-SFrame-1" href="#Generating-Stack-Traces-using-SFrame">Appendix A Generating Stack Traces using SFrame</a></li>
   <li><a id="toc-Index-1" href="#Index" rel="index">Index</a></li>
 </ul>
 </div>
@@ -200,7 +206,7 @@ of 20 bytes instead of its size of 17 bytes in SFrame format version 1.
 <div class="chapter" id="SFrame-Section">
 <div class="header">
 <p>
-Next: <a href="#Index" accesskey="n" rel="next">Index</a>, Previous: <a href="#Introduction" accesskey="p" rel="prev">Introduction</a>, Up: <a href="#Top" accesskey="u" rel="up">The SFrame format</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Index" title="Index" rel="index">Index</a>]</p>
+Next: <a href="#ABI_002farch_002dspecific-Definition" accesskey="n" rel="next">ABI/arch-specific Definition</a>, Previous: <a href="#Introduction" accesskey="p" rel="prev">Introduction</a>, Up: <a href="#Top" accesskey="u" rel="up">The SFrame format</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Index" title="Index" rel="index">Index</a>]</p>
 </div>
 <span id="SFrame-Section-1"></span><h2 class="chapter">2 SFrame Section</h2>
 <span id="index-SFrame-Section"></span>
@@ -451,7 +457,7 @@ in the format.
 </table>
 
 <p>The presence of an explicit identification of ABI/arch in SFrame may allow
-stack trace generators to make certain ABI-specific decisions.
+stack trace generators to make certain ABI/arch-specific decisions.
 </p>
 <hr>
 </div>
@@ -645,36 +651,40 @@ Previous: <a href="#SFrame-Function-Descriptor-Entries" accesskey="p" rel="prev"
 <span id="index-SFrame-FRE"></span>
 
 <p>The SFrame frame row entry sub-section contains the core of the stack trace
-information.
+information.  An SFrame frame row entry (FRE) is a self-sufficient record
+containing SFrame stack trace information for a range of contiguous
+(instruction) addresses, starting at the specified offset from the start of the
+function.
 </p>
-<p>An SFrame frame row entry is a self-sufficient record containing SFrame stack
-trace information for a range of contiguous addresses, starting at the
-specified offset from the start of the function.  Each SFrame frame row entry
-is followed by S*N bytes, where:
-</p>
-<ul class="no-bullet">
-<li>- <code>S</code> is the size of the stack frame offset for the FRE, and
-</li><li>- <code>N</code> is the number of stack frame offsets in the FRE
-</li></ul>
-
-<p>The stack offsets, following the FRE, are interpreted in order as follows:
+<p>Each SFrame FRE encodes the stack offsets to recover the CFA, FP and RA (where
+applicable) for the respective instruction addresses.  To encode this
+information, each SFrame FRE is followed by S*N bytes, where:
 </p>
 <ul class="no-bullet">
-<li>- The first offset is always used to locate the CFA, by interpreting it as:
-CFA = <code>BASE_REG</code> + offset1.
-</li><li>- If RA is being tracked, the second offset is always used to locate the RA, by
-interpreting it as: RA = CFA + offset2.  If RA is <em>not</em> being tracked
-<em>and</em> FP is being tracked, the second offset will be used to locate the
-FP, by interpreting it as: FP = CFA + offset2.
-</li><li>- If both RA and FP are being tracked, the third offset will be used to locate
-the FP, by interpreting it as FP = CFA + offset3.
+<li>- <code>S</code> is the size of a stack offset for the FRE, and
+</li><li>- <code>N</code> is the number of stack offsets in the FRE
 </li></ul>
 
-<p>The entities <code>S</code>, <code>N</code> and <code>BASE_REG</code> are identified using the
-SFrame FRE info word, a.k.a. the <code>sframe_fre_info</code>
-See <a href="#The-SFrame-FRE-Info-Word">The SFrame FRE Info Word</a>.
+<p>The entities <code>S</code>, <code>N</code> are encoded in the SFrame FRE info word, via
+the <code>fre_offset_size</code> and the <code>fre_offset_count</code> respectively.  More
+information about the precise encoding and range of values for <code>S</code> and
+<code>N</code> is provided later in the See <a href="#The-SFrame-FRE-Info-Word">The SFrame FRE Info Word</a>.
 </p>
-<p>Following are the definitions of the allowed SFrame FRE:
+<span id="index-Provisions-for-future-ABIs-2"></span>
+<p>It is important to underline here that although the canonical interpretation
+of these bytes is as stack offsets (to recover CFA, FP and RA), these bytes
+<em>may</em> be used by future ABIs/architectures to convey other information on
+a per SFrame FRE basis.
+</p>
+<p>In summary, SFrame file format, by design, supports a variable number of stack
+offsets at the tail end of each SFrame FRE.  To keep the SFrame file
+format specification flexible yet extensible, the interpretation of the stack
+offsets is ABI/arch-specific.  The precise interpretation of the FRE stack
+offsets in the currently supported ABIs/architectures is covered in the
+ABI/arch-specific definition of the SFrame file format,
+See <a href="#ABI_002farch_002dspecific-Definition">ABI/arch-specific Definition</a>.
+</p>
+<p>Next, the definitions of the three SFrame FRE types are as follows:
 </p>
 <div class="example">
 <pre class="example">typedef struct sframe_frame_row_entry_addr1
@@ -711,7 +721,7 @@ SFrame FRE applies.  The value encoded in the <code>sfre_start_address</code> fi
 is the offset in bytes of the start address of the SFrame FRE, from the start
 address of the function.
 </p>
-<p>Further FRE types may be added in future.
+<p>Further SFrame FRE types may be added in future.
 </p>
 
 <span id="index-The-SFrame-FRE-Info-Word"></span>
@@ -735,7 +745,8 @@ Up: <a href="#SFrame-Frame-Row-Entries" accesskey="u" rel="up">SFrame FRE</a> &n
 SFRAME_FRE_OFFSET_1B, <br>
 SFRAME_FRE_OFFSET_2B, and <br>
 SFRAME_FRE_OFFSET_4B.</td></tr>
-<tr><td>1-4</td><td><code>fre_offset_count</code></td><td>A value of upto 3 is allowed to track all three of CFA, FP and RA.</td></tr>
+<tr><td>1-4</td><td><code>fre_offset_count</code></td><td>A max value of 15 is allowed.  Typically, a value of upto 3 is sufficient
+for most ABIs to track all three of CFA, FP and RA.</td></tr>
 <tr><td>0</td><td><code>fre_cfa_base_reg_id</code></td><td>Distinguish between SP or FP based CFA recovery.</td></tr>
 </table>
 
@@ -759,14 +770,196 @@ long.</td></tr>
 </div>
 </div>
 </div>
+<div class="chapter" id="ABI_002farch_002dspecific-Definition">
+<div class="header">
+<p>
+Next: <a href="#Generating-Stack-Traces-using-SFrame" accesskey="n" rel="next">Generating Stack Traces using SFrame</a>, Previous: <a href="#SFrame-Section" accesskey="p" rel="prev">SFrame Section</a>, Up: <a href="#Top" accesskey="u" rel="up">The SFrame format</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="ABI_002farch_002dspecific-Definition-1"></span><h2 class="chapter">3 ABI/arch-specific Definition</h2>
+<span id="index-ABI_002farch_002dspecific-Definition"></span>
+
+<p>This section covers the ABI/arch-specific definition of the SFrame file format.
+</p>
+<p>Currently, the only part of the SFrame file format definition that is
+ABI/arch-specific is the interpretation of the variable number of bytes at the
+tail end of each SFrame FRE.  Currently, these bytes are only used for
+representing stack offsets (for all the currently supported ABIs).  It is
+recommended to peruse this section along with See <a href="#SFrame-Frame-Row-Entries">SFrame FRE</a>
+for clarity of context.
+</p>
+<p>Future ABIs must specify the algorithm for identifying the appropriate SFrame
+FRE stack offsets in this chapter.  This should inevitably include the
+blueprint for interpreting the variable number of bytes at the tail end of the
+SFrame FRE for the specific ABI/arch. Any further provisions, e.g., using the
+auxiliary SFrame header, etc., if used, must also be outlined here.
+</p>
+
+<ul class="section-toc">
+<li><a href="#AMD64" accesskey="1">AMD64</a></li>
+<li><a href="#AArch64" accesskey="2">AArch64</a></li>
+</ul>
+<hr>
+<div class="section" id="AMD64">
+<div class="header">
+<p>
+Next: <a href="#AArch64" accesskey="n" rel="next">AArch64</a>, Up: <a href="#ABI_002farch_002dspecific-Definition" accesskey="u" rel="up">ABI/arch-specific Definition</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="AMD64-1"></span><h3 class="section">3.1 AMD64</h3>
+
+<p>Irrespective of the ABI, the first stack offset is always used to locate the
+CFA, by interpreting it as: CFA = <code>BASE_REG</code> + offset1.  The
+identification of the <code>BASE_REG</code> is done by using the
+<code>fre_cfa_base_reg_id</code> field in the SFrame FRE info word.
+</p>
+<p>In AMD64, the return address (RA) is always saved on stack when a function
+call is executed.  Further, AMD64 ABI mandates that the RA be saved at a
+<code>fixed offset</code> from the CFA when entering a new function.  This means
+that the RA does not need to be tracked per SFrame FRE.  The fixed offset is
+encoded in the SFrame file format in the field <code>sfh_cfa_fixed_ra_offset</code>
+in the SFrame header.  See <a href="#SFrame-Header">SFrame Header</a>.
+</p>
+<p>Hence, the second stack offset (in the SFrame FRE), when present, will be used
+to locate the FP, by interpreting it as: FP = CFA + offset2.
+</p>
+<p>Hence, in summary:
+</p>
+<table>
+<thead><tr><th>Offset ID</th><th>Interpretation in AMD64</th></tr></thead>
+<tr><td>1</td><td>CFA = <code>BASE_REG</code> + offset1</td></tr>
+<tr><td>2</td><td>FP = CFA + offset2</td></tr>
+</table>
+
+<hr>
+</div>
+<div class="section" id="AArch64">
+<div class="header">
+<p>
+Previous: <a href="#AMD64" accesskey="p" rel="prev">AMD64</a>, Up: <a href="#ABI_002farch_002dspecific-Definition" accesskey="u" rel="up">ABI/arch-specific Definition</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="AArch64-1"></span><h3 class="section">3.2 AArch64</h3>
+
+<p>Irrespective of the ABI, the first stack offset is always used to locate the
+CFA, by interpreting it as: CFA = <code>BASE_REG</code> + offset1.  The
+identification of the <code>BASE_REG</code> is done by using the
+<code>fre_cfa_base_reg_id</code> field in the SFrame FRE info word.
+</p>
+<p>In AARCH64, the AAPCS64 standard specifies that the Frame Record saves both FP
+and LR (a.k.a the RA).  However, the standard does not mandate the precise
+location in the function where the frame record is created, if at all.  Hence
+the need to track RA in the SFrame stack trace format.  As RA is being tracked
+in this ABI, the second stack offset is always used to locate the RA, by
+interpreting it as: RA = CFA + offset2. The third stack offset will be used to
+locate the FP, by interpreting it as: FP = CFA + offset3.
+</p>
+<p>Given the nature of things, the number of stack offsets seen on AARCH64 per
+SFrame FRE is either 1 or 3.
+</p>
+<p>Hence, in summary:
+</p>
+<table>
+<thead><tr><th>Offset ID</th><th>Interpretation in AArch64</th></tr></thead>
+<tr><td>1</td><td>CFA = <code>BASE_REG</code> + offset1</td></tr>
+<tr><td>2</td><td>RA = CFA + offset2</td></tr>
+<tr><td>3</td><td>FP = CFA + offset3</td></tr>
+</table>
+
+<hr>
+</div>
+</div>
+<div class="appendix" id="Generating-Stack-Traces-using-SFrame">
+<div class="header">
+<p>
+Next: <a href="#Index" accesskey="n" rel="next">Index</a>, Previous: <a href="#ABI_002farch_002dspecific-Definition" accesskey="p" rel="prev">ABI/arch-specific Definition</a>, Up: <a href="#Top" accesskey="u" rel="up">The SFrame format</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Generating-Stack-Traces-using-SFrame-1"></span><h2 class="appendix">Appendix A Generating Stack Traces using SFrame</h2>
+
+<p>Using some C-like pseudocode, this section highlights how SFrame provides a
+simple, fast and low-overhead mechanism to generate stack traces.  Needless to
+say that for generating accurate and useful stack traces, several other aspects
+will need attention: finding and decoding bits of SFrame section(s) in the
+program binary, symbolization of addresses, to name a few.
+</p>
+<p>In the current context, a <code>frame</code> is the abstract construct that
+encapsulates the following information:
+</p><ul class="no-bullet">
+<li>- program counter (PC),
+</li><li>- stack pointer (SP), and
+</li><li>- frame pointer (FP)
+</li></ul>
+
+<p>With that said, establishing the first <code>frame</code> should be trivial:
+</p>
+<div class="example">
+<pre class="example">    // frame 0
+    frame-&gt;pc = current_IP;
+    frame-&gt;sp = get_reg_value (REG_SP);
+    frame-&gt;fp = get_reg_value (REG_FP);
+</pre></div>
+
+<p>where <code>REG_SP</code> and <code>REG_FP</code> are are ABI-designated stack pointer and
+frame pointer registers respectively.
+</p>
+<p>Next, given frame N, generating stack trace needs us to get frame N+1.  This
+can be done as follows:
+</p>
+<div class="example">
+<pre class="example">     // Get the PC, SP, and FP for frame N.
+     pc = frame-&gt;pc;
+     sp = frame-&gt;sp;
+     fp = frame-&gt;fp;
+     // Populate frame N+1.
+     int err = get_next_frame (&amp;next_frame, pc, sp, fp);
+</pre></div>
+
+<p>where given the values of the program counter, stack pointer and frame pointer
+from frame N, <code>get_next_frame</code> populates the provided <code>next_frame</code>
+object and returns the error code, if any. In the following pseudocode for
+<code>get_next_frame</code>, the <code>sframe_*</code> functions fetch information from the
+SFrame section.
+</p>
+<div class="example">
+<pre class="example">    fre = sframe_find_fre (pc);
+    if (fre)
+        // Whether the base register for CFA tracking is REG_FP.
+        base_reg_val = sframe_fre_base_reg_fp_p (fre) ? fp : sp;
+        // Get the CFA stack offset from the FRE.
+        cfa_offset = sframe_fre_get_cfa_offset (fre);
+        // Get the fixed RA offset or FRE stack offset as applicable.
+        ra_offset = sframe_fre_get_ra_offset (fre);
+        // Get the fixed FP offset or FRE stack offset as applicable.
+        fp_offset = sframe_fre_get_fp_offset (fre);
+
+        cfa = base_reg_val + cfa_offset;
+        next_frame-&gt;sp = cfa;
+
+        ra_stack_loc = cfa + ra_offset;
+        // Get the address stored in the stack location.
+        next_frame-&gt;pc = read_value (ra_stack_loc);
+
+        if (fp_offset is VALID)
+            fp_stack_loc = cfa + fp_offset;
+            // Get the value stored in the stack location.
+            next_frame-&gt;fp = read_value (fp_stack_loc);
+        else
+            // Continue to use the value of fp as it has not
+            // been clobbered by the current frame yet.
+            next_frame-&gt;fp = fp;
+    else
+        ret = ERR_NO_SFRAME_FRE;
+</pre></div>
+
+<hr>
+</div>
 <div class="unnumbered" id="Index">
 <div class="header">
 <p>
-Previous: <a href="#SFrame-Section" accesskey="p" rel="prev">SFrame Section</a>, Up: <a href="#Top" accesskey="u" rel="up">The SFrame format</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Index" title="Index" rel="index">Index</a>]</p>
+Previous: <a href="#Generating-Stack-Traces-using-SFrame" accesskey="p" rel="prev">Generating Stack Traces using SFrame</a>, Up: <a href="#Top" accesskey="u" rel="up">The SFrame format</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Index" title="Index" rel="index">Index</a>]</p>
 </div>
 <span id="Index-1"></span><h2 class="unnumbered">Index</h2>
 
-<table><tr><th valign="top">Jump to: &nbsp; </th><td><a class="summary-letter" href="#Index_cp_letter-C"><b>C</b></a>
+<table><tr><th valign="top">Jump to: &nbsp; </th><td><a class="summary-letter" href="#Index_cp_letter-A"><b>A</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Index_cp_letter-C"><b>C</b></a>
  &nbsp; 
 <a class="summary-letter" href="#Index_cp_letter-E"><b>E</b></a>
  &nbsp; 
@@ -784,6 +977,9 @@ Previous: <a href="#SFrame-Section" accesskey="p" rel="prev">SFrame Section</a>,
 <table class="index-cp" border="0">
 <tr><td></td><th align="left">Index Entry</th><td>&nbsp;</td><th align="left"> Section</th></tr>
 <tr><td colspan="4"> <hr></td></tr>
+<tr><th id="Index_cp_letter-A">A</th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-ABI_002farch_002dspecific-Definition">ABI/arch-specific Definition</a>:</td><td>&nbsp;</td><td valign="top"><a href="#ABI_002farch_002dspecific-Definition">ABI/arch-specific Definition</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
 <tr><th id="Index_cp_letter-C">C</th><td></td><td></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Changes-from-Version-1-to-Version-2">Changes from Version 1 to Version 2</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Changes-from-Version-1-to-Version-2">Changes from Version 1 to Version 2</a></td></tr>
 <tr><td colspan="4"> <hr></td></tr>
@@ -799,6 +995,7 @@ Previous: <a href="#SFrame-Section" accesskey="p" rel="prev">SFrame Section</a>,
 <tr><th id="Index_cp_letter-P">P</th><td></td><td></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Provisions-for-future-ABIs">Provisions for future ABIs</a>:</td><td>&nbsp;</td><td valign="top"><a href="#SFrame-Header">SFrame Header</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Provisions-for-future-ABIs-1">Provisions for future ABIs</a>:</td><td>&nbsp;</td><td valign="top"><a href="#SFrame-Function-Descriptor-Entries">SFrame Function Descriptor Entries</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Provisions-for-future-ABIs-2">Provisions for future ABIs</a>:</td><td>&nbsp;</td><td valign="top"><a href="#SFrame-Frame-Row-Entries">SFrame Frame Row Entries</a></td></tr>
 <tr><td colspan="4"> <hr></td></tr>
 <tr><th id="Index_cp_letter-S">S</th><td></td><td></td></tr>
 <tr><td></td><td valign="top"><a href="#index-SFrame-ABI_002farch-Identifier">SFrame ABI/arch Identifier</a>:</td><td>&nbsp;</td><td valign="top"><a href="#SFrame-ABI_002farch-Identifier">SFrame ABI/arch Identifier</a></td></tr>
@@ -831,7 +1028,9 @@ Previous: <a href="#SFrame-Section" accesskey="p" rel="prev">SFrame Section</a>,
 <tr><td></td><td valign="top"><a href="#index-The-SFrame-FRE-Info-Word">The SFrame FRE Info Word</a>:</td><td>&nbsp;</td><td valign="top"><a href="#SFrame-Frame-Row-Entries">SFrame Frame Row Entries</a></td></tr>
 <tr><td colspan="4"> <hr></td></tr>
 </table>
-<table><tr><th valign="top">Jump to: &nbsp; </th><td><a class="summary-letter" href="#Index_cp_letter-C"><b>C</b></a>
+<table><tr><th valign="top">Jump to: &nbsp; </th><td><a class="summary-letter" href="#Index_cp_letter-A"><b>A</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Index_cp_letter-C"><b>C</b></a>
  &nbsp; 
 <a class="summary-letter" href="#Index_cp_letter-E"><b>E</b></a>
  &nbsp; 

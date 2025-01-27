@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the BFD library.
 
-Copyright (C) 1991-2024 Free Software Foundation, Inc.
+Copyright (C) 1991-2025 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -286,7 +286,7 @@ to the rest of the data.
   unsigned int read_only : 1;
 
   /* LTO object type.  */
-  ENUM_BITFIELD (bfd_lto_object_type) lto_type : 2;
+  ENUM_BITFIELD (bfd_lto_object_type) lto_type : 3;
 
   /* Set if this BFD is currently being processed by
      bfd_check_format_matches.  This is checked by the cache to
@@ -317,6 +317,9 @@ to the rest of the data.
 
   /* The last section on the section list.  */
   struct bfd_section *section_last;
+
+  /* The object-only section on the section list.  */
+  struct bfd_section *object_only_section;
 
   /* The number of sections.  */
   unsigned int section_count;

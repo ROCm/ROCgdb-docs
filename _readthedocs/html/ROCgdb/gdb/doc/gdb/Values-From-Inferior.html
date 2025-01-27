@@ -26,7 +26,7 @@ the license.txt in the top-level directory for the library on
 Github.com).  The additional terms and conditions below apply to your use
 of AMD ROCm technical documentation.
 
-(C)2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
+(C)2019-2025 Advanced Micro Devices, Inc.  All rights reserved.
 
 The information presented in this document is for informational purposes only
 and may contain technical inaccuracies, omissions, and typographical errors.
@@ -513,7 +513,7 @@ refer to, <code>False</code> (the default) if they shouldn&rsquo;t.  Note that, 
 for the <code>print</code> command, references are not automatically expanded
 when using the <code>format_string</code> method or the <code>str</code>
 function.  There is no global <code>print</code> setting to change the default
-behaviour.
+behavior.
 </p>
 </dd>
 <dt><span><code>actual_objects</code></span></dt>
@@ -624,8 +624,10 @@ fetched and converted to the given length.
 
 <dl class="def">
 <dt id="index-Value_002elazy_005fstring"><span class="category">Function: </span><span><strong>Value.lazy_string</strong> <em>(<span class="roman">[</span>encoding <span class="roman">[</span>, length<span class="roman">]]</span>)</em><a href='#index-Value_002elazy_005fstring' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>If this <code>gdb.Value</code> represents a string, then this method
-converts the contents to a <code>gdb.LazyString</code> (see <a href="Lazy-Strings-In-Python.html">Python representation of lazy strings</a>).  Otherwise, this method will throw an exception.
+<dd><p>This method attempts to convert this <code>gdb.Value</code> to a
+<code>gdb.LazyString</code> (see <a href="Lazy-Strings-In-Python.html">Python representation of lazy strings</a>).  Values of
+array or pointer type can be converted; for other types, this method
+will throw an exception.
 </p>
 <p>If the optional <var>encoding</var> argument is given, it must be a string
 naming the encoding of the <code>gdb.LazyString</code>.  Some examples are:
