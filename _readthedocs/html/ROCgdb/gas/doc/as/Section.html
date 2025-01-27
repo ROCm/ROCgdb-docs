@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the GNU Assembler "as".
 
-Copyright (C) 1991-2024 Free Software Foundation, Inc.
+Copyright (C) 1991-2025 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -290,17 +290,18 @@ ARM) then another character is used instead.  For example the ARM port uses the
 special and have fixed types.  Any attempt to declare them with a different
 type will generate an error from the assembler.
 </p>
-<p>If <var>flags</var> contains the <code>M</code> symbol then the <var>type</var> argument must
-be specified as well as an extra argument&mdash;<var>entsize</var>&mdash;like this:
+<p>If <var>flags</var> contains the <code>M</code> and/or <code>S</code> symbol then the <var>type</var>
+argument must be specified as well as an extra argument&mdash;<var>entsize</var>&mdash;like
+this:
 </p>
 <div class="example">
 <pre class="example">.section <var>name</var> , &quot;<var>flags</var>&quot;M, @<var>type</var>, <var>entsize</var>
 </pre></div>
 
 <p>Sections with the <code>M</code> flag but not <code>S</code> flag must contain fixed size
-constants, each <var>entsize</var> octets long. Sections with both <code>M</code> and
-<code>S</code> must contain zero terminated strings where each character is
-<var>entsize</var> bytes long. The linker may remove duplicates within sections with
+constants, each <var>entsize</var> octets long. Sections with <code>S</code> must contain
+zero terminated strings where each character is <var>entsize</var> bytes long. For
+<code>M</code> sections the linker may remove duplicates within sections with
 the same name, same entity size and same flags.  <var>entsize</var> must be an
 absolute expression.  For sections with both <code>M</code> and <code>S</code>, a string
 which is a suffix of a larger string is considered a duplicate.  Thus
@@ -320,8 +321,8 @@ is not generally a good idea as section indices are rarely known at assembly
 time, but the facility is provided for testing purposes.  An index of zero is
 allowed.  It indicates that the linked-to section has already been discarded.
 </p>
-<p>Note: If both the <var>M</var> and <var>o</var> flags are present, then the fields
-for the Merge flag should come first, like this:
+<p>Note: If both one of <var>M</var> or <var>S</var> and <var>o</var> flags are present, then the
+fields for the Merge/String flag should come first, like this:
 </p>
 <div class="example">
 <pre class="example">.section <var>name</var>,&quot;<var>flags</var>&quot;Mo,@<var>type</var>,<var>entsize</var>,<var>SymbolName</var>
@@ -346,8 +347,8 @@ particular section belongs.  The optional linkage field can contain:
 </p></dd>
 </dl>
 
-<p>Note: if both the <var>M</var> and <var>G</var> flags are present then the fields for
-the Merge flag should come first, like this:
+<p>Note: Uf both one of <var>M</var> or <var>S</var> and <var>G</var> flags are present then the
+fields for the Merge/String flag should come first, like this:
 </p>
 <div class="example">
 <pre class="example">.section <var>name</var> , &quot;<var>flags</var>&quot;MG, @<var>type</var>, <var>entsize</var>, <var>GroupName</var>[, <var>linkage</var>]
