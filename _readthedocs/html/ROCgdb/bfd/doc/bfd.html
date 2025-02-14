@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the BFD library.
 
-Copyright (C) 1991-2025 Free Software Foundation, Inc.
+Copyright (C) 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -610,7 +610,7 @@ to the rest of the data.
   unsigned int read_only : 1;
 
   /* LTO object type.  */
-  ENUM_BITFIELD (bfd_lto_object_type) lto_type : 3;
+  ENUM_BITFIELD (bfd_lto_object_type) lto_type : 2;
 
   /* Set if this BFD is currently being processed by
      bfd_check_format_matches.  This is checked by the cache to
@@ -641,9 +641,6 @@ to the rest of the data.
 
   /* The last section on the section list.  */
   struct bfd_section *section_last;
-
-  /* The object-only section on the section list.  */
-  struct bfd_section *object_only_section;
 
   /* The number of sections.  */
   unsigned int section_count;
@@ -816,7 +813,8 @@ bfd_error_type;
 <li><a href="#bfd_005fset_005finput_005ferror" accesskey="3"><code>bfd_set_input_error</code></a></li>
 <li><a href="#bfd_005ferrmsg" accesskey="4"><code>bfd_errmsg</code></a></li>
 <li><a href="#bfd_005fperror" accesskey="5"><code>bfd_perror</code></a></li>
-<li><a href="#bfd_005fasprintf" accesskey="6"><code>bfd_asprintf</code></a></li>
+<li><a href="#g_t_005fbfd_005fclear_005ferror_005fdata" accesskey="6"><code>_bfd_clear_error_data</code></a></li>
+<li><a href="#bfd_005fasprintf" accesskey="7"><code>bfd_asprintf</code></a></li>
 </ul>
 <div class="subsubsection" id="bfd_005fget_005ferror">
 <h4 class="subsubsection">2.2.1.1 <code>bfd_get_error</code></h4>
@@ -871,10 +869,19 @@ is non-NULL and non-empty, the error string printed is preceded
 by <var>message</var>, a colon, and a space.  It is followed by a newline.
 </p>
 </dd></dl>
+<span id="index-_005fbfd_005fclear_005ferror_005fdata"></span>
+</div>
+<div class="subsubsection" id="g_t_005fbfd_005fclear_005ferror_005fdata">
+<h4 class="subsubsection">2.2.1.6 <code>_bfd_clear_error_data</code></h4>
+<dl class="def">
+<dt id="index-_005fbfd_005fclear_005ferror_005fdata-1"><span class="category">Function: </span><span><em>void</em> <strong>_bfd_clear_error_data</strong> <em>(void);</em><a href='#index-_005fbfd_005fclear_005ferror_005fdata-1' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Free any data associated with the BFD error.
+</p>
+</dd></dl>
 <span id="index-bfd_005fasprintf"></span>
 </div>
 <div class="subsubsection" id="bfd_005fasprintf">
-<h4 class="subsubsection">2.2.1.6 <code>bfd_asprintf</code></h4>
+<h4 class="subsubsection">2.2.1.7 <code>bfd_asprintf</code></h4>
 <dl class="def">
 <dt id="index-_002abfd_005fasprintf"><span class="category">Function: </span><span><em>char</em> <strong>*bfd_asprintf</strong> <em>(const char *fmt, ...);</em><a href='#index-_002abfd_005fasprintf' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Primarily for error reporting, this function is like
@@ -1081,25 +1088,15 @@ to work on different BFD objects at the same time.
 <div class="example">
 <pre class="example">typedef bool (*bfd_lock_unlock_fn_type) (void *);
 </pre></div>
-<span id="index-_005fbfd_005fthreading_005fenabled"></span>
-<ul class="section-toc">
-<li><a href="#g_t_005fbfd_005fthreading_005fenabled" accesskey="1"><code>_bfd_threading_enabled</code></a></li>
-<li><a href="#bfd_005fthread_005finit" accesskey="2"><code>bfd_thread_init</code></a></li>
-<li><a href="#bfd_005fthread_005fcleanup" accesskey="3"><code>bfd_thread_cleanup</code></a></li>
-<li><a href="#bfd_005flock" accesskey="4"><code>bfd_lock</code></a></li>
-<li><a href="#bfd_005funlock" accesskey="5"><code>bfd_unlock</code></a></li>
-</ul>
-<div class="subsubsection" id="g_t_005fbfd_005fthreading_005fenabled">
-<h4 class="subsubsection">2.3.1.1 <code>_bfd_threading_enabled</code></h4>
-<dl class="def">
-<dt id="index-_005fbfd_005fthreading_005fenabled-1"><span class="category">Function: </span><span><em>bool</em> <strong>_bfd_threading_enabled</strong> <em>(void);</em><a href='#index-_005fbfd_005fthreading_005fenabled-1' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Return true if threading is enabled, false if not.
-</p>
-</dd></dl>
 <span id="index-bfd_005fthread_005finit"></span>
-</div>
+<ul class="section-toc">
+<li><a href="#bfd_005fthread_005finit" accesskey="1"><code>bfd_thread_init</code></a></li>
+<li><a href="#bfd_005fthread_005fcleanup" accesskey="2"><code>bfd_thread_cleanup</code></a></li>
+<li><a href="#bfd_005flock" accesskey="3"><code>bfd_lock</code></a></li>
+<li><a href="#bfd_005funlock" accesskey="4"><code>bfd_unlock</code></a></li>
+</ul>
 <div class="subsubsection" id="bfd_005fthread_005finit">
-<h4 class="subsubsection">2.3.1.2 <code>bfd_thread_init</code></h4>
+<h4 class="subsubsection">2.3.1.1 <code>bfd_thread_init</code></h4>
 <dl class="def">
 <dt id="index-bfd_005fthread_005finit-1"><span class="category">Function: </span><span><em>bool</em> <strong>bfd_thread_init</strong> <em>(bfd_lock_unlock_fn_type lock, bfd_lock_unlock_fn_type unlock, void *data);</em><a href='#index-bfd_005fthread_005finit-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Initialize BFD threading.  The functions passed in will be
@@ -1108,15 +1105,13 @@ be called a single time in a given process.  Returns true on
 success and false on error.  DATA is passed verbatim to the
 lock and unlock functions.  The lock and unlock functions
 should return true on success, or set the BFD error and return
-false on failure.  Note also that the lock must be a recursive
-lock: BFD may attempt to acquire the lock when it is already
-held by the current thread.
+false on failure.
 </p>
 </dd></dl>
 <span id="index-bfd_005fthread_005fcleanup"></span>
 </div>
 <div class="subsubsection" id="bfd_005fthread_005fcleanup">
-<h4 class="subsubsection">2.3.1.3 <code>bfd_thread_cleanup</code></h4>
+<h4 class="subsubsection">2.3.1.2 <code>bfd_thread_cleanup</code></h4>
 <dl class="def">
 <dt id="index-bfd_005fthread_005fcleanup-1"><span class="category">Function: </span><span><em>void</em> <strong>bfd_thread_cleanup</strong> <em>(void);</em><a href='#index-bfd_005fthread_005fcleanup-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Clean up any thread-local state.  This should be called by a
@@ -1128,7 +1123,7 @@ later call BFD functions on the same thread again.
 <span id="index-bfd_005flock"></span>
 </div>
 <div class="subsubsection" id="bfd_005flock">
-<h4 class="subsubsection">2.3.1.4 <code>bfd_lock</code></h4>
+<h4 class="subsubsection">2.3.1.3 <code>bfd_lock</code></h4>
 <dl class="def">
 <dt id="index-bfd_005flock-1"><span class="category">Function: </span><span><em>bool</em> <strong>bfd_lock</strong> <em>(void);</em><a href='#index-bfd_005flock-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Acquire the global BFD lock, if needed.  Returns true on
@@ -1138,7 +1133,7 @@ success, false on error.
 <span id="index-bfd_005funlock"></span>
 </div>
 <div class="subsubsection" id="bfd_005funlock">
-<h4 class="subsubsection">2.3.1.5 <code>bfd_unlock</code></h4>
+<h4 class="subsubsection">2.3.1.4 <code>bfd_unlock</code></h4>
 <dl class="def">
 <dt id="index-bfd_005funlock-1"><span class="category">Function: </span><span><em>bool</em> <strong>bfd_unlock</strong> <em>(void);</em><a href='#index-bfd_005funlock-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Release the global BFD lock, if needed.  Returns true on
@@ -1188,7 +1183,6 @@ Next: <a href="#Memory-Usage" accesskey="n" rel="next">Memory Usage</a>, Previou
 <li><a href="#bfd_005femul_005fget_005fmaxpagesize"><code>bfd_emul_get_maxpagesize</code></a></li>
 <li><a href="#bfd_005femul_005fget_005fcommonpagesize"><code>bfd_emul_get_commonpagesize</code></a></li>
 <li><a href="#bfd_005fdemangle"><code>bfd_demangle</code></a></li>
-<li><a href="#bfd_005fgroup_005fsignature"><code>bfd_group_signature</code></a></li>
 <li><a href="#struct-bfd_005fiovec"><code>struct bfd_iovec</code></a></li>
 <li><a href="#bfd_005fread"><code>bfd_read</code></a></li>
 <li><a href="#bfd_005fwrite"><code>bfd_write</code></a></li>
@@ -1597,19 +1591,10 @@ with malloc holding the demangled name.  Returns NULL otherwise
 and on memory alloc failure.
 </p>
 </dd></dl>
-<span id="index-bfd_005fgroup_005fsignature"></span>
-</div>
-<div class="subsubsection" id="bfd_005fgroup_005fsignature">
-<h4 class="subsubsection">2.4.1.23 <code>bfd_group_signature</code></h4>
-<dl class="def">
-<dt id="index-_002abfd_005fgroup_005fsignature"><span class="category">Function: </span><span><em>asymbol</em> <strong>*bfd_group_signature</strong> <em>(asection *group, asymbol **isympp);</em><a href='#index-_002abfd_005fgroup_005fsignature' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Return a pointer to the symbol used as a signature for GROUP.
-</p>
-</dd></dl>
 <span id="index-struct-bfd_005fiovec"></span>
 </div>
 <div class="subsubsection" id="struct-bfd_005fiovec">
-<h4 class="subsubsection">2.4.1.24 <code>struct bfd_iovec</code></h4>
+<h4 class="subsubsection">2.4.1.23 <code>struct bfd_iovec</code></h4>
 <p>The <code>struct bfd_iovec</code> contains the internal file I/O class.
 Each <code>BFD</code> has an instance of this class and all file I/O is
 routed through it (it is assumed that the instance implements
@@ -1652,7 +1637,7 @@ extern const struct bfd_iovec _bfd_memory_iovec;
 <span id="index-bfd_005fread"></span>
 </div>
 <div class="subsubsection" id="bfd_005fread">
-<h4 class="subsubsection">2.4.1.25 <code>bfd_read</code></h4>
+<h4 class="subsubsection">2.4.1.24 <code>bfd_read</code></h4>
 <dl class="def">
 <dt id="index-bfd_005fread-1"><span class="category">Function: </span><span><em>bfd_size_type</em> <strong>bfd_read</strong> <em>(void *, bfd_size_type, bfd *) ATTRIBUTE_WARN_UNUSED_RESULT;</em><a href='#index-bfd_005fread-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Attempt to read SIZE bytes from ABFD&rsquo;s iostream to PTR.
@@ -1662,7 +1647,7 @@ Return the amount read.
 <span id="index-bfd_005fwrite"></span>
 </div>
 <div class="subsubsection" id="bfd_005fwrite">
-<h4 class="subsubsection">2.4.1.26 <code>bfd_write</code></h4>
+<h4 class="subsubsection">2.4.1.25 <code>bfd_write</code></h4>
 <dl class="def">
 <dt id="index-bfd_005fwrite-1"><span class="category">Function: </span><span><em>bfd_size_type</em> <strong>bfd_write</strong> <em>(const void *, bfd_size_type, bfd *) ATTRIBUTE_WARN_UNUSED_RESULT;</em><a href='#index-bfd_005fwrite-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Attempt to write SIZE bytes to ABFD&rsquo;s iostream from PTR.
@@ -1672,7 +1657,7 @@ Return the amount written.
 <span id="index-bfd_005ftell"></span>
 </div>
 <div class="subsubsection" id="bfd_005ftell">
-<h4 class="subsubsection">2.4.1.27 <code>bfd_tell</code></h4>
+<h4 class="subsubsection">2.4.1.26 <code>bfd_tell</code></h4>
 <dl class="def">
 <dt id="index-bfd_005ftell-1"><span class="category">Function: </span><span><em>file_ptr</em> <strong>bfd_tell</strong> <em>(bfd *) ATTRIBUTE_WARN_UNUSED_RESULT;</em><a href='#index-bfd_005ftell-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Return ABFD&rsquo;s iostream file position.
@@ -1681,7 +1666,7 @@ Return the amount written.
 <span id="index-bfd_005fflush"></span>
 </div>
 <div class="subsubsection" id="bfd_005fflush">
-<h4 class="subsubsection">2.4.1.28 <code>bfd_flush</code></h4>
+<h4 class="subsubsection">2.4.1.27 <code>bfd_flush</code></h4>
 <dl class="def">
 <dt id="index-bfd_005fflush-1"><span class="category">Function: </span><span><em>int</em> <strong>bfd_flush</strong> <em>(bfd *);</em><a href='#index-bfd_005fflush-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Flush ABFD&rsquo;s iostream pending IO.
@@ -1690,7 +1675,7 @@ Return the amount written.
 <span id="index-bfd_005fstat"></span>
 </div>
 <div class="subsubsection" id="bfd_005fstat">
-<h4 class="subsubsection">2.4.1.29 <code>bfd_stat</code></h4>
+<h4 class="subsubsection">2.4.1.28 <code>bfd_stat</code></h4>
 <dl class="def">
 <dt id="index-bfd_005fstat-1"><span class="category">Function: </span><span><em>int</em> <strong>bfd_stat</strong> <em>(bfd *, struct stat *) ATTRIBUTE_WARN_UNUSED_RESULT;</em><a href='#index-bfd_005fstat-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Call fstat on ABFD&rsquo;s iostream.  Return 0 on success, and a
@@ -1700,7 +1685,7 @@ negative value on failure.
 <span id="index-bfd_005fseek"></span>
 </div>
 <div class="subsubsection" id="bfd_005fseek">
-<h4 class="subsubsection">2.4.1.30 <code>bfd_seek</code></h4>
+<h4 class="subsubsection">2.4.1.29 <code>bfd_seek</code></h4>
 <dl class="def">
 <dt id="index-bfd_005fseek-1"><span class="category">Function: </span><span><em>int</em> <strong>bfd_seek</strong> <em>(bfd *, file_ptr, int) ATTRIBUTE_WARN_UNUSED_RESULT;</em><a href='#index-bfd_005fseek-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Call fseek on ABFD&rsquo;s iostream.  Return 0 on success, and a
@@ -1710,7 +1695,7 @@ negative value on failure.
 <span id="index-bfd_005fget_005fmtime"></span>
 </div>
 <div class="subsubsection" id="bfd_005fget_005fmtime">
-<h4 class="subsubsection">2.4.1.31 <code>bfd_get_mtime</code></h4>
+<h4 class="subsubsection">2.4.1.30 <code>bfd_get_mtime</code></h4>
 <dl class="def">
 <dt id="index-bfd_005fget_005fmtime-1"><span class="category">Function: </span><span><em>long</em> <strong>bfd_get_mtime</strong> <em>(bfd *abfd);</em><a href='#index-bfd_005fget_005fmtime-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Return the file modification time (as read from the file system, or
@@ -1720,7 +1705,7 @@ from the archive header for archive members).
 <span id="index-bfd_005fget_005fsize"></span>
 </div>
 <div class="subsubsection" id="bfd_005fget_005fsize">
-<h4 class="subsubsection">2.4.1.32 <code>bfd_get_size</code></h4>
+<h4 class="subsubsection">2.4.1.31 <code>bfd_get_size</code></h4>
 <dl class="def">
 <dt id="index-bfd_005fget_005fsize-1"><span class="category">Function: </span><span><em>ufile_ptr</em> <strong>bfd_get_size</strong> <em>(bfd *abfd);</em><a href='#index-bfd_005fget_005fsize-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Return the file size (as read from file system) for the file
@@ -1753,7 +1738,7 @@ size reasonable?&quot;.
 <span id="index-bfd_005fget_005ffile_005fsize"></span>
 </div>
 <div class="subsubsection" id="bfd_005fget_005ffile_005fsize">
-<h4 class="subsubsection">2.4.1.33 <code>bfd_get_file_size</code></h4>
+<h4 class="subsubsection">2.4.1.32 <code>bfd_get_file_size</code></h4>
 <dl class="def">
 <dt id="index-bfd_005fget_005ffile_005fsize-1"><span class="category">Function: </span><span><em>ufile_ptr</em> <strong>bfd_get_file_size</strong> <em>(bfd *abfd);</em><a href='#index-bfd_005fget_005ffile_005fsize-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Return the file size (as read from file system) for the file
@@ -1764,7 +1749,7 @@ and archive elements.
 <span id="index-bfd_005fmmap"></span>
 </div>
 <div class="subsubsection" id="bfd_005fmmap">
-<h4 class="subsubsection">2.4.1.34 <code>bfd_mmap</code></h4>
+<h4 class="subsubsection">2.4.1.33 <code>bfd_mmap</code></h4>
 <dl class="def">
 <dt id="index-_002abfd_005fmmap"><span class="category">Function: </span><span><em>void</em> <strong>*bfd_mmap</strong> <em>(bfd *abfd, void *addr, size_t len, int prot, int flags, file_ptr offset, void **map_addr, size_t *map_len) ATTRIBUTE_WARN_UNUSED_RESULT;</em><a href='#index-_002abfd_005fmmap' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Return mmap()ed region of the file, if possible and implemented.
@@ -1775,7 +1760,7 @@ address and length are written to MAP_ADDR and MAP_LEN.
 <span id="index-bfd_005fget_005fcurrent_005ftime"></span>
 </div>
 <div class="subsubsection" id="bfd_005fget_005fcurrent_005ftime">
-<h4 class="subsubsection">2.4.1.35 <code>bfd_get_current_time</code></h4>
+<h4 class="subsubsection">2.4.1.34 <code>bfd_get_current_time</code></h4>
 <dl class="def">
 <dt id="index-bfd_005fget_005fcurrent_005ftime-1"><span class="category">Function: </span><span><em>time_t</em> <strong>bfd_get_current_time</strong> <em>(time_t now);</em><a href='#index-bfd_005fget_005fcurrent_005ftime-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Returns the current time.
@@ -2338,6 +2323,7 @@ Next: <a href="#section-prototypes" accesskey="n" rel="next">Section prototypes<
 
   /* A symbol which points at this section only.  */
   struct bfd_symbol *symbol;
+  struct bfd_symbol **symbol_ptr_ptr;
 
   /* Early in the link process, map_head and map_tail are used to build
      a list of input sections attached to an output section.  Later,
@@ -7289,6 +7275,61 @@ relocation.
 <dd><p>msp430 specific relocation codes.
 </p></dd></dl>
 <dl class="def">
+<dt id="index-BFD_005fRELOC_005fNIOS2_005fS16"><span class="category">: </span><span><strong>BFD_RELOC_NIOS2_S16</strong><a href='#index-BFD_005fRELOC_005fNIOS2_005fS16' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fNIOS2_005fU16"><span class="category">: </span><span><strong>BFD_RELOC_NIOS2_U16</strong><a href='#index-BFD_005fRELOC_005fNIOS2_005fU16' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fNIOS2_005fCALL26"><span class="category">: </span><span><strong>BFD_RELOC_NIOS2_CALL26</strong><a href='#index-BFD_005fRELOC_005fNIOS2_005fCALL26' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fNIOS2_005fIMM5"><span class="category">: </span><span><strong>BFD_RELOC_NIOS2_IMM5</strong><a href='#index-BFD_005fRELOC_005fNIOS2_005fIMM5' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fNIOS2_005fCACHE_005fOPX"><span class="category">: </span><span><strong>BFD_RELOC_NIOS2_CACHE_OPX</strong><a href='#index-BFD_005fRELOC_005fNIOS2_005fCACHE_005fOPX' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fNIOS2_005fIMM6"><span class="category">: </span><span><strong>BFD_RELOC_NIOS2_IMM6</strong><a href='#index-BFD_005fRELOC_005fNIOS2_005fIMM6' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fNIOS2_005fIMM8"><span class="category">: </span><span><strong>BFD_RELOC_NIOS2_IMM8</strong><a href='#index-BFD_005fRELOC_005fNIOS2_005fIMM8' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fNIOS2_005fHI16"><span class="category">: </span><span><strong>BFD_RELOC_NIOS2_HI16</strong><a href='#index-BFD_005fRELOC_005fNIOS2_005fHI16' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fNIOS2_005fLO16"><span class="category">: </span><span><strong>BFD_RELOC_NIOS2_LO16</strong><a href='#index-BFD_005fRELOC_005fNIOS2_005fLO16' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fNIOS2_005fHIADJ16"><span class="category">: </span><span><strong>BFD_RELOC_NIOS2_HIADJ16</strong><a href='#index-BFD_005fRELOC_005fNIOS2_005fHIADJ16' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fNIOS2_005fGPREL"><span class="category">: </span><span><strong>BFD_RELOC_NIOS2_GPREL</strong><a href='#index-BFD_005fRELOC_005fNIOS2_005fGPREL' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fNIOS2_005fUJMP"><span class="category">: </span><span><strong>BFD_RELOC_NIOS2_UJMP</strong><a href='#index-BFD_005fRELOC_005fNIOS2_005fUJMP' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fNIOS2_005fCJMP"><span class="category">: </span><span><strong>BFD_RELOC_NIOS2_CJMP</strong><a href='#index-BFD_005fRELOC_005fNIOS2_005fCJMP' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fNIOS2_005fCALLR"><span class="category">: </span><span><strong>BFD_RELOC_NIOS2_CALLR</strong><a href='#index-BFD_005fRELOC_005fNIOS2_005fCALLR' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fNIOS2_005fALIGN"><span class="category">: </span><span><strong>BFD_RELOC_NIOS2_ALIGN</strong><a href='#index-BFD_005fRELOC_005fNIOS2_005fALIGN' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fNIOS2_005fGOT16"><span class="category">: </span><span><strong>BFD_RELOC_NIOS2_GOT16</strong><a href='#index-BFD_005fRELOC_005fNIOS2_005fGOT16' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fNIOS2_005fCALL16"><span class="category">: </span><span><strong>BFD_RELOC_NIOS2_CALL16</strong><a href='#index-BFD_005fRELOC_005fNIOS2_005fCALL16' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fNIOS2_005fGOTOFF_005fLO"><span class="category">: </span><span><strong>BFD_RELOC_NIOS2_GOTOFF_LO</strong><a href='#index-BFD_005fRELOC_005fNIOS2_005fGOTOFF_005fLO' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fNIOS2_005fGOTOFF_005fHA"><span class="category">: </span><span><strong>BFD_RELOC_NIOS2_GOTOFF_HA</strong><a href='#index-BFD_005fRELOC_005fNIOS2_005fGOTOFF_005fHA' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fNIOS2_005fPCREL_005fLO"><span class="category">: </span><span><strong>BFD_RELOC_NIOS2_PCREL_LO</strong><a href='#index-BFD_005fRELOC_005fNIOS2_005fPCREL_005fLO' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fNIOS2_005fPCREL_005fHA"><span class="category">: </span><span><strong>BFD_RELOC_NIOS2_PCREL_HA</strong><a href='#index-BFD_005fRELOC_005fNIOS2_005fPCREL_005fHA' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fNIOS2_005fTLS_005fGD16"><span class="category">: </span><span><strong>BFD_RELOC_NIOS2_TLS_GD16</strong><a href='#index-BFD_005fRELOC_005fNIOS2_005fTLS_005fGD16' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fNIOS2_005fTLS_005fLDM16"><span class="category">: </span><span><strong>BFD_RELOC_NIOS2_TLS_LDM16</strong><a href='#index-BFD_005fRELOC_005fNIOS2_005fTLS_005fLDM16' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fNIOS2_005fTLS_005fLDO16"><span class="category">: </span><span><strong>BFD_RELOC_NIOS2_TLS_LDO16</strong><a href='#index-BFD_005fRELOC_005fNIOS2_005fTLS_005fLDO16' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fNIOS2_005fTLS_005fIE16"><span class="category">: </span><span><strong>BFD_RELOC_NIOS2_TLS_IE16</strong><a href='#index-BFD_005fRELOC_005fNIOS2_005fTLS_005fIE16' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fNIOS2_005fTLS_005fLE16"><span class="category">: </span><span><strong>BFD_RELOC_NIOS2_TLS_LE16</strong><a href='#index-BFD_005fRELOC_005fNIOS2_005fTLS_005fLE16' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fNIOS2_005fTLS_005fDTPMOD"><span class="category">: </span><span><strong>BFD_RELOC_NIOS2_TLS_DTPMOD</strong><a href='#index-BFD_005fRELOC_005fNIOS2_005fTLS_005fDTPMOD' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fNIOS2_005fTLS_005fDTPREL"><span class="category">: </span><span><strong>BFD_RELOC_NIOS2_TLS_DTPREL</strong><a href='#index-BFD_005fRELOC_005fNIOS2_005fTLS_005fDTPREL' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fNIOS2_005fTLS_005fTPREL"><span class="category">: </span><span><strong>BFD_RELOC_NIOS2_TLS_TPREL</strong><a href='#index-BFD_005fRELOC_005fNIOS2_005fTLS_005fTPREL' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fNIOS2_005fCOPY"><span class="category">: </span><span><strong>BFD_RELOC_NIOS2_COPY</strong><a href='#index-BFD_005fRELOC_005fNIOS2_005fCOPY' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fNIOS2_005fGLOB_005fDAT"><span class="category">: </span><span><strong>BFD_RELOC_NIOS2_GLOB_DAT</strong><a href='#index-BFD_005fRELOC_005fNIOS2_005fGLOB_005fDAT' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fNIOS2_005fJUMP_005fSLOT"><span class="category">: </span><span><strong>BFD_RELOC_NIOS2_JUMP_SLOT</strong><a href='#index-BFD_005fRELOC_005fNIOS2_005fJUMP_005fSLOT' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fNIOS2_005fRELATIVE"><span class="category">: </span><span><strong>BFD_RELOC_NIOS2_RELATIVE</strong><a href='#index-BFD_005fRELOC_005fNIOS2_005fRELATIVE' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fNIOS2_005fGOTOFF"><span class="category">: </span><span><strong>BFD_RELOC_NIOS2_GOTOFF</strong><a href='#index-BFD_005fRELOC_005fNIOS2_005fGOTOFF' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fNIOS2_005fCALL26_005fNOAT"><span class="category">: </span><span><strong>BFD_RELOC_NIOS2_CALL26_NOAT</strong><a href='#index-BFD_005fRELOC_005fNIOS2_005fCALL26_005fNOAT' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fNIOS2_005fGOT_005fLO"><span class="category">: </span><span><strong>BFD_RELOC_NIOS2_GOT_LO</strong><a href='#index-BFD_005fRELOC_005fNIOS2_005fGOT_005fLO' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fNIOS2_005fGOT_005fHA"><span class="category">: </span><span><strong>BFD_RELOC_NIOS2_GOT_HA</strong><a href='#index-BFD_005fRELOC_005fNIOS2_005fGOT_005fHA' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fNIOS2_005fCALL_005fLO"><span class="category">: </span><span><strong>BFD_RELOC_NIOS2_CALL_LO</strong><a href='#index-BFD_005fRELOC_005fNIOS2_005fCALL_005fLO' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fNIOS2_005fCALL_005fHA"><span class="category">: </span><span><strong>BFD_RELOC_NIOS2_CALL_HA</strong><a href='#index-BFD_005fRELOC_005fNIOS2_005fCALL_005fHA' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fNIOS2_005fR2_005fS12"><span class="category">: </span><span><strong>BFD_RELOC_NIOS2_R2_S12</strong><a href='#index-BFD_005fRELOC_005fNIOS2_005fR2_005fS12' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fNIOS2_005fR2_005fI10_005f1_005fPCREL"><span class="category">: </span><span><strong>BFD_RELOC_NIOS2_R2_I10_1_PCREL</strong><a href='#index-BFD_005fRELOC_005fNIOS2_005fR2_005fI10_005f1_005fPCREL' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fNIOS2_005fR2_005fT1I7_005f1_005fPCREL"><span class="category">: </span><span><strong>BFD_RELOC_NIOS2_R2_T1I7_1_PCREL</strong><a href='#index-BFD_005fRELOC_005fNIOS2_005fR2_005fT1I7_005f1_005fPCREL' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fNIOS2_005fR2_005fT1I7_005f2"><span class="category">: </span><span><strong>BFD_RELOC_NIOS2_R2_T1I7_2</strong><a href='#index-BFD_005fRELOC_005fNIOS2_005fR2_005fT1I7_005f2' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fNIOS2_005fR2_005fT2I4"><span class="category">: </span><span><strong>BFD_RELOC_NIOS2_R2_T2I4</strong><a href='#index-BFD_005fRELOC_005fNIOS2_005fR2_005fT2I4' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fNIOS2_005fR2_005fT2I4_005f1"><span class="category">: </span><span><strong>BFD_RELOC_NIOS2_R2_T2I4_1</strong><a href='#index-BFD_005fRELOC_005fNIOS2_005fR2_005fT2I4_005f1' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fNIOS2_005fR2_005fT2I4_005f2"><span class="category">: </span><span><strong>BFD_RELOC_NIOS2_R2_T2I4_2</strong><a href='#index-BFD_005fRELOC_005fNIOS2_005fR2_005fT2I4_005f2' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fNIOS2_005fR2_005fX1I7_005f2"><span class="category">: </span><span><strong>BFD_RELOC_NIOS2_R2_X1I7_2</strong><a href='#index-BFD_005fRELOC_005fNIOS2_005fR2_005fX1I7_005f2' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fNIOS2_005fR2_005fX2L5"><span class="category">: </span><span><strong>BFD_RELOC_NIOS2_R2_X2L5</strong><a href='#index-BFD_005fRELOC_005fNIOS2_005fR2_005fX2L5' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fNIOS2_005fR2_005fF1I5_005f2"><span class="category">: </span><span><strong>BFD_RELOC_NIOS2_R2_F1I5_2</strong><a href='#index-BFD_005fRELOC_005fNIOS2_005fR2_005fF1I5_005f2' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fNIOS2_005fR2_005fL5I4X1"><span class="category">: </span><span><strong>BFD_RELOC_NIOS2_R2_L5I4X1</strong><a href='#index-BFD_005fRELOC_005fNIOS2_005fR2_005fL5I4X1' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fNIOS2_005fR2_005fT1X1I6"><span class="category">: </span><span><strong>BFD_RELOC_NIOS2_R2_T1X1I6</strong><a href='#index-BFD_005fRELOC_005fNIOS2_005fR2_005fT1X1I6' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-BFD_005fRELOC_005fNIOS2_005fR2_005fT1X1I6_005f2"><span class="category">: </span><span><strong>BFD_RELOC_NIOS2_R2_T1X1I6_2</strong><a href='#index-BFD_005fRELOC_005fNIOS2_005fR2_005fT1X1I6_005f2' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Relocations used by the Altera Nios II core.
+</p></dd></dl>
+<dl class="def">
 <dt id="index-BFD_005fRELOC_005fPRU_005fU16"><span class="category">: </span><span><strong>BFD_RELOC_PRU_U16</strong><a href='#index-BFD_005fRELOC_005fPRU_005fU16' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>PRU LDI 16-bit unsigned data-memory relocation.
 </p></dd></dl>
@@ -9590,13 +9631,6 @@ bfd_keep_unused_section_symbols (const bfd *abfd)
   return abfd-&gt;xvec-&gt;keep_unused_section_symbols;
 }
 
-static inline bool
-bfd_target_supports_archives (const bfd *abfd)
-{
-  return (abfd-&gt;xvec-&gt;_bfd_check_format[bfd_archive]
-          != abfd-&gt;xvec-&gt;_bfd_check_format[bfd_unknown]);
-}
-
 </pre></div>
 <span id="index-bfd_005fset_005fdefault_005ftarget"></span>
 <ul class="section-toc">
@@ -10211,6 +10245,10 @@ containing, for example, 68020 for Motorola 68020.
 #define bfd_mach_aarch64_8R    1
 #define bfd_mach_aarch64_ilp32 32
 #define bfd_mach_aarch64_llp64 64
+  bfd_arch_nios2,     /* Nios II.  */
+#define bfd_mach_nios2         0
+#define bfd_mach_nios2r1       1
+#define bfd_mach_nios2r2       2
   bfd_arch_visium,    /* Visium.  */
 #define bfd_mach_visium        1
   bfd_arch_wasm32,    /* WebAssembly.  */
@@ -10235,31 +10273,25 @@ containing, for example, 68020 for Motorola 68020.
 #define bfd_mach_loongarch64   2
   bfd_arch_amdgcn,     /* AMDGCN */
 #define bfd_mach_amdgcn_unknown 0x000
-#define bfd_mach_amdgcn_gfx9_generic    0x051
-#define bfd_mach_amdgcn_gfx900          0x02c
-#define bfd_mach_amdgcn_gfx904          0x02e
-#define bfd_mach_amdgcn_gfx906          0x02f
-#define bfd_mach_amdgcn_gfx908          0x030
-#define bfd_mach_amdgcn_gfx90a          0x03f
-#define bfd_mach_amdgcn_gfx9_4_generic  0x05f
-#define bfd_mach_amdgcn_gfx940          0x040
-#define bfd_mach_amdgcn_gfx941          0x04b
-#define bfd_mach_amdgcn_gfx942          0x04c
-#define bfd_mach_amdgcn_gfx10_1_generic 0x052
-#define bfd_mach_amdgcn_gfx1010         0x033
-#define bfd_mach_amdgcn_gfx1011         0x034
-#define bfd_mach_amdgcn_gfx1012         0x035
-#define bfd_mach_amdgcn_gfx10_3_generic 0x053
-#define bfd_mach_amdgcn_gfx1030         0x036
-#define bfd_mach_amdgcn_gfx1031         0x037
-#define bfd_mach_amdgcn_gfx1032         0x038
-#define bfd_mach_amdgcn_gfx11_generic   0x054
-#define bfd_mach_amdgcn_gfx1100         0x041
-#define bfd_mach_amdgcn_gfx1101         0x046
-#define bfd_mach_amdgcn_gfx1102         0x047
-#define bfd_mach_amdgcn_gfx12_generic   0x059
-#define bfd_mach_amdgcn_gfx1200         0x048
-#define bfd_mach_amdgcn_gfx1201         0x04e
+#define bfd_mach_amdgcn_gfx900  0x02c
+#define bfd_mach_amdgcn_gfx904  0x02e
+#define bfd_mach_amdgcn_gfx906  0x02f
+#define bfd_mach_amdgcn_gfx908  0x030
+#define bfd_mach_amdgcn_gfx90a  0x03f
+#define bfd_mach_amdgcn_gfx940  0x040
+#define bfd_mach_amdgcn_gfx941  0x04b
+#define bfd_mach_amdgcn_gfx942  0x04c
+#define bfd_mach_amdgcn_gfx1010 0x033
+#define bfd_mach_amdgcn_gfx1011 0x034
+#define bfd_mach_amdgcn_gfx1012 0x035
+#define bfd_mach_amdgcn_gfx1030 0x036
+#define bfd_mach_amdgcn_gfx1031 0x037
+#define bfd_mach_amdgcn_gfx1032 0x038
+#define bfd_mach_amdgcn_gfx1100 0x041
+#define bfd_mach_amdgcn_gfx1101 0x046
+#define bfd_mach_amdgcn_gfx1102 0x047
+#define bfd_mach_amdgcn_gfx1200 0x048
+#define bfd_mach_amdgcn_gfx1201 0x04e
   bfd_arch_last
   };
 </pre></div>
@@ -10586,7 +10618,6 @@ Next: <a href="#Internal" accesskey="n" rel="next">Implementation details</a>, P
 <li><a href="#bfd_005ffill_005fin_005fgnu_005fdebuglink_005fsection"><code>bfd_fill_in_gnu_debuglink_section</code></a></li>
 <li><a href="#bfd_005ffollow_005fbuild_005fid_005fdebuglink"><code>bfd_follow_build_id_debuglink</code></a></li>
 <li><a href="#bfd_005fset_005ffilename"><code>bfd_set_filename</code></a></li>
-<li><a href="#bfd_005fextract_005fobject_005fonly_005fsection"><code>bfd_extract_object_only_section</code></a></li>
 </ul>
 <div class="subsubsection" id="g_t_005fbfd_005fnew_005fbfd">
 <h4 class="subsubsection">2.14.1.1 <code>_bfd_new_bfd</code></h4>
@@ -11026,16 +11057,6 @@ freeing this string.
 <dd><p>Set the filename of <var>abfd</var>, copying the FILENAME parameter to
 bfd_alloc&rsquo;d memory owned by <var>abfd</var>.  Returns a pointer the
 newly allocated name, or NULL if the allocation failed.
-</p>
-</dd></dl>
-<span id="index-bfd_005fextract_005fobject_005fonly_005fsection"></span>
-</div>
-<div class="subsubsection" id="bfd_005fextract_005fobject_005fonly_005fsection">
-<h4 class="subsubsection">2.14.1.26 <code>bfd_extract_object_only_section</code></h4>
-<dl class="def">
-<dt id="index-char-12"><span class="category">Function: </span><span><em>const</em> <strong>char</strong> <em>*bfd_extract_object_only_section (bfd *abfd);</em><a href='#index-char-12' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Takes a <var>ABFD</var> and extract the .gnu_object_only section into
-a temporary file.
 </p>
 </dd></dl>
 
@@ -14304,7 +14325,6 @@ Previous: <a href="#GNU-Free-Documentation-License" accesskey="p" rel="prev">GNU
 <tr><td></td><td valign="top"><a href="#index-_002abfd_005fget_005fsection_005fby_005fname">*bfd_get_section_by_name</a>:</td><td>&nbsp;</td><td valign="top"><a href="#section-prototypes">section prototypes</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002abfd_005fget_005fsection_005fby_005fname_005fif">*bfd_get_section_by_name_if</a>:</td><td>&nbsp;</td><td valign="top"><a href="#section-prototypes">section prototypes</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002abfd_005fget_005funique_005fsection_005fname">*bfd_get_unique_section_name</a>:</td><td>&nbsp;</td><td valign="top"><a href="#section-prototypes">section prototypes</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-_002abfd_005fgroup_005fsignature">*bfd_group_signature</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Miscellaneous">Miscellaneous</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002abfd_005fhash_005fallocate">*bfd_hash_allocate</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Write-Other-Derived-Routines">Write Other Derived Routines</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002abfd_005fmake_005fsection">*bfd_make_section</a>:</td><td>&nbsp;</td><td valign="top"><a href="#section-prototypes">section prototypes</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002abfd_005fmake_005fsection_005fanyway">*bfd_make_section_anyway</a>:</td><td>&nbsp;</td><td valign="top"><a href="#section-prototypes">section prototypes</a></td></tr>
@@ -14329,6 +14349,8 @@ Previous: <a href="#GNU-Free-Documentation-License" accesskey="p" rel="prev">GNU
 <tr><td></td><td valign="top"><a href="#index-_002a_005fbfd_005fnew_005fbfd_005fcontained_005fin">*_bfd_new_bfd_contained_in</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Opening-and-Closing">Opening and Closing</a></td></tr>
 <tr><td colspan="4"> <hr></td></tr>
 <tr><th id="BFD-Index_cp_symbol-2">_</th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-_005fbfd_005fclear_005ferror_005fdata">_bfd_clear_error_data</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Error-reporting">Error reporting</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-_005fbfd_005fclear_005ferror_005fdata-1">_bfd_clear_error_data</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Error-reporting">Error reporting</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_005fbfd_005ferror_005fhandler">_bfd_error_handler</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Error-reporting">Error reporting</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_005fbfd_005ferror_005fhandler-1">_bfd_error_handler</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Error-reporting">Error reporting</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_005fbfd_005ffinal_005flink_005frelocate">_bfd_final_link_relocate</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Relocating-the-section-contents">Relocating the section contents</a></td></tr>
@@ -14364,8 +14386,6 @@ Previous: <a href="#GNU-Free-Documentation-License" accesskey="p" rel="prev">GNU
 <tr><td></td><td valign="top"><a href="#index-_005fbfd_005fstringtab_005finit">_bfd_stringtab_init</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Write-Other-Derived-Routines">Write Other Derived Routines</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_005fbfd_005fstringtab_005fsize">_bfd_stringtab_size</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Write-Other-Derived-Routines">Write Other Derived Routines</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_005fbfd_005fstringtab_005fsize-1">_bfd_stringtab_size</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Write-Other-Derived-Routines">Write Other Derived Routines</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-_005fbfd_005fthreading_005fenabled">_bfd_threading_enabled</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Threading">Threading</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-_005fbfd_005fthreading_005fenabled-1">_bfd_threading_enabled</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Threading">Threading</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_005fbfd_005funrecognized_005freloc">_bfd_unrecognized_reloc</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_005fbfd_005funrecognized_005freloc-1">_bfd_unrecognized_reloc</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_005fbfd_005fxcoff_005fstringtab_005finit">_bfd_xcoff_stringtab_init</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Write-Other-Derived-Routines">Write Other Derived Routines</a></td></tr>
@@ -14483,7 +14503,6 @@ Previous: <a href="#GNU-Free-Documentation-License" accesskey="p" rel="prev">GNU
 <tr><td></td><td valign="top"><a href="#index-bfd_005femul_005fget_005fmaxpagesize">bfd_emul_get_maxpagesize</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Miscellaneous">Miscellaneous</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-bfd_005femul_005fget_005fmaxpagesize-1">bfd_emul_get_maxpagesize</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Miscellaneous">Miscellaneous</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-bfd_005ferrmsg">bfd_errmsg</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Error-reporting">Error reporting</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-bfd_005fextract_005fobject_005fonly_005fsection">bfd_extract_object_only_section</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Opening-and-Closing">Opening and Closing</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-bfd_005ffdopenr">bfd_fdopenr</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Opening-and-Closing">Opening and Closing</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-bfd_005ffdopenw">bfd_fdopenw</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Opening-and-Closing">Opening and Closing</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-bfd_005ffill_005fin_005fgnu_005fdebuglink_005fsection">bfd_fill_in_gnu_debuglink_section</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Opening-and-Closing">Opening and Closing</a></td></tr>
@@ -14552,7 +14571,6 @@ Previous: <a href="#GNU-Free-Documentation-License" accesskey="p" rel="prev">GNU
 <tr><td></td><td valign="top"><a href="#index-bfd_005fget_005fsymtab_005fupper_005fbound">bfd_get_symtab_upper_bound</a>:</td><td>&nbsp;</td><td valign="top"><a href="#symbol-handling-functions">symbol handling functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-bfd_005fget_005ftarget_005finfo">bfd_get_target_info</a>:</td><td>&nbsp;</td><td valign="top"><a href="#bfd_005ftarget">bfd_target</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-bfd_005fget_005funique_005fsection_005fname">bfd_get_unique_section_name</a>:</td><td>&nbsp;</td><td valign="top"><a href="#section-prototypes">section prototypes</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-bfd_005fgroup_005fsignature">bfd_group_signature</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Miscellaneous">Miscellaneous</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-bfd_005fhash_005fallocate">bfd_hash_allocate</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Creating-and-Freeing-a-Hash-Table">Creating and Freeing a Hash Table</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-bfd_005fhash_005fallocate-1">bfd_hash_allocate</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Write-Other-Derived-Routines">Write Other Derived Routines</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-bfd_005fhash_005fentry">bfd_hash_entry</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Write-Other-Derived-Routines">Write Other Derived Routines</a></td></tr>
@@ -16214,6 +16232,58 @@ Previous: <a href="#GNU-Free-Documentation-License" accesskey="p" rel="prev">GNU
 <tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fNDS32_005fTRAN">BFD_RELOC_NDS32_TRAN</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fNDS32_005fUPDATE_005fTA">BFD_RELOC_NDS32_UPDATE_TA</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fNDS32_005fWORD_005f9_005fPCREL">BFD_RELOC_NDS32_WORD_9_PCREL</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fNIOS2_005fALIGN">BFD_RELOC_NIOS2_ALIGN</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fNIOS2_005fCACHE_005fOPX">BFD_RELOC_NIOS2_CACHE_OPX</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fNIOS2_005fCALL16">BFD_RELOC_NIOS2_CALL16</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fNIOS2_005fCALL26">BFD_RELOC_NIOS2_CALL26</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fNIOS2_005fCALL26_005fNOAT">BFD_RELOC_NIOS2_CALL26_NOAT</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fNIOS2_005fCALLR">BFD_RELOC_NIOS2_CALLR</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fNIOS2_005fCALL_005fHA">BFD_RELOC_NIOS2_CALL_HA</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fNIOS2_005fCALL_005fLO">BFD_RELOC_NIOS2_CALL_LO</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fNIOS2_005fCJMP">BFD_RELOC_NIOS2_CJMP</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fNIOS2_005fCOPY">BFD_RELOC_NIOS2_COPY</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fNIOS2_005fGLOB_005fDAT">BFD_RELOC_NIOS2_GLOB_DAT</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fNIOS2_005fGOT16">BFD_RELOC_NIOS2_GOT16</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fNIOS2_005fGOTOFF">BFD_RELOC_NIOS2_GOTOFF</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fNIOS2_005fGOTOFF_005fHA">BFD_RELOC_NIOS2_GOTOFF_HA</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fNIOS2_005fGOTOFF_005fLO">BFD_RELOC_NIOS2_GOTOFF_LO</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fNIOS2_005fGOT_005fHA">BFD_RELOC_NIOS2_GOT_HA</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fNIOS2_005fGOT_005fLO">BFD_RELOC_NIOS2_GOT_LO</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fNIOS2_005fGPREL">BFD_RELOC_NIOS2_GPREL</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fNIOS2_005fHI16">BFD_RELOC_NIOS2_HI16</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fNIOS2_005fHIADJ16">BFD_RELOC_NIOS2_HIADJ16</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fNIOS2_005fIMM5">BFD_RELOC_NIOS2_IMM5</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fNIOS2_005fIMM6">BFD_RELOC_NIOS2_IMM6</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fNIOS2_005fIMM8">BFD_RELOC_NIOS2_IMM8</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fNIOS2_005fJUMP_005fSLOT">BFD_RELOC_NIOS2_JUMP_SLOT</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fNIOS2_005fLO16">BFD_RELOC_NIOS2_LO16</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fNIOS2_005fPCREL_005fHA">BFD_RELOC_NIOS2_PCREL_HA</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fNIOS2_005fPCREL_005fLO">BFD_RELOC_NIOS2_PCREL_LO</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fNIOS2_005fR2_005fF1I5_005f2">BFD_RELOC_NIOS2_R2_F1I5_2</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fNIOS2_005fR2_005fI10_005f1_005fPCREL">BFD_RELOC_NIOS2_R2_I10_1_PCREL</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fNIOS2_005fR2_005fL5I4X1">BFD_RELOC_NIOS2_R2_L5I4X1</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fNIOS2_005fR2_005fS12">BFD_RELOC_NIOS2_R2_S12</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fNIOS2_005fR2_005fT1I7_005f1_005fPCREL">BFD_RELOC_NIOS2_R2_T1I7_1_PCREL</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fNIOS2_005fR2_005fT1I7_005f2">BFD_RELOC_NIOS2_R2_T1I7_2</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fNIOS2_005fR2_005fT1X1I6">BFD_RELOC_NIOS2_R2_T1X1I6</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fNIOS2_005fR2_005fT1X1I6_005f2">BFD_RELOC_NIOS2_R2_T1X1I6_2</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fNIOS2_005fR2_005fT2I4">BFD_RELOC_NIOS2_R2_T2I4</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fNIOS2_005fR2_005fT2I4_005f1">BFD_RELOC_NIOS2_R2_T2I4_1</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fNIOS2_005fR2_005fT2I4_005f2">BFD_RELOC_NIOS2_R2_T2I4_2</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fNIOS2_005fR2_005fX1I7_005f2">BFD_RELOC_NIOS2_R2_X1I7_2</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fNIOS2_005fR2_005fX2L5">BFD_RELOC_NIOS2_R2_X2L5</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fNIOS2_005fRELATIVE">BFD_RELOC_NIOS2_RELATIVE</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fNIOS2_005fS16">BFD_RELOC_NIOS2_S16</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fNIOS2_005fTLS_005fDTPMOD">BFD_RELOC_NIOS2_TLS_DTPMOD</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fNIOS2_005fTLS_005fDTPREL">BFD_RELOC_NIOS2_TLS_DTPREL</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fNIOS2_005fTLS_005fGD16">BFD_RELOC_NIOS2_TLS_GD16</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fNIOS2_005fTLS_005fIE16">BFD_RELOC_NIOS2_TLS_IE16</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fNIOS2_005fTLS_005fLDM16">BFD_RELOC_NIOS2_TLS_LDM16</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fNIOS2_005fTLS_005fLDO16">BFD_RELOC_NIOS2_TLS_LDO16</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fNIOS2_005fTLS_005fLE16">BFD_RELOC_NIOS2_TLS_LE16</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fNIOS2_005fTLS_005fTPREL">BFD_RELOC_NIOS2_TLS_TPREL</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fNIOS2_005fU16">BFD_RELOC_NIOS2_U16</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fNIOS2_005fUJMP">BFD_RELOC_NIOS2_UJMP</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fNONE">BFD_RELOC_NONE</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fNS32K_005fDISP_005f16">BFD_RELOC_NS32K_DISP_16</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fNS32K_005fDISP_005f16_005fPCREL">BFD_RELOC_NS32K_DISP_16_PCREL</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
@@ -17263,7 +17333,6 @@ Previous: <a href="#GNU-Free-Documentation-License" accesskey="p" rel="prev">GNU
 <tr><td></td><td valign="top"><a href="#index-char-9">char</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Architectures">Architectures</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-char-10">char</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Architectures">Architectures</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-char-11">char</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Opening-and-Closing">Opening and Closing</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-char-12">char</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Opening-and-Closing">Opening and Closing</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-coff_005fsymbol_005ftype">coff_symbol_type</a>:</td><td>&nbsp;</td><td valign="top"><a href="#coff">coff</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-core_005ffile_005fmatches_005fexecutable_005fp">core_file_matches_executable_p</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Core-Files">Core Files</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-core_005ffile_005fmatches_005fexecutable_005fp-1">core_file_matches_executable_p</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Core-Files">Core Files</a></td></tr>
