@@ -5,9 +5,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the GNU linker LD
 (GNU Binutils)
-version 2.43.50.
+version 2.42.50.
 
-Copyright (C) 1991-2025 Free Software Foundation, Inc.
+Copyright (C) 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -354,64 +354,6 @@ library.  A warning is also given if some symbols present in the input import
 library have disappeared from the executable.  This option is only effective
 for Secure Gateway import libraries, ie. when &lsquo;<samp>--cmse-implib</samp>&rsquo; is
 specified.
-</p>
-<span id="index-_002dz-force_002dbti"></span>
-<span id="index-Protect-PLTs-with-Branch-Target-Identification"></span>
-<p>The &lsquo;<samp>-z force-bti</samp>&rsquo; option turns on the verification of Branch Target
-Identification (BTI) in input objects, generates PLTs with BTI, and marks the
-output with BTI.  If this option is omitted, but all input objects belonging to
-the link unit have the BTI marking, the linker implicitly generates PLTs with
-BTI, and marks the output with BTI.
-</p>
-<span id="index-_002dz-bti_002dreport_005b_003dnone_007cwarning_007cerror_005d"></span>
-<span id="index-Control-warnings-for-missing-BTI-markings_002e"></span>
-<p>The &lsquo;<samp>-z bti-report[=none|warning|error]</samp>&rsquo; option specifies how to report
-missing BTI markings on inputs, i.e. the GNU_PROPERTY_AARCH64_FEATURE_1_BTI
-property.
-By default, if the option is omitted and &lsquo;<samp>-z force-bti</samp>&rsquo; is provided,
-warnings are emitted.
-</p><ul>
-<li> &lsquo;<samp>none</samp>&rsquo; disables any warning messages.
-</li><li> &lsquo;<samp>warning</samp>&rsquo; (the default value) emits warning messages when input objects
-composing the link unit are missing BTI markings.
-</li><li> &lsquo;<samp>error</samp>&rsquo; turns the warning messages into errors.
-</li></ul>
-<p>If issues are found, a maximum of 20 messages will be emitted, and then a summary
-with the total number of issues will be displayed at the end.
-</p>
-<span id="index-_002dz-pac_002dplt"></span>
-<span id="index-Protect-PLTs-with-Returned-Pointer-Authentication"></span>
-<p>The &lsquo;<samp>-z pac-plt</samp>&rsquo; option enables the usage of pointer authentication in PLTs.
-</p>
-<span id="index-_002dz-gcs_003d_005balways_007cnever_007cimplicit_005d"></span>
-<span id="index-Controls-whether-the-output-object-supports-the-Guarded-Control-Stack-_0028GCS_0029-mechanism_002e"></span>
-<p>The &lsquo;<samp>-z gcs</samp>&rsquo; option controls the verification of Guarded Control Stack (GCS)
-markings on input objects and marks the output with GCS if all conditions are
-validated.
-</p><ul>
-<li> &lsquo;<samp>implicit</samp>&rsquo; (default if &lsquo;<samp>-z gcs</samp>&rsquo; is omitted) enables GCS marking
-on the output if, and only if, all input objects composing the link unit are
-marked with GCS.
-</li><li> &lsquo;<samp>always</samp>&rsquo; forces the marking of the output with GCS.
-</li><li> &lsquo;<samp>never</samp>&rsquo; ignores any GCS marking on the input objects, and does not
-mark the output with GCS.
-</li></ul>
-
-<span id="index-_002dz-gcs_002dreport_005b_003dnone_007cwarning_007cerror_005d"></span>
-<span id="index-Control-warnings-for-missing-GCS-markings_002e"></span>
-<p>The &lsquo;<samp>-z gcs-report[=none|warning|error]</samp>&rsquo; specifies how to report the missing
-GCS markings on inputs, i.e. the GNU_PROPERTY_AARCH64_FEATURE_1_GCS property.
-By default, if the option is omitted and &lsquo;<samp>-z gcs</samp>&rsquo; is provided, warnings are
-emitted.
-</p><ul>
-<li> &lsquo;<samp>none</samp>&rsquo; disables any warning messages.
-</li><li> &lsquo;<samp>warning</samp>&rsquo; (the default value) emits warning messages when input objects
-composing the link unit are missing GCS markings, or dynamic objects containing
-external symbols used in the link unit.
-</li><li> &lsquo;<samp>error</samp>&rsquo; turns the warning messages into errors.
-</li></ul>
-<p>If issues are found, a maximum of 20 messages will be emitted, and then a summary
-with the total number of issues will be displayed at the end.
 </p>
 
 
