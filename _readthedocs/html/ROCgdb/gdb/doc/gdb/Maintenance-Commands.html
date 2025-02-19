@@ -26,7 +26,7 @@ the license.txt in the top-level directory for the library on
 Github.com).  The additional terms and conditions below apply to your use
 of AMD ROCm technical documentation.
 
-(C)2019-2025 Advanced Micro Devices, Inc.  All rights reserved.
+(C)2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
 
 The information presented in this document is for informational purposes only
 and may contain technical inaccuracies, omissions, and typographical errors.
@@ -141,8 +141,8 @@ This command is useful for debugging the agent version of dynamic
 printf (see <a href="Dynamic-Printf.html">Dynamic Printf</a>).
 </p>
 <span id="index-maint-info-breakpoints"></span>
-<span id="maint-info-breakpoints"></span></dd>
-<dt><span><code>maint info breakpoints</code></span></dt>
+</dd>
+<dt><span><code><span id="maint-info-breakpoints"></span>maint info breakpoints</code></span></dt>
 <dd><p>Using the same format as &lsquo;<samp>info breakpoints</samp>&rsquo;, display both the
 breakpoints you&rsquo;ve set explicitly, and those <small>ROCGDB</small> is using for
 internal purposes.  Internal breakpoints are shown with negative
@@ -333,15 +333,15 @@ architecture supports displaced stepping.
 </p></dd>
 </dl>
 
-<span id="index-maint-check-psymtabs"></span>
+<span id="index-maint-check_002dpsymtabs"></span>
 </dd>
-<dt><span><code>maint check psymtabs</code></span></dt>
+<dt><span><code>maint check-psymtabs</code></span></dt>
 <dd><p>Check the consistency of currently expanded psymtabs versus symtabs.
 Use this to check, for example, whether a symbol is in one but not the other.
 </p>
-<span id="index-maint-check-symtabs"></span>
+<span id="index-maint-check_002dsymtabs"></span>
 </dd>
-<dt><span><code>maint check symtabs</code></span></dt>
+<dt><span><code>maint check-symtabs</code></span></dt>
 <dd><p>Check the consistency of currently expanded symtabs.
 </p>
 <span id="index-maint-expand_002dsymtabs"></span>
@@ -456,7 +456,7 @@ in <small>ROCGDB</small> downloading larger amounts of data.
 <dd><p>When <small>ROCGDB</small> reports an internal problem (error or warning) it
 gives the user the opportunity to both quit <small>ROCGDB</small> and create a
 core file of the current <small>ROCGDB</small> session.  These commands let you
-override the default behavior for each particular <var>action</var>,
+override the default behaviour for each particular <var>action</var>,
 described in the table below.
 </p>
 <dl compact="compact">
@@ -522,9 +522,6 @@ modify XML target descriptions.
 target description being processed (either the default, or from
 <var>file</var>) must only contain a single feature.  The source file
 produced is different in this case.
-</p>
-<p>The <var>file</var> argument supports escaping and quoting, see
-<a href="Filename-Arguments.html">Filenames As Command Arguments</a>.
 </p>
 <span id="index-maint-print-xml_002dtdesc"></span>
 </dd>
@@ -599,157 +596,6 @@ frame-id for frame #0: {stack=0x7fffffffac70,code=0x0000000000401106,!special}
 frame-id for frame #2: {stack=0x7fffffffac90,code=0x000000000040111c,!special}
 </pre></div>
 
-</dd>
-<dt id='index-frames-of-inlined-functions'><span><code>maint info inline-frames</code><a href='#index-frames-of-inlined-functions' class='copiable-anchor'> &para;</a></span></dt>
-<dt><span><code>maint info inline-frames <var>address</var></code></span></dt>
-<dd><span id="index-maint-info-inline_002dframes"></span>
-<p>Print information about inlined frames which start at the current
-address, or <var>address</var> if specified.
-</p>
-<p>In order to allow the user to correctly step into inlined functions,
-<small>ROCGDB</small> needs to identify which inlined functions start at a
-particular address, and <small>ROCGDB</small> also needs to track which of
-these functions was last displayed to the user as the current frame.
-</p>
-<p>Imagine a situation where function <code>main</code> calls <code>foo</code>, which
-then calls <code>bar</code>, something like this:
-</p>
-<div class="example">
-<pre class="example">int
-main ()
-{
-  /* Some interesting code here...  */
-
-  foo ();
-
-  /* More interesting code here... */
-}
-
-void
-foo ()
-{
-  bar ();
-}
-
-void
-bar ()
-{
-  /* Some interesting code here...  */
-}
-</pre></div>
-
-<p>As both <code>foo</code> and <code>bar</code> are inlined within <code>main</code> then
-there could be one address within <code>main</code> which is also the start
-of <code>foo</code> and also the start of <code>bar</code>.  When the user stops
-at this address they will initially be told the inferior is in
-<code>main</code>, if the user does a <kbd>step</kbd> then <small>ROCGDB</small> doesn&rsquo;t
-actually step the inferior, instead the user is told the inferior
-entered <code>foo</code>.  After the next <kbd>step</kbd> the user is told the
-inferior entered <code>bar</code>.  The <kbd>maint info inline-frames</kbd>
-command can be used to view this internal <small>ROCGDB</small> state, like
-this:
-</p>
-<div class="example">
-<pre class="example">(gdb) step
-24	  foo ();
-(gdb) maintenance info inline-frames
-Cached inline state information for thread 1.
-program counter = 0x401137
-skipped frames = 2
-  bar
-  foo
-&gt; main
-</pre></div>
-
-<p>Here the user is stopped in <code>main</code> at the call to <code>foo</code>.  The
-inline-frames information shows that at this address <small>ROCGDB</small> has
-found the start of inlined functions <code>bar</code> and <code>foo</code>, but
-currently <small>ROCGDB</small> has skipped 2 frames and considers <code>main</code>
-to be the current frame, this is indicated with the &lsquo;<samp>&gt;</samp>&rsquo;.
-</p>
-<p>If the user performs a <kbd>step</kbd> to enter <code>foo</code> then the
-situation is updated:
-</p>
-<div class="example">
-<pre class="example">(gdb) step
-foo () at inline.c:14
-14	  bar ();
-(gdb) maintenance info inline-frames
-Cached inline state information for thread 1.
-program counter = 0x401137
-skipped frames = 1
-  bar
-&gt; foo
-  main
-</pre></div>
-
-<p>Notice that the program counter value <code>0x401137</code> hasn&rsquo;t change,
-but now <small>ROCGDB</small> considers <code>foo</code> to be the current frame, and
-it is marked as such with the &lsquo;<samp>&gt;</samp>&rsquo;.
-</p>
-<p>Finally, the user performs another <kbd>step</kbd> to enter <code>bar</code>:
-</p>
-<div class="example">
-<pre class="example">(gdb) step
-bar () at inline.c:6
-6	  ++global_counter;
-(gdb) maintenance info inline-frames
-Cached inline state information for thread 1.
-program counter = 0x401137
-skipped frames = 0
-&gt; bar
-  foo
-  main
-</pre></div>
-
-<span id="index-maint-info-blocks"></span>
-</dd>
-<dt><span><code>maint info blocks</code></span></dt>
-<dt><span><code>maint info blocks <var>address</var></code></span></dt>
-<dd><p>Print information about all blocks at <var>address</var>, or at the current
-<code>$pc</code> if <var>address</var> is not given.
-</p>
-<p>For information about what blocks are in <small>ROCGDB</small> see <a href="Blocks-In-Python.html">Accessing blocks from Python</a>.
-</p>
-<p>Blocks are listed starting from the global block, then the static
-block, and then proceeding through progressively narrower scopes.
-</p>
-<p>Here is an example of the command&rsquo;s output:
-</p><div class="example">
-<pre class="example">(gdb) maintenance info blocks
-Blocks at 0x401137:
-  from objfile: [(objfile *) 0x50507d0] /tmp/inline_func_demo
-
-[(block *) 0x504da90] 0x401106..0x40119a
-  entry pc: 0x401106
-  is global block
-  symbol count: 2
-  is contiguous
-</pre><pre class="example">[(block *) 0x504d9f0] 0x401106..0x40119a
-  entry pc: 0x401106
-  is static block
-  symbol count: 1
-  is contiguous
-</pre><pre class="example">[(block *) 0x504d9a0] 0x401106..0x40119a
-  entry pc: 0x401106
-  function: main
-  is contiguous
-</pre><pre class="example">[(block *) 0x504d900] 0x401137..0x401166
-  entry pc: 0x401137
-  inline function: foo
-  symbol count: 1
-  is contiguous
-</pre><pre class="example">[(block *) 0x504d860] 0x401137..0x401165
-  entry pc: 0x401137
-  inline function: bar
-  symbol count: 1
-  is contiguous
-</pre></div>
-
-<p>The command <kbd>maint info blocks</kbd> lists the symbol count for each
-block but doesn&rsquo;t print the symbols themselves.  The symbol names can
-be found using <kbd>maint print symbols</kbd> (see <a href="Symbols.html#maint-print-symbols">maint print symbols</a>).
-</p>
 <span id="index-maint-print-registers"></span>
 <span id="index-maint-print-raw_002dregisters"></span>
 <span id="index-maint-print-cooked_002dregisters"></span>
@@ -770,11 +616,7 @@ including registers which aren&rsquo;t available on the target nor visible
 to user; the command <code>maint print register-groups</code> includes the
 groups that each register is a member of; and the command <code>maint
 print remote-registers</code> includes the remote target&rsquo;s register numbers
-and offsets in the &lsquo;G&rsquo; packets, as well as an indication of which
-registers were included in the last stop reply packet received by
-<small>ROCGDB</small> (see <a href="Stop-Reply-Packets.html">Stop Reply Packets</a>).  Please note that the list
-of registers included in a stop reply can change from one stop to the
-next.
+and offsets in the &lsquo;G&rsquo; packets.
 </p>
 <p>These commands take an optional parameter, a file name to which to
 write the information.

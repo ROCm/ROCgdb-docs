@@ -3,7 +3,7 @@
 <!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright (C) 2021-2025 Free Software Foundation, Inc.
+<!-- Copyright (C) 2021-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU General Public License, Version 3 or any
@@ -23,7 +23,7 @@ License".
 <link href="index.html" rel="start" title="Top">
 <link href="Index.html" rel="index" title="Index">
 <link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="SFrame-Section.html" rel="up" title="SFrame Section">
+<link href="SFrame-section.html" rel="up" title="SFrame section">
 <link href="SFrame-Function-Descriptor-Entries.html" rel="prev" title="SFrame Function Descriptor Entries">
 <style type="text/css">
 <!--
@@ -52,47 +52,43 @@ ul.no-bullet {list-style: none}
 <div class="section" id="SFrame-Frame-Row-Entries">
 <div class="header">
 <p>
-Previous: <a href="SFrame-Function-Descriptor-Entries.html" accesskey="p" rel="prev">SFrame FDE</a>, Up: <a href="SFrame-Section.html" accesskey="u" rel="up">SFrame Section</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+Previous: <a href="SFrame-Function-Descriptor-Entries.html" accesskey="p" rel="prev">SFrame FDE</a>, Up: <a href="SFrame-section.html" accesskey="u" rel="up">SFrame section</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
 <span id="SFrame-FRE"></span><h3 class="section">2.4 SFrame FRE</h3>
 <span id="index-SFrame-FRE"></span>
 
-<p>The SFrame frame row entry sub-section contains the core of the stack trace
-information.  An SFrame frame row entry (FRE) is a self-sufficient record
-containing SFrame stack trace information for a range of contiguous
-(instruction) addresses, starting at the specified offset from the start of the
-function.
+<p>The SFrame Frame Row Entry sub-section contains the core of the stack trace
+information.
 </p>
-<p>Each SFrame FRE encodes the stack offsets to recover the CFA, FP and RA (where
-applicable) for the respective instruction addresses.  To encode this
-information, each SFrame FRE is followed by S*N bytes, where:
+<p>An SFrame Frame Row Entry is a self-sufficient record containing SFrame stack
+trace information for a range of contiguous addresses, starting at the
+specified offset from the start of the function.  Each SFrame Frame Row Entry
+is followed by S*N bytes, where:
 </p>
 <ul class="no-bullet">
-<li>- <code>S</code> is the size of a stack offset for the FRE, and
-</li><li>- <code>N</code> is the number of stack offsets in the FRE
+<li>- <code>S</code> is the size of the stack frame offset for the FRE, and
+</li><li>- <code>N</code> is the number of stack frame offsets in the FRE
 </li></ul>
 
-<p>The entities <code>S</code>, <code>N</code> are encoded in the SFrame FRE info word, via
-the <code>fre_offset_size</code> and the <code>fre_offset_count</code> respectively.  More
-information about the precise encoding and range of values for <code>S</code> and
-<code>N</code> is provided later in the See <a href="The-SFrame-FRE-Info-Word.html">The SFrame FRE Info Word</a>.
+<p>The stack offsets, following the FRE, are interpreted in order as follows:
 </p>
-<span id="index-Provisions-for-future-ABIs-2"></span>
-<p>It is important to underline here that although the canonical interpretation
-of these bytes is as stack offsets (to recover CFA, FP and RA), these bytes
-<em>may</em> be used by future ABIs/architectures to convey other information on
-a per SFrame FRE basis.
+<ul class="no-bullet">
+<li>- The first offset is always used to locate the CFA, by interpreting it as:
+CFA = <code>BASE_REG</code> + offset1.
+</li><li>- If RA is being tracked, the second offset is always used to locate the RA, by
+interpreting it as: RA = CFA + offset2.  If RA is <em>not</em> being tracked
+<em>and</em> FP is being tracked, the second offset will be used to locate the
+FP, by interpreting it as: FP = CFA + offset2.
+</li><li>- If both RA and FP are being tracked, the third offset will be used to locate
+the FP, by interpreting it as FP = CFA + offset3.
+</li></ul>
+
+<p>The entities <code>S</code>, <code>N</code> and <code>BASE_REG</code> are identified using the
+SFrame FRE info word, a.k.a. the <code>sframe_fre_info</code>
+See <a href="The-SFrame-FRE-info-word.html">The SFrame FRE info word</a>.
 </p>
-<p>In summary, SFrame file format, by design, supports a variable number of stack
-offsets at the tail end of each SFrame FRE.  To keep the SFrame file
-format specification flexible yet extensible, the interpretation of the stack
-offsets is ABI/arch-specific.  The precise interpretation of the FRE stack
-offsets in the currently supported ABIs/architectures is covered in the
-ABI/arch-specific definition of the SFrame file format,
-See <a href="ABI_002farch_002dspecific-Definition.html">ABI/arch-specific Definition</a>.
-</p>
-<p>Next, the definitions of the three SFrame FRE types are as follows:
+<p>Following are the definitions of the allowed SFrame FRE:
 </p>
 <div class="example">
 <pre class="example">typedef struct sframe_frame_row_entry_addr1
@@ -129,18 +125,18 @@ SFrame FRE applies.  The value encoded in the <code>sfre_start_address</code> fi
 is the offset in bytes of the start address of the SFrame FRE, from the start
 address of the function.
 </p>
-<p>Further SFrame FRE types may be added in future.
+<p>Further FRE types may be added in future.
 </p>
 
-<span id="index-The-SFrame-FRE-Info-Word"></span>
+<span id="index-The-SFrame-FRE-info-word"></span>
 <ul class="section-toc">
-<li><a href="The-SFrame-FRE-Info-Word.html" accesskey="1">The SFrame FRE Info Word</a></li>
+<li><a href="The-SFrame-FRE-info-word.html" accesskey="1">The SFrame FRE info word</a></li>
 </ul>
 </div>
 <hr>
 <div class="header">
 <p>
-Previous: <a href="SFrame-Function-Descriptor-Entries.html">SFrame FDE</a>, Up: <a href="SFrame-Section.html">SFrame Section</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+Previous: <a href="SFrame-Function-Descriptor-Entries.html">SFrame FDE</a>, Up: <a href="SFrame-section.html">SFrame section</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

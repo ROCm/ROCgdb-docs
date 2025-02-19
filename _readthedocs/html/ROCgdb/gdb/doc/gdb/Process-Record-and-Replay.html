@@ -26,7 +26,7 @@ the license.txt in the top-level directory for the library on
 Github.com).  The additional terms and conditions below apply to your use
 of AMD ROCm technical documentation.
 
-(C)2019-2025 Advanced Micro Devices, Inc.  All rights reserved.
+(C)2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
 
 The information presented in this document is for informational purposes only
 and may contain technical inaccuracies, omissions, and typographical errors.
@@ -140,12 +140,9 @@ previous instruction; otherwise, it will work in record mode, if the
 platform supports reverse execution, or stop if not.
 </p>
 <p>Currently, process record and replay is supported on ARM, Aarch64,
-LoongArch, Moxie, PowerPC, PowerPC64, S/390, and x86 (i386/amd64) running
+Moxie, PowerPC, PowerPC64, S/390, and x86 (i386/amd64) running
 GNU/Linux.  Process record and replay can be used both when native
 debugging, and when remote debugging via <code>gdbserver</code>.
-</p>
-<p>When recording an inferior, <small>ROCGDB</small> may print auxiliary information
-during stepping commands and commands displaying the execution history.
 </p>
 <p>For architecture environments that support process record and replay,
 <small>ROCGDB</small> provides the following commands:
@@ -497,18 +494,6 @@ also need longer to process the branch trace data before it can be used.
 <dd><p>Show the current setting of the requested ring buffer size for branch
 tracing in Intel Processor Trace format.
 </p>
-</dd>
-<dt><span><code>set record btrace pt event-tracing</code></span></dt>
-<dd><p>Enable or disable event tracing for branch tracing in Intel Processor
-Trace format.  When enabled, events are recorded during execution as
-auxiliary information and will be printed during stepping commands and
-commands displaying the execution history.  Changing this setting has no
-effect on an active recording.  The default is off.
-</p>
-</dd>
-<dt><span><code>show record btrace pt event-tracing</code></span></dt>
-<dd><p>Show the current setting of Intel Processor Trace event tracing.
-</p>
 <span id="index-info-record"></span>
 </dd>
 <dt><span><code>info record</code></span></dt>
@@ -574,7 +559,7 @@ are printed in execution order.
 <p>It can also print mixed source+disassembly if you specify the the
 <code>/m</code> or <code>/s</code> modifier, and print the raw instructions in hex
 as well as in symbolic form by specifying the <code>/r</code> or <code>/b</code>
-modifier.  The behavior of the <code>/m</code>, <code>/s</code>, <code>/r</code>, and
+modifier.  The behaviour of the <code>/m</code>, <code>/s</code>, <code>/r</code>, and
 <code>/b</code> modifiers are the same as for the <kbd>disassemble</kbd> command
 (see <a href="Machine-Code.html#disassemble"><kbd>disassemble</kbd></a>).
 </p>
@@ -587,9 +572,6 @@ every time.  To omit the current position marker, specify the
 <p>To better align the printed instructions when the trace contains
 instructions from more than one function, the function name may be
 omitted by specifying the <code>/f</code> modifier.
-</p>
-<p>Printing auxiliary information is enabled by default and can be
-omitted with the <code>/a</code> modifier.
 </p>
 <p>Speculatively executed instructions are prefixed with &lsquo;<samp>?</samp>&rsquo;.  This
 feature is not available for all recording formats.
@@ -652,9 +634,8 @@ that function, the source lines for this instruction sequence (if the
 <code>/l</code> modifier is specified), and the instructions numbers that form
 the sequence (if the <code>/i</code> modifier is specified).  The function names
 are indented to reflect the call stack depth if the <code>/c</code> modifier is
-specified.  Printing auxiliary information is enabled by default and can be
-omitted with the <code>/a</code> modifier.  The <code>/l</code>, <code>/i</code>, <code>/a</code>,
-and <code>/c</code> modifiers can be given together.
+specified.  The <code>/l</code>, <code>/i</code>, and <code>/c</code> modifiers can be given
+together.
 </p>
 <div class="example">
 <pre class="example">(gdb) <b>list 1, 10</b>

@@ -3,7 +3,7 @@
 <!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright (C) 2021-2025 Free Software Foundation, Inc.
+<!-- Copyright (C) 2021-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU General Public License, Version 3 or any
@@ -23,7 +23,7 @@ License".
 <link href="index.html" rel="start" title="Top">
 <link href="Index.html" rel="index" title="Index">
 <link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="SFrame-Section.html" rel="up" title="SFrame Section">
+<link href="SFrame-section.html" rel="up" title="SFrame section">
 <link href="SFrame-Function-Descriptor-Entries.html" rel="next" title="SFrame Function Descriptor Entries">
 <link href="SFrame-Preamble.html" rel="prev" title="SFrame Preamble">
 <style type="text/css">
@@ -53,7 +53,7 @@ ul.no-bullet {list-style: none}
 <div class="section" id="SFrame-Header">
 <div class="header">
 <p>
-Next: <a href="SFrame-Function-Descriptor-Entries.html" accesskey="n" rel="next">SFrame FDE</a>, Previous: <a href="SFrame-Preamble.html" accesskey="p" rel="prev">SFrame Preamble</a>, Up: <a href="SFrame-Section.html" accesskey="u" rel="up">SFrame Section</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="SFrame-Function-Descriptor-Entries.html" accesskey="n" rel="next">SFrame FDE</a>, Previous: <a href="SFrame-Preamble.html" accesskey="p" rel="prev">SFrame Preamble</a>, Up: <a href="SFrame-section.html" accesskey="u" rel="up">SFrame section</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
 <span id="SFrame-Header-1"></span><h3 class="section">2.2 SFrame Header</h3>
@@ -93,62 +93,51 @@ SFrame header are relative to the <em>end</em> of the SFrame header; they are
 each an offset in bytes into the SFrame section where the SFrame FDE
 sub-section and the SFrame FRE sub-section respectively start.
 </p>
-<p>The SFrame section contains <code>sfh_num_fdes</code> number of fixed-length array
-elements in the SFrame FDE sub-section.  Each array element is of type SFrame
-function descriptor entry; each providing a high-level function description for
-the purpose of stack tracing.  More details in a subsequent section.
-See <a href="SFrame-Function-Descriptor-Entries.html">SFrame FDE</a>.
-</p>
-<p>Next, the SFrame FRE sub-section, starting at offset <code>sfh_fre_off</code>,
-describes the stack trace information for each function, using a total of
-<code>sfh_num_fres</code> number of variable-length array elements.  Each array
-element is of type SFrame frame row entry.
-See <a href="SFrame-Frame-Row-Entries.html">SFrame FRE</a>.
-</p>
 <p>SFrame header allows specifying explicitly the fixed offsets from CFA, if any,
 from which FP or RA may be recovered.  For example, in AMD64, the stack offset
-of the return address is <code>CFA - 8</code>.  Since these offsets are expected to
-be in close vicinity to the CFA in most ABIs, <code>sfh_cfa_fixed_fp_offset</code>
-and <code>sfh_cfa_fixed_ra_offset</code> are limited to signed 8-bit integers.
+of the return address is <code>CFA - 8</code>.  Since this offset is in close
+vicinity with the CFA in most ABIs, <code>sfh_cfa_fixed_fp_offset</code> and
+<code>sfh_cfa_fixed_ra_offset</code> are limited to signed 8-bit integers.
 </p>
-<span id="index-Provisions-for-future-ABIs"></span>
-<p>The SFrame format has made some provisions for supporting more
-ABIs/architectures in the future.  One of them is the concept of the auxiliary
-SFrame header.  Bytes in the auxiliary SFrame header may be used to convey
-further ABI-specific information.  The <code>sframe_header</code> structure provides
-an unsigned 8-bit integral field to denote the size (in bytes) of an auxiliary
-SFrame header.  The auxiliary SFrame header follows right after the
-<code>sframe_header</code> structure.  As for the calculation of the sub-section
-offsets, namely <code>sfh_fdeoff</code> and <code>sfh_freoff</code>, the <em>end</em> of
-SFrame header must be the end of the auxiliary SFrame header, if the latter is
-present.
+<p>SFrame format has made some provisions for supporting more ABIs/architectures
+in the future.  The <code>sframe_header</code> structure provides an unsigned 8-bit
+integral field to denote the size of an auxiliary SFrame header.  The
+auxiliary SFrame header follows right after the <code>sframe_header</code>
+structure.  As for the offset calculations, the <em>end</em> of SFrame header
+must be the end of the auxiliary SFrame header, if the latter is present.
 </p>
 <p>Putting it all together:
 </p>
 <table>
-<thead><tr><th>Offset</th><th>Type</th><th>Name</th><th>Description</th></tr></thead>
-<tr><td>0x00</td><td><code>sframe_ <br> preamble</code></td><td><code>sfh_preamble</code></td><td>The SFrame preamble. See <a href="SFrame-Preamble.html">SFrame Preamble</a>.</td></tr>
-<tr><td>0x04</td><td><code>uint8_t</code></td><td><code>sfh_abi_arch</code></td><td>The ABI/arch identifier.  See <a href="SFrame-ABI_002farch-Identifier.html">SFrame ABI/arch Identifier</a>.</td></tr>
-<tr><td>0x05</td><td><code>int8_t</code></td><td><code>sfh_cfa_fixed_fp_offset</code></td><td>The CFA fixed FP offset, if any.</td></tr>
-<tr><td>0x06</td><td><code>int8_t</code></td><td><code>sfh_cfa_fixed_ra_offset</code></td><td>The CFA fixed RA offset, if any.</td></tr>
-<tr><td>0x07</td><td><code>uint8_t</code></td><td><code>sfh_auxhdr_len</code></td><td>Size in bytes of the auxiliary header that follows the
+<thead><tr><th>Offset</th><th>Name</th><th>Description</th></tr></thead>
+<tr><td>0x00</td><td><code>sframe_preamble sfh_preamble</code></td><td>The SFrame preamble. See <a href="SFrame-Preamble.html">SFrame Preamble</a>.</td></tr>
+<tr><td>0x04</td><td><code>uint8_t sfh_abi_arch</code></td><td>The ABI/arch identifier.  See <a href="SFrame-ABI_002farch-identifier.html">SFrame ABI/arch identifier</a>.</td></tr>
+<tr><td>0x05</td><td><code>int8_t sfh_cfa_fixed_fp_offset</code></td><td>The CFA fixed FP offset, if any.</td></tr>
+<tr><td>0x06</td><td><code>int8_t sfh_cfa_fixed_ra_offset</code></td><td>The CFA fixed RA offset, if any.</td></tr>
+<tr><td>0x07</td><td><code>uint8_t sfh_auxhdr_len</code></td><td>Size in bytes of the auxiliary header that follows the
 <code>sframe_header</code> structure.</td></tr>
-<tr><td>0x08</td><td><code>uint32_t</code></td><td><code>sfh_num_fdes</code></td><td>The number of SFrame FDEs in the section.</td></tr>
-<tr><td>0x0c</td><td><code>uint32_t</code></td><td><code>sfh_num_fres</code></td><td>The number of SFrame FREs in the section.</td></tr>
-<tr><td>0x10</td><td><code>uint32_t</code></td><td><code>sfh_fre_len</code></td><td>The length in bytes of the SFrame FRE sub-section.</td></tr>
-<tr><td>0x14</td><td><code>uint32_t</code></td><td><code>sfh_fdeoff</code></td><td>The offset in bytes to the SFrame FDE sub-section.</td></tr>
-<tr><td>0x18</td><td><code>uint32_t</code></td><td><code>sfh_freoff</code></td><td>The offset in bytes to the SFrame FRE sub-section.</td></tr>
+<tr><td>0x08</td><td><code>uint32_t sfh_num_fdes</code></td><td>The number of SFrame FDEs in the section.</td></tr>
+<tr><td>0xc</td><td><code>uint32_t sfh_num_fres</code></td><td>The number of SFrame FREs in the section.</td></tr>
+<tr><td>0x10</td><td><code>uint32_t sfh_fre_len</code></td><td>The length in bytes of the SFrame FRE sub-section.</td></tr>
+<tr><td>0x14</td><td><code>uint32_t sfh_fdeoff</code></td><td>The offset in bytes of the SFrame FDE sub-section.  This sub-section
+contains <code>sfh_num_fdes</code> number of fixed-length array elements.  The array
+element is of type SFrame function desciptor entry, each providing a
+high-level function description for backtracing.
+See <a href="SFrame-Function-Descriptor-Entries.html">SFrame FDE</a>.</td></tr>
+<tr><td>0x18</td><td><code>uint32_t sfh_freoff</code></td><td>The offset in bytes of the SFrame FRE sub-section, the core of the SFrame
+section, which describes the stack trace information using variable-length array
+elements. See <a href="SFrame-Frame-Row-Entries.html">SFrame FRE</a>.</td></tr>
 </table>
 
 
 <ul class="section-toc">
-<li><a href="SFrame-ABI_002farch-Identifier.html" accesskey="1">SFrame ABI/arch Identifier</a></li>
+<li><a href="SFrame-ABI_002farch-identifier.html" accesskey="1">SFrame ABI/arch identifier</a></li>
 </ul>
 </div>
 <hr>
 <div class="header">
 <p>
-Next: <a href="SFrame-Function-Descriptor-Entries.html">SFrame FDE</a>, Previous: <a href="SFrame-Preamble.html">SFrame Preamble</a>, Up: <a href="SFrame-Section.html">SFrame Section</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="SFrame-Function-Descriptor-Entries.html">SFrame FDE</a>, Previous: <a href="SFrame-Preamble.html">SFrame Preamble</a>, Up: <a href="SFrame-section.html">SFrame section</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 
 
