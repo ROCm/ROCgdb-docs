@@ -8,7 +8,7 @@
 ROCgdb installation
 ====================
 
-This topic provides information required to build and install ROCm debugger.
+This topic provides information required to build and install ROCgdb.
 
 Prerequisites
 ---------------
@@ -52,7 +52,7 @@ Prerequisites
 Build
 ---------
 
-An example command-line to build ROCgdb on Linux:
+An example command line to build ROCgdb on Linux:
 
 .. code-block:: bash
 
@@ -95,10 +95,14 @@ To execute ROCgdb, you must install the ``ROCdbgapi`` library and its dependent 
 - ``librocm-dbgapi.so.0``
 - ``libamd_comgr.so.1``
 
-To generate the user manual PDF, use:
+To generate the ROCgdb user guide as a PDF, use:
 
 .. code-block:: bash
 
   make pdf
 
 This generates the PDF in ``build/gdb/doc/gdb.pdf``.
+
+.. note::
+
+  For ROCgdb user guide in HTML format, see `ROCgdb user guide <http://rocm.docs.amd.com/projects/ROCgdb/en/${branch}/gdb/doc/gdb/index.html>`_.
