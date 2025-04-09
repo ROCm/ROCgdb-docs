@@ -119,4 +119,4 @@ You can use the standard `GDB <http://www.gnu.org/software/gdb>`_ commands for b
 
 .. |ROCgdb user guide| raw:: html
 
-   <a href="../ROCgdb/gdb/doc/gdb/index.html" target="_blank">ROCgdb debugger manual</a>
+   <a href="../gdb/doc/gdb/index.html" target="_blank">ROCgdb user guide</a>
