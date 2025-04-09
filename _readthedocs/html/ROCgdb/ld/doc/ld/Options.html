@@ -7,7 +7,7 @@
 (GNU Binutils)
 version 2.43.50.
 
-Copyright (C) 1991-2024 Free Software Foundation, Inc.
+Copyright (C) 1991-2025 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -956,6 +956,18 @@ relocations.  Different output formats can have further restrictions; for
 example some <code>a.out</code>-based formats do not support partial linking
 with input files in other formats at all.
 </p>
+<p>On ELF platforms, when the relocatable output contains both contents
+which require link-time optimization (LTO) and contents which don&rsquo;t
+require LTO, a .gnu_object_only section will be created to contain a
+relocatable object file, as if &lsquo;<samp>-r</samp>&rsquo; is applied to all relocatable
+inputs which don&rsquo;t require LTO.  When processing a relocatable input
+with a .gnu_object_only section, the linker will extract the
+.gnu_object_only section as a separate input.
+</p>
+<p>Note that since &lsquo;<samp>-r</samp>&rsquo; groups some sections from different input files
+together, there may be negative impacts on code size and locality in
+final executable or shared library.
+</p>
 <p>This option does the same thing as &lsquo;<samp>-i</samp>&rsquo;.
 </p>
 <span id="index-_002dR-file"></span>
@@ -1474,6 +1486,15 @@ i386 and x86-64.
 <dd><p>Disable relocation overflow check.  This can be used to disable
 relocation overflow check if there will be no dynamic relocation
 overflow at run-time.  Supported for x86_64.
+</p>
+</dd>
+<dt><span>&lsquo;<samp>memory-seal</samp>&rsquo;</span></dt>
+<dt><span>&lsquo;<samp>nomemory-seal</samp>&rsquo;</span></dt>
+<dd><p>Instruct the executable or shared library that the all PT_LOAD segments
+should be sealed to avoid further manipulation (such as changing the
+protection flags, the segment size, or remove the mapping).
+This is a security hardening that requires system support.  This
+generates GNU_PROPERTY_MEMORY_SEAL in .note.gnu.property section
 </p>
 </dd>
 <dt><span>&lsquo;<samp>now</samp>&rsquo;</span></dt>
@@ -2351,7 +2372,6 @@ This option is only supported on a few targets.
 See <a href="H8_002f300.html"><code>ld</code> and the H8/300</a>.
 See <a href="Xtensa.html"><code>ld</code> and Xtensa Processors</a>.
 See <a href="M68HC11_002f68HC12.html"><code>ld</code> and the 68HC11 and 68HC12</a>.
-See <a href="Nios-II.html"><code>ld</code> and the Altera Nios II</a>.
 See <a href="PowerPC-ELF32.html"><code>ld</code> and PowerPC 32-bit ELF Support</a>.
 </p>
 <p>On some platforms the <samp>--relax</samp> option performs target specific,
@@ -2666,6 +2686,19 @@ for compatibility with other linkers, you may omit the leading
 should be no white space between <var>sectionname</var>, the equals
 sign (&ldquo;<tt class="key">=</tt>&rdquo;), and <var>org</var>.
 </p>
+<span id="index-_002d_002dimage_002dbase_003dorg"></span>
+</dd>
+<dt id='index-image-base-address_002c-cmd-line'><span><code>--image-base=<var>org</var></code><a href='#index-image-base-address_002c-cmd-line' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>When using ELF, same as <samp>-Ttext-segment</samp>, with both options effectively
+setting the base address of the ELF executable.
+</p>
+<p>When using PE, use <var>value</var> as the base address of your program or dll.
+This is the lowest memory location that will be used when your program or
+dll is loaded.  To reduce the need to relocate and improve performance of
+your dlls, each should have a unique base address and not overlap any
+other dlls.  The default is 0x400000 for executables, and 0x10000000
+for dlls.
+</p>
 <span id="index-_002dTbss_003dorg"></span>
 <span id="index-_002dTdata_003dorg"></span>
 <span id="index-_002dTtext_003dorg"></span>
@@ -2681,7 +2714,7 @@ sign (&ldquo;<tt class="key">=</tt>&rdquo;), and <var>org</var>.
 </dd>
 <dt id='index-text-segment-origin_002c-cmd-line'><span><code>-Ttext-segment=<var>org</var></code><a href='#index-text-segment-origin_002c-cmd-line' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>When creating an ELF executable, it will set the address of the first
-byte of the text segment.  Note that when <samp>-pie</samp> is used with
+byte of the first segment.  Note that when <samp>-pie</samp> is used with
 <samp>-Ttext-segment=<var>org</var></samp>, the output executable is marked
 ET_EXEC so that the address of the first byte of the text segment will
 be guaranteed to be <var>org</var> at run time.
@@ -3202,6 +3235,11 @@ bit string identifying the original linked file does not change.
 contents of the note are in JSON format, as per the package metadata
 specification.  For more information see:
 https://systemd.io/ELF_PACKAGE_METADATA/
+The JSON argument support percent-encoding and following %[string]
+(where string refers to the name in HTML&rsquo;s Named Character References)
+encoding: &lsquo;<samp>%[comma]</samp>&rsquo; for &lsquo;<samp>,</samp>&rsquo;, &lsquo;<samp>%[lbrace]</samp>&rsquo; for &lsquo;<samp>{</samp>&rsquo;,
+&lsquo;<samp>%[quot]</samp>&rsquo; for &lsquo;<samp>&quot;</samp>&rsquo;, &lsquo;<samp>%[rbrace]</samp>&rsquo; for &lsquo;<samp>}</samp>&rsquo;, and
+&lsquo;<samp>%[space]</samp>&rsquo; for space character.
 If the JSON argument is missing/empty then this will disable the
 creation of the metadata note, if one had been enabled by an earlier
 occurrence of the &ndash;package-metadata option.
@@ -3372,18 +3410,6 @@ file offsets which are multiples of this number.  This defaults to
 <dd><p>Specify the number of bytes of memory to reserve (and optionally commit)
 to be used as heap for this program.  The default is 1MB reserved, 4K
 committed.
-[This option is specific to the i386 PE targeted port of the linker]
-</p>
-<span id="index-image-base"></span>
-<span id="index-_002d_002dimage_002dbase"></span>
-</dd>
-<dt><span><code>--image-base <var>value</var></code></span></dt>
-<dd><p>Use <var>value</var> as the base address of your program or dll.  This is
-the lowest memory location that will be used when your program or dll
-is loaded.  To reduce the need to relocate and improve performance of
-your dlls, each should have a unique base address and not overlap any
-other dlls.  The default is 0x400000 for executables, and 0x10000000
-for dlls.
 [This option is specific to the i386 PE targeted port of the linker]
 </p>
 <span id="index-_002d_002dkill_002dat"></span>
