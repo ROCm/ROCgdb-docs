@@ -26,7 +26,7 @@ the license.txt in the top-level directory for the library on
 Github.com).  The additional terms and conditions below apply to your use
 of AMD ROCm technical documentation.
 
-(C)2019-2025 Advanced Micro Devices, Inc.  All rights reserved.
+(C)2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
 
 The information presented in this document is for informational purposes only
 and may contain technical inaccuracies, omissions, and typographical errors.
@@ -131,7 +131,7 @@ parameters by a &lsquo;<samp>:</samp>&rsquo;; the parameters themselves should b
 separated by &lsquo;<samp>,</samp>&rsquo; or &lsquo;<samp>;</samp>&rsquo;.  Stubs must be careful to match the
 full packet name, and check for a separator or the end of the packet,
 in case two packet names share a common prefix.  New packets should not begin
-with &lsquo;<samp>qC</samp>&rsquo;, &lsquo;<samp>qP</samp>&rsquo;, or &lsquo;<samp>qL</samp>&rsquo;<a id="DOCF21" href="#FOOT21"><sup>21</sup></a>.
+with &lsquo;<samp>qC</samp>&rsquo;, &lsquo;<samp>qP</samp>&rsquo;, or &lsquo;<samp>qL</samp>&rsquo;<a id="DOCF22" href="#FOOT22"><sup>22</sup></a>.
 </p>
 <p>Like the descriptions of the other packets, each description here
 has a template showing the packet&rsquo;s overall syntax, followed by an
@@ -861,9 +861,7 @@ stubs&rsquo;s interpreter may have security implications</em>.
 </dl>
 
 <p>Unlike most packets, this packet does not support
-&lsquo;<samp>E.<var>errtext</var></samp>&rsquo;-style textual error replies (see <a href="Standard-Replies.html#textual-error-reply">textual error reply</a>) by default.  Stubs should be careful to only send such a
-reply if <small>ROCGDB</small> reported support for it with the
-<code>error-message</code> feature (see <a href="#error_002dmessage">error-message</a>).
+&lsquo;<samp>E.<var>errtext</var></samp>&rsquo;-style textual error replies (see <a href="Standard-Replies.html#textual-error-reply">textual error reply</a>).
 </p>
 <p>(Note that the <code>qRcmd</code> packet&rsquo;s name is separated from the
 command by a &lsquo;<samp>,</samp>&rsquo;, not a &lsquo;<samp>:</samp>&rsquo;, contrary to the naming
@@ -1021,17 +1019,6 @@ including &lsquo;<samp>exec-events+</samp>&rsquo; in its &lsquo;<samp>qSupported
 <dt><span>&lsquo;<samp>vContSupported</samp>&rsquo;</span></dt>
 <dd><p>This feature indicates whether <small>ROCGDB</small> wants to know the
 supported actions in the reply to &lsquo;<samp>vCont?</samp>&rsquo; packet.
-</p>
-<span id="error_002dmessage"></span></dd>
-<dt><span>&lsquo;<samp>error-message</samp>&rsquo;</span></dt>
-<dd><p>This feature indicates whether <small>ROCGDB</small> supports accepting a reply
-in &lsquo;<samp>E.<var>errtext</var></samp>&rsquo; format (See <a href="Standard-Replies.html#textual-error-reply">textual error reply</a>) from the
-&lsquo;<samp>qRcmd</samp>&rsquo; and &lsquo;<samp>m</samp>&rsquo; packets.  These packets, historically,
-didn&rsquo;t support &lsquo;<samp>E.<var>errtext</var></samp>&rsquo;, and older versions of
-<small>ROCGDB</small> didn&rsquo;t expect to see a reply in this format.
-</p>
-<p>New packets should be written to support &lsquo;<samp>E.<var>errtext</var></samp>&rsquo;
-regardless of this feature being true or not.
 </p></dd>
 </dl>
 
@@ -1092,8 +1079,6 @@ stubs which may be configured for multiple targets.
 <tr><td width="35%">&lsquo;<samp>Qbtrace:pt</samp>&rsquo;</td><td width="20%">Yes</td><td width="12%">&lsquo;<samp>-</samp>&rsquo;</td><td width="20%">Yes</td></tr>
 <tr><td width="35%">&lsquo;<samp>Qbtrace-conf:bts:size</samp>&rsquo;</td><td width="20%">Yes</td><td width="12%">&lsquo;<samp>-</samp>&rsquo;</td><td width="20%">Yes</td></tr>
 <tr><td width="35%">&lsquo;<samp>Qbtrace-conf:pt:size</samp>&rsquo;</td><td width="20%">Yes</td><td width="12%">&lsquo;<samp>-</samp>&rsquo;</td><td width="20%">Yes</td></tr>
-<tr><td width="35%">&lsquo;<samp>Qbtrace-conf:pt:ptwrite</samp>&rsquo;</td><td width="20%">Yes</td><td width="12%">&lsquo;<samp>-</samp>&rsquo;</td><td width="20%">Yes</td></tr>
-<tr><td width="35%">&lsquo;<samp>Qbtrace-conf:pt:event-tracing</samp>&rsquo;</td><td width="20%">Yes</td><td width="12%">&lsquo;<samp>-</samp>&rsquo;</td><td width="20%">Yes</td></tr>
 <tr><td width="35%">&lsquo;<samp>QNonStop</samp>&rsquo;</td><td width="20%">No</td><td width="12%">&lsquo;<samp>-</samp>&rsquo;</td><td width="20%">Yes</td></tr>
 <tr><td width="35%">&lsquo;<samp>QCatchSyscalls</samp>&rsquo;</td><td width="20%">No</td><td width="12%">&lsquo;<samp>-</samp>&rsquo;</td><td width="20%">Yes</td></tr>
 <tr><td width="35%">&lsquo;<samp>QPassSignals</samp>&rsquo;</td><td width="20%">No</td><td width="12%">&lsquo;<samp>-</samp>&rsquo;</td><td width="20%">Yes</td></tr>
@@ -1120,7 +1105,6 @@ stubs which may be configured for multiple targets.
 <tr><td width="35%">&lsquo;<samp>QThreadOptions</samp>&rsquo;</td><td width="20%">Yes</td><td width="12%">&lsquo;<samp>-</samp>&rsquo;</td><td width="20%">No</td></tr>
 <tr><td width="35%">&lsquo;<samp>no-resumed</samp>&rsquo;</td><td width="20%">No</td><td width="12%">&lsquo;<samp>-</samp>&rsquo;</td><td width="20%">No</td></tr>
 <tr><td width="35%">&lsquo;<samp>memory-tagging</samp>&rsquo;</td><td width="20%">No</td><td width="12%">&lsquo;<samp>-</samp>&rsquo;</td><td width="20%">No</td></tr>
-<tr><td width="35%">&lsquo;<samp>error-message</samp>&rsquo;</td><td width="20%">No</td><td width="12%">&lsquo;<samp>+</samp>&rsquo;</td><td width="20%">No</td></tr>
 </table>
 
 <p>These are the currently defined stub features, in more detail:
@@ -1345,14 +1329,6 @@ rather than reporting the hit to <small>ROCGDB</small>.
 <dd><p>The remote stub understands the &lsquo;<samp>Qbtrace-conf:pt:size</samp>&rsquo; packet.
 </p>
 </dd>
-<dt><span>&lsquo;<samp>Qbtrace-conf:pt:ptwrite</samp>&rsquo;</span></dt>
-<dd><p>The remote stub understands the &lsquo;<samp>Qbtrace-conf:pt:ptwrite</samp>&rsquo; packet.
-</p>
-</dd>
-<dt><span>&lsquo;<samp>Qbtrace-conf:pt:event-tracing</samp>&rsquo;</span></dt>
-<dd><p>The remote stub understands the &lsquo;<samp>Qbtrace-conf:pt:event-tracing</samp>&rsquo; packet.
-</p>
-</dd>
 <dt><span>&lsquo;<samp>swbreak</samp>&rsquo;</span></dt>
 <dd><p>The remote stub reports the &lsquo;<samp>swbreak</samp>&rsquo; stop reason for memory
 breakpoints.
@@ -1410,14 +1386,6 @@ is not supported by the stub.  Access to the <samp>/proc/<var>pid</var>/smaps</s
 file is done via &lsquo;<samp>vFile</samp>&rsquo; requests.
 </p>
 </dd>
-<dt><span>&lsquo;<samp>error-message</samp>&rsquo;</span></dt>
-<dd><p>The remote stub supports replying with an error in a
-&lsquo;<samp>E.<var>errtext</var></samp>&rsquo; (See <a href="Standard-Replies.html#textual-error-reply">textual error reply</a>) format from the
-&lsquo;<samp>m</samp>&rsquo; and &lsquo;<samp>qRcmd</samp>&rsquo; packets.  It is not usually necessary to
-send this feature back to <small>ROCGDB</small> in the &lsquo;<samp>qSupported</samp>&rsquo; reply,
-<small>ROCGDB</small> will always support &lsquo;<samp>E.<var>errtext</var></samp>&rsquo; format replies
-if it sent the &lsquo;<samp>error-message</samp>&rsquo; feature.
-</p></dd>
 </dl>
 
 </dd>
@@ -1881,36 +1849,6 @@ btrace recording method in pt format.
 </dl>
 
 </dd>
-<dt><span>&lsquo;<samp>Qbtrace-conf:pt:ptwrite=<var>(yes|no)</var></samp>&rsquo;</span></dt>
-<dd><p>Indicate support for <code>PTWRITE</code> packets.  This allows for backwards
-compatibility.
-</p>
-<p>Reply:
-</p><dl compact="compact">
-<dt><span>&lsquo;<samp>OK</samp>&rsquo;</span></dt>
-<dd><p>The ptwrite config parameter has been set.
-</p></dd>
-<dt><span>&lsquo;<samp>E.errtext</samp>&rsquo;</span></dt>
-<dd><p>A badly formed request or an error was encountered.
-</p></dd>
-</dl>
-
-</dd>
-<dt><span>&lsquo;<samp>Qbtrace-conf:pt:event-tracing=<var>(yes|no)</var></samp>&rsquo;</span></dt>
-<dd><p>Indicate support for event-tracing packets.  This allows for backwards
-compatibility.
-</p>
-<p>Reply:
-</p><dl compact="compact">
-<dt><span>&lsquo;<samp>OK</samp>&rsquo;</span></dt>
-<dd><p>The event-tracing config parameter has been set.
-</p></dd>
-<dt><span>&lsquo;<samp>E.errtext</samp>&rsquo;</span></dt>
-<dd><p>A badly formed request or an error was encountered.
-</p></dd>
-</dl>
-
-</dd>
 </dl>
 
 </div>
@@ -1918,7 +1856,7 @@ compatibility.
 <hr>
 <h4 class="footnotes-heading">Footnotes</h4>
 
-<h5><a id="FOOT21" href="#DOCF21">(21)</a></h5>
+<h5><a id="FOOT22" href="#DOCF22">(22)</a></h5>
 <p>The &lsquo;<samp>qP</samp>&rsquo; and &lsquo;<samp>qL</samp>&rsquo;
 packets predate these conventions, and have arguments without any terminator
 for the packet name; we suspect they are in widespread use in places that

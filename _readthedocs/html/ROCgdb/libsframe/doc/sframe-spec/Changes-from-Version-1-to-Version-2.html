@@ -3,7 +3,7 @@
 <!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright (C) 2021-2025 Free Software Foundation, Inc.
+<!-- Copyright (C) 2021-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU General Public License, Version 3 or any
@@ -62,19 +62,15 @@ Previous: <a href="Overview.html" accesskey="p" rel="prev">Overview</a>, Up: <a 
 since Version 1 was published.
 </p>
 <ul>
-<li> Add an unsigned 8-bit integral field to the SFrame function descriptor entry to
-encode the size of the repetitive code blocks.  Such code blocks, e.g, pltN
-entries, use an SFrame function descriptor entry of type
-SFRAME_FDE_TYPE_PCMASK.
-</li><li> Add an unsigned 16-bit integral field to the SFrame function descriptor entry
-to serve as padding.  This helps ensure natural alignment for the members of
-the data structure.
-</li><li> The above two imply that each SFrame function descriptor entry has a fixed size
+<li> SFrame Function Descriptor Entry encodes the size of the repetitive code
+blocks, e.g., pltN entries for which an FDE of type SFRAME_FDE_TYPE_PCMASK is
+used.
+</li><li> SFrame Function Descriptor Entry includes an explicit padding of two bytes to
+ensure natural alignment for its data members.
+</li><li> The above two imply that each SFrame Function Descriptor Entry has a fixed size
 of 20 bytes instead of its size of 17 bytes in SFrame format version 1.
 </li></ul>
 
-<p>SFrame version 1 is now obsolete and should not be used.
-</p>
 </div>
 
 
