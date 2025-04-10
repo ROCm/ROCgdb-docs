@@ -105,4 +105,4 @@ This generates the PDF in ``build/gdb/doc/gdb.pdf``.
 
 .. note::
 
-  For ROCgdb user guide in HTML format, see `ROCgdb user guide <http://rocm.docs.amd.com/projects/ROCgdb/en/${branch}/gdb/doc/gdb/index.html>`_.
+  For ROCgdb user guide in HTML format, see `ROCgdb user guide <http://rocm.docs.amd.com/projects/ROCgdb/en/${branch}/ROCgdb/gdb/doc/gdb/index.html>`_.
