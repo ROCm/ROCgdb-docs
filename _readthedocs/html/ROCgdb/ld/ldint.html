@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the internals of the GNU linker ld.
 
-Copyright (C) 1992-2025 Free Software Foundation, Inc.
+Copyright (C) 1992-2024 Free Software Foundation, Inc.
 Contributed by Cygnus Support.
 
 Permission is granted to copy, distribute and/or modify this document
@@ -300,28 +300,23 @@ invoked.
 <dt><span><code>(empty)</code></span></dt>
 <dd><p>The script generated is used by default (when none of the following
 cases apply).  The output has an extension of <samp>.x</samp>.
-</p>
-</dd>
+</p></dd>
 <dt><span><code>n</code></span></dt>
 <dd><p>The script generated is used when the linker is invoked with the
 <code>-n</code> option.  The output has an extension of <samp>.xn</samp>.
-</p>
-</dd>
+</p></dd>
 <dt><span><code>N</code></span></dt>
 <dd><p>The script generated is used when the linker is invoked with the
 <code>-N</code> option.  The output has an extension of <samp>.xbn</samp>.
-</p>
-</dd>
+</p></dd>
 <dt><span><code>r</code></span></dt>
 <dd><p>The script generated is used when the linker is invoked with the
 <code>-r</code> option.  The output has an extension of <samp>.xr</samp>.
-</p>
-</dd>
+</p></dd>
 <dt><span><code>u</code></span></dt>
 <dd><p>The script generated is used when the linker is invoked with the
 <code>-Ur</code> option.  The output has an extension of <samp>.xu</samp>.
-</p>
-</dd>
+</p></dd>
 <dt><span><code>shared</code></span></dt>
 <dd><p>The <samp>scripttempl</samp> script is only invoked with <code>LD_FLAG</code> set to
 this value if <code>GENERATE_SHLIB_SCRIPT</code> is defined in the
@@ -329,17 +324,16 @@ this value if <code>GENERATE_SHLIB_SCRIPT</code> is defined in the
 this script at the appropriate time, normally when the linker is invoked
 with the <code>-shared</code> option.  The output has an extension of
 <samp>.xs</samp>.
-</p>
-</dd>
+</p></dd>
 <dt><span><code>c</code></span></dt>
 <dd><p>The <samp>scripttempl</samp> script is only invoked with <code>LD_FLAG</code> set to
 this value if <code>GENERATE_COMBRELOC_SCRIPT</code> is defined in the
 <samp>emulparams</samp> file or if <code>SCRIPT_NAME</code> is <code>elf</code>. The
 <samp>emultempl</samp> script must arrange to use this script at the appropriate
 time, normally when the linker is invoked with the <code>-z combreloc</code>
-option.  The output has an extension of <samp>.xc</samp>.
-</p>
-</dd>
+option.  The output has an extension of
+<samp>.xc</samp>.
+</p></dd>
 <dt><span><code>cshared</code></span></dt>
 <dd><p>The <samp>scripttempl</samp> script is only invoked with <code>LD_FLAG</code> set to
 this value if <code>GENERATE_COMBRELOC_SCRIPT</code> is defined in the
@@ -348,62 +342,7 @@ this value if <code>GENERATE_COMBRELOC_SCRIPT</code> is defined in the
 The <samp>emultempl</samp> script must arrange to use this script at the
 appropriate time, normally when the linker is invoked with the <code>-shared
 -z combreloc</code> option.  The output has an extension of <samp>.xsc</samp>.
-</p>
-</dd>
-<dt><span><code>wshared</code></span></dt>
-<dd><p>Like <em>cshared</em> but in addition to needing the <samp>-shared</samp>
-and <samp>-z combreloc</samp> options, it also needs the <samp>-z relro</samp>
-option.  If the <samp>-z now</samp> option is also used then the output has
-an extension of <samp>.xsw</samp>, otherwise it is <samp>.xsco</samp>.
-</p>
-</dd>
-<dt><span><code>pie</code></span></dt>
-<dd><p>The <samp>scripttempl</samp> script is only invoked with <code>LD_FLAG</code> set to
-this value if <code>GENERATE_PIE_SCRIPT</code> is defined in the
-<samp>emulparams</samp> file.  The <samp>emultempl</samp> script must arrange to use
-this script at the appropriate time, normally when the linker is invoked
-with the <code>-pie</code> option.  The output has an extension of
-<samp>.xd</samp>.
-</p>
-<p>In addition if the <samp>scripttempl</samp> script is also invoked with
-<code>GENERATE_RELRO_SCRIPT</code> defined then a second script is created
-with an extension of <samp>.xdo</samp> to match the <samp>-pie</samp> and
-<samp>-z relro</samp> options.
-</p>
-</dd>
-<dt><span><code>cpie</code></span></dt>
-<dd><p>Like <code>pie</code> but this version is used when the <samp>scripttempl</samp>
-script is invoked with both <code>GENERATE_PIE_SCRIPT</code> and
-<code>GENERATE_COMBRELOC_SCRIPT</code> defined.  The <samp>emultempl</samp> script
-must arrange to use this script at the appropriate time, normally when
-the linker is invoked with the <code>-pie</code> and <samp>-z combreloc</samp>
-options.  The output has an extension of <samp>.xdc</samp>.
-</p>
-</dd>
-<dt><span><code>wpie</code></span></dt>
-<dd><p>Like <code>cpie</code>, but in addition the <samp>-z relro</samp> and
-<samp>-z now</samp> options need to be defined.  The output has an
-extension of <samp>.xdw</samp>.
-</p>
-</dd>
-<dt><span><code>textonly</code></span></dt>
-<dt><span><code>pietextonly</code></span></dt>
-<dt><span><code>cpietextonly</code></span></dt>
-<dt><span><code>wpietextonly</code></span></dt>
-<dt><span><code>ctextonly</code></span></dt>
-<dt><span><code>wtextonly</code></span></dt>
-<dt><span><code>sharedtextonly</code></span></dt>
-<dt><span><code>csharedtextonly</code></span></dt>
-<dt><span><code>wsharedtextonly</code></span></dt>
-<dt><span><code>rotextonly</code></span></dt>
-<dt><span><code>roctextonly</code></span></dt>
-<dt><span><code>rowtextonly</code></span></dt>
-<dt><span><code>rosharedtextonly</code></span></dt>
-<dt><span><code>rocsharedtextonly</code></span></dt>
-<dt><span><code>rowsharedtextonly</code></span></dt>
-<dt><span><code>ropietextonly</code></span></dt>
-<dt><span><code>rocpietextonly</code></span></dt>
-<dt><span><code>rowpietextonly</code></span></dt>
+</p></dd>
 <dt><span><code>auto_import</code></span></dt>
 <dd><p>The <samp>scripttempl</samp> script is only invoked with <code>LD_FLAG</code> set to
 this value if <code>GENERATE_AUTO_IMPORT_SCRIPT</code> is defined in the
@@ -411,10 +350,8 @@ this value if <code>GENERATE_AUTO_IMPORT_SCRIPT</code> is defined in the
 use this script at the appropriate time, normally when the linker is
 invoked with the <code>--enable-auto-import</code> option.  The output has
 an extension of <samp>.xa</samp>.
-</p>
-</dd>
+</p></dd>
 </dl>
-
 
 <p>Besides the shell variables set by the <samp>emulparams</samp> script, and the
 <code>LD_FLAG</code> variable, the <samp>genscripts.sh</samp> script will set

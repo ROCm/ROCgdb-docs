@@ -26,7 +26,7 @@ the license.txt in the top-level directory for the library on
 Github.com).  The additional terms and conditions below apply to your use
 of AMD ROCm technical documentation.
 
-(C)2019-2025 Advanced Micro Devices, Inc.  All rights reserved.
+(C)2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
 
 The information presented in this document is for informational purposes only
 and may contain technical inaccuracies, omissions, and typographical errors.
@@ -126,34 +126,6 @@ fatal so it can carry out the purpose of the interrupt: to kill the program.
 program.  You can tell <small>ROCGDB</small> in advance what to do for each kind of
 signal.
 </p>
-<p>When specifying a signal by number, <small>ROCGDB</small> translates the number
-to the target platform according to the corresponding signal name.
-For example, <small>ROCGDB</small> always treats signal 1 as <code>SIGHUP</code>.
-So, when specifying &lsquo;<samp>1</samp>&rsquo; as a signal, <small>ROCGDB</small> will translate
-this to the target&rsquo;s <code>SIGHUP</code>, whatever that might be.
-</p>
-<p>Numbers may only be used for signals 1 through 15.  <small>ROCGDB</small> uses
-this mapping:
-</p>
-<table>
-<thead><tr><th>Number</th><th>Name</th></tr></thead>
-<tr><td>1</td><td>SIGHUP</td></tr>
-<tr><td>2</td><td>SIGINT</td></tr>
-<tr><td>3</td><td>SIGQUIT</td></tr>
-<tr><td>4</td><td>SIGILL</td></tr>
-<tr><td>5</td><td>SIGTRAP</td></tr>
-<tr><td>6</td><td>SIGABRT</td></tr>
-<tr><td>7</td><td>SIGEMT</td></tr>
-<tr><td>8</td><td>SIGFPE</td></tr>
-<tr><td>9</td><td>SIGKILL</td></tr>
-<tr><td>10</td><td>SIGBUS</td></tr>
-<tr><td>11</td><td>SIGSEGV</td></tr>
-<tr><td>12</td><td>SIGSYS</td></tr>
-<tr><td>13</td><td>SIGPIPE</td></tr>
-<tr><td>14</td><td>SIGALRM</td></tr>
-<tr><td>15</td><td>SIGTERM</td></tr>
-</table>
-
 <span id="index-handling-signals"></span>
 <p>Normally, <small>ROCGDB</small> is set up to let the non-erroneous signals like
 <code>SIGALRM</code> be silently passed to your program
@@ -359,6 +331,33 @@ $1 = (void *) 0x7ffff7ff7000
 
 <p>Depending on target support, <code>$_siginfo</code> may also be writable.
 </p>
+<span id="index-Intel-MPX-boundary-violations"></span>
+<span id="index-boundary-violations_002c-Intel-MPX"></span>
+<p>On some targets, a <code>SIGSEGV</code> can be caused by a boundary
+violation, i.e., accessing an address outside of the allowed range.
+In those cases <small>ROCGDB</small> may displays additional information,
+depending on how <small>ROCGDB</small> has been told to handle the signal.
+With <code>handle stop SIGSEGV</code>, <small>ROCGDB</small> displays the violation
+kind: &quot;Upper&quot; or &quot;Lower&quot;, the memory address accessed and the
+bounds, while with <code>handle nostop SIGSEGV</code> no additional
+information is displayed.
+</p>
+<p>The usual output of a segfault is:
+</p><div class="example">
+<pre class="example">Program received signal SIGSEGV, Segmentation fault
+0x0000000000400d7c in upper () at i386-mpx-sigsegv.c:68
+68        value = *(p + len);
+</pre></div>
+
+<p>While a bound violation is presented as:
+</p><div class="example">
+<pre class="example">Program received signal SIGSEGV, Segmentation fault
+Upper bound violation while accessing address 0x7fffffffc3b3
+Bounds: [lower = 0x7fffffffc390, upper = 0x7fffffffc3a3]
+0x0000000000400d7c in upper () at i386-mpx-sigsegv.c:68
+68        value = *(p + len);
+</pre></div>
+
 </div>
 <hr>
 <div class="header">
