@@ -1,56 +1,58 @@
 .. meta::
    :description: Source-level debugger for Linux, based on the GNU Debugger
-   :keywords: ROCgdb, ROCm, library, API, tool
+   :keywords: Install ROCgdb, Build ROCgdb, Install AMD ROCm Debugger, Build AMD ROCm Debugger
 
-.. _installation:
+.. _rocgdb-installation:
 
-==============
-Installation
-==============
+====================
+ROCgdb installation
+====================
 
-This document provides information required to build and install ROCm debugger.
+This topic provides information required to build and install ROCgdb.
 
 Prerequisites
 ---------------
 
 - A system supporting ROCm. See the `supported operating systems <https://rocm.docs.amd.com/projects/install-on-linux/en/latest/reference/system-requirements.html#supported-operating-systems>`_.
 
-- A C++11 compiler such as GCC 4.8 or Clang 3.3.
+- A C++17 compiler such as GCC 9 or Clang 5.
 
-- AMD Debugger API Library (ROCdbgapi) that can be installed as part of the
+- AMD Debugger API Library (``ROCdbgapi``) that can be installed as part of the
   ROCm release using the ``rocm-dbgapi`` package.
 
-- Install the required packages according to the OS.
+- Install the required packages according to the OS:
 
-  - For Ubuntu 18.04 and Ubuntu 20.04:
+.. tab-set::
 
-    .. code-block:: bash
+   .. tab-item:: Ubuntu 20.04/22.04
+      :sync: ubuntu
 
-      apt install bison flex gcc make ncurses-dev texinfo g++ zlib1g-dev \
-      libexpat-dev python3-dev liblzma-dev libgmp-dev libbabeltrace-dev \
-      libbabeltrace-ctf-dev libmpfr-dev
-  
-  - For CentOS 8.1 and RHEL 8.1:
+      .. code-block:: shell
 
-    .. code-block:: bash
-    
-      yum install -y epel-release centos-release-scl bison flex gcc make \
-      texinfo texinfo-tex gcc-c++ zlib-devel expat-devel python3-devel \
-      xz-devel gmp-devel libbabeltrace-devel ncurses-devel mpfr-devel
-      wget http://repo.okay.com.mx/centos/8/x86_64/release/libbabeltrace-devel-1.5.4-2.el8.x86_64.rpm \
-      && rpm -ivh --nodeps libbabeltrace-devel-1.5.4-2.el8.x86_64.rpm
-  
-  - For SLES 15 Service Pack 1:
+        apt install bison flex gcc make ncurses-dev texinfo g++ zlib1g-dev \
+        libexpat-dev python3-dev liblzma-dev libgmp-dev libmpfr-dev
 
-    .. code-block:: bash
+   .. tab-item:: CentOS 8.1 and RHEL 8.1/9.1
+      :sync: rhel
 
-      zypper in bison flex gcc make texinfo gcc-c++ zlib-devel libexpat-devel \
-      python3-devel xz-devel gmp-devel babeltrace-devel ncurses-devel mpfr-devel
-  
-Build 
+      .. code-block:: shell
+
+        yum install -y epel-release centos-release-scl bison flex gcc make \
+        texinfo texinfo-tex gcc-c++ zlib-devel expat-devel python3-devel \
+        xz-devel gmp-devel ncurses-devel mpfr-devel
+
+   .. tab-item:: SLES 15 Service Pack 1
+      :sync: sles
+
+      .. code-block:: shell
+
+        zypper in bison flex gcc make texinfo gcc-c++ zlib-devel libexpat-devel \
+        python3-devel xz-devel gmp-devel ncurses-devel mpfr-devel
+
+Build
 ---------
 
-An example command-line to build ROCgdb on Linux:
+An example command line to build ROCgdb on Linux:
 
 .. code-block:: bash
 
@@ -58,21 +60,21 @@ An example command-line to build ROCgdb on Linux:
   mkdir build
   cd build
   ../configure --program-prefix=roc \
-    --enable-64-bit-bfd --enable-targets="x86_64-linux-gnu,amdgcn-amd-amdhsa" \
-    --disable-ld --disable-gas --disable-gdbserver --disable-sim --enable-tui \
-    --disable-gdbtk --disable-gprofng --disable-shared --with-expat \
-    --with-system-zlib --without-guile --with-babeltrace --with-lzma \
-    --with-python=python3
+  --enable-64-bit-bfd --enable-targets="x86_64-linux-gnu,amdgcn-amd-amdhsa" \
+  --disable-ld --disable-gas --disable-gdbserver --disable-sim --enable-tui \
+  --disable-gdbtk --disable-gprofng --disable-shared --with-expat \
+  --with-system-zlib --without-guile --without-babeltrace --with-lzma \
+  --with-python=python3
   make
 
-If ROCdbgapi is not installed in the system default location, specify ``PKG_CONFIG_PATH`` to make the correct build configuration available to ``pkg-config``.
-If ROCdbgapi is installed in ``/opt/rocm-$ROCM_VERSION`` (default for ROCm packages), use ``PKG_CONFIG_PATH=/opt/rocm-$ROCM_VERSION/share/pkgconfig``.
+If ``ROCdbgapi`` is not installed in the system's default location, specify ``PKG_CONFIG_PATH`` to make the correct build configuration available to ``pkg-config``.
+If ``ROCdbgapi`` is installed in ``/opt/rocm-$ROCM_VERSION`` (default for ROCm packages), use ``PKG_CONFIG_PATH=/opt/rocm-$ROCM_VERSION/share/pkgconfig``.
 
-If the system's dynamic linker is not configured to locate ROCdbgapi where it is
-installed, ROCgdb can be configured and built using ``LDFLAGS="-Wl,-rpath=/opt/rocm-$ROCM_VERSION/lib"``. Alternatively, you can use
-``LD_LIBRARY_PATH`` at runtime to indicate where ROCdbgapi is installed.
+If the system's dynamic linker is not configured to locate ``ROCdbgapi`` where it is
+installed, configure and build ROCgdb using ``LDFLAGS="-Wl,-rpath=/opt/rocm-$ROCM_VERSION/lib"``.
+Alternatively, use ``LD_LIBRARY_PATH`` at runtime to indicate where ``ROCdbgapi`` is installed.
 
-You can find the built ROCgdb executable in ``build/gdb/gdb`` and the *User Manual* in ``build/gdb/doc/gdb.info``.
+You can find the built ROCgdb executable in ``build/gdb/gdb`` and the user manual in ``build/gdb/doc/gdb.info``.
 
 Install
 ----------
@@ -88,15 +90,19 @@ This installs ROCgdb in ``<prefix>/bin/rocgdb``.
 Install libraries
 -------------------
 
-To execute ROCgdb, you must install the ROCdbgapi library and its dependent ``ROCcomgr`` library. These can be installed as part of the ROCm release using the ``rocm-dbgapi`` package:
+To execute ROCgdb, you must install the ``ROCdbgapi`` library and its dependent ``ROCcomgr`` library. These can be installed as part of the ROCm release using the ``rocm-dbgapi`` package:
 
 - ``librocm-dbgapi.so.0``
 - ``libamd_comgr.so.1``
 
-To generate the *User Manual* PDF, use:
+To generate the ROCgdb user guide as a PDF, use:
 
 .. code-block:: bash
 
   make pdf
 
 This generates the PDF in ``build/gdb/doc/gdb.pdf``.
+
+.. note::
+
+  For ROCgdb user guide in HTML format, see `ROCgdb user guide <http://rocm.docs.amd.com/projects/ROCgdb/en/${branch}/ROCgdb/gdb/doc/gdb/index.html>`_.
