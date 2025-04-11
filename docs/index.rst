@@ -32,11 +32,11 @@ The code is open source and hosted at: https://github.com/ROCm/ROCgdb
 
   .. grid-item-card:: Install
 
-    * :ref:`installation`
+    * :ref:`Installation <rocgdb-installation>`
 
   .. grid-item-card:: How to
 
-    * :ref:`rocgdb-quick-start`
+    * :ref:`Quick start <rocgdb-quick-start>`
 
     * |ROCgdb user guide|
 
@@ -47,4 +47,4 @@ You can find licensing information on the `Licensing <https://rocm.docs.amd.com/
 
 .. |ROCgdb user guide| raw:: html
 
-   <a href="ROCgdb/gdb/doc/gdb/index.html" target="_blank">ROCgdb user guide</a>
+   <a href="ROCgdb/gdb/doc/gdb/index.html" target="_blank">User guide</a>
