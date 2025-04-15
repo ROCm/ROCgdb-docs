@@ -26,7 +26,7 @@ the license.txt in the top-level directory for the library on
 Github.com).  The additional terms and conditions below apply to your use
 of AMD ROCm technical documentation.
 
-(C)2019-2025 Advanced Micro Devices, Inc.  All rights reserved.
+(C)2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
 
 The information presented in this document is for informational purposes only
 and may contain technical inaccuracies, omissions, and typographical errors.
@@ -103,7 +103,7 @@ ul.no-bullet {list-style: none}
 <span id="index-gdb_002dadd_002dindex"></span>
 <span id="gdb_002dadd_002dindex"></span>
 
-<p>gdb-add-index [-dwarf-5] <var>filename</var>
+<p>gdb-add-index <var>filename</var>
 </p>
 <p>When <small>ROCGDB</small> finds a symbol file, it scans the symbols in the
 file in order to construct an internal symbol table.  This lets most
@@ -113,60 +113,19 @@ provides a way to build an index, which speeds up startup.
 </p>
 <p>To determine whether a file contains such an index, use the command
 <kbd>readelf -S filename</kbd>: the index is stored in a section named
-<code>.gdb_index</code> (pre-DWARF 5) or <code>.debug_names</code> and
-<code>.debug_str</code> (DWARF 5).  Indexes can only be produced on systems
+<code>.gdb_index</code>.  The index file can only be produced on systems
 which use ELF binaries and DWARF debug information (i.e., sections
 named <code>.debug_*</code>).
 </p>
-<p>By default <code>gdb-add-index</code> will add a pre-DWARF 5
-<code>.gdb_index</code> section to <var>filename</var>.  With <samp>-dwarf-5</samp>
-DWARF 5 sections are added instead.
-</p>
-<p><var>filename</var> must be writable.
-</p>
-<p><code>gdb-add-index</code> uses <small>ROCGDB</small>, <code>objcopy</code>, and
-<code>readelf</code> found in the <code>PATH</code> environment variable.  If
-you want to use different versions of these programs, you can specify
-them through the appropriate environment variables (see below).
-</p>
-<p><code>gdb-add-index</code> exits with status 0 if it succeeds in creating
-the index for <var>filename</var> or greater than 0 if an error occurs.
+<p><code>gdb-add-index</code> uses <small>ROCGDB</small> and <code>objdump</code> found
+in the <code>PATH</code> environment variable.  If you want to use different
+versions of these programs, you can specify them through the
+<code>GDB</code> and <code>OBJDUMP</code> environment variables.
 </p>
 <p>See more in
 <a href="Index-Files.html">Index Files Speed Up <small>ROCGDB</small></a>.
 </p>
-<dl compact="compact">
-<dt><span><code>-dwarf-5</code></span></dt>
-<dd><p>Add DWARF 5 sections instead of previous <code>.debug_index</code> section.
-</p>
-</dd>
-</dl>
 
-<dl compact="compact">
-<dt><span><code>GDB</code></span></dt>
-<dd><p>Full file name of the <code>gdb</code> program to use for index generation.
-If not set, the <code>PATH</code> will be searched for a <code>gdb</code> program.
-</p>
-</dd>
-<dt><span><code>OBJCOPY</code></span></dt>
-<dd><p>Full file name of the <code>objcopy</code> program to use to copy section
-information into the given file.  If not set, the <code>PATH</code> will be searched
-for a <code>objcopy</code> program.
-</p>
-</dd>
-<dt><span><code>READELF</code></span></dt>
-<dd><p>Full file name of the <code>readelf</code> program to use to inspect
-properties of the given file.  If not set, the <code>PATH</code> will be searched
-for a <code>readelf</code> program.
-</p></dd>
-</dl>
-
-
-<hr>
-<div class="header">
-<p>
- &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
 
 
 
