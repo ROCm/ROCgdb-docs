@@ -26,7 +26,7 @@ the license.txt in the top-level directory for the library on
 Github.com).  The additional terms and conditions below apply to your use
 of AMD ROCm technical documentation.
 
-(C)2019-2025 Advanced Micro Devices, Inc.  All rights reserved.
+(C)2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
 
 The information presented in this document is for informational purposes only
 and may contain technical inaccuracies, omissions, and typographical errors.
@@ -142,32 +142,6 @@ variables.
 </p>
 <span id="index-variables_002c-readline"></span>
 <dl compact="compact">
-<dt id='index-active_002dregion_002dstart_002dcolor'><span><code>active-region-start-color</code><a href='#index-active_002dregion_002dstart_002dcolor' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>A string variable that controls the text color and background when displaying
-the text in the active region (see the description of
-<code>enable-active-region</code> below).
-This string must not take up any physical character positions on the display,
-so it should consist only of terminal escape sequences.
-It is output to the terminal before displaying the text in the active region.
-This variable is reset to the default value whenever the terminal type changes.
-The default value is the string that puts the terminal in standout mode,
-as obtained from the terminal&rsquo;s terminfo description.
-A sample value might be &lsquo;<samp>\e[01;33m</samp>&rsquo;.
-</p>
-</dd>
-<dt id='index-active_002dregion_002dend_002dcolor'><span><code>active-region-end-color</code><a href='#index-active_002dregion_002dend_002dcolor' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>A string variable that &quot;undoes&quot; the effects of <code>active-region-start-color</code>
-and restores &quot;normal&quot; terminal display appearance after displaying text
-in the active region.
-This string must not take up any physical character positions on the display,
-so it should consist only of terminal escape sequences.
-It is output to the terminal after displaying the text in the active region.
-This variable is reset to the default value whenever the terminal type changes.
-The default value is the string that restores the terminal from standout mode,
-as obtained from the terminal&rsquo;s terminfo description.
-A sample value might be &lsquo;<samp>\e[0m</samp>&rsquo;.
-</p>
-</dd>
 <dt id='index-bell_002dstyle'><span><code>bell-style</code><a href='#index-bell_002dstyle' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Controls what happens when Readline wants to ring the terminal bell.
 If set to &lsquo;<samp>none</samp>&rsquo;, Readline never rings the bell.  If set to
@@ -193,9 +167,6 @@ is &lsquo;<samp>off</samp>&rsquo;.
 common prefix of the set of possible completions using a different color.
 The color definitions are taken from the value of the <code>LS_COLORS</code>
 environment variable.
-If there is a color definition in <code>LS_COLORS</code> for the custom suffix
-&lsquo;<samp>readline-colored-completion-prefix</samp>&rsquo;, Readline uses this color for
-the common prefix instead of its default.
 The default is &lsquo;<samp>off</samp>&rsquo;.
 </p>
 </dd>
@@ -248,9 +219,8 @@ asked whether the list of possibilities should be displayed.
 If the number of possible completions is greater than or equal to this value,
 Readline will ask whether or not the user wishes to view them;
 otherwise, they are simply listed.
-This variable must be set to an integer value greater than or equal to zero.
-A zero value means Readline should never ask; negative values are
-treated as zero.
+This variable must be set to an integer value greater than or equal to 0.
+A negative value means Readline should never ask.
 The default limit is <code>100</code>.
 </p>
 </dd>
@@ -258,12 +228,9 @@ The default limit is <code>100</code>.
 <dd><p>If set to &lsquo;<samp>on</samp>&rsquo;, Readline will convert characters with the
 eighth bit set to an <small>ASCII</small> key sequence by stripping the eighth
 bit and prefixing an <tt class="key">ESC</tt> character, converting them to a
-meta-prefixed key sequence.
-The default value is &lsquo;<samp>on</samp>&rsquo;, but
+meta-prefixed key sequence.  The default value is &lsquo;<samp>on</samp>&rsquo;, but
 will be set to &lsquo;<samp>off</samp>&rsquo; if the locale is one that contains
 eight-bit characters.
-This variable is dependent on the <code>LC_CTYPE</code> locale category, and
-may change if the locale is changed.
 </p>
 </dd>
 <dt id='index-disable_002dcompletion'><span><code>disable-completion</code><a href='#index-disable_002dcompletion' class='copiable-anchor'> &para;</a></span></dt>
@@ -274,7 +241,7 @@ been mapped to <code>self-insert</code>.  The default is &lsquo;<samp>off</samp>
 </dd>
 <dt id='index-echo_002dcontrol_002dcharacters'><span><code>echo-control-characters</code><a href='#index-echo_002dcontrol_002dcharacters' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>When set to &lsquo;<samp>on</samp>&rsquo;, on operating systems that indicate they support it,
-Readline echoes a character corresponding to a signal generated from the
+readline echoes a character corresponding to a signal generated from the
 keyboard.  The default is &lsquo;<samp>on</samp>&rsquo;.
 </p>
 </dd>
@@ -297,29 +264,12 @@ sequence into the mode string.
 The default is &lsquo;<samp>@</samp>&rsquo;.
 </p>
 </dd>
-<dt id='index-enable_002dactive_002dregion'><span><code>enable-active-region</code><a href='#index-enable_002dactive_002dregion' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>The <em>point</em> is the current cursor position, and <em>mark</em> refers
-to a saved cursor position (see <a href="Commands-For-Moving.html">Commands For Moving</a>).
-The text between the point and mark is referred to as the <em>region</em>.
-When this variable is set to &lsquo;<samp>On</samp>&rsquo;, Readline allows certain commands
-to designate the region as <em>active</em>.
-When the region is active, Readline highlights the text in the region using
-the value of the <code>active-region-start-color</code>, which defaults to the
-string that enables
-the terminal&rsquo;s standout mode.
-The active region shows the text inserted by bracketed-paste and any
-matching text found by incremental and non-incremental history searches.
-The default is &lsquo;<samp>On</samp>&rsquo;.
-</p>
-</dd>
 <dt id='index-enable_002dbracketed_002dpaste'><span><code>enable-bracketed-paste</code><a href='#index-enable_002dbracketed_002dpaste' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>When set to &lsquo;<samp>On</samp>&rsquo;, Readline configures the terminal to insert each
-paste into the editing buffer as a single string of characters, instead
-of treating each character as if it had been read from the keyboard.
-This is called putting the terminal into <em>bracketed paste mode</em>;
-it prevents Readline from executing any editing commands bound to key
-sequences appearing in the pasted text.
-The default is &lsquo;<samp>On</samp>&rsquo;.
+<dd><p>When set to &lsquo;<samp>On</samp>&rsquo;, Readline will configure the terminal in a way
+that will enable it to insert each paste into the editing buffer as a
+single string of characters, instead of treating each character as if
+it had been read from the keyboard.  This can prevent pasted characters
+from being interpreted as editing commands.  The default is &lsquo;<samp>On</samp>&rsquo;.
 </p>
 </dd>
 <dt id='index-enable_002dkeypad'><span><code>enable-keypad</code><a href='#index-enable_002dkeypad' class='copiable-anchor'> &para;</a></span></dt>
@@ -375,8 +325,6 @@ regardless of what the terminal claims it can support.  The
 default value is &lsquo;<samp>off</samp>&rsquo;, but Readline will set it to &lsquo;<samp>on</samp>&rsquo; if the 
 locale contains eight-bit characters.
 The name <code>meta-flag</code> is a synonym for this variable.
-This variable is dependent on the <code>LC_CTYPE</code> locale category, and
-may change if the locale is changed.
 </p>
 </dd>
 <dt id='index-isearch_002dterminators'><span><code>isearch-terminators</code><a href='#index-isearch_002dterminators' class='copiable-anchor'> &para;</a></span></dt>
@@ -461,8 +409,6 @@ eighth bit set directly rather than as a meta-prefixed escape
 sequence.
 The default is &lsquo;<samp>off</samp>&rsquo;, but Readline will set it to &lsquo;<samp>on</samp>&rsquo; if the
 locale contains eight-bit characters.
-This variable is dependent on the <code>LC_CTYPE</code> locale category, and
-may change if the locale is changed.
 </p>
 </dd>
 <dt id='index-page_002dcompletions'><span><code>page-completions</code><a href='#index-page_002dcompletions' class='copiable-anchor'> &para;</a></span></dt>
@@ -481,7 +427,7 @@ The default is &lsquo;<samp>off</samp>&rsquo;.
 <dd><p>If set to &lsquo;<samp>on</samp>&rsquo;, Readline will undo all changes to history lines
 before returning when <code>accept-line</code> is executed.  By default,
 history lines may be modified and retain individual undo lists across
-calls to <code>readline()</code>.  The default is &lsquo;<samp>off</samp>&rsquo;.
+calls to <code>readline</code>.  The default is &lsquo;<samp>off</samp>&rsquo;.
 </p>
 </dd>
 <dt id='index-show_002dall_002dif_002dambiguous'><span><code>show-all-if-ambiguous</code><a href='#index-show_002dall_002dif_002dambiguous' class='copiable-anchor'> &para;</a></span></dt>
@@ -513,7 +459,7 @@ The default value is &lsquo;<samp>off</samp>&rsquo;.
 <dt id='index-skip_002dcompleted_002dtext'><span><code>skip-completed-text</code><a href='#index-skip_002dcompleted_002dtext' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>If set to &lsquo;<samp>on</samp>&rsquo;, this alters the default completion behavior when
 inserting a single match into the line.  It&rsquo;s only active when
-performing completion in the middle of a word.  If enabled, Readline
+performing completion in the middle of a word.  If enabled, readline
 does not insert characters from the completion that match characters
 after point in the word being completed, so portions of the word
 following the cursor are not duplicated.
@@ -575,7 +521,7 @@ interpreted as part of the key name.
 The name of the key can be expressed in different ways, depending on
 what you find most comfortable.
 </p>
-<p>In addition to command names, Readline allows keys to be bound
+<p>In addition to command names, readline allows keys to be bound
 to a string that is inserted when the key is pressed (a <var>macro</var>).
 </p>
 

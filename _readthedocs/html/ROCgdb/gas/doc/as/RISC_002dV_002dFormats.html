@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the GNU Assembler "as".
 
-Copyright (C) 1991-2025 Free Software Foundation, Inc.
+Copyright (C) 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -59,7 +59,7 @@ ul.no-bullet {list-style: none}
 Next: <a href="RISC_002dV_002dATTRIBUTE.html" accesskey="n" rel="next">RISC-V Object Attribute</a>, Previous: <a href="RISC_002dV_002dFloating_002dPoint.html" accesskey="p" rel="prev">RISC-V Floating Point</a>, Up: <a href="RISC_002dV_002dDependent.html" accesskey="u" rel="up">RISC-V Dependent Features</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="RISC_002dV-Instruction-Formats"></span><h4 class="subsection">9.38.5 RISC-V Instruction Formats</h4>
+<span id="RISC_002dV-Instruction-Formats"></span><h4 class="subsection">9.39.5 RISC-V Instruction Formats</h4>
 <span id="index-instruction-formats_002c-risc_002dv"></span>
 <span id="index-RISC_002dV-instruction-formats"></span>
 
@@ -75,13 +75,13 @@ instruction formats:
 </p>
 <div class="display">
 <table>
-<tr><td width="15%"><pre class="display">opcode7</pre></td><td width="40%"><pre class="display">Unsigned immediate or opcode name for 7-bits opcode.</pre></td></tr>
+<tr><td width="15%"><pre class="display">opcode</pre></td><td width="40%"><pre class="display">Unsigned immediate or opcode name for 7-bits opcode.</pre></td></tr>
 <tr><td width="15%"><pre class="display">opcode2</pre></td><td width="40%"><pre class="display">Unsigned immediate or opcode name for 2-bits opcode.</pre></td></tr>
-<tr><td width="15%"><pre class="display">funct7</pre></td><td width="40%"><pre class="display">Unsigned immediate for 7-bits function code.</pre></td></tr>
-<tr><td width="15%"><pre class="display">funct6</pre></td><td width="40%"><pre class="display">Unsigned immediate for 6-bits function code.</pre></td></tr>
-<tr><td width="15%"><pre class="display">funct4</pre></td><td width="40%"><pre class="display">Unsigned immediate for 4-bits function code.</pre></td></tr>
-<tr><td width="15%"><pre class="display">funct3</pre></td><td width="40%"><pre class="display">Unsigned immediate for 3-bits function code.</pre></td></tr>
-<tr><td width="15%"><pre class="display">funct2</pre></td><td width="40%"><pre class="display">Unsigned immediate for 2-bits function code.</pre></td></tr>
+<tr><td width="15%"><pre class="display">func7</pre></td><td width="40%"><pre class="display">Unsigned immediate for 7-bits function code.</pre></td></tr>
+<tr><td width="15%"><pre class="display">func6</pre></td><td width="40%"><pre class="display">Unsigned immediate for 6-bits function code.</pre></td></tr>
+<tr><td width="15%"><pre class="display">func4</pre></td><td width="40%"><pre class="display">Unsigned immediate for 4-bits function code.</pre></td></tr>
+<tr><td width="15%"><pre class="display">func3</pre></td><td width="40%"><pre class="display">Unsigned immediate for 3-bits function code.</pre></td></tr>
+<tr><td width="15%"><pre class="display">func2</pre></td><td width="40%"><pre class="display">Unsigned immediate for 2-bits function code.</pre></td></tr>
 <tr><td width="15%"><pre class="display">rd</pre></td><td width="40%"><pre class="display">Destination register number for operand x, can be GPR or FPR.</pre></td></tr>
 <tr><td width="15%"><pre class="display">rd&rsquo;</pre></td><td width="40%"><pre class="display">Destination register number for operand x,
 only accept s0-s1, a0-a5, fs0-fs1 and fa0-fa5.</pre></td></tr>
@@ -212,120 +212,120 @@ length of the instruction, 00, 01 and 10 indicates a two byte instruction,
 with the &lsquo;<samp>.insn</samp>&rsquo; pseudo directive:
 </p>
 <dl compact="compact">
-<dt><span><code>R type: .insn r opcode7, funct3, funct7, rd, rs1, rs2</code></span></dt>
-<dd><pre class="verbatim">+--------+-----+-----+--------+----+---------+
-| funct7 | rs2 | rs1 | funct3 | rd | opcode7 |
-+--------+-----+-----+--------+----+---------+
-31       25    20    15       12   7         0
+<dt><span><code>R type: .insn r opcode6, func3, func7, rd, rs1, rs2</code></span></dt>
+<dd><pre class="verbatim">+-------+-----+-----+-------+----+---------+
+| func7 | rs2 | rs1 | func3 | rd | opcode6 |
++-------+-----+-----+-------+----+---------+
+31      25    20    15      12   7        0
 </pre>
 </dd>
-<dt><span><code>R type with 4 register operands: .insn r opcode7, funct3, funct2, rd, rs1, rs2, rs3</code></span></dt>
-<dt><span><code>R4 type: .insn r4 opcode7, funct3, funct2, rd, rs1, rs2, rs3</code></span></dt>
-<dd><pre class="verbatim">+-----+--------+-----+-----+--------+----+---------+
-| rs3 | funct2 | rs2 | rs1 | funct3 | rd | opcode7 |
-+-----+--------+-----+-----+--------+----+---------+
-31    27       25    20    15       12   7         0
+<dt><span><code>R type with 4 register operands: .insn r opcode6, func3, func2, rd, rs1, rs2, rs3</code></span></dt>
+<dt><span><code>R4 type: .insn r4 opcode6, func3, func2, rd, rs1, rs2, rs3</code></span></dt>
+<dd><pre class="verbatim">+-----+-------+-----+-----+-------+----+---------+
+| rs3 | func2 | rs2 | rs1 | func3 | rd | opcode6 |
++-----+-------+-----+-----+-------+----+---------+
+31    27      25    20    15      12   7         0
 </pre>
 </dd>
-<dt><span><code>I type: .insn i opcode7, funct3, rd, rs1, simm12</code></span></dt>
-<dt><span><code>I type: .insn i opcode7, funct3, rd, simm12(rs1)</code></span></dt>
-<dd><pre class="verbatim">+--------------+-----+--------+----+---------+
-| simm12[11:0] | rs1 | funct3 | rd | opcode7 |
-+--------------+-----+--------+----+---------+
-31             20    15       12   7         0
+<dt><span><code>I type: .insn i opcode6, func3, rd, rs1, simm12</code></span></dt>
+<dt><span><code>I type: .insn i opcode6, func3, rd, simm12(rs1)</code></span></dt>
+<dd><pre class="verbatim">+--------------+-----+-------+----+---------+
+| simm12[11:0] | rs1 | func3 | rd | opcode6 |
++--------------+-----+-------+----+---------+
+31             20    15      12   7         0
 </pre>
 </dd>
-<dt><span><code>S type: .insn s opcode7, funct3, rs2, simm12(rs1)</code></span></dt>
-<dd><pre class="verbatim">+--------------+-----+-----+--------+-------------+---------+
-| simm12[11:5] | rs2 | rs1 | funct3 | simm12[4:0] | opcode7 |
-+--------------+-----+-----+--------+-------------+---------+
-31             25    20    15       12            7         0
+<dt><span><code>S type: .insn s opcode6, func3, rs2, simm12(rs1)</code></span></dt>
+<dd><pre class="verbatim">+--------------+-----+-----+-------+-------------+---------+
+| simm12[11:5] | rs2 | rs1 | func3 | simm12[4:0] | opcode6 |
++--------------+-----+-----+-------+-------------+---------+
+31             25    20    15      12            7         0
 </pre>
 </dd>
-<dt><span><code>B type: .insn s opcode7, funct3, rs1, rs2, symbol</code></span></dt>
-<dt><span><code>SB type: .insn sb opcode7, funct3, rs1, rs2, symbol</code></span></dt>
-<dd><pre class="verbatim">+-----------------+-----+-----+--------+----------------+---------+
-| simm12[12|10:5] | rs2 | rs1 | funct3 | simm12[4:1|11] | opcode7 |
-+-----------------+-----+-----+--------+----------------+---------+
-31                25    20    15       12               7         0
+<dt><span><code>B type: .insn s opcode6, func3, rs1, rs2, symbol</code></span></dt>
+<dt><span><code>SB type: .insn sb opcode6, func3, rs1, rs2, symbol</code></span></dt>
+<dd><pre class="verbatim">+-----------------+-----+-----+-------+----------------+---------+
+| simm12[12|10:5] | rs2 | rs1 | func3 | simm12[4:1|11] | opcode6 |
++-----------------+-----+-----+-------+----------------+---------+
+31                25    20    15      12               7         0
 </pre>
 </dd>
-<dt><span><code>U type: .insn u opcode7, rd, simm20</code></span></dt>
-<dd><pre class="verbatim">+--------------+----+---------+
-| simm20[19:0] | rd | opcode7 |
-+--------------+----+---------+
-31             12   7         0
+<dt><span><code>U type: .insn u opcode6, rd, simm20</code></span></dt>
+<dd><pre class="verbatim">+--------------------------+----+---------+
+| simm20[20|10:1|11|19:12] | rd | opcode6 |
++--------------------------+----+---------+
+31                         12   7         0
 </pre>
 </dd>
-<dt><span><code>J type: .insn j opcode7, rd, symbol</code></span></dt>
-<dt><span><code>UJ type: .insn uj opcode7, rd, symbol</code></span></dt>
+<dt><span><code>J type: .insn j opcode6, rd, symbol</code></span></dt>
+<dt><span><code>UJ type: .insn uj opcode6, rd, symbol</code></span></dt>
 <dd><pre class="verbatim">+------------+--------------+------------+---------------+----+---------+
-| simm20[20] | simm20[10:1] | simm20[11] | simm20[19:12] | rd | opcode7 |
+| simm20[20] | simm20[10:1] | simm20[11] | simm20[19:12] | rd | opcode6 |
 +------------+--------------+------------+---------------+----+---------+
 31           30             21           20              12   7         0
 </pre>
 </dd>
-<dt><span><code>CR type: .insn cr opcode2, funct4, rd, rs2</code></span></dt>
-<dd><pre class="verbatim">+--------+--------+-----+---------+
-| funct4 | rd/rs1 | rs2 | opcode2 |
-+--------+--------+-----+---------+
-15       12       7     2        0
+<dt><span><code>CR type: .insn cr opcode2, func4, rd, rs2</code></span></dt>
+<dd><pre class="verbatim">+-------+--------+-----+---------+
+| func4 | rd/rs1 | rs2 | opcode2 |
++-------+--------+-----+---------+
+15      12       7     2        0
 </pre>
 </dd>
-<dt><span><code>CI type: .insn ci opcode2, funct3, rd, simm6</code></span></dt>
-<dd><pre class="verbatim">+--------+----------+--------+------------+---------+
-| funct3 | simm6[5] | rd/rs1 | simm6[4:0] | opcode2 |
-+--------+----------+--------+------------+---------+
-15       13         12       7            2         0
+<dt><span><code>CI type: .insn ci opcode2, func3, rd, simm6</code></span></dt>
+<dd><pre class="verbatim">+-------+----------+--------+------------+---------+
+| func3 | simm6[5] | rd/rs1 | simm6[4:0] | opcode2 |
++-------+----------+--------+------------+---------+
+15      13         12       7            2         0
 </pre>
 </dd>
-<dt><span><code>CIW type: .insn ciw opcode2, funct3, rd', uimm8</code></span></dt>
-<dd><pre class="verbatim">+--------+------------+-----+---------+
-| funct3 | uimm8[7:0] | rd' | opcode2 |
-+--------+-------- ---+-----+---------+
-15       13           5     2         0
+<dt><span><code>CIW type: .insn ciw opcode2, func3, rd', uimm8</code></span></dt>
+<dd><pre class="verbatim">+-------+------------+-----+---------+
+| func3 | uimm8[7:0] | rd' | opcode2 |
++-------+-------- ---+-----+---------+
+15      13           5     2         0
 </pre>
 </dd>
-<dt><span><code>CSS type: .insn css opcode2, funct3, rd, uimm6</code></span></dt>
-<dd><pre class="verbatim">+--------+------------+----+---------+
-| funct3 | uimm6[5:0] | rd | opcode2 |
-+--------+------------+----+---------+
-15       13           7    2         0
+<dt><span><code>CSS type: .insn css opcode2, func3, rd, uimm6</code></span></dt>
+<dd><pre class="verbatim">+-------+------------+----+---------+
+| func3 | uimm6[5:0] | rd | opcode2 |
++-------+------------+----+---------+
+15      13           7    2         0
 </pre>
 </dd>
-<dt><span><code>CL type: .insn cl opcode2, funct3, rd', uimm5(rs1')</code></span></dt>
-<dd><pre class="verbatim">+--------+------------+------+------------+------+---------+
-| funct3 | uimm5[4:2] | rs1' | uimm5[1:0] |  rd' | opcode2 |
-+--------+------------+------+------------+------+---------+
-15       13           10     7            5      2         0
+<dt><span><code>CL type: .insn cl opcode2, func3, rd', uimm5(rs1')</code></span></dt>
+<dd><pre class="verbatim">+-------+------------+------+------------+------+---------+
+| func3 | uimm5[4:2] | rs1' | uimm5[1:0] |  rd' | opcode2 |
++-------+------------+------+------------+------+---------+
+15      13           10     7            5      2         0
 </pre>
 </dd>
-<dt><span><code>CS type: .insn cs opcode2, funct3, rs2', uimm5(rs1')</code></span></dt>
-<dd><pre class="verbatim">+--------+------------+------+------------+------+---------+
-| funct3 | uimm5[4:2] | rs1' | uimm5[1:0] | rs2' | opcode2 |
-+--------+------------+------+------------+------+---------+
-15       13           10     7            5      2         0
+<dt><span><code>CS type: .insn cs opcode2, func3, rs2', uimm5(rs1')</code></span></dt>
+<dd><pre class="verbatim">+-------+------------+------+------------+------+---------+
+| func3 | uimm5[4:2] | rs1' | uimm5[1:0] | rs2' | opcode2 |
++-------+------------+------+------------+------+---------+
+15      13           10     7            5      2         0
 </pre>
 </dd>
-<dt><span><code>CA type: .insn ca opcode2, funct6, funct2, rd', rs2'</code></span></dt>
-<dd><pre class="verbatim">+--------+----------+--------+------+---------+
-| funct6 | rd'/rs1' | funct2 | rs2' | opcode2 |
-+--------+----------+--------+------+---------+
-15       10         7        5      2         0
+<dt><span><code>CA type: .insn ca opcode2, func6, func2, rd', rs2'</code></span></dt>
+<dd><pre class="verbatim">+-- ----+----------+-------+------+---------+
+| func6 | rd'/rs1' | func2 | rs2' | opcode2 |
++-------+----------+-------+------+---------+
+15      10         7       5      2         0
 </pre>
 </dd>
-<dt><span><code>CB type: .insn cb opcode2, funct3, rs1', symbol</code></span></dt>
-<dd><pre class="verbatim">+--------+--------------+------+------------------+---------+
-| funct3 | simm8[8|4:3] | rs1' | simm8[7:6|2:1|5] | opcode2 |
-+--------+--------------+------+------------------+---------+
-15       13             10     7                  2         0
+<dt><span><code>CB type: .insn cb opcode2, func3, rs1', symbol</code></span></dt>
+<dd><pre class="verbatim">+-------+--------------+------+------------------+---------+
+| func3 | simm8[8|4:3] | rs1' | simm8[7:6|2:1|5] | opcode2 |
++-------+--------------+------+------------------+---------+
+15      13             10     7                  2         0
 </pre>
 </dd>
-<dt><span><code>CJ type: .insn cj opcode2, funct3, symbol</code></span></dt>
-<dd><pre class="verbatim">+--------+-------------------------------+---------+
-| funct3 | simm11[11|4|9:8|10|6|7|3:1|5] | opcode2 |
-+--------+-------------------------------+---------+
-15       13                              2         0
+<dt><span><code>CJ type: .insn cj opcode2, symbol</code></span></dt>
+<dd><pre class="verbatim">+-------+-------------------------------+---------+
+| func3 | simm11[11|4|9:8|10|6|7|3:1|5] | opcode2 |
++-------+-------------------------------+---------+
+15      13                              2         0
 </pre>
 
 </dd>
