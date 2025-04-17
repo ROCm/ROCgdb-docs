@@ -11,19 +11,20 @@ from rocm_docs import ROCmDocs
 
 subprocess.run("git submodule update --init", shell=True)
 
-with open('../ROCgdb/zlib/CMakeLists.txt', encoding='utf-8') as f:
-    match = re.search(r'.*\bset\(VERSION\s+\"?([0-9.]+)[^0-9.]+', f.read())
-    if not match:
-        raise ValueError("VERSION not found!")
-    version_number = match[1]
+# with open('../ROCgdb/zlib/CMakeLists.txt', encoding='utf-8') as f:
+#     match = re.search(r'.*\bset\(VERSION\s+\"?([0-9.]+)[^0-9.]+', f.read())
+#     if not match:
+#         raise ValueError("VERSION not found!")
+#     version_number = match[1]
+version_number = "15.2"
 left_nav_title = f"ROCgdb {version_number} Documentation"
 
 # for PDF output on Read the Docs
 project = "ROCgdb Documentation"
 author = "Advanced Micro Devices, Inc."
-copyright = "Copyright (c) 2024 Advanced Micro Devices, Inc. All rights reserved."
-version = "15.2"
-release = "15.2"
+copyright = "Copyright (c) 2025 Advanced Micro Devices, Inc. All rights reserved."
+version = version_number
+release = version_number
 
 external_toc_path = "./sphinx/_toc.yml"
 
