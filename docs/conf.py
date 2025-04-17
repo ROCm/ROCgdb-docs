@@ -22,8 +22,8 @@ left_nav_title = f"ROCgdb {version_number} Documentation"
 project = "ROCgdb Documentation"
 author = "Advanced Micro Devices, Inc."
 copyright = "Copyright (c) 2024 Advanced Micro Devices, Inc. All rights reserved."
-version = version_number
-release = version_number
+version = "15.2"
+release = "15.2"
 
 external_toc_path = "./sphinx/_toc.yml"
 
