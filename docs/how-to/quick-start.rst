@@ -99,7 +99,7 @@ To start debugging your application, follow these steps:
 ROCgdb user guide
 ===================
 
-The |ROCgdb user guide| provides detailed information about using ROCgdb.
+The `ROCgdb user guide <https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/index.html>`_ provides detailed information about using ROCgdb.
 This user guide is also installed in the following directories when you :doc:`install ROCm <rocm-install-on-linux>`:
 
 - ``/opt/rocm/share/info/rocgdb/gdb.info`` as a texinfo file
@@ -116,7 +116,3 @@ For specific information about debugging heterogeneous programs on ROCm software
   and known issues of the current version.
 
 You can use the standard `GDB <http://www.gnu.org/software/gdb>`_ commands for both CPU and GPU code debugging.
-
-.. |ROCgdb user guide| raw:: html
-
-   <a href="../gdb/doc/gdb/index.html" target="_blank">ROCgdb user guide</a>
