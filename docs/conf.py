@@ -11,8 +11,8 @@ from rocm_docs import ROCmDocs
 
 subprocess.run("git submodule update --init", shell=True)
 
-with open('../ROCgdb/zlib/CMakeLists.txt', encoding='utf-8') as f:
-    match = re.search(r'.*\bset\(VERSION\s+\"?([0-9.]+)[^0-9.]+', f.read())
+with open("../ROCgdb/gdb/version.in", encoding="utf-8") as f:
+    match = re.search(r"([0-9.]+)[^0-9.]+", f.read())
     if not match:
         raise ValueError("VERSION not found!")
     version_number = match[1]
