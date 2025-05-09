@@ -90,10 +90,10 @@ This installs ROCgdb in ``<prefix>/bin/rocgdb``.
 Install libraries
 -------------------
 
-To execute ROCgdb, you must install the ``ROCdbgapi`` library and its dependent ``ROCcomgr`` library. These can be installed as part of the ROCm release using the ``rocm-dbgapi`` package:
+To execute ROCgdb, you must install the ``ROCdbgapi`` library and its dependent ``Comgr`` library. These can be installed as part of the ROCm release using the ``rocm-dbgapi`` package:
 
 - ``librocm-dbgapi.so.0``
-- ``libamd_comgr.so.1``
+- ``libamd_comgr.so``
 
 To generate the ROCgdb user guide as a PDF, use:
 
