@@ -5,7 +5,7 @@
 .. _rocgdb-installation:
 
 ====================
-ROCgdb installation
+Installing ROCgdb
 ====================
 
 This topic provides information required to build and install ROCgdb.
@@ -49,8 +49,8 @@ Prerequisites
         zypper in bison flex gcc make texinfo gcc-c++ zlib-devel libexpat-devel \
         python3-devel xz-devel gmp-devel ncurses-devel mpfr-devel
 
-Build
----------
+Building ROCgdb
+----------------
 
 An example command line to build ROCgdb on Linux:
 
@@ -76,8 +76,8 @@ Alternatively, use ``LD_LIBRARY_PATH`` at runtime to indicate where ``ROCdbgapi`
 
 You can find the built ROCgdb executable in ``build/gdb/gdb`` and the user manual in ``build/gdb/doc/gdb.info``.
 
-Install
-----------
+Installing ROCgdb
+------------------
 
 To install ROCgdb, use:
 
@@ -87,8 +87,8 @@ To install ROCgdb, use:
 
 This installs ROCgdb in ``<prefix>/bin/rocgdb``.
 
-Install libraries
--------------------
+Installing libraries
+---------------------
 
 To execute ROCgdb, you must install the ``ROCdbgapi`` library and its dependent ``Comgr`` library. These can be installed as part of the ROCm release using the ``rocm-dbgapi`` package:
 
