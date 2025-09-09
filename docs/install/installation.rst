@@ -41,7 +41,7 @@ Prerequisites
         texinfo texinfo-tex gcc-c++ zlib-devel expat-devel python3-devel \
         xz-devel gmp-devel ncurses-devel mpfr-devel
 
-   .. tab-item:: SLES 15
+   .. tab-item:: SLES
       :sync: sles
 
       .. code-block:: shell
