@@ -24,7 +24,7 @@ Prerequisites
 
 .. tab-set::
 
-   .. tab-item:: Ubuntu 22.04/24.04
+   .. tab-item:: Ubuntu
       :sync: ubuntu
 
       .. code-block:: shell
@@ -32,7 +32,7 @@ Prerequisites
         apt install bison flex gcc make ncurses-dev texinfo g++ zlib1g-dev \
         libexpat-dev python3-dev liblzma-dev libgmp-dev libmpfr-dev
 
-   .. tab-item:: RHEL 8.1/9.4/9.6
+   .. tab-item:: RHEL
       :sync: rhel
 
       .. code-block:: shell
@@ -41,7 +41,7 @@ Prerequisites
         texinfo texinfo-tex gcc-c++ zlib-devel expat-devel python3-devel \
         xz-devel gmp-devel ncurses-devel mpfr-devel
 
-   .. tab-item:: SLES 15 Service Pack 7
+   .. tab-item:: SLES 15
       :sync: sles
 
       .. code-block:: shell
