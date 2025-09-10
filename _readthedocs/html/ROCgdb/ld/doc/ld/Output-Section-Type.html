@@ -5,9 +5,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the GNU linker LD
 (GNU Binutils)
-version 2.43.50.
+version 2.42.50.
 
-Copyright (C) 1991-2025 Free Software Foundation, Inc.
+Copyright (C) 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -94,19 +94,19 @@ special requirements of the section type are met.
 <p>Note - the TYPE only is used if some or all of the contents of the
 section do not have an implicit type of their own.  So for example:
 </p><div class="example">
-<pre class="example">  .foo . (TYPE = SHT_PROGBITS) : { *(.bar) }
+<pre class="example">  .foo . TYPE = SHT_PROGBITS { *(.bar) }
 </pre></div>
 <p>will set the type of section &lsquo;<samp>.foo</samp>&rsquo; to the type of the section
 &lsquo;<samp>.bar</samp>&rsquo; in the input files, which may not be the SHT_PROGBITS
 type.  Whereas:
 </p><div class="example">
-<pre class="example">  .foo . (TYPE = SHT_PROGBITS) : { BYTE(1) }
+<pre class="example">  .foo . TYPE = SHT_PROGBITS { BYTE(1) }
 </pre></div>
 <p>will set the type of &lsquo;<samp>.foo</samp>&rsquo; to SHT_PROGBBITS.  If it is necessary
 to override the type of incoming sections and force the output section
 type then an extra piece of untyped data will be needed:
 </p><div class="example">
-<pre class="example">  .foo . (TYPE = SHT_PROGBITS) : { BYTE(1); *(.bar) }
+<pre class="example">  .foo . TYPE = SHT_PROGBITS { BYTE(1); *(.bar) }
 </pre></div>
 
 </dd>

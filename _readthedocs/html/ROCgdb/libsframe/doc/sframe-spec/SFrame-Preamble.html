@@ -3,7 +3,7 @@
 <!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright (C) 2021-2025 Free Software Foundation, Inc.
+<!-- Copyright (C) 2021-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU General Public License, Version 3 or any
@@ -23,7 +23,7 @@ License".
 <link href="index.html" rel="start" title="Top">
 <link href="Index.html" rel="index" title="Index">
 <link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="SFrame-Section.html" rel="up" title="SFrame Section">
+<link href="SFrame-section.html" rel="up" title="SFrame section">
 <link href="SFrame-Header.html" rel="next" title="SFrame Header">
 <style type="text/css">
 <!--
@@ -52,14 +52,14 @@ ul.no-bullet {list-style: none}
 <div class="section" id="SFrame-Preamble">
 <div class="header">
 <p>
-Next: <a href="SFrame-Header.html" accesskey="n" rel="next">SFrame Header</a>, Up: <a href="SFrame-Section.html" accesskey="u" rel="up">SFrame Section</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="SFrame-Header.html" accesskey="n" rel="next">SFrame Header</a>, Up: <a href="SFrame-section.html" accesskey="u" rel="up">SFrame section</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
 <span id="SFrame-Preamble-1"></span><h3 class="section">2.1 SFrame Preamble</h3>
 <span id="index-SFrame-preamble"></span>
 
-<p>The preamble is a 32-bit packed structure; the only part of the SFrame section
-whose format cannot vary between versions.
+<p>The preamble is a 32-bit packed structure; the only part of the SFrame whose
+format cannot vary between versions.
 </p>
 <div class="example">
 <pre class="example">typedef struct sframe_preamble
@@ -76,21 +76,21 @@ whose format cannot vary between versions.
 SFrame section is intended.  Further details:
 </p>
 <table>
-<thead><tr><th>Offset</th><th>Type</th><th>Name</th><th>Description</th></tr></thead>
-<tr><td>0x00</td><td><code>uint16_t</code></td><td><code>sfp_magic</code></td><td>The magic number for SFrame section: 0xdee2.  Defined as a macro <code>SFRAME_MAGIC</code>.
+<thead><tr><th>Offset</th><th>Name</th><th>Description</th></tr></thead>
+<tr><td>0x00</td><td><code>uint16_t sfp_magic</code></td><td>The magic number for SFrame section: 0xdee2.  Defined as a macro <code>SFRAME_MAGIC</code>.
 <span id="index-SFRAME_005fMAGIC"></span></td></tr>
-<tr><td>0x02</td><td><code>uint8_t</code></td><td><code>sfp_version</code></td><td>The version number of this SFrame section.  See <a href="SFrame-Version.html">SFrame Version</a>, for the
+<tr><td>0x02</td><td><code>uint8_t sfp_version</code></td><td>The version number of this SFrame section.  See <a href="SFrame-version.html">SFrame version</a>, for the
 set of valid values.  Current version is
-<code>SFRAME_VERSION_2</code>.</td></tr>
-<tr><td>0x03</td><td><code>uint8_t</code></td><td><code>sfp_flags</code></td><td>Flags (section-wide) for this SFrame section.  See <a href="SFrame-Flags.html">SFrame Flags</a>, for the
+<code>SFRAME_VERSION_1</code>.</td></tr>
+<tr><td>0x03</td><td><code>uint8_t sfp_flags</code></td><td>Flags (section-wide) for this SFrame section.  See <a href="SFrame-flags.html">SFrame flags</a>, for the
 set of valid values.</td></tr>
 </table>
 
 
 <ul class="section-toc">
-<li><a href="SFrame-Magic-Number-and-Endianness.html" accesskey="1">SFrame Magic Number and Endianness</a></li>
-<li><a href="SFrame-Version.html" accesskey="2">SFrame Version</a></li>
-<li><a href="SFrame-Flags.html" accesskey="3">SFrame Flags</a></li>
+<li><a href="SFrame-endianness.html" accesskey="1">SFrame endianness</a></li>
+<li><a href="SFrame-version.html" accesskey="2">SFrame version</a></li>
+<li><a href="SFrame-flags.html" accesskey="3">SFrame flags</a></li>
 </ul>
 </div>
 
