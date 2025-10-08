@@ -10,8 +10,8 @@ Installing ROCgdb
 
 This topic provides information required to build and install ROCgdb.
 
-Prerequisites
----------------
+System requirements
+--------------------
 
 - A system supporting ROCm. See the `supported operating systems <https://rocm.docs.amd.com/projects/install-on-linux/en/latest/reference/system-requirements.html#supported-operating-systems>`_.
 
@@ -48,6 +48,10 @@ Prerequisites
 
         zypper in bison flex gcc make texinfo gcc-c++ zlib-devel libexpat-devel \
         python3-devel xz-devel gmp-devel ncurses-devel mpfr-devel
+
+.. note::
+
+  ROCgdb might become unresponsive in SELinux-enabled distributions. To learn more about this issue, see `installation troubleshooting <https://rocm.docs.amd.com/projects/install-on-linux/en/latest/reference/install-faq.html#issue-10-rocm-debugging-tools-might-become-unresponsive-in-selinux-enabled-distributions>`_.
 
 Building ROCgdb
 ----------------
