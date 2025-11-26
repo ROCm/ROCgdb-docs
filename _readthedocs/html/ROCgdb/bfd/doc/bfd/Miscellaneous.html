@@ -388,9 +388,6 @@ Not enough memory exists to create private data for <var>obfd</var>.
 #define bfd_lookup_section_flags(link_info, flag_info, section) \
        BFD_SEND (abfd, _bfd_lookup_section_flags, (link_info, flag_info, section))
 
-#define bfd_merge_sections(abfd, link_info) \
-       BFD_SEND (abfd, _bfd_merge_sections, (abfd, link_info))
-
 #define bfd_is_group_section(abfd, sec) \
        BFD_SEND (abfd, _bfd_is_group_section, (abfd, sec))
 
@@ -552,7 +549,7 @@ all methods listed below).
   int (*bstat) (struct bfd *abfd, struct stat *sb);
   /* Mmap a part of the files. ADDR, LEN, PROT, FLAGS and OFFSET are the usual
      mmap parameter, except that LEN and OFFSET do not need to be page
-     aligned.  Returns (void *)-1 on failure, mmapped address on success.
+     aligned.  Returns MAP_FAILED on failure, mmapped address on success.
      Also write in MAP_ADDR the address of the page aligned buffer and in
      MAP_LEN the size mapped (a page multiple).  Use unmap with MAP_ADDR and
      MAP_LEN to unmap.  */
@@ -685,6 +682,7 @@ and archive elements.
 <dd><p>Return mmap()ed region of the file, if possible and implemented.
 LEN and OFFSET do not need to be page aligned.  The page aligned
 address and length are written to MAP_ADDR and MAP_LEN.
+Returns MAP_FAILED on failure.
 </p>
 </dd></dl>
 <span id="index-bfd_005fget_005fcurrent_005ftime"></span>

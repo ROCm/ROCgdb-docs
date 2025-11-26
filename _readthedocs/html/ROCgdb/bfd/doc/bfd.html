@@ -1105,12 +1105,13 @@ to work on different BFD objects at the same time.
 <dd><p>Initialize BFD threading.  The functions passed in will be
 used to lock and unlock global data structures.  This may only
 be called a single time in a given process.  Returns true on
-success and false on error.  DATA is passed verbatim to the
-lock and unlock functions.  The lock and unlock functions
-should return true on success, or set the BFD error and return
-false on failure.  Note also that the lock must be a recursive
-lock: BFD may attempt to acquire the lock when it is already
-held by the current thread.
+success and false on error.  On error, the caller should
+assume that BFD cannot be used by multiple threads.  DATA is
+passed verbatim to the lock and unlock functions.  The lock
+and unlock functions should return true on success, or set the
+BFD error and return false on failure.  Note also that the
+lock must be a recursive lock: BFD may attempt to acquire the
+lock when it is already held by the current thread.
 </p>
 </dd></dl>
 <span id="index-bfd_005fthread_005fcleanup"></span>
@@ -1473,9 +1474,6 @@ Not enough memory exists to create private data for <var>obfd</var>.
 #define bfd_lookup_section_flags(link_info, flag_info, section) \
        BFD_SEND (abfd, _bfd_lookup_section_flags, (link_info, flag_info, section))
 
-#define bfd_merge_sections(abfd, link_info) \
-       BFD_SEND (abfd, _bfd_merge_sections, (abfd, link_info))
-
 #define bfd_is_group_section(abfd, sec) \
        BFD_SEND (abfd, _bfd_is_group_section, (abfd, sec))
 
@@ -1637,7 +1635,7 @@ all methods listed below).
   int (*bstat) (struct bfd *abfd, struct stat *sb);
   /* Mmap a part of the files. ADDR, LEN, PROT, FLAGS and OFFSET are the usual
      mmap parameter, except that LEN and OFFSET do not need to be page
-     aligned.  Returns (void *)-1 on failure, mmapped address on success.
+     aligned.  Returns MAP_FAILED on failure, mmapped address on success.
      Also write in MAP_ADDR the address of the page aligned buffer and in
      MAP_LEN the size mapped (a page multiple).  Use unmap with MAP_ADDR and
      MAP_LEN to unmap.  */
@@ -1770,6 +1768,7 @@ and archive elements.
 <dd><p>Return mmap()ed region of the file, if possible and implemented.
 LEN and OFFSET do not need to be page aligned.  The page aligned
 address and length are written to MAP_ADDR and MAP_LEN.
+Returns MAP_FAILED on failure.
 </p>
 </dd></dl>
 <span id="index-bfd_005fget_005fcurrent_005ftime"></span>
@@ -2215,8 +2214,11 @@ Next: <a href="#section-prototypes" accesskey="n" rel="next">Section prototypes<
   /* Nonzero if this section uses RELA relocations, rather than REL.  */
   unsigned int use_rela_p:1;
 
-  /* Nonzero if this section contents are mmapped, rather than malloced.  */
+  /* Nonzero if section contents are mmapped.  */
   unsigned int mmapped_p:1;
+
+  /* Nonzero if section contents should not be freed.  */
+  unsigned int alloced:1;
 
   /* Bits used by various backends.  The generic code doesn't touch
      these fields.  */
@@ -2354,6 +2356,10 @@ Next: <a href="#section-prototypes" accesskey="n" rel="next">Section prototypes<
      if any.  This is used when support for non-contiguous memory
      regions is enabled.  */
   struct bfd_section *already_assigned;
+
+  /* A pointer used for various section optimizations.  sec_info_type
+     qualifies which one it is.  */
+  void *sec_info;
 
   /* Explicitly specified section type, if non-zero.  */
   unsigned int type;
@@ -2702,7 +2708,7 @@ case *<var>buf</var> will be NULL.
 <div class="subsubsection" id="bfd_005fcopy_005fprivate_005fsection_005fdata">
 <h4 class="subsubsection">2.6.5.20 <code>bfd_copy_private_section_data</code></h4>
 <dl class="def">
-<dt id="index-bfd_005fcopy_005fprivate_005fsection_005fdata-1"><span class="category">Function: </span><span><em>bool</em> <strong>bfd_copy_private_section_data</strong> <em>(bfd *ibfd, asection *isec, bfd *obfd, asection *osec);</em><a href='#index-bfd_005fcopy_005fprivate_005fsection_005fdata-1' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-bfd_005fcopy_005fprivate_005fsection_005fdata-1"><span class="category">Function: </span><span><em>bool</em> <strong>bfd_copy_private_section_data</strong> <em>(bfd *ibfd, asection *isec, bfd *obfd, asection *osec, struct bfd_link_info *link_info);</em><a href='#index-bfd_005fcopy_005fprivate_005fsection_005fdata-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Copy private section information from <var>isec</var> in the BFD
 <var>ibfd</var> to the section <var>osec</var> in the BFD <var>obfd</var>.
 Return <code>TRUE</code> on success, <code>FALSE</code> on error.  Possible error
@@ -2713,9 +2719,9 @@ returns are:
 Not enough memory exists to create private data for <var>osec</var>.
 </li></ul>
 <div class="example">
-<pre class="example">#define bfd_copy_private_section_data(ibfd, isection, obfd, osection) \
+<pre class="example">#define bfd_copy_private_section_data(ibfd, isec, obfd, osec, link_info) \
        BFD_SEND (obfd, _bfd_copy_private_section_data, \
-                 (ibfd, isection, obfd, osection))
+                 (ibfd, isec, obfd, osec, link_info))
 </pre></div>
 
 </dd></dl>
@@ -3059,6 +3065,9 @@ Next: <a href="#symbol-handling-functions" accesskey="n" rel="next">Symbol handl
 
   /* This section symbol should be included in the symbol table.  */
 #define BSF_SECTION_SYM_USED    (1 &lt;&lt; 24)
+
+  /* This symbol underwent section merge resolution.  */
+#define BSF_MERGE_RESOLVED      (1 &lt;&lt; 25)
 
   flagword flags;
 
@@ -3507,10 +3516,10 @@ itself.
 <dl class="def">
 <dt id="index-bfd_005fcheck_005fformat_005fmatches-1"><span class="category">Function: </span><span><em>bool</em> <strong>bfd_check_format_matches</strong> <em>(bfd *abfd, bfd_format format, char ***matching);</em><a href='#index-bfd_005fcheck_005fformat_005fmatches-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Like <code>bfd_check_format</code>, except when it returns FALSE with
-<code>bfd_errno</code> set to <code>bfd_error_file_ambiguously_recognized</code>.  In that
-case, if <var>matching</var> is not NULL, it will be filled in with
-a NULL-terminated list of the names of the formats that matched,
-allocated with <code>malloc</code>.
+<code>bfd_errno</code> set to <code>bfd_error_file_ambiguously_recognized</code>.
+In that case, if <var>matching</var> is not NULL, it will be filled
+in with a NULL-terminated list of the names of the formats
+that matched, allocated with <code>malloc</code>.
 Then the user may choose a format and try again.
 </p>
 <p>When done with the list that <var>matching</var> points to, the caller
@@ -3999,9 +4008,8 @@ using this bit of code.
 <li><a href="#bfd_005fgeneric_005frelax_005fsection" accesskey="5"><code>bfd_generic_relax_section</code></a></li>
 <li><a href="#bfd_005fgeneric_005fgc_005fsections" accesskey="6"><code>bfd_generic_gc_sections</code></a></li>
 <li><a href="#bfd_005fgeneric_005flookup_005fsection_005fflags" accesskey="7"><code>bfd_generic_lookup_section_flags</code></a></li>
-<li><a href="#bfd_005fgeneric_005fmerge_005fsections" accesskey="8"><code>bfd_generic_merge_sections</code></a></li>
-<li><a href="#bfd_005fgeneric_005fget_005frelocated_005fsection_005fcontents" accesskey="9"><code>bfd_generic_get_relocated_section_contents</code></a></li>
-<li><a href="#g_t_005fbfd_005fgeneric_005fset_005freloc"><code>_bfd_generic_set_reloc</code></a></li>
+<li><a href="#bfd_005fgeneric_005fget_005frelocated_005fsection_005fcontents" accesskey="8"><code>bfd_generic_get_relocated_section_contents</code></a></li>
+<li><a href="#g_t_005fbfd_005fgeneric_005fset_005freloc" accesskey="9"><code>_bfd_generic_set_reloc</code></a></li>
 <li><a href="#g_t_005fbfd_005funrecognized_005freloc"><code>_bfd_unrecognized_reloc</code></a></li>
 </ul>
 <div class="subsubsection" id="bfd_005freloc_005fcode_005freal_005ftype">
@@ -8349,6 +8357,12 @@ assembler and not (currently) written to any object files.
 assembler and not (currently) written to any object files.
 </p></dd></dl>
 <dl class="def">
+<dt id="index-BFD_005fRELOC_005fAARCH64_005fBRANCH9"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_BRANCH9</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fBRANCH9' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>AArch64 9 bit pc-relative conditional branch and compare &amp; branch.
+The lowest two bits must be zero and are not stored in the
+instruction, giving an 11 bit signed byte offset.
+</p></dd></dl>
+<dl class="def">
 <dt id="index-BFD_005fRELOC_005fTILEPRO_005fCOPY"><span class="category">: </span><span><strong>BFD_RELOC_TILEPRO_COPY</strong><a href='#index-BFD_005fRELOC_005fTILEPRO_005fCOPY' class='copiable-anchor'> &para;</a></span></dt>
 <dt id="index-BFD_005fRELOC_005fTILEPRO_005fGLOB_005fDAT"><span class="category">: </span><span><strong>BFD_RELOC_TILEPRO_GLOB_DAT</strong><a href='#index-BFD_005fRELOC_005fTILEPRO_005fGLOB_005fDAT' class='copiable-anchor'> &para;</a></span></dt>
 <dt id="index-BFD_005fRELOC_005fTILEPRO_005fJMP_005fSLOT"><span class="category">: </span><span><strong>BFD_RELOC_TILEPRO_JMP_SLOT</strong><a href='#index-BFD_005fRELOC_005fTILEPRO_005fJMP_005fSLOT' class='copiable-anchor'> &para;</a></span></dt>
@@ -8850,20 +8864,10 @@ don&rsquo;t do section gc &ndash; i.e., does nothing.
 Returns FALSE if the section should be omitted, otherwise TRUE.
 </p>
 </dd></dl>
-<span id="index-bfd_005fgeneric_005fmerge_005fsections"></span>
-</div>
-<div class="subsubsection" id="bfd_005fgeneric_005fmerge_005fsections">
-<h4 class="subsubsection">2.10.2.8 <code>bfd_generic_merge_sections</code></h4>
-<dl class="def">
-<dt id="index-bfd_005fgeneric_005fmerge_005fsections-1"><span class="category">Function: </span><span><em>bool</em> <strong>bfd_generic_merge_sections</strong> <em>(bfd *, struct bfd_link_info *);</em><a href='#index-bfd_005fgeneric_005fmerge_005fsections-1' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Provides default handling for SEC_MERGE section merging for back ends
-which don&rsquo;t have SEC_MERGE support &ndash; i.e., does nothing.
-</p>
-</dd></dl>
 <span id="index-bfd_005fgeneric_005fget_005frelocated_005fsection_005fcontents"></span>
 </div>
 <div class="subsubsection" id="bfd_005fgeneric_005fget_005frelocated_005fsection_005fcontents">
-<h4 class="subsubsection">2.10.2.9 <code>bfd_generic_get_relocated_section_contents</code></h4>
+<h4 class="subsubsection">2.10.2.8 <code>bfd_generic_get_relocated_section_contents</code></h4>
 <dl class="def">
 <dt id="index-_002abfd_005fgeneric_005fget_005frelocated_005fsection_005fcontents"><span class="category">Function: </span><span><em>bfd_byte</em> <strong>*bfd_generic_get_relocated_section_contents</strong> <em>(bfd *abfd, struct bfd_link_info *link_info, struct bfd_link_order *link_order, bfd_byte *data, bool relocatable, asymbol **symbols);</em><a href='#index-_002abfd_005fgeneric_005fget_005frelocated_005fsection_005fcontents' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Provides default handling of relocation effort for back ends
@@ -8873,7 +8877,7 @@ which can&rsquo;t be bothered to do it efficiently.
 <span id="index-_005fbfd_005fgeneric_005fset_005freloc"></span>
 </div>
 <div class="subsubsection" id="g_t_005fbfd_005fgeneric_005fset_005freloc">
-<h4 class="subsubsection">2.10.2.10 <code>_bfd_generic_set_reloc</code></h4>
+<h4 class="subsubsection">2.10.2.9 <code>_bfd_generic_set_reloc</code></h4>
 <dl class="def">
 <dt id="index-_005fbfd_005fgeneric_005fset_005freloc-1"><span class="category">Function: </span><span><em>void</em> <strong>_bfd_generic_set_reloc</strong> <em>(bfd *abfd, sec_ptr section, arelent **relptr, unsigned int count);</em><a href='#index-_005fbfd_005fgeneric_005fset_005freloc-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Installs a new set of internal relocations in SECTION.
@@ -8882,7 +8886,7 @@ which can&rsquo;t be bothered to do it efficiently.
 <span id="index-_005fbfd_005funrecognized_005freloc"></span>
 </div>
 <div class="subsubsection" id="g_t_005fbfd_005funrecognized_005freloc">
-<h4 class="subsubsection">2.10.2.11 <code>_bfd_unrecognized_reloc</code></h4>
+<h4 class="subsubsection">2.10.2.10 <code>_bfd_unrecognized_reloc</code></h4>
 <dl class="def">
 <dt id="index-_005fbfd_005funrecognized_005freloc-1"><span class="category">Function: </span><span><em>bool</em> <strong>_bfd_unrecognized_reloc</strong> <em>(bfd * abfd, sec_ptr section, unsigned int r_type);</em><a href='#index-_005fbfd_005funrecognized_005freloc-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Reports an unrecognized reloc.
@@ -9092,6 +9096,11 @@ someone wants to fix this and not break the above, please do.
 #define TARGET_KEEP_UNUSED_SECTION_SYMBOLS true
 #endif
 
+/* Define to TRUE if section merging is supported by the backend.  */
+#ifndef TARGET_MERGE_SECTIONS
+#define TARGET_MERGE_SECTIONS false
+#endif
+
 </pre></div>
 <p>This is the structure which defines the type of BFD this is.  The
 <code>xvec</code> member of the struct <code>bfd</code> itself points here.  Each
@@ -9143,6 +9152,9 @@ macro to define them both!
 
  /* TRUE if unused section symbols should be kept.  */
   bool keep_unused_section_symbols;
+
+  /* TRUE if section merging is supported by the backend.  */
+  bool merge_sections;
 
   /* Entries for byte swapping for data. These are different from the
      other entry points, since they don't take a BFD as the first argument.
@@ -9206,7 +9218,6 @@ BFD_JUMP_TABLE macros.
 #define BFD_JUMP_TABLE_COPY(NAME) \
   NAME##_bfd_copy_private_bfd_data, \
   NAME##_bfd_merge_private_bfd_data, \
-  NAME##_init_private_section_data, \
   NAME##_bfd_copy_private_section_data, \
   NAME##_bfd_copy_private_symbol_data, \
   NAME##_bfd_copy_private_header_data, \
@@ -9219,16 +9230,10 @@ BFD_JUMP_TABLE macros.
   /* Called to merge BFD general private data from one object file
      to a common output file when linking.  */
   bool (*_bfd_merge_private_bfd_data) (bfd *, struct bfd_link_info *);
-  /* Called to initialize BFD private section data from one object file
-     to another.  */
-#define bfd_init_private_section_data(ibfd, isec, obfd, osec, link_info) \
-       BFD_SEND (obfd, _bfd_init_private_section_data, \
-                 (ibfd, isec, obfd, osec, link_info))
-  bool (*_bfd_init_private_section_data) (bfd *, sec_ptr, bfd *, sec_ptr,
-                                          struct bfd_link_info *);
   /* Called to copy BFD private section data from one object file
      to another.  */
-  bool (*_bfd_copy_private_section_data) (bfd *, sec_ptr, bfd *, sec_ptr);
+  bool (*_bfd_copy_private_section_data) (bfd *, sec_ptr, bfd *, sec_ptr,
+                                          struct bfd_link_info *);
   /* Called to copy BFD private symbol data from one symbol
      to another.  */
   bool (*_bfd_copy_private_symbol_data) (bfd *, asymbol *,
@@ -9392,7 +9397,6 @@ BFD_JUMP_TABLE macros.
   NAME##_bfd_link_check_relocs, \
   NAME##_bfd_gc_sections, \
   NAME##_bfd_lookup_section_flags, \
-  NAME##_bfd_merge_sections, \
   NAME##_bfd_is_group_section, \
   NAME##_bfd_group_name, \
   NAME##_bfd_discard_group, \
@@ -9447,9 +9451,6 @@ BFD_JUMP_TABLE macros.
   /* Sets the bitmask of allowed and disallowed section flags.  */
   bool (*_bfd_lookup_section_flags) (struct bfd_link_info *,
                                      struct flag_info *, asection *);
-
-  /* Attempt to merge SEC_MERGE sections.  */
-  bool (*_bfd_merge_sections) (bfd *, struct bfd_link_info *);
 
   /* Is this section a member of a group?  */
   bool (*_bfd_is_group_section) (bfd *, const struct bfd_section *);
@@ -10242,9 +10243,8 @@ containing, for example, 68020 for Motorola 68020.
 #define bfd_mach_amdgcn_gfx908          0x030
 #define bfd_mach_amdgcn_gfx90a          0x03f
 #define bfd_mach_amdgcn_gfx9_4_generic  0x05f
-#define bfd_mach_amdgcn_gfx940          0x040
-#define bfd_mach_amdgcn_gfx941          0x04b
 #define bfd_mach_amdgcn_gfx942          0x04c
+#define bfd_mach_amdgcn_gfx950          0x04f
 #define bfd_mach_amdgcn_gfx10_1_generic 0x052
 #define bfd_mach_amdgcn_gfx1010         0x033
 #define bfd_mach_amdgcn_gfx1011         0x034
@@ -10257,6 +10257,8 @@ containing, for example, 68020 for Motorola 68020.
 #define bfd_mach_amdgcn_gfx1100         0x041
 #define bfd_mach_amdgcn_gfx1101         0x046
 #define bfd_mach_amdgcn_gfx1102         0x047
+#define bfd_mach_amdgcn_gfx1150         0x043
+#define bfd_mach_amdgcn_gfx1151         0x04a
 #define bfd_mach_amdgcn_gfx12_generic   0x059
 #define bfd_mach_amdgcn_gfx1200         0x048
 #define bfd_mach_amdgcn_gfx1201         0x04e
@@ -11777,12 +11779,14 @@ the specific object file format.  The a.out
 <li><a href="#Information-provided-by-the-linker" accesskey="1">Information provided by the linker</a></li>
 <li><a href="#Relocating-the-section-contents" accesskey="2">Relocating the section contents</a></li>
 <li><a href="#Writing-the-symbol-table" accesskey="3">Writing the symbol table</a></li>
-<li><a href="#bfd_005flink_005fsplit_005fsection" accesskey="4"><code>bfd_link_split_section</code></a></li>
-<li><a href="#bfd_005fsection_005falready_005flinked" accesskey="5"><code>bfd_section_already_linked</code></a></li>
-<li><a href="#bfd_005fgeneric_005fdefine_005fcommon_005fsymbol" accesskey="6"><code>bfd_generic_define_common_symbol</code></a></li>
-<li><a href="#g_t_005fbfd_005fgeneric_005flink_005fhide_005fsymbol" accesskey="7"><code>_bfd_generic_link_hide_symbol</code></a></li>
-<li><a href="#bfd_005fgeneric_005fdefine_005fstart_005fstop" accesskey="8"><code>bfd_generic_define_start_stop</code></a></li>
-<li><a href="#bfd_005ffind_005fversion_005ffor_005fsym" accesskey="9"><code>bfd_find_version_for_sym</code></a></li>
+<li><a href="#g_t_005fbfd_005fgeneric_005flink_005fadd_005fone_005fsymbol" accesskey="4"><code>_bfd_generic_link_add_one_symbol</code></a></li>
+<li><a href="#bfd_005flink_005falign_005fsection" accesskey="5"><code>bfd_link_align_section</code></a></li>
+<li><a href="#bfd_005flink_005fsplit_005fsection" accesskey="6"><code>bfd_link_split_section</code></a></li>
+<li><a href="#bfd_005fsection_005falready_005flinked" accesskey="7"><code>bfd_section_already_linked</code></a></li>
+<li><a href="#bfd_005fgeneric_005fdefine_005fcommon_005fsymbol" accesskey="8"><code>bfd_generic_define_common_symbol</code></a></li>
+<li><a href="#g_t_005fbfd_005fgeneric_005flink_005fhide_005fsymbol" accesskey="9"><code>_bfd_generic_link_hide_symbol</code></a></li>
+<li><a href="#bfd_005fgeneric_005fdefine_005fstart_005fstop"><code>bfd_generic_define_start_stop</code></a></li>
+<li><a href="#bfd_005ffind_005fversion_005ffor_005fsym"><code>bfd_find_version_for_sym</code></a></li>
 <li><a href="#bfd_005fhide_005fsym_005fby_005fversion"><code>bfd_hide_sym_by_version</code></a></li>
 <li><a href="#bfd_005flink_005fcheck_005frelocs"><code>bfd_link_check_relocs</code></a></li>
 <li><a href="#g_t_005fbfd_005fgeneric_005flink_005fcheck_005frelocs"><code>_bfd_generic_link_check_relocs</code></a></li>
@@ -11907,10 +11911,56 @@ traversing the global hash table with the function
 while writing out the symbols, which is written to the output
 file at the end of <code>NAME(aout,final_link)</code>.
 </p>
+<span id="index-_005fbfd_005fgeneric_005flink_005fadd_005fone_005fsymbol-1"></span>
+</div>
+<div class="subsubsection" id="g_t_005fbfd_005fgeneric_005flink_005fadd_005fone_005fsymbol">
+<h4 class="subsubsection">2.17.3.4 <code>_bfd_generic_link_add_one_symbol</code></h4>
+<dl class="def">
+<dt id="index-_005fbfd_005fgeneric_005flink_005fadd_005fone_005fsymbol-2"><span class="category">Function: </span><span><em>bool</em> <strong>_bfd_generic_link_add_one_symbol</strong> <em>(struct bfd_link_info *info, bfd *abfd, const char *name, flagword flags, asection *section, bfd_vma value, const char *string, bool copy, bool collect, struct bfd_link_hash_entry **hashp);</em><a href='#index-_005fbfd_005fgeneric_005flink_005fadd_005fone_005fsymbol-2' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Add a symbol to the global hash table.
+ABFD is the BFD the symbol comes from.
+NAME is the name of the symbol.
+FLAGS is the BSF_* bits associated with the symbol.
+SECTION is the section in which the symbol is defined; this may be
+bfd_und_section_ptr or bfd_com_section_ptr.
+VALUE is the value of the symbol, relative to the section.
+STRING is used for either an indirect symbol, in which case it is
+the name of the symbol to indirect to, or a warning symbol, in
+which case it is the warning string.
+COPY is TRUE if NAME or STRING must be copied into locally
+allocated memory if they need to be saved.
+COLLECT is TRUE if we should automatically collect gcc constructor
+or destructor names as collect2 does.
+HASHP, if not NULL, is a place to store the created hash table
+entry; if *HASHP is not NULL, the caller has already looked up
+the hash table entry, and stored it in *HASHP.
+</p>
+</dd></dl>
+<span id="index-bfd_005flink_005falign_005fsection"></span>
+</div>
+<div class="subsubsection" id="bfd_005flink_005falign_005fsection">
+<h4 class="subsubsection">2.17.3.5 <code>bfd_link_align_section</code></h4>
+<dl class="def">
+<dt id="index-bfd_005flink_005falign_005fsection-1"><span class="category">Function: </span><span><em>bool</em> <strong>bfd_link_align_section</strong> <em>(asection *, unsigned int);</em><a href='#index-bfd_005flink_005falign_005fsection-1' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Increase section alignment if the current section alignment is
+less than the requested value.  Adjust output section
+alignment too, so that linker layout adjusts for alignment on
+the current lang_size_sections pass.  This is important for
+lang_size_relro_segment.  If the output section alignment
+isn&rsquo;t adjusted, the linker will place the output section at an
+address depending on its current alignment.  When sizing the
+output section, input sections attached transfer any increase
+in alignment to the output section, which will affect layout
+for the next sizing pass.  Which is all well and good except
+that lang_size_relro_segment for the current sizing pass uses
+that possibly increased alignment with a layout that doesn&rsquo;t
+suit.
+</p>
+</dd></dl>
 <span id="index-bfd_005flink_005fsplit_005fsection"></span>
 </div>
 <div class="subsubsection" id="bfd_005flink_005fsplit_005fsection">
-<h4 class="subsubsection">2.17.3.4 <code>bfd_link_split_section</code></h4>
+<h4 class="subsubsection">2.17.3.6 <code>bfd_link_split_section</code></h4>
 <dl class="def">
 <dt id="index-bfd_005flink_005fsplit_005fsection-1"><span class="category">Function: </span><span><em>bool</em> <strong>bfd_link_split_section</strong> <em>(bfd *abfd, asection *sec);</em><a href='#index-bfd_005flink_005fsplit_005fsection-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Return nonzero if <var>sec</var> should be split during a
@@ -11925,7 +11975,7 @@ reloceatable or final link.
 <span id="index-bfd_005fsection_005falready_005flinked"></span>
 </div>
 <div class="subsubsection" id="bfd_005fsection_005falready_005flinked">
-<h4 class="subsubsection">2.17.3.5 <code>bfd_section_already_linked</code></h4>
+<h4 class="subsubsection">2.17.3.7 <code>bfd_section_already_linked</code></h4>
 <dl class="def">
 <dt id="index-bfd_005fsection_005falready_005flinked-1"><span class="category">Function: </span><span><em>bool</em> <strong>bfd_section_already_linked</strong> <em>(bfd *abfd, asection *sec, struct bfd_link_info *info);</em><a href='#index-bfd_005fsection_005falready_005flinked-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Check if <var>data</var> has been already linked during a reloceatable
@@ -11940,7 +11990,7 @@ or final link.  Return TRUE if it has.
 <span id="index-bfd_005fgeneric_005fdefine_005fcommon_005fsymbol"></span>
 </div>
 <div class="subsubsection" id="bfd_005fgeneric_005fdefine_005fcommon_005fsymbol">
-<h4 class="subsubsection">2.17.3.6 <code>bfd_generic_define_common_symbol</code></h4>
+<h4 class="subsubsection">2.17.3.8 <code>bfd_generic_define_common_symbol</code></h4>
 <dl class="def">
 <dt id="index-bfd_005fgeneric_005fdefine_005fcommon_005fsymbol-1"><span class="category">Function: </span><span><em>bool</em> <strong>bfd_generic_define_common_symbol</strong> <em>(bfd *output_bfd, struct bfd_link_info *info, struct bfd_link_hash_entry *h);</em><a href='#index-bfd_005fgeneric_005fdefine_005fcommon_005fsymbol-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Convert common symbol <var>h</var> into a defined symbol.
@@ -11955,7 +12005,7 @@ Return TRUE on success and FALSE on failure.
 <span id="index-_005fbfd_005fgeneric_005flink_005fhide_005fsymbol"></span>
 </div>
 <div class="subsubsection" id="g_t_005fbfd_005fgeneric_005flink_005fhide_005fsymbol">
-<h4 class="subsubsection">2.17.3.7 <code>_bfd_generic_link_hide_symbol</code></h4>
+<h4 class="subsubsection">2.17.3.9 <code>_bfd_generic_link_hide_symbol</code></h4>
 <dl class="def">
 <dt id="index-_005fbfd_005fgeneric_005flink_005fhide_005fsymbol-1"><span class="category">Function: </span><span><em>void</em> <strong>_bfd_generic_link_hide_symbol</strong> <em>(bfd *output_bfd, struct bfd_link_info *info, struct bfd_link_hash_entry *h);</em><a href='#index-_005fbfd_005fgeneric_005flink_005fhide_005fsymbol-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Hide symbol <var>h</var>.
@@ -11971,7 +12021,7 @@ outside the BFD library.
 <span id="index-bfd_005fgeneric_005fdefine_005fstart_005fstop"></span>
 </div>
 <div class="subsubsection" id="bfd_005fgeneric_005fdefine_005fstart_005fstop">
-<h4 class="subsubsection">2.17.3.8 <code>bfd_generic_define_start_stop</code></h4>
+<h4 class="subsubsection">2.17.3.10 <code>bfd_generic_define_start_stop</code></h4>
 <dl class="def">
 <dt id="index-bfd_005flink_005fhash_005fentry"><span class="category">Function: </span><span><em>struct</em> <strong>bfd_link_hash_entry</strong> <em>*bfd_generic_define_start_stop (struct bfd_link_info *info, const char *symbol, asection *sec);</em><a href='#index-bfd_005flink_005fhash_005fentry' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Define a __start, __stop, .startof. or .sizeof. symbol.
@@ -11986,7 +12036,7 @@ Return the symbol or NULL if no such undefined symbol exists.
 <span id="index-bfd_005ffind_005fversion_005ffor_005fsym"></span>
 </div>
 <div class="subsubsection" id="bfd_005ffind_005fversion_005ffor_005fsym">
-<h4 class="subsubsection">2.17.3.9 <code>bfd_find_version_for_sym</code></h4>
+<h4 class="subsubsection">2.17.3.11 <code>bfd_find_version_for_sym</code></h4>
 <dl class="def">
 <dt id="index-bfd_005felf_005fversion_005ftree"><span class="category">Function: </span><span><em>struct</em> <strong>bfd_elf_version_tree</strong> <em>* bfd_find_version_for_sym (struct bfd_elf_version_tree *verdefs, const char *sym_name, bool *hide);</em><a href='#index-bfd_005felf_005fversion_005ftree' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Search an elf version script tree for symbol versioning
@@ -11998,7 +12048,7 @@ the output &lsquo;<samp>hide</samp>&rsquo; boolean parameter.
 <span id="index-bfd_005fhide_005fsym_005fby_005fversion"></span>
 </div>
 <div class="subsubsection" id="bfd_005fhide_005fsym_005fby_005fversion">
-<h4 class="subsubsection">2.17.3.10 <code>bfd_hide_sym_by_version</code></h4>
+<h4 class="subsubsection">2.17.3.12 <code>bfd_hide_sym_by_version</code></h4>
 <dl class="def">
 <dt id="index-bfd_005fhide_005fsym_005fby_005fversion-1"><span class="category">Function: </span><span><em>bool</em> <strong>bfd_hide_sym_by_version</strong> <em>(struct bfd_elf_version_tree *verdefs, const char *sym_name);</em><a href='#index-bfd_005fhide_005fsym_005fby_005fversion-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Search an elf version script tree for symbol versioning
@@ -12008,7 +12058,7 @@ info for a given symbol.  Return TRUE if the symbol is hidden.
 <span id="index-bfd_005flink_005fcheck_005frelocs"></span>
 </div>
 <div class="subsubsection" id="bfd_005flink_005fcheck_005frelocs">
-<h4 class="subsubsection">2.17.3.11 <code>bfd_link_check_relocs</code></h4>
+<h4 class="subsubsection">2.17.3.13 <code>bfd_link_check_relocs</code></h4>
 <dl class="def">
 <dt id="index-bfd_005flink_005fcheck_005frelocs-1"><span class="category">Function: </span><span><em>bool</em> <strong>bfd_link_check_relocs</strong> <em>(bfd *abfd, struct bfd_link_info *info);</em><a href='#index-bfd_005flink_005fcheck_005frelocs-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Checks the relocs in ABFD for validity.
@@ -12020,7 +12070,7 @@ This is the external entry point to this code.
 <span id="index-_005fbfd_005fgeneric_005flink_005fcheck_005frelocs"></span>
 </div>
 <div class="subsubsection" id="g_t_005fbfd_005fgeneric_005flink_005fcheck_005frelocs">
-<h4 class="subsubsection">2.17.3.12 <code>_bfd_generic_link_check_relocs</code></h4>
+<h4 class="subsubsection">2.17.3.14 <code>_bfd_generic_link_check_relocs</code></h4>
 <dl class="def">
 <dt id="index-_005fbfd_005fgeneric_005flink_005fcheck_005frelocs-1"><span class="category">Function: </span><span><em>bool</em> <strong>_bfd_generic_link_check_relocs</strong> <em>(bfd *abfd, struct bfd_link_info *info);</em><a href='#index-_005fbfd_005fgeneric_005flink_005fcheck_005frelocs-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Stub function for targets that do not implement reloc checking.
@@ -12032,7 +12082,7 @@ outside the BFD library.
 <span id="index-bfd_005fmerge_005fprivate_005fbfd_005fdata"></span>
 </div>
 <div class="subsubsection" id="bfd_005fmerge_005fprivate_005fbfd_005fdata">
-<h4 class="subsubsection">2.17.3.13 <code>bfd_merge_private_bfd_data</code></h4>
+<h4 class="subsubsection">2.17.3.15 <code>bfd_merge_private_bfd_data</code></h4>
 <dl class="def">
 <dt id="index-bfd_005fmerge_005fprivate_005fbfd_005fdata-1"><span class="category">Function: </span><span><em>bool</em> <strong>bfd_merge_private_bfd_data</strong> <em>(bfd *ibfd, struct bfd_link_info *info);</em><a href='#index-bfd_005fmerge_005fprivate_005fbfd_005fdata-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Merge private BFD information from the BFD <var>ibfd</var> to the
@@ -12054,7 +12104,7 @@ Not enough memory exists to create private data for <var>obfd</var>.
 <span id="index-_005fbfd_005fgeneric_005fverify_005fendian_005fmatch"></span>
 </div>
 <div class="subsubsection" id="g_t_005fbfd_005fgeneric_005fverify_005fendian_005fmatch">
-<h4 class="subsubsection">2.17.3.14 <code>_bfd_generic_verify_endian_match</code></h4>
+<h4 class="subsubsection">2.17.3.16 <code>_bfd_generic_verify_endian_match</code></h4>
 <dl class="def">
 <dt id="index-_005fbfd_005fgeneric_005fverify_005fendian_005fmatch-1"><span class="category">Function: </span><span><em>bool</em> <strong>_bfd_generic_verify_endian_match</strong> <em>(bfd *ibfd, struct bfd_link_info *info);</em><a href='#index-_005fbfd_005fgeneric_005fverify_005fendian_005fmatch-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Can be used from / for bfd_merge_private_bfd_data to check that
@@ -13162,7 +13212,7 @@ typedef struct coff_symbol_struct
     (bfd *, void *, void *);
 
   unsigned int (*_bfd_coff_swap_scnhdr_out)
-    (bfd *, void *, void *);
+    (bfd *, void *, void *, const asection *);
 
   unsigned int _bfd_filhsz;
   unsigned int _bfd_aoutsz;
@@ -13252,11 +13302,6 @@ typedef struct coff_symbol_struct
   bool (*_bfd_coff_adjust_symndx)
     (bfd *, struct bfd_link_info *, bfd *, asection *,
      struct internal_reloc *, bool *);
-
-  bool (*_bfd_coff_link_add_one_symbol)
-    (struct bfd_link_info *, bfd *, const char *, flagword,
-     asection *, bfd_vma, const char *, bool, bool,
-     struct bfd_link_hash_entry **);
 
   bool (*_bfd_coff_link_output_has_begun)
     (bfd *, struct coff_final_link_info *);
@@ -14336,6 +14381,8 @@ Previous: <a href="#GNU-Free-Documentation-License" accesskey="p" rel="prev">GNU
 <tr><td></td><td valign="top"><a href="#index-_005fbfd_005ffree_005fcached_005finfo-1">_bfd_free_cached_info</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Opening-and-Closing">Opening and Closing</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_005fbfd_005fgeneric_005flink_005fadd_005farchive_005fsymbols">_bfd_generic_link_add_archive_symbols</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Adding-symbols-from-an-archive">Adding symbols from an archive</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_005fbfd_005fgeneric_005flink_005fadd_005fone_005fsymbol">_bfd_generic_link_add_one_symbol</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Adding-symbols-from-an-object-file">Adding symbols from an object file</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-_005fbfd_005fgeneric_005flink_005fadd_005fone_005fsymbol-1">_bfd_generic_link_add_one_symbol</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Writing-the-symbol-table">Writing the symbol table</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-_005fbfd_005fgeneric_005flink_005fadd_005fone_005fsymbol-2">_bfd_generic_link_add_one_symbol</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Writing-the-symbol-table">Writing the symbol table</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_005fbfd_005fgeneric_005flink_005fcheck_005frelocs">_bfd_generic_link_check_relocs</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Writing-the-symbol-table">Writing the symbol table</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_005fbfd_005fgeneric_005flink_005fcheck_005frelocs-1">_bfd_generic_link_check_relocs</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Writing-the-symbol-table">Writing the symbol table</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_005fbfd_005fgeneric_005flink_005fhide_005fsymbol">_bfd_generic_link_hide_symbol</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Writing-the-symbol-table">Writing the symbol table</a></td></tr>
@@ -14511,8 +14558,6 @@ Previous: <a href="#GNU-Free-Documentation-License" accesskey="p" rel="prev">GNU
 <tr><td></td><td valign="top"><a href="#index-bfd_005fgeneric_005fis_005fgroup_005fsection-1">bfd_generic_is_group_section</a>:</td><td>&nbsp;</td><td valign="top"><a href="#section-prototypes">section prototypes</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-bfd_005fgeneric_005flookup_005fsection_005fflags">bfd_generic_lookup_section_flags</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-bfd_005fgeneric_005flookup_005fsection_005fflags-1">bfd_generic_lookup_section_flags</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-bfd_005fgeneric_005fmerge_005fsections">bfd_generic_merge_sections</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-bfd_005fgeneric_005fmerge_005fsections-1">bfd_generic_merge_sections</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-bfd_005fgeneric_005frelax_005fsection">bfd_generic_relax_section</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-bfd_005fgeneric_005frelax_005fsection-1">bfd_generic_relax_section</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-bfd_005fgetb64">bfd_getb64</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal">Internal</a></td></tr>
@@ -14596,6 +14641,8 @@ Previous: <a href="#GNU-Free-Documentation-License" accesskey="p" rel="prev">GNU
 <tr><td></td><td valign="top"><a href="#index-bfd_005fis_005fundefined_005fsymclass">bfd_is_undefined_symclass</a>:</td><td>&nbsp;</td><td valign="top"><a href="#symbol-handling-functions">symbol handling functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-bfd_005fis_005fundefined_005fsymclass-1">bfd_is_undefined_symclass</a>:</td><td>&nbsp;</td><td valign="top"><a href="#symbol-handling-functions">symbol handling functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-bfd_005fiterate_005fover_005ftargets">bfd_iterate_over_targets</a>:</td><td>&nbsp;</td><td valign="top"><a href="#bfd_005ftarget">bfd_target</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-bfd_005flink_005falign_005fsection">bfd_link_align_section</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Writing-the-symbol-table">Writing the symbol table</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-bfd_005flink_005falign_005fsection-1">bfd_link_align_section</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Writing-the-symbol-table">Writing the symbol table</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-bfd_005flink_005fcheck_005frelocs">bfd_link_check_relocs</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Writing-the-symbol-table">Writing the symbol table</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-bfd_005flink_005fcheck_005frelocs-1">bfd_link_check_relocs</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Writing-the-symbol-table">Writing the symbol table</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-bfd_005flink_005fhash_005fentry">bfd_link_hash_entry</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Writing-the-symbol-table">Writing the symbol table</a></td></tr>
@@ -14798,6 +14845,7 @@ Previous: <a href="#GNU-Free-Documentation-License" accesskey="p" rel="prev">GNU
 <tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fAARCH64_005fADR_005fHI21_005fPCREL">BFD_RELOC_AARCH64_ADR_HI21_PCREL</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fAARCH64_005fADR_005fLO21_005fPCREL">BFD_RELOC_AARCH64_ADR_LO21_PCREL</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fAARCH64_005fBRANCH19">BFD_RELOC_AARCH64_BRANCH19</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fAARCH64_005fBRANCH9">BFD_RELOC_AARCH64_BRANCH9</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fAARCH64_005fCALL26">BFD_RELOC_AARCH64_CALL26</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fAARCH64_005fCOPY">BFD_RELOC_AARCH64_COPY</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-BFD_005fRELOC_005fAARCH64_005fGAS_005fINTERNAL_005fFIXUP">BFD_RELOC_AARCH64_GAS_INTERNAL_FIXUP</a>:</td><td>&nbsp;</td><td valign="top"><a href="#howto-manager">howto manager</a></td></tr>

@@ -401,7 +401,7 @@ case *<var>buf</var> will be NULL.
 <div class="subsubsection" id="bfd_005fcopy_005fprivate_005fsection_005fdata">
 <h4 class="subsubsection">2.6.5.20 <code>bfd_copy_private_section_data</code></h4>
 <dl class="def">
-<dt id="index-bfd_005fcopy_005fprivate_005fsection_005fdata-1"><span class="category">Function: </span><span><em>bool</em> <strong>bfd_copy_private_section_data</strong> <em>(bfd *ibfd, asection *isec, bfd *obfd, asection *osec);</em><a href='#index-bfd_005fcopy_005fprivate_005fsection_005fdata-1' class='copiable-anchor'> &para;</a></span></dt>
+<dt id="index-bfd_005fcopy_005fprivate_005fsection_005fdata-1"><span class="category">Function: </span><span><em>bool</em> <strong>bfd_copy_private_section_data</strong> <em>(bfd *ibfd, asection *isec, bfd *obfd, asection *osec, struct bfd_link_info *link_info);</em><a href='#index-bfd_005fcopy_005fprivate_005fsection_005fdata-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Copy private section information from <var>isec</var> in the BFD
 <var>ibfd</var> to the section <var>osec</var> in the BFD <var>obfd</var>.
 Return <code>TRUE</code> on success, <code>FALSE</code> on error.  Possible error
@@ -412,9 +412,9 @@ returns are:
 Not enough memory exists to create private data for <var>osec</var>.
 </li></ul>
 <div class="example">
-<pre class="example">#define bfd_copy_private_section_data(ibfd, isection, obfd, osection) \
+<pre class="example">#define bfd_copy_private_section_data(ibfd, isec, obfd, osec, link_info) \
        BFD_SEND (obfd, _bfd_copy_private_section_data, \
-                 (ibfd, isection, obfd, osection))
+                 (ibfd, isec, obfd, osec, link_info))
 </pre></div>
 
 </dd></dl>

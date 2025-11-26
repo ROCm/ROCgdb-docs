@@ -338,8 +338,11 @@ Next: <a href="section-prototypes.html" accesskey="n" rel="next">Section prototy
   /* Nonzero if this section uses RELA relocations, rather than REL.  */
   unsigned int use_rela_p:1;
 
-  /* Nonzero if this section contents are mmapped, rather than malloced.  */
+  /* Nonzero if section contents are mmapped.  */
   unsigned int mmapped_p:1;
+
+  /* Nonzero if section contents should not be freed.  */
+  unsigned int alloced:1;
 
   /* Bits used by various backends.  The generic code doesn't touch
      these fields.  */
@@ -477,6 +480,10 @@ Next: <a href="section-prototypes.html" accesskey="n" rel="next">Section prototy
      if any.  This is used when support for non-contiguous memory
      regions is enabled.  */
   struct bfd_section *already_assigned;
+
+  /* A pointer used for various section optimizations.  sec_info_type
+     qualifies which one it is.  */
+  void *sec_info;
 
   /* Explicitly specified section type, if non-zero.  */
   unsigned int type;
