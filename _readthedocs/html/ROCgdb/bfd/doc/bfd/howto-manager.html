@@ -82,9 +82,8 @@ using this bit of code.
 <li><a href="#bfd_005fgeneric_005frelax_005fsection" accesskey="5"><code>bfd_generic_relax_section</code></a></li>
 <li><a href="#bfd_005fgeneric_005fgc_005fsections" accesskey="6"><code>bfd_generic_gc_sections</code></a></li>
 <li><a href="#bfd_005fgeneric_005flookup_005fsection_005fflags" accesskey="7"><code>bfd_generic_lookup_section_flags</code></a></li>
-<li><a href="#bfd_005fgeneric_005fmerge_005fsections" accesskey="8"><code>bfd_generic_merge_sections</code></a></li>
-<li><a href="#bfd_005fgeneric_005fget_005frelocated_005fsection_005fcontents" accesskey="9"><code>bfd_generic_get_relocated_section_contents</code></a></li>
-<li><a href="#g_t_005fbfd_005fgeneric_005fset_005freloc"><code>_bfd_generic_set_reloc</code></a></li>
+<li><a href="#bfd_005fgeneric_005fget_005frelocated_005fsection_005fcontents" accesskey="8"><code>bfd_generic_get_relocated_section_contents</code></a></li>
+<li><a href="#g_t_005fbfd_005fgeneric_005fset_005freloc" accesskey="9"><code>_bfd_generic_set_reloc</code></a></li>
 <li><a href="#g_t_005fbfd_005funrecognized_005freloc"><code>_bfd_unrecognized_reloc</code></a></li>
 </ul>
 <div class="subsubsection" id="bfd_005freloc_005fcode_005freal_005ftype">
@@ -4432,6 +4431,12 @@ assembler and not (currently) written to any object files.
 assembler and not (currently) written to any object files.
 </p></dd></dl>
 <dl class="def">
+<dt id="index-BFD_005fRELOC_005fAARCH64_005fBRANCH9"><span class="category">: </span><span><strong>BFD_RELOC_AARCH64_BRANCH9</strong><a href='#index-BFD_005fRELOC_005fAARCH64_005fBRANCH9' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>AArch64 9 bit pc-relative conditional branch and compare &amp; branch.
+The lowest two bits must be zero and are not stored in the
+instruction, giving an 11 bit signed byte offset.
+</p></dd></dl>
+<dl class="def">
 <dt id="index-BFD_005fRELOC_005fTILEPRO_005fCOPY"><span class="category">: </span><span><strong>BFD_RELOC_TILEPRO_COPY</strong><a href='#index-BFD_005fRELOC_005fTILEPRO_005fCOPY' class='copiable-anchor'> &para;</a></span></dt>
 <dt id="index-BFD_005fRELOC_005fTILEPRO_005fGLOB_005fDAT"><span class="category">: </span><span><strong>BFD_RELOC_TILEPRO_GLOB_DAT</strong><a href='#index-BFD_005fRELOC_005fTILEPRO_005fGLOB_005fDAT' class='copiable-anchor'> &para;</a></span></dt>
 <dt id="index-BFD_005fRELOC_005fTILEPRO_005fJMP_005fSLOT"><span class="category">: </span><span><strong>BFD_RELOC_TILEPRO_JMP_SLOT</strong><a href='#index-BFD_005fRELOC_005fTILEPRO_005fJMP_005fSLOT' class='copiable-anchor'> &para;</a></span></dt>
@@ -4933,20 +4938,10 @@ don&rsquo;t do section gc &ndash; i.e., does nothing.
 Returns FALSE if the section should be omitted, otherwise TRUE.
 </p>
 </dd></dl>
-<span id="index-bfd_005fgeneric_005fmerge_005fsections"></span>
-</div>
-<div class="subsubsection" id="bfd_005fgeneric_005fmerge_005fsections">
-<h4 class="subsubsection">2.10.2.8 <code>bfd_generic_merge_sections</code></h4>
-<dl class="def">
-<dt id="index-bfd_005fgeneric_005fmerge_005fsections-1"><span class="category">Function: </span><span><em>bool</em> <strong>bfd_generic_merge_sections</strong> <em>(bfd *, struct bfd_link_info *);</em><a href='#index-bfd_005fgeneric_005fmerge_005fsections-1' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Provides default handling for SEC_MERGE section merging for back ends
-which don&rsquo;t have SEC_MERGE support &ndash; i.e., does nothing.
-</p>
-</dd></dl>
 <span id="index-bfd_005fgeneric_005fget_005frelocated_005fsection_005fcontents"></span>
 </div>
 <div class="subsubsection" id="bfd_005fgeneric_005fget_005frelocated_005fsection_005fcontents">
-<h4 class="subsubsection">2.10.2.9 <code>bfd_generic_get_relocated_section_contents</code></h4>
+<h4 class="subsubsection">2.10.2.8 <code>bfd_generic_get_relocated_section_contents</code></h4>
 <dl class="def">
 <dt id="index-_002abfd_005fgeneric_005fget_005frelocated_005fsection_005fcontents"><span class="category">Function: </span><span><em>bfd_byte</em> <strong>*bfd_generic_get_relocated_section_contents</strong> <em>(bfd *abfd, struct bfd_link_info *link_info, struct bfd_link_order *link_order, bfd_byte *data, bool relocatable, asymbol **symbols);</em><a href='#index-_002abfd_005fgeneric_005fget_005frelocated_005fsection_005fcontents' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Provides default handling of relocation effort for back ends
@@ -4956,7 +4951,7 @@ which can&rsquo;t be bothered to do it efficiently.
 <span id="index-_005fbfd_005fgeneric_005fset_005freloc"></span>
 </div>
 <div class="subsubsection" id="g_t_005fbfd_005fgeneric_005fset_005freloc">
-<h4 class="subsubsection">2.10.2.10 <code>_bfd_generic_set_reloc</code></h4>
+<h4 class="subsubsection">2.10.2.9 <code>_bfd_generic_set_reloc</code></h4>
 <dl class="def">
 <dt id="index-_005fbfd_005fgeneric_005fset_005freloc-1"><span class="category">Function: </span><span><em>void</em> <strong>_bfd_generic_set_reloc</strong> <em>(bfd *abfd, sec_ptr section, arelent **relptr, unsigned int count);</em><a href='#index-_005fbfd_005fgeneric_005fset_005freloc-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Installs a new set of internal relocations in SECTION.
@@ -4965,7 +4960,7 @@ which can&rsquo;t be bothered to do it efficiently.
 <span id="index-_005fbfd_005funrecognized_005freloc"></span>
 </div>
 <div class="subsubsection" id="g_t_005fbfd_005funrecognized_005freloc">
-<h4 class="subsubsection">2.10.2.11 <code>_bfd_unrecognized_reloc</code></h4>
+<h4 class="subsubsection">2.10.2.10 <code>_bfd_unrecognized_reloc</code></h4>
 <dl class="def">
 <dt id="index-_005fbfd_005funrecognized_005freloc-1"><span class="category">Function: </span><span><em>bool</em> <strong>_bfd_unrecognized_reloc</strong> <em>(bfd * abfd, sec_ptr section, unsigned int r_type);</em><a href='#index-_005fbfd_005funrecognized_005freloc-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Reports an unrecognized reloc.

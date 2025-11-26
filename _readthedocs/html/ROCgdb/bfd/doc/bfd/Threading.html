@@ -112,12 +112,13 @@ to work on different BFD objects at the same time.
 <dd><p>Initialize BFD threading.  The functions passed in will be
 used to lock and unlock global data structures.  This may only
 be called a single time in a given process.  Returns true on
-success and false on error.  DATA is passed verbatim to the
-lock and unlock functions.  The lock and unlock functions
-should return true on success, or set the BFD error and return
-false on failure.  Note also that the lock must be a recursive
-lock: BFD may attempt to acquire the lock when it is already
-held by the current thread.
+success and false on error.  On error, the caller should
+assume that BFD cannot be used by multiple threads.  DATA is
+passed verbatim to the lock and unlock functions.  The lock
+and unlock functions should return true on success, or set the
+BFD error and return false on failure.  Note also that the
+lock must be a recursive lock: BFD may attempt to acquire the
+lock when it is already held by the current thread.
 </p>
 </dd></dl>
 <span id="index-bfd_005fthread_005fcleanup"></span>
