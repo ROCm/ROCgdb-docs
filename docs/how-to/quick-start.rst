@@ -100,7 +100,7 @@ ROCgdb user guide
 ===================
 
 The `ROCgdb user guide <https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/index.html>`_ provides detailed information about using ROCgdb.
-This user guide is also installed in the following directories when you :doc:`install ROCm <rocm-install-on-linux>`:
+This user guide is also installed in the following directories when you `install ROCm <https://rocm.docs.amd.com/projects/install-on-linux/en/latest/>`_:
 
 - ``/opt/rocm/share/info/rocgdb/gdb.info`` as a texinfo file
 - ``/opt/rocm/share/doc/rocgdb/rocgdb.pdf`` as a PDF file
