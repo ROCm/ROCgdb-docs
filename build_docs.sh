@@ -11,6 +11,7 @@ cd ROCgdb
 make
 make do-html
 cd ..
+rm -rf _readthedocs/html
 mkdir --parents _readthedocs/html
 cp -v --parents `find ROCgdb/ -name '*.html'` _readthedocs/html
 
