@@ -19,7 +19,7 @@ git pull
 cd ..
 # build the HTML docs for GDB
 # and prepare them for hosting by Read the Docs
-python build_docs.py
+./build_docs.sh
 ```
 
 ## How to build documentation locally
@@ -45,17 +45,17 @@ cd ..
 cp -v --parents `find ROCgdb/ -name "*.html"` docs/_build/html
 ```
 
-Alternatively, change `build_docs.py` and run it.
+Alternatively, change `build_docs.sh` and run it.
 
 Change:
 
 ```diff
-- os.system("cp -v --parents `find ROCgdb/ -name '*.html'` _readthedocs/html")
-+ os.system("cp -v --parents `find ROCgdb/ -name '*.html'` docs/_build/html")
+- cp -v --parents `find ROCgdb/ -name '*.html'` _readthedocs/html
++ cp -v --parents `find ROCgdb/ -name '*.html'` docs/_build/html
 ```
 
 Command:
 
 ```bash
-python3 build_docs.py
+./build_docs.sh
 ```
