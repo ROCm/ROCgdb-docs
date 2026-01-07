@@ -6,7 +6,6 @@ Optionally, also generate the ROCgdb-docs documentation with Sphinx.
 import os
 
 os.system("git submodule update --init --recursive")
-os.system("git submodule update --remote --merge")
 os.chdir("ROCgdb")
 os.system("./configure")
 os.system("make")

@@ -37,7 +37,6 @@ Run the additional following steps to build the gdb documentation and display it
 ```bash
 cd ..
 git submodule update --init --recursive
-git submodule update --remote --merge
 cd ROCgdb
 ./configure
 make
