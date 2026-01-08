@@ -6,14 +6,18 @@
 set -e
 
 git submodule update --init --recursive
-cd ROCgdb
-./configure
+rm -rf _build
+mkdir _build
+pushd _build
+../ROCgdb/configure
 make
 make do-html
-cd ..
+popd
 rm -rf _readthedocs/html
-mkdir --parents _readthedocs/html
-cp -v --parents `find ROCgdb/ -name '*.html'` _readthedocs/html
+mkdir --parents _readthedocs/html/ROCgdb
+pushd _build
+cp -v --parents `find . -name '*.html'` ../_readthedocs/html/ROCgdb
+popd
 
 # OPTIONAL: also generate the ROCgdb-docs documentation
 # cd docs
