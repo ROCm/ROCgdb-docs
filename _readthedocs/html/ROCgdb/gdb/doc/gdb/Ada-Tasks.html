@@ -1,9 +1,9 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright (C) 1988-2024 Free Software Foundation, Inc.
+<!-- Copyright © 1988-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -20,13 +20,13 @@ Legal Disclaimer and Copyright Information
 
 AMD ROCm software is made available by Advanced Micro Devices, Inc. under the
 open source license identified in the top-level directory for the library in
-the repository on Github.com (Portions of AMD ROCm software are
-licensed under MITx11 and UIL/NCSA. For more information on the license, review
-the license.txt in the top-level directory for the library on
-Github.com).  The additional terms and conditions below apply to your use
-of AMD ROCm technical documentation.
+the repository on https://github.com/ROCm/ (Github.com) (Portions of AMD
+ROCm software are licensed under MITx11 and UIL/NCSA. For more information on
+the license, review the license.txt in the top-level directory for the
+library on https://github.com/ROCm/ (Github.com)).  The additional terms
+and conditions below apply to your use of AMD ROCm technical documentation.
 
-(C)2019-2025 Advanced Micro Devices, Inc.  All rights reserved.
+©2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
 
 The information presented in this document is for informational purposes only
 and may contain technical inaccuracies, omissions, and typographical errors.
@@ -52,8 +52,8 @@ EVEN IF AMD IS EXPRESSLY ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
 
 AMD, the AMD Arrow logo, AMD Instinct™, Radeon™, AMD ROCm™, and combinations
 thereof are trademarks of Advanced Micro Devices, Inc.
-Linux(R) is the registered trademark of Linus Torvalds in the
-U.S. and other countries. PCIe(R) is a registered trademark of
+Linux® is the registered trademark of Linus Torvalds in the
+U.S. and other countries. PCIe® is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
@@ -74,21 +74,9 @@ companies. -->
 <link href="Ada-Exceptions.html" rel="prev" title="Ada Exceptions">
 <style type="text/css">
 <!--
-a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
-a.summary-letter {text-decoration: none}
-blockquote.indentedblock {margin-right: 0em}
-div.display {margin-left: 3.2em}
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
 div.example {margin-left: 3.2em}
-kbd {font-style: oblique}
-pre.display {font-family: inherit}
-pre.format {font-family: inherit}
-pre.menu-comment {font-family: serif}
-pre.menu-preformatted {font-family: serif}
-span.nolinebreak {white-space: nowrap}
-span.roman {font-family: initial; font-weight: normal}
-span.sansserif {font-family: sans-serif; font-weight: normal}
-span:hover a.copiable-anchor {visibility: visible}
-ul.no-bullet {list-style: none}
+span:hover a.copiable-link {visibility: visible}
 -->
 </style>
 
@@ -96,27 +84,25 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<div class="subsubsection" id="Ada-Tasks">
-<div class="header">
+<div class="subsubsection-level-extent" id="Ada-Tasks">
+<div class="nav-panel">
 <p>
 Next: <a href="Ada-Tasks-and-Core-Files.html" accesskey="n" rel="next">Tasking Support when Debugging Core Files</a>, Previous: <a href="Ada-Exceptions.html" accesskey="p" rel="prev">Ada Exceptions</a>, Up: <a href="Ada.html" accesskey="u" rel="up">Ada</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="Extensions-for-Ada-Tasks"></span><h4 class="subsubsection">15.4.10.7 Extensions for Ada Tasks</h4>
-<span id="index-Ada_002c-tasking"></span>
+<h4 class="subsubsection" id="Extensions-for-Ada-Tasks"><span>15.4.10.7 Extensions for Ada Tasks<a class="copiable-link" href="#Extensions-for-Ada-Tasks"> &para;</a></span></h4>
+<a class="index-entry-id" id="index-Ada_002c-tasking"></a>
 
-<p>Support for Ada tasks is analogous to that for threads (see <a href="Threads.html">Debugging Programs with Multiple Threads</a>).
-<small>ROCGDB</small> provides the following task-related commands:
+<p>Support for Ada tasks is analogous to that for threads (see <a class="pxref" href="Threads.html">Debugging Programs with Multiple Threads</a>).
+<small class="sc">ROCGDB</small> provides the following task-related commands:
 </p>
-<dl compact="compact">
-<dd><span id="index-info-tasks"></span>
-</dd>
-<dt><span><code>info tasks</code></span></dt>
+<dl class="table">
+<dt><a id="index-info-tasks"></a><span><code class="code">info tasks</code><a class="copiable-link" href="#index-info-tasks"> &para;</a></span></dt>
 <dd><p>This command shows a list of current Ada tasks, as in the following example:
 </p>
 
-<div class="example">
-<pre class="example">(gdb) info tasks
+<div class="example smallexample">
+<pre class="example-preformatted">(gdb) info tasks
   ID       TID P-ID Pri State                 Name
    1   8088000   0   15 Child Activation Wait main_task
    2   80a4000   1   15 Accept Statement      b
@@ -128,111 +114,110 @@ Next: <a href="Ada-Tasks-and-Core-Files.html" accesskey="n" rel="next">Tasking S
 <p>In this listing, the asterisk before the last task indicates it to be the
 task currently being inspected.
 </p>
-<dl compact="compact">
-<dt><span>ID</span></dt>
-<dd><p>Represents <small>ROCGDB</small>&rsquo;s internal task number.
+<dl class="table">
+<dt>ID</dt>
+<dd><p>Represents <small class="sc">ROCGDB</small>&rsquo;s internal task number.
 </p>
 </dd>
-<dt><span>TID</span></dt>
+<dt>TID</dt>
 <dd><p>The Ada task ID.
 </p>
 </dd>
-<dt><span>P-ID</span></dt>
-<dd><p>The parent&rsquo;s task ID (<small>ROCGDB</small>&rsquo;s internal task number).
+<dt>P-ID</dt>
+<dd><p>The parent&rsquo;s task ID (<small class="sc">ROCGDB</small>&rsquo;s internal task number).
 </p>
 </dd>
-<dt><span>Pri</span></dt>
+<dt>Pri</dt>
 <dd><p>The base priority of the task.
 </p>
 </dd>
-<dt><span>State</span></dt>
+<dt>State</dt>
 <dd><p>Current state of the task.
 </p>
-<dl compact="compact">
-<dt><span><code>Unactivated</code></span></dt>
+<dl class="table">
+<dt><code class="code">Unactivated</code></dt>
 <dd><p>The task has been created but has not been activated.  It cannot be
 executing.
 </p>
 </dd>
-<dt><span><code>Runnable</code></span></dt>
+<dt><code class="code">Runnable</code></dt>
 <dd><p>The task is not blocked for any reason known to Ada.  (It may be waiting
 for a mutex, though.) It is conceptually &quot;executing&quot; in normal mode.
 </p>
 </dd>
-<dt><span><code>Terminated</code></span></dt>
+<dt><code class="code">Terminated</code></dt>
 <dd><p>The task is terminated, in the sense of ARM 9.3 (5).  Any dependents
 that were waiting on terminate alternatives have been awakened and have
 terminated themselves.
 </p>
 </dd>
-<dt><span><code>Child Activation Wait</code></span></dt>
+<dt><code class="code">Child Activation Wait</code></dt>
 <dd><p>The task is waiting for created tasks to complete activation.
 </p>
 </dd>
-<dt><span><code>Accept or Select Term</code></span></dt>
+<dt><code class="code">Accept or Select Term</code></dt>
 <dd><p>The task is waiting on an accept or selective wait statement.
 </p>
 </dd>
-<dt><span><code>Waiting on entry call</code></span></dt>
+<dt><code class="code">Waiting on entry call</code></dt>
 <dd><p>The task is waiting on an entry call.
 </p>
 </dd>
-<dt><span><code>Async Select Wait</code></span></dt>
+<dt><code class="code">Async Select Wait</code></dt>
 <dd><p>The task is waiting to start the abortable part of an asynchronous
 select statement.
 </p>
 </dd>
-<dt><span><code>Delay Sleep</code></span></dt>
+<dt><code class="code">Delay Sleep</code></dt>
 <dd><p>The task is waiting on a select statement with only a delay
 alternative open.
 </p>
 </dd>
-<dt><span><code>Child Termination Wait</code></span></dt>
+<dt><code class="code">Child Termination Wait</code></dt>
 <dd><p>The task is sleeping having completed a master within itself, and is
 waiting for the tasks dependent on that master to become terminated or
 waiting on a terminate Phase.
 </p>
 </dd>
-<dt><span><code>Wait Child in Term Alt</code></span></dt>
+<dt><code class="code">Wait Child in Term Alt</code></dt>
 <dd><p>The task is sleeping waiting for tasks on terminate alternatives to
 finish terminating.
 </p>
 </dd>
-<dt><span><code>Asynchronous Hold</code></span></dt>
-<dd><p>The task has been held by <code>Ada.Asynchronous_Task_Control.Hold_Task</code>.
+<dt><code class="code">Asynchronous Hold</code></dt>
+<dd><p>The task has been held by <code class="code">Ada.Asynchronous_Task_Control.Hold_Task</code>.
 </p>
 </dd>
-<dt><span><code>Activating</code></span></dt>
+<dt><code class="code">Activating</code></dt>
 <dd><p>The task has been created and is being made runnable.
 </p>
 </dd>
-<dt><span><code>Selective Wait</code></span></dt>
+<dt><code class="code">Selective Wait</code></dt>
 <dd><p>The task is waiting in a selective wait statement.
 </p>
 </dd>
-<dt><span><code>Accepting RV with <var>taskno</var></code></span></dt>
-<dd><p>The task is accepting a rendez-vous with the task <var>taskno</var>.
+<dt><code class="code">Accepting RV with <var class="var">taskno</var></code></dt>
+<dd><p>The task is accepting a rendez-vous with the task <var class="var">taskno</var>.
 </p>
 </dd>
-<dt><span><code>Waiting on RV with <var>taskno</var></code></span></dt>
-<dd><p>The task is waiting for a rendez-vous with the task <var>taskno</var>.
+<dt><code class="code">Waiting on RV with <var class="var">taskno</var></code></dt>
+<dd><p>The task is waiting for a rendez-vous with the task <var class="var">taskno</var>.
 </p></dd>
 </dl>
 
 </dd>
-<dt><span>Name</span></dt>
+<dt>Name</dt>
 <dd><p>Name of the task in the program.
 </p>
 </dd>
 </dl>
 
-<span id="index-info-task-taskno"></span>
 </dd>
-<dt><span><code>info task <var>taskno</var></code></span></dt>
+<dt><a id="index-info-task-taskno"></a><span><code class="code">info task <var class="var">taskno</var></code><a class="copiable-link" href="#index-info-task-taskno"> &para;</a></span></dt>
 <dd><p>This command shows detailed information on the specified task, as in
 the following example:
-</p><div class="example">
-<pre class="example">(gdb) info tasks
+</p><div class="example smallexample">
+<pre class="example-preformatted">(gdb) info tasks
   ID       TID P-ID Pri State                  Name
    1   8077880    0  15 Child Activation Wait  main_task
 *  2   807c468    1  15 Runnable               task_1
@@ -247,12 +232,12 @@ State: Runnable
 </pre></div>
 
 </dd>
-<dt id='index-task-_0028Ada_0029'><span><code>task</code><a href='#index-task-_0028Ada_0029' class='copiable-anchor'> &para;</a></span></dt>
-<dd><span id="index-current-Ada-task-ID"></span>
-<p>This command prints the ID and name of the current task.
+<dt><a class="index-entry-id" id="index-current-Ada-task-ID"></a>
+<a id="index-task-_0028Ada_0029"></a><span><code class="code">task</code><a class="copiable-link" href="#index-task-_0028Ada_0029"> &para;</a></span></dt>
+<dd><p>This command prints the ID and name of the current task.
 </p>
-<div class="example">
-<pre class="example">(gdb) info tasks
+<div class="example smallexample">
+<pre class="example-preformatted">(gdb) info tasks
   ID       TID P-ID Pri State                  Name
    1   8077870    0  15 Child Activation Wait  main_task
 *  2   807c458    1  15 Runnable               some_task
@@ -261,13 +246,13 @@ State: Runnable
 </pre></div>
 
 </dd>
-<dt id='index-Ada-task-switching'><span><code>task <var>taskno</var></code><a href='#index-Ada-task-switching' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>This command is like the <code>thread <var>thread-id</var></code>
-command (see <a href="Threads.html">Debugging Programs with Multiple Threads</a>).  It switches the context of debugging
+<dt><a id="index-Ada-task-switching"></a><span><code class="code">task <var class="var">taskno</var></code><a class="copiable-link" href="#index-Ada-task-switching"> &para;</a></span></dt>
+<dd><p>This command is like the <code class="code">thread <var class="var">thread-id</var></code>
+command (see <a class="pxref" href="Threads.html">Debugging Programs with Multiple Threads</a>).  It switches the context of debugging
 from the current task to the given task.
 </p>
-<div class="example">
-<pre class="example">(gdb) info tasks
+<div class="example smallexample">
+<pre class="example-preformatted">(gdb) info tasks
   ID       TID P-ID Pri State                  Name
    1   8077870    0  15 Child Activation Wait  main_task
 *  2   807c458    1  15 Runnable               some_task
@@ -283,71 +268,71 @@ from the current task to the given task.
 </pre></div>
 
 </dd>
-<dt><span><code>task apply [<var>task-id-list</var> | all] [<var>flag</var>]&hellip; <var>command</var></code></span></dt>
-<dd><p>The <code>task apply</code> command is the Ada tasking analogue of
-<code>thread apply</code> (see <a href="Threads.html">Debugging Programs with Multiple Threads</a>).  It allows you to apply the
-named <var>command</var> to one or more tasks.  Specify the tasks that you
-want affected using a list of task IDs, or specify <code>all</code> to apply
+<dt><code class="code">task apply [<var class="var">task-id-list</var> | all] [<var class="var">flag</var>]&hellip; <var class="var">command</var></code></dt>
+<dd><p>The <code class="code">task apply</code> command is the Ada tasking analogue of
+<code class="code">thread apply</code> (see <a class="pxref" href="Threads.html">Debugging Programs with Multiple Threads</a>).  It allows you to apply the
+named <var class="var">command</var> to one or more tasks.  Specify the tasks that you
+want affected using a list of task IDs, or specify <code class="code">all</code> to apply
 to all tasks.
 </p>
-<p>The <var>flag</var> arguments control what output to produce and how to
-handle errors raised when applying <var>command</var> to a task.
-<var>flag</var> must start with a <code>-</code> directly followed by one letter
-in <code>qcs</code>.  If several flags are provided, they must be given
-individually, such as <code>-c -q</code>.
+<p>The <var class="var">flag</var> arguments control what output to produce and how to
+handle errors raised when applying <var class="var">command</var> to a task.
+<var class="var">flag</var> must start with a <code class="code">-</code> directly followed by one letter
+in <code class="code">qcs</code>.  If several flags are provided, they must be given
+individually, such as <code class="code">-c -q</code>.
 </p>
-<p>By default, <small>ROCGDB</small> displays some task information before the
-output produced by <var>command</var>, and an error raised during the
-execution of a <var>command</var> will abort <code>task apply</code>.  The
+<p>By default, <small class="sc">ROCGDB</small> displays some task information before the
+output produced by <var class="var">command</var>, and an error raised during the
+execution of a <var class="var">command</var> will abort <code class="code">task apply</code>.  The
 following flags can be used to fine-tune this behavior:
 </p>
-<dl compact="compact">
-<dt><span><code>-c</code></span></dt>
-<dd><p>The flag <code>-c</code>, which stands for &lsquo;<samp>continue</samp>&rsquo;, causes any
-errors in <var>command</var> to be displayed, and the execution of
-<code>task apply</code> then continues.
+<dl class="table">
+<dt><code class="code">-c</code></dt>
+<dd><p>The flag <code class="code">-c</code>, which stands for &lsquo;<samp class="samp">continue</samp>&rsquo;, causes any
+errors in <var class="var">command</var> to be displayed, and the execution of
+<code class="code">task apply</code> then continues.
 </p></dd>
-<dt><span><code>-s</code></span></dt>
-<dd><p>The flag <code>-s</code>, which stands for &lsquo;<samp>silent</samp>&rsquo;, causes any errors
-or empty output produced by a <var>command</var> to be silently ignored.
+<dt><code class="code">-s</code></dt>
+<dd><p>The flag <code class="code">-s</code>, which stands for &lsquo;<samp class="samp">silent</samp>&rsquo;, causes any errors
+or empty output produced by a <var class="var">command</var> to be silently ignored.
 That is, the execution continues, but the task information and errors
 are not printed.
 </p></dd>
-<dt><span><code>-q</code></span></dt>
-<dd><p>The flag <code>-q</code> (&lsquo;<samp>quiet</samp>&rsquo;) disables printing the task
+<dt><code class="code">-q</code></dt>
+<dd><p>The flag <code class="code">-q</code> (&lsquo;<samp class="samp">quiet</samp>&rsquo;) disables printing the task
 information.
 </p></dd>
 </dl>
 
-<p>Flags <code>-c</code> and <code>-s</code> cannot be used together.
+<p>Flags <code class="code">-c</code> and <code class="code">-s</code> cannot be used together.
 </p>
 </dd>
-<dt id='index-breakpoints-and-tasks_002c-in-Ada'><span><code>break <var>locspec</var> task <var>taskno</var></code><a href='#index-breakpoints-and-tasks_002c-in-Ada' class='copiable-anchor'> &para;</a></span></dt>
-<dt><span><code>break <var>locspec</var> task <var>taskno</var> if &hellip;</code></span></dt>
-<dd><span id="index-task-breakpoints_002c-in-Ada"></span>
-<span id="index-break-_2026-task-taskno-_0028Ada_0029"></span>
-<p>These commands are like the <code>break &hellip; thread &hellip;</code>
-command (see <a href="Thread-Stops.html">Stopping and Starting Multi-thread Programs</a>).  See <a href="Location-Specifications.html">Location Specifications</a>, for
-the various forms of <var>locspec</var>.
+<dt><a class="index-entry-id" id="index-task-breakpoints_002c-in-Ada"></a>
+<a class="index-entry-id" id="index-break-_2026-task-taskno-_0028Ada_0029"></a>
+<a id="index-breakpoints-and-tasks_002c-in-Ada"></a><span><code class="code">break <var class="var">locspec</var> task <var class="var">taskno</var></code><a class="copiable-link" href="#index-breakpoints-and-tasks_002c-in-Ada"> &para;</a></span></dt>
+<dt><code class="code">break <var class="var">locspec</var> task <var class="var">taskno</var> if &hellip;</code></dt>
+<dd><p>These commands are like the <code class="code">break &hellip; thread &hellip;</code>
+command (see <a class="pxref" href="Thread-Stops.html">Stopping and Starting Multi-thread Programs</a>).  See <a class="xref" href="Location-Specifications.html">Location Specifications</a>, for
+the various forms of <var class="var">locspec</var>.
 </p>
-<p>Use the qualifier &lsquo;<samp>task <var>taskno</var></samp>&rsquo; with a breakpoint command
-to specify that you only want <small>ROCGDB</small> to stop the program when a
-particular Ada task reaches this breakpoint.  The <var>taskno</var> is one of the
-numeric task identifiers assigned by <small>ROCGDB</small>, shown in the first
-column of the &lsquo;<samp>info tasks</samp>&rsquo; display.
+<p>Use the qualifier &lsquo;<samp class="samp">task <var class="var">taskno</var></samp>&rsquo; with a breakpoint command
+to specify that you only want <small class="sc">ROCGDB</small> to stop the program when a
+particular Ada task reaches this breakpoint.  The <var class="var">taskno</var> is one of the
+numeric task identifiers assigned by <small class="sc">ROCGDB</small>, shown in the first
+column of the &lsquo;<samp class="samp">info tasks</samp>&rsquo; display.
 </p>
-<p>If you do not specify &lsquo;<samp>task <var>taskno</var></samp>&rsquo; when you set a
-breakpoint, the breakpoint applies to <em>all</em> tasks of your
+<p>If you do not specify &lsquo;<samp class="samp">task <var class="var">taskno</var></samp>&rsquo; when you set a
+breakpoint, the breakpoint applies to <em class="emph">all</em> tasks of your
 program.
 </p>
-<p>You can use the <code>task</code> qualifier on conditional breakpoints as
-well; in this case, place &lsquo;<samp>task <var>taskno</var></samp>&rsquo; before the
-breakpoint condition (before the <code>if</code>).
+<p>You can use the <code class="code">task</code> qualifier on conditional breakpoints as
+well; in this case, place &lsquo;<samp class="samp">task <var class="var">taskno</var></samp>&rsquo; before the
+breakpoint condition (before the <code class="code">if</code>).
 </p>
 <p>For example,
 </p>
-<div class="example">
-<pre class="example">(gdb) info tasks
+<div class="example smallexample">
+<pre class="example-preformatted">(gdb) info tasks
   ID       TID P-ID Pri State                 Name
    1 140022020   0   15 Child Activation Wait main_task
    2 140045060   1   15 Accept/Select Wait    t2
@@ -374,7 +359,7 @@ Breakpoint 5, test_task_debug () at test_task_debug.adb:15
 
 </div>
 <hr>
-<div class="header">
+<div class="nav-panel">
 <p>
 Next: <a href="Ada-Tasks-and-Core-Files.html">Tasking Support when Debugging Core Files</a>, Previous: <a href="Ada-Exceptions.html">Ada Exceptions</a>, Up: <a href="Ada.html">Ada</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

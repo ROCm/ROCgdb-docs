@@ -1,11 +1,11 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the GNU Assembler "as".
 
-Copyright (C) 1991-2025 Free Software Foundation, Inc.
+Copyright © 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -30,21 +30,9 @@ section entitled "GNU Free Documentation License".
 <link href="ARM_002dChars.html" rel="next" title="ARM-Chars">
 <style type="text/css">
 <!--
-a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
-a.summary-letter {text-decoration: none}
-blockquote.indentedblock {margin-right: 0em}
-div.display {margin-left: 3.2em}
-div.example {margin-left: 3.2em}
-kbd {font-style: oblique}
-pre.display {font-family: inherit}
-pre.format {font-family: inherit}
-pre.menu-comment {font-family: serif}
-pre.menu-preformatted {font-family: serif}
-span.nolinebreak {white-space: nowrap}
-span.roman {font-family: initial; font-weight: normal}
-span.sansserif {font-family: sans-serif; font-weight: normal}
-span:hover a.copiable-anchor {visibility: visible}
-ul.no-bullet {list-style: none}
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+span:hover a.copiable-link {visibility: visible}
+ul.mark-bullet {list-style-type: disc}
 -->
 </style>
 
@@ -52,37 +40,37 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<div class="subsection" id="ARM_002dInstruction_002dSet">
-<div class="header">
+<div class="subsubsection-level-extent" id="ARM_002dInstruction_002dSet">
+<div class="nav-panel">
 <p>
 Next: <a href="ARM_002dChars.html" accesskey="n" rel="next">Special Characters</a>, Up: <a href="ARM-Syntax.html" accesskey="u" rel="up">Syntax</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="Instruction-Set-Syntax"></span><h4 class="subsubsection">9.4.2.1 Instruction Set Syntax</h4>
+<h4 class="subsubsection subsection-level-set-subsubsection" id="Instruction-Set-Syntax"><span>9.4.2.1 Instruction Set Syntax<a class="copiable-link" href="#Instruction-Set-Syntax"> &para;</a></span></h4>
 <p>Two slightly different syntaxes are support for ARM and THUMB
-instructions.  The default, <code>divided</code>, uses the old style where
+instructions.  The default, <code class="code">divided</code>, uses the old style where
 ARM and THUMB instructions had their own, separate syntaxes.  The new,
-<code>unified</code> syntax, which can be selected via the <code>.syntax</code>
+<code class="code">unified</code> syntax, which can be selected via the <code class="code">.syntax</code>
 directive, and has the following main features:
 </p>
-<ul>
-<li> Immediate operands do not require a <code>#</code> prefix.
+<ul class="itemize mark-bullet">
+<li>Immediate operands do not require a <code class="code">#</code> prefix.
 
-</li><li> The <code>IT</code> instruction may appear, and if it does it is validated
+</li><li>The <code class="code">IT</code> instruction may appear, and if it does it is validated
 against subsequent conditional affixes.  In ARM mode it does not
 generate machine code, in THUMB mode it does.
 
-</li><li> For ARM instructions the conditional affixes always appear at the end
+</li><li>For ARM instructions the conditional affixes always appear at the end
 of the instruction.  For THUMB instructions conditional affixes can be
-used, but only inside the scope of an <code>IT</code> instruction.
+used, but only inside the scope of an <code class="code">IT</code> instruction.
 
-</li><li> All of the instructions new to the V6T2 architecture (and later) are
+</li><li>All of the instructions new to the V6T2 architecture (and later) are
 available.  (Only a few such instructions can be written in the
-<code>divided</code> syntax).
+<code class="code">divided</code> syntax).
 
-</li><li> The <code>.N</code> and <code>.W</code> suffixes are recognized and honored.
+</li><li>The <code class="code">.N</code> and <code class="code">.W</code> suffixes are recognized and honored.
 
-</li><li> All instructions set the flags if and only if they have an <code>s</code>
+</li><li>All instructions set the flags if and only if they have an <code class="code">s</code>
 affix.
 </li></ul>
 

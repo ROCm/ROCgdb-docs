@@ -1,9 +1,9 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright (C) 2021-2025 Free Software Foundation, Inc.
+<!-- Copyright © 2021-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU General Public License, Version 3 or any
@@ -27,21 +27,8 @@ License".
 <link href="Type-indexes-and-type-IDs.html" rel="next" title="Type indexes and type IDs">
 <style type="text/css">
 <!--
-a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
-a.summary-letter {text-decoration: none}
-blockquote.indentedblock {margin-right: 0em}
-div.display {margin-left: 3.2em}
-div.example {margin-left: 3.2em}
-kbd {font-style: oblique}
-pre.display {font-family: inherit}
-pre.format {font-family: inherit}
-pre.menu-comment {font-family: serif}
-pre.menu-preformatted {font-family: serif}
-span.nolinebreak {white-space: nowrap}
-span.roman {font-family: initial; font-weight: normal}
-span.sansserif {font-family: sans-serif; font-weight: normal}
-span:hover a.copiable-anchor {visibility: visible}
-ul.no-bullet {list-style: none}
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+span:hover a.copiable-link {visibility: visible}
 -->
 </style>
 
@@ -49,40 +36,41 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<div class="subsection" id="The-info-word">
-<div class="header">
+<div class="subsection-level-extent" id="The-info-word">
+<div class="nav-panel">
 <p>
 Next: <a href="Type-indexes-and-type-IDs.html" accesskey="n" rel="next">Type indexes and type IDs</a>, Up: <a href="The-type-section.html" accesskey="u" rel="up">The type section</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="The-info-word_002c-ctt_005finfo"></span><h4 class="subsection">2.3.1 The info word, ctt_info</h4>
+<h4 class="subsection" id="The-info-word_002c-ctt_005finfo"><span>2.3.1 The info word, ctt_info<a class="copiable-link" href="#The-info-word_002c-ctt_005finfo"> &para;</a></span></h4>
 
 <p>The info word is a bitfield split into three parts.  From MSB to LSB:
 </p>
-<table>
+<table class="multitable">
 <thead><tr><th>Bit offset</th><th>Name</th><th>Description</th></tr></thead>
-<tr><td>26&ndash;31</td><td><code>kind</code></td><td>Type kind: see <a href="Type-kinds.html">Type kinds</a>.</td></tr>
-<tr><td>25</td><td><code>isroot</code></td><td>1 if this type is visible to name lookup</td></tr>
-<tr><td>0&ndash;24</td><td><code>vlen</code></td><td>Length of variable-length data for this type (some kinds only).
-The variable-length data directly follows the <code>ctf_type_t</code> or
-<code>ctf_stype_t</code>.  This is a kind-dependent array length value,
+<tbody><tr><td>26&ndash;31</td><td><code class="code">kind</code></td><td>Type kind: see <a class="pxref" href="Type-kinds.html">Type kinds</a>.</td></tr>
+<tr><td>25</td><td><code class="code">isroot</code></td><td>1 if this type is visible to name lookup</td></tr>
+<tr><td>0&ndash;24</td><td><code class="code">vlen</code></td><td>Length of variable-length data for this type (some kinds only).
+The variable-length data directly follows the <code class="code">ctf_type_t</code> or
+<code class="code">ctf_stype_t</code>.  This is a kind-dependent array length value,
 not a length in bytes.  Some kinds have no variable-length data, or
 fixed-size variable-length data, and do not use this value.</td></tr>
+</tbody>
 </table>
 
-<p>The most mysterious of these is undoubtedly <code>isroot</code>.  This indicates
-whether types with names (nonzero <code>ctt_name</code>) are visible to name lookup:
-if zero, this type is considered a <em>non-root type</em> and you can&rsquo;t look it up
+<p>The most mysterious of these is undoubtedly <code class="code">isroot</code>.  This indicates
+whether types with names (nonzero <code class="code">ctt_name</code>) are visible to name lookup:
+if zero, this type is considered a <em class="dfn">non-root type</em> and you can&rsquo;t look it up
 by name at all.  Multiple types with the same name in the same C namespace
 (struct, union, enum, other) can exist in a single dictionary, but only one of
-them may have a nonzero value for <code>isroot</code>.  <code>libctf</code> validates this
+them may have a nonzero value for <code class="code">isroot</code>.  <code class="code">libctf</code> validates this
 at open time and refuses to open dictionaries that violate this constraint.
 </p>
 <p>Historically, this feature was introduced for the encoding of bitfields
-(see <a href="Integer-types.html">Integer types</a>): for instance, int bitfields will all be named
-<code>int</code> with different widths or offsets, but only the full-width one at
-offset zero is wanted when you look up the type named <code>int</code>.  With the
-introduction of slices (see <a href="Slices.html">Slices</a>) as a more general bitfield encoding
+(see <a class="pxref" href="Integer-types.html">Integer types</a>): for instance, int bitfields will all be named
+<code class="code">int</code> with different widths or offsets, but only the full-width one at
+offset zero is wanted when you look up the type named <code class="code">int</code>.  With the
+introduction of slices (see <a class="pxref" href="Slices.html">Slices</a>) as a more general bitfield encoding
 mechanism, this is less important, but we still use non-root types to handle
 conflicts if the linker API is used to fuse multiple translation units into one
 dictionary and those translation units contain types with the same name and
@@ -90,17 +78,17 @@ conflicting definitions.  (We do not discuss this further here, because the
 linker never does this: only specialized type mergers do, like that used for the
 Linux kernel.  The libctf documentation will describe this in more detail.)
 </p>
-<p>The <code>CTF_TYPE_INFO</code> macro can be used to compose an info word from
-a <code>kind</code>, <code>isroot</code>, and <code>vlen</code>; <code>CTF_V2_INFO_KIND</code>,
-<code>CTF_V2_INFO_ISROOT</code> and <code>CTF_V2_INFO_VLEN</code> pick it apart again.
-<span id="index-CTF_005fTYPE_005fINFO"></span>
-<span id="index-CTF_005fV2_005fINFO_005fKIND"></span>
-<span id="index-CTF_005fV2_005fINFO_005fISROOT"></span>
-<span id="index-CTF_005fV2_005fINFO_005fVLEN"></span>
+<p>The <code class="code">CTF_TYPE_INFO</code> macro can be used to compose an info word from
+a <code class="code">kind</code>, <code class="code">isroot</code>, and <code class="code">vlen</code>; <code class="code">CTF_V2_INFO_KIND</code>,
+<code class="code">CTF_V2_INFO_ISROOT</code> and <code class="code">CTF_V2_INFO_VLEN</code> pick it apart again.
+<a class="index-entry-id" id="index-CTF_005fTYPE_005fINFO"></a>
+<a class="index-entry-id" id="index-CTF_005fV2_005fINFO_005fKIND"></a>
+<a class="index-entry-id" id="index-CTF_005fV2_005fINFO_005fISROOT"></a>
+<a class="index-entry-id" id="index-CTF_005fV2_005fINFO_005fVLEN"></a>
 </p>
 </div>
 <hr>
-<div class="header">
+<div class="nav-panel">
 <p>
 Next: <a href="Type-indexes-and-type-IDs.html">Type indexes and type IDs</a>, Up: <a href="The-type-section.html">The type section</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

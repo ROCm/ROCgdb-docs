@@ -1,11 +1,11 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the GNU Assembler "as".
 
-Copyright (C) 1991-2025 Free Software Foundation, Inc.
+Copyright © 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -30,21 +30,10 @@ section entitled "GNU Free Documentation License".
 <link href="M68K_002dChars.html" rel="next" title="M68K-Chars">
 <style type="text/css">
 <!--
-a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
-a.summary-letter {text-decoration: none}
-blockquote.indentedblock {margin-right: 0em}
-div.display {margin-left: 3.2em}
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+div.center {text-align:center}
 div.example {margin-left: 3.2em}
-kbd {font-style: oblique}
-pre.display {font-family: inherit}
-pre.format {font-family: inherit}
-pre.menu-comment {font-family: serif}
-pre.menu-preformatted {font-family: serif}
-span.nolinebreak {white-space: nowrap}
-span.roman {font-family: initial; font-weight: normal}
-span.sansserif {font-family: sans-serif; font-weight: normal}
-span:hover a.copiable-anchor {visibility: visible}
-ul.no-bullet {list-style: none}
+span:hover a.copiable-link {visibility: visible}
 -->
 </style>
 
@@ -52,28 +41,28 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<div class="subsection" id="M68K_002dBranch">
-<div class="header">
+<div class="subsubsection-level-extent" id="M68K_002dBranch">
+<div class="nav-panel">
 <p>
 Next: <a href="M68K_002dChars.html" accesskey="n" rel="next">Special Characters</a>, Up: <a href="M68K_002dopcodes.html" accesskey="u" rel="up">Opcodes</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="Branch-Improvement"></span><h4 class="subsubsection">9.23.6.1 Branch Improvement</h4>
+<h4 class="subsubsection subsection-level-set-subsubsection" id="Branch-Improvement"><span>9.23.6.1 Branch Improvement<a class="copiable-link" href="#Branch-Improvement"> &para;</a></span></h4>
 
-<span id="index-pseudo_002dopcodes_002c-M680x0"></span>
-<span id="index-M680x0-pseudo_002dopcodes"></span>
-<span id="index-branch-improvement_002c-M680x0"></span>
-<span id="index-M680x0-branch-improvement"></span>
+<a class="index-entry-id" id="index-pseudo_002dopcodes_002c-M680x0"></a>
+<a class="index-entry-id" id="index-M680x0-pseudo_002dopcodes"></a>
+<a class="index-entry-id" id="index-branch-improvement_002c-M680x0"></a>
+<a class="index-entry-id" id="index-M680x0-branch-improvement"></a>
 <p>Certain pseudo opcodes are permitted for branch instructions.
 They expand to the shortest branch instruction that reach the
-target.  Generally these mnemonics are made by substituting &lsquo;<samp>j</samp>&rsquo; for
-&lsquo;<samp>b</samp>&rsquo; at the start of a Motorola mnemonic.
+target.  Generally these mnemonics are made by substituting &lsquo;<samp class="samp">j</samp>&rsquo; for
+&lsquo;<samp class="samp">b</samp>&rsquo; at the start of a Motorola mnemonic.
 </p>
-<p>The following table summarizes the pseudo-operations.  A <code>*</code> flags
+<p>The following table summarizes the pseudo-operations.  A <code class="code">*</code> flags
 cases that are more fully described after the table:
 </p>
-<div class="example">
-<pre class="example">          Displacement
+<div class="example smallexample">
+<pre class="example-preformatted">          Displacement
           +------------------------------------------------------------
           |                68020           68000/10, not PC-relative OK
 Pseudo-Op |BYTE    WORD    LONG            ABSOLUTE LONG JUMP    **
@@ -88,86 +77,86 @@ XX: condition
 NX: negative of condition XX
 
 </pre></div>
-<div align="center"><code>*</code>&mdash;see full description below
-</div><div align="center"><code>**</code>&mdash;this expansion mode is disallowed by &lsquo;<samp>--pcrel</samp>&rsquo;
+<div class="center"><code class="code">*</code>&mdash;see full description below
+</div><div class="center"><code class="code">**</code>&mdash;this expansion mode is disallowed by &lsquo;<samp class="samp">--pcrel</samp>&rsquo;
 </div>
-<dl compact="compact">
-<dt><span><code>jbsr</code></span></dt>
-<dt><span><code>jra</code></span></dt>
+<dl class="table">
+<dt><code class="code">jbsr</code></dt>
+<dt><code class="code">jra</code></dt>
 <dd><p>These are the simplest jump pseudo-operations; they always map to one
 particular machine instruction, depending on the displacement to the
 branch target.  This instruction will be a byte or word branch is that
 is sufficient.  Otherwise, a long branch will be emitted if available.
-If no long branches are available and the &lsquo;<samp>--pcrel</samp>&rsquo; option is not
+If no long branches are available and the &lsquo;<samp class="samp">--pcrel</samp>&rsquo; option is not
 given, an absolute long jump will be emitted instead.  If no long
-branches are available, the &lsquo;<samp>--pcrel</samp>&rsquo; option is given, and a word
+branches are available, the &lsquo;<samp class="samp">--pcrel</samp>&rsquo; option is given, and a word
 branch cannot reach the target, an error message is generated.
 </p>
-<p>In addition to standard branch operands, <code>as</code> allows these
+<p>In addition to standard branch operands, <code class="code">as</code> allows these
 pseudo-operations to have all operands that are allowed for jsr and jmp,
 substituting these instructions if the operand given is not valid for a
 branch instruction.
 </p>
 </dd>
-<dt><span><code>j<var>XX</var></code></span></dt>
-<dd><p>Here, &lsquo;<samp>j<var>XX</var></samp>&rsquo; stands for an entire family of pseudo-operations,
-where <var>XX</var> is a conditional branch or condition-code test.  The full
+<dt><code class="code">j<var class="var">XX</var></code></dt>
+<dd><p>Here, &lsquo;<samp class="samp">j<var class="var">XX</var></samp>&rsquo; stands for an entire family of pseudo-operations,
+where <var class="var">XX</var> is a conditional branch or condition-code test.  The full
 list of pseudo-ops in this family is:
-</p><div class="example">
-<pre class="example"> jhi   jls   jcc   jcs   jne   jeq   jvc
+</p><div class="example smallexample">
+<pre class="example-preformatted"> jhi   jls   jcc   jcs   jne   jeq   jvc
  jvs   jpl   jmi   jge   jlt   jgt   jle
 </pre></div>
 
 <p>Usually, each of these pseudo-operations expands to a single branch
 instruction.  However, if a word branch is not sufficient, no long branches
-are available, and the &lsquo;<samp>--pcrel</samp>&rsquo; option is not given, <code>as</code>
-issues a longer code fragment in terms of <var>NX</var>, the opposite condition
-to <var>XX</var>.  For example, under these conditions:
-</p><div class="example">
-<pre class="example">    j<var>XX</var> foo
+are available, and the &lsquo;<samp class="samp">--pcrel</samp>&rsquo; option is not given, <code class="code">as</code>
+issues a longer code fragment in terms of <var class="var">NX</var>, the opposite condition
+to <var class="var">XX</var>.  For example, under these conditions:
+</p><div class="example smallexample">
+<pre class="example-preformatted">    j<var class="var">XX</var> foo
 </pre></div>
 <p>gives
-</p><div class="example">
-<pre class="example">     b<var>NX</var>s oof
+</p><div class="example smallexample">
+<pre class="example-preformatted">     b<var class="var">NX</var>s oof
      jmp foo
  oof:
 </pre></div>
 
 </dd>
-<dt><span><code>db<var>XX</var></code></span></dt>
+<dt><code class="code">db<var class="var">XX</var></code></dt>
 <dd><p>The full family of pseudo-operations covered here is
-</p><div class="example">
-<pre class="example"> dbhi   dbls   dbcc   dbcs   dbne   dbeq   dbvc
+</p><div class="example smallexample">
+<pre class="example-preformatted"> dbhi   dbls   dbcc   dbcs   dbne   dbeq   dbvc
  dbvs   dbpl   dbmi   dbge   dblt   dbgt   dble
  dbf    dbra   dbt
 </pre></div>
 
-<p>Motorola &lsquo;<samp>db<var>XX</var></samp>&rsquo; instructions allow word displacements only.  When
+<p>Motorola &lsquo;<samp class="samp">db<var class="var">XX</var></samp>&rsquo; instructions allow word displacements only.  When
 a word displacement is sufficient, each of these pseudo-operations expands
 to the corresponding Motorola instruction.  When a word displacement is not
 sufficient and long branches are available, when the source reads
-&lsquo;<samp>db<var>XX</var> foo</samp>&rsquo;, <code>as</code> emits
-</p><div class="example">
-<pre class="example">     db<var>XX</var> oo1
+&lsquo;<samp class="samp">db<var class="var">XX</var> foo</samp>&rsquo;, <code class="code">as</code> emits
+</p><div class="example smallexample">
+<pre class="example-preformatted">     db<var class="var">XX</var> oo1
      bras oo2
  oo1:bral foo
  oo2:
 </pre></div>
 
-<p>If, however, long branches are not available and the &lsquo;<samp>--pcrel</samp>&rsquo; option is
-not given, <code>as</code> emits
-</p><div class="example">
-<pre class="example">     db<var>XX</var> oo1
+<p>If, however, long branches are not available and the &lsquo;<samp class="samp">--pcrel</samp>&rsquo; option is
+not given, <code class="code">as</code> emits
+</p><div class="example smallexample">
+<pre class="example-preformatted">     db<var class="var">XX</var> oo1
      bras oo2
  oo1:jmp foo
  oo2:
 </pre></div>
 
 </dd>
-<dt><span><code>fj<var>XX</var></code></span></dt>
+<dt><code class="code">fj<var class="var">XX</var></code></dt>
 <dd><p>This family includes
-</p><div class="example">
-<pre class="example"> fjne   fjeq   fjge   fjlt   fjgt   fjle   fjf
+</p><div class="example smallexample">
+<pre class="example-preformatted"> fjne   fjeq   fjge   fjlt   fjgt   fjle   fjf
  fjt    fjgl   fjgle  fjnge  fjngl  fjngle fjngt
  fjnle  fjnlt  fjoge  fjogl  fjogt  fjole  fjolt
  fjor   fjseq  fjsf   fjsne  fjst   fjueq  fjuge
@@ -183,7 +172,7 @@ branch instructions allow both word and long displacements.
 
 </div>
 <hr>
-<div class="header">
+<div class="nav-panel">
 <p>
 Next: <a href="M68K_002dChars.html">Special Characters</a>, Up: <a href="M68K_002dopcodes.html">Opcodes</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

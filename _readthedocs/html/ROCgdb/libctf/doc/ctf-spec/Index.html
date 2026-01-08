@@ -1,9 +1,9 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright (C) 2021-2025 Free Software Foundation, Inc.
+<!-- Copyright © 2021-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU General Public License, Version 3 or any
@@ -11,36 +11,29 @@ later version published by the Free Software Foundation.  A copy of the
 license is included in the section entitled "GNU General Public
 License".
  -->
-<title>Top (The CTF File Format)</title>
+<title>Index (The CTF File Format)</title>
 
-<meta name="description" content="Top (The CTF File Format)">
-<meta name="keywords" content="Top (The CTF File Format)">
+<meta name="description" content="Index (The CTF File Format)">
+<meta name="keywords" content="Index (The CTF File Format)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
-<link href="#Top" rel="start" title="Top">
-<link href="Index.html" rel="index" title="Index">
-<link href="#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="Overview.html" rel="next" title="Overview">
+<link href="index.html" rel="start" title="Top">
+<link href="#Index" rel="index" title="Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="index.html" rel="up" title="Top">
+<link href="CTF-dictionaries.html" rel="prev" title="CTF dictionaries">
 <style type="text/css">
 <!--
-a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
-a.summary-letter {text-decoration: none}
-blockquote.indentedblock {margin-right: 0em}
-div.display {margin-left: 3.2em}
-div.example {margin-left: 3.2em}
-kbd {font-style: oblique}
-pre.display {font-family: inherit}
-pre.format {font-family: inherit}
-pre.menu-comment {font-family: serif}
-pre.menu-preformatted {font-family: serif}
-span.nolinebreak {white-space: nowrap}
-span.roman {font-family: initial; font-weight: normal}
-span.sansserif {font-family: sans-serif; font-weight: normal}
-span:hover a.copiable-anchor {visibility: visible}
-ul.no-bullet {list-style: none}
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter-printindex {text-decoration: none}
+span:hover a.copiable-link {visibility: visible}
+td.printindex-index-entry {vertical-align: top}
+td.printindex-index-section {vertical-align: top; padding-left: 1em}
+th.entries-header-printindex {text-align:left}
+th.sections-header-printindex {text-align:left; padding-left: 1em}
 -->
 </style>
 
@@ -48,69 +41,464 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<h1 class="settitle" align="center">The CTF File Format</h1>
-
-
-
-
-<div class="top" id="Top">
-<div class="header">
+<div class="unnumbered-level-extent" id="Index">
+<div class="nav-panel">
 <p>
-Next: <a href="Overview.html" accesskey="n" rel="next">Overview</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+Previous: <a href="CTF-dictionaries.html" accesskey="p" rel="prev">CTF dictionaries</a>, Up: <a href="index.html" accesskey="u" rel="up">The CTF file format</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Index" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="The-CTF-file-format"></span><h1 class="top">The CTF file format</h1>
+<h2 class="unnumbered" id="Index-1"><span>Index<a class="copiable-link" href="#Index-1"> &para;</a></span></h2>
 
-<p>This manual describes version 3 of the CTF file format, which is
-intended to model the C type system in a fashion that C programs can
-consume at runtime.
-</p>
-<div class="Contents_element" id="SEC_Contents">
-<h2 class="contents-heading">Table of Contents</h2>
-
-<div class="contents">
-
-<ul class="no-bullet">
-  <li><a id="toc-Overview-1" href="Overview.html">Overview</a></li>
-  <li><a id="toc-CTF-archives" href="CTF-archive.html">1 CTF archives</a></li>
-  <li><a id="toc-CTF-dictionaries-1" href="CTF-dictionaries.html">2 CTF dictionaries</a>
-  <ul class="no-bullet">
-    <li><a id="toc-CTF-Preamble-1" href="CTF-Preamble.html">2.1 CTF Preamble</a>
-    <ul class="no-bullet">
-      <li><a id="toc-CTF-file_002dwide-flags-1" href="CTF-file_002dwide-flags.html">2.1.1 CTF file-wide flags</a></li>
-    </ul></li>
-    <li><a id="toc-CTF-header-1" href="CTF-header.html">2.2 CTF header</a></li>
-    <li><a id="toc-The-type-section-1" href="The-type-section.html">2.3 The type section</a>
-    <ul class="no-bullet">
-      <li><a id="toc-The-info-word_002c-ctt_005finfo" href="The-info-word.html">2.3.1 The info word, ctt_info</a></li>
-      <li><a id="toc-Type-indexes-and-type-IDs-1" href="Type-indexes-and-type-IDs.html">2.3.2 Type indexes and type IDs</a></li>
-      <li><a id="toc-Type-kinds-1" href="Type-kinds.html">2.3.3 Type kinds</a></li>
-      <li><a id="toc-Integer-types-1" href="Integer-types.html">2.3.4 Integer types</a></li>
-      <li><a id="toc-Floating_002dpoint-types-1" href="Floating_002dpoint-types.html">2.3.5 Floating-point types</a></li>
-      <li><a id="toc-Slices-1" href="Slices.html">2.3.6 Slices</a></li>
-      <li><a id="toc-Pointers_002c-typedefs_002c-and-cvr_002dquals" href="Pointers-typedefs-and-cvr_002dquals.html">2.3.7 Pointers, typedefs, and cvr-quals</a></li>
-      <li><a id="toc-Arrays-1" href="Arrays.html">2.3.8 Arrays</a></li>
-      <li><a id="toc-Function-pointers-1" href="Function-pointers.html">2.3.9 Function pointers</a></li>
-      <li><a id="toc-Enums-1" href="Enums.html">2.3.10 Enums</a></li>
-      <li><a id="toc-Structs-and-unions-1" href="Structs-and-unions.html">2.3.11 Structs and unions</a></li>
-      <li><a id="toc-Forward-declarations-1" href="Forward-declarations.html">2.3.12 Forward declarations</a></li>
-    </ul></li>
-    <li><a id="toc-The-symtypetab-sections-1" href="The-symtypetab-sections.html">2.4 The symtypetab sections</a></li>
-    <li><a id="toc-The-variable-section-1" href="The-variable-section.html">2.5 The variable section</a></li>
-    <li><a id="toc-The-label-section-1" href="The-label-section.html">2.6 The label section</a></li>
-    <li><a id="toc-The-string-section-1" href="The-string-section.html">2.7 The string section</a></li>
-    <li><a id="toc-Data-models-1" href="Data-models.html">2.8 Data models</a></li>
-    <li><a id="toc-Limits-of-CTF-1" href="Limits-of-CTF.html">2.9 Limits of CTF</a></li>
-  </ul></li>
-  <li><a id="toc-Index-1" href="Index.html" rel="index">Index</a></li>
-</ul>
+<div class="printindex cp-printindex">
+<table class="cp-letters-header-printindex"><tr><th>Jump to: &nbsp; </th><td><a class="summary-letter-printindex" href="#Index_cp_letter-A"><b>A</b></a>
+ &nbsp; 
+<a class="summary-letter-printindex" href="#Index_cp_letter-B"><b>B</b></a>
+ &nbsp; 
+<a class="summary-letter-printindex" href="#Index_cp_letter-C"><b>C</b></a>
+ &nbsp; 
+<a class="summary-letter-printindex" href="#Index_cp_letter-D"><b>D</b></a>
+ &nbsp; 
+<a class="summary-letter-printindex" href="#Index_cp_letter-E"><b>E</b></a>
+ &nbsp; 
+<a class="summary-letter-printindex" href="#Index_cp_letter-F"><b>F</b></a>
+ &nbsp; 
+<a class="summary-letter-printindex" href="#Index_cp_letter-I"><b>I</b></a>
+ &nbsp; 
+<a class="summary-letter-printindex" href="#Index_cp_letter-L"><b>L</b></a>
+ &nbsp; 
+<a class="summary-letter-printindex" href="#Index_cp_letter-N"><b>N</b></a>
+ &nbsp; 
+<a class="summary-letter-printindex" href="#Index_cp_letter-O"><b>O</b></a>
+ &nbsp; 
+<a class="summary-letter-printindex" href="#Index_cp_letter-P"><b>P</b></a>
+ &nbsp; 
+<a class="summary-letter-printindex" href="#Index_cp_letter-R"><b>R</b></a>
+ &nbsp; 
+<a class="summary-letter-printindex" href="#Index_cp_letter-S"><b>S</b></a>
+ &nbsp; 
+<a class="summary-letter-printindex" href="#Index_cp_letter-T"><b>T</b></a>
+ &nbsp; 
+<a class="summary-letter-printindex" href="#Index_cp_letter-U"><b>U</b></a>
+ &nbsp; 
+<a class="summary-letter-printindex" href="#Index_cp_letter-V"><b>V</b></a>
+ &nbsp; 
+</td></tr></table>
+<table class="cp-entries-printindex" border="0">
+<tr><td></td><th class="entries-header-printindex">Index Entry</th><th class="sections-header-printindex">Section</th></tr>
+<tr><td colspan="3"><hr></td></tr>
+<tr><th id="Index_cp_letter-A">A</th></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-Preamble.html#index-alignment">alignment</a></td><td class="printindex-index-section"><a href="CTF-Preamble.html">CTF Preamble</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-archive.html#index-archive_002c-CTF-archive">archive, CTF archive</a></td><td class="printindex-index-section"><a href="CTF-archive.html">CTF archive</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Arrays.html#index-Arrays">Arrays</a></td><td class="printindex-index-section"><a href="Arrays.html">Arrays</a></td></tr>
+<tr><td colspan="3"><hr></td></tr>
+<tr><th id="Index_cp_letter-B">B</th></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Integer-types.html#index-bool">bool</a></td><td class="printindex-index-section"><a href="Integer-types.html">Integer types</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="The-symtypetab-sections.html#index-Bug-workarounds_002c-CTF_005fF_005fDYNSTR">Bug workarounds, CTF_F_DYNSTR</a></td><td class="printindex-index-section"><a href="The-symtypetab-sections.html">The symtypetab sections</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="The-string-section.html#index-Bug-workarounds_002c-CTF_005fF_005fDYNSTR-1">Bug workarounds, CTF_F_DYNSTR</a></td><td class="printindex-index-section"><a href="The-string-section.html">The string section</a></td></tr>
+<tr><td colspan="3"><hr></td></tr>
+<tr><th id="Index_cp_letter-C">C</th></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Integer-types.html#index-char">char</a></td><td class="printindex-index-section"><a href="Integer-types.html">Integer types</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Type-indexes-and-type-IDs.html#index-Child-range">Child range</a></td><td class="printindex-index-section"><a href="Type-indexes-and-type-IDs.html">Type indexes and type IDs</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Floating_002dpoint-types.html#index-Complex_002c-double">Complex, double</a></td><td class="printindex-index-section"><a href="Floating_002dpoint-types.html">Floating-point types</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Floating_002dpoint-types.html#index-Complex_002c-float">Complex, float</a></td><td class="printindex-index-section"><a href="Floating_002dpoint-types.html">Floating-point types</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Floating_002dpoint-types.html#index-Complex_002c-signed-double">Complex, signed double</a></td><td class="printindex-index-section"><a href="Floating_002dpoint-types.html">Floating-point types</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Floating_002dpoint-types.html#index-Complex_002c-signed-float">Complex, signed float</a></td><td class="printindex-index-section"><a href="Floating_002dpoint-types.html">Floating-point types</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Floating_002dpoint-types.html#index-Complex_002c-unsigned-double">Complex, unsigned double</a></td><td class="printindex-index-section"><a href="Floating_002dpoint-types.html">Floating-point types</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Floating_002dpoint-types.html#index-Complex_002c-unsigned-float">Complex, unsigned float</a></td><td class="printindex-index-section"><a href="Floating_002dpoint-types.html">Floating-point types</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Pointers-typedefs-and-cvr_002dquals.html#index-const">const</a></td><td class="printindex-index-section"><a href="Pointers-typedefs-and-cvr_002dquals.html">Pointers typedefs and cvr-quals</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Arrays.html#index-cta_005fcontents">cta_contents</a></td><td class="printindex-index-section"><a href="Arrays.html">Arrays</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Arrays.html#index-cta_005findex">cta_index</a></td><td class="printindex-index-section"><a href="Arrays.html">Arrays</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Arrays.html#index-cta_005fnelems">cta_nelems</a></td><td class="printindex-index-section"><a href="Arrays.html">Arrays</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Enums.html#index-cte_005fname">cte_name</a></td><td class="printindex-index-section"><a href="Enums.html">Enums</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Enums.html#index-cte_005fvalue">cte_value</a></td><td class="printindex-index-section"><a href="Enums.html">Enums</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-header.html#index-CTF-header">CTF header</a></td><td class="printindex-index-section"><a href="CTF-header.html">CTF header</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-Preamble.html#index-CTF-versions_002c-versions">CTF versions, versions</a></td><td class="printindex-index-section"><a href="CTF-Preamble.html">CTF Preamble</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-archive.html#index-ctf_005farchive_005fmodent_005ft">ctf_archive_modent_t</a></td><td class="printindex-index-section"><a href="CTF-archive.html">CTF archive</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-archive.html#index-ctf_005farchive_005fmodent_005ft_002c-ctf_005foffset">ctf_archive_modent_t, ctf_offset</a></td><td class="printindex-index-section"><a href="CTF-archive.html">CTF archive</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-archive.html#index-ctf_005farchive_005fmodent_005ft_002c-name_005foffset">ctf_archive_modent_t, name_offset</a></td><td class="printindex-index-section"><a href="CTF-archive.html">CTF archive</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Arrays.html#index-ctf_005farray_005ft">ctf_array_t</a></td><td class="printindex-index-section"><a href="Arrays.html">Arrays</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Arrays.html#index-ctf_005farray_005ft_002c-cta_005fcontents">ctf_array_t, cta_contents</a></td><td class="printindex-index-section"><a href="Arrays.html">Arrays</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Arrays.html#index-ctf_005farray_005ft_002c-cta_005findex">ctf_array_t, cta_index</a></td><td class="printindex-index-section"><a href="Arrays.html">Arrays</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Arrays.html#index-ctf_005farray_005ft_002c-cta_005fnelems">ctf_array_t, cta_nelems</a></td><td class="printindex-index-section"><a href="Arrays.html">Arrays</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Integer-types.html#index-CTF_005fCHAR">CTF_CHAR</a></td><td class="printindex-index-section"><a href="Integer-types.html">Integer types</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Enums.html#index-ctf_005fenum_005ft">ctf_enum_t</a></td><td class="printindex-index-section"><a href="Enums.html">Enums</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Enums.html#index-ctf_005fenum_005ft_002c-cte_005fname">ctf_enum_t, cte_name</a></td><td class="printindex-index-section"><a href="Enums.html">Enums</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Enums.html#index-ctf_005fenum_005ft_002c-cte_005fvalue">ctf_enum_t, cte_value</a></td><td class="printindex-index-section"><a href="Enums.html">Enums</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-file_002dwide-flags.html#index-CTF_005fF_005fCOMPRESS">CTF_F_COMPRESS</a></td><td class="printindex-index-section"><a href="CTF-file_002dwide-flags.html">CTF file-wide flags</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-file_002dwide-flags.html#index-CTF_005fF_005fDYNSTR">CTF_F_DYNSTR</a></td><td class="printindex-index-section"><a href="CTF-file_002dwide-flags.html">CTF file-wide flags</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="The-symtypetab-sections.html#index-CTF_005fF_005fDYNSTR-1">CTF_F_DYNSTR</a></td><td class="printindex-index-section"><a href="The-symtypetab-sections.html">The symtypetab sections</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="The-string-section.html#index-CTF_005fF_005fDYNSTR-2">CTF_F_DYNSTR</a></td><td class="printindex-index-section"><a href="The-string-section.html">The string section</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-file_002dwide-flags.html#index-CTF_005fF_005fIDXSORTED">CTF_F_IDXSORTED</a></td><td class="printindex-index-section"><a href="CTF-file_002dwide-flags.html">CTF file-wide flags</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="The-symtypetab-sections.html#index-CTF_005fF_005fIDXSORTED-1">CTF_F_IDXSORTED</a></td><td class="printindex-index-section"><a href="The-symtypetab-sections.html">The symtypetab sections</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-file_002dwide-flags.html#index-CTF_005fF_005fNEWFUNCINFO">CTF_F_NEWFUNCINFO</a></td><td class="printindex-index-section"><a href="CTF-file_002dwide-flags.html">CTF file-wide flags</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Floating_002dpoint-types.html#index-CTF_005fFP_005fBITS">CTF_FP_BITS</a></td><td class="printindex-index-section"><a href="Floating_002dpoint-types.html">Floating-point types</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Floating_002dpoint-types.html#index-CTF_005fFP_005fCPLX">CTF_FP_CPLX</a></td><td class="printindex-index-section"><a href="Floating_002dpoint-types.html">Floating-point types</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Floating_002dpoint-types.html#index-CTF_005fFP_005fDCPLX">CTF_FP_DCPLX</a></td><td class="printindex-index-section"><a href="Floating_002dpoint-types.html">Floating-point types</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Floating_002dpoint-types.html#index-CTF_005fFP_005fDIMAGRY">CTF_FP_DIMAGRY</a></td><td class="printindex-index-section"><a href="Floating_002dpoint-types.html">Floating-point types</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Floating_002dpoint-types.html#index-CTF_005fFP_005fDINTRVL">CTF_FP_DINTRVL</a></td><td class="printindex-index-section"><a href="Floating_002dpoint-types.html">Floating-point types</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Floating_002dpoint-types.html#index-CTF_005fFP_005fDOUBLE">CTF_FP_DOUBLE</a></td><td class="printindex-index-section"><a href="Floating_002dpoint-types.html">Floating-point types</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Floating_002dpoint-types.html#index-CTF_005fFP_005fENCODING">CTF_FP_ENCODING</a></td><td class="printindex-index-section"><a href="Floating_002dpoint-types.html">Floating-point types</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Floating_002dpoint-types.html#index-CTF_005fFP_005fIMAGRY">CTF_FP_IMAGRY</a></td><td class="printindex-index-section"><a href="Floating_002dpoint-types.html">Floating-point types</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Floating_002dpoint-types.html#index-CTF_005fFP_005fINTRVL">CTF_FP_INTRVL</a></td><td class="printindex-index-section"><a href="Floating_002dpoint-types.html">Floating-point types</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Floating_002dpoint-types.html#index-CTF_005fFP_005fLDCPLX">CTF_FP_LDCPLX</a></td><td class="printindex-index-section"><a href="Floating_002dpoint-types.html">Floating-point types</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Floating_002dpoint-types.html#index-CTF_005fFP_005fLDIMAGRY">CTF_FP_LDIMAGRY</a></td><td class="printindex-index-section"><a href="Floating_002dpoint-types.html">Floating-point types</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Floating_002dpoint-types.html#index-CTF_005fFP_005fLDINTRVL">CTF_FP_LDINTRVL</a></td><td class="printindex-index-section"><a href="Floating_002dpoint-types.html">Floating-point types</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Floating_002dpoint-types.html#index-CTF_005fFP_005fLDOUBLE">CTF_FP_LDOUBLE</a></td><td class="printindex-index-section"><a href="Floating_002dpoint-types.html">Floating-point types</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Floating_002dpoint-types.html#index-CTF_005fFP_005fOFFSET">CTF_FP_OFFSET</a></td><td class="printindex-index-section"><a href="Floating_002dpoint-types.html">Floating-point types</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Floating_002dpoint-types.html#index-CTF_005fFP_005fSINGLE">CTF_FP_SINGLE</a></td><td class="printindex-index-section"><a href="Floating_002dpoint-types.html">Floating-point types</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-header.html#index-ctf_005fheader_005ft">ctf_header_t</a></td><td class="printindex-index-section"><a href="CTF-header.html">CTF header</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-header.html#index-ctf_005fheader_005ft_002c-cth_005fcuname">ctf_header_t, cth_cuname</a></td><td class="printindex-index-section"><a href="CTF-header.html">CTF header</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-Preamble.html#index-ctf_005fheader_005ft_002c-cth_005fflags">ctf_header_t, cth_flags</a></td><td class="printindex-index-section"><a href="CTF-Preamble.html">CTF Preamble</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-header.html#index-ctf_005fheader_005ft_002c-cth_005ffuncidxoff">ctf_header_t, cth_funcidxoff</a></td><td class="printindex-index-section"><a href="CTF-header.html">CTF header</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-header.html#index-ctf_005fheader_005ft_002c-cth_005ffuncoff">ctf_header_t, cth_funcoff</a></td><td class="printindex-index-section"><a href="CTF-header.html">CTF header</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-header.html#index-ctf_005fheader_005ft_002c-cth_005flbloff">ctf_header_t, cth_lbloff</a></td><td class="printindex-index-section"><a href="CTF-header.html">CTF header</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-Preamble.html#index-ctf_005fheader_005ft_002c-cth_005fmagic">ctf_header_t, cth_magic</a></td><td class="printindex-index-section"><a href="CTF-Preamble.html">CTF Preamble</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-header.html#index-ctf_005fheader_005ft_002c-cth_005fobjtidxoff">ctf_header_t, cth_objtidxoff</a></td><td class="printindex-index-section"><a href="CTF-header.html">CTF header</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-header.html#index-ctf_005fheader_005ft_002c-cth_005fobjtoff">ctf_header_t, cth_objtoff</a></td><td class="printindex-index-section"><a href="CTF-header.html">CTF header</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-header.html#index-ctf_005fheader_005ft_002c-cth_005fparlabel">ctf_header_t, cth_parlabel</a></td><td class="printindex-index-section"><a href="CTF-header.html">CTF header</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-header.html#index-ctf_005fheader_005ft_002c-cth_005fparname">ctf_header_t, cth_parname</a></td><td class="printindex-index-section"><a href="CTF-header.html">CTF header</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-header.html#index-ctf_005fheader_005ft_002c-cth_005fpreamble">ctf_header_t, cth_preamble</a></td><td class="printindex-index-section"><a href="CTF-header.html">CTF header</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-header.html#index-ctf_005fheader_005ft_002c-cth_005fstrlen">ctf_header_t, cth_strlen</a></td><td class="printindex-index-section"><a href="CTF-header.html">CTF header</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-header.html#index-ctf_005fheader_005ft_002c-cth_005fstroff">ctf_header_t, cth_stroff</a></td><td class="printindex-index-section"><a href="CTF-header.html">CTF header</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-header.html#index-ctf_005fheader_005ft_002c-cth_005ftypeoff">ctf_header_t, cth_typeoff</a></td><td class="printindex-index-section"><a href="CTF-header.html">CTF header</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-header.html#index-ctf_005fheader_005ft_002c-cth_005fvaroff">ctf_header_t, cth_varoff</a></td><td class="printindex-index-section"><a href="CTF-header.html">CTF header</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-Preamble.html#index-ctf_005fheader_005ft_002c-cth_005fversion">ctf_header_t, cth_version</a></td><td class="printindex-index-section"><a href="CTF-Preamble.html">CTF Preamble</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Type-indexes-and-type-IDs.html#index-ctf_005fid_005ft">ctf_id_t</a></td><td class="printindex-index-section"><a href="Type-indexes-and-type-IDs.html">Type indexes and type IDs</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Integer-types.html#index-CTF_005fINT_005fBITS">CTF_INT_BITS</a></td><td class="printindex-index-section"><a href="Integer-types.html">Integer types</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Integer-types.html#index-CTF_005fINT_005fBOOL">CTF_INT_BOOL</a></td><td class="printindex-index-section"><a href="Integer-types.html">Integer types</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Integer-types.html#index-CTF_005fINT_005fCHAR">CTF_INT_CHAR</a></td><td class="printindex-index-section"><a href="Integer-types.html">Integer types</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Integer-types.html#index-CTF_005fINT_005fDATA">CTF_INT_DATA</a></td><td class="printindex-index-section"><a href="Integer-types.html">Integer types</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Floating_002dpoint-types.html#index-CTF_005fINT_005fDATA-1">CTF_INT_DATA</a></td><td class="printindex-index-section"><a href="Floating_002dpoint-types.html">Floating-point types</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Integer-types.html#index-CTF_005fINT_005fENCODING">CTF_INT_ENCODING</a></td><td class="printindex-index-section"><a href="Integer-types.html">Integer types</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Integer-types.html#index-CTF_005fINT_005fOFFSET">CTF_INT_OFFSET</a></td><td class="printindex-index-section"><a href="Integer-types.html">Integer types</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Integer-types.html#index-CTF_005fINT_005fSIGNED">CTF_INT_SIGNED</a></td><td class="printindex-index-section"><a href="Integer-types.html">Integer types</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Pointers-typedefs-and-cvr_002dquals.html#index-CTF_005fK_005fCONST">CTF_K_CONST</a></td><td class="printindex-index-section"><a href="Pointers-typedefs-and-cvr_002dquals.html">Pointers typedefs and cvr-quals</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Enums.html#index-CTF_005fK_005fENUM">CTF_K_ENUM</a></td><td class="printindex-index-section"><a href="Enums.html">Enums</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Floating_002dpoint-types.html#index-CTF_005fK_005fFLOAT">CTF_K_FLOAT</a></td><td class="printindex-index-section"><a href="Floating_002dpoint-types.html">Floating-point types</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Forward-declarations.html#index-CTF_005fK_005fFORWARD">CTF_K_FORWARD</a></td><td class="printindex-index-section"><a href="Forward-declarations.html">Forward declarations</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Integer-types.html#index-CTF_005fK_005fINTEGER">CTF_K_INTEGER</a></td><td class="printindex-index-section"><a href="Integer-types.html">Integer types</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Pointers-typedefs-and-cvr_002dquals.html#index-CTF_005fK_005fPOINTER">CTF_K_POINTER</a></td><td class="printindex-index-section"><a href="Pointers-typedefs-and-cvr_002dquals.html">Pointers typedefs and cvr-quals</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Pointers-typedefs-and-cvr_002dquals.html#index-CTF_005fK_005fRESTRICT">CTF_K_RESTRICT</a></td><td class="printindex-index-section"><a href="Pointers-typedefs-and-cvr_002dquals.html">Pointers typedefs and cvr-quals</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Slices.html#index-CTF_005fK_005fSLICE">CTF_K_SLICE</a></td><td class="printindex-index-section"><a href="Slices.html">Slices</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Structs-and-unions.html#index-CTF_005fK_005fSTRUCT">CTF_K_STRUCT</a></td><td class="printindex-index-section"><a href="Structs-and-unions.html">Structs and unions</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Pointers-typedefs-and-cvr_002dquals.html#index-CTF_005fK_005fTYPEDEF">CTF_K_TYPEDEF</a></td><td class="printindex-index-section"><a href="Pointers-typedefs-and-cvr_002dquals.html">Pointers typedefs and cvr-quals</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Structs-and-unions.html#index-CTF_005fK_005fUNION">CTF_K_UNION</a></td><td class="printindex-index-section"><a href="Structs-and-unions.html">Structs and unions</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Type-kinds.html#index-CTF_005fK_005fUNKNOWN">CTF_K_UNKNOWN</a></td><td class="printindex-index-section"><a href="Type-kinds.html">Type kinds</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Pointers-typedefs-and-cvr_002dquals.html#index-CTF_005fK_005fVOLATILE">CTF_K_VOLATILE</a></td><td class="printindex-index-section"><a href="Pointers-typedefs-and-cvr_002dquals.html">Pointers typedefs and cvr-quals</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="The-label-section.html#index-ctf_005flblent_005ft">ctf_lblent_t</a></td><td class="printindex-index-section"><a href="The-label-section.html">The label section</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="The-label-section.html#index-ctf_005flblent_005ft_002c-ctl_005flabel">ctf_lblent_t, ctl_label</a></td><td class="printindex-index-section"><a href="The-label-section.html">The label section</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="The-label-section.html#index-ctf_005flblent_005ft_002c-ctl_005ftype">ctf_lblent_t, ctl_type</a></td><td class="printindex-index-section"><a href="The-label-section.html">The label section</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Structs-and-unions.html#index-ctf_005flmember_005ft">ctf_lmember_t</a></td><td class="printindex-index-section"><a href="Structs-and-unions.html">Structs and unions</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Structs-and-unions.html#index-ctf_005flmember_005ft_002c-ctlm_005fname">ctf_lmember_t, ctlm_name</a></td><td class="printindex-index-section"><a href="Structs-and-unions.html">Structs and unions</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Structs-and-unions.html#index-ctf_005flmember_005ft_002c-ctlm_005foffsethi">ctf_lmember_t, ctlm_offsethi</a></td><td class="printindex-index-section"><a href="Structs-and-unions.html">Structs and unions</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Structs-and-unions.html#index-ctf_005flmember_005ft_002c-ctlm_005foffsetlo">ctf_lmember_t, ctlm_offsetlo</a></td><td class="printindex-index-section"><a href="Structs-and-unions.html">Structs and unions</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="The-type-section.html#index-CTF_005fLSIZE_005fSENT">CTF_LSIZE_SENT</a></td><td class="printindex-index-section"><a href="The-type-section.html">The type section</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Structs-and-unions.html#index-CTF_005fLSTRUCT_005fTHRESH">CTF_LSTRUCT_THRESH</a></td><td class="printindex-index-section"><a href="Structs-and-unions.html">Structs and unions</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-Preamble.html#index-CTF_005fMAGIC">CTF_MAGIC</a></td><td class="printindex-index-section"><a href="CTF-Preamble.html">CTF Preamble</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Structs-and-unions.html#index-CTF_005fMAX_005fLSIZE">CTF_MAX_LSIZE</a></td><td class="printindex-index-section"><a href="Structs-and-unions.html">Structs and unions</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Structs-and-unions.html#index-ctf_005fmember_005ft">ctf_member_t</a></td><td class="printindex-index-section"><a href="Structs-and-unions.html">Structs and unions</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Structs-and-unions.html#index-ctf_005fmember_005ft_002c-ctlm_005ftype">ctf_member_t, ctlm_type</a></td><td class="printindex-index-section"><a href="Structs-and-unions.html">Structs and unions</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Structs-and-unions.html#index-ctf_005fmember_005ft_002c-ctm_005fname">ctf_member_t, ctm_name</a></td><td class="printindex-index-section"><a href="Structs-and-unions.html">Structs and unions</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Structs-and-unions.html#index-ctf_005fmember_005ft_002c-ctm_005foffset">ctf_member_t, ctm_offset</a></td><td class="printindex-index-section"><a href="Structs-and-unions.html">Structs and unions</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Structs-and-unions.html#index-ctf_005fmember_005ft_002c-ctm_005ftype">ctf_member_t, ctm_type</a></td><td class="printindex-index-section"><a href="Structs-and-unions.html">Structs and unions</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-archive.html#index-ctf_005foffset">ctf_offset</a></td><td class="printindex-index-section"><a href="CTF-archive.html">CTF archive</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-Preamble.html#index-ctf_005fpreamble_005ft">ctf_preamble_t</a></td><td class="printindex-index-section"><a href="CTF-Preamble.html">CTF Preamble</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-Preamble.html#index-ctf_005fpreamble_005ft_002c-ctp_005fflags">ctf_preamble_t, ctp_flags</a></td><td class="printindex-index-section"><a href="CTF-Preamble.html">CTF Preamble</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-Preamble.html#index-ctf_005fpreamble_005ft_002c-ctp_005fmagic">ctf_preamble_t, ctp_magic</a></td><td class="printindex-index-section"><a href="CTF-Preamble.html">CTF Preamble</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-Preamble.html#index-ctf_005fpreamble_005ft_002c-ctp_005fversion">ctf_preamble_t, ctp_version</a></td><td class="printindex-index-section"><a href="CTF-Preamble.html">CTF Preamble</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="The-type-section.html#index-CTF_005fSIZE_005fTO_005fLSIZE_005fHI">CTF_SIZE_TO_LSIZE_HI</a></td><td class="printindex-index-section"><a href="The-type-section.html">The type section</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="The-type-section.html#index-CTF_005fSIZE_005fTO_005fLSIZE_005fLO">CTF_SIZE_TO_LSIZE_LO</a></td><td class="printindex-index-section"><a href="The-type-section.html">The type section</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Slices.html#index-ctf_005fslice_005ft">ctf_slice_t</a></td><td class="printindex-index-section"><a href="Slices.html">Slices</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Slices.html#index-ctf_005fslice_005ft_002c-cts_005fbits">ctf_slice_t, cts_bits</a></td><td class="printindex-index-section"><a href="Slices.html">Slices</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Slices.html#index-ctf_005fslice_005ft_002c-cts_005foffset">ctf_slice_t, cts_offset</a></td><td class="printindex-index-section"><a href="Slices.html">Slices</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Slices.html#index-ctf_005fslice_005ft_002c-cts_005ftype">ctf_slice_t, cts_type</a></td><td class="printindex-index-section"><a href="Slices.html">Slices</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="The-type-section.html#index-ctf_005fstype_005ft">ctf_stype_t</a></td><td class="printindex-index-section"><a href="The-type-section.html">The type section</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="The-type-section.html#index-ctf_005fstype_005ft_002c-ctt_005finfo">ctf_stype_t, ctt_info</a></td><td class="printindex-index-section"><a href="The-type-section.html">The type section</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="The-type-section.html#index-ctf_005fstype_005ft_002c-ctt_005fsize">ctf_stype_t, ctt_size</a></td><td class="printindex-index-section"><a href="The-type-section.html">The type section</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="The-type-section.html#index-ctf_005fstype_005ft_002c-ctt_005ftype">ctf_stype_t, ctt_type</a></td><td class="printindex-index-section"><a href="The-type-section.html">The type section</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="The-info-word.html#index-CTF_005fTYPE_005fINFO">CTF_TYPE_INFO</a></td><td class="printindex-index-section"><a href="The-info-word.html">The info word</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="The-type-section.html#index-CTF_005fTYPE_005fLSIZE">CTF_TYPE_LSIZE</a></td><td class="printindex-index-section"><a href="The-type-section.html">The type section</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="The-type-section.html#index-ctf_005ftype_005ft">ctf_type_t</a></td><td class="printindex-index-section"><a href="The-type-section.html">The type section</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="The-type-section.html#index-ctf_005ftype_005ft_002c-ctt_005finfo">ctf_type_t, ctt_info</a></td><td class="printindex-index-section"><a href="The-type-section.html">The type section</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="The-type-section.html#index-ctf_005ftype_005ft_002c-ctt_005flsizehi">ctf_type_t, ctt_lsizehi</a></td><td class="printindex-index-section"><a href="The-type-section.html">The type section</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="The-type-section.html#index-ctf_005ftype_005ft_002c-ctt_005flsizelo">ctf_type_t, ctt_lsizelo</a></td><td class="printindex-index-section"><a href="The-type-section.html">The type section</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="The-type-section.html#index-ctf_005ftype_005ft_002c-ctt_005fsize">ctf_type_t, ctt_size</a></td><td class="printindex-index-section"><a href="The-type-section.html">The type section</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Type-indexes-and-type-IDs.html#index-CTF_005fV2_005fINDEX_005fTO_005fTYPE">CTF_V2_INDEX_TO_TYPE</a></td><td class="printindex-index-section"><a href="Type-indexes-and-type-IDs.html">Type indexes and type IDs</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="The-info-word.html#index-CTF_005fV2_005fINFO_005fISROOT">CTF_V2_INFO_ISROOT</a></td><td class="printindex-index-section"><a href="The-info-word.html">The info word</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="The-info-word.html#index-CTF_005fV2_005fINFO_005fKIND">CTF_V2_INFO_KIND</a></td><td class="printindex-index-section"><a href="The-info-word.html">The info word</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="The-info-word.html#index-CTF_005fV2_005fINFO_005fVLEN">CTF_V2_INFO_VLEN</a></td><td class="printindex-index-section"><a href="The-info-word.html">The info word</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Type-indexes-and-type-IDs.html#index-CTF_005fV2_005fTYPE_005fISCHILD">CTF_V2_TYPE_ISCHILD</a></td><td class="printindex-index-section"><a href="Type-indexes-and-type-IDs.html">Type indexes and type IDs</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Type-indexes-and-type-IDs.html#index-CTF_005fV2_005fTYPE_005fISPARENT">CTF_V2_TYPE_ISPARENT</a></td><td class="printindex-index-section"><a href="Type-indexes-and-type-IDs.html">Type indexes and type IDs</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Type-indexes-and-type-IDs.html#index-CTF_005fV2_005fTYPE_005fTO_005fINDEX">CTF_V2_TYPE_TO_INDEX</a></td><td class="printindex-index-section"><a href="Type-indexes-and-type-IDs.html">Type indexes and type IDs</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="The-variable-section.html#index-ctf_005fvarent_005ft">ctf_varent_t</a></td><td class="printindex-index-section"><a href="The-variable-section.html">The variable section</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="The-variable-section.html#index-ctf_005fvarent_005ft_002c-ctv_005fname">ctf_varent_t, ctv_name</a></td><td class="printindex-index-section"><a href="The-variable-section.html">The variable section</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="The-variable-section.html#index-ctf_005fvarent_005ft_002c-ctv_005ftype">ctf_varent_t, ctv_type</a></td><td class="printindex-index-section"><a href="The-variable-section.html">The variable section</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-Preamble.html#index-CTF_005fVERSION_005f3">CTF_VERSION_3</a></td><td class="printindex-index-section"><a href="CTF-Preamble.html">CTF Preamble</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-archive.html#index-ctfa_005fctfs">ctfa_ctfs</a></td><td class="printindex-index-section"><a href="CTF-archive.html">CTF archive</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-archive.html#index-ctfa_005fmagic">ctfa_magic</a></td><td class="printindex-index-section"><a href="CTF-archive.html">CTF archive</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-archive.html#index-CTFA_005fMAGIC">CTFA_MAGIC</a></td><td class="printindex-index-section"><a href="CTF-archive.html">CTF archive</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-archive.html#index-ctfa_005fmodel">ctfa_model</a></td><td class="printindex-index-section"><a href="CTF-archive.html">CTF archive</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-archive.html#index-ctfa_005fnames">ctfa_names</a></td><td class="printindex-index-section"><a href="CTF-archive.html">CTF archive</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-archive.html#index-ctfa_005fnfiles">ctfa_nfiles</a></td><td class="printindex-index-section"><a href="CTF-archive.html">CTF archive</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-header.html#index-cth_005fcuname">cth_cuname</a></td><td class="printindex-index-section"><a href="CTF-header.html">CTF header</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-Preamble.html#index-cth_005fflags">cth_flags</a></td><td class="printindex-index-section"><a href="CTF-Preamble.html">CTF Preamble</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-header.html#index-cth_005ffuncidxoff">cth_funcidxoff</a></td><td class="printindex-index-section"><a href="CTF-header.html">CTF header</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-header.html#index-cth_005ffuncoff">cth_funcoff</a></td><td class="printindex-index-section"><a href="CTF-header.html">CTF header</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-header.html#index-cth_005flbloff">cth_lbloff</a></td><td class="printindex-index-section"><a href="CTF-header.html">CTF header</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-Preamble.html#index-cth_005fmagic">cth_magic</a></td><td class="printindex-index-section"><a href="CTF-Preamble.html">CTF Preamble</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-header.html#index-cth_005fobjtidxoff">cth_objtidxoff</a></td><td class="printindex-index-section"><a href="CTF-header.html">CTF header</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-header.html#index-cth_005fobjtoff">cth_objtoff</a></td><td class="printindex-index-section"><a href="CTF-header.html">CTF header</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-header.html#index-cth_005fparlabel">cth_parlabel</a></td><td class="printindex-index-section"><a href="CTF-header.html">CTF header</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-header.html#index-cth_005fparname">cth_parname</a></td><td class="printindex-index-section"><a href="CTF-header.html">CTF header</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-header.html#index-cth_005fpreamble">cth_preamble</a></td><td class="printindex-index-section"><a href="CTF-header.html">CTF header</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-header.html#index-cth_005fstrlen">cth_strlen</a></td><td class="printindex-index-section"><a href="CTF-header.html">CTF header</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-header.html#index-cth_005fstroff">cth_stroff</a></td><td class="printindex-index-section"><a href="CTF-header.html">CTF header</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-header.html#index-cth_005ftypeoff">cth_typeoff</a></td><td class="printindex-index-section"><a href="CTF-header.html">CTF header</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-header.html#index-cth_005fvaroff">cth_varoff</a></td><td class="printindex-index-section"><a href="CTF-header.html">CTF header</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-Preamble.html#index-cth_005fversion">cth_version</a></td><td class="printindex-index-section"><a href="CTF-Preamble.html">CTF Preamble</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="The-label-section.html#index-ctl_005flabel">ctl_label</a></td><td class="printindex-index-section"><a href="The-label-section.html">The label section</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="The-label-section.html#index-ctl_005ftype">ctl_type</a></td><td class="printindex-index-section"><a href="The-label-section.html">The label section</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Structs-and-unions.html#index-ctlm_005fname">ctlm_name</a></td><td class="printindex-index-section"><a href="Structs-and-unions.html">Structs and unions</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Structs-and-unions.html#index-ctlm_005foffsethi">ctlm_offsethi</a></td><td class="printindex-index-section"><a href="Structs-and-unions.html">Structs and unions</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Structs-and-unions.html#index-ctlm_005foffsetlo">ctlm_offsetlo</a></td><td class="printindex-index-section"><a href="Structs-and-unions.html">Structs and unions</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Structs-and-unions.html#index-ctm_005fname">ctm_name</a></td><td class="printindex-index-section"><a href="Structs-and-unions.html">Structs and unions</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Structs-and-unions.html#index-ctm_005foffset">ctm_offset</a></td><td class="printindex-index-section"><a href="Structs-and-unions.html">Structs and unions</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Structs-and-unions.html#index-ctm_005ftype">ctm_type</a></td><td class="printindex-index-section"><a href="Structs-and-unions.html">Structs and unions</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Structs-and-unions.html#index-ctm_005ftype-1">ctm_type</a></td><td class="printindex-index-section"><a href="Structs-and-unions.html">Structs and unions</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-Preamble.html#index-ctp_005fflags">ctp_flags</a></td><td class="printindex-index-section"><a href="CTF-Preamble.html">CTF Preamble</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-Preamble.html#index-ctp_005fflags-1">ctp_flags</a></td><td class="printindex-index-section"><a href="CTF-Preamble.html">CTF Preamble</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-Preamble.html#index-ctp_005fmagic">ctp_magic</a></td><td class="printindex-index-section"><a href="CTF-Preamble.html">CTF Preamble</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-Preamble.html#index-ctp_005fversion">ctp_version</a></td><td class="printindex-index-section"><a href="CTF-Preamble.html">CTF Preamble</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Slices.html#index-cts_005fbits">cts_bits</a></td><td class="printindex-index-section"><a href="Slices.html">Slices</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Slices.html#index-cts_005foffset">cts_offset</a></td><td class="printindex-index-section"><a href="Slices.html">Slices</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Slices.html#index-cts_005ftype">cts_type</a></td><td class="printindex-index-section"><a href="Slices.html">Slices</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="The-type-section.html#index-ctt_005finfo">ctt_info</a></td><td class="printindex-index-section"><a href="The-type-section.html">The type section</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="The-type-section.html#index-ctt_005flsizehi">ctt_lsizehi</a></td><td class="printindex-index-section"><a href="The-type-section.html">The type section</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="The-type-section.html#index-ctt_005flsizelo">ctt_lsizelo</a></td><td class="printindex-index-section"><a href="The-type-section.html">The type section</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="The-type-section.html#index-ctt_005fname">ctt_name</a></td><td class="printindex-index-section"><a href="The-type-section.html">The type section</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="The-type-section.html#index-ctt_005fsize">ctt_size</a></td><td class="printindex-index-section"><a href="The-type-section.html">The type section</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="The-type-section.html#index-ctt_005ftype">ctt_type</a></td><td class="printindex-index-section"><a href="The-type-section.html">The type section</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="The-variable-section.html#index-ctv_005fname">ctv_name</a></td><td class="printindex-index-section"><a href="The-variable-section.html">The variable section</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="The-variable-section.html#index-ctv_005ftype">ctv_type</a></td><td class="printindex-index-section"><a href="The-variable-section.html">The variable section</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Pointers-typedefs-and-cvr_002dquals.html#index-cvr_002dquals">cvr-quals</a></td><td class="printindex-index-section"><a href="Pointers-typedefs-and-cvr_002dquals.html">Pointers typedefs and cvr-quals</a></td></tr>
+<tr><td colspan="3"><hr></td></tr>
+<tr><th id="Index_cp_letter-D">D</th></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Data-models.html#index-Data-models">Data models</a></td><td class="printindex-index-section"><a href="Data-models.html">Data models</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="The-symtypetab-sections.html#index-Data-object-index-section">Data object index section</a></td><td class="printindex-index-section"><a href="The-symtypetab-sections.html">The symtypetab sections</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="The-symtypetab-sections.html#index-Data-object-section">Data object section</a></td><td class="printindex-index-section"><a href="The-symtypetab-sections.html">The symtypetab sections</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-dictionaries.html#index-dictionary_002c-CTF-dictionary">dictionary, CTF dictionary</a></td><td class="printindex-index-section"><a href="CTF-dictionaries.html">CTF dictionaries</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Floating_002dpoint-types.html#index-double">double</a></td><td class="printindex-index-section"><a href="Floating_002dpoint-types.html">Floating-point types</a></td></tr>
+<tr><td colspan="3"><hr></td></tr>
+<tr><th id="Index_cp_letter-E">E</th></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-Preamble.html#index-endianness">endianness</a></td><td class="printindex-index-section"><a href="CTF-Preamble.html">CTF Preamble</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Enums.html#index-enum">enum</a></td><td class="printindex-index-section"><a href="Enums.html">Enums</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Forward-declarations.html#index-enum-1">enum</a></td><td class="printindex-index-section"><a href="Forward-declarations.html">Forward declarations</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Enums.html#index-Enums">Enums</a></td><td class="printindex-index-section"><a href="Enums.html">Enums</a></td></tr>
+<tr><td colspan="3"><hr></td></tr>
+<tr><th id="Index_cp_letter-F">F</th></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Floating_002dpoint-types.html#index-float">float</a></td><td class="printindex-index-section"><a href="Floating_002dpoint-types.html">Floating-point types</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Floating_002dpoint-types.html#index-Floating_002dpoint-types">Floating-point types</a></td><td class="printindex-index-section"><a href="Floating_002dpoint-types.html">Floating-point types</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Forward-declarations.html#index-Forwards">Forwards</a></td><td class="printindex-index-section"><a href="Forward-declarations.html">Forward declarations</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="The-symtypetab-sections.html#index-Function-info-index-section">Function info index section</a></td><td class="printindex-index-section"><a href="The-symtypetab-sections.html">The symtypetab sections</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="The-symtypetab-sections.html#index-Function-info-section">Function info section</a></td><td class="printindex-index-section"><a href="The-symtypetab-sections.html">The symtypetab sections</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Function-pointers.html#index-Function-pointers">Function pointers</a></td><td class="printindex-index-section"><a href="Function-pointers.html">Function pointers</a></td></tr>
+<tr><td colspan="3"><hr></td></tr>
+<tr><th id="Index_cp_letter-I">I</th></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Integer-types.html#index-int">int</a></td><td class="printindex-index-section"><a href="Integer-types.html">Integer types</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Integer-types.html#index-Integer-types">Integer types</a></td><td class="printindex-index-section"><a href="Integer-types.html">Integer types</a></td></tr>
+<tr><td colspan="3"><hr></td></tr>
+<tr><th id="Index_cp_letter-L">L</th></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="The-label-section.html#index-Label-section">Label section</a></td><td class="printindex-index-section"><a href="The-label-section.html">The label section</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Slices.html#index-libctf_002c-effect-of-slices">libctf, effect of slices</a></td><td class="printindex-index-section"><a href="Slices.html">Slices</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Limits-of-CTF.html#index-Limits">Limits</a></td><td class="printindex-index-section"><a href="Limits-of-CTF.html">Limits of CTF</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Integer-types.html#index-long">long</a></td><td class="printindex-index-section"><a href="Integer-types.html">Integer types</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Integer-types.html#index-long-long">long long</a></td><td class="printindex-index-section"><a href="Integer-types.html">Integer types</a></td></tr>
+<tr><td colspan="3"><hr></td></tr>
+<tr><th id="Index_cp_letter-N">N</th></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-archive.html#index-name_005foffset">name_offset</a></td><td class="printindex-index-section"><a href="CTF-archive.html">CTF archive</a></td></tr>
+<tr><td colspan="3"><hr></td></tr>
+<tr><th id="Index_cp_letter-O">O</th></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Overview.html#index-Overview">Overview</a></td><td class="printindex-index-section"><a href="Overview.html">Overview</a></td></tr>
+<tr><td colspan="3"><hr></td></tr>
+<tr><th id="Index_cp_letter-P">P</th></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Type-indexes-and-type-IDs.html#index-Parent-range">Parent range</a></td><td class="printindex-index-section"><a href="Type-indexes-and-type-IDs.html">Type indexes and type IDs</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Pointers-typedefs-and-cvr_002dquals.html#index-Pointers">Pointers</a></td><td class="printindex-index-section"><a href="Pointers-typedefs-and-cvr_002dquals.html">Pointers typedefs and cvr-quals</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Function-pointers.html#index-Pointers_002c-to-functions">Pointers, to functions</a></td><td class="printindex-index-section"><a href="Function-pointers.html">Function pointers</a></td></tr>
+<tr><td colspan="3"><hr></td></tr>
+<tr><th id="Index_cp_letter-R">R</th></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Pointers-typedefs-and-cvr_002dquals.html#index-restrict">restrict</a></td><td class="printindex-index-section"><a href="Pointers-typedefs-and-cvr_002dquals.html">Pointers typedefs and cvr-quals</a></td></tr>
+<tr><td colspan="3"><hr></td></tr>
+<tr><th id="Index_cp_letter-S">S</th></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="The-symtypetab-sections.html#index-Sections_002c-data-object">Sections, data object</a></td><td class="printindex-index-section"><a href="The-symtypetab-sections.html">The symtypetab sections</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="The-symtypetab-sections.html#index-Sections_002c-data-object-index">Sections, data object index</a></td><td class="printindex-index-section"><a href="The-symtypetab-sections.html">The symtypetab sections</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="The-symtypetab-sections.html#index-Sections_002c-function-info">Sections, function info</a></td><td class="printindex-index-section"><a href="The-symtypetab-sections.html">The symtypetab sections</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="The-symtypetab-sections.html#index-Sections_002c-function-info-index">Sections, function info index</a></td><td class="printindex-index-section"><a href="The-symtypetab-sections.html">The symtypetab sections</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-header.html#index-Sections_002c-header">Sections, header</a></td><td class="printindex-index-section"><a href="CTF-header.html">CTF header</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="The-label-section.html#index-Sections_002c-label">Sections, label</a></td><td class="printindex-index-section"><a href="The-label-section.html">The label section</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="The-string-section.html#index-Sections_002c-string">Sections, string</a></td><td class="printindex-index-section"><a href="The-string-section.html">The string section</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="The-symtypetab-sections.html#index-Sections_002c-symtypetab">Sections, symtypetab</a></td><td class="printindex-index-section"><a href="The-symtypetab-sections.html">The symtypetab sections</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="The-type-section.html#index-Sections_002c-type">Sections, type</a></td><td class="printindex-index-section"><a href="The-type-section.html">The type section</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="The-variable-section.html#index-Sections_002c-variable">Sections, variable</a></td><td class="printindex-index-section"><a href="The-variable-section.html">The variable section</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Integer-types.html#index-short">short</a></td><td class="printindex-index-section"><a href="Integer-types.html">Integer types</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Integer-types.html#index-signed-char">signed char</a></td><td class="printindex-index-section"><a href="Integer-types.html">Integer types</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Floating_002dpoint-types.html#index-signed-double">signed double</a></td><td class="printindex-index-section"><a href="Floating_002dpoint-types.html">Floating-point types</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Floating_002dpoint-types.html#index-signed-float">signed float</a></td><td class="printindex-index-section"><a href="Floating_002dpoint-types.html">Floating-point types</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Integer-types.html#index-signed-int">signed int</a></td><td class="printindex-index-section"><a href="Integer-types.html">Integer types</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Integer-types.html#index-signed-long">signed long</a></td><td class="printindex-index-section"><a href="Integer-types.html">Integer types</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Integer-types.html#index-signed-long-long">signed long long</a></td><td class="printindex-index-section"><a href="Integer-types.html">Integer types</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Integer-types.html#index-signed-short">signed short</a></td><td class="printindex-index-section"><a href="Integer-types.html">Integer types</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Slices.html#index-Slices">Slices</a></td><td class="printindex-index-section"><a href="Slices.html">Slices</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Slices.html#index-Slices_002c-effect-on-ctf_005ftype_005fkind">Slices, effect on ctf_type_kind</a></td><td class="printindex-index-section"><a href="Slices.html">Slices</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Slices.html#index-Slices_002c-effect-on-ctf_005ftype_005freference">Slices, effect on ctf_type_reference</a></td><td class="printindex-index-section"><a href="Slices.html">Slices</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="The-string-section.html#index-String-section">String section</a></td><td class="printindex-index-section"><a href="The-string-section.html">The string section</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Structs-and-unions.html#index-struct">struct</a></td><td class="printindex-index-section"><a href="Structs-and-unions.html">Structs and unions</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Forward-declarations.html#index-struct-1">struct</a></td><td class="printindex-index-section"><a href="Forward-declarations.html">Forward declarations</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-archive.html#index-struct-ctf_005farchive">struct ctf_archive</a></td><td class="printindex-index-section"><a href="CTF-archive.html">CTF archive</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-archive.html#index-struct-ctf_005farchive_005fmodent">struct ctf_archive_modent</a></td><td class="printindex-index-section"><a href="CTF-archive.html">CTF archive</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-archive.html#index-struct-ctf_005farchive_005fmodent_002c-ctf_005foffset">struct ctf_archive_modent, ctf_offset</a></td><td class="printindex-index-section"><a href="CTF-archive.html">CTF archive</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-archive.html#index-struct-ctf_005farchive_005fmodent_002c-name_005foffset">struct ctf_archive_modent, name_offset</a></td><td class="printindex-index-section"><a href="CTF-archive.html">CTF archive</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-archive.html#index-struct-ctf_005farchive_002c-ctfa_005fctfs">struct ctf_archive, ctfa_ctfs</a></td><td class="printindex-index-section"><a href="CTF-archive.html">CTF archive</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-archive.html#index-struct-ctf_005farchive_002c-ctfa_005fmagic">struct ctf_archive, ctfa_magic</a></td><td class="printindex-index-section"><a href="CTF-archive.html">CTF archive</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-archive.html#index-struct-ctf_005farchive_002c-ctfa_005fmodel">struct ctf_archive, ctfa_model</a></td><td class="printindex-index-section"><a href="CTF-archive.html">CTF archive</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-archive.html#index-struct-ctf_005farchive_002c-ctfa_005fnames">struct ctf_archive, ctfa_names</a></td><td class="printindex-index-section"><a href="CTF-archive.html">CTF archive</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-archive.html#index-struct-ctf_005farchive_002c-ctfa_005fnfiles">struct ctf_archive, ctfa_nfiles</a></td><td class="printindex-index-section"><a href="CTF-archive.html">CTF archive</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Arrays.html#index-struct-ctf_005farray">struct ctf_array</a></td><td class="printindex-index-section"><a href="Arrays.html">Arrays</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Arrays.html#index-struct-ctf_005farray_002c-cta_005fcontents">struct ctf_array, cta_contents</a></td><td class="printindex-index-section"><a href="Arrays.html">Arrays</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Arrays.html#index-struct-ctf_005farray_002c-cta_005findex">struct ctf_array, cta_index</a></td><td class="printindex-index-section"><a href="Arrays.html">Arrays</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Arrays.html#index-struct-ctf_005farray_002c-cta_005fnelems">struct ctf_array, cta_nelems</a></td><td class="printindex-index-section"><a href="Arrays.html">Arrays</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Enums.html#index-struct-ctf_005fenum">struct ctf_enum</a></td><td class="printindex-index-section"><a href="Enums.html">Enums</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Enums.html#index-struct-ctf_005fenum_002c-cte_005fname">struct ctf_enum, cte_name</a></td><td class="printindex-index-section"><a href="Enums.html">Enums</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Enums.html#index-struct-ctf_005fenum_002c-cte_005fvalue">struct ctf_enum, cte_value</a></td><td class="printindex-index-section"><a href="Enums.html">Enums</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-header.html#index-struct-ctf_005fheader">struct ctf_header</a></td><td class="printindex-index-section"><a href="CTF-header.html">CTF header</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-header.html#index-struct-ctf_005fheader_002c-cth_005fcuname">struct ctf_header, cth_cuname</a></td><td class="printindex-index-section"><a href="CTF-header.html">CTF header</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-Preamble.html#index-struct-ctf_005fheader_002c-cth_005fflags">struct ctf_header, cth_flags</a></td><td class="printindex-index-section"><a href="CTF-Preamble.html">CTF Preamble</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-header.html#index-struct-ctf_005fheader_002c-cth_005ffuncidxoff">struct ctf_header, cth_funcidxoff</a></td><td class="printindex-index-section"><a href="CTF-header.html">CTF header</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-header.html#index-struct-ctf_005fheader_002c-cth_005ffuncoff">struct ctf_header, cth_funcoff</a></td><td class="printindex-index-section"><a href="CTF-header.html">CTF header</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-header.html#index-struct-ctf_005fheader_002c-cth_005flbloff">struct ctf_header, cth_lbloff</a></td><td class="printindex-index-section"><a href="CTF-header.html">CTF header</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-Preamble.html#index-struct-ctf_005fheader_002c-cth_005fmagic">struct ctf_header, cth_magic</a></td><td class="printindex-index-section"><a href="CTF-Preamble.html">CTF Preamble</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-header.html#index-struct-ctf_005fheader_002c-cth_005fobjtidxoff">struct ctf_header, cth_objtidxoff</a></td><td class="printindex-index-section"><a href="CTF-header.html">CTF header</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-header.html#index-struct-ctf_005fheader_002c-cth_005fobjtoff">struct ctf_header, cth_objtoff</a></td><td class="printindex-index-section"><a href="CTF-header.html">CTF header</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-header.html#index-struct-ctf_005fheader_002c-cth_005fparlabel">struct ctf_header, cth_parlabel</a></td><td class="printindex-index-section"><a href="CTF-header.html">CTF header</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-header.html#index-struct-ctf_005fheader_002c-cth_005fparname">struct ctf_header, cth_parname</a></td><td class="printindex-index-section"><a href="CTF-header.html">CTF header</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-header.html#index-struct-ctf_005fheader_002c-cth_005fpreamble">struct ctf_header, cth_preamble</a></td><td class="printindex-index-section"><a href="CTF-header.html">CTF header</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-header.html#index-struct-ctf_005fheader_002c-cth_005fstrlen">struct ctf_header, cth_strlen</a></td><td class="printindex-index-section"><a href="CTF-header.html">CTF header</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-header.html#index-struct-ctf_005fheader_002c-cth_005fstroff">struct ctf_header, cth_stroff</a></td><td class="printindex-index-section"><a href="CTF-header.html">CTF header</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-header.html#index-struct-ctf_005fheader_002c-cth_005ftypeoff">struct ctf_header, cth_typeoff</a></td><td class="printindex-index-section"><a href="CTF-header.html">CTF header</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-header.html#index-struct-ctf_005fheader_002c-cth_005fvaroff">struct ctf_header, cth_varoff</a></td><td class="printindex-index-section"><a href="CTF-header.html">CTF header</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-Preamble.html#index-struct-ctf_005fheader_002c-cth_005fversion">struct ctf_header, cth_version</a></td><td class="printindex-index-section"><a href="CTF-Preamble.html">CTF Preamble</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="The-label-section.html#index-struct-ctf_005flblent">struct ctf_lblent</a></td><td class="printindex-index-section"><a href="The-label-section.html">The label section</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="The-label-section.html#index-struct-ctf_005flblent_002c-ctl_005flabel">struct ctf_lblent, ctl_label</a></td><td class="printindex-index-section"><a href="The-label-section.html">The label section</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="The-label-section.html#index-struct-ctf_005flblent_002c-ctl_005ftype">struct ctf_lblent, ctl_type</a></td><td class="printindex-index-section"><a href="The-label-section.html">The label section</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Structs-and-unions.html#index-struct-ctf_005flmember_005fv2">struct ctf_lmember_v2</a></td><td class="printindex-index-section"><a href="Structs-and-unions.html">Structs and unions</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Structs-and-unions.html#index-struct-ctf_005flmember_005fv2_002c-ctlm_005fname">struct ctf_lmember_v2, ctlm_name</a></td><td class="printindex-index-section"><a href="Structs-and-unions.html">Structs and unions</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Structs-and-unions.html#index-struct-ctf_005flmember_005fv2_002c-ctlm_005foffsethi">struct ctf_lmember_v2, ctlm_offsethi</a></td><td class="printindex-index-section"><a href="Structs-and-unions.html">Structs and unions</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Structs-and-unions.html#index-struct-ctf_005flmember_005fv2_002c-ctlm_005foffsetlo">struct ctf_lmember_v2, ctlm_offsetlo</a></td><td class="printindex-index-section"><a href="Structs-and-unions.html">Structs and unions</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Structs-and-unions.html#index-struct-ctf_005flmember_005fv2_002c-ctlm_005ftype">struct ctf_lmember_v2, ctlm_type</a></td><td class="printindex-index-section"><a href="Structs-and-unions.html">Structs and unions</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Structs-and-unions.html#index-struct-ctf_005fmember_005fv2">struct ctf_member_v2</a></td><td class="printindex-index-section"><a href="Structs-and-unions.html">Structs and unions</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Structs-and-unions.html#index-struct-ctf_005fmember_005fv2_002c-ctm_005fname">struct ctf_member_v2, ctm_name</a></td><td class="printindex-index-section"><a href="Structs-and-unions.html">Structs and unions</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Structs-and-unions.html#index-struct-ctf_005fmember_005fv2_002c-ctm_005foffset">struct ctf_member_v2, ctm_offset</a></td><td class="printindex-index-section"><a href="Structs-and-unions.html">Structs and unions</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Structs-and-unions.html#index-struct-ctf_005fmember_005fv2_002c-ctm_005ftype">struct ctf_member_v2, ctm_type</a></td><td class="printindex-index-section"><a href="Structs-and-unions.html">Structs and unions</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-Preamble.html#index-struct-ctf_005fpreamble">struct ctf_preamble</a></td><td class="printindex-index-section"><a href="CTF-Preamble.html">CTF Preamble</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-Preamble.html#index-struct-ctf_005fpreamble_002c-ctp_005fflags">struct ctf_preamble, ctp_flags</a></td><td class="printindex-index-section"><a href="CTF-Preamble.html">CTF Preamble</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-Preamble.html#index-struct-ctf_005fpreamble_002c-ctp_005fmagic">struct ctf_preamble, ctp_magic</a></td><td class="printindex-index-section"><a href="CTF-Preamble.html">CTF Preamble</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="CTF-Preamble.html#index-struct-ctf_005fpreamble_002c-ctp_005fversion">struct ctf_preamble, ctp_version</a></td><td class="printindex-index-section"><a href="CTF-Preamble.html">CTF Preamble</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Slices.html#index-struct-ctf_005fslice">struct ctf_slice</a></td><td class="printindex-index-section"><a href="Slices.html">Slices</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Slices.html#index-struct-ctf_005fslice_002c-cts_005fbits">struct ctf_slice, cts_bits</a></td><td class="printindex-index-section"><a href="Slices.html">Slices</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Slices.html#index-struct-ctf_005fslice_002c-cts_005foffset">struct ctf_slice, cts_offset</a></td><td class="printindex-index-section"><a href="Slices.html">Slices</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Slices.html#index-struct-ctf_005fslice_002c-cts_005ftype">struct ctf_slice, cts_type</a></td><td class="printindex-index-section"><a href="Slices.html">Slices</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="The-type-section.html#index-struct-ctf_005fstype">struct ctf_stype</a></td><td class="printindex-index-section"><a href="The-type-section.html">The type section</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="The-type-section.html#index-struct-ctf_005fstype_002c-ctt_005finfo">struct ctf_stype, ctt_info</a></td><td class="printindex-index-section"><a href="The-type-section.html">The type section</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="The-type-section.html#index-struct-ctf_005fstype_002c-ctt_005fsize">struct ctf_stype, ctt_size</a></td><td class="printindex-index-section"><a href="The-type-section.html">The type section</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="The-type-section.html#index-struct-ctf_005fstype_002c-ctt_005ftype">struct ctf_stype, ctt_type</a></td><td class="printindex-index-section"><a href="The-type-section.html">The type section</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="The-type-section.html#index-struct-ctf_005ftype">struct ctf_type</a></td><td class="printindex-index-section"><a href="The-type-section.html">The type section</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="The-type-section.html#index-struct-ctf_005ftype_002c-ctt_005finfo">struct ctf_type, ctt_info</a></td><td class="printindex-index-section"><a href="The-type-section.html">The type section</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="The-type-section.html#index-struct-ctf_005ftype_002c-ctt_005flsizehi">struct ctf_type, ctt_lsizehi</a></td><td class="printindex-index-section"><a href="The-type-section.html">The type section</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="The-type-section.html#index-struct-ctf_005ftype_002c-ctt_005flsizelo">struct ctf_type, ctt_lsizelo</a></td><td class="printindex-index-section"><a href="The-type-section.html">The type section</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="The-type-section.html#index-struct-ctf_005ftype_002c-ctt_005fsize">struct ctf_type, ctt_size</a></td><td class="printindex-index-section"><a href="The-type-section.html">The type section</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="The-variable-section.html#index-struct-ctf_005fvarent">struct ctf_varent</a></td><td class="printindex-index-section"><a href="The-variable-section.html">The variable section</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="The-variable-section.html#index-struct-ctf_005fvarent_002c-ctv_005fname">struct ctf_varent, ctv_name</a></td><td class="printindex-index-section"><a href="The-variable-section.html">The variable section</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="The-variable-section.html#index-struct-ctf_005fvarent_002c-ctv_005ftype">struct ctf_varent, ctv_type</a></td><td class="printindex-index-section"><a href="The-variable-section.html">The variable section</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Structs-and-unions.html#index-Structures">Structures</a></td><td class="printindex-index-section"><a href="Structs-and-unions.html">Structs and unions</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="The-symtypetab-sections.html#index-Symtypetab-section">Symtypetab section</a></td><td class="printindex-index-section"><a href="The-symtypetab-sections.html">The symtypetab sections</a></td></tr>
+<tr><td colspan="3"><hr></td></tr>
+<tr><th id="Index_cp_letter-T">T</th></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Type-indexes-and-type-IDs.html#index-Type-IDs">Type IDs</a></td><td class="printindex-index-section"><a href="Type-indexes-and-type-IDs.html">Type indexes and type IDs</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Type-indexes-and-type-IDs.html#index-Type-IDs_002c-ranges">Type IDs, ranges</a></td><td class="printindex-index-section"><a href="Type-indexes-and-type-IDs.html">Type indexes and type IDs</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Type-indexes-and-type-IDs.html#index-Type-indexes">Type indexes</a></td><td class="printindex-index-section"><a href="Type-indexes-and-type-IDs.html">Type indexes and type IDs</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Type-kinds.html#index-Type-kinds">Type kinds</a></td><td class="printindex-index-section"><a href="Type-kinds.html">Type kinds</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="The-type-section.html#index-Type-section">Type section</a></td><td class="printindex-index-section"><a href="The-type-section.html">The type section</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Type-indexes-and-type-IDs.html#index-Type_002c-IDs-of">Type, IDs of</a></td><td class="printindex-index-section"><a href="Type-indexes-and-type-IDs.html">Type indexes and type IDs</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Type-indexes-and-type-IDs.html#index-Type_002c-indexes-of">Type, indexes of</a></td><td class="printindex-index-section"><a href="Type-indexes-and-type-IDs.html">Type indexes and type IDs</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Type-kinds.html#index-Type_002c-kinds-of">Type, kinds of</a></td><td class="printindex-index-section"><a href="Type-kinds.html">Type kinds</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Pointers-typedefs-and-cvr_002dquals.html#index-typedef">typedef</a></td><td class="printindex-index-section"><a href="Pointers-typedefs-and-cvr_002dquals.html">Pointers typedefs and cvr-quals</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Pointers-typedefs-and-cvr_002dquals.html#index-Typedefs">Typedefs</a></td><td class="printindex-index-section"><a href="Pointers-typedefs-and-cvr_002dquals.html">Pointers typedefs and cvr-quals</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Floating_002dpoint-types.html#index-Types_002c-floating_002dpoint">Types, floating-point</a></td><td class="printindex-index-section"><a href="Floating_002dpoint-types.html">Floating-point types</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Integer-types.html#index-Types_002c-integer">Types, integer</a></td><td class="printindex-index-section"><a href="Integer-types.html">Integer types</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Slices.html#index-Types_002c-slices-of-integral">Types, slices of integral</a></td><td class="printindex-index-section"><a href="Slices.html">Slices</a></td></tr>
+<tr><td colspan="3"><hr></td></tr>
+<tr><th id="Index_cp_letter-U">U</th></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Structs-and-unions.html#index-union">union</a></td><td class="printindex-index-section"><a href="Structs-and-unions.html">Structs and unions</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Forward-declarations.html#index-union-1">union</a></td><td class="printindex-index-section"><a href="Forward-declarations.html">Forward declarations</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Structs-and-unions.html#index-Unions">Unions</a></td><td class="printindex-index-section"><a href="Structs-and-unions.html">Structs and unions</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Integer-types.html#index-unsigned-char">unsigned char</a></td><td class="printindex-index-section"><a href="Integer-types.html">Integer types</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Floating_002dpoint-types.html#index-unsigned-double">unsigned double</a></td><td class="printindex-index-section"><a href="Floating_002dpoint-types.html">Floating-point types</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Floating_002dpoint-types.html#index-unsigned-float">unsigned float</a></td><td class="printindex-index-section"><a href="Floating_002dpoint-types.html">Floating-point types</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Integer-types.html#index-unsigned-int">unsigned int</a></td><td class="printindex-index-section"><a href="Integer-types.html">Integer types</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Integer-types.html#index-unsigned-long">unsigned long</a></td><td class="printindex-index-section"><a href="Integer-types.html">Integer types</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Integer-types.html#index-unsigned-long-long">unsigned long long</a></td><td class="printindex-index-section"><a href="Integer-types.html">Integer types</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Integer-types.html#index-unsigned-short">unsigned short</a></td><td class="printindex-index-section"><a href="Integer-types.html">Integer types</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Floating_002dpoint-types.html#index-Unused-bits">Unused bits</a></td><td class="printindex-index-section"><a href="Floating_002dpoint-types.html">Floating-point types</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Floating_002dpoint-types.html#index-Unused-bits-1">Unused bits</a></td><td class="printindex-index-section"><a href="Floating_002dpoint-types.html">Floating-point types</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Floating_002dpoint-types.html#index-Unused-bits-2">Unused bits</a></td><td class="printindex-index-section"><a href="Floating_002dpoint-types.html">Floating-point types</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Floating_002dpoint-types.html#index-Unused-bits-3">Unused bits</a></td><td class="printindex-index-section"><a href="Floating_002dpoint-types.html">Floating-point types</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Floating_002dpoint-types.html#index-Unused-bits-4">Unused bits</a></td><td class="printindex-index-section"><a href="Floating_002dpoint-types.html">Floating-point types</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Floating_002dpoint-types.html#index-Unused-bits-5">Unused bits</a></td><td class="printindex-index-section"><a href="Floating_002dpoint-types.html">Floating-point types</a></td></tr>
+<tr><td colspan="3"><hr></td></tr>
+<tr><th id="Index_cp_letter-V">V</th></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="The-variable-section.html#index-Variable-section">Variable section</a></td><td class="printindex-index-section"><a href="The-variable-section.html">The variable section</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="Pointers-typedefs-and-cvr_002dquals.html#index-volatile">volatile</a></td><td class="printindex-index-section"><a href="Pointers-typedefs-and-cvr_002dquals.html">Pointers typedefs and cvr-quals</a></td></tr>
+<tr><td colspan="3"><hr></td></tr>
+</table>
+<table class="cp-letters-footer-printindex"><tr><th>Jump to: &nbsp; </th><td><a class="summary-letter-printindex" href="#Index_cp_letter-A"><b>A</b></a>
+ &nbsp; 
+<a class="summary-letter-printindex" href="#Index_cp_letter-B"><b>B</b></a>
+ &nbsp; 
+<a class="summary-letter-printindex" href="#Index_cp_letter-C"><b>C</b></a>
+ &nbsp; 
+<a class="summary-letter-printindex" href="#Index_cp_letter-D"><b>D</b></a>
+ &nbsp; 
+<a class="summary-letter-printindex" href="#Index_cp_letter-E"><b>E</b></a>
+ &nbsp; 
+<a class="summary-letter-printindex" href="#Index_cp_letter-F"><b>F</b></a>
+ &nbsp; 
+<a class="summary-letter-printindex" href="#Index_cp_letter-I"><b>I</b></a>
+ &nbsp; 
+<a class="summary-letter-printindex" href="#Index_cp_letter-L"><b>L</b></a>
+ &nbsp; 
+<a class="summary-letter-printindex" href="#Index_cp_letter-N"><b>N</b></a>
+ &nbsp; 
+<a class="summary-letter-printindex" href="#Index_cp_letter-O"><b>O</b></a>
+ &nbsp; 
+<a class="summary-letter-printindex" href="#Index_cp_letter-P"><b>P</b></a>
+ &nbsp; 
+<a class="summary-letter-printindex" href="#Index_cp_letter-R"><b>R</b></a>
+ &nbsp; 
+<a class="summary-letter-printindex" href="#Index_cp_letter-S"><b>S</b></a>
+ &nbsp; 
+<a class="summary-letter-printindex" href="#Index_cp_letter-T"><b>T</b></a>
+ &nbsp; 
+<a class="summary-letter-printindex" href="#Index_cp_letter-U"><b>U</b></a>
+ &nbsp; 
+<a class="summary-letter-printindex" href="#Index_cp_letter-V"><b>V</b></a>
+ &nbsp; 
+</td></tr></table>
 </div>
-</div>
+
 </div>
 <hr>
-<div class="header">
+<div class="nav-panel">
 <p>
-Next: <a href="Overview.html" accesskey="n" rel="next">Overview</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+Previous: <a href="CTF-dictionaries.html">CTF dictionaries</a>, Up: <a href="index.html">The CTF file format</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Index" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

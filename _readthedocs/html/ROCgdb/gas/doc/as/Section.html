@@ -1,11 +1,11 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the GNU Assembler "as".
 
-Copyright (C) 1991-2025 Free Software Foundation, Inc.
+Copyright © 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -31,21 +31,9 @@ section entitled "GNU Free Documentation License".
 <link href="Scl.html" rel="prev" title="Scl">
 <style type="text/css">
 <!--
-a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
-a.summary-letter {text-decoration: none}
-blockquote.indentedblock {margin-right: 0em}
-div.display {margin-left: 3.2em}
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
 div.example {margin-left: 3.2em}
-kbd {font-style: oblique}
-pre.display {font-family: inherit}
-pre.format {font-family: inherit}
-pre.menu-comment {font-family: serif}
-pre.menu-preformatted {font-family: serif}
-span.nolinebreak {white-space: nowrap}
-span.roman {font-family: initial; font-weight: normal}
-span.sansserif {font-family: sans-serif; font-weight: normal}
-span:hover a.copiable-anchor {visibility: visible}
-ul.no-bullet {list-style: none}
+span:hover a.copiable-link {visibility: visible}
 -->
 </style>
 
@@ -53,104 +41,104 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<div class="section" id="Section">
-<div class="header">
+<div class="section-level-extent" id="Section">
+<div class="nav-panel">
 <p>
-Next: <a href="Set.html" accesskey="n" rel="next"><code>.set <var>symbol</var>, <var>expression</var></code></a>, Previous: <a href="Scl.html" accesskey="p" rel="prev"><code>.scl <var>class</var></code></a>, Up: <a href="Pseudo-Ops.html" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Set.html" accesskey="n" rel="next"><code class="code">.set <var class="var">symbol</var>, <var class="var">expression</var></code></a>, Previous: <a href="Scl.html" accesskey="p" rel="prev"><code class="code">.scl <var class="var">class</var></code></a>, Up: <a href="Pseudo-Ops.html" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="g_t_002esection-name"></span><h3 class="section">7.86 <code>.section <var>name</var></code></h3>
+<h3 class="section" id="g_t_002esection-name"><span>7.86 <code class="code">.section <var class="var">name</var></code><a class="copiable-link" href="#g_t_002esection-name"> &para;</a></span></h3>
 
-<span id="index-named-section"></span>
-<p>Use the <code>.section</code> directive to assemble the following code into a section
-named <var>name</var>.
+<a class="index-entry-id" id="index-named-section"></a>
+<p>Use the <code class="code">.section</code> directive to assemble the following code into a section
+named <var class="var">name</var>.
 </p>
 <p>This directive is only supported for targets that actually support arbitrarily
-named sections; on <code>a.out</code> targets, for example, it is not accepted, even
-with a standard <code>a.out</code> section name.
+named sections; on <code class="code">a.out</code> targets, for example, it is not accepted, even
+with a standard <code class="code">a.out</code> section name.
 </p>
-<span id="COFF-Version"></span><h4 class="subheading">COFF Version</h4>
+<h4 class="subheading" id="COFF-Version"><span>COFF Version<a class="copiable-link" href="#COFF-Version"> &para;</a></span></h4>
 
-<span id="index-section-directive-_0028COFF-version_0029"></span>
-<p>For COFF targets, the <code>.section</code> directive is used in one of the following
+<a class="index-entry-id" id="index-section-directive-_0028COFF-version_0029"></a>
+<p>For COFF targets, the <code class="code">.section</code> directive is used in one of the following
 ways:
 </p>
-<div class="example">
-<pre class="example">.section <var>name</var>[, &quot;<var>flags</var>&quot;]
-.section <var>name</var>[, <var>subsection</var>]
+<div class="example smallexample">
+<pre class="example-preformatted">.section <var class="var">name</var>[, &quot;<var class="var">flags</var>&quot;]
+.section <var class="var">name</var>[, <var class="var">subsection</var>]
 </pre></div>
 
 <p>If the optional argument is quoted, it is taken as flags to use for the
 section.  Each flag is a single character.  The following flags are recognized:
 </p>
-<dl compact="compact">
-<dt><span><code>b</code></span></dt>
+<dl class="table">
+<dt><code class="code">b</code></dt>
 <dd><p>bss section (uninitialized data)
 </p></dd>
-<dt><span><code>n</code></span></dt>
+<dt><code class="code">n</code></dt>
 <dd><p>section is not loaded
 </p></dd>
-<dt><span><code>w</code></span></dt>
+<dt><code class="code">w</code></dt>
 <dd><p>writable section
 </p></dd>
-<dt><span><code>d</code></span></dt>
+<dt><code class="code">d</code></dt>
 <dd><p>data section
 </p></dd>
-<dt><span><code>e</code></span></dt>
+<dt><code class="code">e</code></dt>
 <dd><p>exclude section from linking
 </p></dd>
-<dt><span><code>r</code></span></dt>
+<dt><code class="code">r</code></dt>
 <dd><p>read-only section
 </p></dd>
-<dt><span><code>x</code></span></dt>
+<dt><code class="code">x</code></dt>
 <dd><p>executable section
 </p></dd>
-<dt><span><code>s</code></span></dt>
+<dt><code class="code">s</code></dt>
 <dd><p>shared section (meaningful for PE targets)
 </p></dd>
-<dt><span><code>a</code></span></dt>
+<dt><code class="code">a</code></dt>
 <dd><p>ignored.  (For compatibility with the ELF version)
 </p></dd>
-<dt><span><code>y</code></span></dt>
+<dt><code class="code">y</code></dt>
 <dd><p>section is not readable (meaningful for PE targets)
 </p></dd>
-<dt><span><code>0-9</code></span></dt>
+<dt><code class="code">0-9</code></dt>
 <dd><p>single-digit power-of-two section alignment (GNU extension)
 </p></dd>
 </dl>
 
 <p>If no flags are specified, the default flags depend upon the section name.  If
 the section name is not recognized, the default will be for the section to be
-loaded and writable.  Note the <code>n</code> and <code>w</code> flags remove attributes
+loaded and writable.  Note the <code class="code">n</code> and <code class="code">w</code> flags remove attributes
 from the section, rather than adding them, so if they are used on their own it
 will be as if no flags had been specified at all.
 </p>
-<p>If the optional argument to the <code>.section</code> directive is not quoted, it is
-taken as a subsection number (see <a href="Sub_002dSections.html">Sub-Sections</a>).
+<p>If the optional argument to the <code class="code">.section</code> directive is not quoted, it is
+taken as a subsection number (see <a class="pxref" href="Sub_002dSections.html">Sub-Sections</a>).
 </p>
-<span id="ELF-Version"></span><h4 class="subheading">ELF Version</h4>
+<h4 class="subheading" id="ELF-Version"><span>ELF Version<a class="copiable-link" href="#ELF-Version"> &para;</a></span></h4>
 
-<span id="index-Section-Stack-3"></span>
+<a class="index-entry-id" id="index-Section-Stack-3"></a>
 <p>This is one of the ELF section stack manipulation directives.  The others are
-<code>.subsection</code> (see <a href="SubSection.html"><code>.subsection <var>name</var></code></a>), <code>.pushsection</code>
-(see <a href="PushSection.html"><code>.pushsection <var>name</var> [, <var>subsection</var>] [, &quot;<var>flags</var>&quot;[, @<var>type</var>[,<var>arguments</var>]]]</code></a>), <code>.popsection</code> (see <a href="PopSection.html"><code>.popsection</code></a>), and
-<code>.previous</code> (see <a href="Previous.html"><code>.previous</code></a>).
+<code class="code">.subsection</code> (see <a class="pxref" href="SubSection.html"><code class="code">.subsection <var class="var">name</var></code></a>), <code class="code">.pushsection</code>
+(see <a class="pxref" href="PushSection.html"><code class="code">.pushsection <var class="var">name</var> [, <var class="var">subsection</var>] [, &quot;<var class="var">flags</var>&quot;[, @<var class="var">type</var>[,<var class="var">arguments</var>]]]</code></a>), <code class="code">.popsection</code> (see <a class="pxref" href="PopSection.html"><code class="code">.popsection</code></a>), and
+<code class="code">.previous</code> (see <a class="pxref" href="Previous.html"><code class="code">.previous</code></a>).
 </p>
-<span id="index-section-directive-_0028ELF-version_0029"></span>
-<p>For ELF targets, the <code>.section</code> directive is used like this:
+<a class="index-entry-id" id="index-section-directive-_0028ELF-version_0029"></a>
+<p>For ELF targets, the <code class="code">.section</code> directive is used like this:
 </p>
-<div class="example">
-<pre class="example">.section <var>name</var> [, &quot;<var>flags</var>&quot;[, @<var>type</var>[,<var>flag_specific_arguments</var>]]]
+<div class="example smallexample">
+<pre class="example-preformatted">.section <var class="var">name</var> [, &quot;<var class="var">flags</var>&quot;[, @<var class="var">type</var>[,<var class="var">flag_specific_arguments</var>]]]
 </pre></div>
 
-<span id="Section-Name-Substitutions"></span><span id="index-_002d_002dsectname_002dsubst"></span>
-<span id="index-section-name-substitution"></span>
-<p>If the &lsquo;<samp>--sectname-subst</samp>&rsquo; command-line option is provided, the <var>name</var>
-argument may contain a substitution sequence. Only <code>%S</code> is supported
+<a class="anchor" id="Section-Name-Substitutions"></a><a class="index-entry-id" id="index-_002d_002dsectname_002dsubst"></a>
+<a class="index-entry-id" id="index-section-name-substitution"></a>
+<p>If the &lsquo;<samp class="samp">--sectname-subst</samp>&rsquo; command-line option is provided, the <var class="var">name</var>
+argument may contain a substitution sequence. Only <code class="code">%S</code> is supported
 at the moment, and substitutes the current section name. For example:
 </p>
-<div class="example">
-<pre class="example">.macro exception_code
+<div class="example smallexample">
+<pre class="example-preformatted">.macro exception_code
 .section %S.exception
 [exception code here]
 .previous
@@ -167,114 +155,114 @@ exception_code
 [...]
 </pre></div>
 
-<p>The two <code>exception_code</code> invocations above would create the
-<code>.text.exception</code> and <code>.init.exception</code> sections respectively.
+<p>The two <code class="code">exception_code</code> invocations above would create the
+<code class="code">.text.exception</code> and <code class="code">.init.exception</code> sections respectively.
 This is useful e.g. to discriminate between ancillary sections that are
 tied to setup code to be discarded after use from ancillary sections that
-need to stay resident without having to define multiple <code>exception_code</code>
+need to stay resident without having to define multiple <code class="code">exception_code</code>
 macros just for that purpose.
 </p>
-<p>The optional <var>flags</var> argument is a quoted string which may contain any
+<p>The optional <var class="var">flags</var> argument is a quoted string which may contain any
 combination of the following characters:
 </p>
-<dl compact="compact">
-<dt><span><code>a</code></span></dt>
+<dl class="table">
+<dt><code class="code">a</code></dt>
 <dd><p>section is allocatable
 </p></dd>
-<dt><span><code>d</code></span></dt>
+<dt><code class="code">d</code></dt>
 <dd><p>section is a GNU_MBIND section
 </p></dd>
-<dt><span><code>e</code></span></dt>
+<dt><code class="code">e</code></dt>
 <dd><p>section is excluded from executable and shared library.
 </p></dd>
-<dt><span><code>o</code></span></dt>
+<dt><code class="code">o</code></dt>
 <dd><p>section references a symbol defined in another section (the linked-to
 section) in the same file.
 </p></dd>
-<dt><span><code>w</code></span></dt>
+<dt><code class="code">w</code></dt>
 <dd><p>section is writable
 </p></dd>
-<dt><span><code>x</code></span></dt>
+<dt><code class="code">x</code></dt>
 <dd><p>section is executable
 </p></dd>
-<dt><span><code>M</code></span></dt>
+<dt><code class="code">M</code></dt>
 <dd><p>section is mergeable
 </p></dd>
-<dt><span><code>S</code></span></dt>
+<dt><code class="code">S</code></dt>
 <dd><p>section contains zero terminated strings
 </p></dd>
-<dt><span><code>G</code></span></dt>
+<dt><code class="code">G</code></dt>
 <dd><p>section is a member of a section group
 </p></dd>
-<dt><span><code>T</code></span></dt>
+<dt><code class="code">T</code></dt>
 <dd><p>section is used for thread-local-storage
 </p></dd>
-<dt><span><code>?</code></span></dt>
+<dt><code class="code">?</code></dt>
 <dd><p>section is a member of the previously-current section&rsquo;s group, if any
 </p></dd>
-<dt><span><code>+</code></span></dt>
+<dt><code class="code">+</code></dt>
 <dd><p>section inherits attributes and (unless explicitly specified) type from the
 previously-current section, adding other attributes as specified
 </p></dd>
-<dt><span><code>-</code></span></dt>
+<dt><code class="code">-</code></dt>
 <dd><p>section inherits attributes and (unless explicitly specified) type from the
 previously-current section, removing other attributes as specified
 </p></dd>
-<dt><span><code>R</code></span></dt>
+<dt><code class="code">R</code></dt>
 <dd><p>retained section (apply SHF_GNU_RETAIN to prevent linker garbage
 collection, GNU ELF extension)
 </p></dd>
-<dt><span><code><code>&lt;number&gt;</code></code></span></dt>
+<dt><code class="code"><code class="code">&lt;number&gt;</code></code></dt>
 <dd><p>a numeric value indicating the bits to be set in the ELF section header&rsquo;s flags
 field.  Note - if one or more of the alphabetic characters described above is
 also included in the flags field, their bit values will be ORed into the
 resulting value.
 </p></dd>
-<dt><span><code><code>&lt;target specific&gt;</code></code></span></dt>
+<dt><code class="code"><code class="code">&lt;target specific&gt;</code></code></dt>
 <dd><p>some targets extend this list with their own flag characters
 </p></dd>
 </dl>
 
 <p>Note - once a section&rsquo;s flags have been set they cannot be changed.  There are
 a few exceptions to this rule however.  Processor and application specific
-flags can be added to an already defined section.  The <code>.interp</code>,
-<code>.strtab</code> and <code>.symtab</code> sections can have the allocate flag
-(<code>a</code>) set after they are initially defined, and the <code>.note-GNU-stack</code>
-section may have the executable (<code>x</code>) flag added.  Also note that the
-<code>.attach_to_group</code> directive can be used to add a section to a group even
+flags can be added to an already defined section.  The <code class="code">.interp</code>,
+<code class="code">.strtab</code> and <code class="code">.symtab</code> sections can have the allocate flag
+(<code class="code">a</code>) set after they are initially defined, and the <code class="code">.note-GNU-stack</code>
+section may have the executable (<code class="code">x</code>) flag added.  Also note that the
+<code class="code">.attach_to_group</code> directive can be used to add a section to a group even
 if the section was not originally declared to be part of that group.
 </p>
-<p>Note further that <code>+</code> and <code>-</code> need to come first and can only take
+<p>Note further that <code class="code">+</code> and <code class="code">-</code> need to come first and can only take
 the effect described here unless overridden by a target.  The attributes
 inherited are those in effect at the time the directive is processed.
 Attributes added later (see above) will not be inherited.  Using either
-together with <code>?</code> is undefined at this point.
+together with <code class="code">?</code> is undefined at this point.
 </p>
-<p>The optional <var>type</var> argument may contain one of the following constants:
+<p>The optional <var class="var">type</var> argument may contain one of the following constants:
 </p>
-<dl compact="compact">
-<dt><span><code>@progbits</code></span></dt>
+<dl class="table">
+<dt><code class="code">@progbits</code></dt>
 <dd><p>section contains data
 </p></dd>
-<dt><span><code>@nobits</code></span></dt>
+<dt><code class="code">@nobits</code></dt>
 <dd><p>section does not contain data (i.e., section only occupies space)
 </p></dd>
-<dt><span><code>@note</code></span></dt>
+<dt><code class="code">@note</code></dt>
 <dd><p>section contains data which is used by things other than the program
 </p></dd>
-<dt><span><code>@init_array</code></span></dt>
+<dt><code class="code">@init_array</code></dt>
 <dd><p>section contains an array of pointers to init functions
 </p></dd>
-<dt><span><code>@fini_array</code></span></dt>
+<dt><code class="code">@fini_array</code></dt>
 <dd><p>section contains an array of pointers to finish functions
 </p></dd>
-<dt><span><code>@preinit_array</code></span></dt>
+<dt><code class="code">@preinit_array</code></dt>
 <dd><p>section contains an array of pointers to pre-init functions
 </p></dd>
-<dt><span><code>@<code>&lt;number&gt;</code></code></span></dt>
+<dt><code class="code">@<code class="code">&lt;number&gt;</code></code></dt>
 <dd><p>a numeric value to be set as the ELF section header&rsquo;s type field.
 </p></dd>
-<dt><span><code>@<code>&lt;target specific&gt;</code></code></span></dt>
+<dt><code class="code">@<code class="code">&lt;target specific&gt;</code></code></dt>
 <dd><p>some targets extend this list with their own types
 </p></dd>
 </dl>
@@ -282,147 +270,147 @@ together with <code>?</code> is undefined at this point.
 <p>Many targets only support the first three section types.  The type may be
 enclosed in double quotes if necessary.
 </p>
-<p>Note on targets where the <code>@</code> character is the start of a comment (eg
+<p>Note on targets where the <code class="code">@</code> character is the start of a comment (eg
 ARM) then another character is used instead.  For example the ARM port uses the
-<code>%</code> character.
+<code class="code">%</code> character.
 </p>
-<p>Note - some sections, eg <code>.text</code> and <code>.data</code> are considered to be
+<p>Note - some sections, eg <code class="code">.text</code> and <code class="code">.data</code> are considered to be
 special and have fixed types.  Any attempt to declare them with a different
 type will generate an error from the assembler.
 </p>
-<p>If <var>flags</var> contains the <code>M</code> and/or <code>S</code> symbol then the <var>type</var>
-argument must be specified as well as an extra argument&mdash;<var>entsize</var>&mdash;like
+<p>If <var class="var">flags</var> contains the <code class="code">M</code> and/or <code class="code">S</code> symbol then the <var class="var">type</var>
+argument must be specified as well as an extra argument&mdash;<var class="var">entsize</var>&mdash;like
 this:
 </p>
-<div class="example">
-<pre class="example">.section <var>name</var> , &quot;<var>flags</var>&quot;M, @<var>type</var>, <var>entsize</var>
+<div class="example smallexample">
+<pre class="example-preformatted">.section <var class="var">name</var> , &quot;<var class="var">flags</var>&quot;M, @<var class="var">type</var>, <var class="var">entsize</var>
 </pre></div>
 
-<p>Sections with the <code>M</code> flag but not <code>S</code> flag must contain fixed size
-constants, each <var>entsize</var> octets long. Sections with <code>S</code> must contain
-zero terminated strings where each character is <var>entsize</var> bytes long. For
-<code>M</code> sections the linker may remove duplicates within sections with
-the same name, same entity size and same flags.  <var>entsize</var> must be an
-absolute expression.  For sections with both <code>M</code> and <code>S</code>, a string
+<p>Sections with the <code class="code">M</code> flag but not <code class="code">S</code> flag must contain fixed size
+constants, each <var class="var">entsize</var> octets long. Sections with <code class="code">S</code> must contain
+zero terminated strings where each character is <var class="var">entsize</var> bytes long. For
+<code class="code">M</code> sections the linker may remove duplicates within sections with
+the same name, same entity size and same flags.  <var class="var">entsize</var> must be an
+absolute expression.  For sections with both <code class="code">M</code> and <code class="code">S</code>, a string
 which is a suffix of a larger string is considered a duplicate.  Thus
-<code>&quot;def&quot;</code> will be merged with <code>&quot;abcdef&quot;</code>;  A reference to the first
-<code>&quot;def&quot;</code> will be changed to a reference to <code>&quot;abcdef&quot;+3</code>.
+<code class="code">&quot;def&quot;</code> will be merged with <code class="code">&quot;abcdef&quot;</code>;  A reference to the first
+<code class="code">&quot;def&quot;</code> will be changed to a reference to <code class="code">&quot;abcdef&quot;+3</code>.
 </p>
-<p>If <var>flags</var> contains the <code>o</code> flag, then the <var>type</var> argument
+<p>If <var class="var">flags</var> contains the <code class="code">o</code> flag, then the <var class="var">type</var> argument
 must be present along with an additional field like this:
 </p>
-<div class="example">
-<pre class="example">.section <var>name</var>,&quot;<var>flags</var>&quot;o,@<var>type</var>,<var>SymbolName</var>|<var>SectionIndex</var>
+<div class="example smallexample">
+<pre class="example-preformatted">.section <var class="var">name</var>,&quot;<var class="var">flags</var>&quot;o,@<var class="var">type</var>,<var class="var">SymbolName</var>|<var class="var">SectionIndex</var>
 </pre></div>
 
-<p>The <var>SymbolName</var> field specifies the symbol name which the section
-references.  Alternatively a numeric <var>SectionIndex</var> can be provided.  This
+<p>The <var class="var">SymbolName</var> field specifies the symbol name which the section
+references.  Alternatively a numeric <var class="var">SectionIndex</var> can be provided.  This
 is not generally a good idea as section indices are rarely known at assembly
 time, but the facility is provided for testing purposes.  An index of zero is
 allowed.  It indicates that the linked-to section has already been discarded.
 </p>
-<p>Note: If both one of <var>M</var> or <var>S</var> and <var>o</var> flags are present, then the
+<p>Note: If both one of <var class="var">M</var> or <var class="var">S</var> and <var class="var">o</var> flags are present, then the
 fields for the Merge/String flag should come first, like this:
 </p>
-<div class="example">
-<pre class="example">.section <var>name</var>,&quot;<var>flags</var>&quot;Mo,@<var>type</var>,<var>entsize</var>,<var>SymbolName</var>
+<div class="example smallexample">
+<pre class="example-preformatted">.section <var class="var">name</var>,&quot;<var class="var">flags</var>&quot;Mo,@<var class="var">type</var>,<var class="var">entsize</var>,<var class="var">SymbolName</var>
 </pre></div>
 
-<p>If <var>flags</var> contains the <code>G</code> symbol then the <var>type</var> argument must
+<p>If <var class="var">flags</var> contains the <code class="code">G</code> symbol then the <var class="var">type</var> argument must
 be present along with an additional field like this:
 </p>
-<div class="example">
-<pre class="example">.section <var>name</var> , &quot;<var>flags</var>&quot;G, @<var>type</var>, <var>GroupName</var>[, <var>linkage</var>]
+<div class="example smallexample">
+<pre class="example-preformatted">.section <var class="var">name</var> , &quot;<var class="var">flags</var>&quot;G, @<var class="var">type</var>, <var class="var">GroupName</var>[, <var class="var">linkage</var>]
 </pre></div>
 
-<p>The <var>GroupName</var> field specifies the name of the section group to which this
+<p>The <var class="var">GroupName</var> field specifies the name of the section group to which this
 particular section belongs.  The optional linkage field can contain:
 </p>
-<dl compact="compact">
-<dt><span><code>comdat</code></span></dt>
+<dl class="table">
+<dt><code class="code">comdat</code></dt>
 <dd><p>indicates that only one copy of this section should be retained
 </p></dd>
-<dt><span><code>.gnu.linkonce</code></span></dt>
+<dt><code class="code">.gnu.linkonce</code></dt>
 <dd><p>an alias for comdat
 </p></dd>
 </dl>
 
-<p>Note: Uf both one of <var>M</var> or <var>S</var> and <var>G</var> flags are present then the
+<p>Note: Uf both one of <var class="var">M</var> or <var class="var">S</var> and <var class="var">G</var> flags are present then the
 fields for the Merge/String flag should come first, like this:
 </p>
-<div class="example">
-<pre class="example">.section <var>name</var> , &quot;<var>flags</var>&quot;MG, @<var>type</var>, <var>entsize</var>, <var>GroupName</var>[, <var>linkage</var>]
+<div class="example smallexample">
+<pre class="example-preformatted">.section <var class="var">name</var> , &quot;<var class="var">flags</var>&quot;MG, @<var class="var">type</var>, <var class="var">entsize</var>, <var class="var">GroupName</var>[, <var class="var">linkage</var>]
 </pre></div>
 
-<p>If both <code>o</code> flag and <code>G</code> flag are present, then the
-<var>SymbolName</var> field for <code>o</code> comes first, like this:
+<p>If both <code class="code">o</code> flag and <code class="code">G</code> flag are present, then the
+<var class="var">SymbolName</var> field for <code class="code">o</code> comes first, like this:
 </p>
-<div class="example">
-<pre class="example">.section <var>name</var>,&quot;<var>flags</var>&quot;oG,@<var>type</var>,<var>SymbolName</var>,<var>GroupName</var>[,<var>linkage</var>]
+<div class="example smallexample">
+<pre class="example-preformatted">.section <var class="var">name</var>,&quot;<var class="var">flags</var>&quot;oG,@<var class="var">type</var>,<var class="var">SymbolName</var>,<var class="var">GroupName</var>[,<var class="var">linkage</var>]
 </pre></div>
 
-<p>If <var>flags</var> contains the <code>?</code> symbol then it may not also contain the
-<code>G</code> symbol and the <var>GroupName</var> or <var>linkage</var> fields should not be
-present.  Instead, <code>?</code> says to consider the section that&rsquo;s current before
-this directive.  If that section used <code>G</code>, then the new section will use
-<code>G</code> with those same <var>GroupName</var> and <var>linkage</var> fields implicitly.
-If not, then the <code>?</code> symbol has no effect.
+<p>If <var class="var">flags</var> contains the <code class="code">?</code> symbol then it may not also contain the
+<code class="code">G</code> symbol and the <var class="var">GroupName</var> or <var class="var">linkage</var> fields should not be
+present.  Instead, <code class="code">?</code> says to consider the section that&rsquo;s current before
+this directive.  If that section used <code class="code">G</code>, then the new section will use
+<code class="code">G</code> with those same <var class="var">GroupName</var> and <var class="var">linkage</var> fields implicitly.
+If not, then the <code class="code">?</code> symbol has no effect.
 </p>
-<p>The optional <var>unique,<code>&lt;number&gt;</code></var> argument must come last.  It
-assigns <var><code>&lt;number&gt;</code></var> as a unique section ID to distinguish
+<p>The optional <var class="var">unique,<code class="code">&lt;number&gt;</code></var> argument must come last.  It
+assigns <var class="var"><code class="code">&lt;number&gt;</code></var> as a unique section ID to distinguish
 different sections with the same section name like these:
 </p>
-<div class="example">
-<pre class="example">.section <var>name</var>,&quot;<var>flags</var>&quot;,@<var>type</var>,<var>unique,<code>&lt;number&gt;</code></var>
-.section <var>name</var>,&quot;<var>flags</var>&quot;G,@<var>type</var>,<var>GroupName</var>,[<var>linkage</var>],<var>unique,<code>&lt;number&gt;</code></var>
-.section <var>name</var>,&quot;<var>flags</var>&quot;MG,@<var>type</var>,<var>entsize</var>,<var>GroupName</var>[,<var>linkage</var>],<var>unique,<code>&lt;number&gt;</code></var>
+<div class="example smallexample">
+<pre class="example-preformatted">.section <var class="var">name</var>,&quot;<var class="var">flags</var>&quot;,@<var class="var">type</var>,<var class="var">unique,<code class="code">&lt;number&gt;</code></var>
+.section <var class="var">name</var>,&quot;<var class="var">flags</var>&quot;G,@<var class="var">type</var>,<var class="var">GroupName</var>,[<var class="var">linkage</var>],<var class="var">unique,<code class="code">&lt;number&gt;</code></var>
+.section <var class="var">name</var>,&quot;<var class="var">flags</var>&quot;MG,@<var class="var">type</var>,<var class="var">entsize</var>,<var class="var">GroupName</var>[,<var class="var">linkage</var>],<var class="var">unique,<code class="code">&lt;number&gt;</code></var>
 </pre></div>
 
-<p>The valid values of <var><code>&lt;number&gt;</code></var> are between 0 and 4294967295.
+<p>The valid values of <var class="var"><code class="code">&lt;number&gt;</code></var> are between 0 and 4294967295.
 </p>
 <p>If no flags are specified, the default flags depend upon the section name.  If
 the section name is not recognized, the default will be for the section to have
 none of the above flags: it will not be allocated in memory, nor writable, nor
 executable.  The section will contain data.
 </p>
-<p>For SPARC ELF targets, the assembler supports another type of <code>.section</code>
+<p>For SPARC ELF targets, the assembler supports another type of <code class="code">.section</code>
 directive for compatibility with the Solaris assembler:
 </p>
-<div class="example">
-<pre class="example">.section &quot;<var>name</var>&quot;[, <var>flags</var>...]
+<div class="example smallexample">
+<pre class="example-preformatted">.section &quot;<var class="var">name</var>&quot;[, <var class="var">flags</var>...]
 </pre></div>
 
 <p>Note that the section name is quoted.  There may be a sequence of comma
 separated flags:
 </p>
-<dl compact="compact">
-<dt><span><code>#alloc</code></span></dt>
+<dl class="table">
+<dt><code class="code">#alloc</code></dt>
 <dd><p>section is allocatable
 </p></dd>
-<dt><span><code>#write</code></span></dt>
+<dt><code class="code">#write</code></dt>
 <dd><p>section is writable
 </p></dd>
-<dt><span><code>#execinstr</code></span></dt>
+<dt><code class="code">#execinstr</code></dt>
 <dd><p>section is executable
 </p></dd>
-<dt><span><code>#exclude</code></span></dt>
+<dt><code class="code">#exclude</code></dt>
 <dd><p>section is excluded from executable and shared library.
 </p></dd>
-<dt><span><code>#tls</code></span></dt>
+<dt><code class="code">#tls</code></dt>
 <dd><p>section is used for thread local storage
 </p></dd>
 </dl>
 
 <p>This directive replaces the current section and subsection.  See the
-contents of the gas testsuite directory <code>gas/testsuite/gas/elf</code> for
+contents of the gas testsuite directory <code class="code">gas/testsuite/gas/elf</code> for
 some examples of how this directive and the other section stack directives
 work.
 </p>
 </div>
 <hr>
-<div class="header">
+<div class="nav-panel">
 <p>
-Next: <a href="Set.html"><code>.set <var>symbol</var>, <var>expression</var></code></a>, Previous: <a href="Scl.html"><code>.scl <var>class</var></code></a>, Up: <a href="Pseudo-Ops.html">Assembler Directives</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Set.html"><code class="code">.set <var class="var">symbol</var>, <var class="var">expression</var></code></a>, Previous: <a href="Scl.html"><code class="code">.scl <var class="var">class</var></code></a>, Up: <a href="Pseudo-Ops.html">Assembler Directives</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

@@ -1,9 +1,9 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright (C) 1988-2024 Free Software Foundation, Inc.
+<!-- Copyright © 1988-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -20,13 +20,13 @@ Legal Disclaimer and Copyright Information
 
 AMD ROCm software is made available by Advanced Micro Devices, Inc. under the
 open source license identified in the top-level directory for the library in
-the repository on Github.com (Portions of AMD ROCm software are
-licensed under MITx11 and UIL/NCSA. For more information on the license, review
-the license.txt in the top-level directory for the library on
-Github.com).  The additional terms and conditions below apply to your use
-of AMD ROCm technical documentation.
+the repository on https://github.com/ROCm/ (Github.com) (Portions of AMD
+ROCm software are licensed under MITx11 and UIL/NCSA. For more information on
+the license, review the license.txt in the top-level directory for the
+library on https://github.com/ROCm/ (Github.com)).  The additional terms
+and conditions below apply to your use of AMD ROCm technical documentation.
 
-(C)2019-2025 Advanced Micro Devices, Inc.  All rights reserved.
+©2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
 
 The information presented in this document is for informational purposes only
 and may contain technical inaccuracies, omissions, and typographical errors.
@@ -52,8 +52,8 @@ EVEN IF AMD IS EXPRESSLY ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
 
 AMD, the AMD Arrow logo, AMD Instinct™, Radeon™, AMD ROCm™, and combinations
 thereof are trademarks of Advanced Micro Devices, Inc.
-Linux(R) is the registered trademark of Linus Torvalds in the
-U.S. and other countries. PCIe(R) is a registered trademark of
+Linux® is the registered trademark of Linus Torvalds in the
+U.S. and other countries. PCIe® is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
@@ -74,21 +74,9 @@ companies. -->
 <link href="Memory.html" rel="prev" title="Memory">
 <style type="text/css">
 <!--
-a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
-a.summary-letter {text-decoration: none}
-blockquote.indentedblock {margin-right: 0em}
-div.display {margin-left: 3.2em}
-div.example {margin-left: 3.2em}
-kbd {font-style: oblique}
-pre.display {font-family: inherit}
-pre.format {font-family: inherit}
-pre.menu-comment {font-family: serif}
-pre.menu-preformatted {font-family: serif}
-span.nolinebreak {white-space: nowrap}
-span.roman {font-family: initial; font-weight: normal}
-span.sansserif {font-family: sans-serif; font-weight: normal}
-span:hover a.copiable-anchor {visibility: visible}
-ul.no-bullet {list-style: none}
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+span.r {font-family: initial; font-weight: normal; font-style: normal}
+span:hover a.copiable-link {visibility: visible}
 -->
 </style>
 
@@ -96,13 +84,13 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<div class="section" id="Memory-Tagging">
-<div class="header">
+<div class="section-level-extent" id="Memory-Tagging">
+<div class="nav-panel">
 <p>
 Next: <a href="Auto-Display.html" accesskey="n" rel="next">Automatic Display</a>, Previous: <a href="Memory.html" accesskey="p" rel="prev">Examining Memory</a>, Up: <a href="Data.html" accesskey="u" rel="up">Examining Data</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="Memory-Tagging-1"></span><h3 class="section">10.7 Memory Tagging</h3>
+<h3 class="section" id="Memory-Tagging-1"><span>10.7 Memory Tagging<a class="copiable-link" href="#Memory-Tagging-1"> &para;</a></span></h3>
 
 <p>Memory tagging is a memory protection technology that uses a pair of tags to
 validate memory accesses through pointers.  The tags are integer values
@@ -124,39 +112,37 @@ For example,  AArch64 has a tag granule of 16 bytes, meaning each allocation
 tag spans 16 bytes of memory.
 </p>
 <p>If the underlying architecture supports memory tagging, like AArch64 MTE
-or SPARC ADI do,  <small>ROCGDB</small> can make use of it to validate pointers
+or SPARC ADI do,  <small class="sc">ROCGDB</small> can make use of it to validate pointers
 against memory allocation tags.
 </p>
-<p>The <code>print</code> (see <a href="Data.html">Examining Data</a>) and <code>x</code> (see <a href="Memory.html">Examining Memory</a>) commands will
+<p>The <code class="code">print</code> (see <a class="pxref" href="Data.html">Examining Data</a>) and <code class="code">x</code> (see <a class="pxref" href="Memory.html">Examining Memory</a>) commands will
 display tag information when appropriate, and a command prefix of
-<code>memory-tag</code> gives access to the various memory tagging commands.
+<code class="code">memory-tag</code> gives access to the various memory tagging commands.
 </p>
-<p>The <code>memory-tag</code> commands are the following:
+<p>The <code class="code">memory-tag</code> commands are the following:
 </p>
-<dl compact="compact">
-<dd><span id="index-memory_002dtag-print_002dlogical_002dtag"></span>
-</dd>
-<dt><span><code>memory-tag print-logical-tag <var>pointer_expression</var></code></span></dt>
-<dd><p>Print the logical tag stored in <var>pointer_expression</var>.
-<span id="index-memory_002dtag-with_002dlogical_002dtag"></span>
+<dl class="table">
+<dt><a id="index-memory_002dtag-print_002dlogical_002dtag"></a><span><code class="code">memory-tag print-logical-tag <var class="var">pointer_expression</var></code><a class="copiable-link" href="#index-memory_002dtag-print_002dlogical_002dtag"> &para;</a></span></dt>
+<dd><p>Print the logical tag stored in <var class="var">pointer_expression</var>.
+<a class="index-entry-id" id="index-memory_002dtag-with_002dlogical_002dtag"></a>
 </p></dd>
-<dt><span><code>memory-tag with-logical-tag <var>pointer_expression</var> <var>tag_bytes</var></code></span></dt>
-<dd><p>Print the pointer given by <var>pointer_expression</var>, augmented with a logical
-tag of <var>tag_bytes</var>.
-<span id="index-memory_002dtag-print_002dallocation_002dtag"></span>
+<dt><code class="code">memory-tag with-logical-tag <var class="var">pointer_expression</var> <var class="var">tag_bytes</var></code></dt>
+<dd><p>Print the pointer given by <var class="var">pointer_expression</var>, augmented with a logical
+tag of <var class="var">tag_bytes</var>.
+<a class="index-entry-id" id="index-memory_002dtag-print_002dallocation_002dtag"></a>
 </p></dd>
-<dt><span><code>memory-tag print-allocation-tag <var>address_expression</var></code></span></dt>
+<dt><code class="code">memory-tag print-allocation-tag <var class="var">address_expression</var></code></dt>
 <dd><p>Print the allocation tag associated with the memory address given by
-<var>address_expression</var>.
-<span id="index-memory_002dtag-setatag"></span>
+<var class="var">address_expression</var>.
+<a class="index-entry-id" id="index-memory_002dtag-setatag"></a>
 </p></dd>
-<dt><span><code>memory-tag setatag <var>starting_address</var> <var>length</var> <var>tag_bytes</var></code></span></dt>
-<dd><p>Set the allocation tag(s) for memory range <span class="roman">[</span><var>starting_address</var>,
-<var>starting_address</var> + <var>length</var><span class="roman">)</span> to <var>tag_bytes</var>.
-<span id="index-memory_002dtag-check"></span>
+<dt><code class="code">memory-tag setatag <var class="var">starting_address</var> <var class="var">length</var> <var class="var">tag_bytes</var></code></dt>
+<dd><p>Set the allocation tag(s) for memory range <span class="r">[</span><var class="var">starting_address</var>,
+<var class="var">starting_address</var> + <var class="var">length</var><span class="r">)</span> to <var class="var">tag_bytes</var>.
+<a class="index-entry-id" id="index-memory_002dtag-check"></a>
 </p></dd>
-<dt><span><code>memory-tag check <var>pointer_expression</var></code></span></dt>
-<dd><p>Check if the logical tag in the pointer given by <var>pointer_expression</var>
+<dt><code class="code">memory-tag check <var class="var">pointer_expression</var></code></dt>
+<dd><p>Check if the logical tag in the pointer given by <var class="var">pointer_expression</var>
 matches the allocation tag for the memory referenced by the pointer.
 </p>
 <p>This essentially emulates the hardware validation that is done when tagged
@@ -170,7 +156,7 @@ process, before any faults get triggered.
 
 </div>
 <hr>
-<div class="header">
+<div class="nav-panel">
 <p>
 Next: <a href="Auto-Display.html">Automatic Display</a>, Previous: <a href="Memory.html">Examining Memory</a>, Up: <a href="Data.html">Examining Data</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

@@ -1,9 +1,9 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright (C) 2021-2025 Free Software Foundation, Inc.
+<!-- Copyright © 2021-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU General Public License, Version 3 or any
@@ -28,21 +28,8 @@ License".
 <link href="index.html" rel="prev" title="Top">
 <style type="text/css">
 <!--
-a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
-a.summary-letter {text-decoration: none}
-blockquote.indentedblock {margin-right: 0em}
-div.display {margin-left: 3.2em}
-div.example {margin-left: 3.2em}
-kbd {font-style: oblique}
-pre.display {font-family: inherit}
-pre.format {font-family: inherit}
-pre.menu-comment {font-family: serif}
-pre.menu-preformatted {font-family: serif}
-span.nolinebreak {white-space: nowrap}
-span.roman {font-family: initial; font-weight: normal}
-span.sansserif {font-family: sans-serif; font-weight: normal}
-span:hover a.copiable-anchor {visibility: visible}
-ul.no-bullet {list-style: none}
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+span:hover a.copiable-link {visibility: visible}
 -->
 </style>
 
@@ -50,14 +37,14 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<div class="unnumbered" id="Overview">
-<div class="header">
+<div class="unnumbered-level-extent" id="Overview">
+<div class="nav-panel">
 <p>
 Next: <a href="CTF-archive.html" accesskey="n" rel="next">CTF archives</a>, Previous: <a href="index.html" accesskey="p" rel="prev">The CTF file format</a>, Up: <a href="index.html" accesskey="u" rel="up">The CTF file format</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="Overview-1"></span><h2 class="unnumbered">Overview</h2>
-<span id="index-Overview"></span>
+<h2 class="unnumbered" id="Overview-1"><span>Overview<a class="copiable-link" href="#Overview-1"> &para;</a></span></h2>
+<a class="index-entry-id" id="index-Overview"></a>
 
 <p>The CTF file format compactly describes C types and the association
 between function and data symbols and types: if embedded in ELF objects,
@@ -65,7 +52,7 @@ it can exploit the ELF string table to reduce duplication further.
 There is no real concept of namespacing: only top-level types are
 described, not types scoped to within single functions.
 </p>
-<p>CTF dictionaries can be <em>children</em> of other dictionaries, in a
+<p>CTF dictionaries can be <em class="dfn">children</em> of other dictionaries, in a
 one-level hierarchy: child dictionaries can refer to types in the
 parent, but the opposite is not sensible (since if you refer to a child
 type in the parent, the actual type you cited would vary depending on
@@ -73,20 +60,20 @@ what child was attached).  This parent/child definition is recorded in
 the child, but only as a recommendation: users of the API have to attach
 parents to children explicitly, and can choose to attach a child to any
 parent they like, or to none, though doing so might lead to unpleasant
-consequences like dangling references to types.  See <a href="Type-indexes-and-type-IDs.html">Type indexes and type IDs</a>.  Type lookups in child dicts that are not associated with a
-parent at all will fail with <code>ECTF_NOPARENT</code> if a parent type was
+consequences like dangling references to types.  See <a class="xref" href="Type-indexes-and-type-IDs.html">Type indexes and type IDs</a>.  Type lookups in child dicts that are not associated with a
+parent at all will fail with <code class="code">ECTF_NOPARENT</code> if a parent type was
 needed.
 </p>
 <p>The associated API to generate, merge together, and query this file
-format will be described in the accompanying <code>libctf</code> manual once
+format will be described in the accompanying <code class="code">libctf</code> manual once
 it is written.  There is no API to modify dictionaries once they&rsquo;ve been
 written out: CTF is a write-once file format.  (However, it is always
 possible to dynamically create a new child dictionary on the fly and
 attach it to a pre-existing, read-only parent.)
 </p>
-<p>There are two major pieces to CTF: the <em>archive</em> and the
-<em>dictionary</em>.  Some relatives and ancestors of CTF call dictionaries
-<em>containers</em>: the archive format is unique to this variant of CTF.
+<p>There are two major pieces to CTF: the <em class="dfn">archive</em> and the
+<em class="dfn">dictionary</em>.  Some relatives and ancestors of CTF call dictionaries
+<em class="dfn">containers</em>: the archive format is unique to this variant of CTF.
 (Much of the source code still uses the old term.)
 </p>
 <p>The archive file format is a very simple mmappable archive used to group
@@ -95,16 +82,16 @@ away and be replaced by other mechanisms, but right now it is an
 important part of the file format, used to group dictionaries containing
 types with conflicting definitions in different TUs with the overarching
 dictionary used to store all other types.  (Even when archives go away,
-the <code>libctf</code> API used to access them will remain, and access the
+the <code class="code">libctf</code> API used to access them will remain, and access the
 other mechanisms that replace it instead.)
 </p>
-<p>The CTF dictionary consists of a <em>preamble</em>, which does not vary
-between versions of the CTF file format, and a <em>header</em> and some
-number of <em>sections</em>, which can vary between versions.
+<p>The CTF dictionary consists of a <em class="dfn">preamble</em>, which does not vary
+between versions of the CTF file format, and a <em class="dfn">header</em> and some
+number of <em class="dfn">sections</em>, which can vary between versions.
 </p>
 <p>The rest of this specification describes the format of these sections,
 first for the latest version of CTF, then for all earlier versions
-supported by <code>libctf</code>: the earlier versions are defined in terms of
+supported by <code class="code">libctf</code>: the earlier versions are defined in terms of
 their differences from the next later one.  We describe each part of the
 format first by reproducing the C structure which defines that part,
 then describing it at greater length in terms of file offsets.
@@ -113,12 +100,12 @@ then describing it at greater length in terms of file offsets.
 limits that apply to it.  These limits can vary between file format
 versions.
 </p>
-<p>This document is quite young, so for now the C code in <samp>ctf.h</samp>
+<p>This document is quite young, so for now the C code in <samp class="file">ctf.h</samp>
 should be presumed correct when this document conflicts with it.
 </p>
 </div>
 <hr>
-<div class="header">
+<div class="nav-panel">
 <p>
 Next: <a href="CTF-archive.html">CTF archives</a>, Previous: <a href="index.html">The CTF file format</a>, Up: <a href="index.html">The CTF file format</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

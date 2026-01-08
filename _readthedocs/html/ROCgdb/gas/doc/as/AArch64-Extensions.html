@@ -1,11 +1,11 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the GNU Assembler "as".
 
-Copyright (C) 1991-2025 Free Software Foundation, Inc.
+Copyright © 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -31,21 +31,8 @@ section entitled "GNU Free Documentation License".
 <link href="AArch64-Options.html" rel="prev" title="AArch64 Options">
 <style type="text/css">
 <!--
-a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
-a.summary-letter {text-decoration: none}
-blockquote.indentedblock {margin-right: 0em}
-div.display {margin-left: 3.2em}
-div.example {margin-left: 3.2em}
-kbd {font-style: oblique}
-pre.display {font-family: inherit}
-pre.format {font-family: inherit}
-pre.menu-comment {font-family: serif}
-pre.menu-preformatted {font-family: serif}
-span.nolinebreak {white-space: nowrap}
-span.roman {font-family: initial; font-weight: normal}
-span.sansserif {font-family: sans-serif; font-weight: normal}
-span:hover a.copiable-anchor {visibility: visible}
-ul.no-bullet {list-style: none}
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+span:hover a.copiable-link {visibility: visible}
 -->
 </style>
 
@@ -53,21 +40,21 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<div class="section" id="AArch64-Extensions">
-<div class="header">
+<div class="subsection-level-extent" id="AArch64-Extensions">
+<div class="nav-panel">
 <p>
 Next: <a href="AArch64-Syntax.html" accesskey="n" rel="next">Syntax</a>, Previous: <a href="AArch64-Options.html" accesskey="p" rel="prev">Options</a>, Up: <a href="AArch64_002dDependent.html" accesskey="u" rel="up">AArch64 Dependent Features</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="Architecture-Extensions"></span><h4 class="subsection">9.1.2 Architecture Extensions</h4>
+<h4 class="subsection section-level-set-subsection" id="Architecture-Extensions"><span>9.1.2 Architecture Extensions<a class="copiable-link" href="#Architecture-Extensions"> &para;</a></span></h4>
 
 <p>The tables below lists the permitted architecture extensions and architecture
 versions that are supported by the assembler, including a brief description and
 a list of other extensions that they depend upon.
 </p>
-<p>Multiple extensions may be specified, separated by a <code>+</code>.
+<p>Multiple extensions may be specified, separated by a <code class="code">+</code>.
 Extension mnemonics may also be removed from those the assembler
-accepts.  This is done by prepending <code>no</code> to the option that adds
+accepts.  This is done by prepending <code class="code">no</code> to the option that adds
 the extension.  Extensions that are removed must be listed after all
 extensions that have been added.
 </p>
@@ -76,114 +63,113 @@ recursively) will automatically cause those extensions to be enabled.
 Similarly, disabling an extension that is required by other extensions will
 automatically cause those extensions to be disabled.
 </p>
-<table>
+<table class="multitable">
 <thead><tr><th width="16%">Extension</th><th width="22%">Depends upon</th><th width="62%">Description</th></tr></thead>
-<tr><td width="16%"><code>aes</code></td><td width="22%"><code>simd</code></td><td width="62%">Enable the AES and PMULL cryptographic extensions.</td></tr>
-<tr><td width="16%"><code>bf16</code></td><td width="22%"><code>fp</code></td><td width="62%">Enable BFloat16 extension.</td></tr>
-<tr><td width="16%"><code>brbe</code></td><td width="22%"></td><td width="62%">Enable the Branch Record Buffer extension.</td></tr>
-<tr><td width="16%"><code>chk</code></td><td width="22%"></td><td width="62%">Enable the Check Feature Status Extension.</td></tr>
-<tr><td width="16%"><code>compnum</code></td><td width="22%"><code>simd</code></td><td width="62%">Enable the complex number SIMD extensions.  An alias of <code>fcma</code>.</td></tr>
-<tr><td width="16%"><code>cpa</code></td><td width="22%"></td><td width="62%">Enable the Checked Pointer Arithmetic extension.</td></tr>
-<tr><td width="16%"><code>crc</code></td><td width="22%"></td><td width="62%">Enable CRC instructions.</td></tr>
-<tr><td width="16%"><code>crypto</code></td><td width="22%"><code>simd</code></td><td width="62%">Enable cryptographic extensions.  This is equivalent to <code>aes+sha2</code>.</td></tr>
-<tr><td width="16%"><code>cssc</code></td><td width="22%"></td><td width="62%">Enable the Armv8.9-A Common Short Sequence Compression instructions.</td></tr>
-<tr><td width="16%"><code>d128</code></td><td width="22%"><code>lse128</code></td><td width="62%">Enable the 128-bit Page Descriptor Extension.  This implies <code>lse128</code>.</td></tr>
-<tr><td width="16%"><code>dotprod</code></td><td width="22%"><code>simd</code></td><td width="62%">Enable the Dot Product extension.</td></tr>
-<tr><td width="16%"><code>f32mm</code></td><td width="22%"><code>sve</code></td><td width="62%">Enable the F32 Matrix Multiply extension</td></tr>
-<tr><td width="16%"><code>f64mm</code></td><td width="22%"><code>sve</code></td><td width="62%">Enable the F64 Matrix Multiply extension.</td></tr>
-<tr><td width="16%"><code>fcma</code></td><td width="22%"><code>fp16</code>, <code>simd</code></td><td width="62%">Enable the complex number SIMD extensions.</td></tr>
-<tr><td width="16%"><code>flagm</code></td><td width="22%"></td><td width="62%">Enable Flag Manipulation instructions.</td></tr>
-<tr><td width="16%"><code>flagm2</code></td><td width="22%"><code>flagm</code></td><td width="62%">Enable FlagM2 flag conversion instructions.</td></tr>
-<tr><td width="16%"><code>fp</code></td><td width="22%"></td><td width="62%">Enable floating-point extensions.</td></tr>
-<tr><td width="16%"><code>fp8</code></td><td width="22%"></td><td width="62%">Enable the Floating Point 8 (FP8) extension.</td></tr>
-<tr><td width="16%"><code>fp8dot2</code></td><td width="22%"><code>fp8dot4</code></td><td width="62%">Enable the FP8 2-way dot product instructions.</td></tr>
-<tr><td width="16%"><code>fp8dot4</code></td><td width="22%"><code>fp8fma</code></td><td width="62%">Enable the FP8 4-way dot product instructions.</td></tr>
-<tr><td width="16%"><code>fp8fma</code></td><td width="22%"><code>fp8</code></td><td width="62%">Enable the FP8 FMA instructions.</td></tr>
-<tr><td width="16%"><code>fp16fml</code></td><td width="22%"><code>fp16</code></td><td width="62%">Enable Armv8.2 16-bit floating-point multiplication variant support.</td></tr>
-<tr><td width="16%"><code>fp16</code></td><td width="22%"><code>fp</code></td><td width="62%">Enable Armv8.2 16-bit floating-point support.</td></tr>
-<tr><td width="16%"><code>frintts</code></td><td width="22%"><code>simd</code></td><td width="62%">Enable floating-point round to integral value instructions.</td></tr>
-<tr><td width="16%"><code>gcs</code></td><td width="22%"></td><td width="62%">Enable the Guarded Control Stack Extension.</td></tr>
-<tr><td width="16%"><code>hbc</code></td><td width="22%"></td><td width="62%">Enable Armv8.8-A hinted conditional branch instructions</td></tr>
-<tr><td width="16%"><code>i8mm</code></td><td width="22%"><code>simd</code></td><td width="62%">Enable the Int8 Matrix Multiply extension.</td></tr>
-<tr><td width="16%"><code>ite</code></td><td width="22%"></td><td width="62%">Enable the TRCIT instruction.</td></tr>
-<tr><td width="16%"><code>jscvt</code></td><td width="22%"><code>fp</code></td><td width="62%">Enable the <code>fjcvtzs</code> JavaScript conversion instruction.</td></tr>
-<tr><td width="16%"><code>lor</code></td><td width="22%"></td><td width="62%">Enable Limited Ordering Regions extensions.</td></tr>
-<tr><td width="16%"><code>ls64</code></td><td width="22%"></td><td width="62%">Enable the 64 Byte Loads/Stores extensions.</td></tr>
-<tr><td width="16%"><code>lse</code></td><td width="22%"></td><td width="62%">Enable Large System extensions.</td></tr>
-<tr><td width="16%"><code>lse128</code></td><td width="22%"><code>lse</code></td><td width="62%">Enable the 128-bit Atomic Instructions extension.</td></tr>
-<tr><td width="16%"><code>lut</code></td><td width="22%"></td><td width="62%">Enable the Lookup Table (LUT) extension.</td></tr>
-<tr><td width="16%"><code>memtag</code></td><td width="22%"></td><td width="62%">Enable Armv8.5-A Memory Tagging Extensions.</td></tr>
-<tr><td width="16%"><code>mops</code></td><td width="22%"></td><td width="62%">Enable Armv8.8-A memcpy and memset acceleration instructions</td></tr>
-<tr><td width="16%"><code>pan</code></td><td width="22%"></td><td width="62%">Enable Privileged Access Never support.</td></tr>
-<tr><td width="16%"><code>pauth</code></td><td width="22%"></td><td width="62%">Enable Pointer Authentication.</td></tr>
-<tr><td width="16%"><code>predres</code></td><td width="22%"></td><td width="62%">Enable the Execution and Data and Prediction instructions.</td></tr>
-<tr><td width="16%"><code>predres2</code></td><td width="22%"><code>predres</code></td><td width="62%">Enable Prediction instructions.</td></tr>
-<tr><td width="16%"><code>profile</code></td><td width="22%"></td><td width="62%">Enable statistical profiling extensions.</td></tr>
-<tr><td width="16%"><code>ras</code></td><td width="22%"></td><td width="62%">Enable the Reliability, Availability and Serviceability extension.</td></tr>
-<tr><td width="16%"><code>rasv2</code></td><td width="22%"><code>ras</code></td><td width="62%">Enable the Reliability, Availability and Serviceability extension v2.</td></tr>
-<tr><td width="16%"><code>rcpc</code></td><td width="22%"></td><td width="62%">Enable the Load-Acquire RCpc instructions extension.</td></tr>
-<tr><td width="16%"><code>rcpc2</code></td><td width="22%"><code>rcpc</code></td><td width="62%">Enable the Load-Acquire RCpc instructions extension v2.</td></tr>
-<tr><td width="16%"><code>rcpc3</code></td><td width="22%"><code>rcpc2</code></td><td width="62%">Enable the Load-Acquire RCpc instructions extension v3.</td></tr>
-<tr><td width="16%"><code>rdma</code></td><td width="22%"><code>simd</code></td><td width="62%">Enable rounding doubling multiply accumulate instructions.</td></tr>
-<tr><td width="16%"><code>rdm</code></td><td width="22%"><code>simd</code></td><td width="62%">An alias of <code>rdma</code>.</td></tr>
-<tr><td width="16%"><code>rng</code></td><td width="22%"></td><td width="62%">Enable Armv8.5-A random number instructions.</td></tr>
-<tr><td width="16%"><code>sb</code></td><td width="22%"></td><td width="62%">Enable the speculation barrier instruction sb.</td></tr>
-<tr><td width="16%"><code>sha2</code></td><td width="22%"><code>simd</code></td><td width="62%">Enable the SHA1 and SHA256 cryptographic extensions.</td></tr>
-<tr><td width="16%"><code>sha3</code></td><td width="22%"><code>sha2</code></td><td width="62%">Enable the SHA512 and SHA3 cryptographic extensions.</td></tr>
-<tr><td width="16%"><code>simd</code></td><td width="22%"><code>fp</code></td><td width="62%">Enable Advanced SIMD extensions.</td></tr>
-<tr><td width="16%"><code>sm4</code></td><td width="22%"><code>simd</code></td><td width="62%">Enable the SM3 and SM4 cryptographic extensions.</td></tr>
-<tr><td width="16%"><code>sme</code></td><td width="22%"><code>sve2</code>, <code>bf16</code></td><td width="62%">Enable the Scalable Matrix Extension.</td></tr>
-<tr><td width="16%"><code>sme-b16b16</code></td><td width="22%"><code>sme2</code>, <code>sve-b16b16</code></td><td width="62%">Enable SME ZA-targeting non-widening BFloat16 instructions.</td></tr>
-<tr><td width="16%"><code>sme-f8f16</code></td><td width="22%"><code>sme-f8f32</code></td><td width="62%">Enable the SME F8F16 Extension.</td></tr>
-<tr><td width="16%"><code>sme-f8f32</code></td><td width="22%"><code>sme2</code>, <code>fp8</code></td><td width="62%">Enable the SME F8F32 Extension.</td></tr>
-<tr><td width="16%"><code>sme-f64f64</code></td><td width="22%"><code>sme</code></td><td width="62%">Enable SME F64F64 Extension.</td></tr>
-<tr><td width="16%"><code>sme-i16i64</code></td><td width="22%"><code>sme</code></td><td width="62%">Enable SME I16I64 Extension.</td></tr>
-<tr><td width="16%"><code>sme-lutv2</code></td><td width="22%"></td><td width="62%">Enable SME Lookup Table v2 (LUTv2) extension.</td></tr>
-<tr><td width="16%"><code>sme2</code></td><td width="22%"><code>sme</code></td><td width="62%">Enable SME2.</td></tr>
-<tr><td width="16%"><code>sme2p1</code></td><td width="22%"><code>sme2</code></td><td width="62%">Enable SME2.1.</td></tr>
-<tr><td width="16%"><code>ssbs</code></td><td width="22%"></td><td width="62%">Enable Speculative Store Bypassing Safe state read and write.</td></tr>
-<tr><td width="16%"><code>ssve-fp8dot2</code></td><td width="22%"><code>ssve-fp8dot4</code></td><td width="62%">Enable the Streaming SVE FP8 2-way dot product instructions.  These can also be enabled using <code>+fp8dot2+sme2</code>.</td></tr>
-<tr><td width="16%"><code>ssve-fp8dot4</code></td><td width="22%"><code>ssve-fp8fma</code></td><td width="62%">Enable the Streaming SVE FP8 4-way dot product instructions.  These can also be enabled using <code>+fp8dot4+sme2</code>.</td></tr>
-<tr><td width="16%"><code>ssve-fp8fma</code></td><td width="22%"><code>sme2</code>, <code>fp8</code></td><td width="62%">Enable the Streaming SVE FP8 FMA instructions.  These can also be enabled using <code>+fp8fma+sme2</code>.</td></tr>
-<tr><td width="16%"><code>sve</code></td><td width="22%"><code>fcma</code></td><td width="62%">Enable the Scalable Vector Extension.</td></tr>
-<tr><td width="16%"><code>sve-b16b16</code></td><td width="22%"></td><td width="62%">Enable the SVE B16B16 extension.  These instructions also require either <code>+sve2</code> or <code>+sme2</code>.</td></tr>
-<tr><td width="16%"><code>sve2</code></td><td width="22%"><code>sve</code></td><td width="62%">Enable SVE2.</td></tr>
-<tr><td width="16%"><code>sve2-aes</code></td><td width="22%"><code>sve2</code>, <code>aes</code></td><td width="62%">Enable the SVE2 AES and PMULL Extensions.</td></tr>
-<tr><td width="16%"><code>sve2-bitperm</code></td><td width="22%"><code>sve2</code></td><td width="62%">Enable the SVE2 BITPERM Extension.</td></tr>
-<tr><td width="16%"><code>sve2-sha3</code></td><td width="22%"><code>sve2</code>, <code>sha3</code></td><td width="62%">Enable the SVE2 SHA3 Extension.</td></tr>
-<tr><td width="16%"><code>sve2-sm4</code></td><td width="22%"><code>sve2</code>, <code>sm4</code></td><td width="62%">Enable the SVE2 SM4 Extension.</td></tr>
-<tr><td width="16%"><code>sve2p1</code></td><td width="22%"><code>sve2</code></td><td width="62%">Enable SVE2.1.</td></tr>
-<tr><td width="16%"><code>the</code></td><td width="22%"></td><td width="62%">Enable the Translation Hardening Extension.</td></tr>
-<tr><td width="16%"><code>tme</code></td><td width="22%"></td><td width="62%">Enable the Transactional Memory Extension.</td></tr>
-<tr><td width="16%"><code>wfxt</code></td><td width="22%"></td><td width="62%">Enable <code>wfet</code> and <code>wfit</code> instructions.</td></tr>
-<tr><td width="16%"><code>xs</code></td><td width="22%"></td><td width="62%">Enable the XS memory attribute extension.</td></tr>
-<tr><td width="16%"><code>sme-f16f16</code></td><td width="22%"></td><td width="62%">Enable the SME2 F16F16 Extension.</td></tr>
+<tbody><tr><td width="16%"><code class="code">aes</code></td><td width="22%"><code class="code">simd</code></td><td width="62%">Enable the AES and PMULL cryptographic extensions.</td></tr>
+<tr><td width="16%"><code class="code">bf16</code></td><td width="22%"><code class="code">fp</code></td><td width="62%">Enable BFloat16 extension.</td></tr>
+<tr><td width="16%"><code class="code">brbe</code></td><td width="22%"></td><td width="62%">Enable the Branch Record Buffer extension.</td></tr>
+<tr><td width="16%"><code class="code">chk</code></td><td width="22%"></td><td width="62%">Enable the Check Feature Status Extension.</td></tr>
+<tr><td width="16%"><code class="code">compnum</code></td><td width="22%"><code class="code">simd</code></td><td width="62%">Enable the complex number SIMD extensions.  An alias of <code class="code">fcma</code>.</td></tr>
+<tr><td width="16%"><code class="code">cpa</code></td><td width="22%"></td><td width="62%">Enable the Checked Pointer Arithmetic extension.</td></tr>
+<tr><td width="16%"><code class="code">crc</code></td><td width="22%"></td><td width="62%">Enable CRC instructions.</td></tr>
+<tr><td width="16%"><code class="code">crypto</code></td><td width="22%"><code class="code">simd</code></td><td width="62%">Enable cryptographic extensions.  This is equivalent to <code class="code">aes+sha2</code>.</td></tr>
+<tr><td width="16%"><code class="code">cssc</code></td><td width="22%"></td><td width="62%">Enable the Armv8.9-A Common Short Sequence Compression instructions.</td></tr>
+<tr><td width="16%"><code class="code">d128</code></td><td width="22%"><code class="code">lse128</code></td><td width="62%">Enable the 128-bit Page Descriptor Extension.  This implies <code class="code">lse128</code>.</td></tr>
+<tr><td width="16%"><code class="code">dotprod</code></td><td width="22%"><code class="code">simd</code></td><td width="62%">Enable the Dot Product extension.</td></tr>
+<tr><td width="16%"><code class="code">f32mm</code></td><td width="22%"><code class="code">sve</code></td><td width="62%">Enable the F32 Matrix Multiply extension</td></tr>
+<tr><td width="16%"><code class="code">f64mm</code></td><td width="22%"><code class="code">sve</code></td><td width="62%">Enable the F64 Matrix Multiply extension.</td></tr>
+<tr><td width="16%"><code class="code">fcma</code></td><td width="22%"><code class="code">fp16</code>, <code class="code">simd</code></td><td width="62%">Enable the complex number SIMD extensions.</td></tr>
+<tr><td width="16%"><code class="code">flagm</code></td><td width="22%"></td><td width="62%">Enable Flag Manipulation instructions.</td></tr>
+<tr><td width="16%"><code class="code">flagm2</code></td><td width="22%"><code class="code">flagm</code></td><td width="62%">Enable FlagM2 flag conversion instructions.</td></tr>
+<tr><td width="16%"><code class="code">fp</code></td><td width="22%"></td><td width="62%">Enable floating-point extensions.</td></tr>
+<tr><td width="16%"><code class="code">fp8</code></td><td width="22%"></td><td width="62%">Enable the Floating Point 8 (FP8) extension.</td></tr>
+<tr><td width="16%"><code class="code">fp8dot2</code></td><td width="22%"><code class="code">fp8dot4</code></td><td width="62%">Enable the FP8 2-way dot product instructions.</td></tr>
+<tr><td width="16%"><code class="code">fp8dot4</code></td><td width="22%"><code class="code">fp8fma</code></td><td width="62%">Enable the FP8 4-way dot product instructions.</td></tr>
+<tr><td width="16%"><code class="code">fp8fma</code></td><td width="22%"><code class="code">fp8</code></td><td width="62%">Enable the FP8 FMA instructions.</td></tr>
+<tr><td width="16%"><code class="code">fp16fml</code></td><td width="22%"><code class="code">fp16</code></td><td width="62%">Enable Armv8.2 16-bit floating-point multiplication variant support.</td></tr>
+<tr><td width="16%"><code class="code">fp16</code></td><td width="22%"><code class="code">fp</code></td><td width="62%">Enable Armv8.2 16-bit floating-point support.</td></tr>
+<tr><td width="16%"><code class="code">frintts</code></td><td width="22%"><code class="code">simd</code></td><td width="62%">Enable floating-point round to integral value instructions.</td></tr>
+<tr><td width="16%"><code class="code">gcs</code></td><td width="22%"></td><td width="62%">Enable the Guarded Control Stack Extension.</td></tr>
+<tr><td width="16%"><code class="code">hbc</code></td><td width="22%"></td><td width="62%">Enable Armv8.8-A hinted conditional branch instructions</td></tr>
+<tr><td width="16%"><code class="code">i8mm</code></td><td width="22%"><code class="code">simd</code></td><td width="62%">Enable the Int8 Matrix Multiply extension.</td></tr>
+<tr><td width="16%"><code class="code">ite</code></td><td width="22%"></td><td width="62%">Enable the TRCIT instruction.</td></tr>
+<tr><td width="16%"><code class="code">jscvt</code></td><td width="22%"><code class="code">fp</code></td><td width="62%">Enable the <code class="code">fjcvtzs</code> JavaScript conversion instruction.</td></tr>
+<tr><td width="16%"><code class="code">lor</code></td><td width="22%"></td><td width="62%">Enable Limited Ordering Regions extensions.</td></tr>
+<tr><td width="16%"><code class="code">ls64</code></td><td width="22%"></td><td width="62%">Enable the 64 Byte Loads/Stores extensions.</td></tr>
+<tr><td width="16%"><code class="code">lse</code></td><td width="22%"></td><td width="62%">Enable Large System extensions.</td></tr>
+<tr><td width="16%"><code class="code">lse128</code></td><td width="22%"><code class="code">lse</code></td><td width="62%">Enable the 128-bit Atomic Instructions extension.</td></tr>
+<tr><td width="16%"><code class="code">lut</code></td><td width="22%"></td><td width="62%">Enable the Lookup Table (LUT) extension.</td></tr>
+<tr><td width="16%"><code class="code">memtag</code></td><td width="22%"></td><td width="62%">Enable Armv8.5-A Memory Tagging Extensions.</td></tr>
+<tr><td width="16%"><code class="code">mops</code></td><td width="22%"></td><td width="62%">Enable Armv8.8-A memcpy and memset acceleration instructions</td></tr>
+<tr><td width="16%"><code class="code">pan</code></td><td width="22%"></td><td width="62%">Enable Privileged Access Never support.</td></tr>
+<tr><td width="16%"><code class="code">pauth</code></td><td width="22%"></td><td width="62%">Enable Pointer Authentication.</td></tr>
+<tr><td width="16%"><code class="code">predres</code></td><td width="22%"></td><td width="62%">Enable the Execution and Data and Prediction instructions.</td></tr>
+<tr><td width="16%"><code class="code">predres2</code></td><td width="22%"><code class="code">predres</code></td><td width="62%">Enable Prediction instructions.</td></tr>
+<tr><td width="16%"><code class="code">profile</code></td><td width="22%"></td><td width="62%">Enable statistical profiling extensions.</td></tr>
+<tr><td width="16%"><code class="code">ras</code></td><td width="22%"></td><td width="62%">Enable the Reliability, Availability and Serviceability extension.</td></tr>
+<tr><td width="16%"><code class="code">rasv2</code></td><td width="22%"><code class="code">ras</code></td><td width="62%">Enable the Reliability, Availability and Serviceability extension v2.</td></tr>
+<tr><td width="16%"><code class="code">rcpc</code></td><td width="22%"></td><td width="62%">Enable the Load-Acquire RCpc instructions extension.</td></tr>
+<tr><td width="16%"><code class="code">rcpc2</code></td><td width="22%"><code class="code">rcpc</code></td><td width="62%">Enable the Load-Acquire RCpc instructions extension v2.</td></tr>
+<tr><td width="16%"><code class="code">rcpc3</code></td><td width="22%"><code class="code">rcpc2</code></td><td width="62%">Enable the Load-Acquire RCpc instructions extension v3.</td></tr>
+<tr><td width="16%"><code class="code">rdma</code></td><td width="22%"><code class="code">simd</code></td><td width="62%">Enable rounding doubling multiply accumulate instructions.</td></tr>
+<tr><td width="16%"><code class="code">rdm</code></td><td width="22%"><code class="code">simd</code></td><td width="62%">An alias of <code class="code">rdma</code>.</td></tr>
+<tr><td width="16%"><code class="code">rng</code></td><td width="22%"></td><td width="62%">Enable Armv8.5-A random number instructions.</td></tr>
+<tr><td width="16%"><code class="code">sb</code></td><td width="22%"></td><td width="62%">Enable the speculation barrier instruction sb.</td></tr>
+<tr><td width="16%"><code class="code">sha2</code></td><td width="22%"><code class="code">simd</code></td><td width="62%">Enable the SHA1 and SHA256 cryptographic extensions.</td></tr>
+<tr><td width="16%"><code class="code">sha3</code></td><td width="22%"><code class="code">sha2</code></td><td width="62%">Enable the SHA512 and SHA3 cryptographic extensions.</td></tr>
+<tr><td width="16%"><code class="code">simd</code></td><td width="22%"><code class="code">fp</code></td><td width="62%">Enable Advanced SIMD extensions.</td></tr>
+<tr><td width="16%"><code class="code">sm4</code></td><td width="22%"><code class="code">simd</code></td><td width="62%">Enable the SM3 and SM4 cryptographic extensions.</td></tr>
+<tr><td width="16%"><code class="code">sme</code></td><td width="22%"><code class="code">sve2</code>, <code class="code">bf16</code></td><td width="62%">Enable the Scalable Matrix Extension.</td></tr>
+<tr><td width="16%"><code class="code">sme-f8f16</code></td><td width="22%"><code class="code">sme-f8f32</code></td><td width="62%">Enable the SME F8F16 Extension.</td></tr>
+<tr><td width="16%"><code class="code">sme-f8f32</code></td><td width="22%"><code class="code">sme2</code>, <code class="code">fp8</code></td><td width="62%">Enable the SME F8F32 Extension.</td></tr>
+<tr><td width="16%"><code class="code">sme-f64f64</code></td><td width="22%"><code class="code">sme</code></td><td width="62%">Enable SME F64F64 Extension.</td></tr>
+<tr><td width="16%"><code class="code">sme-i16i64</code></td><td width="22%"><code class="code">sme</code></td><td width="62%">Enable SME I16I64 Extension.</td></tr>
+<tr><td width="16%"><code class="code">sme-lutv2</code></td><td width="22%"></td><td width="62%">Enable SME Lookup Table v2 (LUTv2) extension.</td></tr>
+<tr><td width="16%"><code class="code">sme2</code></td><td width="22%"><code class="code">sme</code></td><td width="62%">Enable SME2.</td></tr>
+<tr><td width="16%"><code class="code">sme2p1</code></td><td width="22%"><code class="code">sme2</code></td><td width="62%">Enable SME2.1.</td></tr>
+<tr><td width="16%"><code class="code">ssbs</code></td><td width="22%"></td><td width="62%">Enable Speculative Store Bypassing Safe state read and write.</td></tr>
+<tr><td width="16%"><code class="code">ssve-fp8dot2</code></td><td width="22%"><code class="code">ssve-fp8dot4</code></td><td width="62%">Enable the Streaming SVE FP8 2-way dot product instructions.  These can also be enabled using <code class="code">+fp8dot2+sme2</code>.</td></tr>
+<tr><td width="16%"><code class="code">ssve-fp8dot4</code></td><td width="22%"><code class="code">ssve-fp8fma</code></td><td width="62%">Enable the Streaming SVE FP8 4-way dot product instructions.  These can also be enabled using <code class="code">+fp8dot4+sme2</code>.</td></tr>
+<tr><td width="16%"><code class="code">ssve-fp8fma</code></td><td width="22%"><code class="code">sme2</code>, <code class="code">fp8</code></td><td width="62%">Enable the Streaming SVE FP8 FMA instructions.  These can also be enabled using <code class="code">+fp8fma+sme2</code>.</td></tr>
+<tr><td width="16%"><code class="code">sve</code></td><td width="22%"><code class="code">fcma</code></td><td width="62%">Enable the Scalable Vector Extension.</td></tr>
+<tr><td width="16%"><code class="code">sve2</code></td><td width="22%"><code class="code">sve</code></td><td width="62%">Enable SVE2.</td></tr>
+<tr><td width="16%"><code class="code">sve2-aes</code></td><td width="22%"><code class="code">sve2</code>, <code class="code">aes</code></td><td width="62%">Enable the SVE2 AES and PMULL Extensions.</td></tr>
+<tr><td width="16%"><code class="code">sve2-bitperm</code></td><td width="22%"><code class="code">sve2</code></td><td width="62%">Enable the SVE2 BITPERM Extension.</td></tr>
+<tr><td width="16%"><code class="code">sve2-sha3</code></td><td width="22%"><code class="code">sve2</code>, <code class="code">sha3</code></td><td width="62%">Enable the SVE2 SHA3 Extension.</td></tr>
+<tr><td width="16%"><code class="code">sve2-sm4</code></td><td width="22%"><code class="code">sve2</code>, <code class="code">sm4</code></td><td width="62%">Enable the SVE2 SM4 Extension.</td></tr>
+<tr><td width="16%"><code class="code">sve2p1</code></td><td width="22%"><code class="code">sve2</code></td><td width="62%">Enable SVE2.1.</td></tr>
+<tr><td width="16%"><code class="code">the</code></td><td width="22%"></td><td width="62%">Enable the Translation Hardening Extension.</td></tr>
+<tr><td width="16%"><code class="code">tme</code></td><td width="22%"></td><td width="62%">Enable the Transactional Memory Extension.</td></tr>
+<tr><td width="16%"><code class="code">wfxt</code></td><td width="22%"></td><td width="62%">Enable <code class="code">wfet</code> and <code class="code">wfit</code> instructions.</td></tr>
+<tr><td width="16%"><code class="code">xs</code></td><td width="22%"></td><td width="62%">Enable the XS memory attribute extension.</td></tr>
+</tbody>
 </table>
 
-<table>
+<table class="multitable">
 <thead><tr><th width="20%">Architecture Version</th><th width="80%">Includes</th></tr></thead>
-<tr><td width="20%"><code>armv8-a</code></td><td width="80%"><code>simd</code>, <code>chk</code>, <code>ras</code></td></tr>
-<tr><td width="20%"><code>armv8.1-a</code></td><td width="80%"><code>armv8-a</code>, <code>crc</code>, <code>lse</code>, <code>rdma</code>, <code>pan</code>, <code>lor</code></td></tr>
-<tr><td width="20%"><code>armv8.2-a</code></td><td width="80%"><code>armv8.1-a</code></td></tr>
-<tr><td width="20%"><code>armv8.3-a</code></td><td width="80%"><code>armv8.2-a</code>, <code>fcma</code>, <code>jscvt</code>, <code>pauth</code>, <code>rcpc</code></td></tr>
-<tr><td width="20%"><code>armv8.4-a</code></td><td width="80%"><code>armv8.3-a</code>, <code>fp16fml</code>, <code>dotprod</code>, <code>flagm</code>, <code>rcpc2</code></td></tr>
-<tr><td width="20%"><code>armv8.5-a</code></td><td width="80%"><code>armv8.4-a</code>, <code>frintts</code>, <code>flagm2</code>, <code>predres</code>, <code>sb</code>, <code>ssbs</code></td></tr>
-<tr><td width="20%"><code>armv8.6-a</code></td><td width="80%"><code>armv8.5-a</code>, <code>bf16</code>, <code>i8mm</code></td></tr>
-<tr><td width="20%"><code>armv8.7-a</code></td><td width="80%"><code>armv8.6-a</code>, <code>ls64</code>, <code>xs</code>, <code>wfxt</code></td></tr>
-<tr><td width="20%"><code>armv8.8-a</code></td><td width="80%"><code>armv8.7-a</code>, <code>hbc</code>, <code>mops</code></td></tr>
-<tr><td width="20%"><code>armv8.9-a</code></td><td width="80%"><code>armv8.8-a</code>, <code>rasv2</code>, <code>predres2</code></td></tr>
-<tr><td width="20%"><code>armv9-a</code></td><td width="80%"><code>armv8.5-a</code>, <code>sve2</code></td></tr>
-<tr><td width="20%"><code>armv9.1-a</code></td><td width="80%"><code>armv9-a</code>, <code>armv8.6-a</code></td></tr>
-<tr><td width="20%"><code>armv9.2-a</code></td><td width="80%"><code>armv9.1-a</code>, <code>armv8.7-a</code></td></tr>
-<tr><td width="20%"><code>armv9.3-a</code></td><td width="80%"><code>armv9.2-a</code>, <code>armv8.8-a</code></td></tr>
-<tr><td width="20%"><code>armv9.4-a</code></td><td width="80%"><code>armv9.3-a</code>, <code>armv8.9-a</code></td></tr>
-<tr><td width="20%"><code>armv9.5-a</code></td><td width="80%"><code>armv9.4-a</code>, <code>cpa</code>, <code>lut</code>, <code>faminmax</code></td></tr>
-<tr><td width="20%"><code>armv8-r</code></td><td width="80%"><code>armv8.4-a+nolor</code></td></tr>
+<tbody><tr><td width="20%"><code class="code">armv8-a</code></td><td width="80%"><code class="code">simd</code>, <code class="code">chk</code>, <code class="code">ras</code></td></tr>
+<tr><td width="20%"><code class="code">armv8.1-a</code></td><td width="80%"><code class="code">armv8-a</code>, <code class="code">crc</code>, <code class="code">lse</code>, <code class="code">rdma</code>, <code class="code">pan</code>, <code class="code">lor</code></td></tr>
+<tr><td width="20%"><code class="code">armv8.2-a</code></td><td width="80%"><code class="code">armv8.1-a</code></td></tr>
+<tr><td width="20%"><code class="code">armv8.3-a</code></td><td width="80%"><code class="code">armv8.2-a</code>, <code class="code">fcma</code>, <code class="code">jscvt</code>, <code class="code">pauth</code>, <code class="code">rcpc</code></td></tr>
+<tr><td width="20%"><code class="code">armv8.4-a</code></td><td width="80%"><code class="code">armv8.3-a</code>, <code class="code">fp16fml</code>, <code class="code">dotprod</code>, <code class="code">flagm</code>, <code class="code">rcpc2</code></td></tr>
+<tr><td width="20%"><code class="code">armv8.5-a</code></td><td width="80%"><code class="code">armv8.4-a</code>, <code class="code">frintts</code>, <code class="code">flagm2</code>, <code class="code">predres</code>, <code class="code">sb</code>, <code class="code">ssbs</code></td></tr>
+<tr><td width="20%"><code class="code">armv8.6-a</code></td><td width="80%"><code class="code">armv8.5-a</code>, <code class="code">bf16</code>, <code class="code">i8mm</code></td></tr>
+<tr><td width="20%"><code class="code">armv8.7-a</code></td><td width="80%"><code class="code">armv8.6-a</code>, <code class="code">ls64</code>, <code class="code">xs</code>, <code class="code">wfxt</code></td></tr>
+<tr><td width="20%"><code class="code">armv8.8-a</code></td><td width="80%"><code class="code">armv8.7-a</code>, <code class="code">hbc</code>, <code class="code">mops</code></td></tr>
+<tr><td width="20%"><code class="code">armv8.9-a</code></td><td width="80%"><code class="code">armv8.8-a</code>, <code class="code">rasv2</code>, <code class="code">predres2</code></td></tr>
+<tr><td width="20%"><code class="code">armv9-a</code></td><td width="80%"><code class="code">armv8.5-a</code>, <code class="code">sve2</code></td></tr>
+<tr><td width="20%"><code class="code">armv9.1-a</code></td><td width="80%"><code class="code">armv9-a</code>, <code class="code">armv8.6-a</code></td></tr>
+<tr><td width="20%"><code class="code">armv9.2-a</code></td><td width="80%"><code class="code">armv9.1-a</code>, <code class="code">armv8.7-a</code></td></tr>
+<tr><td width="20%"><code class="code">armv9.3-a</code></td><td width="80%"><code class="code">armv9.2-a</code>, <code class="code">armv8.8-a</code></td></tr>
+<tr><td width="20%"><code class="code">armv9.4-a</code></td><td width="80%"><code class="code">armv9.3-a</code>, <code class="code">armv8.9-a</code></td></tr>
+<tr><td width="20%"><code class="code">armv9.5-a</code></td><td width="80%"><code class="code">armv9.4-a</code>, <code class="code">cpa</code>, <code class="code">lut</code>, <code class="code">faminmax</code></td></tr>
+<tr><td width="20%"><code class="code">armv8-r</code></td><td width="80%"><code class="code">armv8.4-a+nolor</code></td></tr>
+</tbody>
 </table>
 
 </div>
 <hr>
-<div class="header">
+<div class="nav-panel">
 <p>
 Next: <a href="AArch64-Syntax.html">Syntax</a>, Previous: <a href="AArch64-Options.html">Options</a>, Up: <a href="AArch64_002dDependent.html">AArch64 Dependent Features</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

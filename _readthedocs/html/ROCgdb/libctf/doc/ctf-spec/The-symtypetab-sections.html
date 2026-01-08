@@ -1,9 +1,9 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright (C) 2021-2025 Free Software Foundation, Inc.
+<!-- Copyright © 2021-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU General Public License, Version 3 or any
@@ -28,21 +28,8 @@ License".
 <link href="The-type-section.html" rel="prev" title="The type section">
 <style type="text/css">
 <!--
-a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
-a.summary-letter {text-decoration: none}
-blockquote.indentedblock {margin-right: 0em}
-div.display {margin-left: 3.2em}
-div.example {margin-left: 3.2em}
-kbd {font-style: oblique}
-pre.display {font-family: inherit}
-pre.format {font-family: inherit}
-pre.menu-comment {font-family: serif}
-pre.menu-preformatted {font-family: serif}
-span.nolinebreak {white-space: nowrap}
-span.roman {font-family: initial; font-weight: normal}
-span.sansserif {font-family: sans-serif; font-weight: normal}
-span:hover a.copiable-anchor {visibility: visible}
-ul.no-bullet {list-style: none}
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+span:hover a.copiable-link {visibility: visible}
 -->
 </style>
 
@@ -50,49 +37,49 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<div class="section" id="The-symtypetab-sections">
-<div class="header">
+<div class="section-level-extent" id="The-symtypetab-sections">
+<div class="nav-panel">
 <p>
 Next: <a href="The-variable-section.html" accesskey="n" rel="next">The variable section</a>, Previous: <a href="The-type-section.html" accesskey="p" rel="prev">The type section</a>, Up: <a href="CTF-dictionaries.html" accesskey="u" rel="up">CTF dictionaries</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="The-symtypetab-sections-1"></span><h3 class="section">2.4 The symtypetab sections</h3>
-<span id="index-Symtypetab-section"></span>
-<span id="index-Sections_002c-symtypetab"></span>
-<span id="index-Function-info-section"></span>
-<span id="index-Sections_002c-function-info"></span>
-<span id="index-Data-object-section"></span>
-<span id="index-Sections_002c-data-object"></span>
-<span id="index-Function-info-index-section"></span>
-<span id="index-Sections_002c-function-info-index"></span>
-<span id="index-Data-object-index-section"></span>
-<span id="index-Sections_002c-data-object-index"></span>
-<span id="index-CTF_005fF_005fIDXSORTED-1"></span>
-<span id="index-CTF_005fF_005fDYNSTR-1"></span>
-<span id="index-Bug-workarounds_002c-CTF_005fF_005fDYNSTR"></span>
+<h3 class="section" id="The-symtypetab-sections-1"><span>2.4 The symtypetab sections<a class="copiable-link" href="#The-symtypetab-sections-1"> &para;</a></span></h3>
+<a class="index-entry-id" id="index-Symtypetab-section"></a>
+<a class="index-entry-id" id="index-Sections_002c-symtypetab"></a>
+<a class="index-entry-id" id="index-Function-info-section"></a>
+<a class="index-entry-id" id="index-Sections_002c-function-info"></a>
+<a class="index-entry-id" id="index-Data-object-section"></a>
+<a class="index-entry-id" id="index-Sections_002c-data-object"></a>
+<a class="index-entry-id" id="index-Function-info-index-section"></a>
+<a class="index-entry-id" id="index-Sections_002c-function-info-index"></a>
+<a class="index-entry-id" id="index-Data-object-index-section"></a>
+<a class="index-entry-id" id="index-Sections_002c-data-object-index"></a>
+<a class="index-entry-id" id="index-CTF_005fF_005fIDXSORTED-1"></a>
+<a class="index-entry-id" id="index-CTF_005fF_005fDYNSTR-1"></a>
+<a class="index-entry-id" id="index-Bug-workarounds_002c-CTF_005fF_005fDYNSTR"></a>
 
 <p>These are two very simple sections with identical formats, used by consumers to
 map from ELF function and data symbols directly to their types. So they are
 usually populated only in CTF sections that are embedded in ELF objects.
 </p>
 <p>Their format is very simple: an array of type IDs. Which symbol each type ID
-corresponds to depends on whether the optional <em>index section</em> associated
+corresponds to depends on whether the optional <em class="emph">index section</em> associated
 with this symtypetab section has any content.
 </p>
-<p>If the index section is nonempty, it is an array of <code>uint32_t</code> string table
+<p>If the index section is nonempty, it is an array of <code class="code">uint32_t</code> string table
 offsets, each giving the name of the symbol whose type is at the same offset in
 the corresponding non-index section: users can look up symbols in such a table
 by name.  The index section and corresponding symtypetab section is usually
-ASCIIbetically sorted (indicated by the <code>CTF_F_IDXSORTED</code> flag in the
+ASCIIbetically sorted (indicated by the <code class="code">CTF_F_IDXSORTED</code> flag in the
 header): if it&rsquo;s sorted, it can be bsearched for a symbol name rather than
 having to use a slower linear search.
 </p>
 <p>If the data object index section is empty, the entries in the data object and
 function info sections are associated 1:1 with ELF symbols of type
-<code>STT_OBJECT</code> (for data object) or <code>STT_FUNC</code> (for function info) with
+<code class="code">STT_OBJECT</code> (for data object) or <code class="code">STT_FUNC</code> (for function info) with
 a nonzero value: the linker shuffles the symtypetab sections to correspond with
 the order of the symbols in the ELF file.  Symbols with no name, undefined
-symbols and symbols named &ldquo;<code>_START_</code>&rdquo; and &ldquo;<code>_END_</code>&rdquo; are skipped
+symbols and symbols named &ldquo;<code class="code">_START_</code>&rdquo; and &ldquo;<code class="code">_END_</code>&rdquo; are skipped
 and never appear in either section.  Symbols that have no corresponding type are
 represented by type ID 0. The section may have fewer entries than the symbol
 table, in which case no later entries have associated types.  This format is
@@ -104,7 +91,7 @@ be wrong!
 <p>The compiler always emits indexed symtypetab tables, because there is no symbol
 table yet. The linker will always have to read them all in and always works
 through them from start to end, so there is no benefit having the compiler sort
-them either. The linker (actually, <code>libctf</code>&rsquo;s linking machinery) will
+them either. The linker (actually, <code class="code">libctf</code>&rsquo;s linking machinery) will
 automatically sort unsorted indexed sections, and convert indexed sections that
 contain a lot of pads into the more compact, unindexed form.
 </p>
@@ -119,7 +106,7 @@ translation units.)
 </p>
 </div>
 <hr>
-<div class="header">
+<div class="nav-panel">
 <p>
 Next: <a href="The-variable-section.html">The variable section</a>, Previous: <a href="The-type-section.html">The type section</a>, Up: <a href="CTF-dictionaries.html">CTF dictionaries</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

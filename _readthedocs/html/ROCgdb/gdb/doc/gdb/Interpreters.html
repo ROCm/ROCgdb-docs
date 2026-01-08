@@ -1,9 +1,9 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright (C) 1988-2024 Free Software Foundation, Inc.
+<!-- Copyright © 1988-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -20,13 +20,13 @@ Legal Disclaimer and Copyright Information
 
 AMD ROCm software is made available by Advanced Micro Devices, Inc. under the
 open source license identified in the top-level directory for the library in
-the repository on Github.com (Portions of AMD ROCm software are
-licensed under MITx11 and UIL/NCSA. For more information on the license, review
-the license.txt in the top-level directory for the library on
-Github.com).  The additional terms and conditions below apply to your use
-of AMD ROCm technical documentation.
+the repository on https://github.com/ROCm/ (Github.com) (Portions of AMD
+ROCm software are licensed under MITx11 and UIL/NCSA. For more information on
+the license, review the license.txt in the top-level directory for the
+library on https://github.com/ROCm/ (Github.com)).  The additional terms
+and conditions below apply to your use of AMD ROCm technical documentation.
 
-(C)2019-2025 Advanced Micro Devices, Inc.  All rights reserved.
+©2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
 
 The information presented in this document is for informational purposes only
 and may contain technical inaccuracies, omissions, and typographical errors.
@@ -52,8 +52,8 @@ EVEN IF AMD IS EXPRESSLY ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
 
 AMD, the AMD Arrow logo, AMD Instinct™, Radeon™, AMD ROCm™, and combinations
 thereof are trademarks of Advanced Micro Devices, Inc.
-Linux(R) is the registered trademark of Linus Torvalds in the
-U.S. and other countries. PCIe(R) is a registered trademark of
+Linux® is the registered trademark of Linus Torvalds in the
+U.S. and other countries. PCIe® is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
@@ -74,21 +74,9 @@ companies. -->
 <link href="Extending-GDB.html" rel="prev" title="Extending GDB">
 <style type="text/css">
 <!--
-a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
-a.summary-letter {text-decoration: none}
-blockquote.indentedblock {margin-right: 0em}
-div.display {margin-left: 3.2em}
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
 div.example {margin-left: 3.2em}
-kbd {font-style: oblique}
-pre.display {font-family: inherit}
-pre.format {font-family: inherit}
-pre.menu-comment {font-family: serif}
-pre.menu-preformatted {font-family: serif}
-span.nolinebreak {white-space: nowrap}
-span.roman {font-family: initial; font-weight: normal}
-span.sansserif {font-family: sans-serif; font-weight: normal}
-span:hover a.copiable-anchor {visibility: visible}
-ul.no-bullet {list-style: none}
+span:hover a.copiable-link {visibility: visible}
 -->
 </style>
 
@@ -96,125 +84,125 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<div class="chapter" id="Interpreters">
-<div class="header">
+<div class="chapter-level-extent" id="Interpreters">
+<div class="nav-panel">
 <p>
-Next: <a href="TUI.html" accesskey="n" rel="next"><small>ROCGDB</small> Text User Interface</a>, Previous: <a href="Extending-GDB.html" accesskey="p" rel="prev">Extending <small>ROCGDB</small></a>, Up: <a href="index.html" accesskey="u" rel="up">Debugging with <small>ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="TUI.html" accesskey="n" rel="next"><small class="sc">ROCGDB</small> Text User Interface</a>, Previous: <a href="Extending-GDB.html" accesskey="p" rel="prev">Extending <small class="sc">ROCGDB</small></a>, Up: <a href="index.html" accesskey="u" rel="up">Debugging with <small class="sc">ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="Command-Interpreters"></span><h2 class="chapter">25 Command Interpreters</h2>
-<span id="index-command-interpreters"></span>
+<h2 class="chapter" id="Command-Interpreters"><span>25 Command Interpreters<a class="copiable-link" href="#Command-Interpreters"> &para;</a></span></h2>
+<a class="index-entry-id" id="index-command-interpreters"></a>
 
-<p><small>ROCGDB</small> supports multiple command interpreters, and some command
+<p><small class="sc">ROCGDB</small> supports multiple command interpreters, and some command
 infrastructure to allow users or user interface writers to switch
 between interpreters or run commands in other interpreters.
 </p>
-<p><small>ROCGDB</small> currently supports two command interpreters, the console
-interpreter (sometimes called the command-line interpreter or <small>CLI</small>)
-and the machine interface interpreter (or <small>GDB/MI</small>).  This manual
+<p><small class="sc">ROCGDB</small> currently supports two command interpreters, the console
+interpreter (sometimes called the command-line interpreter or <small class="sc">CLI</small>)
+and the machine interface interpreter (or <small class="sc">GDB/MI</small>).  This manual
 describes both of these interfaces in great detail.
 </p>
-<p>By default, <small>ROCGDB</small> will start with the console interpreter.
-However, the user may choose to start <small>ROCGDB</small> with another
-interpreter by specifying the <samp>-i</samp> or <samp>--interpreter</samp>
+<p>By default, <small class="sc">ROCGDB</small> will start with the console interpreter.
+However, the user may choose to start <small class="sc">ROCGDB</small> with another
+interpreter by specifying the <samp class="option">-i</samp> or <samp class="option">--interpreter</samp>
 startup options.  Defined interpreters include:
 </p>
-<dl compact="compact">
-<dt id='index-console-interpreter'><span><code>console</code><a href='#index-console-interpreter' class='copiable-anchor'> &para;</a></span></dt>
+<dl class="table">
+<dt><a id="index-console-interpreter"></a><span><code class="code">console</code><a class="copiable-link" href="#index-console-interpreter"> &para;</a></span></dt>
 <dd><p>The traditional console or command-line interpreter.  This is the most often
-used interpreter with <small>ROCGDB</small>. With no interpreter specified at runtime,
-<small>ROCGDB</small> will use this interpreter.
+used interpreter with <small class="sc">ROCGDB</small>. With no interpreter specified at runtime,
+<small class="sc">ROCGDB</small> will use this interpreter.
 </p>
 </dd>
-<dt id='index-DAP'><span><code>dap</code><a href='#index-DAP' class='copiable-anchor'> &para;</a></span></dt>
-<dd><span id="index-Debugger-Adapter-Protocol"></span>
-<p>When <small>ROCGDB</small> has been built with Python support, it also supports
+<dt><a class="index-entry-id" id="index-Debugger-Adapter-Protocol"></a>
+<a id="index-DAP"></a><span><code class="code">dap</code><a class="copiable-link" href="#index-DAP"> &para;</a></span></dt>
+<dd><p>When <small class="sc">ROCGDB</small> has been built with Python support, it also supports
 the Debugger Adapter Protocol.  This protocol can be used by a
-debugger GUI or an IDE to communicate with <small>ROCGDB</small>.  This
+debugger GUI or an IDE to communicate with <small class="sc">ROCGDB</small>.  This
 protocol is documented at
-<a href="https://microsoft.github.io/debug-adapter-protocol/">https://microsoft.github.io/debug-adapter-protocol/</a>.
-See <a href="Debugger-Adapter-Protocol.html">Debugger Adapter Protocol</a>, for information about <small>ROCGDB</small>
+<a class="url" href="https://microsoft.github.io/debug-adapter-protocol/">https://microsoft.github.io/debug-adapter-protocol/</a>.
+See <a class="xref" href="Debugger-Adapter-Protocol.html">Debugger Adapter Protocol</a>, for information about <small class="sc">ROCGDB</small>
 extensions to the protocol.
 </p>
 </dd>
-<dt id='index-mi-interpreter'><span><code>mi</code><a href='#index-mi-interpreter' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>The newest <small>GDB/MI</small> interface (currently <code>mi3</code>).  Used primarily
-by programs wishing to use <small>ROCGDB</small> as a backend for a debugger GUI
-or an IDE.  For more information, see <a href="GDB_002fMI.html">The <small>GDB/MI</small>
+<dt><a id="index-mi-interpreter"></a><span><code class="code">mi</code><a class="copiable-link" href="#index-mi-interpreter"> &para;</a></span></dt>
+<dd><p>The newest <small class="sc">GDB/MI</small> interface (currently <code class="code">mi3</code>).  Used primarily
+by programs wishing to use <small class="sc">ROCGDB</small> as a backend for a debugger GUI
+or an IDE.  For more information, see <a class="ref" href="GDB_002fMI.html">The <small class="sc">GDB/MI</small>
 Interface</a>.
 </p>
 </dd>
-<dt id='index-mi3-interpreter'><span><code>mi3</code><a href='#index-mi3-interpreter' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>The <small>GDB/MI</small> interface introduced in <small>ROCGDB</small> 9.1.
+<dt><a id="index-mi3-interpreter"></a><span><code class="code">mi3</code><a class="copiable-link" href="#index-mi3-interpreter"> &para;</a></span></dt>
+<dd><p>The <small class="sc">GDB/MI</small> interface introduced in <small class="sc">ROCGDB</small> 9.1.
 </p>
 </dd>
-<dt id='index-mi2-interpreter'><span><code>mi2</code><a href='#index-mi2-interpreter' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>The <small>GDB/MI</small> interface introduced in <small>ROCGDB</small> 6.0.
+<dt><a id="index-mi2-interpreter"></a><span><code class="code">mi2</code><a class="copiable-link" href="#index-mi2-interpreter"> &para;</a></span></dt>
+<dd><p>The <small class="sc">GDB/MI</small> interface introduced in <small class="sc">ROCGDB</small> 6.0.
 </p>
 </dd>
 </dl>
 
-<span id="index-invoke-another-interpreter"></span>
+<a class="index-entry-id" id="index-invoke-another-interpreter"></a>
 
-<span id="index-interpreter_002dexec"></span>
+<a class="index-entry-id" id="index-interpreter_002dexec"></a>
 <p>You may execute commands in any interpreter from the current
 interpreter using the appropriate command.  If you are running the
-console interpreter, simply use the <code>interpreter-exec</code> command:
+console interpreter, simply use the <code class="code">interpreter-exec</code> command:
 </p>
-<div class="example">
-<pre class="example">interpreter-exec mi &quot;-data-list-register-names&quot;
+<div class="example smallexample">
+<pre class="example-preformatted">interpreter-exec mi &quot;-data-list-register-names&quot;
 </pre></div>
 
-<p><small>GDB/MI</small> has a similar command, although it is only available in versions of
-<small>ROCGDB</small> which support <small>GDB/MI</small> version 2 (or greater).
+<p><small class="sc">GDB/MI</small> has a similar command, although it is only available in versions of
+<small class="sc">ROCGDB</small> which support <small class="sc">GDB/MI</small> version 2 (or greater).
 </p>
-<p>Note that <code>interpreter-exec</code> only changes the interpreter for the
+<p>Note that <code class="code">interpreter-exec</code> only changes the interpreter for the
 duration of the specified command.  It does not change the interpreter
 permanently.
 </p>
-<span id="index-start-a-new-independent-interpreter"></span>
+<a class="index-entry-id" id="index-start-a-new-independent-interpreter"></a>
 
 <p>Although you may only choose a single interpreter at startup, it is
 possible to run an independent interpreter on a specified input/output
 device (usually a tty).
 </p>
 <p>For example, consider a debugger GUI or IDE that wants to provide a
-<small>ROCGDB</small> console view.  It may do so by embedding a terminal
-emulator widget in its GUI, starting <small>ROCGDB</small> in the traditional
+<small class="sc">ROCGDB</small> console view.  It may do so by embedding a terminal
+emulator widget in its GUI, starting <small class="sc">ROCGDB</small> in the traditional
 command-line mode with stdin/stdout/stderr redirected to that
 terminal, and then creating an MI interpreter running on a specified
-input/output device.  The console interpreter created by <small>ROCGDB</small>
+input/output device.  The console interpreter created by <small class="sc">ROCGDB</small>
 at startup handles commands the user types in the terminal widget,
-while the GUI controls and synchronizes state with <small>ROCGDB</small> using
+while the GUI controls and synchronizes state with <small class="sc">ROCGDB</small> using
 the separate MI interpreter.
 </p>
-<p>To start a new secondary <em>user interface</em> running MI, use the
-<code>new-ui</code> command:
+<p>To start a new secondary <em class="dfn">user interface</em> running MI, use the
+<code class="code">new-ui</code> command:
 </p>
-<span id="index-new_002dui"></span>
-<span id="index-new-user-interface"></span>
-<div class="example">
-<pre class="example">new-ui <var>interpreter</var> <var>tty</var>
+<a class="index-entry-id" id="index-new_002dui"></a>
+<a class="index-entry-id" id="index-new-user-interface"></a>
+<div class="example smallexample">
+<pre class="example-preformatted">new-ui <var class="var">interpreter</var> <var class="var">tty</var>
 </pre></div>
 
-<p>The <var>interpreter</var> parameter specifies the interpreter to run.
-This accepts the same values as the <code>interpreter-exec</code> command.
-For example, &lsquo;<samp>console</samp>&rsquo;, &lsquo;<samp>mi</samp>&rsquo;, &lsquo;<samp>mi2</samp>&rsquo;, etc.  The
-<var>tty</var> parameter specifies the name of the bidirectional file the
+<p>The <var class="var">interpreter</var> parameter specifies the interpreter to run.
+This accepts the same values as the <code class="code">interpreter-exec</code> command.
+For example, &lsquo;<samp class="samp">console</samp>&rsquo;, &lsquo;<samp class="samp">mi</samp>&rsquo;, &lsquo;<samp class="samp">mi2</samp>&rsquo;, etc.  The
+<var class="var">tty</var> parameter specifies the name of the bidirectional file the
 interpreter uses for input/output, usually the name of a
 pseudoterminal slave on Unix systems.  For example:
 </p>
-<div class="example">
-<pre class="example">(gdb) new-ui mi /dev/pts/9
+<div class="example smallexample">
+<pre class="example-preformatted">(gdb) new-ui mi /dev/pts/9
 </pre></div>
 
-<p>runs an MI interpreter on <samp>/dev/pts/9</samp>.
+<p>runs an MI interpreter on <samp class="file">/dev/pts/9</samp>.
 </p>
 </div>
 <hr>
-<div class="header">
+<div class="nav-panel">
 <p>
-Next: <a href="TUI.html"><small>ROCGDB</small> Text User Interface</a>, Previous: <a href="Extending-GDB.html">Extending <small>ROCGDB</small></a>, Up: <a href="index.html">Debugging with <small>ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="TUI.html"><small class="sc">ROCGDB</small> Text User Interface</a>, Previous: <a href="Extending-GDB.html">Extending <small class="sc">ROCGDB</small></a>, Up: <a href="index.html">Debugging with <small class="sc">ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

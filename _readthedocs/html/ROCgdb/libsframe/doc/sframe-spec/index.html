@@ -1,9 +1,9 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright (C) 2021-2025 Free Software Foundation, Inc.
+<!-- Copyright © 2021-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU General Public License, Version 3 or any
@@ -26,21 +26,10 @@ License".
 <link href="Introduction.html" rel="next" title="Introduction">
 <style type="text/css">
 <!--
-a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
-a.summary-letter {text-decoration: none}
-blockquote.indentedblock {margin-right: 0em}
-div.display {margin-left: 3.2em}
-div.example {margin-left: 3.2em}
-kbd {font-style: oblique}
-pre.display {font-family: inherit}
-pre.format {font-family: inherit}
-pre.menu-comment {font-family: serif}
-pre.menu-preformatted {font-family: serif}
-span.nolinebreak {white-space: nowrap}
-span.roman {font-family: initial; font-weight: normal}
-span.sansserif {font-family: sans-serif; font-weight: normal}
-span:hover a.copiable-anchor {visibility: visible}
-ul.no-bullet {list-style: none}
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+span:hover a.copiable-link {visibility: visible}
+ul.mark-minus {list-style-type: "\2212"}
+ul.toc-numbered-mark {list-style: none}
 -->
 </style>
 
@@ -48,27 +37,26 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<h1 class="settitle" align="center">The SFrame Format</h1>
 
 
 
 
-<div class="top" id="Top">
-<div class="header">
+<div class="top-level-extent" id="Top">
+<div class="nav-panel">
 <p>
 Next: <a href="Introduction.html" accesskey="n" rel="next">Introduction</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="The-SFrame-format"></span><h1 class="top">The SFrame format</h1>
+<h1 class="top" id="The-SFrame-format"><span>The SFrame format<a class="copiable-link" href="#The-SFrame-format"> &para;</a></span></h1>
 
 <p>This manual describes version 2 of the SFrame file format.  SFrame stands for
 Simple Frame.  The SFrame format keeps track of the minimal necessary
 information needed for generating stack traces:
 </p>
-<ul class="no-bullet">
-<li>- Canonical Frame Address (CFA).
-</li><li>- Frame Pointer (FP).
-</li><li>- Return Address (RA).
+<ul class="itemize mark-minus">
+<li>Canonical Frame Address (CFA).
+</li><li>Frame Pointer (FP).
+</li><li>Return Address (RA).
 </li></ul>
 
 <p>The reason for existence of the SFrame format is to provide a simple, fast and
@@ -76,42 +64,42 @@ low-overhead mechanism to generate stack traces.
 </p>
 
 
-<div class="Contents_element" id="SEC_Contents">
+<div class="element-contents" id="SEC_Contents">
 <h2 class="contents-heading">Table of Contents</h2>
 
 <div class="contents">
 
-<ul class="no-bullet">
+<ul class="toc-numbered-mark">
   <li><a id="toc-Introduction-1" href="Introduction.html">1 Introduction</a>
-  <ul class="no-bullet">
+  <ul class="toc-numbered-mark">
     <li><a id="toc-Overview-1" href="Overview.html">1.1 Overview</a></li>
     <li><a id="toc-Changes-from-Version-1-to-Version-2-1" href="Changes-from-Version-1-to-Version-2.html">1.2 Changes from Version 1 to Version 2</a></li>
   </ul></li>
   <li><a id="toc-SFrame-Section-1" href="SFrame-Section.html">2 SFrame Section</a>
-  <ul class="no-bullet">
+  <ul class="toc-numbered-mark">
     <li><a id="toc-SFrame-Preamble-1" href="SFrame-Preamble.html">2.1 SFrame Preamble</a>
-    <ul class="no-bullet">
+    <ul class="toc-numbered-mark">
       <li><a id="toc-SFrame-Magic-Number-and-Endianness-1" href="SFrame-Magic-Number-and-Endianness.html">2.1.1 SFrame Magic Number and Endianness</a></li>
       <li><a id="toc-SFrame-Version-1" href="SFrame-Version.html">2.1.2 SFrame Version</a></li>
       <li><a id="toc-SFrame-Flags-1" href="SFrame-Flags.html">2.1.3 SFrame Flags</a></li>
     </ul></li>
     <li><a id="toc-SFrame-Header-1" href="SFrame-Header.html">2.2 SFrame Header</a>
-    <ul class="no-bullet">
+    <ul class="toc-numbered-mark">
       <li><a id="toc-SFrame-ABI_002farch-Identifier-1" href="SFrame-ABI_002farch-Identifier.html">2.2.1 SFrame ABI/arch Identifier</a></li>
     </ul></li>
     <li><a id="toc-SFrame-FDE" href="SFrame-Function-Descriptor-Entries.html">2.3 SFrame FDE</a>
-    <ul class="no-bullet">
+    <ul class="toc-numbered-mark">
       <li><a id="toc-The-SFrame-FDE-Info-Word-1" href="The-SFrame-FDE-Info-Word.html">2.3.1 The SFrame FDE Info Word</a></li>
       <li><a id="toc-The-SFrame-FDE-Types-1" href="The-SFrame-FDE-Types.html">2.3.2 The SFrame FDE Types</a></li>
       <li><a id="toc-The-SFrame-FRE-Types-1" href="The-SFrame-FRE-Types.html">2.3.3 The SFrame FRE Types</a></li>
     </ul></li>
     <li><a id="toc-SFrame-FRE" href="SFrame-Frame-Row-Entries.html">2.4 SFrame FRE</a>
-    <ul class="no-bullet">
+    <ul class="toc-numbered-mark">
       <li><a id="toc-The-SFrame-FRE-Info-Word-1" href="The-SFrame-FRE-Info-Word.html">2.4.1 The SFrame FRE Info Word</a></li>
     </ul></li>
   </ul></li>
   <li><a id="toc-ABI_002farch_002dspecific-Definition-1" href="ABI_002farch_002dspecific-Definition.html">3 ABI/arch-specific Definition</a>
-  <ul class="no-bullet">
+  <ul class="toc-numbered-mark">
     <li><a id="toc-AMD64-1" href="AMD64.html">3.1 AMD64</a></li>
     <li><a id="toc-AArch64-1" href="AArch64.html">3.2 AArch64</a></li>
   </ul></li>
@@ -122,7 +110,7 @@ low-overhead mechanism to generate stack traces.
 </div>
 </div>
 <hr>
-<div class="header">
+<div class="nav-panel">
 <p>
 Next: <a href="Introduction.html" accesskey="n" rel="next">Introduction</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

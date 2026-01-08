@@ -1,9 +1,9 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright (C) 1988-2024 Free Software Foundation, Inc.
+<!-- Copyright © 1988-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -20,13 +20,13 @@ Legal Disclaimer and Copyright Information
 
 AMD ROCm software is made available by Advanced Micro Devices, Inc. under the
 open source license identified in the top-level directory for the library in
-the repository on Github.com (Portions of AMD ROCm software are
-licensed under MITx11 and UIL/NCSA. For more information on the license, review
-the license.txt in the top-level directory for the library on
-Github.com).  The additional terms and conditions below apply to your use
-of AMD ROCm technical documentation.
+the repository on https://github.com/ROCm/ (Github.com) (Portions of AMD
+ROCm software are licensed under MITx11 and UIL/NCSA. For more information on
+the license, review the license.txt in the top-level directory for the
+library on https://github.com/ROCm/ (Github.com)).  The additional terms
+and conditions below apply to your use of AMD ROCm technical documentation.
 
-(C)2019-2025 Advanced Micro Devices, Inc.  All rights reserved.
+©2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
 
 The information presented in this document is for informational purposes only
 and may contain technical inaccuracies, omissions, and typographical errors.
@@ -52,8 +52,8 @@ EVEN IF AMD IS EXPRESSLY ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
 
 AMD, the AMD Arrow logo, AMD Instinct™, Radeon™, AMD ROCm™, and combinations
 thereof are trademarks of Advanced Micro Devices, Inc.
-Linux(R) is the registered trademark of Linus Torvalds in the
-U.S. and other countries. PCIe(R) is a registered trademark of
+Linux® is the registered trademark of Linus Torvalds in the
+U.S. and other countries. PCIe® is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
@@ -74,21 +74,8 @@ companies. -->
 <link href="JIT-Interface.html" rel="prev" title="JIT Interface">
 <style type="text/css">
 <!--
-a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
-a.summary-letter {text-decoration: none}
-blockquote.indentedblock {margin-right: 0em}
-div.display {margin-left: 3.2em}
-div.example {margin-left: 3.2em}
-kbd {font-style: oblique}
-pre.display {font-family: inherit}
-pre.format {font-family: inherit}
-pre.menu-comment {font-family: serif}
-pre.menu-preformatted {font-family: serif}
-span.nolinebreak {white-space: nowrap}
-span.roman {font-family: initial; font-weight: normal}
-span.sansserif {font-family: sans-serif; font-weight: normal}
-span:hover a.copiable-anchor {visibility: visible}
-ul.no-bullet {list-style: none}
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+span:hover a.copiable-link {visibility: visible}
 -->
 </style>
 
@@ -96,14 +83,14 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<div class="chapter" id="In_002dProcess-Agent">
-<div class="header">
+<div class="chapter-level-extent" id="In_002dProcess-Agent">
+<div class="nav-panel">
 <p>
-Next: <a href="GDB-Bugs.html" accesskey="n" rel="next">Reporting Bugs in <small>ROCGDB</small></a>, Previous: <a href="JIT-Interface.html" accesskey="p" rel="prev">JIT Compilation Interface</a>, Up: <a href="index.html" accesskey="u" rel="up">Debugging with <small>ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="GDB-Bugs.html" accesskey="n" rel="next">Reporting Bugs in <small class="sc">ROCGDB</small></a>, Previous: <a href="JIT-Interface.html" accesskey="p" rel="prev">JIT Compilation Interface</a>, Up: <a href="index.html" accesskey="u" rel="up">Debugging with <small class="sc">ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="In_002dProcess-Agent-1"></span><h2 class="chapter">32 In-Process Agent</h2>
-<span id="index-debugging-agent"></span>
+<h2 class="chapter" id="In_002dProcess-Agent-1"><span>32 In-Process Agent<a class="copiable-link" href="#In_002dProcess-Agent-1"> &para;</a></span></h2>
+<a class="index-entry-id" id="index-debugging-agent"></a>
 <p>The traditional debugging model is conceptually low-speed, but works fine,
 because most bugs can be reproduced in debugging-mode execution.  However,
 as multi-core or many-core processors are becoming mainstream, and
@@ -121,7 +108,7 @@ behavior without interrupting it.
 <p>Therefore, traditional debugging model is too intrusive to reproduce
 some bugs.  In order to reduce the interference with the program, we can
 reduce the number of operations performed by debugger.  The
-<em>In-Process Agent</em>, a shared library, is running within the same
+<em class="dfn">In-Process Agent</em>, a shared library, is running within the same
 process with inferior, and is able to perform some debugging operations
 itself.  As a result, debugger is only involved when necessary, and
 performance of debugging can be improved accordingly.  Note that
@@ -129,17 +116,15 @@ interference with program can be reduced but can&rsquo;t be removed completely,
 because the in-process agent will still stop or slow down the program.
 </p>
 <p>The in-process agent can interpret and execute Agent Expressions
-(see <a href="Agent-Expressions.html">The GDB Agent Expression Mechanism</a>) during performing debugging operations.  The
+(see <a class="pxref" href="Agent-Expressions.html">The GDB Agent Expression Mechanism</a>) during performing debugging operations.  The
 agent expressions can be used for different purposes, such as collecting
 data in tracepoints, and condition evaluation in breakpoints.
 </p>
-<span id="Control-Agent"></span><p>You can control whether the in-process agent is used as an aid for
+<a class="anchor" id="Control-Agent"></a><p>You can control whether the in-process agent is used as an aid for
 debugging with the following commands:
 </p>
-<dl compact="compact">
-<dd><span id="index-set-agent-on"></span>
-</dd>
-<dt><span><code>set agent on</code></span></dt>
+<dl class="table">
+<dt><a id="index-set-agent-on"></a><span><code class="code">set agent on</code><a class="copiable-link" href="#index-set-agent-on"> &para;</a></span></dt>
 <dd><p>Causes the in-process agent to perform some operations on behalf of the
 debugger.  Just which operations requested by the user will be done
 by the in-process agent depends on the its capabilities.  For example,
@@ -147,29 +132,27 @@ if you request to evaluate breakpoint conditions in the in-process agent,
 and the in-process agent has such capability as well, then breakpoint
 conditions will be evaluated in the in-process agent.
 </p>
-<span id="index-set-agent-off"></span>
 </dd>
-<dt><span><code>set agent off</code></span></dt>
+<dt><a id="index-set-agent-off"></a><span><code class="code">set agent off</code><a class="copiable-link" href="#index-set-agent-off"> &para;</a></span></dt>
 <dd><p>Disables execution of debugging operations by the in-process agent.  All
-of the operations will be performed by <small>ROCGDB</small>.
+of the operations will be performed by <small class="sc">ROCGDB</small>.
 </p>
-<span id="index-show-agent"></span>
 </dd>
-<dt><span><code>show agent</code></span></dt>
+<dt><a id="index-show-agent"></a><span><code class="code">show agent</code><a class="copiable-link" href="#index-show-agent"> &para;</a></span></dt>
 <dd><p>Display the current setting of execution of debugging operations by
 the in-process agent.
 </p></dd>
 </dl>
 
 
-<ul class="section-toc">
+<ul class="mini-toc">
 <li><a href="In_002dProcess-Agent-Protocol.html" accesskey="1">In-Process Agent Protocol</a></li>
 </ul>
 </div>
 <hr>
-<div class="header">
+<div class="nav-panel">
 <p>
-Next: <a href="GDB-Bugs.html">Reporting Bugs in <small>ROCGDB</small></a>, Previous: <a href="JIT-Interface.html">JIT Compilation Interface</a>, Up: <a href="index.html">Debugging with <small>ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="GDB-Bugs.html">Reporting Bugs in <small class="sc">ROCGDB</small></a>, Previous: <a href="JIT-Interface.html">JIT Compilation Interface</a>, Up: <a href="index.html">Debugging with <small class="sc">ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

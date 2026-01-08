@@ -1,11 +1,11 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the BFD library.
 
-Copyright (C) 1991-2025 Free Software Foundation, Inc.
+Copyright © 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -40,21 +40,8 @@ You have freedom to copy and modify this GNU Manual, like GNU
 <link href="Traversing-a-Hash-Table.html" rel="prev" title="Traversing a Hash Table">
 <style type="text/css">
 <!--
-a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
-a.summary-letter {text-decoration: none}
-blockquote.indentedblock {margin-right: 0em}
-div.display {margin-left: 3.2em}
-div.example {margin-left: 3.2em}
-kbd {font-style: oblique}
-pre.display {font-family: inherit}
-pre.format {font-family: inherit}
-pre.menu-comment {font-family: serif}
-pre.menu-preformatted {font-family: serif}
-span.nolinebreak {white-space: nowrap}
-span.roman {font-family: initial; font-weight: normal}
-span.sansserif {font-family: sans-serif; font-weight: normal}
-span:hover a.copiable-anchor {visibility: visible}
-ul.no-bullet {list-style: none}
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+span:hover a.copiable-link {visibility: visible}
 -->
 </style>
 
@@ -62,13 +49,13 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<div class="subsection" id="Deriving-a-New-Hash-Table-Type">
-<div class="header">
+<div class="subsection-level-extent" id="Deriving-a-New-Hash-Table-Type">
+<div class="nav-panel">
 <p>
 Previous: <a href="Traversing-a-Hash-Table.html" accesskey="p" rel="prev">Traversing a hash table</a>, Up: <a href="Hash-Tables.html" accesskey="u" rel="up">Hash Tables</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="BFD-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="Deriving-a-new-hash-table-type"></span><h4 class="subsection">2.18.4 Deriving a new hash table type</h4>
+<h4 class="subsection" id="Deriving-a-new-hash-table-type"><span>2.18.4 Deriving a new hash table type<a class="copiable-link" href="#Deriving-a-new-hash-table-type"> &para;</a></span></h4>
 <p>Many uses of hash tables want to store additional information
 which each entry in the hash table.  Some also find it
 convenient to store additional information with the hash table
@@ -80,35 +67,35 @@ routines with a few differences specific to the type of hash
 table you want to create.
 </p>
 <p>An example of a derived hash table is the linker hash table.
-The structures for this are defined in <code>bfdlink.h</code>.  The
-functions are in <code>linker.c</code>.
+The structures for this are defined in <code class="code">bfdlink.h</code>.  The
+functions are in <code class="code">linker.c</code>.
 </p>
 <p>You may also derive a hash table from an already derived hash
 table.  For example, the a.out linker backend code uses a hash
 table derived from the linker hash table.
 </p>
 
-<ul class="section-toc">
+<ul class="mini-toc">
 <li><a href="Define-the-Derived-Structures.html" accesskey="1">Define the derived structures</a></li>
 <li><a href="Write-the-Derived-Creation-Routine.html" accesskey="2">Write the derived creation routine</a></li>
 <li><a href="Write-Other-Derived-Routines.html" accesskey="3">Write other derived routines</a></li>
-<li><a href="Write-Other-Derived-Routines.html#bfd_005fhash_005ftable_005finit_005fn" accesskey="4"><code>bfd_hash_table_init_n</code></a></li>
-<li><a href="Write-Other-Derived-Routines.html#bfd_005fhash_005ftable_005finit" accesskey="5"><code>bfd_hash_table_init</code></a></li>
-<li><a href="Write-Other-Derived-Routines.html#bfd_005fhash_005ftable_005ffree" accesskey="6"><code>bfd_hash_table_free</code></a></li>
-<li><a href="Write-Other-Derived-Routines.html#bfd_005fhash_005flookup" accesskey="7"><code>bfd_hash_lookup</code></a></li>
-<li><a href="Write-Other-Derived-Routines.html#bfd_005fhash_005finsert" accesskey="8"><code>bfd_hash_insert</code></a></li>
-<li><a href="Write-Other-Derived-Routines.html#bfd_005fhash_005frename" accesskey="9"><code>bfd_hash_rename</code></a></li>
-<li><a href="Write-Other-Derived-Routines.html#bfd_005fhash_005freplace"><code>bfd_hash_replace</code></a></li>
-<li><a href="Write-Other-Derived-Routines.html#bfd_005fhash_005fallocate"><code>bfd_hash_allocate</code></a></li>
-<li><a href="Write-Other-Derived-Routines.html#bfd_005fhash_005fnewfunc"><code>bfd_hash_newfunc</code></a></li>
-<li><a href="Write-Other-Derived-Routines.html#bfd_005fhash_005ftraverse"><code>bfd_hash_traverse</code></a></li>
-<li><a href="Write-Other-Derived-Routines.html#bfd_005fhash_005fset_005fdefault_005fsize"><code>bfd_hash_set_default_size</code></a></li>
-<li><a href="Write-Other-Derived-Routines.html#g_t_005fbfd_005fstringtab_005finit"><code>_bfd_stringtab_init</code></a></li>
-<li><a href="Write-Other-Derived-Routines.html#g_t_005fbfd_005fxcoff_005fstringtab_005finit"><code>_bfd_xcoff_stringtab_init</code></a></li>
-<li><a href="Write-Other-Derived-Routines.html#g_t_005fbfd_005fstringtab_005ffree"><code>_bfd_stringtab_free</code></a></li>
-<li><a href="Write-Other-Derived-Routines.html#g_t_005fbfd_005fstringtab_005fadd"><code>_bfd_stringtab_add</code></a></li>
-<li><a href="Write-Other-Derived-Routines.html#g_t_005fbfd_005fstringtab_005fsize"><code>_bfd_stringtab_size</code></a></li>
-<li><a href="Write-Other-Derived-Routines.html#g_t_005fbfd_005fstringtab_005femit"><code>_bfd_stringtab_emit</code></a></li>
+<li><a href="Write-Other-Derived-Routines.html#bfd_005fhash_005ftable_005finit_005fn" accesskey="4"><code class="code">bfd_hash_table_init_n</code></a></li>
+<li><a href="Write-Other-Derived-Routines.html#bfd_005fhash_005ftable_005finit" accesskey="5"><code class="code">bfd_hash_table_init</code></a></li>
+<li><a href="Write-Other-Derived-Routines.html#bfd_005fhash_005ftable_005ffree" accesskey="6"><code class="code">bfd_hash_table_free</code></a></li>
+<li><a href="Write-Other-Derived-Routines.html#bfd_005fhash_005flookup" accesskey="7"><code class="code">bfd_hash_lookup</code></a></li>
+<li><a href="Write-Other-Derived-Routines.html#bfd_005fhash_005finsert" accesskey="8"><code class="code">bfd_hash_insert</code></a></li>
+<li><a href="Write-Other-Derived-Routines.html#bfd_005fhash_005frename" accesskey="9"><code class="code">bfd_hash_rename</code></a></li>
+<li><a href="Write-Other-Derived-Routines.html#bfd_005fhash_005freplace"><code class="code">bfd_hash_replace</code></a></li>
+<li><a href="Write-Other-Derived-Routines.html#bfd_005fhash_005fallocate"><code class="code">bfd_hash_allocate</code></a></li>
+<li><a href="Write-Other-Derived-Routines.html#bfd_005fhash_005fnewfunc"><code class="code">bfd_hash_newfunc</code></a></li>
+<li><a href="Write-Other-Derived-Routines.html#bfd_005fhash_005ftraverse"><code class="code">bfd_hash_traverse</code></a></li>
+<li><a href="Write-Other-Derived-Routines.html#bfd_005fhash_005fset_005fdefault_005fsize"><code class="code">bfd_hash_set_default_size</code></a></li>
+<li><a href="Write-Other-Derived-Routines.html#g_t_005fbfd_005fstringtab_005finit"><code class="code">_bfd_stringtab_init</code></a></li>
+<li><a href="Write-Other-Derived-Routines.html#g_t_005fbfd_005fxcoff_005fstringtab_005finit"><code class="code">_bfd_xcoff_stringtab_init</code></a></li>
+<li><a href="Write-Other-Derived-Routines.html#g_t_005fbfd_005fstringtab_005ffree"><code class="code">_bfd_stringtab_free</code></a></li>
+<li><a href="Write-Other-Derived-Routines.html#g_t_005fbfd_005fstringtab_005fadd"><code class="code">_bfd_stringtab_add</code></a></li>
+<li><a href="Write-Other-Derived-Routines.html#g_t_005fbfd_005fstringtab_005fsize"><code class="code">_bfd_stringtab_size</code></a></li>
+<li><a href="Write-Other-Derived-Routines.html#g_t_005fbfd_005fstringtab_005femit"><code class="code">_bfd_stringtab_emit</code></a></li>
 </ul>
 </div>
 

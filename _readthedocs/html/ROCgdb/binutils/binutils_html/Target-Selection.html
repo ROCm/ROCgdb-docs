@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- Copyright © 2023-2024 Advanced Micro Devices, Inc.
+
+
+Copyright © 1991-2024 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3
+or any later version published by the Free Software Foundation;
+with no Invariant Sections, with no Front-Cover Texts, and with no
+Back-Cover Texts.  A copy of the license is included in the
+section entitled "GNU Free Documentation License".
+ -->
+<title>Target Selection (GNU Binary Utilities)</title>
+
+<meta name="description" content="Target Selection (GNU Binary Utilities)">
+<meta name="keywords" content="Target Selection (GNU Binary Utilities)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="Binutils-Index.html" rel="index" title="Binutils Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Selecting-the-Target-System.html" rel="up" title="Selecting the Target System">
+<link href="Architecture-Selection.html" rel="next" title="Architecture Selection">
+<style type="text/css">
+<!--
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+span:hover a.copiable-link {visibility: visible}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<div class="section-level-extent" id="Target-Selection">
+<div class="nav-panel">
+<p>
+Next: <a href="Architecture-Selection.html" accesskey="n" rel="next">Architecture Selection</a>, Up: <a href="Selecting-the-Target-System.html" accesskey="u" rel="up">Selecting the Target System</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Binutils-Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h3 class="section" id="Target-Selection-1"><span>18.1 Target Selection<a class="copiable-link" href="#Target-Selection-1"> &para;</a></span></h3>
+
+<p>A <em class="dfn">target</em> is an object file format.  A given target may be
+supported for multiple architectures (see <a class="pxref" href="Architecture-Selection.html">Architecture Selection</a>).
+A target selection may also have variations for different operating
+systems or architectures.
+</p>
+<p>The command to list valid target values is &lsquo;<samp class="samp">objdump -i</samp>&rsquo;
+(the first column of output contains the relevant information).
+</p>
+<p>Some sample values are: &lsquo;<samp class="samp">a.out-hp300bsd</samp>&rsquo;, &lsquo;<samp class="samp">ecoff-littlemips</samp>&rsquo;,
+&lsquo;<samp class="samp">a.out-sunos-big</samp>&rsquo;.
+</p>
+<p>You can also specify a target using a configuration triplet.  This is
+the same sort of name that is passed to <samp class="file">configure</samp> to specify a
+target.  When you use a configuration triplet as an argument, it must be
+fully canonicalized.  You can see the canonical version of a triplet by
+running the shell script <samp class="file">config.sub</samp> which is included with the
+sources.
+</p>
+<p>Some sample configuration triplets are: &lsquo;<samp class="samp">m68k-hp-bsd</samp>&rsquo;,
+&lsquo;<samp class="samp">mips-dec-ultrix</samp>&rsquo;, &lsquo;<samp class="samp">sparc-sun-sunos</samp>&rsquo;.
+</p>
+<h4 class="subheading" id="objdump-Target"><span><code class="command">objdump</code> Target<a class="copiable-link" href="#objdump-Target"> &para;</a></span></h4>
+
+<p>Ways to specify:
+</p>
+<ol class="enumerate">
+<li> command-line option: <samp class="option">-b</samp> or <samp class="option">--target</samp>
+
+</li><li> environment variable <code class="code">GNUTARGET</code>
+
+</li><li> deduced from the input file
+</li></ol>
+
+<h4 class="subheading" id="objcopy-and-strip-Input-Target"><span><code class="command">objcopy</code> and <code class="command">strip</code> Input Target<a class="copiable-link" href="#objcopy-and-strip-Input-Target"> &para;</a></span></h4>
+
+<p>Ways to specify:
+</p>
+<ol class="enumerate">
+<li> command-line options: <samp class="option">-I</samp> or <samp class="option">--input-target</samp>, or <samp class="option">-F</samp> or <samp class="option">--target</samp>
+
+</li><li> environment variable <code class="code">GNUTARGET</code>
+
+</li><li> deduced from the input file
+</li></ol>
+
+<h4 class="subheading" id="objcopy-and-strip-Output-Target"><span><code class="command">objcopy</code> and <code class="command">strip</code> Output Target<a class="copiable-link" href="#objcopy-and-strip-Output-Target"> &para;</a></span></h4>
+
+<p>Ways to specify:
+</p>
+<ol class="enumerate">
+<li> command-line options: <samp class="option">-O</samp> or <samp class="option">--output-target</samp>, or <samp class="option">-F</samp> or <samp class="option">--target</samp>
+
+</li><li> the input target (see &ldquo;<code class="command">objcopy</code> and <code class="command">strip</code> Input Target&rdquo; above)
+
+</li><li> environment variable <code class="code">GNUTARGET</code>
+
+</li><li> deduced from the input file
+</li></ol>
+
+<h4 class="subheading" id="nm_002c-size_002c-and-strings-Target"><span><code class="command">nm</code>, <code class="command">size</code>, and <code class="command">strings</code> Target<a class="copiable-link" href="#nm_002c-size_002c-and-strings-Target"> &para;</a></span></h4>
+
+<p>Ways to specify:
+</p>
+<ol class="enumerate">
+<li> command-line option: <samp class="option">--target</samp>
+
+</li><li> environment variable <code class="code">GNUTARGET</code>
+
+</li><li> deduced from the input file
+</li></ol>
+
+</div>
+<hr>
+<div class="nav-panel">
+<p>
+Next: <a href="Architecture-Selection.html">Architecture Selection</a>, Up: <a href="Selecting-the-Target-System.html">Selecting the Target System</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Binutils-Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

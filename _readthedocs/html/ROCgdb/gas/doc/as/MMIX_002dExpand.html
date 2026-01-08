@@ -1,11 +1,11 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the GNU Assembler "as".
 
-Copyright (C) 1991-2025 Free Software Foundation, Inc.
+Copyright © 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -31,21 +31,8 @@ section entitled "GNU Free Documentation License".
 <link href="MMIX_002dOpts.html" rel="prev" title="MMIX-Opts">
 <style type="text/css">
 <!--
-a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
-a.summary-letter {text-decoration: none}
-blockquote.indentedblock {margin-right: 0em}
-div.display {margin-left: 3.2em}
-div.example {margin-left: 3.2em}
-kbd {font-style: oblique}
-pre.display {font-family: inherit}
-pre.format {font-family: inherit}
-pre.menu-comment {font-family: serif}
-pre.menu-preformatted {font-family: serif}
-span.nolinebreak {white-space: nowrap}
-span.roman {font-family: initial; font-weight: normal}
-span.sansserif {font-family: sans-serif; font-weight: normal}
-span:hover a.copiable-anchor {visibility: visible}
-ul.no-bullet {list-style: none}
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+span:hover a.copiable-link {visibility: visible}
 -->
 </style>
 
@@ -53,45 +40,45 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<div class="section" id="MMIX_002dExpand">
-<div class="header">
+<div class="subsection-level-extent" id="MMIX_002dExpand">
+<div class="nav-panel">
 <p>
 Next: <a href="MMIX_002dSyntax.html" accesskey="n" rel="next">Syntax</a>, Previous: <a href="MMIX_002dOpts.html" accesskey="p" rel="prev">Command-line Options</a>, Up: <a href="MMIX_002dDependent.html" accesskey="u" rel="up">MMIX Dependent Features</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="Instruction-expansion-1"></span><h4 class="subsection">9.29.2 Instruction expansion</h4>
+<h4 class="subsection section-level-set-subsection" id="Instruction-expansion-1"><span>9.29.2 Instruction expansion<a class="copiable-link" href="#Instruction-expansion-1"> &para;</a></span></h4>
 
-<span id="index-instruction-expansion_002c-MMIX"></span>
-<p>When <code>as</code> encounters an instruction with an operand that is
+<a class="index-entry-id" id="index-instruction-expansion_002c-MMIX"></a>
+<p>When <code class="code">as</code> encounters an instruction with an operand that is
 either not known or does not fit the operand size of the instruction,
-<code>as</code> (and <code>ld</code>) will expand the instruction into
+<code class="code">as</code> (and <code class="code">ld</code>) will expand the instruction into
 a sequence of instructions semantically equivalent to the operand fitting
 the instruction.  Expansion will take place for the following
 instructions:
 </p>
-<dl compact="compact">
-<dt><span>&lsquo;<samp>GETA</samp>&rsquo;</span></dt>
-<dd><p>Expands to a sequence of four instructions: <code>SETL</code>, <code>INCML</code>,
-<code>INCMH</code> and <code>INCH</code>.  The operand must be a multiple of four.
+<dl class="table">
+<dt>&lsquo;<samp class="samp">GETA</samp>&rsquo;</dt>
+<dd><p>Expands to a sequence of four instructions: <code class="code">SETL</code>, <code class="code">INCML</code>,
+<code class="code">INCMH</code> and <code class="code">INCH</code>.  The operand must be a multiple of four.
 </p></dd>
-<dt><span>Conditional branches</span></dt>
+<dt>Conditional branches</dt>
 <dd><p>A branch instruction is turned into a branch with the complemented
 condition and prediction bit over five instructions; four instructions
-setting <code>$255</code> to the operand value, which like with <code>GETA</code> must
-be a multiple of four, and a final <code>GO $255,$255,0</code>.
+setting <code class="code">$255</code> to the operand value, which like with <code class="code">GETA</code> must
+be a multiple of four, and a final <code class="code">GO $255,$255,0</code>.
 </p></dd>
-<dt><span>&lsquo;<samp>PUSHJ</samp>&rsquo;</span></dt>
+<dt>&lsquo;<samp class="samp">PUSHJ</samp>&rsquo;</dt>
 <dd><p>Similar to expansion for conditional branches; four instructions set
-<code>$255</code> to the operand value, followed by a <code>PUSHGO $255,$255,0</code>.
+<code class="code">$255</code> to the operand value, followed by a <code class="code">PUSHGO $255,$255,0</code>.
 </p></dd>
-<dt><span>&lsquo;<samp>JMP</samp>&rsquo;</span></dt>
-<dd><p>Similar to conditional branches and <code>PUSHJ</code>.  The final instruction
-is <code>GO $255,$255,0</code>.
+<dt>&lsquo;<samp class="samp">JMP</samp>&rsquo;</dt>
+<dd><p>Similar to conditional branches and <code class="code">PUSHJ</code>.  The final instruction
+is <code class="code">GO $255,$255,0</code>.
 </p></dd>
 </dl>
 
-<p>The linker <code>ld</code> is expected to shrink these expansions for
-code assembled with &lsquo;<samp>--relax</samp>&rsquo; (though not currently implemented).
+<p>The linker <code class="code">ld</code> is expected to shrink these expansions for
+code assembled with &lsquo;<samp class="samp">--relax</samp>&rsquo; (though not currently implemented).
 </p>
 </div>
 

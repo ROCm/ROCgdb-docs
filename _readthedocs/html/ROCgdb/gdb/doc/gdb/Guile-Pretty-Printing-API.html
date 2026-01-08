@@ -1,9 +1,9 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright (C) 1988-2024 Free Software Foundation, Inc.
+<!-- Copyright © 1988-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -20,13 +20,13 @@ Legal Disclaimer and Copyright Information
 
 AMD ROCm software is made available by Advanced Micro Devices, Inc. under the
 open source license identified in the top-level directory for the library in
-the repository on Github.com (Portions of AMD ROCm software are
-licensed under MITx11 and UIL/NCSA. For more information on the license, review
-the license.txt in the top-level directory for the library on
-Github.com).  The additional terms and conditions below apply to your use
-of AMD ROCm technical documentation.
+the repository on https://github.com/ROCm/ (Github.com) (Portions of AMD
+ROCm software are licensed under MITx11 and UIL/NCSA. For more information on
+the license, review the license.txt in the top-level directory for the
+library on https://github.com/ROCm/ (Github.com)).  The additional terms
+and conditions below apply to your use of AMD ROCm technical documentation.
 
-(C)2019-2025 Advanced Micro Devices, Inc.  All rights reserved.
+©2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
 
 The information presented in this document is for informational purposes only
 and may contain technical inaccuracies, omissions, and typographical errors.
@@ -52,8 +52,8 @@ EVEN IF AMD IS EXPRESSLY ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
 
 AMD, the AMD Arrow logo, AMD Instinct™, Radeon™, AMD ROCm™, and combinations
 thereof are trademarks of Advanced Micro Devices, Inc.
-Linux(R) is the registered trademark of Linus Torvalds in the
-U.S. and other countries. PCIe(R) is a registered trademark of
+Linux® is the registered trademark of Linus Torvalds in the
+U.S. and other countries. PCIe® is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
@@ -74,21 +74,9 @@ companies. -->
 <link href="Types-In-Guile.html" rel="prev" title="Types In Guile">
 <style type="text/css">
 <!--
-a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
-a.summary-letter {text-decoration: none}
-blockquote.indentedblock {margin-right: 0em}
-div.display {margin-left: 3.2em}
-div.example {margin-left: 3.2em}
-kbd {font-style: oblique}
-pre.display {font-family: inherit}
-pre.format {font-family: inherit}
-pre.menu-comment {font-family: serif}
-pre.menu-preformatted {font-family: serif}
-span.nolinebreak {white-space: nowrap}
-span.roman {font-family: initial; font-weight: normal}
-span.sansserif {font-family: sans-serif; font-weight: normal}
-span:hover a.copiable-anchor {visibility: visible}
-ul.no-bullet {list-style: none}
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+span:hover a.copiable-link {visibility: visible}
+strong.def-name {font-family: monospace; font-weight: bold; font-size: larger}
 -->
 </style>
 
@@ -96,169 +84,169 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<div class="subsubsection" id="Guile-Pretty-Printing-API">
-<div class="header">
+<div class="subsubsection-level-extent" id="Guile-Pretty-Printing-API">
+<div class="nav-panel">
 <p>
 Next: <a href="Selecting-Guile-Pretty_002dPrinters.html" accesskey="n" rel="next">Selecting Guile Pretty-Printers</a>, Previous: <a href="Types-In-Guile.html" accesskey="p" rel="prev">Types In Guile</a>, Up: <a href="Guile-API.html" accesskey="u" rel="up">Guile API</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="Guile-Pretty-Printing-API-1"></span><h4 class="subsubsection">24.4.3.8 Guile Pretty Printing API</h4>
-<span id="index-guile-pretty-printing-api"></span>
+<h4 class="subsubsection" id="Guile-Pretty-Printing-API-1"><span>24.4.3.8 Guile Pretty Printing API<a class="copiable-link" href="#Guile-Pretty-Printing-API-1"> &para;</a></span></h4>
+<a class="index-entry-id" id="index-guile-pretty-printing-api"></a>
 
-<p>An example output is provided (see <a href="Pretty-Printing.html">Pretty Printing</a>).
+<p>An example output is provided (see <a class="pxref" href="Pretty-Printing.html">Pretty Printing</a>).
 </p>
 <p>A pretty-printer is represented by an object of type &lt;gdb:pretty-printer&gt;.
-Pretty-printer objects are created with <code>make-pretty-printer</code>.
+Pretty-printer objects are created with <code class="code">make-pretty-printer</code>.
 </p>
 <p>The following pretty-printer-related procedures are provided by the
-<code>(gdb)</code> module:
+<code class="code">(gdb)</code> module:
 </p>
-<dl class="def">
-<dt id="index-make_002dpretty_002dprinter"><span class="category">Scheme Procedure: </span><span><strong>make-pretty-printer</strong> <em>name lookup-function</em><a href='#index-make_002dpretty_002dprinter' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Return a <code>&lt;gdb:pretty-printer&gt;</code> object named <var>name</var>.
+<dl class="first-deffn">
+<dt class="deffn" id="index-make_002dpretty_002dprinter"><span class="category-def">Scheme Procedure: </span><span><strong class="def-name">make-pretty-printer</strong> <var class="def-var-arguments">name lookup-function</var><a class="copiable-link" href="#index-make_002dpretty_002dprinter"> &para;</a></span></dt>
+<dd><p>Return a <code class="code">&lt;gdb:pretty-printer&gt;</code> object named <var class="var">name</var>.
 </p>
-<p><var>lookup-function</var> is a function of one parameter: the value to
+<p><var class="var">lookup-function</var> is a function of one parameter: the value to
 be printed.  If the value is handled by this pretty-printer, then
-<var>lookup-function</var> returns an object of type
+<var class="var">lookup-function</var> returns an object of type
 &lt;gdb:pretty-printer-worker&gt; to perform the actual pretty-printing.
-Otherwise <var>lookup-function</var> returns <code>#f</code>.
+Otherwise <var class="var">lookup-function</var> returns <code class="code">#f</code>.
 </p></dd></dl>
 
-<dl class="def">
-<dt id="index-pretty_002dprinter_003f"><span class="category">Scheme Procedure: </span><span><strong>pretty-printer?</strong> <em>object</em><a href='#index-pretty_002dprinter_003f' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Return <code>#t</code> if <var>object</var> is a <code>&lt;gdb:pretty-printer&gt;</code> object.
-Otherwise return <code>#f</code>.
+<dl class="first-deffn">
+<dt class="deffn" id="index-pretty_002dprinter_003f"><span class="category-def">Scheme Procedure: </span><span><strong class="def-name">pretty-printer?</strong> <var class="def-var-arguments">object</var><a class="copiable-link" href="#index-pretty_002dprinter_003f"> &para;</a></span></dt>
+<dd><p>Return <code class="code">#t</code> if <var class="var">object</var> is a <code class="code">&lt;gdb:pretty-printer&gt;</code> object.
+Otherwise return <code class="code">#f</code>.
 </p></dd></dl>
 
-<dl class="def">
-<dt id="index-pretty_002dprinter_002denabled_003f"><span class="category">Scheme Procedure: </span><span><strong>pretty-printer-enabled?</strong> <em>pretty-printer</em><a href='#index-pretty_002dprinter_002denabled_003f' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Return <code>#t</code> if <var>pretty-printer</var> is enabled.
-Otherwise return <code>#f</code>.
+<dl class="first-deffn">
+<dt class="deffn" id="index-pretty_002dprinter_002denabled_003f"><span class="category-def">Scheme Procedure: </span><span><strong class="def-name">pretty-printer-enabled?</strong> <var class="def-var-arguments">pretty-printer</var><a class="copiable-link" href="#index-pretty_002dprinter_002denabled_003f"> &para;</a></span></dt>
+<dd><p>Return <code class="code">#t</code> if <var class="var">pretty-printer</var> is enabled.
+Otherwise return <code class="code">#f</code>.
 </p></dd></dl>
 
-<dl class="def">
-<dt id="index-set_002dpretty_002dprinter_002denabled_0021"><span class="category">Scheme Procedure: </span><span><strong>set-pretty-printer-enabled!</strong> <em>pretty-printer flag</em><a href='#index-set_002dpretty_002dprinter_002denabled_0021' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Set the enabled flag of <var>pretty-printer</var> to <var>flag</var>.
+<dl class="first-deffn">
+<dt class="deffn" id="index-set_002dpretty_002dprinter_002denabled_0021"><span class="category-def">Scheme Procedure: </span><span><strong class="def-name">set-pretty-printer-enabled!</strong> <var class="def-var-arguments">pretty-printer flag</var><a class="copiable-link" href="#index-set_002dpretty_002dprinter_002denabled_0021"> &para;</a></span></dt>
+<dd><p>Set the enabled flag of <var class="var">pretty-printer</var> to <var class="var">flag</var>.
 The value returned is unspecified.
 </p></dd></dl>
 
-<dl class="def">
-<dt id="index-pretty_002dprinters"><span class="category">Scheme Procedure: </span><span><strong>pretty-printers</strong><a href='#index-pretty_002dprinters' class='copiable-anchor'> &para;</a></span></dt>
+<dl class="first-deffn">
+<dt class="deffn" id="index-pretty_002dprinters"><span class="category-def">Scheme Procedure: </span><span><strong class="def-name">pretty-printers</strong><a class="copiable-link" href="#index-pretty_002dprinters"> &para;</a></span></dt>
 <dd><p>Return the list of global pretty-printers.
 </p></dd></dl>
 
-<dl class="def">
-<dt id="index-set_002dpretty_002dprinters_0021"><span class="category">Scheme Procedure: </span><span><strong>set-pretty-printers!</strong> <em>pretty-printers</em><a href='#index-set_002dpretty_002dprinters_0021' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Set the list of global pretty-printers to <var>pretty-printers</var>.
+<dl class="first-deffn">
+<dt class="deffn" id="index-set_002dpretty_002dprinters_0021"><span class="category-def">Scheme Procedure: </span><span><strong class="def-name">set-pretty-printers!</strong> <var class="def-var-arguments">pretty-printers</var><a class="copiable-link" href="#index-set_002dpretty_002dprinters_0021"> &para;</a></span></dt>
+<dd><p>Set the list of global pretty-printers to <var class="var">pretty-printers</var>.
 The value returned is unspecified.
 </p></dd></dl>
 
-<dl class="def">
-<dt id="index-make_002dpretty_002dprinter_002dworker"><span class="category">Scheme Procedure: </span><span><strong>make-pretty-printer-worker</strong> <em>display-hint to-string children</em><a href='#index-make_002dpretty_002dprinter_002dworker' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Return an object of type <code>&lt;gdb:pretty-printer-worker&gt;</code>.
+<dl class="first-deffn">
+<dt class="deffn" id="index-make_002dpretty_002dprinter_002dworker"><span class="category-def">Scheme Procedure: </span><span><strong class="def-name">make-pretty-printer-worker</strong> <var class="def-var-arguments">display-hint to-string children</var><a class="copiable-link" href="#index-make_002dpretty_002dprinter_002dworker"> &para;</a></span></dt>
+<dd><p>Return an object of type <code class="code">&lt;gdb:pretty-printer-worker&gt;</code>.
 </p>
 <p>This function takes three parameters:
 </p>
-<dl compact="compact">
-<dt><span>&lsquo;<samp>display-hint</samp>&rsquo;</span></dt>
-<dd><p><var>display-hint</var> provides a hint to <small>ROCGDB</small> or <small>ROCGDB</small>
+<dl class="table">
+<dt>&lsquo;<samp class="samp">display-hint</samp>&rsquo;</dt>
+<dd><p><var class="var">display-hint</var> provides a hint to <small class="sc">ROCGDB</small> or <small class="sc">ROCGDB</small>
 front end via MI to change the formatting of the value being printed.
-The value must be a string or <code>#f</code> (meaning there is no hint).
-Several values for <var>display-hint</var>
-are predefined by <small>ROCGDB</small>:
+The value must be a string or <code class="code">#f</code> (meaning there is no hint).
+Several values for <var class="var">display-hint</var>
+are predefined by <small class="sc">ROCGDB</small>:
 </p>
-<dl compact="compact">
-<dt><span>&lsquo;<samp>array</samp>&rsquo;</span></dt>
+<dl class="table">
+<dt>&lsquo;<samp class="samp">array</samp>&rsquo;</dt>
 <dd><p>Indicate that the object being printed is &ldquo;array-like&rdquo;.  The CLI
-uses this to respect parameters such as <code>set print elements</code> and
-<code>set print array</code>.
+uses this to respect parameters such as <code class="code">set print elements</code> and
+<code class="code">set print array</code>.
 </p>
 </dd>
-<dt><span>&lsquo;<samp>map</samp>&rsquo;</span></dt>
+<dt>&lsquo;<samp class="samp">map</samp>&rsquo;</dt>
 <dd><p>Indicate that the object being printed is &ldquo;map-like&rdquo;, and that the
 children of this value can be assumed to alternate between keys and
 values.
 </p>
 </dd>
-<dt><span>&lsquo;<samp>string</samp>&rsquo;</span></dt>
+<dt>&lsquo;<samp class="samp">string</samp>&rsquo;</dt>
 <dd><p>Indicate that the object being printed is &ldquo;string-like&rdquo;.  If the
-printer&rsquo;s <code>to-string</code> function returns a Guile string of some
-kind, then <small>ROCGDB</small> will call its internal language-specific
+printer&rsquo;s <code class="code">to-string</code> function returns a Guile string of some
+kind, then <small class="sc">ROCGDB</small> will call its internal language-specific
 string-printing function to format the string.  For the CLI this means
 adding quotation marks, possibly escaping some characters, respecting
-<code>set print elements</code>, and the like.
+<code class="code">set print elements</code>, and the like.
 </p></dd>
 </dl>
 
 </dd>
-<dt><span>&lsquo;<samp>to-string</samp>&rsquo;</span></dt>
-<dd><p><var>to-string</var> is either a function of one parameter, the
-<code>&lt;gdb:pretty-printer-worker&gt;</code> object, or <code>#f</code>.
+<dt>&lsquo;<samp class="samp">to-string</samp>&rsquo;</dt>
+<dd><p><var class="var">to-string</var> is either a function of one parameter, the
+<code class="code">&lt;gdb:pretty-printer-worker&gt;</code> object, or <code class="code">#f</code>.
 </p>
-<p>When printing from the CLI, if the <code>to-string</code> method exists,
-then <small>ROCGDB</small> will prepend its result to the values returned by
-<code>children</code>.  Exactly how this formatting is done is dependent on
+<p>When printing from the CLI, if the <code class="code">to-string</code> method exists,
+then <small class="sc">ROCGDB</small> will prepend its result to the values returned by
+<code class="code">children</code>.  Exactly how this formatting is done is dependent on
 the display hint, and may change as more hints are added.  Also,
-depending on the print settings (see <a href="Print-Settings.html">Print Settings</a>), the CLI may
-print just the result of <code>to-string</code> in a stack trace, omitting
-the result of <code>children</code>.
+depending on the print settings (see <a class="pxref" href="Print-Settings.html">Print Settings</a>), the CLI may
+print just the result of <code class="code">to-string</code> in a stack trace, omitting
+the result of <code class="code">children</code>.
 </p>
 <p>If this method returns a string, it is printed verbatim.
 </p>
-<p>Otherwise, if this method returns an instance of <code>&lt;gdb:value&gt;</code>,
-then <small>ROCGDB</small> prints this value.  This may result in a call to
+<p>Otherwise, if this method returns an instance of <code class="code">&lt;gdb:value&gt;</code>,
+then <small class="sc">ROCGDB</small> prints this value.  This may result in a call to
 another pretty-printer.
 </p>
 <p>If instead the method returns a Guile value which is convertible to a
-<code>&lt;gdb:value&gt;</code>, then <small>ROCGDB</small> performs the conversion and prints
+<code class="code">&lt;gdb:value&gt;</code>, then <small class="sc">ROCGDB</small> performs the conversion and prints
 the resulting value.  Again, this may result in a call to another
 pretty-printer.  Guile scalars (integers, floats, and booleans) and
-strings are convertible to <code>&lt;gdb:value&gt;</code>; other types are not.
+strings are convertible to <code class="code">&lt;gdb:value&gt;</code>; other types are not.
 </p>
-<p>Finally, if this method returns <code>#f</code> then no further operations
+<p>Finally, if this method returns <code class="code">#f</code> then no further operations
 are performed in this method and nothing is printed.
 </p>
 <p>If the result is not one of these types, an exception is raised.
 </p>
-<p><var>to-string</var> may also be <code>#f</code> in which case it is left to
-<var>children</var> to print the value.
+<p><var class="var">to-string</var> may also be <code class="code">#f</code> in which case it is left to
+<var class="var">children</var> to print the value.
 </p>
 </dd>
-<dt><span>&lsquo;<samp>children</samp>&rsquo;</span></dt>
-<dd><p><var>children</var> is either a function of one parameter, the
-<code>&lt;gdb:pretty-printer-worker&gt;</code> object, or <code>#f</code>.
+<dt>&lsquo;<samp class="samp">children</samp>&rsquo;</dt>
+<dd><p><var class="var">children</var> is either a function of one parameter, the
+<code class="code">&lt;gdb:pretty-printer-worker&gt;</code> object, or <code class="code">#f</code>.
 </p>
-<p><small>ROCGDB</small> will call this function on a pretty-printer to compute the
+<p><small class="sc">ROCGDB</small> will call this function on a pretty-printer to compute the
 children of the pretty-printer&rsquo;s value.
 </p>
 <p>This function must return a &lt;gdb:iterator&gt; object.
 Each item returned by the iterator must be a tuple holding
 two elements.  The first element is the &ldquo;name&rdquo; of the child; the
 second element is the child&rsquo;s value.  The value can be any Guile
-object which is convertible to a <small>ROCGDB</small> value.
+object which is convertible to a <small class="sc">ROCGDB</small> value.
 </p>
-<p>If <var>children</var> is <code>#f</code>, <small>ROCGDB</small> will act
+<p>If <var class="var">children</var> is <code class="code">#f</code>, <small class="sc">ROCGDB</small> will act
 as though the value has no children.
 </p>
-<p>Children may be hidden from display based on the value of &lsquo;<samp>set
-print max-depth</samp>&rsquo; (see <a href="Print-Settings.html">Print Settings</a>).
+<p>Children may be hidden from display based on the value of &lsquo;<samp class="samp">set
+print max-depth</samp>&rsquo; (see <a class="pxref" href="Print-Settings.html">Print Settings</a>).
 </p></dd>
 </dl>
 </dd></dl>
 
-<p><small>ROCGDB</small> provides a function which can be used to look up the
-default pretty-printer for a <code>&lt;gdb:value&gt;</code>:
+<p><small class="sc">ROCGDB</small> provides a function which can be used to look up the
+default pretty-printer for a <code class="code">&lt;gdb:value&gt;</code>:
 </p>
-<dl class="def">
-<dt id="index-default_002dvisualizer"><span class="category">Scheme Procedure: </span><span><strong>default-visualizer</strong> <em>value</em><a href='#index-default_002dvisualizer' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>This function takes a <code>&lt;gdb:value&gt;</code> object as an argument.  If a
+<dl class="first-deffn">
+<dt class="deffn" id="index-default_002dvisualizer"><span class="category-def">Scheme Procedure: </span><span><strong class="def-name">default-visualizer</strong> <var class="def-var-arguments">value</var><a class="copiable-link" href="#index-default_002dvisualizer"> &para;</a></span></dt>
+<dd><p>This function takes a <code class="code">&lt;gdb:value&gt;</code> object as an argument.  If a
 pretty-printer for this value exists, then it is returned.  If no such
-printer exists, then this returns <code>#f</code>.
+printer exists, then this returns <code class="code">#f</code>.
 </p></dd></dl>
 
 </div>
 <hr>
-<div class="header">
+<div class="nav-panel">
 <p>
 Next: <a href="Selecting-Guile-Pretty_002dPrinters.html">Selecting Guile Pretty-Printers</a>, Previous: <a href="Types-In-Guile.html">Types In Guile</a>, Up: <a href="Guile-API.html">Guile API</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

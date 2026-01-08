@@ -1,9 +1,9 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright (C) 1988-2024 Free Software Foundation, Inc.
+<!-- Copyright © 1988-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -20,13 +20,13 @@ Legal Disclaimer and Copyright Information
 
 AMD ROCm software is made available by Advanced Micro Devices, Inc. under the
 open source license identified in the top-level directory for the library in
-the repository on Github.com (Portions of AMD ROCm software are
-licensed under MITx11 and UIL/NCSA. For more information on the license, review
-the license.txt in the top-level directory for the library on
-Github.com).  The additional terms and conditions below apply to your use
-of AMD ROCm technical documentation.
+the repository on https://github.com/ROCm/ (Github.com) (Portions of AMD
+ROCm software are licensed under MITx11 and UIL/NCSA. For more information on
+the license, review the license.txt in the top-level directory for the
+library on https://github.com/ROCm/ (Github.com)).  The additional terms
+and conditions below apply to your use of AMD ROCm technical documentation.
 
-(C)2019-2025 Advanced Micro Devices, Inc.  All rights reserved.
+©2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
 
 The information presented in this document is for informational purposes only
 and may contain technical inaccuracies, omissions, and typographical errors.
@@ -52,8 +52,8 @@ EVEN IF AMD IS EXPRESSLY ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
 
 AMD, the AMD Arrow logo, AMD Instinct™, Radeon™, AMD ROCm™, and combinations
 thereof are trademarks of Advanced Micro Devices, Inc.
-Linux(R) is the registered trademark of Linus Torvalds in the
-U.S. and other countries. PCIe(R) is a registered trademark of
+Linux® is the registered trademark of Linus Torvalds in the
+U.S. and other countries. PCIe® is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
@@ -74,21 +74,9 @@ companies. -->
 <link href="Xmethod-API.html" rel="prev" title="Xmethod API">
 <style type="text/css">
 <!--
-a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
-a.summary-letter {text-decoration: none}
-blockquote.indentedblock {margin-right: 0em}
-div.display {margin-left: 3.2em}
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
 div.example {margin-left: 3.2em}
-kbd {font-style: oblique}
-pre.display {font-family: inherit}
-pre.format {font-family: inherit}
-pre.menu-comment {font-family: serif}
-pre.menu-preformatted {font-family: serif}
-span.nolinebreak {white-space: nowrap}
-span.roman {font-family: initial; font-weight: normal}
-span.sansserif {font-family: sans-serif; font-weight: normal}
-span:hover a.copiable-anchor {visibility: visible}
-ul.no-bullet {list-style: none}
+span:hover a.copiable-link {visibility: visible}
 -->
 </style>
 
@@ -96,21 +84,21 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<div class="subsubsection" id="Writing-an-Xmethod">
-<div class="header">
+<div class="subsubsection-level-extent" id="Writing-an-Xmethod">
+<div class="nav-panel">
 <p>
 Next: <a href="Inferiors-In-Python.html" accesskey="n" rel="next">Inferiors In Python</a>, Previous: <a href="Xmethod-API.html" accesskey="p" rel="prev">Xmethod API</a>, Up: <a href="Python-API.html" accesskey="u" rel="up">Python API</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="Writing-an-Xmethod-1"></span><h4 class="subsubsection">24.3.2.16 Writing an Xmethod</h4>
-<span id="index-writing-xmethods-in-Python"></span>
+<h4 class="subsubsection" id="Writing-an-Xmethod-1"><span>24.3.2.16 Writing an Xmethod<a class="copiable-link" href="#Writing-an-Xmethod-1"> &para;</a></span></h4>
+<a class="index-entry-id" id="index-writing-xmethods-in-Python"></a>
 
 <p>Implementing xmethods in Python will require implementing xmethod
-matchers and xmethod workers (see <a href="Xmethods-In-Python.html">Xmethods In Python</a>).  Consider
-the following C<tt>++</tt> class:
+matchers and xmethod workers (see <a class="pxref" href="Xmethods-In-Python.html">Xmethods In Python</a>).  Consider
+the following C<code class="t">++</code> class:
 </p>
-<div class="example">
-<pre class="example">class MyClass
+<div class="example smallexample">
+<pre class="example-preformatted">class MyClass
 {
 public:
   MyClass (int a) : a_(a) { }
@@ -129,15 +117,15 @@ MyClass::operator+ (int b)
 }
 </pre></div>
 
-<p>Let us define two xmethods for the class <code>MyClass</code>, one
-replacing the method <code>geta</code>, and another adding an overloaded
-flavor of <code>operator+</code> which takes a <code>MyClass</code> argument (the
-C<tt>++</tt> code above already has an overloaded <code>operator+</code>
-which takes an <code>int</code> argument).  The xmethod matcher can be
+<p>Let us define two xmethods for the class <code class="code">MyClass</code>, one
+replacing the method <code class="code">geta</code>, and another adding an overloaded
+flavor of <code class="code">operator+</code> which takes a <code class="code">MyClass</code> argument (the
+C<code class="t">++</code> code above already has an overloaded <code class="code">operator+</code>
+which takes an <code class="code">int</code> argument).  The xmethod matcher can be
 defined as follows:
 </p>
-<div class="example">
-<pre class="example">class MyClass_geta(gdb.xmethod.XMethod):
+<div class="example smallexample">
+<pre class="example-preformatted">class MyClass_geta(gdb.xmethod.XMethod):
     def __init__(self):
         gdb.xmethod.XMethod.__init__(self, 'geta')
  
@@ -174,24 +162,24 @@ class MyClassMatcher(gdb.xmethod.XMethodMatcher):
         return workers
 </pre></div>
 
-<p>Notice that the <code>match</code> method of <code>MyClassMatcher</code> returns
-a worker object of type <code>MyClassWorker_geta</code> for the <code>geta</code>
-method, and a worker object of type <code>MyClassWorker_plus</code> for the
-<code>operator+</code> method.  This is done indirectly via helper classes
-derived from <code>gdb.xmethod.XMethod</code>.  One does not need to use the
-<code>methods</code> attribute in a matcher as it is optional.  However, if a
+<p>Notice that the <code class="code">match</code> method of <code class="code">MyClassMatcher</code> returns
+a worker object of type <code class="code">MyClassWorker_geta</code> for the <code class="code">geta</code>
+method, and a worker object of type <code class="code">MyClassWorker_plus</code> for the
+<code class="code">operator+</code> method.  This is done indirectly via helper classes
+derived from <code class="code">gdb.xmethod.XMethod</code>.  One does not need to use the
+<code class="code">methods</code> attribute in a matcher as it is optional.  However, if a
 matcher manages more than one xmethod, it is a good practice to list the
-xmethods in the <code>methods</code> attribute of the matcher.  This will then
+xmethods in the <code class="code">methods</code> attribute of the matcher.  This will then
 facilitate enabling and disabling individual xmethods via the
-<code>enable/disable</code> commands.  Notice also that a worker object is
-returned only if the corresponding entry in the <code>methods</code> attribute
+<code class="code">enable/disable</code> commands.  Notice also that a worker object is
+returned only if the corresponding entry in the <code class="code">methods</code> attribute
 of the matcher is enabled.
 </p>
 <p>The implementation of the worker classes returned by the matcher setup
 above is as follows:
 </p>
-<div class="example">
-<pre class="example">class MyClassWorker_geta(gdb.xmethod.XMethodWorker):
+<div class="example smallexample">
+<pre class="example-preformatted">class MyClassWorker_geta(gdb.xmethod.XMethodWorker):
     def get_arg_types(self):
         return None
 
@@ -213,28 +201,28 @@ class MyClassWorker_plus(gdb.xmethod.XMethodWorker):
         return obj['a_'] + other['a_']
 </pre></div>
 
-<p>For <small>ROCGDB</small> to actually lookup a xmethod, it has to be
+<p>For <small class="sc">ROCGDB</small> to actually lookup a xmethod, it has to be
 registered with it.  The matcher defined above is registered with
-<small>ROCGDB</small> globally as follows:
+<small class="sc">ROCGDB</small> globally as follows:
 </p>
-<div class="example">
-<pre class="example">gdb.xmethod.register_xmethod_matcher(None, MyClassMatcher())
+<div class="example smallexample">
+<pre class="example-preformatted">gdb.xmethod.register_xmethod_matcher(None, MyClassMatcher())
 </pre></div>
 
-<p>If an object <code>obj</code> of type <code>MyClass</code> is initialized in C<tt>++</tt>
+<p>If an object <code class="code">obj</code> of type <code class="code">MyClass</code> is initialized in C<code class="t">++</code>
 code as follows:
 </p>
-<div class="example">
-<pre class="example">MyClass obj(5);
+<div class="example smallexample">
+<pre class="example-preformatted">MyClass obj(5);
 </pre></div>
 
 <p>then, after loading the Python script defining the xmethod matchers
-and workers into <small>ROCGDB</small>, invoking the method <code>geta</code> or using
-the operator <code>+</code> on <code>obj</code> will invoke the xmethods
+and workers into <small class="sc">ROCGDB</small>, invoking the method <code class="code">geta</code> or using
+the operator <code class="code">+</code> on <code class="code">obj</code> will invoke the xmethods
 defined above:
 </p>
-<div class="example">
-<pre class="example">(gdb) p obj.geta()
+<div class="example smallexample">
+<pre class="example-preformatted">(gdb) p obj.geta()
 $1 = 5
 
 (gdb) p obj + obj
@@ -243,8 +231,8 @@ $2 = 10
 
 <p>Consider another example with a C++ template class:
 </p>
-<div class="example">
-<pre class="example">template &lt;class T&gt;
+<div class="example smallexample">
+<pre class="example-preformatted">template &lt;class T&gt;
 class MyTemplate
 {
 public:
@@ -263,11 +251,11 @@ private:
 </pre></div>
 
 <p>Let us implement an xmethod for the above class which serves as a
-replacement for the <code>footprint</code> method.  The full code listing
+replacement for the <code class="code">footprint</code> method.  The full code listing
 of the xmethod workers and xmethod matchers is as follows:
 </p>
-<div class="example">
-<pre class="example">class MyTemplateWorker_footprint(gdb.xmethod.XMethodWorker):
+<div class="example smallexample">
+<pre class="example-preformatted">class MyTemplateWorker_footprint(gdb.xmethod.XMethodWorker):
     def __init__(self, class_type):
         self.class_type = class_type
 
@@ -294,14 +282,14 @@ class MyTemplateMatcher_footprint(gdb.xmethod.XMethodMatcher):
             return MyTemplateWorker_footprint(class_type)
 </pre></div>
 
-<p>Notice that, in this example, we have not used the <code>methods</code>
+<p>Notice that, in this example, we have not used the <code class="code">methods</code>
 attribute of the matcher as the matcher manages only one xmethod.  The
 user can enable/disable this xmethod by enabling/disabling the matcher
 itself.
 </p>
 </div>
 <hr>
-<div class="header">
+<div class="nav-panel">
 <p>
 Next: <a href="Inferiors-In-Python.html">Inferiors In Python</a>, Previous: <a href="Xmethod-API.html">Xmethod API</a>, Up: <a href="Python-API.html">Python API</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

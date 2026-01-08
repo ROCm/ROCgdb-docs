@@ -1,11 +1,11 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the GNU Assembler "as".
 
-Copyright (C) 1991-2025 Free Software Foundation, Inc.
+Copyright © 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -31,21 +31,9 @@ section entitled "GNU Free Documentation License".
 <link href="CRIS_002dExpand.html" rel="prev" title="CRIS-Expand">
 <style type="text/css">
 <!--
-a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
-a.summary-letter {text-decoration: none}
-blockquote.indentedblock {margin-right: 0em}
-div.display {margin-left: 3.2em}
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
 div.example {margin-left: 3.2em}
-kbd {font-style: oblique}
-pre.display {font-family: inherit}
-pre.format {font-family: inherit}
-pre.menu-comment {font-family: serif}
-pre.menu-preformatted {font-family: serif}
-span.nolinebreak {white-space: nowrap}
-span.roman {font-family: initial; font-weight: normal}
-span.sansserif {font-family: sans-serif; font-weight: normal}
-span:hover a.copiable-anchor {visibility: visible}
-ul.no-bullet {list-style: none}
+span:hover a.copiable-link {visibility: visible}
 -->
 </style>
 
@@ -53,27 +41,27 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<div class="section" id="CRIS_002dSymbols">
-<div class="header">
+<div class="subsection-level-extent" id="CRIS_002dSymbols">
+<div class="nav-panel">
 <p>
 Next: <a href="CRIS_002dSyntax.html" accesskey="n" rel="next">Syntax</a>, Previous: <a href="CRIS_002dExpand.html" accesskey="p" rel="prev">Instruction expansion</a>, Up: <a href="CRIS_002dDependent.html" accesskey="u" rel="up">CRIS Dependent Features</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="Symbols-3"></span><h4 class="subsection">9.9.3 Symbols</h4>
-<span id="index-Symbols_002c-built_002din_002c-CRIS"></span>
-<span id="index-Symbols_002c-CRIS_002c-built_002din"></span>
-<span id="index-CRIS-built_002din-symbols"></span>
-<span id="index-Built_002din-symbols_002c-CRIS"></span>
+<h4 class="subsection section-level-set-subsection" id="Symbols-3"><span>9.9.3 Symbols<a class="copiable-link" href="#Symbols-3"> &para;</a></span></h4>
+<a class="index-entry-id" id="index-Symbols_002c-built_002din_002c-CRIS"></a>
+<a class="index-entry-id" id="index-Symbols_002c-CRIS_002c-built_002din"></a>
+<a class="index-entry-id" id="index-CRIS-built_002din-symbols"></a>
+<a class="index-entry-id" id="index-Built_002din-symbols_002c-CRIS"></a>
 
 <p>Some symbols are defined by the assembler.  They&rsquo;re intended to
 be used in conditional assembly, for example:
-</p><div class="example">
-<pre class="example"> .if ..asm.arch.cris.v32
- <var>code for CRIS v32</var>
+</p><div class="example smallexample">
+<pre class="example-preformatted"> .if ..asm.arch.cris.v32
+ <var class="var">code for CRIS v32</var>
  .elseif ..asm.arch.cris.common_v10_v32
- <var>code common to CRIS v32 and CRIS v10</var>
+ <var class="var">code common to CRIS v32 and CRIS v10</var>
  .elseif ..asm.arch.cris.v10 | ..asm.arch.cris.any_v0_v10
- <var>code for v10</var>
+ <var class="var">code for v10</var>
  .else
  .error &quot;Code needs to be added here.&quot;
  .endif
@@ -82,28 +70,28 @@ be used in conditional assembly, for example:
 <p>These symbols are defined in the assembler, reflecting
 command-line options, either when specified or the default.
 They are always defined, to 0 or 1.
-</p><dl compact="compact">
-<dt><span><code>..asm.arch.cris.any_v0_v10</code></span></dt>
-<dd><p>This symbol is non-zero when <samp>--march=v0_v10</samp> is specified
+</p><dl class="table">
+<dt><code class="code">..asm.arch.cris.any_v0_v10</code></dt>
+<dd><p>This symbol is non-zero when <samp class="option">--march=v0_v10</samp> is specified
 or the default.
 </p>
 </dd>
-<dt><span><code>..asm.arch.cris.common_v10_v32</code></span></dt>
-<dd><p>Set according to the option <samp>--march=common_v10_v32</samp>.
+<dt><code class="code">..asm.arch.cris.common_v10_v32</code></dt>
+<dd><p>Set according to the option <samp class="option">--march=common_v10_v32</samp>.
 </p>
 </dd>
-<dt><span><code>..asm.arch.cris.v10</code></span></dt>
-<dd><p>Reflects the option <samp>--march=v10</samp>.
+<dt><code class="code">..asm.arch.cris.v10</code></dt>
+<dd><p>Reflects the option <samp class="option">--march=v10</samp>.
 </p>
 </dd>
-<dt><span><code>..asm.arch.cris.v32</code></span></dt>
-<dd><p>Corresponds to <samp>--march=v10</samp>.
+<dt><code class="code">..asm.arch.cris.v32</code></dt>
+<dd><p>Corresponds to <samp class="option">--march=v10</samp>.
 </p></dd>
 </dl>
 
 <p>Speaking of symbols, when a symbol is used in code, it can have
 a suffix modifying its value for use in position-independent
-code. See <a href="CRIS_002dPic.html">Symbols in position-independent code</a>.
+code. See <a class="xref" href="CRIS_002dPic.html">Symbols in position-independent code</a>.
 </p>
 </div>
 

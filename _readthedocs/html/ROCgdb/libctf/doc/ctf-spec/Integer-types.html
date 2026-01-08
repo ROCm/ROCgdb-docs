@@ -1,9 +1,9 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright (C) 2021-2025 Free Software Foundation, Inc.
+<!-- Copyright © 2021-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU General Public License, Version 3 or any
@@ -28,21 +28,8 @@ License".
 <link href="Type-kinds.html" rel="prev" title="Type kinds">
 <style type="text/css">
 <!--
-a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
-a.summary-letter {text-decoration: none}
-blockquote.indentedblock {margin-right: 0em}
-div.display {margin-left: 3.2em}
-div.example {margin-left: 3.2em}
-kbd {font-style: oblique}
-pre.display {font-family: inherit}
-pre.format {font-family: inherit}
-pre.menu-comment {font-family: serif}
-pre.menu-preformatted {font-family: serif}
-span.nolinebreak {white-space: nowrap}
-span.roman {font-family: initial; font-weight: normal}
-span.sansserif {font-family: sans-serif; font-weight: normal}
-span:hover a.copiable-anchor {visibility: visible}
-ul.no-bullet {list-style: none}
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+span:hover a.copiable-link {visibility: visible}
 -->
 </style>
 
@@ -50,97 +37,99 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<div class="subsection" id="Integer-types">
-<div class="header">
+<div class="subsection-level-extent" id="Integer-types">
+<div class="nav-panel">
 <p>
 Next: <a href="Floating_002dpoint-types.html" accesskey="n" rel="next">Floating-point types</a>, Previous: <a href="Type-kinds.html" accesskey="p" rel="prev">Type kinds</a>, Up: <a href="The-type-section.html" accesskey="u" rel="up">The type section</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="Integer-types-1"></span><h4 class="subsection">2.3.4 Integer types</h4>
-<span id="index-Integer-types"></span>
-<span id="index-Types_002c-integer"></span>
-<span id="index-int"></span>
-<span id="index-long"></span>
-<span id="index-long-long"></span>
-<span id="index-short"></span>
-<span id="index-char"></span>
-<span id="index-bool"></span>
-<span id="index-unsigned-int"></span>
-<span id="index-unsigned-long"></span>
-<span id="index-unsigned-long-long"></span>
-<span id="index-unsigned-short"></span>
-<span id="index-unsigned-char"></span>
-<span id="index-signed-int"></span>
-<span id="index-signed-long"></span>
-<span id="index-signed-long-long"></span>
-<span id="index-signed-short"></span>
-<span id="index-signed-char"></span>
-<span id="index-CTF_005fK_005fINTEGER"></span>
+<h4 class="subsection" id="Integer-types-1"><span>2.3.4 Integer types<a class="copiable-link" href="#Integer-types-1"> &para;</a></span></h4>
+<a class="index-entry-id" id="index-Integer-types"></a>
+<a class="index-entry-id" id="index-Types_002c-integer"></a>
+<a class="index-entry-id" id="index-int"></a>
+<a class="index-entry-id" id="index-long"></a>
+<a class="index-entry-id" id="index-long-long"></a>
+<a class="index-entry-id" id="index-short"></a>
+<a class="index-entry-id" id="index-char"></a>
+<a class="index-entry-id" id="index-bool"></a>
+<a class="index-entry-id" id="index-unsigned-int"></a>
+<a class="index-entry-id" id="index-unsigned-long"></a>
+<a class="index-entry-id" id="index-unsigned-long-long"></a>
+<a class="index-entry-id" id="index-unsigned-short"></a>
+<a class="index-entry-id" id="index-unsigned-char"></a>
+<a class="index-entry-id" id="index-signed-int"></a>
+<a class="index-entry-id" id="index-signed-long"></a>
+<a class="index-entry-id" id="index-signed-long-long"></a>
+<a class="index-entry-id" id="index-signed-short"></a>
+<a class="index-entry-id" id="index-signed-char"></a>
+<a class="index-entry-id" id="index-CTF_005fK_005fINTEGER"></a>
 
-<p>Integral types are all represented as types of kind <code>CTF_K_INTEGER</code>.  These
-types fill out <code>ctt_size</code> in the <code>ctf_stype_t</code> with the size in bytes
+<p>Integral types are all represented as types of kind <code class="code">CTF_K_INTEGER</code>.  These
+types fill out <code class="code">ctt_size</code> in the <code class="code">ctf_stype_t</code> with the size in bytes
 of the integral type in question.  They are always represented by
-<code>ctf_stype_t</code>, never <code>ctf_type_t</code>. Their variable-length data is one
-<code>uint32_t</code> in length: <code>vlen</code> in the info word should be disregarded
+<code class="code">ctf_stype_t</code>, never <code class="code">ctf_type_t</code>. Their variable-length data is one
+<code class="code">uint32_t</code> in length: <code class="code">vlen</code> in the info word should be disregarded
 and is always zero.
 </p>
 <p>The variable-length data for integers has multiple items packed into it much
 like the info word does.
 </p>
-<table>
+<table class="multitable">
 <thead><tr><th>Bit offset</th><th>Name</th><th>Description</th></tr></thead>
-<tr><td>24&ndash;31</td><td>Encoding</td><td>The desired display representation of this integer. You can extract this
-field with the <code>CTF_INT_ENCODING</code> macro.  See below.
-<span id="index-CTF_005fINT_005fENCODING"></span></td></tr>
+<tbody><tr><td>24&ndash;31</td><td>Encoding</td><td>The desired display representation of this integer. You can extract this
+field with the <code class="code">CTF_INT_ENCODING</code> macro.  See below.
+<a class="index-entry-id" id="index-CTF_005fINT_005fENCODING"></a></td></tr>
 <tr><td>16&ndash;23</td><td>Offset</td><td>The offset of this integral type in bits from the start of its enclosing
-structure field, adjusted for endianness: see <a href="Structs-and-unions.html">Structs and unions</a>.  You can
-extract this field with the <code>CTF_INT_OFFSET</code> macro.
-<span id="index-CTF_005fINT_005fOFFSET"></span></td></tr>
+structure field, adjusted for endianness: see <a class="pxref" href="Structs-and-unions.html">Structs and unions</a>.  You can
+extract this field with the <code class="code">CTF_INT_OFFSET</code> macro.
+<a class="index-entry-id" id="index-CTF_005fINT_005fOFFSET"></a></td></tr>
 <tr><td>0&ndash;15</td><td>Bit-width</td><td>The width of this integral type in bits.  You can extract this field with
-the <code>CTF_INT_BITS</code> macro.
-<span id="index-CTF_005fINT_005fBITS"></span></td></tr>
+the <code class="code">CTF_INT_BITS</code> macro.
+<a class="index-entry-id" id="index-CTF_005fINT_005fBITS"></a></td></tr>
+</tbody>
 </table>
 
 <p>If you choose, bitfields can be represented using the things above as a sort of
-integral type with the <code>isroot</code> bit flipped off and the offset and bits
-values set in the vlen word: you can populate it with the <code>CTF_INT_DATA</code>
+integral type with the <code class="code">isroot</code> bit flipped off and the offset and bits
+values set in the vlen word: you can populate it with the <code class="code">CTF_INT_DATA</code>
 macro.  (But it may be more convenient to represent them using slices of a
-full-width integer: see <a href="Slices.html">Slices</a>.)
-<span id="index-CTF_005fINT_005fDATA"></span>
+full-width integer: see <a class="pxref" href="Slices.html">Slices</a>.)
+<a class="index-entry-id" id="index-CTF_005fINT_005fDATA"></a>
 </p>
-<p>Integers that are bitfields usually have a <code>ctt_size</code> rounded up to the
+<p>Integers that are bitfields usually have a <code class="code">ctt_size</code> rounded up to the
 nearest power of two in bytes, for natural alignment (e.g. a 17-bit integer
-would have a <code>ctt_size</code> of 4).  However, not all types are naturally
+would have a <code class="code">ctt_size</code> of 4).  However, not all types are naturally
 aligned on all architectures: packed structures may in theory use integral
-bitfields with different <code>ctt_size</code>, though this is rarely observed.
+bitfields with different <code class="code">ctt_size</code>, though this is rarely observed.
 </p>
-<p>The <em>encoding</em> for integers is a bit-field comprised of the values below,
+<p>The <em class="dfn">encoding</em> for integers is a bit-field comprised of the values below,
 which consumers can use to decide how to display values of this type:
 </p>
-<table>
+<table class="multitable">
 <thead><tr><th>Offset</th><th>Name</th><th>Description</th></tr></thead>
-<tr><td>0x01</td><td><code>CTF_INT_SIGNED</code></td><td>If set, this is a signed int: if false, unsigned.
-<span id="index-CTF_005fINT_005fSIGNED"></span></td></tr>
-<tr><td>0x02</td><td><code>CTF_INT_CHAR</code></td><td>If set, this is a char type.  It is platform-dependent whether unadorned
-<code>char</code> is signed or not: the <code>CTF_CHAR</code> macro produces an integral
-type suitable for the definition of <code>char</code> on this platform.
-<span id="index-CTF_005fINT_005fCHAR"></span>
-<span id="index-CTF_005fCHAR"></span></td></tr>
-<tr><td>0x04</td><td><code>CTF_INT_BOOL</code></td><td>If set, this is a boolean type.  (It is theoretically possible to turn this
-and <code>CTF_INT_CHAR</code> on at the same time, but it is not clear what this would
+<tbody><tr><td>0x01</td><td><code class="code">CTF_INT_SIGNED</code></td><td>If set, this is a signed int: if false, unsigned.
+<a class="index-entry-id" id="index-CTF_005fINT_005fSIGNED"></a></td></tr>
+<tr><td>0x02</td><td><code class="code">CTF_INT_CHAR</code></td><td>If set, this is a char type.  It is platform-dependent whether unadorned
+<code class="code">char</code> is signed or not: the <code class="code">CTF_CHAR</code> macro produces an integral
+type suitable for the definition of <code class="code">char</code> on this platform.
+<a class="index-entry-id" id="index-CTF_005fINT_005fCHAR"></a>
+<a class="index-entry-id" id="index-CTF_005fCHAR"></a></td></tr>
+<tr><td>0x04</td><td><code class="code">CTF_INT_BOOL</code></td><td>If set, this is a boolean type.  (It is theoretically possible to turn this
+and <code class="code">CTF_INT_CHAR</code> on at the same time, but it is not clear what this would
 mean.)
-<span id="index-CTF_005fINT_005fBOOL"></span></td></tr>
-<tr><td>0x08</td><td><code>CTF_INT_VARARGS</code></td><td>If set, this is a varargs-promoted value in a K&amp;R function definition.
+<a class="index-entry-id" id="index-CTF_005fINT_005fBOOL"></a></td></tr>
+<tr><td>0x08</td><td><code class="code">CTF_INT_VARARGS</code></td><td>If set, this is a varargs-promoted value in a K&amp;R function definition.
 This is not currently produced or consumed by anything that we know of: it is set
 aside for future use.</td></tr>
+</tbody>
 </table>
 
-<p>The GCC &ldquo;<code>Complex int</code>&rdquo; and fixed-point extensions are not yet supported:
+<p>The GCC &ldquo;<code class="code">Complex int</code>&rdquo; and fixed-point extensions are not yet supported:
 references to such types will be emitted as type 0.
 </p>
 </div>
 <hr>
-<div class="header">
+<div class="nav-panel">
 <p>
 Next: <a href="Floating_002dpoint-types.html">Floating-point types</a>, Previous: <a href="Type-kinds.html">Type kinds</a>, Up: <a href="The-type-section.html">The type section</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

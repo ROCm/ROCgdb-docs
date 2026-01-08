@@ -1,13 +1,13 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the GNU linker LD
 (GNU Binutils)
 version 2.43.50.
 
-Copyright (C) 1991-2025 Free Software Foundation, Inc.
+Copyright © 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -32,21 +32,8 @@ section entitled "GNU Free Documentation License". -->
 <link href="H8_002f300.html" rel="prev" title="H8/300">
 <style type="text/css">
 <!--
-a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
-a.summary-letter {text-decoration: none}
-blockquote.indentedblock {margin-right: 0em}
-div.display {margin-left: 3.2em}
-div.example {margin-left: 3.2em}
-kbd {font-style: oblique}
-pre.display {font-family: inherit}
-pre.format {font-family: inherit}
-pre.menu-comment {font-family: serif}
-pre.menu-preformatted {font-family: serif}
-span.nolinebreak {white-space: nowrap}
-span.roman {font-family: initial; font-weight: normal}
-span.sansserif {font-family: sans-serif; font-weight: normal}
-span:hover a.copiable-anchor {visibility: visible}
-ul.no-bullet {list-style: none}
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+span:hover a.copiable-link {visibility: visible}
 -->
 </style>
 
@@ -54,57 +41,55 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<div class="section" id="M68HC11_002f68HC12">
-<div class="header">
+<div class="section-level-extent" id="M68HC11_002f68HC12">
+<div class="nav-panel">
 <p>
-Next: <a href="ARM.html" accesskey="n" rel="next"><code>ld</code> and the ARM family</a>, Previous: <a href="H8_002f300.html" accesskey="p" rel="prev"><code>ld</code> and the H8/300</a>, Up: <a href="Machine-Dependent.html" accesskey="u" rel="up">Machine Dependent Features</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="LD-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="ARM.html" accesskey="n" rel="next"><code class="command">ld</code> and the ARM family</a>, Previous: <a href="H8_002f300.html" accesskey="p" rel="prev"><code class="command">ld</code> and the H8/300</a>, Up: <a href="Machine-Dependent.html" accesskey="u" rel="up">Machine Dependent Features</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="LD-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="ld-and-the-Motorola-68HC11-and-68HC12-families"></span><h3 class="section">6.2 <code>ld</code> and the Motorola 68HC11 and 68HC12 families</h3>
+<h3 class="section" id="ld-and-the-Motorola-68HC11-and-68HC12-families"><span>6.2 <code class="command">ld</code> and the Motorola 68HC11 and 68HC12 families<a class="copiable-link" href="#ld-and-the-Motorola-68HC11-and-68HC12-families"> &para;</a></span></h3>
 
-<span id="index-M68HC11-and-68HC12-support"></span>
+<a class="index-entry-id" id="index-M68HC11-and-68HC12-support"></a>
 
-<ul class="section-toc">
+<ul class="mini-toc">
 <li><a href="#Linker-Relaxation" accesskey="1">Linker Relaxation</a></li>
 <li><a href="#Trampoline-Generation" accesskey="2">Trampoline Generation</a></li>
 </ul>
-<div class="subsection" id="Linker-Relaxation">
-<h4 class="subsection">6.2.1 Linker Relaxation</h4>
+<div class="subsection-level-extent" id="Linker-Relaxation">
+<h4 class="subsection"><span>6.2.1 Linker Relaxation<a class="copiable-link" href="#Linker-Relaxation"> &para;</a></span></h4>
 
-<p>For the Motorola 68HC11, <code>ld</code> can perform these global
-optimizations when you specify the &lsquo;<samp>--relax</samp>&rsquo; command-line option.
+<p>For the Motorola 68HC11, <code class="command">ld</code> can perform these global
+optimizations when you specify the &lsquo;<samp class="samp">--relax</samp>&rsquo; command-line option.
 </p>
-<dl compact="compact">
-<dd><span id="index-relaxing-on-M68HC11"></span>
-</dd>
-<dt><span><em>relaxing address modes</em></span></dt>
-<dd><p><code>ld</code> finds all <code>jsr</code> and <code>jmp</code> instructions whose
+<dl class="table">
+<dt><a id="index-relaxing-on-M68HC11"></a><span><em class="emph">relaxing address modes</em><a class="copiable-link" href="#index-relaxing-on-M68HC11"> &para;</a></span></dt>
+<dd><p><code class="command">ld</code> finds all <code class="code">jsr</code> and <code class="code">jmp</code> instructions whose
 targets are within eight bits, and turns them into eight-bit
-program-counter relative <code>bsr</code> and <code>bra</code> instructions,
+program-counter relative <code class="code">bsr</code> and <code class="code">bra</code> instructions,
 respectively.
 </p>
-<p><code>ld</code> also looks at all 16-bit extended addressing modes and
+<p><code class="command">ld</code> also looks at all 16-bit extended addressing modes and
 transforms them in a direct addressing mode when the address is in
 page 0 (between 0 and 0x0ff).
 </p>
 </dd>
-<dt><span><em>relaxing gcc instruction group</em></span></dt>
-<dd><p>When <code>gcc</code> is called with <samp>-mrelax</samp>, it can emit group
+<dt><em class="emph">relaxing gcc instruction group</em></dt>
+<dd><p>When <code class="command">gcc</code> is called with <samp class="option">-mrelax</samp>, it can emit group
 of instructions that the linker can optimize to use a 68HC11 direct
-addressing mode. These instructions consists of <code>bclr</code> or
-<code>bset</code> instructions.
+addressing mode. These instructions consists of <code class="code">bclr</code> or
+<code class="code">bset</code> instructions.
 </p>
 </dd>
 </dl>
 
 </div>
-<div class="subsection" id="Trampoline-Generation">
-<h4 class="subsection">6.2.2 Trampoline Generation</h4>
+<div class="subsection-level-extent" id="Trampoline-Generation">
+<h4 class="subsection"><span>6.2.2 Trampoline Generation<a class="copiable-link" href="#Trampoline-Generation"> &para;</a></span></h4>
 
-<span id="index-trampoline-generation-on-M68HC11"></span>
-<span id="index-trampoline-generation-on-M68HC12"></span>
-<p>For 68HC11 and 68HC12, <code>ld</code> can generate trampoline code to
-call a far function using a normal <code>jsr</code> instruction. The linker
+<a class="index-entry-id" id="index-trampoline-generation-on-M68HC11"></a>
+<a class="index-entry-id" id="index-trampoline-generation-on-M68HC12"></a>
+<p>For 68HC11 and 68HC12, <code class="command">ld</code> can generate trampoline code to
+call a far function using a normal <code class="code">jsr</code> instruction. The linker
 will also change the relocation to some far function to use the
 trampoline address instead of the function address. This is typically the
 case when a pointer to a function is taken. The pointer will in fact
@@ -112,6 +97,11 @@ point to the function trampoline.
 </p>
 
 </div>
+</div>
+<hr>
+<div class="nav-panel">
+<p>
+Next: <a href="ARM.html"><code class="command">ld</code> and the ARM family</a>, Previous: <a href="H8_002f300.html"><code class="command">ld</code> and the H8/300</a>, Up: <a href="Machine-Dependent.html">Machine Dependent Features</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="LD-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

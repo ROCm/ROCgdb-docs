@@ -1,11 +1,11 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the internals of the GNU linker ld.
 
-Copyright (C) 1992-2025 Free Software Foundation, Inc.
+Copyright © 1992-2024 Free Software Foundation, Inc.
 Contributed by Cygnus Support.
 
 Permission is granted to copy, distribute and/or modify this document
@@ -39,21 +39,14 @@ You have freedom to copy and modify this GNU Manual, like GNU
 <link href="#README" rel="next" title="README">
 <style type="text/css">
 <!--
-a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
-a.summary-letter {text-decoration: none}
-blockquote.indentedblock {margin-right: 0em}
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+div.center {text-align:center}
 div.display {margin-left: 3.2em}
 div.example {margin-left: 3.2em}
-kbd {font-style: oblique}
-pre.display {font-family: inherit}
-pre.format {font-family: inherit}
-pre.menu-comment {font-family: serif}
-pre.menu-preformatted {font-family: serif}
-span.nolinebreak {white-space: nowrap}
-span.roman {font-family: initial; font-weight: normal}
-span.sansserif {font-family: sans-serif; font-weight: normal}
-span:hover a.copiable-anchor {visibility: visible}
-ul.no-bullet {list-style: none}
+pre.display-preformatted {font-family: inherit}
+span:hover a.copiable-link {visibility: visible}
+ul.mark-bullet {list-style-type: disc}
+ul.toc-numbered-mark {list-style: none}
 -->
 </style>
 
@@ -65,38 +58,38 @@ ul.no-bullet {list-style: none}
 
 
 
-<div class="top" id="Top">
-<div class="header">
+<div class="top-level-extent" id="Top">
+<div class="nav-panel">
 <p>
-Next: <a href="#README" accesskey="n" rel="next">The <samp>README</samp> File</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+Next: <a href="#README" accesskey="n" rel="next">The <samp class="file">README</samp> File</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
 </div>
-<span id="SEC_Top"></span>
-<p>This file documents the internals of the GNU linker <code>ld</code>.  It is a
+<a class="top" id="SEC_Top"></a>
+<p>This file documents the internals of the GNU linker <code class="code">ld</code>.  It is a
 collection of miscellaneous information with little form at this point.
 Mostly, it is a repository into which you can put information about
-GNU <code>ld</code> as you discover it (or as you design changes to <code>ld</code>).
+GNU <code class="code">ld</code> as you discover it (or as you design changes to <code class="code">ld</code>).
 </p>
 <p>This document is distributed under the terms of the GNU Free
 Documentation License.  A copy of the license is included in the
 section entitled &quot;GNU Free Documentation License&quot;.
 </p>
 
-<div class="Contents_element" id="SEC_Contents">
+<div class="element-contents" id="SEC_Contents">
 <h2 class="contents-heading">Table of Contents</h2>
 
 <div class="contents">
 
-<ul class="no-bullet">
-  <li><a id="toc-The-README-File" href="#README">1 The <samp>README</samp> File</a></li>
+<ul class="toc-numbered-mark">
+  <li><a id="toc-The-README-File" href="#README">1 The <samp class="file">README</samp> File</a></li>
   <li><a id="toc-How-linker-emulations-are-generated" href="#Emulations">2 How linker emulations are generated</a>
-  <ul class="no-bullet">
-    <li><a id="toc-emulparams-scripts" href="#emulation-parameters">2.1 <samp>emulparams</samp> scripts</a></li>
-    <li><a id="toc-scripttempl-scripts" href="#linker-scripts">2.2 <samp>scripttempl</samp> scripts</a></li>
-    <li><a id="toc-emultempl-scripts" href="#linker-emulations">2.3 <samp>emultempl</samp> scripts</a></li>
+  <ul class="toc-numbered-mark">
+    <li><a id="toc-emulparams-scripts" href="#emulation-parameters">2.1 <samp class="file">emulparams</samp> scripts</a></li>
+    <li><a id="toc-scripttempl-scripts" href="#linker-scripts">2.2 <samp class="file">scripttempl</samp> scripts</a></li>
+    <li><a id="toc-emultempl-scripts" href="#linker-emulations">2.3 <samp class="file">emultempl</samp> scripts</a></li>
   </ul></li>
   <li><a id="toc-A-Walkthrough-of-a-Typical-Emulation" href="#Emulation-Walkthrough">3 A Walkthrough of a Typical Emulation</a></li>
   <li><a id="toc-Some-Architecture-Specific-Notes" href="#Architecture-Specific">4 Some Architecture Specific Notes</a>
-  <ul class="no-bullet">
+  <ul class="toc-numbered-mark">
     <li><a id="toc-Intel-x86" href="#ix86">4.1 Intel x86</a></li>
   </ul></li>
   <li><a id="toc-GNU-Free-Documentation-License-1" href="#GNU-Free-Documentation-License">5 GNU Free Documentation License</a></li>
@@ -104,367 +97,367 @@ section entitled &quot;GNU Free Documentation License&quot;.
 </div>
 </div>
 <hr>
-<div class="chapter" id="README">
-<div class="header">
+<div class="chapter-level-extent" id="README">
+<div class="nav-panel">
 <p>
 Next: <a href="#Emulations" accesskey="n" rel="next">How linker emulations are generated</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
 </div>
-<span id="The-README-File"></span><h2 class="chapter">1 The <samp>README</samp> File</h2>
+<h2 class="chapter" id="The-README-File"><span>1 The <samp class="file">README</samp> File<a class="copiable-link" href="#The-README-File"> &para;</a></span></h2>
 
-<p>Check the <samp>README</samp> file; it often has useful information that does not
+<p>Check the <samp class="file">README</samp> file; it often has useful information that does not
 appear anywhere else in the directory.
 </p>
 <hr>
 </div>
-<div class="chapter" id="Emulations">
-<div class="header">
+<div class="chapter-level-extent" id="Emulations">
+<div class="nav-panel">
 <p>
-Next: <a href="#Emulation-Walkthrough" accesskey="n" rel="next">A Walkthrough of a Typical Emulation</a>, Previous: <a href="#README" accesskey="p" rel="prev">The <samp>README</samp> File</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+Next: <a href="#Emulation-Walkthrough" accesskey="n" rel="next">A Walkthrough of a Typical Emulation</a>, Previous: <a href="#README" accesskey="p" rel="prev">The <samp class="file">README</samp> File</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
 </div>
-<span id="How-linker-emulations-are-generated"></span><h2 class="chapter">2 How linker emulations are generated</h2>
+<h2 class="chapter" id="How-linker-emulations-are-generated"><span>2 How linker emulations are generated<a class="copiable-link" href="#How-linker-emulations-are-generated"> &para;</a></span></h2>
 
-<p>Each linker target has an <em>emulation</em>.  The emulation includes the
+<p>Each linker target has an <em class="dfn">emulation</em>.  The emulation includes the
 default linker script, and certain emulations also modify certain types
 of linker behaviour.
 </p>
 <p>Emulations are created during the build process by the shell script
-<samp>genscripts.sh</samp>.
+<samp class="file">genscripts.sh</samp>.
 </p>
-<p>The <samp>genscripts.sh</samp> script starts by reading a file in the
-<samp>emulparams</samp> directory.  This is a shell script which sets various
-shell variables used by <samp>genscripts.sh</samp> and the other shell scripts
+<p>The <samp class="file">genscripts.sh</samp> script starts by reading a file in the
+<samp class="file">emulparams</samp> directory.  This is a shell script which sets various
+shell variables used by <samp class="file">genscripts.sh</samp> and the other shell scripts
 it invokes.
 </p>
-<p>The <samp>genscripts.sh</samp> script will invoke a shell script in the
-<samp>scripttempl</samp> directory in order to create default linker scripts
-written in the linker command language.  The <samp>scripttempl</samp> script
+<p>The <samp class="file">genscripts.sh</samp> script will invoke a shell script in the
+<samp class="file">scripttempl</samp> directory in order to create default linker scripts
+written in the linker command language.  The <samp class="file">scripttempl</samp> script
 will be invoked 5 (or, in some cases, 6) times, with different
 assignments to shell variables, to create different default scripts.
 The choice of script is made based on the command-line options.
 </p>
-<p>After creating the scripts, <samp>genscripts.sh</samp> will invoke yet another
-shell script, this time in the <samp>emultempl</samp> directory.  That shell
+<p>After creating the scripts, <samp class="file">genscripts.sh</samp> will invoke yet another
+shell script, this time in the <samp class="file">emultempl</samp> directory.  That shell
 script will create the emulation source file, which contains C code.
 This C code permits the linker emulation to override various linker
 behaviours.  Most targets use the generic emulation code, which is in
-<samp>emultempl/generic.em</samp>.
+<samp class="file">emultempl/generic.em</samp>.
 </p>
-<p>To summarize, <samp>genscripts.sh</samp> reads three shell scripts: an
-emulation parameters script in the <samp>emulparams</samp> directory, a linker
-script generation script in the <samp>scripttempl</samp> directory, and an
-emulation source file generation script in the <samp>emultempl</samp>
+<p>To summarize, <samp class="file">genscripts.sh</samp> reads three shell scripts: an
+emulation parameters script in the <samp class="file">emulparams</samp> directory, a linker
+script generation script in the <samp class="file">scripttempl</samp> directory, and an
+emulation source file generation script in the <samp class="file">emultempl</samp>
 directory.
 </p>
 <p>For example, the Sun 4 linker sets up variables in
-<samp>emulparams/sun4.sh</samp>, creates linker scripts using
-<samp>scripttempl/aout.sc</samp>, and creates the emulation code using
-<samp>emultempl/sunos.em</samp>.
+<samp class="file">emulparams/sun4.sh</samp>, creates linker scripts using
+<samp class="file">scripttempl/aout.sc</samp>, and creates the emulation code using
+<samp class="file">emultempl/sunos.em</samp>.
 </p>
 <p>Note that the linker can support several emulations simultaneously,
 depending upon how it is configured.  An emulation can be selected with
-the <code>-m</code> option.  The <code>-V</code> option will list all supported
+the <code class="code">-m</code> option.  The <code class="code">-V</code> option will list all supported
 emulations.
 </p>
 
-<ul class="section-toc">
-<li><a href="#emulation-parameters" accesskey="1"><samp>emulparams</samp> scripts</a></li>
-<li><a href="#linker-scripts" accesskey="2"><samp>scripttempl</samp> scripts</a></li>
-<li><a href="#linker-emulations" accesskey="3"><samp>emultempl</samp> scripts</a></li>
+<ul class="mini-toc">
+<li><a href="#emulation-parameters" accesskey="1"><samp class="file">emulparams</samp> scripts</a></li>
+<li><a href="#linker-scripts" accesskey="2"><samp class="file">scripttempl</samp> scripts</a></li>
+<li><a href="#linker-emulations" accesskey="3"><samp class="file">emultempl</samp> scripts</a></li>
 </ul>
 <hr>
-<div class="section" id="emulation-parameters">
-<div class="header">
+<div class="section-level-extent" id="emulation-parameters">
+<div class="nav-panel">
 <p>
-Next: <a href="#linker-scripts" accesskey="n" rel="next"><samp>scripttempl</samp> scripts</a>, Up: <a href="#Emulations" accesskey="u" rel="up">How linker emulations are generated</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+Next: <a href="#linker-scripts" accesskey="n" rel="next"><samp class="file">scripttempl</samp> scripts</a>, Up: <a href="#Emulations" accesskey="u" rel="up">How linker emulations are generated</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
 </div>
-<span id="emulparams-scripts"></span><h3 class="section">2.1 <samp>emulparams</samp> scripts</h3>
+<h3 class="section" id="emulparams-scripts"><span>2.1 <samp class="file">emulparams</samp> scripts<a class="copiable-link" href="#emulparams-scripts"> &para;</a></span></h3>
 
-<p>Each target selects a particular file in the <samp>emulparams</samp> directory
-by setting the shell variable <code>targ_emul</code> in <samp>configure.tgt</samp>.
-This shell variable is used by the <samp>configure</samp> script to control
+<p>Each target selects a particular file in the <samp class="file">emulparams</samp> directory
+by setting the shell variable <code class="code">targ_emul</code> in <samp class="file">configure.tgt</samp>.
+This shell variable is used by the <samp class="file">configure</samp> script to control
 building an emulation source file.
 </p>
-<p>Certain conventions are enforced.  Suppose the <code>targ_emul</code> variable
-is set to <var>emul</var> in <samp>configure.tgt</samp>.  The name of the emulation
-shell script will be <samp>emulparams/<var>emul</var>.sh</samp>.  The
-<samp>Makefile</samp> must have a target named <samp>e<var>emul</var>.c</samp>; this
-target must depend upon <samp>emulparams/<var>emul</var>.sh</samp>, as well as the
-appropriate scripts in the <samp>scripttempl</samp> and <samp>emultempl</samp>
-directories.  The <samp>Makefile</samp> target must invoke <code>GENSCRIPTS</code>
-with two arguments: <var>emul</var>, and the value of the make variable
-<code>tdir_<var>emul</var></code>.  The value of the latter variable will be set by
-the <samp>configure</samp> script, and is used to set the default target
+<p>Certain conventions are enforced.  Suppose the <code class="code">targ_emul</code> variable
+is set to <var class="var">emul</var> in <samp class="file">configure.tgt</samp>.  The name of the emulation
+shell script will be <samp class="file">emulparams/<var class="var">emul</var>.sh</samp>.  The
+<samp class="file">Makefile</samp> must have a target named <samp class="file">e<var class="var">emul</var>.c</samp>; this
+target must depend upon <samp class="file">emulparams/<var class="var">emul</var>.sh</samp>, as well as the
+appropriate scripts in the <samp class="file">scripttempl</samp> and <samp class="file">emultempl</samp>
+directories.  The <samp class="file">Makefile</samp> target must invoke <code class="code">GENSCRIPTS</code>
+with two arguments: <var class="var">emul</var>, and the value of the make variable
+<code class="code">tdir_<var class="var">emul</var></code>.  The value of the latter variable will be set by
+the <samp class="file">configure</samp> script, and is used to set the default target
 directory to search.
 </p>
-<p>By convention, the <samp>emulparams/<var>emul</var>.sh</samp> shell script should
+<p>By convention, the <samp class="file">emulparams/<var class="var">emul</var>.sh</samp> shell script should
 only set shell variables.  It may set shell variables which are to be
-interpreted by the <samp>scripttempl</samp> and the <samp>emultempl</samp> scripts.
+interpreted by the <samp class="file">scripttempl</samp> and the <samp class="file">emultempl</samp> scripts.
 Certain shell variables are interpreted directly by the
-<samp>genscripts.sh</samp> script.
+<samp class="file">genscripts.sh</samp> script.
 </p>
-<p>Here is a list of shell variables interpreted by <samp>genscripts.sh</samp>,
+<p>Here is a list of shell variables interpreted by <samp class="file">genscripts.sh</samp>,
 as well as some conventional shell variables interpreted by the
-<samp>scripttempl</samp> and <samp>emultempl</samp> scripts.
+<samp class="file">scripttempl</samp> and <samp class="file">emultempl</samp> scripts.
 </p>
-<dl compact="compact">
-<dt><span><code>SCRIPT_NAME</code></span></dt>
-<dd><p>This is the name of the <samp>scripttempl</samp> script to use.  If
-<code>SCRIPT_NAME</code> is set to <var>script</var>, <samp>genscripts.sh</samp> will use
-the script <samp>scripttempl/<var>script</var>.sc</samp>.
-</p>
-</dd>
-<dt><span><code>TEMPLATE_NAME</code></span></dt>
-<dd><p>This is the name of the <samp>emultempl</samp> script to use.  If
-<code>TEMPLATE_NAME</code> is set to <var>template</var>, <samp>genscripts.sh</samp> will
-use the script <samp>emultempl/<var>template</var>.em</samp>.  If this variable is
-not set, the default value is &lsquo;<samp>generic</samp>&rsquo;.
+<dl class="table">
+<dt><code class="code">SCRIPT_NAME</code></dt>
+<dd><p>This is the name of the <samp class="file">scripttempl</samp> script to use.  If
+<code class="code">SCRIPT_NAME</code> is set to <var class="var">script</var>, <samp class="file">genscripts.sh</samp> will use
+the script <samp class="file">scripttempl/<var class="var">script</var>.sc</samp>.
 </p>
 </dd>
-<dt><span><code>GENERATE_SHLIB_SCRIPT</code></span></dt>
-<dd><p>If this is set to a nonempty string, <samp>genscripts.sh</samp> will invoke
-the <samp>scripttempl</samp> script an extra time to create a shared library
-script.  <a href="#linker-scripts"><samp>scripttempl</samp> scripts</a>.
+<dt><code class="code">TEMPLATE_NAME</code></dt>
+<dd><p>This is the name of the <samp class="file">emultempl</samp> script to use.  If
+<code class="code">TEMPLATE_NAME</code> is set to <var class="var">template</var>, <samp class="file">genscripts.sh</samp> will
+use the script <samp class="file">emultempl/<var class="var">template</var>.em</samp>.  If this variable is
+not set, the default value is &lsquo;<samp class="samp">generic</samp>&rsquo;.
 </p>
 </dd>
-<dt><span><code>OUTPUT_FORMAT</code></span></dt>
+<dt><code class="code">GENERATE_SHLIB_SCRIPT</code></dt>
+<dd><p>If this is set to a nonempty string, <samp class="file">genscripts.sh</samp> will invoke
+the <samp class="file">scripttempl</samp> script an extra time to create a shared library
+script.  <a class="ref" href="#linker-scripts"><samp class="file">scripttempl</samp> scripts</a>.
+</p>
+</dd>
+<dt><code class="code">OUTPUT_FORMAT</code></dt>
 <dd><p>This is normally set to indicate the BFD output format use (e.g.,
-&lsquo;<samp>&quot;a.out-sunos-big&quot;</samp>&rsquo;.  The <samp>scripttempl</samp> script will normally
-use it in an <code>OUTPUT_FORMAT</code> expression in the linker script.
+&lsquo;<samp class="samp">&quot;a.out-sunos-big&quot;</samp>&rsquo;.  The <samp class="file">scripttempl</samp> script will normally
+use it in an <code class="code">OUTPUT_FORMAT</code> expression in the linker script.
 </p>
 </dd>
-<dt><span><code>ARCH</code></span></dt>
+<dt><code class="code">ARCH</code></dt>
 <dd><p>This is normally set to indicate the architecture to use (e.g.,
-&lsquo;<samp>sparc</samp>&rsquo;).  The <samp>scripttempl</samp> script will normally use it in an
-<code>OUTPUT_ARCH</code> expression in the linker script.
+&lsquo;<samp class="samp">sparc</samp>&rsquo;).  The <samp class="file">scripttempl</samp> script will normally use it in an
+<code class="code">OUTPUT_ARCH</code> expression in the linker script.
 </p>
 </dd>
-<dt><span><code>ENTRY</code></span></dt>
-<dd><p>Some <samp>scripttempl</samp> scripts use this to set the entry address, in an
-<code>ENTRY</code> expression in the linker script.
+<dt><code class="code">ENTRY</code></dt>
+<dd><p>Some <samp class="file">scripttempl</samp> scripts use this to set the entry address, in an
+<code class="code">ENTRY</code> expression in the linker script.
 </p>
 </dd>
-<dt><span><code>TEXT_START_ADDR</code></span></dt>
-<dd><p>Some <samp>scripttempl</samp> scripts use this to set the start address of the
-&lsquo;<samp>.text</samp>&rsquo; section.
+<dt><code class="code">TEXT_START_ADDR</code></dt>
+<dd><p>Some <samp class="file">scripttempl</samp> scripts use this to set the start address of the
+&lsquo;<samp class="samp">.text</samp>&rsquo; section.
 </p>
 </dd>
-<dt><span><code>SEGMENT_SIZE</code></span></dt>
-<dd><p>The <samp>genscripts.sh</samp> script uses this to set the default value of
-<code>DATA_ALIGNMENT</code> when running the <samp>scripttempl</samp> script.
+<dt><code class="code">SEGMENT_SIZE</code></dt>
+<dd><p>The <samp class="file">genscripts.sh</samp> script uses this to set the default value of
+<code class="code">DATA_ALIGNMENT</code> when running the <samp class="file">scripttempl</samp> script.
 </p>
 </dd>
-<dt><span><code>TARGET_PAGE_SIZE</code></span></dt>
-<dd><p>If <code>SEGMENT_SIZE</code> is not defined, the <samp>genscripts.sh</samp> script
+<dt><code class="code">TARGET_PAGE_SIZE</code></dt>
+<dd><p>If <code class="code">SEGMENT_SIZE</code> is not defined, the <samp class="file">genscripts.sh</samp> script
 uses this to define it.
 </p>
 </dd>
-<dt><span><code>ALIGNMENT</code></span></dt>
-<dd><p>Some <samp>scripttempl</samp> scripts set this to a number to pass to
-<code>ALIGN</code> to set the required alignment for the <code>end</code> symbol.
+<dt><code class="code">ALIGNMENT</code></dt>
+<dd><p>Some <samp class="file">scripttempl</samp> scripts set this to a number to pass to
+<code class="code">ALIGN</code> to set the required alignment for the <code class="code">end</code> symbol.
 </p></dd>
 </dl>
 
 <hr>
 </div>
-<div class="section" id="linker-scripts">
-<div class="header">
+<div class="section-level-extent" id="linker-scripts">
+<div class="nav-panel">
 <p>
-Next: <a href="#linker-emulations" accesskey="n" rel="next"><samp>emultempl</samp> scripts</a>, Previous: <a href="#emulation-parameters" accesskey="p" rel="prev"><samp>emulparams</samp> scripts</a>, Up: <a href="#Emulations" accesskey="u" rel="up">How linker emulations are generated</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+Next: <a href="#linker-emulations" accesskey="n" rel="next"><samp class="file">emultempl</samp> scripts</a>, Previous: <a href="#emulation-parameters" accesskey="p" rel="prev"><samp class="file">emulparams</samp> scripts</a>, Up: <a href="#Emulations" accesskey="u" rel="up">How linker emulations are generated</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
 </div>
-<span id="scripttempl-scripts"></span><h3 class="section">2.2 <samp>scripttempl</samp> scripts</h3>
+<h3 class="section" id="scripttempl-scripts"><span>2.2 <samp class="file">scripttempl</samp> scripts<a class="copiable-link" href="#scripttempl-scripts"> &para;</a></span></h3>
 
-<p>Each linker target uses a <samp>scripttempl</samp> script to generate the
-default linker scripts.  The name of the <samp>scripttempl</samp> script is
-set by the <code>SCRIPT_NAME</code> variable in the <samp>emulparams</samp> script.
-If <code>SCRIPT_NAME</code> is set to <var>script</var>, <code>genscripts.sh</code> will
-invoke <samp>scripttempl/<var>script</var>.sc</samp>.
+<p>Each linker target uses a <samp class="file">scripttempl</samp> script to generate the
+default linker scripts.  The name of the <samp class="file">scripttempl</samp> script is
+set by the <code class="code">SCRIPT_NAME</code> variable in the <samp class="file">emulparams</samp> script.
+If <code class="code">SCRIPT_NAME</code> is set to <var class="var">script</var>, <code class="code">genscripts.sh</code> will
+invoke <samp class="file">scripttempl/<var class="var">script</var>.sc</samp>.
 </p>
-<p>The <samp>genscripts.sh</samp> script will invoke the <samp>scripttempl</samp>
+<p>The <samp class="file">genscripts.sh</samp> script will invoke the <samp class="file">scripttempl</samp>
 script 5 to 9 times.  Each time it will set the shell variable
-<code>LD_FLAG</code> to a different value.  When the linker is run, the
+<code class="code">LD_FLAG</code> to a different value.  When the linker is run, the
 options used will direct it to select a particular script.  (Script
-selection is controlled by the <code>get_script</code> emulation entry point;
+selection is controlled by the <code class="code">get_script</code> emulation entry point;
 this describes the conventional behaviour).
 </p>
-<p>The <samp>scripttempl</samp> script should just write a linker script, written
+<p>The <samp class="file">scripttempl</samp> script should just write a linker script, written
 in the linker command language, to standard output.  If the emulation
-name&ndash;the name of the <samp>emulparams</samp> file without the <samp>.sc</samp>
-extension&ndash;is <var>emul</var>, then the output will be directed to
-<samp>ldscripts/<var>emul</var>.<var>extension</var></samp> in the build directory,
-where <var>extension</var> changes each time the <samp>scripttempl</samp> script is
+name&ndash;the name of the <samp class="file">emulparams</samp> file without the <samp class="file">.sc</samp>
+extension&ndash;is <var class="var">emul</var>, then the output will be directed to
+<samp class="file">ldscripts/<var class="var">emul</var>.<var class="var">extension</var></samp> in the build directory,
+where <var class="var">extension</var> changes each time the <samp class="file">scripttempl</samp> script is
 invoked.
 </p>
-<p>Here is the list of values assigned to <code>LD_FLAG</code>.
+<p>Here is the list of values assigned to <code class="code">LD_FLAG</code>.
 </p>
-<dl compact="compact">
-<dt><span><code>(empty)</code></span></dt>
+<dl class="table">
+<dt><code class="code">(empty)</code></dt>
 <dd><p>The script generated is used by default (when none of the following
-cases apply).  The output has an extension of <samp>.x</samp>.
+cases apply).  The output has an extension of <samp class="file">.x</samp>.
 </p>
 </dd>
-<dt><span><code>n</code></span></dt>
+<dt><code class="code">n</code></dt>
 <dd><p>The script generated is used when the linker is invoked with the
-<code>-n</code> option.  The output has an extension of <samp>.xn</samp>.
+<code class="code">-n</code> option.  The output has an extension of <samp class="file">.xn</samp>.
 </p>
 </dd>
-<dt><span><code>N</code></span></dt>
+<dt><code class="code">N</code></dt>
 <dd><p>The script generated is used when the linker is invoked with the
-<code>-N</code> option.  The output has an extension of <samp>.xbn</samp>.
+<code class="code">-N</code> option.  The output has an extension of <samp class="file">.xbn</samp>.
 </p>
 </dd>
-<dt><span><code>r</code></span></dt>
+<dt><code class="code">r</code></dt>
 <dd><p>The script generated is used when the linker is invoked with the
-<code>-r</code> option.  The output has an extension of <samp>.xr</samp>.
+<code class="code">-r</code> option.  The output has an extension of <samp class="file">.xr</samp>.
 </p>
 </dd>
-<dt><span><code>u</code></span></dt>
+<dt><code class="code">u</code></dt>
 <dd><p>The script generated is used when the linker is invoked with the
-<code>-Ur</code> option.  The output has an extension of <samp>.xu</samp>.
+<code class="code">-Ur</code> option.  The output has an extension of <samp class="file">.xu</samp>.
 </p>
 </dd>
-<dt><span><code>shared</code></span></dt>
-<dd><p>The <samp>scripttempl</samp> script is only invoked with <code>LD_FLAG</code> set to
-this value if <code>GENERATE_SHLIB_SCRIPT</code> is defined in the
-<samp>emulparams</samp> file.  The <samp>emultempl</samp> script must arrange to use
+<dt><code class="code">shared</code></dt>
+<dd><p>The <samp class="file">scripttempl</samp> script is only invoked with <code class="code">LD_FLAG</code> set to
+this value if <code class="code">GENERATE_SHLIB_SCRIPT</code> is defined in the
+<samp class="file">emulparams</samp> file.  The <samp class="file">emultempl</samp> script must arrange to use
 this script at the appropriate time, normally when the linker is invoked
-with the <code>-shared</code> option.  The output has an extension of
-<samp>.xs</samp>.
+with the <code class="code">-shared</code> option.  The output has an extension of
+<samp class="file">.xs</samp>.
 </p>
 </dd>
-<dt><span><code>c</code></span></dt>
-<dd><p>The <samp>scripttempl</samp> script is only invoked with <code>LD_FLAG</code> set to
-this value if <code>GENERATE_COMBRELOC_SCRIPT</code> is defined in the
-<samp>emulparams</samp> file or if <code>SCRIPT_NAME</code> is <code>elf</code>. The
-<samp>emultempl</samp> script must arrange to use this script at the appropriate
-time, normally when the linker is invoked with the <code>-z combreloc</code>
-option.  The output has an extension of <samp>.xc</samp>.
+<dt><code class="code">c</code></dt>
+<dd><p>The <samp class="file">scripttempl</samp> script is only invoked with <code class="code">LD_FLAG</code> set to
+this value if <code class="code">GENERATE_COMBRELOC_SCRIPT</code> is defined in the
+<samp class="file">emulparams</samp> file or if <code class="code">SCRIPT_NAME</code> is <code class="code">elf</code>. The
+<samp class="file">emultempl</samp> script must arrange to use this script at the appropriate
+time, normally when the linker is invoked with the <code class="code">-z combreloc</code>
+option.  The output has an extension of <samp class="file">.xc</samp>.
 </p>
 </dd>
-<dt><span><code>cshared</code></span></dt>
-<dd><p>The <samp>scripttempl</samp> script is only invoked with <code>LD_FLAG</code> set to
-this value if <code>GENERATE_COMBRELOC_SCRIPT</code> is defined in the
-<samp>emulparams</samp> file or if <code>SCRIPT_NAME</code> is <code>elf</code> and
-<code>GENERATE_SHLIB_SCRIPT</code> is defined in the <samp>emulparams</samp> file.
-The <samp>emultempl</samp> script must arrange to use this script at the
-appropriate time, normally when the linker is invoked with the <code>-shared
--z combreloc</code> option.  The output has an extension of <samp>.xsc</samp>.
+<dt><code class="code">cshared</code></dt>
+<dd><p>The <samp class="file">scripttempl</samp> script is only invoked with <code class="code">LD_FLAG</code> set to
+this value if <code class="code">GENERATE_COMBRELOC_SCRIPT</code> is defined in the
+<samp class="file">emulparams</samp> file or if <code class="code">SCRIPT_NAME</code> is <code class="code">elf</code> and
+<code class="code">GENERATE_SHLIB_SCRIPT</code> is defined in the <samp class="file">emulparams</samp> file.
+The <samp class="file">emultempl</samp> script must arrange to use this script at the
+appropriate time, normally when the linker is invoked with the <code class="code">-shared
+-z combreloc</code> option.  The output has an extension of <samp class="file">.xsc</samp>.
 </p>
 </dd>
-<dt><span><code>wshared</code></span></dt>
-<dd><p>Like <em>cshared</em> but in addition to needing the <samp>-shared</samp>
-and <samp>-z combreloc</samp> options, it also needs the <samp>-z relro</samp>
-option.  If the <samp>-z now</samp> option is also used then the output has
-an extension of <samp>.xsw</samp>, otherwise it is <samp>.xsco</samp>.
+<dt><code class="code">wshared</code></dt>
+<dd><p>Like <em class="emph">cshared</em> but in addition to needing the <samp class="option">-shared</samp>
+and <samp class="option">-z combreloc</samp> options, it also needs the <samp class="option">-z relro</samp>
+option.  If the <samp class="option">-z now</samp> option is also used then the output has
+an extension of <samp class="file">.xsw</samp>, otherwise it is <samp class="file">.xsco</samp>.
 </p>
 </dd>
-<dt><span><code>pie</code></span></dt>
-<dd><p>The <samp>scripttempl</samp> script is only invoked with <code>LD_FLAG</code> set to
-this value if <code>GENERATE_PIE_SCRIPT</code> is defined in the
-<samp>emulparams</samp> file.  The <samp>emultempl</samp> script must arrange to use
+<dt><code class="code">pie</code></dt>
+<dd><p>The <samp class="file">scripttempl</samp> script is only invoked with <code class="code">LD_FLAG</code> set to
+this value if <code class="code">GENERATE_PIE_SCRIPT</code> is defined in the
+<samp class="file">emulparams</samp> file.  The <samp class="file">emultempl</samp> script must arrange to use
 this script at the appropriate time, normally when the linker is invoked
-with the <code>-pie</code> option.  The output has an extension of
-<samp>.xd</samp>.
+with the <code class="code">-pie</code> option.  The output has an extension of
+<samp class="file">.xd</samp>.
 </p>
-<p>In addition if the <samp>scripttempl</samp> script is also invoked with
-<code>GENERATE_RELRO_SCRIPT</code> defined then a second script is created
-with an extension of <samp>.xdo</samp> to match the <samp>-pie</samp> and
-<samp>-z relro</samp> options.
+<p>In addition if the <samp class="file">scripttempl</samp> script is also invoked with
+<code class="code">GENERATE_RELRO_SCRIPT</code> defined then a second script is created
+with an extension of <samp class="file">.xdo</samp> to match the <samp class="option">-pie</samp> and
+<samp class="option">-z relro</samp> options.
 </p>
 </dd>
-<dt><span><code>cpie</code></span></dt>
-<dd><p>Like <code>pie</code> but this version is used when the <samp>scripttempl</samp>
-script is invoked with both <code>GENERATE_PIE_SCRIPT</code> and
-<code>GENERATE_COMBRELOC_SCRIPT</code> defined.  The <samp>emultempl</samp> script
+<dt><code class="code">cpie</code></dt>
+<dd><p>Like <code class="code">pie</code> but this version is used when the <samp class="file">scripttempl</samp>
+script is invoked with both <code class="code">GENERATE_PIE_SCRIPT</code> and
+<code class="code">GENERATE_COMBRELOC_SCRIPT</code> defined.  The <samp class="file">emultempl</samp> script
 must arrange to use this script at the appropriate time, normally when
-the linker is invoked with the <code>-pie</code> and <samp>-z combreloc</samp>
-options.  The output has an extension of <samp>.xdc</samp>.
+the linker is invoked with the <code class="code">-pie</code> and <samp class="option">-z combreloc</samp>
+options.  The output has an extension of <samp class="file">.xdc</samp>.
 </p>
 </dd>
-<dt><span><code>wpie</code></span></dt>
-<dd><p>Like <code>cpie</code>, but in addition the <samp>-z relro</samp> and
-<samp>-z now</samp> options need to be defined.  The output has an
-extension of <samp>.xdw</samp>.
+<dt><code class="code">wpie</code></dt>
+<dd><p>Like <code class="code">cpie</code>, but in addition the <samp class="option">-z relro</samp> and
+<samp class="option">-z now</samp> options need to be defined.  The output has an
+extension of <samp class="file">.xdw</samp>.
 </p>
 </dd>
-<dt><span><code>textonly</code></span></dt>
-<dt><span><code>pietextonly</code></span></dt>
-<dt><span><code>cpietextonly</code></span></dt>
-<dt><span><code>wpietextonly</code></span></dt>
-<dt><span><code>ctextonly</code></span></dt>
-<dt><span><code>wtextonly</code></span></dt>
-<dt><span><code>sharedtextonly</code></span></dt>
-<dt><span><code>csharedtextonly</code></span></dt>
-<dt><span><code>wsharedtextonly</code></span></dt>
-<dt><span><code>rotextonly</code></span></dt>
-<dt><span><code>roctextonly</code></span></dt>
-<dt><span><code>rowtextonly</code></span></dt>
-<dt><span><code>rosharedtextonly</code></span></dt>
-<dt><span><code>rocsharedtextonly</code></span></dt>
-<dt><span><code>rowsharedtextonly</code></span></dt>
-<dt><span><code>ropietextonly</code></span></dt>
-<dt><span><code>rocpietextonly</code></span></dt>
-<dt><span><code>rowpietextonly</code></span></dt>
-<dt><span><code>auto_import</code></span></dt>
-<dd><p>The <samp>scripttempl</samp> script is only invoked with <code>LD_FLAG</code> set to
-this value if <code>GENERATE_AUTO_IMPORT_SCRIPT</code> is defined in the
-<samp>emulparams</samp> file.  The <samp>emultempl</samp> script must arrange to
+<dt><code class="code">textonly</code></dt>
+<dt><code class="code">pietextonly</code></dt>
+<dt><code class="code">cpietextonly</code></dt>
+<dt><code class="code">wpietextonly</code></dt>
+<dt><code class="code">ctextonly</code></dt>
+<dt><code class="code">wtextonly</code></dt>
+<dt><code class="code">sharedtextonly</code></dt>
+<dt><code class="code">csharedtextonly</code></dt>
+<dt><code class="code">wsharedtextonly</code></dt>
+<dt><code class="code">rotextonly</code></dt>
+<dt><code class="code">roctextonly</code></dt>
+<dt><code class="code">rowtextonly</code></dt>
+<dt><code class="code">rosharedtextonly</code></dt>
+<dt><code class="code">rocsharedtextonly</code></dt>
+<dt><code class="code">rowsharedtextonly</code></dt>
+<dt><code class="code">ropietextonly</code></dt>
+<dt><code class="code">rocpietextonly</code></dt>
+<dt><code class="code">rowpietextonly</code></dt>
+<dt><code class="code">auto_import</code></dt>
+<dd><p>The <samp class="file">scripttempl</samp> script is only invoked with <code class="code">LD_FLAG</code> set to
+this value if <code class="code">GENERATE_AUTO_IMPORT_SCRIPT</code> is defined in the
+<samp class="file">emulparams</samp> file.  The <samp class="file">emultempl</samp> script must arrange to
 use this script at the appropriate time, normally when the linker is
-invoked with the <code>--enable-auto-import</code> option.  The output has
-an extension of <samp>.xa</samp>.
+invoked with the <code class="code">--enable-auto-import</code> option.  The output has
+an extension of <samp class="file">.xa</samp>.
 </p>
 </dd>
 </dl>
 
 
-<p>Besides the shell variables set by the <samp>emulparams</samp> script, and the
-<code>LD_FLAG</code> variable, the <samp>genscripts.sh</samp> script will set
-certain variables for each run of the <samp>scripttempl</samp> script.
+<p>Besides the shell variables set by the <samp class="file">emulparams</samp> script, and the
+<code class="code">LD_FLAG</code> variable, the <samp class="file">genscripts.sh</samp> script will set
+certain variables for each run of the <samp class="file">scripttempl</samp> script.
 </p>
-<dl compact="compact">
-<dt><span><code>RELOCATING</code></span></dt>
+<dl class="table">
+<dt><code class="code">RELOCATING</code></dt>
 <dd><p>This will be set to a non-empty string when the linker is doing a final
-relocation (e.g., all scripts other than <code>-r</code> and <code>-Ur</code>).
+relocation (e.g., all scripts other than <code class="code">-r</code> and <code class="code">-Ur</code>).
 </p>
 </dd>
-<dt><span><code>CONSTRUCTING</code></span></dt>
+<dt><code class="code">CONSTRUCTING</code></dt>
 <dd><p>This will be set to a non-empty string when the linker is building
 global constructor and destructor tables (e.g., all scripts other than
-<code>-r</code>).
+<code class="code">-r</code>).
 </p>
 </dd>
-<dt><span><code>DATA_ALIGNMENT</code></span></dt>
-<dd><p>This will be set to an <code>ALIGN</code> expression when the output should be
-page aligned, or to &lsquo;<samp>.</samp>&rsquo; when generating the <code>-N</code> script.
+<dt><code class="code">DATA_ALIGNMENT</code></dt>
+<dd><p>This will be set to an <code class="code">ALIGN</code> expression when the output should be
+page aligned, or to &lsquo;<samp class="samp">.</samp>&rsquo; when generating the <code class="code">-N</code> script.
 </p>
 </dd>
-<dt><span><code>CREATE_SHLIB</code></span></dt>
-<dd><p>This will be set to a non-empty string when generating a <code>-shared</code>
+<dt><code class="code">CREATE_SHLIB</code></dt>
+<dd><p>This will be set to a non-empty string when generating a <code class="code">-shared</code>
 script.
 </p>
 </dd>
-<dt><span><code>COMBRELOC</code></span></dt>
-<dd><p>This will be set to a non-empty string when generating <code>-z combreloc</code>
+<dt><code class="code">COMBRELOC</code></dt>
+<dd><p>This will be set to a non-empty string when generating <code class="code">-z combreloc</code>
 scripts to a temporary file name which can be used during script generation.
 </p></dd>
 </dl>
 
-<p>The conventional way to write a <samp>scripttempl</samp> script is to first
+<p>The conventional way to write a <samp class="file">scripttempl</samp> script is to first
 set a few shell variables, and then write out a linker script using
-<code>cat</code> with a here document.  The linker script will use variable
+<code class="code">cat</code> with a here document.  The linker script will use variable
 substitutions, based on the above variables and those set in the
-<samp>emulparams</samp> script, to control its behaviour.
+<samp class="file">emulparams</samp> script, to control its behaviour.
 </p>
-<p>When there are parts of the <samp>scripttempl</samp> script which should only
+<p>When there are parts of the <samp class="file">scripttempl</samp> script which should only
 be run when doing a final relocation, they should be enclosed within a
-variable substitution based on <code>RELOCATING</code>.  For example, on many
-targets special symbols such as <code>_end</code> should be defined when doing
+variable substitution based on <code class="code">RELOCATING</code>.  For example, on many
+targets special symbols such as <code class="code">_end</code> should be defined when doing
 a final link.  Naturally, those symbols should not be defined when doing
-a relocatable link using <code>-r</code>.  The <samp>scripttempl</samp> script
+a relocatable link using <code class="code">-r</code>.  The <samp class="file">scripttempl</samp> script
 could use a construct like this to define those symbols:
-</p><div class="example">
-<pre class="example">  ${RELOCATING+ _end = .;}
+</p><div class="example smallexample">
+<pre class="example-preformatted">  ${RELOCATING+ _end = .;}
 </pre></div>
-<p>This will do the symbol assignment only if the <code>RELOCATING</code>
+<p>This will do the symbol assignment only if the <code class="code">RELOCATING</code>
 variable is defined.
 </p>
 <p>The basic job of the linker script is to put the sections in the correct
@@ -472,33 +465,33 @@ order, and at the correct memory addresses.  For some targets, the
 linker script may have to do some other operations.
 </p>
 <p>For example, on most MIPS platforms, the linker is responsible for
-defining the special symbol <code>_gp</code>, used to initialize the
-<code>$gp</code> register.  It must be set to the start of the small data
-section plus <code>0x8000</code>.  Naturally, it should only be defined when
+defining the special symbol <code class="code">_gp</code>, used to initialize the
+<code class="code">$gp</code> register.  It must be set to the start of the small data
+section plus <code class="code">0x8000</code>.  Naturally, it should only be defined when
 doing a final relocation.  This will typically be done like this:
-</p><div class="example">
-<pre class="example">  ${RELOCATING+ _gp = ALIGN(16) + 0x8000;}
+</p><div class="example smallexample">
+<pre class="example-preformatted">  ${RELOCATING+ _gp = ALIGN(16) + 0x8000;}
 </pre></div>
 <p>This line would appear just before the sections which compose the small
-data section (&lsquo;<samp>.sdata</samp>&rsquo;, &lsquo;<samp>.sbss</samp>&rsquo;).  All those sections would be
+data section (&lsquo;<samp class="samp">.sdata</samp>&rsquo;, &lsquo;<samp class="samp">.sbss</samp>&rsquo;).  All those sections would be
 contiguous in memory.
 </p>
 <p>Many COFF systems build constructor tables in the linker script.  The
 compiler will arrange to output the address of each global constructor
-in a &lsquo;<samp>.ctor</samp>&rsquo; section, and the address of each global destructor in
-a &lsquo;<samp>.dtor</samp>&rsquo; section (this is done by defining
-<code>ASM_OUTPUT_CONSTRUCTOR</code> and <code>ASM_OUTPUT_DESTRUCTOR</code> in the
-<code>gcc</code> configuration files).  The <code>gcc</code> runtime support
-routines expect the constructor table to be named <code>__CTOR_LIST__</code>.
+in a &lsquo;<samp class="samp">.ctor</samp>&rsquo; section, and the address of each global destructor in
+a &lsquo;<samp class="samp">.dtor</samp>&rsquo; section (this is done by defining
+<code class="code">ASM_OUTPUT_CONSTRUCTOR</code> and <code class="code">ASM_OUTPUT_DESTRUCTOR</code> in the
+<code class="code">gcc</code> configuration files).  The <code class="code">gcc</code> runtime support
+routines expect the constructor table to be named <code class="code">__CTOR_LIST__</code>.
 They expect it to be a list of words, with the first word being the
 count of the number of entries.  There should be a trailing zero word.
 (Actually, the count may be -1 if the trailing word is present, and the
 trailing word may be omitted if the count is correct, but, as the
-<code>gcc</code> behaviour has changed slightly over the years, it is safest
+<code class="code">gcc</code> behaviour has changed slightly over the years, it is safest
 to provide both).  Here is a typical way that might be handled in a
-<samp>scripttempl</samp> file.
-</p><div class="example">
-<pre class="example">    ${CONSTRUCTING+ __CTOR_LIST__ = .;}
+<samp class="file">scripttempl</samp> file.
+</p><div class="example smallexample">
+<pre class="example-preformatted">    ${CONSTRUCTING+ __CTOR_LIST__ = .;}
     ${CONSTRUCTING+ LONG((__CTOR_END__ - __CTOR_LIST__) / 4 - 2)}
     ${CONSTRUCTING+ *(.ctors)}
     ${CONSTRUCTING+ LONG(0)}
@@ -509,83 +502,83 @@ to provide both).  Here is a typical way that might be handled in a
     ${CONSTRUCTING+ LONG(0)}
     ${CONSTRUCTING+ __DTOR_END__ = .;}
 </pre></div>
-<p>The use of <code>CONSTRUCTING</code> ensures that these linker script commands
+<p>The use of <code class="code">CONSTRUCTING</code> ensures that these linker script commands
 will only appear when the linker is supposed to be building the
 constructor and destructor tables.  This example is written for a target
 which uses 4 byte pointers.
 </p>
 <p>Embedded systems often need to set a stack address.  This is normally
-best done by using the <code>PROVIDE</code> construct with a default stack
+best done by using the <code class="code">PROVIDE</code> construct with a default stack
 address.  This permits the user to easily override the stack address
-using the <code>--defsym</code> option.  Here is an example:
-</p><div class="example">
-<pre class="example">  ${RELOCATING+ PROVIDE (__stack = 0x80000000);}
+using the <code class="code">--defsym</code> option.  Here is an example:
+</p><div class="example smallexample">
+<pre class="example-preformatted">  ${RELOCATING+ PROVIDE (__stack = 0x80000000);}
 </pre></div>
-<p>The value of the symbol <code>__stack</code> would then be used in the startup
+<p>The value of the symbol <code class="code">__stack</code> would then be used in the startup
 code to initialize the stack pointer.
 </p>
 <hr>
 </div>
-<div class="section" id="linker-emulations">
-<div class="header">
+<div class="section-level-extent" id="linker-emulations">
+<div class="nav-panel">
 <p>
-Previous: <a href="#linker-scripts" accesskey="p" rel="prev"><samp>scripttempl</samp> scripts</a>, Up: <a href="#Emulations" accesskey="u" rel="up">How linker emulations are generated</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+Previous: <a href="#linker-scripts" accesskey="p" rel="prev"><samp class="file">scripttempl</samp> scripts</a>, Up: <a href="#Emulations" accesskey="u" rel="up">How linker emulations are generated</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
 </div>
-<span id="emultempl-scripts"></span><h3 class="section">2.3 <samp>emultempl</samp> scripts</h3>
+<h3 class="section" id="emultempl-scripts"><span>2.3 <samp class="file">emultempl</samp> scripts<a class="copiable-link" href="#emultempl-scripts"> &para;</a></span></h3>
 
-<p>Each linker target uses an <samp>emultempl</samp> script to generate the
-emulation code.  The name of the <samp>emultempl</samp> script is set by the
-<code>TEMPLATE_NAME</code> variable in the <samp>emulparams</samp> script.  If the
-<code>TEMPLATE_NAME</code> variable is not set, the default is
-&lsquo;<samp>generic</samp>&rsquo;.  If the value of <code>TEMPLATE_NAME</code> is <var>template</var>,
-<samp>genscripts.sh</samp> will use <samp>emultempl/<var>template</var>.em</samp>.
+<p>Each linker target uses an <samp class="file">emultempl</samp> script to generate the
+emulation code.  The name of the <samp class="file">emultempl</samp> script is set by the
+<code class="code">TEMPLATE_NAME</code> variable in the <samp class="file">emulparams</samp> script.  If the
+<code class="code">TEMPLATE_NAME</code> variable is not set, the default is
+&lsquo;<samp class="samp">generic</samp>&rsquo;.  If the value of <code class="code">TEMPLATE_NAME</code> is <var class="var">template</var>,
+<samp class="file">genscripts.sh</samp> will use <samp class="file">emultempl/<var class="var">template</var>.em</samp>.
 </p>
-<p>Most targets use the generic <samp>emultempl</samp> script,
-<samp>emultempl/generic.em</samp>.  A different <samp>emultempl</samp> script is
+<p>Most targets use the generic <samp class="file">emultempl</samp> script,
+<samp class="file">emultempl/generic.em</samp>.  A different <samp class="file">emultempl</samp> script is
 only needed if the linker must support unusual actions, such as linking
 against shared libraries.
 </p>
-<p>The <samp>emultempl</samp> script is normally written as a simple invocation
-of <code>cat</code> with a here document.  The document will use a few
+<p>The <samp class="file">emultempl</samp> script is normally written as a simple invocation
+of <code class="code">cat</code> with a here document.  The document will use a few
 variable substitutions.  Typically each function names uses a
-substitution involving <code>EMULATION_NAME</code>, for ease of debugging when
+substitution involving <code class="code">EMULATION_NAME</code>, for ease of debugging when
 the linker supports multiple emulations.
 </p>
 <p>Every function and variable in the emitted file should be static.  The
 only globally visible object must be named
-<code>ld_<var>EMULATION_NAME</var>_emulation</code>, where <var>EMULATION_NAME</var> is
-the name of the emulation set in <samp>configure.tgt</samp> (this is also the
-name of the <samp>emulparams</samp> file without the <samp>.sh</samp> extension).
-The <samp>genscripts.sh</samp> script will set the shell variable
-<code>EMULATION_NAME</code> before invoking the <samp>emultempl</samp> script.
+<code class="code">ld_<var class="var">EMULATION_NAME</var>_emulation</code>, where <var class="var">EMULATION_NAME</var> is
+the name of the emulation set in <samp class="file">configure.tgt</samp> (this is also the
+name of the <samp class="file">emulparams</samp> file without the <samp class="file">.sh</samp> extension).
+The <samp class="file">genscripts.sh</samp> script will set the shell variable
+<code class="code">EMULATION_NAME</code> before invoking the <samp class="file">emultempl</samp> script.
 </p>
-<p>The <code>ld_<var>EMULATION_NAME</var>_emulation</code> variable must be a
-<code>struct ld_emulation_xfer_struct</code>, as defined in <samp>ldemul.h</samp>.
+<p>The <code class="code">ld_<var class="var">EMULATION_NAME</var>_emulation</code> variable must be a
+<code class="code">struct ld_emulation_xfer_struct</code>, as defined in <samp class="file">ldemul.h</samp>.
 It defines a set of function pointers which are invoked by the linker,
 as well as strings for the emulation name (normally set from the shell
-variable <code>EMULATION_NAME</code> and the default BFD target name (normally
-set from the shell variable <code>OUTPUT_FORMAT</code> which is normally set
-by the <samp>emulparams</samp> file).
+variable <code class="code">EMULATION_NAME</code> and the default BFD target name (normally
+set from the shell variable <code class="code">OUTPUT_FORMAT</code> which is normally set
+by the <samp class="file">emulparams</samp> file).
 </p>
-<p>The <samp>genscripts.sh</samp> script will set the shell variable
-<code>COMPILE_IN</code> when it invokes the <samp>emultempl</samp> script for the
-default emulation.  In this case, the <samp>emultempl</samp> script should
+<p>The <samp class="file">genscripts.sh</samp> script will set the shell variable
+<code class="code">COMPILE_IN</code> when it invokes the <samp class="file">emultempl</samp> script for the
+default emulation.  In this case, the <samp class="file">emultempl</samp> script should
 include the linker scripts directly, and return them from the
-<code>get_scripts</code> entry point.  When the emulation is not the default,
-the <code>get_scripts</code> entry point should just return a file name.  See
-<samp>emultempl/generic.em</samp> for an example of how this is done.
+<code class="code">get_scripts</code> entry point.  When the emulation is not the default,
+the <code class="code">get_scripts</code> entry point should just return a file name.  See
+<samp class="file">emultempl/generic.em</samp> for an example of how this is done.
 </p>
 <p>At some point, the linker emulation entry points should be documented.
 </p>
 <hr>
 </div>
 </div>
-<div class="chapter" id="Emulation-Walkthrough">
-<div class="header">
+<div class="chapter-level-extent" id="Emulation-Walkthrough">
+<div class="nav-panel">
 <p>
 Next: <a href="#Architecture-Specific" accesskey="n" rel="next">Some Architecture Specific Notes</a>, Previous: <a href="#Emulations" accesskey="p" rel="prev">How linker emulations are generated</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
 </div>
-<span id="A-Walkthrough-of-a-Typical-Emulation"></span><h2 class="chapter">3 A Walkthrough of a Typical Emulation</h2>
+<h2 class="chapter" id="A-Walkthrough-of-a-Typical-Emulation"><span>3 A Walkthrough of a Typical Emulation<a class="copiable-link" href="#A-Walkthrough-of-a-Typical-Emulation"> &para;</a></span></h2>
 
 <p>This chapter is to help people who are new to the way emulations
 interact with the linker, or who are suddenly thrust into the position
@@ -595,64 +588,64 @@ the emulation will be called.  It will, hopefully, give you enough
 information about when and how things happen that you&rsquo;ll be able to
 get by.  As always, the source is the definitive reference to this.
 </p>
-<p>The starting point for the linker is in <samp>ldmain.c</samp> where
-<code>main</code> is defined.  The bulk of the code that&rsquo;s emulation
-specific will initially be in <code>emultempl/<var>emulation</var>.em</code> but
-will end up in <code>e<var>emulation</var>.c</code> when the build is done.
+<p>The starting point for the linker is in <samp class="file">ldmain.c</samp> where
+<code class="code">main</code> is defined.  The bulk of the code that&rsquo;s emulation
+specific will initially be in <code class="code">emultempl/<var class="var">emulation</var>.em</code> but
+will end up in <code class="code">e<var class="var">emulation</var>.c</code> when the build is done.
 Most of the work to select and interface with emulations is in
-<code>ldemul.h</code> and <code>ldemul.c</code>.  Specifically, <code>ldemul.h</code>
-defines the <code>ld_emulation_xfer_struct</code> structure your emulation
+<code class="code">ldemul.h</code> and <code class="code">ldemul.c</code>.  Specifically, <code class="code">ldemul.h</code>
+defines the <code class="code">ld_emulation_xfer_struct</code> structure your emulation
 exports.
 </p>
 <p>Your emulation file exports a symbol
-<code>ld_<var>EMULATION_NAME</var>_emulation</code>.  If your emulation is
+<code class="code">ld_<var class="var">EMULATION_NAME</var>_emulation</code>.  If your emulation is
 selected (it usually is, since usually there&rsquo;s only one),
-<code>ldemul.c</code> sets the variable <var>ld_emulation</var> to point to it.
-<code>ldemul.c</code> also defines a number of API functions that interface
-to your emulation, like <code>ldemul_after_parse</code> which simply calls
-your <code>ld_<var>EMULATION</var>_emulation.after_parse</code> function.  For
+<code class="code">ldemul.c</code> sets the variable <var class="var">ld_emulation</var> to point to it.
+<code class="code">ldemul.c</code> also defines a number of API functions that interface
+to your emulation, like <code class="code">ldemul_after_parse</code> which simply calls
+your <code class="code">ld_<var class="var">EMULATION</var>_emulation.after_parse</code> function.  For
 the rest of this section, the functions will be mentioned, but you
 should assume the indirect reference to your emulation also.
 </p>
 <p>We will also skip or gloss over parts of the link process that don&rsquo;t
 relate to emulations, like setting up internationalization.
 </p>
-<p>After initialization, <code>main</code> selects an emulation by pre-scanning
-the command-line arguments.  It calls <code>ldemul_choose_target</code> to
-choose a target.  If you set <code>choose_target</code> to
-<code>ldemul_default_target</code>, it picks your <code>target_name</code> by
+<p>After initialization, <code class="code">main</code> selects an emulation by pre-scanning
+the command-line arguments.  It calls <code class="code">ldemul_choose_target</code> to
+choose a target.  If you set <code class="code">choose_target</code> to
+<code class="code">ldemul_default_target</code>, it picks your <code class="code">target_name</code> by
 default.
 </p>
-<p><code>main</code> calls <code>ldemul_before_parse</code>, then <code>parse_args</code>.
-<code>parse_args</code> calls <code>ldemul_parse_args</code> for each arg, which
-must update the <code>getopt</code> globals if it recognizes the argument.
+<p><code class="code">main</code> calls <code class="code">ldemul_before_parse</code>, then <code class="code">parse_args</code>.
+<code class="code">parse_args</code> calls <code class="code">ldemul_parse_args</code> for each arg, which
+must update the <code class="code">getopt</code> globals if it recognizes the argument.
 If the emulation doesn&rsquo;t recognize it, then parse_args checks to see
 if it recognizes it.
 </p>
 <p>Now that the emulation has had access to all its command-line options,
-<code>main</code> calls <code>ldemul_set_symbols</code>.  This can be used for any
+<code class="code">main</code> calls <code class="code">ldemul_set_symbols</code>.  This can be used for any
 initialization that may be affected by options.  It is also supposed
 to set up any variables needed by the emulation script.
 </p>
-<p><code>main</code> now calls <code>ldemul_get_script</code> to get the emulation
-script to use (based on arguments, no doubt, see <a href="#Emulations">How linker emulations are generated</a>) and
-runs it.  While parsing, <code>ldgram.y</code> may call <code>ldemul_hll</code> or
-<code>ldemul_syslib</code> to handle the <code>HLL</code> or <code>SYSLIB</code>
-commands.  It may call <code>ldemul_unrecognized_file</code> if you asked
+<p><code class="code">main</code> now calls <code class="code">ldemul_get_script</code> to get the emulation
+script to use (based on arguments, no doubt, see <a class="pxref" href="#Emulations">How linker emulations are generated</a>) and
+runs it.  While parsing, <code class="code">ldgram.y</code> may call <code class="code">ldemul_hll</code> or
+<code class="code">ldemul_syslib</code> to handle the <code class="code">HLL</code> or <code class="code">SYSLIB</code>
+commands.  It may call <code class="code">ldemul_unrecognized_file</code> if you asked
 the linker to link a file it doesn&rsquo;t recognize.  It will call
-<code>ldemul_recognized_file</code> for each file it does recognize, in case
+<code class="code">ldemul_recognized_file</code> for each file it does recognize, in case
 the emulation wants to handle some files specially.  All the while,
 it&rsquo;s loading the files (possibly calling
-<code>ldemul_open_dynamic_archive</code>) and symbols and stuff.  After it&rsquo;s
-done reading the script, <code>main</code> calls <code>ldemul_after_parse</code>.
+<code class="code">ldemul_open_dynamic_archive</code>) and symbols and stuff.  After it&rsquo;s
+done reading the script, <code class="code">main</code> calls <code class="code">ldemul_after_parse</code>.
 Use the after-parse hook to set up anything that depends on stuff the
 script might have set up, like the entry point.
 </p>
-<p><code>main</code> next calls <code>lang_process</code> in <code>ldlang.c</code>.  This
+<p><code class="code">main</code> next calls <code class="code">lang_process</code> in <code class="code">ldlang.c</code>.  This
 appears to be the main core of the linking itself, as far as emulation
 hooks are concerned(*).  It first opens the output file&rsquo;s BFD, calling
-<code>ldemul_set_output_arch</code>, and calls
-<code>ldemul_create_output_section_statements</code> in case you need to use
+<code class="code">ldemul_set_output_arch</code>, and calls
+<code class="code">ldemul_create_output_section_statements</code> in case you need to use
 other means to find or create object files (i.e. shared libraries
 found on a path, or fake stub objects).  Despite the name, nobody
 creates output sections here.
@@ -665,108 +658,108 @@ things at the file and section level, like &quot;put this here, add this
 section&quot;, etc.
 </p>
 <p>Next, the objects to be linked are opened and BFDs created for them,
-and <code>ldemul_after_open</code> is called.  At this point, you have all
+and <code class="code">ldemul_after_open</code> is called.  At this point, you have all
 the objects and symbols loaded, but none of the data has been placed
 yet.
 </p>
 <p>Next comes the Big Linking Thingy (except for the parts BFD does).
 All input sections are mapped to output sections according to the
 script.  If a section doesn&rsquo;t get mapped by default,
-<code>ldemul_place_orphan</code> will get called to figure out where it goes.
+<code class="code">ldemul_place_orphan</code> will get called to figure out where it goes.
 Next it figures out the offsets for each section, calling
-<code>ldemul_before_allocation</code> before and
-<code>ldemul_after_allocation</code> after deciding where each input section
+<code class="code">ldemul_before_allocation</code> before and
+<code class="code">ldemul_after_allocation</code> after deciding where each input section
 ends up in the output sections.
 </p>
-<p>The last part of <code>lang_process</code> is to figure out all the symbols&rsquo;
+<p>The last part of <code class="code">lang_process</code> is to figure out all the symbols&rsquo;
 values.  After assigning final values to the symbols,
-<code>ldemul_finish</code> is called, and after that, any undefined symbols
+<code class="code">ldemul_finish</code> is called, and after that, any undefined symbols
 are turned into fatal errors.
 </p>
-<p>OK, back to <code>main</code>, which calls <code>ldwrite</code> in
-<samp>ldwrite.c</samp>.  <code>ldwrite</code> calls BFD&rsquo;s final_link, which does
+<p>OK, back to <code class="code">main</code>, which calls <code class="code">ldwrite</code> in
+<samp class="file">ldwrite.c</samp>.  <code class="code">ldwrite</code> calls BFD&rsquo;s final_link, which does
 all the relocation fixups and writes the output bfd to disk, and we&rsquo;re
 done.
 </p>
 <p>In summary,
 </p>
-<ul>
-<li> <code>main()</code> in <samp>ldmain.c</samp>
-</li><li> <samp>emultempl/<var>EMULATION</var>.em</samp> has your code
-</li><li> <code>ldemul_choose_target</code> (defaults to your <code>target_name</code>)
-</li><li> <code>ldemul_before_parse</code>
-</li><li> Parse argv, calls <code>ldemul_parse_args</code> for each
-</li><li> <code>ldemul_set_symbols</code>
-</li><li> <code>ldemul_get_script</code>
-</li><li> parse script
+<ul class="itemize mark-bullet">
+<li><code class="code">main()</code> in <samp class="file">ldmain.c</samp>
+</li><li><samp class="file">emultempl/<var class="var">EMULATION</var>.em</samp> has your code
+</li><li><code class="code">ldemul_choose_target</code> (defaults to your <code class="code">target_name</code>)
+</li><li><code class="code">ldemul_before_parse</code>
+</li><li>Parse argv, calls <code class="code">ldemul_parse_args</code> for each
+</li><li><code class="code">ldemul_set_symbols</code>
+</li><li><code class="code">ldemul_get_script</code>
+</li><li>parse script
 
-<ul>
-<li> may call <code>ldemul_hll</code> or <code>ldemul_syslib</code>
-</li><li> may call <code>ldemul_open_dynamic_archive</code>
+<ul class="itemize mark-bullet">
+<li>may call <code class="code">ldemul_hll</code> or <code class="code">ldemul_syslib</code>
+</li><li>may call <code class="code">ldemul_open_dynamic_archive</code>
 </li></ul>
 
-</li><li> <code>ldemul_after_parse</code>
-</li><li> <code>lang_process()</code> in <samp>ldlang.c</samp>
+</li><li><code class="code">ldemul_after_parse</code>
+</li><li><code class="code">lang_process()</code> in <samp class="file">ldlang.c</samp>
 
-<ul>
-<li> create <code>output_bfd</code>
-</li><li> <code>ldemul_set_output_arch</code>
-</li><li> <code>ldemul_create_output_section_statements</code>
-</li><li> read objects, create input bfds - all symbols exist, but have no values
-</li><li> may call <code>ldemul_unrecognized_file</code>
-</li><li> will call <code>ldemul_recognized_file</code>
-</li><li> <code>ldemul_after_open</code>
-</li><li> map input sections to output sections
-</li><li> may call <code>ldemul_place_orphan</code> for remaining sections
-</li><li> <code>ldemul_before_allocation</code>
-</li><li> gives input sections offsets into output sections, places output sections
-</li><li> <code>ldemul_after_allocation</code> - section addresses valid
-</li><li> assigns values to symbols
-</li><li> <code>ldemul_finish</code> - symbol values valid
+<ul class="itemize mark-bullet">
+<li>create <code class="code">output_bfd</code>
+</li><li><code class="code">ldemul_set_output_arch</code>
+</li><li><code class="code">ldemul_create_output_section_statements</code>
+</li><li>read objects, create input bfds - all symbols exist, but have no values
+</li><li>may call <code class="code">ldemul_unrecognized_file</code>
+</li><li>will call <code class="code">ldemul_recognized_file</code>
+</li><li><code class="code">ldemul_after_open</code>
+</li><li>map input sections to output sections
+</li><li>may call <code class="code">ldemul_place_orphan</code> for remaining sections
+</li><li><code class="code">ldemul_before_allocation</code>
+</li><li>gives input sections offsets into output sections, places output sections
+</li><li><code class="code">ldemul_after_allocation</code> - section addresses valid
+</li><li>assigns values to symbols
+</li><li><code class="code">ldemul_finish</code> - symbol values valid
 </li></ul>
 
-</li><li> output bfd is written to disk
+</li><li>output bfd is written to disk
 
 </li></ul>
 
 <hr>
 </div>
-<div class="chapter" id="Architecture-Specific">
-<div class="header">
+<div class="chapter-level-extent" id="Architecture-Specific">
+<div class="nav-panel">
 <p>
 Next: <a href="#GNU-Free-Documentation-License" accesskey="n" rel="next">GNU Free Documentation License</a>, Previous: <a href="#Emulation-Walkthrough" accesskey="p" rel="prev">A Walkthrough of a Typical Emulation</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
 </div>
-<span id="Some-Architecture-Specific-Notes"></span><h2 class="chapter">4 Some Architecture Specific Notes</h2>
+<h2 class="chapter" id="Some-Architecture-Specific-Notes"><span>4 Some Architecture Specific Notes<a class="copiable-link" href="#Some-Architecture-Specific-Notes"> &para;</a></span></h2>
 
-<p>This is the place for notes on the behavior of <code>ld</code> on
+<p>This is the place for notes on the behavior of <code class="code">ld</code> on
 specific platforms.  Currently, only Intel x86 is documented (and
 of that, only the auto-import behavior for DLLs).
 </p>
 
-<ul class="section-toc">
+<ul class="mini-toc">
 <li><a href="#ix86" accesskey="1">Intel x86</a></li>
 </ul>
 <hr>
-<div class="section" id="ix86">
-<div class="header">
+<div class="section-level-extent" id="ix86">
+<div class="nav-panel">
 <p>
 Up: <a href="#Architecture-Specific" accesskey="u" rel="up">Some Architecture Specific Notes</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
 </div>
-<span id="Intel-x86"></span><h3 class="section">4.1 Intel x86</h3>
+<h3 class="section" id="Intel-x86"><span>4.1 Intel x86<a class="copiable-link" href="#Intel-x86"> &para;</a></span></h3>
 
-<dl compact="compact">
-<dd><p><code>ld</code> can create DLLs that operate with various runtimes available
+<dl class="table">
+<dd><p><code class="code">ld</code> can create DLLs that operate with various runtimes available
 on a common x86 operating system.  These runtimes include native (using
 the mingw &quot;platform&quot;), cygwin, and pw.
 </p>
 </dd>
-<dt><span><em>auto-import from DLLs</em></span></dt>
-<dd><ol>
+<dt><em class="emph">auto-import from DLLs</em></dt>
+<dd><ol class="enumerate">
 <li> With this feature on, DLL clients can import variables from DLL
 without any concern from their side (for example, without any source
 code modifications).  Auto-import can be enabled using the
-<code>--enable-auto-import</code> flag, or disabled via the
-<code>--disable-auto-import</code> flag.  Auto-import is disabled by default.
+<code class="code">--enable-auto-import</code> flag, or disabled via the
+<code class="code">--disable-auto-import</code> flag.  Auto-import is disabled by default.
 
 </li><li> This is done completely in bounds of the PE specification (to be fair,
 there&rsquo;s a minor violation of the spec at one point, but in practice
@@ -791,7 +784,7 @@ to make client access variable directly in the DLL, bypassing
 the extra dereference imposed by ordinary DLL runtime linking.
 I.e., whenever client contains something like
 </p>
-<p><code>mov dll_var,%eax,</code>
+<p><code class="code">mov dll_var,%eax,</code>
 </p>
 <p>address of dll_var in the command should be relocated to point
 into loaded DLL. The aim is to make OS loader do so, and than
@@ -840,29 +833,29 @@ require more work on behalf of loader than not doing it.
 <hr>
 </div>
 </div>
-<div class="chapter" id="GNU-Free-Documentation-License">
-<div class="header">
+<div class="chapter-level-extent" id="GNU-Free-Documentation-License">
+<div class="nav-panel">
 <p>
 Previous: <a href="#Architecture-Specific" accesskey="p" rel="prev">Some Architecture Specific Notes</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
 </div>
-<span id="GNU-Free-Documentation-License-1"></span><h2 class="chapter">5 GNU Free Documentation License</h2>
+<h2 class="chapter" id="GNU-Free-Documentation-License-1"><span>5 GNU Free Documentation License<a class="copiable-link" href="#GNU-Free-Documentation-License-1"> &para;</a></span></h2>
 
-<div align="center">Version 1.3, 3 November 2008
+<div class="center">Version 1.3, 3 November 2008
 </div>
 
 <div class="display">
-<pre class="display">Copyright &copy; 2000, 2001, 2002, 2007, 2008 Free Software Foundation, Inc.
-<a href="http://fsf.org/">http://fsf.org/</a>
+<pre class="display-preformatted">Copyright &copy; 2000, 2001, 2002, 2007, 2008 Free Software Foundation, Inc.
+<a class="uref" href="http://fsf.org/">http://fsf.org/</a>
 
 Everyone is permitted to copy and distribute verbatim copies
 of this license document, but changing it is not allowed.
 </pre></div>
 
-<ol start="0">
+<ol class="enumerate" start="0">
 <li> PREAMBLE
 
 <p>The purpose of this License is to make a manual, textbook, or other
-functional and useful document <em>free</em> in the sense of freedom: to
+functional and useful document <em class="dfn">free</em> in the sense of freedom: to
 assure everyone the effective freedom to copy and redistribute it,
 with or without modifying it, either commercially or noncommercially.
 Secondarily, this License preserves for the author and publisher a way
@@ -936,16 +929,16 @@ An image format is not Transparent if used for any substantial amount
 of text.  A copy that is not &ldquo;Transparent&rdquo; is called &ldquo;Opaque&rdquo;.
 </p>
 <p>Examples of suitable formats for Transparent copies include plain
-<small>ASCII</small> without markup, Texinfo input format, LaTeX input
-format, <acronym>SGML</acronym> or <acronym>XML</acronym> using a publicly available
-<acronym>DTD</acronym>, and standard-conforming simple <acronym>HTML</acronym>,
-PostScript or <acronym>PDF</acronym> designed for human modification.  Examples
-of transparent image formats include <acronym>PNG</acronym>, <acronym>XCF</acronym> and
-<acronym>JPG</acronym>.  Opaque formats include proprietary formats that can be
-read and edited only by proprietary word processors, <acronym>SGML</acronym> or
-<acronym>XML</acronym> for which the <acronym>DTD</acronym> and/or processing tools are
-not generally available, and the machine-generated <acronym>HTML</acronym>,
-PostScript or <acronym>PDF</acronym> produced by some word processors for
+<small class="sc">ASCII</small> without markup, Texinfo input format, LaTeX input
+format, <abbr class="acronym">SGML</abbr> or <abbr class="acronym">XML</abbr> using a publicly available
+<abbr class="acronym">DTD</abbr>, and standard-conforming simple <abbr class="acronym">HTML</abbr>,
+PostScript or <abbr class="acronym">PDF</abbr> designed for human modification.  Examples
+of transparent image formats include <abbr class="acronym">PNG</abbr>, <abbr class="acronym">XCF</abbr> and
+<abbr class="acronym">JPG</abbr>.  Opaque formats include proprietary formats that can be
+read and edited only by proprietary word processors, <abbr class="acronym">SGML</abbr> or
+<abbr class="acronym">XML</abbr> for which the <abbr class="acronym">DTD</abbr> and/or processing tools are
+not generally available, and the machine-generated <abbr class="acronym">HTML</abbr>,
+PostScript or <abbr class="acronym">PDF</abbr> produced by some word processors for
 output purposes only.
 </p>
 <p>The &ldquo;Title Page&rdquo; means, for a printed book, the title page itself,
@@ -1034,7 +1027,7 @@ Version filling the role of the Document, thus licensing distribution
 and modification of the Modified Version to whoever possesses a copy
 of it.  In addition, you must do these things in the Modified Version:
 </p>
-<ol type="A" start="1">
+<ol class="enumerate" type="A" start="1">
 <li> Use in the Title Page (and on the covers, if any) a title distinct
 from that of the Document, and from those of previous versions
 (which should, if there were any, be listed in the History section
@@ -1234,7 +1227,7 @@ not give you any rights to use it.
 of the GNU Free Documentation License from time to time.  Such new
 versions will be similar in spirit to the present version, but may
 differ in detail to address new problems or concerns.  See
-<a href="http://www.gnu.org/copyleft/">http://www.gnu.org/copyleft/</a>.
+<a class="uref" href="http://www.gnu.org/copyleft/">http://www.gnu.org/copyleft/</a>.
 </p>
 <p>Each version of the License is given a distinguishing version number.
 If the Document specifies that a particular numbered version of this
@@ -1280,30 +1273,30 @@ provided the MMC is eligible for relicensing.
 </p>
 </li></ol>
 
-<span id="ADDENDUM_003a-How-to-use-this-License-for-your-documents"></span><h3 class="heading">ADDENDUM: How to use this License for your documents</h3>
+<h3 class="heading" id="ADDENDUM_003a-How-to-use-this-License-for-your-documents"><span>ADDENDUM: How to use this License for your documents<a class="copiable-link" href="#ADDENDUM_003a-How-to-use-this-License-for-your-documents"> &para;</a></span></h3>
 
 <p>To use this License in a document you have written, include a copy of
 the License in the document and put the following copyright and
 license notices just after the title page:
 </p>
-<div class="example">
-<pre class="example">  Copyright (C)  <var>year</var>  <var>your name</var>.
+<div class="example smallexample">
+<div class="group"><pre class="example-preformatted">  Copyright (C)  <var class="var">year</var>  <var class="var">your name</var>.
   Permission is granted to copy, distribute and/or modify this document
   under the terms of the GNU Free Documentation License, Version 1.3
   or any later version published by the Free Software Foundation;
   with no Invariant Sections, no Front-Cover Texts, and no Back-Cover
   Texts.  A copy of the license is included in the section entitled ``GNU
   Free Documentation License''.
-</pre></div>
+</pre></div></div>
 
 <p>If you have Invariant Sections, Front-Cover Texts and Back-Cover Texts,
 replace the &ldquo;with&hellip;Texts.&rdquo; line with this:
 </p>
-<div class="example">
-<pre class="example">    with the Invariant Sections being <var>list their titles</var>, with
-    the Front-Cover Texts being <var>list</var>, and with the Back-Cover Texts
-    being <var>list</var>.
-</pre></div>
+<div class="example smallexample">
+<div class="group"><pre class="example-preformatted">    with the Invariant Sections being <var class="var">list their titles</var>, with
+    the Front-Cover Texts being <var class="var">list</var>, and with the Back-Cover Texts
+    being <var class="var">list</var>.
+</pre></div></div>
 
 <p>If you have Invariant Sections without Cover Texts, or some other
 combination of the three, merge those two alternatives to suit the

@@ -1,9 +1,9 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright (C) 1988-2024 Free Software Foundation, Inc.
+<!-- Copyright © 1988-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -20,13 +20,13 @@ Legal Disclaimer and Copyright Information
 
 AMD ROCm software is made available by Advanced Micro Devices, Inc. under the
 open source license identified in the top-level directory for the library in
-the repository on Github.com (Portions of AMD ROCm software are
-licensed under MITx11 and UIL/NCSA. For more information on the license, review
-the license.txt in the top-level directory for the library on
-Github.com).  The additional terms and conditions below apply to your use
-of AMD ROCm technical documentation.
+the repository on https://github.com/ROCm/ (Github.com) (Portions of AMD
+ROCm software are licensed under MITx11 and UIL/NCSA. For more information on
+the license, review the license.txt in the top-level directory for the
+library on https://github.com/ROCm/ (Github.com)).  The additional terms
+and conditions below apply to your use of AMD ROCm technical documentation.
 
-(C)2019-2025 Advanced Micro Devices, Inc.  All rights reserved.
+©2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
 
 The information presented in this document is for informational purposes only
 and may contain technical inaccuracies, omissions, and typographical errors.
@@ -52,8 +52,8 @@ EVEN IF AMD IS EXPRESSLY ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
 
 AMD, the AMD Arrow logo, AMD Instinct™, Radeon™, AMD ROCm™, and combinations
 thereof are trademarks of Advanced Micro Devices, Inc.
-Linux(R) is the registered trademark of Linus Torvalds in the
-U.S. and other countries. PCIe(R) is a registered trademark of
+Linux® is the registered trademark of Linus Torvalds in the
+U.S. and other countries. PCIe® is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
@@ -74,21 +74,10 @@ companies. -->
 <link href="Config-Names.html" rel="prev" title="Config Names">
 <style type="text/css">
 <!--
-a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
-a.summary-letter {text-decoration: none}
-blockquote.indentedblock {margin-right: 0em}
-div.display {margin-left: 3.2em}
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
 div.example {margin-left: 3.2em}
-kbd {font-style: oblique}
-pre.display {font-family: inherit}
-pre.format {font-family: inherit}
-pre.menu-comment {font-family: serif}
-pre.menu-preformatted {font-family: serif}
-span.nolinebreak {white-space: nowrap}
-span.roman {font-family: initial; font-weight: normal}
-span.sansserif {font-family: sans-serif; font-weight: normal}
-span:hover a.copiable-anchor {visibility: visible}
-ul.no-bullet {list-style: none}
+span.r {font-family: initial; font-weight: normal; font-style: normal}
+span:hover a.copiable-link {visibility: visible}
 -->
 </style>
 
@@ -96,249 +85,249 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<div class="section" id="Configure-Options">
-<div class="header">
+<div class="section-level-extent" id="Configure-Options">
+<div class="nav-panel">
 <p>
-Next: <a href="System_002dwide-configuration.html" accesskey="n" rel="next">System-wide configuration and settings</a>, Previous: <a href="Config-Names.html" accesskey="p" rel="prev">Specifying Names for Hosts and Targets</a>, Up: <a href="Installing-GDB.html" accesskey="u" rel="up">Installing <small>ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="System_002dwide-configuration.html" accesskey="n" rel="next">System-wide configuration and settings</a>, Previous: <a href="Config-Names.html" accesskey="p" rel="prev">Specifying Names for Hosts and Targets</a>, Up: <a href="Installing-GDB.html" accesskey="u" rel="up">Installing <small class="sc">ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="configure-Options"></span><h3 class="section">C.5 <samp>configure</samp> Options</h3>
+<h3 class="section" id="configure-Options"><span>C.5 <samp class="file">configure</samp> Options<a class="copiable-link" href="#configure-Options"> &para;</a></span></h3>
 
-<p>Here is a summary of the <samp>configure</samp> options and arguments that
-are most often useful for building <small>ROCGDB</small>.  <samp>configure</samp>
+<p>Here is a summary of the <samp class="file">configure</samp> options and arguments that
+are most often useful for building <small class="sc">ROCGDB</small>.  <samp class="file">configure</samp>
 also has several other options not listed here.  See <a data-manual="autoconf" href="https://www.gnu.org/software/autoconf/manual/html_node/Running-configure-Scripts.html#Running-configure-Scripts">(autoconf)Running
 configure Scripts</a>, for a full
-explanation of <samp>configure</samp>.
+explanation of <samp class="file">configure</samp>.
 </p>
-<div class="example">
-<pre class="example">configure <span class="roman">[</span>--help<span class="roman">]</span>
-          <span class="roman">[</span>--prefix=<var>dir</var><span class="roman">]</span>
-          <span class="roman">[</span>--exec-prefix=<var>dir</var><span class="roman">]</span>
-          <span class="roman">[</span>--srcdir=<var>dirname</var><span class="roman">]</span>
-          <span class="roman">[</span>--target=<var>target</var><span class="roman">]</span>
+<div class="example smallexample">
+<pre class="example-preformatted">configure <span class="r">[</span>--help<span class="r">]</span>
+          <span class="r">[</span>--prefix=<var class="var">dir</var><span class="r">]</span>
+          <span class="r">[</span>--exec-prefix=<var class="var">dir</var><span class="r">]</span>
+          <span class="r">[</span>--srcdir=<var class="var">dirname</var><span class="r">]</span>
+          <span class="r">[</span>--target=<var class="var">target</var><span class="r">]</span>
 </pre></div>
 
-<p>You may introduce options with a single &lsquo;<samp>-</samp>&rsquo; rather than
-&lsquo;<samp>--</samp>&rsquo; if you prefer; but you may abbreviate option names if you use
-&lsquo;<samp>--</samp>&rsquo;.
+<p>You may introduce options with a single &lsquo;<samp class="samp">-</samp>&rsquo; rather than
+&lsquo;<samp class="samp">--</samp>&rsquo; if you prefer; but you may abbreviate option names if you use
+&lsquo;<samp class="samp">--</samp>&rsquo;.
 </p>
-<dl compact="compact">
-<dt><span><code>--help</code></span></dt>
-<dd><p>Display a quick summary of how to invoke <samp>configure</samp>.
+<dl class="table">
+<dt><code class="code">--help</code></dt>
+<dd><p>Display a quick summary of how to invoke <samp class="file">configure</samp>.
 </p>
 </dd>
-<dt><span><code>--prefix=<var>dir</var></code></span></dt>
+<dt><code class="code">--prefix=<var class="var">dir</var></code></dt>
 <dd><p>Configure the source to install programs and files under directory
-<samp><var>dir</var></samp>.
+<samp class="file"><var class="var">dir</var></samp>.
 </p>
 </dd>
-<dt><span><code>--exec-prefix=<var>dir</var></code></span></dt>
+<dt><code class="code">--exec-prefix=<var class="var">dir</var></code></dt>
 <dd><p>Configure the source to install programs under directory
-<samp><var>dir</var></samp>.
+<samp class="file"><var class="var">dir</var></samp>.
 </p>
 </dd>
-<dt><span><code>--srcdir=<var>dirname</var></code></span></dt>
+<dt><code class="code">--srcdir=<var class="var">dirname</var></code></dt>
 <dd><p>Use this option to make configurations in directories separate from the
-<small>ROCGDB</small> source directories.  Among other things, you can use this to
+<small class="sc">ROCGDB</small> source directories.  Among other things, you can use this to
 build (or maintain) several configurations simultaneously, in separate
-directories.  <samp>configure</samp> writes configuration-specific files in
+directories.  <samp class="file">configure</samp> writes configuration-specific files in
 the current directory, but arranges for them to use the source in the
-directory <var>dirname</var>.  <samp>configure</samp> creates directories under
+directory <var class="var">dirname</var>.  <samp class="file">configure</samp> creates directories under
 the working directory in parallel to the source directories below
-<var>dirname</var>.
+<var class="var">dirname</var>.
 </p>
 </dd>
-<dt><span><code>--target=<var>target</var></code></span></dt>
-<dd><p>Configure <small>ROCGDB</small> for cross-debugging programs running on the specified
-<var>target</var>.  Without this option, <small>ROCGDB</small> is configured to debug
-programs that run on the same machine (<var>host</var>) as <small>ROCGDB</small> itself.
+<dt><code class="code">--target=<var class="var">target</var></code></dt>
+<dd><p>Configure <small class="sc">ROCGDB</small> for cross-debugging programs running on the specified
+<var class="var">target</var>.  Without this option, <small class="sc">ROCGDB</small> is configured to debug
+programs that run on the same machine (<var class="var">host</var>) as <small class="sc">ROCGDB</small> itself.
 </p>
 <p>There is no convenient way to generate a list of all available
-targets.  Also see the <code>--enable-targets</code> option, below.
+targets.  Also see the <code class="code">--enable-targets</code> option, below.
 </p></dd>
 </dl>
 
-<p>There are many other options that are specific to <small>ROCGDB</small>.  This
+<p>There are many other options that are specific to <small class="sc">ROCGDB</small>.  This
 lists just the most common ones; there are some very specialized
 options not described here.
 </p>
-<dl compact="compact">
-<dt><span><code>--enable-targets=<span class="roman">[</span><var>target</var><span class="roman">]</span>&hellip;</code></span></dt>
-<dt><span><code>--enable-targets=all</code></span></dt>
-<dd><p>Configure <small>ROCGDB</small> for cross-debugging programs running on the
-specified list of targets.  The special value &lsquo;<samp>all</samp>&rsquo; configures
-<small>ROCGDB</small> for debugging programs running on any target it supports.
+<dl class="table">
+<dt><code class="code">--enable-targets=<span class="r">[</span><var class="var">target</var><span class="r">]</span>&hellip;</code></dt>
+<dt><code class="code">--enable-targets=all</code></dt>
+<dd><p>Configure <small class="sc">ROCGDB</small> for cross-debugging programs running on the
+specified list of targets.  The special value &lsquo;<samp class="samp">all</samp>&rsquo; configures
+<small class="sc">ROCGDB</small> for debugging programs running on any target it supports.
 </p>
 </dd>
-<dt><span><code>--with-gdb-datadir=<var>path</var></code></span></dt>
-<dd><p>Set the <small>ROCGDB</small>-specific data directory.  <small>ROCGDB</small> will look
+<dt><code class="code">--with-gdb-datadir=<var class="var">path</var></code></dt>
+<dd><p>Set the <small class="sc">ROCGDB</small>-specific data directory.  <small class="sc">ROCGDB</small> will look
 here for certain supporting files or scripts.  This defaults to the
-<samp>gdb</samp> subdirectory of &lsquo;<samp>datadir</samp>&rsquo; (which can be set using
-<code>--datadir</code>).
+<samp class="file">gdb</samp> subdirectory of &lsquo;<samp class="samp">datadir</samp>&rsquo; (which can be set using
+<code class="code">--datadir</code>).
 </p>
 </dd>
-<dt><span><code>--with-relocated-sources=<var>dir</var></code></span></dt>
+<dt><code class="code">--with-relocated-sources=<var class="var">dir</var></code></dt>
 <dd><p>Sets up the default source path substitution rule so that directory
 names recorded in debug information will be automatically adjusted for
-any directory under <var>dir</var>.  <var>dir</var> should be a subdirectory of
-<small>ROCGDB</small>&rsquo;s configured prefix, the one mentioned in the
-<code>--prefix</code> or <code>--exec-prefix</code> options to configure.  This
+any directory under <var class="var">dir</var>.  <var class="var">dir</var> should be a subdirectory of
+<small class="sc">ROCGDB</small>&rsquo;s configured prefix, the one mentioned in the
+<code class="code">--prefix</code> or <code class="code">--exec-prefix</code> options to configure.  This
 option is useful if GDB is supposed to be moved to a different place
 after it is built.
 </p>
 </dd>
-<dt><span><code>--enable-64-bit-bfd</code></span></dt>
+<dt><code class="code">--enable-64-bit-bfd</code></dt>
 <dd><p>Enable 64-bit support in BFD on 32-bit hosts.
 </p>
 </dd>
-<dt><span><code>--disable-gdbmi</code></span></dt>
-<dd><p>Build <small>ROCGDB</small> without the GDB/MI machine interface
-(see <a href="GDB_002fMI.html">The <small>GDB/MI</small> Interface</a>).
+<dt><code class="code">--disable-gdbmi</code></dt>
+<dd><p>Build <small class="sc">ROCGDB</small> without the GDB/MI machine interface
+(see <a class="pxref" href="GDB_002fMI.html">The <small class="sc">GDB/MI</small> Interface</a>).
 </p>
 </dd>
-<dt><span><code>--enable-tui</code></span></dt>
-<dd><p>Build <small>ROCGDB</small> with the text-mode full-screen user interface
+<dt><code class="code">--enable-tui</code></dt>
+<dd><p>Build <small class="sc">ROCGDB</small> with the text-mode full-screen user interface
 (TUI).  Requires a curses library (ncurses and cursesX are also
 supported).
 </p>
 </dd>
-<dt><span><code>--with-curses</code></span></dt>
+<dt><code class="code">--with-curses</code></dt>
 <dd><p>Use the curses library instead of the termcap library, for text-mode
 terminal operations.
 </p>
 </dd>
-<dt><span><code>--with-debuginfod</code></span></dt>
-<dd><p>Build <small>ROCGDB</small> with <samp>libdebuginfod</samp>, the <code>debuginfod</code> client
+<dt><code class="code">--with-debuginfod</code></dt>
+<dd><p>Build <small class="sc">ROCGDB</small> with <samp class="file">libdebuginfod</samp>, the <code class="code">debuginfod</code> client
 library.  Used to automatically fetch ELF, DWARF and source files from
-<code>debuginfod</code> servers using build IDs associated with any missing
-files.  Enabled by default if <samp>libdebuginfod</samp> is installed and found
-at configure time.  For more information regarding <code>debuginfod</code> see
-<a href="Debuginfod.html">Download debugging resources with Debuginfod</a>.
+<code class="code">debuginfod</code> servers using build IDs associated with any missing
+files.  Enabled by default if <samp class="file">libdebuginfod</samp> is installed and found
+at configure time.  For more information regarding <code class="code">debuginfod</code> see
+<a class="ref" href="Debuginfod.html">Download debugging resources with Debuginfod</a>.
 </p>
 </dd>
-<dt><span><code>--with-libunwind-ia64</code></span></dt>
+<dt><code class="code">--with-libunwind-ia64</code></dt>
 <dd><p>Use the libunwind library for unwinding function call stack on ia64
-target platforms.  See <a href="http://www.nongnu.org/libunwind/index.html">http://www.nongnu.org/libunwind/index.html</a> for
+target platforms.  See <a class="url" href="http://www.nongnu.org/libunwind/index.html">http://www.nongnu.org/libunwind/index.html</a> for
 details.
 </p>
 </dd>
-<dt><span><code>--with-system-readline</code></span></dt>
+<dt><code class="code">--with-system-readline</code></dt>
 <dd><p>Use the readline library installed on the host, rather than the
-library supplied as part of <small>ROCGDB</small>.  Readline 7 or newer is
+library supplied as part of <small class="sc">ROCGDB</small>.  Readline 7 or newer is
 required; this is enforced by the build system.
 </p>
 </dd>
-<dt><span><code>--with-system-zlib</code></span></dt>
+<dt><code class="code">--with-system-zlib</code></dt>
 <dd><p>Use the zlib library installed on the host, rather than the library
-supplied as part of <small>ROCGDB</small>.
+supplied as part of <small class="sc">ROCGDB</small>.
 </p>
 </dd>
-<dt><span><code>--with-expat</code></span></dt>
-<dd><p>Build <small>ROCGDB</small> with Expat, a library for XML parsing.  (Done by
+<dt><code class="code">--with-expat</code></dt>
+<dd><p>Build <small class="sc">ROCGDB</small> with Expat, a library for XML parsing.  (Done by
 default if libexpat is installed and found at configure time.)  This
-library is used to read XML files supplied with <small>ROCGDB</small>.  If it
+library is used to read XML files supplied with <small class="sc">ROCGDB</small>.  If it
 is unavailable, some features, such as remote protocol memory maps,
 target descriptions, and shared library lists, that are based on XML
-files, will not be available in <small>ROCGDB</small>.  If your host does not
+files, will not be available in <small class="sc">ROCGDB</small>.  If your host does not
 have libexpat installed, you can get the latest version from
-<a href="http://expat.sourceforge.net">http://expat.sourceforge.net</a>.
+<a class="url" href="http://expat.sourceforge.net">http://expat.sourceforge.net</a>.
 </p>
 </dd>
-<dt><span><code>--with-libiconv-prefix<span class="roman">[</span>=<var>dir</var><span class="roman">]</span></code></span></dt>
-<dd><p>Build <small>ROCGDB</small> with GNU libiconv, a character set encoding
+<dt><code class="code">--with-libiconv-prefix<span class="r">[</span>=<var class="var">dir</var><span class="r">]</span></code></dt>
+<dd><p>Build <small class="sc">ROCGDB</small> with GNU libiconv, a character set encoding
 conversion library.  This is not done by default, as on GNU systems
-the <code>iconv</code> that is built in to the C library is sufficient.  If
-your host does not have a working <code>iconv</code>, you can get the latest
-version of GNU iconv from <a href="https://www.gnu.org/software/libiconv/">https://www.gnu.org/software/libiconv/</a>.
+the <code class="code">iconv</code> that is built in to the C library is sufficient.  If
+your host does not have a working <code class="code">iconv</code>, you can get the latest
+version of GNU iconv from <a class="url" href="https://www.gnu.org/software/libiconv/">https://www.gnu.org/software/libiconv/</a>.
 </p>
-<p><small>ROCGDB</small>&rsquo;s build system also supports building GNU libiconv as
-part of the overall build.   See <a href="Requirements.html">Requirements for Building <small>ROCGDB</small></a>.
+<p><small class="sc">ROCGDB</small>&rsquo;s build system also supports building GNU libiconv as
+part of the overall build.   See <a class="xref" href="Requirements.html">Requirements for Building <small class="sc">ROCGDB</small></a>.
 </p>
 </dd>
-<dt><span><code>--with-lzma</code></span></dt>
-<dd><p>Build <small>ROCGDB</small> with LZMA, a compression library.  (Done by default
+<dt><code class="code">--with-lzma</code></dt>
+<dd><p>Build <small class="sc">ROCGDB</small> with LZMA, a compression library.  (Done by default
 if liblzma is installed and found at configure time.)  LZMA is used by
-<small>ROCGDB</small>&rsquo;s &quot;mini debuginfo&quot; feature, which is only useful on
+<small class="sc">ROCGDB</small>&rsquo;s &quot;mini debuginfo&quot; feature, which is only useful on
 platforms using the ELF object file format.  If your host does not
 have liblzma installed, you can get the latest version from
-<a href="https://tukaani.org/xz/">https://tukaani.org/xz/</a>.
+<a class="url" href="https://tukaani.org/xz/">https://tukaani.org/xz/</a>.
 </p>
 </dd>
-<dt><span><code>--with-python<span class="roman">[</span>=<var>python</var><span class="roman">]</span></code></span></dt>
-<dd><p>Build <small>ROCGDB</small> with Python scripting support.  (Done by default if
+<dt><code class="code">--with-python<span class="r">[</span>=<var class="var">python</var><span class="r">]</span></code></dt>
+<dd><p>Build <small class="sc">ROCGDB</small> with Python scripting support.  (Done by default if
 libpython is present and found at configure time.)  Python makes
-<small>ROCGDB</small> scripting much more powerful than the restricted CLI
+<small class="sc">ROCGDB</small> scripting much more powerful than the restricted CLI
 scripting language.  If your host does not have Python installed, you
-can find it on <a href="http://www.python.org/download/">http://www.python.org/download/</a>.  The oldest version
-of Python supported by GDB is 3.0.1.  The optional argument <var>python</var>
+can find it on <a class="url" href="http://www.python.org/download/">http://www.python.org/download/</a>.  The oldest version
+of Python supported by GDB is 3.0.1.  The optional argument <var class="var">python</var>
 is used to find the Python headers and libraries.  It can be either
 the name of a Python executable, or the name of the directory in which
 Python is installed.
 </p>
 </dd>
-<dt><span><code>--with-guile[=<var>guile</var>]</code></span></dt>
-<dd><p>Build <small>ROCGDB</small> with GNU Guile scripting support.  (Done by default
+<dt><code class="code">--with-guile[=<var class="var">guile</var>]</code></dt>
+<dd><p>Build <small class="sc">ROCGDB</small> with GNU Guile scripting support.  (Done by default
 if libguile is present and found at configure time.)  If your host
 does not have Guile installed, you can find it at
-<a href="https://www.gnu.org/software/guile/">https://www.gnu.org/software/guile/</a>.  The optional argument <var>guile</var>
-can be a version number, which will cause <code>configure</code> to try to
-use that version of Guile; or the file name of a <code>pkg-config</code>
+<a class="url" href="https://www.gnu.org/software/guile/">https://www.gnu.org/software/guile/</a>.  The optional argument <var class="var">guile</var>
+can be a version number, which will cause <code class="code">configure</code> to try to
+use that version of Guile; or the file name of a <code class="code">pkg-config</code>
 executable, which will be queried to find the information needed to
 compile and link against Guile.
 </p>
 </dd>
-<dt><span><code>--without-included-regex</code></span></dt>
-<dd><p>Don&rsquo;t use the regex library included with <small>ROCGDB</small> (as part of the
+<dt><code class="code">--without-included-regex</code></dt>
+<dd><p>Don&rsquo;t use the regex library included with <small class="sc">ROCGDB</small> (as part of the
 libiberty library).  This is the default on hosts with version 2 of
 the GNU C library.
 </p>
 </dd>
-<dt><span><code>--with-sysroot=<var>dir</var></code></span></dt>
-<dd><p>Use <var>dir</var> as the default system root directory for libraries whose
-file names begin with <samp>/lib</samp>&rsquo; or <samp>/usr/lib'</samp>.  (The value of
-<var>dir</var> can be modified at run time by using the <code>set
-sysroot</code> command.)  If <var>dir</var> is under the <small>ROCGDB</small> configured
-prefix (set with <code>--prefix</code> or <code>--exec-prefix options</code>, the
+<dt><code class="code">--with-sysroot=<var class="var">dir</var></code></dt>
+<dd><p>Use <var class="var">dir</var> as the default system root directory for libraries whose
+file names begin with <samp class="file">/lib</samp>&rsquo; or <samp class="file">/usr/lib'</samp>.  (The value of
+<var class="var">dir</var> can be modified at run time by using the <code class="command">set
+sysroot</code> command.)  If <var class="var">dir</var> is under the <small class="sc">ROCGDB</small> configured
+prefix (set with <code class="code">--prefix</code> or <code class="code">--exec-prefix options</code>, the
 default system root will be automatically adjusted if and when
-<small>ROCGDB</small> is moved to a different location.
+<small class="sc">ROCGDB</small> is moved to a different location.
 </p>
 </dd>
-<dt><span><code>--with-system-gdbinit=<var>file</var></code></span></dt>
-<dd><p>Configure <small>ROCGDB</small> to automatically load a system-wide init file.
-<var>file</var> should be an absolute file name.  If <var>file</var> is in a
-directory under the configured prefix, and <small>ROCGDB</small> is moved to
+<dt><code class="code">--with-system-gdbinit=<var class="var">file</var></code></dt>
+<dd><p>Configure <small class="sc">ROCGDB</small> to automatically load a system-wide init file.
+<var class="var">file</var> should be an absolute file name.  If <var class="var">file</var> is in a
+directory under the configured prefix, and <small class="sc">ROCGDB</small> is moved to
 another location after being built, the location of the system-wide
 init file will be adjusted accordingly.
 </p>
 </dd>
-<dt><span><code>--with-system-gdbinit-dir=<var>directory</var></code></span></dt>
-<dd><p>Configure <small>ROCGDB</small> to automatically load init files from a
-system-wide directory.  <var>directory</var> should be an absolute directory
-name.  If <var>directory</var> is in a directory under the configured
-prefix, and <small>ROCGDB</small> is moved to another location after being
+<dt><code class="code">--with-system-gdbinit-dir=<var class="var">directory</var></code></dt>
+<dd><p>Configure <small class="sc">ROCGDB</small> to automatically load init files from a
+system-wide directory.  <var class="var">directory</var> should be an absolute directory
+name.  If <var class="var">directory</var> is in a directory under the configured
+prefix, and <small class="sc">ROCGDB</small> is moved to another location after being
 built, the location of the system-wide init directory will be
 adjusted accordingly.
 </p>
 </dd>
-<dt><span><code>--enable-build-warnings</code></span></dt>
-<dd><p>When building the <small>ROCGDB</small> sources, ask the compiler to warn about
+<dt><code class="code">--enable-build-warnings</code></dt>
+<dd><p>When building the <small class="sc">ROCGDB</small> sources, ask the compiler to warn about
 any code which looks even vaguely suspicious.  It passes many
 different warning flags, depending on the exact version of the
 compiler you are using.
 </p>
 </dd>
-<dt><span><code>--enable-werror</code></span></dt>
-<dd><p>Treat compiler warnings as errors.  It adds the <code>-Werror</code> flag
+<dt><code class="code">--enable-werror</code></dt>
+<dd><p>Treat compiler warnings as errors.  It adds the <code class="code">-Werror</code> flag
 to the compiler, which will fail the compilation if the compiler
 outputs any warning messages.
 </p>
 </dd>
-<dt><span><code>--enable-ubsan</code></span></dt>
+<dt><code class="code">--enable-ubsan</code></dt>
 <dd><p>Enable the GCC undefined behavior sanitizer.  This is disabled by
-default, but passing <code>--enable-ubsan=yes</code> or
-<code>--enable-ubsan=auto</code> to <code>configure</code> will enable it.  The
-undefined behavior sanitizer checks for C<tt>++</tt> undefined behavior.
-It has a performance cost, so if you are looking at <small>ROCGDB</small>&rsquo;s
+default, but passing <code class="code">--enable-ubsan=yes</code> or
+<code class="code">--enable-ubsan=auto</code> to <code class="code">configure</code> will enable it.  The
+undefined behavior sanitizer checks for C<code class="t">++</code> undefined behavior.
+It has a performance cost, so if you are looking at <small class="sc">ROCGDB</small>&rsquo;s
 performance, you should disable it.  The undefined behavior sanitizer
 was first introduced in GCC 4.9.
 </p></dd>
@@ -346,9 +335,9 @@ was first introduced in GCC 4.9.
 
 </div>
 <hr>
-<div class="header">
+<div class="nav-panel">
 <p>
-Next: <a href="System_002dwide-configuration.html">System-wide configuration and settings</a>, Previous: <a href="Config-Names.html">Specifying Names for Hosts and Targets</a>, Up: <a href="Installing-GDB.html">Installing <small>ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="System_002dwide-configuration.html">System-wide configuration and settings</a>, Previous: <a href="Config-Names.html">Specifying Names for Hosts and Targets</a>, Up: <a href="Installing-GDB.html">Installing <small class="sc">ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

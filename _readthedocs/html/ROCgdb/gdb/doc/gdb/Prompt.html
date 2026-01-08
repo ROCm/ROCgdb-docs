@@ -1,9 +1,9 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright (C) 1988-2024 Free Software Foundation, Inc.
+<!-- Copyright © 1988-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -20,13 +20,13 @@ Legal Disclaimer and Copyright Information
 
 AMD ROCm software is made available by Advanced Micro Devices, Inc. under the
 open source license identified in the top-level directory for the library in
-the repository on Github.com (Portions of AMD ROCm software are
-licensed under MITx11 and UIL/NCSA. For more information on the license, review
-the license.txt in the top-level directory for the library on
-Github.com).  The additional terms and conditions below apply to your use
-of AMD ROCm technical documentation.
+the repository on https://github.com/ROCm/ (Github.com) (Portions of AMD
+ROCm software are licensed under MITx11 and UIL/NCSA. For more information on
+the license, review the license.txt in the top-level directory for the
+library on https://github.com/ROCm/ (Github.com)).  The additional terms
+and conditions below apply to your use of AMD ROCm technical documentation.
 
-(C)2019-2025 Advanced Micro Devices, Inc.  All rights reserved.
+©2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
 
 The information presented in this document is for informational purposes only
 and may contain technical inaccuracies, omissions, and typographical errors.
@@ -52,8 +52,8 @@ EVEN IF AMD IS EXPRESSLY ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
 
 AMD, the AMD Arrow logo, AMD Instinct™, Radeon™, AMD ROCm™, and combinations
 thereof are trademarks of Advanced Micro Devices, Inc.
-Linux(R) is the registered trademark of Linus Torvalds in the
-U.S. and other countries. PCIe(R) is a registered trademark of
+Linux® is the registered trademark of Linus Torvalds in the
+U.S. and other countries. PCIe® is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
@@ -73,21 +73,9 @@ companies. -->
 <link href="Editing.html" rel="next" title="Editing">
 <style type="text/css">
 <!--
-a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
-a.summary-letter {text-decoration: none}
-blockquote.indentedblock {margin-right: 0em}
-div.display {margin-left: 3.2em}
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
 div.example {margin-left: 3.2em}
-kbd {font-style: oblique}
-pre.display {font-family: inherit}
-pre.format {font-family: inherit}
-pre.menu-comment {font-family: serif}
-pre.menu-preformatted {font-family: serif}
-span.nolinebreak {white-space: nowrap}
-span.roman {font-family: initial; font-weight: normal}
-span.sansserif {font-family: sans-serif; font-weight: normal}
-span:hover a.copiable-anchor {visibility: visible}
-ul.no-bullet {list-style: none}
+span:hover a.copiable-link {visibility: visible}
 -->
 </style>
 
@@ -95,77 +83,71 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<div class="section" id="Prompt">
-<div class="header">
+<div class="section-level-extent" id="Prompt">
+<div class="nav-panel">
 <p>
-Next: <a href="Editing.html" accesskey="n" rel="next">Command Editing</a>, Up: <a href="Controlling-GDB.html" accesskey="u" rel="up">Controlling <small>ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Editing.html" accesskey="n" rel="next">Command Editing</a>, Up: <a href="Controlling-GDB.html" accesskey="u" rel="up">Controlling <small class="sc">ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="Prompt-1"></span><h3 class="section">23.1 Prompt</h3>
+<h3 class="section" id="Prompt-1"><span>23.1 Prompt<a class="copiable-link" href="#Prompt-1"> &para;</a></span></h3>
 
-<span id="index-prompt"></span>
+<a class="index-entry-id" id="index-prompt"></a>
 
-<p><small>ROCGDB</small> indicates its readiness to read a command by printing a string
-called the <em>prompt</em>.  This string is normally &lsquo;<samp>(gdb)</samp>&rsquo;.  You
-can change the prompt string with the <code>set prompt</code> command.  For
-instance, when debugging <small>ROCGDB</small> with <small>ROCGDB</small>, it is useful to change
-the prompt in one of the <small>ROCGDB</small> sessions so that you can always tell
+<p><small class="sc">ROCGDB</small> indicates its readiness to read a command by printing a string
+called the <em class="dfn">prompt</em>.  This string is normally &lsquo;<samp class="samp">(gdb)</samp>&rsquo;.  You
+can change the prompt string with the <code class="code">set prompt</code> command.  For
+instance, when debugging <small class="sc">ROCGDB</small> with <small class="sc">ROCGDB</small>, it is useful to change
+the prompt in one of the <small class="sc">ROCGDB</small> sessions so that you can always tell
 which one you are talking to.
 </p>
-<p><em>Note:</em>  <code>set prompt</code> does not add a space for you after the
+<p><em class="emph">Note:</em>  <code class="code">set prompt</code> does not add a space for you after the
 prompt you set.  This allows you to set a prompt which ends in a space
 or a prompt that does not.
 </p>
-<dl compact="compact">
-<dd><span id="index-set-prompt"></span>
-</dd>
-<dt><span><code>set prompt <var>newprompt</var></code></span></dt>
-<dd><p>Directs <small>ROCGDB</small> to use <var>newprompt</var> as its prompt string henceforth.
+<dl class="table">
+<dt><a id="index-set-prompt"></a><span><code class="code">set prompt <var class="var">newprompt</var></code><a class="copiable-link" href="#index-set-prompt"> &para;</a></span></dt>
+<dd><p>Directs <small class="sc">ROCGDB</small> to use <var class="var">newprompt</var> as its prompt string henceforth.
 </p>
-<span id="index-show-prompt"></span>
 </dd>
-<dt><span><code>show prompt</code></span></dt>
-<dd><p>Prints a line of the form: &lsquo;<samp>Gdb's prompt is: <var>your-prompt</var></samp>&rsquo;
+<dt><a id="index-show-prompt"></a><span><code class="code">show prompt</code><a class="copiable-link" href="#index-show-prompt"> &para;</a></span></dt>
+<dd><p>Prints a line of the form: &lsquo;<samp class="samp">Gdb's prompt is: <var class="var">your-prompt</var></samp>&rsquo;
 </p></dd>
 </dl>
 
-<p>Versions of <small>ROCGDB</small> that ship with Python scripting enabled have
+<p>Versions of <small class="sc">ROCGDB</small> that ship with Python scripting enabled have
 prompt extensions.  The commands for interacting with these extensions
 are:
 </p>
-<dl compact="compact">
-<dd><span id="index-set-extended_002dprompt"></span>
-</dd>
-<dt><span><code>set extended-prompt <var>prompt</var></code></span></dt>
+<dl class="table">
+<dt><a id="index-set-extended_002dprompt"></a><span><code class="code">set extended-prompt <var class="var">prompt</var></code><a class="copiable-link" href="#index-set-extended_002dprompt"> &para;</a></span></dt>
 <dd><p>Set an extended prompt that allows for substitutions.
-See <a href="gdb_002eprompt.html">gdb.prompt</a>, for a list of escape sequences that can be used for
+See <a class="xref" href="gdb_002eprompt.html">gdb.prompt</a>, for a list of escape sequences that can be used for
 substitution.  Any escape sequences specified as part of the prompt
 string are replaced with the corresponding strings each time the prompt
 is displayed.
 </p>
 <p>For example:
 </p>
-<div class="example">
-<pre class="example">set extended-prompt Current working directory: \w (gdb)
+<div class="example smallexample">
+<pre class="example-preformatted">set extended-prompt Current working directory: \w (gdb)
 </pre></div>
 
 <p>Note that when an extended-prompt is set, it takes control of the
-<var>prompt_hook</var> hook.  See <a href="Basic-Python.html#prompt_005fhook">prompt_hook</a>, for further information.
+<var class="var">prompt_hook</var> hook.  See <a class="xref" href="Basic-Python.html#prompt_005fhook">prompt_hook</a>, for further information.
 </p>
-<span id="index-show-extended_002dprompt"></span>
 </dd>
-<dt><span><code>show extended-prompt</code></span></dt>
+<dt><a id="index-show-extended_002dprompt"></a><span><code class="code">show extended-prompt</code><a class="copiable-link" href="#index-show-extended_002dprompt"> &para;</a></span></dt>
 <dd><p>Prints the extended prompt.  Any escape sequences specified as part of
-the prompt string with <code>set extended-prompt</code>, are replaced with the
+the prompt string with <code class="code">set extended-prompt</code>, are replaced with the
 corresponding strings each time the prompt is displayed.
 </p></dd>
 </dl>
 
 </div>
 <hr>
-<div class="header">
+<div class="nav-panel">
 <p>
-Next: <a href="Editing.html">Command Editing</a>, Up: <a href="Controlling-GDB.html">Controlling <small>ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Editing.html">Command Editing</a>, Up: <a href="Controlling-GDB.html">Controlling <small class="sc">ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

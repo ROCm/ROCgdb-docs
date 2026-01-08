@@ -1,9 +1,9 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright (C) 1988-2024 Free Software Foundation, Inc.
+<!-- Copyright © 1988-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -20,13 +20,13 @@ Legal Disclaimer and Copyright Information
 
 AMD ROCm software is made available by Advanced Micro Devices, Inc. under the
 open source license identified in the top-level directory for the library in
-the repository on Github.com (Portions of AMD ROCm software are
-licensed under MITx11 and UIL/NCSA. For more information on the license, review
-the license.txt in the top-level directory for the library on
-Github.com).  The additional terms and conditions below apply to your use
-of AMD ROCm technical documentation.
+the repository on https://github.com/ROCm/ (Github.com) (Portions of AMD
+ROCm software are licensed under MITx11 and UIL/NCSA. For more information on
+the license, review the license.txt in the top-level directory for the
+library on https://github.com/ROCm/ (Github.com)).  The additional terms
+and conditions below apply to your use of AMD ROCm technical documentation.
 
-(C)2019-2025 Advanced Micro Devices, Inc.  All rights reserved.
+©2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
 
 The information presented in this document is for informational purposes only
 and may contain technical inaccuracies, omissions, and typographical errors.
@@ -52,8 +52,8 @@ EVEN IF AMD IS EXPRESSLY ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
 
 AMD, the AMD Arrow logo, AMD Instinct™, Radeon™, AMD ROCm™, and combinations
 thereof are trademarks of Advanced Micro Devices, Inc.
-Linux(R) is the registered trademark of Linus Torvalds in the
-U.S. and other countries. PCIe(R) is a registered trademark of
+Linux® is the registered trademark of Linus Torvalds in the
+U.S. and other countries. PCIe® is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
@@ -73,21 +73,10 @@ companies. -->
 <link href="gdb_002eprompt.html" rel="prev" title="gdb.prompt">
 <style type="text/css">
 <!--
-a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
-a.summary-letter {text-decoration: none}
-blockquote.indentedblock {margin-right: 0em}
-div.display {margin-left: 3.2em}
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
 div.example {margin-left: 3.2em}
-kbd {font-style: oblique}
-pre.display {font-family: inherit}
-pre.format {font-family: inherit}
-pre.menu-comment {font-family: serif}
-pre.menu-preformatted {font-family: serif}
-span.nolinebreak {white-space: nowrap}
-span.roman {font-family: initial; font-weight: normal}
-span.sansserif {font-family: sans-serif; font-weight: normal}
-span:hover a.copiable-anchor {visibility: visible}
-ul.no-bullet {list-style: none}
+span:hover a.copiable-link {visibility: visible}
+strong.def-name {font-family: monospace; font-weight: bold; font-size: larger}
 -->
 </style>
 
@@ -95,55 +84,55 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<div class="subsubsection" id="gdb_002eptwrite">
-<div class="header">
+<div class="subsubsection-level-extent" id="gdb_002eptwrite">
+<div class="nav-panel">
 <p>
 Previous: <a href="gdb_002eprompt.html" accesskey="p" rel="prev">gdb.prompt</a>, Up: <a href="Python-modules.html" accesskey="u" rel="up">Python modules</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="gdb_002eptwrite-1"></span><h4 class="subsubsection">24.3.4.4 gdb.ptwrite</h4>
-<span id="index-gdb_002eptwrite"></span>
+<h4 class="subsubsection" id="gdb_002eptwrite-1"><span>24.3.4.4 gdb.ptwrite<a class="copiable-link" href="#gdb_002eptwrite-1"> &para;</a></span></h4>
+<a class="index-entry-id" id="index-gdb_002eptwrite"></a>
 
 <p>This module provides additional functionality for recording programs that
-make use of the <code>PTWRITE</code> instruction.  <code>PTWRITE</code> is a x86
+make use of the <code class="code">PTWRITE</code> instruction.  <code class="code">PTWRITE</code> is a x86
 instruction that allows to write values into the Intel Processor Trace
-(see <a href="Process-Record-and-Replay.html">Recording Inferior&rsquo;s Execution and Replaying It</a>).
-The <small>GCC</small> intrinsics for it are:
-</p><div class="example">
-<pre class="example">void _ptwrite32 (unsigned int a)
+(see <a class="pxref" href="Process-Record-and-Replay.html">Recording Inferior&rsquo;s Execution and Replaying It</a>).
+The <small class="sc">GCC</small> intrinsics for it are:
+</p><div class="example smallexample">
+<pre class="example-preformatted">void _ptwrite32 (unsigned int a)
 void _ptwrite64 (unsigned __int64 a)
 </pre></div>
 
-<p>If an inferior uses the instruction, <small>ROCGDB</small> by default inserts the
+<p>If an inferior uses the instruction, <small class="sc">ROCGDB</small> by default inserts the
 raw payload value as auxiliary information into the execution history.
 Auxiliary information is by default printed during
-<code>record instruction-history</code>, <code>record function-call-history</code>,
+<code class="code">record instruction-history</code>, <code class="code">record function-call-history</code>,
 and all stepping commands, and is accessible in Python as a
-<code>RecordAuxiliary</code> object (see <a href="Recordings-In-Python.html">Recordings In Python</a>).
+<code class="code">RecordAuxiliary</code> object (see <a class="pxref" href="Recordings-In-Python.html">Recordings In Python</a>).
 </p>
-<p>Sample program:
-</p><div class="example">
-<pre class="example">#include &lt;immintrin.h&gt;
+<p class="exdent">Sample program:
+</p><div class="example smallexample">
+<div class="group"><pre class="example-preformatted">#include &lt;immintrin.h&gt;
 
 void
 ptwrite64 (unsigned long long value)
 {
   _ptwrite64 (value);
 }
-</pre><pre class="example">
+</pre></div><pre class="example-preformatted">
 
-</pre><pre class="example">int
+</pre><div class="group"><pre class="example-preformatted">int
 main (void)
 {
   ptwrite64 (0x42);
   return 0; /* break here.  */
 }
-</pre></div>
+</pre></div></div>
 
 
-<p><small>ROCGDB</small> output after recording the sample program in pt format:
-</p><div class="example">
-<pre class="example">(gdb) record instruction-history 12,14
+<p class="exdent"><small class="sc">ROCGDB</small> output after recording the sample program in pt format:
+</p><div class="example smallexample">
+<div class="group"><pre class="example-preformatted">(gdb) record instruction-history 12,14
 12         0x0040074c &lt;ptwrite64+16&gt;:   ptwrite %rbx
 13           [0x42]
 14         0x00400751 &lt;ptwrite64+21&gt;:   mov -0x8(%rbp),%rbx
@@ -152,39 +141,39 @@ main (void)
 2       ptwrite64
           [0x42]
 3       main
-</pre></div>
+</pre></div></div>
 
-<p>The <code>gdb.ptwrite</code> module allows customizing the default output of
-<code>PTWRITE</code> auxiliary information.  A custom Python function can be
-registered as the <code>PTWRITE</code> filter function.  This function will be
-called with the <code>PTWRITE</code> payload and PC as arguments during trace
+<p>The <code class="code">gdb.ptwrite</code> module allows customizing the default output of
+<code class="code">PTWRITE</code> auxiliary information.  A custom Python function can be
+registered as the <code class="code">PTWRITE</code> filter function.  This function will be
+called with the <code class="code">PTWRITE</code> payload and PC as arguments during trace
 decoding.  The function can return a string, which will be printed by
-<small>ROCGDB</small> during the aforementioned commands, or <code>None</code>, resulting
+<small class="sc">ROCGDB</small> during the aforementioned commands, or <code class="code">None</code>, resulting
 in no output.  To register such a filter function, the user needs to
 provide a filter factory function, which returns a new filter function
-object to be called by <small>ROCGDB</small>.
+object to be called by <small class="sc">ROCGDB</small>.
 </p>
-<span id="index-gdb_002eptwrite_002eregister_005ffilter_005ffactory"></span>
-<dl class="def">
-<dt id="index-register_005ffilter_005ffactory"><span class="category">Function: </span><span><strong>register_filter_factory</strong> <em>(filter_factory)</em><a href='#index-register_005ffilter_005ffactory' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Used to register the <code>PTWRITE</code> filter factory.  This filter factory can
+<a class="index-entry-id" id="index-gdb_002eptwrite_002eregister_005ffilter_005ffactory"></a>
+<dl class="first-deffn first-defun-alias-first-deffn">
+<dt class="deffn defun-alias-deffn" id="index-register_005ffilter_005ffactory"><span class="category-def">Function: </span><span><strong class="def-name">register_filter_factory</strong> <var class="def-var-arguments">(filter_factory)</var><a class="copiable-link" href="#index-register_005ffilter_005ffactory"> &para;</a></span></dt>
+<dd><p>Used to register the <code class="code">PTWRITE</code> filter factory.  This filter factory can
 be any callable object that accepts one argument, the current thread as
-a <code>gdb.InferiorThread</code>.
-It can return None or a callable.  This callable is the <code>PTWRITE</code> filter
-function for the specified thread.  If <code>None</code> is returned by the factory
+a <code class="code">gdb.InferiorThread</code>.
+It can return None or a callable.  This callable is the <code class="code">PTWRITE</code> filter
+function for the specified thread.  If <code class="code">None</code> is returned by the factory
 function, the default auxiliary information will be printed.
 </p></dd></dl>
 
-<span id="index-gdb_002eptwrite_002eget_005ffilter"></span>
-<dl class="def">
-<dt id="index-get_005ffilter"><span class="category">Function: </span><span><strong>get_filter</strong> <em>()</em><a href='#index-get_005ffilter' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Return the currently active <code>PTWRITE</code> filter function.
+<a class="index-entry-id" id="index-gdb_002eptwrite_002eget_005ffilter"></a>
+<dl class="first-deffn first-defun-alias-first-deffn">
+<dt class="deffn defun-alias-deffn" id="index-get_005ffilter"><span class="category-def">Function: </span><span><strong class="def-name">get_filter</strong> <var class="def-var-arguments">()</var><a class="copiable-link" href="#index-get_005ffilter"> &para;</a></span></dt>
+<dd><p>Return the currently active <code class="code">PTWRITE</code> filter function.
 </p></dd></dl>
 
 <p>An example:
 </p>
-<div class="example">
-<pre class="example">(gdb) python-interactive
+<div class="example smallexample">
+<div class="group"><pre class="example-preformatted">(gdb) python-interactive
 &gt;&gt;&gt; class my_filter():
 ...    def __init__(self):
 ...        self.var = 0
@@ -201,9 +190,9 @@ function, the default auxiliary information will be printed.
 &gt;&gt;&gt; import gdb.ptwrite
 &gt;&gt;&gt; gdb.ptwrite.register_filter_factory(my_filter_factory)
 &gt;&gt;&gt;
-</pre><pre class="example">
+</pre></div><pre class="example-preformatted">
 
-</pre><pre class="example">(gdb) record function-call-history 59,64
+</pre><div class="group"><pre class="example-preformatted">(gdb) record function-call-history 59,64
 59      pthread_create@GLIBC_2.2.5
 60      job()
 61      task(void*)
@@ -212,22 +201,22 @@ function, the default auxiliary information will be printed.
 63      task(void*)
 64      ptwrite32(unsigned int)
           [counter: 2, ip: 0x40116c]
-</pre><pre class="example">
+</pre></div><pre class="example-preformatted">
 
-</pre><pre class="example">(gdb) info threads
+</pre><div class="group"><pre class="example-preformatted">(gdb) info threads
 * 1    Thread 0x7ffff7fd8740 (LWP 25796) &quot;ptw_threads&quot; task ()
     at bin/ptwrite/ptw_threads.c:45
   2    Thread 0x7ffff6eb8700 (LWP 25797) &quot;ptw_threads&quot; task ()
     at bin/ptwrite/ptw_threads.c:45
-</pre><pre class="example">
+</pre></div><pre class="example-preformatted">
 
-</pre><pre class="example">(gdb) thread 2
+</pre><div class="group"><pre class="example-preformatted">(gdb) thread 2
 [Switching to thread 2 (Thread 0x7ffff6eb8700 (LWP 25797))]
 #0  task (arg=0x0) at ptwrite_threads.c:45
 45        return NULL;
-</pre><pre class="example">
+</pre></div><pre class="example-preformatted">
 
-</pre><pre class="example">(gdb) record function-call-history 10,14
+</pre><div class="group"><pre class="example-preformatted">(gdb) record function-call-history 10,14
 10    start_thread
 11    task(void*)
 12    ptwrite64(unsigned long)
@@ -235,16 +224,16 @@ function, the default auxiliary information will be printed.
 13    task(void*)
 14    ptwrite32(unsigned int)
         [0x43]
-</pre></div>
+</pre></div></div>
 
-<p>This <small>ROCGDB</small> feature is dependent on hardware and operating system
+<p>This <small class="sc">ROCGDB</small> feature is dependent on hardware and operating system
 support and requires the Intel Processor Trace decoder library in version
 2.0.0 or newer.
 </p>
 
 </div>
 <hr>
-<div class="header">
+<div class="nav-panel">
 <p>
 Previous: <a href="gdb_002eprompt.html">gdb.prompt</a>, Up: <a href="Python-modules.html">Python modules</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
