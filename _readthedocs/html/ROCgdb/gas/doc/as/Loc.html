@@ -1,11 +1,11 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the GNU Assembler "as".
 
-Copyright (C) 1991-2025 Free Software Foundation, Inc.
+Copyright © 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -31,21 +31,8 @@ section entitled "GNU Free Documentation License".
 <link href="Ln.html" rel="prev" title="Ln">
 <style type="text/css">
 <!--
-a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
-a.summary-letter {text-decoration: none}
-blockquote.indentedblock {margin-right: 0em}
-div.display {margin-left: 3.2em}
-div.example {margin-left: 3.2em}
-kbd {font-style: oblique}
-pre.display {font-family: inherit}
-pre.format {font-family: inherit}
-pre.menu-comment {font-family: serif}
-pre.menu-preformatted {font-family: serif}
-span.nolinebreak {white-space: nowrap}
-span.roman {font-family: initial; font-weight: normal}
-span.sansserif {font-family: sans-serif; font-weight: normal}
-span:hover a.copiable-anchor {visibility: visible}
-ul.no-bullet {list-style: none}
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+span:hover a.copiable-link {visibility: visible}
 -->
 </style>
 
@@ -53,77 +40,77 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<div class="section" id="Loc">
-<div class="header">
+<div class="section-level-extent" id="Loc">
+<div class="nav-panel">
 <p>
-Next: <a href="Loc_005fmark_005flabels.html" accesskey="n" rel="next"><code>.loc_mark_labels <var>enable</var></code></a>, Previous: <a href="Ln.html" accesskey="p" rel="prev"><code>.ln <var>line-number</var></code></a>, Up: <a href="Pseudo-Ops.html" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Loc_005fmark_005flabels.html" accesskey="n" rel="next"><code class="code">.loc_mark_labels <var class="var">enable</var></code></a>, Previous: <a href="Ln.html" accesskey="p" rel="prev"><code class="code">.ln <var class="var">line-number</var></code></a>, Up: <a href="Pseudo-Ops.html" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="g_t_002eloc-fileno-lineno-_005bcolumn_005d-_005boptions_005d"></span><h3 class="section">7.60 <code>.loc <var>fileno</var> <var>lineno</var> [<var>column</var>] [<var>options</var>]</code></h3>
-<span id="index-loc-directive"></span>
+<h3 class="section" id="g_t_002eloc-fileno-lineno-_005bcolumn_005d-_005boptions_005d"><span>7.60 <code class="code">.loc <var class="var">fileno</var> <var class="var">lineno</var> [<var class="var">column</var>] [<var class="var">options</var>]</code><a class="copiable-link" href="#g_t_002eloc-fileno-lineno-_005bcolumn_005d-_005boptions_005d"> &para;</a></span></h3>
+<a class="index-entry-id" id="index-loc-directive"></a>
 <p>When emitting DWARF2 line number information,
-the <code>.loc</code> directive will add a row to the <code>.debug_line</code> line
+the <code class="code">.loc</code> directive will add a row to the <code class="code">.debug_line</code> line
 number matrix corresponding to the immediately following assembly
-instruction.  The <var>fileno</var>, <var>lineno</var>, and optional <var>column</var>
-arguments will be applied to the <code>.debug_line</code> state machine before
+instruction.  The <var class="var">fileno</var>, <var class="var">lineno</var>, and optional <var class="var">column</var>
+arguments will be applied to the <code class="code">.debug_line</code> state machine before
 the row is added.  It is an error for the input assembly file to generate
-a non-empty <code>.debug_line</code> and also use <code>loc</code> directives.
+a non-empty <code class="code">.debug_line</code> and also use <code class="code">loc</code> directives.
 </p>
-<p>The <var>options</var> are a sequence of the following tokens in any order:
+<p>The <var class="var">options</var> are a sequence of the following tokens in any order:
 </p>
-<dl compact="compact">
-<dt><span><code>basic_block</code></span></dt>
-<dd><p>This option will set the <code>basic_block</code> register in the
-<code>.debug_line</code> state machine to <code>true</code>.
-</p>
-</dd>
-<dt><span><code>prologue_end</code></span></dt>
-<dd><p>This option will set the <code>prologue_end</code> register in the
-<code>.debug_line</code> state machine to <code>true</code>.
+<dl class="table">
+<dt><code class="code">basic_block</code></dt>
+<dd><p>This option will set the <code class="code">basic_block</code> register in the
+<code class="code">.debug_line</code> state machine to <code class="code">true</code>.
 </p>
 </dd>
-<dt><span><code>epilogue_begin</code></span></dt>
-<dd><p>This option will set the <code>epilogue_begin</code> register in the
-<code>.debug_line</code> state machine to <code>true</code>.
+<dt><code class="code">prologue_end</code></dt>
+<dd><p>This option will set the <code class="code">prologue_end</code> register in the
+<code class="code">.debug_line</code> state machine to <code class="code">true</code>.
 </p>
 </dd>
-<dt><span><code>is_stmt <var>value</var></code></span></dt>
-<dd><p>This option will set the <code>is_stmt</code> register in the
-<code>.debug_line</code> state machine to <code>value</code>, which must be
+<dt><code class="code">epilogue_begin</code></dt>
+<dd><p>This option will set the <code class="code">epilogue_begin</code> register in the
+<code class="code">.debug_line</code> state machine to <code class="code">true</code>.
+</p>
+</dd>
+<dt><code class="code">is_stmt <var class="var">value</var></code></dt>
+<dd><p>This option will set the <code class="code">is_stmt</code> register in the
+<code class="code">.debug_line</code> state machine to <code class="code">value</code>, which must be
 either 0 or 1.
 </p>
 </dd>
-<dt><span><code>isa <var>value</var></code></span></dt>
-<dd><p>This directive will set the <code>isa</code> register in the <code>.debug_line</code>
-state machine to <var>value</var>, which must be an unsigned integer.
+<dt><code class="code">isa <var class="var">value</var></code></dt>
+<dd><p>This directive will set the <code class="code">isa</code> register in the <code class="code">.debug_line</code>
+state machine to <var class="var">value</var>, which must be an unsigned integer.
 </p>
 </dd>
-<dt><span><code>discriminator <var>value</var></code></span></dt>
-<dd><p>This directive will set the <code>discriminator</code> register in the <code>.debug_line</code>
-state machine to <var>value</var>, which must be an unsigned integer.
+<dt><code class="code">discriminator <var class="var">value</var></code></dt>
+<dd><p>This directive will set the <code class="code">discriminator</code> register in the <code class="code">.debug_line</code>
+state machine to <var class="var">value</var>, which must be an unsigned integer.
 </p>
 </dd>
-<dt><span><code>view <var>value</var></code></span></dt>
-<dd><p>This option causes a row to be added to <code>.debug_line</code> in reference to the
+<dt><code class="code">view <var class="var">value</var></code></dt>
+<dd><p>This option causes a row to be added to <code class="code">.debug_line</code> in reference to the
 current address (which might not be the same as that of the following assembly
-instruction), and to associate <var>value</var> with the <code>view</code> register in the
-<code>.debug_line</code> state machine.  If <var>value</var> is a label, both the
-<code>view</code> register and the label are set to the number of prior <code>.loc</code>
-directives at the same program location.  If <var>value</var> is the literal
-<code>0</code>, the <code>view</code> register is set to zero, and the assembler asserts
-that there aren&rsquo;t any prior <code>.loc</code> directives at the same program
-location.  If <var>value</var> is the literal <code>-0</code>, the assembler arrange for
-the <code>view</code> register to be reset in this row, even if there are prior
-<code>.loc</code> directives at the same program location.
+instruction), and to associate <var class="var">value</var> with the <code class="code">view</code> register in the
+<code class="code">.debug_line</code> state machine.  If <var class="var">value</var> is a label, both the
+<code class="code">view</code> register and the label are set to the number of prior <code class="code">.loc</code>
+directives at the same program location.  If <var class="var">value</var> is the literal
+<code class="code">0</code>, the <code class="code">view</code> register is set to zero, and the assembler asserts
+that there aren&rsquo;t any prior <code class="code">.loc</code> directives at the same program
+location.  If <var class="var">value</var> is the literal <code class="code">-0</code>, the assembler arrange for
+the <code class="code">view</code> register to be reset in this row, even if there are prior
+<code class="code">.loc</code> directives at the same program location.
 </p>
 </dd>
 </dl>
 
 </div>
 <hr>
-<div class="header">
+<div class="nav-panel">
 <p>
-Next: <a href="Loc_005fmark_005flabels.html"><code>.loc_mark_labels <var>enable</var></code></a>, Previous: <a href="Ln.html"><code>.ln <var>line-number</var></code></a>, Up: <a href="Pseudo-Ops.html">Assembler Directives</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Loc_005fmark_005flabels.html"><code class="code">.loc_mark_labels <var class="var">enable</var></code></a>, Previous: <a href="Ln.html"><code class="code">.ln <var class="var">line-number</var></code></a>, Up: <a href="Pseudo-Ops.html">Assembler Directives</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

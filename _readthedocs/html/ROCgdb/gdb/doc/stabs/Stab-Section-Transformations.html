@@ -1,9 +1,9 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright (C) 1992-2024 Free Software Foundation, Inc.
+<!-- Copyright © 1992-2024 Free Software Foundation, Inc.
 Contributed by Cygnus Support.  Written by Julia Menapace, Jim Kingdon,
 and David MacKenzie.
 
@@ -29,21 +29,10 @@ Free Documentation License". -->
 <link href="Transformations-On-Global-Variables.html" rel="prev" title="Transformations On Global Variables">
 <style type="text/css">
 <!--
-a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
-a.summary-letter {text-decoration: none}
-blockquote.indentedblock {margin-right: 0em}
-div.display {margin-left: 3.2em}
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
 div.example {margin-left: 3.2em}
-kbd {font-style: oblique}
-pre.display {font-family: inherit}
-pre.format {font-family: inherit}
-pre.menu-comment {font-family: serif}
-pre.menu-preformatted {font-family: serif}
-span.nolinebreak {white-space: nowrap}
-span.roman {font-family: initial; font-weight: normal}
-span.sansserif {font-family: sans-serif; font-weight: normal}
-span:hover a.copiable-anchor {visibility: visible}
-ul.no-bullet {list-style: none}
+span.r {font-family: initial; font-weight: normal; font-style: normal}
+span:hover a.copiable-link {visibility: visible}
 -->
 </style>
 
@@ -51,34 +40,34 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<div class="subsection" id="Stab-Section-Transformations">
-<div class="header">
+<div class="subsection-level-extent" id="Stab-Section-Transformations">
+<div class="nav-panel">
 <p>
 Previous: <a href="Transformations-On-Global-Variables.html" accesskey="p" rel="prev">Transformations on Global Variables</a>, Up: <a href="Transformations-On-Symbol-Tables.html" accesskey="u" rel="up">Transformations on Symbol Tables</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Symbol-Types-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="Transformations-of-Stabs-in-separate-sections"></span><h4 class="subsection">7.2.3 Transformations of Stabs in separate sections</h4>
+<h4 class="subsection" id="Transformations-of-Stabs-in-separate-sections"><span>7.2.3 Transformations of Stabs in separate sections<a class="copiable-link" href="#Transformations-of-Stabs-in-separate-sections"> &para;</a></span></h4>
 
-<p>For object file formats using stabs in separate sections (see <a href="Stab-Sections.html">Using Stabs in Their Own Sections</a>), use <code>objdump --stabs</code> instead of <code>nm</code> to show the
-stabs in an object or executable file.  <code>objdump</code> is a GNU utility;
+<p>For object file formats using stabs in separate sections (see <a class="pxref" href="Stab-Sections.html">Using Stabs in Their Own Sections</a>), use <code class="code">objdump --stabs</code> instead of <code class="code">nm</code> to show the
+stabs in an object or executable file.  <code class="code">objdump</code> is a GNU utility;
 Sun does not provide any equivalent.
 </p>
 <p>The following example is for a stab whose value is an address is
-relative to the compilation unit (see <a href="ELF-Linker-Relocation.html">Having the Linker Relocate Stabs in ELF</a>).  For
+relative to the compilation unit (see <a class="pxref" href="ELF-Linker-Relocation.html">Having the Linker Relocate Stabs in ELF</a>).  For
 example, if the source line
 </p>
 <div class="example">
-<pre class="example">static int ld = 5;
+<pre class="example-preformatted">static int ld = 5;
 </pre></div>
 
 <p>appears within a function, then the assembly language output from the
 compiler contains:
 </p>
 <div class="example">
-<pre class="example">.Ddata.data:
-&hellip;
-        .stabs &quot;ld:V(0,3)&quot;,0x26,0,4,.L18-Ddata.data    # <span class="roman">0x26 is N_STSYM</span>
-&hellip;
+<pre class="example-preformatted">.Ddata.data:
+...
+        .stabs &quot;ld:V(0,3)&quot;,0x26,0,4,.L18-Ddata.data    # <span class="r">0x26 is N_STSYM</span>
+...
 .L18:
         .align 4
         .word 0x5
@@ -88,14 +77,14 @@ compiler contains:
 value is absolute, not relocatable, and so the object file contains
 </p>
 <div class="example">
-<pre class="example">Symnum n_type n_othr n_desc n_value  n_strx String
+<pre class="example-preformatted">Symnum n_type n_othr n_desc n_value  n_strx String
 31     STSYM  0      4      00000004 680    ld:V(0,3)
 </pre></div>
 
 <p>without any relocations, and the executable file also contains
 </p>
 <div class="example">
-<pre class="example">Symnum n_type n_othr n_desc n_value  n_strx String
+<pre class="example-preformatted">Symnum n_type n_othr n_desc n_value  n_strx String
 31     STSYM  0      4      00000004 680    ld:V(0,3)
 </pre></div>
 

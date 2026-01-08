@@ -1,9 +1,9 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright (C) 1988-2024 Free Software Foundation, Inc.
+<!-- Copyright © 1988-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -20,13 +20,13 @@ Legal Disclaimer and Copyright Information
 
 AMD ROCm software is made available by Advanced Micro Devices, Inc. under the
 open source license identified in the top-level directory for the library in
-the repository on Github.com (Portions of AMD ROCm software are
-licensed under MITx11 and UIL/NCSA. For more information on the license, review
-the license.txt in the top-level directory for the library on
-Github.com).  The additional terms and conditions below apply to your use
-of AMD ROCm technical documentation.
+the repository on https://github.com/ROCm/ (Github.com) (Portions of AMD
+ROCm software are licensed under MITx11 and UIL/NCSA. For more information on
+the license, review the license.txt in the top-level directory for the
+library on https://github.com/ROCm/ (Github.com)).  The additional terms
+and conditions below apply to your use of AMD ROCm technical documentation.
 
-(C)2019-2025 Advanced Micro Devices, Inc.  All rights reserved.
+©2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
 
 The information presented in this document is for informational purposes only
 and may contain technical inaccuracies, omissions, and typographical errors.
@@ -52,8 +52,8 @@ EVEN IF AMD IS EXPRESSLY ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
 
 AMD, the AMD Arrow logo, AMD Instinct™, Radeon™, AMD ROCm™, and combinations
 thereof are trademarks of Advanced Micro Devices, Inc.
-Linux(R) is the registered trademark of Linus Torvalds in the
-U.S. and other countries. PCIe(R) is a registered trademark of
+Linux® is the registered trademark of Linus Torvalds in the
+U.S. and other countries. PCIe® is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
@@ -74,21 +74,9 @@ companies. -->
 <link href="AArch64-Features.html" rel="prev" title="AArch64 Features">
 <style type="text/css">
 <!--
-a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
-a.summary-letter {text-decoration: none}
-blockquote.indentedblock {margin-right: 0em}
-div.display {margin-left: 3.2em}
-div.example {margin-left: 3.2em}
-kbd {font-style: oblique}
-pre.display {font-family: inherit}
-pre.format {font-family: inherit}
-pre.menu-comment {font-family: serif}
-pre.menu-preformatted {font-family: serif}
-span.nolinebreak {white-space: nowrap}
-span.roman {font-family: initial; font-weight: normal}
-span.sansserif {font-family: sans-serif; font-weight: normal}
-span:hover a.copiable-anchor {visibility: visible}
-ul.no-bullet {list-style: none}
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+span:hover a.copiable-link {visibility: visible}
+ul.mark-minus {list-style-type: "\2212"}
 -->
 </style>
 
@@ -96,60 +84,65 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<div class="subsection" id="ARC-Features">
-<div class="header">
+<div class="subsection-level-extent" id="ARC-Features">
+<div class="nav-panel">
 <p>
 Next: <a href="ARM-Features.html" accesskey="n" rel="next">ARM Features</a>, Previous: <a href="AArch64-Features.html" accesskey="p" rel="prev">AArch64 Features</a>, Up: <a href="Standard-Target-Features.html" accesskey="u" rel="up">Standard Target Features</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="ARC-Features-1"></span><h4 class="subsection">G.5.2 ARC Features</h4>
-<span id="index-target-descriptions_002c-ARC-Features"></span>
+<h4 class="subsection" id="ARC-Features-1"><span>G.5.2 ARC Features<a class="copiable-link" href="#ARC-Features-1"> &para;</a></span></h4>
+<a class="index-entry-id" id="index-target-descriptions_002c-ARC-Features"></a>
 
 <p>ARC processors are so configurable that even core registers and their numbers
-are not predetermined completely.  Moreover, <em>flags</em> and <em>PC</em>
-registers, which are important to <small>ROCGDB</small>, are not &ldquo;core&rdquo; registers in
+are not predetermined completely.  Moreover, <em class="emph">flags</em> and <em class="emph">PC</em>
+registers, which are important to <small class="sc">ROCGDB</small>, are not &ldquo;core&rdquo; registers in
 ARC.  Therefore, there are two features that their presence is mandatory:
-&lsquo;<samp>org.gnu.gdb.arc.core</samp>&rsquo; and &lsquo;<samp>org.gnu.gdb.arc.aux</samp>&rsquo;.
+&lsquo;<samp class="samp">org.gnu.gdb.arc.core</samp>&rsquo; and &lsquo;<samp class="samp">org.gnu.gdb.arc.aux</samp>&rsquo;.
 </p>
-<p>The &lsquo;<samp>org.gnu.gdb.arc.core</samp>&rsquo; feature is required for all targets.  It must
+<p>The &lsquo;<samp class="samp">org.gnu.gdb.arc.core</samp>&rsquo; feature is required for all targets.  It must
 contain registers:
 </p>
-<ul class="no-bullet">
-<li>- &lsquo;<samp>r0</samp>&rsquo; through &lsquo;<samp>r25</samp>&rsquo; for normal register file targets.
-</li><li>- &lsquo;<samp>r0</samp>&rsquo; through &lsquo;<samp>r3</samp>&rsquo;, and &lsquo;<samp>r10</samp>&rsquo; through &lsquo;<samp>r15</samp>&rsquo; for reduced
+<ul class="itemize mark-minus">
+<li>&lsquo;<samp class="samp">r0</samp>&rsquo; through &lsquo;<samp class="samp">r25</samp>&rsquo; for normal register file targets.
+</li><li>&lsquo;<samp class="samp">r0</samp>&rsquo; through &lsquo;<samp class="samp">r3</samp>&rsquo;, and &lsquo;<samp class="samp">r10</samp>&rsquo; through &lsquo;<samp class="samp">r15</samp>&rsquo; for reduced
 register file targets.
-</li><li>- &lsquo;<samp>gp</samp>&rsquo;, &lsquo;<samp>fp</samp>&rsquo;, &lsquo;<samp>sp</samp>&rsquo;, &lsquo;<samp>r30</samp>&rsquo;<a id="DOCF22" href="#FOOT22"><sup>22</sup></a>,
-&lsquo;<samp>blink</samp>&rsquo;, &lsquo;<samp>lp_count</samp>&rsquo;, &lsquo;<samp>pcl</samp>&rsquo;.
+</li><li>&lsquo;<samp class="samp">gp</samp>&rsquo;, &lsquo;<samp class="samp">fp</samp>&rsquo;, &lsquo;<samp class="samp">sp</samp>&rsquo;, &lsquo;<samp class="samp">r30</samp>&rsquo;<a class="footnote" id="DOCF22" href="#FOOT22"><sup>22</sup></a>,
+&lsquo;<samp class="samp">blink</samp>&rsquo;, &lsquo;<samp class="samp">lp_count</samp>&rsquo;, &lsquo;<samp class="samp">pcl</samp>&rsquo;.
 </li></ul>
 
-<p>In case of an ARCompact target (ARCv1 ISA), the &lsquo;<samp>org.gnu.gdb.arc.core</samp>&rsquo;
-feature may contain registers &lsquo;<samp>ilink1</samp>&rsquo; and &lsquo;<samp>ilink2</samp>&rsquo;.  While in case
-of ARC EM and ARC HS targets (ARCv2 ISA), register &lsquo;<samp>ilink</samp>&rsquo; may be present.
-The difference between ARCv1 and ARCv2 is the naming of registers <em>29th</em>
-and <em>30th</em>.  They are called &lsquo;<samp>ilink1</samp>&rsquo; and &lsquo;<samp>ilink2</samp>&rsquo; for ARCv1 and
-are optional.  For ARCv2, they are called &lsquo;<samp>ilink</samp>&rsquo; and &lsquo;<samp>r30</samp>&rsquo; and only
-&lsquo;<samp>ilink</samp>&rsquo; is optional.  The optionality of &lsquo;<samp>ilink*</samp>&rsquo; registers is
+<p>In case of an ARCompact target (ARCv1 ISA), the &lsquo;<samp class="samp">org.gnu.gdb.arc.core</samp>&rsquo;
+feature may contain registers &lsquo;<samp class="samp">ilink1</samp>&rsquo; and &lsquo;<samp class="samp">ilink2</samp>&rsquo;.  While in case
+of ARC EM and ARC HS targets (ARCv2 ISA), register &lsquo;<samp class="samp">ilink</samp>&rsquo; may be present.
+The difference between ARCv1 and ARCv2 is the naming of registers <em class="emph">29th</em>
+and <em class="emph">30th</em>.  They are called &lsquo;<samp class="samp">ilink1</samp>&rsquo; and &lsquo;<samp class="samp">ilink2</samp>&rsquo; for ARCv1 and
+are optional.  For ARCv2, they are called &lsquo;<samp class="samp">ilink</samp>&rsquo; and &lsquo;<samp class="samp">r30</samp>&rsquo; and only
+&lsquo;<samp class="samp">ilink</samp>&rsquo; is optional.  The optionality of &lsquo;<samp class="samp">ilink*</samp>&rsquo; registers is
 because of their inaccessibility during user space debugging sessions.
 </p>
-<p>Extension core registers &lsquo;<samp>r32</samp>&rsquo; through &lsquo;<samp>r59</samp>&rsquo; are optional and their
+<p>Extension core registers &lsquo;<samp class="samp">r32</samp>&rsquo; through &lsquo;<samp class="samp">r59</samp>&rsquo; are optional and their
 existence depends on the configuration.  When debugging GNU/Linux applications,
 i.e. user space debugging, these core registers are not available.
 </p>
-<p>The &lsquo;<samp>org.gnu.gdb.arc.aux</samp>&rsquo; feature is required for all ARC targets.  Here
+<p>The &lsquo;<samp class="samp">org.gnu.gdb.arc.aux</samp>&rsquo; feature is required for all ARC targets.  Here
 is the list of registers pertinent to this feature:
 </p>
-<ul class="no-bullet">
-<li>- mandatory: &lsquo;<samp>pc</samp>&rsquo; and &lsquo;<samp>status32</samp>&rsquo;.
-</li><li>- optional: &lsquo;<samp>lp_start</samp>&rsquo;, &lsquo;<samp>lp_end</samp>&rsquo;, and &lsquo;<samp>bta</samp>&rsquo;.
+<ul class="itemize mark-minus">
+<li>mandatory: &lsquo;<samp class="samp">pc</samp>&rsquo; and &lsquo;<samp class="samp">status32</samp>&rsquo;.
+</li><li>optional: &lsquo;<samp class="samp">lp_start</samp>&rsquo;, &lsquo;<samp class="samp">lp_end</samp>&rsquo;, and &lsquo;<samp class="samp">bta</samp>&rsquo;.
 </li></ul>
 
 </div>
-<div class="footnote">
+<div class="footnotes-segment">
 <hr>
 <h4 class="footnotes-heading">Footnotes</h4>
 
-<h5><a id="FOOT22" href="#DOCF22">(22)</a></h5>
+<h5 class="footnote-body-heading"><a id="FOOT22" href="#DOCF22">(22)</a></h5>
 <p>Not necessary for ARCv1.</p>
+</div>
+<hr>
+<div class="nav-panel">
+<p>
+Next: <a href="ARM-Features.html">ARM Features</a>, Previous: <a href="AArch64-Features.html">AArch64 Features</a>, Up: <a href="Standard-Target-Features.html">Standard Target Features</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

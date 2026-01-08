@@ -1,9 +1,9 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright (C) 2021-2025 Free Software Foundation, Inc.
+<!-- Copyright © 2021-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU General Public License, Version 3 or any
@@ -27,21 +27,8 @@ License".
 <link href="CTF-header.html" rel="next" title="CTF header">
 <style type="text/css">
 <!--
-a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
-a.summary-letter {text-decoration: none}
-blockquote.indentedblock {margin-right: 0em}
-div.display {margin-left: 3.2em}
-div.example {margin-left: 3.2em}
-kbd {font-style: oblique}
-pre.display {font-family: inherit}
-pre.format {font-family: inherit}
-pre.menu-comment {font-family: serif}
-pre.menu-preformatted {font-family: serif}
-span.nolinebreak {white-space: nowrap}
-span.roman {font-family: initial; font-weight: normal}
-span.sansserif {font-family: sans-serif; font-weight: normal}
-span:hover a.copiable-anchor {visibility: visible}
-ul.no-bullet {list-style: none}
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+span:hover a.copiable-link {visibility: visible}
 -->
 </style>
 
@@ -49,13 +36,13 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<div class="section" id="CTF-Preamble">
-<div class="header">
+<div class="section-level-extent" id="CTF-Preamble">
+<div class="nav-panel">
 <p>
 Next: <a href="CTF-header.html" accesskey="n" rel="next">CTF header</a>, Up: <a href="CTF-dictionaries.html" accesskey="u" rel="up">CTF dictionaries</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="CTF-Preamble-1"></span><h3 class="section">2.1 CTF Preamble</h3>
+<h3 class="section" id="CTF-Preamble-1"><span>2.1 CTF Preamble<a class="copiable-link" href="#CTF-Preamble-1"> &para;</a></span></h3>
 
 <p>The preamble is the only part of the CTF dictionary whose format cannot
 vary between versions.  It is never compressed.  It is correspondingly
@@ -68,74 +55,76 @@ simple:
   unsigned char ctp_flags;
 } ctf_preamble_t;
 </pre>
-<p><code>#define</code>s are provided under the names <code>cth_magic</code>,
-<code>cth_version</code> and <code>cth_flags</code> to make the fields of the
-<code>ctf_preamble_t</code> appear to be part of the <code>ctf_header_t</code>, so
+<p><code class="code">#define</code>s are provided under the names <code class="code">cth_magic</code>,
+<code class="code">cth_version</code> and <code class="code">cth_flags</code> to make the fields of the
+<code class="code">ctf_preamble_t</code> appear to be part of the <code class="code">ctf_header_t</code>, so
 consuming programs rarely need to consider the existence of the preamble
 as a separate structure.
 </p>
-<span id="index-struct-ctf_005fpreamble"></span>
-<span id="index-ctf_005fpreamble_005ft"></span>
-<table>
+<a class="index-entry-id" id="index-struct-ctf_005fpreamble"></a>
+<a class="index-entry-id" id="index-ctf_005fpreamble_005ft"></a>
+<table class="multitable">
 <thead><tr><th>Offset</th><th>Name</th><th>Description</th></tr></thead>
-<tr><td>0x00</td><td><code>unsigned short ctp_magic</code>
-<span id="index-ctp_005fmagic"></span>
-<span id="index-cth_005fmagic"></span>
-<span id="index-ctf_005fpreamble_005ft_002c-ctp_005fmagic"></span>
-<span id="index-struct-ctf_005fpreamble_002c-ctp_005fmagic"></span>
-<span id="index-ctf_005fheader_005ft_002c-cth_005fmagic"></span>
-<span id="index-struct-ctf_005fheader_002c-cth_005fmagic"></span></td><td>The magic number for CTF dictionaries, <code>CTF_MAGIC</code>: 0xdff2.
-<span id="index-CTF_005fMAGIC"></span></td></tr>
-<tr><td>0x02</td><td><code>unsigned char ctp_version</code>
-<span id="index-ctp_005fversion"></span>
-<span id="index-cth_005fversion"></span>
-<span id="index-ctf_005fpreamble_005ft_002c-ctp_005fversion"></span>
-<span id="index-struct-ctf_005fpreamble_002c-ctp_005fversion"></span>
-<span id="index-ctf_005fheader_005ft_002c-cth_005fversion"></span>
-<span id="index-struct-ctf_005fheader_002c-cth_005fversion"></span></td><td>The version number of this CTF dictionary.</td></tr>
-<tr><td>0x03</td><td><code>ctp_flags</code>
-<span id="index-ctp_005fflags"></span>
-<span id="index-cth_005fflags"></span>
-<span id="index-ctf_005fpreamble_005ft_002c-ctp_005fflags"></span>
-<span id="index-struct-ctf_005fpreamble_002c-ctp_005fflags"></span>
-<span id="index-ctf_005fheader_005ft_002c-cth_005fflags"></span>
-<span id="index-struct-ctf_005fheader_002c-cth_005fflags"></span></td><td>Flags for this CTF file. See <a href="CTF-file_002dwide-flags.html">CTF file-wide flags</a>.</td></tr>
+<tbody><tr><td>0x00</td><td><code class="code">unsigned short ctp_magic</code>
+<a class="index-entry-id" id="index-ctp_005fmagic"></a>
+<a class="index-entry-id" id="index-cth_005fmagic"></a>
+<a class="index-entry-id" id="index-ctf_005fpreamble_005ft_002c-ctp_005fmagic"></a>
+<a class="index-entry-id" id="index-struct-ctf_005fpreamble_002c-ctp_005fmagic"></a>
+<a class="index-entry-id" id="index-ctf_005fheader_005ft_002c-cth_005fmagic"></a>
+<a class="index-entry-id" id="index-struct-ctf_005fheader_002c-cth_005fmagic"></a></td><td>The magic number for CTF dictionaries, <code class="code">CTF_MAGIC</code>: 0xdff2.
+<a class="index-entry-id" id="index-CTF_005fMAGIC"></a></td></tr>
+<tr><td>0x02</td><td><code class="code">unsigned char ctp_version</code>
+<a class="index-entry-id" id="index-ctp_005fversion"></a>
+<a class="index-entry-id" id="index-cth_005fversion"></a>
+<a class="index-entry-id" id="index-ctf_005fpreamble_005ft_002c-ctp_005fversion"></a>
+<a class="index-entry-id" id="index-struct-ctf_005fpreamble_002c-ctp_005fversion"></a>
+<a class="index-entry-id" id="index-ctf_005fheader_005ft_002c-cth_005fversion"></a>
+<a class="index-entry-id" id="index-struct-ctf_005fheader_002c-cth_005fversion"></a></td><td>The version number of this CTF dictionary.</td></tr>
+<tr><td>0x03</td><td><code class="code">ctp_flags</code>
+<a class="index-entry-id" id="index-ctp_005fflags"></a>
+<a class="index-entry-id" id="index-cth_005fflags"></a>
+<a class="index-entry-id" id="index-ctf_005fpreamble_005ft_002c-ctp_005fflags"></a>
+<a class="index-entry-id" id="index-struct-ctf_005fpreamble_002c-ctp_005fflags"></a>
+<a class="index-entry-id" id="index-ctf_005fheader_005ft_002c-cth_005fflags"></a>
+<a class="index-entry-id" id="index-struct-ctf_005fheader_002c-cth_005fflags"></a></td><td>Flags for this CTF file. See <a class="xref" href="CTF-file_002dwide-flags.html">CTF file-wide flags</a>.</td></tr>
+</tbody>
 </table>
 
-<span id="index-alignment"></span>
+<a class="index-entry-id" id="index-alignment"></a>
 <p>Every element of a dictionary must be naturally aligned unless otherwise
 specified.  (This restriction will be lifted in later versions.)
 </p>
-<span id="index-endianness"></span>
+<a class="index-entry-id" id="index-endianness"></a>
 <p>CTF dictionaries are stored in the native endianness of the system that
-generates them: the consumer (e.g., <code>libctf</code>) can detect whether to
-endian-flip a CTF dictionary by inspecting the <code>ctp_magic</code>. (If it
+generates them: the consumer (e.g., <code class="code">libctf</code>) can detect whether to
+endian-flip a CTF dictionary by inspecting the <code class="code">ctp_magic</code>. (If it
 appears as 0xf2df, endian-flipping is needed.)
 </p>
 <p>The version of the CTF dictionary can be determined by inspecting
-<code>ctp_version</code>.  The following versions are currently valid, and
-<code>libctf</code> can read all of them:
+<code class="code">ctp_version</code>.  The following versions are currently valid, and
+<code class="code">libctf</code> can read all of them:
 </p>
-<span id="index-CTF_005fVERSION_005f3"></span>
-<span id="index-CTF-versions_002c-versions"></span>
-<table>
+<a class="index-entry-id" id="index-CTF_005fVERSION_005f3"></a>
+<a class="index-entry-id" id="index-CTF-versions_002c-versions"></a>
+<table class="multitable">
 <thead><tr><th>Version</th><th>Number</th><th>Description</th></tr></thead>
-<tr><td><code>CTF_VERSION_1</code></td><td>1</td><td>First version, rare. Very similar to Solaris CTF.</td></tr>
-<tr><td><code>CTF_VERSION_1_UPGRADED_3</code></td><td>2</td><td>First version, upgraded to v3 or higher and written out again.
+<tbody><tr><td><code class="code">CTF_VERSION_1</code></td><td>1</td><td>First version, rare. Very similar to Solaris CTF.</td></tr>
+<tr><td><code class="code">CTF_VERSION_1_UPGRADED_3</code></td><td>2</td><td>First version, upgraded to v3 or higher and written out again.
 Name may change. Very rare.</td></tr>
-<tr><td><code>CTF_VERSION_2</code></td><td>3</td><td>Second version, with many range limits lifted.</td></tr>
-<tr><td><code>CTF_VERSION_3</code></td><td>4</td><td>Third and current version, documented here.</td></tr>
+<tr><td><code class="code">CTF_VERSION_2</code></td><td>3</td><td>Second version, with many range limits lifted.</td></tr>
+<tr><td><code class="code">CTF_VERSION_3</code></td><td>4</td><td>Third and current version, documented here.</td></tr>
+</tbody>
 </table>
 
-<p>This section documents <code>CTF_VERSION_3</code>.
+<p>This section documents <code class="code">CTF_VERSION_3</code>.
 </p>
-<span id="index-ctp_005fflags-1"></span>
-<ul class="section-toc">
+<a class="index-entry-id" id="index-ctp_005fflags-1"></a>
+<ul class="mini-toc">
 <li><a href="CTF-file_002dwide-flags.html" accesskey="1">CTF file-wide flags</a></li>
 </ul>
 </div>
 <hr>
-<div class="header">
+<div class="nav-panel">
 <p>
 Next: <a href="CTF-header.html">CTF header</a>, Up: <a href="CTF-dictionaries.html">CTF dictionaries</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

@@ -1,9 +1,9 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright (C) 1988-2024 Free Software Foundation, Inc.
+<!-- Copyright © 1988-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -20,13 +20,13 @@ Legal Disclaimer and Copyright Information
 
 AMD ROCm software is made available by Advanced Micro Devices, Inc. under the
 open source license identified in the top-level directory for the library in
-the repository on Github.com (Portions of AMD ROCm software are
-licensed under MITx11 and UIL/NCSA. For more information on the license, review
-the license.txt in the top-level directory for the library on
-Github.com).  The additional terms and conditions below apply to your use
-of AMD ROCm technical documentation.
+the repository on https://github.com/ROCm/ (Github.com) (Portions of AMD
+ROCm software are licensed under MITx11 and UIL/NCSA. For more information on
+the license, review the license.txt in the top-level directory for the
+library on https://github.com/ROCm/ (Github.com)).  The additional terms
+and conditions below apply to your use of AMD ROCm technical documentation.
 
-(C)2019-2025 Advanced Micro Devices, Inc.  All rights reserved.
+©2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
 
 The information presented in this document is for informational purposes only
 and may contain technical inaccuracies, omissions, and typographical errors.
@@ -52,8 +52,8 @@ EVEN IF AMD IS EXPRESSLY ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
 
 AMD, the AMD Arrow logo, AMD Instinct™, Radeon™, AMD ROCm™, and combinations
 thereof are trademarks of Advanced Micro Devices, Inc.
-Linux(R) is the registered trademark of Linus Torvalds in the
-U.S. and other countries. PCIe(R) is a registered trademark of
+Linux® is the registered trademark of Linus Torvalds in the
+U.S. and other countries. PCIe® is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
@@ -74,21 +74,9 @@ companies. -->
 <link href="Quitting-GDB.html" rel="prev" title="Quitting GDB">
 <style type="text/css">
 <!--
-a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
-a.summary-letter {text-decoration: none}
-blockquote.indentedblock {margin-right: 0em}
-div.display {margin-left: 3.2em}
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
 div.example {margin-left: 3.2em}
-kbd {font-style: oblique}
-pre.display {font-family: inherit}
-pre.format {font-family: inherit}
-pre.menu-comment {font-family: serif}
-pre.menu-preformatted {font-family: serif}
-span.nolinebreak {white-space: nowrap}
-span.roman {font-family: initial; font-weight: normal}
-span.sansserif {font-family: sans-serif; font-weight: normal}
-span:hover a.copiable-anchor {visibility: visible}
-ul.no-bullet {list-style: none}
+span:hover a.copiable-link {visibility: visible}
 -->
 </style>
 
@@ -96,71 +84,67 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<div class="section" id="Shell-Commands">
-<div class="header">
+<div class="section-level-extent" id="Shell-Commands">
+<div class="nav-panel">
 <p>
-Next: <a href="Logging-Output.html" accesskey="n" rel="next">Logging Output</a>, Previous: <a href="Quitting-GDB.html" accesskey="p" rel="prev">Quitting <small>ROCGDB</small></a>, Up: <a href="Invocation.html" accesskey="u" rel="up">Getting In and Out of <small>ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Logging-Output.html" accesskey="n" rel="next">Logging Output</a>, Previous: <a href="Quitting-GDB.html" accesskey="p" rel="prev">Quitting <small class="sc">ROCGDB</small></a>, Up: <a href="Invocation.html" accesskey="u" rel="up">Getting In and Out of <small class="sc">ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="Shell-Commands-1"></span><h3 class="section">2.3 Shell Commands</h3>
+<h3 class="section" id="Shell-Commands-1"><span>2.3 Shell Commands<a class="copiable-link" href="#Shell-Commands-1"> &para;</a></span></h3>
 
 <p>If you need to execute occasional shell commands during your
-debugging session, there is no need to leave or suspend <small>ROCGDB</small>; you can
-just use the <code>shell</code> command.
+debugging session, there is no need to leave or suspend <small class="sc">ROCGDB</small>; you can
+just use the <code class="code">shell</code> command.
 </p>
-<dl compact="compact">
-<dd><span id="index-shell"></span>
-<span id="index-_0021"></span>
-<span id="index-shell-escape"></span>
-</dd>
-<dt><span><code>shell <var>command-string</var></code></span></dt>
-<dt><span><code>!<var>command-string</var></code></span></dt>
-<dd><p>Invoke a shell to execute <var>command-string</var>.
-Note that no space is needed between <code>!</code> and <var>command-string</var>.
-On GNU and Unix systems, the environment variable <code>SHELL</code>, if it
-exists, determines which shell to run.  Otherwise <small>ROCGDB</small> uses
-the default shell (<samp>/bin/sh</samp> on GNU and Unix systems,
-<samp>cmd.exe</samp> on MS-Windows, <samp>COMMAND.COM</samp> on MS-DOS, etc.).
+<dl class="table">
+<dt><a class="index-entry-id" id="index-_0021"></a>
+<a class="index-entry-id" id="index-shell-escape"></a>
+<a id="index-shell"></a><span><code class="code">shell <var class="var">command-string</var></code><a class="copiable-link" href="#index-shell"> &para;</a></span></dt>
+<dt><code class="code">!<var class="var">command-string</var></code></dt>
+<dd><p>Invoke a shell to execute <var class="var">command-string</var>.
+Note that no space is needed between <code class="code">!</code> and <var class="var">command-string</var>.
+On GNU and Unix systems, the environment variable <code class="env">SHELL</code>, if it
+exists, determines which shell to run.  Otherwise <small class="sc">ROCGDB</small> uses
+the default shell (<samp class="file">/bin/sh</samp> on GNU and Unix systems,
+<samp class="file">cmd.exe</samp> on MS-Windows, <samp class="file">COMMAND.COM</samp> on MS-DOS, etc.).
 </p></dd>
 </dl>
 
 <p>You may also invoke shell commands from expressions, using the
-<code>$_shell</code> convenience function.  See <a href="Convenience-Funs.html#g_t_0024_005fshell-convenience-function">$_shell convenience function</a>.
+<code class="code">$_shell</code> convenience function.  See <a class="xref" href="Convenience-Funs.html#g_t_0024_005fshell-convenience-function">$_shell convenience function</a>.
 </p>
-<p>The utility <code>make</code> is often needed in development environments.
-You do not have to use the <code>shell</code> command for this purpose in
-<small>ROCGDB</small>:
+<p>The utility <code class="code">make</code> is often needed in development environments.
+You do not have to use the <code class="code">shell</code> command for this purpose in
+<small class="sc">ROCGDB</small>:
 </p>
-<dl compact="compact">
-<dd><span id="index-make"></span>
-<span id="index-calling-make"></span>
-</dd>
-<dt><span><code>make <var>make-args</var></code></span></dt>
-<dd><p>Execute the <code>make</code> program with the specified
-arguments.  This is equivalent to &lsquo;<samp>shell make <var>make-args</var></samp>&rsquo;.
+<dl class="table">
+<dt><a class="index-entry-id" id="index-calling-make"></a>
+<a id="index-make"></a><span><code class="code">make <var class="var">make-args</var></code><a class="copiable-link" href="#index-make"> &para;</a></span></dt>
+<dd><p>Execute the <code class="code">make</code> program with the specified
+arguments.  This is equivalent to &lsquo;<samp class="samp">shell make <var class="var">make-args</var></samp>&rsquo;.
 </p></dd>
 </dl>
 
-<dl compact="compact">
-<dd><span id="index-pipe"></span>
-<span id="index-_007c"></span>
-<span id="index-send-the-output-of-a-gdb-command-to-a-shell-command"></span>
-<span id="pipe"></span></dd>
-<dt><span><code>pipe [<var>command</var>] | <var>shell_command</var></code></span></dt>
-<dt><span><code>| [<var>command</var>] | <var>shell_command</var></code></span></dt>
-<dt><span><code>pipe -d <var>delim</var> <var>command</var> <var>delim</var> <var>shell_command</var></code></span></dt>
-<dt><span><code>| -d <var>delim</var> <var>command</var> <var>delim</var> <var>shell_command</var></code></span></dt>
-<dd><p>Executes <var>command</var> and sends its output to <var>shell_command</var>.
-Note that no space is needed around <code>|</code>.
-If no <var>command</var> is provided, the last command executed is repeated.
+<dl class="table">
+<dd><a class="index-entry-id" id="index-pipe"></a>
+<a class="index-entry-id" id="index-_007c"></a>
+<a class="index-entry-id" id="index-send-the-output-of-a-gdb-command-to-a-shell-command"></a>
+<a class="anchor" id="pipe"></a></dd>
+<dt><code class="code">pipe [<var class="var">command</var>] | <var class="var">shell_command</var></code></dt>
+<dt><code class="code">| [<var class="var">command</var>] | <var class="var">shell_command</var></code></dt>
+<dt><code class="code">pipe -d <var class="var">delim</var> <var class="var">command</var> <var class="var">delim</var> <var class="var">shell_command</var></code></dt>
+<dt><code class="code">| -d <var class="var">delim</var> <var class="var">command</var> <var class="var">delim</var> <var class="var">shell_command</var></code></dt>
+<dd><p>Executes <var class="var">command</var> and sends its output to <var class="var">shell_command</var>.
+Note that no space is needed around <code class="code">|</code>.
+If no <var class="var">command</var> is provided, the last command executed is repeated.
 </p>
-<p>In case the <var>command</var> contains a <code>|</code>, the option <code>-d <var>delim</var></code>
-can be used to specify an alternate delimiter string <var>delim</var> that separates
-the <var>command</var> from the <var>shell_command</var>.
+<p>In case the <var class="var">command</var> contains a <code class="code">|</code>, the option <code class="code">-d <var class="var">delim</var></code>
+can be used to specify an alternate delimiter string <var class="var">delim</var> that separates
+the <var class="var">command</var> from the <var class="var">shell_command</var>.
 </p>
 <p>Example:
-</p><div class="example">
-<pre class="example">(gdb) p var
+</p><div class="example smallexample">
+<div class="group"><pre class="example-preformatted">(gdb) p var
 $1 = {
   black = 144,
   red = 233,
@@ -168,11 +152,11 @@ $1 = {
   blue = 610,
   white = 987
 }
-</pre><pre class="example">(gdb) pipe p var|wc
+</pre></div><div class="group"><pre class="example-preformatted">(gdb) pipe p var|wc
       7      19      80
 (gdb) |p var|wc -l
 7
-</pre><pre class="example">(gdb) p /x var
+</pre></div><div class="group"><pre class="example-preformatted">(gdb) p /x var
 $4 = {
   black = 0x90,
   red = 0xe9,
@@ -182,25 +166,25 @@ $4 = {
 }
 (gdb) ||grep red
   red =&gt; 0xe9,
-</pre><pre class="example">(gdb) | -d ! echo this contains a | char\n ! sed -e 's/|/PIPE/'
+</pre></div><div class="group"><pre class="example-preformatted">(gdb) | -d ! echo this contains a | char\n ! sed -e 's/|/PIPE/'
 this contains a PIPE char
 (gdb) | -d xxx echo this contains a | char!\n xxx sed -e 's/|/PIPE/'
 this contains a PIPE char!
 (gdb)
-</pre></div>
+</pre></div></div>
 </dd>
 </dl>
 
-<p>The convenience variables <code>$_shell_exitcode</code> and <code>$_shell_exitsignal</code>
+<p>The convenience variables <code class="code">$_shell_exitcode</code> and <code class="code">$_shell_exitsignal</code>
 can be used to examine the exit status of the last shell command launched
-by <code>shell</code>, <code>make</code>, <code>pipe</code> and <code>|</code>.
-See <a href="Convenience-Vars.html">Convenience Variables</a>.
+by <code class="code">shell</code>, <code class="code">make</code>, <code class="code">pipe</code> and <code class="code">|</code>.
+See <a class="xref" href="Convenience-Vars.html">Convenience Variables</a>.
 </p>
 </div>
 <hr>
-<div class="header">
+<div class="nav-panel">
 <p>
-Next: <a href="Logging-Output.html">Logging Output</a>, Previous: <a href="Quitting-GDB.html">Quitting <small>ROCGDB</small></a>, Up: <a href="Invocation.html">Getting In and Out of <small>ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Logging-Output.html">Logging Output</a>, Previous: <a href="Quitting-GDB.html">Quitting <small class="sc">ROCGDB</small></a>, Up: <a href="Invocation.html">Getting In and Out of <small class="sc">ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

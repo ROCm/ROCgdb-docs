@@ -1,9 +1,9 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright (C) 1988-2024 Free Software Foundation, Inc.
+<!-- Copyright © 1988-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -20,13 +20,13 @@ Legal Disclaimer and Copyright Information
 
 AMD ROCm software is made available by Advanced Micro Devices, Inc. under the
 open source license identified in the top-level directory for the library in
-the repository on Github.com (Portions of AMD ROCm software are
-licensed under MITx11 and UIL/NCSA. For more information on the license, review
-the license.txt in the top-level directory for the library on
-Github.com).  The additional terms and conditions below apply to your use
-of AMD ROCm technical documentation.
+the repository on https://github.com/ROCm/ (Github.com) (Portions of AMD
+ROCm software are licensed under MITx11 and UIL/NCSA. For more information on
+the license, review the license.txt in the top-level directory for the
+library on https://github.com/ROCm/ (Github.com)).  The additional terms
+and conditions below apply to your use of AMD ROCm technical documentation.
 
-(C)2019-2025 Advanced Micro Devices, Inc.  All rights reserved.
+©2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
 
 The information presented in this document is for informational purposes only
 and may contain technical inaccuracies, omissions, and typographical errors.
@@ -52,8 +52,8 @@ EVEN IF AMD IS EXPRESSLY ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
 
 AMD, the AMD Arrow logo, AMD Instinct™, Radeon™, AMD ROCm™, and combinations
 thereof are trademarks of Advanced Micro Devices, Inc.
-Linux(R) is the registered trademark of Linus Torvalds in the
-U.S. and other countries. PCIe(R) is a registered trademark of
+Linux® is the registered trademark of Linus Torvalds in the
+U.S. and other countries. PCIe® is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
@@ -73,21 +73,8 @@ companies. -->
 <link href="Target-Commands.html" rel="prev" title="Target Commands">
 <style type="text/css">
 <!--
-a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
-a.summary-letter {text-decoration: none}
-blockquote.indentedblock {margin-right: 0em}
-div.display {margin-left: 3.2em}
-div.example {margin-left: 3.2em}
-kbd {font-style: oblique}
-pre.display {font-family: inherit}
-pre.format {font-family: inherit}
-pre.menu-comment {font-family: serif}
-pre.menu-preformatted {font-family: serif}
-span.nolinebreak {white-space: nowrap}
-span.roman {font-family: initial; font-weight: normal}
-span.sansserif {font-family: sans-serif; font-weight: normal}
-span:hover a.copiable-anchor {visibility: visible}
-ul.no-bullet {list-style: none}
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+span:hover a.copiable-link {visibility: visible}
 -->
 </style>
 
@@ -95,59 +82,62 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<div class="section" id="Byte-Order">
-<div class="header">
+<div class="section-level-extent" id="Byte-Order">
+<div class="nav-panel">
 <p>
 Previous: <a href="Target-Commands.html" accesskey="p" rel="prev">Commands for Managing Targets</a>, Up: <a href="Targets.html" accesskey="u" rel="up">Specifying a Debugging Target</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="Choosing-Target-Byte-Order"></span><h3 class="section">19.3 Choosing Target Byte Order</h3>
+<h3 class="section" id="Choosing-Target-Byte-Order"><span>19.3 Choosing Target Byte Order<a class="copiable-link" href="#Choosing-Target-Byte-Order"> &para;</a></span></h3>
 
-<span id="index-choosing-target-byte-order"></span>
-<span id="index-target-byte-order"></span>
+<a class="index-entry-id" id="index-choosing-target-byte-order"></a>
+<a class="index-entry-id" id="index-target-byte-order"></a>
 
-<p>Some types of processors, such as the <acronym>MIPS</acronym>, PowerPC, and Renesas SH,
+<p>Some types of processors, such as the <abbr class="acronym">MIPS</abbr>, PowerPC, and Renesas SH,
 offer the ability to run either big-endian or little-endian byte
 orders.  Usually the executable or symbol will include a bit to
 designate the endian-ness, and you will not need to worry about
 which to use.  However, you may still find it useful to adjust
-<small>ROCGDB</small>&rsquo;s idea of processor endian-ness manually.
+<small class="sc">ROCGDB</small>&rsquo;s idea of processor endian-ness manually.
 </p>
-<dl compact="compact">
-<dd><span id="index-set-endian"></span>
-</dd>
-<dt><span><code>set endian big</code></span></dt>
-<dd><p>Instruct <small>ROCGDB</small> to assume the target is big-endian.
+<dl class="table">
+<dt><a id="index-set-endian"></a><span><code class="code">set endian big</code><a class="copiable-link" href="#index-set-endian"> &para;</a></span></dt>
+<dd><p>Instruct <small class="sc">ROCGDB</small> to assume the target is big-endian.
 </p>
 </dd>
-<dt><span><code>set endian little</code></span></dt>
-<dd><p>Instruct <small>ROCGDB</small> to assume the target is little-endian.
+<dt><code class="code">set endian little</code></dt>
+<dd><p>Instruct <small class="sc">ROCGDB</small> to assume the target is little-endian.
 </p>
 </dd>
-<dt><span><code>set endian auto</code></span></dt>
-<dd><p>Instruct <small>ROCGDB</small> to use the byte order associated with the
+<dt><code class="code">set endian auto</code></dt>
+<dd><p>Instruct <small class="sc">ROCGDB</small> to use the byte order associated with the
 executable.
 </p>
 </dd>
-<dt><span><code>show endian</code></span></dt>
-<dd><p>Display <small>ROCGDB</small>&rsquo;s current idea of the target byte order.
+<dt><code class="code">show endian</code></dt>
+<dd><p>Display <small class="sc">ROCGDB</small>&rsquo;s current idea of the target byte order.
 </p>
 </dd>
 </dl>
 
-<p>If the <code>set endian auto</code> mode is in effect and no executable has
+<p>If the <code class="code">set endian auto</code> mode is in effect and no executable has
 been selected, then the endianness used is the last one chosen either
-by one of the <code>set endian big</code> and <code>set endian little</code>
+by one of the <code class="code">set endian big</code> and <code class="code">set endian little</code>
 commands or by inferring from the last executable used.  If no
 endianness has been previously chosen, then the default for this mode
-is inferred from the target <small>ROCGDB</small> has been built for, and is
-<code>little</code> if the name of the target CPU has an <code>el</code> suffix
-and <code>big</code> otherwise.
+is inferred from the target <small class="sc">ROCGDB</small> has been built for, and is
+<code class="code">little</code> if the name of the target CPU has an <code class="code">el</code> suffix
+and <code class="code">big</code> otherwise.
 </p>
 <p>Note that these commands merely adjust interpretation of symbolic
 data on the host, and that they have absolutely no effect on the
 target system.
 </p>
+</div>
+<hr>
+<div class="nav-panel">
+<p>
+Previous: <a href="Target-Commands.html">Commands for Managing Targets</a>, Up: <a href="Targets.html">Specifying a Debugging Target</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

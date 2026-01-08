@@ -1,11 +1,11 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the GNU Assembler "as".
 
-Copyright (C) 1991-2025 Free Software Foundation, Inc.
+Copyright © 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -31,21 +31,9 @@ section entitled "GNU Free Documentation License".
 <link href="Blackfin-Options.html" rel="prev" title="Blackfin Options">
 <style type="text/css">
 <!--
-a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
-a.summary-letter {text-decoration: none}
-blockquote.indentedblock {margin-right: 0em}
-div.display {margin-left: 3.2em}
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
 div.example {margin-left: 3.2em}
-kbd {font-style: oblique}
-pre.display {font-family: inherit}
-pre.format {font-family: inherit}
-pre.menu-comment {font-family: serif}
-pre.menu-preformatted {font-family: serif}
-span.nolinebreak {white-space: nowrap}
-span.roman {font-family: initial; font-weight: normal}
-span.sansserif {font-family: sans-serif; font-weight: normal}
-span:hover a.copiable-anchor {visibility: visible}
-ul.no-bullet {list-style: none}
+span:hover a.copiable-link {visibility: visible}
 -->
 </style>
 
@@ -53,18 +41,18 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<div class="section" id="Blackfin-Syntax">
-<div class="header">
+<div class="subsection-level-extent" id="Blackfin-Syntax">
+<div class="nav-panel">
 <p>
 Next: <a href="Blackfin-Directives.html" accesskey="n" rel="next">Directives</a>, Previous: <a href="Blackfin-Options.html" accesskey="p" rel="prev">Options</a>, Up: <a href="Blackfin_002dDependent.html" accesskey="u" rel="up">Blackfin Dependent Features</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="Syntax-7"></span><h4 class="subsection">9.6.2 Syntax</h4>
-<span id="index-Blackfin-syntax"></span>
-<span id="index-syntax_002c-Blackfin"></span>
+<h4 class="subsection section-level-set-subsection" id="Syntax-7"><span>9.6.2 Syntax<a class="copiable-link" href="#Syntax-7"> &para;</a></span></h4>
+<a class="index-entry-id" id="index-Blackfin-syntax"></a>
+<a class="index-entry-id" id="index-syntax_002c-Blackfin"></a>
 
-<dl compact="compact">
-<dt><span><code>Special Characters</code></span></dt>
+<dl class="table">
+<dt><code class="code">Special Characters</code></dt>
 <dd><p>Assembler input is free format and may appear anywhere on the line.
 One instruction may extend across multiple lines or more than one
 instruction may appear on the same line.  White space (space, tab,
@@ -73,37 +61,37 @@ not have embedded spaces.  Tokens include numbers, register names,
 keywords, user identifiers, and also some multicharacter special
 symbols like &quot;+=&quot;, &quot;/*&quot; or &quot;||&quot;.
 </p>
-<p>Comments are introduced by the &lsquo;<samp>#</samp>&rsquo; character and extend to the
-end of the current line.  If the &lsquo;<samp>#</samp>&rsquo; appears as the first
+<p>Comments are introduced by the &lsquo;<samp class="samp">#</samp>&rsquo; character and extend to the
+end of the current line.  If the &lsquo;<samp class="samp">#</samp>&rsquo; appears as the first
 character of a line, the whole line is treated as a comment, but in
 this case the line can also be a logical line number directive
-(see <a href="Comments.html">Comments</a>) or a preprocessor control command
-(see <a href="Preprocessing.html">Preprocessing</a>).
+(see <a class="pxref" href="Comments.html">Comments</a>) or a preprocessor control command
+(see <a class="pxref" href="Preprocessing.html">Preprocessing</a>).
 </p>
 </dd>
-<dt><span><code>Instruction Delimiting</code></span></dt>
+<dt><code class="code">Instruction Delimiting</code></dt>
 <dd><p>A semicolon must terminate every instruction.  Sometimes a complete
 instruction will consist of more than one operation.  There are two
 cases where this occurs.  The first is when two general operations
 are combined.  Normally a comma separates the different parts, as in
 </p>
-<div class="example">
-<pre class="example">a0= r3.h * r2.l, a1 = r3.l * r2.h ;
+<div class="example smallexample">
+<pre class="example-preformatted">a0= r3.h * r2.l, a1 = r3.l * r2.h ;
 </pre></div>
 
 <p>The second case occurs when a general instruction is combined with one
 or two memory references for joint issue.  The latter portions are
 set off by a &quot;||&quot; token.
 </p>
-<div class="example">
-<pre class="example">a0 = r3.h * r2.l || r1 = [p3++] || r4 = [i2++];
+<div class="example smallexample">
+<pre class="example-preformatted">a0 = r3.h * r2.l || r1 = [p3++] || r4 = [i2++];
 </pre></div>
 
 <p>Multiple instructions can occur on the same line.  Each must be
 terminated by a semicolon character.
 </p>
 </dd>
-<dt><span><code>Register Names</code></span></dt>
+<dt><code class="code">Register Names</code></dt>
 <dd>
 <p>The assembler treats register names and instruction keywords in a case
 insensitive manner.  User identifiers are case sensitive.  Thus, R3.l,
@@ -129,28 +117,28 @@ least-significant portion.  The subdivisions of the 40-bit registers
 are described later.
 </p>
 </dd>
-<dt><span><code>Accumulators</code></span></dt>
+<dt><code class="code">Accumulators</code></dt>
 <dd><p>The set of 40-bit registers A1 and A0 that normally contain data that
 is being manipulated.  Each accumulator can be accessed in four ways.
 </p>
-<dl compact="compact">
-<dt><span><code>one 40-bit register</code></span></dt>
+<dl class="table">
+<dt><code class="code">one 40-bit register</code></dt>
 <dd><p>The register will be referred to as A1 or A0.
 </p></dd>
-<dt><span><code>one 32-bit register</code></span></dt>
+<dt><code class="code">one 32-bit register</code></dt>
 <dd><p>The registers are designated as A1.W or A0.W.
 </p></dd>
-<dt><span><code>two 16-bit registers</code></span></dt>
+<dt><code class="code">two 16-bit registers</code></dt>
 <dd><p>The registers are designated as A1.H, A1.L, A0.H or A0.L.
 </p></dd>
-<dt><span><code>one 8-bit register</code></span></dt>
+<dt><code class="code">one 8-bit register</code></dt>
 <dd><p>The registers are designated as A1.X or A0.X for the bits that
 extend beyond bit 31.
 </p></dd>
 </dl>
 
 </dd>
-<dt><span><code>Data Registers</code></span></dt>
+<dt><code class="code">Data Registers</code></dt>
 <dd><p>The set of 32-bit registers (R0, R1, R2, R3, R4, R5, R6 and R7) that
 normally contain data for manipulation.  These are abbreviated as
 D-register or Dreg.  Data registers can be accessed as 32-bit registers
@@ -159,76 +147,76 @@ of each register is called the &quot;low&quot; half and is designated with &quot
 following the register name.  The most significant 16 bits are called
 the &quot;high&quot; half and is designated with &quot;.H&quot; following the name.
 </p>
-<div class="example">
-<pre class="example">   R7.L, r2.h, r4.L, R0.H
+<div class="example smallexample">
+<pre class="example-preformatted">   R7.L, r2.h, r4.L, R0.H
 </pre></div>
 
 </dd>
-<dt><span><code>Pointer Registers</code></span></dt>
+<dt><code class="code">Pointer Registers</code></dt>
 <dd><p>The set of 32-bit registers (P0, P1, P2, P3, P4, P5, SP and FP) that
 normally contain byte addresses of data structures.  These are
 abbreviated as P-register or Preg.
 </p>
-<div class="example">
-<pre class="example">p2, p5, fp, sp
+<div class="example smallexample">
+<pre class="example-preformatted">p2, p5, fp, sp
 </pre></div>
 
 </dd>
-<dt><span><code>Stack Pointer SP</code></span></dt>
+<dt><code class="code">Stack Pointer SP</code></dt>
 <dd><p>The stack pointer contains the 32-bit address of the last occupied
 byte location in the stack.  The stack grows by decrementing the
 stack pointer.
 </p>
 </dd>
-<dt><span><code>Frame Pointer FP</code></span></dt>
+<dt><code class="code">Frame Pointer FP</code></dt>
 <dd><p>The frame pointer contains the 32-bit address of the previous frame
 pointer in the stack.  It is located at the top of a frame.
 </p>
 </dd>
-<dt><span><code>Loop Top</code></span></dt>
+<dt><code class="code">Loop Top</code></dt>
 <dd><p>LT0 and LT1.  These registers contain the 32-bit address of the top of
 a zero overhead loop.
 </p>
 </dd>
-<dt><span><code>Loop Count</code></span></dt>
+<dt><code class="code">Loop Count</code></dt>
 <dd><p>LC0 and LC1.  These registers contain the 32-bit counter of the zero
 overhead loop executions.
 </p>
 </dd>
-<dt><span><code>Loop Bottom</code></span></dt>
+<dt><code class="code">Loop Bottom</code></dt>
 <dd><p>LB0 and LB1.  These registers contain the 32-bit address of the bottom
 of a zero overhead loop.
 </p>
 </dd>
-<dt><span><code>Index Registers</code></span></dt>
+<dt><code class="code">Index Registers</code></dt>
 <dd><p>The set of 32-bit registers (I0, I1, I2, I3) that normally contain byte
 addresses of data structures.  Abbreviated I-register or Ireg.
 </p>
 </dd>
-<dt><span><code>Modify Registers</code></span></dt>
+<dt><code class="code">Modify Registers</code></dt>
 <dd><p>The set of 32-bit registers (M0, M1, M2, M3) that normally contain
 offset values that are added and subtracted to one of the index
 registers.  Abbreviated as Mreg.
 </p>
 </dd>
-<dt><span><code>Length Registers</code></span></dt>
+<dt><code class="code">Length Registers</code></dt>
 <dd><p>The set of 32-bit registers (L0, L1, L2, L3) that normally contain the
 length in bytes of the circular buffer.  Abbreviated as Lreg.  Clear
 the Lreg to disable circular addressing for the corresponding Ireg.
 </p>
 </dd>
-<dt><span><code>Base Registers</code></span></dt>
+<dt><code class="code">Base Registers</code></dt>
 <dd><p>The set of 32-bit registers (B0, B1, B2, B3) that normally contain the
 base address in bytes of the circular buffer.  Abbreviated as Breg.
 </p>
 </dd>
-<dt><span><code>Floating Point</code></span></dt>
+<dt><code class="code">Floating Point</code></dt>
 <dd><p>The Blackfin family has no hardware floating point but the .float
 directive generates ieee floating point numbers for use with software
 floating point libraries.
 </p>
 </dd>
-<dt><span><code>Blackfin Opcodes</code></span></dt>
+<dt><code class="code">Blackfin Opcodes</code></dt>
 <dd><p>For detailed information on the Blackfin machine instruction set, see
 the Blackfin Processor Instruction Set Reference.
 </p>
@@ -237,7 +225,7 @@ the Blackfin Processor Instruction Set Reference.
 
 </div>
 <hr>
-<div class="header">
+<div class="nav-panel">
 <p>
 Next: <a href="Blackfin-Directives.html">Directives</a>, Previous: <a href="Blackfin-Options.html">Options</a>, Up: <a href="Blackfin_002dDependent.html">Blackfin Dependent Features</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

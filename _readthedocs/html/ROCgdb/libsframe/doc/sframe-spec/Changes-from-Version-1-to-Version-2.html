@@ -1,9 +1,9 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright (C) 2021-2025 Free Software Foundation, Inc.
+<!-- Copyright © 2021-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU General Public License, Version 3 or any
@@ -27,21 +27,9 @@ License".
 <link href="Overview.html" rel="prev" title="Overview">
 <style type="text/css">
 <!--
-a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
-a.summary-letter {text-decoration: none}
-blockquote.indentedblock {margin-right: 0em}
-div.display {margin-left: 3.2em}
-div.example {margin-left: 3.2em}
-kbd {font-style: oblique}
-pre.display {font-family: inherit}
-pre.format {font-family: inherit}
-pre.menu-comment {font-family: serif}
-pre.menu-preformatted {font-family: serif}
-span.nolinebreak {white-space: nowrap}
-span.roman {font-family: initial; font-weight: normal}
-span.sansserif {font-family: sans-serif; font-weight: normal}
-span:hover a.copiable-anchor {visibility: visible}
-ul.no-bullet {list-style: none}
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+span:hover a.copiable-link {visibility: visible}
+ul.mark-bullet {list-style-type: disc}
 -->
 </style>
 
@@ -49,27 +37,27 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<div class="section" id="Changes-from-Version-1-to-Version-2">
-<div class="header">
+<div class="section-level-extent" id="Changes-from-Version-1-to-Version-2">
+<div class="nav-panel">
 <p>
 Previous: <a href="Overview.html" accesskey="p" rel="prev">Overview</a>, Up: <a href="Introduction.html" accesskey="u" rel="up">Introduction</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="Changes-from-Version-1-to-Version-2-1"></span><h3 class="section">1.2 Changes from Version 1 to Version 2</h3>
-<span id="index-Changes-from-Version-1-to-Version-2"></span>
+<h3 class="section" id="Changes-from-Version-1-to-Version-2-1"><span>1.2 Changes from Version 1 to Version 2<a class="copiable-link" href="#Changes-from-Version-1-to-Version-2-1"> &para;</a></span></h3>
+<a class="index-entry-id" id="index-Changes-from-Version-1-to-Version-2"></a>
 
 <p>The following is a list of the changes made to the SFrame stack trace format
 since Version 1 was published.
 </p>
-<ul>
-<li> Add an unsigned 8-bit integral field to the SFrame function descriptor entry to
+<ul class="itemize mark-bullet">
+<li>Add an unsigned 8-bit integral field to the SFrame function descriptor entry to
 encode the size of the repetitive code blocks.  Such code blocks, e.g, pltN
 entries, use an SFrame function descriptor entry of type
 SFRAME_FDE_TYPE_PCMASK.
-</li><li> Add an unsigned 16-bit integral field to the SFrame function descriptor entry
+</li><li>Add an unsigned 16-bit integral field to the SFrame function descriptor entry
 to serve as padding.  This helps ensure natural alignment for the members of
 the data structure.
-</li><li> The above two imply that each SFrame function descriptor entry has a fixed size
+</li><li>The above two imply that each SFrame function descriptor entry has a fixed size
 of 20 bytes instead of its size of 17 bytes in SFrame format version 1.
 </li></ul>
 

@@ -1,9 +1,9 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright (C) 1988-2024 Free Software Foundation, Inc.
+<!-- Copyright © 1988-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -20,13 +20,13 @@ Legal Disclaimer and Copyright Information
 
 AMD ROCm software is made available by Advanced Micro Devices, Inc. under the
 open source license identified in the top-level directory for the library in
-the repository on Github.com (Portions of AMD ROCm software are
-licensed under MITx11 and UIL/NCSA. For more information on the license, review
-the license.txt in the top-level directory for the library on
-Github.com).  The additional terms and conditions below apply to your use
-of AMD ROCm technical documentation.
+the repository on https://github.com/ROCm/ (Github.com) (Portions of AMD
+ROCm software are licensed under MITx11 and UIL/NCSA. For more information on
+the license, review the license.txt in the top-level directory for the
+library on https://github.com/ROCm/ (Github.com)).  The additional terms
+and conditions below apply to your use of AMD ROCm technical documentation.
 
-(C)2019-2025 Advanced Micro Devices, Inc.  All rights reserved.
+©2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
 
 The information presented in this document is for informational purposes only
 and may contain technical inaccuracies, omissions, and typographical errors.
@@ -52,8 +52,8 @@ EVEN IF AMD IS EXPRESSLY ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
 
 AMD, the AMD Arrow logo, AMD Instinct™, Radeon™, AMD ROCm™, and combinations
 thereof are trademarks of Advanced Micro Devices, Inc.
-Linux(R) is the registered trademark of Linus Torvalds in the
-U.S. and other countries. PCIe(R) is a registered trademark of
+Linux® is the registered trademark of Linus Torvalds in the
+U.S. and other countries. PCIe® is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
@@ -73,21 +73,9 @@ companies. -->
 <link href="Tracepoint-Variables.html" rel="prev" title="Tracepoint Variables">
 <style type="text/css">
 <!--
-a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
-a.summary-letter {text-decoration: none}
-blockquote.indentedblock {margin-right: 0em}
-div.display {margin-left: 3.2em}
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
 div.example {margin-left: 3.2em}
-kbd {font-style: oblique}
-pre.display {font-family: inherit}
-pre.format {font-family: inherit}
-pre.menu-comment {font-family: serif}
-pre.menu-preformatted {font-family: serif}
-span.nolinebreak {white-space: nowrap}
-span.roman {font-family: initial; font-weight: normal}
-span.sansserif {font-family: sans-serif; font-weight: normal}
-span:hover a.copiable-anchor {visibility: visible}
-ul.no-bullet {list-style: none}
+span:hover a.copiable-link {visibility: visible}
 -->
 </style>
 
@@ -95,61 +83,57 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<div class="section" id="Trace-Files">
-<div class="header">
+<div class="section-level-extent" id="Trace-Files">
+<div class="nav-panel">
 <p>
 Previous: <a href="Tracepoint-Variables.html" accesskey="p" rel="prev">Convenience Variables for Tracepoints</a>, Up: <a href="Tracepoints.html" accesskey="u" rel="up">Tracepoints</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="Using-Trace-Files"></span><h3 class="section">13.4 Using Trace Files</h3>
-<span id="index-trace-files"></span>
+<h3 class="section" id="Using-Trace-Files"><span>13.4 Using Trace Files<a class="copiable-link" href="#Using-Trace-Files"> &para;</a></span></h3>
+<a class="index-entry-id" id="index-trace-files"></a>
 
 <p>In some situations, the target running a trace experiment may no
 longer be available; perhaps it crashed, or the hardware was needed
 for a different activity.  To handle these cases, you can arrange to
 dump the trace data into a file, and later use that file as a source
-of trace data, via the <code>target tfile</code> command.
+of trace data, via the <code class="code">target tfile</code> command.
 </p>
-<dl compact="compact">
-<dd>
-<span id="index-tsave"></span>
-</dd>
-<dt><span><code>tsave [ -r ] <var>filename</var></code></span></dt>
-<dt><span><code>tsave [-ctf] <var>dirname</var></code></span></dt>
-<dd><p>Save the trace data to <var>filename</var>.  By default, this command
-assumes that <var>filename</var> refers to the host filesystem, so if
-necessary <small>ROCGDB</small> will copy raw trace data up from the target and
+<dl class="table">
+<dt><a id="index-tsave"></a><span><code class="code">tsave [ -r ] <var class="var">filename</var></code><a class="copiable-link" href="#index-tsave"> &para;</a></span></dt>
+<dt><code class="code">tsave [-ctf] <var class="var">dirname</var></code></dt>
+<dd><p>Save the trace data to <var class="var">filename</var>.  By default, this command
+assumes that <var class="var">filename</var> refers to the host filesystem, so if
+necessary <small class="sc">ROCGDB</small> will copy raw trace data up from the target and
 then save it.  If the target supports it, you can also supply the
-optional argument <code>-r</code> (&ldquo;remote&rdquo;) to direct the target to save
-the data directly into <var>filename</var> in its own filesystem, which may be
+optional argument <code class="code">-r</code> (&ldquo;remote&rdquo;) to direct the target to save
+the data directly into <var class="var">filename</var> in its own filesystem, which may be
 more efficient if the trace buffer is very large.  (Note, however, that
-<code>target tfile</code> can only read from files accessible to the host.)
+<code class="code">target tfile</code> can only read from files accessible to the host.)
 By default, this command will save trace frame in tfile format.
-You can supply the optional argument <code>-ctf</code> to save data in CTF
-format.  The <em>Common Trace Format</em> (CTF) is proposed as a trace format
+You can supply the optional argument <code class="code">-ctf</code> to save data in CTF
+format.  The <em class="dfn">Common Trace Format</em> (CTF) is proposed as a trace format
 that can be shared by multiple debugging and tracing tools.  Please go to
-&lsquo;<code>http://www.efficios.com/ctf</code>&rsquo; to get more information.
+&lsquo;<code class="indicateurl">http://www.efficios.com/ctf</code>&rsquo; to get more information.
 </p>
-<span id="index-target-tfile"></span>
-<span id="index-tfile"></span>
-<span id="index-target-ctf"></span>
-<span id="index-ctf"></span>
 </dd>
-<dt><span><code>target tfile <var>filename</var></code></span></dt>
-<dt><span><code>target ctf <var>dirname</var></code></span></dt>
-<dd><p>Use the file named <var>filename</var> or directory named <var>dirname</var> as
+<dt><a class="index-entry-id" id="index-tfile"></a>
+<a class="index-entry-id" id="index-target-ctf"></a>
+<a class="index-entry-id" id="index-ctf"></a>
+<a id="index-target-tfile"></a><span><code class="code">target tfile <var class="var">filename</var></code><a class="copiable-link" href="#index-target-tfile"> &para;</a></span></dt>
+<dt><code class="code">target ctf <var class="var">dirname</var></code></dt>
+<dd><p>Use the file named <var class="var">filename</var> or directory named <var class="var">dirname</var> as
 a source of trace data.  Commands that examine data work as they do with
 a live target, but it is not possible to run any new trace experiments.
-<code>tstatus</code> will report the state of the trace run at the moment
+<code class="code">tstatus</code> will report the state of the trace run at the moment
 the data was saved, as well as the current trace frame you are examining.
-Both <var>filename</var> and <var>dirname</var> must be on a filesystem accessible to
+Both <var class="var">filename</var> and <var class="var">dirname</var> must be on a filesystem accessible to
 the host.
 </p>
-<p>The <var>filename</var> and <var>dirname</var> arguments supports escaping and
-quoting, see <a href="Filename-Arguments.html">Filenames As Command Arguments</a>.
+<p>The <var class="var">filename</var> and <var class="var">dirname</var> arguments supports escaping and
+quoting, see <a class="ref" href="Filename-Arguments.html">Filenames As Command Arguments</a>.
 </p>
-<div class="example">
-<pre class="example">(gdb) target ctf ctf.ctf
+<div class="example smallexample">
+<pre class="example-preformatted">(gdb) target ctf ctf.ctf
 (gdb) tfind
 Found trace frame 0, tracepoint 2
 39            ++a;  /* set tracepoint 1 here */
@@ -169,7 +153,7 @@ $1 = 1
 
 </div>
 <hr>
-<div class="header">
+<div class="nav-panel">
 <p>
 Previous: <a href="Tracepoint-Variables.html">Convenience Variables for Tracepoints</a>, Up: <a href="Tracepoints.html">Tracepoints</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

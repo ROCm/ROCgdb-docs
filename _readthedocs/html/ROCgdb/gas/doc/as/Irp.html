@@ -1,11 +1,11 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the GNU Assembler "as".
 
-Copyright (C) 1991-2025 Free Software Foundation, Inc.
+Copyright © 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -31,21 +31,9 @@ section entitled "GNU Free Documentation License".
 <link href="Internal.html" rel="prev" title="Internal">
 <style type="text/css">
 <!--
-a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
-a.summary-letter {text-decoration: none}
-blockquote.indentedblock {margin-right: 0em}
-div.display {margin-left: 3.2em}
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
 div.example {margin-left: 3.2em}
-kbd {font-style: oblique}
-pre.display {font-family: inherit}
-pre.format {font-family: inherit}
-pre.menu-comment {font-family: serif}
-pre.menu-preformatted {font-family: serif}
-span.nolinebreak {white-space: nowrap}
-span.roman {font-family: initial; font-weight: normal}
-span.sansserif {font-family: sans-serif; font-weight: normal}
-span:hover a.copiable-anchor {visibility: visible}
-ul.no-bullet {list-style: none}
+span:hover a.copiable-link {visibility: visible}
 -->
 </style>
 
@@ -53,27 +41,27 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<div class="section" id="Irp">
-<div class="header">
+<div class="section-level-extent" id="Irp">
+<div class="nav-panel">
 <p>
-Next: <a href="Irpc.html" accesskey="n" rel="next"><code>.irpc <var>symbol</var>,<var>values</var></code>&hellip;</a>, Previous: <a href="Internal.html" accesskey="p" rel="prev"><code>.internal <var>names</var></code></a>, Up: <a href="Pseudo-Ops.html" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Irpc.html" accesskey="n" rel="next"><code class="code">.irpc <var class="var">symbol</var>,<var class="var">values</var></code>&hellip;</a>, Previous: <a href="Internal.html" accesskey="p" rel="prev"><code class="code">.internal <var class="var">names</var></code></a>, Up: <a href="Pseudo-Ops.html" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="g_t_002eirp-symbol_002cvalue_2026"></span><h3 class="section">7.52 <code>.irp <var>symbol</var>,<var>value</var></code>&hellip;</h3>
+<h3 class="section" id="g_t_002eirp-symbol_002cvalue_2026"><span>7.52 <code class="code">.irp <var class="var">symbol</var>,<var class="var">value</var></code>&hellip;<a class="copiable-link" href="#g_t_002eirp-symbol_002cvalue_2026"> &para;</a></span></h3>
 
-<span id="index-irp-directive"></span>
-<p>Evaluate a sequence of statements assigning different values to <var>symbol</var>.
-The sequence of statements starts at the <code>.irp</code> directive, and is
-terminated by an <code>.endr</code> directive.  For each <var>value</var>, <var>symbol</var> is
-set to <var>value</var>, and the sequence of statements is assembled.  If no
-<var>value</var> is listed, the sequence of statements is assembled once, with
-<var>symbol</var> set to the null string.  To refer to <var>symbol</var> within the
-sequence of statements, use <var>\symbol</var>.
+<a class="index-entry-id" id="index-irp-directive"></a>
+<p>Evaluate a sequence of statements assigning different values to <var class="var">symbol</var>.
+The sequence of statements starts at the <code class="code">.irp</code> directive, and is
+terminated by an <code class="code">.endr</code> directive.  For each <var class="var">value</var>, <var class="var">symbol</var> is
+set to <var class="var">value</var>, and the sequence of statements is assembled.  If no
+<var class="var">value</var> is listed, the sequence of statements is assembled once, with
+<var class="var">symbol</var> set to the null string.  To refer to <var class="var">symbol</var> within the
+sequence of statements, use <var class="var">\symbol</var>.
 </p>
 <p>For example, assembling
 </p>
 <div class="example">
-<pre class="example">        .irp    param,1,2,3
+<pre class="example-preformatted">        .irp    param,1,2,3
         move    d\param,sp@-
         .endr
 </pre></div>
@@ -81,12 +69,12 @@ sequence of statements, use <var>\symbol</var>.
 <p>is equivalent to assembling
 </p>
 <div class="example">
-<pre class="example">        move    d1,sp@-
+<pre class="example-preformatted">        move    d1,sp@-
         move    d2,sp@-
         move    d3,sp@-
 </pre></div>
 
-<p>For some caveats with the spelling of <var>symbol</var>, see also <a href="Macro.html"><code>.macro</code></a>.
+<p>For some caveats with the spelling of <var class="var">symbol</var>, see also <a class="ref" href="Macro.html"><code class="code">.macro</code></a>.
 </p>
 </div>
 

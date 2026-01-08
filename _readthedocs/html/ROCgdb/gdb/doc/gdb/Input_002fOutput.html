@@ -1,9 +1,9 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright (C) 1988-2024 Free Software Foundation, Inc.
+<!-- Copyright © 1988-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -20,13 +20,13 @@ Legal Disclaimer and Copyright Information
 
 AMD ROCm software is made available by Advanced Micro Devices, Inc. under the
 open source license identified in the top-level directory for the library in
-the repository on Github.com (Portions of AMD ROCm software are
-licensed under MITx11 and UIL/NCSA. For more information on the license, review
-the license.txt in the top-level directory for the library on
-Github.com).  The additional terms and conditions below apply to your use
-of AMD ROCm technical documentation.
+the repository on https://github.com/ROCm/ (Github.com) (Portions of AMD
+ROCm software are licensed under MITx11 and UIL/NCSA. For more information on
+the license, review the license.txt in the top-level directory for the
+library on https://github.com/ROCm/ (Github.com)).  The additional terms
+and conditions below apply to your use of AMD ROCm technical documentation.
 
-(C)2019-2025 Advanced Micro Devices, Inc.  All rights reserved.
+©2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
 
 The information presented in this document is for informational purposes only
 and may contain technical inaccuracies, omissions, and typographical errors.
@@ -52,8 +52,8 @@ EVEN IF AMD IS EXPRESSLY ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
 
 AMD, the AMD Arrow logo, AMD Instinct™, Radeon™, AMD ROCm™, and combinations
 thereof are trademarks of Advanced Micro Devices, Inc.
-Linux(R) is the registered trademark of Linus Torvalds in the
-U.S. and other countries. PCIe(R) is a registered trademark of
+Linux® is the registered trademark of Linus Torvalds in the
+U.S. and other countries. PCIe® is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
@@ -74,21 +74,9 @@ companies. -->
 <link href="Working-Directory.html" rel="prev" title="Working Directory">
 <style type="text/css">
 <!--
-a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
-a.summary-letter {text-decoration: none}
-blockquote.indentedblock {margin-right: 0em}
-div.display {margin-left: 3.2em}
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
 div.example {margin-left: 3.2em}
-kbd {font-style: oblique}
-pre.display {font-family: inherit}
-pre.format {font-family: inherit}
-pre.menu-comment {font-family: serif}
-pre.menu-preformatted {font-family: serif}
-span.nolinebreak {white-space: nowrap}
-span.roman {font-family: initial; font-weight: normal}
-span.sansserif {font-family: sans-serif; font-weight: normal}
-span:hover a.copiable-anchor {visibility: visible}
-ul.no-bullet {list-style: none}
+span:hover a.copiable-link {visibility: visible}
 -->
 </style>
 
@@ -96,89 +84,87 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<div class="section" id="Input_002fOutput">
-<div class="header">
+<div class="section-level-extent" id="Input_002fOutput">
+<div class="nav-panel">
 <p>
-Next: <a href="Attach.html" accesskey="n" rel="next">Debugging an Already-running Process</a>, Previous: <a href="Working-Directory.html" accesskey="p" rel="prev">Your Program&rsquo;s Working Directory</a>, Up: <a href="Running.html" accesskey="u" rel="up">Running Programs Under <small>ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Attach.html" accesskey="n" rel="next">Debugging an Already-running Process</a>, Previous: <a href="Working-Directory.html" accesskey="p" rel="prev">Your Program&rsquo;s Working Directory</a>, Up: <a href="Running.html" accesskey="u" rel="up">Running Programs Under <small class="sc">ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="Your-Program_0027s-Input-and-Output"></span><h3 class="section">4.6 Your Program&rsquo;s Input and Output</h3>
+<h3 class="section" id="Your-Program_0027s-Input-and-Output"><span>4.6 Your Program&rsquo;s Input and Output<a class="copiable-link" href="#Your-Program_0027s-Input-and-Output"> &para;</a></span></h3>
 
-<span id="index-redirection"></span>
-<span id="index-i_002fo"></span>
-<span id="index-terminal"></span>
-<p>By default, the program you run under <small>ROCGDB</small> does input and output to
-the same terminal that <small>ROCGDB</small> uses.  <small>ROCGDB</small> switches the terminal
+<a class="index-entry-id" id="index-redirection"></a>
+<a class="index-entry-id" id="index-i_002fo"></a>
+<a class="index-entry-id" id="index-terminal"></a>
+<p>By default, the program you run under <small class="sc">ROCGDB</small> does input and output to
+the same terminal that <small class="sc">ROCGDB</small> uses.  <small class="sc">ROCGDB</small> switches the terminal
 to its own terminal modes to interact with you, but it records the terminal
 modes your program was using and switches back to them when you continue
 running your program.
 </p>
-<dl compact="compact">
-<dd><span id="index-info-terminal"></span>
-</dd>
-<dt><span><code>info terminal</code></span></dt>
-<dd><p>Displays information recorded by <small>ROCGDB</small> about the terminal modes your
+<dl class="table">
+<dt><a id="index-info-terminal"></a><span><code class="code">info terminal</code><a class="copiable-link" href="#index-info-terminal"> &para;</a></span></dt>
+<dd><p>Displays information recorded by <small class="sc">ROCGDB</small> about the terminal modes your
 program is using.
 </p></dd>
 </dl>
 
 <p>You can redirect your program&rsquo;s input and/or output using shell
-redirection with the <code>run</code> command.  For example,
+redirection with the <code class="code">run</code> command.  For example,
 </p>
-<div class="example">
-<pre class="example">run &gt; outfile
+<div class="example smallexample">
+<pre class="example-preformatted">run &gt; outfile
 </pre></div>
 
-<p>starts your program, diverting its output to the file <samp>outfile</samp>.
+<p>starts your program, diverting its output to the file <samp class="file">outfile</samp>.
 </p>
-<span id="index-tty"></span>
-<span id="index-controlling-terminal"></span>
+<a class="index-entry-id" id="index-tty"></a>
+<a class="index-entry-id" id="index-controlling-terminal"></a>
 <p>Another way to specify where your program should do input and output is
-with the <code>tty</code> command.  This command accepts a file name as
-argument, and causes this file to be the default for future <code>run</code>
+with the <code class="code">tty</code> command.  This command accepts a file name as
+argument, and causes this file to be the default for future <code class="code">run</code>
 commands.  It also resets the controlling terminal for the child
-process, for future <code>run</code> commands.  For example,
+process, for future <code class="code">run</code> commands.  For example,
 </p>
-<div class="example">
-<pre class="example">tty /dev/ttyb
+<div class="example smallexample">
+<pre class="example-preformatted">tty /dev/ttyb
 </pre></div>
 
-<p>directs that processes started with subsequent <code>run</code> commands
-default to do input and output on the terminal <samp>/dev/ttyb</samp> and have
+<p>directs that processes started with subsequent <code class="code">run</code> commands
+default to do input and output on the terminal <samp class="file">/dev/ttyb</samp> and have
 that as their controlling terminal.
 </p>
-<p>An explicit redirection in <code>run</code> overrides the <code>tty</code> command&rsquo;s
+<p>An explicit redirection in <code class="code">run</code> overrides the <code class="code">tty</code> command&rsquo;s
 effect on the input/output device, but not its effect on the controlling
 terminal.
 </p>
-<p>When you use the <code>tty</code> command or redirect input in the <code>run</code>
-command, only the input <em>for your program</em> is affected.  The input
-for <small>ROCGDB</small> still comes from your terminal.  <code>tty</code> is an alias
-for <code>set inferior-tty</code>.
+<p>When you use the <code class="code">tty</code> command or redirect input in the <code class="code">run</code>
+command, only the input <em class="emph">for your program</em> is affected.  The input
+for <small class="sc">ROCGDB</small> still comes from your terminal.  <code class="code">tty</code> is an alias
+for <code class="code">set inferior-tty</code>.
 </p>
-<span id="index-inferior-tty"></span>
-<span id="index-set-inferior-controlling-terminal"></span>
-<p>You can use the <code>show inferior-tty</code> command to tell <small>ROCGDB</small> to
+<a class="index-entry-id" id="index-inferior-tty"></a>
+<a class="index-entry-id" id="index-set-inferior-controlling-terminal"></a>
+<p>You can use the <code class="code">show inferior-tty</code> command to tell <small class="sc">ROCGDB</small> to
 display the name of the terminal that will be used for future runs of your
 program.
 </p>
-<dl compact="compact">
-<dt id='index-set-inferior_002dtty'><span><code>set inferior-tty [ <var>tty</var> ]</code><a href='#index-set-inferior_002dtty' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Set the tty for the program being debugged to <var>tty</var>.  Omitting <var>tty</var>
+<dl class="table">
+<dt><a id="index-set-inferior_002dtty"></a><span><code class="code">set inferior-tty [ <var class="var">tty</var> ]</code><a class="copiable-link" href="#index-set-inferior_002dtty"> &para;</a></span></dt>
+<dd><p>Set the tty for the program being debugged to <var class="var">tty</var>.  Omitting <var class="var">tty</var>
 restores the default behavior, which is to use the same terminal as
-<small>ROCGDB</small>.
+<small class="sc">ROCGDB</small>.
 </p>
 </dd>
-<dt id='index-show-inferior_002dtty'><span><code>show inferior-tty</code><a href='#index-show-inferior_002dtty' class='copiable-anchor'> &para;</a></span></dt>
+<dt><a id="index-show-inferior_002dtty"></a><span><code class="code">show inferior-tty</code><a class="copiable-link" href="#index-show-inferior_002dtty"> &para;</a></span></dt>
 <dd><p>Show the current tty for the program being debugged.
 </p></dd>
 </dl>
 
 </div>
 <hr>
-<div class="header">
+<div class="nav-panel">
 <p>
-Next: <a href="Attach.html">Debugging an Already-running Process</a>, Previous: <a href="Working-Directory.html">Your Program&rsquo;s Working Directory</a>, Up: <a href="Running.html">Running Programs Under <small>ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Attach.html">Debugging an Already-running Process</a>, Previous: <a href="Working-Directory.html">Your Program&rsquo;s Working Directory</a>, Up: <a href="Running.html">Running Programs Under <small class="sc">ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

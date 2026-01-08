@@ -1,9 +1,9 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright (C) 1988-2024 Free Software Foundation, Inc.
+<!-- Copyright © 1988-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -20,13 +20,13 @@ Legal Disclaimer and Copyright Information
 
 AMD ROCm software is made available by Advanced Micro Devices, Inc. under the
 open source license identified in the top-level directory for the library in
-the repository on Github.com (Portions of AMD ROCm software are
-licensed under MITx11 and UIL/NCSA. For more information on the license, review
-the license.txt in the top-level directory for the library on
-Github.com).  The additional terms and conditions below apply to your use
-of AMD ROCm technical documentation.
+the repository on https://github.com/ROCm/ (Github.com) (Portions of AMD
+ROCm software are licensed under MITx11 and UIL/NCSA. For more information on
+the license, review the license.txt in the top-level directory for the
+library on https://github.com/ROCm/ (Github.com)).  The additional terms
+and conditions below apply to your use of AMD ROCm technical documentation.
 
-(C)2019-2025 Advanced Micro Devices, Inc.  All rights reserved.
+©2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
 
 The information presented in this document is for informational purposes only
 and may contain technical inaccuracies, omissions, and typographical errors.
@@ -52,8 +52,8 @@ EVEN IF AMD IS EXPRESSLY ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
 
 AMD, the AMD Arrow logo, AMD Instinct™, Radeon™, AMD ROCm™, and combinations
 thereof are trademarks of Advanced Micro Devices, Inc.
-Linux(R) is the registered trademark of Linus Torvalds in the
-U.S. and other countries. PCIe(R) is a registered trademark of
+Linux® is the registered trademark of Linus Torvalds in the
+U.S. and other countries. PCIe® is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
@@ -73,21 +73,9 @@ companies. -->
 <link href="close.html" rel="next" title="close">
 <style type="text/css">
 <!--
-a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
-a.summary-letter {text-decoration: none}
-blockquote.indentedblock {margin-right: 0em}
-div.display {margin-left: 3.2em}
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
 div.example {margin-left: 3.2em}
-kbd {font-style: oblique}
-pre.display {font-family: inherit}
-pre.format {font-family: inherit}
-pre.menu-comment {font-family: serif}
-pre.menu-preformatted {font-family: serif}
-span.nolinebreak {white-space: nowrap}
-span.roman {font-family: initial; font-weight: normal}
-span.sansserif {font-family: sans-serif; font-weight: normal}
-span:hover a.copiable-anchor {visibility: visible}
-ul.no-bullet {list-style: none}
+span:hover a.copiable-link {visibility: visible}
 -->
 </style>
 
@@ -95,59 +83,59 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<div class="unnumberedsubsubsec" id="open">
-<div class="header">
+<div class="unnumberedsubsubsec-level-extent" id="open">
+<div class="nav-panel">
 <p>
 Next: <a href="close.html" accesskey="n" rel="next">close</a>, Up: <a href="List-of-Supported-Calls.html" accesskey="u" rel="up">List of Supported Calls</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="open-1"></span><h4 class="unnumberedsubsubsec">open</h4>
-<span id="index-open_002c-file_002di_002fo-system-call"></span>
+<h4 class="unnumberedsubsubsec" id="open-1"><span>open<a class="copiable-link" href="#open-1"> &para;</a></span></h4>
+<a class="index-entry-id" id="index-open_002c-file_002di_002fo-system-call"></a>
 
-<dl compact="compact">
-<dt><span>Synopsis:</span></dt>
-<dd><div class="example">
-<pre class="example">int open(const char *pathname, int flags);
+<dl class="table">
+<dt>Synopsis:</dt>
+<dd><div class="example smallexample">
+<pre class="example-preformatted">int open(const char *pathname, int flags);
 int open(const char *pathname, int flags, mode_t mode);
 </pre></div>
 
 </dd>
-<dt><span>Request:</span></dt>
-<dd><p>&lsquo;<samp>Fopen,<var>pathptr</var>/<var>len</var>,<var>flags</var>,<var>mode</var></samp>&rsquo;
+<dt>Request:</dt>
+<dd><p>&lsquo;<samp class="samp">Fopen,<var class="var">pathptr</var>/<var class="var">len</var>,<var class="var">flags</var>,<var class="var">mode</var></samp>&rsquo;
 </p>
-<p><var>flags</var> is the bitwise <code>OR</code> of the following values:
+<p><var class="var">flags</var> is the bitwise <code class="code">OR</code> of the following values:
 </p>
-<dl compact="compact">
-<dt><span><code>O_CREAT</code></span></dt>
+<dl class="table">
+<dt><code class="code">O_CREAT</code></dt>
 <dd><p>If the file does not exist it will be created.  The host
 rules apply as far as file ownership and time stamps
 are concerned.
 </p>
 </dd>
-<dt><span><code>O_EXCL</code></span></dt>
-<dd><p>When used with <code>O_CREAT</code>, if the file already exists it is
+<dt><code class="code">O_EXCL</code></dt>
+<dd><p>When used with <code class="code">O_CREAT</code>, if the file already exists it is
 an error and open() fails.
 </p>
 </dd>
-<dt><span><code>O_TRUNC</code></span></dt>
+<dt><code class="code">O_TRUNC</code></dt>
 <dd><p>If the file already exists and the open mode allows
-writing (<code>O_RDWR</code> or <code>O_WRONLY</code> is given) it will be
+writing (<code class="code">O_RDWR</code> or <code class="code">O_WRONLY</code> is given) it will be
 truncated to zero length.
 </p>
 </dd>
-<dt><span><code>O_APPEND</code></span></dt>
+<dt><code class="code">O_APPEND</code></dt>
 <dd><p>The file is opened in append mode.
 </p>
 </dd>
-<dt><span><code>O_RDONLY</code></span></dt>
+<dt><code class="code">O_RDONLY</code></dt>
 <dd><p>The file is opened for reading only.
 </p>
 </dd>
-<dt><span><code>O_WRONLY</code></span></dt>
+<dt><code class="code">O_WRONLY</code></dt>
 <dd><p>The file is opened for writing only.
 </p>
 </dd>
-<dt><span><code>O_RDWR</code></span></dt>
+<dt><code class="code">O_RDWR</code></dt>
 <dd><p>The file is opened for reading and writing.
 </p></dd>
 </dl>
@@ -155,30 +143,30 @@ truncated to zero length.
 <p>Other bits are silently ignored.
 </p>
 
-<p><var>mode</var> is the bitwise <code>OR</code> of the following values:
+<p><var class="var">mode</var> is the bitwise <code class="code">OR</code> of the following values:
 </p>
-<dl compact="compact">
-<dt><span><code>S_IRUSR</code></span></dt>
+<dl class="table">
+<dt><code class="code">S_IRUSR</code></dt>
 <dd><p>User has read permission.
 </p>
 </dd>
-<dt><span><code>S_IWUSR</code></span></dt>
+<dt><code class="code">S_IWUSR</code></dt>
 <dd><p>User has write permission.
 </p>
 </dd>
-<dt><span><code>S_IRGRP</code></span></dt>
+<dt><code class="code">S_IRGRP</code></dt>
 <dd><p>Group has read permission.
 </p>
 </dd>
-<dt><span><code>S_IWGRP</code></span></dt>
+<dt><code class="code">S_IWGRP</code></dt>
 <dd><p>Group has write permission.
 </p>
 </dd>
-<dt><span><code>S_IROTH</code></span></dt>
+<dt><code class="code">S_IROTH</code></dt>
 <dd><p>Others have read permission.
 </p>
 </dd>
-<dt><span><code>S_IWOTH</code></span></dt>
+<dt><code class="code">S_IWOTH</code></dt>
 <dd><p>Others have write permission.
 </p></dd>
 </dl>
@@ -187,61 +175,61 @@ truncated to zero length.
 </p>
 
 </dd>
-<dt><span>Return value:</span></dt>
-<dd><p><code>open</code> returns the new file descriptor or -1 if an error
+<dt>Return value:</dt>
+<dd><p><code class="code">open</code> returns the new file descriptor or -1 if an error
 occurred.
 </p>
 </dd>
-<dt><span>Errors:</span></dt>
+<dt>Errors:</dt>
 <dd>
-<dl compact="compact">
-<dt><span><code>EEXIST</code></span></dt>
-<dd><p><var>pathname</var> already exists and <code>O_CREAT</code> and <code>O_EXCL</code> were used.
+<dl class="table">
+<dt><code class="code">EEXIST</code></dt>
+<dd><p><var class="var">pathname</var> already exists and <code class="code">O_CREAT</code> and <code class="code">O_EXCL</code> were used.
 </p>
 </dd>
-<dt><span><code>EISDIR</code></span></dt>
-<dd><p><var>pathname</var> refers to a directory.
+<dt><code class="code">EISDIR</code></dt>
+<dd><p><var class="var">pathname</var> refers to a directory.
 </p>
 </dd>
-<dt><span><code>EACCES</code></span></dt>
+<dt><code class="code">EACCES</code></dt>
 <dd><p>The requested access is not allowed.
 </p>
 </dd>
-<dt><span><code>ENAMETOOLONG</code></span></dt>
-<dd><p><var>pathname</var> was too long.
+<dt><code class="code">ENAMETOOLONG</code></dt>
+<dd><p><var class="var">pathname</var> was too long.
 </p>
 </dd>
-<dt><span><code>ENOENT</code></span></dt>
-<dd><p>A directory component in <var>pathname</var> does not exist.
+<dt><code class="code">ENOENT</code></dt>
+<dd><p>A directory component in <var class="var">pathname</var> does not exist.
 </p>
 </dd>
-<dt><span><code>ENODEV</code></span></dt>
-<dd><p><var>pathname</var> refers to a device, pipe, named pipe or socket.
+<dt><code class="code">ENODEV</code></dt>
+<dd><p><var class="var">pathname</var> refers to a device, pipe, named pipe or socket.
 </p>
 </dd>
-<dt><span><code>EROFS</code></span></dt>
-<dd><p><var>pathname</var> refers to a file on a read-only filesystem and
+<dt><code class="code">EROFS</code></dt>
+<dd><p><var class="var">pathname</var> refers to a file on a read-only filesystem and
 write access was requested.
 </p>
 </dd>
-<dt><span><code>EFAULT</code></span></dt>
-<dd><p><var>pathname</var> is an invalid pointer value.
+<dt><code class="code">EFAULT</code></dt>
+<dd><p><var class="var">pathname</var> is an invalid pointer value.
 </p>
 </dd>
-<dt><span><code>ENOSPC</code></span></dt>
+<dt><code class="code">ENOSPC</code></dt>
 <dd><p>No space on device to create the file.
 </p>
 </dd>
-<dt><span><code>EMFILE</code></span></dt>
+<dt><code class="code">EMFILE</code></dt>
 <dd><p>The process already has the maximum number of files open.
 </p>
 </dd>
-<dt><span><code>ENFILE</code></span></dt>
+<dt><code class="code">ENFILE</code></dt>
 <dd><p>The limit on the total number of files open on the system
 has been reached.
 </p>
 </dd>
-<dt><span><code>EINTR</code></span></dt>
+<dt><code class="code">EINTR</code></dt>
 <dd><p>The call was interrupted by the user.
 </p></dd>
 </dl>
@@ -251,7 +239,7 @@ has been reached.
 
 </div>
 <hr>
-<div class="header">
+<div class="nav-panel">
 <p>
 Next: <a href="close.html">close</a>, Up: <a href="List-of-Supported-Calls.html">List of Supported Calls</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

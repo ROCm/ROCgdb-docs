@@ -1,9 +1,9 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright (C) 1988-2024 Free Software Foundation, Inc.
+<!-- Copyright © 1988-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -20,13 +20,13 @@ Legal Disclaimer and Copyright Information
 
 AMD ROCm software is made available by Advanced Micro Devices, Inc. under the
 open source license identified in the top-level directory for the library in
-the repository on Github.com (Portions of AMD ROCm software are
-licensed under MITx11 and UIL/NCSA. For more information on the license, review
-the license.txt in the top-level directory for the library on
-Github.com).  The additional terms and conditions below apply to your use
-of AMD ROCm technical documentation.
+the repository on https://github.com/ROCm/ (Github.com) (Portions of AMD
+ROCm software are licensed under MITx11 and UIL/NCSA. For more information on
+the license, review the license.txt in the top-level directory for the
+library on https://github.com/ROCm/ (Github.com)).  The additional terms
+and conditions below apply to your use of AMD ROCm technical documentation.
 
-(C)2019-2025 Advanced Micro Devices, Inc.  All rights reserved.
+©2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
 
 The information presented in this document is for informational purposes only
 and may contain technical inaccuracies, omissions, and typographical errors.
@@ -52,8 +52,8 @@ EVEN IF AMD IS EXPRESSLY ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
 
 AMD, the AMD Arrow logo, AMD Instinct™, Radeon™, AMD ROCm™, and combinations
 thereof are trademarks of Advanced Micro Devices, Inc.
-Linux(R) is the registered trademark of Linus Torvalds in the
-U.S. and other countries. PCIe(R) is a registered trademark of
+Linux® is the registered trademark of Linus Torvalds in the
+U.S. and other countries. PCIe® is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
@@ -73,21 +73,8 @@ companies. -->
 <link href="Asynchronous-and-non_002dstop-modes.html" rel="prev" title="Asynchronous and non-stop modes">
 <style type="text/css">
 <!--
-a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
-a.summary-letter {text-decoration: none}
-blockquote.indentedblock {margin-right: 0em}
-div.display {margin-left: 3.2em}
-div.example {margin-left: 3.2em}
-kbd {font-style: oblique}
-pre.display {font-family: inherit}
-pre.format {font-family: inherit}
-pre.menu-comment {font-family: serif}
-pre.menu-preformatted {font-family: serif}
-span.nolinebreak {white-space: nowrap}
-span.roman {font-family: initial; font-weight: normal}
-span.sansserif {font-family: sans-serif; font-weight: normal}
-span:hover a.copiable-anchor {visibility: visible}
-ul.no-bullet {list-style: none}
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+span:hover a.copiable-link {visibility: visible}
 -->
 </style>
 
@@ -95,57 +82,57 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<div class="subsection" id="Thread-groups">
-<div class="header">
+<div class="subsection-level-extent" id="Thread-groups">
+<div class="nav-panel">
 <p>
-Previous: <a href="Asynchronous-and-non_002dstop-modes.html" accesskey="p" rel="prev">Asynchronous command execution and non-stop mode</a>, Up: <a href="GDB_002fMI-General-Design.html" accesskey="u" rel="up"><small>GDB/MI</small> General Design</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Previous: <a href="Asynchronous-and-non_002dstop-modes.html" accesskey="p" rel="prev">Asynchronous command execution and non-stop mode</a>, Up: <a href="GDB_002fMI-General-Design.html" accesskey="u" rel="up"><small class="sc">GDB/MI</small> General Design</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="Thread-groups-1"></span><h4 class="subsection">28.1.3 Thread groups</h4>
-<p><small>ROCGDB</small> may be used to debug several processes at the same time.
-On some platforms, <small>ROCGDB</small> may support debugging of several
+<h4 class="subsection" id="Thread-groups-1"><span>28.1.3 Thread groups<a class="copiable-link" href="#Thread-groups-1"> &para;</a></span></h4>
+<p><small class="sc">ROCGDB</small> may be used to debug several processes at the same time.
+On some platforms, <small class="sc">ROCGDB</small> may support debugging of several
 hardware systems, each one having several cores with several different
 processes running on each core.  This section describes the MI
 mechanism to support such debugging scenarios.
 </p>
 <p>The key observation is that regardless of the structure of the 
 target, MI can have a global list of threads, because most commands that 
-accept the &lsquo;<samp>--thread</samp>&rsquo; option do not need to know what process that
+accept the &lsquo;<samp class="samp">--thread</samp>&rsquo; option do not need to know what process that
 thread belongs to.  Therefore, it is not necessary to introduce
-neither additional &lsquo;<samp>--process</samp>&rsquo; option, nor a notion of the
+neither additional &lsquo;<samp class="samp">--process</samp>&rsquo; option, nor a notion of the
 current process in the MI interface.  The only strictly new feature
 that is required is the ability to find how the threads are grouped
 into processes.
 </p>
 <p>To allow the user to discover such grouping, and to support arbitrary
 hierarchy of machines/cores/processes, MI introduces the concept of a
-<em>thread group</em>.  Thread group is a collection of threads and other
+<em class="dfn">thread group</em>.  Thread group is a collection of threads and other
 thread groups.  A thread group always has a string identifier, a type,
 and may have additional attributes specific to the type.  A new
-command, <code>-list-thread-groups</code>, returns the list of top-level
-thread groups, which correspond to processes that <small>ROCGDB</small> is
+command, <code class="code">-list-thread-groups</code>, returns the list of top-level
+thread groups, which correspond to processes that <small class="sc">ROCGDB</small> is
 debugging at the moment.  By passing an identifier of a thread group
-to the <code>-list-thread-groups</code> command, it is possible to obtain
+to the <code class="code">-list-thread-groups</code> command, it is possible to obtain
 the members of specific thread group.
 </p>
 <p>To allow users to easily discover processes, and other objects, they
-wish to debug, a concept of <em>available thread group</em> is
+wish to debug, a concept of <em class="dfn">available thread group</em> is
 introduced.  Available thread group is a thread group that
-<small>ROCGDB</small> is not debugging, but that can be attached to, using the
-<code>-target-attach</code> command.  The list of available top-level thread
-groups can be obtained using &lsquo;<samp>-list-thread-groups --available</samp>&rsquo;.
+<small class="sc">ROCGDB</small> is not debugging, but that can be attached to, using the
+<code class="code">-target-attach</code> command.  The list of available top-level thread
+groups can be obtained using &lsquo;<samp class="samp">-list-thread-groups --available</samp>&rsquo;.
 In general, the content of a thread group may be retrieved only after
 attaching to that thread group.
 </p>
-<p>Thread groups are related to inferiors (see <a href="Inferiors-Connections-and-Programs.html">Debugging Multiple Inferiors Connections and Programs</a>).  Each inferior corresponds to a thread group of a special
-type &lsquo;<samp>process</samp>&rsquo;, and some additional operations are permitted on
+<p>Thread groups are related to inferiors (see <a class="pxref" href="Inferiors-Connections-and-Programs.html">Debugging Multiple Inferiors Connections and Programs</a>).  Each inferior corresponds to a thread group of a special
+type &lsquo;<samp class="samp">process</samp>&rsquo;, and some additional operations are permitted on
 such thread groups.
 </p>
 </div>
 <hr>
-<div class="header">
+<div class="nav-panel">
 <p>
-Previous: <a href="Asynchronous-and-non_002dstop-modes.html">Asynchronous command execution and non-stop mode</a>, Up: <a href="GDB_002fMI-General-Design.html"><small>GDB/MI</small> General Design</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Previous: <a href="Asynchronous-and-non_002dstop-modes.html">Asynchronous command execution and non-stop mode</a>, Up: <a href="GDB_002fMI-General-Design.html"><small class="sc">GDB/MI</small> General Design</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

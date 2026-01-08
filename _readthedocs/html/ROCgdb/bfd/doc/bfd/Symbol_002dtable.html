@@ -1,11 +1,11 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the BFD library.
 
-Copyright (C) 1991-2025 Free Software Foundation, Inc.
+Copyright © 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -41,21 +41,9 @@ You have freedom to copy and modify this GNU Manual, like GNU
 <link href="File-layout.html" rel="prev" title="File layout">
 <style type="text/css">
 <!--
-a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
-a.summary-letter {text-decoration: none}
-blockquote.indentedblock {margin-right: 0em}
-div.display {margin-left: 3.2em}
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
 div.example {margin-left: 3.2em}
-kbd {font-style: oblique}
-pre.display {font-family: inherit}
-pre.format {font-family: inherit}
-pre.menu-comment {font-family: serif}
-pre.menu-preformatted {font-family: serif}
-span.nolinebreak {white-space: nowrap}
-span.roman {font-family: initial; font-weight: normal}
-span.sansserif {font-family: sans-serif; font-weight: normal}
-span:hover a.copiable-anchor {visibility: visible}
-ul.no-bullet {list-style: none}
+span:hover a.copiable-link {visibility: visible}
 -->
 </style>
 
@@ -63,20 +51,20 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<div class="subsection" id="Symbol_002dtable">
-<div class="header">
+<div class="subsection-level-extent" id="Symbol_002dtable">
+<div class="nav-panel">
 <p>
 Next: <a href="mmo-section-mapping.html" accesskey="n" rel="next">mmo section mapping</a>, Previous: <a href="File-layout.html" accesskey="p" rel="prev">File layout</a>, Up: <a href="mmo.html" accesskey="u" rel="up">mmo backend</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="BFD-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="Symbol-table-format"></span><h4 class="subsection">3.5.2 Symbol table format</h4>
+<h4 class="subsection" id="Symbol-table-format"><span>3.5.2 Symbol table format<a class="copiable-link" href="#Symbol-table-format"> &para;</a></span></h4>
 <p>From mmixal.w (or really, the generated mmixal.tex) in the
-MMIXware package which also contains the <code>mmix</code> simulator:
-&ldquo;Symbols are stored and retrieved by means of a &lsquo;<samp>ternary
+MMIXware package which also contains the <code class="command">mmix</code> simulator:
+&ldquo;Symbols are stored and retrieved by means of a &lsquo;<samp class="samp">ternary
 search trie</samp>&rsquo;, following ideas of Bentley and Sedgewick. (See
-ACM&ndash;SIAM Symp. on Discrete Algorithms &lsquo;<samp>8</samp>&rsquo; (1997), 360&ndash;369;
-R.Sedgewick, &lsquo;<samp>Algorithms in C</samp>&rsquo; (Reading, Mass.
-Addison&ndash;Wesley, 1998), &lsquo;<samp>15.4</samp>&rsquo;.)  Each trie node stores a
+ACM&ndash;SIAM Symp. on Discrete Algorithms &lsquo;<samp class="samp">8</samp>&rsquo; (1997), 360&ndash;369;
+R.Sedgewick, &lsquo;<samp class="samp">Algorithms in C</samp>&rsquo; (Reading, Mass.
+Addison&ndash;Wesley, 1998), &lsquo;<samp class="samp">15.4</samp>&rsquo;.)  Each trie node stores a
 character, and there are branches to subtries for the cases where
 a given character is less than, equal to, or greater than the
 character in the trie.  There also is a pointer to a symbol table
@@ -87,19 +75,19 @@ acts on a single virtual global symbol, adding and removing
 characters and signalling complete symbol points.  Here, we read
 the stream and create symbols at the completion points.
 </p>
-<p>First, there&rsquo;s a control byte <code>m</code>.  If any of the listed bits
-in <code>m</code> is nonzero, we execute what stands at the right, in
+<p>First, there&rsquo;s a control byte <code class="code">m</code>.  If any of the listed bits
+in <code class="code">m</code> is nonzero, we execute what stands at the right, in
 the listed order:
 </p>
 <div class="example">
-<pre class="example"> (MMO3_LEFT)
+<pre class="example-preformatted"> (MMO3_LEFT)
  0x40 - Traverse left trie.
         (Read a new command byte and recurse.)
 
  (MMO3_SYMBITS)
  0x2f - Read the next byte as a character and store it in the
         current character position; increment character position.
-        Test the bits of <code>m</code>:
+        Test the bits of <code class="code">m</code>:
 
         (MMO3_WCHAR)
         0x80 - The character is 16-bit (so read another byte,
@@ -138,11 +126,11 @@ the listed order:
         recurse.)
 </pre></div>
 
-<p>Let&rsquo;s look again at the <code>lop_stab</code> for the trivial file
-(see <a href="File-layout.html">File layout</a>).
+<p>Let&rsquo;s look again at the <code class="code">lop_stab</code> for the trivial file
+(see <a class="pxref" href="File-layout.html">File layout</a>).
 </p>
 <div class="example">
-<pre class="example"> 0x980b0000 - lop_stab for &quot;:Main&quot; = 0, serial 1.
+<pre class="example-preformatted"> 0x980b0000 - lop_stab for &quot;:Main&quot; = 0, serial 1.
  0x203a4040
  0x10404020
  0x4d206120
@@ -154,7 +142,7 @@ the listed order:
 &ldquo;M&rdquo; is redundant):
 </p>
 <div class="example">
-<pre class="example"> 203a     &quot;:&quot;
+<pre class="example-preformatted"> 203a     &quot;:&quot;
  40       /
  40      /
  10      \
@@ -171,7 +159,7 @@ the listed order:
 
 </div>
 <hr>
-<div class="header">
+<div class="nav-panel">
 <p>
 Next: <a href="mmo-section-mapping.html">mmo section mapping</a>, Previous: <a href="File-layout.html">File layout</a>, Up: <a href="mmo.html">mmo backend</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="BFD-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

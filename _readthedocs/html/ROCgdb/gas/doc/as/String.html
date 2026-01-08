@@ -1,11 +1,11 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the GNU Assembler "as".
 
-Copyright (C) 1991-2025 Free Software Foundation, Inc.
+Copyright © 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -31,21 +31,9 @@ section entitled "GNU Free Documentation License".
 <link href="Stab.html" rel="prev" title="Stab">
 <style type="text/css">
 <!--
-a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
-a.summary-letter {text-decoration: none}
-blockquote.indentedblock {margin-right: 0em}
-div.display {margin-left: 3.2em}
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
 div.example {margin-left: 3.2em}
-kbd {font-style: oblique}
-pre.display {font-family: inherit}
-pre.format {font-family: inherit}
-pre.menu-comment {font-family: serif}
-pre.menu-preformatted {font-family: serif}
-span.nolinebreak {white-space: nowrap}
-span.roman {font-family: initial; font-weight: normal}
-span.sansserif {font-family: sans-serif; font-weight: normal}
-span:hover a.copiable-anchor {visibility: visible}
-ul.no-bullet {list-style: none}
+span:hover a.copiable-link {visibility: visible}
 -->
 </style>
 
@@ -53,39 +41,39 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<div class="section" id="String">
-<div class="header">
+<div class="section-level-extent" id="String">
+<div class="nav-panel">
 <p>
-Next: <a href="Struct.html" accesskey="n" rel="next"><code>.struct <var>expression</var></code></a>, Previous: <a href="Stab.html" accesskey="p" rel="prev"><code>.stabd, .stabn, .stabs</code></a>, Up: <a href="Pseudo-Ops.html" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Struct.html" accesskey="n" rel="next"><code class="code">.struct <var class="var">expression</var></code></a>, Previous: <a href="Stab.html" accesskey="p" rel="prev"><code class="code">.stabd, .stabn, .stabs</code></a>, Up: <a href="Pseudo-Ops.html" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="g_t_002estring-_0022str_0022_002c-_002estring8-_0022str_0022_002c-_002estring16"></span><h3 class="section">7.95 <code>.string</code> &quot;<var>str</var>&quot;, <code>.string8</code> &quot;<var>str</var>&quot;, <code>.string16</code></h3>
-<p>&quot;<var>str</var>&quot;, <code>.string32</code> &quot;<var>str</var>&quot;, <code>.string64</code> &quot;<var>str</var>&quot;
+<h3 class="section" id="g_t_002estring-_0022str_0022_002c-_002estring8-_0022str_0022_002c-_002estring16"><span>7.95 <code class="code">.string</code> &quot;<var class="var">str</var>&quot;, <code class="code">.string8</code> &quot;<var class="var">str</var>&quot;, <code class="code">.string16</code><a class="copiable-link" href="#g_t_002estring-_0022str_0022_002c-_002estring8-_0022str_0022_002c-_002estring16"> &para;</a></span></h3>
+<p>&quot;<var class="var">str</var>&quot;, <code class="code">.string32</code> &quot;<var class="var">str</var>&quot;, <code class="code">.string64</code> &quot;<var class="var">str</var>&quot;
 </p>
-<span id="index-string_002c-copying-to-object-file"></span>
-<span id="index-string8_002c-copying-to-object-file"></span>
-<span id="index-string16_002c-copying-to-object-file"></span>
-<span id="index-string32_002c-copying-to-object-file"></span>
-<span id="index-string64_002c-copying-to-object-file"></span>
-<span id="index-string-directive"></span>
-<span id="index-string8-directive"></span>
-<span id="index-string16-directive"></span>
-<span id="index-string32-directive"></span>
-<span id="index-string64-directive"></span>
+<a class="index-entry-id" id="index-string_002c-copying-to-object-file"></a>
+<a class="index-entry-id" id="index-string8_002c-copying-to-object-file"></a>
+<a class="index-entry-id" id="index-string16_002c-copying-to-object-file"></a>
+<a class="index-entry-id" id="index-string32_002c-copying-to-object-file"></a>
+<a class="index-entry-id" id="index-string64_002c-copying-to-object-file"></a>
+<a class="index-entry-id" id="index-string-directive"></a>
+<a class="index-entry-id" id="index-string8-directive"></a>
+<a class="index-entry-id" id="index-string16-directive"></a>
+<a class="index-entry-id" id="index-string32-directive"></a>
+<a class="index-entry-id" id="index-string64-directive"></a>
 
-<p>Copy the characters in <var>str</var> to the object file.  You may specify more than
+<p>Copy the characters in <var class="var">str</var> to the object file.  You may specify more than
 one string to copy, separated by commas.  Unless otherwise specified for a
 particular machine, the assembler marks the end of each string with a 0 byte.
-You can use any of the escape sequences described in <a href="Strings.html">Strings</a>.
+You can use any of the escape sequences described in <a class="ref" href="Strings.html">Strings</a>.
 </p>
-<p>The variants <code>string16</code>, <code>string32</code> and <code>string64</code> differ from
-the <code>string</code> pseudo opcode in that each 8-bit character from <var>str</var> is
+<p>The variants <code class="code">string16</code>, <code class="code">string32</code> and <code class="code">string64</code> differ from
+the <code class="code">string</code> pseudo opcode in that each 8-bit character from <var class="var">str</var> is
 copied and expanded to 16, 32 or 64 bits respectively.  The expanded characters
 are stored in target endianness byte order.
 </p>
 <p>Example:
-</p><div class="example">
-<pre class="example">	.string32 &quot;BYE&quot;
+</p><div class="example smallexample">
+<pre class="example-preformatted">	.string32 &quot;BYE&quot;
 expands to:
 	.string   &quot;B\0\0\0Y\0\0\0E\0\0\0&quot;  /* On little endian targets.  */
 	.string   &quot;\0\0\0B\0\0\0Y\0\0\0E&quot;  /* On big endian targets.  */

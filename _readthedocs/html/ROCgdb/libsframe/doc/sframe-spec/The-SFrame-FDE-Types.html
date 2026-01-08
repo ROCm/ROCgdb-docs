@@ -1,9 +1,9 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright (C) 2021-2025 Free Software Foundation, Inc.
+<!-- Copyright © 2021-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU General Public License, Version 3 or any
@@ -28,21 +28,8 @@ License".
 <link href="The-SFrame-FDE-Info-Word.html" rel="prev" title="The SFrame FDE Info Word">
 <style type="text/css">
 <!--
-a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
-a.summary-letter {text-decoration: none}
-blockquote.indentedblock {margin-right: 0em}
-div.display {margin-left: 3.2em}
-div.example {margin-left: 3.2em}
-kbd {font-style: oblique}
-pre.display {font-family: inherit}
-pre.format {font-family: inherit}
-pre.menu-comment {font-family: serif}
-pre.menu-preformatted {font-family: serif}
-span.nolinebreak {white-space: nowrap}
-span.roman {font-family: initial; font-weight: normal}
-span.sansserif {font-family: sans-serif; font-weight: normal}
-span:hover a.copiable-anchor {visibility: visible}
-ul.no-bullet {list-style: none}
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+span:hover a.copiable-link {visibility: visible}
 -->
 </style>
 
@@ -50,41 +37,42 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<div class="subsection" id="The-SFrame-FDE-Types">
-<div class="header">
+<div class="subsection-level-extent" id="The-SFrame-FDE-Types">
+<div class="nav-panel">
 <p>
 Next: <a href="The-SFrame-FRE-Types.html" accesskey="n" rel="next">The SFrame FRE Types</a>, Previous: <a href="The-SFrame-FDE-Info-Word.html" accesskey="p" rel="prev">The SFrame FDE Info Word</a>, Up: <a href="SFrame-Function-Descriptor-Entries.html" accesskey="u" rel="up">SFrame FDE</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="The-SFrame-FDE-Types-1"></span><h4 class="subsection">2.3.2 The SFrame FDE Types</h4>
-<span id="index-SFRAME_005fFDE_005fTYPE_005fPCMASK"></span>
-<span id="index-SFRAME_005fFDE_005fTYPE_005fPCINC"></span>
+<h4 class="subsection" id="The-SFrame-FDE-Types-1"><span>2.3.2 The SFrame FDE Types<a class="copiable-link" href="#The-SFrame-FDE-Types-1"> &para;</a></span></h4>
+<a class="index-entry-id" id="index-SFRAME_005fFDE_005fTYPE_005fPCMASK"></a>
+<a class="index-entry-id" id="index-SFRAME_005fFDE_005fTYPE_005fPCINC"></a>
 
 <p>The SFrame format defines two types of FDE entries.  The choice of which SFrame
 FDE type to use is made based on the instruction patterns in the relevant
 program stub.
 </p>
-<p>An SFrame FDE of type <code>SFRAME_FDE_TYPE_PCINC</code> is an indication that the PCs in the
+<p>An SFrame FDE of type <code class="code">SFRAME_FDE_TYPE_PCINC</code> is an indication that the PCs in the
 FREs should be treated as increments in bytes.  This is used fo the the bulk of
 the executable code of a program, which contains instructions with no specific
 pattern.
 </p>
-<p>In contrast, an SFrame FDE of type <code>SFRAME_FDE_TYPE_PCMASK</code> is an
+<p>In contrast, an SFrame FDE of type <code class="code">SFRAME_FDE_TYPE_PCMASK</code> is an
 indication that the PCs in the FREs should be treated as masks.  This type is
 useful for the cases where a small pattern of instructions in a program stub is
 used repeatedly for a specific functionality.  Typical usecases are pltN
 entries and trampolines.
 </p>
-<table>
+<table class="multitable">
 <thead><tr><th>Name of SFrame FDE type</th><th>Value</th><th>Description</th></tr></thead>
-<tr><td>SFRAME_FDE_TYPE_PCINC</td><td>0</td><td>Stacktracers perform a <br>
+<tbody><tr><td>SFRAME_FDE_TYPE_PCINC</td><td>0</td><td>Stacktracers perform a <br>
 (PC &gt;= FRE_START_ADDR) to look up a matching FRE.</td></tr>
 <tr><td>SFRAME_FDE_TYPE_PCMASK</td><td>1</td><td>Stacktracers perform a <br>
 (PC % REP_BLOCK_SIZE <br>
  &gt;= FRE_START_ADDR)
 to look up a matching FRE.  REP_BLOCK_SIZE is the size in bytes of the
 repeating block of program instructions and is encoded via
-<code>sfde_func_rep_size</code> in the SFrame FDE.</td></tr>
+<code class="code">sfde_func_rep_size</code> in the SFrame FDE.</td></tr>
+</tbody>
 </table>
 
 </div>

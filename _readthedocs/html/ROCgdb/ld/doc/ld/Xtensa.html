@@ -1,13 +1,13 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the GNU linker LD
 (GNU Binutils)
 version 2.43.50.
 
-Copyright (C) 1991-2025 Free Software Foundation, Inc.
+Copyright © 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -31,21 +31,9 @@ section entitled "GNU Free Documentation License". -->
 <link href="WIN32.html" rel="prev" title="WIN32">
 <style type="text/css">
 <!--
-a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
-a.summary-letter {text-decoration: none}
-blockquote.indentedblock {margin-right: 0em}
-div.display {margin-left: 3.2em}
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
 div.example {margin-left: 3.2em}
-kbd {font-style: oblique}
-pre.display {font-family: inherit}
-pre.format {font-family: inherit}
-pre.menu-comment {font-family: serif}
-pre.menu-preformatted {font-family: serif}
-span.nolinebreak {white-space: nowrap}
-span.roman {font-family: initial; font-weight: normal}
-span.sansserif {font-family: sans-serif; font-weight: normal}
-span:hover a.copiable-anchor {visibility: visible}
-ul.no-bullet {list-style: none}
+span:hover a.copiable-link {visibility: visible}
 -->
 </style>
 
@@ -53,23 +41,23 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<div class="section" id="Xtensa">
-<div class="header">
+<div class="section-level-extent" id="Xtensa">
+<div class="nav-panel">
 <p>
-Previous: <a href="WIN32.html" accesskey="p" rel="prev"><code>ld</code> and WIN32 (cygwin/mingw)</a>, Up: <a href="Machine-Dependent.html" accesskey="u" rel="up">Machine Dependent Features</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="LD-Index.html" title="Index" rel="index">Index</a>]</p>
+Previous: <a href="WIN32.html" accesskey="p" rel="prev"><code class="command">ld</code> and WIN32 (cygwin/mingw)</a>, Up: <a href="Machine-Dependent.html" accesskey="u" rel="up">Machine Dependent Features</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="LD-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="ld-and-Xtensa-Processors"></span><h3 class="section">6.16 <code>ld</code> and Xtensa Processors</h3>
+<h3 class="section" id="ld-and-Xtensa-Processors"><span>6.16 <code class="code">ld</code> and Xtensa Processors<a class="copiable-link" href="#ld-and-Xtensa-Processors"> &para;</a></span></h3>
 
-<span id="index-Xtensa-processors"></span>
-<p>The default <code>ld</code> behavior for Xtensa processors is to interpret
-<code>SECTIONS</code> commands so that lists of explicitly named sections in a
+<a class="index-entry-id" id="index-Xtensa-processors"></a>
+<p>The default <code class="command">ld</code> behavior for Xtensa processors is to interpret
+<code class="code">SECTIONS</code> commands so that lists of explicitly named sections in a
 specification with a wildcard file will be interleaved when necessary to
 keep literal pools within the range of PC-relative load offsets.  For
 example, with the command:
 </p>
-<div class="example">
-<pre class="example">SECTIONS
+<div class="example smallexample">
+<pre class="example-preformatted">SECTIONS
 {
   .text : {
     *(.literal .text)
@@ -77,48 +65,48 @@ example, with the command:
 }
 </pre></div>
 
-<p><code>ld</code> may interleave some of the <code>.literal</code>
-and <code>.text</code> sections from different object files to ensure that the
+<p><code class="command">ld</code> may interleave some of the <code class="code">.literal</code>
+and <code class="code">.text</code> sections from different object files to ensure that the
 literal pools are within the range of PC-relative load offsets.  A valid
-interleaving might place the <code>.literal</code> sections from an initial
-group of files followed by the <code>.text</code> sections of that group of
-files.  Then, the <code>.literal</code> sections from the rest of the files
-and the <code>.text</code> sections from the rest of the files would follow.
+interleaving might place the <code class="code">.literal</code> sections from an initial
+group of files followed by the <code class="code">.text</code> sections of that group of
+files.  Then, the <code class="code">.literal</code> sections from the rest of the files
+and the <code class="code">.text</code> sections from the rest of the files would follow.
 </p>
-<span id="index-_002d_002drelax-on-Xtensa"></span>
-<span id="index-relaxing-on-Xtensa"></span>
-<p>Relaxation is enabled by default for the Xtensa version of <code>ld</code> and
+<a class="index-entry-id" id="index-_002d_002drelax-on-Xtensa"></a>
+<a class="index-entry-id" id="index-relaxing-on-Xtensa"></a>
+<p>Relaxation is enabled by default for the Xtensa version of <code class="command">ld</code> and
 provides two important link-time optimizations.  The first optimization
 is to combine identical literal values to reduce code size.  A redundant
-literal will be removed and all the <code>L32R</code> instructions that use it
+literal will be removed and all the <code class="code">L32R</code> instructions that use it
 will be changed to reference an identical literal, as long as the
 location of the replacement literal is within the offset range of all
-the <code>L32R</code> instructions.  The second optimization is to remove
+the <code class="code">L32R</code> instructions.  The second optimization is to remove
 unnecessary overhead from assembler-generated &ldquo;longcall&rdquo; sequences of
-<code>L32R</code>/<code>CALLX<var>n</var></code> when the target functions are within
-range of direct <code>CALL<var>n</var></code> instructions.
+<code class="code">L32R</code>/<code class="code">CALLX<var class="var">n</var></code> when the target functions are within
+range of direct <code class="code">CALL<var class="var">n</var></code> instructions.
 </p>
 <p>For each of these cases where an indirect call sequence can be optimized
-to a direct call, the linker will change the <code>CALLX<var>n</var></code>
-instruction to a <code>CALL<var>n</var></code> instruction, remove the <code>L32R</code>
-instruction, and remove the literal referenced by the <code>L32R</code>
+to a direct call, the linker will change the <code class="code">CALLX<var class="var">n</var></code>
+instruction to a <code class="code">CALL<var class="var">n</var></code> instruction, remove the <code class="code">L32R</code>
+instruction, and remove the literal referenced by the <code class="code">L32R</code>
 instruction if it is not used for anything else.  Removing the
-<code>L32R</code> instruction always reduces code size but can potentially
+<code class="code">L32R</code> instruction always reduces code size but can potentially
 hurt performance by changing the alignment of subsequent branch targets.
 By default, the linker will always preserve alignments, either by
 switching some instructions between 24-bit encodings and the equivalent
-density instructions or by inserting a no-op in place of the <code>L32R</code>
+density instructions or by inserting a no-op in place of the <code class="code">L32R</code>
 instruction that was removed.  If code size is more important than
-performance, the <samp>--size-opt</samp> option can be used to prevent the
+performance, the <samp class="option">--size-opt</samp> option can be used to prevent the
 linker from widening density instructions or inserting no-ops, except in
 a few cases where no-ops are required for correctness.
 </p>
 <p>The following Xtensa-specific command-line options can be used to
 control the linker:
 </p>
-<span id="index-Xtensa-options"></span>
-<dl compact="compact">
-<dt><span><samp>--size-opt</samp></span></dt>
+<a class="index-entry-id" id="index-Xtensa-options"></a>
+<dl class="table">
+<dt><samp class="option">--size-opt</samp></dt>
 <dd><p>When optimizing indirect calls to direct calls, optimize for code size
 more than performance.  With this option, the linker will not insert
 no-ops or widen density instructions to preserve branch target
@@ -126,13 +114,13 @@ alignment.  There may still be some cases where no-ops are required to
 preserve the correctness of the code.
 </p>
 </dd>
-<dt><span><samp>--abi-windowed</samp></span></dt>
-<dt><span><samp>--abi-call0</samp></span></dt>
+<dt><samp class="option">--abi-windowed</samp></dt>
+<dt><samp class="option">--abi-call0</samp></dt>
 <dd><p>Choose ABI for the output object and for the generated PLT code.
 PLT code inserted by the linker must match ABI of the output object
 because windowed and call0 ABI use incompatible function call
 conventions.
-Default ABI is chosen by the ABI tag in the <code>.xtensa.info</code> section
+Default ABI is chosen by the ABI tag in the <code class="code">.xtensa.info</code> section
 of the first input object.
 A warning is issued if ABI tags of input objects do not match each other
 or the chosen output object ABI.
@@ -142,9 +130,9 @@ or the chosen output object ABI.
 
 </div>
 <hr>
-<div class="header">
+<div class="nav-panel">
 <p>
-Previous: <a href="WIN32.html"><code>ld</code> and WIN32 (cygwin/mingw)</a>, Up: <a href="Machine-Dependent.html">Machine Dependent Features</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="LD-Index.html" title="Index" rel="index">Index</a>]</p>
+Previous: <a href="WIN32.html"><code class="command">ld</code> and WIN32 (cygwin/mingw)</a>, Up: <a href="Machine-Dependent.html">Machine Dependent Features</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="LD-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

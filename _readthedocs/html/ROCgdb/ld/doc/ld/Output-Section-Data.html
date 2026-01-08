@@ -1,13 +1,13 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the GNU linker LD
 (GNU Binutils)
 version 2.43.50.
 
-Copyright (C) 1991-2025 Free Software Foundation, Inc.
+Copyright © 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -32,21 +32,9 @@ section entitled "GNU Free Documentation License". -->
 <link href="Input-Section.html" rel="prev" title="Input Section">
 <style type="text/css">
 <!--
-a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
-a.summary-letter {text-decoration: none}
-blockquote.indentedblock {margin-right: 0em}
-div.display {margin-left: 3.2em}
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
 div.example {margin-left: 3.2em}
-kbd {font-style: oblique}
-pre.display {font-family: inherit}
-pre.format {font-family: inherit}
-pre.menu-comment {font-family: serif}
-pre.menu-preformatted {font-family: serif}
-span.nolinebreak {white-space: nowrap}
-span.roman {font-family: initial; font-weight: normal}
-span.sansserif {font-family: sans-serif; font-weight: normal}
-span:hover a.copiable-anchor {visibility: visible}
-ul.no-bullet {list-style: none}
+span:hover a.copiable-link {visibility: visible}
 -->
 </style>
 
@@ -54,46 +42,46 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<div class="subsection" id="Output-Section-Data">
-<div class="header">
+<div class="subsection-level-extent" id="Output-Section-Data">
+<div class="nav-panel">
 <p>
 Next: <a href="Output-Section-Keywords.html" accesskey="n" rel="next">Output Section Keywords</a>, Previous: <a href="Input-Section.html" accesskey="p" rel="prev">Input Section Description</a>, Up: <a href="SECTIONS.html" accesskey="u" rel="up">SECTIONS Command</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="LD-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="Output-Section-Data-1"></span><h4 class="subsection">3.6.5 Output Section Data</h4>
-<span id="index-data"></span>
-<span id="index-section-data"></span>
-<span id="index-output-section-data"></span>
-<span id="index-ASCIZ-_0060_0060string_0027_0027"></span>
-<span id="index-BYTE_0028expression_0029"></span>
-<span id="index-SHORT_0028expression_0029"></span>
-<span id="index-LONG_0028expression_0029"></span>
-<span id="index-QUAD_0028expression_0029"></span>
-<span id="index-SQUAD_0028expression_0029"></span>
+<h4 class="subsection" id="Output-Section-Data-1"><span>3.6.5 Output Section Data<a class="copiable-link" href="#Output-Section-Data-1"> &para;</a></span></h4>
+<a class="index-entry-id" id="index-data"></a>
+<a class="index-entry-id" id="index-section-data"></a>
+<a class="index-entry-id" id="index-output-section-data"></a>
+<a class="index-entry-id" id="index-ASCIZ-_0060_0060string_0027_0027"></a>
+<a class="index-entry-id" id="index-BYTE_0028expression_0029"></a>
+<a class="index-entry-id" id="index-SHORT_0028expression_0029"></a>
+<a class="index-entry-id" id="index-LONG_0028expression_0029"></a>
+<a class="index-entry-id" id="index-QUAD_0028expression_0029"></a>
+<a class="index-entry-id" id="index-SQUAD_0028expression_0029"></a>
 <p>You can include explicit bytes of data in an output section by using
-<code>BYTE</code>, <code>SHORT</code>, <code>LONG</code>, <code>QUAD</code>, or <code>SQUAD</code> as
+<code class="code">BYTE</code>, <code class="code">SHORT</code>, <code class="code">LONG</code>, <code class="code">QUAD</code>, or <code class="code">SQUAD</code> as
 an output section command.  Each keyword is followed by an expression in
-parentheses providing the value to store (see <a href="Expressions.html">Expressions in Linker Scripts</a>).  The
+parentheses providing the value to store (see <a class="pxref" href="Expressions.html">Expressions in Linker Scripts</a>).  The
 value of the expression is stored at the current value of the location
 counter.
 </p>
-<p>The <code>BYTE</code>, <code>SHORT</code>, <code>LONG</code>, and <code>QUAD</code> commands
+<p>The <code class="code">BYTE</code>, <code class="code">SHORT</code>, <code class="code">LONG</code>, and <code class="code">QUAD</code> commands
 store one, two, four, and eight bytes (respectively).  After storing the
 bytes, the location counter is incremented by the number of bytes
 stored.
 </p>
 <p>For example, this will store the byte 1 followed by the four byte value
-of the symbol &lsquo;<samp>addr</samp>&rsquo;:
-</p><div class="example">
-<pre class="example">BYTE(1)
+of the symbol &lsquo;<samp class="samp">addr</samp>&rsquo;:
+</p><div class="example smallexample">
+<pre class="example-preformatted">BYTE(1)
 LONG(addr)
 </pre></div>
 
-<p>When using a 64 bit host or target, <code>QUAD</code> and <code>SQUAD</code> are the
+<p>When using a 64 bit host or target, <code class="code">QUAD</code> and <code class="code">SQUAD</code> are the
 same; they both store an 8 byte, or 64 bit, value.  When both host and
 target are 32 bits, an expression is computed as 32 bits.  In this case
-<code>QUAD</code> stores a 32 bit value zero extended to 64 bits, and
-<code>SQUAD</code> stores a 32 bit value sign extended to 64 bits.
+<code class="code">QUAD</code> stores a 32 bit value zero extended to 64 bits, and
+<code class="code">SQUAD</code> stores a 32 bit value sign extended to 64 bits.
 </p>
 <p>If the object file format of the output file has an explicit endianness,
 which is the normal case, the value will be stored in that endianness.
@@ -102,94 +90,94 @@ true of, for example, S-records, the value will be stored in the
 endianness of the first input object file.
 </p>
 <p>You can include a zero-terminated string in an output section by using
-<code>ASCIZ</code>.  The keyword is followed by a string which is stored at
+<code class="code">ASCIZ</code>.  The keyword is followed by a string which is stored at
 the current value of the location counter adding a zero byte at the
 end.  If the string includes spaces it must be enclosed in double
 quotes.  The string may contain &rsquo;\n&rsquo;, &rsquo;\r&rsquo;, &rsquo;\t&rsquo; and octal numbers.
 Hex numbers are not supported.
 </p>
 <p>For example, this string of 16 characters will create a 17 byte area
-</p><div class="example">
-<pre class="example">  ASCIZ &quot;This is 16 bytes&quot;
+</p><div class="example smallexample">
+<pre class="example-preformatted">  ASCIZ &quot;This is 16 bytes&quot;
 </pre></div>
 
 <p>Note&mdash;these commands only work inside a section description and not
 between them, so the following will produce an error from the linker:
-</p><div class="example">
-<pre class="example">SECTIONS {&nbsp;.text : {&nbsp;*(.text) }&nbsp;LONG(1) .data : {&nbsp;*(.data) }&nbsp;}&nbsp;</pre></div>
+</p><div class="example smallexample">
+<pre class="example-preformatted">SECTIONS {&nbsp;.text : {&nbsp;*(.text) }&nbsp;LONG(1) .data : {&nbsp;*(.data) }&nbsp;}&nbsp;</pre></div>
 <p>whereas this will work:
-</p><div class="example">
-<pre class="example">SECTIONS {&nbsp;.text : {&nbsp;*(.text) ; LONG(1) }&nbsp;.data : {&nbsp;*(.data) }&nbsp;}&nbsp;</pre></div>
+</p><div class="example smallexample">
+<pre class="example-preformatted">SECTIONS {&nbsp;.text : {&nbsp;*(.text) ; LONG(1) }&nbsp;.data : {&nbsp;*(.data) }&nbsp;}&nbsp;</pre></div>
 
-<span id="index-FILL_0028expression_0029"></span>
-<span id="index-holes_002c-filling"></span>
-<span id="index-unspecified-memory"></span>
-<p>You may use the <code>FILL</code> command to set the fill pattern for the
+<a class="index-entry-id" id="index-FILL_0028expression_0029"></a>
+<a class="index-entry-id" id="index-holes_002c-filling"></a>
+<a class="index-entry-id" id="index-unspecified-memory"></a>
+<p>You may use the <code class="code">FILL</code> command to set the fill pattern for the
 current section.  It is followed by an expression in parentheses.  Any
 otherwise unspecified regions of memory within the section (for example,
 gaps left due to the required alignment of input sections) are filled
 with the value of the expression, repeated as
-necessary.  A <code>FILL</code> statement covers memory locations after the
+necessary.  A <code class="code">FILL</code> statement covers memory locations after the
 point at which it occurs in the section definition; by including more
-than one <code>FILL</code> statement, you can have different fill patterns in
+than one <code class="code">FILL</code> statement, you can have different fill patterns in
 different parts of an output section.
 </p>
 <p>This example shows how to fill unspecified regions of memory with the
-value &lsquo;<samp>0x90</samp>&rsquo;:
-</p><div class="example">
-<pre class="example">FILL(0x90909090)
+value &lsquo;<samp class="samp">0x90</samp>&rsquo;:
+</p><div class="example smallexample">
+<pre class="example-preformatted">FILL(0x90909090)
 </pre></div>
 
-<p>The <code>FILL</code> command is similar to the &lsquo;<samp>=<var>fillexp</var></samp>&rsquo; output
+<p>The <code class="code">FILL</code> command is similar to the &lsquo;<samp class="samp">=<var class="var">fillexp</var></samp>&rsquo; output
 section attribute, but it only affects the
-part of the section following the <code>FILL</code> command, rather than the
-entire section.  If both are used, the <code>FILL</code> command takes
-precedence.  See <a href="Output-Section-Fill.html">Output Section Fill</a>, for details on the fill
+part of the section following the <code class="code">FILL</code> command, rather than the
+entire section.  If both are used, the <code class="code">FILL</code> command takes
+precedence.  See <a class="xref" href="Output-Section-Fill.html">Output Section Fill</a>, for details on the fill
 expression.
 </p>
-<p>Note - normally the value of <code>expression</code> is zero extended to 4
-bytes when used to fill gaps.  Thus &lsquo;<samp>FILL(144)</samp>&rsquo; will fill a
-region with repeats of the pattern &lsquo;<samp>0 0 0 144</samp>&rsquo;.  The value is
+<p>Note - normally the value of <code class="code">expression</code> is zero extended to 4
+bytes when used to fill gaps.  Thus &lsquo;<samp class="samp">FILL(144)</samp>&rsquo; will fill a
+region with repeats of the pattern &lsquo;<samp class="samp">0 0 0 144</samp>&rsquo;.  The value is
 treated as a big-endian number, so for example
-&lsquo;<samp>FILL(22 * 256 + 23)</samp>&rsquo; will fill the region with repeats of the
-pattern &lsquo;<samp>0 0 22 23</samp>&rsquo;.  If the expression results in a value with
+&lsquo;<samp class="samp">FILL(22 * 256 + 23)</samp>&rsquo; will fill the region with repeats of the
+pattern &lsquo;<samp class="samp">0 0 22 23</samp>&rsquo;.  If the expression results in a value with
 more than 4 significant bytes only the least 4 bytes of the value will
 be used.
 </p>
-<p>The above rules do not apply when the <code>expression</code> is a simple
+<p>The above rules do not apply when the <code class="code">expression</code> is a simple
 hexadecimal number.  In this case zero extension is not performed and
-all bytes are significant.  So &lsquo;<samp>FILL(0x90)</samp>&rsquo; will fill a region with
-repeats of &lsquo;<samp>0x90</samp>&rsquo; with no zero bytes, and &lsquo;<samp>FILL(0x9192)</samp>&rsquo;
-will fill the region with repeats of &lsquo;<samp>0x91 0x92</samp>&rsquo;.  Zero bytes
+all bytes are significant.  So &lsquo;<samp class="samp">FILL(0x90)</samp>&rsquo; will fill a region with
+repeats of &lsquo;<samp class="samp">0x90</samp>&rsquo; with no zero bytes, and &lsquo;<samp class="samp">FILL(0x9192)</samp>&rsquo;
+will fill the region with repeats of &lsquo;<samp class="samp">0x91 0x92</samp>&rsquo;.  Zero bytes
 in a hexadecimal expression are significant even at the start, so
-&lsquo;<samp>FILL(0x0090)</samp>&rsquo; will fill a region with repeats of &lsquo;<samp>0x00 0x90</samp>&rsquo;.
+&lsquo;<samp class="samp">FILL(0x0090)</samp>&rsquo; will fill a region with repeats of &lsquo;<samp class="samp">0x00 0x90</samp>&rsquo;.
 </p>
 <p>Hexadecimal numbers can be longer than 4 bytes, and all of the bytes
-are significant, so &lsquo;<samp>FILL(0x123456789a)</samp>&rsquo; will fill a region with
-repeats of the 5 byte sequence &lsquo;<samp>0x12 0x34 0x56 0x78 0x9a</samp>&rsquo;.
+are significant, so &lsquo;<samp class="samp">FILL(0x123456789a)</samp>&rsquo; will fill a region with
+repeats of the 5 byte sequence &lsquo;<samp class="samp">0x12 0x34 0x56 0x78 0x9a</samp>&rsquo;.
 Excess bytes in a hexadecimal value beyond the size of a region will 
 be silently ignored.
 </p>
 <p>The above only applies to hexadecimal numbers specified as
-&lsquo;<samp>0x[0-9][a-f][A-F]</samp>&rsquo;.  Hexadecimal numbers specified with a
-&lsquo;<samp>$</samp>&rsquo; prefix, or a &lsquo;<samp>h</samp>&rsquo;, &lsquo;<samp>H</samp>&rsquo;, &lsquo;<samp>x</samp>&rsquo; or &lsquo;<samp>X</samp>&rsquo; suffix
+&lsquo;<samp class="samp">0x[0-9][a-f][A-F]</samp>&rsquo;.  Hexadecimal numbers specified with a
+&lsquo;<samp class="samp">$</samp>&rsquo; prefix, or a &lsquo;<samp class="samp">h</samp>&rsquo;, &lsquo;<samp class="samp">H</samp>&rsquo;, &lsquo;<samp class="samp">x</samp>&rsquo; or &lsquo;<samp class="samp">X</samp>&rsquo; suffix
 will follow the normal fill value rules.  This also applies to
 expressions that involve hexadecimal numbers, and hexadecimal numbers
 that have a magnitude suffix.
 </p>
-<span id="index-LINKER_005fVERSION-1"></span>
-<span id="index-LINKER_005fVERSION"></span>
-<p>The <code>LINKER_VERSION</code> command inserts a string containing the
+<a class="index-entry-id" id="index-LINKER_005fVERSION-1"></a>
+<a class="index-entry-id" id="index-LINKER_005fVERSION"></a>
+<p>The <code class="code">LINKER_VERSION</code> command inserts a string containing the
 version of the linker at the current point.  Note - by default this
 directive is disabled and will do nothing.  It only becomes active if
-the <samp>--enable-linker-version</samp> command line option is used.
+the <samp class="option">--enable-linker-version</samp> command line option is used.
 </p>
 <p>Built-in linker scripts for ELF based targets already include this
-directive in their &lsquo;<samp>.comment</samp>&rsquo; section.
+directive in their &lsquo;<samp class="samp">.comment</samp>&rsquo; section.
 </p>
 </div>
 <hr>
-<div class="header">
+<div class="nav-panel">
 <p>
 Next: <a href="Output-Section-Keywords.html">Output Section Keywords</a>, Previous: <a href="Input-Section.html">Input Section Description</a>, Up: <a href="SECTIONS.html">SECTIONS Command</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="LD-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

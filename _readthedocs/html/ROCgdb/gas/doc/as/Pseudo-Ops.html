@@ -1,11 +1,11 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the GNU Assembler "as".
 
-Copyright (C) 1991-2025 Free Software Foundation, Inc.
+Copyright © 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -31,21 +31,8 @@ section entitled "GNU Free Documentation License".
 <link href="Expressions.html" rel="prev" title="Expressions">
 <style type="text/css">
 <!--
-a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
-a.summary-letter {text-decoration: none}
-blockquote.indentedblock {margin-right: 0em}
-div.display {margin-left: 3.2em}
-div.example {margin-left: 3.2em}
-kbd {font-style: oblique}
-pre.display {font-family: inherit}
-pre.format {font-family: inherit}
-pre.menu-comment {font-family: serif}
-pre.menu-preformatted {font-family: serif}
-span.nolinebreak {white-space: nowrap}
-span.roman {font-family: initial; font-weight: normal}
-span.sansserif {font-family: sans-serif; font-weight: normal}
-span:hover a.copiable-anchor {visibility: visible}
-ul.no-bullet {list-style: none}
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+span:hover a.copiable-link {visibility: visible}
 -->
 </style>
 
@@ -53,149 +40,149 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<div class="chapter" id="Pseudo-Ops">
-<div class="header">
+<div class="chapter-level-extent" id="Pseudo-Ops">
+<div class="nav-panel">
 <p>
 Next: <a href="Object-Attributes.html" accesskey="n" rel="next">Object Attributes</a>, Previous: <a href="Expressions.html" accesskey="p" rel="prev">Expressions</a>, Up: <a href="index.html" accesskey="u" rel="up">Using as</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="Assembler-Directives"></span><h2 class="chapter">7 Assembler Directives</h2>
+<h2 class="chapter" id="Assembler-Directives"><span>7 Assembler Directives<a class="copiable-link" href="#Assembler-Directives"> &para;</a></span></h2>
 
-<span id="index-directives_002c-machine-independent"></span>
-<span id="index-pseudo_002dops_002c-machine-independent"></span>
-<span id="index-machine-independent-directives"></span>
-<p>All assembler directives have names that begin with a period (&lsquo;<samp>.</samp>&rsquo;).
+<a class="index-entry-id" id="index-directives_002c-machine-independent"></a>
+<a class="index-entry-id" id="index-pseudo_002dops_002c-machine-independent"></a>
+<a class="index-entry-id" id="index-machine-independent-directives"></a>
+<p>All assembler directives have names that begin with a period (&lsquo;<samp class="samp">.</samp>&rsquo;).
 The names are case insensitive for most targets, and usually written
 in lower case.
 </p>
 <p>This chapter discusses directives that are available regardless of the
-target machine configuration for the <small>GNU</small> assembler.
+target machine configuration for the <small class="sc">GNU</small> assembler.
 Some machine configurations provide additional directives.
-See <a href="Machine-Dependencies.html">Machine Dependent Features</a>.
+See <a class="xref" href="Machine-Dependencies.html">Machine Dependent Features</a>.
 </p>
 
-<ul class="section-toc">
-<li><a href="Abort.html" accesskey="1"><code>.abort</code></a></li>
-<li><a href="ABORT-_0028COFF_0029.html" accesskey="2"><code>.ABORT</code> (COFF)</a></li>
-<li><a href="Align.html" accesskey="3"><code>.align [<var>abs-expr</var>[, <var>abs-expr</var>[, <var>abs-expr</var>]]]</code></a></li>
-<li><a href="Altmacro.html" accesskey="4"><code>.altmacro</code></a></li>
-<li><a href="Ascii.html" accesskey="5"><code>.ascii &quot;<var>string</var>&quot;</code>&hellip;</a></li>
-<li><a href="Asciz.html" accesskey="6"><code>.asciz &quot;<var>string</var>&quot;</code>&hellip;</a></li>
-<li><a href="Attach_005fto_005fgroup.html" accesskey="7"><code>.attach_to_group <var>name</var></code></a></li>
-<li><a href="Balign.html" accesskey="8"><code>.balign[wl] [<var>abs-expr</var>[, <var>abs-expr</var>[, <var>abs-expr</var>]]]</code></a></li>
-<li><a href="Base64.html" accesskey="9"><code>.base64 &quot;<var>string</var>&quot;[, &hellip;]</code></a></li>
-<li><a href="Bss.html"><code>.bss <var>subsection</var></code></a></li>
+<ul class="mini-toc">
+<li><a href="Abort.html" accesskey="1"><code class="code">.abort</code></a></li>
+<li><a href="ABORT-_0028COFF_0029.html" accesskey="2"><code class="code">.ABORT</code> (COFF)</a></li>
+<li><a href="Align.html" accesskey="3"><code class="code">.align [<var class="var">abs-expr</var>[, <var class="var">abs-expr</var>[, <var class="var">abs-expr</var>]]]</code></a></li>
+<li><a href="Altmacro.html" accesskey="4"><code class="code">.altmacro</code></a></li>
+<li><a href="Ascii.html" accesskey="5"><code class="code">.ascii &quot;<var class="var">string</var>&quot;</code>&hellip;</a></li>
+<li><a href="Asciz.html" accesskey="6"><code class="code">.asciz &quot;<var class="var">string</var>&quot;</code>&hellip;</a></li>
+<li><a href="Attach_005fto_005fgroup.html" accesskey="7"><code class="code">.attach_to_group <var class="var">name</var></code></a></li>
+<li><a href="Balign.html" accesskey="8"><code class="code">.balign[wl] [<var class="var">abs-expr</var>[, <var class="var">abs-expr</var>[, <var class="var">abs-expr</var>]]]</code></a></li>
+<li><a href="Base64.html" accesskey="9"><code class="code">.base64 &quot;<var class="var">string</var>&quot;[, &hellip;]</code></a></li>
+<li><a href="Bss.html"><code class="code">.bss <var class="var">subsection</var></code></a></li>
 <li><a href="Bundle-directives.html">Bundle directives</a></li>
-<li><a href="Byte.html"><code>.byte <var>expressions</var></code></a></li>
+<li><a href="Byte.html"><code class="code">.byte <var class="var">expressions</var></code></a></li>
 <li><a href="CFI-directives.html">CFI directives</a></li>
-<li><a href="Comm.html"><code>.comm <var>symbol</var> , <var>length</var> </code></a></li>
-<li><a href="Data.html"><code>.data <var>subsection</var></code></a></li>
-<li><a href="Dc.html"><code>.dc[<var>size</var>] <var>expressions</var></code></a></li>
-<li><a href="Dcb.html"><code>.dcb[<var>size</var>] <var>number</var> [,<var>fill</var>]</code></a></li>
-<li><a href="Ds.html"><code>.ds[<var>size</var>] <var>number</var> [,<var>fill</var>]</code></a></li>
-<li><a href="Def.html"><code>.def <var>name</var></code></a></li>
-<li><a href="Desc.html"><code>.desc <var>symbol</var>, <var>abs-expression</var></code></a></li>
-<li><a href="Dim.html"><code>.dim</code></a></li>
-<li><a href="Double.html"><code>.double <var>flonums</var></code></a></li>
-<li><a href="Eject.html"><code>.eject</code></a></li>
-<li><a href="Else.html"><code>.else</code></a></li>
-<li><a href="Elseif.html"><code>.elseif</code></a></li>
-<li><a href="End.html"><code>.end</code></a></li>
-<li><a href="Endef.html"><code>.endef</code></a></li>
-<li><a href="Endfunc.html"><code>.endfunc</code></a></li>
-<li><a href="Endif.html"><code>.endif</code></a></li>
-<li><a href="Equ.html"><code>.equ <var>symbol</var>, <var>expression</var></code></a></li>
-<li><a href="Equiv.html"><code>.equiv <var>symbol</var>, <var>expression</var></code></a></li>
-<li><a href="Eqv.html"><code>.eqv <var>symbol</var>, <var>expression</var></code></a></li>
-<li><a href="Err.html"><code>.err</code></a></li>
-<li><a href="Error.html"><code>.error &quot;<var>string</var>&quot;</code></a></li>
-<li><a href="Exitm.html"><code>.exitm</code></a></li>
-<li><a href="Extern.html"><code>.extern</code></a></li>
-<li><a href="Fail.html"><code>.fail <var>expression</var></code></a></li>
-<li><a href="File.html"><code>.file</code></a></li>
-<li><a href="Fill.html"><code>.fill <var>repeat</var> , <var>size</var> , <var>value</var></code></a></li>
-<li><a href="Float.html"><code>.float <var>flonums</var></code></a></li>
-<li><a href="Func.html"><code>.func <var>name</var>[,<var>label</var>]</code></a></li>
-<li><a href="Global.html"><code>.global <var>symbol</var></code>, <code>.globl <var>symbol</var></code></a></li>
-<li><a href="Gnu_005fattribute.html"><code>.gnu_attribute <var>tag</var>,<var>value</var></code></a></li>
-<li><a href="Hidden.html"><code>.hidden <var>names</var></code></a></li>
-<li><a href="hword.html"><code>.hword <var>expressions</var></code></a></li>
-<li><a href="Ident.html"><code>.ident</code></a></li>
-<li><a href="If.html"><code>.if <var>absolute expression</var></code></a></li>
-<li><a href="Incbin.html"><code>.incbin &quot;<var>file</var>&quot;[,<var>skip</var>[,<var>count</var>]]</code></a></li>
-<li><a href="Include.html"><code>.include &quot;<var>file</var>&quot;</code></a></li>
-<li><a href="Int.html"><code>.int <var>expressions</var></code></a></li>
-<li><a href="Internal.html"><code>.internal <var>names</var></code></a></li>
-<li><a href="Irp.html"><code>.irp <var>symbol</var>,<var>value</var></code>&hellip;</a></li>
-<li><a href="Irpc.html"><code>.irpc <var>symbol</var>,<var>values</var></code>&hellip;</a></li>
-<li><a href="Lcomm.html"><code>.lcomm <var>symbol</var> , <var>length</var></code></a></li>
-<li><a href="Lflags.html"><code>.lflags</code></a></li>
-<li><a href="Line.html"><code>.line <var>line-number</var></code></a></li>
-<li><a href="Linkonce.html"><code>.linkonce [<var>type</var>]</code></a></li>
-<li><a href="List.html"><code>.list</code></a></li>
-<li><a href="Ln.html"><code>.ln <var>line-number</var></code></a></li>
-<li><a href="Loc.html"><code>.loc <var>fileno</var> <var>lineno</var> [<var>column</var>] [<var>options</var>]</code></a></li>
-<li><a href="Loc_005fmark_005flabels.html"><code>.loc_mark_labels <var>enable</var></code></a></li>
-<li><a href="Local.html"><code>.local <var>names</var></code></a></li>
-<li><a href="Long.html"><code>.long <var>expressions</var></code></a></li>
-<li><a href="Macro.html"><code>.macro</code></a></li>
-<li><a href="MRI.html"><code>.mri <var>val</var></code></a></li>
-<li><a href="Noaltmacro.html"><code>.noaltmacro</code></a></li>
-<li><a href="Nolist.html"><code>.nolist</code></a></li>
-<li><a href="Nop.html"><code>.nop [<var>size</var>]</code></a></li>
-<li><a href="Nops.html"><code>.nops <var>size</var>[, <var>control</var>]</code></a></li>
-<li><a href="Octa.html"><code>.octa <var>bignums</var></code></a></li>
-<li><a href="Offset.html"><code>.offset <var>loc</var></code></a></li>
-<li><a href="Org.html"><code>.org <var>new-lc</var> , <var>fill</var></code></a></li>
-<li><a href="P2align.html"><code>.p2align[wl] [<var>abs-expr</var>[, <var>abs-expr</var>[, <var>abs-expr</var>]]]</code></a></li>
-<li><a href="PopSection.html"><code>.popsection</code></a></li>
-<li><a href="Previous.html"><code>.previous</code></a></li>
-<li><a href="Print.html"><code>.print <var>string</var></code></a></li>
-<li><a href="Protected.html"><code>.protected <var>names</var></code></a></li>
-<li><a href="Psize.html"><code>.psize <var>lines</var> , <var>columns</var></code></a></li>
-<li><a href="Purgem.html"><code>.purgem <var>name</var></code></a></li>
-<li><a href="PushSection.html"><code>.pushsection <var>name</var> [, <var>subsection</var>] [, &quot;<var>flags</var>&quot;[, @<var>type</var>[,<var>arguments</var>]]]</code></a></li>
-<li><a href="Quad.html"><code>.quad <var>expressions</var></code></a></li>
-<li><a href="Reloc.html"><code>.reloc <var>offset</var>, <var>reloc_name</var>[, <var>expression</var>]</code></a></li>
-<li><a href="Rept.html"><code>.rept <var>count</var></code></a></li>
-<li><a href="Sbttl.html"><code>.sbttl &quot;<var>subheading</var>&quot;</code></a></li>
-<li><a href="Scl.html"><code>.scl <var>class</var></code></a></li>
-<li><a href="Section.html"><code>.section <var>name</var></code></a></li>
-<li><a href="Set.html"><code>.set <var>symbol</var>, <var>expression</var></code></a></li>
-<li><a href="Short.html"><code>.short <var>expressions</var></code></a></li>
-<li><a href="Single.html"><code>.single <var>flonums</var></code></a></li>
-<li><a href="Size.html"><code>.size</code></a></li>
-<li><a href="Skip.html"><code>.skip <var>size</var> [,<var>fill</var>]</code></a></li>
-<li><a href="Sleb128.html"><code>.sleb128 <var>expressions</var></code></a></li>
-<li><a href="Space.html"><code>.space <var>size</var> [,<var>fill</var>]</code></a></li>
-<li><a href="Stab.html"><code>.stabd, .stabn, .stabs</code></a></li>
-<li><a href="String.html"><code>.string</code> &quot;<var>str</var>&quot;, <code>.string8</code> &quot;<var>str</var>&quot;, <code>.string16</code></a></li>
-<li><a href="Struct.html"><code>.struct <var>expression</var></code></a></li>
-<li><a href="SubSection.html"><code>.subsection <var>name</var></code></a></li>
-<li><a href="Symver.html"><code>.symver</code></a></li>
-<li><a href="Tag.html"><code>.tag <var>structname</var></code></a></li>
-<li><a href="Text.html"><code>.text <var>subsection</var></code></a></li>
-<li><a href="Title.html"><code>.title &quot;<var>heading</var>&quot;</code></a></li>
-<li><a href="Tls_005fcommon.html"><code>.tls_common <var>symbol</var>, <var>length</var>[, <var>alignment</var>]</code></a></li>
-<li><a href="Type.html"><code>.type</code></a></li>
-<li><a href="Uleb128.html"><code>.uleb128 <var>expressions</var></code></a></li>
-<li><a href="Val.html"><code>.val <var>addr</var></code></a></li>
-<li><a href="Version.html"><code>.version &quot;<var>string</var>&quot;</code></a></li>
-<li><a href="VTableEntry.html"><code>.vtable_entry <var>table</var>, <var>offset</var></code></a></li>
-<li><a href="VTableInherit.html"><code>.vtable_inherit <var>child</var>, <var>parent</var></code></a></li>
-<li><a href="Warning.html"><code>.warning &quot;<var>string</var>&quot;</code></a></li>
-<li><a href="Weak.html"><code>.weak <var>names</var></code></a></li>
-<li><a href="Weakref.html"><code>.weakref <var>alias</var>, <var>target</var></code></a></li>
-<li><a href="Word.html"><code>.word <var>expressions</var></code></a></li>
-<li><a href="Zero.html"><code>.zero <var>size</var></code></a></li>
-<li><a href="2byte.html"><code>.2byte <var>expression</var> [, <var>expression</var>]*</code></a></li>
-<li><a href="4byte.html"><code>.4byte <var>expression</var> [, <var>expression</var>]*</code></a></li>
-<li><a href="8byte.html"><code>.8byte <var>expression</var> [, <var>expression</var>]*</code></a></li>
+<li><a href="Comm.html"><code class="code">.comm <var class="var">symbol</var> , <var class="var">length</var> </code></a></li>
+<li><a href="Data.html"><code class="code">.data <var class="var">subsection</var></code></a></li>
+<li><a href="Dc.html"><code class="code">.dc[<var class="var">size</var>] <var class="var">expressions</var></code></a></li>
+<li><a href="Dcb.html"><code class="code">.dcb[<var class="var">size</var>] <var class="var">number</var> [,<var class="var">fill</var>]</code></a></li>
+<li><a href="Ds.html"><code class="code">.ds[<var class="var">size</var>] <var class="var">number</var> [,<var class="var">fill</var>]</code></a></li>
+<li><a href="Def.html"><code class="code">.def <var class="var">name</var></code></a></li>
+<li><a href="Desc.html"><code class="code">.desc <var class="var">symbol</var>, <var class="var">abs-expression</var></code></a></li>
+<li><a href="Dim.html"><code class="code">.dim</code></a></li>
+<li><a href="Double.html"><code class="code">.double <var class="var">flonums</var></code></a></li>
+<li><a href="Eject.html"><code class="code">.eject</code></a></li>
+<li><a href="Else.html"><code class="code">.else</code></a></li>
+<li><a href="Elseif.html"><code class="code">.elseif</code></a></li>
+<li><a href="End.html"><code class="code">.end</code></a></li>
+<li><a href="Endef.html"><code class="code">.endef</code></a></li>
+<li><a href="Endfunc.html"><code class="code">.endfunc</code></a></li>
+<li><a href="Endif.html"><code class="code">.endif</code></a></li>
+<li><a href="Equ.html"><code class="code">.equ <var class="var">symbol</var>, <var class="var">expression</var></code></a></li>
+<li><a href="Equiv.html"><code class="code">.equiv <var class="var">symbol</var>, <var class="var">expression</var></code></a></li>
+<li><a href="Eqv.html"><code class="code">.eqv <var class="var">symbol</var>, <var class="var">expression</var></code></a></li>
+<li><a href="Err.html"><code class="code">.err</code></a></li>
+<li><a href="Error.html"><code class="code">.error &quot;<var class="var">string</var>&quot;</code></a></li>
+<li><a href="Exitm.html"><code class="code">.exitm</code></a></li>
+<li><a href="Extern.html"><code class="code">.extern</code></a></li>
+<li><a href="Fail.html"><code class="code">.fail <var class="var">expression</var></code></a></li>
+<li><a href="File.html"><code class="code">.file</code></a></li>
+<li><a href="Fill.html"><code class="code">.fill <var class="var">repeat</var> , <var class="var">size</var> , <var class="var">value</var></code></a></li>
+<li><a href="Float.html"><code class="code">.float <var class="var">flonums</var></code></a></li>
+<li><a href="Func.html"><code class="code">.func <var class="var">name</var>[,<var class="var">label</var>]</code></a></li>
+<li><a href="Global.html"><code class="code">.global <var class="var">symbol</var></code>, <code class="code">.globl <var class="var">symbol</var></code></a></li>
+<li><a href="Gnu_005fattribute.html"><code class="code">.gnu_attribute <var class="var">tag</var>,<var class="var">value</var></code></a></li>
+<li><a href="Hidden.html"><code class="code">.hidden <var class="var">names</var></code></a></li>
+<li><a href="hword.html"><code class="code">.hword <var class="var">expressions</var></code></a></li>
+<li><a href="Ident.html"><code class="code">.ident</code></a></li>
+<li><a href="If.html"><code class="code">.if <var class="var">absolute expression</var></code></a></li>
+<li><a href="Incbin.html"><code class="code">.incbin &quot;<var class="var">file</var>&quot;[,<var class="var">skip</var>[,<var class="var">count</var>]]</code></a></li>
+<li><a href="Include.html"><code class="code">.include &quot;<var class="var">file</var>&quot;</code></a></li>
+<li><a href="Int.html"><code class="code">.int <var class="var">expressions</var></code></a></li>
+<li><a href="Internal.html"><code class="code">.internal <var class="var">names</var></code></a></li>
+<li><a href="Irp.html"><code class="code">.irp <var class="var">symbol</var>,<var class="var">value</var></code>&hellip;</a></li>
+<li><a href="Irpc.html"><code class="code">.irpc <var class="var">symbol</var>,<var class="var">values</var></code>&hellip;</a></li>
+<li><a href="Lcomm.html"><code class="code">.lcomm <var class="var">symbol</var> , <var class="var">length</var></code></a></li>
+<li><a href="Lflags.html"><code class="code">.lflags</code></a></li>
+<li><a href="Line.html"><code class="code">.line <var class="var">line-number</var></code></a></li>
+<li><a href="Linkonce.html"><code class="code">.linkonce [<var class="var">type</var>]</code></a></li>
+<li><a href="List.html"><code class="code">.list</code></a></li>
+<li><a href="Ln.html"><code class="code">.ln <var class="var">line-number</var></code></a></li>
+<li><a href="Loc.html"><code class="code">.loc <var class="var">fileno</var> <var class="var">lineno</var> [<var class="var">column</var>] [<var class="var">options</var>]</code></a></li>
+<li><a href="Loc_005fmark_005flabels.html"><code class="code">.loc_mark_labels <var class="var">enable</var></code></a></li>
+<li><a href="Local.html"><code class="code">.local <var class="var">names</var></code></a></li>
+<li><a href="Long.html"><code class="code">.long <var class="var">expressions</var></code></a></li>
+<li><a href="Macro.html"><code class="code">.macro</code></a></li>
+<li><a href="MRI.html"><code class="code">.mri <var class="var">val</var></code></a></li>
+<li><a href="Noaltmacro.html"><code class="code">.noaltmacro</code></a></li>
+<li><a href="Nolist.html"><code class="code">.nolist</code></a></li>
+<li><a href="Nop.html"><code class="code">.nop [<var class="var">size</var>]</code></a></li>
+<li><a href="Nops.html"><code class="code">.nops <var class="var">size</var>[, <var class="var">control</var>]</code></a></li>
+<li><a href="Octa.html"><code class="code">.octa <var class="var">bignums</var></code></a></li>
+<li><a href="Offset.html"><code class="code">.offset <var class="var">loc</var></code></a></li>
+<li><a href="Org.html"><code class="code">.org <var class="var">new-lc</var> , <var class="var">fill</var></code></a></li>
+<li><a href="P2align.html"><code class="code">.p2align[wl] [<var class="var">abs-expr</var>[, <var class="var">abs-expr</var>[, <var class="var">abs-expr</var>]]]</code></a></li>
+<li><a href="PopSection.html"><code class="code">.popsection</code></a></li>
+<li><a href="Previous.html"><code class="code">.previous</code></a></li>
+<li><a href="Print.html"><code class="code">.print <var class="var">string</var></code></a></li>
+<li><a href="Protected.html"><code class="code">.protected <var class="var">names</var></code></a></li>
+<li><a href="Psize.html"><code class="code">.psize <var class="var">lines</var> , <var class="var">columns</var></code></a></li>
+<li><a href="Purgem.html"><code class="code">.purgem <var class="var">name</var></code></a></li>
+<li><a href="PushSection.html"><code class="code">.pushsection <var class="var">name</var> [, <var class="var">subsection</var>] [, &quot;<var class="var">flags</var>&quot;[, @<var class="var">type</var>[,<var class="var">arguments</var>]]]</code></a></li>
+<li><a href="Quad.html"><code class="code">.quad <var class="var">expressions</var></code></a></li>
+<li><a href="Reloc.html"><code class="code">.reloc <var class="var">offset</var>, <var class="var">reloc_name</var>[, <var class="var">expression</var>]</code></a></li>
+<li><a href="Rept.html"><code class="code">.rept <var class="var">count</var></code></a></li>
+<li><a href="Sbttl.html"><code class="code">.sbttl &quot;<var class="var">subheading</var>&quot;</code></a></li>
+<li><a href="Scl.html"><code class="code">.scl <var class="var">class</var></code></a></li>
+<li><a href="Section.html"><code class="code">.section <var class="var">name</var></code></a></li>
+<li><a href="Set.html"><code class="code">.set <var class="var">symbol</var>, <var class="var">expression</var></code></a></li>
+<li><a href="Short.html"><code class="code">.short <var class="var">expressions</var></code></a></li>
+<li><a href="Single.html"><code class="code">.single <var class="var">flonums</var></code></a></li>
+<li><a href="Size.html"><code class="code">.size</code></a></li>
+<li><a href="Skip.html"><code class="code">.skip <var class="var">size</var> [,<var class="var">fill</var>]</code></a></li>
+<li><a href="Sleb128.html"><code class="code">.sleb128 <var class="var">expressions</var></code></a></li>
+<li><a href="Space.html"><code class="code">.space <var class="var">size</var> [,<var class="var">fill</var>]</code></a></li>
+<li><a href="Stab.html"><code class="code">.stabd, .stabn, .stabs</code></a></li>
+<li><a href="String.html"><code class="code">.string</code> &quot;<var class="var">str</var>&quot;, <code class="code">.string8</code> &quot;<var class="var">str</var>&quot;, <code class="code">.string16</code></a></li>
+<li><a href="Struct.html"><code class="code">.struct <var class="var">expression</var></code></a></li>
+<li><a href="SubSection.html"><code class="code">.subsection <var class="var">name</var></code></a></li>
+<li><a href="Symver.html"><code class="code">.symver</code></a></li>
+<li><a href="Tag.html"><code class="code">.tag <var class="var">structname</var></code></a></li>
+<li><a href="Text.html"><code class="code">.text <var class="var">subsection</var></code></a></li>
+<li><a href="Title.html"><code class="code">.title &quot;<var class="var">heading</var>&quot;</code></a></li>
+<li><a href="Tls_005fcommon.html"><code class="code">.tls_common <var class="var">symbol</var>, <var class="var">length</var>[, <var class="var">alignment</var>]</code></a></li>
+<li><a href="Type.html"><code class="code">.type</code></a></li>
+<li><a href="Uleb128.html"><code class="code">.uleb128 <var class="var">expressions</var></code></a></li>
+<li><a href="Val.html"><code class="code">.val <var class="var">addr</var></code></a></li>
+<li><a href="Version.html"><code class="code">.version &quot;<var class="var">string</var>&quot;</code></a></li>
+<li><a href="VTableEntry.html"><code class="code">.vtable_entry <var class="var">table</var>, <var class="var">offset</var></code></a></li>
+<li><a href="VTableInherit.html"><code class="code">.vtable_inherit <var class="var">child</var>, <var class="var">parent</var></code></a></li>
+<li><a href="Warning.html"><code class="code">.warning &quot;<var class="var">string</var>&quot;</code></a></li>
+<li><a href="Weak.html"><code class="code">.weak <var class="var">names</var></code></a></li>
+<li><a href="Weakref.html"><code class="code">.weakref <var class="var">alias</var>, <var class="var">target</var></code></a></li>
+<li><a href="Word.html"><code class="code">.word <var class="var">expressions</var></code></a></li>
+<li><a href="Zero.html"><code class="code">.zero <var class="var">size</var></code></a></li>
+<li><a href="2byte.html"><code class="code">.2byte <var class="var">expression</var> [, <var class="var">expression</var>]*</code></a></li>
+<li><a href="4byte.html"><code class="code">.4byte <var class="var">expression</var> [, <var class="var">expression</var>]*</code></a></li>
+<li><a href="8byte.html"><code class="code">.8byte <var class="var">expression</var> [, <var class="var">expression</var>]*</code></a></li>
 <li><a href="Deprecated.html">Deprecated Directives</a></li>
 </ul>
 </div>
 <hr>
-<div class="header">
+<div class="nav-panel">
 <p>
 Next: <a href="Object-Attributes.html">Object Attributes</a>, Previous: <a href="Expressions.html">Expressions</a>, Up: <a href="index.html">Using as</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

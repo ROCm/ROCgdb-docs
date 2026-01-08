@@ -1,9 +1,9 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright (C) 1988-2024 Free Software Foundation, Inc.
+<!-- Copyright © 1988-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -20,13 +20,13 @@ Legal Disclaimer and Copyright Information
 
 AMD ROCm software is made available by Advanced Micro Devices, Inc. under the
 open source license identified in the top-level directory for the library in
-the repository on Github.com (Portions of AMD ROCm software are
-licensed under MITx11 and UIL/NCSA. For more information on the license, review
-the license.txt in the top-level directory for the library on
-Github.com).  The additional terms and conditions below apply to your use
-of AMD ROCm technical documentation.
+the repository on https://github.com/ROCm/ (Github.com) (Portions of AMD
+ROCm software are licensed under MITx11 and UIL/NCSA. For more information on
+the license, review the license.txt in the top-level directory for the
+library on https://github.com/ROCm/ (Github.com)).  The additional terms
+and conditions below apply to your use of AMD ROCm technical documentation.
 
-(C)2019-2025 Advanced Micro Devices, Inc.  All rights reserved.
+©2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
 
 The information presented in this document is for informational purposes only
 and may contain technical inaccuracies, omissions, and typographical errors.
@@ -52,8 +52,8 @@ EVEN IF AMD IS EXPRESSLY ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
 
 AMD, the AMD Arrow logo, AMD Instinct™, Radeon™, AMD ROCm™, and combinations
 thereof are trademarks of Advanced Micro Devices, Inc.
-Linux(R) is the registered trademark of Linus Torvalds in the
-U.S. and other countries. PCIe(R) is a registered trademark of
+Linux® is the registered trademark of Linus Torvalds in the
+U.S. and other countries. PCIe® is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
@@ -74,21 +74,14 @@ companies. -->
 <link href="File-Caching.html" rel="prev" title="File Caching">
 <style type="text/css">
 <!--
-a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
-a.summary-letter {text-decoration: none}
-blockquote.indentedblock {margin-right: 0em}
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
 div.display {margin-left: 3.2em}
 div.example {margin-left: 3.2em}
-kbd {font-style: oblique}
-pre.display {font-family: inherit}
-pre.format {font-family: inherit}
-pre.menu-comment {font-family: serif}
-pre.menu-preformatted {font-family: serif}
-span.nolinebreak {white-space: nowrap}
-span.roman {font-family: initial; font-weight: normal}
-span.sansserif {font-family: sans-serif; font-weight: normal}
-span:hover a.copiable-anchor {visibility: visible}
-ul.no-bullet {list-style: none}
+kbd.kbd {font-style: oblique}
+pre.display-preformatted {font-family: inherit}
+span:hover a.copiable-link {visibility: visible}
+ul.mark-bullet {list-style-type: disc}
+ul.mark-minus {list-style-type: "\2212"}
 -->
 </style>
 
@@ -96,144 +89,140 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<div class="section" id="Separate-Debug-Files">
-<div class="header">
+<div class="section-level-extent" id="Separate-Debug-Files">
+<div class="nav-panel">
 <p>
-Next: <a href="MiniDebugInfo.html" accesskey="n" rel="next">Debugging information in a special section</a>, Previous: <a href="File-Caching.html" accesskey="p" rel="prev">File Caching</a>, Up: <a href="GDB-Files.html" accesskey="u" rel="up"><small>ROCGDB</small> Files</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="MiniDebugInfo.html" accesskey="n" rel="next">Debugging information in a special section</a>, Previous: <a href="File-Caching.html" accesskey="p" rel="prev">File Caching</a>, Up: <a href="GDB-Files.html" accesskey="u" rel="up"><small class="sc">ROCGDB</small> Files</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="Debugging-Information-in-Separate-Files"></span><h3 class="section">18.3 Debugging Information in Separate Files</h3>
-<span id="index-separate-debugging-information-files"></span>
-<span id="index-debugging-information-in-separate-files"></span>
-<span id="index-_002edebug-subdirectories"></span>
-<span id="index-debugging-information-directory_002c-global"></span>
-<span id="index-global-debugging-information-directories"></span>
-<span id="index-build-ID_002c-and-separate-debugging-files"></span>
-<span id="index-_002ebuild_002did-directory"></span>
+<h3 class="section" id="Debugging-Information-in-Separate-Files"><span>18.3 Debugging Information in Separate Files<a class="copiable-link" href="#Debugging-Information-in-Separate-Files"> &para;</a></span></h3>
+<a class="index-entry-id" id="index-separate-debugging-information-files"></a>
+<a class="index-entry-id" id="index-debugging-information-in-separate-files"></a>
+<a class="index-entry-id" id="index-_002edebug-subdirectories"></a>
+<a class="index-entry-id" id="index-debugging-information-directory_002c-global"></a>
+<a class="index-entry-id" id="index-global-debugging-information-directories"></a>
+<a class="index-entry-id" id="index-build-ID_002c-and-separate-debugging-files"></a>
+<a class="index-entry-id" id="index-_002ebuild_002did-directory"></a>
 
-<p><small>ROCGDB</small> allows you to put a program&rsquo;s debugging information in a
+<p><small class="sc">ROCGDB</small> allows you to put a program&rsquo;s debugging information in a
 file separate from the executable itself, in a way that allows
-<small>ROCGDB</small> to find and load the debugging information automatically.
+<small class="sc">ROCGDB</small> to find and load the debugging information automatically.
 Since debugging information can be very large&mdash;sometimes larger
 than the executable code itself&mdash;some systems distribute debugging
 information for their executables in separate files, which users can
 install only when they need to debug a problem.
 </p>
-<p><small>ROCGDB</small> supports two ways of specifying the separate debug info
+<p><small class="sc">ROCGDB</small> supports two ways of specifying the separate debug info
 file:
 </p>
-<ul>
-<li> The executable contains a <em>debug link</em> that specifies the name of
+<ul class="itemize mark-bullet">
+<li>The executable contains a <em class="dfn">debug link</em> that specifies the name of
 the separate debug info file.  The separate debug file&rsquo;s name is
-usually <samp><var>executable</var>.debug</samp>, where <var>executable</var> is the
+usually <samp class="file"><var class="var">executable</var>.debug</samp>, where <var class="var">executable</var> is the
 name of the corresponding executable file without leading directories
-(e.g., <samp>ls.debug</samp> for <samp>/usr/bin/ls</samp>).  In addition, the
-debug link specifies a 32-bit <em>Cyclic Redundancy Check</em> (CRC)
-checksum for the debug file, which <small>ROCGDB</small> uses to validate that
+(e.g., <samp class="file">ls.debug</samp> for <samp class="file">/usr/bin/ls</samp>).  In addition, the
+debug link specifies a 32-bit <em class="dfn">Cyclic Redundancy Check</em> (CRC)
+checksum for the debug file, which <small class="sc">ROCGDB</small> uses to validate that
 the executable and the debug file came from the same build.
 
-</li><li> <span id="build-ID"></span>The executable contains a <em>build ID</em>, a unique bit string that is
+</li><li><a class="anchor" id="build-ID"></a>The executable contains a <em class="dfn">build ID</em>, a unique bit string that is
 also present in the corresponding debug info file.  (This is supported
 only on some operating systems, when using the ELF or PE file formats
-for binary files and the <small>GNU</small> Binutils.)  For more details about
-this feature, see the description of the <samp>--build-id</samp>
-command-line option in <a data-manual="ld" href="https://sourceware.org/binutils/docs/ld/Options.html#Options">Command Line Options</a> in <cite>The GNU Linker</cite>.  The debug info file&rsquo;s name is not specified
+for binary files and the <small class="sc">GNU</small> Binutils.)  For more details about
+this feature, see the description of the <samp class="option">--build-id</samp>
+command-line option in <a data-manual="ld" href="https://sourceware.org/binutils/docs/ld/Options.html#Options">Command Line Options</a> in <cite class="cite">The GNU Linker</cite>.  The debug info file&rsquo;s name is not specified
 explicitly by the build ID, but can be computed from the build ID, see
 below.
 </li></ul>
 
-<p>Depending on the way the debug info file is specified, <small>ROCGDB</small>
+<p>Depending on the way the debug info file is specified, <small class="sc">ROCGDB</small>
 uses two different methods of looking for the debug file:
 </p>
-<ul>
-<li> For the &ldquo;debug link&rdquo; method, <small>ROCGDB</small> looks up the named file in
+<ul class="itemize mark-bullet">
+<li>For the &ldquo;debug link&rdquo; method, <small class="sc">ROCGDB</small> looks up the named file in
 the directory of the executable file, then in a subdirectory of that
-directory named <samp>.debug</samp>, and finally under each one of the
+directory named <samp class="file">.debug</samp>, and finally under each one of the
 global debug directories, in a subdirectory whose name is identical to
 the leading directories of the executable&rsquo;s absolute file name.  (On
 MS-Windows/MS-DOS, the drive letter of the executable&rsquo;s leading
 directories is converted to a one-letter subdirectory, i.e.
-<samp>d:/usr/bin/</samp> is converted to <samp>/d/usr/bin/</samp>, because Windows
+<samp class="file">d:/usr/bin/</samp> is converted to <samp class="file">/d/usr/bin/</samp>, because Windows
 filesystems disallow colons in file names.)
 
-</li><li> For the &ldquo;build ID&rdquo; method, <small>ROCGDB</small> looks in the
-<samp>.build-id</samp> subdirectory of each one of the global debug directories for
-a file named <samp><var>nn</var>/<var>nnnnnnnn</var>.debug</samp>, where <var>nn</var> are the
-first 2 hex characters of the build ID bit string, and <var>nnnnnnnn</var>
+</li><li>For the &ldquo;build ID&rdquo; method, <small class="sc">ROCGDB</small> looks in the
+<samp class="file">.build-id</samp> subdirectory of each one of the global debug directories for
+a file named <samp class="file"><var class="var">nn</var>/<var class="var">nnnnnnnn</var>.debug</samp>, where <var class="var">nn</var> are the
+first 2 hex characters of the build ID bit string, and <var class="var">nnnnnnnn</var>
 are the rest of the bit string.  (Real build ID strings are 32 or more
-hex characters, not 10.)  <small>ROCGDB</small> can automatically query
-<code>debuginfod</code> servers using build IDs in order to download separate debug
-files that cannot be found locally.  For more information see <a href="Debuginfod.html">Download debugging resources with Debuginfod</a>.
+hex characters, not 10.)  <small class="sc">ROCGDB</small> can automatically query
+<code class="code">debuginfod</code> servers using build IDs in order to download separate debug
+files that cannot be found locally.  For more information see <a class="ref" href="Debuginfod.html">Download debugging resources with Debuginfod</a>.
 </li></ul>
 
-<p>So, for example, suppose you ask <small>ROCGDB</small> to debug
-<samp>/usr/bin/ls</samp>, which has a debug link that specifies the
-file <samp>ls.debug</samp>, and a build ID whose value in hex is
-<code>abcdef1234</code>.  If the list of the global debug directories includes
-<samp>/usr/lib/debug</samp>, then <small>ROCGDB</small> will look for the following
+<p>So, for example, suppose you ask <small class="sc">ROCGDB</small> to debug
+<samp class="file">/usr/bin/ls</samp>, which has a debug link that specifies the
+file <samp class="file">ls.debug</samp>, and a build ID whose value in hex is
+<code class="code">abcdef1234</code>.  If the list of the global debug directories includes
+<samp class="file">/usr/lib/debug</samp>, then <small class="sc">ROCGDB</small> will look for the following
 debug information files, in the indicated order:
 </p>
-<ul class="no-bullet">
-<li>- <samp>/usr/lib/debug/.build-id/ab/cdef1234.debug</samp>
-</li><li>- <samp>/usr/bin/ls.debug</samp>
-</li><li>- <samp>/usr/bin/.debug/ls.debug</samp>
-</li><li>- <samp>/usr/lib/debug/usr/bin/ls.debug</samp>.
+<ul class="itemize mark-minus">
+<li><samp class="file">/usr/lib/debug/.build-id/ab/cdef1234.debug</samp>
+</li><li><samp class="file">/usr/bin/ls.debug</samp>
+</li><li><samp class="file">/usr/bin/.debug/ls.debug</samp>
+</li><li><samp class="file">/usr/lib/debug/usr/bin/ls.debug</samp>.
 </li></ul>
 
-<p>If the debug file still has not been found and <code>debuginfod</code>
-(see <a href="Debuginfod.html">Download debugging resources with Debuginfod</a>) is enabled, <small>ROCGDB</small> will attempt to download the
-file from <code>debuginfod</code> servers.
+<p>If the debug file still has not been found and <code class="code">debuginfod</code>
+(see <a class="pxref" href="Debuginfod.html">Download debugging resources with Debuginfod</a>) is enabled, <small class="sc">ROCGDB</small> will attempt to download the
+file from <code class="code">debuginfod</code> servers.
 </p>
-<span id="debug_002dfile_002ddirectory"></span><p>Global debugging info directories default to what is set by <small>ROCGDB</small>
-configure option <samp>--with-separate-debug-dir</samp> and augmented by the
-colon-separated list of directories provided via <small>ROCGDB</small> configure
-option <samp>--additional-debug-dirs</samp>.  During <small>ROCGDB</small> run you can
+<a class="anchor" id="debug_002dfile_002ddirectory"></a><p>Global debugging info directories default to what is set by <small class="sc">ROCGDB</small>
+configure option <samp class="option">--with-separate-debug-dir</samp> and augmented by the
+colon-separated list of directories provided via <small class="sc">ROCGDB</small> configure
+option <samp class="option">--additional-debug-dirs</samp>.  During <small class="sc">ROCGDB</small> run you can
 also set the global debugging info directories, and view the list
-<small>ROCGDB</small> is currently using.
+<small class="sc">ROCGDB</small> is currently using.
 </p>
-<dl compact="compact">
-<dd>
-<span id="index-set-debug_002dfile_002ddirectory"></span>
-</dd>
-<dt><span><code>set debug-file-directory <var>directories</var></code></span></dt>
-<dd><p>Set the directories which <small>ROCGDB</small> searches for separate debugging
-information files to <var>directory</var>.  Multiple path components can be set
+<dl class="table">
+<dt><a id="index-set-debug_002dfile_002ddirectory"></a><span><code class="code">set debug-file-directory <var class="var">directories</var></code><a class="copiable-link" href="#index-set-debug_002dfile_002ddirectory"> &para;</a></span></dt>
+<dd><p>Set the directories which <small class="sc">ROCGDB</small> searches for separate debugging
+information files to <var class="var">directory</var>.  Multiple path components can be set
 concatenating them by a path separator.
 </p>
-<span id="index-show-debug_002dfile_002ddirectory"></span>
 </dd>
-<dt><span><code>show debug-file-directory</code></span></dt>
-<dd><p>Show the directories <small>ROCGDB</small> searches for separate debugging
+<dt><a id="index-show-debug_002dfile_002ddirectory"></a><span><code class="code">show debug-file-directory</code><a class="copiable-link" href="#index-show-debug_002dfile_002ddirectory"> &para;</a></span></dt>
+<dd><p>Show the directories <small class="sc">ROCGDB</small> searches for separate debugging
 information files.
 </p>
 </dd>
 </dl>
 
-<span id="index-_002egnu_005fdebuglink-sections"></span>
-<span id="index-debug-link-sections"></span>
+<a class="index-entry-id" id="index-_002egnu_005fdebuglink-sections"></a>
+<a class="index-entry-id" id="index-debug-link-sections"></a>
 <p>A debug link is a special section of the executable file named
-<code>.gnu_debuglink</code>.  The section must contain:
+<code class="code">.gnu_debuglink</code>.  The section must contain:
 </p>
-<ul>
-<li> A filename, with any leading directory components removed, followed by
+<ul class="itemize mark-bullet">
+<li>A filename, with any leading directory components removed, followed by
 a zero byte,
-</li><li> zero to three bytes of padding, as needed to reach the next four-byte
+</li><li>zero to three bytes of padding, as needed to reach the next four-byte
 boundary within the section, and
-</li><li> a four-byte CRC checksum, stored in the same endianness used for the
+</li><li>a four-byte CRC checksum, stored in the same endianness used for the
 executable file itself.  The checksum is computed on the debugging
 information file&rsquo;s full contents by the function given below, passing
-zero as the <var>crc</var> argument.
+zero as the <var class="var">crc</var> argument.
 </li></ul>
 
 <p>Any executable file format can carry a debug link, as long as it can
-contain a section named <code>.gnu_debuglink</code> with the contents
+contain a section named <code class="code">.gnu_debuglink</code> with the contents
 described above.
 </p>
-<span id="index-_002enote_002egnu_002ebuild_002did-sections"></span>
-<span id="index-build-ID-sections"></span>
+<a class="index-entry-id" id="index-_002enote_002egnu_002ebuild_002did-sections"></a>
+<a class="index-entry-id" id="index-build-ID-sections"></a>
 <p>The build ID is a special section in the executable file (and in other
-ELF binary files that <small>ROCGDB</small> may consider).  This section is
-often named <code>.note.gnu.build-id</code>, but that name is not mandatory.
+ELF binary files that <small class="sc">ROCGDB</small> may consider).  This section is
+often named <code class="code">.note.gnu.build-id</code>, but that name is not mandatory.
 It contains unique identification for the built files&mdash;the ID remains
 the same across multiple builds of the same build tree.  The default
 algorithm SHA1 produces 160 bits (40 hexadecimal characters) of the
@@ -245,74 +234,74 @@ stripped variant, and in the separate debugging information file.
 executable, containing a full set of linker symbols, sections, and
 debugging information.  The sections of the debugging information file
 should have the same names, addresses, and sizes as the original file,
-but they need not contain any data&mdash;much like a <code>.bss</code> section
+but they need not contain any data&mdash;much like a <code class="code">.bss</code> section
 in an ordinary executable.
 </p>
-<p>The <small>GNU</small> binary utilities (Binutils) package includes the
-&lsquo;<samp>objcopy</samp>&rsquo; utility that can produce
+<p>The <small class="sc">GNU</small> binary utilities (Binutils) package includes the
+&lsquo;<samp class="samp">objcopy</samp>&rsquo; utility that can produce
 the separated executable / debugging information file pairs using the
 following commands:
 </p>
-<div class="example">
-<pre class="example"><kbd>objcopy --only-keep-debug foo foo.debug</kbd>
-<kbd>strip -g foo</kbd>
+<div class="example smallexample">
+<pre class="example-preformatted"><kbd class="kbd">objcopy --only-keep-debug foo foo.debug</kbd>
+<kbd class="kbd">strip -g foo</kbd>
 </pre></div>
 
 <p>These commands remove the debugging
-information from the executable file <samp>foo</samp> and place it in the file
-<samp>foo.debug</samp>.  You can use the first, second or both methods to link the
+information from the executable file <samp class="file">foo</samp> and place it in the file
+<samp class="file">foo.debug</samp>.  You can use the first, second or both methods to link the
 two files:
 </p>
-<ul>
-<li> The debug link method needs the following additional command to also leave
-behind a debug link in <samp>foo</samp>:
+<ul class="itemize mark-bullet">
+<li>The debug link method needs the following additional command to also leave
+behind a debug link in <samp class="file">foo</samp>:
 
-<div class="example">
-<pre class="example"><kbd>objcopy --add-gnu-debuglink=foo.debug foo</kbd>
+<div class="example smallexample">
+<pre class="example-preformatted"><kbd class="kbd">objcopy --add-gnu-debuglink=foo.debug foo</kbd>
 </pre></div>
 
-<p>Ulrich Drepper&rsquo;s <samp>elfutils</samp> package, starting with version 0.53, contains
-a version of the <code>strip</code> command such that the command <kbd>strip foo -f
-foo.debug</kbd> has the same functionality as the two <code>objcopy</code> commands and
-the <code>ln -s</code> command above, together.
+<p>Ulrich Drepper&rsquo;s <samp class="file">elfutils</samp> package, starting with version 0.53, contains
+a version of the <code class="code">strip</code> command such that the command <kbd class="kbd">strip foo -f
+foo.debug</kbd> has the same functionality as the two <code class="code">objcopy</code> commands and
+the <code class="code">ln -s</code> command above, together.
 </p>
-</li><li> Build ID gets embedded into the main executable using <code>ld --build-id</code> or
-the <small>GCC</small> counterpart <code>gcc -Wl,--build-id</code>.  Build ID support plus
-compatibility fixes for debug files separation are present in <small>GNU</small> binary
+</li><li>Build ID gets embedded into the main executable using <code class="code">ld --build-id</code> or
+the <small class="sc">GCC</small> counterpart <code class="code">gcc -Wl,--build-id</code>.  Build ID support plus
+compatibility fixes for debug files separation are present in <small class="sc">GNU</small> binary
 utilities (Binutils) package since version 2.18.
 </li></ul>
 
 
-<span id="index-CRC-algorithm-definition"></span>
-<p>The CRC used in <code>.gnu_debuglink</code> is the CRC-32 defined in
+<a class="index-entry-id" id="index-CRC-algorithm-definition"></a>
+<p>The CRC used in <code class="code">.gnu_debuglink</code> is the CRC-32 defined in
 IEEE 802.3 using the polynomial:
 </p>
 <div class="display">
-<pre class="display"> <em>x</em><sup>32</sup> + <em>x</em><sup>26</sup> + <em>x</em><sup>23</sup> + <em>x</em><sup>22</sup> + <em>x</em><sup>16</sup> + <em>x</em><sup>12</sup> + <em>x</em><sup>11</sup>
+<pre class="display-preformatted"> <em>x</em><sup>32</sup> + <em>x</em><sup>26</sup> + <em>x</em><sup>23</sup> + <em>x</em><sup>22</sup> + <em>x</em><sup>16</sup> + <em>x</em><sup>12</sup> + <em>x</em><sup>11</sup>
  + <em>x</em><sup>10</sup> + <em>x</em><sup>8</sup> + <em>x</em><sup>7</sup> + <em>x</em><sup>5</sup> + <em>x</em><sup>4</sup> + <em>x</em><sup>2</sup> + <em>x</em> + 1
 </pre></div>
 
 <p>The function is computed byte at a time, taking the least
 significant bit of each byte first.  The initial pattern
-<code>0xffffffff</code> is used, to ensure leading zeros affect the CRC and
+<code class="code">0xffffffff</code> is used, to ensure leading zeros affect the CRC and
 the final result is inverted to ensure trailing zeros also affect the
 CRC.
 </p>
-<p><em>Note:</em> This is the same CRC polynomial as used in handling the
-<em>Remote Serial Protocol</em> <code>qCRC</code> packet (see <a href="General-Query-Packets.html#qCRC-packet">qCRC packet</a>).
+<p><em class="emph">Note:</em> This is the same CRC polynomial as used in handling the
+<em class="dfn">Remote Serial Protocol</em> <code class="code">qCRC</code> packet (see <a class="pxref" href="General-Query-Packets.html#qCRC-packet">qCRC packet</a>).
 However in the case of the Remote Serial Protocol, the CRC is computed
-<em>most</em> significant bit first, and the result is not inverted, so
+<em class="emph">most</em> significant bit first, and the result is not inverted, so
 trailing zeros have no effect on the CRC value.
 </p>
 <p>To complete the description, we show below the code of the function
-which produces the CRC used in <code>.gnu_debuglink</code>.  Inverting the
-initially supplied <code>crc</code> argument means that an initial call to
+which produces the CRC used in <code class="code">.gnu_debuglink</code>.  Inverting the
+initially supplied <code class="code">crc</code> argument means that an initial call to
 this function passing in zero will start computing the CRC using
-<code>0xffffffff</code>.
+<code class="code">0xffffffff</code>.
 </p>
-<span id="index-gnu_005fdebuglink_005fcrc32"></span>
-<div class="example">
-<pre class="example">unsigned long
+<a class="index-entry-id" id="index-gnu_005fdebuglink_005fcrc32"></a>
+<div class="example smallexample">
+<pre class="example-preformatted">unsigned long
 gnu_debuglink_crc32 (unsigned long crc,
                      unsigned char *buf, size_t len)
 {
@@ -384,9 +373,9 @@ gnu_debuglink_crc32 (unsigned long crc,
 </p>
 </div>
 <hr>
-<div class="header">
+<div class="nav-panel">
 <p>
-Next: <a href="MiniDebugInfo.html">Debugging information in a special section</a>, Previous: <a href="File-Caching.html">File Caching</a>, Up: <a href="GDB-Files.html"><small>ROCGDB</small> Files</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="MiniDebugInfo.html">Debugging information in a special section</a>, Previous: <a href="File-Caching.html">File Caching</a>, Up: <a href="GDB-Files.html"><small class="sc">ROCGDB</small> Files</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

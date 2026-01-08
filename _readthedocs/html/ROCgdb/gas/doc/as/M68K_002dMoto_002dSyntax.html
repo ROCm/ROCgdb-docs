@@ -1,11 +1,11 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the GNU Assembler "as".
 
-Copyright (C) 1991-2025 Free Software Foundation, Inc.
+Copyright © 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -31,21 +31,8 @@ section entitled "GNU Free Documentation License".
 <link href="M68K_002dSyntax.html" rel="prev" title="M68K-Syntax">
 <style type="text/css">
 <!--
-a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
-a.summary-letter {text-decoration: none}
-blockquote.indentedblock {margin-right: 0em}
-div.display {margin-left: 3.2em}
-div.example {margin-left: 3.2em}
-kbd {font-style: oblique}
-pre.display {font-family: inherit}
-pre.format {font-family: inherit}
-pre.menu-comment {font-family: serif}
-pre.menu-preformatted {font-family: serif}
-span.nolinebreak {white-space: nowrap}
-span.roman {font-family: initial; font-weight: normal}
-span.sansserif {font-family: sans-serif; font-weight: normal}
-span:hover a.copiable-anchor {visibility: visible}
-ul.no-bullet {list-style: none}
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+span:hover a.copiable-link {visibility: visible}
 -->
 </style>
 
@@ -53,92 +40,92 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<div class="section" id="M68K_002dMoto_002dSyntax">
-<div class="header">
+<div class="subsection-level-extent" id="M68K_002dMoto_002dSyntax">
+<div class="nav-panel">
 <p>
 Next: <a href="M68K_002dFloat.html" accesskey="n" rel="next">Floating Point</a>, Previous: <a href="M68K_002dSyntax.html" accesskey="p" rel="prev">Syntax</a>, Up: <a href="M68K_002dDependent.html" accesskey="u" rel="up">M680x0 Dependent Features</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="Motorola-Syntax"></span><h4 class="subsection">9.23.3 Motorola Syntax</h4>
+<h4 class="subsection section-level-set-subsection" id="Motorola-Syntax"><span>9.23.3 Motorola Syntax<a class="copiable-link" href="#Motorola-Syntax"> &para;</a></span></h4>
 
-<span id="index-Motorola-syntax-for-the-680x0"></span>
-<span id="index-alternate-syntax-for-the-680x0"></span>
+<a class="index-entry-id" id="index-Motorola-syntax-for-the-680x0"></a>
+<a class="index-entry-id" id="index-alternate-syntax-for-the-680x0"></a>
 
 <p>The standard Motorola syntax for this chip differs from the syntax
-already discussed (see <a href="M68K_002dSyntax.html">Syntax</a>).  <code>as</code> can
-accept Motorola syntax for operands, even if <small>MIT</small> syntax is used for
+already discussed (see <a class="pxref" href="M68K_002dSyntax.html">Syntax</a>).  <code class="code">as</code> can
+accept Motorola syntax for operands, even if <small class="sc">MIT</small> syntax is used for
 other operands in the same instruction.  The two kinds of syntax are
 fully compatible.
 </p>
-<p>In the following table <var>apc</var> stands for any of the address registers
-(&lsquo;<samp>%a0</samp>&rsquo; through &lsquo;<samp>%a7</samp>&rsquo;), the program counter (&lsquo;<samp>%pc</samp>&rsquo;), the
-zero-address relative to the program counter (&lsquo;<samp>%zpc</samp>&rsquo;), or a
-suppressed address register (&lsquo;<samp>%za0</samp>&rsquo; through &lsquo;<samp>%za7</samp>&rsquo;).  The use
-of <var>size</var> means one of &lsquo;<samp>w</samp>&rsquo; or &lsquo;<samp>l</samp>&rsquo;, and it may always be
-omitted along with the leading dot.  The use of <var>scale</var> means one of
-&lsquo;<samp>1</samp>&rsquo;, &lsquo;<samp>2</samp>&rsquo;, &lsquo;<samp>4</samp>&rsquo;, or &lsquo;<samp>8</samp>&rsquo;, and it may always be omitted
+<p>In the following table <var class="var">apc</var> stands for any of the address registers
+(&lsquo;<samp class="samp">%a0</samp>&rsquo; through &lsquo;<samp class="samp">%a7</samp>&rsquo;), the program counter (&lsquo;<samp class="samp">%pc</samp>&rsquo;), the
+zero-address relative to the program counter (&lsquo;<samp class="samp">%zpc</samp>&rsquo;), or a
+suppressed address register (&lsquo;<samp class="samp">%za0</samp>&rsquo; through &lsquo;<samp class="samp">%za7</samp>&rsquo;).  The use
+of <var class="var">size</var> means one of &lsquo;<samp class="samp">w</samp>&rsquo; or &lsquo;<samp class="samp">l</samp>&rsquo;, and it may always be
+omitted along with the leading dot.  The use of <var class="var">scale</var> means one of
+&lsquo;<samp class="samp">1</samp>&rsquo;, &lsquo;<samp class="samp">2</samp>&rsquo;, &lsquo;<samp class="samp">4</samp>&rsquo;, or &lsquo;<samp class="samp">8</samp>&rsquo;, and it may always be omitted
 along with the leading asterisk.
 </p>
 <p>The following additional addressing modes are understood:
 </p>
-<dl compact="compact">
-<dt><span><em>Address Register Indirect</em></span></dt>
-<dd><p>&lsquo;<samp>(%a0)</samp>&rsquo; through &lsquo;<samp>(%a7)</samp>&rsquo;<br>
-&lsquo;<samp>%a7</samp>&rsquo; is also known as &lsquo;<samp>%sp</samp>&rsquo;, i.e., the Stack Pointer.  <code>%a6</code>
-is also known as &lsquo;<samp>%fp</samp>&rsquo;, the Frame Pointer.
+<dl class="table">
+<dt><em class="dfn">Address Register Indirect</em></dt>
+<dd><p>&lsquo;<samp class="samp">(%a0)</samp>&rsquo; through &lsquo;<samp class="samp">(%a7)</samp>&rsquo;<br>
+&lsquo;<samp class="samp">%a7</samp>&rsquo; is also known as &lsquo;<samp class="samp">%sp</samp>&rsquo;, i.e., the Stack Pointer.  <code class="code">%a6</code>
+is also known as &lsquo;<samp class="samp">%fp</samp>&rsquo;, the Frame Pointer.
 </p>
 </dd>
-<dt><span><em>Address Register Postincrement</em></span></dt>
-<dd><p>&lsquo;<samp>(%a0)+</samp>&rsquo; through &lsquo;<samp>(%a7)+</samp>&rsquo;
+<dt><em class="dfn">Address Register Postincrement</em></dt>
+<dd><p>&lsquo;<samp class="samp">(%a0)+</samp>&rsquo; through &lsquo;<samp class="samp">(%a7)+</samp>&rsquo;
 </p>
 </dd>
-<dt><span><em>Address Register Predecrement</em></span></dt>
-<dd><p>&lsquo;<samp>-(%a0)</samp>&rsquo; through &lsquo;<samp>-(%a7)</samp>&rsquo;
+<dt><em class="dfn">Address Register Predecrement</em></dt>
+<dd><p>&lsquo;<samp class="samp">-(%a0)</samp>&rsquo; through &lsquo;<samp class="samp">-(%a7)</samp>&rsquo;
 </p>
 </dd>
-<dt><span><em>Indirect Plus Offset</em></span></dt>
-<dd><p>&lsquo;<samp><var>number</var>(<var>%a0</var>)</samp>&rsquo; through &lsquo;<samp><var>number</var>(<var>%a7</var>)</samp>&rsquo;,
-or &lsquo;<samp><var>number</var>(<var>%pc</var>)</samp>&rsquo;.
+<dt><em class="dfn">Indirect Plus Offset</em></dt>
+<dd><p>&lsquo;<samp class="samp"><var class="var">number</var>(<var class="var">%a0</var>)</samp>&rsquo; through &lsquo;<samp class="samp"><var class="var">number</var>(<var class="var">%a7</var>)</samp>&rsquo;,
+or &lsquo;<samp class="samp"><var class="var">number</var>(<var class="var">%pc</var>)</samp>&rsquo;.
 </p>
-<p>The <var>number</var> may also appear within the parentheses, as in
-&lsquo;<samp>(<var>number</var>,<var>%a0</var>)</samp>&rsquo;.  When used with the <var>pc</var>, the
-<var>number</var> may be omitted (with an address register, omitting the
-<var>number</var> produces Address Register Indirect mode).
+<p>The <var class="var">number</var> may also appear within the parentheses, as in
+&lsquo;<samp class="samp">(<var class="var">number</var>,<var class="var">%a0</var>)</samp>&rsquo;.  When used with the <var class="var">pc</var>, the
+<var class="var">number</var> may be omitted (with an address register, omitting the
+<var class="var">number</var> produces Address Register Indirect mode).
 </p>
 </dd>
-<dt><span><em>Index</em></span></dt>
-<dd><p>&lsquo;<samp><var>number</var>(<var>apc</var>,<var>register</var>.<var>size</var>*<var>scale</var>)</samp>&rsquo;
+<dt><em class="dfn">Index</em></dt>
+<dd><p>&lsquo;<samp class="samp"><var class="var">number</var>(<var class="var">apc</var>,<var class="var">register</var>.<var class="var">size</var>*<var class="var">scale</var>)</samp>&rsquo;
 </p>
-<p>The <var>number</var> may be omitted, or it may appear within the
-parentheses.  The <var>apc</var> may be omitted.  The <var>register</var> and the
-<var>apc</var> may appear in either order.  If both <var>apc</var> and
-<var>register</var> are address registers, and the <var>size</var> and <var>scale</var>
+<p>The <var class="var">number</var> may be omitted, or it may appear within the
+parentheses.  The <var class="var">apc</var> may be omitted.  The <var class="var">register</var> and the
+<var class="var">apc</var> may appear in either order.  If both <var class="var">apc</var> and
+<var class="var">register</var> are address registers, and the <var class="var">size</var> and <var class="var">scale</var>
 are omitted, then the first register is taken as the base register, and
 the second as the index register.
 </p>
 </dd>
-<dt><span><em>Postindex</em></span></dt>
-<dd><p>&lsquo;<samp>([<var>number</var>,<var>apc</var>],<var>register</var>.<var>size</var>*<var>scale</var>,<var>onumber</var>)</samp>&rsquo;
+<dt><em class="dfn">Postindex</em></dt>
+<dd><p>&lsquo;<samp class="samp">([<var class="var">number</var>,<var class="var">apc</var>],<var class="var">register</var>.<var class="var">size</var>*<var class="var">scale</var>,<var class="var">onumber</var>)</samp>&rsquo;
 </p>
-<p>The <var>onumber</var>, or the <var>register</var>, or both, may be omitted.
-Either the <var>number</var> or the <var>apc</var> may be omitted, but not both.
+<p>The <var class="var">onumber</var>, or the <var class="var">register</var>, or both, may be omitted.
+Either the <var class="var">number</var> or the <var class="var">apc</var> may be omitted, but not both.
 </p>
 </dd>
-<dt><span><em>Preindex</em></span></dt>
-<dd><p>&lsquo;<samp>([<var>number</var>,<var>apc</var>,<var>register</var>.<var>size</var>*<var>scale</var>],<var>onumber</var>)</samp>&rsquo;
+<dt><em class="dfn">Preindex</em></dt>
+<dd><p>&lsquo;<samp class="samp">([<var class="var">number</var>,<var class="var">apc</var>,<var class="var">register</var>.<var class="var">size</var>*<var class="var">scale</var>],<var class="var">onumber</var>)</samp>&rsquo;
 </p>
-<p>The <var>number</var>, or the <var>apc</var>, or the <var>register</var>, or any two of
-them, may be omitted.  The <var>onumber</var> may be omitted.  The
-<var>register</var> and the <var>apc</var> may appear in either order.  If both
-<var>apc</var> and <var>register</var> are address registers, and the <var>size</var>
-and <var>scale</var> are omitted, then the first register is taken as the
+<p>The <var class="var">number</var>, or the <var class="var">apc</var>, or the <var class="var">register</var>, or any two of
+them, may be omitted.  The <var class="var">onumber</var> may be omitted.  The
+<var class="var">register</var> and the <var class="var">apc</var> may appear in either order.  If both
+<var class="var">apc</var> and <var class="var">register</var> are address registers, and the <var class="var">size</var>
+and <var class="var">scale</var> are omitted, then the first register is taken as the
 base register, and the second as the index register.
 </p></dd>
 </dl>
 
 </div>
 <hr>
-<div class="header">
+<div class="nav-panel">
 <p>
 Next: <a href="M68K_002dFloat.html">Floating Point</a>, Previous: <a href="M68K_002dSyntax.html">Syntax</a>, Up: <a href="M68K_002dDependent.html">M680x0 Dependent Features</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

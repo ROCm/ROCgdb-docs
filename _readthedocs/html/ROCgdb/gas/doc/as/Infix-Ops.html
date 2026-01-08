@@ -1,11 +1,11 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the GNU Assembler "as".
 
-Copyright (C) 1991-2025 Free Software Foundation, Inc.
+Copyright © 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -30,21 +30,8 @@ section entitled "GNU Free Documentation License".
 <link href="Prefix-Ops.html" rel="prev" title="Prefix Ops">
 <style type="text/css">
 <!--
-a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
-a.summary-letter {text-decoration: none}
-blockquote.indentedblock {margin-right: 0em}
-div.display {margin-left: 3.2em}
-div.example {margin-left: 3.2em}
-kbd {font-style: oblique}
-pre.display {font-family: inherit}
-pre.format {font-family: inherit}
-pre.menu-comment {font-family: serif}
-pre.menu-preformatted {font-family: serif}
-span.nolinebreak {white-space: nowrap}
-span.roman {font-family: initial; font-weight: normal}
-span.sansserif {font-family: sans-serif; font-weight: normal}
-span:hover a.copiable-anchor {visibility: visible}
-ul.no-bullet {list-style: none}
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+span:hover a.copiable-link {visibility: visible}
 -->
 </style>
 
@@ -52,113 +39,109 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<div class="subsection" id="Infix-Ops">
-<div class="header">
+<div class="subsection-level-extent" id="Infix-Ops">
+<div class="nav-panel">
 <p>
 Previous: <a href="Prefix-Ops.html" accesskey="p" rel="prev">Prefix Operator</a>, Up: <a href="Integer-Exprs.html" accesskey="u" rel="up">Integer Expressions</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="Infix-Operators"></span><h4 class="subsection">6.2.4 Infix Operators</h4>
+<h4 class="subsection" id="Infix-Operators"><span>6.2.4 Infix Operators<a class="copiable-link" href="#Infix-Operators"> &para;</a></span></h4>
 
-<span id="index-infix-operators"></span>
-<span id="index-operators_002c-permitted-arguments"></span>
-<p><em>Infix operators</em> take two arguments, one on either side.  Operators
+<a class="index-entry-id" id="index-infix-operators"></a>
+<a class="index-entry-id" id="index-operators_002c-permitted-arguments"></a>
+<p><em class="dfn">Infix operators</em> take two arguments, one on either side.  Operators
 have precedence, but operations with equal precedence are performed left
-to right.  Apart from <code>+</code> or <samp>-</samp>, both arguments must be
+to right.  Apart from <code class="code">+</code> or <samp class="option">-</samp>, both arguments must be
 absolute, and the result is absolute.
 </p>
-<ol>
-<li><span id="index-operator-precedence"></span>
-<span id="index-precedence-of-operators"></span>
+<ol class="enumerate">
+<li><a class="index-entry-id" id="index-operator-precedence"></a>
+<a class="index-entry-id" id="index-precedence-of-operators"></a>
 
 </li><li> Highest Precedence
 
-<dl compact="compact">
-<dt><span><code>*</code></span></dt>
-<dd><p><em>Multiplication</em>.
+<dl class="table">
+<dt><code class="code">*</code></dt>
+<dd><p><em class="dfn">Multiplication</em>.
 </p>
 </dd>
-<dt><span><code>/</code></span></dt>
-<dd><p><em>Division</em>.  Truncation is the same as the C operator &lsquo;<samp>/</samp>&rsquo;
+<dt><code class="code">/</code></dt>
+<dd><p><em class="dfn">Division</em>.  Truncation is the same as the C operator &lsquo;<samp class="samp">/</samp>&rsquo;
 </p>
 </dd>
-<dt><span><code>%</code></span></dt>
-<dd><p><em>Remainder</em>.
+<dt><code class="code">%</code></dt>
+<dd><p><em class="dfn">Remainder</em>.
 </p>
 </dd>
-<dt><span><code>&lt;&lt;</code></span></dt>
-<dd><p><em>Shift Left</em>.  Same as the C operator &lsquo;<samp>&lt;&lt;</samp>&rsquo;.
+<dt><code class="code">&lt;&lt;</code></dt>
+<dd><p><em class="dfn">Shift Left</em>.  Same as the C operator &lsquo;<samp class="samp">&lt;&lt;</samp>&rsquo;.
 </p>
 </dd>
-<dt><span><code>&gt;&gt;</code></span></dt>
-<dd><p><em>Shift Right</em>.  Same as the C operator &lsquo;<samp>&gt;&gt;</samp>&rsquo;.
+<dt><code class="code">&gt;&gt;</code></dt>
+<dd><p><em class="dfn">Shift Right</em>.  Same as the C operator &lsquo;<samp class="samp">&gt;&gt;</samp>&rsquo;.
 </p></dd>
 </dl>
 
 </li><li> Intermediate precedence
 
-<dl compact="compact">
-<dt><span><code>|</code></span></dt>
+<dl class="table">
+<dt><code class="code">|</code></dt>
 <dd>
-<p><em>Bitwise Inclusive Or</em>.
+<p><em class="dfn">Bitwise Inclusive Or</em>.
 </p>
 </dd>
-<dt><span><code>&amp;</code></span></dt>
-<dd><p><em>Bitwise And</em>.
+<dt><code class="code">&amp;</code></dt>
+<dd><p><em class="dfn">Bitwise And</em>.
 </p>
 </dd>
-<dt><span><code>^</code></span></dt>
-<dd><p><em>Bitwise Exclusive Or</em>.
+<dt><code class="code">^</code></dt>
+<dd><p><em class="dfn">Bitwise Exclusive Or</em>.
 </p>
 </dd>
-<dt><span><code>!</code></span></dt>
-<dd><p><em>Bitwise Or Not</em>.
+<dt><code class="code">!</code></dt>
+<dd><p><em class="dfn">Bitwise Or Not</em>.
 </p></dd>
 </dl>
 
 </li><li> Low Precedence
 
-<dl compact="compact">
-<dd><span id="index-addition_002c-permitted-arguments"></span>
-<span id="index-plus_002c-permitted-arguments"></span>
-<span id="index-arguments-for-addition"></span>
-</dd>
-<dt><span><code>+</code></span></dt>
-<dd><p><em>Addition</em>.  If either argument is absolute, the result has the section of
+<dl class="table">
+<dt><a class="index-entry-id" id="index-plus_002c-permitted-arguments"></a>
+<a class="index-entry-id" id="index-arguments-for-addition"></a>
+<a id="index-addition_002c-permitted-arguments"></a><span><code class="code">+</code><a class="copiable-link" href="#index-addition_002c-permitted-arguments"> &para;</a></span></dt>
+<dd><p><em class="dfn">Addition</em>.  If either argument is absolute, the result has the section of
 the other argument.  You may not add together arguments from different
 sections.
 </p>
-<span id="index-subtraction_002c-permitted-arguments"></span>
-<span id="index-minus_002c-permitted-arguments"></span>
-<span id="index-arguments-for-subtraction"></span>
 </dd>
-<dt><span><code>-</code></span></dt>
-<dd><p><em>Subtraction</em>.  If the right argument is absolute, the
+<dt><a class="index-entry-id" id="index-minus_002c-permitted-arguments"></a>
+<a class="index-entry-id" id="index-arguments-for-subtraction"></a>
+<a id="index-subtraction_002c-permitted-arguments"></a><span><code class="code">-</code><a class="copiable-link" href="#index-subtraction_002c-permitted-arguments"> &para;</a></span></dt>
+<dd><p><em class="dfn">Subtraction</em>.  If the right argument is absolute, the
 result has the section of the left argument.
 If both arguments are in the same section, the result is absolute.
 You may not subtract arguments from different sections.
 </p>
-<span id="index-comparison-expressions"></span>
-<span id="index-expressions_002c-comparison"></span>
 </dd>
-<dt><span><code>==</code></span></dt>
-<dd><p><em>Is Equal To</em>
+<dt><a class="index-entry-id" id="index-expressions_002c-comparison"></a>
+<a id="index-comparison-expressions"></a><span><code class="code">==</code><a class="copiable-link" href="#index-comparison-expressions"> &para;</a></span></dt>
+<dd><p><em class="dfn">Is Equal To</em>
 </p></dd>
-<dt><span><code>&lt;&gt;</code></span></dt>
-<dt><span><code>!=</code></span></dt>
-<dd><p><em>Is Not Equal To</em>
+<dt><code class="code">&lt;&gt;</code></dt>
+<dt><code class="code">!=</code></dt>
+<dd><p><em class="dfn">Is Not Equal To</em>
 </p></dd>
-<dt><span><code>&lt;</code></span></dt>
-<dd><p><em>Is Less Than</em>
+<dt><code class="code">&lt;</code></dt>
+<dd><p><em class="dfn">Is Less Than</em>
 </p></dd>
-<dt><span><code>&gt;</code></span></dt>
-<dd><p><em>Is Greater Than</em>
+<dt><code class="code">&gt;</code></dt>
+<dd><p><em class="dfn">Is Greater Than</em>
 </p></dd>
-<dt><span><code>&gt;=</code></span></dt>
-<dd><p><em>Is Greater Than Or Equal To</em>
+<dt><code class="code">&gt;=</code></dt>
+<dd><p><em class="dfn">Is Greater Than Or Equal To</em>
 </p></dd>
-<dt><span><code>&lt;=</code></span></dt>
-<dd><p><em>Is Less Than Or Equal To</em>
+<dt><code class="code">&lt;=</code></dt>
+<dd><p><em class="dfn">Is Less Than Or Equal To</em>
 </p>
 <p>The comparison operators can be used as infix operators.  A true result has a
 value of -1 whereas a false result has a value of 0.  Note, these operators
@@ -168,13 +151,13 @@ perform signed comparisons.
 
 </li><li> Lowest Precedence
 
-<dl compact="compact">
-<dt><span><code>&amp;&amp;</code></span></dt>
-<dd><p><em>Logical And</em>.
+<dl class="table">
+<dt><code class="code">&amp;&amp;</code></dt>
+<dd><p><em class="dfn">Logical And</em>.
 </p>
 </dd>
-<dt><span><code>||</code></span></dt>
-<dd><p><em>Logical Or</em>.
+<dt><code class="code">||</code></dt>
+<dd><p><em class="dfn">Logical Or</em>.
 </p>
 <p>These two logical operations can be used to combine the results of sub
 expressions.  Note, unlike the comparison operators a true result returns a
@@ -185,12 +168,12 @@ or operator has a slightly lower precedence than logical and.
 </dl>
 </li></ol>
 
-<p>In short, it&rsquo;s only meaningful to add or subtract the <em>offsets</em> in an
+<p>In short, it&rsquo;s only meaningful to add or subtract the <em class="emph">offsets</em> in an
 address; you can only have a defined section in one of the two arguments.
 </p>
 </div>
 <hr>
-<div class="header">
+<div class="nav-panel">
 <p>
 Previous: <a href="Prefix-Ops.html">Prefix Operator</a>, Up: <a href="Integer-Exprs.html">Integer Expressions</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

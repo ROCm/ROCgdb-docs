@@ -1,13 +1,13 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the GNU linker LD
 (GNU Binutils)
 version 2.43.50.
 
-Copyright (C) 1991-2025 Free Software Foundation, Inc.
+Copyright © 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -32,21 +32,9 @@ section entitled "GNU Free Documentation License". -->
 <link href="Output-Section-Data.html" rel="prev" title="Output Section Data">
 <style type="text/css">
 <!--
-a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
-a.summary-letter {text-decoration: none}
-blockquote.indentedblock {margin-right: 0em}
-div.display {margin-left: 3.2em}
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
 div.example {margin-left: 3.2em}
-kbd {font-style: oblique}
-pre.display {font-family: inherit}
-pre.format {font-family: inherit}
-pre.menu-comment {font-family: serif}
-pre.menu-preformatted {font-family: serif}
-span.nolinebreak {white-space: nowrap}
-span.roman {font-family: initial; font-weight: normal}
-span.sansserif {font-family: sans-serif; font-weight: normal}
-span:hover a.copiable-anchor {visibility: visible}
-ul.no-bullet {list-style: none}
+span:hover a.copiable-link {visibility: visible}
 -->
 </style>
 
@@ -54,67 +42,64 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<div class="subsection" id="Output-Section-Keywords">
-<div class="header">
+<div class="subsection-level-extent" id="Output-Section-Keywords">
+<div class="nav-panel">
 <p>
 Next: <a href="Output-Section-Discarding.html" accesskey="n" rel="next">Output Section Discarding</a>, Previous: <a href="Output-Section-Data.html" accesskey="p" rel="prev">Output Section Data</a>, Up: <a href="SECTIONS.html" accesskey="u" rel="up">SECTIONS Command</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="LD-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="Output-Section-Keywords-1"></span><h4 class="subsection">3.6.6 Output Section Keywords</h4>
+<h4 class="subsection" id="Output-Section-Keywords-1"><span>3.6.6 Output Section Keywords<a class="copiable-link" href="#Output-Section-Keywords-1"> &para;</a></span></h4>
 <p>There are a couple of keywords which can appear as output section
 commands.
 </p>
-<dl compact="compact">
-<dd><span id="index-CREATE_005fOBJECT_005fSYMBOLS"></span>
-<span id="index-input-filename-symbols"></span>
-<span id="index-filename-symbols"></span>
-</dd>
-<dt><span><code>CREATE_OBJECT_SYMBOLS</code></span></dt>
+<dl class="table">
+<dt><a class="index-entry-id" id="index-input-filename-symbols"></a>
+<a class="index-entry-id" id="index-filename-symbols"></a>
+<a id="index-CREATE_005fOBJECT_005fSYMBOLS"></a><span><code class="code">CREATE_OBJECT_SYMBOLS</code><a class="copiable-link" href="#index-CREATE_005fOBJECT_005fSYMBOLS"> &para;</a></span></dt>
 <dd><p>The command tells the linker to create a symbol for each input file.
 The name of each symbol will be the name of the corresponding input
 file.  The section of each symbol will be the output section in which
-the <code>CREATE_OBJECT_SYMBOLS</code> command appears.
+the <code class="code">CREATE_OBJECT_SYMBOLS</code> command appears.
 </p>
 <p>This is conventional for the a.out object file format.  It is not
 normally used for any other object file format.
 </p>
-<span id="index-CONSTRUCTORS"></span>
-<span id="index-C_002b_002b-constructors_002c-arranging-in-link"></span>
-<span id="index-constructors_002c-arranging-in-link"></span>
 </dd>
-<dt><span><code>CONSTRUCTORS</code></span></dt>
+<dt><a class="index-entry-id" id="index-C_002b_002b-constructors_002c-arranging-in-link"></a>
+<a class="index-entry-id" id="index-constructors_002c-arranging-in-link"></a>
+<a id="index-CONSTRUCTORS"></a><span><code class="code">CONSTRUCTORS</code><a class="copiable-link" href="#index-CONSTRUCTORS"> &para;</a></span></dt>
 <dd><p>When linking using the a.out object file format, the linker uses an
 unusual set construct to support C++ global constructors and
 destructors.  When linking object file formats which do not support
 arbitrary sections, such as ECOFF and XCOFF, the linker will
 automatically recognize C++ global constructors and destructors by name.
-For these object file formats, the <code>CONSTRUCTORS</code> command tells the
+For these object file formats, the <code class="code">CONSTRUCTORS</code> command tells the
 linker to place constructor information in the output section where the
-<code>CONSTRUCTORS</code> command appears.  The <code>CONSTRUCTORS</code> command is
+<code class="code">CONSTRUCTORS</code> command appears.  The <code class="code">CONSTRUCTORS</code> command is
 ignored for other object file formats.
 </p>
-<p>The symbol <code><span class="nolinebreak">__CTOR_LIST__</span></code><!-- /@w --> marks the start of the global
-constructors, and the symbol <code><span class="nolinebreak">__CTOR_END__</span></code><!-- /@w --> marks the end.
-Similarly, <code><span class="nolinebreak">__DTOR_LIST__</span></code><!-- /@w --> and <code><span class="nolinebreak">__DTOR_END__</span></code><!-- /@w --> mark
+<p>The symbol <code class="code">__CTOR_LIST__</code><!-- /@w --> marks the start of the global
+constructors, and the symbol <code class="code">__CTOR_END__</code><!-- /@w --> marks the end.
+Similarly, <code class="code">__DTOR_LIST__</code><!-- /@w --> and <code class="code">__DTOR_END__</code><!-- /@w --> mark
 the start and end of the global destructors.  The
 first word in the list is the number of entries, followed by the address
 of each constructor or destructor, followed by a zero word.  The
 compiler must arrange to actually run the code.  For these object file
-formats <small>GNU</small> C++ normally calls constructors from a subroutine
-<code>__main</code>; a call to <code>__main</code> is automatically inserted into
-the startup code for <code>main</code>.  <small>GNU</small> C++ normally runs
-destructors either by using <code>atexit</code>, or directly from the function
-<code>exit</code>.
+formats <small class="sc">GNU</small> C++ normally calls constructors from a subroutine
+<code class="code">__main</code>; a call to <code class="code">__main</code> is automatically inserted into
+the startup code for <code class="code">main</code>.  <small class="sc">GNU</small> C++ normally runs
+destructors either by using <code class="code">atexit</code>, or directly from the function
+<code class="code">exit</code>.
 </p>
-<p>For object file formats such as <code>COFF</code> or <code>ELF</code> which support
-arbitrary section names, <small>GNU</small> C++ will normally arrange to put the
-addresses of global constructors and destructors into the <code>.ctors</code>
-and <code>.dtors</code> sections.  Placing the following sequence into your
-linker script will build the sort of table which the <small>GNU</small> C++
+<p>For object file formats such as <code class="code">COFF</code> or <code class="code">ELF</code> which support
+arbitrary section names, <small class="sc">GNU</small> C++ will normally arrange to put the
+addresses of global constructors and destructors into the <code class="code">.ctors</code>
+and <code class="code">.dtors</code> sections.  Placing the following sequence into your
+linker script will build the sort of table which the <small class="sc">GNU</small> C++
 runtime code expects to see.
 </p>
-<div class="example">
-<pre class="example">      __CTOR_LIST__ = .;
+<div class="example smallexample">
+<pre class="example-preformatted">      __CTOR_LIST__ = .;
       LONG((__CTOR_END__ - __CTOR_LIST__) / 4 - 2)
       *(.ctors)
       LONG(0)
@@ -126,14 +111,14 @@ runtime code expects to see.
       __DTOR_END__ = .;
 </pre></div>
 
-<p>If you are using the <small>GNU</small> C++ support for initialization priority,
+<p>If you are using the <small class="sc">GNU</small> C++ support for initialization priority,
 which provides some control over the order in which global constructors
 are run, you must sort the constructors at link time to ensure that they
-are executed in the correct order.  When using the <code>CONSTRUCTORS</code>
-command, use &lsquo;<samp>SORT_BY_NAME(CONSTRUCTORS)</samp>&rsquo; instead.  When using the
-<code>.ctors</code> and <code>.dtors</code> sections, use &lsquo;<samp>*(SORT_BY_NAME(.ctors))</samp>&rsquo; and
-&lsquo;<samp>*(SORT_BY_NAME(.dtors))</samp>&rsquo; instead of just &lsquo;<samp>*(.ctors)</samp>&rsquo; and
-&lsquo;<samp>*(.dtors)</samp>&rsquo;.
+are executed in the correct order.  When using the <code class="code">CONSTRUCTORS</code>
+command, use &lsquo;<samp class="samp">SORT_BY_NAME(CONSTRUCTORS)</samp>&rsquo; instead.  When using the
+<code class="code">.ctors</code> and <code class="code">.dtors</code> sections, use &lsquo;<samp class="samp">*(SORT_BY_NAME(.ctors))</samp>&rsquo; and
+&lsquo;<samp class="samp">*(SORT_BY_NAME(.dtors))</samp>&rsquo; instead of just &lsquo;<samp class="samp">*(.ctors)</samp>&rsquo; and
+&lsquo;<samp class="samp">*(.dtors)</samp>&rsquo;.
 </p>
 <p>Normally the compiler and linker will handle these issues automatically,
 and you will not need to concern yourself with them.  However, you may
@@ -145,7 +130,7 @@ scripts.
 
 </div>
 <hr>
-<div class="header">
+<div class="nav-panel">
 <p>
 Next: <a href="Output-Section-Discarding.html">Output Section Discarding</a>, Previous: <a href="Output-Section-Data.html">Output Section Data</a>, Up: <a href="SECTIONS.html">SECTIONS Command</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="LD-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

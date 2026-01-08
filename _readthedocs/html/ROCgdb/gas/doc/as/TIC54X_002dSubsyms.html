@@ -1,11 +1,11 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the GNU Assembler "as".
 
-Copyright (C) 1991-2025 Free Software Foundation, Inc.
+Copyright © 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -31,21 +31,9 @@ section entitled "GNU Free Documentation License".
 <link href="TIC54X_002dConstants.html" rel="prev" title="TIC54X-Constants">
 <style type="text/css">
 <!--
-a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
-a.summary-letter {text-decoration: none}
-blockquote.indentedblock {margin-right: 0em}
-div.display {margin-left: 3.2em}
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
 div.example {margin-left: 3.2em}
-kbd {font-style: oblique}
-pre.display {font-family: inherit}
-pre.format {font-family: inherit}
-pre.menu-comment {font-family: serif}
-pre.menu-preformatted {font-family: serif}
-span.nolinebreak {white-space: nowrap}
-span.roman {font-family: initial; font-weight: normal}
-span.sansserif {font-family: sans-serif; font-weight: normal}
-span:hover a.copiable-anchor {visibility: visible}
-ul.no-bullet {list-style: none}
+span:hover a.copiable-link {visibility: visible}
 -->
 </style>
 
@@ -53,22 +41,22 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<div class="section" id="TIC54X_002dSubsyms">
-<div class="header">
+<div class="subsection-level-extent" id="TIC54X_002dSubsyms">
+<div class="nav-panel">
 <p>
 Next: <a href="TIC54X_002dLocals.html" accesskey="n" rel="next">Local Labels</a>, Previous: <a href="TIC54X_002dConstants.html" accesskey="p" rel="prev">Constants Syntax</a>, Up: <a href="TIC54X_002dDependent.html" accesskey="u" rel="up">TIC54X Dependent Features</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="String-Substitution"></span><h4 class="subsection">9.45.5 String Substitution</h4>
+<h4 class="subsection section-level-set-subsection" id="String-Substitution"><span>9.45.5 String Substitution<a class="copiable-link" href="#String-Substitution"> &para;</a></span></h4>
 <p>A subset of allowable symbols (which we&rsquo;ll call subsyms) may be assigned
 arbitrary string values.  This is roughly equivalent to C preprocessor
-#define macros.  When <code>as</code> encounters one of these
+#define macros.  When <code class="code">as</code> encounters one of these
 symbols, the symbol is replaced in the input stream by its string value.
-Subsym names <strong>must</strong> begin with a letter.
+Subsym names <strong class="strong">must</strong> begin with a letter.
 </p>
-<p>Subsyms may be defined using the <code>.asg</code> and <code>.eval</code> directives
-(See <a href="TIC54X_002dDirectives.html"><code>.asg</code></a>,
-See <a href="TIC54X_002dDirectives.html"><code>.eval</code></a>.
+<p>Subsyms may be defined using the <code class="code">.asg</code> and <code class="code">.eval</code> directives
+(See <a class="xref" href="TIC54X_002dDirectives.html"><code class="code">.asg</code></a>,
+See <a class="xref" href="TIC54X_002dDirectives.html"><code class="code">.eval</code></a>.
 </p>
 <p>Expansion is recursive until a previously encountered symbol is seen, at
 which point substitution stops.
@@ -77,50 +65,50 @@ which point substitution stops.
 is replaced with x.  At this point, x has already been encountered
 and the substitution stops.
 </p>
-<div class="example">
-<pre class="example"> .asg   &quot;x&quot;,SYM1
+<div class="example smallexample">
+<pre class="example-preformatted"> .asg   &quot;x&quot;,SYM1
  .asg   &quot;SYM1&quot;,SYM2
  .asg   &quot;SYM2&quot;,x
  add    x,a             ; final code assembled is &quot;add  x, a&quot;
 </pre></div>
 
 <p>Macro parameters are converted to subsyms; a side effect of this is the normal
-<code>as</code> &rsquo;\ARG&rsquo; dereferencing syntax is unnecessary.  Subsyms
-defined within a macro will have global scope, unless the <code>.var</code>
+<code class="code">as</code> &rsquo;\ARG&rsquo; dereferencing syntax is unnecessary.  Subsyms
+defined within a macro will have global scope, unless the <code class="code">.var</code>
 directive is used to identify the subsym as a local macro variable
-see <a href="TIC54X_002dDirectives.html"><code>.var</code></a>.
+see <a class="pxref" href="TIC54X_002dDirectives.html"><code class="code">.var</code></a>.
 </p>
 <p>Substitution may be forced in situations where replacement might be
 ambiguous by placing colons on either side of the subsym.  The following
 code:
 </p>
-<div class="example">
-<pre class="example"> .eval  &quot;10&quot;,x
+<div class="example smallexample">
+<pre class="example-preformatted"> .eval  &quot;10&quot;,x
 LAB:X:  add     #x, a
 </pre></div>
 
 <p>When assembled becomes:
 </p>
-<div class="example">
-<pre class="example">LAB10  add     #10, a
+<div class="example smallexample">
+<pre class="example-preformatted">LAB10  add     #10, a
 </pre></div>
 
 <p>Smaller parts of the string assigned to a subsym may be accessed with
 the following syntax:
 </p>
-<dl compact="compact">
-<dt><span><code><code>:<var>symbol</var>(<var>char_index</var>):</code></code></span></dt>
-<dd><p>Evaluates to a single-character string, the character at <var>char_index</var>.
+<dl class="table">
+<dt><code class="code"><code class="code">:<var class="var">symbol</var>(<var class="var">char_index</var>):</code></code></dt>
+<dd><p>Evaluates to a single-character string, the character at <var class="var">char_index</var>.
 </p></dd>
-<dt><span><code><code>:<var>symbol</var>(<var>start</var>,<var>length</var>):</code></code></span></dt>
-<dd><p>Evaluates to a substring of <var>symbol</var> beginning at <var>start</var> with
-length <var>length</var>.
+<dt><code class="code"><code class="code">:<var class="var">symbol</var>(<var class="var">start</var>,<var class="var">length</var>):</code></code></dt>
+<dd><p>Evaluates to a substring of <var class="var">symbol</var> beginning at <var class="var">start</var> with
+length <var class="var">length</var>.
 </p></dd>
 </dl>
 
 </div>
 <hr>
-<div class="header">
+<div class="nav-panel">
 <p>
 Next: <a href="TIC54X_002dLocals.html">Local Labels</a>, Previous: <a href="TIC54X_002dConstants.html">Constants Syntax</a>, Up: <a href="TIC54X_002dDependent.html">TIC54X Dependent Features</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
