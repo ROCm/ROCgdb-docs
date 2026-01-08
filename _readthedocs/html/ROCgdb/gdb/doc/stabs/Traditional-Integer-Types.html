@@ -1,9 +1,9 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright (C) 1992-2024 Free Software Foundation, Inc.
+<!-- Copyright © 1992-2024 Free Software Foundation, Inc.
 Contributed by Cygnus Support.  Written by Julia Menapace, Jim Kingdon,
 and David MacKenzie.
 
@@ -29,21 +29,10 @@ Free Documentation License". -->
 <link href="Traditional-Other-Types.html" rel="next" title="Traditional Other Types">
 <style type="text/css">
 <!--
-a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
-a.summary-letter {text-decoration: none}
-blockquote.indentedblock {margin-right: 0em}
-div.display {margin-left: 3.2em}
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
 div.example {margin-left: 3.2em}
-kbd {font-style: oblique}
-pre.display {font-family: inherit}
-pre.format {font-family: inherit}
-pre.menu-comment {font-family: serif}
-pre.menu-preformatted {font-family: serif}
-span.nolinebreak {white-space: nowrap}
-span.roman {font-family: initial; font-weight: normal}
-span.sansserif {font-family: sans-serif; font-weight: normal}
-span:hover a.copiable-anchor {visibility: visible}
-ul.no-bullet {list-style: none}
+span.r {font-family: initial; font-weight: normal; font-style: normal}
+span:hover a.copiable-link {visibility: visible}
 -->
 </style>
 
@@ -51,35 +40,35 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<div class="subsubsection" id="Traditional-Integer-Types">
-<div class="header">
+<div class="subsubsection-level-extent" id="Traditional-Integer-Types">
+<div class="nav-panel">
 <p>
 Next: <a href="Traditional-Other-Types.html" accesskey="n" rel="next">Traditional Other Types</a>, Up: <a href="Traditional-Builtin-Types.html" accesskey="u" rel="up">Traditional Builtin Types</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Symbol-Types-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="Traditional-Integer-Types-1"></span><h4 class="subsubsection">5.1.1.1 Traditional Integer Types</h4>
+<h4 class="subsubsection" id="Traditional-Integer-Types-1"><span>5.1.1.1 Traditional Integer Types<a class="copiable-link" href="#Traditional-Integer-Types-1"> &para;</a></span></h4>
 
 <p>Often types are defined as subranges of themselves.  If the bounding values
-fit within an <code>int</code>, then they are given normally.  For example:
+fit within an <code class="code">int</code>, then they are given normally.  For example:
 </p>
 <div class="example">
-<pre class="example">.stabs &quot;int:t1=r1;-2147483648;2147483647;&quot;,128,0,0,0    # <span class="roman">128 is N_LSYM</span>
+<pre class="example-preformatted">.stabs &quot;int:t1=r1;-2147483648;2147483647;&quot;,128,0,0,0    # <span class="r">128 is N_LSYM</span>
 .stabs &quot;char:t2=r2;0;127;&quot;,128,0,0,0
 </pre></div>
 
-<p>Builtin types can also be described as subranges of <code>int</code>:
+<p>Builtin types can also be described as subranges of <code class="code">int</code>:
 </p>
 <div class="example">
-<pre class="example">.stabs &quot;unsigned short:t6=r1;0;65535;&quot;,128,0,0,0
+<pre class="example-preformatted">.stabs &quot;unsigned short:t6=r1;0;65535;&quot;,128,0,0,0
 </pre></div>
 
 <p>If the lower bound of a subrange is 0 and the upper bound is -1,
 the type is an unsigned integral type whose bounds are too
-big to describe in an <code>int</code>.  Traditionally this is only used for
-<code>unsigned int</code> and <code>unsigned long</code>:
+big to describe in an <code class="code">int</code>.  Traditionally this is only used for
+<code class="code">unsigned int</code> and <code class="code">unsigned long</code>:
 </p>
 <div class="example">
-<pre class="example">.stabs &quot;unsigned int:t4=r1;0;-1;&quot;,128,0,0,0
+<pre class="example-preformatted">.stabs &quot;unsigned int:t4=r1;0;-1;&quot;,128,0,0,0
 </pre></div>
 
 <p>For larger types, GCC 2.4.5 puts out bounds in octal, with one or more
@@ -94,25 +83,25 @@ proper size for these types.  As an example of octal bounds, the string
 fields of the stabs for 64 bit integer types look like:
 </p>
 <div class="example">
-<pre class="example">long int:t3=r1;001000000000000000000000;000777777777777777777777;
+<pre class="example-preformatted">long int:t3=r1;001000000000000000000000;000777777777777777777777;
 long unsigned int:t5=r1;000000000000000000000000;001777777777777777777777;
 </pre></div>
 
 <p>If the lower bound of a subrange is 0 and the upper bound is negative,
 the type is an unsigned integral type whose size in bytes is the
 absolute value of the upper bound.  I believe this is a Convex
-convention for <code>unsigned long long</code>.
+convention for <code class="code">unsigned long long</code>.
 </p>
 <p>If the lower bound of a subrange is negative and the upper bound is 0,
 the type is a signed integral type whose size in bytes is
 the absolute value of the lower bound.  I believe this is a Convex
-convention for <code>long long</code>.  To distinguish this from a legitimate
+convention for <code class="code">long long</code>.  To distinguish this from a legitimate
 subrange, the type should be a subrange of itself.  I&rsquo;m not sure whether
 this is the case for Convex.
 </p>
 </div>
 <hr>
-<div class="header">
+<div class="nav-panel">
 <p>
 Next: <a href="Traditional-Other-Types.html">Traditional Other Types</a>, Up: <a href="Traditional-Builtin-Types.html">Traditional Builtin Types</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Symbol-Types-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

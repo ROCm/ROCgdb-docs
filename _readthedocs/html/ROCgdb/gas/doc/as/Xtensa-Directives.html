@@ -1,11 +1,11 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the GNU Assembler "as".
 
-Copyright (C) 1991-2025 Free Software Foundation, Inc.
+Copyright © 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -30,21 +30,9 @@ section entitled "GNU Free Documentation License".
 <link href="Xtensa-Relaxation.html" rel="prev" title="Xtensa Relaxation">
 <style type="text/css">
 <!--
-a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
-a.summary-letter {text-decoration: none}
-blockquote.indentedblock {margin-right: 0em}
-div.display {margin-left: 3.2em}
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
 div.example {margin-left: 3.2em}
-kbd {font-style: oblique}
-pre.display {font-family: inherit}
-pre.format {font-family: inherit}
-pre.menu-comment {font-family: serif}
-pre.menu-preformatted {font-family: serif}
-span.nolinebreak {white-space: nowrap}
-span.roman {font-family: initial; font-weight: normal}
-span.sansserif {font-family: sans-serif; font-weight: normal}
-span:hover a.copiable-anchor {visibility: visible}
-ul.no-bullet {list-style: none}
+span:hover a.copiable-link {visibility: visible}
 -->
 </style>
 
@@ -52,55 +40,55 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<div class="section" id="Xtensa-Directives">
-<div class="header">
+<div class="subsection-level-extent" id="Xtensa-Directives">
+<div class="nav-panel">
 <p>
 Previous: <a href="Xtensa-Relaxation.html" accesskey="p" rel="prev">Xtensa Relaxation</a>, Up: <a href="Xtensa_002dDependent.html" accesskey="u" rel="up">Xtensa Dependent Features</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="Directives-3"></span><h4 class="subsection">9.55.5 Directives</h4>
-<span id="index-Xtensa-directives"></span>
-<span id="index-directives_002c-Xtensa"></span>
+<h4 class="subsection section-level-set-subsection" id="Directives-3"><span>9.55.5 Directives<a class="copiable-link" href="#Directives-3"> &para;</a></span></h4>
+<a class="index-entry-id" id="index-Xtensa-directives"></a>
+<a class="index-entry-id" id="index-directives_002c-Xtensa"></a>
 
 <p>The Xtensa assembler supports a region-based directive syntax:
 </p>
-<div class="example">
-<pre class="example">    .begin <var>directive</var> [<var>options</var>]
-    &hellip;
-    .end <var>directive</var>
-</pre></div>
+<div class="example smallexample">
+<div class="group"><pre class="example-preformatted">    .begin <var class="var">directive</var> [<var class="var">options</var>]
+    ...
+    .end <var class="var">directive</var>
+</pre></div></div>
 
 <p>All the Xtensa-specific directives that apply to a region of code use
 this syntax.
 </p>
-<p>The directive applies to code between the <code>.begin</code> and the
-<code>.end</code>.  The state of the option after the <code>.end</code> reverts to
-what it was before the <code>.begin</code>.
-A nested <code>.begin</code>/<code>.end</code> region can further
+<p>The directive applies to code between the <code class="code">.begin</code> and the
+<code class="code">.end</code>.  The state of the option after the <code class="code">.end</code> reverts to
+what it was before the <code class="code">.begin</code>.
+A nested <code class="code">.begin</code>/<code class="code">.end</code> region can further
 change the state of the directive without having to be aware of its
 outer state.  For example, consider:
 </p>
-<div class="example">
-<pre class="example">    .begin no-transform
+<div class="example smallexample">
+<div class="group"><pre class="example-preformatted">    .begin no-transform
 L:  add a0, a1, a2
-</pre><pre class="example">    .begin transform
+</pre></div><pre class="example-preformatted">    .begin transform
 M:  add a0, a1, a2
     .end transform
-</pre><pre class="example">N:  add a0, a1, a2
+</pre><div class="group"><pre class="example-preformatted">N:  add a0, a1, a2
     .end no-transform
-</pre></div>
+</pre></div></div>
 
-<p>The <code>ADD</code> opcodes at <code>L</code> and <code>N</code> in the outer
-<code>no-transform</code> region both result in <code>ADD</code> machine instructions,
-but the assembler selects an <code>ADD.N</code> instruction for the
-<code>ADD</code> at <code>M</code> in the inner <code>transform</code> region.
+<p>The <code class="code">ADD</code> opcodes at <code class="code">L</code> and <code class="code">N</code> in the outer
+<code class="code">no-transform</code> region both result in <code class="code">ADD</code> machine instructions,
+but the assembler selects an <code class="code">ADD.N</code> instruction for the
+<code class="code">ADD</code> at <code class="code">M</code> in the inner <code class="code">transform</code> region.
 </p>
 <p>The advantage of this style is that it works well inside macros which can
 preserve the context of their callers.
 </p>
 <p>The following directives are available:
 </p>
-<ul class="section-toc">
+<ul class="mini-toc">
 <li><a href="Schedule-Directive.html" accesskey="1">schedule</a></li>
 <li><a href="Longcalls-Directive.html" accesskey="2">longcalls</a></li>
 <li><a href="Transform-Directive.html" accesskey="3">transform</a></li>

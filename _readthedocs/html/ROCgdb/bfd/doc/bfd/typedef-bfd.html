@@ -1,11 +1,11 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the BFD library.
 
-Copyright (C) 1991-2025 Free Software Foundation, Inc.
+Copyright © 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -41,21 +41,9 @@ You have freedom to copy and modify this GNU Manual, like GNU
 <link href="BFD-front-end.html" rel="prev" title="BFD front end">
 <style type="text/css">
 <!--
-a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
-a.summary-letter {text-decoration: none}
-blockquote.indentedblock {margin-right: 0em}
-div.display {margin-left: 3.2em}
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
 div.example {margin-left: 3.2em}
-kbd {font-style: oblique}
-pre.display {font-family: inherit}
-pre.format {font-family: inherit}
-pre.menu-comment {font-family: serif}
-pre.menu-preformatted {font-family: serif}
-span.nolinebreak {white-space: nowrap}
-span.roman {font-family: initial; font-weight: normal}
-span.sansserif {font-family: sans-serif; font-weight: normal}
-span:hover a.copiable-anchor {visibility: visible}
-ul.no-bullet {list-style: none}
+span:hover a.copiable-link {visibility: visible}
 -->
 </style>
 
@@ -63,24 +51,24 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<div class="section" id="typedef-bfd">
-<div class="header">
+<div class="section-level-extent" id="typedef-bfd">
+<div class="nav-panel">
 <p>
 Next: <a href="Error-reporting.html" accesskey="n" rel="next">Error reporting</a>, Previous: <a href="BFD-front-end.html" accesskey="p" rel="prev">BFD Front End</a>, Up: <a href="BFD-front-end.html" accesskey="u" rel="up">BFD Front End</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="BFD-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="typedef-bfd-1"></span><h3 class="section">2.1 <code>typedef bfd</code></h3>
-<p>A BFD has type <code>bfd</code>; objects of this type are the
+<h3 class="section" id="typedef-bfd-1"><span>2.1 <code class="code">typedef bfd</code><a class="copiable-link" href="#typedef-bfd-1"> &para;</a></span></h3>
+<p>A BFD has type <code class="code">bfd</code>; objects of this type are the
 cornerstone of any application using BFD. Using BFD
 consists of making references though the BFD and to data in the BFD.
 </p>
-<p>Here is the structure that defines the type <code>bfd</code>.  It
+<p>Here is the structure that defines the type <code class="code">bfd</code>.  It
 contains the major data about the file and pointers
 to the rest of the data.
 </p>
 
 <div class="example">
-<pre class="example">struct bfd
+<pre class="example-preformatted">struct bfd
 {
   /* The filename the application opened the BFD with.  */
   const char *filename;
@@ -286,7 +274,7 @@ to the rest of the data.
   unsigned int read_only : 1;
 
   /* LTO object type.  */
-  ENUM_BITFIELD (bfd_lto_object_type) lto_type : 3;
+  ENUM_BITFIELD (bfd_lto_object_type) lto_type : 2;
 
   /* Set if this BFD is currently being processed by
      bfd_check_format_matches.  This is checked by the cache to
@@ -317,9 +305,6 @@ to the rest of the data.
 
   /* The last section on the section list.  */
   struct bfd_section *section_last;
-
-  /* The object-only section on the section list.  */
-  struct bfd_section *object_only_section;
 
   /* The number of sections.  */
   unsigned int section_count;
@@ -426,7 +411,7 @@ to the rest of the data.
 </pre></div>
 </div>
 <hr>
-<div class="header">
+<div class="nav-panel">
 <p>
 Next: <a href="Error-reporting.html">Error reporting</a>, Previous: <a href="BFD-front-end.html">BFD Front End</a>, Up: <a href="BFD-front-end.html">BFD Front End</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="BFD-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

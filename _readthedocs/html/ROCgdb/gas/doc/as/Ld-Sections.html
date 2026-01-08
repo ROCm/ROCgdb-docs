@@ -1,11 +1,11 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the GNU Assembler "as".
 
-Copyright (C) 1991-2025 Free Software Foundation, Inc.
+Copyright © 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -31,21 +31,9 @@ section entitled "GNU Free Documentation License".
 <link href="Secs-Background.html" rel="prev" title="Secs Background">
 <style type="text/css">
 <!--
-a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
-a.summary-letter {text-decoration: none}
-blockquote.indentedblock {margin-right: 0em}
-div.display {margin-left: 3.2em}
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
 div.example {margin-left: 3.2em}
-kbd {font-style: oblique}
-pre.display {font-family: inherit}
-pre.format {font-family: inherit}
-pre.menu-comment {font-family: serif}
-pre.menu-preformatted {font-family: serif}
-span.nolinebreak {white-space: nowrap}
-span.roman {font-family: initial; font-weight: normal}
-span.sansserif {font-family: sans-serif; font-weight: normal}
-span:hover a.copiable-anchor {visibility: visible}
-ul.no-bullet {list-style: none}
+span:hover a.copiable-link {visibility: visible}
 -->
 </style>
 
@@ -53,27 +41,24 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<div class="section" id="Ld-Sections">
-<div class="header">
+<div class="section-level-extent" id="Ld-Sections">
+<div class="nav-panel">
 <p>
 Next: <a href="As-Sections.html" accesskey="n" rel="next">Assembler Internal Sections</a>, Previous: <a href="Secs-Background.html" accesskey="p" rel="prev">Background</a>, Up: <a href="Sections.html" accesskey="u" rel="up">Sections and Relocation</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="Linker-Sections"></span><h3 class="section">4.2 Linker Sections</h3>
-<p><code>ld</code> deals with just four kinds of sections, summarized below.
+<h3 class="section" id="Linker-Sections"><span>4.2 Linker Sections<a class="copiable-link" href="#Linker-Sections"> &para;</a></span></h3>
+<p><code class="code">ld</code> deals with just four kinds of sections, summarized below.
 </p>
-<dl compact="compact">
-<dd>
-<span id="index-named-sections"></span>
-<span id="index-sections_002c-named"></span>
+<dl class="table">
+<dt><a class="index-entry-id" id="index-sections_002c-named"></a>
+<a id="index-named-sections"></a><span><strong class="strong">named sections</strong><a class="copiable-link" href="#index-named-sections"> &para;</a></span></dt>
+<dd><a class="index-entry-id" id="index-text-section"></a>
+<a class="index-entry-id" id="index-data-section"></a>
 </dd>
-<dt><span><strong>named sections</strong></span></dt>
-<dd><span id="index-text-section"></span>
-<span id="index-data-section"></span>
-</dd>
-<dt><span><strong>text section</strong></span></dt>
-<dt><span><strong>data section</strong></span></dt>
-<dd><p>These sections hold your program.  <code>as</code> and <code>ld</code> treat them as
+<dt><strong class="strong">text section</strong></dt>
+<dt><strong class="strong">data section</strong></dt>
+<dd><p>These sections hold your program.  <code class="command">as</code> and <code class="code">ld</code> treat them as
 separate but equal sections.  Anything you can say of one section is
 true of another.
 When the program is running, however, it is
@@ -83,9 +68,8 @@ instructions, constants and the like.  The data section of a running
 program is usually alterable: for example, C variables would be stored
 in the data section.
 </p>
-<span id="index-bss-section"></span>
 </dd>
-<dt><span><strong>bss section</strong></span></dt>
+<dt><a id="index-bss-section"></a><span><strong class="strong">bss section</strong><a class="copiable-link" href="#index-bss-section"> &para;</a></span></dt>
 <dd><p>This section contains zeroed bytes when your program begins running.  It
 is used to hold uninitialized variables or common storage.  The length of
 each partial program&rsquo;s bss section is important, but because it starts
@@ -93,29 +77,27 @@ out containing zeroed bytes there is no need to store explicit zero
 bytes in the object file.  The bss section was invented to eliminate
 those explicit zeros from object files.
 </p>
-<span id="index-absolute-section"></span>
 </dd>
-<dt><span><strong>absolute section</strong></span></dt>
+<dt><a id="index-absolute-section"></a><span><strong class="strong">absolute section</strong><a class="copiable-link" href="#index-absolute-section"> &para;</a></span></dt>
 <dd><p>Address 0 of this section is always &ldquo;relocated&rdquo; to runtime address 0.
-This is useful if you want to refer to an address that <code>ld</code> must
+This is useful if you want to refer to an address that <code class="code">ld</code> must
 not change when relocating.  In this sense we speak of absolute
 addresses being &ldquo;unrelocatable&rdquo;: they do not change during relocation.
 </p>
-<span id="index-undefined-section"></span>
 </dd>
-<dt><span><strong>undefined section</strong></span></dt>
+<dt><a id="index-undefined-section"></a><span><strong class="strong">undefined section</strong><a class="copiable-link" href="#index-undefined-section"> &para;</a></span></dt>
 <dd><p>This &ldquo;section&rdquo; is a catch-all for address references to objects not in
 the preceding sections.
 </p></dd>
 </dl>
 
-<span id="index-relocation-example"></span>
+<a class="index-entry-id" id="index-relocation-example"></a>
 <p>An idealized example of three relocatable sections follows.
-The example uses the traditional section names &lsquo;<samp>.text</samp>&rsquo; and &lsquo;<samp>.data</samp>&rsquo;.
+The example uses the traditional section names &lsquo;<samp class="samp">.text</samp>&rsquo; and &lsquo;<samp class="samp">.data</samp>&rsquo;.
 Memory addresses are on the horizontal axis.
 </p>
-<div class="example">
-<pre class="example">                      +-----+----+--+
+<div class="example smallexample">
+<pre class="example-preformatted">                      +-----+----+--+
 partial program # 1:  |ttttt|dddd|00|
                       +-----+----+--+
 
@@ -130,12 +112,12 @@ partial program # 2:  |TTT|DDD|000|
 linked program:       |  |TTT|ttttt|  |dddd|DDD|00000|
                       +--+---+-----+--+----+---+-----+~~
 
-    addresses:        0 &hellip;
+    addresses:        0 ...
 </pre></div>
 
 </div>
 <hr>
-<div class="header">
+<div class="nav-panel">
 <p>
 Next: <a href="As-Sections.html">Assembler Internal Sections</a>, Previous: <a href="Secs-Background.html">Background</a>, Up: <a href="Sections.html">Sections and Relocation</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

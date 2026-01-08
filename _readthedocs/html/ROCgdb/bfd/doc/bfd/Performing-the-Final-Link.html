@@ -1,11 +1,11 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the BFD library.
 
-Copyright (C) 1991-2025 Free Software Foundation, Inc.
+Copyright © 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -40,21 +40,8 @@ You have freedom to copy and modify this GNU Manual, like GNU
 <link href="Adding-Symbols-to-the-Hash-Table.html" rel="prev" title="Adding Symbols to the Hash Table">
 <style type="text/css">
 <!--
-a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
-a.summary-letter {text-decoration: none}
-blockquote.indentedblock {margin-right: 0em}
-div.display {margin-left: 3.2em}
-div.example {margin-left: 3.2em}
-kbd {font-style: oblique}
-pre.display {font-family: inherit}
-pre.format {font-family: inherit}
-pre.menu-comment {font-family: serif}
-pre.menu-preformatted {font-family: serif}
-span.nolinebreak {white-space: nowrap}
-span.roman {font-family: initial; font-weight: normal}
-span.sansserif {font-family: sans-serif; font-weight: normal}
-span:hover a.copiable-anchor {visibility: visible}
-ul.no-bullet {list-style: none}
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+span:hover a.copiable-link {visibility: visible}
 -->
 </style>
 
@@ -62,17 +49,17 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<div class="subsection" id="Performing-the-Final-Link">
-<div class="header">
+<div class="subsection-level-extent" id="Performing-the-Final-Link">
+<div class="nav-panel">
 <p>
 Previous: <a href="Adding-Symbols-to-the-Hash-Table.html" accesskey="p" rel="prev">Adding symbols to the hash table</a>, Up: <a href="Linker-Functions.html" accesskey="u" rel="up">Linker Functions</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="BFD-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="Performing-the-final-link"></span><h4 class="subsection">2.17.3 Performing the final link</h4>
-<span id="index-_005fbfd_005flink_005ffinal_005flink-in-target-vector"></span>
-<span id="index-target-vector-_0028_005fbfd_005ffinal_005flink_0029"></span>
+<h4 class="subsection" id="Performing-the-final-link"><span>2.17.3 Performing the final link<a class="copiable-link" href="#Performing-the-final-link"> &para;</a></span></h4>
+<a class="index-entry-id" id="index-_005fbfd_005flink_005ffinal_005flink-in-target-vector"></a>
+<a class="index-entry-id" id="index-target-vector-_0028_005fbfd_005ffinal_005flink_0029"></a>
 <p>When all the input files have been processed, the linker calls
-the <code>_bfd_final_link</code> entry point of the output BFD.  This
+the <code class="code">_bfd_final_link</code> entry point of the output BFD.  This
 routine is responsible for producing the final output file,
 which has several aspects.  It must relocate the contents of
 the input sections and copy the data into the output sections.
@@ -82,32 +69,30 @@ hash table.  When producing relocatable output, it must
 modify the input relocs and write them into the output file.
 There may also be object format dependent work to be done.
 </p>
-<p>The linker will also call the <code>write_object_contents</code> entry
+<p>The linker will also call the <code class="code">write_object_contents</code> entry
 point when the BFD is closed.  The two entry points must work
 together in order to produce the correct output file.
 </p>
 <p>The details of how this works are inevitably dependent upon
 the specific object file format.  The a.out
-<code>_bfd_final_link</code> routine is <code>NAME(aout,final_link)</code>.
+<code class="code">_bfd_final_link</code> routine is <code class="code">NAME(aout,final_link)</code>.
 </p>
 
-<ul class="section-toc">
+<ul class="mini-toc">
 <li><a href="Information-provided-by-the-linker.html" accesskey="1">Information provided by the linker</a></li>
 <li><a href="Relocating-the-section-contents.html" accesskey="2">Relocating the section contents</a></li>
 <li><a href="Writing-the-symbol-table.html" accesskey="3">Writing the symbol table</a></li>
-<li><a href="Writing-the-symbol-table.html#g_t_005fbfd_005fgeneric_005flink_005fadd_005fone_005fsymbol" accesskey="4"><code>_bfd_generic_link_add_one_symbol</code></a></li>
-<li><a href="Writing-the-symbol-table.html#bfd_005flink_005falign_005fsection" accesskey="5"><code>bfd_link_align_section</code></a></li>
-<li><a href="Writing-the-symbol-table.html#bfd_005flink_005fsplit_005fsection" accesskey="6"><code>bfd_link_split_section</code></a></li>
-<li><a href="Writing-the-symbol-table.html#bfd_005fsection_005falready_005flinked" accesskey="7"><code>bfd_section_already_linked</code></a></li>
-<li><a href="Writing-the-symbol-table.html#bfd_005fgeneric_005fdefine_005fcommon_005fsymbol" accesskey="8"><code>bfd_generic_define_common_symbol</code></a></li>
-<li><a href="Writing-the-symbol-table.html#g_t_005fbfd_005fgeneric_005flink_005fhide_005fsymbol" accesskey="9"><code>_bfd_generic_link_hide_symbol</code></a></li>
-<li><a href="Writing-the-symbol-table.html#bfd_005fgeneric_005fdefine_005fstart_005fstop"><code>bfd_generic_define_start_stop</code></a></li>
-<li><a href="Writing-the-symbol-table.html#bfd_005ffind_005fversion_005ffor_005fsym"><code>bfd_find_version_for_sym</code></a></li>
-<li><a href="Writing-the-symbol-table.html#bfd_005fhide_005fsym_005fby_005fversion"><code>bfd_hide_sym_by_version</code></a></li>
-<li><a href="Writing-the-symbol-table.html#bfd_005flink_005fcheck_005frelocs"><code>bfd_link_check_relocs</code></a></li>
-<li><a href="Writing-the-symbol-table.html#g_t_005fbfd_005fgeneric_005flink_005fcheck_005frelocs"><code>_bfd_generic_link_check_relocs</code></a></li>
-<li><a href="Writing-the-symbol-table.html#bfd_005fmerge_005fprivate_005fbfd_005fdata"><code>bfd_merge_private_bfd_data</code></a></li>
-<li><a href="Writing-the-symbol-table.html#g_t_005fbfd_005fgeneric_005fverify_005fendian_005fmatch"><code>_bfd_generic_verify_endian_match</code></a></li>
+<li><a href="Writing-the-symbol-table.html#bfd_005flink_005fsplit_005fsection" accesskey="4"><code class="code">bfd_link_split_section</code></a></li>
+<li><a href="Writing-the-symbol-table.html#bfd_005fsection_005falready_005flinked" accesskey="5"><code class="code">bfd_section_already_linked</code></a></li>
+<li><a href="Writing-the-symbol-table.html#bfd_005fgeneric_005fdefine_005fcommon_005fsymbol" accesskey="6"><code class="code">bfd_generic_define_common_symbol</code></a></li>
+<li><a href="Writing-the-symbol-table.html#g_t_005fbfd_005fgeneric_005flink_005fhide_005fsymbol" accesskey="7"><code class="code">_bfd_generic_link_hide_symbol</code></a></li>
+<li><a href="Writing-the-symbol-table.html#bfd_005fgeneric_005fdefine_005fstart_005fstop" accesskey="8"><code class="code">bfd_generic_define_start_stop</code></a></li>
+<li><a href="Writing-the-symbol-table.html#bfd_005ffind_005fversion_005ffor_005fsym" accesskey="9"><code class="code">bfd_find_version_for_sym</code></a></li>
+<li><a href="Writing-the-symbol-table.html#bfd_005fhide_005fsym_005fby_005fversion"><code class="code">bfd_hide_sym_by_version</code></a></li>
+<li><a href="Writing-the-symbol-table.html#bfd_005flink_005fcheck_005frelocs"><code class="code">bfd_link_check_relocs</code></a></li>
+<li><a href="Writing-the-symbol-table.html#g_t_005fbfd_005fgeneric_005flink_005fcheck_005frelocs"><code class="code">_bfd_generic_link_check_relocs</code></a></li>
+<li><a href="Writing-the-symbol-table.html#bfd_005fmerge_005fprivate_005fbfd_005fdata"><code class="code">bfd_merge_private_bfd_data</code></a></li>
+<li><a href="Writing-the-symbol-table.html#g_t_005fbfd_005fgeneric_005fverify_005fendian_005fmatch"><code class="code">_bfd_generic_verify_endian_match</code></a></li>
 </ul>
 </div>
 

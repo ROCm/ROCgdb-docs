@@ -1,11 +1,11 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the GNU Assembler "as".
 
-Copyright (C) 1991-2025 Free Software Foundation, Inc.
+Copyright © 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -30,21 +30,9 @@ section entitled "GNU Free Documentation License".
 <link href="Chars.html" rel="next" title="Chars">
 <style type="text/css">
 <!--
-a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
-a.summary-letter {text-decoration: none}
-blockquote.indentedblock {margin-right: 0em}
-div.display {margin-left: 3.2em}
-div.example {margin-left: 3.2em}
-kbd {font-style: oblique}
-pre.display {font-family: inherit}
-pre.format {font-family: inherit}
-pre.menu-comment {font-family: serif}
-pre.menu-preformatted {font-family: serif}
-span.nolinebreak {white-space: nowrap}
-span.roman {font-family: initial; font-weight: normal}
-span.sansserif {font-family: sans-serif; font-weight: normal}
-span:hover a.copiable-anchor {visibility: visible}
-ul.no-bullet {list-style: none}
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+kbd.kbd {font-style: oblique}
+span:hover a.copiable-link {visibility: visible}
 -->
 </style>
 
@@ -52,93 +40,83 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<div class="subsubsection" id="Strings">
-<div class="header">
+<div class="subsubsection-level-extent" id="Strings">
+<div class="nav-panel">
 <p>
 Next: <a href="Chars.html" accesskey="n" rel="next">Characters</a>, Up: <a href="Characters.html" accesskey="u" rel="up">Character Constants</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="Strings-1"></span><h4 class="subsubsection">3.6.1.1 Strings</h4>
+<h4 class="subsubsection" id="Strings-1"><span>3.6.1.1 Strings<a class="copiable-link" href="#Strings-1"> &para;</a></span></h4>
 
-<span id="index-string-constants"></span>
-<span id="index-constants_002c-string"></span>
-<p>A <em>string</em> is written between double-quotes.  It may contain
+<a class="index-entry-id" id="index-string-constants"></a>
+<a class="index-entry-id" id="index-constants_002c-string"></a>
+<p>A <em class="dfn">string</em> is written between double-quotes.  It may contain
 double-quotes or null characters.  The way to get special characters
-into a string is to <em>escape</em> these characters: precede them with
-a backslash &lsquo;<samp>\</samp>&rsquo; character.  For example &lsquo;<samp>\\</samp>&rsquo; represents
-one backslash:  the first <code>\</code> is an escape which tells
-<code>as</code> to interpret the second character literally as a backslash
-(which prevents <code>as</code> from recognizing the second <code>\</code> as an
+into a string is to <em class="dfn">escape</em> these characters: precede them with
+a backslash &lsquo;<samp class="samp">\</samp>&rsquo; character.  For example &lsquo;<samp class="samp">\\</samp>&rsquo; represents
+one backslash:  the first <code class="code">\</code> is an escape which tells
+<code class="command">as</code> to interpret the second character literally as a backslash
+(which prevents <code class="command">as</code> from recognizing the second <code class="code">\</code> as an
 escape character).  The complete list of escapes follows.
 </p>
-<span id="index-escape-codes_002c-character"></span>
-<span id="index-character-escape-codes"></span>
-<dl compact="compact">
-<dd><span id="index--_005cb-_0028backspace-character_0029"></span>
-<span id="index-backspace-_0028_005cb_0029"></span>
-</dd>
-<dt><span><kbd>\b</kbd></span></dt>
+<a class="index-entry-id" id="index-escape-codes_002c-character"></a>
+<a class="index-entry-id" id="index-character-escape-codes"></a>
+<dl class="table">
+<dt><a class="index-entry-id" id="index-backspace-_0028_005cb_0029"></a>
+<a id="index--_005cb-_0028backspace-character_0029"></a><span><kbd class="kbd">\b</kbd><a class="copiable-link" href="#index--_005cb-_0028backspace-character_0029"> &para;</a></span></dt>
 <dd><p>Mnemonic for backspace; for ASCII this is octal code 010.
 </p>
-<span id="index--_005cf-_0028formfeed-character_0029"></span>
-<span id="index-formfeed-_0028_005cf_0029"></span>
 </dd>
-<dt><span><kbd>backslash-f</kbd></span></dt>
+<dt><a class="index-entry-id" id="index-formfeed-_0028_005cf_0029"></a>
+<a id="index--_005cf-_0028formfeed-character_0029"></a><span><kbd class="kbd">backslash-f</kbd><a class="copiable-link" href="#index--_005cf-_0028formfeed-character_0029"> &para;</a></span></dt>
 <dd><p>Mnemonic for FormFeed; for ASCII this is octal code 014.
 </p>
-<span id="index--_005cn-_0028newline-character_0029"></span>
-<span id="index-newline-_0028_005cn_0029"></span>
 </dd>
-<dt><span><kbd>\n</kbd></span></dt>
+<dt><a class="index-entry-id" id="index-newline-_0028_005cn_0029"></a>
+<a id="index--_005cn-_0028newline-character_0029"></a><span><kbd class="kbd">\n</kbd><a class="copiable-link" href="#index--_005cn-_0028newline-character_0029"> &para;</a></span></dt>
 <dd><p>Mnemonic for newline; for ASCII this is octal code 012.
 </p>
-<span id="index--_005cr-_0028carriage-return-character_0029"></span>
-<span id="index-carriage-return-_0028backslash_002dr_0029"></span>
 </dd>
-<dt><span><kbd>\r</kbd></span></dt>
+<dt><a class="index-entry-id" id="index-carriage-return-_0028backslash_002dr_0029"></a>
+<a id="index--_005cr-_0028carriage-return-character_0029"></a><span><kbd class="kbd">\r</kbd><a class="copiable-link" href="#index--_005cr-_0028carriage-return-character_0029"> &para;</a></span></dt>
 <dd><p>Mnemonic for carriage-Return; for ASCII this is octal code 015.
 </p>
-<span id="index--_005ct-_0028tab_0029"></span>
-<span id="index-tab-_0028_005ct_0029"></span>
 </dd>
-<dt><span><kbd>\t</kbd></span></dt>
+<dt><a class="index-entry-id" id="index-tab-_0028_005ct_0029"></a>
+<a id="index--_005ct-_0028tab_0029"></a><span><kbd class="kbd">\t</kbd><a class="copiable-link" href="#index--_005ct-_0028tab_0029"> &para;</a></span></dt>
 <dd><p>Mnemonic for horizontal Tab; for ASCII this is octal code 011.
 </p>
-<span id="index--_005cddd-_0028octal-character-code_0029"></span>
-<span id="index-octal-character-code-_0028_005cddd_0029"></span>
 </dd>
-<dt><span><kbd>\ <var>digit</var> <var>digit</var> <var>digit</var></kbd></span></dt>
+<dt><a class="index-entry-id" id="index-octal-character-code-_0028_005cddd_0029"></a>
+<a id="index--_005cddd-_0028octal-character-code_0029"></a><span><kbd class="kbd">\ <var class="var">digit</var> <var class="var">digit</var> <var class="var">digit</var></kbd><a class="copiable-link" href="#index--_005cddd-_0028octal-character-code_0029"> &para;</a></span></dt>
 <dd><p>An octal character code.  The numeric code is 3 octal digits.
 For compatibility with other Unix systems, 8 and 9 are accepted as digits:
-for example, <code>\008</code> has the value 010, and <code>\009</code> the value 011.
+for example, <code class="code">\008</code> has the value 010, and <code class="code">\009</code> the value 011.
 </p>
-<span id="index--_005cxd_002e_002e_002e-_0028hex-character-code_0029"></span>
-<span id="index-hex-character-code-_0028_005cxd_002e_002e_002e_0029"></span>
 </dd>
-<dt><span><kbd>\<code>x</code> <var>hex-digits...</var></kbd></span></dt>
+<dt><a class="index-entry-id" id="index-hex-character-code-_0028_005cxd_002e_002e_002e_0029"></a>
+<a id="index--_005cxd_002e_002e_002e-_0028hex-character-code_0029"></a><span><kbd class="kbd">\<code class="code">x</code> <var class="var">hex-digits...</var></kbd><a class="copiable-link" href="#index--_005cxd_002e_002e_002e-_0028hex-character-code_0029"> &para;</a></span></dt>
 <dd><p>A hex character code.  All trailing hex digits are combined.  Either upper or
-lower case <code>x</code> works.
-</p>
-<span id="index--_005c_005c-_0028_005c-character_0029"></span>
-<span id="index-backslash-_0028_005c_005c_0029"></span>
-</dd>
-<dt><span><kbd>\\</kbd></span></dt>
-<dd><p>Represents one &lsquo;<samp>\</samp>&rsquo; character.
-</p>
-<span id="index--_005c_0022-_0028doublequote-character_0029"></span>
-<span id="index-doublequote-_0028_005c_0022_0029"></span>
-</dd>
-<dt><span><kbd>\&quot;</kbd></span></dt>
-<dd><p>Represents one &lsquo;<samp>&quot;</samp>&rsquo; character.  Needed in strings to represent
-this character, because an unescaped &lsquo;<samp>&quot;</samp>&rsquo; would end the string.
+lower case <code class="code">x</code> works.
 </p>
 </dd>
-<dt><span><kbd>\ <var>anything-else</var></kbd></span></dt>
-<dd><p>Any other character when escaped by <kbd>\</kbd> gives a warning, but
-assembles as if the &lsquo;<samp>\</samp>&rsquo; was not present.  The idea is that if
+<dt><a class="index-entry-id" id="index-backslash-_0028_005c_005c_0029"></a>
+<a id="index--_005c_005c-_0028_005c-character_0029"></a><span><kbd class="kbd">\\</kbd><a class="copiable-link" href="#index--_005c_005c-_0028_005c-character_0029"> &para;</a></span></dt>
+<dd><p>Represents one &lsquo;<samp class="samp">\</samp>&rsquo; character.
+</p>
+</dd>
+<dt><a class="index-entry-id" id="index-doublequote-_0028_005c_0022_0029"></a>
+<a id="index--_005c_0022-_0028doublequote-character_0029"></a><span><kbd class="kbd">\&quot;</kbd><a class="copiable-link" href="#index--_005c_0022-_0028doublequote-character_0029"> &para;</a></span></dt>
+<dd><p>Represents one &lsquo;<samp class="samp">&quot;</samp>&rsquo; character.  Needed in strings to represent
+this character, because an unescaped &lsquo;<samp class="samp">&quot;</samp>&rsquo; would end the string.
+</p>
+</dd>
+<dt><kbd class="kbd">\ <var class="var">anything-else</var></kbd></dt>
+<dd><p>Any other character when escaped by <kbd class="kbd">\</kbd> gives a warning, but
+assembles as if the &lsquo;<samp class="samp">\</samp>&rsquo; was not present.  The idea is that if
 you used an escape sequence you clearly didn&rsquo;t want the literal
-interpretation of the following character.  However <code>as</code> has no
-other interpretation, so <code>as</code> knows it is giving you the wrong
+interpretation of the following character.  However <code class="command">as</code> has no
+other interpretation, so <code class="command">as</code> knows it is giving you the wrong
 code and warns you of the fact.
 </p></dd>
 </dl>
@@ -151,7 +129,7 @@ sequence.
 </p>
 </div>
 <hr>
-<div class="header">
+<div class="nav-panel">
 <p>
 Next: <a href="Chars.html">Characters</a>, Up: <a href="Characters.html">Character Constants</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

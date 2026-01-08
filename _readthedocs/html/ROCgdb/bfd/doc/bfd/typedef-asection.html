@@ -1,11 +1,11 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the BFD library.
 
-Copyright (C) 1991-2025 Free Software Foundation, Inc.
+Copyright © 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -41,21 +41,9 @@ You have freedom to copy and modify this GNU Manual, like GNU
 <link href="Section-Output.html" rel="prev" title="Section Output">
 <style type="text/css">
 <!--
-a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
-a.summary-letter {text-decoration: none}
-blockquote.indentedblock {margin-right: 0em}
-div.display {margin-left: 3.2em}
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
 div.example {margin-left: 3.2em}
-kbd {font-style: oblique}
-pre.display {font-family: inherit}
-pre.format {font-family: inherit}
-pre.menu-comment {font-family: serif}
-pre.menu-preformatted {font-family: serif}
-span.nolinebreak {white-space: nowrap}
-span.roman {font-family: initial; font-weight: normal}
-span.sansserif {font-family: sans-serif; font-weight: normal}
-span:hover a.copiable-anchor {visibility: visible}
-ul.no-bullet {list-style: none}
+span:hover a.copiable-link {visibility: visible}
 -->
 </style>
 
@@ -63,18 +51,18 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<div class="subsection" id="typedef-asection">
-<div class="header">
+<div class="subsection-level-extent" id="typedef-asection">
+<div class="nav-panel">
 <p>
 Next: <a href="section-prototypes.html" accesskey="n" rel="next">Section prototypes</a>, Previous: <a href="Section-Output.html" accesskey="p" rel="prev">Section output</a>, Up: <a href="Sections.html" accesskey="u" rel="up">Sections</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="BFD-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="typedef-asection-1"></span><h4 class="subsection">2.6.4 typedef asection</h4>
+<h4 class="subsection" id="typedef-asection-1"><span>2.6.4 typedef asection<a class="copiable-link" href="#typedef-asection-1"> &para;</a></span></h4>
 <p>Here is the section structure:
 </p>
 
 <div class="example">
-<pre class="example">typedef struct bfd_section
+<pre class="example-preformatted">typedef struct bfd_section
 {
   /* The name of the section; the name isn't a copy, the pointer is
      the same as that passed to bfd_make_section.  */
@@ -129,19 +117,19 @@ Next: <a href="section-prototypes.html" accesskey="n" rel="next">Section prototy
 
   /* The section contains constructor information. This section
      type is used by the linker to create lists of constructors and
-     destructors used by <code>g++</code>. When a back end sees a symbol
+     destructors used by <code class="code">g++</code>. When a back end sees a symbol
      which should be used in a constructor list, it creates a new
-     section for the type of name (e.g., <code>__CTOR_LIST__</code>), attaches
+     section for the type of name (e.g., <code class="code">__CTOR_LIST__</code>), attaches
      the symbol to it, and builds a relocation. To build the lists
      of constructors, all the linker has to do is catenate all the
-     sections called <code>__CTOR_LIST__</code> and relocate the data
+     sections called <code class="code">__CTOR_LIST__</code> and relocate the data
      contained within - exactly the operations it would peform on
      standard data.  */
 #define SEC_CONSTRUCTOR                  0x80
 
   /* The section has contents - a data section could be
-     <code>SEC_ALLOC</code> | <code>SEC_HAS_CONTENTS</code>; a debug section could be
-     <code>SEC_HAS_CONTENTS</code>  */
+     <code class="code">SEC_ALLOC</code> | <code class="code">SEC_HAS_CONTENTS</code>; a debug section could be
+     <code class="code">SEC_HAS_CONTENTS</code>  */
 #define SEC_HAS_CONTENTS                0x100
 
   /* An instruction to the linker to not output the section
@@ -338,11 +326,8 @@ Next: <a href="section-prototypes.html" accesskey="n" rel="next">Section prototy
   /* Nonzero if this section uses RELA relocations, rather than REL.  */
   unsigned int use_rela_p:1;
 
-  /* Nonzero if section contents are mmapped.  */
+  /* Nonzero if this section contents are mmapped, rather than malloced.  */
   unsigned int mmapped_p:1;
-
-  /* Nonzero if section contents should not be freed.  */
-  unsigned int alloced:1;
 
   /* Bits used by various backends.  The generic code doesn't touch
      these fields.  */
@@ -359,8 +344,8 @@ Next: <a href="section-prototypes.html" accesskey="n" rel="next">Section prototy
   /*  The virtual memory address of the section - where it will be
       at run time.  The symbols are relocated against this.  The
       user_set_vma flag is maintained by bfd; if it's not set, the
-      backend can assign addresses (for example, in <code>a.out</code>, where
-      the default address for <code>.data</code> is dependent on the specific
+      backend can assign addresses (for example, in <code class="code">a.out</code>, where
+      the default address for <code class="code">.data</code> is dependent on the specific
       target and various flags).  */
   bfd_vma vma;
 
@@ -371,7 +356,7 @@ Next: <a href="section-prototypes.html" accesskey="n" rel="next">Section prototy
 
   /* The size of the section in *octets*, as it will be output.
      Contains a value even if the section has no contents (e.g., the
-     size of <code>.bss</code>).  */
+     size of <code class="code">.bss</code>).  */
   bfd_size_type size;
 
   /* For input sections, the original size on disk of the section, in
@@ -481,10 +466,6 @@ Next: <a href="section-prototypes.html" accesskey="n" rel="next">Section prototy
      regions is enabled.  */
   struct bfd_section *already_assigned;
 
-  /* A pointer used for various section optimizations.  sec_info_type
-     qualifies which one it is.  */
-  void *sec_info;
-
   /* Explicitly specified section type, if non-zero.  */
   unsigned int type;
 
@@ -494,7 +475,7 @@ Next: <a href="section-prototypes.html" accesskey="n" rel="next">Section prototy
 
 </div>
 <hr>
-<div class="header">
+<div class="nav-panel">
 <p>
 Next: <a href="section-prototypes.html">Section prototypes</a>, Previous: <a href="Section-Output.html">Section output</a>, Up: <a href="Sections.html">Sections</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="BFD-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

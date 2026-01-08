@@ -1,9 +1,9 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright (C) 1992-2024 Free Software Foundation, Inc.
+<!-- Copyright © 1992-2024 Free Software Foundation, Inc.
 Contributed by Cygnus Support.  Written by Julia Menapace, Jim Kingdon,
 and David MacKenzie.
 
@@ -29,21 +29,9 @@ Free Documentation License". -->
 <link href="Builtin-Type-Descriptors.html" rel="prev" title="Builtin Type Descriptors">
 <style type="text/css">
 <!--
-a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
-a.summary-letter {text-decoration: none}
-blockquote.indentedblock {margin-right: 0em}
-div.display {margin-left: 3.2em}
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
 div.example {margin-left: 3.2em}
-kbd {font-style: oblique}
-pre.display {font-family: inherit}
-pre.format {font-family: inherit}
-pre.menu-comment {font-family: serif}
-pre.menu-preformatted {font-family: serif}
-span.nolinebreak {white-space: nowrap}
-span.roman {font-family: initial; font-weight: normal}
-span.sansserif {font-family: sans-serif; font-weight: normal}
-span:hover a.copiable-anchor {visibility: visible}
-ul.no-bullet {list-style: none}
+span:hover a.copiable-link {visibility: visible}
 -->
 </style>
 
@@ -51,13 +39,13 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<div class="subsection" id="Negative-Type-Numbers">
-<div class="header">
+<div class="subsection-level-extent" id="Negative-Type-Numbers">
+<div class="nav-panel">
 <p>
 Previous: <a href="Builtin-Type-Descriptors.html" accesskey="p" rel="prev">Defining Builtin Types Using Builtin Type Descriptors</a>, Up: <a href="Builtin-Types.html" accesskey="u" rel="up">Builtin Types</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Symbol-Types-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="Negative-Type-Numbers-1"></span><h4 class="subsection">5.1.3 Negative Type Numbers</h4>
+<h4 class="subsection" id="Negative-Type-Numbers-1"><span>5.1.3 Negative Type Numbers<a class="copiable-link" href="#Negative-Type-Numbers-1"> &para;</a></span></h4>
 
 <p>This is the method used in XCOFF for defining builtin types.
 Since the debugger knows about the builtin types anyway, the idea of
@@ -67,7 +55,7 @@ indicates the builtin type.  There is no stab defining these types.
 <p>There are several subtle issues with negative type numbers.
 </p>
 <p>One is the size of the type.  A builtin type (for example the C types
-<code>int</code> or <code>long</code>) might have different sizes depending on
+<code class="code">int</code> or <code class="code">long</code>) might have different sizes depending on
 compiler options, the target architecture, the ABI, etc.  This issue
 doesn&rsquo;t come up for IBM tools since (so far) they just target the
 RS/6000; the sizes indicated below for each size are what the IBM
@@ -75,18 +63,18 @@ RS/6000 tools use.  To deal with differing sizes, either define separate
 negative type numbers for each size (which works but requires changing
 the debugger, and, unless you get both AIX dbx and GDB to accept the
 change, introduces an incompatibility), or use a type attribute
-(see <a href="String-Field.html">The String Field</a>) to define a new type with the appropriate size
+(see <a class="pxref" href="String-Field.html">The String Field</a>) to define a new type with the appropriate size
 (which merely requires a debugger which understands type attributes,
 like AIX dbx or GDB).  For example,
 </p>
 <div class="example">
-<pre class="example">.stabs &quot;boolean:t10=@s8;-16&quot;,128,0,0,0
+<pre class="example-preformatted">.stabs &quot;boolean:t10=@s8;-16&quot;,128,0,0,0
 </pre></div>
 
 <p>defines an 8-bit boolean type, and
 </p>
 <div class="example">
-<pre class="example">.stabs &quot;boolean:t10=@s64;-16&quot;,128,0,0,0
+<pre class="example-preformatted">.stabs &quot;boolean:t10=@s64;-16&quot;,128,0,0,0
 </pre></div>
 
 <p>defines a 64-bit boolean type.
@@ -105,187 +93,187 @@ bit, whether it is zero, etc., and different compilers (or different
 options to the same compiler) might provide different kinds of boolean.
 </p>
 <p>The last major issue is the names of the types.  The name of a given
-type depends <em>only</em> on the negative type number given; these do not
+type depends <em class="emph">only</em> on the negative type number given; these do not
 vary depending on the language, the target system, or anything else.
 One can always define separate type numbers&mdash;in the following list you
-will see for example separate <code>int</code> and <code>integer*4</code> types
+will see for example separate <code class="code">int</code> and <code class="code">integer*4</code> types
 which are identical except for the name.  But compatibility can be
 maintained by not inventing new negative type numbers and instead just
 defining a new type with a new name.  For example:
 </p>
 <div class="example">
-<pre class="example">.stabs &quot;CARDINAL:t10=-8&quot;,128,0,0,0
+<pre class="example-preformatted">.stabs &quot;CARDINAL:t10=-8&quot;,128,0,0,0
 </pre></div>
 
-<p>Here is the list of negative type numbers.  The phrase <em>integral
+<p>Here is the list of negative type numbers.  The phrase <em class="dfn">integral
 type</em> is used to mean twos-complement (I strongly suspect that all
 machines which use stabs use twos-complement; most machines use
 twos-complement these days).
 </p>
-<dl compact="compact">
-<dt><span><code>-1</code></span></dt>
-<dd><p><code>int</code>, 32 bit signed integral type.
+<dl class="table">
+<dt><code class="code">-1</code></dt>
+<dd><p><code class="code">int</code>, 32 bit signed integral type.
 </p>
 </dd>
-<dt><span><code>-2</code></span></dt>
-<dd><p><code>char</code>, 8 bit type holding a character.   Both GDB and dbx on AIX
-treat this as signed.  GCC uses this type whether <code>char</code> is signed
-or not, which seems like a bad idea.  The AIX compiler (<code>xlc</code>) seems to
-avoid this type; it uses -5 instead for <code>char</code>.
+<dt><code class="code">-2</code></dt>
+<dd><p><code class="code">char</code>, 8 bit type holding a character.   Both GDB and dbx on AIX
+treat this as signed.  GCC uses this type whether <code class="code">char</code> is signed
+or not, which seems like a bad idea.  The AIX compiler (<code class="code">xlc</code>) seems to
+avoid this type; it uses -5 instead for <code class="code">char</code>.
 </p>
 </dd>
-<dt><span><code>-3</code></span></dt>
-<dd><p><code>short</code>, 16 bit signed integral type.
+<dt><code class="code">-3</code></dt>
+<dd><p><code class="code">short</code>, 16 bit signed integral type.
 </p>
 </dd>
-<dt><span><code>-4</code></span></dt>
-<dd><p><code>long</code>, 32 bit signed integral type.
+<dt><code class="code">-4</code></dt>
+<dd><p><code class="code">long</code>, 32 bit signed integral type.
 </p>
 </dd>
-<dt><span><code>-5</code></span></dt>
-<dd><p><code>unsigned char</code>, 8 bit unsigned integral type.
+<dt><code class="code">-5</code></dt>
+<dd><p><code class="code">unsigned char</code>, 8 bit unsigned integral type.
 </p>
 </dd>
-<dt><span><code>-6</code></span></dt>
-<dd><p><code>signed char</code>, 8 bit signed integral type.
+<dt><code class="code">-6</code></dt>
+<dd><p><code class="code">signed char</code>, 8 bit signed integral type.
 </p>
 </dd>
-<dt><span><code>-7</code></span></dt>
-<dd><p><code>unsigned short</code>, 16 bit unsigned integral type.
+<dt><code class="code">-7</code></dt>
+<dd><p><code class="code">unsigned short</code>, 16 bit unsigned integral type.
 </p>
 </dd>
-<dt><span><code>-8</code></span></dt>
-<dd><p><code>unsigned int</code>, 32 bit unsigned integral type.
+<dt><code class="code">-8</code></dt>
+<dd><p><code class="code">unsigned int</code>, 32 bit unsigned integral type.
 </p>
 </dd>
-<dt><span><code>-9</code></span></dt>
-<dd><p><code>unsigned</code>, 32 bit unsigned integral type.
+<dt><code class="code">-9</code></dt>
+<dd><p><code class="code">unsigned</code>, 32 bit unsigned integral type.
 </p>
 </dd>
-<dt><span><code>-10</code></span></dt>
-<dd><p><code>unsigned long</code>, 32 bit unsigned integral type.
+<dt><code class="code">-10</code></dt>
+<dd><p><code class="code">unsigned long</code>, 32 bit unsigned integral type.
 </p>
 </dd>
-<dt><span><code>-11</code></span></dt>
-<dd><p><code>void</code>, type indicating the lack of a value.
+<dt><code class="code">-11</code></dt>
+<dd><p><code class="code">void</code>, type indicating the lack of a value.
 </p>
 </dd>
-<dt><span><code>-12</code></span></dt>
-<dd><p><code>float</code>, IEEE single precision.
+<dt><code class="code">-12</code></dt>
+<dd><p><code class="code">float</code>, IEEE single precision.
 </p>
 </dd>
-<dt><span><code>-13</code></span></dt>
-<dd><p><code>double</code>, IEEE double precision.
+<dt><code class="code">-13</code></dt>
+<dd><p><code class="code">double</code>, IEEE double precision.
 </p>
 </dd>
-<dt><span><code>-14</code></span></dt>
-<dd><p><code>long double</code>, IEEE double precision.  The compiler claims the size
+<dt><code class="code">-14</code></dt>
+<dd><p><code class="code">long double</code>, IEEE double precision.  The compiler claims the size
 will increase in a future release, and for binary compatibility you have
-to avoid using <code>long double</code>.  I hope when they increase it they
+to avoid using <code class="code">long double</code>.  I hope when they increase it they
 use a new negative type number.
 </p>
 </dd>
-<dt><span><code>-15</code></span></dt>
-<dd><p><code>integer</code>.  32 bit signed integral type.
+<dt><code class="code">-15</code></dt>
+<dd><p><code class="code">integer</code>.  32 bit signed integral type.
 </p>
 </dd>
-<dt><span><code>-16</code></span></dt>
-<dd><p><code>boolean</code>.  32 bit type.  GDB and GCC assume that zero is false,
+<dt><code class="code">-16</code></dt>
+<dd><p><code class="code">boolean</code>.  32 bit type.  GDB and GCC assume that zero is false,
 one is true, and other values have unspecified meaning.  I hope this
 agrees with how the IBM tools use the type.
 </p>
 </dd>
-<dt><span><code>-17</code></span></dt>
-<dd><p><code>short real</code>.  IEEE single precision.
+<dt><code class="code">-17</code></dt>
+<dd><p><code class="code">short real</code>.  IEEE single precision.
 </p>
 </dd>
-<dt><span><code>-18</code></span></dt>
-<dd><p><code>real</code>.  IEEE double precision.
+<dt><code class="code">-18</code></dt>
+<dd><p><code class="code">real</code>.  IEEE double precision.
 </p>
 </dd>
-<dt><span><code>-19</code></span></dt>
-<dd><p><code>stringptr</code>.  See <a href="Strings.html">Strings</a>.
+<dt><code class="code">-19</code></dt>
+<dd><p><code class="code">stringptr</code>.  See <a class="xref" href="Strings.html">Strings</a>.
 </p>
 </dd>
-<dt><span><code>-20</code></span></dt>
-<dd><p><code>character</code>, 8 bit unsigned character type.
+<dt><code class="code">-20</code></dt>
+<dd><p><code class="code">character</code>, 8 bit unsigned character type.
 </p>
 </dd>
-<dt><span><code>-21</code></span></dt>
-<dd><p><code>logical*1</code>, 8 bit type.  This Fortran type has a split
+<dt><code class="code">-21</code></dt>
+<dd><p><code class="code">logical*1</code>, 8 bit type.  This Fortran type has a split
 personality in that it is used for boolean variables, but can also be
 used for unsigned integers.  0 is false, 1 is true, and other values are
 non-boolean.
 </p>
 </dd>
-<dt><span><code>-22</code></span></dt>
-<dd><p><code>logical*2</code>, 16 bit type.  This Fortran type has a split
+<dt><code class="code">-22</code></dt>
+<dd><p><code class="code">logical*2</code>, 16 bit type.  This Fortran type has a split
 personality in that it is used for boolean variables, but can also be
 used for unsigned integers.  0 is false, 1 is true, and other values are
 non-boolean.
 </p>
 </dd>
-<dt><span><code>-23</code></span></dt>
-<dd><p><code>logical*4</code>, 32 bit type.  This Fortran type has a split
+<dt><code class="code">-23</code></dt>
+<dd><p><code class="code">logical*4</code>, 32 bit type.  This Fortran type has a split
 personality in that it is used for boolean variables, but can also be
 used for unsigned integers.  0 is false, 1 is true, and other values are
 non-boolean.
 </p>
 </dd>
-<dt><span><code>-24</code></span></dt>
-<dd><p><code>logical</code>, 32 bit type.  This Fortran type has a split
+<dt><code class="code">-24</code></dt>
+<dd><p><code class="code">logical</code>, 32 bit type.  This Fortran type has a split
 personality in that it is used for boolean variables, but can also be
 used for unsigned integers.  0 is false, 1 is true, and other values are
 non-boolean.
 </p>
 </dd>
-<dt><span><code>-25</code></span></dt>
-<dd><p><code>complex</code>.  A complex type consisting of two IEEE single-precision
+<dt><code class="code">-25</code></dt>
+<dd><p><code class="code">complex</code>.  A complex type consisting of two IEEE single-precision
 floating point values.
 </p>
 </dd>
-<dt><span><code>-26</code></span></dt>
-<dd><p><code>complex</code>.  A complex type consisting of two IEEE double-precision
+<dt><code class="code">-26</code></dt>
+<dd><p><code class="code">complex</code>.  A complex type consisting of two IEEE double-precision
 floating point values.
 </p>
 </dd>
-<dt><span><code>-27</code></span></dt>
-<dd><p><code>integer*1</code>, 8 bit signed integral type.
+<dt><code class="code">-27</code></dt>
+<dd><p><code class="code">integer*1</code>, 8 bit signed integral type.
 </p>
 </dd>
-<dt><span><code>-28</code></span></dt>
-<dd><p><code>integer*2</code>, 16 bit signed integral type.
+<dt><code class="code">-28</code></dt>
+<dd><p><code class="code">integer*2</code>, 16 bit signed integral type.
 </p>
 </dd>
-<dt><span><code>-29</code></span></dt>
-<dd><p><code>integer*4</code>, 32 bit signed integral type.
+<dt><code class="code">-29</code></dt>
+<dd><p><code class="code">integer*4</code>, 32 bit signed integral type.
 </p>
 </dd>
-<dt><span><code>-30</code></span></dt>
-<dd><p><code>wchar</code>.  Wide character, 16 bits wide, unsigned (what format?
+<dt><code class="code">-30</code></dt>
+<dd><p><code class="code">wchar</code>.  Wide character, 16 bits wide, unsigned (what format?
 Unicode?).
 </p>
 </dd>
-<dt><span><code>-31</code></span></dt>
-<dd><p><code>long long</code>, 64 bit signed integral type.
+<dt><code class="code">-31</code></dt>
+<dd><p><code class="code">long long</code>, 64 bit signed integral type.
 </p>
 </dd>
-<dt><span><code>-32</code></span></dt>
-<dd><p><code>unsigned long long</code>, 64 bit unsigned integral type.
+<dt><code class="code">-32</code></dt>
+<dd><p><code class="code">unsigned long long</code>, 64 bit unsigned integral type.
 </p>
 </dd>
-<dt><span><code>-33</code></span></dt>
-<dd><p><code>logical*8</code>, 64 bit unsigned integral type.
+<dt><code class="code">-33</code></dt>
+<dd><p><code class="code">logical*8</code>, 64 bit unsigned integral type.
 </p>
 </dd>
-<dt><span><code>-34</code></span></dt>
-<dd><p><code>integer*8</code>, 64 bit signed integral type.
+<dt><code class="code">-34</code></dt>
+<dd><p><code class="code">integer*8</code>, 64 bit signed integral type.
 </p></dd>
 </dl>
 
 </div>
 <hr>
-<div class="header">
+<div class="nav-panel">
 <p>
 Previous: <a href="Builtin-Type-Descriptors.html">Defining Builtin Types Using Builtin Type Descriptors</a>, Up: <a href="Builtin-Types.html">Builtin Types</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Symbol-Types-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

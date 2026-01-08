@@ -1,11 +1,11 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the GNU Assembler "as".
 
-Copyright (C) 1991-2025 Free Software Foundation, Inc.
+Copyright © 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -31,21 +31,9 @@ section entitled "GNU Free Documentation License".
 <link href="Transform-Directive.html" rel="prev" title="Transform Directive">
 <style type="text/css">
 <!--
-a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
-a.summary-letter {text-decoration: none}
-blockquote.indentedblock {margin-right: 0em}
-div.display {margin-left: 3.2em}
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
 div.example {margin-left: 3.2em}
-kbd {font-style: oblique}
-pre.display {font-family: inherit}
-pre.format {font-family: inherit}
-pre.menu-comment {font-family: serif}
-pre.menu-preformatted {font-family: serif}
-span.nolinebreak {white-space: nowrap}
-span.roman {font-family: initial; font-weight: normal}
-span.sansserif {font-family: sans-serif; font-weight: normal}
-span:hover a.copiable-anchor {visibility: visible}
-ul.no-bullet {list-style: none}
+span:hover a.copiable-link {visibility: visible}
 -->
 </style>
 
@@ -53,99 +41,99 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<div class="subsection" id="Literal-Directive">
-<div class="header">
+<div class="subsubsection-level-extent" id="Literal-Directive">
+<div class="nav-panel">
 <p>
 Next: <a href="Literal-Position-Directive.html" accesskey="n" rel="next">literal_position</a>, Previous: <a href="Transform-Directive.html" accesskey="p" rel="prev">transform</a>, Up: <a href="Xtensa-Directives.html" accesskey="u" rel="up">Directives</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="literal"></span><h4 class="subsubsection">9.55.5.4 literal</h4>
-<span id="index-literal-directive"></span>
+<h4 class="subsubsection subsection-level-set-subsubsection" id="literal"><span>9.55.5.4 literal<a class="copiable-link" href="#literal"> &para;</a></span></h4>
+<a class="index-entry-id" id="index-literal-directive"></a>
 
-<p>The <code>.literal</code> directive is used to define literal pool data, i.e.,
-read-only 32-bit data accessed via <code>L32R</code> instructions.
+<p>The <code class="code">.literal</code> directive is used to define literal pool data, i.e.,
+read-only 32-bit data accessed via <code class="code">L32R</code> instructions.
 </p>
-<div class="example">
-<pre class="example">    .literal <var>label</var>, <var>value</var>[, <var>value</var>&hellip;]
+<div class="example smallexample">
+<pre class="example-preformatted">    .literal <var class="var">label</var>, <var class="var">value</var>[, <var class="var">value</var>...]
 </pre></div>
 
-<p>This directive is similar to the standard <code>.word</code> directive, except
+<p>This directive is similar to the standard <code class="code">.word</code> directive, except
 that the actual location of the literal data is determined by the
-assembler and linker, not by the position of the <code>.literal</code>
+assembler and linker, not by the position of the <code class="code">.literal</code>
 directive.  Using this directive gives the assembler freedom to locate
 the literal data in the most appropriate place and possibly to combine
 identical literals.  For example, the code:
 </p>
-<div class="example">
-<pre class="example">    entry sp, 40
+<div class="example smallexample">
+<div class="group"><pre class="example-preformatted">    entry sp, 40
     .literal .L1, sym
     l32r    a4, .L1
-</pre></div>
+</pre></div></div>
 
-<p>can be used to load a pointer to the symbol <code>sym</code> into register
-<code>a4</code>.  The value of <code>sym</code> will not be placed between the
-<code>ENTRY</code> and <code>L32R</code> instructions; instead, the assembler puts
+<p>can be used to load a pointer to the symbol <code class="code">sym</code> into register
+<code class="code">a4</code>.  The value of <code class="code">sym</code> will not be placed between the
+<code class="code">ENTRY</code> and <code class="code">L32R</code> instructions; instead, the assembler puts
 the data in a literal pool.
 </p>
 <p>Literal pools are placed by default in separate literal sections;
-however, when using the &lsquo;<samp>--text-section-literals</samp>&rsquo;
-option (see <a href="Xtensa-Options.html">Command-line Options</a>), the literal
-pools for PC-relative mode <code>L32R</code> instructions
-are placed in the current section.<a id="DOCF3" href="#FOOT3"><sup>3</sup></a>
+however, when using the &lsquo;<samp class="samp">--text-section-literals</samp>&rsquo;
+option (see <a class="pxref" href="Xtensa-Options.html">Command-line Options</a>), the literal
+pools for PC-relative mode <code class="code">L32R</code> instructions
+are placed in the current section.<a class="footnote" id="DOCF3" href="#FOOT3"><sup>3</sup></a>
 These text section literal
-pools are created automatically before <code>ENTRY</code> instructions and
-manually after &lsquo;<samp>.literal_position</samp>&rsquo; directives (see <a href="Literal-Position-Directive.html">literal_position</a>).  If there are no preceding
-<code>ENTRY</code> instructions, explicit <code>.literal_position</code> directives
+pools are created automatically before <code class="code">ENTRY</code> instructions and
+manually after &lsquo;<samp class="samp">.literal_position</samp>&rsquo; directives (see <a class="pxref" href="Literal-Position-Directive.html">literal_position</a>).  If there are no preceding
+<code class="code">ENTRY</code> instructions, explicit <code class="code">.literal_position</code> directives
 must be used to place the text section literal pools; otherwise,
-<code>as</code> will report an error.
+<code class="command">as</code> will report an error.
 </p>
 <p>When literals are placed in separate sections, the literal section names
 are derived from the names of the sections where the literals are
-defined.  The base literal section names are <code>.literal</code> for
-PC-relative mode <code>L32R</code> instructions and <code>.lit4</code> for absolute
-mode <code>L32R</code> instructions (see <a href="Absolute-Literals-Directive.html">absolute-literals</a>).  These base names are used for literals defined in
-the default <code>.text</code> section.  For literals defined in other
-sections or within the scope of a <code>literal_prefix</code> directive
-(see <a href="Literal-Prefix-Directive.html">literal_prefix</a>), the following rules
+defined.  The base literal section names are <code class="code">.literal</code> for
+PC-relative mode <code class="code">L32R</code> instructions and <code class="code">.lit4</code> for absolute
+mode <code class="code">L32R</code> instructions (see <a class="pxref" href="Absolute-Literals-Directive.html">absolute-literals</a>).  These base names are used for literals defined in
+the default <code class="code">.text</code> section.  For literals defined in other
+sections or within the scope of a <code class="code">literal_prefix</code> directive
+(see <a class="pxref" href="Literal-Prefix-Directive.html">literal_prefix</a>), the following rules
 determine the literal section name:
 </p>
-<ol>
+<ol class="enumerate">
 <li> If the current section is a member of a section group, the literal
 section name includes the group name as a suffix to the base
-<code>.literal</code> or <code>.lit4</code> name, with a period to separate the base
+<code class="code">.literal</code> or <code class="code">.lit4</code> name, with a period to separate the base
 name and group name.  The literal section is also made a member of the
 group.
 
-</li><li> If the current section name (or <code>literal_prefix</code> value) begins with
-&ldquo;<code>.gnu.linkonce.<var>kind</var>.</code>&rdquo;, the literal section name is formed
-by replacing &ldquo;<code>.<var>kind</var></code>&rdquo; with the base <code>.literal</code> or
-<code>.lit4</code> name.  For example, for literals defined in a section named
-<code>.gnu.linkonce.t.func</code>, the literal section will be
-<code>.gnu.linkonce.literal.func</code> or <code>.gnu.linkonce.lit4.func</code>.
+</li><li> If the current section name (or <code class="code">literal_prefix</code> value) begins with
+&ldquo;<code class="code">.gnu.linkonce.<var class="var">kind</var>.</code>&rdquo;, the literal section name is formed
+by replacing &ldquo;<code class="code">.<var class="var">kind</var></code>&rdquo; with the base <code class="code">.literal</code> or
+<code class="code">.lit4</code> name.  For example, for literals defined in a section named
+<code class="code">.gnu.linkonce.t.func</code>, the literal section will be
+<code class="code">.gnu.linkonce.literal.func</code> or <code class="code">.gnu.linkonce.lit4.func</code>.
 
-</li><li> If the current section name (or <code>literal_prefix</code> value) ends with
-<code>.text</code>, the literal section name is formed by replacing that
-suffix with the base <code>.literal</code> or <code>.lit4</code> name.  For example,
-for literals defined in a section named <code>.iram0.text</code>, the literal
-section will be <code>.iram0.literal</code> or <code>.iram0.lit4</code>.
+</li><li> If the current section name (or <code class="code">literal_prefix</code> value) ends with
+<code class="code">.text</code>, the literal section name is formed by replacing that
+suffix with the base <code class="code">.literal</code> or <code class="code">.lit4</code> name.  For example,
+for literals defined in a section named <code class="code">.iram0.text</code>, the literal
+section will be <code class="code">.iram0.literal</code> or <code class="code">.iram0.lit4</code>.
 
 </li><li> If none of the preceding conditions apply, the literal section name is
-formed by adding the base <code>.literal</code> or <code>.lit4</code> name as a
-suffix to the current section name (or <code>literal_prefix</code> value).
+formed by adding the base <code class="code">.literal</code> or <code class="code">.lit4</code> name as a
+suffix to the current section name (or <code class="code">literal_prefix</code> value).
 </li></ol>
 
 </div>
-<div class="footnote">
+<div class="footnotes-segment">
 <hr>
 <h4 class="footnotes-heading">Footnotes</h4>
 
-<h5><a id="FOOT3" href="#DOCF3">(3)</a></h5>
+<h5 class="footnote-body-heading"><a id="FOOT3" href="#DOCF3">(3)</a></h5>
 <p>Literals for the
-<code>.init</code> and <code>.fini</code> sections are always placed in separate
-sections, even when &lsquo;<samp>--text-section-literals</samp>&rsquo; is enabled.</p>
+<code class="code">.init</code> and <code class="code">.fini</code> sections are always placed in separate
+sections, even when &lsquo;<samp class="samp">--text-section-literals</samp>&rsquo; is enabled.</p>
 </div>
 <hr>
-<div class="header">
+<div class="nav-panel">
 <p>
 Next: <a href="Literal-Position-Directive.html">literal_position</a>, Previous: <a href="Transform-Directive.html">transform</a>, Up: <a href="Xtensa-Directives.html">Directives</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

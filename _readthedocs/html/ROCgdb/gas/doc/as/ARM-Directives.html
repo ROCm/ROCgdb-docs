@@ -1,11 +1,11 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the GNU Assembler "as".
 
-Copyright (C) 1991-2025 Free Software Foundation, Inc.
+Copyright © 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -31,21 +31,9 @@ section entitled "GNU Free Documentation License".
 <link href="ARM-Floating-Point.html" rel="prev" title="ARM Floating Point">
 <style type="text/css">
 <!--
-a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
-a.summary-letter {text-decoration: none}
-blockquote.indentedblock {margin-right: 0em}
-div.display {margin-left: 3.2em}
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
 div.example {margin-left: 3.2em}
-kbd {font-style: oblique}
-pre.display {font-family: inherit}
-pre.format {font-family: inherit}
-pre.menu-comment {font-family: serif}
-pre.menu-preformatted {font-family: serif}
-span.nolinebreak {white-space: nowrap}
-span.roman {font-family: initial; font-weight: normal}
-span.sansserif {font-family: sans-serif; font-weight: normal}
-span:hover a.copiable-anchor {visibility: visible}
-ul.no-bullet {list-style: none}
+span:hover a.copiable-link {visibility: visible}
 -->
 </style>
 
@@ -53,83 +41,71 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<div class="section" id="ARM-Directives">
-<div class="header">
+<div class="subsection-level-extent" id="ARM-Directives">
+<div class="nav-panel">
 <p>
 Next: <a href="ARM-Opcodes.html" accesskey="n" rel="next">Opcodes</a>, Previous: <a href="ARM-Floating-Point.html" accesskey="p" rel="prev">Floating Point</a>, Up: <a href="ARM_002dDependent.html" accesskey="u" rel="up">ARM Dependent Features</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="ARM-Machine-Directives"></span><h4 class="subsection">9.4.4 ARM Machine Directives</h4>
+<h4 class="subsection section-level-set-subsection" id="ARM-Machine-Directives"><span>9.4.4 ARM Machine Directives<a class="copiable-link" href="#ARM-Machine-Directives"> &para;</a></span></h4>
 
-<span id="index-machine-directives_002c-ARM"></span>
-<span id="index-ARM-machine-directives"></span>
-<dl compact="compact">
-<dd>
-
-
-<span id="index-_002ealign-directive_002c-ARM"></span>
-</dd>
-<dt><span><code>.align <var>expression</var> [, <var>expression</var>]</code></span></dt>
-<dd><p>This is the generic <var>.align</var> directive.  For the ARM however if the
+<a class="index-entry-id" id="index-machine-directives_002c-ARM"></a>
+<a class="index-entry-id" id="index-ARM-machine-directives"></a>
+<dl class="table">
+<dt><a id="index-_002ealign-directive_002c-ARM"></a><span><code class="code">.align <var class="var">expression</var> [, <var class="var">expression</var>]</code><a class="copiable-link" href="#index-_002ealign-directive_002c-ARM"> &para;</a></span></dt>
+<dd><p>This is the generic <var class="var">.align</var> directive.  For the ARM however if the
 first argument is zero (ie no alignment is needed) the assembler will
 behave as if the argument had been 2 (ie pad to the next four byte
 boundary).  This is for compatibility with ARM&rsquo;s own assembler.
 </p>
-<span id="index-_002earch-directive_002c-ARM"></span>
 </dd>
-<dt><span><code>.arch <var>name</var></code></span></dt>
-<dd><p>Select the target architecture.  Valid values for <var>name</var> are the same as
-for the <samp>-march</samp> command-line option without the instruction set
+<dt><a id="index-_002earch-directive_002c-ARM"></a><span><code class="code">.arch <var class="var">name</var></code><a class="copiable-link" href="#index-_002earch-directive_002c-ARM"> &para;</a></span></dt>
+<dd><p>Select the target architecture.  Valid values for <var class="var">name</var> are the same as
+for the <samp class="option">-march</samp> command-line option without the instruction set
 extension.
 </p>
-<p>Specifying <code>.arch</code> clears any previously selected architecture
+<p>Specifying <code class="code">.arch</code> clears any previously selected architecture
 extensions.
 </p>
-<span id="index-_002earch_005fextension-directive_002c-ARM"></span>
 </dd>
-<dt><span><code>.arch_extension <var>name</var></code></span></dt>
+<dt><a id="index-_002earch_005fextension-directive_002c-ARM"></a><span><code class="code">.arch_extension <var class="var">name</var></code><a class="copiable-link" href="#index-_002earch_005fextension-directive_002c-ARM"> &para;</a></span></dt>
 <dd><p>Add or remove an architecture extension to the target architecture.  Valid
-values for <var>name</var> are the same as those accepted as architectural
-extensions by the <samp>-mcpu</samp> and <samp>-march</samp> command-line options.
+values for <var class="var">name</var> are the same as those accepted as architectural
+extensions by the <samp class="option">-mcpu</samp> and <samp class="option">-march</samp> command-line options.
 </p>
-<p><code>.arch_extension</code> may be used multiple times to add or remove extensions
+<p><code class="code">.arch_extension</code> may be used multiple times to add or remove extensions
 incrementally to the architecture being compiled for.
 </p>
-<span id="index-_002earm-directive_002c-ARM"></span>
 </dd>
-<dt><span><code>.arm</code></span></dt>
-<dd><p>This performs the same action as <var>.code 32</var>.
+<dt><a id="index-_002earm-directive_002c-ARM"></a><span><code class="code">.arm</code><a class="copiable-link" href="#index-_002earm-directive_002c-ARM"> &para;</a></span></dt>
+<dd><p>This performs the same action as <var class="var">.code 32</var>.
 </p>
 
-<span id="index-_002ecantunwind-directive_002c-ARM"></span>
 </dd>
-<dt><span><code>.cantunwind</code></span></dt>
+<dt><a id="index-_002ecantunwind-directive_002c-ARM"></a><span><code class="code">.cantunwind</code><a class="copiable-link" href="#index-_002ecantunwind-directive_002c-ARM"> &para;</a></span></dt>
 <dd><p>Prevents unwinding through the current function.  No personality routine
 or exception table data is required or permitted.
 </p>
-<span id="index-_002ecode-directive_002c-ARM"></span>
 </dd>
-<dt><span><code>.code <code>[16|32]</code></code></span></dt>
+<dt><a id="index-_002ecode-directive_002c-ARM"></a><span><code class="code">.code <code class="code">[16|32]</code></code><a class="copiable-link" href="#index-_002ecode-directive_002c-ARM"> &para;</a></span></dt>
 <dd><p>This directive selects the instruction set being generated. The value 16
 selects Thumb, with the value 32 selecting ARM.
 </p>
-<span id="index-_002ecpu-directive_002c-ARM"></span>
 </dd>
-<dt><span><code>.cpu <var>name</var></code></span></dt>
-<dd><p>Select the target processor.  Valid values for <var>name</var> are the same as
-for the <samp>-mcpu</samp> command-line option without the instruction set
+<dt><a id="index-_002ecpu-directive_002c-ARM"></a><span><code class="code">.cpu <var class="var">name</var></code><a class="copiable-link" href="#index-_002ecpu-directive_002c-ARM"> &para;</a></span></dt>
+<dd><p>Select the target processor.  Valid values for <var class="var">name</var> are the same as
+for the <samp class="option">-mcpu</samp> command-line option without the instruction set
 extension.
 </p>
-<p>Specifying <code>.cpu</code> clears any previously selected architecture
+<p>Specifying <code class="code">.cpu</code> clears any previously selected architecture
 extensions.
 </p>
 
-<span id="index-_002edn-and-_002eqn-directives_002c-ARM"></span>
 </dd>
-<dt><span><code><var>name</var> .dn <var>register name</var> [<var>.type</var>] [[<var>index</var>]]</code></span></dt>
-<dt><span><code><var>name</var> .qn <var>register name</var> [<var>.type</var>] [[<var>index</var>]]</code></span></dt>
+<dt><a id="index-_002edn-and-_002eqn-directives_002c-ARM"></a><span><code class="code"><var class="var">name</var> .dn <var class="var">register name</var> [<var class="var">.type</var>] [[<var class="var">index</var>]]</code><a class="copiable-link" href="#index-_002edn-and-_002eqn-directives_002c-ARM"> &para;</a></span></dt>
+<dt><code class="code"><var class="var">name</var> .qn <var class="var">register name</var> [<var class="var">.type</var>] [[<var class="var">index</var>]]</code></dt>
 <dd>
-<p>The <code>dn</code> and <code>qn</code> directives are used to create typed
+<p>The <code class="code">dn</code> and <code class="code">qn</code> directives are used to create typed
 and/or indexed register aliases for use in Advanced SIMD Extension
 (Neon) instructions.  The former should be used to create aliases
 of double-precision registers, and the latter to create aliases of
@@ -139,8 +115,8 @@ quad-precision registers.
 be used in Neon instructions instead of writing types after the mnemonic
 or after each operand.  For example:
 </p>
-<div class="example">
-<pre class="example">        x .dn d2.f32
+<div class="example smallexample">
+<pre class="example-preformatted">        x .dn d2.f32
         y .dn d3.f32
         z .dn d4.f32[1]
         vmul x,y,z
@@ -148,84 +124,78 @@ or after each operand.  For example:
 
 <p>This is equivalent to writing the following:
 </p>
-<div class="example">
-<pre class="example">        vmul.f32 d2,d3,d4[1]
+<div class="example smallexample">
+<pre class="example-preformatted">        vmul.f32 d2,d3,d4[1]
 </pre></div>
 
-<p>Aliases created using <code>dn</code> or <code>qn</code> can be destroyed using
-<code>unreq</code>.
+<p>Aliases created using <code class="code">dn</code> or <code class="code">qn</code> can be destroyed using
+<code class="code">unreq</code>.
 </p>
 
-<span id="index-_002eeabi_005fattribute-directive_002c-ARM"></span>
 </dd>
-<dt><span><code>.eabi_attribute <var>tag</var>, <var>value</var></code></span></dt>
-<dd><p>Set the EABI object attribute <var>tag</var> to <var>value</var>.
+<dt><a id="index-_002eeabi_005fattribute-directive_002c-ARM"></a><span><code class="code">.eabi_attribute <var class="var">tag</var>, <var class="var">value</var></code><a class="copiable-link" href="#index-_002eeabi_005fattribute-directive_002c-ARM"> &para;</a></span></dt>
+<dd><p>Set the EABI object attribute <var class="var">tag</var> to <var class="var">value</var>.
 </p>
-<p>The <var>tag</var> is either an attribute number, or one of the following:
-<code>Tag_CPU_raw_name</code>, <code>Tag_CPU_name</code>, <code>Tag_CPU_arch</code>,
-<code>Tag_CPU_arch_profile</code>, <code>Tag_ARM_ISA_use</code>,
-<code>Tag_THUMB_ISA_use</code>, <code>Tag_FP_arch</code>, <code>Tag_WMMX_arch</code>,
-<code>Tag_Advanced_SIMD_arch</code>, <code>Tag_MVE_arch</code>, <code>Tag_PCS_config</code>,
-<code>Tag_ABI_PCS_R9_use</code>, <code>Tag_ABI_PCS_RW_data</code>,
-<code>Tag_ABI_PCS_RO_data</code>, <code>Tag_ABI_PCS_GOT_use</code>,
-<code>Tag_ABI_PCS_wchar_t</code>, <code>Tag_ABI_FP_rounding</code>,
-<code>Tag_ABI_FP_denormal</code>, <code>Tag_ABI_FP_exceptions</code>,
-<code>Tag_ABI_FP_user_exceptions</code>, <code>Tag_ABI_FP_number_model</code>,
-<code>Tag_ABI_align_needed</code>, <code>Tag_ABI_align_preserved</code>,
-<code>Tag_ABI_enum_size</code>, <code>Tag_ABI_HardFP_use</code>,
-<code>Tag_ABI_VFP_args</code>, <code>Tag_ABI_WMMX_args</code>,
-<code>Tag_ABI_optimization_goals</code>, <code>Tag_ABI_FP_optimization_goals</code>,
-<code>Tag_compatibility</code>, <code>Tag_CPU_unaligned_access</code>,
-<code>Tag_FP_HP_extension</code>, <code>Tag_ABI_FP_16bit_format</code>,
-<code>Tag_MPextension_use</code>, <code>Tag_DIV_use</code>,
-<code>Tag_nodefaults</code>, <code>Tag_also_compatible_with</code>,
-<code>Tag_conformance</code>, <code>Tag_T2EE_use</code>,
-<code>Tag_Virtualization_use</code>
+<p>The <var class="var">tag</var> is either an attribute number, or one of the following:
+<code class="code">Tag_CPU_raw_name</code>, <code class="code">Tag_CPU_name</code>, <code class="code">Tag_CPU_arch</code>,
+<code class="code">Tag_CPU_arch_profile</code>, <code class="code">Tag_ARM_ISA_use</code>,
+<code class="code">Tag_THUMB_ISA_use</code>, <code class="code">Tag_FP_arch</code>, <code class="code">Tag_WMMX_arch</code>,
+<code class="code">Tag_Advanced_SIMD_arch</code>, <code class="code">Tag_MVE_arch</code>, <code class="code">Tag_PCS_config</code>,
+<code class="code">Tag_ABI_PCS_R9_use</code>, <code class="code">Tag_ABI_PCS_RW_data</code>,
+<code class="code">Tag_ABI_PCS_RO_data</code>, <code class="code">Tag_ABI_PCS_GOT_use</code>,
+<code class="code">Tag_ABI_PCS_wchar_t</code>, <code class="code">Tag_ABI_FP_rounding</code>,
+<code class="code">Tag_ABI_FP_denormal</code>, <code class="code">Tag_ABI_FP_exceptions</code>,
+<code class="code">Tag_ABI_FP_user_exceptions</code>, <code class="code">Tag_ABI_FP_number_model</code>,
+<code class="code">Tag_ABI_align_needed</code>, <code class="code">Tag_ABI_align_preserved</code>,
+<code class="code">Tag_ABI_enum_size</code>, <code class="code">Tag_ABI_HardFP_use</code>,
+<code class="code">Tag_ABI_VFP_args</code>, <code class="code">Tag_ABI_WMMX_args</code>,
+<code class="code">Tag_ABI_optimization_goals</code>, <code class="code">Tag_ABI_FP_optimization_goals</code>,
+<code class="code">Tag_compatibility</code>, <code class="code">Tag_CPU_unaligned_access</code>,
+<code class="code">Tag_FP_HP_extension</code>, <code class="code">Tag_ABI_FP_16bit_format</code>,
+<code class="code">Tag_MPextension_use</code>, <code class="code">Tag_DIV_use</code>,
+<code class="code">Tag_nodefaults</code>, <code class="code">Tag_also_compatible_with</code>,
+<code class="code">Tag_conformance</code>, <code class="code">Tag_T2EE_use</code>,
+<code class="code">Tag_Virtualization_use</code>
 </p>
-<p>The <var>value</var> is either a <code>number</code>, <code>&quot;string&quot;</code>, or
-<code>number, &quot;string&quot;</code> depending on the tag.
+<p>The <var class="var">value</var> is either a <code class="code">number</code>, <code class="code">&quot;string&quot;</code>, or
+<code class="code">number, &quot;string&quot;</code> depending on the tag.
 </p>
-<p>Note - the following legacy values are also accepted by <var>tag</var>:
-<code>Tag_VFP_arch</code>, <code>Tag_ABI_align8_needed</code>,
-<code>Tag_ABI_align8_preserved</code>, <code>Tag_VFP_HP_extension</code>,
+<p>Note - the following legacy values are also accepted by <var class="var">tag</var>:
+<code class="code">Tag_VFP_arch</code>, <code class="code">Tag_ABI_align8_needed</code>,
+<code class="code">Tag_ABI_align8_preserved</code>, <code class="code">Tag_VFP_HP_extension</code>,
 </p>
-<span id="index-_002eeven-directive_002c-ARM"></span>
 </dd>
-<dt><span><code>.even</code></span></dt>
+<dt><a id="index-_002eeven-directive_002c-ARM"></a><span><code class="code">.even</code><a class="copiable-link" href="#index-_002eeven-directive_002c-ARM"> &para;</a></span></dt>
 <dd><p>This directive aligns to an even-numbered address.
 </p>
-<span id="index-_002eextend-directive_002c-ARM"></span>
-<span id="index-_002eldouble-directive_002c-ARM"></span>
 </dd>
-<dt><span><code>.extend  <var>expression</var> [, <var>expression</var>]*</code></span></dt>
-<dt><span><code>.ldouble  <var>expression</var> [, <var>expression</var>]*</code></span></dt>
+<dt><a class="index-entry-id" id="index-_002eldouble-directive_002c-ARM"></a>
+<a id="index-_002eextend-directive_002c-ARM"></a><span><code class="code">.extend  <var class="var">expression</var> [, <var class="var">expression</var>]*</code><a class="copiable-link" href="#index-_002eextend-directive_002c-ARM"> &para;</a></span></dt>
+<dt><code class="code">.ldouble  <var class="var">expression</var> [, <var class="var">expression</var>]*</code></dt>
 <dd><p>These directives write 12byte long double floating-point values to the
 output section.  These are not compatible with current ARM processors
 or ABIs.
 </p>
 
-<span id="index-_002efloat16-directive_002c-ARM"></span>
 </dd>
-<dt><span><code>.float16 <var>value [,...,value_n]</var></code></span></dt>
+<dt><a id="index-_002efloat16-directive_002c-ARM"></a><span><code class="code">.float16 <var class="var">value [,...,value_n]</var></code><a class="copiable-link" href="#index-_002efloat16-directive_002c-ARM"> &para;</a></span></dt>
 <dd><p>Place the half precision floating point representation of one or more
 floating-point values into the current section. The exact format of the
-encoding is specified by <code>.float16_format</code>. If the format has not
-been explicitly set yet (either via the <code>.float16_format</code> directive or
+encoding is specified by <code class="code">.float16_format</code>. If the format has not
+been explicitly set yet (either via the <code class="code">.float16_format</code> directive or
 the command line option) then the IEEE 754-2008 format is used.
 </p>
-<span id="index-_002efloat16_005fformat-directive_002c-ARM"></span>
 </dd>
-<dt><span><code>.float16_format <var>format</var></code></span></dt>
+<dt><a id="index-_002efloat16_005fformat-directive_002c-ARM"></a><span><code class="code">.float16_format <var class="var">format</var></code><a class="copiable-link" href="#index-_002efloat16_005fformat-directive_002c-ARM"> &para;</a></span></dt>
 <dd><p>Set the format to use when encoding float16 values emitted by
-the <code>.float16</code> directive.
+the <code class="code">.float16</code> directive.
 Once the format has been set it cannot be changed.
-<code>format</code> should be one of the following: <code>ieee</code> (encode in
-the IEEE 754-2008 half precision format) or <code>alternative</code> (encode in
+<code class="code">format</code> should be one of the following: <code class="code">ieee</code> (encode in
+the IEEE 754-2008 half precision format) or <code class="code">alternative</code> (encode in
 the Arm alternative half precision format).
 </p>
-<span id="arm_005ffnend"></span><span id="index-_002efnend-directive_002c-ARM"></span>
-</dd>
-<dt><span><code>.fnend</code></span></dt>
+<a class="anchor" id="arm_005ffnend"></a></dd>
+<dt><a id="index-_002efnend-directive_002c-ARM"></a><span><code class="code">.fnend</code><a class="copiable-link" href="#index-_002efnend-directive_002c-ARM"> &para;</a></span></dt>
 <dd><p>Marks the end of a function with an unwind table entry.  The unwind index
 table entry is created when this directive is processed.
 </p>
@@ -233,145 +203,129 @@ table entry is created when this directive is processed.
 routine 0 or 1 will be used, depending on the number of unwind opcodes
 required.
 </p>
-<span id="arm_005ffnstart"></span><span id="index-_002efnstart-directive_002c-ARM"></span>
-</dd>
-<dt><span><code>.fnstart</code></span></dt>
+<a class="anchor" id="arm_005ffnstart"></a></dd>
+<dt><a id="index-_002efnstart-directive_002c-ARM"></a><span><code class="code">.fnstart</code><a class="copiable-link" href="#index-_002efnstart-directive_002c-ARM"> &para;</a></span></dt>
 <dd><p>Marks the start of a function with an unwind table entry.
 </p>
-<span id="index-_002eforce_005fthumb-directive_002c-ARM"></span>
 </dd>
-<dt><span><code>.force_thumb</code></span></dt>
+<dt><a id="index-_002eforce_005fthumb-directive_002c-ARM"></a><span><code class="code">.force_thumb</code><a class="copiable-link" href="#index-_002eforce_005fthumb-directive_002c-ARM"> &para;</a></span></dt>
 <dd><p>This directive forces the selection of Thumb instructions, even if the
 target processor does not support those instructions
 </p>
-<span id="index-_002efpu-directive_002c-ARM"></span>
 </dd>
-<dt><span><code>.fpu <var>name</var></code></span></dt>
-<dd><p>Select the floating-point unit to assemble for.  Valid values for <var>name</var>
-are the same as for the <samp>-mfpu</samp> command-line option.
+<dt><a id="index-_002efpu-directive_002c-ARM"></a><span><code class="code">.fpu <var class="var">name</var></code><a class="copiable-link" href="#index-_002efpu-directive_002c-ARM"> &para;</a></span></dt>
+<dd><p>Select the floating-point unit to assemble for.  Valid values for <var class="var">name</var>
+are the same as for the <samp class="option">-mfpu</samp> command-line option.
 </p>
 
-<span id="index-_002ehandlerdata-directive_002c-ARM"></span>
 </dd>
-<dt><span><code>.handlerdata</code></span></dt>
+<dt><a id="index-_002ehandlerdata-directive_002c-ARM"></a><span><code class="code">.handlerdata</code><a class="copiable-link" href="#index-_002ehandlerdata-directive_002c-ARM"> &para;</a></span></dt>
 <dd><p>Marks the end of the current function, and the start of the exception table
 entry for that function.  Anything between this directive and the
-<code>.fnend</code> directive will be added to the exception table entry.
+<code class="code">.fnend</code> directive will be added to the exception table entry.
 </p>
-<p>Must be preceded by a <code>.personality</code> or <code>.personalityindex</code>
+<p>Must be preceded by a <code class="code">.personality</code> or <code class="code">.personalityindex</code>
 directive.
 </p>
 
-<span id="index-_002einst-directive_002c-ARM"></span>
 </dd>
-<dt><span><code>.inst <var>opcode</var> [ , &hellip; ]</code></span></dt>
-<dt><span><code>.inst.n <var>opcode</var> [ , &hellip; ]</code></span></dt>
-<dt><span><code>.inst.w <var>opcode</var> [ , &hellip; ]</code></span></dt>
-<dd><p>Generates the instruction corresponding to the numerical value <var>opcode</var>.
-<code>.inst.n</code> and <code>.inst.w</code> allow the Thumb instruction size to be
+<dt><a id="index-_002einst-directive_002c-ARM"></a><span><code class="code">.inst <var class="var">opcode</var> [ , &hellip; ]</code><a class="copiable-link" href="#index-_002einst-directive_002c-ARM"> &para;</a></span></dt>
+<dt><code class="code">.inst.n <var class="var">opcode</var> [ , &hellip; ]</code></dt>
+<dt><code class="code">.inst.w <var class="var">opcode</var> [ , &hellip; ]</code></dt>
+<dd><p>Generates the instruction corresponding to the numerical value <var class="var">opcode</var>.
+<code class="code">.inst.n</code> and <code class="code">.inst.w</code> allow the Thumb instruction size to be
 specified explicitly, overriding the normal encoding rules.
 </p>
 
 </dd>
-<dt><span><code>.ldouble  <var>expression</var> [, <var>expression</var>]*</code></span></dt>
-<dd><p>See <code>.extend</code>.
+<dt><code class="code">.ldouble  <var class="var">expression</var> [, <var class="var">expression</var>]*</code></dt>
+<dd><p>See <code class="code">.extend</code>.
 </p>
-<span id="index-_002eltorg-directive_002c-ARM"></span>
 </dd>
-<dt><span><code>.ltorg</code></span></dt>
+<dt><a id="index-_002eltorg-directive_002c-ARM"></a><span><code class="code">.ltorg</code><a class="copiable-link" href="#index-_002eltorg-directive_002c-ARM"> &para;</a></span></dt>
 <dd><p>This directive causes the current contents of the literal pool to be
 dumped into the current section (which is assumed to be the .text
 section) at the current location (aligned to a word boundary).
-<code>GAS</code> maintains a separate literal pool for each section and each
-sub-section.  The <code>.ltorg</code> directive will only affect the literal
+<code class="code">GAS</code> maintains a separate literal pool for each section and each
+sub-section.  The <code class="code">.ltorg</code> directive will only affect the literal
 pool of the current section and sub-section.  At the end of assembly
 all remaining, un-empty literal pools will automatically be dumped.
 </p>
-<p>Note - older versions of <code>GAS</code> would dump the current literal
+<p>Note - older versions of <code class="code">GAS</code> would dump the current literal
 pool any time a section change occurred.  This is no longer done, since
 it prevents accurate control of the placement of literal pools.
 </p>
 
-<span id="index-_002emovsp-directive_002c-ARM"></span>
 </dd>
-<dt><span><code>.movsp <var>reg</var> [, #<var>offset</var>]</code></span></dt>
-<dd><p>Tell the unwinder that <var>reg</var> contains an offset from the current
-stack pointer.  If <var>offset</var> is not specified then it is assumed to be
+<dt><a id="index-_002emovsp-directive_002c-ARM"></a><span><code class="code">.movsp <var class="var">reg</var> [, #<var class="var">offset</var>]</code><a class="copiable-link" href="#index-_002emovsp-directive_002c-ARM"> &para;</a></span></dt>
+<dd><p>Tell the unwinder that <var class="var">reg</var> contains an offset from the current
+stack pointer.  If <var class="var">offset</var> is not specified then it is assumed to be
 zero.
 </p>
 
-<span id="index-_002eobject_005farch-directive_002c-ARM"></span>
 </dd>
-<dt><span><code>.object_arch <var>name</var></code></span></dt>
+<dt><a id="index-_002eobject_005farch-directive_002c-ARM"></a><span><code class="code">.object_arch <var class="var">name</var></code><a class="copiable-link" href="#index-_002eobject_005farch-directive_002c-ARM"> &para;</a></span></dt>
 <dd><p>Override the architecture recorded in the EABI object attribute section.
-Valid values for <var>name</var> are the same as for the <code>.arch</code> directive.
+Valid values for <var class="var">name</var> are the same as for the <code class="code">.arch</code> directive.
 Typically this is useful when code uses runtime detection of CPU features.
 </p>
 
-<span id="index-_002epacked-directive_002c-ARM"></span>
 </dd>
-<dt><span><code>.packed  <var>expression</var> [, <var>expression</var>]*</code></span></dt>
+<dt><a id="index-_002epacked-directive_002c-ARM"></a><span><code class="code">.packed  <var class="var">expression</var> [, <var class="var">expression</var>]*</code><a class="copiable-link" href="#index-_002epacked-directive_002c-ARM"> &para;</a></span></dt>
 <dd><p>This directive writes 12-byte packed floating-point values to the
 output section.  These are not compatible with current ARM processors
 or ABIs.
 </p>
-<span id="arm_005fpacspval"></span><span id="index-_002epacspval-directive_002c-ARM"></span>
-</dd>
-<dt><span><code>.pacspval</code></span></dt>
+<a class="anchor" id="arm_005fpacspval"></a></dd>
+<dt><a id="index-_002epacspval-directive_002c-ARM"></a><span><code class="code">.pacspval</code><a class="copiable-link" href="#index-_002epacspval-directive_002c-ARM"> &para;</a></span></dt>
 <dd><p>Generate unwinder annotations to use effective vsp as modifier in PAC
 validation.
 </p>
-<span id="arm_005fpad"></span><span id="index-_002epad-directive_002c-ARM"></span>
-</dd>
-<dt><span><code>.pad #<var>count</var></code></span></dt>
-<dd><p>Generate unwinder annotations for a stack adjustment of <var>count</var> bytes.
+<a class="anchor" id="arm_005fpad"></a></dd>
+<dt><a id="index-_002epad-directive_002c-ARM"></a><span><code class="code">.pad #<var class="var">count</var></code><a class="copiable-link" href="#index-_002epad-directive_002c-ARM"> &para;</a></span></dt>
+<dd><p>Generate unwinder annotations for a stack adjustment of <var class="var">count</var> bytes.
 A positive value indicates the function prologue allocated stack space by
 decrementing the stack pointer.
 </p>
-<span id="index-_002epersonality-directive_002c-ARM"></span>
 </dd>
-<dt><span><code>.personality <var>name</var></code></span></dt>
-<dd><p>Sets the personality routine for the current function to <var>name</var>.
+<dt><a id="index-_002epersonality-directive_002c-ARM"></a><span><code class="code">.personality <var class="var">name</var></code><a class="copiable-link" href="#index-_002epersonality-directive_002c-ARM"> &para;</a></span></dt>
+<dd><p>Sets the personality routine for the current function to <var class="var">name</var>.
 </p>
-<span id="index-_002epersonalityindex-directive_002c-ARM"></span>
 </dd>
-<dt><span><code>.personalityindex <var>index</var></code></span></dt>
+<dt><a id="index-_002epersonalityindex-directive_002c-ARM"></a><span><code class="code">.personalityindex <var class="var">index</var></code><a class="copiable-link" href="#index-_002epersonalityindex-directive_002c-ARM"> &para;</a></span></dt>
 <dd><p>Sets the personality routine for the current function to the EABI standard
-routine number <var>index</var>
+routine number <var class="var">index</var>
 </p>
-<span id="index-_002epool-directive_002c-ARM"></span>
 </dd>
-<dt><span><code>.pool</code></span></dt>
+<dt><a id="index-_002epool-directive_002c-ARM"></a><span><code class="code">.pool</code><a class="copiable-link" href="#index-_002epool-directive_002c-ARM"> &para;</a></span></dt>
 <dd><p>This is a synonym for .ltorg.
 </p>
 
-<span id="index-_002ereq-directive_002c-ARM"></span>
 </dd>
-<dt><span><code><var>name</var> .req <var>register name</var></code></span></dt>
-<dd><p>This creates an alias for <var>register name</var> called <var>name</var>.  For
+<dt><a id="index-_002ereq-directive_002c-ARM"></a><span><code class="code"><var class="var">name</var> .req <var class="var">register name</var></code><a class="copiable-link" href="#index-_002ereq-directive_002c-ARM"> &para;</a></span></dt>
+<dd><p>This creates an alias for <var class="var">register name</var> called <var class="var">name</var>.  For
 example:
 </p>
-<div class="example">
-<pre class="example">        foo .req r0
+<div class="example smallexample">
+<pre class="example-preformatted">        foo .req r0
 </pre></div>
 
 
-<span id="arm_005fsave"></span><span id="index-_002esave-directive_002c-ARM"></span>
-</dd>
-<dt><span><code>.save <var>reglist</var></code></span></dt>
-<dd><p>Generate unwinder annotations to restore the registers in <var>reglist</var>.
-The format of <var>reglist</var> is the same as the corresponding store-multiple
+<a class="anchor" id="arm_005fsave"></a></dd>
+<dt><a id="index-_002esave-directive_002c-ARM"></a><span><code class="code">.save <var class="var">reglist</var></code><a class="copiable-link" href="#index-_002esave-directive_002c-ARM"> &para;</a></span></dt>
+<dd><p>Generate unwinder annotations to restore the registers in <var class="var">reglist</var>.
+The format of <var class="var">reglist</var> is the same as the corresponding store-multiple
 instruction.
 </p>
-<div class="example">
-<pre class="example"><em>core registers</em>
-</pre><pre class="example">  .save {r4, r5, r6, lr}
+<div class="example smallexample">
+<pre class="exdent"><em class="emph">core registers</em>
+</pre><pre class="example-preformatted">  .save {r4, r5, r6, lr}
   stmfd sp!, {r4, r5, r6, lr}
-</pre><pre class="example"><em>VFP registers</em>
-</pre><pre class="example">  .save {d8, d9, d10}
+</pre><pre class="exdent"><em class="emph">VFP registers</em>
+</pre><pre class="example-preformatted">  .save {d8, d9, d10}
   fstmdx sp!, {d8, d9, d10}
-</pre><pre class="example"><em>iWMMXt registers</em>
-</pre><pre class="example">  .save {wr10, wr11}
+</pre><pre class="exdent"><em class="emph">iWMMXt registers</em>
+</pre><pre class="example-preformatted">  .save {wr10, wr11}
   wstrd wr11, [sp, #-8]!
   wstrd wr10, [sp, #-8]!
 or
@@ -381,81 +335,73 @@ or
   wstrd wr10, [sp, #-8]!
 </pre></div>
 
-<span id="arm_005fsetfp"></span><span id="index-_002esetfp-directive_002c-ARM"></span>
-</dd>
-<dt><span><code>.setfp <var>fpreg</var>, <var>spreg</var> [, #<var>offset</var>]</code></span></dt>
+<a class="anchor" id="arm_005fsetfp"></a></dd>
+<dt><a id="index-_002esetfp-directive_002c-ARM"></a><span><code class="code">.setfp <var class="var">fpreg</var>, <var class="var">spreg</var> [, #<var class="var">offset</var>]</code><a class="copiable-link" href="#index-_002esetfp-directive_002c-ARM"> &para;</a></span></dt>
 <dd><p>Make all unwinder annotations relative to a frame pointer.  Without this
 the unwinder will use offsets from the stack pointer.
 </p>
-<p>The syntax of this directive is the same as the <code>add</code> or <code>mov</code>
-instruction used to set the frame pointer.  <var>spreg</var> must be either
-<code>sp</code> or mentioned in a previous <code>.movsp</code> directive.
+<p>The syntax of this directive is the same as the <code class="code">add</code> or <code class="code">mov</code>
+instruction used to set the frame pointer.  <var class="var">spreg</var> must be either
+<code class="code">sp</code> or mentioned in a previous <code class="code">.movsp</code> directive.
 </p>
-<div class="example">
-<pre class="example">.movsp ip
+<div class="example smallexample">
+<pre class="example-preformatted">.movsp ip
 mov ip, sp
-&hellip;
+...
 .setfp fp, ip, #4
 add fp, ip, #4
 </pre></div>
 
-<span id="index-_002esecrel32-directive_002c-ARM"></span>
 </dd>
-<dt><span><code>.secrel32 <var>expression</var> [, <var>expression</var>]*</code></span></dt>
+<dt><a id="index-_002esecrel32-directive_002c-ARM"></a><span><code class="code">.secrel32 <var class="var">expression</var> [, <var class="var">expression</var>]*</code><a class="copiable-link" href="#index-_002esecrel32-directive_002c-ARM"> &para;</a></span></dt>
 <dd><p>This directive emits relocations that evaluate to the section-relative
 offset of each expression&rsquo;s symbol.  This directive is only supported
 for PE targets.
 </p>
-<span id="index-_002esyntax-directive_002c-ARM"></span>
 </dd>
-<dt><span><code>.syntax [<code>unified</code> | <code>divided</code>]</code></span></dt>
+<dt><a id="index-_002esyntax-directive_002c-ARM"></a><span><code class="code">.syntax [<code class="code">unified</code> | <code class="code">divided</code>]</code><a class="copiable-link" href="#index-_002esyntax-directive_002c-ARM"> &para;</a></span></dt>
 <dd><p>This directive sets the Instruction Set Syntax as described in the
-<a href="ARM_002dInstruction_002dSet.html">Instruction Set Syntax</a> section.
+<a class="ref" href="ARM_002dInstruction_002dSet.html">Instruction Set Syntax</a> section.
 </p>
 
-<span id="index-_002ethumb-directive_002c-ARM"></span>
 </dd>
-<dt><span><code>.thumb</code></span></dt>
-<dd><p>This performs the same action as <var>.code 16</var>.
+<dt><a id="index-_002ethumb-directive_002c-ARM"></a><span><code class="code">.thumb</code><a class="copiable-link" href="#index-_002ethumb-directive_002c-ARM"> &para;</a></span></dt>
+<dd><p>This performs the same action as <var class="var">.code 16</var>.
 </p>
-<span id="index-_002ethumb_005ffunc-directive_002c-ARM"></span>
 </dd>
-<dt><span><code>.thumb_func</code></span></dt>
+<dt><a id="index-_002ethumb_005ffunc-directive_002c-ARM"></a><span><code class="code">.thumb_func</code><a class="copiable-link" href="#index-_002ethumb_005ffunc-directive_002c-ARM"> &para;</a></span></dt>
 <dd><p>This directive specifies that the following symbol is the name of a
 Thumb encoded function.  This information is necessary in order to allow
 the assembler and linker to generate correct code for interworking
 between Arm and Thumb instructions and should be used even if
 interworking is not going to be performed.  The presence of this
-directive also implies <code>.thumb</code>
+directive also implies <code class="code">.thumb</code>
 </p>
 <p>This directive is not necessary when generating EABI objects.  On these
 targets the encoding is implicit when generating Thumb code.
 </p>
-<span id="index-_002ethumb_005fset-directive_002c-ARM"></span>
 </dd>
-<dt><span><code>.thumb_set</code></span></dt>
-<dd><p>This performs the equivalent of a <code>.set</code> directive in that it
+<dt><a id="index-_002ethumb_005fset-directive_002c-ARM"></a><span><code class="code">.thumb_set</code><a class="copiable-link" href="#index-_002ethumb_005fset-directive_002c-ARM"> &para;</a></span></dt>
+<dd><p>This performs the equivalent of a <code class="code">.set</code> directive in that it
 creates a symbol which is an alias for another symbol (possibly not yet
 defined).  This directive also has the added property in that it marks
 the aliased symbol as being a thumb function entry point, in the same
-way that the <code>.thumb_func</code> directive does.
+way that the <code class="code">.thumb_func</code> directive does.
 </p>
-<span id="index-_002etlsdescseq-directive_002c-ARM"></span>
 </dd>
-<dt><span><code>.tlsdescseq <var>tls-variable</var></code></span></dt>
+<dt><a id="index-_002etlsdescseq-directive_002c-ARM"></a><span><code class="code">.tlsdescseq <var class="var">tls-variable</var></code><a class="copiable-link" href="#index-_002etlsdescseq-directive_002c-ARM"> &para;</a></span></dt>
 <dd><p>This directive is used to annotate parts of an inlined TLS descriptor
 trampoline.  Normally the trampoline is provided by the linker, and
 this directive is not needed.
 </p>
 
-<span id="index-_002eunreq-directive_002c-ARM"></span>
 </dd>
-<dt><span><code>.unreq <var>alias-name</var></code></span></dt>
+<dt><a id="index-_002eunreq-directive_002c-ARM"></a><span><code class="code">.unreq <var class="var">alias-name</var></code><a class="copiable-link" href="#index-_002eunreq-directive_002c-ARM"> &para;</a></span></dt>
 <dd><p>This undefines a register alias which was previously defined using the
-<code>req</code>, <code>dn</code> or <code>qn</code> directives.  For example:
+<code class="code">req</code>, <code class="code">dn</code> or <code class="code">qn</code> directives.  For example:
 </p>
-<div class="example">
-<pre class="example">        foo .req r0
+<div class="example smallexample">
+<pre class="example-preformatted">        foo .req r0
         .unreq foo
 </pre></div>
 
@@ -463,36 +409,34 @@ this directive is not needed.
 be used to delete builtin in register name aliases (eg &rsquo;r0&rsquo;).  This
 should only be done if it is really necessary.
 </p>
-<span id="index-_002eunwind_005fraw-directive_002c-ARM"></span>
 </dd>
-<dt><span><code>.unwind_raw <var>offset</var>, <var>byte1</var>, &hellip;</code></span></dt>
+<dt><a id="index-_002eunwind_005fraw-directive_002c-ARM"></a><span><code class="code">.unwind_raw <var class="var">offset</var>, <var class="var">byte1</var>, &hellip;</code><a class="copiable-link" href="#index-_002eunwind_005fraw-directive_002c-ARM"> &para;</a></span></dt>
 <dd><p>Insert one of more arbitrary unwind opcode bytes, which are known to adjust
-the stack pointer by <var>offset</var> bytes.
+the stack pointer by <var class="var">offset</var> bytes.
 </p>
-<p>For example <code>.unwind_raw 4, 0xb1, 0x01</code> is equivalent to
-<code>.save {r0}</code>
+<p>For example <code class="code">.unwind_raw 4, 0xb1, 0x01</code> is equivalent to
+<code class="code">.save {r0}</code>
 </p>
 
-<span id="index-_002evsave-directive_002c-ARM"></span>
 </dd>
-<dt><span><code>.vsave <var>vfp-reglist</var></code></span></dt>
-<dd><p>Generate unwinder annotations to restore the VFP registers in <var>vfp-reglist</var>
+<dt><a id="index-_002evsave-directive_002c-ARM"></a><span><code class="code">.vsave <var class="var">vfp-reglist</var></code><a class="copiable-link" href="#index-_002evsave-directive_002c-ARM"> &para;</a></span></dt>
+<dd><p>Generate unwinder annotations to restore the VFP registers in <var class="var">vfp-reglist</var>
 using FLDMD.  Also works for VFPv3 registers
 that are to be restored using VLDM.
-The format of <var>vfp-reglist</var> is the same as the corresponding store-multiple
+The format of <var class="var">vfp-reglist</var> is the same as the corresponding store-multiple
 instruction.
 </p>
-<div class="example">
-<pre class="example"><em>VFP registers</em>
-</pre><pre class="example">  .vsave {d8, d9, d10}
+<div class="example smallexample">
+<pre class="exdent"><em class="emph">VFP registers</em>
+</pre><pre class="example-preformatted">  .vsave {d8, d9, d10}
   fstmdd sp!, {d8, d9, d10}
-</pre><pre class="example"><em>VFPv3 registers</em>
-</pre><pre class="example">  .vsave {d15, d16, d17}
+</pre><pre class="exdent"><em class="emph">VFPv3 registers</em>
+</pre><pre class="example-preformatted">  .vsave {d15, d16, d17}
   vstm sp!, {d15, d16, d17}
 </pre></div>
 
 <p>Since FLDMX and FSTMX are now deprecated, this directive should be
-used in favour of <code>.save</code> for saving VFP registers for ARMv6 and above.
+used in favour of <code class="code">.save</code> for saving VFP registers for ARMv6 and above.
 </p>
 
 </dd>
@@ -500,7 +444,7 @@ used in favour of <code>.save</code> for saving VFP registers for ARMv6 and abov
 
 </div>
 <hr>
-<div class="header">
+<div class="nav-panel">
 <p>
 Next: <a href="ARM-Opcodes.html">Opcodes</a>, Previous: <a href="ARM-Floating-Point.html">Floating Point</a>, Up: <a href="ARM_002dDependent.html">ARM Dependent Features</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

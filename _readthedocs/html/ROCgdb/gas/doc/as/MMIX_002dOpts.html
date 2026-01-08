@@ -1,11 +1,11 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the GNU Assembler "as".
 
-Copyright (C) 1991-2025 Free Software Foundation, Inc.
+Copyright © 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -30,21 +30,8 @@ section entitled "GNU Free Documentation License".
 <link href="MMIX_002dExpand.html" rel="next" title="MMIX-Expand">
 <style type="text/css">
 <!--
-a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
-a.summary-letter {text-decoration: none}
-blockquote.indentedblock {margin-right: 0em}
-div.display {margin-left: 3.2em}
-div.example {margin-left: 3.2em}
-kbd {font-style: oblique}
-pre.display {font-family: inherit}
-pre.format {font-family: inherit}
-pre.menu-comment {font-family: serif}
-pre.menu-preformatted {font-family: serif}
-span.nolinebreak {white-space: nowrap}
-span.roman {font-family: initial; font-weight: normal}
-span.sansserif {font-family: sans-serif; font-weight: normal}
-span:hover a.copiable-anchor {visibility: visible}
-ul.no-bullet {list-style: none}
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+span:hover a.copiable-link {visibility: visible}
 -->
 </style>
 
@@ -52,98 +39,98 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<div class="section" id="MMIX_002dOpts">
-<div class="header">
+<div class="subsection-level-extent" id="MMIX_002dOpts">
+<div class="nav-panel">
 <p>
 Next: <a href="MMIX_002dExpand.html" accesskey="n" rel="next">Instruction expansion</a>, Up: <a href="MMIX_002dDependent.html" accesskey="u" rel="up">MMIX Dependent Features</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="Command_002dline-Options-1"></span><h4 class="subsection">9.29.1 Command-line Options</h4>
+<h4 class="subsection section-level-set-subsection" id="Command_002dline-Options-1"><span>9.29.1 Command-line Options<a class="copiable-link" href="#Command_002dline-Options-1"> &para;</a></span></h4>
 
-<span id="index-options_002c-MMIX"></span>
-<span id="index-MMIX-options"></span>
-<p>The MMIX version of <code>as</code> has some machine-dependent options.
+<a class="index-entry-id" id="index-options_002c-MMIX"></a>
+<a class="index-entry-id" id="index-MMIX-options"></a>
+<p>The MMIX version of <code class="code">as</code> has some machine-dependent options.
 </p>
-<span id="index-_002d_002dfixed_002dspecial_002dregister_002dnames-command_002dline-option_002c-MMIX"></span>
-<p>When &lsquo;<samp>--fixed-special-register-names</samp>&rsquo; is specified, only the register
-names specified in <a href="MMIX_002dRegs.html">Register names</a> are recognized in the instructions
-<code>PUT</code> and <code>GET</code>.
+<a class="index-entry-id" id="index-_002d_002dfixed_002dspecial_002dregister_002dnames-command_002dline-option_002c-MMIX"></a>
+<p>When &lsquo;<samp class="samp">--fixed-special-register-names</samp>&rsquo; is specified, only the register
+names specified in <a class="ref" href="MMIX_002dRegs.html">Register names</a> are recognized in the instructions
+<code class="code">PUT</code> and <code class="code">GET</code>.
 </p>
-<span id="index-_002d_002dglobalize_002dsymbols-command_002dline-option_002c-MMIX"></span>
-<p>You can use the &lsquo;<samp>--globalize-symbols</samp>&rsquo; to make all symbols global.
-This option is useful when splitting up a <code>mmixal</code> program into
+<a class="index-entry-id" id="index-_002d_002dglobalize_002dsymbols-command_002dline-option_002c-MMIX"></a>
+<p>You can use the &lsquo;<samp class="samp">--globalize-symbols</samp>&rsquo; to make all symbols global.
+This option is useful when splitting up a <code class="code">mmixal</code> program into
 several files.
 </p>
-<span id="index-_002d_002dgnu_002dsyntax-command_002dline-option_002c-MMIX"></span>
-<p>The &lsquo;<samp>--gnu-syntax</samp>&rsquo; turns off most syntax compatibility with
-<code>mmixal</code>.  Its usability is currently doubtful.
+<a class="index-entry-id" id="index-_002d_002dgnu_002dsyntax-command_002dline-option_002c-MMIX"></a>
+<p>The &lsquo;<samp class="samp">--gnu-syntax</samp>&rsquo; turns off most syntax compatibility with
+<code class="code">mmixal</code>.  Its usability is currently doubtful.
 </p>
-<span id="index-_002d_002drelax-command_002dline-option_002c-MMIX"></span>
-<p>The &lsquo;<samp>--relax</samp>&rsquo; option is not fully supported, but will eventually make
+<a class="index-entry-id" id="index-_002d_002drelax-command_002dline-option_002c-MMIX"></a>
+<p>The &lsquo;<samp class="samp">--relax</samp>&rsquo; option is not fully supported, but will eventually make
 the object file prepared for linker relaxation.
 </p>
-<span id="index-_002d_002dno_002dpredefined_002dsyms-command_002dline-option_002c-MMIX"></span>
+<a class="index-entry-id" id="index-_002d_002dno_002dpredefined_002dsyms-command_002dline-option_002c-MMIX"></a>
 <p>If you want to avoid inadvertently calling a predefined symbol and would
-rather get an error, for example when using <code>as</code> with a
+rather get an error, for example when using <code class="code">as</code> with a
 compiler or other machine-generated code, specify
-&lsquo;<samp>--no-predefined-syms</samp>&rsquo;.  This turns off built-in predefined
+&lsquo;<samp class="samp">--no-predefined-syms</samp>&rsquo;.  This turns off built-in predefined
 definitions of all such symbols, including rounding-mode symbols, segment
-symbols, &lsquo;<samp>BIT</samp>&rsquo; symbols, and <code>TRAP</code> symbols used in <code>mmix</code>
+symbols, &lsquo;<samp class="samp">BIT</samp>&rsquo; symbols, and <code class="code">TRAP</code> symbols used in <code class="code">mmix</code>
 &ldquo;system calls&rdquo;.  It also turns off predefined special-register names,
-except when used in <code>PUT</code> and <code>GET</code> instructions.
+except when used in <code class="code">PUT</code> and <code class="code">GET</code> instructions.
 </p>
-<span id="index-_002d_002dno_002dexpand-command_002dline-option_002c-MMIX"></span>
+<a class="index-entry-id" id="index-_002d_002dno_002dexpand-command_002dline-option_002c-MMIX"></a>
 <p>By default, some instructions are expanded to fit the size of the operand
-or an external symbol (see <a href="MMIX_002dExpand.html">Instruction expansion</a>).  By passing
-&lsquo;<samp>--no-expand</samp>&rsquo;, no such expansion will be done, instead causing errors
+or an external symbol (see <a class="pxref" href="MMIX_002dExpand.html">Instruction expansion</a>).  By passing
+&lsquo;<samp class="samp">--no-expand</samp>&rsquo;, no such expansion will be done, instead causing errors
 at link time if the operand does not fit.
 </p>
-<span id="index-_002d_002dno_002dmerge_002dgregs-command_002dline-option_002c-MMIX"></span>
-<p>The <code>mmixal</code> documentation (see <a href="MMIX_002dSyntax.html#mmixsite">mmixsite</a>) specifies that global
-registers allocated with the &lsquo;<samp>GREG</samp>&rsquo; directive (see <a href="MMIX_002dPseudos.html#MMIX_002dgreg">MMIX-greg</a>) and
+<a class="index-entry-id" id="index-_002d_002dno_002dmerge_002dgregs-command_002dline-option_002c-MMIX"></a>
+<p>The <code class="code">mmixal</code> documentation (see <a class="pxref" href="MMIX_002dSyntax.html#mmixsite">mmixsite</a>) specifies that global
+registers allocated with the &lsquo;<samp class="samp">GREG</samp>&rsquo; directive (see <a class="pxref" href="MMIX_002dPseudos.html#MMIX_002dgreg">MMIX-greg</a>) and
 initialized to the same non-zero value, will refer to the same global
-register.  This isn&rsquo;t strictly enforceable in <code>as</code> since the
+register.  This isn&rsquo;t strictly enforceable in <code class="code">as</code> since the
 final addresses aren&rsquo;t known until link-time, but it will do an effort
-unless the &lsquo;<samp>--no-merge-gregs</samp>&rsquo; option is specified.  (Register merging
-isn&rsquo;t yet implemented in <code>ld</code>.)
+unless the &lsquo;<samp class="samp">--no-merge-gregs</samp>&rsquo; option is specified.  (Register merging
+isn&rsquo;t yet implemented in <code class="code">ld</code>.)
 </p>
-<span id="index-_002dx-command_002dline-option_002c-MMIX"></span>
-<p><code>as</code> will warn every time it expands an instruction to fit an
-operand unless the option &lsquo;<samp>-x</samp>&rsquo; is specified.  It is believed that
-this behaviour is more useful than just mimicking <code>mmixal</code>&rsquo;s
-behaviour, in which instructions are only expanded if the &lsquo;<samp>-x</samp>&rsquo; option
+<a class="index-entry-id" id="index-_002dx-command_002dline-option_002c-MMIX"></a>
+<p><code class="code">as</code> will warn every time it expands an instruction to fit an
+operand unless the option &lsquo;<samp class="samp">-x</samp>&rsquo; is specified.  It is believed that
+this behaviour is more useful than just mimicking <code class="code">mmixal</code>&rsquo;s
+behaviour, in which instructions are only expanded if the &lsquo;<samp class="samp">-x</samp>&rsquo; option
 is specified, and assembly fails otherwise, when an instruction needs to
-be expanded.  It needs to be kept in mind that <code>mmixal</code> is both an
-assembler and linker, while <code>as</code> will expand instructions
+be expanded.  It needs to be kept in mind that <code class="code">mmixal</code> is both an
+assembler and linker, while <code class="code">as</code> will expand instructions
 that at link stage can be contracted.  (Though linker relaxation isn&rsquo;t yet
-implemented in <code>ld</code>.)  The option &lsquo;<samp>-x</samp>&rsquo; also implies
-&lsquo;<samp>--linker-allocated-gregs</samp>&rsquo;.
+implemented in <code class="code">ld</code>.)  The option &lsquo;<samp class="samp">-x</samp>&rsquo; also implies
+&lsquo;<samp class="samp">--linker-allocated-gregs</samp>&rsquo;.
 </p>
-<span id="index-_002d_002dno_002dpushj_002dstubs-command_002dline-option_002c-MMIX"></span>
-<span id="index-_002d_002dno_002dstubs-command_002dline-option_002c-MMIX"></span>
-<p>If instruction expansion is enabled, <code>as</code> can expand a
-&lsquo;<samp>PUSHJ</samp>&rsquo; instruction into a series of instructions.  The shortest
+<a class="index-entry-id" id="index-_002d_002dno_002dpushj_002dstubs-command_002dline-option_002c-MMIX"></a>
+<a class="index-entry-id" id="index-_002d_002dno_002dstubs-command_002dline-option_002c-MMIX"></a>
+<p>If instruction expansion is enabled, <code class="code">as</code> can expand a
+&lsquo;<samp class="samp">PUSHJ</samp>&rsquo; instruction into a series of instructions.  The shortest
 expansion is to not expand it, but just mark the call as redirectable to a
-stub, which <code>ld</code> creates at link-time, but only if the
-original &lsquo;<samp>PUSHJ</samp>&rsquo; instruction is found not to reach the target.  The
+stub, which <code class="code">ld</code> creates at link-time, but only if the
+original &lsquo;<samp class="samp">PUSHJ</samp>&rsquo; instruction is found not to reach the target.  The
 stub consists of the necessary instructions to form a jump to the target.
-This happens if <code>as</code> can assert that the &lsquo;<samp>PUSHJ</samp>&rsquo;
-instruction can reach such a stub.  The option &lsquo;<samp>--no-pushj-stubs</samp>&rsquo;
+This happens if <code class="code">as</code> can assert that the &lsquo;<samp class="samp">PUSHJ</samp>&rsquo;
+instruction can reach such a stub.  The option &lsquo;<samp class="samp">--no-pushj-stubs</samp>&rsquo;
 disables this shorter expansion, and the longer series of instructions is
-then created at assembly-time.  The option &lsquo;<samp>--no-stubs</samp>&rsquo; is a synonym,
+then created at assembly-time.  The option &lsquo;<samp class="samp">--no-stubs</samp>&rsquo; is a synonym,
 intended for compatibility with future releases, where generation of stubs
 for other instructions may be implemented.
 </p>
-<span id="index-_002d_002dlinker_002dallocated_002dgregs-command_002dline-option_002c-MMIX"></span>
-<p>Usually a two-operand-expression (see <a href="MMIX_002dPseudos.html#GREG_002dbase">GREG-base</a>) without a matching
-&lsquo;<samp>GREG</samp>&rsquo; directive is treated as an error by <code>as</code>.  When
-the option &lsquo;<samp>--linker-allocated-gregs</samp>&rsquo; is in effect, they are instead
+<a class="index-entry-id" id="index-_002d_002dlinker_002dallocated_002dgregs-command_002dline-option_002c-MMIX"></a>
+<p>Usually a two-operand-expression (see <a class="pxref" href="MMIX_002dPseudos.html#GREG_002dbase">GREG-base</a>) without a matching
+&lsquo;<samp class="samp">GREG</samp>&rsquo; directive is treated as an error by <code class="code">as</code>.  When
+the option &lsquo;<samp class="samp">--linker-allocated-gregs</samp>&rsquo; is in effect, they are instead
 passed through to the linker, which will allocate as many global registers
 as is needed.
 </p>
 </div>
 <hr>
-<div class="header">
+<div class="nav-panel">
 <p>
 Next: <a href="MMIX_002dExpand.html">Instruction expansion</a>, Up: <a href="MMIX_002dDependent.html">MMIX Dependent Features</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

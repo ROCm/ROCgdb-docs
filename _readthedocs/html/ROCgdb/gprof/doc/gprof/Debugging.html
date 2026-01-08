@@ -1,11 +1,11 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the gprof profiler of the GNU system.
 
-Copyright (C) 1988-2025 Free Software Foundation, Inc.
+Copyright © 1988-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -29,21 +29,8 @@ section entitled "GNU Free Documentation License".
 <link href="Internals.html" rel="prev" title="Internals">
 <style type="text/css">
 <!--
-a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
-a.summary-letter {text-decoration: none}
-blockquote.indentedblock {margin-right: 0em}
-div.display {margin-left: 3.2em}
-div.example {margin-left: 3.2em}
-kbd {font-style: oblique}
-pre.display {font-family: inherit}
-pre.format {font-family: inherit}
-pre.menu-comment {font-family: serif}
-pre.menu-preformatted {font-family: serif}
-span.nolinebreak {white-space: nowrap}
-span.roman {font-family: initial; font-weight: normal}
-span.sansserif {font-family: sans-serif; font-weight: normal}
-span:hover a.copiable-anchor {visibility: visible}
-ul.no-bullet {list-style: none}
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+span:hover a.copiable-link {visibility: visible}
 -->
 </style>
 
@@ -51,61 +38,61 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<div class="section" id="Debugging">
-<div class="header">
+<div class="section-level-extent" id="Debugging">
+<div class="nav-panel">
 <p>
-Previous: <a href="Internals.html" accesskey="p" rel="prev"><code>gprof</code>&rsquo;s Internal Operation</a>, Up: <a href="Details.html" accesskey="u" rel="up">Details of Profiling</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+Previous: <a href="Internals.html" accesskey="p" rel="prev"><code class="code">gprof</code>&rsquo;s Internal Operation</a>, Up: <a href="Details.html" accesskey="u" rel="up">Details of Profiling</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
 </div>
 <hr>
-<span id="Debugging-gprof"></span><h3 class="section">9.4 Debugging <code>gprof</code></h3>
+<h3 class="section" id="Debugging-gprof"><span>9.4 Debugging <code class="code">gprof</code><a class="copiable-link" href="#Debugging-gprof"> &para;</a></span></h3>
 
-<p>If <code>gprof</code> was compiled with debugging enabled,
-the &lsquo;<samp>-d</samp>&rsquo; option triggers debugging output
+<p>If <code class="code">gprof</code> was compiled with debugging enabled,
+the &lsquo;<samp class="samp">-d</samp>&rsquo; option triggers debugging output
 (to stdout) which can be helpful in understanding its operation.
 The debugging number specified is interpreted as a sum of the following
 options:
 </p>
-<dl compact="compact">
-<dt><span>2 - Topological sort</span></dt>
+<dl class="table">
+<dt>2 - Topological sort</dt>
 <dd><p>Monitor depth-first numbering of symbols during call graph analysis
 </p></dd>
-<dt><span>4 - Cycles</span></dt>
+<dt>4 - Cycles</dt>
 <dd><p>Shows symbols as they are identified as cycle heads
 </p></dd>
-<dt><span>16 - Tallying</span></dt>
+<dt>16 - Tallying</dt>
 <dd><p>As the call graph arcs are read, show each arc and how
 the total calls to each function are tallied
 </p></dd>
-<dt><span>32 - Call graph arc sorting</span></dt>
+<dt>32 - Call graph arc sorting</dt>
 <dd><p>Details sorting individual parents/children within each call graph entry
 </p></dd>
-<dt><span>64 - Reading histogram and call graph records</span></dt>
+<dt>64 - Reading histogram and call graph records</dt>
 <dd><p>Shows address ranges of histograms as they are read, and each
 call graph arc
 </p></dd>
-<dt><span>128 - Symbol table</span></dt>
+<dt>128 - Symbol table</dt>
 <dd><p>Reading, classifying, and sorting the symbol table from the object file.
-For line-by-line profiling (&lsquo;<samp>-l</samp>&rsquo; option), also shows line numbers
+For line-by-line profiling (&lsquo;<samp class="samp">-l</samp>&rsquo; option), also shows line numbers
 being assigned to memory addresses.
 </p></dd>
-<dt><span>256 - Static call graph</span></dt>
-<dd><p>Trace operation of &lsquo;<samp>-c</samp>&rsquo; option
+<dt>256 - Static call graph</dt>
+<dd><p>Trace operation of &lsquo;<samp class="samp">-c</samp>&rsquo; option
 </p></dd>
-<dt><span>512 - Symbol table and arc table lookups</span></dt>
+<dt>512 - Symbol table and arc table lookups</dt>
 <dd><p>Detail operation of lookup routines
 </p></dd>
-<dt><span>1024 - Call graph propagation</span></dt>
+<dt>1024 - Call graph propagation</dt>
 <dd><p>Shows how function times are propagated along the call graph
 </p></dd>
-<dt><span>2048 - Basic-blocks</span></dt>
+<dt>2048 - Basic-blocks</dt>
 <dd><p>Shows basic-block records as they are read from profile data
-(only meaningful with &lsquo;<samp>-l</samp>&rsquo; option)
+(only meaningful with &lsquo;<samp class="samp">-l</samp>&rsquo; option)
 </p></dd>
-<dt><span>4096 - Symspecs</span></dt>
+<dt>4096 - Symspecs</dt>
 <dd><p>Shows symspec-to-symbol pattern matching operation
 </p></dd>
-<dt><span>8192 - Annotate source</span></dt>
-<dd><p>Tracks operation of &lsquo;<samp>-A</samp>&rsquo; option
+<dt>8192 - Annotate source</dt>
+<dd><p>Tracks operation of &lsquo;<samp class="samp">-A</samp>&rsquo; option
 </p></dd>
 </dl>
 

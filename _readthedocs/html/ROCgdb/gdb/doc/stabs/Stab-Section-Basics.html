@@ -1,9 +1,9 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright (C) 1992-2024 Free Software Foundation, Inc.
+<!-- Copyright © 1992-2024 Free Software Foundation, Inc.
 Contributed by Cygnus Support.  Written by Julia Menapace, Jim Kingdon,
 and David MacKenzie.
 
@@ -29,21 +29,8 @@ Free Documentation License". -->
 <link href="ELF-Linker-Relocation.html" rel="next" title="ELF Linker Relocation">
 <style type="text/css">
 <!--
-a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
-a.summary-letter {text-decoration: none}
-blockquote.indentedblock {margin-right: 0em}
-div.display {margin-left: 3.2em}
-div.example {margin-left: 3.2em}
-kbd {font-style: oblique}
-pre.display {font-family: inherit}
-pre.format {font-family: inherit}
-pre.menu-comment {font-family: serif}
-pre.menu-preformatted {font-family: serif}
-span.nolinebreak {white-space: nowrap}
-span.roman {font-family: initial; font-weight: normal}
-span.sansserif {font-family: sans-serif; font-weight: normal}
-span:hover a.copiable-anchor {visibility: visible}
-ul.no-bullet {list-style: none}
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+span:hover a.copiable-link {visibility: visible}
 -->
 </style>
 
@@ -51,93 +38,93 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<div class="appendixsec" id="Stab-Section-Basics">
-<div class="header">
+<div class="appendixsec-level-extent" id="Stab-Section-Basics">
+<div class="nav-panel">
 <p>
 Next: <a href="ELF-Linker-Relocation.html" accesskey="n" rel="next">Having the Linker Relocate Stabs in ELF</a>, Up: <a href="Stab-Sections.html" accesskey="u" rel="up">Using Stabs in Their Own Sections</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Symbol-Types-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="How-to-Embed-Stabs-in-Sections"></span><h3 class="appendixsec">F.1 How to Embed Stabs in Sections</h3>
+<h3 class="appendixsec" id="How-to-Embed-Stabs-in-Sections"><span>F.1 How to Embed Stabs in Sections<a class="copiable-link" href="#How-to-Embed-Stabs-in-Sections"> &para;</a></span></h3>
 
-<p>The assembler creates two custom sections, a section named <code>.stab</code>
+<p>The assembler creates two custom sections, a section named <code class="code">.stab</code>
 which contains an array of fixed length structures, one struct per stab,
-and a section named <code>.stabstr</code> containing all the variable length
-strings that are referenced by stabs in the <code>.stab</code> section.  The
+and a section named <code class="code">.stabstr</code> containing all the variable length
+strings that are referenced by stabs in the <code class="code">.stab</code> section.  The
 byte order of the stabs binary data depends on the object file format.
 For ELF, it matches the byte order of the ELF file itself, as determined
-from the <code>EI_DATA</code> field in the <code>e_ident</code> member of the ELF
+from the <code class="code">EI_DATA</code> field in the <code class="code">e_ident</code> member of the ELF
 header.  For SOM, it is always big-endian (is this true??? FIXME).  For
 COFF, it matches the byte order of the COFF headers.  The meaning of the
-fields is the same as for a.out (see <a href="Symbol-Table-Format.html">Symbol Table Format</a>), except
-that the <code>n_strx</code> field is relative to the strings for the current
+fields is the same as for a.out (see <a class="pxref" href="Symbol-Table-Format.html">Symbol Table Format</a>), except
+that the <code class="code">n_strx</code> field is relative to the strings for the current
 compilation unit (which can be found using the synthetic N_UNDF stab
 described below), rather than the entire string table.
 </p>
-<p>The first stab in the <code>.stab</code> section for each compilation unit is
+<p>The first stab in the <code class="code">.stab</code> section for each compilation unit is
 synthetic, generated entirely by the assembler, with no corresponding
-<code>.stab</code> directive as input to the assembler.  This stab contains
+<code class="code">.stab</code> directive as input to the assembler.  This stab contains
 the following fields:
 </p>
-<dl compact="compact">
-<dt><span><code>n_strx</code></span></dt>
-<dd><p>Offset in the <code>.stabstr</code> section to the source filename.
+<dl class="table">
+<dt><code class="code">n_strx</code></dt>
+<dd><p>Offset in the <code class="code">.stabstr</code> section to the source filename.
 </p>
 </dd>
-<dt><span><code>n_type</code></span></dt>
-<dd><p><code>N_UNDF</code>.
+<dt><code class="code">n_type</code></dt>
+<dd><p><code class="code">N_UNDF</code>.
 </p>
 </dd>
-<dt><span><code>n_other</code></span></dt>
+<dt><code class="code">n_other</code></dt>
 <dd><p>Unused field, always zero.
 This may eventually be used to hold overflows from the count in
-the <code>n_desc</code> field.
+the <code class="code">n_desc</code> field.
 </p>
 </dd>
-<dt><span><code>n_desc</code></span></dt>
+<dt><code class="code">n_desc</code></dt>
 <dd><p>Count of upcoming symbols, i.e., the number of remaining stabs for this
 source file.
 </p>
 </dd>
-<dt><span><code>n_value</code></span></dt>
+<dt><code class="code">n_value</code></dt>
 <dd><p>Size of the string table fragment associated with this source file, in
 bytes.
 </p></dd>
 </dl>
 
-<p>The <code>.stabstr</code> section always starts with a null byte (so that string
+<p>The <code class="code">.stabstr</code> section always starts with a null byte (so that string
 offsets of zero reference a null string), followed by random length strings,
 each of which is null byte terminated.
 </p>
-<p>The ELF section header for the <code>.stab</code> section has its
-<code>sh_link</code> member set to the section number of the <code>.stabstr</code>
-section, and the <code>.stabstr</code> section has its ELF section
-header <code>sh_type</code> member set to <code>SHT_STRTAB</code> to mark it as a
+<p>The ELF section header for the <code class="code">.stab</code> section has its
+<code class="code">sh_link</code> member set to the section number of the <code class="code">.stabstr</code>
+section, and the <code class="code">.stabstr</code> section has its ELF section
+header <code class="code">sh_type</code> member set to <code class="code">SHT_STRTAB</code> to mark it as a
 string table.  SOM and COFF have no way of linking the sections together
 or marking them as string tables.
 </p>
-<p>For COFF, the <code>.stab</code> and <code>.stabstr</code> sections may be simply
-concatenated by the linker.  GDB then uses the <code>n_desc</code> fields to
+<p>For COFF, the <code class="code">.stab</code> and <code class="code">.stabstr</code> sections may be simply
+concatenated by the linker.  GDB then uses the <code class="code">n_desc</code> fields to
 figure out the extent of the original sections.  Similarly, the
-<code>n_value</code> fields of the header symbols are added together in order
-to get the actual position of the strings in a desired <code>.stabstr</code>
+<code class="code">n_value</code> fields of the header symbols are added together in order
+to get the actual position of the strings in a desired <code class="code">.stabstr</code>
 section.  Although this design obviates any need for the linker to
-relocate or otherwise manipulate <code>.stab</code> and <code>.stabstr</code>
+relocate or otherwise manipulate <code class="code">.stab</code> and <code class="code">.stabstr</code>
 sections, it also requires some care to ensure that the offsets are
 calculated correctly.  For instance, if the linker were to pad in
-between the <code>.stabstr</code> sections before concatenating, then the
-offsets to strings in the middle of the executable&rsquo;s <code>.stabstr</code>
+between the <code class="code">.stabstr</code> sections before concatenating, then the
+offsets to strings in the middle of the executable&rsquo;s <code class="code">.stabstr</code>
 section would be wrong.
 </p>
 <p>The GNU linker is able to optimize stabs information by merging
 duplicate strings and removing duplicate header file information
-(see <a href="Include-Files.html">Names of Include Files</a>).  When some versions of the GNU linker optimize
-stabs in sections, they remove the leading <code>N_UNDF</code> symbol and
-arranges for all the <code>n_strx</code> fields to be relative to the start of
-the <code>.stabstr</code> section.
+(see <a class="pxref" href="Include-Files.html">Names of Include Files</a>).  When some versions of the GNU linker optimize
+stabs in sections, they remove the leading <code class="code">N_UNDF</code> symbol and
+arranges for all the <code class="code">n_strx</code> fields to be relative to the start of
+the <code class="code">.stabstr</code> section.
 </p>
 </div>
 <hr>
-<div class="header">
+<div class="nav-panel">
 <p>
 Next: <a href="ELF-Linker-Relocation.html">Having the Linker Relocate Stabs in ELF</a>, Up: <a href="Stab-Sections.html">Using Stabs in Their Own Sections</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Symbol-Types-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

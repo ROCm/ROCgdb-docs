@@ -1,11 +1,11 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the GNU Assembler "as".
 
-Copyright (C) 1991-2025 Free Software Foundation, Inc.
+Copyright © 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -31,21 +31,11 @@ section entitled "GNU Free Documentation License".
 <link href="s390-Mnemonics.html" rel="prev" title="s390 Mnemonics">
 <style type="text/css">
 <!--
-a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
-a.summary-letter {text-decoration: none}
-blockquote.indentedblock {margin-right: 0em}
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
 div.display {margin-left: 3.2em}
-div.example {margin-left: 3.2em}
-kbd {font-style: oblique}
-pre.display {font-family: inherit}
-pre.format {font-family: inherit}
-pre.menu-comment {font-family: serif}
-pre.menu-preformatted {font-family: serif}
-span.nolinebreak {white-space: nowrap}
-span.roman {font-family: initial; font-weight: normal}
-span.sansserif {font-family: sans-serif; font-weight: normal}
-span:hover a.copiable-anchor {visibility: visible}
-ul.no-bullet {list-style: none}
+pre.display-preformatted {font-family: inherit}
+span:hover a.copiable-link {visibility: visible}
+ul.mark-bullet {list-style-type: disc}
 -->
 </style>
 
@@ -53,15 +43,15 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<div class="subsection" id="s390-Operands">
-<div class="header">
+<div class="subsubsection-level-extent" id="s390-Operands">
+<div class="nav-panel">
 <p>
 Next: <a href="s390-Formats.html" accesskey="n" rel="next">Instruction Formats</a>, Previous: <a href="s390-Mnemonics.html" accesskey="p" rel="prev">Instruction Mnemonics</a>, Up: <a href="s390-Syntax.html" accesskey="u" rel="up">Instruction syntax</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="Instruction-Operands"></span><h4 class="subsubsection">9.41.3.3 Instruction Operands</h4>
-<span id="index-instruction-operands_002c-s390"></span>
-<span id="index-s390-instruction-operands"></span>
+<h4 class="subsubsection subsection-level-set-subsubsection" id="Instruction-Operands"><span>9.41.3.3 Instruction Operands<a class="copiable-link" href="#Instruction-Operands"> &para;</a></span></h4>
+<a class="index-entry-id" id="index-instruction-operands_002c-s390"></a>
+<a class="index-entry-id" id="index-s390-instruction-operands"></a>
 
 <p>Instruction operands can be grouped into three classes, operands located
 in registers, immediate operands, and operands in storage.
@@ -78,40 +68,40 @@ or unsigned.
 <p>A storage operand consists of an address and a length. The address of a
 storage operands can be specified in any of these ways:
 </p>
-<ul>
-<li> The content of a single general R
-</li><li> The sum of the content of a general register called the base
+<ul class="itemize mark-bullet">
+<li>The content of a single general R
+</li><li>The sum of the content of a general register called the base
 register B plus the content of a displacement field D
-</li><li> The sum of the contents of two general registers called the
+</li><li>The sum of the contents of two general registers called the
 index register X and the base register B plus the content of a
 displacement field
-</li><li> The sum of the current instruction address and a 32-bit signed
+</li><li>The sum of the current instruction address and a 32-bit signed
 immediate field multiplied by two.
 </li></ul>
 
 <p>The length of a storage operand can be:
 </p>
-<ul>
-<li> Implied by the instruction
-</li><li> Specified by a bitmask
-</li><li> Specified by a four-bit or eight-bit length field L
-</li><li> Specified by the content of a general register
+<ul class="itemize mark-bullet">
+<li>Implied by the instruction
+</li><li>Specified by a bitmask
+</li><li>Specified by a four-bit or eight-bit length field L
+</li><li>Specified by the content of a general register
 </li></ul>
 
 <p>The notation for storage operand addresses formed from multiple fields is
 as follows:
 </p>
-<dl compact="compact">
-<dt><span><code>Dn(Bn)</code></span></dt>
+<dl class="table">
+<dt><code class="code">Dn(Bn)</code></dt>
 <dd><p>the address for operand number n is formed from the content of general
 register Bn called the base register and the displacement field Dn.
 </p></dd>
-<dt><span><code>Dn(Xn,Bn)</code></span></dt>
+<dt><code class="code">Dn(Xn,Bn)</code></dt>
 <dd><p>the address for operand number n is formed from the content of general
 register Xn called the index register, general register Bn called the
 base register and the displacement field Dn.
 </p></dd>
-<dt><span><code>Dn(Ln,Bn)</code></span></dt>
+<dt><code class="code">Dn(Ln,Bn)</code></dt>
 <dd><p>the address for operand number n is formed from the content of general
 register Bn called the base register and the displacement field Dn.
 The length of the operand n is specified by the field Ln.
@@ -123,20 +113,21 @@ be skipped. If Bn and Xn are skipped, a zero will be stored to the operand
 field. The notation changes as follows:
 </p>
 <div class="display">
-<table>
-<thead><tr><th width="30%"><pre class="display">full notation</pre></th><th width="30%"><pre class="display">short notation</pre></th></tr></thead>
-<tr><td width="30%"><pre class="display">Dn(Xn,0)</pre></td><td width="30%"><pre class="display">Dn(Xn,)</pre></td></tr>
-<tr><td width="30%"><pre class="display">Dn(0,Bn)</pre></td><td width="30%"><pre class="display">Dn(,Bn) or Dn(Bn)</pre></td></tr>
-<tr><td width="30%"><pre class="display">Dn(0,0)</pre></td><td width="30%"><pre class="display">Dn</pre></td></tr>
-<tr><td width="30%"><pre class="display">Dn(0)</pre></td><td width="30%"><pre class="display">Dn</pre></td></tr>
-<tr><td width="30%"><pre class="display">Dn(Ln,0)</pre></td><td width="30%"><pre class="display">Dn(Ln,) or Dn(Ln)</pre></td></tr>
+<table class="multitable">
+<thead><tr><th width="30%"><pre class="display-preformatted">full notation</pre></th><th width="30%"><pre class="display-preformatted">short notation</pre></th></tr></thead>
+<tbody><tr><td width="30%"><pre class="display-preformatted">Dn(Xn,0)</pre></td><td width="30%"><pre class="display-preformatted">Dn(Xn,)</pre></td></tr>
+<tr><td width="30%"><pre class="display-preformatted">Dn(0,Bn)</pre></td><td width="30%"><pre class="display-preformatted">Dn(,Bn) or Dn(Bn)</pre></td></tr>
+<tr><td width="30%"><pre class="display-preformatted">Dn(0,0)</pre></td><td width="30%"><pre class="display-preformatted">Dn</pre></td></tr>
+<tr><td width="30%"><pre class="display-preformatted">Dn(0)</pre></td><td width="30%"><pre class="display-preformatted">Dn</pre></td></tr>
+<tr><td width="30%"><pre class="display-preformatted">Dn(Ln,0)</pre></td><td width="30%"><pre class="display-preformatted">Dn(Ln,) or Dn(Ln)</pre></td></tr>
+</tbody>
 </table>
 </div>
 
 
 </div>
 <hr>
-<div class="header">
+<div class="nav-panel">
 <p>
 Next: <a href="s390-Formats.html">Instruction Formats</a>, Previous: <a href="s390-Mnemonics.html">Instruction Mnemonics</a>, Up: <a href="s390-Syntax.html">Instruction syntax</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

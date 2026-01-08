@@ -1,13 +1,13 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the GNU linker LD
 (GNU Binutils)
 version 2.43.50.
 
-Copyright (C) 1991-2025 Free Software Foundation, Inc.
+Copyright © 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -32,21 +32,8 @@ section entitled "GNU Free Documentation License". -->
 <link href="Plugins.html" rel="prev" title="Plugins">
 <style type="text/css">
 <!--
-a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
-a.summary-letter {text-decoration: none}
-blockquote.indentedblock {margin-right: 0em}
-div.display {margin-left: 3.2em}
-div.example {margin-left: 3.2em}
-kbd {font-style: oblique}
-pre.display {font-family: inherit}
-pre.format {font-family: inherit}
-pre.menu-comment {font-family: serif}
-pre.menu-preformatted {font-family: serif}
-span.nolinebreak {white-space: nowrap}
-span.roman {font-family: initial; font-weight: normal}
-span.sansserif {font-family: sans-serif; font-weight: normal}
-span:hover a.copiable-anchor {visibility: visible}
-ul.no-bullet {list-style: none}
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+span:hover a.copiable-link {visibility: visible}
 -->
 </style>
 
@@ -54,37 +41,37 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<div class="chapter" id="Special-Sections">
-<div class="header">
+<div class="chapter-level-extent" id="Special-Sections">
+<div class="nav-panel">
 <p>
 Next: <a href="Machine-Dependent.html" accesskey="n" rel="next">Machine Dependent Features</a>, Previous: <a href="Plugins.html" accesskey="p" rel="prev">Linker Plugins</a>, Up: <a href="index.html" accesskey="u" rel="up">LD</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="LD-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="Special-Sections-1"></span><h2 class="chapter">5 Special Sections</h2>
-<p>When linking ELF format object files <code>ld</code> treats some sections
+<h2 class="chapter" id="Special-Sections-1"><span>5 Special Sections<a class="copiable-link" href="#Special-Sections-1"> &para;</a></span></h2>
+<p>When linking ELF format object files <code class="command">ld</code> treats some sections
 in a special, non standard manner.  This part of the manual describes
 these sections.
 </p>
-<dl compact="compact">
-<dt><span><code>.gnu.warning</code></span></dt>
+<dl class="table">
+<dt><code class="code">.gnu.warning</code></dt>
 <dd><p>The contents of any section with this name are assumed to be an ascii
 format warning message.  The contents will be displayed to the user if
 the sections appears in any input file, but the section will not be
-copied into the output image.  If the <samp>--fatal-warnings</samp> option
+copied into the output image.  If the <samp class="option">--fatal-warnings</samp> option
 is enabled then the warnings - if any are encountered - will also stop
 the link from completing.
 </p>
-<p>Note - the &lsquo;<samp>.gnu.warning</samp>&rsquo; section is not subject to linker
+<p>Note - the &lsquo;<samp class="samp">.gnu.warning</samp>&rsquo; section is not subject to linker
 garbage collection or orphan handling.
 </p>
 </dd>
-<dt><span><code>.gnu.warning.<var>SYM</var></code></span></dt>
+<dt><code class="code">.gnu.warning.<var class="var">SYM</var></code></dt>
 <dd><p>The contents of any section whoes name starts with the prefix
-&lsquo;<samp>.gnu.warning.</samp>&rsquo; and then finishes with the name of a symbol is
-treated in a similar fashion to the &lsquo;<samp>.gnu.warning</samp>&rsquo; section, but
+&lsquo;<samp class="samp">.gnu.warning.</samp>&rsquo; and then finishes with the name of a symbol is
+treated in a similar fashion to the &lsquo;<samp class="samp">.gnu.warning</samp>&rsquo; section, but
 only if the named symbol is referenced.  So for example the contents
-of a section called &lsquo;<samp>.gnu.warning.foo</samp>&rsquo; will be displayed as
-warning message if, and only if, the symbol &lsquo;<samp>foo</samp>&rsquo; is referenced
+of a section called &lsquo;<samp class="samp">.gnu.warning.foo</samp>&rsquo; will be displayed as
+warning message if, and only if, the symbol &lsquo;<samp class="samp">foo</samp>&rsquo; is referenced
 by one or more of the input files.  This includes object files pulled
 in from static libraries, shared objects needed to complete the link
 and so on.
@@ -95,12 +82,12 @@ to be displayed for a symbol that is later removed and then never
 appears in the final output.
 </p>
 </dd>
-<dt><span><code>.note.gnu.property</code></span></dt>
+<dt><code class="code">.note.gnu.property</code></dt>
 <dd><p>When the linker combines sections of this name it will merge them
 together according to various rules encoded into the notes
 themselves.  Therefore the contents of the output .note.gnu.property
 section may not correspond to a simple concatenation of the input
-sections.  If the <samp>-Map</samp> option has been used to request a
+sections.  If the <samp class="option">-Map</samp> option has been used to request a
 linker map then details of any property merging will be included in
 the map.
 </p>
@@ -109,7 +96,7 @@ the map.
 
 </div>
 <hr>
-<div class="header">
+<div class="nav-panel">
 <p>
 Next: <a href="Machine-Dependent.html">Machine Dependent Features</a>, Previous: <a href="Plugins.html">Linker Plugins</a>, Up: <a href="index.html">LD</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="LD-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

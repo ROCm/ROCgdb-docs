@@ -1,11 +1,11 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the GNU Assembler "as".
 
-Copyright (C) 1991-2025 Free Software Foundation, Inc.
+Copyright © 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -31,21 +31,9 @@ section entitled "GNU Free Documentation License".
 <link href="Alpha-Floating-Point.html" rel="prev" title="Alpha Floating Point">
 <style type="text/css">
 <!--
-a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
-a.summary-letter {text-decoration: none}
-blockquote.indentedblock {margin-right: 0em}
-div.display {margin-left: 3.2em}
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
 div.example {margin-left: 3.2em}
-kbd {font-style: oblique}
-pre.display {font-family: inherit}
-pre.format {font-family: inherit}
-pre.menu-comment {font-family: serif}
-pre.menu-preformatted {font-family: serif}
-span.nolinebreak {white-space: nowrap}
-span.roman {font-family: initial; font-weight: normal}
-span.sansserif {font-family: sans-serif; font-weight: normal}
-span:hover a.copiable-anchor {visibility: visible}
-ul.no-bullet {list-style: none}
+span:hover a.copiable-link {visibility: visible}
 -->
 </style>
 
@@ -53,147 +41,147 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<div class="section" id="Alpha-Directives">
-<div class="header">
+<div class="subsection-level-extent" id="Alpha-Directives">
+<div class="nav-panel">
 <p>
 Next: <a href="Alpha-Opcodes.html" accesskey="n" rel="next">Opcodes</a>, Previous: <a href="Alpha-Floating-Point.html" accesskey="p" rel="prev">Floating Point</a>, Up: <a href="Alpha_002dDependent.html" accesskey="u" rel="up">Alpha Dependent Features</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="Alpha-Assembler-Directives"></span><h4 class="subsection">9.2.5 Alpha Assembler Directives</h4>
+<h4 class="subsection section-level-set-subsection" id="Alpha-Assembler-Directives"><span>9.2.5 Alpha Assembler Directives<a class="copiable-link" href="#Alpha-Assembler-Directives"> &para;</a></span></h4>
 
-<p><code>as</code> for the Alpha supports many additional directives for
+<p><code class="command">as</code> for the Alpha supports many additional directives for
 compatibility with the native assembler.  This section describes them only
 briefly.
 </p>
-<span id="index-Alpha_002donly-directives"></span>
-<p>These are the additional directives in <code>as</code> for the Alpha:
+<a class="index-entry-id" id="index-Alpha_002donly-directives"></a>
+<p>These are the additional directives in <code class="code">as</code> for the Alpha:
 </p>
-<dl compact="compact">
-<dt><span><code>.arch <var>cpu</var></code></span></dt>
+<dl class="table">
+<dt><code class="code">.arch <var class="var">cpu</var></code></dt>
 <dd><p>Specifies the target processor.  This is equivalent to the
-<samp>-m<var>cpu</var></samp> command-line option.  See <a href="Alpha-Options.html">Options</a>,
-for a list of values for <var>cpu</var>.
+<samp class="option">-m<var class="var">cpu</var></samp> command-line option.  See <a class="xref" href="Alpha-Options.html">Options</a>,
+for a list of values for <var class="var">cpu</var>.
 </p>
 </dd>
-<dt><span><code>.ent <var>function</var>[, <var>n</var>]</code></span></dt>
-<dd><p>Mark the beginning of <var>function</var>.  An optional number may follow for
+<dt><code class="code">.ent <var class="var">function</var>[, <var class="var">n</var>]</code></dt>
+<dd><p>Mark the beginning of <var class="var">function</var>.  An optional number may follow for
 compatibility with the OSF/1 assembler, but is ignored.  When generating
-<code>.mdebug</code> information, this will create a procedure descriptor for
+<code class="code">.mdebug</code> information, this will create a procedure descriptor for
 the function.  In ELF, it will mark the symbol as a function a-la the
-generic <code>.type</code> directive.
+generic <code class="code">.type</code> directive.
 </p>
 </dd>
-<dt><span><code>.end <var>function</var></code></span></dt>
-<dd><p>Mark the end of <var>function</var>.  In ELF, it will set the size of the symbol
-a-la the generic <code>.size</code> directive.
+<dt><code class="code">.end <var class="var">function</var></code></dt>
+<dd><p>Mark the end of <var class="var">function</var>.  In ELF, it will set the size of the symbol
+a-la the generic <code class="code">.size</code> directive.
 </p>
 </dd>
-<dt><span><code>.mask <var>mask</var>, <var>offset</var></code></span></dt>
+<dt><code class="code">.mask <var class="var">mask</var>, <var class="var">offset</var></code></dt>
 <dd><p>Indicate which of the integer registers are saved in the current
-function&rsquo;s stack frame.  <var>mask</var> is interpreted a bit mask in which
-bit <var>n</var> set indicates that register <var>n</var> is saved.  The registers
-are saved in a block located <var>offset</var> bytes from the <em>canonical
+function&rsquo;s stack frame.  <var class="var">mask</var> is interpreted a bit mask in which
+bit <var class="var">n</var> set indicates that register <var class="var">n</var> is saved.  The registers
+are saved in a block located <var class="var">offset</var> bytes from the <em class="dfn">canonical
 frame address</em> (CFA) which is the value of the stack pointer on entry to
 the function.  The registers are saved sequentially, except that the
-return address register (normally <code>$26</code>) is saved first.
+return address register (normally <code class="code">$26</code>) is saved first.
 </p>
 <p>This and the other directives that describe the stack frame are
-currently only used when generating <code>.mdebug</code> information.  They
-may in the future be used to generate DWARF2 <code>.debug_frame</code> unwind
+currently only used when generating <code class="code">.mdebug</code> information.  They
+may in the future be used to generate DWARF2 <code class="code">.debug_frame</code> unwind
 information for hand written assembly.
 </p>
 </dd>
-<dt><span><code>.fmask <var>mask</var>, <var>offset</var></code></span></dt>
+<dt><code class="code">.fmask <var class="var">mask</var>, <var class="var">offset</var></code></dt>
 <dd><p>Indicate which of the floating-point registers are saved in the current
-stack frame.  The <var>mask</var> and <var>offset</var> parameters are interpreted
-as with <code>.mask</code>.
+stack frame.  The <var class="var">mask</var> and <var class="var">offset</var> parameters are interpreted
+as with <code class="code">.mask</code>.
 </p>
 </dd>
-<dt><span><code>.frame <var>framereg</var>, <var>frameoffset</var>, <var>retreg</var>[, <var>argoffset</var>]</code></span></dt>
+<dt><code class="code">.frame <var class="var">framereg</var>, <var class="var">frameoffset</var>, <var class="var">retreg</var>[, <var class="var">argoffset</var>]</code></dt>
 <dd><p>Describes the shape of the stack frame.  The frame pointer in use is
-<var>framereg</var>; normally this is either <code>$fp</code> or <code>$sp</code>.  The
-frame pointer is <var>frameoffset</var> bytes below the CFA.  The return
-address is initially located in <var>retreg</var> until it is saved as
-indicated in <code>.mask</code>.  For compatibility with OSF/1 an optional
-<var>argoffset</var> parameter is accepted and ignored.  It is believed to
+<var class="var">framereg</var>; normally this is either <code class="code">$fp</code> or <code class="code">$sp</code>.  The
+frame pointer is <var class="var">frameoffset</var> bytes below the CFA.  The return
+address is initially located in <var class="var">retreg</var> until it is saved as
+indicated in <code class="code">.mask</code>.  For compatibility with OSF/1 an optional
+<var class="var">argoffset</var> parameter is accepted and ignored.  It is believed to
 indicate the offset from the CFA to the saved argument registers.
 </p>
 </dd>
-<dt><span><code>.prologue <var>n</var></code></span></dt>
+<dt><code class="code">.prologue <var class="var">n</var></code></dt>
 <dd><p>Indicate that the stack frame is set up and all registers have been
-spilled.  The argument <var>n</var> indicates whether and how the function
-uses the incoming <em>procedure vector</em> (the address of the called
-function) in <code>$27</code>.  0 indicates that <code>$27</code> is not used; 1
-indicates that the first two instructions of the function use <code>$27</code>
-to perform a load of the GP register; 2 indicates that <code>$27</code> is
+spilled.  The argument <var class="var">n</var> indicates whether and how the function
+uses the incoming <em class="dfn">procedure vector</em> (the address of the called
+function) in <code class="code">$27</code>.  0 indicates that <code class="code">$27</code> is not used; 1
+indicates that the first two instructions of the function use <code class="code">$27</code>
+to perform a load of the GP register; 2 indicates that <code class="code">$27</code> is
 used in some non-standard way and so the linker cannot elide the load of
 the procedure vector during relaxation.
 </p>
 </dd>
-<dt><span><code>.usepv <var>function</var>, <var>which</var></code></span></dt>
-<dd><p>Used to indicate the use of the <code>$27</code> register, similar to
-<code>.prologue</code>, but without the other semantics of needing to
-be inside an open <code>.ent</code>/<code>.end</code> block.
+<dt><code class="code">.usepv <var class="var">function</var>, <var class="var">which</var></code></dt>
+<dd><p>Used to indicate the use of the <code class="code">$27</code> register, similar to
+<code class="code">.prologue</code>, but without the other semantics of needing to
+be inside an open <code class="code">.ent</code>/<code class="code">.end</code> block.
 </p>
-<p>The <var>which</var> argument should be either <code>no</code>, indicating that
-<code>$27</code> is not used, or <code>std</code>, indicating that the first two
+<p>The <var class="var">which</var> argument should be either <code class="code">no</code>, indicating that
+<code class="code">$27</code> is not used, or <code class="code">std</code>, indicating that the first two
 instructions of the function perform a GP load.
 </p>
-<p>One might use this directive instead of <code>.prologue</code> if you are
+<p>One might use this directive instead of <code class="code">.prologue</code> if you are
 also using dwarf2 CFI directives.
 </p>
 </dd>
-<dt><span><code>.gprel32 <var>expression</var></code></span></dt>
-<dd><p>Computes the difference between the address in <var>expression</var> and the
+<dt><code class="code">.gprel32 <var class="var">expression</var></code></dt>
+<dd><p>Computes the difference between the address in <var class="var">expression</var> and the
 GP for the current object file, and stores it in 4 bytes.  In addition
 to being smaller than a full 8 byte address, this also does not require
 a dynamic relocation when used in a shared library.
 </p>
 </dd>
-<dt><span><code>.t_floating <var>expression</var></code></span></dt>
-<dd><p>Stores <var>expression</var> as an <small>IEEE</small> double precision value.
+<dt><code class="code">.t_floating <var class="var">expression</var></code></dt>
+<dd><p>Stores <var class="var">expression</var> as an <small class="sc">IEEE</small> double precision value.
 </p>
 </dd>
-<dt><span><code>.s_floating <var>expression</var></code></span></dt>
-<dd><p>Stores <var>expression</var> as an <small>IEEE</small> single precision value.
+<dt><code class="code">.s_floating <var class="var">expression</var></code></dt>
+<dd><p>Stores <var class="var">expression</var> as an <small class="sc">IEEE</small> single precision value.
 </p>
 </dd>
-<dt><span><code>.f_floating <var>expression</var></code></span></dt>
-<dd><p>Stores <var>expression</var> as a VAX F format value.
+<dt><code class="code">.f_floating <var class="var">expression</var></code></dt>
+<dd><p>Stores <var class="var">expression</var> as a VAX F format value.
 </p>
 </dd>
-<dt><span><code>.g_floating <var>expression</var></code></span></dt>
-<dd><p>Stores <var>expression</var> as a VAX G format value.
+<dt><code class="code">.g_floating <var class="var">expression</var></code></dt>
+<dd><p>Stores <var class="var">expression</var> as a VAX G format value.
 </p>
 </dd>
-<dt><span><code>.d_floating <var>expression</var></code></span></dt>
-<dd><p>Stores <var>expression</var> as a VAX D format value.
+<dt><code class="code">.d_floating <var class="var">expression</var></code></dt>
+<dd><p>Stores <var class="var">expression</var> as a VAX D format value.
 </p>
 </dd>
-<dt><span><code>.set <var>feature</var></code></span></dt>
+<dt><code class="code">.set <var class="var">feature</var></code></dt>
 <dd><p>Enables or disables various assembler features.  Using the positive
-name of the feature enables while using &lsquo;<samp>no<var>feature</var></samp>&rsquo; disables.
+name of the feature enables while using &lsquo;<samp class="samp">no<var class="var">feature</var></samp>&rsquo; disables.
 </p>
-<dl compact="compact">
-<dt><span><code>at</code></span></dt>
-<dd><p>Indicates that macro expansions may clobber the <em>assembler
-temporary</em> (<code>$at</code> or <code>$28</code>) register.  Some macros may not be
-expanded without this and will generate an error message if <code>noat</code>
-is in effect.  When <code>at</code> is in effect, a warning will be generated
-if <code>$at</code> is used by the programmer.
+<dl class="table">
+<dt><code class="code">at</code></dt>
+<dd><p>Indicates that macro expansions may clobber the <em class="dfn">assembler
+temporary</em> (<code class="code">$at</code> or <code class="code">$28</code>) register.  Some macros may not be
+expanded without this and will generate an error message if <code class="code">noat</code>
+is in effect.  When <code class="code">at</code> is in effect, a warning will be generated
+if <code class="code">$at</code> is used by the programmer.
 </p>
 </dd>
-<dt><span><code>macro</code></span></dt>
+<dt><code class="code">macro</code></dt>
 <dd><p>Enables the expansion of macro instructions.  Note that variants of real
-instructions, such as <code>br label</code> vs <code>br $31,label</code> are
+instructions, such as <code class="code">br label</code> vs <code class="code">br $31,label</code> are
 considered alternate forms and not macros.
 </p>
 </dd>
-<dt><span><code>move</code></span></dt>
-<dt><span><code>reorder</code></span></dt>
-<dt><span><code>volatile</code></span></dt>
+<dt><code class="code">move</code></dt>
+<dt><code class="code">reorder</code></dt>
+<dt><code class="code">volatile</code></dt>
 <dd><p>These control whether and how the assembler may re-order instructions.
-Accepted for compatibility with the OSF/1 assembler, but <code>as</code>
+Accepted for compatibility with the OSF/1 assembler, but <code class="command">as</code>
 does not do instruction scheduling, so these features are ignored.
 </p></dd>
 </dl>
@@ -204,7 +192,7 @@ does not do instruction scheduling, so these features are ignored.
 assembler but are ignored.
 </p>
 <div class="example">
-<pre class="example">.proc           .aproc
+<pre class="example-preformatted">.proc           .aproc
 .reguse         .livereg
 .option         .aent
 .ugen           .eflag
@@ -213,7 +201,7 @@ assembler but are ignored.
 
 </div>
 <hr>
-<div class="header">
+<div class="nav-panel">
 <p>
 Next: <a href="Alpha-Opcodes.html">Opcodes</a>, Previous: <a href="Alpha-Floating-Point.html">Floating Point</a>, Up: <a href="Alpha_002dDependent.html">Alpha Dependent Features</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

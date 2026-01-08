@@ -1,9 +1,9 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright (C) 2021-2025 Free Software Foundation, Inc.
+<!-- Copyright © 2021-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU General Public License, Version 3 or any
@@ -26,21 +26,17 @@ License".
 <link href="#Introduction" rel="next" title="Introduction">
 <style type="text/css">
 <!--
-a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
-a.summary-letter {text-decoration: none}
-blockquote.indentedblock {margin-right: 0em}
-div.display {margin-left: 3.2em}
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter-printindex {text-decoration: none}
 div.example {margin-left: 3.2em}
-kbd {font-style: oblique}
-pre.display {font-family: inherit}
-pre.format {font-family: inherit}
-pre.menu-comment {font-family: serif}
-pre.menu-preformatted {font-family: serif}
-span.nolinebreak {white-space: nowrap}
-span.roman {font-family: initial; font-weight: normal}
-span.sansserif {font-family: sans-serif; font-weight: normal}
-span:hover a.copiable-anchor {visibility: visible}
-ul.no-bullet {list-style: none}
+span:hover a.copiable-link {visibility: visible}
+td.printindex-index-entry {vertical-align: top}
+td.printindex-index-section {vertical-align: top; padding-left: 1em}
+th.entries-header-printindex {text-align:left}
+th.sections-header-printindex {text-align:left; padding-left: 1em}
+ul.mark-bullet {list-style-type: disc}
+ul.mark-minus {list-style-type: "\2212"}
+ul.toc-numbered-mark {list-style: none}
 -->
 </style>
 
@@ -48,26 +44,25 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<h1 class="settitle" align="center">The SFrame Format</h1>
 
 
 
 
-<div class="top" id="Top">
-<div class="header">
+<div class="top-level-extent" id="Top">
+<div class="nav-panel">
 <p>
 Next: <a href="#Introduction" accesskey="n" rel="next">Introduction</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="The-SFrame-format"></span><h1 class="top">The SFrame format</h1>
+<h1 class="top" id="The-SFrame-format"><span>The SFrame format<a class="copiable-link" href="#The-SFrame-format"> &para;</a></span></h1>
 
 <p>This manual describes version 2 of the SFrame file format.  SFrame stands for
 Simple Frame.  The SFrame format keeps track of the minimal necessary
 information needed for generating stack traces:
 </p>
-<ul class="no-bullet">
-<li>- Canonical Frame Address (CFA).
-</li><li>- Frame Pointer (FP).
-</li><li>- Return Address (RA).
+<ul class="itemize mark-minus">
+<li>Canonical Frame Address (CFA).
+</li><li>Frame Pointer (FP).
+</li><li>Return Address (RA).
 </li></ul>
 
 <p>The reason for existence of the SFrame format is to provide a simple, fast and
@@ -75,42 +70,42 @@ low-overhead mechanism to generate stack traces.
 </p>
 
 
-<div class="Contents_element" id="SEC_Contents">
+<div class="element-contents" id="SEC_Contents">
 <h2 class="contents-heading">Table of Contents</h2>
 
 <div class="contents">
 
-<ul class="no-bullet">
+<ul class="toc-numbered-mark">
   <li><a id="toc-Introduction-1" href="#Introduction">1 Introduction</a>
-  <ul class="no-bullet">
+  <ul class="toc-numbered-mark">
     <li><a id="toc-Overview-1" href="#Overview">1.1 Overview</a></li>
     <li><a id="toc-Changes-from-Version-1-to-Version-2-1" href="#Changes-from-Version-1-to-Version-2">1.2 Changes from Version 1 to Version 2</a></li>
   </ul></li>
   <li><a id="toc-SFrame-Section-1" href="#SFrame-Section">2 SFrame Section</a>
-  <ul class="no-bullet">
+  <ul class="toc-numbered-mark">
     <li><a id="toc-SFrame-Preamble-1" href="#SFrame-Preamble">2.1 SFrame Preamble</a>
-    <ul class="no-bullet">
+    <ul class="toc-numbered-mark">
       <li><a id="toc-SFrame-Magic-Number-and-Endianness-1" href="#SFrame-Magic-Number-and-Endianness">2.1.1 SFrame Magic Number and Endianness</a></li>
       <li><a id="toc-SFrame-Version-1" href="#SFrame-Version">2.1.2 SFrame Version</a></li>
       <li><a id="toc-SFrame-Flags-1" href="#SFrame-Flags">2.1.3 SFrame Flags</a></li>
     </ul></li>
     <li><a id="toc-SFrame-Header-1" href="#SFrame-Header">2.2 SFrame Header</a>
-    <ul class="no-bullet">
+    <ul class="toc-numbered-mark">
       <li><a id="toc-SFrame-ABI_002farch-Identifier-1" href="#SFrame-ABI_002farch-Identifier">2.2.1 SFrame ABI/arch Identifier</a></li>
     </ul></li>
     <li><a id="toc-SFrame-FDE" href="#SFrame-Function-Descriptor-Entries">2.3 SFrame FDE</a>
-    <ul class="no-bullet">
+    <ul class="toc-numbered-mark">
       <li><a id="toc-The-SFrame-FDE-Info-Word-1" href="#The-SFrame-FDE-Info-Word">2.3.1 The SFrame FDE Info Word</a></li>
       <li><a id="toc-The-SFrame-FDE-Types-1" href="#The-SFrame-FDE-Types">2.3.2 The SFrame FDE Types</a></li>
       <li><a id="toc-The-SFrame-FRE-Types-1" href="#The-SFrame-FRE-Types">2.3.3 The SFrame FRE Types</a></li>
     </ul></li>
     <li><a id="toc-SFrame-FRE" href="#SFrame-Frame-Row-Entries">2.4 SFrame FRE</a>
-    <ul class="no-bullet">
+    <ul class="toc-numbered-mark">
       <li><a id="toc-The-SFrame-FRE-Info-Word-1" href="#The-SFrame-FRE-Info-Word">2.4.1 The SFrame FRE Info Word</a></li>
     </ul></li>
   </ul></li>
   <li><a id="toc-ABI_002farch_002dspecific-Definition-1" href="#ABI_002farch_002dspecific-Definition">3 ABI/arch-specific Definition</a>
-  <ul class="no-bullet">
+  <ul class="toc-numbered-mark">
     <li><a id="toc-AMD64-1" href="#AMD64">3.1 AMD64</a></li>
     <li><a id="toc-AArch64-1" href="#AArch64">3.2 AArch64</a></li>
   </ul></li>
@@ -120,30 +115,30 @@ low-overhead mechanism to generate stack traces.
 </div>
 </div>
 <hr>
-<div class="chapter" id="Introduction">
-<div class="header">
+<div class="chapter-level-extent" id="Introduction">
+<div class="nav-panel">
 <p>
 Next: <a href="#SFrame-Section" accesskey="n" rel="next">SFrame Section</a>, Previous: <a href="#Top" accesskey="p" rel="prev">The SFrame format</a>, Up: <a href="#Top" accesskey="u" rel="up">The SFrame format</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="Introduction-1"></span><h2 class="chapter">1 Introduction</h2>
-<span id="index-Introduction"></span>
+<h2 class="chapter" id="Introduction-1"><span>1 Introduction<a class="copiable-link" href="#Introduction-1"> &para;</a></span></h2>
+<a class="index-entry-id" id="index-Introduction"></a>
 
 
-<ul class="section-toc">
+<ul class="mini-toc">
 <li><a href="#Overview" accesskey="1">Overview</a></li>
 <li><a href="#Changes-from-Version-1-to-Version-2" accesskey="2">Changes from Version 1 to Version 2</a></li>
 </ul>
 <hr>
-<div class="section" id="Overview">
-<div class="header">
+<div class="section-level-extent" id="Overview">
+<div class="nav-panel">
 <p>
 Next: <a href="#Changes-from-Version-1-to-Version-2" accesskey="n" rel="next">Changes from Version 1 to Version 2</a>, Up: <a href="#Introduction" accesskey="u" rel="up">Introduction</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="Overview-1"></span><h3 class="section">1.1 Overview</h3>
-<span id="index-Overview"></span>
+<h3 class="section" id="Overview-1"><span>1.1 Overview<a class="copiable-link" href="#Overview-1"> &para;</a></span></h3>
+<a class="index-entry-id" id="index-Overview"></a>
 
 <p>The SFrame stack trace information is provided in a loaded section, known as the
-<code>.sframe</code> section.  When available, the <code>.sframe</code> section appears in
+<code class="code">.sframe</code> section.  When available, the <code class="code">.sframe</code> section appears in
 a new segment of its own, PT_GNU_SFRAME.
 </p>
 <p>The SFrame format is currently supported only for select ABIs, namely, AMD64
@@ -162,39 +157,39 @@ identify the endianness of the SFrame section.
 <p>Addresses in this specification are expressed in bytes.
 </p>
 <p>The rest of this specification describes the current version of the format,
-<code>SFRAME_VERSION_2</code>, in detail.  Additional sections outline the major
+<code class="code">SFRAME_VERSION_2</code>, in detail.  Additional sections outline the major
 changes made to each previously published version of the SFrame stack trace
 format.
 </p>
 <p>The associated API to decode, probe and encode the SFrame section, provided via
-<code>libsframe</code>, is not accompanied here at this time.  This will be added
+<code class="code">libsframe</code>, is not accompanied here at this time.  This will be added
 later.
 </p>
-<p>This document is intended to be in sync with the C code in <samp>sframe.h</samp>.
+<p>This document is intended to be in sync with the C code in <samp class="file">sframe.h</samp>.
 Please report discrepancies between the two, if any.
 </p>
 <hr>
 </div>
-<div class="section" id="Changes-from-Version-1-to-Version-2">
-<div class="header">
+<div class="section-level-extent" id="Changes-from-Version-1-to-Version-2">
+<div class="nav-panel">
 <p>
 Previous: <a href="#Overview" accesskey="p" rel="prev">Overview</a>, Up: <a href="#Introduction" accesskey="u" rel="up">Introduction</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="Changes-from-Version-1-to-Version-2-1"></span><h3 class="section">1.2 Changes from Version 1 to Version 2</h3>
-<span id="index-Changes-from-Version-1-to-Version-2"></span>
+<h3 class="section" id="Changes-from-Version-1-to-Version-2-1"><span>1.2 Changes from Version 1 to Version 2<a class="copiable-link" href="#Changes-from-Version-1-to-Version-2-1"> &para;</a></span></h3>
+<a class="index-entry-id" id="index-Changes-from-Version-1-to-Version-2"></a>
 
 <p>The following is a list of the changes made to the SFrame stack trace format
 since Version 1 was published.
 </p>
-<ul>
-<li> Add an unsigned 8-bit integral field to the SFrame function descriptor entry to
+<ul class="itemize mark-bullet">
+<li>Add an unsigned 8-bit integral field to the SFrame function descriptor entry to
 encode the size of the repetitive code blocks.  Such code blocks, e.g, pltN
 entries, use an SFrame function descriptor entry of type
 SFRAME_FDE_TYPE_PCMASK.
-</li><li> Add an unsigned 16-bit integral field to the SFrame function descriptor entry
+</li><li>Add an unsigned 16-bit integral field to the SFrame function descriptor entry
 to serve as padding.  This helps ensure natural alignment for the members of
 the data structure.
-</li><li> The above two imply that each SFrame function descriptor entry has a fixed size
+</li><li>The above two imply that each SFrame function descriptor entry has a fixed size
 of 20 bytes instead of its size of 17 bytes in SFrame format version 1.
 </li></ul>
 
@@ -203,39 +198,39 @@ of 20 bytes instead of its size of 17 bytes in SFrame format version 1.
 <hr>
 </div>
 </div>
-<div class="chapter" id="SFrame-Section">
-<div class="header">
+<div class="chapter-level-extent" id="SFrame-Section">
+<div class="nav-panel">
 <p>
 Next: <a href="#ABI_002farch_002dspecific-Definition" accesskey="n" rel="next">ABI/arch-specific Definition</a>, Previous: <a href="#Introduction" accesskey="p" rel="prev">Introduction</a>, Up: <a href="#Top" accesskey="u" rel="up">The SFrame format</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="SFrame-Section-1"></span><h2 class="chapter">2 SFrame Section</h2>
-<span id="index-SFrame-Section"></span>
+<h2 class="chapter" id="SFrame-Section-1"><span>2 SFrame Section<a class="copiable-link" href="#SFrame-Section-1"> &para;</a></span></h2>
+<a class="index-entry-id" id="index-SFrame-Section"></a>
 
 <p>The SFrame section consists of an SFrame header, starting with a preamble, and
 two other sub-sections, namely the SFrame function descriptor entry (SFrame
 FDE) sub-section, and the SFrame frame row entry (SFrame FRE) sub-section.
 </p>
 
-<ul class="section-toc">
+<ul class="mini-toc">
 <li><a href="#SFrame-Preamble" accesskey="1">SFrame Preamble</a></li>
 <li><a href="#SFrame-Header" accesskey="2">SFrame Header</a></li>
 <li><a href="#SFrame-Function-Descriptor-Entries" accesskey="3">SFrame FDE</a></li>
 <li><a href="#SFrame-Frame-Row-Entries" accesskey="4">SFrame FRE</a></li>
 </ul>
 <hr>
-<div class="section" id="SFrame-Preamble">
-<div class="header">
+<div class="section-level-extent" id="SFrame-Preamble">
+<div class="nav-panel">
 <p>
 Next: <a href="#SFrame-Header" accesskey="n" rel="next">SFrame Header</a>, Up: <a href="#SFrame-Section" accesskey="u" rel="up">SFrame Section</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="SFrame-Preamble-1"></span><h3 class="section">2.1 SFrame Preamble</h3>
-<span id="index-SFrame-preamble"></span>
+<h3 class="section" id="SFrame-Preamble-1"><span>2.1 SFrame Preamble<a class="copiable-link" href="#SFrame-Preamble-1"> &para;</a></span></h3>
+<a class="index-entry-id" id="index-SFrame-preamble"></a>
 
 <p>The preamble is a 32-bit packed structure; the only part of the SFrame section
 whose format cannot vary between versions.
 </p>
 <div class="example">
-<pre class="example">typedef struct sframe_preamble
+<pre class="example-preformatted">typedef struct sframe_preamble
 {
   uint16_t sfp_magic;
   uint8_t sfp_version;
@@ -248,83 +243,86 @@ whose format cannot vary between versions.
 <p>All values are stored in the endianness of the target system for which the
 SFrame section is intended.  Further details:
 </p>
-<table>
+<table class="multitable">
 <thead><tr><th>Offset</th><th>Type</th><th>Name</th><th>Description</th></tr></thead>
-<tr><td>0x00</td><td><code>uint16_t</code></td><td><code>sfp_magic</code></td><td>The magic number for SFrame section: 0xdee2.  Defined as a macro <code>SFRAME_MAGIC</code>.
-<span id="index-SFRAME_005fMAGIC"></span></td></tr>
-<tr><td>0x02</td><td><code>uint8_t</code></td><td><code>sfp_version</code></td><td>The version number of this SFrame section.  See <a href="#SFrame-Version">SFrame Version</a>, for the
+<tbody><tr><td>0x00</td><td><code class="code">uint16_t</code></td><td><code class="code">sfp_magic</code></td><td>The magic number for SFrame section: 0xdee2.  Defined as a macro <code class="code">SFRAME_MAGIC</code>.
+<a class="index-entry-id" id="index-SFRAME_005fMAGIC"></a></td></tr>
+<tr><td>0x02</td><td><code class="code">uint8_t</code></td><td><code class="code">sfp_version</code></td><td>The version number of this SFrame section.  See <a class="xref" href="#SFrame-Version">SFrame Version</a>, for the
 set of valid values.  Current version is
-<code>SFRAME_VERSION_2</code>.</td></tr>
-<tr><td>0x03</td><td><code>uint8_t</code></td><td><code>sfp_flags</code></td><td>Flags (section-wide) for this SFrame section.  See <a href="#SFrame-Flags">SFrame Flags</a>, for the
+<code class="code">SFRAME_VERSION_2</code>.</td></tr>
+<tr><td>0x03</td><td><code class="code">uint8_t</code></td><td><code class="code">sfp_flags</code></td><td>Flags (section-wide) for this SFrame section.  See <a class="xref" href="#SFrame-Flags">SFrame Flags</a>, for the
 set of valid values.</td></tr>
+</tbody>
 </table>
 
 
-<ul class="section-toc">
+<ul class="mini-toc">
 <li><a href="#SFrame-Magic-Number-and-Endianness" accesskey="1">SFrame Magic Number and Endianness</a></li>
 <li><a href="#SFrame-Version" accesskey="2">SFrame Version</a></li>
 <li><a href="#SFrame-Flags" accesskey="3">SFrame Flags</a></li>
 </ul>
 <hr>
-<div class="subsection" id="SFrame-Magic-Number-and-Endianness">
-<div class="header">
+<div class="subsection-level-extent" id="SFrame-Magic-Number-and-Endianness">
+<div class="nav-panel">
 <p>
 Next: <a href="#SFrame-Version" accesskey="n" rel="next">SFrame Version</a>, Up: <a href="#SFrame-Preamble" accesskey="u" rel="up">SFrame Preamble</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="SFrame-Magic-Number-and-Endianness-1"></span><h4 class="subsection">2.1.1 SFrame Magic Number and Endianness</h4>
+<h4 class="subsection" id="SFrame-Magic-Number-and-Endianness-1"><span>2.1.1 SFrame Magic Number and Endianness<a class="copiable-link" href="#SFrame-Magic-Number-and-Endianness-1"> &para;</a></span></h4>
 
-<span id="index-endianness"></span>
-<span id="index-SFrame-magic-number"></span>
+<a class="index-entry-id" id="index-endianness"></a>
+<a class="index-entry-id" id="index-SFrame-magic-number"></a>
 <p>SFrame sections are stored in the target endianness of the system that consumes
 them.  A consumer library reading or writing SFrame sections should detect
 foreign-endianness by inspecting the SFrame magic number in the
-<code>sfp_magic</code> field in the SFrame header.  It may then provide means to
+<code class="code">sfp_magic</code> field in the SFrame header.  It may then provide means to
 endian-flip the SFrame section as necessary.
 </p>
 <hr>
 </div>
-<div class="subsection" id="SFrame-Version">
-<div class="header">
+<div class="subsection-level-extent" id="SFrame-Version">
+<div class="nav-panel">
 <p>
 Next: <a href="#SFrame-Flags" accesskey="n" rel="next">SFrame Flags</a>, Previous: <a href="#SFrame-Magic-Number-and-Endianness" accesskey="p" rel="prev">SFrame Magic Number and Endianness</a>, Up: <a href="#SFrame-Preamble" accesskey="u" rel="up">SFrame Preamble</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="SFrame-Version-1"></span><h4 class="subsection">2.1.2 SFrame Version</h4>
+<h4 class="subsection" id="SFrame-Version-1"><span>2.1.2 SFrame Version<a class="copiable-link" href="#SFrame-Version-1"> &para;</a></span></h4>
 
 <p>The version of the SFrame format can be determined by inspecting
-<code>sfp_version</code>.  The following versions are currently valid:
+<code class="code">sfp_version</code>.  The following versions are currently valid:
 </p>
-<span id="index-SFRAME_005fVERSION_005f1"></span>
-<span id="index-SFrame-versions"></span>
-<table>
+<a class="index-entry-id" id="index-SFRAME_005fVERSION_005f1"></a>
+<a class="index-entry-id" id="index-SFrame-versions"></a>
+<table class="multitable">
 <thead><tr><th>Version Name</th><th>Number</th><th>Description</th></tr></thead>
-<tr><td><code>SFRAME_VERSION_1</code></td><td>1</td><td>First version, obsolete.</td></tr>
-<tr><td><code>SFRAME_VERSION_2</code></td><td>2</td><td>Current version, under development.</td></tr>
+<tbody><tr><td><code class="code">SFRAME_VERSION_1</code></td><td>1</td><td>First version, obsolete.</td></tr>
+<tr><td><code class="code">SFRAME_VERSION_2</code></td><td>2</td><td>Current version, under development.</td></tr>
+</tbody>
 </table>
 
-<p>This document describes <code>SFRAME_VERSION_2</code>.
+<p>This document describes <code class="code">SFRAME_VERSION_2</code>.
 </p>
 <hr>
 </div>
-<div class="subsection" id="SFrame-Flags">
-<div class="header">
+<div class="subsection-level-extent" id="SFrame-Flags">
+<div class="nav-panel">
 <p>
 Previous: <a href="#SFrame-Version" accesskey="p" rel="prev">SFrame Version</a>, Up: <a href="#SFrame-Preamble" accesskey="u" rel="up">SFrame Preamble</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="SFrame-Flags-1"></span><h4 class="subsection">2.1.3 SFrame Flags</h4>
-<span id="index-SFrame-Flags"></span>
+<h4 class="subsection" id="SFrame-Flags-1"><span>2.1.3 SFrame Flags<a class="copiable-link" href="#SFrame-Flags-1"> &para;</a></span></h4>
+<a class="index-entry-id" id="index-SFrame-Flags"></a>
 
-<p>The preamble contains bitflags in its <code>sfp_flags</code> field that
+<p>The preamble contains bitflags in its <code class="code">sfp_flags</code> field that
 describe various section-wide properties.
 </p>
 <p>The following flags are currently defined.
 </p>
-<table>
+<table class="multitable">
 <thead><tr><th>Flag</th><th>Versions</th><th>Value</th><th>Meaning
-<span id="index-SFRAME_005fF_005fFDE_005fSORTED"></span></th></tr></thead>
-<tr><td><code>SFRAME_F_FDE_SORTED</code></td><td>All</td><td>0x1</td><td>Function Descriptor
+<a class="index-entry-id" id="index-SFRAME_005fF_005fFDE_005fSORTED"></a></th></tr></thead>
+<tbody><tr><td><code class="code">SFRAME_F_FDE_SORTED</code></td><td>All</td><td>0x1</td><td>Function Descriptor
 Entries are sorted on PC.
-<span id="index-SFRAME_005fF_005fFRAME_005fPOINTER"></span></td></tr>
-<tr><td><code>SFRAME_F_FRAME_POINTER</code></td><td>All</td><td>0x2</td><td>All functions in the object file preserve frame pointer.</td></tr>
+<a class="index-entry-id" id="index-SFRAME_005fF_005fFRAME_005fPOINTER"></a></td></tr>
+<tr><td><code class="code">SFRAME_F_FRAME_POINTER</code></td><td>All</td><td>0x2</td><td>All functions in the object file preserve frame pointer.</td></tr>
+</tbody>
 </table>
 
 <p>The purpose of SFRAME_F_FRAME_POINTER flag is to facilitate stack tracers to
@@ -336,17 +334,17 @@ information is not present for some function in the SFrame section.
 <hr>
 </div>
 </div>
-<div class="section" id="SFrame-Header">
-<div class="header">
+<div class="section-level-extent" id="SFrame-Header">
+<div class="nav-panel">
 <p>
 Next: <a href="#SFrame-Function-Descriptor-Entries" accesskey="n" rel="next">SFrame FDE</a>, Previous: <a href="#SFrame-Preamble" accesskey="p" rel="prev">SFrame Preamble</a>, Up: <a href="#SFrame-Section" accesskey="u" rel="up">SFrame Section</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="SFrame-Header-1"></span><h3 class="section">2.2 SFrame Header</h3>
-<span id="index-SFrame-header"></span>
+<h3 class="section" id="SFrame-Header-1"><span>2.2 SFrame Header<a class="copiable-link" href="#SFrame-Header-1"> &para;</a></span></h3>
+<a class="index-entry-id" id="index-SFrame-header"></a>
 
 <p>The SFrame header is the first part of an SFrame section.  It begins with the
 SFrame preamble.  All parts of it other than the preamble
-(see <a href="#SFrame-Preamble">SFrame Preamble</a>) can vary between SFrame file versions.  It contains
+(see <a class="pxref" href="#SFrame-Preamble">SFrame Preamble</a>) can vary between SFrame file versions.  It contains
 things that apply to the section as a whole, and offsets to the various other
 sub-sections defined in the format.  As with the rest of the SFrame section,
 all values are stored in the endianness of the target system.
@@ -356,7 +354,7 @@ given until the start of the next section.  An explicit length is given for the
 last sub-section, the SFrame Frame Row Entry (SFrame FRE) sub-section.
 </p>
 <div class="example">
-<pre class="example">typedef struct sframe_header
+<pre class="example-preformatted">typedef struct sframe_header
 {
   sframe_preamble sfh_preamble;
   uint8_t sfh_abi_arch;
@@ -373,87 +371,89 @@ last sub-section, the SFrame Frame Row Entry (SFrame FRE) sub-section.
 
 <p>Every element of the SFrame header is naturally aligned.
 </p>
-<p>The sub-section offsets, namely <code>sfh_fdeoff</code> and <code>sfh_freoff</code>, in the
-SFrame header are relative to the <em>end</em> of the SFrame header; they are
+<p>The sub-section offsets, namely <code class="code">sfh_fdeoff</code> and <code class="code">sfh_freoff</code>, in the
+SFrame header are relative to the <em class="emph">end</em> of the SFrame header; they are
 each an offset in bytes into the SFrame section where the SFrame FDE
 sub-section and the SFrame FRE sub-section respectively start.
 </p>
-<p>The SFrame section contains <code>sfh_num_fdes</code> number of fixed-length array
+<p>The SFrame section contains <code class="code">sfh_num_fdes</code> number of fixed-length array
 elements in the SFrame FDE sub-section.  Each array element is of type SFrame
 function descriptor entry; each providing a high-level function description for
 the purpose of stack tracing.  More details in a subsequent section.
-See <a href="#SFrame-Function-Descriptor-Entries">SFrame FDE</a>.
+See <a class="xref" href="#SFrame-Function-Descriptor-Entries">SFrame FDE</a>.
 </p>
-<p>Next, the SFrame FRE sub-section, starting at offset <code>sfh_fre_off</code>,
+<p>Next, the SFrame FRE sub-section, starting at offset <code class="code">sfh_fre_off</code>,
 describes the stack trace information for each function, using a total of
-<code>sfh_num_fres</code> number of variable-length array elements.  Each array
+<code class="code">sfh_num_fres</code> number of variable-length array elements.  Each array
 element is of type SFrame frame row entry.
-See <a href="#SFrame-Frame-Row-Entries">SFrame FRE</a>.
+See <a class="xref" href="#SFrame-Frame-Row-Entries">SFrame FRE</a>.
 </p>
 <p>SFrame header allows specifying explicitly the fixed offsets from CFA, if any,
 from which FP or RA may be recovered.  For example, in AMD64, the stack offset
-of the return address is <code>CFA - 8</code>.  Since these offsets are expected to
-be in close vicinity to the CFA in most ABIs, <code>sfh_cfa_fixed_fp_offset</code>
-and <code>sfh_cfa_fixed_ra_offset</code> are limited to signed 8-bit integers.
+of the return address is <code class="code">CFA - 8</code>.  Since these offsets are expected to
+be in close vicinity to the CFA in most ABIs, <code class="code">sfh_cfa_fixed_fp_offset</code>
+and <code class="code">sfh_cfa_fixed_ra_offset</code> are limited to signed 8-bit integers.
 </p>
-<span id="index-Provisions-for-future-ABIs"></span>
+<a class="index-entry-id" id="index-Provisions-for-future-ABIs"></a>
 <p>The SFrame format has made some provisions for supporting more
 ABIs/architectures in the future.  One of them is the concept of the auxiliary
 SFrame header.  Bytes in the auxiliary SFrame header may be used to convey
-further ABI-specific information.  The <code>sframe_header</code> structure provides
+further ABI-specific information.  The <code class="code">sframe_header</code> structure provides
 an unsigned 8-bit integral field to denote the size (in bytes) of an auxiliary
 SFrame header.  The auxiliary SFrame header follows right after the
-<code>sframe_header</code> structure.  As for the calculation of the sub-section
-offsets, namely <code>sfh_fdeoff</code> and <code>sfh_freoff</code>, the <em>end</em> of
+<code class="code">sframe_header</code> structure.  As for the calculation of the sub-section
+offsets, namely <code class="code">sfh_fdeoff</code> and <code class="code">sfh_freoff</code>, the <em class="emph">end</em> of
 SFrame header must be the end of the auxiliary SFrame header, if the latter is
 present.
 </p>
 <p>Putting it all together:
 </p>
-<table>
+<table class="multitable">
 <thead><tr><th>Offset</th><th>Type</th><th>Name</th><th>Description</th></tr></thead>
-<tr><td>0x00</td><td><code>sframe_ <br> preamble</code></td><td><code>sfh_preamble</code></td><td>The SFrame preamble. See <a href="#SFrame-Preamble">SFrame Preamble</a>.</td></tr>
-<tr><td>0x04</td><td><code>uint8_t</code></td><td><code>sfh_abi_arch</code></td><td>The ABI/arch identifier.  See <a href="#SFrame-ABI_002farch-Identifier">SFrame ABI/arch Identifier</a>.</td></tr>
-<tr><td>0x05</td><td><code>int8_t</code></td><td><code>sfh_cfa_fixed_fp_offset</code></td><td>The CFA fixed FP offset, if any.</td></tr>
-<tr><td>0x06</td><td><code>int8_t</code></td><td><code>sfh_cfa_fixed_ra_offset</code></td><td>The CFA fixed RA offset, if any.</td></tr>
-<tr><td>0x07</td><td><code>uint8_t</code></td><td><code>sfh_auxhdr_len</code></td><td>Size in bytes of the auxiliary header that follows the
-<code>sframe_header</code> structure.</td></tr>
-<tr><td>0x08</td><td><code>uint32_t</code></td><td><code>sfh_num_fdes</code></td><td>The number of SFrame FDEs in the section.</td></tr>
-<tr><td>0x0c</td><td><code>uint32_t</code></td><td><code>sfh_num_fres</code></td><td>The number of SFrame FREs in the section.</td></tr>
-<tr><td>0x10</td><td><code>uint32_t</code></td><td><code>sfh_fre_len</code></td><td>The length in bytes of the SFrame FRE sub-section.</td></tr>
-<tr><td>0x14</td><td><code>uint32_t</code></td><td><code>sfh_fdeoff</code></td><td>The offset in bytes to the SFrame FDE sub-section.</td></tr>
-<tr><td>0x18</td><td><code>uint32_t</code></td><td><code>sfh_freoff</code></td><td>The offset in bytes to the SFrame FRE sub-section.</td></tr>
+<tbody><tr><td>0x00</td><td><code class="code">sframe_ <br> preamble</code></td><td><code class="code">sfh_preamble</code></td><td>The SFrame preamble. See <a class="xref" href="#SFrame-Preamble">SFrame Preamble</a>.</td></tr>
+<tr><td>0x04</td><td><code class="code">uint8_t</code></td><td><code class="code">sfh_abi_arch</code></td><td>The ABI/arch identifier.  See <a class="xref" href="#SFrame-ABI_002farch-Identifier">SFrame ABI/arch Identifier</a>.</td></tr>
+<tr><td>0x05</td><td><code class="code">int8_t</code></td><td><code class="code">sfh_cfa_fixed_fp_offset</code></td><td>The CFA fixed FP offset, if any.</td></tr>
+<tr><td>0x06</td><td><code class="code">int8_t</code></td><td><code class="code">sfh_cfa_fixed_ra_offset</code></td><td>The CFA fixed RA offset, if any.</td></tr>
+<tr><td>0x07</td><td><code class="code">uint8_t</code></td><td><code class="code">sfh_auxhdr_len</code></td><td>Size in bytes of the auxiliary header that follows the
+<code class="code">sframe_header</code> structure.</td></tr>
+<tr><td>0x08</td><td><code class="code">uint32_t</code></td><td><code class="code">sfh_num_fdes</code></td><td>The number of SFrame FDEs in the section.</td></tr>
+<tr><td>0x0c</td><td><code class="code">uint32_t</code></td><td><code class="code">sfh_num_fres</code></td><td>The number of SFrame FREs in the section.</td></tr>
+<tr><td>0x10</td><td><code class="code">uint32_t</code></td><td><code class="code">sfh_fre_len</code></td><td>The length in bytes of the SFrame FRE sub-section.</td></tr>
+<tr><td>0x14</td><td><code class="code">uint32_t</code></td><td><code class="code">sfh_fdeoff</code></td><td>The offset in bytes to the SFrame FDE sub-section.</td></tr>
+<tr><td>0x18</td><td><code class="code">uint32_t</code></td><td><code class="code">sfh_freoff</code></td><td>The offset in bytes to the SFrame FRE sub-section.</td></tr>
+</tbody>
 </table>
 
 
-<ul class="section-toc">
+<ul class="mini-toc">
 <li><a href="#SFrame-ABI_002farch-Identifier" accesskey="1">SFrame ABI/arch Identifier</a></li>
 </ul>
 <hr>
-<div class="subsection" id="SFrame-ABI_002farch-Identifier">
-<div class="header">
+<div class="subsection-level-extent" id="SFrame-ABI_002farch-Identifier">
+<div class="nav-panel">
 <p>
 Up: <a href="#SFrame-Header" accesskey="u" rel="up">SFrame Header</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="SFrame-ABI_002farch-Identifier-1"></span><h4 class="subsection">2.2.1 SFrame ABI/arch Identifier</h4>
-<span id="index-SFrame-ABI_002farch-Identifier"></span>
+<h4 class="subsection" id="SFrame-ABI_002farch-Identifier-1"><span>2.2.1 SFrame ABI/arch Identifier<a class="copiable-link" href="#SFrame-ABI_002farch-Identifier-1"> &para;</a></span></h4>
+<a class="index-entry-id" id="index-SFrame-ABI_002farch-Identifier"></a>
 
 <p>SFrame header identifies the ABI/arch of the target system for which the
 executable and hence, the stack trace information contained in the SFrame
 section, is intended.  There are currently three identifiable ABI/arch values
 in the format.
 </p>
-<table>
+<table class="multitable">
 <thead><tr><th>ABI/arch Identifier</th><th>Value</th><th>Description
 
-<span id="index-SFRAME_005fABI_005fAARCH64_005fENDIAN_005fBIG"></span></th></tr></thead>
-<tr><td><code>SFRAME_ABI_AARCH64_ENDIAN_BIG</code></td><td>1</td><td>AARCH64 big-endian
+<a class="index-entry-id" id="index-SFRAME_005fABI_005fAARCH64_005fENDIAN_005fBIG"></a></th></tr></thead>
+<tbody><tr><td><code class="code">SFRAME_ABI_AARCH64_ENDIAN_BIG</code></td><td>1</td><td>AARCH64 big-endian
 
-<span id="index-SFRAME_005fABI_005fAARCH64_005fENDIAN_005fLITTLE"></span></td></tr>
-<tr><td><code>SFRAME_ABI_AARCH64_ENDIAN_LITTLE</code></td><td>2</td><td>AARCH64 little-endian
+<a class="index-entry-id" id="index-SFRAME_005fABI_005fAARCH64_005fENDIAN_005fLITTLE"></a></td></tr>
+<tr><td><code class="code">SFRAME_ABI_AARCH64_ENDIAN_LITTLE</code></td><td>2</td><td>AARCH64 little-endian
 
-<span id="index-SFRAME_005fABI_005fAMD64_005fENDIAN_005fLITTLE"></span></td></tr>
-<tr><td><code>SFRAME_ABI_AMD64_ENDIAN_LITTLE</code></td><td>3</td><td>AMD64 little-endian</td></tr>
+<a class="index-entry-id" id="index-SFRAME_005fABI_005fAMD64_005fENDIAN_005fLITTLE"></a></td></tr>
+<tr><td><code class="code">SFRAME_ABI_AMD64_ENDIAN_LITTLE</code></td><td>3</td><td>AMD64 little-endian</td></tr>
+</tbody>
 </table>
 
 <p>The presence of an explicit identification of ABI/arch in SFrame may allow
@@ -462,28 +462,28 @@ stack trace generators to make certain ABI/arch-specific decisions.
 <hr>
 </div>
 </div>
-<div class="section" id="SFrame-Function-Descriptor-Entries">
-<div class="header">
+<div class="section-level-extent" id="SFrame-Function-Descriptor-Entries">
+<div class="nav-panel">
 <p>
 Next: <a href="#SFrame-Frame-Row-Entries" accesskey="n" rel="next">SFrame FRE</a>, Previous: <a href="#SFrame-Header" accesskey="p" rel="prev">SFrame Header</a>, Up: <a href="#SFrame-Section" accesskey="u" rel="up">SFrame Section</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="SFrame-FDE"></span><h3 class="section">2.3 SFrame FDE</h3>
-<span id="index-SFrame-FDE"></span>
+<h3 class="section" id="SFrame-FDE"><span>2.3 SFrame FDE<a class="copiable-link" href="#SFrame-FDE"> &para;</a></span></h3>
+<a class="index-entry-id" id="index-SFrame-FDE"></a>
 
 <p>The SFrame function descriptor entry sub-section is an array of the
 fixed-length SFrame function descriptor entries (SFrame FDEs).  Each SFrame FDE
 is a packed structure which contains information to describe a function&rsquo;s stack
 trace information at a high-level.
 </p>
-<p>The array of SFrame FDEs is sorted on the <code>sfde_func_start_address</code> if
-the SFrame section header flag <code>sfp_flags</code> has <code>SFRAME_F_FDE_SORTED</code>
+<p>The array of SFrame FDEs is sorted on the <code class="code">sfde_func_start_address</code> if
+the SFrame section header flag <code class="code">sfp_flags</code> has <code class="code">SFRAME_F_FDE_SORTED</code>
 set.  Typically (as is the case with GNU ld) a linked object or executable
-will have the <code>SFRAME_F_FDE_SORTED</code> set.  This makes the job of a stack
+will have the <code class="code">SFRAME_F_FDE_SORTED</code> set.  This makes the job of a stack
 tracer easier as it may then employ binary search schemes to look for the
 pertinent SFrame FDE.
 </p>
 <div class="example">
-<pre class="example">typedef struct sframe_func_desc_entry
+<pre class="example-preformatted">typedef struct sframe_func_desc_entry
 {
   int32_t sfde_func_start_address;
   uint32_t sfde_func_size;
@@ -497,118 +497,121 @@ pertinent SFrame FDE.
 
 <p>Every element of the SFrame function descriptor entry is naturally aligned.
 </p>
-<p><code>sfde_func_start_fre_off</code> is the offset to the first SFrame FRE for the
-function.  This offset is relative to the <em>end of the SFrame FDE</em>
+<p><code class="code">sfde_func_start_fre_off</code> is the offset to the first SFrame FRE for the
+function.  This offset is relative to the <em class="emph">end of the SFrame FDE</em>
 sub-section (unlike the sub-section offsets in the SFrame header, which are
-relative to the <em>end</em> of the SFrame header).
+relative to the <em class="emph">end</em> of the SFrame header).
 </p>
-<p><code>sfde_func_info</code> is the SFrame FDE &quot;info word&quot;, containing information on
-the FRE type and the FDE type for the function See <a href="#The-SFrame-FDE-Info-Word">The SFrame FDE Info Word</a>.
+<p><code class="code">sfde_func_info</code> is the SFrame FDE &quot;info word&quot;, containing information on
+the FRE type and the FDE type for the function See <a class="xref" href="#The-SFrame-FDE-Info-Word">The SFrame FDE Info Word</a>.
 </p>
-<span id="index-Provisions-for-future-ABIs-1"></span>
-<p>Apart from the <code>sfde_func_padding2</code>, the SFrame FDE has some currently
-unused bits in the SFrame FDE info word, See <a href="#The-SFrame-FDE-Info-Word">The SFrame FDE Info Word</a>, that
+<a class="index-entry-id" id="index-Provisions-for-future-ABIs-1"></a>
+<p>Apart from the <code class="code">sfde_func_padding2</code>, the SFrame FDE has some currently
+unused bits in the SFrame FDE info word, See <a class="xref" href="#The-SFrame-FDE-Info-Word">The SFrame FDE Info Word</a>, that
 may be used for the purpose of extending the SFrame file format specification
 for future ABIs.
 </p>
 <p>Following table describes each component of the SFrame FDE structure:
 </p>
-<table>
+<table class="multitable">
 <thead><tr><th>Offset</th><th>Type</th><th>Name</th><th>Description</th></tr></thead>
-<tr><td>0x00</td><td><code>int32_t</code></td><td><code>sfde_func_start_address</code></td><td>Signed 32-bit integral field denoting the virtual memory address of the
+<tbody><tr><td>0x00</td><td><code class="code">int32_t</code></td><td><code class="code">sfde_func_start_address</code></td><td>Signed 32-bit integral field denoting the virtual memory address of the
 described function.</td></tr>
-<tr><td>0x04</td><td><code>uint32_t</code></td><td><code>sfde_func_size</code></td><td>Unsigned 32-bit integral field specifying the size of the function in
+<tr><td>0x04</td><td><code class="code">uint32_t</code></td><td><code class="code">sfde_func_size</code></td><td>Unsigned 32-bit integral field specifying the size of the function in
 bytes.</td></tr>
-<tr><td>0x08</td><td><code>uint32_t</code></td><td><code>sfde_func_start_fre_off</code></td><td>Unsigned 32-bit integral field specifying the offset in bytes of the
+<tr><td>0x08</td><td><code class="code">uint32_t</code></td><td><code class="code">sfde_func_start_fre_off</code></td><td>Unsigned 32-bit integral field specifying the offset in bytes of the
 function&rsquo;s first SFrame FRE in the SFrame section.</td></tr>
-<tr><td>0x0c</td><td><code>uint32_t</code></td><td><code>sfde_func_num_fres</code></td><td>Unsigned 32-bit integral field specifying the total number of SFrame FREs
+<tr><td>0x0c</td><td><code class="code">uint32_t</code></td><td><code class="code">sfde_func_num_fres</code></td><td>Unsigned 32-bit integral field specifying the total number of SFrame FREs
 used for the function.</td></tr>
-<tr><td>0x10</td><td><code>uint8_t</code></td><td><code>sfde_func_info</code></td><td>Unsigned 8-bit integral field specifying the SFrame FDE info word.
-See <a href="#The-SFrame-FDE-Info-Word">The SFrame FDE Info Word</a>.</td></tr>
-<tr><td>0x11</td><td><code>uint8_t</code></td><td><code>sfde_func_rep_size</code></td><td>Unsigned 8-bit integral field specifying the size of the repetitive code
+<tr><td>0x10</td><td><code class="code">uint8_t</code></td><td><code class="code">sfde_func_info</code></td><td>Unsigned 8-bit integral field specifying the SFrame FDE info word.
+See <a class="xref" href="#The-SFrame-FDE-Info-Word">The SFrame FDE Info Word</a>.</td></tr>
+<tr><td>0x11</td><td><code class="code">uint8_t</code></td><td><code class="code">sfde_func_rep_size</code></td><td>Unsigned 8-bit integral field specifying the size of the repetitive code
 block for which an SFrame FDE of type SFRAME_FDE_TYPE_PCMASK is used.  For
 example, in AMD64, the size of a pltN entry is 16 bytes.</td></tr>
-<tr><td>0x12</td><td><code>uint16_t</code></td><td><code>sfde_func_padding2</code></td><td>Padding of 2 bytes.  Currently unused bytes.</td></tr>
+<tr><td>0x12</td><td><code class="code">uint16_t</code></td><td><code class="code">sfde_func_padding2</code></td><td>Padding of 2 bytes.  Currently unused bytes.</td></tr>
+</tbody>
 </table>
 
 
-<span id="index-The-SFrame-FDE-Info-Word"></span>
-<ul class="section-toc">
+<a class="index-entry-id" id="index-The-SFrame-FDE-Info-Word"></a>
+<ul class="mini-toc">
 <li><a href="#The-SFrame-FDE-Info-Word" accesskey="1">The SFrame FDE Info Word</a></li>
 <li><a href="#The-SFrame-FDE-Types" accesskey="2">The SFrame FDE Types</a></li>
 <li><a href="#The-SFrame-FRE-Types" accesskey="3">The SFrame FRE Types</a></li>
 </ul>
 <hr>
-<div class="subsection" id="The-SFrame-FDE-Info-Word">
-<div class="header">
+<div class="subsection-level-extent" id="The-SFrame-FDE-Info-Word">
+<div class="nav-panel">
 <p>
 Next: <a href="#The-SFrame-FDE-Types" accesskey="n" rel="next">The SFrame FDE Types</a>, Up: <a href="#SFrame-Function-Descriptor-Entries" accesskey="u" rel="up">SFrame FDE</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="The-SFrame-FDE-Info-Word-1"></span><h4 class="subsection">2.3.1 The SFrame FDE Info Word</h4>
+<h4 class="subsection" id="The-SFrame-FDE-Info-Word-1"><span>2.3.1 The SFrame FDE Info Word<a class="copiable-link" href="#The-SFrame-FDE-Info-Word-1"> &para;</a></span></h4>
 
 <p>The info word is a bitfield split into three parts.  From MSB to LSB:
 </p>
-<table>
+<table class="multitable">
 <thead><tr><th>Bit offset</th><th>Name</th><th>Description</th></tr></thead>
-<tr><td>7&ndash;6</td><td><code>unused</code></td><td>Unused bits.</td></tr>
-<tr><td>5</td><td><code>pauth_key</code></td><td>(For AARCH64) Specify which key is used for signing the return addresses
+<tbody><tr><td>7&ndash;6</td><td><code class="code">unused</code></td><td>Unused bits.</td></tr>
+<tr><td>5</td><td><code class="code">pauth_key</code></td><td>(For AARCH64) Specify which key is used for signing the return addresses
 in the SFrame FDE.  Two possible values: <br>
 SFRAME_AARCH64_PAUTH_KEY_A (0), or <br>
 SFRAME_AARCH64_PAUTH_KEY_B (1). <br>
 Ununsed in AMD64.</td></tr>
-<tr><td>4</td><td><code>fdetype</code></td><td>Specify the SFrame FDE type.  Two possible values: <br>
+<tr><td>4</td><td><code class="code">fdetype</code></td><td>Specify the SFrame FDE type.  Two possible values: <br>
 SFRAME_FDE_TYPE_PCMASK (1), or <br>
 SFRAME_FDE_TYPE_PCINC (0). <br>
-See <a href="#The-SFrame-FDE-Types">The SFrame FDE Types</a>.</td></tr>
-<tr><td>0&ndash;3</td><td><code>fretype</code></td><td>Choice of three SFrame FRE types. See <a href="#The-SFrame-FRE-Types">The SFrame FRE Types</a>.</td></tr>
+See <a class="xref" href="#The-SFrame-FDE-Types">The SFrame FDE Types</a>.</td></tr>
+<tr><td>0&ndash;3</td><td><code class="code">fretype</code></td><td>Choice of three SFrame FRE types. See <a class="xref" href="#The-SFrame-FRE-Types">The SFrame FRE Types</a>.</td></tr>
+</tbody>
 </table>
 
 <hr>
 </div>
-<div class="subsection" id="The-SFrame-FDE-Types">
-<div class="header">
+<div class="subsection-level-extent" id="The-SFrame-FDE-Types">
+<div class="nav-panel">
 <p>
 Next: <a href="#The-SFrame-FRE-Types" accesskey="n" rel="next">The SFrame FRE Types</a>, Previous: <a href="#The-SFrame-FDE-Info-Word" accesskey="p" rel="prev">The SFrame FDE Info Word</a>, Up: <a href="#SFrame-Function-Descriptor-Entries" accesskey="u" rel="up">SFrame FDE</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="The-SFrame-FDE-Types-1"></span><h4 class="subsection">2.3.2 The SFrame FDE Types</h4>
-<span id="index-SFRAME_005fFDE_005fTYPE_005fPCMASK"></span>
-<span id="index-SFRAME_005fFDE_005fTYPE_005fPCINC"></span>
+<h4 class="subsection" id="The-SFrame-FDE-Types-1"><span>2.3.2 The SFrame FDE Types<a class="copiable-link" href="#The-SFrame-FDE-Types-1"> &para;</a></span></h4>
+<a class="index-entry-id" id="index-SFRAME_005fFDE_005fTYPE_005fPCMASK"></a>
+<a class="index-entry-id" id="index-SFRAME_005fFDE_005fTYPE_005fPCINC"></a>
 
 <p>The SFrame format defines two types of FDE entries.  The choice of which SFrame
 FDE type to use is made based on the instruction patterns in the relevant
 program stub.
 </p>
-<p>An SFrame FDE of type <code>SFRAME_FDE_TYPE_PCINC</code> is an indication that the PCs in the
+<p>An SFrame FDE of type <code class="code">SFRAME_FDE_TYPE_PCINC</code> is an indication that the PCs in the
 FREs should be treated as increments in bytes.  This is used fo the the bulk of
 the executable code of a program, which contains instructions with no specific
 pattern.
 </p>
-<p>In contrast, an SFrame FDE of type <code>SFRAME_FDE_TYPE_PCMASK</code> is an
+<p>In contrast, an SFrame FDE of type <code class="code">SFRAME_FDE_TYPE_PCMASK</code> is an
 indication that the PCs in the FREs should be treated as masks.  This type is
 useful for the cases where a small pattern of instructions in a program stub is
 used repeatedly for a specific functionality.  Typical usecases are pltN
 entries and trampolines.
 </p>
-<table>
+<table class="multitable">
 <thead><tr><th>Name of SFrame FDE type</th><th>Value</th><th>Description</th></tr></thead>
-<tr><td>SFRAME_FDE_TYPE_PCINC</td><td>0</td><td>Stacktracers perform a <br>
+<tbody><tr><td>SFRAME_FDE_TYPE_PCINC</td><td>0</td><td>Stacktracers perform a <br>
 (PC &gt;= FRE_START_ADDR) to look up a matching FRE.</td></tr>
 <tr><td>SFRAME_FDE_TYPE_PCMASK</td><td>1</td><td>Stacktracers perform a <br>
 (PC % REP_BLOCK_SIZE <br>
  &gt;= FRE_START_ADDR)
 to look up a matching FRE.  REP_BLOCK_SIZE is the size in bytes of the
 repeating block of program instructions and is encoded via
-<code>sfde_func_rep_size</code> in the SFrame FDE.</td></tr>
+<code class="code">sfde_func_rep_size</code> in the SFrame FDE.</td></tr>
+</tbody>
 </table>
 
 <hr>
 </div>
-<div class="subsection" id="The-SFrame-FRE-Types">
-<div class="header">
+<div class="subsection-level-extent" id="The-SFrame-FRE-Types">
+<div class="nav-panel">
 <p>
 Previous: <a href="#The-SFrame-FDE-Types" accesskey="p" rel="prev">The SFrame FDE Types</a>, Up: <a href="#SFrame-Function-Descriptor-Entries" accesskey="u" rel="up">SFrame FDE</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="The-SFrame-FRE-Types-1"></span><h4 class="subsection">2.3.3 The SFrame FRE Types</h4>
+<h4 class="subsection" id="The-SFrame-FRE-Types-1"><span>2.3.3 The SFrame FRE Types<a class="copiable-link" href="#The-SFrame-FRE-Types-1"> &para;</a></span></h4>
 
 <p>A real world application can have functions of size big and small.  SFrame
 format defines three types of SFrame FRE entries to effeciently encode the
@@ -618,37 +621,38 @@ offset in the SFrame FRE.
 </p>
 <p>The following constants are defined and used to identify the SFrame FRE types:
 </p>
-<table>
+<table class="multitable">
 <thead><tr><th>Name</th><th>Value</th><th>Description
 
-<span id="index-SFRAME_005fFRE_005fTYPE_005fADDR1"></span></th></tr></thead>
-<tr><td><code>SFRAME_FRE_TYPE_ADDR1</code></td><td>0</td><td>The start address offset (in bytes) of the SFrame FRE is an unsigned
+<a class="index-entry-id" id="index-SFRAME_005fFRE_005fTYPE_005fADDR1"></a></th></tr></thead>
+<tbody><tr><td><code class="code">SFRAME_FRE_TYPE_ADDR1</code></td><td>0</td><td>The start address offset (in bytes) of the SFrame FRE is an unsigned
 8-bit value.
 
-<span id="index-SFRAME_005fFRE_005fTYPE_005fADDR2"></span></td></tr>
-<tr><td><code>SFRAME_FRE_TYPE_ADDR2</code></td><td>1</td><td>The start address offset (in bytes) of the SFrame FRE is an unsigned
+<a class="index-entry-id" id="index-SFRAME_005fFRE_005fTYPE_005fADDR2"></a></td></tr>
+<tr><td><code class="code">SFRAME_FRE_TYPE_ADDR2</code></td><td>1</td><td>The start address offset (in bytes) of the SFrame FRE is an unsigned
 16-bit value.
 
-<span id="index-SFRAME_005fFRE_005fTYPE_005fADDR4"></span></td></tr>
-<tr><td><code>SFRAME_FRE_TYPE_ADDR4</code></td><td>2</td><td>The start address offset (in bytes) of the SFrame FRE is an unsigned
+<a class="index-entry-id" id="index-SFRAME_005fFRE_005fTYPE_005fADDR4"></a></td></tr>
+<tr><td><code class="code">SFRAME_FRE_TYPE_ADDR4</code></td><td>2</td><td>The start address offset (in bytes) of the SFrame FRE is an unsigned
 32-bit value.</td></tr>
+</tbody>
 </table>
 
 <p>A single function must use the same type of SFrame FRE throughout.  The
 identifier to reflect the chosen SFrame FRE type is stored in the
-<code>fretype</code> bits in the SFrame FDE info word,
-See <a href="#The-SFrame-FDE-Info-Word">The SFrame FDE Info Word</a>.
+<code class="code">fretype</code> bits in the SFrame FDE info word,
+See <a class="xref" href="#The-SFrame-FDE-Info-Word">The SFrame FDE Info Word</a>.
 </p>
 <hr>
 </div>
 </div>
-<div class="section" id="SFrame-Frame-Row-Entries">
-<div class="header">
+<div class="section-level-extent" id="SFrame-Frame-Row-Entries">
+<div class="nav-panel">
 <p>
 Previous: <a href="#SFrame-Function-Descriptor-Entries" accesskey="p" rel="prev">SFrame FDE</a>, Up: <a href="#SFrame-Section" accesskey="u" rel="up">SFrame Section</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="SFrame-FRE"></span><h3 class="section">2.4 SFrame FRE</h3>
-<span id="index-SFrame-FRE"></span>
+<h3 class="section" id="SFrame-FRE"><span>2.4 SFrame FRE<a class="copiable-link" href="#SFrame-FRE"> &para;</a></span></h3>
+<a class="index-entry-id" id="index-SFrame-FRE"></a>
 
 <p>The SFrame frame row entry sub-section contains the core of the stack trace
 information.  An SFrame frame row entry (FRE) is a self-sufficient record
@@ -660,20 +664,20 @@ function.
 applicable) for the respective instruction addresses.  To encode this
 information, each SFrame FRE is followed by S*N bytes, where:
 </p>
-<ul class="no-bullet">
-<li>- <code>S</code> is the size of a stack offset for the FRE, and
-</li><li>- <code>N</code> is the number of stack offsets in the FRE
+<ul class="itemize mark-minus">
+<li><code class="code">S</code> is the size of a stack offset for the FRE, and
+</li><li><code class="code">N</code> is the number of stack offsets in the FRE
 </li></ul>
 
-<p>The entities <code>S</code>, <code>N</code> are encoded in the SFrame FRE info word, via
-the <code>fre_offset_size</code> and the <code>fre_offset_count</code> respectively.  More
-information about the precise encoding and range of values for <code>S</code> and
-<code>N</code> is provided later in the See <a href="#The-SFrame-FRE-Info-Word">The SFrame FRE Info Word</a>.
+<p>The entities <code class="code">S</code>, <code class="code">N</code> are encoded in the SFrame FRE info word, via
+the <code class="code">fre_offset_size</code> and the <code class="code">fre_offset_count</code> respectively.  More
+information about the precise encoding and range of values for <code class="code">S</code> and
+<code class="code">N</code> is provided later in the See <a class="xref" href="#The-SFrame-FRE-Info-Word">The SFrame FRE Info Word</a>.
 </p>
-<span id="index-Provisions-for-future-ABIs-2"></span>
+<a class="index-entry-id" id="index-Provisions-for-future-ABIs-2"></a>
 <p>It is important to underline here that although the canonical interpretation
 of these bytes is as stack offsets (to recover CFA, FP and RA), these bytes
-<em>may</em> be used by future ABIs/architectures to convey other information on
+<em class="emph">may</em> be used by future ABIs/architectures to convey other information on
 a per SFrame FRE basis.
 </p>
 <p>In summary, SFrame file format, by design, supports a variable number of stack
@@ -682,12 +686,12 @@ format specification flexible yet extensible, the interpretation of the stack
 offsets is ABI/arch-specific.  The precise interpretation of the FRE stack
 offsets in the currently supported ABIs/architectures is covered in the
 ABI/arch-specific definition of the SFrame file format,
-See <a href="#ABI_002farch_002dspecific-Definition">ABI/arch-specific Definition</a>.
+See <a class="xref" href="#ABI_002farch_002dspecific-Definition">ABI/arch-specific Definition</a>.
 </p>
 <p>Next, the definitions of the three SFrame FRE types are as follows:
 </p>
 <div class="example">
-<pre class="example">typedef struct sframe_frame_row_entry_addr1
+<pre class="example-preformatted">typedef struct sframe_frame_row_entry_addr1
 {
   uint8_t sfre_start_address;
   sframe_fre_info sfre_info;
@@ -695,7 +699,7 @@ See <a href="#ABI_002farch_002dspecific-Definition">ABI/arch-specific Definition
 </pre></div>
 
 <div class="example">
-<pre class="example">typedef struct sframe_frame_row_entry_addr2
+<pre class="example-preformatted">typedef struct sframe_frame_row_entry_addr2
 {
   uint16_t sfre_start_address;
   sframe_fre_info sfre_info;
@@ -703,7 +707,7 @@ See <a href="#ABI_002farch_002dspecific-Definition">ABI/arch-specific Definition
 </pre></div>
 
 <div class="example">
-<pre class="example">typedef struct sframe_frame_row_entry_addr4
+<pre class="example-preformatted">typedef struct sframe_frame_row_entry_addr4
 {
   uint32_t sfre_start_address;
   sframe_fre_info sfre_info;
@@ -715,68 +719,70 @@ disk.  Appropriate mechanisms need to be employed, as necessary, by the
 serializing and deserializing entities, if unaligned accesses need to be
 avoided.
 </p>
-<p><code>sfre_start_address</code> is an unsigned 8-bit/16-bit/32-bit integral field
+<p><code class="code">sfre_start_address</code> is an unsigned 8-bit/16-bit/32-bit integral field
 identifies the start address of the range of program counters, for which the
-SFrame FRE applies.  The value encoded in the <code>sfre_start_address</code> field
+SFrame FRE applies.  The value encoded in the <code class="code">sfre_start_address</code> field
 is the offset in bytes of the start address of the SFrame FRE, from the start
 address of the function.
 </p>
 <p>Further SFrame FRE types may be added in future.
 </p>
 
-<span id="index-The-SFrame-FRE-Info-Word"></span>
-<ul class="section-toc">
+<a class="index-entry-id" id="index-The-SFrame-FRE-Info-Word"></a>
+<ul class="mini-toc">
 <li><a href="#The-SFrame-FRE-Info-Word" accesskey="1">The SFrame FRE Info Word</a></li>
 </ul>
 <hr>
-<div class="subsection" id="The-SFrame-FRE-Info-Word">
-<div class="header">
+<div class="subsection-level-extent" id="The-SFrame-FRE-Info-Word">
+<div class="nav-panel">
 <p>
 Up: <a href="#SFrame-Frame-Row-Entries" accesskey="u" rel="up">SFrame FRE</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="The-SFrame-FRE-Info-Word-1"></span><h4 class="subsection">2.4.1 The SFrame FRE Info Word</h4>
+<h4 class="subsection" id="The-SFrame-FRE-Info-Word-1"><span>2.4.1 The SFrame FRE Info Word<a class="copiable-link" href="#The-SFrame-FRE-Info-Word-1"> &para;</a></span></h4>
 
 <p>The SFrame FRE info word is a bitfield split into four parts.  From MSB to LSB:
 </p>
-<table>
+<table class="multitable">
 <thead><tr><th>Bit offset</th><th>Name</th><th>Description</th></tr></thead>
-<tr><td>7</td><td><code>fre_mangled_ra_p</code></td><td>Indicate whether the return address is mangled with any authorization bits (signed RA).</td></tr>
-<tr><td>5-6</td><td><code>fre_offset_size</code></td><td>Size of stack offsets in bytes.  Valid values are: <br>
+<tbody><tr><td>7</td><td><code class="code">fre_mangled_ra_p</code></td><td>Indicate whether the return address is mangled with any authorization bits (signed RA).</td></tr>
+<tr><td>5-6</td><td><code class="code">fre_offset_size</code></td><td>Size of stack offsets in bytes.  Valid values are: <br>
 SFRAME_FRE_OFFSET_1B, <br>
 SFRAME_FRE_OFFSET_2B, and <br>
 SFRAME_FRE_OFFSET_4B.</td></tr>
-<tr><td>1-4</td><td><code>fre_offset_count</code></td><td>A max value of 15 is allowed.  Typically, a value of upto 3 is sufficient
+<tr><td>1-4</td><td><code class="code">fre_offset_count</code></td><td>A max value of 15 is allowed.  Typically, a value of upto 3 is sufficient
 for most ABIs to track all three of CFA, FP and RA.</td></tr>
-<tr><td>0</td><td><code>fre_cfa_base_reg_id</code></td><td>Distinguish between SP or FP based CFA recovery.</td></tr>
+<tr><td>0</td><td><code class="code">fre_cfa_base_reg_id</code></td><td>Distinguish between SP or FP based CFA recovery.</td></tr>
+</tbody>
 </table>
 
-<table>
+<table class="multitable">
 <thead><tr><th>Name</th><th>Value</th><th>Description
 
-<span id="index-SFRAME_005fFRE_005fOFFSET_005f1B"></span></th></tr></thead>
-<tr><td><code>SFRAME_FRE_OFFSET_1B</code></td><td>0</td><td>All stack offsets following the fixed-length FRE structure are 1 byte
+<a class="index-entry-id" id="index-SFRAME_005fFRE_005fOFFSET_005f1B"></a></th></tr></thead>
+<tbody><tr><td><code class="code">SFRAME_FRE_OFFSET_1B</code></td><td>0</td><td>All stack offsets following the fixed-length FRE structure are 1 byte
 long.
 
-<span id="index-SFRAME_005fFRE_005fOFFSET_005f2B"></span></td></tr>
-<tr><td><code>SFRAME_FRE_OFFSET_2B</code></td><td>1</td><td>All stack offsets following the fixed-length FRE structure are 2 bytes
+<a class="index-entry-id" id="index-SFRAME_005fFRE_005fOFFSET_005f2B"></a></td></tr>
+<tr><td><code class="code">SFRAME_FRE_OFFSET_2B</code></td><td>1</td><td>All stack offsets following the fixed-length FRE structure are 2 bytes
 long.
 
-<span id="index-SFRAME_005fFRE_005fOFFSET_005f4B"></span></td></tr>
-<tr><td><code>SFRAME_FRE_OFFSET_4B</code></td><td>2</td><td>All stack offsets following the fixed-length FRE structure are 4 bytes
+<a class="index-entry-id" id="index-SFRAME_005fFRE_005fOFFSET_005f4B"></a></td></tr>
+<tr><td><code class="code">SFRAME_FRE_OFFSET_4B</code></td><td>2</td><td>All stack offsets following the fixed-length FRE structure are 4 bytes
 long.</td></tr>
+</tbody>
 </table>
 
 <hr>
 </div>
 </div>
 </div>
-<div class="chapter" id="ABI_002farch_002dspecific-Definition">
-<div class="header">
+<div class="chapter-level-extent" id="ABI_002farch_002dspecific-Definition">
+<div class="nav-panel">
 <p>
 Next: <a href="#Generating-Stack-Traces-using-SFrame" accesskey="n" rel="next">Generating Stack Traces using SFrame</a>, Previous: <a href="#SFrame-Section" accesskey="p" rel="prev">SFrame Section</a>, Up: <a href="#Top" accesskey="u" rel="up">The SFrame format</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="ABI_002farch_002dspecific-Definition-1"></span><h2 class="chapter">3 ABI/arch-specific Definition</h2>
-<span id="index-ABI_002farch_002dspecific-Definition"></span>
+<h2 class="chapter" id="ABI_002farch_002dspecific-Definition-1"><span>3 ABI/arch-specific Definition<a class="copiable-link" href="#ABI_002farch_002dspecific-Definition-1"> &para;</a></span></h2>
+<a class="index-entry-id" id="index-ABI_002farch_002dspecific-Definition"></a>
 
 <p>This section covers the ABI/arch-specific definition of the SFrame file format.
 </p>
@@ -784,7 +790,7 @@ Next: <a href="#Generating-Stack-Traces-using-SFrame" accesskey="n" rel="next">G
 ABI/arch-specific is the interpretation of the variable number of bytes at the
 tail end of each SFrame FRE.  Currently, these bytes are only used for
 representing stack offsets (for all the currently supported ABIs).  It is
-recommended to peruse this section along with See <a href="#SFrame-Frame-Row-Entries">SFrame FRE</a>
+recommended to peruse this section along with See <a class="xref" href="#SFrame-Frame-Row-Entries">SFrame FRE</a>
 for clarity of context.
 </p>
 <p>Future ABIs must specify the algorithm for identifying the appropriate SFrame
@@ -794,54 +800,55 @@ SFrame FRE for the specific ABI/arch. Any further provisions, e.g., using the
 auxiliary SFrame header, etc., if used, must also be outlined here.
 </p>
 
-<ul class="section-toc">
+<ul class="mini-toc">
 <li><a href="#AMD64" accesskey="1">AMD64</a></li>
 <li><a href="#AArch64" accesskey="2">AArch64</a></li>
 </ul>
 <hr>
-<div class="section" id="AMD64">
-<div class="header">
+<div class="section-level-extent" id="AMD64">
+<div class="nav-panel">
 <p>
 Next: <a href="#AArch64" accesskey="n" rel="next">AArch64</a>, Up: <a href="#ABI_002farch_002dspecific-Definition" accesskey="u" rel="up">ABI/arch-specific Definition</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="AMD64-1"></span><h3 class="section">3.1 AMD64</h3>
+<h3 class="section" id="AMD64-1"><span>3.1 AMD64<a class="copiable-link" href="#AMD64-1"> &para;</a></span></h3>
 
 <p>Irrespective of the ABI, the first stack offset is always used to locate the
-CFA, by interpreting it as: CFA = <code>BASE_REG</code> + offset1.  The
-identification of the <code>BASE_REG</code> is done by using the
-<code>fre_cfa_base_reg_id</code> field in the SFrame FRE info word.
+CFA, by interpreting it as: CFA = <code class="code">BASE_REG</code> + offset1.  The
+identification of the <code class="code">BASE_REG</code> is done by using the
+<code class="code">fre_cfa_base_reg_id</code> field in the SFrame FRE info word.
 </p>
 <p>In AMD64, the return address (RA) is always saved on stack when a function
 call is executed.  Further, AMD64 ABI mandates that the RA be saved at a
-<code>fixed offset</code> from the CFA when entering a new function.  This means
+<code class="code">fixed offset</code> from the CFA when entering a new function.  This means
 that the RA does not need to be tracked per SFrame FRE.  The fixed offset is
-encoded in the SFrame file format in the field <code>sfh_cfa_fixed_ra_offset</code>
-in the SFrame header.  See <a href="#SFrame-Header">SFrame Header</a>.
+encoded in the SFrame file format in the field <code class="code">sfh_cfa_fixed_ra_offset</code>
+in the SFrame header.  See <a class="xref" href="#SFrame-Header">SFrame Header</a>.
 </p>
 <p>Hence, the second stack offset (in the SFrame FRE), when present, will be used
 to locate the FP, by interpreting it as: FP = CFA + offset2.
 </p>
 <p>Hence, in summary:
 </p>
-<table>
+<table class="multitable">
 <thead><tr><th>Offset ID</th><th>Interpretation in AMD64</th></tr></thead>
-<tr><td>1</td><td>CFA = <code>BASE_REG</code> + offset1</td></tr>
+<tbody><tr><td>1</td><td>CFA = <code class="code">BASE_REG</code> + offset1</td></tr>
 <tr><td>2</td><td>FP = CFA + offset2</td></tr>
+</tbody>
 </table>
 
 <hr>
 </div>
-<div class="section" id="AArch64">
-<div class="header">
+<div class="section-level-extent" id="AArch64">
+<div class="nav-panel">
 <p>
 Previous: <a href="#AMD64" accesskey="p" rel="prev">AMD64</a>, Up: <a href="#ABI_002farch_002dspecific-Definition" accesskey="u" rel="up">ABI/arch-specific Definition</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="AArch64-1"></span><h3 class="section">3.2 AArch64</h3>
+<h3 class="section" id="AArch64-1"><span>3.2 AArch64<a class="copiable-link" href="#AArch64-1"> &para;</a></span></h3>
 
 <p>Irrespective of the ABI, the first stack offset is always used to locate the
-CFA, by interpreting it as: CFA = <code>BASE_REG</code> + offset1.  The
-identification of the <code>BASE_REG</code> is done by using the
-<code>fre_cfa_base_reg_id</code> field in the SFrame FRE info word.
+CFA, by interpreting it as: CFA = <code class="code">BASE_REG</code> + offset1.  The
+identification of the <code class="code">BASE_REG</code> is done by using the
+<code class="code">fre_cfa_base_reg_id</code> field in the SFrame FRE info word.
 </p>
 <p>In AARCH64, the AAPCS64 standard specifies that the Frame Record saves both FP
 and LR (a.k.a the RA).  However, the standard does not mandate the precise
@@ -856,22 +863,23 @@ SFrame FRE is either 1 or 3.
 </p>
 <p>Hence, in summary:
 </p>
-<table>
+<table class="multitable">
 <thead><tr><th>Offset ID</th><th>Interpretation in AArch64</th></tr></thead>
-<tr><td>1</td><td>CFA = <code>BASE_REG</code> + offset1</td></tr>
+<tbody><tr><td>1</td><td>CFA = <code class="code">BASE_REG</code> + offset1</td></tr>
 <tr><td>2</td><td>RA = CFA + offset2</td></tr>
 <tr><td>3</td><td>FP = CFA + offset3</td></tr>
+</tbody>
 </table>
 
 <hr>
 </div>
 </div>
-<div class="appendix" id="Generating-Stack-Traces-using-SFrame">
-<div class="header">
+<div class="appendix-level-extent" id="Generating-Stack-Traces-using-SFrame">
+<div class="nav-panel">
 <p>
 Next: <a href="#Index" accesskey="n" rel="next">Index</a>, Previous: <a href="#ABI_002farch_002dspecific-Definition" accesskey="p" rel="prev">ABI/arch-specific Definition</a>, Up: <a href="#Top" accesskey="u" rel="up">The SFrame format</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="Generating-Stack-Traces-using-SFrame-1"></span><h2 class="appendix">Appendix A Generating Stack Traces using SFrame</h2>
+<h2 class="appendix" id="Generating-Stack-Traces-using-SFrame-1"><span>Appendix A Generating Stack Traces using SFrame<a class="copiable-link" href="#Generating-Stack-Traces-using-SFrame-1"> &para;</a></span></h2>
 
 <p>Using some C-like pseudocode, this section highlights how SFrame provides a
 simple, fast and low-overhead mechanism to generate stack traces.  Needless to
@@ -879,31 +887,31 @@ say that for generating accurate and useful stack traces, several other aspects
 will need attention: finding and decoding bits of SFrame section(s) in the
 program binary, symbolization of addresses, to name a few.
 </p>
-<p>In the current context, a <code>frame</code> is the abstract construct that
+<p>In the current context, a <code class="code">frame</code> is the abstract construct that
 encapsulates the following information:
-</p><ul class="no-bullet">
-<li>- program counter (PC),
-</li><li>- stack pointer (SP), and
-</li><li>- frame pointer (FP)
+</p><ul class="itemize mark-minus">
+<li>program counter (PC),
+</li><li>stack pointer (SP), and
+</li><li>frame pointer (FP)
 </li></ul>
 
-<p>With that said, establishing the first <code>frame</code> should be trivial:
+<p>With that said, establishing the first <code class="code">frame</code> should be trivial:
 </p>
 <div class="example">
-<pre class="example">    // frame 0
+<pre class="example-preformatted">    // frame 0
     frame-&gt;pc = current_IP;
     frame-&gt;sp = get_reg_value (REG_SP);
     frame-&gt;fp = get_reg_value (REG_FP);
 </pre></div>
 
-<p>where <code>REG_SP</code> and <code>REG_FP</code> are are ABI-designated stack pointer and
+<p>where <code class="code">REG_SP</code> and <code class="code">REG_FP</code> are are ABI-designated stack pointer and
 frame pointer registers respectively.
 </p>
 <p>Next, given frame N, generating stack trace needs us to get frame N+1.  This
 can be done as follows:
 </p>
 <div class="example">
-<pre class="example">     // Get the PC, SP, and FP for frame N.
+<pre class="example-preformatted">     // Get the PC, SP, and FP for frame N.
      pc = frame-&gt;pc;
      sp = frame-&gt;sp;
      fp = frame-&gt;fp;
@@ -912,13 +920,13 @@ can be done as follows:
 </pre></div>
 
 <p>where given the values of the program counter, stack pointer and frame pointer
-from frame N, <code>get_next_frame</code> populates the provided <code>next_frame</code>
+from frame N, <code class="code">get_next_frame</code> populates the provided <code class="code">next_frame</code>
 object and returns the error code, if any. In the following pseudocode for
-<code>get_next_frame</code>, the <code>sframe_*</code> functions fetch information from the
+<code class="code">get_next_frame</code>, the <code class="code">sframe_*</code> functions fetch information from the
 SFrame section.
 </p>
 <div class="example">
-<pre class="example">    fre = sframe_find_fre (pc);
+<pre class="example-preformatted">    fre = sframe_find_fre (pc);
     if (fre)
         // Whether the base register for CFA tracking is REG_FP.
         base_reg_val = sframe_fre_base_reg_fp_p (fre) ? fp : sp;
@@ -950,101 +958,103 @@ SFrame section.
 
 <hr>
 </div>
-<div class="unnumbered" id="Index">
-<div class="header">
+<div class="unnumbered-level-extent" id="Index">
+<div class="nav-panel">
 <p>
 Previous: <a href="#Generating-Stack-Traces-using-SFrame" accesskey="p" rel="prev">Generating Stack Traces using SFrame</a>, Up: <a href="#Top" accesskey="u" rel="up">The SFrame format</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Index" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="Index-1"></span><h2 class="unnumbered">Index</h2>
+<h2 class="unnumbered" id="Index-1"><span>Index<a class="copiable-link" href="#Index-1"> &para;</a></span></h2>
 
-<table><tr><th valign="top">Jump to: &nbsp; </th><td><a class="summary-letter" href="#Index_cp_letter-A"><b>A</b></a>
+<div class="printindex cp-printindex">
+<table class="cp-letters-header-printindex"><tr><th>Jump to: &nbsp; </th><td><a class="summary-letter-printindex" href="#Index_cp_letter-A"><b>A</b></a>
  &nbsp; 
-<a class="summary-letter" href="#Index_cp_letter-C"><b>C</b></a>
+<a class="summary-letter-printindex" href="#Index_cp_letter-C"><b>C</b></a>
  &nbsp; 
-<a class="summary-letter" href="#Index_cp_letter-E"><b>E</b></a>
+<a class="summary-letter-printindex" href="#Index_cp_letter-E"><b>E</b></a>
  &nbsp; 
-<a class="summary-letter" href="#Index_cp_letter-I"><b>I</b></a>
+<a class="summary-letter-printindex" href="#Index_cp_letter-I"><b>I</b></a>
  &nbsp; 
-<a class="summary-letter" href="#Index_cp_letter-O"><b>O</b></a>
+<a class="summary-letter-printindex" href="#Index_cp_letter-O"><b>O</b></a>
  &nbsp; 
-<a class="summary-letter" href="#Index_cp_letter-P"><b>P</b></a>
+<a class="summary-letter-printindex" href="#Index_cp_letter-P"><b>P</b></a>
  &nbsp; 
-<a class="summary-letter" href="#Index_cp_letter-S"><b>S</b></a>
+<a class="summary-letter-printindex" href="#Index_cp_letter-S"><b>S</b></a>
  &nbsp; 
-<a class="summary-letter" href="#Index_cp_letter-T"><b>T</b></a>
+<a class="summary-letter-printindex" href="#Index_cp_letter-T"><b>T</b></a>
  &nbsp; 
 </td></tr></table>
-<table class="index-cp" border="0">
-<tr><td></td><th align="left">Index Entry</th><td>&nbsp;</td><th align="left"> Section</th></tr>
-<tr><td colspan="4"> <hr></td></tr>
-<tr><th id="Index_cp_letter-A">A</th><td></td><td></td></tr>
-<tr><td></td><td valign="top"><a href="#index-ABI_002farch_002dspecific-Definition">ABI/arch-specific Definition</a>:</td><td>&nbsp;</td><td valign="top"><a href="#ABI_002farch_002dspecific-Definition">ABI/arch-specific Definition</a></td></tr>
-<tr><td colspan="4"> <hr></td></tr>
-<tr><th id="Index_cp_letter-C">C</th><td></td><td></td></tr>
-<tr><td></td><td valign="top"><a href="#index-Changes-from-Version-1-to-Version-2">Changes from Version 1 to Version 2</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Changes-from-Version-1-to-Version-2">Changes from Version 1 to Version 2</a></td></tr>
-<tr><td colspan="4"> <hr></td></tr>
-<tr><th id="Index_cp_letter-E">E</th><td></td><td></td></tr>
-<tr><td></td><td valign="top"><a href="#index-endianness">endianness</a>:</td><td>&nbsp;</td><td valign="top"><a href="#SFrame-Magic-Number-and-Endianness">SFrame Magic Number and Endianness</a></td></tr>
-<tr><td colspan="4"> <hr></td></tr>
-<tr><th id="Index_cp_letter-I">I</th><td></td><td></td></tr>
-<tr><td></td><td valign="top"><a href="#index-Introduction">Introduction</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Introduction">Introduction</a></td></tr>
-<tr><td colspan="4"> <hr></td></tr>
-<tr><th id="Index_cp_letter-O">O</th><td></td><td></td></tr>
-<tr><td></td><td valign="top"><a href="#index-Overview">Overview</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Overview">Overview</a></td></tr>
-<tr><td colspan="4"> <hr></td></tr>
-<tr><th id="Index_cp_letter-P">P</th><td></td><td></td></tr>
-<tr><td></td><td valign="top"><a href="#index-Provisions-for-future-ABIs">Provisions for future ABIs</a>:</td><td>&nbsp;</td><td valign="top"><a href="#SFrame-Header">SFrame Header</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-Provisions-for-future-ABIs-1">Provisions for future ABIs</a>:</td><td>&nbsp;</td><td valign="top"><a href="#SFrame-Function-Descriptor-Entries">SFrame Function Descriptor Entries</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-Provisions-for-future-ABIs-2">Provisions for future ABIs</a>:</td><td>&nbsp;</td><td valign="top"><a href="#SFrame-Frame-Row-Entries">SFrame Frame Row Entries</a></td></tr>
-<tr><td colspan="4"> <hr></td></tr>
-<tr><th id="Index_cp_letter-S">S</th><td></td><td></td></tr>
-<tr><td></td><td valign="top"><a href="#index-SFrame-ABI_002farch-Identifier">SFrame ABI/arch Identifier</a>:</td><td>&nbsp;</td><td valign="top"><a href="#SFrame-ABI_002farch-Identifier">SFrame ABI/arch Identifier</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-SFrame-FDE">SFrame FDE</a>:</td><td>&nbsp;</td><td valign="top"><a href="#SFrame-Function-Descriptor-Entries">SFrame Function Descriptor Entries</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-SFrame-Flags">SFrame Flags</a>:</td><td>&nbsp;</td><td valign="top"><a href="#SFrame-Flags">SFrame Flags</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-SFrame-FRE">SFrame FRE</a>:</td><td>&nbsp;</td><td valign="top"><a href="#SFrame-Frame-Row-Entries">SFrame Frame Row Entries</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-SFrame-header">SFrame header</a>:</td><td>&nbsp;</td><td valign="top"><a href="#SFrame-Header">SFrame Header</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-SFrame-magic-number">SFrame magic number</a>:</td><td>&nbsp;</td><td valign="top"><a href="#SFrame-Magic-Number-and-Endianness">SFrame Magic Number and Endianness</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-SFrame-preamble">SFrame preamble</a>:</td><td>&nbsp;</td><td valign="top"><a href="#SFrame-Preamble">SFrame Preamble</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-SFrame-Section">SFrame Section</a>:</td><td>&nbsp;</td><td valign="top"><a href="#SFrame-Section">SFrame Section</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-SFrame-versions">SFrame versions</a>:</td><td>&nbsp;</td><td valign="top"><a href="#SFrame-Version">SFrame Version</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-SFRAME_005fABI_005fAARCH64_005fENDIAN_005fBIG"><code>SFRAME_ABI_AARCH64_ENDIAN_BIG</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#SFrame-ABI_002farch-Identifier">SFrame ABI/arch Identifier</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-SFRAME_005fABI_005fAARCH64_005fENDIAN_005fLITTLE"><code>SFRAME_ABI_AARCH64_ENDIAN_LITTLE</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#SFrame-ABI_002farch-Identifier">SFrame ABI/arch Identifier</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-SFRAME_005fABI_005fAMD64_005fENDIAN_005fLITTLE"><code>SFRAME_ABI_AMD64_ENDIAN_LITTLE</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#SFrame-ABI_002farch-Identifier">SFrame ABI/arch Identifier</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-SFRAME_005fFDE_005fTYPE_005fPCINC"><code>SFRAME_FDE_TYPE_PCINC</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-SFrame-FDE-Types">The SFrame FDE Types</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-SFRAME_005fFDE_005fTYPE_005fPCMASK"><code>SFRAME_FDE_TYPE_PCMASK</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-SFrame-FDE-Types">The SFrame FDE Types</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-SFRAME_005fFRE_005fOFFSET_005f1B"><code>SFRAME_FRE_OFFSET_1B</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-SFrame-FRE-Info-Word">The SFrame FRE Info Word</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-SFRAME_005fFRE_005fOFFSET_005f2B"><code>SFRAME_FRE_OFFSET_2B</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-SFrame-FRE-Info-Word">The SFrame FRE Info Word</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-SFRAME_005fFRE_005fOFFSET_005f4B"><code>SFRAME_FRE_OFFSET_4B</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-SFrame-FRE-Info-Word">The SFrame FRE Info Word</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-SFRAME_005fFRE_005fTYPE_005fADDR1"><code>SFRAME_FRE_TYPE_ADDR1</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-SFrame-FRE-Types">The SFrame FRE Types</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-SFRAME_005fFRE_005fTYPE_005fADDR2"><code>SFRAME_FRE_TYPE_ADDR2</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-SFrame-FRE-Types">The SFrame FRE Types</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-SFRAME_005fFRE_005fTYPE_005fADDR4"><code>SFRAME_FRE_TYPE_ADDR4</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-SFrame-FRE-Types">The SFrame FRE Types</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-SFRAME_005fF_005fFDE_005fSORTED"><code>SFRAME_F_FDE_SORTED</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#SFrame-Flags">SFrame Flags</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-SFRAME_005fF_005fFRAME_005fPOINTER"><code>SFRAME_F_FRAME_POINTER</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#SFrame-Flags">SFrame Flags</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-SFRAME_005fMAGIC"><code>SFRAME_MAGIC</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#SFrame-Preamble">SFrame Preamble</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-SFRAME_005fVERSION_005f1"><code>SFRAME_VERSION_1</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#SFrame-Version">SFrame Version</a></td></tr>
-<tr><td colspan="4"> <hr></td></tr>
-<tr><th id="Index_cp_letter-T">T</th><td></td><td></td></tr>
-<tr><td></td><td valign="top"><a href="#index-The-SFrame-FDE-Info-Word">The SFrame FDE Info Word</a>:</td><td>&nbsp;</td><td valign="top"><a href="#SFrame-Function-Descriptor-Entries">SFrame Function Descriptor Entries</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-The-SFrame-FRE-Info-Word">The SFrame FRE Info Word</a>:</td><td>&nbsp;</td><td valign="top"><a href="#SFrame-Frame-Row-Entries">SFrame Frame Row Entries</a></td></tr>
-<tr><td colspan="4"> <hr></td></tr>
+<table class="cp-entries-printindex" border="0">
+<tr><td></td><th class="entries-header-printindex">Index Entry</th><th class="sections-header-printindex">Section</th></tr>
+<tr><td colspan="3"><hr></td></tr>
+<tr><th id="Index_cp_letter-A">A</th></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-ABI_002farch_002dspecific-Definition">ABI/arch-specific Definition</a></td><td class="printindex-index-section"><a href="#ABI_002farch_002dspecific-Definition">ABI/arch-specific Definition</a></td></tr>
+<tr><td colspan="3"><hr></td></tr>
+<tr><th id="Index_cp_letter-C">C</th></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-Changes-from-Version-1-to-Version-2">Changes from Version 1 to Version 2</a></td><td class="printindex-index-section"><a href="#Changes-from-Version-1-to-Version-2">Changes from Version 1 to Version 2</a></td></tr>
+<tr><td colspan="3"><hr></td></tr>
+<tr><th id="Index_cp_letter-E">E</th></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-endianness">endianness</a></td><td class="printindex-index-section"><a href="#SFrame-Magic-Number-and-Endianness">SFrame Magic Number and Endianness</a></td></tr>
+<tr><td colspan="3"><hr></td></tr>
+<tr><th id="Index_cp_letter-I">I</th></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-Introduction">Introduction</a></td><td class="printindex-index-section"><a href="#Introduction">Introduction</a></td></tr>
+<tr><td colspan="3"><hr></td></tr>
+<tr><th id="Index_cp_letter-O">O</th></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-Overview">Overview</a></td><td class="printindex-index-section"><a href="#Overview">Overview</a></td></tr>
+<tr><td colspan="3"><hr></td></tr>
+<tr><th id="Index_cp_letter-P">P</th></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-Provisions-for-future-ABIs">Provisions for future ABIs</a></td><td class="printindex-index-section"><a href="#SFrame-Header">SFrame Header</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-Provisions-for-future-ABIs-1">Provisions for future ABIs</a></td><td class="printindex-index-section"><a href="#SFrame-Function-Descriptor-Entries">SFrame Function Descriptor Entries</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-Provisions-for-future-ABIs-2">Provisions for future ABIs</a></td><td class="printindex-index-section"><a href="#SFrame-Frame-Row-Entries">SFrame Frame Row Entries</a></td></tr>
+<tr><td colspan="3"><hr></td></tr>
+<tr><th id="Index_cp_letter-S">S</th></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-SFrame-ABI_002farch-Identifier">SFrame ABI/arch Identifier</a></td><td class="printindex-index-section"><a href="#SFrame-ABI_002farch-Identifier">SFrame ABI/arch Identifier</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-SFrame-FDE">SFrame FDE</a></td><td class="printindex-index-section"><a href="#SFrame-Function-Descriptor-Entries">SFrame Function Descriptor Entries</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-SFrame-Flags">SFrame Flags</a></td><td class="printindex-index-section"><a href="#SFrame-Flags">SFrame Flags</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-SFrame-FRE">SFrame FRE</a></td><td class="printindex-index-section"><a href="#SFrame-Frame-Row-Entries">SFrame Frame Row Entries</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-SFrame-header">SFrame header</a></td><td class="printindex-index-section"><a href="#SFrame-Header">SFrame Header</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-SFrame-magic-number">SFrame magic number</a></td><td class="printindex-index-section"><a href="#SFrame-Magic-Number-and-Endianness">SFrame Magic Number and Endianness</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-SFrame-preamble">SFrame preamble</a></td><td class="printindex-index-section"><a href="#SFrame-Preamble">SFrame Preamble</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-SFrame-Section">SFrame Section</a></td><td class="printindex-index-section"><a href="#SFrame-Section">SFrame Section</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-SFrame-versions">SFrame versions</a></td><td class="printindex-index-section"><a href="#SFrame-Version">SFrame Version</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-SFRAME_005fABI_005fAARCH64_005fENDIAN_005fBIG"><code>SFRAME_ABI_AARCH64_ENDIAN_BIG</code></a></td><td class="printindex-index-section"><a href="#SFrame-ABI_002farch-Identifier">SFrame ABI/arch Identifier</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-SFRAME_005fABI_005fAARCH64_005fENDIAN_005fLITTLE"><code>SFRAME_ABI_AARCH64_ENDIAN_LITTLE</code></a></td><td class="printindex-index-section"><a href="#SFrame-ABI_002farch-Identifier">SFrame ABI/arch Identifier</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-SFRAME_005fABI_005fAMD64_005fENDIAN_005fLITTLE"><code>SFRAME_ABI_AMD64_ENDIAN_LITTLE</code></a></td><td class="printindex-index-section"><a href="#SFrame-ABI_002farch-Identifier">SFrame ABI/arch Identifier</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-SFRAME_005fF_005fFDE_005fSORTED"><code>SFRAME_F_FDE_SORTED</code></a></td><td class="printindex-index-section"><a href="#SFrame-Flags">SFrame Flags</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-SFRAME_005fF_005fFRAME_005fPOINTER"><code>SFRAME_F_FRAME_POINTER</code></a></td><td class="printindex-index-section"><a href="#SFrame-Flags">SFrame Flags</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-SFRAME_005fFDE_005fTYPE_005fPCINC"><code>SFRAME_FDE_TYPE_PCINC</code></a></td><td class="printindex-index-section"><a href="#The-SFrame-FDE-Types">The SFrame FDE Types</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-SFRAME_005fFDE_005fTYPE_005fPCMASK"><code>SFRAME_FDE_TYPE_PCMASK</code></a></td><td class="printindex-index-section"><a href="#The-SFrame-FDE-Types">The SFrame FDE Types</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-SFRAME_005fFRE_005fOFFSET_005f1B"><code>SFRAME_FRE_OFFSET_1B</code></a></td><td class="printindex-index-section"><a href="#The-SFrame-FRE-Info-Word">The SFrame FRE Info Word</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-SFRAME_005fFRE_005fOFFSET_005f2B"><code>SFRAME_FRE_OFFSET_2B</code></a></td><td class="printindex-index-section"><a href="#The-SFrame-FRE-Info-Word">The SFrame FRE Info Word</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-SFRAME_005fFRE_005fOFFSET_005f4B"><code>SFRAME_FRE_OFFSET_4B</code></a></td><td class="printindex-index-section"><a href="#The-SFrame-FRE-Info-Word">The SFrame FRE Info Word</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-SFRAME_005fFRE_005fTYPE_005fADDR1"><code>SFRAME_FRE_TYPE_ADDR1</code></a></td><td class="printindex-index-section"><a href="#The-SFrame-FRE-Types">The SFrame FRE Types</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-SFRAME_005fFRE_005fTYPE_005fADDR2"><code>SFRAME_FRE_TYPE_ADDR2</code></a></td><td class="printindex-index-section"><a href="#The-SFrame-FRE-Types">The SFrame FRE Types</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-SFRAME_005fFRE_005fTYPE_005fADDR4"><code>SFRAME_FRE_TYPE_ADDR4</code></a></td><td class="printindex-index-section"><a href="#The-SFrame-FRE-Types">The SFrame FRE Types</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-SFRAME_005fMAGIC"><code>SFRAME_MAGIC</code></a></td><td class="printindex-index-section"><a href="#SFrame-Preamble">SFrame Preamble</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-SFRAME_005fVERSION_005f1"><code>SFRAME_VERSION_1</code></a></td><td class="printindex-index-section"><a href="#SFrame-Version">SFrame Version</a></td></tr>
+<tr><td colspan="3"><hr></td></tr>
+<tr><th id="Index_cp_letter-T">T</th></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-The-SFrame-FDE-Info-Word">The SFrame FDE Info Word</a></td><td class="printindex-index-section"><a href="#SFrame-Function-Descriptor-Entries">SFrame Function Descriptor Entries</a></td></tr>
+<tr><td></td><td class="printindex-index-entry"><a href="#index-The-SFrame-FRE-Info-Word">The SFrame FRE Info Word</a></td><td class="printindex-index-section"><a href="#SFrame-Frame-Row-Entries">SFrame Frame Row Entries</a></td></tr>
+<tr><td colspan="3"><hr></td></tr>
 </table>
-<table><tr><th valign="top">Jump to: &nbsp; </th><td><a class="summary-letter" href="#Index_cp_letter-A"><b>A</b></a>
+<table class="cp-letters-footer-printindex"><tr><th>Jump to: &nbsp; </th><td><a class="summary-letter-printindex" href="#Index_cp_letter-A"><b>A</b></a>
  &nbsp; 
-<a class="summary-letter" href="#Index_cp_letter-C"><b>C</b></a>
+<a class="summary-letter-printindex" href="#Index_cp_letter-C"><b>C</b></a>
  &nbsp; 
-<a class="summary-letter" href="#Index_cp_letter-E"><b>E</b></a>
+<a class="summary-letter-printindex" href="#Index_cp_letter-E"><b>E</b></a>
  &nbsp; 
-<a class="summary-letter" href="#Index_cp_letter-I"><b>I</b></a>
+<a class="summary-letter-printindex" href="#Index_cp_letter-I"><b>I</b></a>
  &nbsp; 
-<a class="summary-letter" href="#Index_cp_letter-O"><b>O</b></a>
+<a class="summary-letter-printindex" href="#Index_cp_letter-O"><b>O</b></a>
  &nbsp; 
-<a class="summary-letter" href="#Index_cp_letter-P"><b>P</b></a>
+<a class="summary-letter-printindex" href="#Index_cp_letter-P"><b>P</b></a>
  &nbsp; 
-<a class="summary-letter" href="#Index_cp_letter-S"><b>S</b></a>
+<a class="summary-letter-printindex" href="#Index_cp_letter-S"><b>S</b></a>
  &nbsp; 
-<a class="summary-letter" href="#Index_cp_letter-T"><b>T</b></a>
+<a class="summary-letter-printindex" href="#Index_cp_letter-T"><b>T</b></a>
  &nbsp; 
 </td></tr></table>
+</div>
 
 </div>
 </div>

@@ -1,11 +1,11 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the GNU Assembler "as".
 
-Copyright (C) 1991-2025 Free Software Foundation, Inc.
+Copyright © 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -30,21 +30,8 @@ section entitled "GNU Free Documentation License".
 <link href="IA_002d64-Syntax.html" rel="next" title="IA-64 Syntax">
 <style type="text/css">
 <!--
-a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
-a.summary-letter {text-decoration: none}
-blockquote.indentedblock {margin-right: 0em}
-div.display {margin-left: 3.2em}
-div.example {margin-left: 3.2em}
-kbd {font-style: oblique}
-pre.display {font-family: inherit}
-pre.format {font-family: inherit}
-pre.menu-comment {font-family: serif}
-pre.menu-preformatted {font-family: serif}
-span.nolinebreak {white-space: nowrap}
-span.roman {font-family: initial; font-weight: normal}
-span.sansserif {font-family: sans-serif; font-weight: normal}
-span:hover a.copiable-anchor {visibility: visible}
-ul.no-bullet {list-style: none}
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+span:hover a.copiable-link {visibility: visible}
 -->
 </style>
 
@@ -52,21 +39,21 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<div class="section" id="IA_002d64-Options">
-<div class="header">
+<div class="subsection-level-extent" id="IA_002d64-Options">
+<div class="nav-panel">
 <p>
 Next: <a href="IA_002d64-Syntax.html" accesskey="n" rel="next">Syntax</a>, Up: <a href="IA_002d64_002dDependent.html" accesskey="u" rel="up">IA-64 Dependent Features</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="Options-11"></span><h4 class="subsection">9.17.1 Options</h4>
-<span id="index-IA_002d64-options"></span>
-<span id="index-options-for-IA_002d64"></span>
+<h4 class="subsection section-level-set-subsection" id="Options-11"><span>9.17.1 Options<a class="copiable-link" href="#Options-11"> &para;</a></span></h4>
+<a class="index-entry-id" id="index-IA_002d64-options"></a>
+<a class="index-entry-id" id="index-options-for-IA_002d64"></a>
 
-<dl compact="compact">
-<dd><span id="index-_002dmconstant_002dgp-command_002dline-option_002c-IA_002d64"></span>
+<dl class="table">
+<dd><a class="index-entry-id" id="index-_002dmconstant_002dgp-command_002dline-option_002c-IA_002d64"></a>
 
 </dd>
-<dt><span><samp>-mconstant-gp</samp></span></dt>
+<dt><samp class="option">-mconstant-gp</samp></dt>
 <dd><p>This option instructs the assembler to mark the resulting object file
 as using the &ldquo;constant GP&rdquo; model.  With this model, it is assumed
 that the entire program uses a single global pointer (GP) value.  Note
@@ -75,7 +62,7 @@ emitted by the assembler.  All it does is turn on the EF_IA_64_CONS_GP
 flag in the ELF file header.
 </p>
 </dd>
-<dt><span><samp>-mauto-pic</samp></span></dt>
+<dt><samp class="option">-mauto-pic</samp></dt>
 <dd><p>This option instructs the assembler to mark the resulting object file
 as using the &ldquo;constant GP without function descriptor&rdquo; data model.
 This model is like the &ldquo;constant GP&rdquo; model, except that it
@@ -88,79 +75,79 @@ affect the machine code emitted by the assembler.  All it does is
 turn on the EF_IA_64_NOFUNCDESC_CONS_GP flag in the ELF file header.
 </p>
 </dd>
-<dt><span><samp>-milp32</samp></span></dt>
-<dt><span><samp>-milp64</samp></span></dt>
-<dt><span><samp>-mlp64</samp></span></dt>
-<dt><span><samp>-mp64</samp></span></dt>
-<dd><p>These options select the data model.  The assembler defaults to <code>-mlp64</code>
+<dt><samp class="option">-milp32</samp></dt>
+<dt><samp class="option">-milp64</samp></dt>
+<dt><samp class="option">-mlp64</samp></dt>
+<dt><samp class="option">-mp64</samp></dt>
+<dd><p>These options select the data model.  The assembler defaults to <code class="code">-mlp64</code>
 (LP64 data model).
 </p>
 </dd>
-<dt><span><samp>-mle</samp></span></dt>
-<dt><span><samp>-mbe</samp></span></dt>
-<dd><p>These options select the byte order.  The <code>-mle</code> option selects little-endian
-byte order (default) and <code>-mbe</code> selects big-endian byte order.  Note that
+<dt><samp class="option">-mle</samp></dt>
+<dt><samp class="option">-mbe</samp></dt>
+<dd><p>These options select the byte order.  The <code class="code">-mle</code> option selects little-endian
+byte order (default) and <code class="code">-mbe</code> selects big-endian byte order.  Note that
 IA-64 machine code always uses little-endian byte order.
 </p>
 </dd>
-<dt><span><samp>-mtune=itanium1</samp></span></dt>
-<dt><span><samp>-mtune=itanium2</samp></span></dt>
-<dd><p>Tune for a particular IA-64 CPU, <var>itanium1</var> or <var>itanium2</var>. The
-default is <var>itanium2</var>.
+<dt><samp class="option">-mtune=itanium1</samp></dt>
+<dt><samp class="option">-mtune=itanium2</samp></dt>
+<dd><p>Tune for a particular IA-64 CPU, <var class="var">itanium1</var> or <var class="var">itanium2</var>. The
+default is <var class="var">itanium2</var>.
 </p>
 </dd>
-<dt><span><samp>-munwind-check=warning</samp></span></dt>
-<dt><span><samp>-munwind-check=error</samp></span></dt>
+<dt><samp class="option">-munwind-check=warning</samp></dt>
+<dt><samp class="option">-munwind-check=error</samp></dt>
 <dd><p>These options control what the assembler will do when performing
-consistency checks on unwind directives.  <code>-munwind-check=warning</code>
+consistency checks on unwind directives.  <code class="code">-munwind-check=warning</code>
 will make the assembler issue a warning when an unwind directive check
-fails.  This is the default.  <code>-munwind-check=error</code> will make the
+fails.  This is the default.  <code class="code">-munwind-check=error</code> will make the
 assembler issue an error when an unwind directive check fails.
 </p>
 </dd>
-<dt><span><samp>-mhint.b=ok</samp></span></dt>
-<dt><span><samp>-mhint.b=warning</samp></span></dt>
-<dt><span><samp>-mhint.b=error</samp></span></dt>
-<dd><p>These options control what the assembler will do when the &lsquo;<samp>hint.b</samp>&rsquo;
-instruction is used.  <code>-mhint.b=ok</code> will make the assembler accept
-&lsquo;<samp>hint.b</samp>&rsquo;.  <code>-mint.b=warning</code> will make the assembler issue a
-warning when &lsquo;<samp>hint.b</samp>&rsquo; is used.  <code>-mhint.b=error</code> will make
-the assembler treat &lsquo;<samp>hint.b</samp>&rsquo; as an error, which is the default.
+<dt><samp class="option">-mhint.b=ok</samp></dt>
+<dt><samp class="option">-mhint.b=warning</samp></dt>
+<dt><samp class="option">-mhint.b=error</samp></dt>
+<dd><p>These options control what the assembler will do when the &lsquo;<samp class="samp">hint.b</samp>&rsquo;
+instruction is used.  <code class="code">-mhint.b=ok</code> will make the assembler accept
+&lsquo;<samp class="samp">hint.b</samp>&rsquo;.  <code class="code">-mint.b=warning</code> will make the assembler issue a
+warning when &lsquo;<samp class="samp">hint.b</samp>&rsquo; is used.  <code class="code">-mhint.b=error</code> will make
+the assembler treat &lsquo;<samp class="samp">hint.b</samp>&rsquo; as an error, which is the default.
 </p>
 </dd>
-<dt><span><samp>-x</samp></span></dt>
-<dt><span><samp>-xexplicit</samp></span></dt>
+<dt><samp class="option">-x</samp></dt>
+<dt><samp class="option">-xexplicit</samp></dt>
 <dd><p>These options turn on dependency violation checking.
 </p>
 </dd>
-<dt><span><samp>-xauto</samp></span></dt>
+<dt><samp class="option">-xauto</samp></dt>
 <dd><p>This option instructs the assembler to automatically insert stop bits where necessary
 to remove dependency violations.  This is the default mode.
 </p>
 </dd>
-<dt><span><samp>-xnone</samp></span></dt>
+<dt><samp class="option">-xnone</samp></dt>
 <dd><p>This option turns off dependency violation checking.
 </p>
 </dd>
-<dt><span><samp>-xdebug</samp></span></dt>
+<dt><samp class="option">-xdebug</samp></dt>
 <dd><p>This turns on debug output intended to help tracking down bugs in the dependency
 violation checker.
 </p>
 </dd>
-<dt><span><samp>-xdebugn</samp></span></dt>
+<dt><samp class="option">-xdebugn</samp></dt>
 <dd><p>This is a shortcut for -xnone -xdebug.
 </p>
 </dd>
-<dt><span><samp>-xdebugx</samp></span></dt>
+<dt><samp class="option">-xdebugx</samp></dt>
 <dd><p>This is a shortcut for -xexplicit -xdebug.
 </p>
 </dd>
 </dl>
 
-<span id="index-IA_002d64-Syntax"></span>
+<a class="index-entry-id" id="index-IA_002d64-Syntax"></a>
 </div>
 <hr>
-<div class="header">
+<div class="nav-panel">
 <p>
 Next: <a href="IA_002d64-Syntax.html">Syntax</a>, Up: <a href="IA_002d64_002dDependent.html">IA-64 Dependent Features</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

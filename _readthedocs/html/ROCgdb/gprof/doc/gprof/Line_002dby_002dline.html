@@ -1,11 +1,11 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the gprof profiler of the GNU system.
 
-Copyright (C) 1988-2025 Free Software Foundation, Inc.
+Copyright © 1988-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -30,21 +30,9 @@ section entitled "GNU Free Documentation License".
 <link href="Call-Graph.html" rel="prev" title="Call Graph">
 <style type="text/css">
 <!--
-a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
-a.summary-letter {text-decoration: none}
-blockquote.indentedblock {margin-right: 0em}
-div.display {margin-left: 3.2em}
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
 div.example {margin-left: 3.2em}
-kbd {font-style: oblique}
-pre.display {font-family: inherit}
-pre.format {font-family: inherit}
-pre.menu-comment {font-family: serif}
-pre.menu-preformatted {font-family: serif}
-span.nolinebreak {white-space: nowrap}
-span.roman {font-family: initial; font-weight: normal}
-span.sansserif {font-family: sans-serif; font-weight: normal}
-span:hover a.copiable-anchor {visibility: visible}
-ul.no-bullet {list-style: none}
+span:hover a.copiable-link {visibility: visible}
 -->
 </style>
 
@@ -52,42 +40,42 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<div class="section" id="Line_002dby_002dline">
-<div class="header">
+<div class="section-level-extent" id="Line_002dby_002dline">
+<div class="nav-panel">
 <p>
-Next: <a href="Annotated-Source.html" accesskey="n" rel="next">The Annotated Source Listing</a>, Previous: <a href="Call-Graph.html" accesskey="p" rel="prev">The Call Graph</a>, Up: <a href="Output.html" accesskey="u" rel="up">Interpreting <code>gprof</code>&rsquo;s Output</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+Next: <a href="Annotated-Source.html" accesskey="n" rel="next">The Annotated Source Listing</a>, Previous: <a href="Call-Graph.html" accesskey="p" rel="prev">The Call Graph</a>, Up: <a href="Output.html" accesskey="u" rel="up">Interpreting <code class="code">gprof</code>&rsquo;s Output</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
 </div>
 <hr>
-<span id="Line_002dby_002dline-Profiling"></span><h3 class="section">5.3 Line-by-line Profiling</h3>
+<h3 class="section" id="Line_002dby_002dline-Profiling"><span>5.3 Line-by-line Profiling<a class="copiable-link" href="#Line_002dby_002dline-Profiling"> &para;</a></span></h3>
 
-<p><code>gprof</code>&rsquo;s &lsquo;<samp>-l</samp>&rsquo; option causes the program to perform
-<em>line-by-line</em> profiling.  In this mode, histogram
+<p><code class="code">gprof</code>&rsquo;s &lsquo;<samp class="samp">-l</samp>&rsquo; option causes the program to perform
+<em class="dfn">line-by-line</em> profiling.  In this mode, histogram
 samples are assigned not to functions, but to individual
 lines of source code.  This only works with programs compiled with
-older versions of the <code>gcc</code> compiler.  Newer versions of <code>gcc</code>
-use a different program - <code>gcov</code> - to display line-by-line
+older versions of the <code class="code">gcc</code> compiler.  Newer versions of <code class="code">gcc</code>
+use a different program - <code class="code">gcov</code> - to display line-by-line
 profiling information.
 </p>
-<p>With the older versions of <code>gcc</code> the program usually has to be
-compiled with a &lsquo;<samp>-g</samp>&rsquo; option, in addition to &lsquo;<samp>-pg</samp>&rsquo;, in order
+<p>With the older versions of <code class="code">gcc</code> the program usually has to be
+compiled with a &lsquo;<samp class="samp">-g</samp>&rsquo; option, in addition to &lsquo;<samp class="samp">-pg</samp>&rsquo;, in order
 to generate debugging symbols for tracking source code lines.
-Note, in much older versions of <code>gcc</code> the program had to be
-compiled with the &lsquo;<samp>-a</samp>&rsquo; command-line option as well.
+Note, in much older versions of <code class="code">gcc</code> the program had to be
+compiled with the &lsquo;<samp class="samp">-a</samp>&rsquo; command-line option as well.
 </p>
 <p>The flat profile is the most useful output table
 in line-by-line mode.
 The call graph isn&rsquo;t as useful as normal, since
-the current version of <code>gprof</code> does not propagate
+the current version of <code class="code">gprof</code> does not propagate
 call graph arcs from source code lines to the enclosing function.
 The call graph does, however, show each line of code
 that called each function, along with a count.
 </p>
-<p>Here is a section of <code>gprof</code>&rsquo;s output, without line-by-line profiling.
-Note that <code>ct_init</code> accounted for four histogram hits, and
-13327 calls to <code>init_block</code>.
+<p>Here is a section of <code class="code">gprof</code>&rsquo;s output, without line-by-line profiling.
+Note that <code class="code">ct_init</code> accounted for four histogram hits, and
+13327 calls to <code class="code">init_block</code>.
 </p>
-<div class="example">
-<pre class="example">Flat profile:
+<div class="example smallexample">
+<pre class="example-preformatted">Flat profile:
 
 Each sample counts as 0.01 seconds.
   %   cumulative   self              self     total
@@ -110,17 +98,17 @@ index % time    self  children    called     name
 
 </pre></div>
 
-<p>Now let&rsquo;s look at some of <code>gprof</code>&rsquo;s output from the same program run,
-this time with line-by-line profiling enabled.  Note that <code>ct_init</code>&rsquo;s
+<p>Now let&rsquo;s look at some of <code class="code">gprof</code>&rsquo;s output from the same program run,
+this time with line-by-line profiling enabled.  Note that <code class="code">ct_init</code>&rsquo;s
 four histogram hits are broken down into four lines of source code&mdash;one hit
 occurred on each of lines 349, 351, 382 and 385.  In the call graph,
 note how
-<code>ct_init</code>&rsquo;s 13327 calls to <code>init_block</code> are broken down
+<code class="code">ct_init</code>&rsquo;s 13327 calls to <code class="code">init_block</code> are broken down
 into one call from line 396, 3071 calls from line 384, 3730 calls
 from line 385, and 6525 calls from 387.
 </p>
-<div class="example">
-<pre class="example">Flat profile:
+<div class="example smallexample">
+<pre class="example-preformatted">Flat profile:
 
 Each sample counts as 0.01 seconds.
   %   cumulative   self
@@ -157,9 +145,9 @@ granularity: each sample hit covers 4 byte(s) for 7.69% of 0.13 seconds
 
 </div>
 <hr>
-<div class="header">
+<div class="nav-panel">
 <p>
-Next: <a href="Annotated-Source.html">The Annotated Source Listing</a>, Previous: <a href="Call-Graph.html">The Call Graph</a>, Up: <a href="Output.html">Interpreting <code>gprof</code>&rsquo;s Output</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+Next: <a href="Annotated-Source.html">The Annotated Source Listing</a>, Previous: <a href="Call-Graph.html">The Call Graph</a>, Up: <a href="Output.html">Interpreting <code class="code">gprof</code>&rsquo;s Output</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
 </div>
 
 

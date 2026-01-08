@@ -1,11 +1,11 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the GNU Assembler "as".
 
-Copyright (C) 1991-2025 Free Software Foundation, Inc.
+Copyright © 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -31,21 +31,8 @@ section entitled "GNU Free Documentation License".
 <link href="Dcb.html" rel="prev" title="Dcb">
 <style type="text/css">
 <!--
-a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
-a.summary-letter {text-decoration: none}
-blockquote.indentedblock {margin-right: 0em}
-div.display {margin-left: 3.2em}
-div.example {margin-left: 3.2em}
-kbd {font-style: oblique}
-pre.display {font-family: inherit}
-pre.format {font-family: inherit}
-pre.menu-comment {font-family: serif}
-pre.menu-preformatted {font-family: serif}
-span.nolinebreak {white-space: nowrap}
-span.roman {font-family: initial; font-weight: normal}
-span.sansserif {font-family: sans-serif; font-weight: normal}
-span:hover a.copiable-anchor {visibility: visible}
-ul.no-bullet {list-style: none}
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+span:hover a.copiable-link {visibility: visible}
 -->
 </style>
 
@@ -53,47 +40,47 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<div class="section" id="Ds">
-<div class="header">
+<div class="section-level-extent" id="Ds">
+<div class="nav-panel">
 <p>
-Next: <a href="Def.html" accesskey="n" rel="next"><code>.def <var>name</var></code></a>, Previous: <a href="Dcb.html" accesskey="p" rel="prev"><code>.dcb[<var>size</var>] <var>number</var> [,<var>fill</var>]</code></a>, Up: <a href="Pseudo-Ops.html" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Def.html" accesskey="n" rel="next"><code class="code">.def <var class="var">name</var></code></a>, Previous: <a href="Dcb.html" accesskey="p" rel="prev"><code class="code">.dcb[<var class="var">size</var>] <var class="var">number</var> [,<var class="var">fill</var>]</code></a>, Up: <a href="Pseudo-Ops.html" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="g_t_002eds_005bsize_005d-number-_005b_002cfill_005d"></span><h3 class="section">7.18 <code>.ds[<var>size</var>] <var>number</var> [,<var>fill</var>]</code></h3>
-<span id="index-ds-directive"></span>
-<p>This directive emits <var>number</var> copies of <var>fill</var>, each of <var>size</var>
-bytes.  Both <var>number</var> and <var>fill</var> are absolute expressions.  If the
-comma and <var>fill</var> are omitted, <var>fill</var> is assumed to be zero.  The
-<var>size</var> suffix, if present, must be one of:
+<h3 class="section" id="g_t_002eds_005bsize_005d-number-_005b_002cfill_005d"><span>7.18 <code class="code">.ds[<var class="var">size</var>] <var class="var">number</var> [,<var class="var">fill</var>]</code><a class="copiable-link" href="#g_t_002eds_005bsize_005d-number-_005b_002cfill_005d"> &para;</a></span></h3>
+<a class="index-entry-id" id="index-ds-directive"></a>
+<p>This directive emits <var class="var">number</var> copies of <var class="var">fill</var>, each of <var class="var">size</var>
+bytes.  Both <var class="var">number</var> and <var class="var">fill</var> are absolute expressions.  If the
+comma and <var class="var">fill</var> are omitted, <var class="var">fill</var> is assumed to be zero.  The
+<var class="var">size</var> suffix, if present, must be one of:
 </p>
-<dl compact="compact">
-<dt><span><code>&lsquo;<samp>.b</samp>&rsquo;</code></span></dt>
+<dl class="table">
+<dt><code class="code">&lsquo;<samp class="samp">.b</samp>&rsquo;</code></dt>
 <dd><p>Emits single byte values.
 </p></dd>
-<dt><span><code>&lsquo;<samp>.d</samp>&rsquo;</code></span></dt>
+<dt><code class="code">&lsquo;<samp class="samp">.d</samp>&rsquo;</code></dt>
 <dd><p>Emits 8-byte values.
 </p></dd>
-<dt><span><code>&lsquo;<samp>.l</samp>&rsquo;</code></span></dt>
+<dt><code class="code">&lsquo;<samp class="samp">.l</samp>&rsquo;</code></dt>
 <dd><p>Emits 4-byte values.
 </p></dd>
-<dt><span><code>&lsquo;<samp>.p</samp>&rsquo;</code></span></dt>
+<dt><code class="code">&lsquo;<samp class="samp">.p</samp>&rsquo;</code></dt>
 <dd><p>Emits values with size matching packed-decimal floating-point ones.
 </p></dd>
-<dt><span><code>&lsquo;<samp>.s</samp>&rsquo;</code></span></dt>
+<dt><code class="code">&lsquo;<samp class="samp">.s</samp>&rsquo;</code></dt>
 <dd><p>Emits 4-byte values.
 </p></dd>
-<dt><span><code>&lsquo;<samp>.w</samp>&rsquo;</code></span></dt>
+<dt><code class="code">&lsquo;<samp class="samp">.w</samp>&rsquo;</code></dt>
 <dd><p>Emits 2-byte values.
 </p></dd>
-<dt><span><code>&lsquo;<samp>.x</samp>&rsquo;</code></span></dt>
+<dt><code class="code">&lsquo;<samp class="samp">.x</samp>&rsquo;</code></dt>
 <dd><p>Emits values with size matching long double precision floating-point ones.
 </p></dd>
 </dl>
 
-<p>Note - unlike the <code>.dcb</code> directive the &lsquo;<samp>.d</samp>&rsquo;, &lsquo;<samp>.s</samp>&rsquo; and &lsquo;<samp>.x</samp>&rsquo;
+<p>Note - unlike the <code class="code">.dcb</code> directive the &lsquo;<samp class="samp">.d</samp>&rsquo;, &lsquo;<samp class="samp">.s</samp>&rsquo; and &lsquo;<samp class="samp">.x</samp>&rsquo;
 suffixes do not indicate that floating-point values are to be inserted.
 </p>
-<p>If the <var>size</var> suffix is omitted then &lsquo;<samp>.w</samp>&rsquo; is assumed.
+<p>If the <var class="var">size</var> suffix is omitted then &lsquo;<samp class="samp">.w</samp>&rsquo; is assumed.
 </p>
 <p>The byte ordering is target dependent.
 </p>

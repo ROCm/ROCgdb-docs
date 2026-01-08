@@ -1,11 +1,11 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the GNU Assembler "as".
 
-Copyright (C) 1991-2025 Free Software Foundation, Inc.
+Copyright © 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -30,21 +30,8 @@ section entitled "GNU Free Documentation License".
 <link href="Symbol-Type.html" rel="next" title="Symbol Type">
 <style type="text/css">
 <!--
-a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
-a.summary-letter {text-decoration: none}
-blockquote.indentedblock {margin-right: 0em}
-div.display {margin-left: 3.2em}
-div.example {margin-left: 3.2em}
-kbd {font-style: oblique}
-pre.display {font-family: inherit}
-pre.format {font-family: inherit}
-pre.menu-comment {font-family: serif}
-pre.menu-preformatted {font-family: serif}
-span.nolinebreak {white-space: nowrap}
-span.roman {font-family: initial; font-weight: normal}
-span.sansserif {font-family: sans-serif; font-weight: normal}
-span:hover a.copiable-anchor {visibility: visible}
-ul.no-bullet {list-style: none}
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+span:hover a.copiable-link {visibility: visible}
 -->
 </style>
 
@@ -52,29 +39,29 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<div class="subsection" id="Symbol-Value">
-<div class="header">
+<div class="subsection-level-extent" id="Symbol-Value">
+<div class="nav-panel">
 <p>
 Next: <a href="Symbol-Type.html" accesskey="n" rel="next">Type</a>, Up: <a href="Symbol-Attributes.html" accesskey="u" rel="up">Symbol Attributes</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="Value"></span><h4 class="subsection">5.5.1 Value</h4>
+<h4 class="subsection" id="Value"><span>5.5.1 Value<a class="copiable-link" href="#Value"> &para;</a></span></h4>
 
-<span id="index-value-of-a-symbol"></span>
-<span id="index-symbol-value"></span>
+<a class="index-entry-id" id="index-value-of-a-symbol"></a>
+<a class="index-entry-id" id="index-symbol-value"></a>
 <p>The value of a symbol is (usually) 32 bits.  For a symbol which labels a
 location in the text, data, bss or absolute sections the value is the
 number of addresses from the start of that section to the label.
 Naturally for text, data and bss sections the value of a symbol changes
-as <code>ld</code> changes section base addresses during linking.  Absolute
+as <code class="code">ld</code> changes section base addresses during linking.  Absolute
 symbols&rsquo; values do not change during linking: that is why they are
 called absolute.
 </p>
 <p>The value of an undefined symbol is treated in a special way.  If it is
 0 then the symbol is not defined in this assembler source file, and
-<code>ld</code> tries to determine its value from other files linked into the
+<code class="code">ld</code> tries to determine its value from other files linked into the
 same program.  You make this kind of symbol simply by mentioning a symbol
-name without defining it.  A non-zero value represents a <code>.comm</code>
+name without defining it.  A non-zero value represents a <code class="code">.comm</code>
 common declaration.  The value is how much common storage to reserve, in
 bytes (addresses).  The symbol refers to the first address of the
 allocated storage.

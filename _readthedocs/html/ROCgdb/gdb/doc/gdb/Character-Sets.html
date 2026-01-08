@@ -1,9 +1,9 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright (C) 1988-2024 Free Software Foundation, Inc.
+<!-- Copyright © 1988-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -20,13 +20,13 @@ Legal Disclaimer and Copyright Information
 
 AMD ROCm software is made available by Advanced Micro Devices, Inc. under the
 open source license identified in the top-level directory for the library in
-the repository on Github.com (Portions of AMD ROCm software are
-licensed under MITx11 and UIL/NCSA. For more information on the license, review
-the license.txt in the top-level directory for the library on
-Github.com).  The additional terms and conditions below apply to your use
-of AMD ROCm technical documentation.
+the repository on https://github.com/ROCm/ (Github.com) (Portions of AMD
+ROCm software are licensed under MITx11 and UIL/NCSA. For more information on
+the license, review the license.txt in the top-level directory for the
+library on https://github.com/ROCm/ (Github.com)).  The additional terms
+and conditions below apply to your use of AMD ROCm technical documentation.
 
-(C)2019-2025 Advanced Micro Devices, Inc.  All rights reserved.
+©2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
 
 The information presented in this document is for informational purposes only
 and may contain technical inaccuracies, omissions, and typographical errors.
@@ -52,8 +52,8 @@ EVEN IF AMD IS EXPRESSLY ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
 
 AMD, the AMD Arrow logo, AMD Instinct™, Radeon™, AMD ROCm™, and combinations
 thereof are trademarks of Advanced Micro Devices, Inc.
-Linux(R) is the registered trademark of Linus Torvalds in the
-U.S. and other countries. PCIe(R) is a registered trademark of
+Linux® is the registered trademark of Linus Torvalds in the
+U.S. and other countries. PCIe® is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
@@ -74,21 +74,11 @@ companies. -->
 <link href="Core-File-Generation.html" rel="prev" title="Core File Generation">
 <style type="text/css">
 <!--
-a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
-a.summary-letter {text-decoration: none}
-blockquote.indentedblock {margin-right: 0em}
-div.display {margin-left: 3.2em}
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
 div.example {margin-left: 3.2em}
-kbd {font-style: oblique}
-pre.display {font-family: inherit}
-pre.format {font-family: inherit}
-pre.menu-comment {font-family: serif}
-pre.menu-preformatted {font-family: serif}
-span.nolinebreak {white-space: nowrap}
-span.roman {font-family: initial; font-weight: normal}
-span.sansserif {font-family: sans-serif; font-weight: normal}
-span:hover a.copiable-anchor {visibility: visible}
-ul.no-bullet {list-style: none}
+kbd.kbd {font-style: oblique}
+kbd.key {font-style: normal}
+span:hover a.copiable-link {visibility: visible}
 -->
 </style>
 
@@ -96,101 +86,101 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<div class="section" id="Character-Sets">
-<div class="header">
+<div class="section-level-extent" id="Character-Sets">
+<div class="nav-panel">
 <p>
 Next: <a href="Caching-Target-Data.html" accesskey="n" rel="next">Caching Data of Targets</a>, Previous: <a href="Core-File-Generation.html" accesskey="p" rel="prev">How to Produce a Core File from Your Program</a>, Up: <a href="Data.html" accesskey="u" rel="up">Examining Data</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="Character-Sets-1"></span><h3 class="section">10.21 Character Sets</h3>
-<span id="index-character-sets"></span>
-<span id="index-charset"></span>
-<span id="index-translating-between-character-sets"></span>
-<span id="index-host-character-set"></span>
-<span id="index-target-character-set"></span>
+<h3 class="section" id="Character-Sets-1"><span>10.21 Character Sets<a class="copiable-link" href="#Character-Sets-1"> &para;</a></span></h3>
+<a class="index-entry-id" id="index-character-sets"></a>
+<a class="index-entry-id" id="index-charset"></a>
+<a class="index-entry-id" id="index-translating-between-character-sets"></a>
+<a class="index-entry-id" id="index-host-character-set"></a>
+<a class="index-entry-id" id="index-target-character-set"></a>
 
 <p>If the program you are debugging uses a different character set to
-represent characters and strings than the one <small>ROCGDB</small> uses itself,
-<small>ROCGDB</small> can automatically translate between the character sets for
-you.  The character set <small>ROCGDB</small> uses we call the <em>host
+represent characters and strings than the one <small class="sc">ROCGDB</small> uses itself,
+<small class="sc">ROCGDB</small> can automatically translate between the character sets for
+you.  The character set <small class="sc">ROCGDB</small> uses we call the <em class="dfn">host
 character set</em>; the one the inferior program uses we call the
-<em>target character set</em>.
+<em class="dfn">target character set</em>.
 </p>
-<p>For example, if you are running <small>ROCGDB</small> on a <small>GNU</small>/Linux system, which
-uses the ISO Latin 1 character set, but you are using <small>ROCGDB</small>&rsquo;s
-remote protocol (see <a href="Remote-Debugging.html">Debugging Remote Programs</a>) to debug a program
-running on an IBM mainframe, which uses the <small>EBCDIC</small> character set,
+<p>For example, if you are running <small class="sc">ROCGDB</small> on a <small class="sc">GNU</small>/Linux system, which
+uses the ISO Latin 1 character set, but you are using <small class="sc">ROCGDB</small>&rsquo;s
+remote protocol (see <a class="pxref" href="Remote-Debugging.html">Debugging Remote Programs</a>) to debug a program
+running on an IBM mainframe, which uses the <small class="sc">EBCDIC</small> character set,
 then the host character set is Latin-1, and the target character set is
-<small>EBCDIC</small>.  If you give <small>ROCGDB</small> the command <code>set
-target-charset EBCDIC-US</code>, then <small>ROCGDB</small> translates between
-<small>EBCDIC</small> and Latin 1 as you print character or string values, or use
+<small class="sc">EBCDIC</small>.  If you give <small class="sc">ROCGDB</small> the command <code class="code">set
+target-charset EBCDIC-US</code>, then <small class="sc">ROCGDB</small> translates between
+<small class="sc">EBCDIC</small> and Latin 1 as you print character or string values, or use
 character and string literals in expressions.
 </p>
-<p><small>ROCGDB</small> has no way to automatically recognize which character set
-the inferior program uses; you must tell it, using the <code>set
+<p><small class="sc">ROCGDB</small> has no way to automatically recognize which character set
+the inferior program uses; you must tell it, using the <code class="code">set
 target-charset</code> command, described below.
 </p>
-<p>Here are the commands for controlling <small>ROCGDB</small>&rsquo;s character set
+<p>Here are the commands for controlling <small class="sc">ROCGDB</small>&rsquo;s character set
 support:
 </p>
-<dl compact="compact">
-<dt id='index-set-target_002dcharset'><span><code>set target-charset <var>charset</var></code><a href='#index-set-target_002dcharset' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Set the current target character set to <var>charset</var>.  To display the
+<dl class="table">
+<dt><a id="index-set-target_002dcharset"></a><span><code class="code">set target-charset <var class="var">charset</var></code><a class="copiable-link" href="#index-set-target_002dcharset"> &para;</a></span></dt>
+<dd><p>Set the current target character set to <var class="var">charset</var>.  To display the
 list of supported target character sets, type
-<kbd>set&nbsp;<span class="nolinebreak">target-charset</span>&nbsp;<span class="key">TAB</span><span class="key">TAB</span><!-- /@w --></kbd>.
+<kbd class="kbd">set&nbsp;target-charset&nbsp;<kbd class="key">TAB</kbd><kbd class="key">TAB</kbd><!-- /@w --></kbd>.
 </p>
 </dd>
-<dt id='index-set-host_002dcharset'><span><code>set host-charset <var>charset</var></code><a href='#index-set-host_002dcharset' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Set the current host character set to <var>charset</var>.
+<dt><a id="index-set-host_002dcharset"></a><span><code class="code">set host-charset <var class="var">charset</var></code><a class="copiable-link" href="#index-set-host_002dcharset"> &para;</a></span></dt>
+<dd><p>Set the current host character set to <var class="var">charset</var>.
 </p>
-<p>By default, <small>ROCGDB</small> uses a host character set appropriate to the
+<p>By default, <small class="sc">ROCGDB</small> uses a host character set appropriate to the
 system it is running on; you can override that default using the
-<code>set host-charset</code> command.  On some systems, <small>ROCGDB</small> cannot
+<code class="code">set host-charset</code> command.  On some systems, <small class="sc">ROCGDB</small> cannot
 automatically determine the appropriate host character set.  In this
-case, <small>ROCGDB</small> uses &lsquo;<samp>UTF-8</samp>&rsquo;.
+case, <small class="sc">ROCGDB</small> uses &lsquo;<samp class="samp">UTF-8</samp>&rsquo;.
 </p>
-<p><small>ROCGDB</small> can only use certain character sets as its host character
-set.  If you type <kbd>set&nbsp;<span class="nolinebreak">host-charset</span>&nbsp;<span class="key">TAB</span><span class="key">TAB</span><!-- /@w --></kbd>,
-<small>ROCGDB</small> will list the host character sets it supports.
+<p><small class="sc">ROCGDB</small> can only use certain character sets as its host character
+set.  If you type <kbd class="kbd">set&nbsp;host-charset&nbsp;<kbd class="key">TAB</kbd><kbd class="key">TAB</kbd><!-- /@w --></kbd>,
+<small class="sc">ROCGDB</small> will list the host character sets it supports.
 </p>
 </dd>
-<dt id='index-set-charset'><span><code>set charset <var>charset</var></code><a href='#index-set-charset' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Set the current host and target character sets to <var>charset</var>.  As
-above, if you type <kbd>set&nbsp;charset&nbsp;<span class="key">TAB</span><span class="key">TAB</span><!-- /@w --></kbd>,
-<small>ROCGDB</small> will list the names of the character sets that can be used
+<dt><a id="index-set-charset"></a><span><code class="code">set charset <var class="var">charset</var></code><a class="copiable-link" href="#index-set-charset"> &para;</a></span></dt>
+<dd><p>Set the current host and target character sets to <var class="var">charset</var>.  As
+above, if you type <kbd class="kbd">set&nbsp;charset&nbsp;<kbd class="key">TAB</kbd><kbd class="key">TAB</kbd><!-- /@w --></kbd>,
+<small class="sc">ROCGDB</small> will list the names of the character sets that can be used
 for both host and target.
 </p>
 </dd>
-<dt id='index-show-charset'><span><code>show charset</code><a href='#index-show-charset' class='copiable-anchor'> &para;</a></span></dt>
+<dt><a id="index-show-charset"></a><span><code class="code">show charset</code><a class="copiable-link" href="#index-show-charset"> &para;</a></span></dt>
 <dd><p>Show the names of the current host and target character sets.
 </p>
 </dd>
-<dt id='index-show-host_002dcharset'><span><code>show host-charset</code><a href='#index-show-host_002dcharset' class='copiable-anchor'> &para;</a></span></dt>
+<dt><a id="index-show-host_002dcharset"></a><span><code class="code">show host-charset</code><a class="copiable-link" href="#index-show-host_002dcharset"> &para;</a></span></dt>
 <dd><p>Show the name of the current host character set.
 </p>
 </dd>
-<dt id='index-show-target_002dcharset'><span><code>show target-charset</code><a href='#index-show-target_002dcharset' class='copiable-anchor'> &para;</a></span></dt>
+<dt><a id="index-show-target_002dcharset"></a><span><code class="code">show target-charset</code><a class="copiable-link" href="#index-show-target_002dcharset"> &para;</a></span></dt>
 <dd><p>Show the name of the current target character set.
 </p>
 </dd>
-<dt id='index-set-target_002dwide_002dcharset'><span><code>set target-wide-charset <var>charset</var></code><a href='#index-set-target_002dwide_002dcharset' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Set the current target&rsquo;s wide character set to <var>charset</var>.  This is
-the character set used by the target&rsquo;s <code>wchar_t</code> type.  To
+<dt><a id="index-set-target_002dwide_002dcharset"></a><span><code class="code">set target-wide-charset <var class="var">charset</var></code><a class="copiable-link" href="#index-set-target_002dwide_002dcharset"> &para;</a></span></dt>
+<dd><p>Set the current target&rsquo;s wide character set to <var class="var">charset</var>.  This is
+the character set used by the target&rsquo;s <code class="code">wchar_t</code> type.  To
 display the list of supported wide character sets, type
-<kbd>set&nbsp;<span class="nolinebreak">target-wide-charset</span>&nbsp;<span class="key">TAB</span><span class="key">TAB</span><!-- /@w --></kbd>.
+<kbd class="kbd">set&nbsp;target-wide-charset&nbsp;<kbd class="key">TAB</kbd><kbd class="key">TAB</kbd><!-- /@w --></kbd>.
 </p>
 </dd>
-<dt id='index-show-target_002dwide_002dcharset'><span><code>show target-wide-charset</code><a href='#index-show-target_002dwide_002dcharset' class='copiable-anchor'> &para;</a></span></dt>
+<dt><a id="index-show-target_002dwide_002dcharset"></a><span><code class="code">show target-wide-charset</code><a class="copiable-link" href="#index-show-target_002dwide_002dcharset"> &para;</a></span></dt>
 <dd><p>Show the name of the current target&rsquo;s wide character set.
 </p></dd>
 </dl>
 
-<p>Here is an example of <small>ROCGDB</small>&rsquo;s character set support in action.
+<p>Here is an example of <small class="sc">ROCGDB</small>&rsquo;s character set support in action.
 Assume that the following source code has been placed in the file
-<samp>charset-test.c</samp>:
+<samp class="file">charset-test.c</samp>:
 </p>
-<div class="example">
-<pre class="example">#include &lt;stdio.h&gt;
+<div class="example smallexample">
+<pre class="example-preformatted">#include &lt;stdio.h&gt;
 
 char ascii_hello[]
   = {72, 101, 108, 108, 111, 44, 32, 119,
@@ -205,95 +195,95 @@ main ()
 }
 </pre></div>
 
-<p>In this program, <code>ascii_hello</code> and <code>ibm1047_hello</code> are arrays
-containing the string &lsquo;<samp>Hello, world!</samp>&rsquo; followed by a newline,
-encoded in the <small>ASCII</small> and <small>IBM1047</small> character sets.
+<p>In this program, <code class="code">ascii_hello</code> and <code class="code">ibm1047_hello</code> are arrays
+containing the string &lsquo;<samp class="samp">Hello, world!</samp>&rsquo; followed by a newline,
+encoded in the <small class="sc">ASCII</small> and <small class="sc">IBM1047</small> character sets.
 </p>
 <p>We compile the program, and invoke the debugger on it:
 </p>
-<div class="example">
-<pre class="example">$ gcc -g charset-test.c -o charset-test
+<div class="example smallexample">
+<pre class="example-preformatted">$ gcc -g charset-test.c -o charset-test
 $ gdb -nw charset-test
 GNU gdb 2001-12-19-cvs
 Copyright 2001 Free Software Foundation, Inc.
-&hellip;
+...
 (gdb)
 </pre></div>
 
-<p>We can use the <code>show charset</code> command to see what character sets
-<small>ROCGDB</small> is currently using to interpret and display characters and
+<p>We can use the <code class="code">show charset</code> command to see what character sets
+<small class="sc">ROCGDB</small> is currently using to interpret and display characters and
 strings:
 </p>
-<div class="example">
-<pre class="example">(gdb) show charset
+<div class="example smallexample">
+<pre class="example-preformatted">(gdb) show charset
 The current host and target character set is `ISO-8859-1'.
 (gdb)
 </pre></div>
 
-<p>For the sake of printing this manual, let&rsquo;s use <small>ASCII</small> as our
+<p>For the sake of printing this manual, let&rsquo;s use <small class="sc">ASCII</small> as our
 initial character set:
-</p><div class="example">
-<pre class="example">(gdb) set charset ASCII
+</p><div class="example smallexample">
+<pre class="example-preformatted">(gdb) set charset ASCII
 (gdb) show charset
 The current host and target character set is `ASCII'.
 (gdb)
 </pre></div>
 
-<p>Let&rsquo;s assume that <small>ASCII</small> is indeed the correct character set for our
-host system &mdash; in other words, let&rsquo;s assume that if <small>ROCGDB</small> prints
-characters using the <small>ASCII</small> character set, our terminal will display
+<p>Let&rsquo;s assume that <small class="sc">ASCII</small> is indeed the correct character set for our
+host system &mdash; in other words, let&rsquo;s assume that if <small class="sc">ROCGDB</small> prints
+characters using the <small class="sc">ASCII</small> character set, our terminal will display
 them properly.  Since our current target character set is also
-<small>ASCII</small>, the contents of <code>ascii_hello</code> print legibly:
+<small class="sc">ASCII</small>, the contents of <code class="code">ascii_hello</code> print legibly:
 </p>
-<div class="example">
-<pre class="example">(gdb) print ascii_hello
+<div class="example smallexample">
+<pre class="example-preformatted">(gdb) print ascii_hello
 $1 = 0x401698 &quot;Hello, world!\n&quot;
 (gdb) print ascii_hello[0]
 $2 = 72 'H'
 (gdb)
 </pre></div>
 
-<p><small>ROCGDB</small> uses the target character set for character and string
+<p><small class="sc">ROCGDB</small> uses the target character set for character and string
 literals you use in expressions:
 </p>
-<div class="example">
-<pre class="example">(gdb) print '+'
+<div class="example smallexample">
+<pre class="example-preformatted">(gdb) print '+'
 $3 = 43 '+'
 (gdb)
 </pre></div>
 
-<p>The <small>ASCII</small> character set uses the number 43 to encode the &lsquo;<samp>+</samp>&rsquo;
+<p>The <small class="sc">ASCII</small> character set uses the number 43 to encode the &lsquo;<samp class="samp">+</samp>&rsquo;
 character.
 </p>
-<p><small>ROCGDB</small> relies on the user to tell it which character set the
-target program uses.  If we print <code>ibm1047_hello</code> while our target
-character set is still <small>ASCII</small>, we get jibberish:
+<p><small class="sc">ROCGDB</small> relies on the user to tell it which character set the
+target program uses.  If we print <code class="code">ibm1047_hello</code> while our target
+character set is still <small class="sc">ASCII</small>, we get jibberish:
 </p>
-<div class="example">
-<pre class="example">(gdb) print ibm1047_hello
+<div class="example smallexample">
+<pre class="example-preformatted">(gdb) print ibm1047_hello
 $4 = 0x4016a8 &quot;\310\205\223\223\226k@\246\226\231\223\204Z%&quot;
 (gdb) print ibm1047_hello[0]
 $5 = 200 '\310'
 (gdb)
 </pre></div>
 
-<p>If we invoke the <code>set target-charset</code> followed by <tt class="key">TAB</tt><tt class="key">TAB</tt>,
-<small>ROCGDB</small> tells us the character sets it supports:
+<p>If we invoke the <code class="code">set target-charset</code> followed by <kbd class="key">TAB</kbd><kbd class="key">TAB</kbd>,
+<small class="sc">ROCGDB</small> tells us the character sets it supports:
 </p>
-<div class="example">
-<pre class="example">(gdb) set target-charset
+<div class="example smallexample">
+<pre class="example-preformatted">(gdb) set target-charset
 ASCII       EBCDIC-US   IBM1047     ISO-8859-1
 (gdb) set target-charset
 </pre></div>
 
-<p>We can select <small>IBM1047</small> as our target character set, and examine the
-program&rsquo;s strings again.  Now the <small>ASCII</small> string is wrong, but
-<small>ROCGDB</small> translates the contents of <code>ibm1047_hello</code> from the
-target character set, <small>IBM1047</small>, to the host character set,
-<small>ASCII</small>, and they display correctly:
+<p>We can select <small class="sc">IBM1047</small> as our target character set, and examine the
+program&rsquo;s strings again.  Now the <small class="sc">ASCII</small> string is wrong, but
+<small class="sc">ROCGDB</small> translates the contents of <code class="code">ibm1047_hello</code> from the
+target character set, <small class="sc">IBM1047</small>, to the host character set,
+<small class="sc">ASCII</small>, and they display correctly:
 </p>
-<div class="example">
-<pre class="example">(gdb) set target-charset IBM1047
+<div class="example smallexample">
+<pre class="example-preformatted">(gdb) set target-charset IBM1047
 (gdb) show charset
 The current host character set is `ASCII'.
 The current target character set is `IBM1047'.
@@ -308,21 +298,21 @@ $9 = 200 'H'
 (gdb)
 </pre></div>
 
-<p>As above, <small>ROCGDB</small> uses the target character set for character and
+<p>As above, <small class="sc">ROCGDB</small> uses the target character set for character and
 string literals you use in expressions:
 </p>
-<div class="example">
-<pre class="example">(gdb) print '+'
+<div class="example smallexample">
+<pre class="example-preformatted">(gdb) print '+'
 $10 = 78 '+'
 (gdb)
 </pre></div>
 
-<p>The <small>IBM1047</small> character set uses the number 78 to encode the &lsquo;<samp>+</samp>&rsquo;
+<p>The <small class="sc">IBM1047</small> character set uses the number 78 to encode the &lsquo;<samp class="samp">+</samp>&rsquo;
 character.
 </p>
 </div>
 <hr>
-<div class="header">
+<div class="nav-panel">
 <p>
 Next: <a href="Caching-Target-Data.html">Caching Data of Targets</a>, Previous: <a href="Core-File-Generation.html">How to Produce a Core File from Your Program</a>, Up: <a href="Data.html">Examining Data</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

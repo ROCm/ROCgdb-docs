@@ -1,11 +1,11 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the GNU Assembler "as".
 
-Copyright (C) 1991-2025 Free Software Foundation, Inc.
+Copyright © 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -30,21 +30,9 @@ section entitled "GNU Free Documentation License".
 <link href="M32C_002dChars.html" rel="next" title="M32C-Chars">
 <style type="text/css">
 <!--
-a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
-a.summary-letter {text-decoration: none}
-blockquote.indentedblock {margin-right: 0em}
-div.display {margin-left: 3.2em}
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
 div.example {margin-left: 3.2em}
-kbd {font-style: oblique}
-pre.display {font-family: inherit}
-pre.format {font-family: inherit}
-pre.menu-comment {font-family: serif}
-pre.menu-preformatted {font-family: serif}
-span.nolinebreak {white-space: nowrap}
-span.roman {font-family: initial; font-weight: normal}
-span.sansserif {font-family: sans-serif; font-weight: normal}
-span:hover a.copiable-anchor {visibility: visible}
-ul.no-bullet {list-style: none}
+span:hover a.copiable-link {visibility: visible}
 -->
 </style>
 
@@ -52,77 +40,77 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<div class="subsection" id="M32C_002dModifiers">
-<div class="header">
+<div class="subsubsection-level-extent" id="M32C_002dModifiers">
+<div class="nav-panel">
 <p>
 Next: <a href="M32C_002dChars.html" accesskey="n" rel="next">Special Characters</a>, Up: <a href="M32C_002dSyntax.html" accesskey="u" rel="up">M32C Syntax</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="Symbolic-Operand-Modifiers"></span><h4 class="subsubsection">9.21.2.1 Symbolic Operand Modifiers</h4>
+<h4 class="subsubsection subsection-level-set-subsubsection" id="Symbolic-Operand-Modifiers"><span>9.21.2.1 Symbolic Operand Modifiers<a class="copiable-link" href="#Symbolic-Operand-Modifiers"> &para;</a></span></h4>
 
-<span id="index-M32C-modifiers"></span>
-<span id="index-modifiers_002c-M32C"></span>
+<a class="index-entry-id" id="index-M32C-modifiers"></a>
+<a class="index-entry-id" id="index-modifiers_002c-M32C"></a>
 
 <p>The assembler supports several modifiers when using symbol addresses
 in M32C instruction operands.  The general syntax is the following:
 </p>
-<div class="example">
-<pre class="example">%modifier(symbol)
+<div class="example smallexample">
+<pre class="example-preformatted">%modifier(symbol)
 </pre></div>
 
-<dl compact="compact">
-<dd><span id="index-symbol-modifiers-2"></span>
+<dl class="table">
+<dd><a class="index-entry-id" id="index-symbol-modifiers-2"></a>
 
 </dd>
-<dt><span><code>%dsp8</code></span></dt>
-<dt><span><code>%dsp16</code></span></dt>
+<dt><code class="code">%dsp8</code></dt>
+<dt><code class="code">%dsp16</code></dt>
 <dd>
 <p>These modifiers override the assembler&rsquo;s assumptions about how big a
 symbol&rsquo;s address is.  Normally, when it sees an operand like
-&lsquo;<samp>sym[a0]</samp>&rsquo; it assumes &lsquo;<samp>sym</samp>&rsquo; may require the widest
-displacement field (16 bits for &lsquo;<samp>-m16c</samp>&rsquo;, 24 bits for
-&lsquo;<samp>-m32c</samp>&rsquo;).  These modifiers tell it to assume the address will fit
+&lsquo;<samp class="samp">sym[a0]</samp>&rsquo; it assumes &lsquo;<samp class="samp">sym</samp>&rsquo; may require the widest
+displacement field (16 bits for &lsquo;<samp class="samp">-m16c</samp>&rsquo;, 24 bits for
+&lsquo;<samp class="samp">-m32c</samp>&rsquo;).  These modifiers tell it to assume the address will fit
 in an 8 or 16 bit (respectively) unsigned displacement.  Note that, of
 course, if it doesn&rsquo;t actually fit you will get linker errors.  Example:
 </p>
-<div class="example">
-<pre class="example">mov.w %dsp8(sym)[a0],r1
+<div class="example smallexample">
+<pre class="example-preformatted">mov.w %dsp8(sym)[a0],r1
 mov.b #0,%dsp8(sym)[a0]
 </pre></div>
 
 </dd>
-<dt><span><code>%hi8</code></span></dt>
+<dt><code class="code">%hi8</code></dt>
 <dd>
 <p>This modifier allows you to load bits 16 through 23 of a 24 bit
 address into an 8 bit register.  This is useful with, for example, the
-M16C &lsquo;<samp>smovf</samp>&rsquo; instruction, which expects a 20 bit address in
-&lsquo;<samp>r1h</samp>&rsquo; and &lsquo;<samp>a0</samp>&rsquo;.  Example:
+M16C &lsquo;<samp class="samp">smovf</samp>&rsquo; instruction, which expects a 20 bit address in
+&lsquo;<samp class="samp">r1h</samp>&rsquo; and &lsquo;<samp class="samp">a0</samp>&rsquo;.  Example:
 </p>
-<div class="example">
-<pre class="example">mov.b #%hi8(sym),r1h
+<div class="example smallexample">
+<pre class="example-preformatted">mov.b #%hi8(sym),r1h
 mov.w #%lo16(sym),a0
 smovf.b
 </pre></div>
 
 </dd>
-<dt><span><code>%lo16</code></span></dt>
+<dt><code class="code">%lo16</code></dt>
 <dd>
 <p>Likewise, this modifier allows you to load bits 0 through 15 of a 24
 bit address into a 16 bit register.
 </p>
 </dd>
-<dt><span><code>%hi16</code></span></dt>
+<dt><code class="code">%hi16</code></dt>
 <dd>
 <p>This modifier allows you to load bits 16 through 31 of a 32 bit
 address into a 16 bit register.  While the M32C family only has 24
 bits of address space, it does support addresses in pairs of 16 bit
-registers (like &lsquo;<samp>a1a0</samp>&rsquo; for the &lsquo;<samp>lde</samp>&rsquo; instruction).  This
+registers (like &lsquo;<samp class="samp">a1a0</samp>&rsquo; for the &lsquo;<samp class="samp">lde</samp>&rsquo; instruction).  This
 modifier is for loading the upper half in such cases.  Example:
 </p>
-<div class="example">
-<pre class="example">mov.w #%hi16(sym),a1
+<div class="example smallexample">
+<pre class="example-preformatted">mov.w #%hi16(sym),a1
 mov.w #%lo16(sym),a0
-&hellip;
+...
 lde.w [a1a0],r1
 </pre></div>
 
@@ -131,7 +119,7 @@ lde.w [a1a0],r1
 
 </div>
 <hr>
-<div class="header">
+<div class="nav-panel">
 <p>
 Next: <a href="M32C_002dChars.html">Special Characters</a>, Up: <a href="M32C_002dSyntax.html">M32C Syntax</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

@@ -1,13 +1,13 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the GNU linker LD
 (GNU Binutils)
 version 2.43.50.
 
-Copyright (C) 1991-2025 Free Software Foundation, Inc.
+Copyright © 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -31,21 +31,8 @@ section entitled "GNU Free Documentation License". -->
 <link href="BFD-information-loss.html" rel="prev" title="BFD information loss">
 <style type="text/css">
 <!--
-a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
-a.summary-letter {text-decoration: none}
-blockquote.indentedblock {margin-right: 0em}
-div.display {margin-left: 3.2em}
-div.example {margin-left: 3.2em}
-kbd {font-style: oblique}
-pre.display {font-family: inherit}
-pre.format {font-family: inherit}
-pre.menu-comment {font-family: serif}
-pre.menu-preformatted {font-family: serif}
-span.nolinebreak {white-space: nowrap}
-span.roman {font-family: initial; font-weight: normal}
-span.sansserif {font-family: sans-serif; font-weight: normal}
-span:hover a.copiable-anchor {visibility: visible}
-ul.no-bullet {list-style: none}
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+span:hover a.copiable-link {visibility: visible}
 -->
 </style>
 
@@ -53,13 +40,13 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<div class="subsection" id="Canonical-format">
-<div class="header">
+<div class="subsection-level-extent" id="Canonical-format">
+<div class="nav-panel">
 <p>
 Previous: <a href="BFD-information-loss.html" accesskey="p" rel="prev">Information Loss</a>, Up: <a href="BFD-outline.html" accesskey="u" rel="up">How It Works: An Outline of BFD</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="LD-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="The-BFD-canonical-object_002dfile-format"></span><h4 class="subsection">7.1.2 The BFD canonical object-file format</h4>
+<h4 class="subsection" id="The-BFD-canonical-object_002dfile-format"><span>7.1.2 The BFD canonical object-file format<a class="copiable-link" href="#The-BFD-canonical-object_002dfile-format"> &para;</a></span></h4>
 
 <p>The greatest potential for loss of information occurs when there is the least
 overlap between the information provided by the source format, that
@@ -67,29 +54,29 @@ stored by the canonical format, and that needed by the
 destination format. A brief description of the canonical form may help
 you understand which kinds of data you can count on preserving across
 conversions.
-<span id="index-BFD-canonical-format"></span>
-<span id="index-internal-object_002dfile-format"></span>
+<a class="index-entry-id" id="index-BFD-canonical-format"></a>
+<a class="index-entry-id" id="index-internal-object_002dfile-format"></a>
 </p>
-<dl compact="compact">
-<dt><span><em>files</em></span></dt>
+<dl class="table">
+<dt><em class="emph">files</em></dt>
 <dd><p>Information stored on a per-file basis includes target machine
 architecture, particular implementation format type, a demand pageable
 bit, and a write protected bit.  Information like Unix magic numbers is
-not stored here&mdash;only the magic numbers&rsquo; meaning, so a <code>ZMAGIC</code>
+not stored here&mdash;only the magic numbers&rsquo; meaning, so a <code class="code">ZMAGIC</code>
 file would have both the demand pageable bit and the write protected
 text bit set.  The byte order of the target is stored on a per-file
 basis, so that big- and little-endian object files may be used with one
 another.
 </p>
 </dd>
-<dt><span><em>sections</em></span></dt>
+<dt><em class="emph">sections</em></dt>
 <dd><p>Each section in the input file contains the name of the section, the
 section&rsquo;s original address in the object file, size and alignment
 information, various flags, and pointers into other BFD data
 structures.
 </p>
 </dd>
-<dt><span><em>symbols</em></span></dt>
+<dt><em class="emph">symbols</em></dt>
 <dd><p>Each symbol contains a pointer to the information for the object file
 which originally defined it, its name, its value, and various flag
 bits.  When a BFD back end reads in a symbol table, it relocates all
@@ -97,14 +84,14 @@ symbols to make them relative to the base of the section where they were
 defined.  Doing this ensures that each symbol points to its containing
 section.  Each symbol also has a varying amount of hidden private data
 for the BFD back end.  Since the symbol points to the original file, the
-private data format for that symbol is accessible.  <code>ld</code> can
+private data format for that symbol is accessible.  <code class="code">ld</code> can
 operate on a collection of symbols of wildly different formats without
 problems.
 </p>
 <p>Normal global and simple local symbols are maintained on output, so an
 output file (no matter its format) will retain symbols pointing to
 functions and to global, static, and common variables.  Some symbol
-information is not worth retaining; in <code>a.out</code>, type information is
+information is not worth retaining; in <code class="code">a.out</code>, type information is
 stored in the symbol table as long symbol names.  This information would
 be useless to most COFF debuggers; the linker has command-line switches
 to allow users to throw it away.
@@ -115,7 +102,7 @@ Oasys) and the type is simple enough to fit within one word
 (nearly everything but aggregates), the information will be preserved.
 </p>
 </dd>
-<dt><span><em>relocation level</em></span></dt>
+<dt><em class="emph">relocation level</em></dt>
 <dd><p>Each canonical BFD relocation record contains a pointer to the symbol to
 relocate to, the offset of the data to relocate, the section the data
 is in, and a pointer to a relocation type descriptor. Relocation is
@@ -129,7 +116,7 @@ performed on a byte being written to a 68k COFF file, even though 68k COFF
 has no such relocation type.
 </p>
 </dd>
-<dt><span><em>line numbers</em></span></dt>
+<dt><em class="emph">line numbers</em></dt>
 <dd><p>Object formats can contain, for debugging purposes, some form of mapping
 between symbols, source line numbers, and addresses in the output file.
 These addresses have to be relocated along with the symbol information.
@@ -145,7 +132,7 @@ between formats.
 
 </div>
 <hr>
-<div class="header">
+<div class="nav-panel">
 <p>
 Previous: <a href="BFD-information-loss.html">Information Loss</a>, Up: <a href="BFD-outline.html">How It Works: An Outline of BFD</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="LD-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

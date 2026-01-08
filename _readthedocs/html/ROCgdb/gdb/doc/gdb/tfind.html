@@ -1,9 +1,9 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright (C) 1988-2024 Free Software Foundation, Inc.
+<!-- Copyright © 1988-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -20,13 +20,13 @@ Legal Disclaimer and Copyright Information
 
 AMD ROCm software is made available by Advanced Micro Devices, Inc. under the
 open source license identified in the top-level directory for the library in
-the repository on Github.com (Portions of AMD ROCm software are
-licensed under MITx11 and UIL/NCSA. For more information on the license, review
-the license.txt in the top-level directory for the library on
-Github.com).  The additional terms and conditions below apply to your use
-of AMD ROCm technical documentation.
+the repository on https://github.com/ROCm/ (Github.com) (Portions of AMD
+ROCm software are licensed under MITx11 and UIL/NCSA. For more information on
+the license, review the license.txt in the top-level directory for the
+library on https://github.com/ROCm/ (Github.com)).  The additional terms
+and conditions below apply to your use of AMD ROCm technical documentation.
 
-(C)2019-2025 Advanced Micro Devices, Inc.  All rights reserved.
+©2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
 
 The information presented in this document is for informational purposes only
 and may contain technical inaccuracies, omissions, and typographical errors.
@@ -52,8 +52,8 @@ EVEN IF AMD IS EXPRESSLY ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
 
 AMD, the AMD Arrow logo, AMD Instinct™, Radeon™, AMD ROCm™, and combinations
 thereof are trademarks of Advanced Micro Devices, Inc.
-Linux(R) is the registered trademark of Linus Torvalds in the
-U.S. and other countries. PCIe(R) is a registered trademark of
+Linux® is the registered trademark of Linus Torvalds in the
+U.S. and other countries. PCIe® is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
@@ -73,21 +73,11 @@ companies. -->
 <link href="tdump.html" rel="next" title="tdump">
 <style type="text/css">
 <!--
-a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
-a.summary-letter {text-decoration: none}
-blockquote.indentedblock {margin-right: 0em}
-div.display {margin-left: 3.2em}
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
 div.example {margin-left: 3.2em}
-kbd {font-style: oblique}
-pre.display {font-family: inherit}
-pre.format {font-family: inherit}
-pre.menu-comment {font-family: serif}
-pre.menu-preformatted {font-family: serif}
-span.nolinebreak {white-space: nowrap}
-span.roman {font-family: initial; font-weight: normal}
-span.sansserif {font-family: sans-serif; font-weight: normal}
-span:hover a.copiable-anchor {visibility: visible}
-ul.no-bullet {list-style: none}
+kbd.key {font-style: normal}
+span.r {font-family: initial; font-weight: normal; font-style: normal}
+span:hover a.copiable-link {visibility: visible}
 -->
 </style>
 
@@ -95,107 +85,107 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<div class="subsection" id="tfind">
-<div class="header">
+<div class="subsection-level-extent" id="tfind">
+<div class="nav-panel">
 <p>
-Next: <a href="tdump.html" accesskey="n" rel="next"><code>tdump</code></a>, Up: <a href="Analyze-Collected-Data.html" accesskey="u" rel="up">Using the Collected Data</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="tdump.html" accesskey="n" rel="next"><code class="code">tdump</code></a>, Up: <a href="Analyze-Collected-Data.html" accesskey="u" rel="up">Using the Collected Data</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="tfind-n"></span><h4 class="subsection">13.2.1 <code>tfind <var>n</var></code></h4>
+<h4 class="subsection" id="tfind-n"><span>13.2.1 <code class="code">tfind <var class="var">n</var></code><a class="copiable-link" href="#tfind-n"> &para;</a></span></h4>
 
-<span id="index-tfind"></span>
-<span id="index-select-trace-snapshot"></span>
-<span id="index-find-trace-snapshot"></span>
+<a class="index-entry-id" id="index-tfind"></a>
+<a class="index-entry-id" id="index-select-trace-snapshot"></a>
+<a class="index-entry-id" id="index-find-trace-snapshot"></a>
 <p>The basic command for selecting a trace snapshot from the buffer is
-<code>tfind <var>n</var></code>, which finds trace snapshot number <var>n</var>,
-counting from zero.  If no argument <var>n</var> is given, the next
+<code class="code">tfind <var class="var">n</var></code>, which finds trace snapshot number <var class="var">n</var>,
+counting from zero.  If no argument <var class="var">n</var> is given, the next
 snapshot is selected.
 </p>
-<p>Here are the various forms of using the <code>tfind</code> command.
+<p>Here are the various forms of using the <code class="code">tfind</code> command.
 </p>
-<dl compact="compact">
-<dt><span><code>tfind start</code></span></dt>
+<dl class="table">
+<dt><code class="code">tfind start</code></dt>
 <dd><p>Find the first snapshot in the buffer.  This is a synonym for
-<code>tfind 0</code> (since 0 is the number of the first snapshot).
+<code class="code">tfind 0</code> (since 0 is the number of the first snapshot).
 </p>
 </dd>
-<dt><span><code>tfind none</code></span></dt>
-<dd><p>Stop debugging trace snapshots, resume <em>live</em> debugging.
+<dt><code class="code">tfind none</code></dt>
+<dd><p>Stop debugging trace snapshots, resume <em class="emph">live</em> debugging.
 </p>
 </dd>
-<dt><span><code>tfind end</code></span></dt>
-<dd><p>Same as &lsquo;<samp>tfind none</samp>&rsquo;.
+<dt><code class="code">tfind end</code></dt>
+<dd><p>Same as &lsquo;<samp class="samp">tfind none</samp>&rsquo;.
 </p>
 </dd>
-<dt><span><code>tfind</code></span></dt>
+<dt><code class="code">tfind</code></dt>
 <dd><p>No argument means find the next trace snapshot or find the first
 one if no trace snapshot is selected.
 </p>
 </dd>
-<dt><span><code>tfind -</code></span></dt>
+<dt><code class="code">tfind -</code></dt>
 <dd><p>Find the previous trace snapshot before the current one.  This permits
 retracing earlier steps.
 </p>
 </dd>
-<dt><span><code>tfind tracepoint <var>num</var></code></span></dt>
-<dd><p>Find the next snapshot associated with tracepoint <var>num</var>.  Search
+<dt><code class="code">tfind tracepoint <var class="var">num</var></code></dt>
+<dd><p>Find the next snapshot associated with tracepoint <var class="var">num</var>.  Search
 proceeds forward from the last examined trace snapshot.  If no
-argument <var>num</var> is given, it means find the next snapshot collected
+argument <var class="var">num</var> is given, it means find the next snapshot collected
 for the same tracepoint as the current snapshot.
 </p>
 </dd>
-<dt><span><code>tfind pc <var>addr</var></code></span></dt>
-<dd><p>Find the next snapshot associated with the value <var>addr</var> of the
+<dt><code class="code">tfind pc <var class="var">addr</var></code></dt>
+<dd><p>Find the next snapshot associated with the value <var class="var">addr</var> of the
 program counter.  Search proceeds forward from the last examined trace
-snapshot.  If no argument <var>addr</var> is given, it means find the next
+snapshot.  If no argument <var class="var">addr</var> is given, it means find the next
 snapshot with the same value of PC as the current snapshot.
 </p>
 </dd>
-<dt><span><code>tfind outside <var>addr1</var>, <var>addr2</var></code></span></dt>
+<dt><code class="code">tfind outside <var class="var">addr1</var>, <var class="var">addr2</var></code></dt>
 <dd><p>Find the next snapshot whose PC is outside the given range of
 addresses (exclusive).
 </p>
 </dd>
-<dt><span><code>tfind range <var>addr1</var>, <var>addr2</var></code></span></dt>
-<dd><p>Find the next snapshot whose PC is between <var>addr1</var> and
-<var>addr2</var> (inclusive).
+<dt><code class="code">tfind range <var class="var">addr1</var>, <var class="var">addr2</var></code></dt>
+<dd><p>Find the next snapshot whose PC is between <var class="var">addr1</var> and
+<var class="var">addr2</var> (inclusive).
 </p>
 </dd>
-<dt><span><code>tfind line <span class="roman">[</span><var>file</var>:<span class="roman">]</span><var>n</var></code></span></dt>
-<dd><p>Find the next snapshot associated with the source line <var>n</var>.  If
-the optional argument <var>file</var> is given, refer to line <var>n</var> in
+<dt><code class="code">tfind line <span class="r">[</span><var class="var">file</var>:<span class="r">]</span><var class="var">n</var></code></dt>
+<dd><p>Find the next snapshot associated with the source line <var class="var">n</var>.  If
+the optional argument <var class="var">file</var> is given, refer to line <var class="var">n</var> in
 that source file.  Search proceeds forward from the last examined
-trace snapshot.  If no argument <var>n</var> is given, it means find the
+trace snapshot.  If no argument <var class="var">n</var> is given, it means find the
 next line other than the one currently being examined; thus saying
-<code>tfind line</code> repeatedly can appear to have the same effect as
-stepping from line to line in a <em>live</em> debugging session.
+<code class="code">tfind line</code> repeatedly can appear to have the same effect as
+stepping from line to line in a <em class="emph">live</em> debugging session.
 </p></dd>
 </dl>
 
-<p>The default arguments for the <code>tfind</code> commands are specifically
+<p>The default arguments for the <code class="code">tfind</code> commands are specifically
 designed to make it easy to scan through the trace buffer.  For
-instance, <code>tfind</code> with no argument selects the next trace
-snapshot, and <code>tfind -</code> with no argument selects the previous
-trace snapshot.  So, by giving one <code>tfind</code> command, and then
-simply hitting <tt class="key">RET</tt> repeatedly you can examine all the trace
-snapshots in order.  Or, by saying <code>tfind -</code> and then hitting
-<tt class="key">RET</tt> repeatedly you can examine the snapshots in reverse order.
-The <code>tfind line</code> command with no argument selects the snapshot
-for the next source line executed.  The <code>tfind pc</code> command with
+instance, <code class="code">tfind</code> with no argument selects the next trace
+snapshot, and <code class="code">tfind -</code> with no argument selects the previous
+trace snapshot.  So, by giving one <code class="code">tfind</code> command, and then
+simply hitting <kbd class="key">RET</kbd> repeatedly you can examine all the trace
+snapshots in order.  Or, by saying <code class="code">tfind -</code> and then hitting
+<kbd class="key">RET</kbd> repeatedly you can examine the snapshots in reverse order.
+The <code class="code">tfind line</code> command with no argument selects the snapshot
+for the next source line executed.  The <code class="code">tfind pc</code> command with
 no argument selects the next snapshot with the same program counter
-(PC) as the current frame.  The <code>tfind tracepoint</code> command with
+(PC) as the current frame.  The <code class="code">tfind tracepoint</code> command with
 no argument selects the next trace snapshot collected by the same
 tracepoint as the current one.
 </p>
 <p>In addition to letting you scan through the trace buffer manually,
-these commands make it easy to construct <small>ROCGDB</small> scripts that
+these commands make it easy to construct <small class="sc">ROCGDB</small> scripts that
 scan through the trace buffer and print out whatever collected data
 you are interested in.  Thus, if we want to examine the PC, FP, and SP
 registers from each trace frame in the buffer, we can say this:
 </p>
-<div class="example">
-<pre class="example">(gdb) <b>tfind start</b>
-(gdb) <b>while ($trace_frame != -1)</b>
+<div class="example smallexample">
+<pre class="example-preformatted">(gdb) <b class="b">tfind start</b>
+(gdb) <b class="b">while ($trace_frame != -1)</b>
 &gt; printf &quot;Frame %d, PC = %08X, SP = %08X, FP = %08X\n&quot;, \
           $trace_frame, $pc, $sp, $fp
 &gt; tfind
@@ -214,12 +204,12 @@ Frame 9, PC = 0020DC8E, SP = 0030BF18, FP = 0030BF44
 Frame 10, PC = 00203F6C, SP = 0030BE3C, FP = 0030BF14
 </pre></div>
 
-<p>Or, if we want to examine the variable <code>X</code> at each source line in
+<p>Or, if we want to examine the variable <code class="code">X</code> at each source line in
 the buffer:
 </p>
-<div class="example">
-<pre class="example">(gdb) <b>tfind start</b>
-(gdb) <b>while ($trace_frame != -1)</b>
+<div class="example smallexample">
+<pre class="example-preformatted">(gdb) <b class="b">tfind start</b>
+(gdb) <b class="b">while ($trace_frame != -1)</b>
 &gt; printf &quot;Frame %d, X == %d\n&quot;, $trace_frame, X
 &gt; tfind line
 &gt; end
@@ -231,9 +221,9 @@ Frame 13, X = 255
 
 </div>
 <hr>
-<div class="header">
+<div class="nav-panel">
 <p>
-Next: <a href="tdump.html"><code>tdump</code></a>, Up: <a href="Analyze-Collected-Data.html">Using the Collected Data</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="tdump.html"><code class="code">tdump</code></a>, Up: <a href="Analyze-Collected-Data.html">Using the Collected Data</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

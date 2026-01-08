@@ -1,9 +1,9 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright (C) 1988-2024 Free Software Foundation, Inc.
+<!-- Copyright © 1988-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -20,13 +20,13 @@ Legal Disclaimer and Copyright Information
 
 AMD ROCm software is made available by Advanced Micro Devices, Inc. under the
 open source license identified in the top-level directory for the library in
-the repository on Github.com (Portions of AMD ROCm software are
-licensed under MITx11 and UIL/NCSA. For more information on the license, review
-the license.txt in the top-level directory for the library on
-Github.com).  The additional terms and conditions below apply to your use
-of AMD ROCm technical documentation.
+the repository on https://github.com/ROCm/ (Github.com) (Portions of AMD
+ROCm software are licensed under MITx11 and UIL/NCSA. For more information on
+the license, review the license.txt in the top-level directory for the
+library on https://github.com/ROCm/ (Github.com)).  The additional terms
+and conditions below apply to your use of AMD ROCm technical documentation.
 
-(C)2019-2025 Advanced Micro Devices, Inc.  All rights reserved.
+©2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
 
 The information presented in this document is for informational purposes only
 and may contain technical inaccuracies, omissions, and typographical errors.
@@ -52,8 +52,8 @@ EVEN IF AMD IS EXPRESSLY ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
 
 AMD, the AMD Arrow logo, AMD Instinct™, Radeon™, AMD ROCm™, and combinations
 thereof are trademarks of Advanced Micro Devices, Inc.
-Linux(R) is the registered trademark of Linus Torvalds in the
-U.S. and other countries. PCIe(R) is a registered trademark of
+Linux® is the registered trademark of Linus Torvalds in the
+U.S. and other countries. PCIe® is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
@@ -70,25 +70,13 @@ companies. -->
 <link href="Concept-Index.html" rel="index" title="Concept Index">
 <link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
 <link href="Python-API.html" rel="up" title="Python API">
-<link href="Colors-In-Python.html" rel="next" title="Colors In Python">
+<link href="Architectures-In-Python.html" rel="next" title="Architectures In Python">
 <link href="Finish-Breakpoints-in-Python.html" rel="prev" title="Finish Breakpoints in Python">
 <style type="text/css">
 <!--
-a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
-a.summary-letter {text-decoration: none}
-blockquote.indentedblock {margin-right: 0em}
-div.display {margin-left: 3.2em}
-div.example {margin-left: 3.2em}
-kbd {font-style: oblique}
-pre.display {font-family: inherit}
-pre.format {font-family: inherit}
-pre.menu-comment {font-family: serif}
-pre.menu-preformatted {font-family: serif}
-span.nolinebreak {white-space: nowrap}
-span.roman {font-family: initial; font-weight: normal}
-span.sansserif {font-family: sans-serif; font-weight: normal}
-span:hover a.copiable-anchor {visibility: visible}
-ul.no-bullet {list-style: none}
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+span:hover a.copiable-link {visibility: visible}
+strong.def-name {font-family: monospace; font-weight: bold; font-size: larger}
 -->
 </style>
 
@@ -96,78 +84,78 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<div class="subsubsection" id="Lazy-Strings-In-Python">
-<div class="header">
+<div class="subsubsection-level-extent" id="Lazy-Strings-In-Python">
+<div class="nav-panel">
 <p>
-Next: <a href="Colors-In-Python.html" accesskey="n" rel="next">Python representation of colors</a>, Previous: <a href="Finish-Breakpoints-in-Python.html" accesskey="p" rel="prev">Finish Breakpoints</a>, Up: <a href="Python-API.html" accesskey="u" rel="up">Python API</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Architectures-In-Python.html" accesskey="n" rel="next">Python representation of architectures</a>, Previous: <a href="Finish-Breakpoints-in-Python.html" accesskey="p" rel="prev">Finish Breakpoints</a>, Up: <a href="Python-API.html" accesskey="u" rel="up">Python API</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="Python-representation-of-lazy-strings"></span><h4 class="subsubsection">24.3.2.35 Python representation of lazy strings</h4>
+<h4 class="subsubsection" id="Python-representation-of-lazy-strings"><span>24.3.2.35 Python representation of lazy strings<a class="copiable-link" href="#Python-representation-of-lazy-strings"> &para;</a></span></h4>
 
-<span id="index-lazy-strings-in-python"></span>
-<span id="index-gdb_002eLazyString"></span>
+<a class="index-entry-id" id="index-lazy-strings-in-python"></a>
+<a class="index-entry-id" id="index-gdb_002eLazyString"></a>
 
-<p>A <em>lazy string</em> is a string whose contents is not retrieved or
+<p>A <em class="dfn">lazy string</em> is a string whose contents is not retrieved or
 encoded until it is needed.
 </p>
-<p>A <code>gdb.LazyString</code> is represented in <small>ROCGDB</small> as an
-<code>address</code> that points to a region of memory, an <code>encoding</code>
-that will be used to encode that region of memory, and a <code>length</code>
+<p>A <code class="code">gdb.LazyString</code> is represented in <small class="sc">ROCGDB</small> as an
+<code class="code">address</code> that points to a region of memory, an <code class="code">encoding</code>
+that will be used to encode that region of memory, and a <code class="code">length</code>
 to delimit the region of memory that represents the string.  The
-difference between a <code>gdb.LazyString</code> and a string wrapped within
-a <code>gdb.Value</code> is that a <code>gdb.LazyString</code> will only be
-retrieved and encoded during printing, while a <code>gdb.Value</code>
+difference between a <code class="code">gdb.LazyString</code> and a string wrapped within
+a <code class="code">gdb.Value</code> is that a <code class="code">gdb.LazyString</code> will only be
+retrieved and encoded during printing, while a <code class="code">gdb.Value</code>
 wrapping a string is immediately retrieved and encoded on creation.
 </p>
-<p>A <code>gdb.LazyString</code> can be created using the
-<code>gdb.Value.lazy_string</code> method (see <a href="Values-From-Inferior.html">Values From Inferior</a>).
+<p>A <code class="code">gdb.LazyString</code> can be created using the
+<code class="code">gdb.Value.lazy_string</code> method (see <a class="pxref" href="Values-From-Inferior.html">Values From Inferior</a>).
 </p>
-<p>A <code>gdb.LazyString</code> object has the following functions:
+<p>A <code class="code">gdb.LazyString</code> object has the following functions:
 </p>
-<dl class="def">
-<dt id="index-LazyString_002evalue"><span class="category">Function: </span><span><strong>LazyString.value</strong> <em>()</em><a href='#index-LazyString_002evalue' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Convert the <code>gdb.LazyString</code> to a <code>gdb.Value</code>.  This value
+<dl class="first-deffn first-defun-alias-first-deffn">
+<dt class="deffn defun-alias-deffn" id="index-LazyString_002evalue"><span class="category-def">Function: </span><span><strong class="def-name">LazyString.value</strong> <var class="def-var-arguments">()</var><a class="copiable-link" href="#index-LazyString_002evalue"> &para;</a></span></dt>
+<dd><p>Convert the <code class="code">gdb.LazyString</code> to a <code class="code">gdb.Value</code>.  This value
 will point to the string in memory, but will lose all the delayed
-retrieval, encoding and handling that <small>ROCGDB</small> applies to a
-<code>gdb.LazyString</code>.
+retrieval, encoding and handling that <small class="sc">ROCGDB</small> applies to a
+<code class="code">gdb.LazyString</code>.
 </p></dd></dl>
 
-<dl class="def">
-<dt id="index-LazyString_002eaddress"><span class="category">Variable: </span><span><strong>LazyString.address</strong><a href='#index-LazyString_002eaddress' class='copiable-anchor'> &para;</a></span></dt>
+<dl class="first-defvr first-defvar-alias-first-defvr">
+<dt class="defvr defvar-alias-defvr" id="index-LazyString_002eaddress"><span class="category-def">Variable: </span><span><strong class="def-name">LazyString.address</strong><a class="copiable-link" href="#index-LazyString_002eaddress"> &para;</a></span></dt>
 <dd><p>This attribute holds the address of the string.  This attribute is not
 writable.
 </p></dd></dl>
 
-<dl class="def">
-<dt id="index-LazyString_002elength"><span class="category">Variable: </span><span><strong>LazyString.length</strong><a href='#index-LazyString_002elength' class='copiable-anchor'> &para;</a></span></dt>
+<dl class="first-defvr first-defvar-alias-first-defvr">
+<dt class="defvr defvar-alias-defvr" id="index-LazyString_002elength"><span class="category-def">Variable: </span><span><strong class="def-name">LazyString.length</strong><a class="copiable-link" href="#index-LazyString_002elength"> &para;</a></span></dt>
 <dd><p>This attribute holds the length of the string in characters.  If the
 length is -1, then the string will be fetched and encoded up to the
 first null of appropriate width.  This attribute is not writable.
 </p></dd></dl>
 
-<dl class="def">
-<dt id="index-LazyString_002eencoding"><span class="category">Variable: </span><span><strong>LazyString.encoding</strong><a href='#index-LazyString_002eencoding' class='copiable-anchor'> &para;</a></span></dt>
+<dl class="first-defvr first-defvar-alias-first-defvr">
+<dt class="defvr defvar-alias-defvr" id="index-LazyString_002eencoding"><span class="category-def">Variable: </span><span><strong class="def-name">LazyString.encoding</strong><a class="copiable-link" href="#index-LazyString_002eencoding"> &para;</a></span></dt>
 <dd><p>This attribute holds the encoding that will be applied to the string
-when the string is printed by <small>ROCGDB</small>.  If the encoding is not
-set, or contains an empty string,  then <small>ROCGDB</small> will select the
+when the string is printed by <small class="sc">ROCGDB</small>.  If the encoding is not
+set, or contains an empty string,  then <small class="sc">ROCGDB</small> will select the
 most appropriate encoding when the string is printed.  This attribute
 is not writable.
 </p></dd></dl>
 
-<dl class="def">
-<dt id="index-LazyString_002etype"><span class="category">Variable: </span><span><strong>LazyString.type</strong><a href='#index-LazyString_002etype' class='copiable-anchor'> &para;</a></span></dt>
+<dl class="first-defvr first-defvar-alias-first-defvr">
+<dt class="defvr defvar-alias-defvr" id="index-LazyString_002etype"><span class="category-def">Variable: </span><span><strong class="def-name">LazyString.type</strong><a class="copiable-link" href="#index-LazyString_002etype"> &para;</a></span></dt>
 <dd><p>This attribute holds the type that is represented by the lazy string&rsquo;s
 type.  For a lazy string this is a pointer or array type.  To
 resolve this to the lazy string&rsquo;s character type, use the type&rsquo;s
-<code>target</code> method.  See <a href="Types-In-Python.html">Types In Python</a>.  This attribute is not
+<code class="code">target</code> method.  See <a class="xref" href="Types-In-Python.html">Types In Python</a>.  This attribute is not
 writable.
 </p></dd></dl>
 
 </div>
 <hr>
-<div class="header">
+<div class="nav-panel">
 <p>
-Next: <a href="Colors-In-Python.html">Python representation of colors</a>, Previous: <a href="Finish-Breakpoints-in-Python.html">Finish Breakpoints</a>, Up: <a href="Python-API.html">Python API</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Architectures-In-Python.html">Python representation of architectures</a>, Previous: <a href="Finish-Breakpoints-in-Python.html">Finish Breakpoints</a>, Up: <a href="Python-API.html">Python API</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

@@ -1,11 +1,11 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the GNU Assembler "as".
 
-Copyright (C) 1991-2025 Free Software Foundation, Inc.
+Copyright © 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -30,21 +30,8 @@ section entitled "GNU Free Documentation License".
 <link href="Z80-Syntax.html" rel="next" title="Z80 Syntax">
 <style type="text/css">
 <!--
-a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
-a.summary-letter {text-decoration: none}
-blockquote.indentedblock {margin-right: 0em}
-div.display {margin-left: 3.2em}
-div.example {margin-left: 3.2em}
-kbd {font-style: oblique}
-pre.display {font-family: inherit}
-pre.format {font-family: inherit}
-pre.menu-comment {font-family: serif}
-pre.menu-preformatted {font-family: serif}
-span.nolinebreak {white-space: nowrap}
-span.roman {font-family: initial; font-weight: normal}
-span.sansserif {font-family: sans-serif; font-weight: normal}
-span:hover a.copiable-anchor {visibility: visible}
-ul.no-bullet {list-style: none}
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+span:hover a.copiable-link {visibility: visible}
 -->
 </style>
 
@@ -52,109 +39,101 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<div class="section" id="Z80-Options">
-<div class="header">
+<div class="subsection-level-extent" id="Z80-Options">
+<div class="nav-panel">
 <p>
 Next: <a href="Z80-Syntax.html" accesskey="n" rel="next">Syntax</a>, Up: <a href="Z80_002dDependent.html" accesskey="u" rel="up">Z80 Dependent Features</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="Command_002dline-Options-3"></span><h4 class="subsection">9.56.1 Command-line Options</h4>
-<span id="index-Z80-options"></span>
-<span id="index-options-for-Z80"></span>
-<dl compact="compact">
-<dd>
-<span id="index-_002dmarch_003d-command_002dline-option_002c-Z80"></span>
-</dd>
-<dt><span><code>-march=<var>CPU</var>[-<var>EXT</var>&hellip;][+<var>EXT</var>&hellip;]</code></span></dt>
+<h4 class="subsection section-level-set-subsection" id="Command_002dline-Options-3"><span>9.56.1 Command-line Options<a class="copiable-link" href="#Command_002dline-Options-3"> &para;</a></span></h4>
+<a class="index-entry-id" id="index-Z80-options"></a>
+<a class="index-entry-id" id="index-options-for-Z80"></a>
+<dl class="table">
+<dt><a id="index-_002dmarch_003d-command_002dline-option_002c-Z80"></a><span><code class="code">-march=<var class="var">CPU</var>[-<var class="var">EXT</var>&hellip;][+<var class="var">EXT</var>&hellip;]</code><a class="copiable-link" href="#index-_002dmarch_003d-command_002dline-option_002c-Z80"> &para;</a></span></dt>
 <dd><p>This option specifies the target processor. The assembler will issue
 an error message if an attempt is made to assemble an instruction which
 will not execute on the target processor. The following processor names
 are recognized:
-<code>z80</code>,
-<code>z180</code>,
-<code>ez80</code>,
-<code>gbz80</code>,
-<code>z80n</code>,
-<code>r800</code>.
+<code class="code">z80</code>,
+<code class="code">z180</code>,
+<code class="code">ez80</code>,
+<code class="code">gbz80</code>,
+<code class="code">z80n</code>,
+<code class="code">r800</code>.
 In addition to the basic instruction set, the assembler can be told to
 accept some extension mnemonics. For example,
-<code>-march=z180+sli+infc</code> extends <var>z180</var> with <var>SLI</var> instructions and
-<var>IN F,(C)</var>. The following extensions are currently supported:
-<code>full</code> (all known instructions),
-<code>adl</code> (ADL CPU mode by default, eZ80 only),
-<code>sli</code> (instruction known as <var>SLI</var>, <var>SLL</var> or <var>SL1</var>),
-<code>xyhl</code> (instructions with halves of index registers: <var>IXL</var>, <var>IXH</var>,
-<var>IYL</var>, <var>IYH</var>),
-<code>xdcb</code> (instructions like <var>RotOp (II+d),R</var> and <var>BitOp n,(II+d),R</var>),
-<code>infc</code> (instruction <var>IN F,(C)</var> or <var>IN (C)</var>),
-<code>outc0</code> (instruction <var>OUT (C),0</var>).
+<code class="code">-march=z180+sli+infc</code> extends <var class="var">z180</var> with <var class="var">SLI</var> instructions and
+<var class="var">IN F,(C)</var>. The following extensions are currently supported:
+<code class="code">full</code> (all known instructions),
+<code class="code">adl</code> (ADL CPU mode by default, eZ80 only),
+<code class="code">sli</code> (instruction known as <var class="var">SLI</var>, <var class="var">SLL</var> or <var class="var">SL1</var>),
+<code class="code">xyhl</code> (instructions with halves of index registers: <var class="var">IXL</var>, <var class="var">IXH</var>,
+<var class="var">IYL</var>, <var class="var">IYH</var>),
+<code class="code">xdcb</code> (instructions like <var class="var">RotOp (II+d),R</var> and <var class="var">BitOp n,(II+d),R</var>),
+<code class="code">infc</code> (instruction <var class="var">IN F,(C)</var> or <var class="var">IN (C)</var>),
+<code class="code">outc0</code> (instruction <var class="var">OUT (C),0</var>).
 Note that rather than extending a basic instruction set, the extension
-mnemonics starting with <code>-</code> revoke the respective functionality:
-<code>-march=z80-full+xyhl</code> first removes all default extensions and adds
+mnemonics starting with <code class="code">-</code> revoke the respective functionality:
+<code class="code">-march=z80-full+xyhl</code> first removes all default extensions and adds
 support for index registers halves only.
 </p>
-<p>If this option is not specified then <code>-march=z80+xyhl+infc</code> is assumed.
+<p>If this option is not specified then <code class="code">-march=z80+xyhl+infc</code> is assumed.
 </p>
-<span id="index-_002dlocal_002dprefix-command_002dline-option_002c-Z80"></span>
 </dd>
-<dt><span><code>-local-prefix=<var>prefix</var></code></span></dt>
+<dt><a id="index-_002dlocal_002dprefix-command_002dline-option_002c-Z80"></a><span><code class="code">-local-prefix=<var class="var">prefix</var></code><a class="copiable-link" href="#index-_002dlocal_002dprefix-command_002dline-option_002c-Z80"> &para;</a></span></dt>
 <dd><p>Mark all labels with specified prefix as local. But such label can be
 marked global explicitly in the code. This option do not change default
-local label prefix <code>.L</code>, it is just adds new one.
+local label prefix <code class="code">.L</code>, it is just adds new one.
 </p>
-<span id="index-_002dcolonless-command_002dline-option_002c-Z80"></span>
 </dd>
-<dt><span><code>-colonless</code></span></dt>
+<dt><a id="index-_002dcolonless-command_002dline-option_002c-Z80"></a><span><code class="code">-colonless</code><a class="copiable-link" href="#index-_002dcolonless-command_002dline-option_002c-Z80"> &para;</a></span></dt>
 <dd><p>Accept colonless labels. All symbols at line begin are treated as labels.
 </p>
-<span id="index-_002dsdcc-command_002dline-option_002c-Z80"></span>
 </dd>
-<dt><span><code>-sdcc</code></span></dt>
+<dt><a id="index-_002dsdcc-command_002dline-option_002c-Z80"></a><span><code class="code">-sdcc</code><a class="copiable-link" href="#index-_002dsdcc-command_002dline-option_002c-Z80"> &para;</a></span></dt>
 <dd><p>Accept assembler code produced by SDCC.
 </p>
-<span id="index-_002dfp_002ds-command_002dline-option_002c-Z80"></span>
 </dd>
-<dt><span><code>-fp-s=<var>FORMAT</var></code></span></dt>
+<dt><a id="index-_002dfp_002ds-command_002dline-option_002c-Z80"></a><span><code class="code">-fp-s=<var class="var">FORMAT</var></code><a class="copiable-link" href="#index-_002dfp_002ds-command_002dline-option_002c-Z80"> &para;</a></span></dt>
 <dd><p>Single precision floating point numbers format. Default: ieee754 (32 bit).
 </p>
-<span id="index-_002dfp_002dd-command_002dline-option_002c-Z80"></span>
 </dd>
-<dt><span><code>-fp-d=<var>FORMAT</var></code></span></dt>
+<dt><a id="index-_002dfp_002dd-command_002dline-option_002c-Z80"></a><span><code class="code">-fp-d=<var class="var">FORMAT</var></code><a class="copiable-link" href="#index-_002dfp_002dd-command_002dline-option_002c-Z80"> &para;</a></span></dt>
 <dd><p>Double precision floating point numbers format. Default: ieee754 (64 bit).
 </p></dd>
 </dl>
 
 <p>Floating point numbers formats.
-</p><dl compact="compact">
-<dt><span><samp><code>ieee754</code></samp></span></dt>
+</p><dl class="table">
+<dt><samp class="option"><code class="code">ieee754</code></samp></dt>
 <dd><p>Single or double precision IEEE754 compatible format.
 </p>
 </dd>
-<dt><span><samp><code>half</code></samp></span></dt>
+<dt><samp class="option"><code class="code">half</code></samp></dt>
 <dd><p>Half precision IEEE754 compatible format (16 bits).
 </p>
 </dd>
-<dt><span><samp><code>single</code></samp></span></dt>
+<dt><samp class="option"><code class="code">single</code></samp></dt>
 <dd><p>Single precision IEEE754 compatible format (32 bits).
 </p>
 </dd>
-<dt><span><samp><code>double</code></samp></span></dt>
+<dt><samp class="option"><code class="code">double</code></samp></dt>
 <dd><p>Double precision IEEE754 compatible format (64 bits).
 </p>
 </dd>
-<dt><span><samp><code>zeda32</code></samp></span></dt>
+<dt><samp class="option"><code class="code">zeda32</code></samp></dt>
 <dd><p>32 bit floating point format from z80float library by Zeda.
 </p>
 </dd>
-<dt><span><samp><code>math48</code></samp></span></dt>
+<dt><samp class="option"><code class="code">math48</code></samp></dt>
 <dd><p>48 bit floating point format from Math48 package by Anders Hejlsberg.
 </p></dd>
 </dl>
 
-<span id="index-Z80-Syntax"></span>
+<a class="index-entry-id" id="index-Z80-Syntax"></a>
 </div>
 <hr>
-<div class="header">
+<div class="nav-panel">
 <p>
 Next: <a href="Z80-Syntax.html">Syntax</a>, Up: <a href="Z80_002dDependent.html">Z80 Dependent Features</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
