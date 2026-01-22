@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the GNU Assembler "as".
 
-Copyright © 1991-2024 Free Software Foundation, Inc.
+Copyright (C) 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -29,9 +29,21 @@ section entitled "GNU Free Documentation License".
 <link href="M68HC11_002dopcodes.html" rel="up" title="M68HC11-opcodes">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
 div.example {margin-left: 3.2em}
-span:hover a.copiable-link {visibility: visible}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -39,29 +51,29 @@ span:hover a.copiable-link {visibility: visible}
 </head>
 
 <body lang="en">
-<div class="subsubsection-level-extent" id="M68HC11_002dBranch">
-<div class="nav-panel">
+<div class="subsection" id="M68HC11_002dBranch">
+<div class="header">
 <p>
 Up: <a href="M68HC11_002dopcodes.html" accesskey="u" rel="up">Opcodes</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h4 class="subsubsection subsection-level-set-subsubsection" id="Branch-Improvement-1"><span>9.24.6.1 Branch Improvement<a class="copiable-link" href="#Branch-Improvement-1"> &para;</a></span></h4>
+<span id="Branch-Improvement-1"></span><h4 class="subsubsection">9.24.6.1 Branch Improvement</h4>
 
-<a class="index-entry-id" id="index-pseudo_002dopcodes_002c-M68HC11"></a>
-<a class="index-entry-id" id="index-M68HC11-pseudo_002dopcodes"></a>
-<a class="index-entry-id" id="index-branch-improvement_002c-M68HC11"></a>
-<a class="index-entry-id" id="index-M68HC11-branch-improvement"></a>
+<span id="index-pseudo_002dopcodes_002c-M68HC11"></span>
+<span id="index-M68HC11-pseudo_002dopcodes"></span>
+<span id="index-branch-improvement_002c-M68HC11"></span>
+<span id="index-M68HC11-branch-improvement"></span>
 
 <p>Certain pseudo opcodes are permitted for branch instructions.
 They expand to the shortest branch instruction that reach the
-target. Generally these mnemonics are made by prepending &lsquo;<samp class="samp">j</samp>&rsquo; to
+target. Generally these mnemonics are made by prepending &lsquo;<samp>j</samp>&rsquo; to
 the start of Motorola mnemonic. These pseudo opcodes are not affected
-by the &lsquo;<samp class="samp">--short-branches</samp>&rsquo; or &lsquo;<samp class="samp">--force-long-branches</samp>&rsquo; options.
+by the &lsquo;<samp>--short-branches</samp>&rsquo; or &lsquo;<samp>--force-long-branches</samp>&rsquo; options.
 </p>
 <p>The following table summarizes the pseudo-operations.
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">                        Displacement Width
+<div class="example">
+<pre class="example">                        Displacement Width
      +-------------------------------------------------------------+
      |                     Options                                 |
      |    --short-branches           --force-long-branches         |
@@ -81,33 +93,33 @@ NX: negative of condition XX
 
 </pre></div>
 
-<dl class="table">
-<dt><code class="code">jbsr</code></dt>
-<dt><code class="code">jbra</code></dt>
+<dl compact="compact">
+<dt><span><code>jbsr</code></span></dt>
+<dt><span><code>jbra</code></span></dt>
 <dd><p>These are the simplest jump pseudo-operations; they always map to one
 particular machine instruction, depending on the displacement to the
 branch target.
 </p>
 </dd>
-<dt><code class="code">jb<var class="var">XX</var></code></dt>
-<dd><p>Here, &lsquo;<samp class="samp">jb<var class="var">XX</var></samp>&rsquo; stands for an entire family of pseudo-operations,
-where <var class="var">XX</var> is a conditional branch or condition-code test.  The full
+<dt><span><code>jb<var>XX</var></code></span></dt>
+<dd><p>Here, &lsquo;<samp>jb<var>XX</var></samp>&rsquo; stands for an entire family of pseudo-operations,
+where <var>XX</var> is a conditional branch or condition-code test.  The full
 list of pseudo-ops in this family is:
-</p><div class="example smallexample">
-<pre class="example-preformatted"> jbcc   jbeq   jbge   jbgt   jbhi   jbvs   jbpl  jblo
+</p><div class="example">
+<pre class="example"> jbcc   jbeq   jbge   jbgt   jbhi   jbvs   jbpl  jblo
  jbcs   jbne   jblt   jble   jbls   jbvc   jbmi
 </pre></div>
 
 <p>For the cases of non-PC relative displacements and long displacements,
-<code class="code">as</code> issues a longer code fragment in terms of
-<var class="var">NX</var>, the opposite condition to <var class="var">XX</var>.  For example, for the
+<code>as</code> issues a longer code fragment in terms of
+<var>NX</var>, the opposite condition to <var>XX</var>.  For example, for the
 non-PC relative case:
-</p><div class="example smallexample">
-<pre class="example-preformatted">    jb<var class="var">XX</var> foo
+</p><div class="example">
+<pre class="example">    jb<var>XX</var> foo
 </pre></div>
 <p>gives
-</p><div class="example smallexample">
-<pre class="example-preformatted">     b<var class="var">NX</var>s oof
+</p><div class="example">
+<pre class="example">     b<var>NX</var>s oof
      jmp foo
  oof:
 </pre></div>
@@ -117,11 +129,6 @@ non-PC relative case:
 
 
 
-</div>
-<hr>
-<div class="nav-panel">
-<p>
-Up: <a href="M68HC11_002dopcodes.html">Opcodes</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

@@ -1,13 +1,13 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the GNU linker LD
 (GNU Binutils)
 version 2.43.50.
 
-Copyright © 1991-2024 Free Software Foundation, Inc.
+Copyright (C) 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -32,8 +32,21 @@ section entitled "GNU Free Documentation License". -->
 <link href="ARM.html" rel="prev" title="ARM">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
-span:hover a.copiable-link {visibility: visible}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -41,50 +54,45 @@ span:hover a.copiable-link {visibility: visible}
 </head>
 
 <body lang="en">
-<div class="section-level-extent" id="HPPA-ELF32">
-<div class="nav-panel">
+<div class="section" id="HPPA-ELF32">
+<div class="header">
 <p>
-Next: <a href="M68K.html" accesskey="n" rel="next"><code class="command">ld</code> and the Motorola 68K family</a>, Previous: <a href="ARM.html" accesskey="p" rel="prev"><code class="command">ld</code> and the ARM family</a>, Up: <a href="Machine-Dependent.html" accesskey="u" rel="up">Machine Dependent Features</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="LD-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="M68K.html" accesskey="n" rel="next"><code>ld</code> and the Motorola 68K family</a>, Previous: <a href="ARM.html" accesskey="p" rel="prev"><code>ld</code> and the ARM family</a>, Up: <a href="Machine-Dependent.html" accesskey="u" rel="up">Machine Dependent Features</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="LD-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h3 class="section" id="ld-and-HPPA-32_002dbit-ELF-Support"><span>6.4 <code class="command">ld</code> and HPPA 32-bit ELF Support<a class="copiable-link" href="#ld-and-HPPA-32_002dbit-ELF-Support"> &para;</a></span></h3>
-<a class="index-entry-id" id="index-HPPA-multiple-sub_002dspace-stubs"></a>
-<a class="index-entry-id" id="index-_002d_002dmulti_002dsubspace"></a>
-<p>When generating a shared library, <code class="command">ld</code> will by default generate
+<span id="ld-and-HPPA-32_002dbit-ELF-Support"></span><h3 class="section">6.4 <code>ld</code> and HPPA 32-bit ELF Support</h3>
+<span id="index-HPPA-multiple-sub_002dspace-stubs"></span>
+<span id="index-_002d_002dmulti_002dsubspace"></span>
+<p>When generating a shared library, <code>ld</code> will by default generate
 import stubs suitable for use with a single sub-space application.
-The &lsquo;<samp class="samp">--multi-subspace</samp>&rsquo; switch causes <code class="command">ld</code> to generate export
+The &lsquo;<samp>--multi-subspace</samp>&rsquo; switch causes <code>ld</code> to generate export
 stubs, and different (larger) import stubs suitable for use with
 multiple sub-spaces.
 </p>
-<a class="index-entry-id" id="index-HPPA-stub-grouping"></a>
-<a class="index-entry-id" id="index-_002d_002dstub_002dgroup_002dsize_003dN-1"></a>
-<p>Long branch stubs and import/export stubs are placed by <code class="command">ld</code> in
+<span id="index-HPPA-stub-grouping"></span>
+<span id="index-_002d_002dstub_002dgroup_002dsize_003dN-1"></span>
+<p>Long branch stubs and import/export stubs are placed by <code>ld</code> in
 stub sections located between groups of input sections.
-&lsquo;<samp class="samp">--stub-group-size</samp>&rsquo; specifies the maximum size of a group of input
+&lsquo;<samp>--stub-group-size</samp>&rsquo; specifies the maximum size of a group of input
 sections handled by one stub section.  Since branch offsets are signed,
 a stub section may serve two groups of input sections, one group before
 the stub section, and one group after it.  However, when using
 conditional branches that require stubs, it may be better (for branch
 prediction) that stub sections only serve one group of input sections.
-A negative value for &lsquo;<samp class="samp">N</samp>&rsquo; chooses this scheme, ensuring that
+A negative value for &lsquo;<samp>N</samp>&rsquo; chooses this scheme, ensuring that
 branches to stubs always use a negative offset.  Two special values of
-&lsquo;<samp class="samp">N</samp>&rsquo; are recognized, &lsquo;<samp class="samp">1</samp>&rsquo; and &lsquo;<samp class="samp">-1</samp>&rsquo;.  These both instruct
-<code class="command">ld</code> to automatically size input section groups for the branch types
+&lsquo;<samp>N</samp>&rsquo; are recognized, &lsquo;<samp>1</samp>&rsquo; and &lsquo;<samp>-1</samp>&rsquo;.  These both instruct
+<code>ld</code> to automatically size input section groups for the branch types
 detected, with the same behaviour regarding stub placement as other
-positive or negative values of &lsquo;<samp class="samp">N</samp>&rsquo; respectively.
+positive or negative values of &lsquo;<samp>N</samp>&rsquo; respectively.
 </p>
-<p>Note that &lsquo;<samp class="samp">--stub-group-size</samp>&rsquo; does not split input sections.  A
+<p>Note that &lsquo;<samp>--stub-group-size</samp>&rsquo; does not split input sections.  A
 single input section larger than the group size specified will of course
 create a larger group (of one section).  If input sections are too
 large, it may not be possible for a branch to reach its stub.
 </p>
 
 
-</div>
-<hr>
-<div class="nav-panel">
-<p>
-Next: <a href="M68K.html"><code class="command">ld</code> and the Motorola 68K family</a>, Previous: <a href="ARM.html"><code class="command">ld</code> and the ARM family</a>, Up: <a href="Machine-Dependent.html">Machine Dependent Features</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="LD-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright © 1988-2024 Free Software Foundation, Inc.
+<!-- Copyright (C) 1988-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -26,7 +26,7 @@ the license, review the license.txt in the top-level directory for the
 library on https://github.com/ROCm/ (Github.com)).  The additional terms
 and conditions below apply to your use of AMD ROCm technical documentation.
 
-©2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
+(C)2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
 
 The information presented in this document is for informational purposes only
 and may contain technical inaccuracies, omissions, and typographical errors.
@@ -52,8 +52,8 @@ EVEN IF AMD IS EXPRESSLY ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
 
 AMD, the AMD Arrow logo, AMD Instinct™, Radeon™, AMD ROCm™, and combinations
 thereof are trademarks of Advanced Micro Devices, Inc.
-Linux® is the registered trademark of Linus Torvalds in the
-U.S. and other countries. PCIe® is a registered trademark of
+Linux(R) is the registered trademark of Linus Torvalds in the
+U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
@@ -74,9 +74,21 @@ companies. -->
 <link href="Context-management.html" rel="prev" title="Context management">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
-span.r {font-family: initial; font-weight: normal; font-style: normal}
-span:hover a.copiable-link {visibility: visible}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -84,58 +96,61 @@ span:hover a.copiable-link {visibility: visible}
 </head>
 
 <body lang="en">
-<div class="subsection-level-extent" id="Asynchronous-and-non_002dstop-modes">
-<div class="nav-panel">
+<div class="subsection" id="Asynchronous-and-non_002dstop-modes">
+<div class="header">
 <p>
-Next: <a href="Thread-groups.html" accesskey="n" rel="next">Thread groups</a>, Previous: <a href="Context-management.html" accesskey="p" rel="prev">Context management</a>, Up: <a href="GDB_002fMI-General-Design.html" accesskey="u" rel="up"><small class="sc">GDB/MI</small> General Design</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Thread-groups.html" accesskey="n" rel="next">Thread groups</a>, Previous: <a href="Context-management.html" accesskey="p" rel="prev">Context management</a>, Up: <a href="GDB_002fMI-General-Design.html" accesskey="u" rel="up"><small>GDB/MI</small> General Design</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h4 class="subsection" id="Asynchronous-command-execution-and-non_002dstop-mode"><span>28.1.2 Asynchronous command execution and non-stop mode<a class="copiable-link" href="#Asynchronous-command-execution-and-non_002dstop-mode"> &para;</a></span></h4>
+<span id="Asynchronous-command-execution-and-non_002dstop-mode"></span><h4 class="subsection">28.1.2 Asynchronous command execution and non-stop mode</h4>
 
-<p>On some targets, <small class="sc">ROCGDB</small> is capable of processing MI commands
-even while the target is running.  This is called <em class="dfn">asynchronous
-command execution</em> (see <a class="pxref" href="Background-Execution.html">Background Execution</a>).  The frontend may
+<p>On some targets, <small>ROCGDB</small> is capable of processing MI commands
+even while the target is running.  This is called <em>asynchronous
+command execution</em> (see <a href="Background-Execution.html">Background Execution</a>).  The frontend may
 specify a preference for asynchronous execution using the
-<code class="code">-gdb-set mi-async 1</code> command, which should be emitted before
+<code>-gdb-set mi-async 1</code> command, which should be emitted before
 either running the executable or attaching to the target.  After the
 frontend has started the executable or attached to the target, it can
 find if asynchronous execution is enabled using the
-<code class="code">-list-target-features</code> command.
+<code>-list-target-features</code> command.
 </p>
-<dl class="table">
-<dt><a class="index-entry-id" id="index-background-execution-1"></a>
-<a class="index-entry-id" id="index-asynchronous-execution-1"></a>
-<a class="index-entry-id" id="index-execution_002c-foreground_002c-background-and-asynchronous-1"></a>
-<a class="index-entry-id" id="index-set-mi_002dasync"></a>
-<a id="index-foreground-execution-1"></a><span><code class="code">-gdb-set mi-async <span class="r">[</span>on<span class="r">|</span>off<span class="r">]</span></code><a class="copiable-link" href="#index-foreground-execution-1"> &para;</a></span></dt>
+<dl compact="compact">
+<dd><span id="index-foreground-execution-1"></span>
+<span id="index-background-execution-1"></span>
+<span id="index-asynchronous-execution-1"></span>
+<span id="index-execution_002c-foreground_002c-background-and-asynchronous-1"></span>
+<span id="index-set-mi_002dasync"></span>
+</dd>
+<dt><span><code>-gdb-set mi-async <span class="roman">[</span>on<span class="roman">|</span>off<span class="roman">]</span></code></span></dt>
 <dd><p>Set whether MI is in asynchronous mode.
 </p>
-<p>When <code class="code">off</code>, which is the default, MI execution commands (e.g.,
-<code class="code">-exec-continue</code>) are foreground commands, and <small class="sc">ROCGDB</small> waits
+<p>When <code>off</code>, which is the default, MI execution commands (e.g.,
+<code>-exec-continue</code>) are foreground commands, and <small>ROCGDB</small> waits
 for the program to stop before processing further commands.
 </p>
-<p>When <code class="code">on</code>, MI execution commands are background execution
-commands (e.g., <code class="code">-exec-continue</code> becomes the equivalent of the
-<code class="code">c&amp;</code> CLI command), and so <small class="sc">ROCGDB</small> is capable of processing
+<p>When <code>on</code>, MI execution commands are background execution
+commands (e.g., <code>-exec-continue</code> becomes the equivalent of the
+<code>c&amp;</code> CLI command), and so <small>ROCGDB</small> is capable of processing
 MI commands even while the target is running.
 </p>
+<span id="index-show-mi_002dasync"></span>
 </dd>
-<dt><a id="index-show-mi_002dasync"></a><span><code class="code">-gdb-show mi-async</code><a class="copiable-link" href="#index-show-mi_002dasync"> &para;</a></span></dt>
+<dt><span><code>-gdb-show mi-async</code></span></dt>
 <dd><p>Show whether MI asynchronous mode is enabled.
 </p></dd>
 </dl>
 
-<p>Note: In <small class="sc">ROCGDB</small> version 7.7 and earlier, this option was called
-<code class="code">target-async</code> instead of <code class="code">mi-async</code>, and it had the effect
+<p>Note: In <small>ROCGDB</small> version 7.7 and earlier, this option was called
+<code>target-async</code> instead of <code>mi-async</code>, and it had the effect
 of both putting MI in asynchronous mode and making CLI background
 commands possible.  CLI background commands are now always possible
 &ldquo;out of the box&rdquo; if the target supports them.  The old spelling is
 kept as a deprecated alias for backwards compatibility.
 </p>
-<p>Even if <small class="sc">ROCGDB</small> can accept a command while target is running,
+<p>Even if <small>ROCGDB</small> can accept a command while target is running,
 many commands that access the target do not work when the target is
 running.  Therefore, asynchronous command execution is most useful
-when combined with non-stop mode (see <a class="pxref" href="Non_002dStop-Mode.html">Non-Stop Mode</a>).  Then,
+when combined with non-stop mode (see <a href="Non_002dStop-Mode.html">Non-Stop Mode</a>).  Then,
 it is possible to examine the state of one thread, while other threads
 are running.
 </p>
@@ -144,22 +159,22 @@ target in the context of that thread may not work, or may work only on
 some targets.  In particular, commands that try to operate on thread&rsquo;s
 stack will not work, on any target.  Commands that read memory, or
 modify breakpoints, may work or not work, depending on the target.  Note
-that even commands that operate on global state, such as <code class="code">print</code>,
-<code class="code">set</code>, and breakpoint commands, still access the target in the
+that even commands that operate on global state, such as <code>print</code>,
+<code>set</code>, and breakpoint commands, still access the target in the
 context of a specific thread,  so frontend should try to find a
 stopped thread and perform the operation on that thread (using the
-&lsquo;<samp class="samp">--thread</samp>&rsquo; option).
+&lsquo;<samp>--thread</samp>&rsquo; option).
 </p>
 <p>Which commands will work in the context of a running thread is
 highly target dependent.  However, the two commands
-<code class="code">-exec-interrupt</code>, to stop a thread, and <code class="code">-thread-info</code>,
+<code>-exec-interrupt</code>, to stop a thread, and <code>-thread-info</code>,
 to find the state of a thread, will always work.
 </p>
 </div>
 <hr>
-<div class="nav-panel">
+<div class="header">
 <p>
-Next: <a href="Thread-groups.html">Thread groups</a>, Previous: <a href="Context-management.html">Context management</a>, Up: <a href="GDB_002fMI-General-Design.html"><small class="sc">GDB/MI</small> General Design</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Thread-groups.html">Thread groups</a>, Previous: <a href="Context-management.html">Context management</a>, Up: <a href="GDB_002fMI-General-Design.html"><small>GDB/MI</small> General Design</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

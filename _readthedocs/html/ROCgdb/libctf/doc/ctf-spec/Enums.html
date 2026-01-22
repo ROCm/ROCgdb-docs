@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright © 2021-2024 Free Software Foundation, Inc.
+<!-- Copyright (C) 2021-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU General Public License, Version 3 or any
@@ -28,8 +28,21 @@ License".
 <link href="Function-pointers.html" rel="prev" title="Function pointers">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
-span:hover a.copiable-link {visibility: visible}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -37,21 +50,21 @@ span:hover a.copiable-link {visibility: visible}
 </head>
 
 <body lang="en">
-<div class="subsection-level-extent" id="Enums">
-<div class="nav-panel">
+<div class="subsection" id="Enums">
+<div class="header">
 <p>
 Next: <a href="Structs-and-unions.html" accesskey="n" rel="next">Structs and unions</a>, Previous: <a href="Function-pointers.html" accesskey="p" rel="prev">Function pointers</a>, Up: <a href="The-type-section.html" accesskey="u" rel="up">The type section</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h4 class="subsection" id="Enums-1"><span>2.3.10 Enums<a class="copiable-link" href="#Enums-1"> &para;</a></span></h4>
-<a class="index-entry-id" id="index-Enums"></a>
-<a class="index-entry-id" id="index-enum"></a>
-<a class="index-entry-id" id="index-CTF_005fK_005fENUM"></a>
+<span id="Enums-1"></span><h4 class="subsection">2.3.10 Enums</h4>
+<span id="index-Enums"></span>
+<span id="index-enum"></span>
+<span id="index-CTF_005fK_005fENUM"></span>
 
-<p>Enumerated types are represented as types of kind <code class="code">CTF_K_ENUM</code> in a
-<code class="code">ctf_stype_t</code>.  The <code class="code">ctt_size</code> is always the size of an int from the
-data model (enum bitfields are implemented via slices).  The <code class="code">vlen</code> is a
-count of enumerations, each of which is represented by a <code class="code">ctf_enum_t</code> in
+<p>Enumerated types are represented as types of kind <code>CTF_K_ENUM</code> in a
+<code>ctf_stype_t</code>.  The <code>ctt_size</code> is always the size of an int from the
+data model (enum bitfields are implemented via slices).  The <code>vlen</code> is a
+count of enumerations, each of which is represented by a <code>ctf_enum_t</code> in
 the vlen:
 </p>
 <pre class="verbatim">typedef struct ctf_enum
@@ -60,26 +73,25 @@ the vlen:
   int32_t cte_value;
 } ctf_enum_t;
 </pre>
-<a class="index-entry-id" id="index-struct-ctf_005fenum"></a>
-<a class="index-entry-id" id="index-ctf_005fenum_005ft"></a>
-<table class="multitable">
+<span id="index-struct-ctf_005fenum"></span>
+<span id="index-ctf_005fenum_005ft"></span>
+<table>
 <thead><tr><th>Offset</th><th>Name</th><th>Description</th></tr></thead>
-<tbody><tr><td>0x0</td><td><code class="code">uint32_t cte_name</code>
-<a class="index-entry-id" id="index-cte_005fname"></a>
-<a class="index-entry-id" id="index-struct-ctf_005fenum_002c-cte_005fname"></a>
-<a class="index-entry-id" id="index-ctf_005fenum_005ft_002c-cte_005fname"></a></td><td>Strtab offset of the enumeration name.  Must not be 0.</td></tr>
-<tr><td>0x4</td><td><code class="code">int32_t cte_value</code>
-<a class="index-entry-id" id="index-cte_005fvalue"></a>
-<a class="index-entry-id" id="index-struct-ctf_005fenum_002c-cte_005fvalue"></a>
-<a class="index-entry-id" id="index-ctf_005fenum_005ft_002c-cte_005fvalue"></a></td><td>The enumeration value.</td></tr>
-</tbody>
+<tr><td>0x0</td><td><code>uint32_t cte_name</code>
+<span id="index-cte_005fname"></span>
+<span id="index-struct-ctf_005fenum_002c-cte_005fname"></span>
+<span id="index-ctf_005fenum_005ft_002c-cte_005fname"></span></td><td>Strtab offset of the enumeration name.  Must not be 0.</td></tr>
+<tr><td>0x4</td><td><code>int32_t cte_value</code>
+<span id="index-cte_005fvalue"></span>
+<span id="index-struct-ctf_005fenum_002c-cte_005fvalue"></span>
+<span id="index-ctf_005fenum_005ft_002c-cte_005fvalue"></span></td><td>The enumeration value.</td></tr>
 </table>
 
-<p>Enumeration values larger than <em class="math">2^32</em> are not yet supported and are omitted
+<p>Enumeration values larger than <em class='math'>2^32</em> are not yet supported and are omitted
 from the enumeration.  (v4 will lift this restriction by encoding the value
 differently.)
 </p>
-<p>Forward declarations of enums are not implemented with this kind: see <a class="pxref" href="Forward-declarations.html">Forward declarations</a>.
+<p>Forward declarations of enums are not implemented with this kind: see <a href="Forward-declarations.html">Forward declarations</a>.
 </p>
 <p>Enumerated type names, as usual in C, go into their own namespace, and do not
 conflict with non-enums, structs, or unions with the same name.

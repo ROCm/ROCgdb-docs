@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright © 1988-2024 Free Software Foundation, Inc.
+<!-- Copyright (C) 1988-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -26,7 +26,7 @@ the license, review the license.txt in the top-level directory for the
 library on https://github.com/ROCm/ (Github.com)).  The additional terms
 and conditions below apply to your use of AMD ROCm technical documentation.
 
-©2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
+(C)2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
 
 The information presented in this document is for informational purposes only
 and may contain technical inaccuracies, omissions, and typographical errors.
@@ -52,8 +52,8 @@ EVEN IF AMD IS EXPRESSLY ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
 
 AMD, the AMD Arrow logo, AMD Instinct™, Radeon™, AMD ROCm™, and combinations
 thereof are trademarks of Advanced Micro Devices, Inc.
-Linux® is the registered trademark of Linus Torvalds in the
-U.S. and other countries. PCIe® is a registered trademark of
+Linux(R) is the registered trademark of Linus Torvalds in the
+U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
@@ -74,10 +74,21 @@ companies. -->
 <link href="GDB_002fMI-Ada-Tasking-Commands.html" rel="prev" title="GDB/MI Ada Tasking Commands">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
 div.example {margin-left: 3.2em}
-span:hover a.copiable-link {visibility: visible}
-ul.mark-bullet {list-style-type: disc}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -85,52 +96,52 @@ ul.mark-bullet {list-style-type: disc}
 </head>
 
 <body lang="en">
-<div class="section-level-extent" id="GDB_002fMI-Program-Execution">
-<div class="nav-panel">
+<div class="section" id="GDB_002fMI-Program-Execution">
+<div class="header">
 <p>
-Next: <a href="GDB_002fMI-Stack-Manipulation.html" accesskey="n" rel="next"><small class="sc">GDB/MI</small> Stack Manipulation Commands</a>, Previous: <a href="GDB_002fMI-Ada-Tasking-Commands.html" accesskey="p" rel="prev"><small class="sc">GDB/MI</small> Ada Tasking Commands</a>, Up: <a href="GDB_002fMI.html" accesskey="u" rel="up">The <small class="sc">GDB/MI</small> Interface</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="GDB_002fMI-Stack-Manipulation.html" accesskey="n" rel="next"><small>GDB/MI</small> Stack Manipulation Commands</a>, Previous: <a href="GDB_002fMI-Ada-Tasking-Commands.html" accesskey="p" rel="prev"><small>GDB/MI</small> Ada Tasking Commands</a>, Up: <a href="GDB_002fMI.html" accesskey="u" rel="up">The <small>GDB/MI</small> Interface</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h3 class="section" id="gdb_002fmi-Program-Execution"><span>28.13 <small class="sc">GDB/MI</small> Program Execution<a class="copiable-link" href="#gdb_002fmi-Program-Execution"> &para;</a></span></h3>
+<span id="GDB_002fMI-Program-Execution-1"></span><h3 class="section">28.13 <small>GDB/MI</small> Program Execution</h3>
 
 <p>These are the asynchronous commands which generate the out-of-band
-record &lsquo;<samp class="samp">*stopped</samp>&rsquo;.  Currently <small class="sc">ROCGDB</small> only really executes
+record &lsquo;<samp>*stopped</samp>&rsquo;.  Currently <small>ROCGDB</small> only really executes
 asynchronously with remote targets and this interaction is mimicked in
 other cases.
 </p>
-<a class="index-entry-id" id="index-_002dexec_002dcontinue"></a>
-<h4 class="subheading" id="The-_002dexec_002dcontinue-Command"><span>The <code class="code">-exec-continue</code> Command<a class="copiable-link" href="#The-_002dexec_002dcontinue-Command"> &para;</a></span></h4>
+<span id="index-_002dexec_002dcontinue"></span>
+<span id="The-_002dexec_002dcontinue-Command"></span><h4 class="subheading">The <code>-exec-continue</code> Command</h4>
 
-<h4 class="subsubheading" id="Synopsis-31"><span>Synopsis<a class="copiable-link" href="#Synopsis-31"> &para;</a></span></h4>
+<span id="Synopsis-31"></span><h4 class="subsubheading">Synopsis</h4>
 
-<div class="example smallexample">
-<pre class="example-preformatted"> -exec-continue [--reverse] [--all|--thread-group N]
+<div class="example">
+<pre class="example"> -exec-continue [--reverse] [--all|--thread-group N]
 </pre></div>
 
 <p>Resumes the execution of the inferior program, which will continue
 to execute until it reaches a debugger stop event.  If the 
-&lsquo;<samp class="samp">--reverse</samp>&rsquo; option is specified, execution resumes in reverse until 
+&lsquo;<samp>--reverse</samp>&rsquo; option is specified, execution resumes in reverse until 
 it reaches a stop event.  Stop events may include
-</p><ul class="itemize mark-bullet">
-<li>breakpoints, watchpoints, tracepoints, or catchpoints
-</li><li>signals or exceptions
-</li><li>the end of the process (or its beginning under &lsquo;<samp class="samp">--reverse</samp>&rsquo;)
-</li><li>the end or beginning of a replay log if one is being used.
+</p><ul>
+<li> breakpoints, watchpoints, tracepoints, or catchpoints
+</li><li> signals or exceptions
+</li><li> the end of the process (or its beginning under &lsquo;<samp>--reverse</samp>&rsquo;)
+</li><li> the end or beginning of a replay log if one is being used.
 </li></ul>
-<p>In all-stop mode (see <a class="pxref" href="All_002dStop-Mode.html">All-Stop Mode</a>), may resume only one thread, or all threads, depending on the
-value of the &lsquo;<samp class="samp">scheduler-locking</samp>&rsquo; variable.  If &lsquo;<samp class="samp">--all</samp>&rsquo; is
-specified, all threads (in all inferiors) will be resumed.  The &lsquo;<samp class="samp">--all</samp>&rsquo; option is
-ignored in all-stop mode.  If the &lsquo;<samp class="samp">--thread-group</samp>&rsquo; options is
+<p>In all-stop mode (see <a href="All_002dStop-Mode.html">All-Stop Mode</a>), may resume only one thread, or all threads, depending on the
+value of the &lsquo;<samp>scheduler-locking</samp>&rsquo; variable.  If &lsquo;<samp>--all</samp>&rsquo; is
+specified, all threads (in all inferiors) will be resumed.  The &lsquo;<samp>--all</samp>&rsquo; option is
+ignored in all-stop mode.  If the &lsquo;<samp>--thread-group</samp>&rsquo; options is
 specified, then all threads in that thread group are resumed.
 </p>
-<h4 class="subsubheading" id="rocgdb-Command-30"><span><small class="sc">ROCGDB</small> Command<a class="copiable-link" href="#rocgdb-Command-30"> &para;</a></span></h4>
+<span id="ROCGDB-Command-30"></span><h4 class="subsubheading"><small>ROCGDB</small> Command</h4>
 
-<p>The corresponding <small class="sc">ROCGDB</small> corresponding is &lsquo;<samp class="samp">continue</samp>&rsquo;.
+<p>The corresponding <small>ROCGDB</small> corresponding is &lsquo;<samp>continue</samp>&rsquo;.
 </p>
-<h4 class="subsubheading" id="Example-30"><span>Example<a class="copiable-link" href="#Example-30"> &para;</a></span></h4>
+<span id="Example-30"></span><h4 class="subsubheading">Example</h4>
 
-<div class="example smallexample">
-<pre class="example-preformatted">-exec-continue
+<div class="example">
+<pre class="example">-exec-continue
 ^running
 (gdb)
 @Hello world
@@ -140,12 +151,12 @@ line=&quot;13&quot;,arch=&quot;i386:x86_64&quot;}
 (gdb)
 </pre></div>
 
-<p>For a &lsquo;<samp class="samp">breakpoint-hit</samp>&rsquo; stopped reason, when the breakpoint
-encountered has multiple locations, the field &lsquo;<samp class="samp">bkptno</samp>&rsquo; is
-followed by the field &lsquo;<samp class="samp">locno</samp>&rsquo;.
+<p>For a &lsquo;<samp>breakpoint-hit</samp>&rsquo; stopped reason, when the breakpoint
+encountered has multiple locations, the field &lsquo;<samp>bkptno</samp>&rsquo; is
+followed by the field &lsquo;<samp>locno</samp>&rsquo;.
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">-exec-continue
+<div class="example">
+<pre class="example">-exec-continue
 ^running
 (gdb)
 @Hello world
@@ -155,31 +166,31 @@ line=&quot;13&quot;,arch=&quot;i386:x86_64&quot;}
 (gdb)
 </pre></div>
 
-<a class="index-entry-id" id="index-_002dexec_002dfinish"></a>
-<h4 class="subheading" id="The-_002dexec_002dfinish-Command"><span>The <code class="code">-exec-finish</code> Command<a class="copiable-link" href="#The-_002dexec_002dfinish-Command"> &para;</a></span></h4>
+<span id="index-_002dexec_002dfinish"></span>
+<span id="The-_002dexec_002dfinish-Command"></span><h4 class="subheading">The <code>-exec-finish</code> Command</h4>
 
-<h4 class="subsubheading" id="Synopsis-32"><span>Synopsis<a class="copiable-link" href="#Synopsis-32"> &para;</a></span></h4>
+<span id="Synopsis-32"></span><h4 class="subsubheading">Synopsis</h4>
 
-<div class="example smallexample">
-<pre class="example-preformatted"> -exec-finish [--reverse]
+<div class="example">
+<pre class="example"> -exec-finish [--reverse]
 </pre></div>
 
 <p>Resumes the execution of the inferior program until the current
 function is exited.  Displays the results returned by the function.
-If the &lsquo;<samp class="samp">--reverse</samp>&rsquo; option is specified, resumes the reverse
+If the &lsquo;<samp>--reverse</samp>&rsquo; option is specified, resumes the reverse
 execution of the inferior program until the point where current
 function was called.
 </p>
-<h4 class="subsubheading" id="rocgdb-Command-31"><span><small class="sc">ROCGDB</small> Command<a class="copiable-link" href="#rocgdb-Command-31"> &para;</a></span></h4>
+<span id="ROCGDB-Command-31"></span><h4 class="subsubheading"><small>ROCGDB</small> Command</h4>
 
-<p>The corresponding <small class="sc">ROCGDB</small> command is &lsquo;<samp class="samp">finish</samp>&rsquo;.
+<p>The corresponding <small>ROCGDB</small> command is &lsquo;<samp>finish</samp>&rsquo;.
 </p>
-<h4 class="subsubheading" id="Example-31"><span>Example<a class="copiable-link" href="#Example-31"> &para;</a></span></h4>
+<span id="Example-31"></span><h4 class="subsubheading">Example</h4>
 
-<p>Function returning <code class="code">void</code>.
+<p>Function returning <code>void</code>.
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">-exec-finish
+<div class="example">
+<pre class="example">-exec-finish
 ^running
 (gdb)
 @hello from foo
@@ -188,12 +199,12 @@ file=&quot;hello.c&quot;,fullname=&quot;/home/foo/bar/hello.c&quot;,line=&quot;7
 (gdb)
 </pre></div>
 
-<p>Function returning other than <code class="code">void</code>.  The name of the internal
-<small class="sc">ROCGDB</small> variable storing the result is printed, together with the
+<p>Function returning other than <code>void</code>.  The name of the internal
+<small>ROCGDB</small> variable storing the result is printed, together with the
 value itself.
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">-exec-finish
+<div class="example">
+<pre class="example">-exec-finish
 ^running
 (gdb)
 *stopped,reason=&quot;function-finished&quot;,frame={addr=&quot;0x000107b0&quot;,func=&quot;foo&quot;,
@@ -205,39 +216,39 @@ gdb-result-var=&quot;$1&quot;,return-value=&quot;0&quot;
 </pre></div>
 
 
-<a class="index-entry-id" id="index-_002dexec_002dinterrupt"></a>
-<h4 class="subheading" id="The-_002dexec_002dinterrupt-Command"><span>The <code class="code">-exec-interrupt</code> Command<a class="copiable-link" href="#The-_002dexec_002dinterrupt-Command"> &para;</a></span></h4>
+<span id="index-_002dexec_002dinterrupt"></span>
+<span id="The-_002dexec_002dinterrupt-Command"></span><h4 class="subheading">The <code>-exec-interrupt</code> Command</h4>
 
-<h4 class="subsubheading" id="Synopsis-33"><span>Synopsis<a class="copiable-link" href="#Synopsis-33"> &para;</a></span></h4>
+<span id="Synopsis-33"></span><h4 class="subsubheading">Synopsis</h4>
 
-<div class="example smallexample">
-<pre class="example-preformatted"> -exec-interrupt [--all|--thread-group N]
+<div class="example">
+<pre class="example"> -exec-interrupt [--all|--thread-group N]
 </pre></div>
 
 <p>Interrupts the background execution of the target.  Note how the token
 associated with the stop message is the one for the execution command
 that has been interrupted.  The token for the interrupt itself only
-appears in the &lsquo;<samp class="samp">^done</samp>&rsquo; output.  If the user is trying to
+appears in the &lsquo;<samp>^done</samp>&rsquo; output.  If the user is trying to
 interrupt a non-running program, an error message will be printed.
 </p>
 <p>Note that when asynchronous execution is enabled, this command is
 asynchronous just like other execution commands.  That is, first the
-&lsquo;<samp class="samp">^done</samp>&rsquo; response will be printed, and the target stop will be
-reported after that using the &lsquo;<samp class="samp">*stopped</samp>&rsquo; notification.
+&lsquo;<samp>^done</samp>&rsquo; response will be printed, and the target stop will be
+reported after that using the &lsquo;<samp>*stopped</samp>&rsquo; notification.
 </p>
 <p>In non-stop mode, only the context thread is interrupted by default.
 All threads (in all inferiors) will be interrupted if the
-&lsquo;<samp class="samp">--all</samp>&rsquo;  option is specified.  If the &lsquo;<samp class="samp">--thread-group</samp>&rsquo;
+&lsquo;<samp>--all</samp>&rsquo;  option is specified.  If the &lsquo;<samp>--thread-group</samp>&rsquo;
 option is specified, all threads in that group will be interrupted.
 </p>
-<h4 class="subsubheading" id="rocgdb-Command-32"><span><small class="sc">ROCGDB</small> Command<a class="copiable-link" href="#rocgdb-Command-32"> &para;</a></span></h4>
+<span id="ROCGDB-Command-32"></span><h4 class="subsubheading"><small>ROCGDB</small> Command</h4>
 
-<p>The corresponding <small class="sc">ROCGDB</small> command is &lsquo;<samp class="samp">interrupt</samp>&rsquo;.
+<p>The corresponding <small>ROCGDB</small> command is &lsquo;<samp>interrupt</samp>&rsquo;.
 </p>
-<h4 class="subsubheading" id="Example-32"><span>Example<a class="copiable-link" href="#Example-32"> &para;</a></span></h4>
+<span id="Example-32"></span><h4 class="subsubheading">Example</h4>
 
-<div class="example smallexample">
-<pre class="example-preformatted">(gdb)
+<div class="example">
+<pre class="example">(gdb)
 111-exec-continue
 111^running
 
@@ -256,59 +267,59 @@ fullname=&quot;/home/foo/bar/try.c&quot;,line=&quot;13&quot;,arch=&quot;i386:x86
 (gdb)
 </pre></div>
 
-<a class="index-entry-id" id="index-_002dexec_002djump"></a>
-<h4 class="subheading" id="The-_002dexec_002djump-Command"><span>The <code class="code">-exec-jump</code> Command<a class="copiable-link" href="#The-_002dexec_002djump-Command"> &para;</a></span></h4>
+<span id="index-_002dexec_002djump"></span>
+<span id="The-_002dexec_002djump-Command"></span><h4 class="subheading">The <code>-exec-jump</code> Command</h4>
 
-<h4 class="subsubheading" id="Synopsis-34"><span>Synopsis<a class="copiable-link" href="#Synopsis-34"> &para;</a></span></h4>
+<span id="Synopsis-34"></span><h4 class="subsubheading">Synopsis</h4>
 
-<div class="example smallexample">
-<pre class="example-preformatted"> -exec-jump <var class="var">locspec</var>
+<div class="example">
+<pre class="example"> -exec-jump <var>locspec</var>
 </pre></div>
 
 <p>Resumes execution of the inferior program at the address to
-which <var class="var">locspec</var> resolves.  See <a class="xref" href="Location-Specifications.html">Location Specifications</a>,
-for a description of the different forms of <var class="var">locspec</var>.
+which <var>locspec</var> resolves.  See <a href="Location-Specifications.html">Location Specifications</a>,
+for a description of the different forms of <var>locspec</var>.
 </p>
-<h4 class="subsubheading" id="rocgdb-Command-33"><span><small class="sc">ROCGDB</small> Command<a class="copiable-link" href="#rocgdb-Command-33"> &para;</a></span></h4>
+<span id="ROCGDB-Command-33"></span><h4 class="subsubheading"><small>ROCGDB</small> Command</h4>
 
-<p>The corresponding <small class="sc">ROCGDB</small> command is &lsquo;<samp class="samp">jump</samp>&rsquo;.
+<p>The corresponding <small>ROCGDB</small> command is &lsquo;<samp>jump</samp>&rsquo;.
 </p>
-<h4 class="subsubheading" id="Example-33"><span>Example<a class="copiable-link" href="#Example-33"> &para;</a></span></h4>
+<span id="Example-33"></span><h4 class="subsubheading">Example</h4>
 
-<div class="example smallexample">
-<pre class="example-preformatted">-exec-jump foo.c:10
+<div class="example">
+<pre class="example">-exec-jump foo.c:10
 *running,thread-id=&quot;all&quot;
 ^running
 </pre></div>
 
 
-<a class="index-entry-id" id="index-_002dexec_002dnext"></a>
-<h4 class="subheading" id="The-_002dexec_002dnext-Command"><span>The <code class="code">-exec-next</code> Command<a class="copiable-link" href="#The-_002dexec_002dnext-Command"> &para;</a></span></h4>
+<span id="index-_002dexec_002dnext"></span>
+<span id="The-_002dexec_002dnext-Command"></span><h4 class="subheading">The <code>-exec-next</code> Command</h4>
 
-<h4 class="subsubheading" id="Synopsis-35"><span>Synopsis<a class="copiable-link" href="#Synopsis-35"> &para;</a></span></h4>
+<span id="Synopsis-35"></span><h4 class="subsubheading">Synopsis</h4>
 
-<div class="example smallexample">
-<pre class="example-preformatted"> -exec-next [--reverse]
+<div class="example">
+<pre class="example"> -exec-next [--reverse]
 </pre></div>
 
 <p>Resumes execution of the inferior program, stopping when the beginning
 of the next source line is reached.
 </p>
-<p>If the &lsquo;<samp class="samp">--reverse</samp>&rsquo; option is specified, resumes reverse execution
+<p>If the &lsquo;<samp>--reverse</samp>&rsquo; option is specified, resumes reverse execution
 of the inferior program, stopping at the beginning of the previous
 source line.  If you issue this command on the first line of a
 function, it will take you back to the caller of that function, to the
 source line where the function was called.
 </p>
 
-<h4 class="subsubheading" id="rocgdb-Command-34"><span><small class="sc">ROCGDB</small> Command<a class="copiable-link" href="#rocgdb-Command-34"> &para;</a></span></h4>
+<span id="ROCGDB-Command-34"></span><h4 class="subsubheading"><small>ROCGDB</small> Command</h4>
 
-<p>The corresponding <small class="sc">ROCGDB</small> command is &lsquo;<samp class="samp">next</samp>&rsquo;.
+<p>The corresponding <small>ROCGDB</small> command is &lsquo;<samp>next</samp>&rsquo;.
 </p>
-<h4 class="subsubheading" id="Example-34"><span>Example<a class="copiable-link" href="#Example-34"> &para;</a></span></h4>
+<span id="Example-34"></span><h4 class="subsubheading">Example</h4>
 
-<div class="example smallexample">
-<pre class="example-preformatted">-exec-next
+<div class="example">
+<pre class="example">-exec-next
 ^running
 (gdb)
 *stopped,reason=&quot;end-stepping-range&quot;,line=&quot;8&quot;,file=&quot;hello.c&quot;
@@ -316,13 +327,13 @@ source line where the function was called.
 </pre></div>
 
 
-<a class="index-entry-id" id="index-_002dexec_002dnext_002dinstruction"></a>
-<h4 class="subheading" id="The-_002dexec_002dnext_002dinstruction-Command"><span>The <code class="code">-exec-next-instruction</code> Command<a class="copiable-link" href="#The-_002dexec_002dnext_002dinstruction-Command"> &para;</a></span></h4>
+<span id="index-_002dexec_002dnext_002dinstruction"></span>
+<span id="The-_002dexec_002dnext_002dinstruction-Command"></span><h4 class="subheading">The <code>-exec-next-instruction</code> Command</h4>
 
-<h4 class="subsubheading" id="Synopsis-36"><span>Synopsis<a class="copiable-link" href="#Synopsis-36"> &para;</a></span></h4>
+<span id="Synopsis-36"></span><h4 class="subsubheading">Synopsis</h4>
 
-<div class="example smallexample">
-<pre class="example-preformatted"> -exec-next-instruction [--reverse]
+<div class="example">
+<pre class="example"> -exec-next-instruction [--reverse]
 </pre></div>
 
 <p>Executes one machine instruction.  If the instruction is a function
@@ -330,20 +341,20 @@ call, continues until the function returns.  If the program stops at an
 instruction in the middle of a source line, the address will be
 printed as well.
 </p>
-<p>If the &lsquo;<samp class="samp">--reverse</samp>&rsquo; option is specified, resumes reverse execution
+<p>If the &lsquo;<samp>--reverse</samp>&rsquo; option is specified, resumes reverse execution
 of the inferior program, stopping at the previous instruction.  If the
 previously executed instruction was a return from another function,
 it will continue to execute in reverse until the call to that function
 (from the current stack frame) is reached.
 </p>
-<h4 class="subsubheading" id="rocgdb-Command-35"><span><small class="sc">ROCGDB</small> Command<a class="copiable-link" href="#rocgdb-Command-35"> &para;</a></span></h4>
+<span id="ROCGDB-Command-35"></span><h4 class="subsubheading"><small>ROCGDB</small> Command</h4>
 
-<p>The corresponding <small class="sc">ROCGDB</small> command is &lsquo;<samp class="samp">nexti</samp>&rsquo;.
+<p>The corresponding <small>ROCGDB</small> command is &lsquo;<samp>nexti</samp>&rsquo;.
 </p>
-<h4 class="subsubheading" id="Example-35"><span>Example<a class="copiable-link" href="#Example-35"> &para;</a></span></h4>
+<span id="Example-35"></span><h4 class="subsubheading">Example</h4>
 
-<div class="example smallexample">
-<pre class="example-preformatted">(gdb)
+<div class="example">
+<pre class="example">(gdb)
 -exec-next-instruction
 ^running
 
@@ -354,26 +365,26 @@ addr=&quot;0x000100d4&quot;,line=&quot;5&quot;,file=&quot;hello.c&quot;
 </pre></div>
 
 
-<a class="index-entry-id" id="index-_002dexec_002dreturn"></a>
-<h4 class="subheading" id="The-_002dexec_002dreturn-Command"><span>The <code class="code">-exec-return</code> Command<a class="copiable-link" href="#The-_002dexec_002dreturn-Command"> &para;</a></span></h4>
+<span id="index-_002dexec_002dreturn"></span>
+<span id="The-_002dexec_002dreturn-Command"></span><h4 class="subheading">The <code>-exec-return</code> Command</h4>
 
-<h4 class="subsubheading" id="Synopsis-37"><span>Synopsis<a class="copiable-link" href="#Synopsis-37"> &para;</a></span></h4>
+<span id="Synopsis-37"></span><h4 class="subsubheading">Synopsis</h4>
 
-<div class="example smallexample">
-<pre class="example-preformatted"> -exec-return
+<div class="example">
+<pre class="example"> -exec-return
 </pre></div>
 
 <p>Makes current function return immediately.  Doesn&rsquo;t execute the inferior.
 Displays the new current frame.
 </p>
-<h4 class="subsubheading" id="rocgdb-Command-36"><span><small class="sc">ROCGDB</small> Command<a class="copiable-link" href="#rocgdb-Command-36"> &para;</a></span></h4>
+<span id="ROCGDB-Command-36"></span><h4 class="subsubheading"><small>ROCGDB</small> Command</h4>
 
-<p>The corresponding <small class="sc">ROCGDB</small> command is &lsquo;<samp class="samp">return</samp>&rsquo;.
+<p>The corresponding <small>ROCGDB</small> command is &lsquo;<samp>return</samp>&rsquo;.
 </p>
-<h4 class="subsubheading" id="Example-36"><span>Example<a class="copiable-link" href="#Example-36"> &para;</a></span></h4>
+<span id="Example-36"></span><h4 class="subsubheading">Example</h4>
 
-<div class="example smallexample">
-<pre class="example-preformatted">(gdb)
+<div class="example">
+<pre class="example">(gdb)
 200-break-insert callee4
 200^done,bkpt={number=&quot;1&quot;,addr=&quot;0x00010734&quot;,
 file=&quot;../../../devo/gdb/testsuite/gdb.mi/basics.c&quot;,line=&quot;8&quot;}
@@ -401,13 +412,13 @@ arch=&quot;i386:x86_64&quot;}
 </pre></div>
 
 
-<a class="index-entry-id" id="index-_002dexec_002drun"></a>
-<h4 class="subheading" id="The-_002dexec_002drun-Command"><span>The <code class="code">-exec-run</code> Command<a class="copiable-link" href="#The-_002dexec_002drun-Command"> &para;</a></span></h4>
+<span id="index-_002dexec_002drun"></span>
+<span id="The-_002dexec_002drun-Command"></span><h4 class="subheading">The <code>-exec-run</code> Command</h4>
 
-<h4 class="subsubheading" id="Synopsis-38"><span>Synopsis<a class="copiable-link" href="#Synopsis-38"> &para;</a></span></h4>
+<span id="Synopsis-38"></span><h4 class="subsubheading">Synopsis</h4>
 
-<div class="example smallexample">
-<pre class="example-preformatted"> -exec-run [ --all | --thread-group N ] [ --start ]
+<div class="example">
+<pre class="example"> -exec-run [ --all | --thread-group N ] [ --start ]
 </pre></div>
 
 <p>Starts execution of the inferior from the beginning.  The inferior
@@ -415,25 +426,25 @@ executes until either a breakpoint is encountered or the program
 exits.  In the latter case the output will include an exit code, if
 the program has exited exceptionally.
 </p>
-<p>When neither the &lsquo;<samp class="samp">--all</samp>&rsquo; nor the &lsquo;<samp class="samp">--thread-group</samp>&rsquo; option
+<p>When neither the &lsquo;<samp>--all</samp>&rsquo; nor the &lsquo;<samp>--thread-group</samp>&rsquo; option
 is specified, the current inferior is started.  If the
-&lsquo;<samp class="samp">--thread-group</samp>&rsquo; option is specified, it should refer to a thread
-group of type &lsquo;<samp class="samp">process</samp>&rsquo;, and that thread group will be started.
-If the &lsquo;<samp class="samp">--all</samp>&rsquo; option is specified, then all inferiors will be started.
+&lsquo;<samp>--thread-group</samp>&rsquo; option is specified, it should refer to a thread
+group of type &lsquo;<samp>process</samp>&rsquo;, and that thread group will be started.
+If the &lsquo;<samp>--all</samp>&rsquo; option is specified, then all inferiors will be started.
 </p>
-<p>Using the &lsquo;<samp class="samp">--start</samp>&rsquo; option instructs the debugger to stop
+<p>Using the &lsquo;<samp>--start</samp>&rsquo; option instructs the debugger to stop
 the execution at the start of the inferior&rsquo;s main subprogram,
-following the same behavior as the <code class="code">start</code> command
-(see <a class="pxref" href="Starting.html">Starting your Program</a>).
+following the same behavior as the <code>start</code> command
+(see <a href="Starting.html">Starting your Program</a>).
 </p>
-<h4 class="subsubheading" id="rocgdb-Command-37"><span><small class="sc">ROCGDB</small> Command<a class="copiable-link" href="#rocgdb-Command-37"> &para;</a></span></h4>
+<span id="ROCGDB-Command-37"></span><h4 class="subsubheading"><small>ROCGDB</small> Command</h4>
 
-<p>The corresponding <small class="sc">ROCGDB</small> command is &lsquo;<samp class="samp">run</samp>&rsquo;.
+<p>The corresponding <small>ROCGDB</small> command is &lsquo;<samp>run</samp>&rsquo;.
 </p>
-<h4 class="subsubheading" id="Examples-2"><span>Examples<a class="copiable-link" href="#Examples-2"> &para;</a></span></h4>
+<span id="Examples-2"></span><h4 class="subsubheading">Examples</h4>
 
-<div class="example smallexample">
-<pre class="example-preformatted">(gdb)
+<div class="example">
+<pre class="example">(gdb)
 -break-insert main
 ^done,bkpt={number=&quot;1&quot;,addr=&quot;0x0001072c&quot;,file=&quot;recursive2.c&quot;,line=&quot;4&quot;}
 (gdb)
@@ -448,8 +459,8 @@ fullname=&quot;/home/foo/bar/recursive2.c&quot;,line=&quot;4&quot;,arch=&quot;i3
 
 <p>Program exited normally:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">(gdb)
+<div class="example">
+<pre class="example">(gdb)
 -exec-run
 ^running
 (gdb)
@@ -460,8 +471,8 @@ x = 55
 
 <p>Program exited exceptionally:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">(gdb)
+<div class="example">
+<pre class="example">(gdb)
 -exec-run
 ^running
 (gdb)
@@ -471,10 +482,10 @@ x = 55
 </pre></div>
 
 <p>Another way the program can terminate is if it receives a signal such as
-<code class="code">SIGINT</code>.  In this case, <small class="sc">GDB/MI</small> displays this:
+<code>SIGINT</code>.  In this case, <small>GDB/MI</small> displays this:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">(gdb)
+<div class="example">
+<pre class="example">(gdb)
 *stopped,reason=&quot;exited-signalled&quot;,signal-name=&quot;SIGINT&quot;,
 signal-meaning=&quot;Interrupt&quot;
 </pre></div>
@@ -482,32 +493,32 @@ signal-meaning=&quot;Interrupt&quot;
 
 
 
-<a class="index-entry-id" id="index-_002dexec_002dstep"></a>
-<h4 class="subheading" id="The-_002dexec_002dstep-Command"><span>The <code class="code">-exec-step</code> Command<a class="copiable-link" href="#The-_002dexec_002dstep-Command"> &para;</a></span></h4>
+<span id="index-_002dexec_002dstep"></span>
+<span id="The-_002dexec_002dstep-Command"></span><h4 class="subheading">The <code>-exec-step</code> Command</h4>
 
-<h4 class="subsubheading" id="Synopsis-39"><span>Synopsis<a class="copiable-link" href="#Synopsis-39"> &para;</a></span></h4>
+<span id="Synopsis-39"></span><h4 class="subsubheading">Synopsis</h4>
 
-<div class="example smallexample">
-<pre class="example-preformatted"> -exec-step [--reverse]
+<div class="example">
+<pre class="example"> -exec-step [--reverse]
 </pre></div>
 
 <p>Resumes execution of the inferior program, stopping when the beginning
 of the next source line is reached, if the next source line is not a
 function call.  If it is, stop at the first instruction of the called
-function.  If the &lsquo;<samp class="samp">--reverse</samp>&rsquo; option is specified, resumes reverse
+function.  If the &lsquo;<samp>--reverse</samp>&rsquo; option is specified, resumes reverse
 execution of the inferior program, stopping at the beginning of the
 previously executed source line.
 </p>
-<h4 class="subsubheading" id="rocgdb-Command-38"><span><small class="sc">ROCGDB</small> Command<a class="copiable-link" href="#rocgdb-Command-38"> &para;</a></span></h4>
+<span id="ROCGDB-Command-38"></span><h4 class="subsubheading"><small>ROCGDB</small> Command</h4>
 
-<p>The corresponding <small class="sc">ROCGDB</small> command is &lsquo;<samp class="samp">step</samp>&rsquo;.
+<p>The corresponding <small>ROCGDB</small> command is &lsquo;<samp>step</samp>&rsquo;.
 </p>
-<h4 class="subsubheading" id="Example-37"><span>Example<a class="copiable-link" href="#Example-37"> &para;</a></span></h4>
+<span id="Example-37"></span><h4 class="subsubheading">Example</h4>
 
 <p>Stepping into a function:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">-exec-step
+<div class="example">
+<pre class="example">-exec-step
 ^running
 (gdb)
 *stopped,reason=&quot;end-stepping-range&quot;,
@@ -519,8 +530,8 @@ fullname=&quot;/home/foo/bar/recursive2.c&quot;,line=&quot;11&quot;,arch=&quot;i
 
 <p>Regular stepping:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">-exec-step
+<div class="example">
+<pre class="example">-exec-step
 ^running
 (gdb)
 *stopped,reason=&quot;end-stepping-range&quot;,line=&quot;14&quot;,file=&quot;recursive2.c&quot;
@@ -528,31 +539,31 @@ fullname=&quot;/home/foo/bar/recursive2.c&quot;,line=&quot;11&quot;,arch=&quot;i
 </pre></div>
 
 
-<a class="index-entry-id" id="index-_002dexec_002dstep_002dinstruction"></a>
-<h4 class="subheading" id="The-_002dexec_002dstep_002dinstruction-Command"><span>The <code class="code">-exec-step-instruction</code> Command<a class="copiable-link" href="#The-_002dexec_002dstep_002dinstruction-Command"> &para;</a></span></h4>
+<span id="index-_002dexec_002dstep_002dinstruction"></span>
+<span id="The-_002dexec_002dstep_002dinstruction-Command"></span><h4 class="subheading">The <code>-exec-step-instruction</code> Command</h4>
 
-<h4 class="subsubheading" id="Synopsis-40"><span>Synopsis<a class="copiable-link" href="#Synopsis-40"> &para;</a></span></h4>
+<span id="Synopsis-40"></span><h4 class="subsubheading">Synopsis</h4>
 
-<div class="example smallexample">
-<pre class="example-preformatted"> -exec-step-instruction [--reverse]
+<div class="example">
+<pre class="example"> -exec-step-instruction [--reverse]
 </pre></div>
 
 <p>Resumes the inferior which executes one machine instruction.  If the
-&lsquo;<samp class="samp">--reverse</samp>&rsquo; option is specified, resumes reverse execution of the
+&lsquo;<samp>--reverse</samp>&rsquo; option is specified, resumes reverse execution of the
 inferior program, stopping at the previously executed instruction.
-The output, once <small class="sc">ROCGDB</small> has stopped, will vary depending on
+The output, once <small>ROCGDB</small> has stopped, will vary depending on
 whether we have stopped in the middle of a source line or not.  In the
 former case, the address at which the program stopped will be printed
 as well.
 </p>
-<h4 class="subsubheading" id="rocgdb-Command-39"><span><small class="sc">ROCGDB</small> Command<a class="copiable-link" href="#rocgdb-Command-39"> &para;</a></span></h4>
+<span id="ROCGDB-Command-39"></span><h4 class="subsubheading"><small>ROCGDB</small> Command</h4>
 
-<p>The corresponding <small class="sc">ROCGDB</small> command is &lsquo;<samp class="samp">stepi</samp>&rsquo;.
+<p>The corresponding <small>ROCGDB</small> command is &lsquo;<samp>stepi</samp>&rsquo;.
 </p>
-<h4 class="subsubheading" id="Example-38"><span>Example<a class="copiable-link" href="#Example-38"> &para;</a></span></h4>
+<span id="Example-38"></span><h4 class="subsubheading">Example</h4>
 
-<div class="example smallexample">
-<pre class="example-preformatted">(gdb)
+<div class="example">
+<pre class="example">(gdb)
 -exec-step-instruction
 ^running
 
@@ -572,28 +583,28 @@ fullname=&quot;/home/foo/bar/try.c&quot;,line=&quot;10&quot;,arch=&quot;i386:x86
 </pre></div>
 
 
-<a class="index-entry-id" id="index-_002dexec_002duntil"></a>
-<h4 class="subheading" id="The-_002dexec_002duntil-Command"><span>The <code class="code">-exec-until</code> Command<a class="copiable-link" href="#The-_002dexec_002duntil-Command"> &para;</a></span></h4>
+<span id="index-_002dexec_002duntil"></span>
+<span id="The-_002dexec_002duntil-Command"></span><h4 class="subheading">The <code>-exec-until</code> Command</h4>
 
-<h4 class="subsubheading" id="Synopsis-41"><span>Synopsis<a class="copiable-link" href="#Synopsis-41"> &para;</a></span></h4>
+<span id="Synopsis-41"></span><h4 class="subsubheading">Synopsis</h4>
 
-<div class="example smallexample">
-<pre class="example-preformatted"> -exec-until [ <var class="var">locspec</var> ]
+<div class="example">
+<pre class="example"> -exec-until [ <var>locspec</var> ]
 </pre></div>
 
 <p>Executes the inferior until it reaches the address to which
-<var class="var">locspec</var> resolves.  If there is no argument, the inferior
+<var>locspec</var> resolves.  If there is no argument, the inferior
 executes until it reaches a source line greater than the current one.
-The reason for stopping in this case will be &lsquo;<samp class="samp">location-reached</samp>&rsquo;.
+The reason for stopping in this case will be &lsquo;<samp>location-reached</samp>&rsquo;.
 </p>
-<h4 class="subsubheading" id="rocgdb-Command-40"><span><small class="sc">ROCGDB</small> Command<a class="copiable-link" href="#rocgdb-Command-40"> &para;</a></span></h4>
+<span id="ROCGDB-Command-40"></span><h4 class="subsubheading"><small>ROCGDB</small> Command</h4>
 
-<p>The corresponding <small class="sc">ROCGDB</small> command is &lsquo;<samp class="samp">until</samp>&rsquo;.
+<p>The corresponding <small>ROCGDB</small> command is &lsquo;<samp>until</samp>&rsquo;.
 </p>
-<h4 class="subsubheading" id="Example-39"><span>Example<a class="copiable-link" href="#Example-39"> &para;</a></span></h4>
+<span id="Example-39"></span><h4 class="subsubheading">Example</h4>
 
-<div class="example smallexample">
-<pre class="example-preformatted">(gdb)
+<div class="example">
+<pre class="example">(gdb)
 -exec-until recursive2.c:6
 ^running
 (gdb)
@@ -607,9 +618,9 @@ arch=&quot;i386:x86_64&quot;}
 
 </div>
 <hr>
-<div class="nav-panel">
+<div class="header">
 <p>
-Next: <a href="GDB_002fMI-Stack-Manipulation.html"><small class="sc">GDB/MI</small> Stack Manipulation Commands</a>, Previous: <a href="GDB_002fMI-Ada-Tasking-Commands.html"><small class="sc">GDB/MI</small> Ada Tasking Commands</a>, Up: <a href="GDB_002fMI.html">The <small class="sc">GDB/MI</small> Interface</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="GDB_002fMI-Stack-Manipulation.html"><small>GDB/MI</small> Stack Manipulation Commands</a>, Previous: <a href="GDB_002fMI-Ada-Tasking-Commands.html"><small>GDB/MI</small> Ada Tasking Commands</a>, Up: <a href="GDB_002fMI.html">The <small>GDB/MI</small> Interface</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

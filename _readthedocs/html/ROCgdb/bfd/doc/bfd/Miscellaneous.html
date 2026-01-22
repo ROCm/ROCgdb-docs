@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the BFD library.
 
-Copyright © 1991-2024 Free Software Foundation, Inc.
+Copyright (C) 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -41,11 +41,21 @@ You have freedom to copy and modify this GNU Manual, like GNU
 <link href="Threading.html" rel="prev" title="Threading">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
 div.example {margin-left: 3.2em}
-span:hover a.copiable-link {visibility: visible}
-strong.def-name {font-family: monospace; font-weight: bold; font-size: larger}
-ul.mark-bullet {list-style-type: disc}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -53,141 +63,141 @@ ul.mark-bullet {list-style-type: disc}
 </head>
 
 <body lang="en">
-<div class="section-level-extent" id="Miscellaneous">
-<div class="nav-panel">
+<div class="section" id="Miscellaneous">
+<div class="header">
 <p>
 Next: <a href="Memory-Usage.html" accesskey="n" rel="next">Memory Usage</a>, Previous: <a href="Threading.html" accesskey="p" rel="prev">Threading</a>, Up: <a href="BFD-front-end.html" accesskey="u" rel="up">BFD Front End</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="BFD-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h3 class="section" id="Miscellaneous-1"><span>2.4 Miscellaneous<a class="copiable-link" href="#Miscellaneous-1"> &para;</a></span></h3>
+<span id="Miscellaneous-1"></span><h3 class="section">2.4 Miscellaneous</h3>
 
 
-<ul class="mini-toc">
+<ul class="section-toc">
 <li><a href="#Miscellaneous-functions" accesskey="1">Miscellaneous functions</a></li>
 </ul>
-<div class="subsection-level-extent" id="Miscellaneous-functions">
-<h4 class="subsection"><span>2.4.1 Miscellaneous functions<a class="copiable-link" href="#Miscellaneous-functions"> &para;</a></span></h4>
+<div class="subsection" id="Miscellaneous-functions">
+<h4 class="subsection">2.4.1 Miscellaneous functions</h4>
 
 
-<a class="index-entry-id" id="index-bfd_005fget_005freloc_005fupper_005fbound"></a>
-<ul class="mini-toc">
-<li><a href="#bfd_005fget_005freloc_005fupper_005fbound" accesskey="1"><code class="code">bfd_get_reloc_upper_bound</code></a></li>
-<li><a href="#bfd_005fcanonicalize_005freloc" accesskey="2"><code class="code">bfd_canonicalize_reloc</code></a></li>
-<li><a href="#bfd_005fset_005freloc" accesskey="3"><code class="code">bfd_set_reloc</code></a></li>
-<li><a href="#bfd_005fset_005ffile_005fflags" accesskey="4"><code class="code">bfd_set_file_flags</code></a></li>
-<li><a href="#bfd_005fget_005farch_005fsize" accesskey="5"><code class="code">bfd_get_arch_size</code></a></li>
-<li><a href="#bfd_005fget_005fsign_005fextend_005fvma" accesskey="6"><code class="code">bfd_get_sign_extend_vma</code></a></li>
-<li><a href="#bfd_005fset_005fstart_005faddress" accesskey="7"><code class="code">bfd_set_start_address</code></a></li>
-<li><a href="#bfd_005fget_005fgp_005fsize" accesskey="8"><code class="code">bfd_get_gp_size</code></a></li>
-<li><a href="#bfd_005fset_005fgp_005fsize" accesskey="9"><code class="code">bfd_set_gp_size</code></a></li>
-<li><a href="#bfd_005fset_005fgp_005fvalue"><code class="code">bfd_set_gp_value</code></a></li>
-<li><a href="#bfd_005fscan_005fvma"><code class="code">bfd_scan_vma</code></a></li>
-<li><a href="#bfd_005fcopy_005fprivate_005fheader_005fdata"><code class="code">bfd_copy_private_header_data</code></a></li>
-<li><a href="#bfd_005fcopy_005fprivate_005fbfd_005fdata"><code class="code">bfd_copy_private_bfd_data</code></a></li>
-<li><a href="#bfd_005fset_005fprivate_005fflags"><code class="code">bfd_set_private_flags</code></a></li>
-<li><a href="#Other-functions"><code class="code">Other functions</code></a></li>
-<li><a href="#bfd_005fget_005frelocated_005fsection_005fcontents"><code class="code">bfd_get_relocated_section_contents</code></a></li>
-<li><a href="#bfd_005frecord_005fphdr"><code class="code">bfd_record_phdr</code></a></li>
-<li><a href="#bfd_005fsprintf_005fvma"><code class="code">bfd_sprintf_vma</code></a></li>
-<li><a href="#bfd_005falt_005fmach_005fcode"><code class="code">bfd_alt_mach_code</code></a></li>
-<li><a href="#bfd_005femul_005fget_005fmaxpagesize"><code class="code">bfd_emul_get_maxpagesize</code></a></li>
-<li><a href="#bfd_005femul_005fget_005fcommonpagesize"><code class="code">bfd_emul_get_commonpagesize</code></a></li>
-<li><a href="#bfd_005fdemangle"><code class="code">bfd_demangle</code></a></li>
-<li><a href="#struct-bfd_005fiovec"><code class="code">struct bfd_iovec</code></a></li>
-<li><a href="#bfd_005fread"><code class="code">bfd_read</code></a></li>
-<li><a href="#bfd_005fwrite"><code class="code">bfd_write</code></a></li>
-<li><a href="#bfd_005ftell"><code class="code">bfd_tell</code></a></li>
-<li><a href="#bfd_005fflush"><code class="code">bfd_flush</code></a></li>
-<li><a href="#bfd_005fstat"><code class="code">bfd_stat</code></a></li>
-<li><a href="#bfd_005fseek"><code class="code">bfd_seek</code></a></li>
-<li><a href="#bfd_005fget_005fmtime"><code class="code">bfd_get_mtime</code></a></li>
-<li><a href="#bfd_005fget_005fsize"><code class="code">bfd_get_size</code></a></li>
-<li><a href="#bfd_005fget_005ffile_005fsize"><code class="code">bfd_get_file_size</code></a></li>
-<li><a href="#bfd_005fmmap"><code class="code">bfd_mmap</code></a></li>
-<li><a href="#bfd_005fget_005fcurrent_005ftime"><code class="code">bfd_get_current_time</code></a></li>
+<span id="index-bfd_005fget_005freloc_005fupper_005fbound"></span>
+<ul class="section-toc">
+<li><a href="#bfd_005fget_005freloc_005fupper_005fbound" accesskey="1"><code>bfd_get_reloc_upper_bound</code></a></li>
+<li><a href="#bfd_005fcanonicalize_005freloc" accesskey="2"><code>bfd_canonicalize_reloc</code></a></li>
+<li><a href="#bfd_005fset_005freloc" accesskey="3"><code>bfd_set_reloc</code></a></li>
+<li><a href="#bfd_005fset_005ffile_005fflags" accesskey="4"><code>bfd_set_file_flags</code></a></li>
+<li><a href="#bfd_005fget_005farch_005fsize" accesskey="5"><code>bfd_get_arch_size</code></a></li>
+<li><a href="#bfd_005fget_005fsign_005fextend_005fvma" accesskey="6"><code>bfd_get_sign_extend_vma</code></a></li>
+<li><a href="#bfd_005fset_005fstart_005faddress" accesskey="7"><code>bfd_set_start_address</code></a></li>
+<li><a href="#bfd_005fget_005fgp_005fsize" accesskey="8"><code>bfd_get_gp_size</code></a></li>
+<li><a href="#bfd_005fset_005fgp_005fsize" accesskey="9"><code>bfd_set_gp_size</code></a></li>
+<li><a href="#bfd_005fset_005fgp_005fvalue"><code>bfd_set_gp_value</code></a></li>
+<li><a href="#bfd_005fscan_005fvma"><code>bfd_scan_vma</code></a></li>
+<li><a href="#bfd_005fcopy_005fprivate_005fheader_005fdata"><code>bfd_copy_private_header_data</code></a></li>
+<li><a href="#bfd_005fcopy_005fprivate_005fbfd_005fdata"><code>bfd_copy_private_bfd_data</code></a></li>
+<li><a href="#bfd_005fset_005fprivate_005fflags"><code>bfd_set_private_flags</code></a></li>
+<li><a href="#Other-functions"><code>Other functions</code></a></li>
+<li><a href="#bfd_005fget_005frelocated_005fsection_005fcontents"><code>bfd_get_relocated_section_contents</code></a></li>
+<li><a href="#bfd_005frecord_005fphdr"><code>bfd_record_phdr</code></a></li>
+<li><a href="#bfd_005fsprintf_005fvma"><code>bfd_sprintf_vma</code></a></li>
+<li><a href="#bfd_005falt_005fmach_005fcode"><code>bfd_alt_mach_code</code></a></li>
+<li><a href="#bfd_005femul_005fget_005fmaxpagesize"><code>bfd_emul_get_maxpagesize</code></a></li>
+<li><a href="#bfd_005femul_005fget_005fcommonpagesize"><code>bfd_emul_get_commonpagesize</code></a></li>
+<li><a href="#bfd_005fdemangle"><code>bfd_demangle</code></a></li>
+<li><a href="#struct-bfd_005fiovec"><code>struct bfd_iovec</code></a></li>
+<li><a href="#bfd_005fread"><code>bfd_read</code></a></li>
+<li><a href="#bfd_005fwrite"><code>bfd_write</code></a></li>
+<li><a href="#bfd_005ftell"><code>bfd_tell</code></a></li>
+<li><a href="#bfd_005fflush"><code>bfd_flush</code></a></li>
+<li><a href="#bfd_005fstat"><code>bfd_stat</code></a></li>
+<li><a href="#bfd_005fseek"><code>bfd_seek</code></a></li>
+<li><a href="#bfd_005fget_005fmtime"><code>bfd_get_mtime</code></a></li>
+<li><a href="#bfd_005fget_005fsize"><code>bfd_get_size</code></a></li>
+<li><a href="#bfd_005fget_005ffile_005fsize"><code>bfd_get_file_size</code></a></li>
+<li><a href="#bfd_005fmmap"><code>bfd_mmap</code></a></li>
+<li><a href="#bfd_005fget_005fcurrent_005ftime"><code>bfd_get_current_time</code></a></li>
 </ul>
-<div class="subsubsection-level-extent" id="bfd_005fget_005freloc_005fupper_005fbound">
-<h4 class="subsubsection"><span>2.4.1.1 <code class="code">bfd_get_reloc_upper_bound</code><a class="copiable-link" href="#bfd_005fget_005freloc_005fupper_005fbound"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-bfd_005fget_005freloc_005fupper_005fbound-1"><span class="category-def">Function: </span><span><code class="def-type">long</code> <strong class="def-name">bfd_get_reloc_upper_bound</strong> <code class="def-code-arguments">(bfd *abfd, asection *sect);</code><a class="copiable-link" href="#index-bfd_005fget_005freloc_005fupper_005fbound-1"> &para;</a></span></dt>
+<div class="subsubsection" id="bfd_005fget_005freloc_005fupper_005fbound">
+<h4 class="subsubsection">2.4.1.1 <code>bfd_get_reloc_upper_bound</code></h4>
+<dl class="def">
+<dt id="index-bfd_005fget_005freloc_005fupper_005fbound-1"><span class="category">Function: </span><span><em>long</em> <strong>bfd_get_reloc_upper_bound</strong> <em>(bfd *abfd, asection *sect);</em><a href='#index-bfd_005fget_005freloc_005fupper_005fbound-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Return the number of bytes required to store the
-relocation information associated with section <var class="var">sect</var>
-attached to bfd <var class="var">abfd</var>.  If an error occurs, return -1.
+relocation information associated with section <var>sect</var>
+attached to bfd <var>abfd</var>.  If an error occurs, return -1.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005fcanonicalize_005freloc"></a>
+<span id="index-bfd_005fcanonicalize_005freloc"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fcanonicalize_005freloc">
-<h4 class="subsubsection"><span>2.4.1.2 <code class="code">bfd_canonicalize_reloc</code><a class="copiable-link" href="#bfd_005fcanonicalize_005freloc"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-bfd_005fcanonicalize_005freloc-1"><span class="category-def">Function: </span><span><code class="def-type">long</code> <strong class="def-name">bfd_canonicalize_reloc</strong> <code class="def-code-arguments">(bfd *abfd, asection *sec, arelent **loc, asymbol **syms);</code><a class="copiable-link" href="#index-bfd_005fcanonicalize_005freloc-1"> &para;</a></span></dt>
+<div class="subsubsection" id="bfd_005fcanonicalize_005freloc">
+<h4 class="subsubsection">2.4.1.2 <code>bfd_canonicalize_reloc</code></h4>
+<dl class="def">
+<dt id="index-bfd_005fcanonicalize_005freloc-1"><span class="category">Function: </span><span><em>long</em> <strong>bfd_canonicalize_reloc</strong> <em>(bfd *abfd, asection *sec, arelent **loc, asymbol **syms);</em><a href='#index-bfd_005fcanonicalize_005freloc-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Call the back end associated with the open BFD
-<var class="var">abfd</var> and translate the external form of the relocation
-information attached to <var class="var">sec</var> into the internal canonical
-form.  Place the table into memory at <var class="var">loc</var>, which has
+<var>abfd</var> and translate the external form of the relocation
+information attached to <var>sec</var> into the internal canonical
+form.  Place the table into memory at <var>loc</var>, which has
 been preallocated, usually by a call to
-<code class="code">bfd_get_reloc_upper_bound</code>.  Returns the number of relocs, or
+<code>bfd_get_reloc_upper_bound</code>.  Returns the number of relocs, or
 -1 on error.
 </p>
-<p>The <var class="var">syms</var> table is also needed for horrible internal magic
+<p>The <var>syms</var> table is also needed for horrible internal magic
 reasons.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005fset_005freloc"></a>
+<span id="index-bfd_005fset_005freloc"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fset_005freloc">
-<h4 class="subsubsection"><span>2.4.1.3 <code class="code">bfd_set_reloc</code><a class="copiable-link" href="#bfd_005fset_005freloc"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-bfd_005fset_005freloc-1"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">bfd_set_reloc</strong> <code class="def-code-arguments">(bfd *abfd, asection *sec, arelent **rel, unsigned int count);</code><a class="copiable-link" href="#index-bfd_005fset_005freloc-1"> &para;</a></span></dt>
+<div class="subsubsection" id="bfd_005fset_005freloc">
+<h4 class="subsubsection">2.4.1.3 <code>bfd_set_reloc</code></h4>
+<dl class="def">
+<dt id="index-bfd_005fset_005freloc-1"><span class="category">Function: </span><span><em>void</em> <strong>bfd_set_reloc</strong> <em>(bfd *abfd, asection *sec, arelent **rel, unsigned int count);</em><a href='#index-bfd_005fset_005freloc-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Set the relocation pointer and count within
-section <var class="var">sec</var> to the values <var class="var">rel</var> and <var class="var">count</var>.
-The argument <var class="var">abfd</var> is ignored.
+section <var>sec</var> to the values <var>rel</var> and <var>count</var>.
+The argument <var>abfd</var> is ignored.
 </p><div class="example">
-<pre class="example-preformatted">#define bfd_set_reloc(abfd, asect, location, count) \
+<pre class="example">#define bfd_set_reloc(abfd, asect, location, count) \
        BFD_SEND (abfd, _bfd_set_reloc, (abfd, asect, location, count))
 </pre></div>
 
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005fset_005ffile_005fflags"></a>
+<span id="index-bfd_005fset_005ffile_005fflags"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fset_005ffile_005fflags">
-<h4 class="subsubsection"><span>2.4.1.4 <code class="code">bfd_set_file_flags</code><a class="copiable-link" href="#bfd_005fset_005ffile_005fflags"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-bfd_005fset_005ffile_005fflags-1"><span class="category-def">Function: </span><span><code class="def-type">bool</code> <strong class="def-name">bfd_set_file_flags</strong> <code class="def-code-arguments">(bfd *abfd, flagword flags);</code><a class="copiable-link" href="#index-bfd_005fset_005ffile_005fflags-1"> &para;</a></span></dt>
-<dd><p>Set the flag word in the BFD <var class="var">abfd</var> to the value <var class="var">flags</var>.
+<div class="subsubsection" id="bfd_005fset_005ffile_005fflags">
+<h4 class="subsubsection">2.4.1.4 <code>bfd_set_file_flags</code></h4>
+<dl class="def">
+<dt id="index-bfd_005fset_005ffile_005fflags-1"><span class="category">Function: </span><span><em>bool</em> <strong>bfd_set_file_flags</strong> <em>(bfd *abfd, flagword flags);</em><a href='#index-bfd_005fset_005ffile_005fflags-1' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Set the flag word in the BFD <var>abfd</var> to the value <var>flags</var>.
 </p>
 <p>Possible errors are:
-</p><ul class="itemize mark-bullet">
-<li><code class="code">bfd_error_wrong_format</code> - The target bfd was not of object format.
-</li><li><code class="code">bfd_error_invalid_operation</code> - The target bfd was open for reading.
-</li><li><code class="code">bfd_error_invalid_operation</code> -
+</p><ul>
+<li> <code>bfd_error_wrong_format</code> - The target bfd was not of object format.
+</li><li> <code>bfd_error_invalid_operation</code> - The target bfd was open for reading.
+</li><li> <code>bfd_error_invalid_operation</code> -
 The flag word contained a bit which was not applicable to the
-type of file.  E.g., an attempt was made to set the <code class="code">D_PAGED</code> bit
+type of file.  E.g., an attempt was made to set the <code>D_PAGED</code> bit
 on a BFD format which does not support demand paging.
 </li></ul>
 
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005fget_005farch_005fsize"></a>
+<span id="index-bfd_005fget_005farch_005fsize"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fget_005farch_005fsize">
-<h4 class="subsubsection"><span>2.4.1.5 <code class="code">bfd_get_arch_size</code><a class="copiable-link" href="#bfd_005fget_005farch_005fsize"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-bfd_005fget_005farch_005fsize-1"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">bfd_get_arch_size</strong> <code class="def-code-arguments">(bfd *abfd);</code><a class="copiable-link" href="#index-bfd_005fget_005farch_005fsize-1"> &para;</a></span></dt>
+<div class="subsubsection" id="bfd_005fget_005farch_005fsize">
+<h4 class="subsubsection">2.4.1.5 <code>bfd_get_arch_size</code></h4>
+<dl class="def">
+<dt id="index-bfd_005fget_005farch_005fsize-1"><span class="category">Function: </span><span><em>int</em> <strong>bfd_get_arch_size</strong> <em>(bfd *abfd);</em><a href='#index-bfd_005fget_005farch_005fsize-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Returns the normalized architecture address size, in bits, as
 determined by the object file&rsquo;s format.  By normalized, we mean
 either 32 or 64.  For ELF, this information is included in the
 header.  Use bfd_arch_bits_per_address for number of bits in
 the architecture address.
 </p>
-<p>Returns the arch size in bits if known, <code class="code">-1</code> otherwise.
+<p>Returns the arch size in bits if known, <code>-1</code> otherwise.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005fget_005fsign_005fextend_005fvma"></a>
+<span id="index-bfd_005fget_005fsign_005fextend_005fvma"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fget_005fsign_005fextend_005fvma">
-<h4 class="subsubsection"><span>2.4.1.6 <code class="code">bfd_get_sign_extend_vma</code><a class="copiable-link" href="#bfd_005fget_005fsign_005fextend_005fvma"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-bfd_005fget_005fsign_005fextend_005fvma-1"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">bfd_get_sign_extend_vma</strong> <code class="def-code-arguments">(bfd *abfd);</code><a class="copiable-link" href="#index-bfd_005fget_005fsign_005fextend_005fvma-1"> &para;</a></span></dt>
+<div class="subsubsection" id="bfd_005fget_005fsign_005fextend_005fvma">
+<h4 class="subsubsection">2.4.1.6 <code>bfd_get_sign_extend_vma</code></h4>
+<dl class="def">
+<dt id="index-bfd_005fget_005fsign_005fextend_005fvma-1"><span class="category">Function: </span><span><em>int</em> <strong>bfd_get_sign_extend_vma</strong> <em>(bfd *abfd);</em><a href='#index-bfd_005fget_005fsign_005fextend_005fvma-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Indicates if the target architecture &quot;naturally&quot; sign extends
 an address.  Some architectures implicitly sign extend address
 values when they are converted to types larger than the size
@@ -195,136 +205,136 @@ of an address.  For instance, bfd_get_start_address() will
 return an address sign extended to fill a bfd_vma when this is
 the case.
 </p>
-<p>Returns <code class="code">1</code> if the target architecture is known to sign
-extend addresses, <code class="code">0</code> if the target architecture is known to
-not sign extend addresses, and <code class="code">-1</code> otherwise.
+<p>Returns <code>1</code> if the target architecture is known to sign
+extend addresses, <code>0</code> if the target architecture is known to
+not sign extend addresses, and <code>-1</code> otherwise.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005fset_005fstart_005faddress"></a>
+<span id="index-bfd_005fset_005fstart_005faddress"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fset_005fstart_005faddress">
-<h4 class="subsubsection"><span>2.4.1.7 <code class="code">bfd_set_start_address</code><a class="copiable-link" href="#bfd_005fset_005fstart_005faddress"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-bfd_005fset_005fstart_005faddress-1"><span class="category-def">Function: </span><span><code class="def-type">bool</code> <strong class="def-name">bfd_set_start_address</strong> <code class="def-code-arguments">(bfd *abfd, bfd_vma vma);</code><a class="copiable-link" href="#index-bfd_005fset_005fstart_005faddress-1"> &para;</a></span></dt>
-<dd><p>Make <var class="var">vma</var> the entry point of output BFD <var class="var">abfd</var>.
+<div class="subsubsection" id="bfd_005fset_005fstart_005faddress">
+<h4 class="subsubsection">2.4.1.7 <code>bfd_set_start_address</code></h4>
+<dl class="def">
+<dt id="index-bfd_005fset_005fstart_005faddress-1"><span class="category">Function: </span><span><em>bool</em> <strong>bfd_set_start_address</strong> <em>(bfd *abfd, bfd_vma vma);</em><a href='#index-bfd_005fset_005fstart_005faddress-1' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Make <var>vma</var> the entry point of output BFD <var>abfd</var>.
 </p>
-<p>Returns <code class="code">TRUE</code> on success, <code class="code">FALSE</code> otherwise.
+<p>Returns <code>TRUE</code> on success, <code>FALSE</code> otherwise.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005fget_005fgp_005fsize"></a>
+<span id="index-bfd_005fget_005fgp_005fsize"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fget_005fgp_005fsize">
-<h4 class="subsubsection"><span>2.4.1.8 <code class="code">bfd_get_gp_size</code><a class="copiable-link" href="#bfd_005fget_005fgp_005fsize"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-int-1"><span class="category-def">Function: </span><span><code class="def-type">unsigned</code> <strong class="def-name">int</strong> <code class="def-code-arguments">bfd_get_gp_size (bfd *abfd);</code><a class="copiable-link" href="#index-int-1"> &para;</a></span></dt>
+<div class="subsubsection" id="bfd_005fget_005fgp_005fsize">
+<h4 class="subsubsection">2.4.1.8 <code>bfd_get_gp_size</code></h4>
+<dl class="def">
+<dt id="index-int-1"><span class="category">Function: </span><span><em>unsigned</em> <strong>int</strong> <em>bfd_get_gp_size (bfd *abfd);</em><a href='#index-int-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Return the maximum size of objects to be optimized using the GP
-register under MIPS ECOFF.  This is typically set by the <code class="code">-G</code>
+register under MIPS ECOFF.  This is typically set by the <code>-G</code>
 argument to the compiler, assembler or linker.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005fset_005fgp_005fsize"></a>
+<span id="index-bfd_005fset_005fgp_005fsize"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fset_005fgp_005fsize">
-<h4 class="subsubsection"><span>2.4.1.9 <code class="code">bfd_set_gp_size</code><a class="copiable-link" href="#bfd_005fset_005fgp_005fsize"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-bfd_005fset_005fgp_005fsize-1"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">bfd_set_gp_size</strong> <code class="def-code-arguments">(bfd *abfd, unsigned int i);</code><a class="copiable-link" href="#index-bfd_005fset_005fgp_005fsize-1"> &para;</a></span></dt>
+<div class="subsubsection" id="bfd_005fset_005fgp_005fsize">
+<h4 class="subsubsection">2.4.1.9 <code>bfd_set_gp_size</code></h4>
+<dl class="def">
+<dt id="index-bfd_005fset_005fgp_005fsize-1"><span class="category">Function: </span><span><em>void</em> <strong>bfd_set_gp_size</strong> <em>(bfd *abfd, unsigned int i);</em><a href='#index-bfd_005fset_005fgp_005fsize-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Set the maximum size of objects to be optimized using the GP
 register under ECOFF or MIPS ELF.  This is typically set by
-the <code class="code">-G</code> argument to the compiler, assembler or linker.
+the <code>-G</code> argument to the compiler, assembler or linker.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005fset_005fgp_005fvalue"></a>
+<span id="index-bfd_005fset_005fgp_005fvalue"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fset_005fgp_005fvalue">
-<h4 class="subsubsection"><span>2.4.1.10 <code class="code">bfd_set_gp_value</code><a class="copiable-link" href="#bfd_005fset_005fgp_005fvalue"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-bfd_005fset_005fgp_005fvalue-1"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">bfd_set_gp_value</strong> <code class="def-code-arguments">(bfd *abfd, bfd_vma v);</code><a class="copiable-link" href="#index-bfd_005fset_005fgp_005fvalue-1"> &para;</a></span></dt>
+<div class="subsubsection" id="bfd_005fset_005fgp_005fvalue">
+<h4 class="subsubsection">2.4.1.10 <code>bfd_set_gp_value</code></h4>
+<dl class="def">
+<dt id="index-bfd_005fset_005fgp_005fvalue-1"><span class="category">Function: </span><span><em>void</em> <strong>bfd_set_gp_value</strong> <em>(bfd *abfd, bfd_vma v);</em><a href='#index-bfd_005fset_005fgp_005fvalue-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Allow external access to the fucntion to set the GP value.
 This is specifically added for gdb-compile support.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005fscan_005fvma"></a>
+<span id="index-bfd_005fscan_005fvma"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fscan_005fvma">
-<h4 class="subsubsection"><span>2.4.1.11 <code class="code">bfd_scan_vma</code><a class="copiable-link" href="#bfd_005fscan_005fvma"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-bfd_005fscan_005fvma-1"><span class="category-def">Function: </span><span><code class="def-type">bfd_vma</code> <strong class="def-name">bfd_scan_vma</strong> <code class="def-code-arguments">(const char *string, const char **end, int base);</code><a class="copiable-link" href="#index-bfd_005fscan_005fvma-1"> &para;</a></span></dt>
-<dd><p>Convert, like <code class="code">strtoul</code> or <code class="code">stdtoull</code>depending on the size
-of a <code class="code">bfd_vma</code>, a numerical expression <var class="var">string</var> into a
-<code class="code">bfd_vma</code> integer, and return that integer.
+<div class="subsubsection" id="bfd_005fscan_005fvma">
+<h4 class="subsubsection">2.4.1.11 <code>bfd_scan_vma</code></h4>
+<dl class="def">
+<dt id="index-bfd_005fscan_005fvma-1"><span class="category">Function: </span><span><em>bfd_vma</em> <strong>bfd_scan_vma</strong> <em>(const char *string, const char **end, int base);</em><a href='#index-bfd_005fscan_005fvma-1' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Convert, like <code>strtoul</code> or <code>stdtoull</code>depending on the size
+of a <code>bfd_vma</code>, a numerical expression <var>string</var> into a
+<code>bfd_vma</code> integer, and return that integer.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005fcopy_005fprivate_005fheader_005fdata"></a>
+<span id="index-bfd_005fcopy_005fprivate_005fheader_005fdata"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fcopy_005fprivate_005fheader_005fdata">
-<h4 class="subsubsection"><span>2.4.1.12 <code class="code">bfd_copy_private_header_data</code><a class="copiable-link" href="#bfd_005fcopy_005fprivate_005fheader_005fdata"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-bfd_005fcopy_005fprivate_005fheader_005fdata-1"><span class="category-def">Function: </span><span><code class="def-type">bool</code> <strong class="def-name">bfd_copy_private_header_data</strong> <code class="def-code-arguments">(bfd *ibfd, bfd *obfd);</code><a class="copiable-link" href="#index-bfd_005fcopy_005fprivate_005fheader_005fdata-1"> &para;</a></span></dt>
-<dd><p>Copy private BFD header information from the BFD <var class="var">ibfd</var> to the
-the BFD <var class="var">obfd</var>.  This copies information that may require
+<div class="subsubsection" id="bfd_005fcopy_005fprivate_005fheader_005fdata">
+<h4 class="subsubsection">2.4.1.12 <code>bfd_copy_private_header_data</code></h4>
+<dl class="def">
+<dt id="index-bfd_005fcopy_005fprivate_005fheader_005fdata-1"><span class="category">Function: </span><span><em>bool</em> <strong>bfd_copy_private_header_data</strong> <em>(bfd *ibfd, bfd *obfd);</em><a href='#index-bfd_005fcopy_005fprivate_005fheader_005fdata-1' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Copy private BFD header information from the BFD <var>ibfd</var> to the
+the BFD <var>obfd</var>.  This copies information that may require
 sections to exist, but does not require symbol tables.  Return
-<code class="code">true</code> on success, <code class="code">false</code> on error.
+<code>true</code> on success, <code>false</code> on error.
 Possible error returns are:
 </p>
-<ul class="itemize mark-bullet">
-<li><code class="code">bfd_error_no_memory</code> -
-Not enough memory exists to create private data for <var class="var">obfd</var>.
+<ul>
+<li> <code>bfd_error_no_memory</code> -
+Not enough memory exists to create private data for <var>obfd</var>.
 </li></ul>
 <div class="example">
-<pre class="example-preformatted">#define bfd_copy_private_header_data(ibfd, obfd) \
+<pre class="example">#define bfd_copy_private_header_data(ibfd, obfd) \
        BFD_SEND (obfd, _bfd_copy_private_header_data, \
                  (ibfd, obfd))
 </pre></div>
 
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005fcopy_005fprivate_005fbfd_005fdata"></a>
+<span id="index-bfd_005fcopy_005fprivate_005fbfd_005fdata"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fcopy_005fprivate_005fbfd_005fdata">
-<h4 class="subsubsection"><span>2.4.1.13 <code class="code">bfd_copy_private_bfd_data</code><a class="copiable-link" href="#bfd_005fcopy_005fprivate_005fbfd_005fdata"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-bfd_005fcopy_005fprivate_005fbfd_005fdata-1"><span class="category-def">Function: </span><span><code class="def-type">bool</code> <strong class="def-name">bfd_copy_private_bfd_data</strong> <code class="def-code-arguments">(bfd *ibfd, bfd *obfd);</code><a class="copiable-link" href="#index-bfd_005fcopy_005fprivate_005fbfd_005fdata-1"> &para;</a></span></dt>
-<dd><p>Copy private BFD information from the BFD <var class="var">ibfd</var> to the
-the BFD <var class="var">obfd</var>.  Return <code class="code">TRUE</code> on success, <code class="code">FALSE</code> on error.
+<div class="subsubsection" id="bfd_005fcopy_005fprivate_005fbfd_005fdata">
+<h4 class="subsubsection">2.4.1.13 <code>bfd_copy_private_bfd_data</code></h4>
+<dl class="def">
+<dt id="index-bfd_005fcopy_005fprivate_005fbfd_005fdata-1"><span class="category">Function: </span><span><em>bool</em> <strong>bfd_copy_private_bfd_data</strong> <em>(bfd *ibfd, bfd *obfd);</em><a href='#index-bfd_005fcopy_005fprivate_005fbfd_005fdata-1' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Copy private BFD information from the BFD <var>ibfd</var> to the
+the BFD <var>obfd</var>.  Return <code>TRUE</code> on success, <code>FALSE</code> on error.
 Possible error returns are:
 </p>
-<ul class="itemize mark-bullet">
-<li><code class="code">bfd_error_no_memory</code> -
-Not enough memory exists to create private data for <var class="var">obfd</var>.
+<ul>
+<li> <code>bfd_error_no_memory</code> -
+Not enough memory exists to create private data for <var>obfd</var>.
 </li></ul>
 <div class="example">
-<pre class="example-preformatted">#define bfd_copy_private_bfd_data(ibfd, obfd) \
+<pre class="example">#define bfd_copy_private_bfd_data(ibfd, obfd) \
        BFD_SEND (obfd, _bfd_copy_private_bfd_data, \
                  (ibfd, obfd))
 </pre></div>
 
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005fset_005fprivate_005fflags"></a>
+<span id="index-bfd_005fset_005fprivate_005fflags"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fset_005fprivate_005fflags">
-<h4 class="subsubsection"><span>2.4.1.14 <code class="code">bfd_set_private_flags</code><a class="copiable-link" href="#bfd_005fset_005fprivate_005fflags"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-bfd_005fset_005fprivate_005fflags-1"><span class="category-def">Function: </span><span><code class="def-type">bool</code> <strong class="def-name">bfd_set_private_flags</strong> <code class="def-code-arguments">(bfd *abfd, flagword flags);</code><a class="copiable-link" href="#index-bfd_005fset_005fprivate_005fflags-1"> &para;</a></span></dt>
-<dd><p>Set private BFD flag information in the BFD <var class="var">abfd</var>.
-Return <code class="code">TRUE</code> on success, <code class="code">FALSE</code> on error.  Possible error
+<div class="subsubsection" id="bfd_005fset_005fprivate_005fflags">
+<h4 class="subsubsection">2.4.1.14 <code>bfd_set_private_flags</code></h4>
+<dl class="def">
+<dt id="index-bfd_005fset_005fprivate_005fflags-1"><span class="category">Function: </span><span><em>bool</em> <strong>bfd_set_private_flags</strong> <em>(bfd *abfd, flagword flags);</em><a href='#index-bfd_005fset_005fprivate_005fflags-1' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Set private BFD flag information in the BFD <var>abfd</var>.
+Return <code>TRUE</code> on success, <code>FALSE</code> on error.  Possible error
 returns are:
 </p>
-<ul class="itemize mark-bullet">
-<li><code class="code">bfd_error_no_memory</code> -
-Not enough memory exists to create private data for <var class="var">obfd</var>.
+<ul>
+<li> <code>bfd_error_no_memory</code> -
+Not enough memory exists to create private data for <var>obfd</var>.
 </li></ul>
 <div class="example">
-<pre class="example-preformatted">#define bfd_set_private_flags(abfd, flags) \
+<pre class="example">#define bfd_set_private_flags(abfd, flags) \
        BFD_SEND (abfd, _bfd_set_private_flags, (abfd, flags))
 </pre></div>
 
 </dd></dl>
-<a class="index-entry-id" id="index-Other-functions"></a>
+<span id="index-Other-functions"></span>
 </div>
-<div class="subsubsection-level-extent" id="Other-functions">
-<h4 class="subsubsection"><span>2.4.1.15 <code class="code">Other functions</code><a class="copiable-link" href="#Other-functions"> &para;</a></span></h4>
+<div class="subsubsection" id="Other-functions">
+<h4 class="subsubsection">2.4.1.15 <code>Other functions</code></h4>
 <p>The following functions exist but have not yet been documented.
 </p><div class="example">
-<pre class="example-preformatted">#define bfd_sizeof_headers(abfd, info) \
+<pre class="example">#define bfd_sizeof_headers(abfd, info) \
        BFD_SEND (abfd, _bfd_sizeof_headers, (abfd, info))
 
 #define bfd_find_nearest_line(abfd, sec, syms, off, file, func, line) \
@@ -425,42 +435,42 @@ Not enough memory exists to create private data for <var class="var">obfd</var>.
 
 </pre></div>
 
-<a class="index-entry-id" id="index-bfd_005fget_005frelocated_005fsection_005fcontents"></a>
+<span id="index-bfd_005fget_005frelocated_005fsection_005fcontents"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fget_005frelocated_005fsection_005fcontents">
-<h4 class="subsubsection"><span>2.4.1.16 <code class="code">bfd_get_relocated_section_contents</code><a class="copiable-link" href="#bfd_005fget_005frelocated_005fsection_005fcontents"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-_002abfd_005fget_005frelocated_005fsection_005fcontents"><span class="category-def">Function: </span><span><code class="def-type">bfd_byte</code> <strong class="def-name">*bfd_get_relocated_section_contents</strong> <code class="def-code-arguments">(bfd *, struct bfd_link_info *, struct bfd_link_order *, bfd_byte *, bool, asymbol **);</code><a class="copiable-link" href="#index-_002abfd_005fget_005frelocated_005fsection_005fcontents"> &para;</a></span></dt>
+<div class="subsubsection" id="bfd_005fget_005frelocated_005fsection_005fcontents">
+<h4 class="subsubsection">2.4.1.16 <code>bfd_get_relocated_section_contents</code></h4>
+<dl class="def">
+<dt id="index-_002abfd_005fget_005frelocated_005fsection_005fcontents"><span class="category">Function: </span><span><em>bfd_byte</em> <strong>*bfd_get_relocated_section_contents</strong> <em>(bfd *, struct bfd_link_info *, struct bfd_link_order *, bfd_byte *, bool, asymbol **);</em><a href='#index-_002abfd_005fget_005frelocated_005fsection_005fcontents' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Read and relocate the indirect link_order section, into DATA
 (if non-NULL) or to a malloc&rsquo;d buffer.  Return the buffer, or
 NULL on errors.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005frecord_005fphdr"></a>
+<span id="index-bfd_005frecord_005fphdr"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005frecord_005fphdr">
-<h4 class="subsubsection"><span>2.4.1.17 <code class="code">bfd_record_phdr</code><a class="copiable-link" href="#bfd_005frecord_005fphdr"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-bfd_005frecord_005fphdr-1"><span class="category-def">Function: </span><span><code class="def-type">bool</code> <strong class="def-name">bfd_record_phdr</strong> <code class="def-code-arguments">(bfd *, unsigned long, bool, flagword, bool, bfd_vma, bool, bool, unsigned int, struct bfd_section **);</code><a class="copiable-link" href="#index-bfd_005frecord_005fphdr-1"> &para;</a></span></dt>
+<div class="subsubsection" id="bfd_005frecord_005fphdr">
+<h4 class="subsubsection">2.4.1.17 <code>bfd_record_phdr</code></h4>
+<dl class="def">
+<dt id="index-bfd_005frecord_005fphdr-1"><span class="category">Function: </span><span><em>bool</em> <strong>bfd_record_phdr</strong> <em>(bfd *, unsigned long, bool, flagword, bool, bfd_vma, bool, bool, unsigned int, struct bfd_section **);</em><a href='#index-bfd_005frecord_005fphdr-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Record information about an ELF program header.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005fsprintf_005fvma"></a>
+<span id="index-bfd_005fsprintf_005fvma"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fsprintf_005fvma">
-<h4 class="subsubsection"><span>2.4.1.18 <code class="code">bfd_sprintf_vma</code><a class="copiable-link" href="#bfd_005fsprintf_005fvma"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-bfd_005fsprintf_005fvma-1"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">bfd_sprintf_vma</strong> <code class="def-code-arguments">(bfd *, char *, bfd_vma); void bfd_fprintf_vma (bfd *, void *, bfd_vma);</code><a class="copiable-link" href="#index-bfd_005fsprintf_005fvma-1"> &para;</a></span></dt>
+<div class="subsubsection" id="bfd_005fsprintf_005fvma">
+<h4 class="subsubsection">2.4.1.18 <code>bfd_sprintf_vma</code></h4>
+<dl class="def">
+<dt id="index-bfd_005fsprintf_005fvma-1"><span class="category">Function: </span><span><em>void</em> <strong>bfd_sprintf_vma</strong> <em>(bfd *, char *, bfd_vma); void bfd_fprintf_vma (bfd *, void *, bfd_vma);</em><a href='#index-bfd_005fsprintf_005fvma-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>bfd_sprintf_vma and bfd_fprintf_vma display an address in the
 target&rsquo;s address size.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005falt_005fmach_005fcode"></a>
+<span id="index-bfd_005falt_005fmach_005fcode"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005falt_005fmach_005fcode">
-<h4 class="subsubsection"><span>2.4.1.19 <code class="code">bfd_alt_mach_code</code><a class="copiable-link" href="#bfd_005falt_005fmach_005fcode"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-bfd_005falt_005fmach_005fcode-1"><span class="category-def">Function: </span><span><code class="def-type">bool</code> <strong class="def-name">bfd_alt_mach_code</strong> <code class="def-code-arguments">(bfd *abfd, int alternative);</code><a class="copiable-link" href="#index-bfd_005falt_005fmach_005fcode-1"> &para;</a></span></dt>
+<div class="subsubsection" id="bfd_005falt_005fmach_005fcode">
+<h4 class="subsubsection">2.4.1.19 <code>bfd_alt_mach_code</code></h4>
+<dl class="def">
+<dt id="index-bfd_005falt_005fmach_005fcode-1"><span class="category">Function: </span><span><em>bool</em> <strong>bfd_alt_mach_code</strong> <em>(bfd *abfd, int alternative);</em><a href='#index-bfd_005falt_005fmach_005fcode-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>When more than one machine code number is available for the
 same machine type, this function can be used to switch between
 the preferred one (alternative == 0) and any others.  Currently,
@@ -468,32 +478,32 @@ only ELF supports this feature, with up to two alternate
 machine codes.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005femul_005fget_005fmaxpagesize"></a>
+<span id="index-bfd_005femul_005fget_005fmaxpagesize"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005femul_005fget_005fmaxpagesize">
-<h4 class="subsubsection"><span>2.4.1.20 <code class="code">bfd_emul_get_maxpagesize</code><a class="copiable-link" href="#bfd_005femul_005fget_005fmaxpagesize"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-bfd_005femul_005fget_005fmaxpagesize-1"><span class="category-def">Function: </span><span><code class="def-type">bfd_vma</code> <strong class="def-name">bfd_emul_get_maxpagesize</strong> <code class="def-code-arguments">(const char *);</code><a class="copiable-link" href="#index-bfd_005femul_005fget_005fmaxpagesize-1"> &para;</a></span></dt>
+<div class="subsubsection" id="bfd_005femul_005fget_005fmaxpagesize">
+<h4 class="subsubsection">2.4.1.20 <code>bfd_emul_get_maxpagesize</code></h4>
+<dl class="def">
+<dt id="index-bfd_005femul_005fget_005fmaxpagesize-1"><span class="category">Function: </span><span><em>bfd_vma</em> <strong>bfd_emul_get_maxpagesize</strong> <em>(const char *);</em><a href='#index-bfd_005femul_005fget_005fmaxpagesize-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Returns the maximum page size, in bytes, as determined by
 emulation.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005femul_005fget_005fcommonpagesize"></a>
+<span id="index-bfd_005femul_005fget_005fcommonpagesize"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005femul_005fget_005fcommonpagesize">
-<h4 class="subsubsection"><span>2.4.1.21 <code class="code">bfd_emul_get_commonpagesize</code><a class="copiable-link" href="#bfd_005femul_005fget_005fcommonpagesize"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-bfd_005femul_005fget_005fcommonpagesize-1"><span class="category-def">Function: </span><span><code class="def-type">bfd_vma</code> <strong class="def-name">bfd_emul_get_commonpagesize</strong> <code class="def-code-arguments">(const char *);</code><a class="copiable-link" href="#index-bfd_005femul_005fget_005fcommonpagesize-1"> &para;</a></span></dt>
+<div class="subsubsection" id="bfd_005femul_005fget_005fcommonpagesize">
+<h4 class="subsubsection">2.4.1.21 <code>bfd_emul_get_commonpagesize</code></h4>
+<dl class="def">
+<dt id="index-bfd_005femul_005fget_005fcommonpagesize-1"><span class="category">Function: </span><span><em>bfd_vma</em> <strong>bfd_emul_get_commonpagesize</strong> <em>(const char *);</em><a href='#index-bfd_005femul_005fget_005fcommonpagesize-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Returns the common page size, in bytes, as determined by
 emulation.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005fdemangle"></a>
+<span id="index-bfd_005fdemangle"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fdemangle">
-<h4 class="subsubsection"><span>2.4.1.22 <code class="code">bfd_demangle</code><a class="copiable-link" href="#bfd_005fdemangle"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-_002abfd_005fdemangle"><span class="category-def">Function: </span><span><code class="def-type">char</code> <strong class="def-name">*bfd_demangle</strong> <code class="def-code-arguments">(bfd *, const char *, int);</code><a class="copiable-link" href="#index-_002abfd_005fdemangle"> &para;</a></span></dt>
+<div class="subsubsection" id="bfd_005fdemangle">
+<h4 class="subsubsection">2.4.1.22 <code>bfd_demangle</code></h4>
+<dl class="def">
+<dt id="index-_002abfd_005fdemangle"><span class="category">Function: </span><span><em>char</em> <strong>*bfd_demangle</strong> <em>(bfd *, const char *, int);</em><a href='#index-_002abfd_005fdemangle' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Wrapper around cplus_demangle.  Strips leading underscores and
 other such chars that would otherwise confuse the demangler.
 If passed a g++ v3 ABI mangled name, returns a buffer allocated
@@ -501,31 +511,31 @@ with malloc holding the demangled name.  Returns NULL otherwise
 and on memory alloc failure.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-struct-bfd_005fiovec"></a>
+<span id="index-struct-bfd_005fiovec"></span>
 </div>
-<div class="subsubsection-level-extent" id="struct-bfd_005fiovec">
-<h4 class="subsubsection"><span>2.4.1.23 <code class="code">struct bfd_iovec</code><a class="copiable-link" href="#struct-bfd_005fiovec"> &para;</a></span></h4>
-<p>The <code class="code">struct bfd_iovec</code> contains the internal file I/O class.
-Each <code class="code">BFD</code> has an instance of this class and all file I/O is
+<div class="subsubsection" id="struct-bfd_005fiovec">
+<h4 class="subsubsection">2.4.1.23 <code>struct bfd_iovec</code></h4>
+<p>The <code>struct bfd_iovec</code> contains the internal file I/O class.
+Each <code>BFD</code> has an instance of this class and all file I/O is
 routed through it (it is assumed that the instance implements
 all methods listed below).
 </p><div class="example">
-<pre class="example-preformatted">struct bfd_iovec
+<pre class="example">struct bfd_iovec
 {
   /* To avoid problems with macros, a &quot;b&quot; rather than &quot;f&quot;
      prefix is prepended to each method name.  */
   /* Attempt to read/write NBYTES on ABFD's IOSTREAM storing/fetching
      bytes starting at PTR.  Return the number of bytes actually
      transfered (a read past end-of-file returns less than NBYTES),
-     or -1 (setting <code class="code">bfd_error</code>) if an error occurs.  */
+     or -1 (setting <code>bfd_error</code>) if an error occurs.  */
   file_ptr (*bread) (struct bfd *abfd, void *ptr, file_ptr nbytes);
   file_ptr (*bwrite) (struct bfd *abfd, const void *ptr,
                       file_ptr nbytes);
-  /* Return the current IOSTREAM file offset, or -1 (setting <code class="code">bfd_error</code>
+  /* Return the current IOSTREAM file offset, or -1 (setting <code>bfd_error</code>
      if an error occurs.  */
   file_ptr (*btell) (struct bfd *abfd);
   /* For the following, on successful completion a value of 0 is returned.
-     Otherwise, a value of -1 is returned (and <code class="code">bfd_error</code> is set).  */
+     Otherwise, a value of -1 is returned (and <code>bfd_error</code> is set).  */
   int (*bseek) (struct bfd *abfd, file_ptr offset, int whence);
   int (*bclose) (struct bfd *abfd);
   int (*bflush) (struct bfd *abfd);
@@ -544,82 +554,82 @@ extern const struct bfd_iovec _bfd_memory_iovec;
 
 </pre></div>
 
-<a class="index-entry-id" id="index-bfd_005fread"></a>
+<span id="index-bfd_005fread"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fread">
-<h4 class="subsubsection"><span>2.4.1.24 <code class="code">bfd_read</code><a class="copiable-link" href="#bfd_005fread"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-bfd_005fread-1"><span class="category-def">Function: </span><span><code class="def-type">bfd_size_type</code> <strong class="def-name">bfd_read</strong> <code class="def-code-arguments">(void *, bfd_size_type, bfd *) ATTRIBUTE_WARN_UNUSED_RESULT;</code><a class="copiable-link" href="#index-bfd_005fread-1"> &para;</a></span></dt>
+<div class="subsubsection" id="bfd_005fread">
+<h4 class="subsubsection">2.4.1.24 <code>bfd_read</code></h4>
+<dl class="def">
+<dt id="index-bfd_005fread-1"><span class="category">Function: </span><span><em>bfd_size_type</em> <strong>bfd_read</strong> <em>(void *, bfd_size_type, bfd *) ATTRIBUTE_WARN_UNUSED_RESULT;</em><a href='#index-bfd_005fread-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Attempt to read SIZE bytes from ABFD&rsquo;s iostream to PTR.
 Return the amount read.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005fwrite"></a>
+<span id="index-bfd_005fwrite"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fwrite">
-<h4 class="subsubsection"><span>2.4.1.25 <code class="code">bfd_write</code><a class="copiable-link" href="#bfd_005fwrite"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-bfd_005fwrite-1"><span class="category-def">Function: </span><span><code class="def-type">bfd_size_type</code> <strong class="def-name">bfd_write</strong> <code class="def-code-arguments">(const void *, bfd_size_type, bfd *) ATTRIBUTE_WARN_UNUSED_RESULT;</code><a class="copiable-link" href="#index-bfd_005fwrite-1"> &para;</a></span></dt>
+<div class="subsubsection" id="bfd_005fwrite">
+<h4 class="subsubsection">2.4.1.25 <code>bfd_write</code></h4>
+<dl class="def">
+<dt id="index-bfd_005fwrite-1"><span class="category">Function: </span><span><em>bfd_size_type</em> <strong>bfd_write</strong> <em>(const void *, bfd_size_type, bfd *) ATTRIBUTE_WARN_UNUSED_RESULT;</em><a href='#index-bfd_005fwrite-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Attempt to write SIZE bytes to ABFD&rsquo;s iostream from PTR.
 Return the amount written.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005ftell"></a>
+<span id="index-bfd_005ftell"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005ftell">
-<h4 class="subsubsection"><span>2.4.1.26 <code class="code">bfd_tell</code><a class="copiable-link" href="#bfd_005ftell"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-bfd_005ftell-1"><span class="category-def">Function: </span><span><code class="def-type">file_ptr</code> <strong class="def-name">bfd_tell</strong> <code class="def-code-arguments">(bfd *) ATTRIBUTE_WARN_UNUSED_RESULT;</code><a class="copiable-link" href="#index-bfd_005ftell-1"> &para;</a></span></dt>
+<div class="subsubsection" id="bfd_005ftell">
+<h4 class="subsubsection">2.4.1.26 <code>bfd_tell</code></h4>
+<dl class="def">
+<dt id="index-bfd_005ftell-1"><span class="category">Function: </span><span><em>file_ptr</em> <strong>bfd_tell</strong> <em>(bfd *) ATTRIBUTE_WARN_UNUSED_RESULT;</em><a href='#index-bfd_005ftell-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Return ABFD&rsquo;s iostream file position.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005fflush"></a>
+<span id="index-bfd_005fflush"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fflush">
-<h4 class="subsubsection"><span>2.4.1.27 <code class="code">bfd_flush</code><a class="copiable-link" href="#bfd_005fflush"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-bfd_005fflush-1"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">bfd_flush</strong> <code class="def-code-arguments">(bfd *);</code><a class="copiable-link" href="#index-bfd_005fflush-1"> &para;</a></span></dt>
+<div class="subsubsection" id="bfd_005fflush">
+<h4 class="subsubsection">2.4.1.27 <code>bfd_flush</code></h4>
+<dl class="def">
+<dt id="index-bfd_005fflush-1"><span class="category">Function: </span><span><em>int</em> <strong>bfd_flush</strong> <em>(bfd *);</em><a href='#index-bfd_005fflush-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Flush ABFD&rsquo;s iostream pending IO.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005fstat"></a>
+<span id="index-bfd_005fstat"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fstat">
-<h4 class="subsubsection"><span>2.4.1.28 <code class="code">bfd_stat</code><a class="copiable-link" href="#bfd_005fstat"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-bfd_005fstat-1"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">bfd_stat</strong> <code class="def-code-arguments">(bfd *, struct stat *) ATTRIBUTE_WARN_UNUSED_RESULT;</code><a class="copiable-link" href="#index-bfd_005fstat-1"> &para;</a></span></dt>
+<div class="subsubsection" id="bfd_005fstat">
+<h4 class="subsubsection">2.4.1.28 <code>bfd_stat</code></h4>
+<dl class="def">
+<dt id="index-bfd_005fstat-1"><span class="category">Function: </span><span><em>int</em> <strong>bfd_stat</strong> <em>(bfd *, struct stat *) ATTRIBUTE_WARN_UNUSED_RESULT;</em><a href='#index-bfd_005fstat-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Call fstat on ABFD&rsquo;s iostream.  Return 0 on success, and a
 negative value on failure.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005fseek"></a>
+<span id="index-bfd_005fseek"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fseek">
-<h4 class="subsubsection"><span>2.4.1.29 <code class="code">bfd_seek</code><a class="copiable-link" href="#bfd_005fseek"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-bfd_005fseek-1"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">bfd_seek</strong> <code class="def-code-arguments">(bfd *, file_ptr, int) ATTRIBUTE_WARN_UNUSED_RESULT;</code><a class="copiable-link" href="#index-bfd_005fseek-1"> &para;</a></span></dt>
+<div class="subsubsection" id="bfd_005fseek">
+<h4 class="subsubsection">2.4.1.29 <code>bfd_seek</code></h4>
+<dl class="def">
+<dt id="index-bfd_005fseek-1"><span class="category">Function: </span><span><em>int</em> <strong>bfd_seek</strong> <em>(bfd *, file_ptr, int) ATTRIBUTE_WARN_UNUSED_RESULT;</em><a href='#index-bfd_005fseek-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Call fseek on ABFD&rsquo;s iostream.  Return 0 on success, and a
 negative value on failure.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005fget_005fmtime"></a>
+<span id="index-bfd_005fget_005fmtime"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fget_005fmtime">
-<h4 class="subsubsection"><span>2.4.1.30 <code class="code">bfd_get_mtime</code><a class="copiable-link" href="#bfd_005fget_005fmtime"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-bfd_005fget_005fmtime-1"><span class="category-def">Function: </span><span><code class="def-type">long</code> <strong class="def-name">bfd_get_mtime</strong> <code class="def-code-arguments">(bfd *abfd);</code><a class="copiable-link" href="#index-bfd_005fget_005fmtime-1"> &para;</a></span></dt>
+<div class="subsubsection" id="bfd_005fget_005fmtime">
+<h4 class="subsubsection">2.4.1.30 <code>bfd_get_mtime</code></h4>
+<dl class="def">
+<dt id="index-bfd_005fget_005fmtime-1"><span class="category">Function: </span><span><em>long</em> <strong>bfd_get_mtime</strong> <em>(bfd *abfd);</em><a href='#index-bfd_005fget_005fmtime-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Return the file modification time (as read from the file system, or
 from the archive header for archive members).
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005fget_005fsize"></a>
+<span id="index-bfd_005fget_005fsize"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fget_005fsize">
-<h4 class="subsubsection"><span>2.4.1.31 <code class="code">bfd_get_size</code><a class="copiable-link" href="#bfd_005fget_005fsize"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-bfd_005fget_005fsize-1"><span class="category-def">Function: </span><span><code class="def-type">ufile_ptr</code> <strong class="def-name">bfd_get_size</strong> <code class="def-code-arguments">(bfd *abfd);</code><a class="copiable-link" href="#index-bfd_005fget_005fsize-1"> &para;</a></span></dt>
+<div class="subsubsection" id="bfd_005fget_005fsize">
+<h4 class="subsubsection">2.4.1.31 <code>bfd_get_size</code></h4>
+<dl class="def">
+<dt id="index-bfd_005fget_005fsize-1"><span class="category">Function: </span><span><em>ufile_ptr</em> <strong>bfd_get_size</strong> <em>(bfd *abfd);</em><a href='#index-bfd_005fget_005fsize-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Return the file size (as read from file system) for the file
-associated with BFD <var class="var">abfd</var>.
+associated with BFD <var>abfd</var>.
 </p>
 <p>The initial motivation for, and use of, this routine is not
 so we can get the exact size of the object the BFD applies to, since
@@ -630,7 +640,7 @@ it so that such results were guaranteed.
 <p>Instead, we want to ask questions like &quot;is this NNN byte sized
 object I&rsquo;m about to try read from file offset YYY reasonable?&quot;
 As as example of where we might do this, some object formats
-use string tables for which the first <code class="code">sizeof (long)</code> bytes of the
+use string tables for which the first <code>sizeof (long)</code> bytes of the
 table contain the size of the table itself, including the size bytes.
 If an application tries to read what it thinks is one of these
 string tables, without some way to validate the size, and for
@@ -645,34 +655,34 @@ size reasonable?&quot;.
 <p>A return value of zero indicates the file size is unknown.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005fget_005ffile_005fsize"></a>
+<span id="index-bfd_005fget_005ffile_005fsize"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fget_005ffile_005fsize">
-<h4 class="subsubsection"><span>2.4.1.32 <code class="code">bfd_get_file_size</code><a class="copiable-link" href="#bfd_005fget_005ffile_005fsize"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-bfd_005fget_005ffile_005fsize-1"><span class="category-def">Function: </span><span><code class="def-type">ufile_ptr</code> <strong class="def-name">bfd_get_file_size</strong> <code class="def-code-arguments">(bfd *abfd);</code><a class="copiable-link" href="#index-bfd_005fget_005ffile_005fsize-1"> &para;</a></span></dt>
+<div class="subsubsection" id="bfd_005fget_005ffile_005fsize">
+<h4 class="subsubsection">2.4.1.32 <code>bfd_get_file_size</code></h4>
+<dl class="def">
+<dt id="index-bfd_005fget_005ffile_005fsize-1"><span class="category">Function: </span><span><em>ufile_ptr</em> <strong>bfd_get_file_size</strong> <em>(bfd *abfd);</em><a href='#index-bfd_005fget_005ffile_005fsize-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Return the file size (as read from file system) for the file
-associated with BFD <var class="var">abfd</var>.  It supports both normal files
+associated with BFD <var>abfd</var>.  It supports both normal files
 and archive elements.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005fmmap"></a>
+<span id="index-bfd_005fmmap"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fmmap">
-<h4 class="subsubsection"><span>2.4.1.33 <code class="code">bfd_mmap</code><a class="copiable-link" href="#bfd_005fmmap"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-_002abfd_005fmmap"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">*bfd_mmap</strong> <code class="def-code-arguments">(bfd *abfd, void *addr, size_t len, int prot, int flags, file_ptr offset, void **map_addr, size_t *map_len) ATTRIBUTE_WARN_UNUSED_RESULT;</code><a class="copiable-link" href="#index-_002abfd_005fmmap"> &para;</a></span></dt>
+<div class="subsubsection" id="bfd_005fmmap">
+<h4 class="subsubsection">2.4.1.33 <code>bfd_mmap</code></h4>
+<dl class="def">
+<dt id="index-_002abfd_005fmmap"><span class="category">Function: </span><span><em>void</em> <strong>*bfd_mmap</strong> <em>(bfd *abfd, void *addr, size_t len, int prot, int flags, file_ptr offset, void **map_addr, size_t *map_len) ATTRIBUTE_WARN_UNUSED_RESULT;</em><a href='#index-_002abfd_005fmmap' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Return mmap()ed region of the file, if possible and implemented.
 LEN and OFFSET do not need to be page aligned.  The page aligned
 address and length are written to MAP_ADDR and MAP_LEN.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005fget_005fcurrent_005ftime"></a>
+<span id="index-bfd_005fget_005fcurrent_005ftime"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fget_005fcurrent_005ftime">
-<h4 class="subsubsection"><span>2.4.1.34 <code class="code">bfd_get_current_time</code><a class="copiable-link" href="#bfd_005fget_005fcurrent_005ftime"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-bfd_005fget_005fcurrent_005ftime-1"><span class="category-def">Function: </span><span><code class="def-type">time_t</code> <strong class="def-name">bfd_get_current_time</strong> <code class="def-code-arguments">(time_t now);</code><a class="copiable-link" href="#index-bfd_005fget_005fcurrent_005ftime-1"> &para;</a></span></dt>
+<div class="subsubsection" id="bfd_005fget_005fcurrent_005ftime">
+<h4 class="subsubsection">2.4.1.34 <code>bfd_get_current_time</code></h4>
+<dl class="def">
+<dt id="index-bfd_005fget_005fcurrent_005ftime-1"><span class="category">Function: </span><span><em>time_t</em> <strong>bfd_get_current_time</strong> <em>(time_t now);</em><a href='#index-bfd_005fget_005fcurrent_005ftime-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Returns the current time.
 </p>
 <p>If the environment variable SOURCE_DATE_EPOCH is defined
@@ -687,7 +697,7 @@ returned.
 </div>
 </div>
 <hr>
-<div class="nav-panel">
+<div class="header">
 <p>
 Next: <a href="Memory-Usage.html">Memory Usage</a>, Previous: <a href="Threading.html">Threading</a>, Up: <a href="BFD-front-end.html">BFD Front End</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="BFD-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

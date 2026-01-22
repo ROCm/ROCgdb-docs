@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the GNU Assembler "as".
 
-Copyright © 1991-2024 Free Software Foundation, Inc.
+Copyright (C) 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -31,10 +31,21 @@ section entitled "GNU Free Documentation License".
 <link href="VAX_002dopcodes.html" rel="prev" title="VAX-opcodes">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
 div.example {margin-left: 3.2em}
-kbd.kbd {font-style: oblique}
-span:hover a.copiable-link {visibility: visible}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -42,140 +53,140 @@ span:hover a.copiable-link {visibility: visible}
 </head>
 
 <body lang="en">
-<div class="subsection-level-extent" id="VAX_002dbranch">
-<div class="nav-panel">
+<div class="section" id="VAX_002dbranch">
+<div class="header">
 <p>
 Next: <a href="VAX_002doperands.html" accesskey="n" rel="next">VAX Operands</a>, Previous: <a href="VAX_002dopcodes.html" accesskey="p" rel="prev">VAX Opcodes</a>, Up: <a href="Vax_002dDependent.html" accesskey="u" rel="up">VAX Dependent Features</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h4 class="subsection section-level-set-subsection" id="VAX-Branch-Improvement"><span>9.50.5 VAX Branch Improvement<a class="copiable-link" href="#VAX-Branch-Improvement"> &para;</a></span></h4>
+<span id="VAX-Branch-Improvement"></span><h4 class="subsection">9.50.5 VAX Branch Improvement</h4>
 
-<a class="index-entry-id" id="index-VAX-branch-improvement"></a>
-<a class="index-entry-id" id="index-branch-improvement_002c-VAX"></a>
-<a class="index-entry-id" id="index-pseudo_002dops-for-branch_002c-VAX"></a>
+<span id="index-VAX-branch-improvement"></span>
+<span id="index-branch-improvement_002c-VAX"></span>
+<span id="index-pseudo_002dops-for-branch_002c-VAX"></span>
 <p>Certain pseudo opcodes are permitted.  They are for branch
 instructions.  They expand to the shortest branch instruction that
 reaches the target.  Generally these mnemonics are made by
-substituting &lsquo;<samp class="samp">j</samp>&rsquo; for &lsquo;<samp class="samp">b</samp>&rsquo; at the start of a DEC mnemonic.
+substituting &lsquo;<samp>j</samp>&rsquo; for &lsquo;<samp>b</samp>&rsquo; at the start of a DEC mnemonic.
 This feature is included both for compatibility and to help
 compilers.  If you do not need this feature, avoid these
 opcodes.  Here are the mnemonics, and the code they can expand into.
 </p>
-<dl class="table">
-<dt><code class="code">jbsb</code></dt>
-<dd><p>&lsquo;<samp class="samp">Jsb</samp>&rsquo; is already an instruction mnemonic, so we chose &lsquo;<samp class="samp">jbsb</samp>&rsquo;.
-</p><dl class="table">
-<dt>(byte displacement)</dt>
-<dd><p><kbd class="kbd">bsbb &hellip;</kbd>
+<dl compact="compact">
+<dt><span><code>jbsb</code></span></dt>
+<dd><p>&lsquo;<samp>Jsb</samp>&rsquo; is already an instruction mnemonic, so we chose &lsquo;<samp>jbsb</samp>&rsquo;.
+</p><dl compact="compact">
+<dt><span>(byte displacement)</span></dt>
+<dd><p><kbd>bsbb &hellip;</kbd>
 </p></dd>
-<dt>(word displacement)</dt>
-<dd><p><kbd class="kbd">bsbw &hellip;</kbd>
+<dt><span>(word displacement)</span></dt>
+<dd><p><kbd>bsbw &hellip;</kbd>
 </p></dd>
-<dt>(long displacement)</dt>
-<dd><p><kbd class="kbd">jsb &hellip;</kbd>
+<dt><span>(long displacement)</span></dt>
+<dd><p><kbd>jsb &hellip;</kbd>
 </p></dd>
 </dl>
 </dd>
-<dt><code class="code">jbr</code></dt>
-<dt><code class="code">jr</code></dt>
+<dt><span><code>jbr</code></span></dt>
+<dt><span><code>jr</code></span></dt>
 <dd><p>Unconditional branch.
-</p><dl class="table">
-<dt>(byte displacement)</dt>
-<dd><p><kbd class="kbd">brb &hellip;</kbd>
+</p><dl compact="compact">
+<dt><span>(byte displacement)</span></dt>
+<dd><p><kbd>brb &hellip;</kbd>
 </p></dd>
-<dt>(word displacement)</dt>
-<dd><p><kbd class="kbd">brw &hellip;</kbd>
+<dt><span>(word displacement)</span></dt>
+<dd><p><kbd>brw &hellip;</kbd>
 </p></dd>
-<dt>(long displacement)</dt>
-<dd><p><kbd class="kbd">jmp &hellip;</kbd>
-</p></dd>
-</dl>
-</dd>
-<dt><code class="code">j<var class="var">COND</var></code></dt>
-<dd><p><var class="var">COND</var> may be any one of the conditional branches
-<code class="code">neq</code>, <code class="code">nequ</code>, <code class="code">eql</code>, <code class="code">eqlu</code>, <code class="code">gtr</code>,
-<code class="code">geq</code>, <code class="code">lss</code>, <code class="code">gtru</code>, <code class="code">lequ</code>, <code class="code">vc</code>, <code class="code">vs</code>,
-<code class="code">gequ</code>, <code class="code">cc</code>, <code class="code">lssu</code>, <code class="code">cs</code>.
-<var class="var">COND</var> may also be one of the bit tests
-<code class="code">bs</code>, <code class="code">bc</code>, <code class="code">bss</code>, <code class="code">bcs</code>, <code class="code">bsc</code>, <code class="code">bcc</code>,
-<code class="code">bssi</code>, <code class="code">bcci</code>, <code class="code">lbs</code>, <code class="code">lbc</code>.
-<var class="var">NOTCOND</var> is the opposite condition to <var class="var">COND</var>.
-</p><dl class="table">
-<dt>(byte displacement)</dt>
-<dd><p><kbd class="kbd">b<var class="var">COND</var> &hellip;</kbd>
-</p></dd>
-<dt>(word displacement)</dt>
-<dd><p><kbd class="kbd">b<var class="var">NOTCOND</var> foo ; brw &hellip; ; foo:</kbd>
-</p></dd>
-<dt>(long displacement)</dt>
-<dd><p><kbd class="kbd">b<var class="var">NOTCOND</var> foo ; jmp &hellip; ; foo:</kbd>
+<dt><span>(long displacement)</span></dt>
+<dd><p><kbd>jmp &hellip;</kbd>
 </p></dd>
 </dl>
 </dd>
-<dt><code class="code">jacb<var class="var">X</var></code></dt>
-<dd><p><var class="var">X</var> may be one of <code class="code">b d f g h l w</code>.
-</p><dl class="table">
-<dt>(word displacement)</dt>
-<dd><p><kbd class="kbd"><var class="var">OPCODE</var> &hellip;</kbd>
+<dt><span><code>j<var>COND</var></code></span></dt>
+<dd><p><var>COND</var> may be any one of the conditional branches
+<code>neq</code>, <code>nequ</code>, <code>eql</code>, <code>eqlu</code>, <code>gtr</code>,
+<code>geq</code>, <code>lss</code>, <code>gtru</code>, <code>lequ</code>, <code>vc</code>, <code>vs</code>,
+<code>gequ</code>, <code>cc</code>, <code>lssu</code>, <code>cs</code>.
+<var>COND</var> may also be one of the bit tests
+<code>bs</code>, <code>bc</code>, <code>bss</code>, <code>bcs</code>, <code>bsc</code>, <code>bcc</code>,
+<code>bssi</code>, <code>bcci</code>, <code>lbs</code>, <code>lbc</code>.
+<var>NOTCOND</var> is the opposite condition to <var>COND</var>.
+</p><dl compact="compact">
+<dt><span>(byte displacement)</span></dt>
+<dd><p><kbd>b<var>COND</var> &hellip;</kbd>
 </p></dd>
-<dt>(long displacement)</dt>
+<dt><span>(word displacement)</span></dt>
+<dd><p><kbd>b<var>NOTCOND</var> foo ; brw &hellip; ; foo:</kbd>
+</p></dd>
+<dt><span>(long displacement)</span></dt>
+<dd><p><kbd>b<var>NOTCOND</var> foo ; jmp &hellip; ; foo:</kbd>
+</p></dd>
+</dl>
+</dd>
+<dt><span><code>jacb<var>X</var></code></span></dt>
+<dd><p><var>X</var> may be one of <code>b d f g h l w</code>.
+</p><dl compact="compact">
+<dt><span>(word displacement)</span></dt>
+<dd><p><kbd><var>OPCODE</var> &hellip;</kbd>
+</p></dd>
+<dt><span>(long displacement)</span></dt>
 <dd><div class="example">
-<pre class="example-preformatted"><var class="var">OPCODE</var> ..., foo ;
+<pre class="example"><var>OPCODE</var> &hellip;, foo ;
 brb bar ;
-foo: jmp ... ;
+foo: jmp &hellip; ;
 bar:
 </pre></div>
 </dd>
 </dl>
 </dd>
-<dt><code class="code">jaob<var class="var">YYY</var></code></dt>
-<dd><p><var class="var">YYY</var> may be one of <code class="code">lss leq</code>.
+<dt><span><code>jaob<var>YYY</var></code></span></dt>
+<dd><p><var>YYY</var> may be one of <code>lss leq</code>.
 </p></dd>
-<dt><code class="code">jsob<var class="var">ZZZ</var></code></dt>
-<dd><p><var class="var">ZZZ</var> may be one of <code class="code">geq gtr</code>.
-</p><dl class="table">
-<dt>(byte displacement)</dt>
-<dd><p><kbd class="kbd"><var class="var">OPCODE</var> &hellip;</kbd>
+<dt><span><code>jsob<var>ZZZ</var></code></span></dt>
+<dd><p><var>ZZZ</var> may be one of <code>geq gtr</code>.
+</p><dl compact="compact">
+<dt><span>(byte displacement)</span></dt>
+<dd><p><kbd><var>OPCODE</var> &hellip;</kbd>
 </p></dd>
-<dt>(word displacement)</dt>
+<dt><span>(word displacement)</span></dt>
 <dd><div class="example">
-<pre class="example-preformatted"><var class="var">OPCODE</var> ..., foo ;
+<pre class="example"><var>OPCODE</var> &hellip;, foo ;
 brb bar ;
-foo: brw <var class="var">destination</var> ;
+foo: brw <var>destination</var> ;
 bar:
 </pre></div>
 </dd>
-<dt>(long displacement)</dt>
+<dt><span>(long displacement)</span></dt>
 <dd><div class="example">
-<pre class="example-preformatted"><var class="var">OPCODE</var> ..., foo ;
+<pre class="example"><var>OPCODE</var> &hellip;, foo ;
 brb bar ;
-foo: jmp <var class="var">destination</var> ;
+foo: jmp <var>destination</var> ;
 bar:
 </pre></div>
 </dd>
 </dl>
 </dd>
-<dt><code class="code">aobleq</code></dt>
-<dt><code class="code">aoblss</code></dt>
-<dt><code class="code">sobgeq</code></dt>
-<dt><code class="code">sobgtr</code></dt>
-<dd><dl class="table">
-<dt>(byte displacement)</dt>
-<dd><p><kbd class="kbd"><var class="var">OPCODE</var> &hellip;</kbd>
+<dt><span><code>aobleq</code></span></dt>
+<dt><span><code>aoblss</code></span></dt>
+<dt><span><code>sobgeq</code></span></dt>
+<dt><span><code>sobgtr</code></span></dt>
+<dd><dl compact="compact">
+<dt><span>(byte displacement)</span></dt>
+<dd><p><kbd><var>OPCODE</var> &hellip;</kbd>
 </p></dd>
-<dt>(word displacement)</dt>
+<dt><span>(word displacement)</span></dt>
 <dd><div class="example">
-<pre class="example-preformatted"><var class="var">OPCODE</var> ..., foo ;
+<pre class="example"><var>OPCODE</var> &hellip;, foo ;
 brb bar ;
-foo: brw <var class="var">destination</var> ;
+foo: brw <var>destination</var> ;
 bar:
 </pre></div>
 </dd>
-<dt>(long displacement)</dt>
+<dt><span>(long displacement)</span></dt>
 <dd><div class="example">
-<pre class="example-preformatted"><var class="var">OPCODE</var> ..., foo ;
+<pre class="example"><var>OPCODE</var> &hellip;, foo ;
 brb bar ;
-foo: jmp <var class="var">destination</var> ;
+foo: jmp <var>destination</var> ;
 bar:
 </pre></div>
 </dd>
@@ -185,7 +196,7 @@ bar:
 
 </div>
 <hr>
-<div class="nav-panel">
+<div class="header">
 <p>
 Next: <a href="VAX_002doperands.html">VAX Operands</a>, Previous: <a href="VAX_002dopcodes.html">VAX Opcodes</a>, Up: <a href="Vax_002dDependent.html">VAX Dependent Features</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

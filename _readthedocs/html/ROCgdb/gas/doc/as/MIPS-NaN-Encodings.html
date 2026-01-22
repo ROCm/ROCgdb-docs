@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the GNU Assembler "as".
 
-Copyright © 1991-2024 Free Software Foundation, Inc.
+Copyright (C) 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -31,8 +31,21 @@ section entitled "GNU Free Documentation License".
 <link href="MIPS-FP-ABIs.html" rel="prev" title="MIPS FP ABIs">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
-span:hover a.copiable-link {visibility: visible}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -40,16 +53,16 @@ span:hover a.copiable-link {visibility: visible}
 </head>
 
 <body lang="en">
-<div class="subsection-level-extent" id="MIPS-NaN-Encodings">
-<div class="nav-panel">
+<div class="section" id="MIPS-NaN-Encodings">
+<div class="header">
 <p>
 Next: <a href="MIPS-Option-Stack.html" accesskey="n" rel="next">Directives to save and restore options</a>, Previous: <a href="MIPS-FP-ABIs.html" accesskey="p" rel="prev">Directives to control the FP ABI</a>, Up: <a href="MIPS_002dDependent.html" accesskey="u" rel="up">MIPS Dependent Features</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h4 class="subsection section-level-set-subsection" id="Directives-to-record-which-NaN-encoding-is-being-used"><span>9.28.10 Directives to record which NaN encoding is being used<a class="copiable-link" href="#Directives-to-record-which-NaN-encoding-is-being-used"> &para;</a></span></h4>
+<span id="Directives-to-record-which-NaN-encoding-is-being-used"></span><h4 class="subsection">9.28.10 Directives to record which NaN encoding is being used</h4>
 
-<a class="index-entry-id" id="index-MIPS-IEEE-754-NaN-data-encoding-selection"></a>
-<a class="index-entry-id" id="index-_002enan-directive_002c-MIPS"></a>
+<span id="index-MIPS-IEEE-754-NaN-data-encoding-selection"></span>
+<span id="index-_002enan-directive_002c-MIPS"></span>
 <p>The IEEE 754 floating-point standard defines two types of not-a-number
 (NaN) data: &ldquo;signalling&rdquo; NaNs and &ldquo;quiet&rdquo; NaNs.  The original version
 of the standard did not specify how these two types should be
@@ -63,32 +76,32 @@ clear for quiet NaNs.
 and as from Sep 2012 the current release of the MIPS architecture
 therefore optionally supports that form.  Code that uses one NaN encoding
 would usually be incompatible with code that uses the other NaN encoding,
-so MIPS ELF objects have a flag (<code class="code">EF_MIPS_NAN2008</code>) to record which
+so MIPS ELF objects have a flag (<code>EF_MIPS_NAN2008</code>) to record which
 encoding is being used.
 </p>
-<p>Assembly files can use the <code class="code">.nan</code> directive to select between the
-two encodings.  &lsquo;<samp class="samp">.nan 2008</samp>&rsquo; says that the assembly file uses the
-IEEE 754-2008 encoding while &lsquo;<samp class="samp">.nan legacy</samp>&rsquo; says that the file uses
-the original MIPS encoding.  If several <code class="code">.nan</code> directives are given,
+<p>Assembly files can use the <code>.nan</code> directive to select between the
+two encodings.  &lsquo;<samp>.nan 2008</samp>&rsquo; says that the assembly file uses the
+IEEE 754-2008 encoding while &lsquo;<samp>.nan legacy</samp>&rsquo; says that the file uses
+the original MIPS encoding.  If several <code>.nan</code> directives are given,
 the final setting is the one that is used.
 </p>
-<p>The command-line options <samp class="option">-mnan=legacy</samp> and <samp class="option">-mnan=2008</samp>
-can be used instead of &lsquo;<samp class="samp">.nan legacy</samp>&rsquo; and &lsquo;<samp class="samp">.nan 2008</samp>&rsquo;
-respectively.  However, any <code class="code">.nan</code> directive overrides the
+<p>The command-line options <samp>-mnan=legacy</samp> and <samp>-mnan=2008</samp>
+can be used instead of &lsquo;<samp>.nan legacy</samp>&rsquo; and &lsquo;<samp>.nan 2008</samp>&rsquo;
+respectively.  However, any <code>.nan</code> directive overrides the
 command-line setting.
 </p>
-<p>&lsquo;<samp class="samp">.nan legacy</samp>&rsquo; is the default if no <code class="code">.nan</code> directive or
-<samp class="option">-mnan</samp> option is given.
+<p>&lsquo;<samp>.nan legacy</samp>&rsquo; is the default if no <code>.nan</code> directive or
+<samp>-mnan</samp> option is given.
 </p>
-<p>Note that <small class="sc">GNU</small> <code class="code">as</code> does not produce NaNs itself and
+<p>Note that <small>GNU</small> <code>as</code> does not produce NaNs itself and
 therefore these directives do not affect code generation.  They simply
-control the setting of the <code class="code">EF_MIPS_NAN2008</code> flag.
+control the setting of the <code>EF_MIPS_NAN2008</code> flag.
 </p>
 <p>Traditional MIPS assemblers do not support these directives.
 </p>
 </div>
 <hr>
-<div class="nav-panel">
+<div class="header">
 <p>
 Next: <a href="MIPS-Option-Stack.html">Directives to save and restore options</a>, Previous: <a href="MIPS-FP-ABIs.html">Directives to control the FP ABI</a>, Up: <a href="MIPS_002dDependent.html">MIPS Dependent Features</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

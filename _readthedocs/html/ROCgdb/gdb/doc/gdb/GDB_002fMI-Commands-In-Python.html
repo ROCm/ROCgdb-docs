@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright © 1988-2024 Free Software Foundation, Inc.
+<!-- Copyright (C) 1988-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -26,7 +26,7 @@ the license, review the license.txt in the top-level directory for the
 library on https://github.com/ROCm/ (Github.com)).  The additional terms
 and conditions below apply to your use of AMD ROCm technical documentation.
 
-©2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
+(C)2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
 
 The information presented in this document is for informational purposes only
 and may contain technical inaccuracies, omissions, and typographical errors.
@@ -52,8 +52,8 @@ EVEN IF AMD IS EXPRESSLY ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
 
 AMD, the AMD Arrow logo, AMD Instinct™, Radeon™, AMD ROCm™, and combinations
 thereof are trademarks of Advanced Micro Devices, Inc.
-Linux® is the registered trademark of Linus Torvalds in the
-U.S. and other countries. PCIe® is a registered trademark of
+Linux(R) is the registered trademark of Linus Torvalds in the
+U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
@@ -74,13 +74,21 @@ companies. -->
 <link href="CLI-Commands-In-Python.html" rel="prev" title="CLI Commands In Python">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
 div.example {margin-left: 3.2em}
-kbd.kbd {font-style: oblique}
-span.r {font-family: initial; font-weight: normal; font-style: normal}
-span:hover a.copiable-link {visibility: visible}
-strong.def-name {font-family: monospace; font-weight: bold; font-size: larger}
-ul.mark-bullet {list-style-type: disc}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -88,105 +96,105 @@ ul.mark-bullet {list-style-type: disc}
 </head>
 
 <body lang="en">
-<div class="subsubsection-level-extent" id="GDB_002fMI-Commands-In-Python">
-<div class="nav-panel">
+<div class="subsubsection" id="GDB_002fMI-Commands-In-Python">
+<div class="header">
 <p>
-Next: <a href="GDB_002fMI-Notifications-In-Python.html" accesskey="n" rel="next"><small class="sc">GDB/MI</small> Notifications In Python</a>, Previous: <a href="CLI-Commands-In-Python.html" accesskey="p" rel="prev">CLI Commands In Python</a>, Up: <a href="Python-API.html" accesskey="u" rel="up">Python API</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="GDB_002fMI-Notifications-In-Python.html" accesskey="n" rel="next"><small>GDB/MI</small> Notifications In Python</a>, Previous: <a href="CLI-Commands-In-Python.html" accesskey="p" rel="prev">CLI Commands In Python</a>, Up: <a href="Python-API.html" accesskey="u" rel="up">Python API</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h4 class="subsubsection" id="gdb_002fmi-Commands-In-Python"><span>24.3.2.22 <small class="sc">GDB/MI</small> Commands In Python<a class="copiable-link" href="#gdb_002fmi-Commands-In-Python"> &para;</a></span></h4>
+<span id="GDB_002fMI-Commands-In-Python-1"></span><h4 class="subsubsection">24.3.2.22 <small>GDB/MI</small> Commands In Python</h4>
 
-<a class="index-entry-id" id="index-MI-commands-in-python"></a>
-<a class="index-entry-id" id="index-commands-in-python_002c-GDB_002fMI"></a>
-<a class="index-entry-id" id="index-python-commands_002c-GDB_002fMI"></a>
-<p>It is possible to add <small class="sc">GDB/MI</small> (see <a class="pxref" href="GDB_002fMI.html">The <small class="sc">GDB/MI</small> Interface</a>) commands
-implemented in Python.  A <small class="sc">GDB/MI</small> command is implemented using an
-instance of the <code class="code">gdb.MICommand</code> class, most commonly using a
+<span id="index-MI-commands-in-python"></span>
+<span id="index-commands-in-python_002c-GDB_002fMI"></span>
+<span id="index-python-commands_002c-GDB_002fMI"></span>
+<p>It is possible to add <small>GDB/MI</small> (see <a href="GDB_002fMI.html">The <small>GDB/MI</small> Interface</a>) commands
+implemented in Python.  A <small>GDB/MI</small> command is implemented using an
+instance of the <code>gdb.MICommand</code> class, most commonly using a
 subclass.
 </p>
-<dl class="first-deffn first-defun-alias-first-deffn">
-<dt class="deffn defun-alias-deffn" id="index-MICommand_002e_005f_005finit_005f_005f"><span class="category-def">Function: </span><span><strong class="def-name">MICommand.__init__</strong> <var class="def-var-arguments">(name)</var><a class="copiable-link" href="#index-MICommand_002e_005f_005finit_005f_005f"> &para;</a></span></dt>
-<dd><p>The object initializer for <code class="code">MICommand</code> registers the new command
-with <small class="sc">ROCGDB</small>.  This initializer is normally invoked from the
-subclass&rsquo; own <code class="code">__init__</code> method.
+<dl class="def">
+<dt id="index-MICommand_002e_005f_005finit_005f_005f"><span class="category">Function: </span><span><strong>MICommand.__init__</strong> <em>(name)</em><a href='#index-MICommand_002e_005f_005finit_005f_005f' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>The object initializer for <code>MICommand</code> registers the new command
+with <small>ROCGDB</small>.  This initializer is normally invoked from the
+subclass&rsquo; own <code>__init__</code> method.
 </p>
-<p><var class="var">name</var> is the name of the command.  It must be a valid name of a
-<small class="sc">GDB/MI</small> command, and in particular must start with a hyphen
-(<code class="code">-</code>).  Reusing the name of a built-in <small class="sc">GDB/MI</small> is not
-allowed, and a <code class="code">RuntimeError</code> will be raised.  Using the name
-of an <small class="sc">GDB/MI</small> command previously defined in Python is allowed, the
+<p><var>name</var> is the name of the command.  It must be a valid name of a
+<small>GDB/MI</small> command, and in particular must start with a hyphen
+(<code>-</code>).  Reusing the name of a built-in <small>GDB/MI</small> is not
+allowed, and a <code>RuntimeError</code> will be raised.  Using the name
+of an <small>GDB/MI</small> command previously defined in Python is allowed, the
 previous command will be replaced with the new command.
 </p></dd></dl>
 
-<dl class="first-deffn first-defun-alias-first-deffn">
-<dt class="deffn defun-alias-deffn" id="index-MICommand_002einvoke"><span class="category-def">Function: </span><span><strong class="def-name">MICommand.invoke</strong> <var class="def-var-arguments">(arguments)</var><a class="copiable-link" href="#index-MICommand_002einvoke"> &para;</a></span></dt>
-<dd><p>This method is called by <small class="sc">ROCGDB</small> when the new MI command is
+<dl class="def">
+<dt id="index-MICommand_002einvoke"><span class="category">Function: </span><span><strong>MICommand.invoke</strong> <em>(arguments)</em><a href='#index-MICommand_002einvoke' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>This method is called by <small>ROCGDB</small> when the new MI command is
 invoked.
 </p>
-<p><var class="var">arguments</var> is a list of strings.  Note, that <code class="code">--thread</code>
-and <code class="code">--frame</code> arguments are handled by <small class="sc">ROCGDB</small> itself therefore
-they do not show up in <code class="code">arguments</code>.
+<p><var>arguments</var> is a list of strings.  Note, that <code>--thread</code>
+and <code>--frame</code> arguments are handled by <small>ROCGDB</small> itself therefore
+they do not show up in <code>arguments</code>.
 </p>
 <p>If this method raises an exception, then it is turned into a
-<small class="sc">GDB/MI</small> <code class="code">^error</code> response.  Only <code class="code">gdb.GdbError</code>
+<small>GDB/MI</small> <code>^error</code> response.  Only <code>gdb.GdbError</code>
 exceptions (or its sub-classes) should be used for reporting errors to
 users, any other exception type is treated as a failure of the
-<code class="code">invoke</code> method, and the exception will be printed to the error
-stream according to the <kbd class="kbd">set python print-stack</kbd> setting
-(see <a class="pxref" href="Python-Commands.html#set_005fpython_005fprint_005fstack"><kbd class="kbd">set python print-stack</kbd></a>).
+<code>invoke</code> method, and the exception will be printed to the error
+stream according to the <kbd>set python print-stack</kbd> setting
+(see <a href="Python-Commands.html#set_005fpython_005fprint_005fstack"><kbd>set python print-stack</kbd></a>).
 </p>
-<p>If this method returns <code class="code">None</code>, then the <small class="sc">GDB/MI</small> command will
-return a <code class="code">^done</code> response with no additional values.
+<p>If this method returns <code>None</code>, then the <small>GDB/MI</small> command will
+return a <code>^done</code> response with no additional values.
 </p>
 <p>Otherwise, the return value must be a dictionary, which is converted
-to a <small class="sc">GDB/MI</small> <var class="var">result-record</var> (see <a class="pxref" href="GDB_002fMI-Output-Syntax.html"><small class="sc">GDB/MI</small> Output Syntax</a>).
+to a <small>GDB/MI</small> <var>result-record</var> (see <a href="GDB_002fMI-Output-Syntax.html"><small>GDB/MI</small> Output Syntax</a>).
 The keys of this dictionary must be strings, and are used as
-<var class="var">variable</var> names in the <var class="var">result-record</var>, these strings must
+<var>variable</var> names in the <var>result-record</var>, these strings must
 comply with the naming rules detailed below.  The values of this
 dictionary are recursively handled as follows:
 </p>
-<ul class="itemize mark-bullet">
-<li>If the value is Python sequence or iterator, it is converted to
-<small class="sc">GDB/MI</small> <var class="var">list</var> with elements converted recursively.
+<ul>
+<li> If the value is Python sequence or iterator, it is converted to
+<small>GDB/MI</small> <var>list</var> with elements converted recursively.
 
-</li><li>If the value is Python dictionary, it is converted to
-<small class="sc">GDB/MI</small> <var class="var">tuple</var>.  Keys in that dictionary must be strings,
-which comply with the <var class="var">variable</var> naming rules detailed below.
+</li><li> If the value is Python dictionary, it is converted to
+<small>GDB/MI</small> <var>tuple</var>.  Keys in that dictionary must be strings,
+which comply with the <var>variable</var> naming rules detailed below.
 Values are converted recursively.
 
-</li><li>Otherwise, value is first converted to a Python string using
-<code class="code">str ()</code> and then converted to <small class="sc">GDB/MI</small> <var class="var">const</var>.
+</li><li> Otherwise, value is first converted to a Python string using
+<code>str ()</code> and then converted to <small>GDB/MI</small> <var>const</var>.
 </li></ul>
 
-<p>The strings used for <var class="var">variable</var> names in the <small class="sc">GDB/MI</small> output
+<p>The strings used for <var>variable</var> names in the <small>GDB/MI</small> output
 must follow the following rules; the string must be at least one
 character long, the first character must be in the set
-<code class="code">[a-zA-Z]</code>, while every subsequent character must be in the set
-<code class="code">[-_a-zA-Z0-9]</code>.
+<code>[a-zA-Z]</code>, while every subsequent character must be in the set
+<code>[-_a-zA-Z0-9]</code>.
 </p></dd></dl>
 
-<p>An instance of <code class="code">MICommand</code> has the following attributes:
+<p>An instance of <code>MICommand</code> has the following attributes:
 </p>
-<dl class="first-defvr first-defvar-alias-first-defvr">
-<dt class="defvr defvar-alias-defvr" id="index-MICommand_002ename"><span class="category-def">Variable: </span><span><strong class="def-name">MICommand.name</strong><a class="copiable-link" href="#index-MICommand_002ename"> &para;</a></span></dt>
-<dd><p>A string, the name of this <small class="sc">GDB/MI</small> command, as was passed to the
-<code class="code">__init__</code> method.  This attribute is read-only.
+<dl class="def">
+<dt id="index-MICommand_002ename"><span class="category">Variable: </span><span><strong>MICommand.name</strong><a href='#index-MICommand_002ename' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>A string, the name of this <small>GDB/MI</small> command, as was passed to the
+<code>__init__</code> method.  This attribute is read-only.
 </p></dd></dl>
 
-<dl class="first-defvr first-defvar-alias-first-defvr">
-<dt class="defvr defvar-alias-defvr" id="index-MICommand_002einstalled"><span class="category-def">Variable: </span><span><strong class="def-name">MICommand.installed</strong><a class="copiable-link" href="#index-MICommand_002einstalled"> &para;</a></span></dt>
+<dl class="def">
+<dt id="index-MICommand_002einstalled"><span class="category">Variable: </span><span><strong>MICommand.installed</strong><a href='#index-MICommand_002einstalled' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>A boolean value indicating if this command is installed ready for a
 user to call from the command line.  Commands are automatically
 installed when they are instantiated, after which this attribute will
-be <code class="code">True</code>.
+be <code>True</code>.
 </p>
 <p>If later, a new command is created with the same name, then the
 original command will become uninstalled, and this attribute will be
-<code class="code">False</code>.
+<code>False</code>.
 </p>
-<p>This attribute is read-write, setting this attribute to <code class="code">False</code>
+<p>This attribute is read-write, setting this attribute to <code>False</code>
 will uninstall the command, removing it from the set of available
-commands.  Setting this attribute to <code class="code">True</code> will install the
+commands.  Setting this attribute to <code>True</code> will install the
 command for use.  If there is already a Python command with this name
 installed, the currently installed command will be uninstalled, and
 this command installed in its stead.
@@ -195,8 +203,8 @@ this command installed in its stead.
 <p>The following code snippet shows how some trivial MI commands can be
 implemented in Python:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">class MIEcho(gdb.MICommand):
+<div class="example">
+<pre class="example">class MIEcho(gdb.MICommand):
     &quot;&quot;&quot;Echo arguments passed to the command.&quot;&quot;&quot;
 
     def __init__(self, name, mode):
@@ -218,19 +226,19 @@ MIEcho(&quot;-echo-string&quot;, &quot;string&quot;)
 </pre></div>
 
 <p>The last three lines instantiate the class three times, creating three
-new <small class="sc">GDB/MI</small> commands <code class="code">-echo-dict</code>, <code class="code">-echo-list</code>, and
-<code class="code">-echo-string</code>.  Each time a subclass of <code class="code">gdb.MICommand</code> is
+new <small>GDB/MI</small> commands <code>-echo-dict</code>, <code>-echo-list</code>, and
+<code>-echo-string</code>.  Each time a subclass of <code>gdb.MICommand</code> is
 instantiated, the new command is automatically registered with
-<small class="sc">ROCGDB</small>.
+<small>ROCGDB</small>.
 </p>
-<p>Depending on how the Python code is read into <small class="sc">ROCGDB</small>, you may
-need to import the <code class="code">gdb</code> module explicitly.
+<p>Depending on how the Python code is read into <small>ROCGDB</small>, you may
+need to import the <code>gdb</code> module explicitly.
 </p>
-<p>The following example shows a <small class="sc">ROCGDB</small> session in which the above
+<p>The following example shows a <small>ROCGDB</small> session in which the above
 commands have been added:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">(gdb)
+<div class="example">
+<pre class="example">(gdb)
 -echo-dict abc def ghi
 ^done,dict={argv=[&quot;abc&quot;,&quot;def&quot;,&quot;ghi&quot;]}
 (gdb)
@@ -242,19 +250,19 @@ commands have been added:
 (gdb)
 </pre></div>
 
-<p>Conversely, it is possible to execute <small class="sc">GDB/MI</small> commands from
+<p>Conversely, it is possible to execute <small>GDB/MI</small> commands from
 Python, with the results being a Python object and not a
 specially-formatted string.  This is done with the
-<code class="code">gdb.execute_mi</code> function.
+<code>gdb.execute_mi</code> function.
 </p>
-<dl class="first-deffn first-defun-alias-first-deffn">
-<dt class="deffn defun-alias-deffn" id="index-gdb_002eexecute_005fmi"><span class="category-def">Function: </span><span><strong class="def-name">gdb.execute_mi</strong> <var class="def-var-arguments">(command <span class="r">[</span>, arg <span class="r">]</span>&hellip;)</var><a class="copiable-link" href="#index-gdb_002eexecute_005fmi"> &para;</a></span></dt>
-<dd><p>Invoke a <small class="sc">GDB/MI</small> command.  <var class="var">command</var> is the name of the
-command, a string.  The arguments, <var class="var">arg</var>, are passed to the
+<dl class="def">
+<dt id="index-gdb_002eexecute_005fmi"><span class="category">Function: </span><span><strong>gdb.execute_mi</strong> <em>(command <span class="roman">[</span>, arg <span class="roman">]</span>&hellip;)</em><a href='#index-gdb_002eexecute_005fmi' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Invoke a <small>GDB/MI</small> command.  <var>command</var> is the name of the
+command, a string.  The arguments, <var>arg</var>, are passed to the
 command.  Each argument must also be a string.
 </p>
 <p>This function returns a Python dictionary whose contents reflect the
-corresponding <small class="sc">GDB/MI</small> command&rsquo;s output.  Refer to the
+corresponding <small>GDB/MI</small> command&rsquo;s output.  Refer to the
 documentation for these commands for details.  Lists are represented
 as Python lists, and tuples are represented as Python dictionaries.
 </p>
@@ -263,8 +271,8 @@ as Python lists, and tuples are represented as Python dictionaries.
 
 <p>Here is how this works using the commands from the example above:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">(gdb) python print(gdb.execute_mi(&quot;-echo-dict&quot;, &quot;abc&quot;, &quot;def&quot;, &quot;ghi&quot;))
+<div class="example">
+<pre class="example">(gdb) python print(gdb.execute_mi(&quot;-echo-dict&quot;, &quot;abc&quot;, &quot;def&quot;, &quot;ghi&quot;))
 {'dict': {'argv': ['abc', 'def', 'ghi']}}
 (gdb) python print(gdb.execute_mi(&quot;-echo-list&quot;, &quot;abc&quot;, &quot;def&quot;, &quot;ghi&quot;))
 {'list': ['abc', 'def', 'ghi']}
@@ -274,9 +282,9 @@ as Python lists, and tuples are represented as Python dictionaries.
 
 </div>
 <hr>
-<div class="nav-panel">
+<div class="header">
 <p>
-Next: <a href="GDB_002fMI-Notifications-In-Python.html"><small class="sc">GDB/MI</small> Notifications In Python</a>, Previous: <a href="CLI-Commands-In-Python.html">CLI Commands In Python</a>, Up: <a href="Python-API.html">Python API</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="GDB_002fMI-Notifications-In-Python.html"><small>GDB/MI</small> Notifications In Python</a>, Previous: <a href="CLI-Commands-In-Python.html">CLI Commands In Python</a>, Up: <a href="Python-API.html">Python API</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

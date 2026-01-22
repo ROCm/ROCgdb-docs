@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the BFD library.
 
-Copyright © 1991-2024 Free Software Foundation, Inc.
+Copyright (C) 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -41,10 +41,21 @@ You have freedom to copy and modify this GNU Manual, like GNU
 <link href="What-to-Put-Where.html" rel="prev" title="What to Put Where">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
 div.example {margin-left: 3.2em}
-span:hover a.copiable-link {visibility: visible}
-strong.def-name {font-family: monospace; font-weight: bold; font-size: larger}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -52,13 +63,13 @@ strong.def-name {font-family: monospace; font-weight: bold; font-size: larger}
 </head>
 
 <body lang="en">
-<div class="section-level-extent" id="aout">
-<div class="nav-panel">
+<div class="section" id="aout">
+<div class="header">
 <p>
 Next: <a href="coff.html" accesskey="n" rel="next">coff backends</a>, Previous: <a href="What-to-Put-Where.html" accesskey="p" rel="prev">What to Put Where</a>, Up: <a href="BFD-back-ends.html" accesskey="u" rel="up">BFD back ends</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="BFD-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h3 class="section" id="a_002eout-backends"><span>3.2 a.out backends<a class="copiable-link" href="#a_002eout-backends"> &para;</a></span></h3>
+<span id="a_002eout-backends"></span><h3 class="section">3.2 a.out backends</h3>
 
 
 <p>BFD supports a number of different flavours of a.out format,
@@ -66,35 +77,35 @@ though the major differences are only the sizes of the
 structures on disk, and the shape of the relocation
 information.
 </p>
-<p>The support is split into a basic support file <samp class="file">aoutx.h</samp>
+<p>The support is split into a basic support file <samp>aoutx.h</samp>
 and other files which derive functions from the base. One
-derivation file is <samp class="file">aoutf1.h</samp> (for a.out flavour 1), and
+derivation file is <samp>aoutf1.h</samp> (for a.out flavour 1), and
 adds to the basic a.out functions support for sun3, sun4, and
 386 a.out files, to create a target jump vector for a specific
 target.
 </p>
 <p>This information is further split out into more specific files
-for each machine, including <samp class="file">sunos.c</samp> for sun3 and sun4,
-and <samp class="file">demo64.c</samp> for a demonstration of a 64 bit a.out format.
+for each machine, including <samp>sunos.c</samp> for sun3 and sun4,
+and <samp>demo64.c</samp> for a demonstration of a 64 bit a.out format.
 </p>
-<p>The base file <samp class="file">aoutx.h</samp> defines general mechanisms for
+<p>The base file <samp>aoutx.h</samp> defines general mechanisms for
 reading and writing records to and from disk and various
 other methods which BFD requires. It is included by
-<samp class="file">aout32.c</samp> and <samp class="file">aout64.c</samp> to form the names
-<code class="code">aout_32_swap_exec_header_in</code>, <code class="code">aout_64_swap_exec_header_in</code>, etc.
+<samp>aout32.c</samp> and <samp>aout64.c</samp> to form the names
+<code>aout_32_swap_exec_header_in</code>, <code>aout_64_swap_exec_header_in</code>, etc.
 </p>
 <p>As an example, this is what goes on to make the back end for a
-sun4, from <samp class="file">aout32.c</samp>:
+sun4, from <samp>aout32.c</samp>:
 </p>
 <div class="example">
-<pre class="example-preformatted">       #define ARCH_SIZE 32
+<pre class="example">       #define ARCH_SIZE 32
        #include &quot;aoutx.h&quot;
 </pre></div>
 
 <p>Which exports names:
 </p>
 <div class="example">
-<pre class="example-preformatted">       ...
+<pre class="example">       ...
        aout_32_canonicalize_reloc
        aout_32_find_nearest_line
        aout_32_get_lineno
@@ -102,21 +113,21 @@ sun4, from <samp class="file">aout32.c</samp>:
        ...
 </pre></div>
 
-<p>from <samp class="file">sunos.c</samp>:
+<p>from <samp>sunos.c</samp>:
 </p>
 <div class="example">
-<pre class="example-preformatted">       #define TARGET_NAME &quot;a.out-sunos-big&quot;
+<pre class="example">       #define TARGET_NAME &quot;a.out-sunos-big&quot;
        #define VECNAME    sparc_aout_sunos_be_vec
        #include &quot;aoutf1.h&quot;
 </pre></div>
 
-<p>requires all the names from <samp class="file">aout32.c</samp>, and produces the jump vector
+<p>requires all the names from <samp>aout32.c</samp>, and produces the jump vector
 </p>
 <div class="example">
-<pre class="example-preformatted">       sparc_aout_sunos_be_vec
+<pre class="example">       sparc_aout_sunos_be_vec
 </pre></div>
 
-<p>The file <samp class="file">host-aout.c</samp> is a special case.  It is for a large set
+<p>The file <samp>host-aout.c</samp> is a special case.  It is for a large set
 of hosts that use &ldquo;more or less standard&rdquo; a.out files, and
 for which cross-debugging is not interesting.  It uses the
 standard 32-bit a.out support routines, but determines the
@@ -129,7 +140,7 @@ the  object file.
 <p>When porting it to run on a new system, you must supply:
 </p>
 <div class="example">
-<pre class="example-preformatted">        HOST_PAGE_SIZE
+<pre class="example">        HOST_PAGE_SIZE
         HOST_SEGMENT_SIZE
         HOST_MACHINE_ARCH       (optional)
         HOST_MACHINE_MACHINE    (optional)
@@ -137,130 +148,130 @@ the  object file.
         HOST_STACK_END_ADDR
 </pre></div>
 
-<p>in the file <samp class="file">../include/sys/h-<var class="var">XXX</var>.h</samp> (for your host).  These
-values, plus the structures and macros defined in <samp class="file">a.out.h</samp> on
+<p>in the file <samp>../include/sys/h-<var>XXX</var>.h</samp> (for your host).  These
+values, plus the structures and macros defined in <samp>a.out.h</samp> on
 your host system, will produce a BFD target that will access
 ordinary a.out files on your host. To configure a new machine
-to use <samp class="file">host-aout.c</samp>, specify:
+to use <samp>host-aout.c</samp>, specify:
 </p>
 <div class="example">
-<pre class="example-preformatted">       TDEFAULTS = -DDEFAULT_VECTOR=host_aout_big_vec
+<pre class="example">       TDEFAULTS = -DDEFAULT_VECTOR=host_aout_big_vec
        TDEPFILES= host-aout.o trad-core.o
 </pre></div>
 
-<p>in the <samp class="file">config/<var class="var">XXX</var>.mt</samp> file, and modify <samp class="file">configure.ac</samp>
+<p>in the <samp>config/<var>XXX</var>.mt</samp> file, and modify <samp>configure.ac</samp>
 to use the
-<samp class="file"><var class="var">XXX</var>.mt</samp> file (by setting &quot;<code class="code">bfd_target=XXX</code>&quot;) when your
+<samp><var>XXX</var>.mt</samp> file (by setting &quot;<code>bfd_target=XXX</code>&quot;) when your
 configuration is selected.
 </p>
-<ul class="mini-toc">
+<ul class="section-toc">
 <li><a href="#Relocations-2" accesskey="1">Relocations</a></li>
 <li><a href="#Internal-entry-points" accesskey="2">Internal entry points</a></li>
 </ul>
-<div class="subsection-level-extent" id="Relocations-2">
-<h4 class="subsection"><span>3.2.1 Relocations<a class="copiable-link" href="#Relocations-2"> &para;</a></span></h4>
+<div class="subsection" id="Relocations-2">
+<h4 class="subsection">3.2.1 Relocations</h4>
 
 
-<p>The file <samp class="file">aoutx.h</samp> provides for both the <em class="emph">standard</em>
-and <em class="emph">extended</em> forms of a.out relocation records.
+<p>The file <samp>aoutx.h</samp> provides for both the <em>standard</em>
+and <em>extended</em> forms of a.out relocation records.
 </p>
 <p>The standard records contain only an address, a symbol index,
 and a type field.  The extended records also have a full
 integer for an addend.
 </p>
 </div>
-<div class="subsection-level-extent" id="Internal-entry-points">
-<h4 class="subsection"><span>3.2.2 Internal entry points<a class="copiable-link" href="#Internal-entry-points"> &para;</a></span></h4>
+<div class="subsection" id="Internal-entry-points">
+<h4 class="subsection">3.2.2 Internal entry points</h4>
 
 
-<p><samp class="file">aoutx.h</samp> exports several routines for accessing the
+<p><samp>aoutx.h</samp> exports several routines for accessing the
 contents of an a.out file, which are gathered and exported in
 turn by various format specific files (eg sunos.c).
 </p>
-<a class="index-entry-id" id="index-aout_005fsize_005fswap_005fexec_005fheader_005fin"></a>
-<ul class="mini-toc">
-<li><a href="#aout_005fsize_005fswap_005fexec_005fheader_005fin" accesskey="1"><code class="code">aout_<var class="var">size</var>_swap_exec_header_in</code></a></li>
-<li><a href="#aout_005fsize_005fswap_005fexec_005fheader_005fout" accesskey="2"><code class="code">aout_<var class="var">size</var>_swap_exec_header_out</code></a></li>
-<li><a href="#aout_005fsize_005fsome_005faout_005fobject_005fp" accesskey="3"><code class="code">aout_<var class="var">size</var>_some_aout_object_p</code></a></li>
-<li><a href="#aout_005fsize_005fmkobject" accesskey="4"><code class="code">aout_<var class="var">size</var>_mkobject</code></a></li>
-<li><a href="#aout_005fsize_005fmachine_005ftype" accesskey="5"><code class="code">aout_<var class="var">size</var>_machine_type</code></a></li>
-<li><a href="#aout_005fsize_005fset_005farch_005fmach" accesskey="6"><code class="code">aout_<var class="var">size</var>_set_arch_mach</code></a></li>
-<li><a href="#aout_005fsize_005fnew_005fsection_005fhook" accesskey="7"><code class="code">aout_<var class="var">size</var>_new_section_hook</code></a></li>
+<span id="index-aout_005fsize_005fswap_005fexec_005fheader_005fin"></span>
+<ul class="section-toc">
+<li><a href="#aout_005fsize_005fswap_005fexec_005fheader_005fin" accesskey="1"><code>aout_<var>size</var>_swap_exec_header_in</code></a></li>
+<li><a href="#aout_005fsize_005fswap_005fexec_005fheader_005fout" accesskey="2"><code>aout_<var>size</var>_swap_exec_header_out</code></a></li>
+<li><a href="#aout_005fsize_005fsome_005faout_005fobject_005fp" accesskey="3"><code>aout_<var>size</var>_some_aout_object_p</code></a></li>
+<li><a href="#aout_005fsize_005fmkobject" accesskey="4"><code>aout_<var>size</var>_mkobject</code></a></li>
+<li><a href="#aout_005fsize_005fmachine_005ftype" accesskey="5"><code>aout_<var>size</var>_machine_type</code></a></li>
+<li><a href="#aout_005fsize_005fset_005farch_005fmach" accesskey="6"><code>aout_<var>size</var>_set_arch_mach</code></a></li>
+<li><a href="#aout_005fsize_005fnew_005fsection_005fhook" accesskey="7"><code>aout_<var>size</var>_new_section_hook</code></a></li>
 </ul>
-<div class="subsubsection-level-extent" id="aout_005fsize_005fswap_005fexec_005fheader_005fin">
-<h4 class="subsubsection"><span>3.2.2.1 <code class="code">aout_<var class="var">size</var>_swap_exec_header_in</code><a class="copiable-link" href="#aout_005fsize_005fswap_005fexec_005fheader_005fin"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-aout_005fsize_005fswap_005fexec_005fheader_005fin_002c"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">aout_<var class="var">size</var>_swap_exec_header_in,</strong> <code class="def-code-arguments">(bfd *abfd, struct external_exec *bytes, struct internal_exec *execp);</code><a class="copiable-link" href="#index-aout_005fsize_005fswap_005fexec_005fheader_005fin_002c"> &para;</a></span></dt>
-<dd><p>Swap the information in an executable header <var class="var">raw_bytes</var> taken
+<div class="subsubsection" id="aout_005fsize_005fswap_005fexec_005fheader_005fin">
+<h4 class="subsubsection">3.2.2.1 <code>aout_<var>size</var>_swap_exec_header_in</code></h4>
+<dl class="def">
+<dt id="index-aout_005fsize_005fswap_005fexec_005fheader_005fin_002c"><span class="category">Function: </span><span><em>void</em> <strong>aout_<var>size</var>_swap_exec_header_in,</strong> <em>(bfd *abfd, struct external_exec *bytes, struct internal_exec *execp);</em><a href='#index-aout_005fsize_005fswap_005fexec_005fheader_005fin_002c' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Swap the information in an executable header <var>raw_bytes</var> taken
 from a raw byte stream memory image into the internal exec header
-structure <var class="var">execp</var>.
+structure <var>execp</var>.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-aout_005fsize_005fswap_005fexec_005fheader_005fout"></a>
+<span id="index-aout_005fsize_005fswap_005fexec_005fheader_005fout"></span>
 </div>
-<div class="subsubsection-level-extent" id="aout_005fsize_005fswap_005fexec_005fheader_005fout">
-<h4 class="subsubsection"><span>3.2.2.2 <code class="code">aout_<var class="var">size</var>_swap_exec_header_out</code><a class="copiable-link" href="#aout_005fsize_005fswap_005fexec_005fheader_005fout"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-aout_005fsize_005fswap_005fexec_005fheader_005fout-1"><span class="category-def">Function: </span><span><code class="def-type">bool</code> <strong class="def-name">aout_<var class="var">size</var>_swap_exec_header_out</strong> <code class="def-code-arguments">(bfd *abfd, struct internal_exec *execp, struct external_exec *raw_bytes);</code><a class="copiable-link" href="#index-aout_005fsize_005fswap_005fexec_005fheader_005fout-1"> &para;</a></span></dt>
+<div class="subsubsection" id="aout_005fsize_005fswap_005fexec_005fheader_005fout">
+<h4 class="subsubsection">3.2.2.2 <code>aout_<var>size</var>_swap_exec_header_out</code></h4>
+<dl class="def">
+<dt id="index-aout_005fsize_005fswap_005fexec_005fheader_005fout-1"><span class="category">Function: </span><span><em>bool</em> <strong>aout_<var>size</var>_swap_exec_header_out</strong> <em>(bfd *abfd, struct internal_exec *execp, struct external_exec *raw_bytes);</em><a href='#index-aout_005fsize_005fswap_005fexec_005fheader_005fout-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Swap the information in an internal exec header structure
-<var class="var">execp</var> into the buffer <var class="var">raw_bytes</var> ready for writing to disk.
+<var>execp</var> into the buffer <var>raw_bytes</var> ready for writing to disk.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-aout_005fsize_005fsome_005faout_005fobject_005fp"></a>
+<span id="index-aout_005fsize_005fsome_005faout_005fobject_005fp"></span>
 </div>
-<div class="subsubsection-level-extent" id="aout_005fsize_005fsome_005faout_005fobject_005fp">
-<h4 class="subsubsection"><span>3.2.2.3 <code class="code">aout_<var class="var">size</var>_some_aout_object_p</code><a class="copiable-link" href="#aout_005fsize_005fsome_005faout_005fobject_005fp"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-aout_005fsize_005fsome_005faout_005fobject_005fp-1"><span class="category-def">Function: </span><span><code class="def-type">bfd_cleanup</code> <strong class="def-name">aout_<var class="var">size</var>_some_aout_object_p</strong> <code class="def-code-arguments">(bfd *abfd, struct internal_exec *execp, bfd_cleanup (*callback_to_real_object_p) (bfd *));</code><a class="copiable-link" href="#index-aout_005fsize_005fsome_005faout_005fobject_005fp-1"> &para;</a></span></dt>
-<dd><p>Some a.out variant thinks that the file open in <var class="var">abfd</var>
+<div class="subsubsection" id="aout_005fsize_005fsome_005faout_005fobject_005fp">
+<h4 class="subsubsection">3.2.2.3 <code>aout_<var>size</var>_some_aout_object_p</code></h4>
+<dl class="def">
+<dt id="index-aout_005fsize_005fsome_005faout_005fobject_005fp-1"><span class="category">Function: </span><span><em>bfd_cleanup</em> <strong>aout_<var>size</var>_some_aout_object_p</strong> <em>(bfd *abfd, struct internal_exec *execp, bfd_cleanup (*callback_to_real_object_p) (bfd *));</em><a href='#index-aout_005fsize_005fsome_005faout_005fobject_005fp-1' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Some a.out variant thinks that the file open in <var>abfd</var>
 checking is an a.out file.  Do some more checking, and set up
 for access if it really is.  Call back to the calling
 environment&rsquo;s &quot;finish up&quot; function just before returning, to
 handle any last-minute setup.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-aout_005fsize_005fmkobject"></a>
+<span id="index-aout_005fsize_005fmkobject"></span>
 </div>
-<div class="subsubsection-level-extent" id="aout_005fsize_005fmkobject">
-<h4 class="subsubsection"><span>3.2.2.4 <code class="code">aout_<var class="var">size</var>_mkobject</code><a class="copiable-link" href="#aout_005fsize_005fmkobject"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-aout_005fsize_005fmkobject_002c"><span class="category-def">Function: </span><span><code class="def-type">bool</code> <strong class="def-name">aout_<var class="var">size</var>_mkobject,</strong> <code class="def-code-arguments">(bfd *abfd);</code><a class="copiable-link" href="#index-aout_005fsize_005fmkobject_002c"> &para;</a></span></dt>
-<dd><p>Initialize BFD <var class="var">abfd</var> for use with a.out files.
+<div class="subsubsection" id="aout_005fsize_005fmkobject">
+<h4 class="subsubsection">3.2.2.4 <code>aout_<var>size</var>_mkobject</code></h4>
+<dl class="def">
+<dt id="index-aout_005fsize_005fmkobject_002c"><span class="category">Function: </span><span><em>bool</em> <strong>aout_<var>size</var>_mkobject,</strong> <em>(bfd *abfd);</em><a href='#index-aout_005fsize_005fmkobject_002c' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Initialize BFD <var>abfd</var> for use with a.out files.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-aout_005fsize_005fmachine_005ftype"></a>
+<span id="index-aout_005fsize_005fmachine_005ftype"></span>
 </div>
-<div class="subsubsection-level-extent" id="aout_005fsize_005fmachine_005ftype">
-<h4 class="subsubsection"><span>3.2.2.5 <code class="code">aout_<var class="var">size</var>_machine_type</code><a class="copiable-link" href="#aout_005fsize_005fmachine_005ftype"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-machine_005ftype"><span class="category-def">Function: </span><span><code class="def-type">enum</code> <strong class="def-name">machine_type</strong> <code class="def-code-arguments">aout_<var class="var">size</var>_machine_type (enum bfd_architecture arch, unsigned long machine, bool *unknown);</code><a class="copiable-link" href="#index-machine_005ftype"> &para;</a></span></dt>
+<div class="subsubsection" id="aout_005fsize_005fmachine_005ftype">
+<h4 class="subsubsection">3.2.2.5 <code>aout_<var>size</var>_machine_type</code></h4>
+<dl class="def">
+<dt id="index-machine_005ftype"><span class="category">Function: </span><span><em>enum</em> <strong>machine_type</strong> <em>aout_<var>size</var>_machine_type (enum bfd_architecture arch, unsigned long machine, bool *unknown);</em><a href='#index-machine_005ftype' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Keep track of machine architecture and machine type for
-a.out&rsquo;s. Return the <code class="code">machine_type</code> for a particular
-architecture and machine, or <code class="code">M_UNKNOWN</code> if that exact architecture
+a.out&rsquo;s. Return the <code>machine_type</code> for a particular
+architecture and machine, or <code>M_UNKNOWN</code> if that exact architecture
 and machine can&rsquo;t be represented in a.out format.
 </p>
 <p>If the architecture is understood, machine type 0 (default)
 is always understood.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-aout_005fsize_005fset_005farch_005fmach"></a>
+<span id="index-aout_005fsize_005fset_005farch_005fmach"></span>
 </div>
-<div class="subsubsection-level-extent" id="aout_005fsize_005fset_005farch_005fmach">
-<h4 class="subsubsection"><span>3.2.2.6 <code class="code">aout_<var class="var">size</var>_set_arch_mach</code><a class="copiable-link" href="#aout_005fsize_005fset_005farch_005fmach"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-aout_005fsize_005fset_005farch_005fmach_002c"><span class="category-def">Function: </span><span><code class="def-type">bool</code> <strong class="def-name">aout_<var class="var">size</var>_set_arch_mach,</strong> <code class="def-code-arguments">(bfd *, enum bfd_architecture arch, unsigned long machine);</code><a class="copiable-link" href="#index-aout_005fsize_005fset_005farch_005fmach_002c"> &para;</a></span></dt>
-<dd><p>Set the architecture and the machine of the BFD <var class="var">abfd</var> to the
-values <var class="var">arch</var> and <var class="var">machine</var>.  Verify that <var class="var">abfd</var>&rsquo;s format
+<div class="subsubsection" id="aout_005fsize_005fset_005farch_005fmach">
+<h4 class="subsubsection">3.2.2.6 <code>aout_<var>size</var>_set_arch_mach</code></h4>
+<dl class="def">
+<dt id="index-aout_005fsize_005fset_005farch_005fmach_002c"><span class="category">Function: </span><span><em>bool</em> <strong>aout_<var>size</var>_set_arch_mach,</strong> <em>(bfd *, enum bfd_architecture arch, unsigned long machine);</em><a href='#index-aout_005fsize_005fset_005farch_005fmach_002c' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Set the architecture and the machine of the BFD <var>abfd</var> to the
+values <var>arch</var> and <var>machine</var>.  Verify that <var>abfd</var>&rsquo;s format
 can support the architecture required.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-aout_005fsize_005fnew_005fsection_005fhook"></a>
+<span id="index-aout_005fsize_005fnew_005fsection_005fhook"></span>
 </div>
-<div class="subsubsection-level-extent" id="aout_005fsize_005fnew_005fsection_005fhook">
-<h4 class="subsubsection"><span>3.2.2.7 <code class="code">aout_<var class="var">size</var>_new_section_hook</code><a class="copiable-link" href="#aout_005fsize_005fnew_005fsection_005fhook"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-aout_005fsize_005fnew_005fsection_005fhook_002c"><span class="category-def">Function: </span><span><code class="def-type">bool</code> <strong class="def-name">aout_<var class="var">size</var>_new_section_hook,</strong> <code class="def-code-arguments">(bfd *abfd, asection *newsect);</code><a class="copiable-link" href="#index-aout_005fsize_005fnew_005fsection_005fhook_002c"> &para;</a></span></dt>
-<dd><p>Called by the BFD in response to a <code class="code">bfd_make_section</code>
+<div class="subsubsection" id="aout_005fsize_005fnew_005fsection_005fhook">
+<h4 class="subsubsection">3.2.2.7 <code>aout_<var>size</var>_new_section_hook</code></h4>
+<dl class="def">
+<dt id="index-aout_005fsize_005fnew_005fsection_005fhook_002c"><span class="category">Function: </span><span><em>bool</em> <strong>aout_<var>size</var>_new_section_hook,</strong> <em>(bfd *abfd, asection *newsect);</em><a href='#index-aout_005fsize_005fnew_005fsection_005fhook_002c' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Called by the BFD in response to a <code>bfd_make_section</code>
 request.
 </p>
 </dd></dl>
@@ -269,7 +280,7 @@ request.
 </div>
 </div>
 <hr>
-<div class="nav-panel">
+<div class="header">
 <p>
 Next: <a href="coff.html">coff backends</a>, Previous: <a href="What-to-Put-Where.html">What to Put Where</a>, Up: <a href="BFD-back-ends.html">BFD back ends</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="BFD-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

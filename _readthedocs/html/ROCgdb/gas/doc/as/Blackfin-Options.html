@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the GNU Assembler "as".
 
-Copyright © 1991-2024 Free Software Foundation, Inc.
+Copyright (C) 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -30,9 +30,21 @@ section entitled "GNU Free Documentation License".
 <link href="Blackfin-Syntax.html" rel="next" title="Blackfin Syntax">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
-span.r {font-family: initial; font-weight: normal; font-style: normal}
-span:hover a.copiable-link {visibility: visible}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -40,67 +52,72 @@ span:hover a.copiable-link {visibility: visible}
 </head>
 
 <body lang="en">
-<div class="subsection-level-extent" id="Blackfin-Options">
-<div class="nav-panel">
+<div class="section" id="Blackfin-Options">
+<div class="header">
 <p>
 Next: <a href="Blackfin-Syntax.html" accesskey="n" rel="next">Syntax</a>, Up: <a href="Blackfin_002dDependent.html" accesskey="u" rel="up">Blackfin Dependent Features</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h4 class="subsection section-level-set-subsection" id="Options-5"><span>9.6.1 Options<a class="copiable-link" href="#Options-5"> &para;</a></span></h4>
-<a class="index-entry-id" id="index-Blackfin-options-_0028none_0029"></a>
-<a class="index-entry-id" id="index-options-for-Blackfin-_0028none_0029"></a>
+<span id="Options-5"></span><h4 class="subsection">9.6.1 Options</h4>
+<span id="index-Blackfin-options-_0028none_0029"></span>
+<span id="index-options-for-Blackfin-_0028none_0029"></span>
 
-<dl class="table">
-<dt><a id="index-_002dmcpu_003d-command_002dline-option_002c-Blackfin"></a><span><code class="code">-mcpu=<var class="var">processor</var><span class="r">[</span>-<var class="var">sirevision</var><span class="r">]</span></code><a class="copiable-link" href="#index-_002dmcpu_003d-command_002dline-option_002c-Blackfin"> &para;</a></span></dt>
-<dd><p>This option specifies the target processor.  The optional <var class="var">sirevision</var>
+<dl compact="compact">
+<dd>
+<span id="index-_002dmcpu_003d-command_002dline-option_002c-Blackfin"></span>
+</dd>
+<dt><span><code>-mcpu=<var>processor</var><span class="roman">[</span>-<var>sirevision</var><span class="roman">]</span></code></span></dt>
+<dd><p>This option specifies the target processor.  The optional <var>sirevision</var>
 is not used in assembler.  It&rsquo;s here such that GCC can easily pass down its
-<code class="code">-mcpu=</code> option.  The assembler will issue an
+<code>-mcpu=</code> option.  The assembler will issue an
 error message if an attempt is made to assemble an instruction which
 will not execute on the target processor.  The following processor names are
 recognized:
-<code class="code">bf504</code>,
-<code class="code">bf506</code>,
-<code class="code">bf512</code>,
-<code class="code">bf514</code>,
-<code class="code">bf516</code>,
-<code class="code">bf518</code>,
-<code class="code">bf522</code>,
-<code class="code">bf523</code>,
-<code class="code">bf524</code>,
-<code class="code">bf525</code>,
-<code class="code">bf526</code>,
-<code class="code">bf527</code>,
-<code class="code">bf531</code>,
-<code class="code">bf532</code>,
-<code class="code">bf533</code>,
-<code class="code">bf534</code>,
-<code class="code">bf535</code> (not implemented yet),
-<code class="code">bf536</code>,
-<code class="code">bf537</code>,
-<code class="code">bf538</code>,
-<code class="code">bf539</code>,
-<code class="code">bf542</code>,
-<code class="code">bf542m</code>,
-<code class="code">bf544</code>,
-<code class="code">bf544m</code>,
-<code class="code">bf547</code>,
-<code class="code">bf547m</code>,
-<code class="code">bf548</code>,
-<code class="code">bf548m</code>,
-<code class="code">bf549</code>,
-<code class="code">bf549m</code>,
-<code class="code">bf561</code>,
+<code>bf504</code>,
+<code>bf506</code>,
+<code>bf512</code>,
+<code>bf514</code>,
+<code>bf516</code>,
+<code>bf518</code>,
+<code>bf522</code>,
+<code>bf523</code>,
+<code>bf524</code>,
+<code>bf525</code>,
+<code>bf526</code>,
+<code>bf527</code>,
+<code>bf531</code>,
+<code>bf532</code>,
+<code>bf533</code>,
+<code>bf534</code>,
+<code>bf535</code> (not implemented yet),
+<code>bf536</code>,
+<code>bf537</code>,
+<code>bf538</code>,
+<code>bf539</code>,
+<code>bf542</code>,
+<code>bf542m</code>,
+<code>bf544</code>,
+<code>bf544m</code>,
+<code>bf547</code>,
+<code>bf547m</code>,
+<code>bf548</code>,
+<code>bf548m</code>,
+<code>bf549</code>,
+<code>bf549m</code>,
+<code>bf561</code>,
 and
-<code class="code">bf592</code>.
+<code>bf592</code>.
 </p>
+<span id="index-_002dmfdpic-command_002dline-option_002c-Blackfin"></span>
 </dd>
-<dt><a id="index-_002dmfdpic-command_002dline-option_002c-Blackfin"></a><span><code class="code">-mfdpic</code><a class="copiable-link" href="#index-_002dmfdpic-command_002dline-option_002c-Blackfin"> &para;</a></span></dt>
+<dt><span><code>-mfdpic</code></span></dt>
 <dd><p>Assemble for the FDPIC ABI.
 </p>
+<span id="index-_002dmno_002dfdpic-command_002dline-option_002c-Blackfin"></span>
+<span id="index-_002dmnopic-command_002dline-option_002c-Blackfin"></span>
 </dd>
-<dt><a class="index-entry-id" id="index-_002dmnopic-command_002dline-option_002c-Blackfin"></a>
-<a id="index-_002dmno_002dfdpic-command_002dline-option_002c-Blackfin"></a><span><code class="code">-mno-fdpic</code><a class="copiable-link" href="#index-_002dmno_002dfdpic-command_002dline-option_002c-Blackfin"> &para;</a></span></dt>
-<dt><code class="code">-mnopic</code></dt>
+<dt><span><code>-mno-fdpic</code></span></dt>
+<dt><span><code>-mnopic</code></span></dt>
 <dd><p>Disable -mfdpic.
 </p></dd>
 </dl>

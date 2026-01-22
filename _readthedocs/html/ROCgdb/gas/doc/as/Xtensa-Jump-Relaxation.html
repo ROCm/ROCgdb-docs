@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the GNU Assembler "as".
 
-Copyright © 1991-2024 Free Software Foundation, Inc.
+Copyright (C) 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -31,9 +31,21 @@ section entitled "GNU Free Documentation License".
 <link href="Xtensa-Call-Relaxation.html" rel="prev" title="Xtensa Call Relaxation">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
 div.example {margin-left: 3.2em}
-span:hover a.copiable-link {visibility: visible}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -41,21 +53,21 @@ span:hover a.copiable-link {visibility: visible}
 </head>
 
 <body lang="en">
-<div class="subsubsection-level-extent" id="Xtensa-Jump-Relaxation">
-<div class="nav-panel">
+<div class="subsection" id="Xtensa-Jump-Relaxation">
+<div class="header">
 <p>
 Next: <a href="Xtensa-Immediate-Relaxation.html" accesskey="n" rel="next">Other Immediate Field Relaxation</a>, Previous: <a href="Xtensa-Call-Relaxation.html" accesskey="p" rel="prev">Function Call Relaxation</a>, Up: <a href="Xtensa-Relaxation.html" accesskey="u" rel="up">Xtensa Relaxation</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h4 class="subsubsection subsection-level-set-subsubsection" id="Jump-Relaxation"><span>9.55.4.3 Jump Relaxation<a class="copiable-link" href="#Jump-Relaxation"> &para;</a></span></h4>
-<a class="index-entry-id" id="index-relaxation-of-jump-instructions"></a>
-<a class="index-entry-id" id="index-jump-instructions_002c-relaxation"></a>
+<span id="Jump-Relaxation"></span><h4 class="subsubsection">9.55.4.3 Jump Relaxation</h4>
+<span id="index-relaxation-of-jump-instructions"></span>
+<span id="index-jump-instructions_002c-relaxation"></span>
 
 <p>Jump instruction may require relaxation because the Xtensa jump instruction
-(<code class="code">J</code>) provide a PC-relative offset of only 128 Kbytes in either
-direction.  One option is to use jump long (<code class="code">J.L</code>) instruction, which
-depending on jump distance may be assembled as jump (<code class="code">J</code>) or indirect
-jump (<code class="code">JX</code>).  However it needs a free register.  When there&rsquo;s no spare
+(<code>J</code>) provide a PC-relative offset of only 128 Kbytes in either
+direction.  One option is to use jump long (<code>J.L</code>) instruction, which
+depending on jump distance may be assembled as jump (<code>J</code>) or indirect
+jump (<code>JX</code>).  However it needs a free register.  When there&rsquo;s no spare
 register it is possible to plant intermediate jump sites (trampolines)
 between the jump instruction and its target.  These sites may be located in
 areas unreachable by normal code execution flow, in that case they only
@@ -63,8 +75,8 @@ contain intermediate jumps, or they may be inserted in the middle of code
 block, in which case there&rsquo;s an additional jump from the beginning of the
 trampoline to the instruction past its end.  So, for example:
 </p>
-<div class="example smallexample">
-<div class="group"><pre class="example-preformatted">    j 1f
+<div class="example">
+<pre class="example">    j 1f
     ...
     retw
     ...
@@ -73,12 +85,12 @@ trampoline to the instruction past its end.  So, for example:
     ...
 1:
     ...
-</pre></div></div>
+</pre></div>
 
 <p>might be relaxed to:
 </p>
-<div class="example smallexample">
-<div class="group"><pre class="example-preformatted">    j .L0_TR_1
+<div class="example">
+<pre class="example">    j .L0_TR_1
     ...
     retw
 .L0_TR_1:
@@ -89,12 +101,12 @@ trampoline to the instruction past its end.  So, for example:
     ...
 1:
     ...
-</pre></div></div>
+</pre></div>
 
 <p>or to:
 </p>
-<div class="example smallexample">
-<div class="group"><pre class="example-preformatted">    j .L0_TR_1
+<div class="example">
+<pre class="example">    j .L0_TR_1
     ...
     retw
     ...
@@ -107,7 +119,7 @@ trampoline to the instruction past its end.  So, for example:
     ...
 1:
     ...
-</pre></div></div>
+</pre></div>
 
 <p>The Xtensa assembler uses trampolines with jump around only when it cannot
 find suitable unreachable trampoline.  There may be multiple trampolines
@@ -118,12 +130,12 @@ will reach their targets once resolved.
 </p>
 <p>Jump relaxation is enabled by default because it does not affect code size
 or performance while the code itself is small.  This relaxation may be
-disabled completely with &lsquo;<samp class="samp">--no-trampolines</samp>&rsquo; or &lsquo;<samp class="samp">--no-transform</samp>&rsquo;
-command-line options (see <a class="pxref" href="Xtensa-Options.html">Command-line Options</a>).
+disabled completely with &lsquo;<samp>--no-trampolines</samp>&rsquo; or &lsquo;<samp>--no-transform</samp>&rsquo;
+command-line options (see <a href="Xtensa-Options.html">Command-line Options</a>).
 </p>
 </div>
 <hr>
-<div class="nav-panel">
+<div class="header">
 <p>
 Next: <a href="Xtensa-Immediate-Relaxation.html">Other Immediate Field Relaxation</a>, Previous: <a href="Xtensa-Call-Relaxation.html">Function Call Relaxation</a>, Up: <a href="Xtensa-Relaxation.html">Xtensa Relaxation</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the GNU Assembler "as".
 
-Copyright © 1991-2024 Free Software Foundation, Inc.
+Copyright (C) 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -31,9 +31,21 @@ section entitled "GNU Free Documentation License".
 <link href="MIPS-Macros.html" rel="prev" title="MIPS Macros">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
 div.example {margin-left: 3.2em}
-span:hover a.copiable-link {visibility: visible}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -41,23 +53,23 @@ span:hover a.copiable-link {visibility: visible}
 </head>
 
 <body lang="en">
-<div class="subsection-level-extent" id="MIPS-Symbol-Sizes">
-<div class="nav-panel">
+<div class="section" id="MIPS-Symbol-Sizes">
+<div class="header">
 <p>
 Next: <a href="MIPS-Small-Data.html" accesskey="n" rel="next">Controlling the use of small data accesses</a>, Previous: <a href="MIPS-Macros.html" accesskey="p" rel="prev">High-level assembly macros</a>, Up: <a href="MIPS_002dDependent.html" accesskey="u" rel="up">MIPS Dependent Features</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h4 class="subsection section-level-set-subsection" id="Directives-to-override-the-size-of-symbols"><span>9.28.3 Directives to override the size of symbols<a class="copiable-link" href="#Directives-to-override-the-size-of-symbols"> &para;</a></span></h4>
+<span id="Directives-to-override-the-size-of-symbols"></span><h4 class="subsection">9.28.3 Directives to override the size of symbols</h4>
 
-<a class="index-entry-id" id="index-_002eset-sym32"></a>
-<a class="index-entry-id" id="index-_002eset-nosym32"></a>
+<span id="index-_002eset-sym32"></span>
+<span id="index-_002eset-nosym32"></span>
 <p>The n64 ABI allows symbols to have any 64-bit value.  Although this
 provides a great deal of flexibility, it means that some macros have
 much longer expansions than their 32-bit counterparts.  For example,
-the non-PIC expansion of &lsquo;<samp class="samp">dla $4,sym</samp>&rsquo; is usually:
+the non-PIC expansion of &lsquo;<samp>dla $4,sym</samp>&rsquo; is usually:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">lui     $4,%highest(sym)
+<div class="example">
+<pre class="example">lui     $4,%highest(sym)
 lui     $1,%hi(sym)
 daddiu  $4,$4,%higher(sym)
 daddiu  $1,$1,%lo(sym)
@@ -67,8 +79,8 @@ daddu   $4,$4,$1
 
 <p>whereas the 32-bit expansion is simply:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">lui     $4,%hi(sym)
+<div class="example">
+<pre class="example">lui     $4,%hi(sym)
 daddiu  $4,$4,%lo(sym)
 </pre></div>
 
@@ -77,35 +89,30 @@ constants are known to have 32-bit values, and in such cases, it&rsquo;s
 preferable to use the 32-bit expansion instead of the 64-bit
 expansion.
 </p>
-<p>You can use the <code class="code">.set sym32</code> directive to tell the assembler
+<p>You can use the <code>.set sym32</code> directive to tell the assembler
 that, from this point on, all expressions of the form
-&lsquo;<samp class="samp"><var class="var">symbol</var></samp>&rsquo; or &lsquo;<samp class="samp"><var class="var">symbol</var> + <var class="var">offset</var></samp>&rsquo;
+&lsquo;<samp><var>symbol</var></samp>&rsquo; or &lsquo;<samp><var>symbol</var> + <var>offset</var></samp>&rsquo;
 have 32-bit values.  For example:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">.set sym32
+<div class="example">
+<pre class="example">.set sym32
 dla     $4,sym
 lw      $4,sym+16
 sw      $4,sym+0x8000($4)
 </pre></div>
 
-<p>will cause the assembler to treat &lsquo;<samp class="samp">sym</samp>&rsquo;, <code class="code">sym+16</code> and
-<code class="code">sym+0x8000</code> as 32-bit values.  The handling of non-symbolic
+<p>will cause the assembler to treat &lsquo;<samp>sym</samp>&rsquo;, <code>sym+16</code> and
+<code>sym+0x8000</code> as 32-bit values.  The handling of non-symbolic
 addresses is not affected.
 </p>
-<p>The directive <code class="code">.set nosym32</code> ends a <code class="code">.set sym32</code> block and
+<p>The directive <code>.set nosym32</code> ends a <code>.set sym32</code> block and
 reverts to the normal behavior.  It is also possible to change the
-symbol size using the command-line options <samp class="option">-msym32</samp> and
-<samp class="option">-mno-sym32</samp>.
+symbol size using the command-line options <samp>-msym32</samp> and
+<samp>-mno-sym32</samp>.
 </p>
 <p>These options and directives are always accepted, but at present,
 they have no effect for anything other than n64.
 </p>
-</div>
-<hr>
-<div class="nav-panel">
-<p>
-Next: <a href="MIPS-Small-Data.html">Controlling the use of small data accesses</a>, Previous: <a href="MIPS-Macros.html">High-level assembly macros</a>, Up: <a href="MIPS_002dDependent.html">MIPS Dependent Features</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

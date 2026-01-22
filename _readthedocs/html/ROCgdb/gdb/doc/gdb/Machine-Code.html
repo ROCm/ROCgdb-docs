@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright © 1988-2024 Free Software Foundation, Inc.
+<!-- Copyright (C) 1988-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -26,7 +26,7 @@ the license, review the license.txt in the top-level directory for the
 library on https://github.com/ROCm/ (Github.com)).  The additional terms
 and conditions below apply to your use of AMD ROCm technical documentation.
 
-©2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
+(C)2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
 
 The information presented in this document is for informational purposes only
 and may contain technical inaccuracies, omissions, and typographical errors.
@@ -52,8 +52,8 @@ EVEN IF AMD IS EXPRESSLY ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
 
 AMD, the AMD Arrow logo, AMD Instinct™, Radeon™, AMD ROCm™, and combinations
 thereof are trademarks of Advanced Micro Devices, Inc.
-Linux® is the registered trademark of Linus Torvalds in the
-U.S. and other countries. PCIe® is a registered trademark of
+Linux(R) is the registered trademark of Linus Torvalds in the
+U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
@@ -74,10 +74,21 @@ companies. -->
 <link href="Source-Path.html" rel="prev" title="Source Path">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
 div.example {margin-left: 3.2em}
-kbd.kbd {font-style: oblique}
-span:hover a.copiable-link {visibility: visible}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -85,106 +96,110 @@ span:hover a.copiable-link {visibility: visible}
 </head>
 
 <body lang="en">
-<div class="section-level-extent" id="Machine-Code">
-<div class="nav-panel">
+<div class="section" id="Machine-Code">
+<div class="header">
 <p>
 Next: <a href="Disable-Reading-Source.html" accesskey="n" rel="next">Disable Reading Source Code</a>, Previous: <a href="Source-Path.html" accesskey="p" rel="prev">Specifying Source Directories</a>, Up: <a href="Source.html" accesskey="u" rel="up">Examining Source Files</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h3 class="section" id="Source-and-Machine-Code"><span>9.6 Source and Machine Code<a class="copiable-link" href="#Source-and-Machine-Code"> &para;</a></span></h3>
-<a class="index-entry-id" id="index-source-line-and-its-code-address"></a>
+<span id="Source-and-Machine-Code"></span><h3 class="section">9.6 Source and Machine Code</h3>
+<span id="index-source-line-and-its-code-address"></span>
 
-<p>You can use the command <code class="code">info line</code> to map source lines to program
-addresses (and vice versa), and the command <code class="code">disassemble</code> to display
+<p>You can use the command <code>info line</code> to map source lines to program
+addresses (and vice versa), and the command <code>disassemble</code> to display
 a range of addresses as machine instructions.  You can use the command
-<code class="code">set disassemble-next-line</code> to set whether to disassemble next
-source line when execution stops.  When run under <small class="sc">GNU</small> Emacs
-mode, the <code class="code">info line</code> command causes the arrow to point to the
-line specified.  Also, <code class="code">info line</code> prints addresses in symbolic form as
+<code>set disassemble-next-line</code> to set whether to disassemble next
+source line when execution stops.  When run under <small>GNU</small> Emacs
+mode, the <code>info line</code> command causes the arrow to point to the
+line specified.  Also, <code>info line</code> prints addresses in symbolic form as
 well as hex.
 </p>
-<dl class="table">
-<dt><a id="index-info-line"></a><span><code class="code">info line</code><a class="copiable-link" href="#index-info-line"> &para;</a></span></dt>
-<dt><code class="code">info line <var class="var">locspec</var></code></dt>
+<dl compact="compact">
+<dd><span id="index-info-line"></span>
+</dd>
+<dt><span><code>info line</code></span></dt>
+<dt><span><code>info line <var>locspec</var></code></span></dt>
 <dd><p>Print the starting and ending addresses of the compiled code for the
 source lines of the code locations that result from resolving
-<var class="var">locspec</var>.  See <a class="xref" href="Location-Specifications.html">Location Specifications</a>, for the various forms
-of <var class="var">locspec</var>.
-With no <var class="var">locspec</var>, information about the current source line is
+<var>locspec</var>.  See <a href="Location-Specifications.html">Location Specifications</a>, for the various forms
+of <var>locspec</var>.
+With no <var>locspec</var>, information about the current source line is
 printed.
 </p></dd>
 </dl>
 
-<p>For example, we can use <code class="code">info line</code> to discover the location of
+<p>For example, we can use <code>info line</code> to discover the location of
 the object code for the first line of function
-<code class="code">m4_changequote</code>:
+<code>m4_changequote</code>:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">(gdb) info line m4_changequote
+<div class="example">
+<pre class="example">(gdb) info line m4_changequote
 Line 895 of &quot;builtin.c&quot; starts at pc 0x634c &lt;m4_changequote&gt; and \
         ends at 0x6350 &lt;m4_changequote+4&gt;.
 </pre></div>
 
-<a class="index-entry-id" id="index-code-address-and-its-source-line"></a>
-<p>We can also inquire, using <code class="code">*<var class="var">addr</var></code> as the form for
-<var class="var">locspec</var>, what source line covers a particular address
-<var class="var">addr</var>:
-</p><div class="example smallexample">
-<pre class="example-preformatted">(gdb) info line *0x63ff
+<p><span id="index-code-address-and-its-source-line"></span>
+We can also inquire, using <code>*<var>addr</var></code> as the form for
+<var>locspec</var>, what source line covers a particular address
+<var>addr</var>:
+</p><div class="example">
+<pre class="example">(gdb) info line *0x63ff
 Line 926 of &quot;builtin.c&quot; starts at pc 0x63e4 &lt;m4_changequote+152&gt; and \
         ends at 0x6404 &lt;m4_changequote+184&gt;.
 </pre></div>
 
-<a class="index-entry-id" id="index-_0024_005f-and-info-line"></a>
-<a class="index-entry-id" id="index-x-command_002c-default-address"></a>
-<a class="index-entry-id" id="index-x_0028examine_0029_002c-and-info-line"></a>
-<p>After <code class="code">info line</code>, the default address for the <code class="code">x</code> command
-is changed to the starting address of the line, so that &lsquo;<samp class="samp">x/i</samp>&rsquo; is
-sufficient to begin examining the machine code (see <a class="pxref" href="Memory.html">Examining Memory</a>).  Also, this address is saved as the value of the
-convenience variable <code class="code">$_</code> (see <a class="pxref" href="Convenience-Vars.html">Convenience
+<span id="index-_0024_005f-and-info-line"></span>
+<span id="index-x-command_002c-default-address"></span>
+<span id="index-x_0028examine_0029_002c-and-info-line"></span>
+<p>After <code>info line</code>, the default address for the <code>x</code> command
+is changed to the starting address of the line, so that &lsquo;<samp>x/i</samp>&rsquo; is
+sufficient to begin examining the machine code (see <a href="Memory.html">Examining Memory</a>).  Also, this address is saved as the value of the
+convenience variable <code>$_</code> (see <a href="Convenience-Vars.html">Convenience
 Variables</a>).
 </p>
-<a class="index-entry-id" id="index-info-line_002c-repeated-calls"></a>
-<p>After <code class="code">info line</code>, using <code class="code">info line</code> again without
+<span id="index-info-line_002c-repeated-calls"></span>
+<p>After <code>info line</code>, using <code>info line</code> again without
 specifying a location will display information about the next source
 line.
 </p>
-<a class="anchor" id="disassemble"></a><dl class="table">
-<dt><a class="index-entry-id" id="index-assembly-instructions"></a>
-<a class="index-entry-id" id="index-instructions_002c-assembly"></a>
-<a class="index-entry-id" id="index-machine-instructions"></a>
-<a class="index-entry-id" id="index-listing-machine-instructions"></a>
-<a id="index-disassemble"></a><span><code class="code">disassemble</code><a class="copiable-link" href="#index-disassemble"> &para;</a></span></dt>
-<dt><code class="code">disassemble /m</code></dt>
-<dt><code class="code">disassemble /s</code></dt>
-<dt><code class="code">disassemble /r</code></dt>
-<dt><code class="code">disassemble /b</code></dt>
+<span id="disassemble"></span><dl compact="compact">
+<dd><span id="index-disassemble"></span>
+<span id="index-assembly-instructions"></span>
+<span id="index-instructions_002c-assembly"></span>
+<span id="index-machine-instructions"></span>
+<span id="index-listing-machine-instructions"></span>
+</dd>
+<dt><span><code>disassemble</code></span></dt>
+<dt><span><code>disassemble /m</code></span></dt>
+<dt><span><code>disassemble /s</code></span></dt>
+<dt><span><code>disassemble /r</code></span></dt>
+<dt><span><code>disassemble /b</code></span></dt>
 <dd><p>This specialized command dumps a range of memory as machine
 instructions.  It can also print mixed source+disassembly by specifying
-the <code class="code">/m</code> or <code class="code">/s</code> modifier and print the raw instructions in
-hex as well as in symbolic form by specifying the <code class="code">/r</code> or <code class="code">/b</code>
+the <code>/m</code> or <code>/s</code> modifier and print the raw instructions in
+hex as well as in symbolic form by specifying the <code>/r</code> or <code>/b</code>
 modifier.
 </p>
-<p>Only one of <code class="code">/m</code> and <code class="code">/s</code> can be used, attempting to use
+<p>Only one of <code>/m</code> and <code>/s</code> can be used, attempting to use
 both flag will give an error.
 </p>
-<p>Only one of <code class="code">/r</code> and <code class="code">/b</code> can be used, attempting to use
+<p>Only one of <code>/r</code> and <code>/b</code> can be used, attempting to use
 both flag will give an error.
 </p>
 <p>The default memory range is the function surrounding the program
 counter of the selected frame.  A single argument to this command is a
-program counter value; <small class="sc">ROCGDB</small> dumps the function surrounding
+program counter value; <small>ROCGDB</small> dumps the function surrounding
 this value.  When two arguments are given, they should be separated by
 a comma, possibly surrounded by whitespace.  The arguments specify a
 range of addresses to dump, in one of two forms:
 </p>
-<dl class="table">
-<dt><code class="code"><var class="var">start</var>,<var class="var">end</var></code></dt>
-<dd><p>the addresses from <var class="var">start</var> (inclusive) to <var class="var">end</var> (exclusive)
+<dl compact="compact">
+<dt><span><code><var>start</var>,<var>end</var></code></span></dt>
+<dd><p>the addresses from <var>start</var> (inclusive) to <var>end</var> (exclusive)
 </p></dd>
-<dt><code class="code"><var class="var">start</var>,+<var class="var">length</var></code></dt>
-<dd><p>the addresses from <var class="var">start</var> (inclusive) to
-<code class="code"><var class="var">start</var>+<var class="var">length</var></code> (exclusive).
+<dt><span><code><var>start</var>,+<var>length</var></code></span></dt>
+<dd><p>the addresses from <var>start</var> (inclusive) to
+<code><var>start</var>+<var>length</var></code> (exclusive).
 </p></dd>
 </dl>
 
@@ -192,18 +207,18 @@ range of addresses to dump, in one of two forms:
 printed (since there could be several functions in the given range).
 </p>
 <p>The argument(s) can be any expression yielding a numeric value, such as
-&lsquo;<samp class="samp">0x32c4</samp>&rsquo;, &lsquo;<samp class="samp">&amp;main+10</samp>&rsquo; or &lsquo;<samp class="samp">$pc - 8</samp>&rsquo;.
+&lsquo;<samp>0x32c4</samp>&rsquo;, &lsquo;<samp>&amp;main+10</samp>&rsquo; or &lsquo;<samp>$pc - 8</samp>&rsquo;.
 </p>
 <p>If the range of memory being disassembled contains current program counter,
-the instruction at that location is shown with a <code class="code">=&gt;</code> marker.
+the instruction at that location is shown with a <code>=&gt;</code> marker.
 </p></dd>
 </dl>
 
 <p>The following example shows the disassembly of a range of addresses of
 HP PA-RISC 2.0 code:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">(gdb) disas 0x32c4, 0x32e4
+<div class="example">
+<pre class="example">(gdb) disas 0x32c4, 0x32e4
 Dump of assembler code from 0x32c4 to 0x32e4:
    0x32c4 &lt;main+204&gt;:      addil 0,dp
    0x32c8 &lt;main+208&gt;:      ldw 0x22c(sr0,r1),r26
@@ -217,12 +232,12 @@ End of assembler dump.
 </pre></div>
 
 <p>The following two examples are for RISC-V, and demonstrates the
-difference between the <code class="code">/r</code> and <code class="code">/b</code> modifiers.  First with
-<code class="code">/b</code>, the bytes of the instruction are printed, in hex, in memory
+difference between the <code>/r</code> and <code>/b</code> modifiers.  First with
+<code>/b</code>, the bytes of the instruction are printed, in hex, in memory
 order:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">(gdb) disassemble /b 0x00010150,0x0001015c
+<div class="example">
+<pre class="example">(gdb) disassemble /b 0x00010150,0x0001015c
 Dump of assembler code from 0x10150 to 0x1015c:
    0x00010150 &lt;call_me+4&gt;:      22 dc                 	sw	s0,56(sp)
    0x00010152 &lt;call_me+6&gt;:      80 00                 	addi	s0,sp,64
@@ -231,12 +246,12 @@ Dump of assembler code from 0x10150 to 0x1015c:
 End of assembler dump.
 </pre></div>
 
-<p>In contrast, with <code class="code">/r</code> the bytes of the instruction are displayed
+<p>In contrast, with <code>/r</code> the bytes of the instruction are displayed
 in the instruction order, for RISC-V this means that the bytes have been
 swapped to little-endian order:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">(gdb) disassemble /r 0x00010150,0x0001015c
+<div class="example">
+<pre class="example">(gdb) disassemble /r 0x00010150,0x0001015c
 Dump of assembler code from 0x10150 to 0x1015c:
    0x00010150 &lt;call_me+4&gt;:      dc22              	sw	s0,56(sp)
    0x00010152 &lt;call_me+6&gt;:      0080              	addi	s0,sp,64
@@ -246,11 +261,11 @@ End of assembler dump.
 </pre></div>
 
 <p>Here is an example showing mixed source+assembly for Intel x86
-with <code class="code">/m</code> or <code class="code">/s</code>, when the program is stopped just after
+with <code>/m</code> or <code>/s</code>, when the program is stopped just after
 function prologue in a non-optimized function with no inline code.
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">(gdb) disas /m main
+<div class="example">
+<pre class="example">(gdb) disas /m main
 Dump of assembler code for function main:
 5       {
    0x08048330 &lt;+0&gt;:    push   %ebp
@@ -272,20 +287,20 @@ Dump of assembler code for function main:
 End of assembler dump.
 </pre></div>
 
-<p>The <code class="code">/m</code> option is deprecated as its output is not useful when
+<p>The <code>/m</code> option is deprecated as its output is not useful when
 there is either inlined code or re-ordered code.
-The <code class="code">/s</code> option is the preferred choice.
+The <code>/s</code> option is the preferred choice.
 Here is an example for AMD x86-64 showing the difference between
-<code class="code">/m</code> output and <code class="code">/s</code> output.
+<code>/m</code> output and <code>/s</code> output.
 This example has one inline function defined in a header file,
-and the code is compiled with &lsquo;<samp class="samp">-O2</samp>&rsquo; optimization.
-Note how the <code class="code">/m</code> output is missing the disassembly of
-several instructions that are present in the <code class="code">/s</code> output.
+and the code is compiled with &lsquo;<samp>-O2</samp>&rsquo; optimization.
+Note how the <code>/m</code> output is missing the disassembly of
+several instructions that are present in the <code>/s</code> output.
 </p>
-<p><samp class="file">foo.h</samp>:
+<p><samp>foo.h</samp>:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">int
+<div class="example">
+<pre class="example">int
 foo (int a)
 {
   if (a &lt; 0)
@@ -296,10 +311,10 @@ foo (int a)
 }
 </pre></div>
 
-<p><samp class="file">foo.c</samp>:
+<p><samp>foo.c</samp>:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">#include &quot;foo.h&quot;
+<div class="example">
+<pre class="example">#include &quot;foo.h&quot;
 volatile int x, y;
 int
 main ()
@@ -309,8 +324,8 @@ main ()
 }
 </pre></div>
 
-<div class="example smallexample">
-<pre class="example-preformatted">(gdb) disas /m main
+<div class="example">
+<pre class="example">(gdb) disas /m main
 Dump of assembler code for function main:
 5	{
 
@@ -364,8 +379,8 @@ End of assembler dump.
 
 <p>Here is another example showing raw instructions in hex for AMD x86-64,
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">(gdb) disas /r 0x400281,+10
+<div class="example">
+<pre class="example">(gdb) disas /r 0x400281,+10
 Dump of assembler code from 0x400281 to 0x40028b:
    0x0000000000400281:  38 36  cmp    %dh,(%rsi)
    0x0000000000400283:  2d 36 34 2e 73 sub    $0x732e3436,%eax
@@ -374,12 +389,12 @@ Dump of assembler code from 0x400281 to 0x40028b:
 End of assembler dump.
 </pre></div>
 
-<p>Note that the &lsquo;<samp class="samp">disassemble</samp>&rsquo; command&rsquo;s address arguments are
+<p>Note that the &lsquo;<samp>disassemble</samp>&rsquo; command&rsquo;s address arguments are
 specified using expressions in your programming language
-(see <a class="pxref" href="Expressions.html">Expressions</a>), not location specs
-(see <a class="pxref" href="Location-Specifications.html">Location Specifications</a>).  So, for example, if you want to
-disassemble function <code class="code">bar</code> in file <samp class="file">foo.c</samp>, you must type
-&lsquo;<samp class="samp">disassemble 'foo.c'::bar</samp>&rsquo; and not &lsquo;<samp class="samp">disassemble foo.c:bar</samp>&rsquo;.
+(see <a href="Expressions.html">Expressions</a>), not location specs
+(see <a href="Location-Specifications.html">Location Specifications</a>).  So, for example, if you want to
+disassemble function <code>bar</code> in file <samp>foo.c</samp>, you must type
+&lsquo;<samp>disassemble 'foo.c'::bar</samp>&rsquo; and not &lsquo;<samp>disassemble foo.c:bar</samp>&rsquo;.
 </p>
 <p>Some architectures have more than one commonly-used set of instruction
 mnemonics or other syntax.
@@ -387,17 +402,19 @@ mnemonics or other syntax.
 <p>For programs that were dynamically linked and use shared libraries,
 instructions that call functions or branch to locations in the shared
 libraries might show a seemingly bogus location&mdash;it&rsquo;s actually a
-location of the relocation table.  On some architectures, <small class="sc">ROCGDB</small>
+location of the relocation table.  On some architectures, <small>ROCGDB</small>
 might be able to resolve these to actual function names.
 </p>
-<dl class="table">
-<dt><a class="index-entry-id" id="index-disassembler-options"></a>
-<a id="index-set-disassembler_002doptions"></a><span><code class="code">set disassembler-options <var class="var">option1</var>[,<var class="var">option2</var>&hellip;]</code><a class="copiable-link" href="#index-set-disassembler_002doptions"> &para;</a></span></dt>
+<dl compact="compact">
+<dd><span id="index-set-disassembler_002doptions"></span>
+<span id="index-disassembler-options"></span>
+</dd>
+<dt><span><code>set disassembler-options <var>option1</var>[,<var>option2</var>&hellip;]</code></span></dt>
 <dd><p>This command controls the passing of target specific information to
 the disassembler.  For a list of valid options, please refer to the
-<code class="code">-M</code>/<code class="code">--disassembler-options</code> section of the &lsquo;<samp class="samp">objdump</samp>&rsquo;
-manual and/or the output of <kbd class="kbd">objdump --help</kbd>
-(see <a data-manual="binutils" href="https://sourceware.org/binutils/docs/binutils/objdump.html#objdump">objdump</a> in <cite class="cite">The GNU Binary Utilities</cite>).
+<code>-M</code>/<code>--disassembler-options</code> section of the &lsquo;<samp>objdump</samp>&rsquo;
+manual and/or the output of <kbd>objdump --help</kbd>
+(see <a data-manual="binutils" href="https://sourceware.org/binutils/docs/binutils/objdump.html#objdump">objdump</a> in <cite>The GNU Binary Utilities</cite>).
 The default value is the empty string.
 </p>
 <p>If it is necessary to specify more than one disassembler option, then
@@ -405,46 +422,52 @@ multiple options can be placed together into a comma separated list.
 Currently this command is only supported on targets ARC, ARM, MIPS,
 PowerPC and S/390.
 </p>
+<span id="index-show-disassembler_002doptions"></span>
 </dd>
-<dt><a id="index-show-disassembler_002doptions"></a><span><code class="code">show disassembler-options</code><a class="copiable-link" href="#index-show-disassembler_002doptions"> &para;</a></span></dt>
+<dt><span><code>show disassembler-options</code></span></dt>
 <dd><p>Show the current setting of the disassembler options.
 </p></dd>
 </dl>
 
-<dl class="table">
-<dt><a class="index-entry-id" id="index-Intel-disassembly-flavor"></a>
-<a class="index-entry-id" id="index-AT_0026T-disassembly-flavor"></a>
-<a id="index-set-disassembly_002dflavor"></a><span><code class="code">set disassembly-flavor <var class="var">instruction-set</var></code><a class="copiable-link" href="#index-set-disassembly_002dflavor"> &para;</a></span></dt>
+<dl compact="compact">
+<dd><span id="index-set-disassembly_002dflavor"></span>
+<span id="index-Intel-disassembly-flavor"></span>
+<span id="index-AT_0026T-disassembly-flavor"></span>
+</dd>
+<dt><span><code>set disassembly-flavor <var>instruction-set</var></code></span></dt>
 <dd><p>Select the instruction set to use when disassembling the
-program via the <code class="code">disassemble</code> or <code class="code">x/i</code> commands.
+program via the <code>disassemble</code> or <code>x/i</code> commands.
 </p>
 <p>Currently this command is only defined for the Intel x86 family.  You
-can set <var class="var">instruction-set</var> to either <code class="code">intel</code> or <code class="code">att</code>.
-The default is <code class="code">att</code>, the AT&amp;T flavor used by default by Unix
+can set <var>instruction-set</var> to either <code>intel</code> or <code>att</code>.
+The default is <code>att</code>, the AT&amp;T flavor used by default by Unix
 assemblers for x86-based targets.
 </p>
+<span id="index-show-disassembly_002dflavor"></span>
 </dd>
-<dt><a id="index-show-disassembly_002dflavor"></a><span><code class="code">show disassembly-flavor</code><a class="copiable-link" href="#index-show-disassembly_002dflavor"> &para;</a></span></dt>
+<dt><span><code>show disassembly-flavor</code></span></dt>
 <dd><p>Show the current setting of the disassembly flavor.
 </p></dd>
 </dl>
 
-<dl class="table">
-<dt><a class="index-entry-id" id="index-show-disassemble_002dnext_002dline"></a>
-<a id="index-set-disassemble_002dnext_002dline"></a><span><code class="code">set disassemble-next-line</code><a class="copiable-link" href="#index-set-disassemble_002dnext_002dline"> &para;</a></span></dt>
-<dt><code class="code">show disassemble-next-line</code></dt>
-<dd><p>Control whether or not <small class="sc">ROCGDB</small> will disassemble the next source
-line or instruction when execution stops.  If ON, <small class="sc">ROCGDB</small> will
+<dl compact="compact">
+<dd><span id="index-set-disassemble_002dnext_002dline"></span>
+<span id="index-show-disassemble_002dnext_002dline"></span>
+</dd>
+<dt><span><code>set disassemble-next-line</code></span></dt>
+<dt><span><code>show disassemble-next-line</code></span></dt>
+<dd><p>Control whether or not <small>ROCGDB</small> will disassemble the next source
+line or instruction when execution stops.  If ON, <small>ROCGDB</small> will
 display disassembly of the next source line when execution of the
-program being debugged stops.  This is <em class="emph">in addition</em> to
-displaying the source line itself, which <small class="sc">ROCGDB</small> always does if
+program being debugged stops.  This is <em>in addition</em> to
+displaying the source line itself, which <small>ROCGDB</small> always does if
 possible.  If the next source line cannot be displayed for some reason
-(e.g., if <small class="sc">ROCGDB</small> cannot find the source file, or there&rsquo;s no line
-info in the debug info), <small class="sc">ROCGDB</small> will display disassembly of the
-next <em class="emph">instruction</em> instead of showing the next source line.  If
-AUTO, <small class="sc">ROCGDB</small> will display disassembly of next instruction only
+(e.g., if <small>ROCGDB</small> cannot find the source file, or there&rsquo;s no line
+info in the debug info), <small>ROCGDB</small> will display disassembly of the
+next <em>instruction</em> instead of showing the next source line.  If
+AUTO, <small>ROCGDB</small> will display disassembly of next instruction only
 if the source line cannot be displayed.  This setting causes
-<small class="sc">ROCGDB</small> to display some feedback when you step through a function
+<small>ROCGDB</small> to display some feedback when you step through a function
 with no line info or whose source file is unavailable.  The default is
 OFF, which means never display the disassembly of the next line or
 instruction.
@@ -453,7 +476,7 @@ instruction.
 
 </div>
 <hr>
-<div class="nav-panel">
+<div class="header">
 <p>
 Next: <a href="Disable-Reading-Source.html">Disable Reading Source Code</a>, Previous: <a href="Source-Path.html">Specifying Source Directories</a>, Up: <a href="Source.html">Examining Source Files</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

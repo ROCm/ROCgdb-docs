@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright © 1988-2024 Free Software Foundation, Inc.
+<!-- Copyright (C) 1988-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -26,7 +26,7 @@ the license, review the license.txt in the top-level directory for the
 library on https://github.com/ROCm/ (Github.com)).  The additional terms
 and conditions below apply to your use of AMD ROCm technical documentation.
 
-©2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
+(C)2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
 
 The information presented in this document is for informational purposes only
 and may contain technical inaccuracies, omissions, and typographical errors.
@@ -52,8 +52,8 @@ EVEN IF AMD IS EXPRESSLY ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
 
 AMD, the AMD Arrow logo, AMD Instinct™, Radeon™, AMD ROCm™, and combinations
 thereof are trademarks of Advanced Micro Devices, Inc.
-Linux® is the registered trademark of Linus Torvalds in the
-U.S. and other countries. PCIe® is a registered trademark of
+Linux(R) is the registered trademark of Linus Torvalds in the
+U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
@@ -74,8 +74,21 @@ companies. -->
 <link href="Host-I_002fO-Packets.html" rel="prev" title="Host I/O Packets">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
-span:hover a.copiable-link {visibility: visible}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -83,44 +96,44 @@ span:hover a.copiable-link {visibility: visible}
 </head>
 
 <body lang="en">
-<div class="section-level-extent" id="Interrupts">
-<div class="nav-panel">
+<div class="section" id="Interrupts">
+<div class="header">
 <p>
-Next: <a href="Notification-Packets.html" accesskey="n" rel="next">Notification Packets</a>, Previous: <a href="Host-I_002fO-Packets.html" accesskey="p" rel="prev">Host I/O Packets</a>, Up: <a href="Remote-Protocol.html" accesskey="u" rel="up"><small class="sc">ROCGDB</small> Remote Serial Protocol</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Notification-Packets.html" accesskey="n" rel="next">Notification Packets</a>, Previous: <a href="Host-I_002fO-Packets.html" accesskey="p" rel="prev">Host I/O Packets</a>, Up: <a href="Remote-Protocol.html" accesskey="u" rel="up"><small>ROCGDB</small> Remote Serial Protocol</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h3 class="section" id="Interrupts-1"><span>E.9 Interrupts<a class="copiable-link" href="#Interrupts-1"> &para;</a></span></h3>
-<a class="index-entry-id" id="index-interrupts-_0028remote-protocol_0029"></a>
-<a class="anchor" id="interrupting-remote-targets"></a>
+<span id="Interrupts-1"></span><h3 class="section">E.9 Interrupts</h3>
+<span id="index-interrupts-_0028remote-protocol_0029"></span>
+<span id="interrupting-remote-targets"></span>
 <p>In all-stop mode, when a program on the remote target is running,
-<small class="sc">ROCGDB</small> may attempt to interrupt it by sending a &lsquo;<samp class="samp">Ctrl-C</samp>&rsquo;,
-<code class="code">BREAK</code> or a <code class="code">BREAK</code> followed by <code class="code">g</code>, control of which
-is specified via <small class="sc">ROCGDB</small>&rsquo;s &lsquo;<samp class="samp">interrupt-sequence</samp>&rsquo;.
+<small>ROCGDB</small> may attempt to interrupt it by sending a &lsquo;<samp>Ctrl-C</samp>&rsquo;,
+<code>BREAK</code> or a <code>BREAK</code> followed by <code>g</code>, control of which
+is specified via <small>ROCGDB</small>&rsquo;s &lsquo;<samp>interrupt-sequence</samp>&rsquo;.
 </p>
-<p>The precise meaning of <code class="code">BREAK</code> is defined by the transport
-mechanism and may, in fact, be undefined.  <small class="sc">ROCGDB</small> does not
-currently define a <code class="code">BREAK</code> mechanism for any of the network
-interfaces except for TCP, in which case <small class="sc">ROCGDB</small> sends the
-<code class="code">telnet</code> BREAK sequence.
+<p>The precise meaning of <code>BREAK</code> is defined by the transport
+mechanism and may, in fact, be undefined.  <small>ROCGDB</small> does not
+currently define a <code>BREAK</code> mechanism for any of the network
+interfaces except for TCP, in which case <small>ROCGDB</small> sends the
+<code>telnet</code> BREAK sequence.
 </p>
-<p>&lsquo;<samp class="samp">Ctrl-C</samp>&rsquo;, on the other hand, is defined and implemented for all
+<p>&lsquo;<samp>Ctrl-C</samp>&rsquo;, on the other hand, is defined and implemented for all
 transport mechanisms.  It is represented by sending the single byte
-<code class="code">0x03</code> without any of the usual packet overhead described in
-the Overview section (see <a class="pxref" href="Overview.html">Overview</a>).  When a <code class="code">0x03</code> byte is
+<code>0x03</code> without any of the usual packet overhead described in
+the Overview section (see <a href="Overview.html">Overview</a>).  When a <code>0x03</code> byte is
 transmitted as part of a packet, it is considered to be packet data
-and does <em class="emph">not</em> represent an interrupt.  E.g., an &lsquo;<samp class="samp">X</samp>&rsquo; packet
-(see <a class="pxref" href="Packets.html#X-packet">X packet</a>), used for binary downloads, may include an unescaped
-<code class="code">0x03</code> as part of its packet.
+and does <em>not</em> represent an interrupt.  E.g., an &lsquo;<samp>X</samp>&rsquo; packet
+(see <a href="Packets.html#X-packet">X packet</a>), used for binary downloads, may include an unescaped
+<code>0x03</code> as part of its packet.
 </p>
-<p><code class="code">BREAK</code> followed by <code class="code">g</code> is also known as Magic SysRq g.
+<p><code>BREAK</code> followed by <code>g</code> is also known as Magic SysRq g.
 When Linux kernel receives this sequence from serial port,
 it stops execution and connects to gdb.
 </p>
 <p>In non-stop mode, because packet resumptions are asynchronous
-(see <a class="pxref" href="Packets.html#vCont-packet">vCont packet</a>), <small class="sc">ROCGDB</small> is always free to send a remote
+(see <a href="Packets.html#vCont-packet">vCont packet</a>), <small>ROCGDB</small> is always free to send a remote
 command to the remote stub, even when the target is running.  For that
-reason, <small class="sc">ROCGDB</small> instead sends a regular packet (see <a class="pxref" href="Packets.html#vCtrlC-packet">vCtrlC packet</a>) with the usual packet framing instead of the single byte
-<code class="code">0x03</code>.
+reason, <small>ROCGDB</small> instead sends a regular packet (see <a href="Packets.html#vCtrlC-packet">vCtrlC packet</a>) with the usual packet framing instead of the single byte
+<code>0x03</code>.
 </p>
 <p>Stubs are not required to recognize these interrupt mechanisms and the
 precise meaning associated with receipt of the interrupt is
@@ -129,7 +142,7 @@ threads and/or processes, it should attempt to interrupt all
 currently-executing threads and processes.
 If the stub is successful at interrupting the
 running program, it should send one of the stop
-reply packets (see <a class="pxref" href="Stop-Reply-Packets.html">Stop Reply Packets</a>) to <small class="sc">ROCGDB</small> as a result
+reply packets (see <a href="Stop-Reply-Packets.html">Stop Reply Packets</a>) to <small>ROCGDB</small> as a result
 of successfully stopping the program in all-stop mode, and a stop reply
 for each stopped thread in non-stop mode.
 Interrupts received while the
@@ -138,9 +151,9 @@ it is resumed next time.
 </p>
 </div>
 <hr>
-<div class="nav-panel">
+<div class="header">
 <p>
-Next: <a href="Notification-Packets.html">Notification Packets</a>, Previous: <a href="Host-I_002fO-Packets.html">Host I/O Packets</a>, Up: <a href="Remote-Protocol.html"><small class="sc">ROCGDB</small> Remote Serial Protocol</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Notification-Packets.html">Notification Packets</a>, Previous: <a href="Host-I_002fO-Packets.html">Host I/O Packets</a>, Up: <a href="Remote-Protocol.html"><small>ROCGDB</small> Remote Serial Protocol</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

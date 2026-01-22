@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the GNU Assembler "as".
 
-Copyright © 1991-2024 Free Software Foundation, Inc.
+Copyright (C) 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -31,9 +31,21 @@ section entitled "GNU Free Documentation License".
 <link href="MIPS-autoextend.html" rel="prev" title="MIPS autoextend">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
 div.example {margin-left: 3.2em}
-span:hover a.copiable-link {visibility: visible}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -41,38 +53,38 @@ span:hover a.copiable-link {visibility: visible}
 </head>
 
 <body lang="en">
-<div class="subsection-level-extent" id="MIPS-insn">
-<div class="nav-panel">
+<div class="section" id="MIPS-insn">
+<div class="header">
 <p>
 Next: <a href="MIPS-FP-ABIs.html" accesskey="n" rel="next">Directives to control the FP ABI</a>, Previous: <a href="MIPS-autoextend.html" accesskey="p" rel="prev">Directives for extending MIPS 16 bit instructions</a>, Up: <a href="MIPS_002dDependent.html" accesskey="u" rel="up">MIPS Dependent Features</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h4 class="subsection section-level-set-subsection" id="Directive-to-mark-data-as-an-instruction"><span>9.28.8 Directive to mark data as an instruction<a class="copiable-link" href="#Directive-to-mark-data-as-an-instruction"> &para;</a></span></h4>
+<span id="Directive-to-mark-data-as-an-instruction"></span><h4 class="subsection">9.28.8 Directive to mark data as an instruction</h4>
 
-<a class="index-entry-id" id="index-_002einsn"></a>
-<p>The <code class="code">.insn</code> directive tells <code class="code">as</code> that the following
+<span id="index-_002einsn"></span>
+<p>The <code>.insn</code> directive tells <code>as</code> that the following
 data is actually instructions.  This makes a difference in MIPS 16 and
 microMIPS modes: when loading the address of a label which precedes
-instructions, <code class="code">as</code> automatically adds 1 to the value, so
+instructions, <code>as</code> automatically adds 1 to the value, so
 that jumping to the loaded address will do the right thing.
 </p>
-<a class="index-entry-id" id="index-_002eglobal"></a>
-<p>The <code class="code">.global</code> and <code class="code">.globl</code> directives supported by
-<code class="code">as</code> will by default mark the symbol as pointing to a
+<span id="index-_002eglobal"></span>
+<p>The <code>.global</code> and <code>.globl</code> directives supported by
+<code>as</code> will by default mark the symbol as pointing to a
 region of data not code.  This means that, for example, any
 instructions following such a symbol will not be disassembled by
-<code class="code">objdump</code> as it will regard them as data.  To change this
+<code>objdump</code> as it will regard them as data.  To change this
 behavior an optional section name can be placed after the symbol name
-in the <code class="code">.global</code> directive.  If this section exists and is known
+in the <code>.global</code> directive.  If this section exists and is known
 to be a code section, then the symbol will be marked as pointing at
 code not data.  Ie the syntax for the directive is:
 </p>
-<p><code class="code">.global <var class="var">symbol</var>[ <var class="var">section</var>][, <var class="var">symbol</var>[ <var class="var">section</var>]] ...</code>,
+<p><code>.global <var>symbol</var>[ <var>section</var>][, <var>symbol</var>[ <var>section</var>]] ...</code>,
 </p>
 <p>Here is a short example:
 </p>
 <div class="example">
-<pre class="example-preformatted">        .global foo .text, bar, baz .data
+<pre class="example">        .global foo .text, bar, baz .data
 foo:
         nop
 bar:

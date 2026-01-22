@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the GNU Assembler "as".
 
-Copyright © 1991-2024 Free Software Foundation, Inc.
+Copyright (C) 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -30,8 +30,21 @@ section entitled "GNU Free Documentation License".
 <link href="V850-Syntax.html" rel="next" title="V850 Syntax">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
-span:hover a.copiable-link {visibility: visible}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -39,54 +52,62 @@ span:hover a.copiable-link {visibility: visible}
 </head>
 
 <body lang="en">
-<div class="subsection-level-extent" id="V850-Options">
-<div class="nav-panel">
+<div class="section" id="V850-Options">
+<div class="header">
 <p>
 Next: <a href="V850-Syntax.html" accesskey="n" rel="next">Syntax</a>, Up: <a href="V850_002dDependent.html" accesskey="u" rel="up">v850 Dependent Features</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h4 class="subsection section-level-set-subsection" id="Options-28"><span>9.49.1 Options<a class="copiable-link" href="#Options-28"> &para;</a></span></h4>
-<a class="index-entry-id" id="index-V850-options-_0028none_0029"></a>
-<a class="index-entry-id" id="index-options-for-V850-_0028none_0029"></a>
-<p><code class="code">as</code> supports the following additional command-line options
+<span id="Options-28"></span><h4 class="subsection">9.49.1 Options</h4>
+<span id="index-V850-options-_0028none_0029"></span>
+<span id="index-options-for-V850-_0028none_0029"></span>
+<p><code>as</code> supports the following additional command-line options
 for the V850 processor family:
 </p>
-<a class="index-entry-id" id="index-command_002dline-options_002c-V850"></a>
-<a class="index-entry-id" id="index-V850-command_002dline-options"></a>
-<dl class="table">
-<dt><a id="index-_002dwsigned_005foverflow-command_002dline-option_002c-V850"></a><span><code class="code">-wsigned_overflow</code><a class="copiable-link" href="#index-_002dwsigned_005foverflow-command_002dline-option_002c-V850"> &para;</a></span></dt>
+<span id="index-command_002dline-options_002c-V850"></span>
+<span id="index-V850-command_002dline-options"></span>
+<dl compact="compact">
+<dd>
+<span id="index-_002dwsigned_005foverflow-command_002dline-option_002c-V850"></span>
+</dd>
+<dt><span><code>-wsigned_overflow</code></span></dt>
 <dd><p>Causes warnings to be produced when signed immediate values overflow the
 space available for then within their opcodes.  By default this option
 is disabled as it is possible to receive spurious warnings due to using
 exact bit patterns as immediate constants.
 </p>
+<span id="index-_002dwunsigned_005foverflow-command_002dline-option_002c-V850"></span>
 </dd>
-<dt><a id="index-_002dwunsigned_005foverflow-command_002dline-option_002c-V850"></a><span><code class="code">-wunsigned_overflow</code><a class="copiable-link" href="#index-_002dwunsigned_005foverflow-command_002dline-option_002c-V850"> &para;</a></span></dt>
+<dt><span><code>-wunsigned_overflow</code></span></dt>
 <dd><p>Causes warnings to be produced when unsigned immediate values overflow
 the space available for then within their opcodes.  By default this
 option is disabled as it is possible to receive spurious warnings due to
 using exact bit patterns as immediate constants.
 </p>
+<span id="index-_002dmv850-command_002dline-option_002c-V850"></span>
 </dd>
-<dt><a id="index-_002dmv850-command_002dline-option_002c-V850"></a><span><code class="code">-mv850</code><a class="copiable-link" href="#index-_002dmv850-command_002dline-option_002c-V850"> &para;</a></span></dt>
+<dt><span><code>-mv850</code></span></dt>
 <dd><p>Specifies that the assembled code should be marked as being targeted at
 the V850 processor.  This allows the linker to detect attempts to link
 such code with code assembled for other processors.
 </p>
+<span id="index-_002dmv850e-command_002dline-option_002c-V850"></span>
 </dd>
-<dt><a id="index-_002dmv850e-command_002dline-option_002c-V850"></a><span><code class="code">-mv850e</code><a class="copiable-link" href="#index-_002dmv850e-command_002dline-option_002c-V850"> &para;</a></span></dt>
+<dt><span><code>-mv850e</code></span></dt>
 <dd><p>Specifies that the assembled code should be marked as being targeted at
 the V850E processor.  This allows the linker to detect attempts to link
 such code with code assembled for other processors.
 </p>
+<span id="index-_002dmv850e1-command_002dline-option_002c-V850"></span>
 </dd>
-<dt><a id="index-_002dmv850e1-command_002dline-option_002c-V850"></a><span><code class="code">-mv850e1</code><a class="copiable-link" href="#index-_002dmv850e1-command_002dline-option_002c-V850"> &para;</a></span></dt>
+<dt><span><code>-mv850e1</code></span></dt>
 <dd><p>Specifies that the assembled code should be marked as being targeted at
 the V850E1 processor.  This allows the linker to detect attempts to link
 such code with code assembled for other processors.
 </p>
+<span id="index-_002dmv850any-command_002dline-option_002c-V850"></span>
 </dd>
-<dt><a id="index-_002dmv850any-command_002dline-option_002c-V850"></a><span><code class="code">-mv850any</code><a class="copiable-link" href="#index-_002dmv850any-command_002dline-option_002c-V850"> &para;</a></span></dt>
+<dt><span><code>-mv850any</code></span></dt>
 <dd><p>Specifies that the assembled code should be marked as being targeted at
 the V850 processor but support instructions that are specific to the
 extended variants of the process.  This allows the production of
@@ -96,77 +117,88 @@ routines used by the code produced by GCC for all versions of the v850
 architecture, together with support routines only used by the V850E
 architecture.
 </p>
+<span id="index-_002dmv850e2-command_002dline-option_002c-V850"></span>
 </dd>
-<dt><a id="index-_002dmv850e2-command_002dline-option_002c-V850"></a><span><code class="code">-mv850e2</code><a class="copiable-link" href="#index-_002dmv850e2-command_002dline-option_002c-V850"> &para;</a></span></dt>
+<dt><span><code>-mv850e2</code></span></dt>
 <dd><p>Specifies that the assembled code should be marked as being targeted at
 the V850E2 processor.  This allows the linker to detect attempts to link
 such code with code assembled for other processors.
 </p>
+<span id="index-_002dmv850e2v3-command_002dline-option_002c-V850"></span>
 </dd>
-<dt><a id="index-_002dmv850e2v3-command_002dline-option_002c-V850"></a><span><code class="code">-mv850e2v3</code><a class="copiable-link" href="#index-_002dmv850e2v3-command_002dline-option_002c-V850"> &para;</a></span></dt>
+<dt><span><code>-mv850e2v3</code></span></dt>
 <dd><p>Specifies that the assembled code should be marked as being targeted at
 the V850E2V3 processor.  This allows the linker to detect attempts to link
 such code with code assembled for other processors.
 </p>
+<span id="index-_002dmv850e2v4-command_002dline-option_002c-V850"></span>
 </dd>
-<dt><a id="index-_002dmv850e2v4-command_002dline-option_002c-V850"></a><span><code class="code">-mv850e2v4</code><a class="copiable-link" href="#index-_002dmv850e2v4-command_002dline-option_002c-V850"> &para;</a></span></dt>
-<dd><p>This is an alias for <samp class="option">-mv850e3v5</samp>.
+<dt><span><code>-mv850e2v4</code></span></dt>
+<dd><p>This is an alias for <samp>-mv850e3v5</samp>.
 </p>
+<span id="index-_002dmv850e3v5-command_002dline-option_002c-V850"></span>
 </dd>
-<dt><a id="index-_002dmv850e3v5-command_002dline-option_002c-V850"></a><span><code class="code">-mv850e3v5</code><a class="copiable-link" href="#index-_002dmv850e3v5-command_002dline-option_002c-V850"> &para;</a></span></dt>
+<dt><span><code>-mv850e3v5</code></span></dt>
 <dd><p>Specifies that the assembled code should be marked as being targeted at
 the V850E3V5 processor.  This allows the linker to detect attempts to link
 such code with code assembled for other processors.
 </p>
+<span id="index-_002dmrelax-command_002dline-option_002c-V850"></span>
 </dd>
-<dt><a id="index-_002dmrelax-command_002dline-option_002c-V850"></a><span><code class="code">-mrelax</code><a class="copiable-link" href="#index-_002dmrelax-command_002dline-option_002c-V850"> &para;</a></span></dt>
+<dt><span><code>-mrelax</code></span></dt>
 <dd><p>Enables relaxation.  This allows the .longcall and .longjump pseudo
 ops to be used in the assembler source code.  These ops label sections
 of code which are either a long function call or a long branch.  The
 assembler will then flag these sections of code and the linker will
 attempt to relax them.
 </p>
+<span id="index-_002dmgcc_002dabi-command_002dline-option_002c-V850"></span>
 </dd>
-<dt><a id="index-_002dmgcc_002dabi-command_002dline-option_002c-V850"></a><span><code class="code">-mgcc-abi</code><a class="copiable-link" href="#index-_002dmgcc_002dabi-command_002dline-option_002c-V850"> &para;</a></span></dt>
+<dt><span><code>-mgcc-abi</code></span></dt>
 <dd><p>Marks the generated object file as supporting the old GCC ABI.
 </p>
+<span id="index-_002dmrh850_002dabi-command_002dline-option_002c-V850"></span>
 </dd>
-<dt><a id="index-_002dmrh850_002dabi-command_002dline-option_002c-V850"></a><span><code class="code">-mrh850-abi</code><a class="copiable-link" href="#index-_002dmrh850_002dabi-command_002dline-option_002c-V850"> &para;</a></span></dt>
+<dt><span><code>-mrh850-abi</code></span></dt>
 <dd><p>Marks the generated object file as supporting the RH850 ABI.  This is
 the default.
 </p>
+<span id="index-_002dm8byte_002dalign-command_002dline-option_002c-V850"></span>
 </dd>
-<dt><a id="index-_002dm8byte_002dalign-command_002dline-option_002c-V850"></a><span><code class="code">-m8byte-align</code><a class="copiable-link" href="#index-_002dm8byte_002dalign-command_002dline-option_002c-V850"> &para;</a></span></dt>
+<dt><span><code>-m8byte-align</code></span></dt>
 <dd><p>Marks the generated object file as supporting a maximum 64-bits of
 alignment for variables defined in the source code.
 </p>
+<span id="index-_002dm4byte_002dalign-command_002dline-option_002c-V850"></span>
 </dd>
-<dt><a id="index-_002dm4byte_002dalign-command_002dline-option_002c-V850"></a><span><code class="code">-m4byte-align</code><a class="copiable-link" href="#index-_002dm4byte_002dalign-command_002dline-option_002c-V850"> &para;</a></span></dt>
+<dt><span><code>-m4byte-align</code></span></dt>
 <dd><p>Marks the generated object file as supporting a maximum 32-bits of
 alignment for variables defined in the source code.  This is the
 default.
 </p>
+<span id="index-_002dmsoft_002dfloat-command_002dline-option_002c-V850"></span>
 </dd>
-<dt><a id="index-_002dmsoft_002dfloat-command_002dline-option_002c-V850"></a><span><code class="code">-msoft-float</code><a class="copiable-link" href="#index-_002dmsoft_002dfloat-command_002dline-option_002c-V850"> &para;</a></span></dt>
+<dt><span><code>-msoft-float</code></span></dt>
 <dd><p>Marks the generated object file as not using any floating point
 instructions - and hence can be linked with other V850 binaries
 that do or do not use floating point.  This is the default for
-binaries for architectures earlier than the <code class="code">e2v3</code>.
+binaries for architectures earlier than the <code>e2v3</code>.
 </p>
+<span id="index-_002dmhard_002dfloat-command_002dline-option_002c-V850"></span>
 </dd>
-<dt><a id="index-_002dmhard_002dfloat-command_002dline-option_002c-V850"></a><span><code class="code">-mhard-float</code><a class="copiable-link" href="#index-_002dmhard_002dfloat-command_002dline-option_002c-V850"> &para;</a></span></dt>
+<dt><span><code>-mhard-float</code></span></dt>
 <dd><p>Marks the generated object file as one that uses floating point
 instructions - and hence can only be linked with other V850 binaries
 that use the same kind of floating point instructions, or with
 binaries that do not use floating point at all.  This is the default
-for binaries the <code class="code">e2v3</code> and later architectures.
+for binaries the <code>e2v3</code> and later architectures.
 </p>
 </dd>
 </dl>
 
 </div>
 <hr>
-<div class="nav-panel">
+<div class="header">
 <p>
 Next: <a href="V850-Syntax.html">Syntax</a>, Up: <a href="V850_002dDependent.html">v850 Dependent Features</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

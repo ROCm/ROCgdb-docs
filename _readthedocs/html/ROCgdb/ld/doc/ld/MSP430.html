@@ -1,13 +1,13 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the GNU linker LD
 (GNU Binutils)
 version 2.43.50.
 
-Copyright © 1991-2024 Free Software Foundation, Inc.
+Copyright (C) 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -32,8 +32,21 @@ section entitled "GNU Free Documentation License". -->
 <link href="MMIX.html" rel="prev" title="MMIX">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
-span:hover a.copiable-link {visibility: visible}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -41,64 +54,68 @@ span:hover a.copiable-link {visibility: visible}
 </head>
 
 <body lang="en">
-<div class="section-level-extent" id="MSP430">
-<div class="nav-panel">
+<div class="section" id="MSP430">
+<div class="header">
 <p>
-Next: <a href="NDS32.html" accesskey="n" rel="next"><code class="code">ld</code> and NDS32</a>, Previous: <a href="MMIX.html" accesskey="p" rel="prev"><code class="code">ld</code> and MMIX</a>, Up: <a href="Machine-Dependent.html" accesskey="u" rel="up">Machine Dependent Features</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="LD-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="NDS32.html" accesskey="n" rel="next"><code>ld</code> and NDS32</a>, Previous: <a href="MMIX.html" accesskey="p" rel="prev"><code>ld</code> and MMIX</a>, Up: <a href="Machine-Dependent.html" accesskey="u" rel="up">Machine Dependent Features</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="LD-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h3 class="section" id="ld-and-MSP430"><span>6.8 <code class="code">ld</code> and MSP430<a class="copiable-link" href="#ld-and-MSP430"> &para;</a></span></h3>
-<p>For the MSP430 it is possible to select the MPU architecture.  The flag &lsquo;<samp class="samp">-m [mpu type]</samp>&rsquo;
+<span id="ld-and-MSP430"></span><h3 class="section">6.8 <code>ld</code> and MSP430</h3>
+<p>For the MSP430 it is possible to select the MPU architecture.  The flag &lsquo;<samp>-m [mpu type]</samp>&rsquo;
 will select an appropriate linker script for selected MPU type.  (To get a list of known MPUs
-just pass &lsquo;<samp class="samp">-m help</samp>&rsquo; option to the linker).
+just pass &lsquo;<samp>-m help</samp>&rsquo; option to the linker).
 </p>
-<a class="index-entry-id" id="index-MSP430-extra-sections"></a>
+<span id="index-MSP430-extra-sections"></span>
 <p>The linker will recognize some extra sections which are MSP430 specific:
 </p>
-<dl class="table">
-<dt><code class="code">&lsquo;<samp class="samp">.vectors</samp>&rsquo;</code></dt>
+<dl compact="compact">
+<dt><span><code>&lsquo;<samp>.vectors</samp>&rsquo;</code></span></dt>
 <dd><p>Defines a portion of ROM where interrupt vectors located.
 </p>
 </dd>
-<dt><code class="code">&lsquo;<samp class="samp">.bootloader</samp>&rsquo;</code></dt>
+<dt><span><code>&lsquo;<samp>.bootloader</samp>&rsquo;</code></span></dt>
 <dd><p>Defines the bootloader portion of the ROM (if applicable).  Any code
 in this section will be uploaded to the MPU.
 </p>
 </dd>
-<dt><code class="code">&lsquo;<samp class="samp">.infomem</samp>&rsquo;</code></dt>
+<dt><span><code>&lsquo;<samp>.infomem</samp>&rsquo;</code></span></dt>
 <dd><p>Defines an information memory section (if applicable).  Any code in
 this section will be uploaded to the MPU.
 </p>
 </dd>
-<dt><code class="code">&lsquo;<samp class="samp">.infomemnobits</samp>&rsquo;</code></dt>
-<dd><p>This is the same as the &lsquo;<samp class="samp">.infomem</samp>&rsquo; section except that any code
+<dt><span><code>&lsquo;<samp>.infomemnobits</samp>&rsquo;</code></span></dt>
+<dd><p>This is the same as the &lsquo;<samp>.infomem</samp>&rsquo; section except that any code
 in this section will not be uploaded to the MPU.
 </p>
 </dd>
-<dt><code class="code">&lsquo;<samp class="samp">.noinit</samp>&rsquo;</code></dt>
-<dd><p>Denotes a portion of RAM located above &lsquo;<samp class="samp">.bss</samp>&rsquo; section.
+<dt><span><code>&lsquo;<samp>.noinit</samp>&rsquo;</code></span></dt>
+<dd><p>Denotes a portion of RAM located above &lsquo;<samp>.bss</samp>&rsquo; section.
 </p>
 <p>The last two sections are used by gcc.
 </p></dd>
 </dl>
 
-<dl class="table">
-<dt><a class="index-entry-id" id="index-_002d_002dcode_002dregion"></a>
-<a id="index-MSP430-Options"></a><span><samp class="option">--code-region=[either,lower,upper,none]</samp><a class="copiable-link" href="#index-MSP430-Options"> &para;</a></span></dt>
+<dl compact="compact">
+<dd><span id="index-MSP430-Options"></span>
+<span id="index-_002d_002dcode_002dregion"></span>
+</dd>
+<dt><span><samp>--code-region=[either,lower,upper,none]</samp></span></dt>
 <dd><p>This will transform .text* sections to [either,lower,upper].text* sections. The
 argument passed to GCC for -mcode-region is propagated to the linker
 using this option.
 </p>
+<span id="index-_002d_002ddata_002dregion"></span>
 </dd>
-<dt><a id="index-_002d_002ddata_002dregion"></a><span><samp class="option">--data-region=[either,lower,upper,none]</samp><a class="copiable-link" href="#index-_002d_002ddata_002dregion"> &para;</a></span></dt>
+<dt><span><samp>--data-region=[either,lower,upper,none]</samp></span></dt>
 <dd><p>This will transform .data*, .bss* and .rodata* sections to
 [either,lower,upper].[data,bss,rodata]* sections. The argument passed to GCC
 for -mdata-region is propagated to the linker using this option.
 </p>
+<span id="index-_002d_002ddisable_002dsec_002dtransformation"></span>
 </dd>
-<dt><a id="index-_002d_002ddisable_002dsec_002dtransformation"></a><span><samp class="option">--disable-sec-transformation</samp><a class="copiable-link" href="#index-_002d_002ddisable_002dsec_002dtransformation"> &para;</a></span></dt>
-<dd><p>Prevent the transformation of sections as specified by the <code class="code">--code-region</code>
-and <code class="code">--data-region</code> options.
+<dt><span><samp>--disable-sec-transformation</samp></span></dt>
+<dd><p>Prevent the transformation of sections as specified by the <code>--code-region</code>
+and <code>--data-region</code> options.
 This is useful if you are compiling and linking using a single call to the GCC
 wrapper, and want to compile the source files using -m[code,data]-region but
 not transform the sections for prebuilt libraries and objects.
@@ -109,9 +126,9 @@ not transform the sections for prebuilt libraries and objects.
 
 </div>
 <hr>
-<div class="nav-panel">
+<div class="header">
 <p>
-Next: <a href="NDS32.html"><code class="code">ld</code> and NDS32</a>, Previous: <a href="MMIX.html"><code class="code">ld</code> and MMIX</a>, Up: <a href="Machine-Dependent.html">Machine Dependent Features</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="LD-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="NDS32.html"><code>ld</code> and NDS32</a>, Previous: <a href="MMIX.html"><code>ld</code> and MMIX</a>, Up: <a href="Machine-Dependent.html">Machine Dependent Features</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="LD-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

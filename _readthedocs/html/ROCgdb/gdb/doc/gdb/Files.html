@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright © 1988-2024 Free Software Foundation, Inc.
+<!-- Copyright (C) 1988-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -26,7 +26,7 @@ the license, review the license.txt in the top-level directory for the
 library on https://github.com/ROCm/ (Github.com)).  The additional terms
 and conditions below apply to your use of AMD ROCm technical documentation.
 
-©2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
+(C)2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
 
 The information presented in this document is for informational purposes only
 and may contain technical inaccuracies, omissions, and typographical errors.
@@ -52,8 +52,8 @@ EVEN IF AMD IS EXPRESSLY ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
 
 AMD, the AMD Arrow logo, AMD Instinct™, Radeon™, AMD ROCm™, and combinations
 thereof are trademarks of Advanced Micro Devices, Inc.
-Linux® is the registered trademark of Linus Torvalds in the
-U.S. and other countries. PCIe® is a registered trademark of
+Linux(R) is the registered trademark of Linus Torvalds in the
+U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
@@ -73,13 +73,21 @@ companies. -->
 <link href="File-Caching.html" rel="next" title="File Caching">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
 div.example {margin-left: 3.2em}
-kbd.kbd {font-style: oblique}
-kbd.key {font-style: normal}
-span.r {font-family: initial; font-weight: normal; font-style: normal}
-span:hover a.copiable-link {visibility: visible}
-ul.mark-bullet {list-style-type: disc}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -87,229 +95,238 @@ ul.mark-bullet {list-style-type: disc}
 </head>
 
 <body lang="en">
-<div class="section-level-extent" id="Files">
-<div class="nav-panel">
+<div class="section" id="Files">
+<div class="header">
 <p>
-Next: <a href="File-Caching.html" accesskey="n" rel="next">File Caching</a>, Up: <a href="GDB-Files.html" accesskey="u" rel="up"><small class="sc">ROCGDB</small> Files</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="File-Caching.html" accesskey="n" rel="next">File Caching</a>, Up: <a href="GDB-Files.html" accesskey="u" rel="up"><small>ROCGDB</small> Files</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h3 class="section" id="Commands-to-Specify-Files"><span>18.1 Commands to Specify Files<a class="copiable-link" href="#Commands-to-Specify-Files"> &para;</a></span></h3>
+<span id="Commands-to-Specify-Files"></span><h3 class="section">18.1 Commands to Specify Files</h3>
 
-<a class="index-entry-id" id="index-symbol-table"></a>
-<a class="index-entry-id" id="index-core-dump-file"></a>
+<span id="index-symbol-table"></span>
+<span id="index-core-dump-file"></span>
 
 <p>You may want to specify executable and core dump file names.  The usual
 way to do this is at start-up time, using the arguments to
-<small class="sc">ROCGDB</small>&rsquo;s start-up commands (see <a class="pxref" href="Invocation.html">Getting In and
-Out of <small class="sc">ROCGDB</small></a>).
+<small>ROCGDB</small>&rsquo;s start-up commands (see <a href="Invocation.html">Getting In and
+Out of <small>ROCGDB</small></a>).
 </p>
 <p>Occasionally it is necessary to change to a different file during a
-<small class="sc">ROCGDB</small> session.  Or you may run <small class="sc">ROCGDB</small> and forget to
+<small>ROCGDB</small> session.  Or you may run <small>ROCGDB</small> and forget to
 specify a file you want to use.  Or you are debugging a remote target
-via <code class="code">gdbserver</code> (see <a class="pxref" href="Server.html">Using the <code class="code">gdbserver</code>
-Program</a>).  In these situations the <small class="sc">ROCGDB</small> commands to specify
+via <code>gdbserver</code> (see <a href="Server.html">Using the <code>gdbserver</code>
+Program</a>).  In these situations the <small>ROCGDB</small> commands to specify
 new files are useful.
 </p>
-<dl class="table">
-<dt><a class="index-entry-id" id="index-file"></a>
-<a id="index-executable-file"></a><span><code class="code">file <var class="var">filename</var></code><a class="copiable-link" href="#index-executable-file"> &para;</a></span></dt>
-<dd><p>Use <var class="var">filename</var> as the program to be debugged.  It is read for its
+<dl compact="compact">
+<dd><span id="index-executable-file"></span>
+<span id="index-file"></span>
+</dd>
+<dt><span><code>file <var>filename</var></code></span></dt>
+<dd><p>Use <var>filename</var> as the program to be debugged.  It is read for its
 symbols and for the contents of pure memory.  It is also the program
-executed when you use the <code class="code">run</code> command.  If you do not specify a
-directory and the file is not found in the <small class="sc">ROCGDB</small> working directory,
-<small class="sc">ROCGDB</small> uses the environment variable <code class="env">PATH</code> as a list of
+executed when you use the <code>run</code> command.  If you do not specify a
+directory and the file is not found in the <small>ROCGDB</small> working directory,
+<small>ROCGDB</small> uses the environment variable <code>PATH</code> as a list of
 directories to search, just as the shell does when looking for a program
-to run.  You can change the value of this variable, for both <small class="sc">ROCGDB</small>
-and your program, using the <code class="code">path</code> command.
+to run.  You can change the value of this variable, for both <small>ROCGDB</small>
+and your program, using the <code>path</code> command.
 </p>
-<p>The <var class="var">filename</var> argument supports escaping and quoting, see
-<a class="ref" href="Filename-Arguments.html">Filenames As Command Arguments</a>.
+<p>The <var>filename</var> argument supports escaping and quoting, see
+<a href="Filename-Arguments.html">Filenames As Command Arguments</a>.
 </p>
-<a class="index-entry-id" id="index-unlinked-object-files"></a>
-<a class="index-entry-id" id="index-patching-object-files"></a>
-<p>You can load unlinked object <samp class="file">.o</samp> files into <small class="sc">ROCGDB</small> using
-the <code class="code">file</code> command.  You will not be able to &ldquo;run&rdquo; an object
+<span id="index-unlinked-object-files"></span>
+<span id="index-patching-object-files"></span>
+<p>You can load unlinked object <samp>.o</samp> files into <small>ROCGDB</small> using
+the <code>file</code> command.  You will not be able to &ldquo;run&rdquo; an object
 file, but you can disassemble functions and inspect variables.  Also,
 if the underlying BFD functionality supports it, you could use
-<kbd class="kbd">gdb -write</kbd> to patch object files using this technique.  Note
-that <small class="sc">ROCGDB</small> can neither interpret nor modify relocations in this
+<kbd>gdb -write</kbd> to patch object files using this technique.  Note
+that <small>ROCGDB</small> can neither interpret nor modify relocations in this
 case, so branches and some initialized variables will appear to go to
 the wrong place.  But this feature is still handy from time to time.
 </p>
 </dd>
-<dt><code class="code">file</code></dt>
-<dd><p><code class="code">file</code> with no argument makes <small class="sc">ROCGDB</small> discard any information it
+<dt><span><code>file</code></span></dt>
+<dd><p><code>file</code> with no argument makes <small>ROCGDB</small> discard any information it
 has on both executable file and the symbol table.
 </p>
+<span id="index-exec_002dfile"></span>
 </dd>
-<dt><a id="index-exec_002dfile"></a><span><code class="code">exec-file <span class="r">[</span> <var class="var">filename</var> <span class="r">]</span></code><a class="copiable-link" href="#index-exec_002dfile"> &para;</a></span></dt>
+<dt><span><code>exec-file <span class="roman">[</span> <var>filename</var> <span class="roman">]</span></code></span></dt>
 <dd><p>Specify that the program to be run (but not the symbol table) is found
-in <var class="var">filename</var>.  <small class="sc">ROCGDB</small> searches the environment variable <code class="env">PATH</code>
-if necessary to locate your program.  Omitting <var class="var">filename</var> means to
+in <var>filename</var>.  <small>ROCGDB</small> searches the environment variable <code>PATH</code>
+if necessary to locate your program.  Omitting <var>filename</var> means to
 discard information on the executable file.
 </p>
-<p>The <var class="var">filename</var> argument supports escaping and quoting, see
-<a class="ref" href="Filename-Arguments.html">Filenames As Command Arguments</a>.
+<p>The <var>filename</var> argument supports escaping and quoting, see
+<a href="Filename-Arguments.html">Filenames As Command Arguments</a>.
 </p>
+<span id="index-symbol_002dfile"></span>
 </dd>
-<dt><a id="index-symbol_002dfile"></a><span><code class="code">symbol-file <span class="r">[</span> <var class="var">filename</var> <span class="r">[</span> -o <var class="var">offset</var> <span class="r">]]</span></code><a class="copiable-link" href="#index-symbol_002dfile"> &para;</a></span></dt>
-<dd><p>Read symbol table information from file <var class="var">filename</var>.  <code class="env">PATH</code> is
-searched when necessary.  Use the <code class="code">file</code> command to get both symbol
+<dt><span><code>symbol-file <span class="roman">[</span> <var>filename</var> <span class="roman">[</span> -o <var>offset</var> <span class="roman">]]</span></code></span></dt>
+<dd><p>Read symbol table information from file <var>filename</var>.  <code>PATH</code> is
+searched when necessary.  Use the <code>file</code> command to get both symbol
 table and program to run from the same file.
 </p>
-<p>If an optional <var class="var">offset</var> is specified, it is added to the start
+<p>If an optional <var>offset</var> is specified, it is added to the start
 address of each section in the symbol file.  This is useful if the
 program is relocated at runtime, such as the Linux kernel with kASLR
 enabled.
 </p>
-<p><code class="code">symbol-file</code> with no argument clears out <small class="sc">ROCGDB</small> information on your
+<p><code>symbol-file</code> with no argument clears out <small>ROCGDB</small> information on your
 program&rsquo;s symbol table.
 </p>
-<p>The <code class="code">symbol-file</code> command causes <small class="sc">ROCGDB</small> to forget the contents of
+<p>The <code>symbol-file</code> command causes <small>ROCGDB</small> to forget the contents of
 some breakpoints and auto-display expressions.  This is because they may
 contain pointers to the internal data recording symbols and data types,
 which are part of the old symbol table data being discarded inside
-<small class="sc">ROCGDB</small>.
+<small>ROCGDB</small>.
 </p>
-<p><code class="code">symbol-file</code> does not repeat if you press <kbd class="key">RET</kbd> again after
+<p><code>symbol-file</code> does not repeat if you press <tt class="key">RET</tt> again after
 executing it once.
 </p>
-<p>The <var class="var">filename</var> argument supports escaping and quoting, see
-<a class="ref" href="Filename-Arguments.html">Filenames As Command Arguments</a>.
+<p>The <var>filename</var> argument supports escaping and quoting, see
+<a href="Filename-Arguments.html">Filenames As Command Arguments</a>.
 </p>
-<p>When <small class="sc">ROCGDB</small> is configured for a particular environment, it
+<p>When <small>ROCGDB</small> is configured for a particular environment, it
 understands debugging information in whatever format is the standard
-generated for that environment; you may use either a <small class="sc">GNU</small> compiler, or
+generated for that environment; you may use either a <small>GNU</small> compiler, or
 other compilers that adhere to the local conventions.
-Best results are usually obtained from <small class="sc">GNU</small> compilers; for example,
-using <code class="code"><small class="sc">GCC</small></code> you can generate debugging information for
+Best results are usually obtained from <small>GNU</small> compilers; for example,
+using <code><small>GCC</small></code> you can generate debugging information for
 optimized code.
 </p>
 <p>For most kinds of object files, with the exception of old SVR3 systems
-using COFF, the <code class="code">symbol-file</code> command does not normally read the
+using COFF, the <code>symbol-file</code> command does not normally read the
 symbol table in full right away.  Instead, it scans the symbol table
 quickly to find which source files and which symbols are present.  The
 details are read later, one source file at a time, as they are needed.
 </p>
-<p>The purpose of this two-stage reading strategy is to make <small class="sc">ROCGDB</small>
+<p>The purpose of this two-stage reading strategy is to make <small>ROCGDB</small>
 start up faster.  For the most part, it is invisible except for
 occasional pauses while the symbol table details for a particular source
-file are being read.  (The <code class="code">set verbose</code> command can turn these
-pauses into messages if desired.  See <a class="xref" href="Messages_002fWarnings.html">Optional
+file are being read.  (The <code>set verbose</code> command can turn these
+pauses into messages if desired.  See <a href="Messages_002fWarnings.html">Optional
 Warnings and Messages</a>.)
 </p>
 <p>We have not implemented the two-stage strategy for COFF yet.  When the
-symbol table is stored in COFF format, <code class="code">symbol-file</code> reads the
+symbol table is stored in COFF format, <code>symbol-file</code> reads the
 symbol table data in full right away.  Note that &ldquo;stabs-in-COFF&rdquo;
 still does the two-stage strategy, since the debug info is actually
 in stabs format.
 </p>
+<span id="index-readnow"></span>
+<span id="index-reading-symbols-immediately"></span>
+<span id="index-symbols_002c-reading-immediately"></span>
 </dd>
-<dt><a class="index-entry-id" id="index-reading-symbols-immediately"></a>
-<a class="index-entry-id" id="index-symbols_002c-reading-immediately"></a>
-<a id="index-readnow"></a><span><code class="code">symbol-file <span class="r">[</span> -readnow <span class="r">]</span> <var class="var">filename</var></code><a class="copiable-link" href="#index-readnow"> &para;</a></span></dt>
-<dt><code class="code">file <span class="r">[</span> -readnow <span class="r">]</span> <var class="var">filename</var></code></dt>
-<dd><p>You can override the <small class="sc">ROCGDB</small> two-stage strategy for reading symbol
-tables by using the &lsquo;<samp class="samp">-readnow</samp>&rsquo; option with any of the commands that
-load symbol table information, if you want to be sure <small class="sc">ROCGDB</small> has the
+<dt><span><code>symbol-file <span class="roman">[</span> -readnow <span class="roman">]</span> <var>filename</var></code></span></dt>
+<dt><span><code>file <span class="roman">[</span> -readnow <span class="roman">]</span> <var>filename</var></code></span></dt>
+<dd><p>You can override the <small>ROCGDB</small> two-stage strategy for reading symbol
+tables by using the &lsquo;<samp>-readnow</samp>&rsquo; option with any of the commands that
+load symbol table information, if you want to be sure <small>ROCGDB</small> has the
 entire symbol table available.
 </p>
+<span id="index-_002dreadnever_002c-option-for-symbol_002dfile-command"></span>
+<span id="index-never-read-symbols"></span>
+<span id="index-symbols_002c-never-read"></span>
 </dd>
-<dt><a class="index-entry-id" id="index-never-read-symbols"></a>
-<a class="index-entry-id" id="index-symbols_002c-never-read"></a>
-<a id="index-_002dreadnever_002c-option-for-symbol_002dfile-command"></a><span><code class="code">symbol-file <span class="r">[</span> -readnever <span class="r">]</span> <var class="var">filename</var></code><a class="copiable-link" href="#index-_002dreadnever_002c-option-for-symbol_002dfile-command"> &para;</a></span></dt>
-<dt><code class="code">file <span class="r">[</span> -readnever <span class="r">]</span> <var class="var">filename</var></code></dt>
-<dd><p>You can instruct <small class="sc">ROCGDB</small> to never read the symbolic information
-contained in <var class="var">filename</var> by using the &lsquo;<samp class="samp">-readnever</samp>&rsquo; option.
-See <a class="xref" href="File-Options.html#g_t_002d_002dreadnever">--readnever</a>.
+<dt><span><code>symbol-file <span class="roman">[</span> -readnever <span class="roman">]</span> <var>filename</var></code></span></dt>
+<dt><span><code>file <span class="roman">[</span> -readnever <span class="roman">]</span> <var>filename</var></code></span></dt>
+<dd><p>You can instruct <small>ROCGDB</small> to never read the symbolic information
+contained in <var>filename</var> by using the &lsquo;<samp>-readnever</samp>&rsquo; option.
+See <a href="File-Options.html#g_t_002d_002dreadnever">--readnever</a>.
 </p>
 
-<a class="anchor" id="core_002dfile-command"></a></dd>
-<dt><a id="index-core_002dfile"></a><span><code class="code">core-file <span class="r">[</span><var class="var">filename</var><span class="r">]</span></code><a class="copiable-link" href="#index-core_002dfile"> &para;</a></span></dt>
-<dt><code class="code">core</code></dt>
+<span id="core_002dfile-command"></span><span id="index-core_002dfile"></span>
+</dd>
+<dt><span><code>core-file <span class="roman">[</span><var>filename</var><span class="roman">]</span></code></span></dt>
+<dt><span><code>core</code></span></dt>
 <dd><p>Specify the whereabouts of a core dump file to be used as the &ldquo;contents
 of memory&rdquo;.  Traditionally, core files contain only some parts of the
-address space of the process that generated them; <small class="sc">ROCGDB</small> can access the
+address space of the process that generated them; <small>ROCGDB</small> can access the
 executable file itself for other parts.
 </p>
-<p><code class="code">core-file</code> with no argument specifies that no core file is
+<p><code>core-file</code> with no argument specifies that no core file is
 to be used.
 </p>
 <p>Note that the core file is ignored when your program is actually running
-under <small class="sc">ROCGDB</small>.  So, if you have been running your program and you
+under <small>ROCGDB</small>.  So, if you have been running your program and you
 wish to debug a core file instead, you must kill the subprocess in which
-the program is running.  To do this, use the <code class="code">kill</code> command
-(see <a class="pxref" href="Kill-Process.html">Killing the Child Process</a>).
+the program is running.  To do this, use the <code>kill</code> command
+(see <a href="Kill-Process.html">Killing the Child Process</a>).
 </p>
+<span id="index-add_002dsymbol_002dfile"></span>
+<span id="index-dynamic-linking"></span>
 </dd>
-<dt><a class="index-entry-id" id="index-dynamic-linking"></a>
-<a id="index-add_002dsymbol_002dfile"></a><span><code class="code">add-symbol-file <var class="var">filename</var> <span class="r">[</span> -readnow <span class="r">|</span> -readnever <span class="r">]</span> <span class="r">[</span> -o <var class="var">offset</var> <span class="r">]</span> <span class="r">[</span> <var class="var">textaddress</var> <span class="r">]</span> <span class="r">[</span> -s <var class="var">section</var> <var class="var">address</var> &hellip; <span class="r">]</span></code><a class="copiable-link" href="#index-add_002dsymbol_002dfile"> &para;</a></span></dt>
-<dd><p>The <code class="code">add-symbol-file</code> command reads additional symbol table
-information from the file <var class="var">filename</var>.  You would use this command
-when <var class="var">filename</var> has been dynamically loaded (by some other means)
-into the program that is running.  The <var class="var">textaddress</var> parameter gives
+<dt><span><code>add-symbol-file <var>filename</var> <span class="roman">[</span> -readnow <span class="roman">|</span> -readnever <span class="roman">]</span> <span class="roman">[</span> -o <var>offset</var> <span class="roman">]</span> <span class="roman">[</span> <var>textaddress</var> <span class="roman">]</span> <span class="roman">[</span> -s <var>section</var> <var>address</var> &hellip; <span class="roman">]</span></code></span></dt>
+<dd><p>The <code>add-symbol-file</code> command reads additional symbol table
+information from the file <var>filename</var>.  You would use this command
+when <var>filename</var> has been dynamically loaded (by some other means)
+into the program that is running.  The <var>textaddress</var> parameter gives
 the memory address at which the file&rsquo;s text section has been loaded.
 You can additionally specify the base address of other sections using
-an arbitrary number of &lsquo;<samp class="samp">-s <var class="var">section</var> <var class="var">address</var></samp>&rsquo; pairs.
-If a section is omitted, <small class="sc">ROCGDB</small> will use its default addresses
-as found in <var class="var">filename</var>.  Any <var class="var">address</var> or <var class="var">textaddress</var>
+an arbitrary number of &lsquo;<samp>-s <var>section</var> <var>address</var></samp>&rsquo; pairs.
+If a section is omitted, <small>ROCGDB</small> will use its default addresses
+as found in <var>filename</var>.  Any <var>address</var> or <var>textaddress</var>
 can be given as an expression.
 </p>
-<p>If an optional <var class="var">offset</var> is specified, it is added to the start
+<p>If an optional <var>offset</var> is specified, it is added to the start
 address of each section, except those for which the address was
 specified explicitly.
 </p>
-<p>The symbol table of the file <var class="var">filename</var> is added to the symbol table
-originally read with the <code class="code">symbol-file</code> command.  You can use the
-<code class="code">add-symbol-file</code> command any number of times; the new symbol data
+<p>The symbol table of the file <var>filename</var> is added to the symbol table
+originally read with the <code>symbol-file</code> command.  You can use the
+<code>add-symbol-file</code> command any number of times; the new symbol data
 thus read is kept in addition to the old.
 </p>
-<p>The <var class="var">filename</var> argument supports escaping and quoting, see
-<a class="ref" href="Filename-Arguments.html">Filenames As Command Arguments</a>.
+<p>The <var>filename</var> argument supports escaping and quoting, see
+<a href="Filename-Arguments.html">Filenames As Command Arguments</a>.
 </p>
-<p>Changes can be reverted using the command <code class="code">remove-symbol-file</code>.
+<p>Changes can be reverted using the command <code>remove-symbol-file</code>.
 </p>
-<a class="index-entry-id" id="index-relocatable-object-files_002c-reading-symbols-from"></a>
-<a class="index-entry-id" id="index-object-files_002c-relocatable_002c-reading-symbols-from"></a>
-<a class="index-entry-id" id="index-reading-symbols-from-relocatable-object-files"></a>
-<a class="index-entry-id" id="index-symbols_002c-reading-from-relocatable-object-files"></a>
-<a class="index-entry-id" id="index-_002eo-files_002c-reading-symbols-from"></a>
-<p>Although <var class="var">filename</var> is typically a shared library file, an
+<span id="index-relocatable-object-files_002c-reading-symbols-from"></span>
+<span id="index-object-files_002c-relocatable_002c-reading-symbols-from"></span>
+<span id="index-reading-symbols-from-relocatable-object-files"></span>
+<span id="index-symbols_002c-reading-from-relocatable-object-files"></span>
+<span id="index-_002eo-files_002c-reading-symbols-from"></span>
+<p>Although <var>filename</var> is typically a shared library file, an
 executable file, or some other object file which has been fully
 relocated for loading into a process, you can also load symbolic
-information from relocatable <samp class="file">.o</samp> files, as long as:
+information from relocatable <samp>.o</samp> files, as long as:
 </p>
-<ul class="itemize mark-bullet">
-<li>the file&rsquo;s symbolic information refers only to linker symbols defined in
+<ul>
+<li> the file&rsquo;s symbolic information refers only to linker symbols defined in
 that file, not to symbols defined by other object files,
-</li><li>every section the file&rsquo;s symbolic information refers to has actually
+</li><li> every section the file&rsquo;s symbolic information refers to has actually
 been loaded into the inferior, as it appears in the file, and
-</li><li>you can determine the address at which every section was loaded, and
-provide these to the <code class="code">add-symbol-file</code> command.
+</li><li> you can determine the address at which every section was loaded, and
+provide these to the <code>add-symbol-file</code> command.
 </li></ul>
 
 <p>Some embedded operating systems, like Sun Chorus and VxWorks, can load
 relocatable files into an already running program; such systems
 typically make the requirements above easy to meet.  However, it&rsquo;s
 important to recognize that many native systems use complex link
-procedures (<code class="code">.linkonce</code> section factoring and C<code class="t">++</code> constructor table
+procedures (<code>.linkonce</code> section factoring and C<tt>++</tt> constructor table
 assembly, for example) that make the requirements difficult to meet.  In
-general, one cannot assume that using <code class="code">add-symbol-file</code> to read a
+general, one cannot assume that using <code>add-symbol-file</code> to read a
 relocatable object file&rsquo;s symbolic information will have the same effect
 as linking the relocatable object file into the program in the normal
 way.
 </p>
-<p><code class="code">add-symbol-file</code> does not repeat if you press <kbd class="key">RET</kbd> after using it.
+<p><code>add-symbol-file</code> does not repeat if you press <tt class="key">RET</tt> after using it.
 </p>
+<span id="index-remove_002dsymbol_002dfile"></span>
 </dd>
-<dt><a id="index-remove_002dsymbol_002dfile"></a><span><code class="code">remove-symbol-file <var class="var">filename</var></code><a class="copiable-link" href="#index-remove_002dsymbol_002dfile"> &para;</a></span></dt>
-<dt><code class="code">remove-symbol-file -a <var class="var">address</var></code></dt>
-<dd><p>Remove a symbol file added via the <code class="code">add-symbol-file</code> command.  The
-file to remove can be identified by its <var class="var">filename</var> or by an <var class="var">address</var>
+<dt><span><code>remove-symbol-file <var>filename</var></code></span></dt>
+<dt><span><code>remove-symbol-file -a <var>address</var></code></span></dt>
+<dd><p>Remove a symbol file added via the <code>add-symbol-file</code> command.  The
+file to remove can be identified by its <var>filename</var> or by an <var>address</var>
 that lies within the boundaries of this symbol file in memory.  Example:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">(gdb) add-symbol-file /home/user/gdb/mylib.so 0x7ffff7ff9480
+<div class="example">
+<pre class="example">(gdb) add-symbol-file /home/user/gdb/mylib.so 0x7ffff7ff9480
 add symbol table from file &quot;/home/user/gdb/mylib.so&quot; at
     .text_addr = 0x7ffff7ff9480
 (y or n) y
@@ -319,125 +336,131 @@ Remove symbol table from file &quot;/home/user/gdb/mylib.so&quot;? (y or n) y
 (gdb)
 </pre></div>
 
-<p>The <var class="var">address</var> can be any expression which evaluates to an address.
+<p>The <var>address</var> can be any expression which evaluates to an address.
 </p>
-<p><code class="code">remove-symbol-file</code> does not repeat if you press <kbd class="key">RET</kbd> after using it.
+<p><code>remove-symbol-file</code> does not repeat if you press <tt class="key">RET</tt> after using it.
 </p>
-<p>The <var class="var">filename</var> argument supports escaping and quoting, see
-<a class="ref" href="Filename-Arguments.html">Filenames As Command Arguments</a>.
+<p>The <var>filename</var> argument supports escaping and quoting, see
+<a href="Filename-Arguments.html">Filenames As Command Arguments</a>.
 </p>
+<span id="index-add_002dsymbol_002dfile_002dfrom_002dmemory"></span>
+<span id="index-syscall-DSO"></span>
+<span id="index-load-symbols-from-memory"></span>
 </dd>
-<dt><a class="index-entry-id" id="index-syscall-DSO"></a>
-<a class="index-entry-id" id="index-load-symbols-from-memory"></a>
-<a id="index-add_002dsymbol_002dfile_002dfrom_002dmemory"></a><span><code class="code">add-symbol-file-from-memory <var class="var">address</var></code><a class="copiable-link" href="#index-add_002dsymbol_002dfile_002dfrom_002dmemory"> &para;</a></span></dt>
-<dd><p>Load symbols from the given <var class="var">address</var> in a dynamically loaded
+<dt><span><code>add-symbol-file-from-memory <var>address</var></code></span></dt>
+<dd><p>Load symbols from the given <var>address</var> in a dynamically loaded
 object file whose image is mapped directly into the inferior&rsquo;s memory.
-For example, the Linux kernel maps a <code class="code">syscall DSO</code> into each
+For example, the Linux kernel maps a <code>syscall DSO</code> into each
 process&rsquo;s address space; this DSO provides kernel-specific code for
 some system calls.  The argument can be any expression whose
 evaluation yields the address of the file&rsquo;s shared object file header.
-For this command to work, you must have used <code class="code">symbol-file</code> or
-<code class="code">exec-file</code> commands in advance.
+For this command to work, you must have used <code>symbol-file</code> or
+<code>exec-file</code> commands in advance.
 </p>
+<span id="index-section"></span>
 </dd>
-<dt><a id="index-section"></a><span><code class="code">section <var class="var">section</var> <var class="var">addr</var></code><a class="copiable-link" href="#index-section"> &para;</a></span></dt>
-<dd><p>The <code class="code">section</code> command changes the base address of the named
-<var class="var">section</var> of the exec file to <var class="var">addr</var>.  This can be used if the
+<dt><span><code>section <var>section</var> <var>addr</var></code></span></dt>
+<dd><p>The <code>section</code> command changes the base address of the named
+<var>section</var> of the exec file to <var>addr</var>.  This can be used if the
 exec file does not contain section addresses, (such as in the
-<code class="code">a.out</code> format), or when the addresses specified in the file
+<code>a.out</code> format), or when the addresses specified in the file
 itself are wrong.  Each section must be changed separately.  The
-<code class="code">info files</code> command, described below, lists all the sections and
+<code>info files</code> command, described below, lists all the sections and
 their addresses.
 </p>
+<span id="index-info-files"></span>
+<span id="index-info-target"></span>
 </dd>
-<dt><a class="index-entry-id" id="index-info-target"></a>
-<a id="index-info-files"></a><span><code class="code">info files</code><a class="copiable-link" href="#index-info-files"> &para;</a></span></dt>
-<dt><code class="code">info target</code></dt>
-<dd><p><code class="code">info files</code> and <code class="code">info target</code> are synonymous; both print the
-current target (see <a class="pxref" href="Targets.html">Specifying a Debugging Target</a>),
+<dt><span><code>info files</code></span></dt>
+<dt><span><code>info target</code></span></dt>
+<dd><p><code>info files</code> and <code>info target</code> are synonymous; both print the
+current target (see <a href="Targets.html">Specifying a Debugging Target</a>),
 including the names of the executable and core dump files currently in
-use by <small class="sc">ROCGDB</small>, and the files from which symbols were loaded.  The
-command <code class="code">help target</code> lists all possible targets rather than
+use by <small>ROCGDB</small>, and the files from which symbols were loaded.  The
+command <code>help target</code> lists all possible targets rather than
 current ones.
 </p>
+<span id="index-maint-info-sections"></span>
 </dd>
-<dt><a id="index-maint-info-sections"></a><span><code class="code">maint info sections <span class="r">[</span>-all-objects<span class="r">]</span> <span class="r">[</span><var class="var">filter-list</var><span class="r">]</span></code><a class="copiable-link" href="#index-maint-info-sections"> &para;</a></span></dt>
+<dt><span><code>maint info sections <span class="roman">[</span>-all-objects<span class="roman">]</span> <span class="roman">[</span><var>filter-list</var><span class="roman">]</span></code></span></dt>
 <dd><p>Another command that can give you extra information about program sections
-is <code class="code">maint info sections</code>.  In addition to the section information
-displayed by <code class="code">info files</code>, this command displays the flags and file
+is <code>maint info sections</code>.  In addition to the section information
+displayed by <code>info files</code>, this command displays the flags and file
 offset of each section in the executable and core dump files.
 </p>
-<p>When &lsquo;<samp class="samp">-all-objects</samp>&rsquo; is passed then sections from all loaded object
+<p>When &lsquo;<samp>-all-objects</samp>&rsquo; is passed then sections from all loaded object
 files, including shared libraries, are printed.
 </p>
-<p>The optional <var class="var">filter-list</var> is a space separated list of filter
+<p>The optional <var>filter-list</var> is a space separated list of filter
 keywords.  Sections that match any one of the filter criteria will be
 printed.  There are two types of filter:
 </p>
-<dl class="table">
-<dt><code class="code"><var class="var">section-name</var></code></dt>
-<dd><p>Display information about any section named <var class="var">section-name</var>.
+<dl compact="compact">
+<dt><span><code><var>section-name</var></code></span></dt>
+<dd><p>Display information about any section named <var>section-name</var>.
 </p></dd>
-<dt><code class="code"><var class="var">section-flag</var></code></dt>
-<dd><p>Display information for any section with <var class="var">section-flag</var>.  The
-section flags that <small class="sc">ROCGDB</small> currently knows about are:
-</p><dl class="table">
-<dt><code class="code">ALLOC</code></dt>
+<dt><span><code><var>section-flag</var></code></span></dt>
+<dd><p>Display information for any section with <var>section-flag</var>.  The
+section flags that <small>ROCGDB</small> currently knows about are:
+</p><dl compact="compact">
+<dt><span><code>ALLOC</code></span></dt>
 <dd><p>Section will have space allocated in the process when loaded.
 Set for all sections except those containing debug information.
 </p></dd>
-<dt><code class="code">LOAD</code></dt>
+<dt><span><code>LOAD</code></span></dt>
 <dd><p>Section will be loaded from the file into the child process memory.
-Set for pre-initialized code and data, clear for <code class="code">.bss</code> sections.
+Set for pre-initialized code and data, clear for <code>.bss</code> sections.
 </p></dd>
-<dt><code class="code">RELOC</code></dt>
+<dt><span><code>RELOC</code></span></dt>
 <dd><p>Section needs to be relocated before loading.
 </p></dd>
-<dt><code class="code">READONLY</code></dt>
+<dt><span><code>READONLY</code></span></dt>
 <dd><p>Section cannot be modified by the child process.
 </p></dd>
-<dt><code class="code">CODE</code></dt>
+<dt><span><code>CODE</code></span></dt>
 <dd><p>Section contains executable code only.
 </p></dd>
-<dt><code class="code">DATA</code></dt>
+<dt><span><code>DATA</code></span></dt>
 <dd><p>Section contains data only (no executable code).
 </p></dd>
-<dt><code class="code">ROM</code></dt>
+<dt><span><code>ROM</code></span></dt>
 <dd><p>Section will reside in ROM.
 </p></dd>
-<dt><code class="code">CONSTRUCTOR</code></dt>
+<dt><span><code>CONSTRUCTOR</code></span></dt>
 <dd><p>Section contains data for constructor/destructor lists.
 </p></dd>
-<dt><code class="code">HAS_CONTENTS</code></dt>
+<dt><span><code>HAS_CONTENTS</code></span></dt>
 <dd><p>Section is not empty.
 </p></dd>
-<dt><code class="code">NEVER_LOAD</code></dt>
+<dt><span><code>NEVER_LOAD</code></span></dt>
 <dd><p>An instruction to the linker to not output the section.
 </p></dd>
-<dt><code class="code">COFF_SHARED_LIBRARY</code></dt>
+<dt><span><code>COFF_SHARED_LIBRARY</code></span></dt>
 <dd><p>A notification to the linker that the section contains
 COFF shared library information.
 </p></dd>
-<dt><code class="code">IS_COMMON</code></dt>
+<dt><span><code>IS_COMMON</code></span></dt>
 <dd><p>Section contains common symbols.
 </p></dd>
 </dl>
 </dd>
 </dl>
 
+<span id="index-maint-info-target_002dsections"></span>
 </dd>
-<dt><a id="index-maint-info-target_002dsections"></a><span><code class="code">maint info target-sections</code><a class="copiable-link" href="#index-maint-info-target_002dsections"> &para;</a></span></dt>
-<dd><p>This command prints <small class="sc">ROCGDB</small>&rsquo;s internal section table.  For each
-target <small class="sc">ROCGDB</small> maintains a table containing the allocatable
+<dt><span><code>maint info target-sections</code></span></dt>
+<dd><p>This command prints <small>ROCGDB</small>&rsquo;s internal section table.  For each
+target <small>ROCGDB</small> maintains a table containing the allocatable
 sections from all currently mapped objects, along with information
 about where the section is mapped.
 </p>
+<span id="index-set-trust_002dreadonly_002dsections"></span>
+<span id="index-read_002donly-sections"></span>
 </dd>
-<dt><a class="index-entry-id" id="index-read_002donly-sections"></a>
-<a id="index-set-trust_002dreadonly_002dsections"></a><span><code class="code">set trust-readonly-sections on</code><a class="copiable-link" href="#index-set-trust_002dreadonly_002dsections"> &para;</a></span></dt>
-<dd><p>Tell <small class="sc">ROCGDB</small> that readonly sections in your object file
+<dt><span><code>set trust-readonly-sections on</code></span></dt>
+<dd><p>Tell <small>ROCGDB</small> that readonly sections in your object file
 really are read-only (i.e. that their contents will not change).
-In that case, <small class="sc">ROCGDB</small> can fetch values from these sections
+In that case, <small>ROCGDB</small> can fetch values from these sections
 out of the object file, rather than from the target program.
 For some targets (notably embedded ones), this can be a significant
 enhancement to debugging performance.
@@ -445,32 +468,32 @@ enhancement to debugging performance.
 <p>The default is off.
 </p>
 </dd>
-<dt><code class="code">set trust-readonly-sections off</code></dt>
-<dd><p>Tell <small class="sc">ROCGDB</small> not to trust readonly sections.  This means that
+<dt><span><code>set trust-readonly-sections off</code></span></dt>
+<dd><p>Tell <small>ROCGDB</small> not to trust readonly sections.  This means that
 the contents of the section might change while the program is running,
 and must therefore be fetched from the target when needed.
 </p>
 </dd>
-<dt><code class="code">show trust-readonly-sections</code></dt>
+<dt><span><code>show trust-readonly-sections</code></span></dt>
 <dd><p>Show the current setting of trusting readonly sections.
 </p></dd>
 </dl>
 
 <p>All file-specifying commands allow both absolute and relative file names
-as arguments.  <small class="sc">ROCGDB</small> always converts the file name to an absolute file
+as arguments.  <small>ROCGDB</small> always converts the file name to an absolute file
 name and remembers it that way.
 </p>
-<a class="index-entry-id" id="index-shared-libraries"></a>
-<a class="anchor" id="Shared-Libraries"></a><p><small class="sc">ROCGDB</small> supports <small class="sc">GNU</small>/Linux, MS-Windows, SunOS,
+<span id="index-shared-libraries"></span>
+<span id="Shared-Libraries"></span><p><small>ROCGDB</small> supports <small>GNU</small>/Linux, MS-Windows, SunOS,
 Darwin/Mach-O, SVr4, IBM RS/6000 AIX, FDPIC (FR-V), and
 DSBT (TIC6X) shared libraries.
 </p>
-<p>On MS-Windows <small class="sc">ROCGDB</small> must be linked with the Expat library to support
-shared libraries.  See <a class="xref" href="Requirements.html#Expat">Expat</a>.
+<p>On MS-Windows <small>ROCGDB</small> must be linked with the Expat library to support
+shared libraries.  See <a href="Requirements.html#Expat">Expat</a>.
 </p>
-<p><small class="sc">ROCGDB</small> automatically loads symbol definitions from shared libraries
-when you use the <code class="code">run</code> command, or when you examine a core file.
-(Before you issue the <code class="code">run</code> command, <small class="sc">ROCGDB</small> does not understand
+<p><small>ROCGDB</small> automatically loads symbol definitions from shared libraries
+when you use the <code>run</code> command, or when you examine a core file.
+(Before you issue the <code>run</code> command, <small>ROCGDB</small> does not understand
 references to a function in a shared library, however&mdash;unless you are
 debugging a core file).
 </p>
@@ -482,316 +505,328 @@ particularly large or there are many of them.
 <p>To control the automatic loading of shared library symbols, use the
 commands:
 </p>
-<dl class="table">
-<dt><a id="index-set-auto_002dsolib_002dadd"></a><span><code class="code">set auto-solib-add <var class="var">mode</var></code><a class="copiable-link" href="#index-set-auto_002dsolib_002dadd"> &para;</a></span></dt>
-<dd><p>If <var class="var">mode</var> is <code class="code">on</code>, symbols from all shared object libraries
+<dl compact="compact">
+<dd><span id="index-set-auto_002dsolib_002dadd"></span>
+</dd>
+<dt><span><code>set auto-solib-add <var>mode</var></code></span></dt>
+<dd><p>If <var>mode</var> is <code>on</code>, symbols from all shared object libraries
 will be loaded automatically when the inferior begins execution, you
 attach to an independently started inferior, or when the dynamic linker
-informs <small class="sc">ROCGDB</small> that a new library has been loaded.  If <var class="var">mode</var>
-is <code class="code">off</code>, symbols must be loaded manually, using the
-<code class="code">sharedlibrary</code> command.  The default value is <code class="code">on</code>.
+informs <small>ROCGDB</small> that a new library has been loaded.  If <var>mode</var>
+is <code>off</code>, symbols must be loaded manually, using the
+<code>sharedlibrary</code> command.  The default value is <code>on</code>.
 </p>
-<a class="index-entry-id" id="index-memory-used-for-symbol-tables"></a>
+<span id="index-memory-used-for-symbol-tables"></span>
 <p>If your program uses lots of shared libraries with debug info that
-takes large amounts of memory, you can decrease the <small class="sc">ROCGDB</small>
+takes large amounts of memory, you can decrease the <small>ROCGDB</small>
 memory footprint by preventing it from automatically loading the
-symbols from shared libraries.  To that end, type <kbd class="kbd">set
+symbols from shared libraries.  To that end, type <kbd>set
 auto-solib-add off</kbd> before running the inferior, then load each
-library whose debug symbols you do need with <kbd class="kbd">sharedlibrary
-<var class="var">regexp</var></kbd>, where <var class="var">regexp</var> is a regular expression that matches
+library whose debug symbols you do need with <kbd>sharedlibrary
+<var>regexp</var></kbd>, where <var>regexp</var> is a regular expression that matches
 the libraries whose symbols you want to be loaded.
 </p>
+<span id="index-show-auto_002dsolib_002dadd"></span>
 </dd>
-<dt><a id="index-show-auto_002dsolib_002dadd"></a><span><code class="code">show auto-solib-add</code><a class="copiable-link" href="#index-show-auto_002dsolib_002dadd"> &para;</a></span></dt>
+<dt><span><code>show auto-solib-add</code></span></dt>
 <dd><p>Display the current autoloading mode.
 </p></dd>
 </dl>
 
-<a class="index-entry-id" id="index-load-shared-library"></a>
-<p>To explicitly load shared library symbols, use the <code class="code">sharedlibrary</code>
+<span id="index-load-shared-library"></span>
+<p>To explicitly load shared library symbols, use the <code>sharedlibrary</code>
 command:
 </p>
-<dl class="table">
-<dt><a class="index-entry-id" id="index-info-share"></a>
-<a id="index-info-sharedlibrary"></a><span><code class="code">info share <var class="var">regex</var></code><a class="copiable-link" href="#index-info-sharedlibrary"> &para;</a></span></dt>
-<dt><code class="code">info sharedlibrary <var class="var">regex</var></code></dt>
+<dl compact="compact">
+<dd><span id="index-info-sharedlibrary"></span>
+<span id="index-info-share"></span>
+</dd>
+<dt><span><code>info share <var>regex</var></code></span></dt>
+<dt><span><code>info sharedlibrary <var>regex</var></code></span></dt>
 <dd><p>Print the names of the shared libraries which are currently loaded
-that match <var class="var">regex</var>.  If <var class="var">regex</var> is omitted then print
+that match <var>regex</var>.  If <var>regex</var> is omitted then print
 all shared libraries that are loaded.
 </p>
+<span id="index-info-dll"></span>
 </dd>
-<dt><a id="index-info-dll"></a><span><code class="code">info dll <var class="var">regex</var></code><a class="copiable-link" href="#index-info-dll"> &para;</a></span></dt>
-<dd><p>This is an alias of <code class="code">info sharedlibrary</code>.
+<dt><span><code>info dll <var>regex</var></code></span></dt>
+<dd><p>This is an alias of <code>info sharedlibrary</code>.
 </p>
+<span id="index-sharedlibrary"></span>
+<span id="index-share"></span>
 </dd>
-<dt><a class="index-entry-id" id="index-share"></a>
-<a id="index-sharedlibrary"></a><span><code class="code">sharedlibrary <var class="var">regex</var></code><a class="copiable-link" href="#index-sharedlibrary"> &para;</a></span></dt>
-<dt><code class="code">share <var class="var">regex</var></code></dt>
+<dt><span><code>sharedlibrary <var>regex</var></code></span></dt>
+<dt><span><code>share <var>regex</var></code></span></dt>
 <dd><p>Load shared object library symbols for files matching a
 Unix regular expression.
 As with files loaded automatically, it only loads shared libraries
-required by your program for a core file or after typing <code class="code">run</code>.  If
-<var class="var">regex</var> is omitted all shared libraries required by your program are
+required by your program for a core file or after typing <code>run</code>.  If
+<var>regex</var> is omitted all shared libraries required by your program are
 loaded.
 </p>
 </dd>
-<dt><a class="index-entry-id" id="index-unload-symbols-from-shared-libraries"></a>
-<a id="index-nosharedlibrary"></a><span><code class="code">nosharedlibrary</code><a class="copiable-link" href="#index-nosharedlibrary"> &para;</a></span></dt>
-<dd><p>Unload all shared object library symbols.  This discards all symbols
+<dt id='index-nosharedlibrary'><span><code>nosharedlibrary</code><a href='#index-nosharedlibrary' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="index-unload-symbols-from-shared-libraries"></span>
+<p>Unload all shared object library symbols.  This discards all symbols
 that have been loaded from all shared libraries.  Symbols from shared
 libraries that were loaded by explicit user requests are not
 discarded.
 </p></dd>
 </dl>
 
-<p>Sometimes you may wish that <small class="sc">ROCGDB</small> stops and gives you control
+<p>Sometimes you may wish that <small>ROCGDB</small> stops and gives you control
 when any of shared library events happen.  The best way to do this is
-to use <code class="code">catch load</code> and <code class="code">catch unload</code> (see <a class="pxref" href="Set-Catchpoints.html">Setting Catchpoints</a>).
+to use <code>catch load</code> and <code>catch unload</code> (see <a href="Set-Catchpoints.html">Setting Catchpoints</a>).
 </p>
-<p><small class="sc">ROCGDB</small> also supports the <code class="code">set stop-on-solib-events</code>
+<p><small>ROCGDB</small> also supports the <code>set stop-on-solib-events</code>
 command for this.  This command exists for historical reasons.  It is
 less useful than setting a catchpoint, because it does not allow for
 conditions or commands as a catchpoint does.
 </p>
-<dl class="table">
-<dt><a id="index-set-stop_002don_002dsolib_002devents"></a><span><code class="code">set stop-on-solib-events</code><a class="copiable-link" href="#index-set-stop_002don_002dsolib_002devents"> &para;</a></span></dt>
-<dd><p>This command controls whether <small class="sc">ROCGDB</small> should give you control
+<dl compact="compact">
+<dt id='index-set-stop_002don_002dsolib_002devents'><span><code>set stop-on-solib-events</code><a href='#index-set-stop_002don_002dsolib_002devents' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>This command controls whether <small>ROCGDB</small> should give you control
 when the dynamic linker notifies it about some shared library event.
 The most common event of interest is loading or unloading of a new
 shared library.
 </p>
 </dd>
-<dt><a id="index-show-stop_002don_002dsolib_002devents"></a><span><code class="code">show stop-on-solib-events</code><a class="copiable-link" href="#index-show-stop_002don_002dsolib_002devents"> &para;</a></span></dt>
-<dd><p>Show whether <small class="sc">ROCGDB</small> stops and gives you control when shared
+<dt id='index-show-stop_002don_002dsolib_002devents'><span><code>show stop-on-solib-events</code><a href='#index-show-stop_002don_002dsolib_002devents' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Show whether <small>ROCGDB</small> stops and gives you control when shared
 library events happen.
 </p></dd>
 </dl>
 
 <p>Shared libraries are also supported in many cross or remote debugging
-configurations.  <small class="sc">ROCGDB</small> needs to have access to the target&rsquo;s libraries;
+configurations.  <small>ROCGDB</small> needs to have access to the target&rsquo;s libraries;
 this can be accomplished either by providing copies of the libraries
-on the host system, or by asking <small class="sc">ROCGDB</small> to automatically retrieve the
+on the host system, or by asking <small>ROCGDB</small> to automatically retrieve the
 libraries from the target.  If copies of the target libraries are
 provided, they need to be the same as the target libraries, although the
 copies on the target can be stripped as long as the copies on the host are
 not.
 </p>
-<a class="index-entry-id" id="index-where-to-look-for-shared-libraries"></a>
-<p>For remote debugging, you need to tell <small class="sc">ROCGDB</small> where the target
+<span id="index-where-to-look-for-shared-libraries"></span>
+<p>For remote debugging, you need to tell <small>ROCGDB</small> where the target
 libraries are, so that it can load the correct copies&mdash;otherwise, it
-may try to load the host&rsquo;s libraries.  <small class="sc">ROCGDB</small> has two variables
+may try to load the host&rsquo;s libraries.  <small>ROCGDB</small> has two variables
 to specify the search directories for target libraries.
 </p>
-<dl class="table">
-<dd><a class="anchor" id="set-sysroot"></a></dd>
-<dt><a class="index-entry-id" id="index-system-root_002c-alternate"></a>
-<a class="index-entry-id" id="index-set-solib_002dabsolute_002dprefix"></a>
-<a class="index-entry-id" id="index-set-sysroot"></a>
-<a id="index-prefix-for-executable-and-shared-library-file-names"></a><span><code class="code">set sysroot <var class="var">path</var></code><a class="copiable-link" href="#index-prefix-for-executable-and-shared-library-file-names"> &para;</a></span></dt>
-<dd><p>Use <var class="var">path</var> as the system root for the program being debugged.  Any
-absolute shared library paths will be prefixed with <var class="var">path</var>; many
+<dl compact="compact">
+<dd><span id="set-sysroot"></span><span id="index-prefix-for-executable-and-shared-library-file-names"></span>
+<span id="index-system-root_002c-alternate"></span>
+<span id="index-set-solib_002dabsolute_002dprefix"></span>
+<span id="index-set-sysroot"></span>
+</dd>
+<dt><span><code>set sysroot <var>path</var></code></span></dt>
+<dd><p>Use <var>path</var> as the system root for the program being debugged.  Any
+absolute shared library paths will be prefixed with <var>path</var>; many
 runtime loaders store the absolute paths to the shared library in the
 target program&rsquo;s memory.  When starting processes remotely, and when
 attaching to already-running processes (local or remote), their
-executable filenames will be prefixed with <var class="var">path</var> if reported to
-<small class="sc">ROCGDB</small> as absolute by the operating system.  If you use
-<code class="code">set sysroot</code> to find executables and shared libraries, they need
+executable filenames will be prefixed with <var>path</var> if reported to
+<small>ROCGDB</small> as absolute by the operating system.  If you use
+<code>set sysroot</code> to find executables and shared libraries, they need
 to be laid out in the same way that they are on the target, with
-e.g. a <samp class="file">/bin</samp>, <samp class="file">/lib</samp> and <samp class="file">/usr/lib</samp> hierarchy under
-<var class="var">path</var>.
+e.g. a <samp>/bin</samp>, <samp>/lib</samp> and <samp>/usr/lib</samp> hierarchy under
+<var>path</var>.
 </p>
-<p>If <var class="var">path</var> starts with the sequence <samp class="file">target:</samp> and the target
-system is remote then <small class="sc">ROCGDB</small> will retrieve the target binaries
+<p>If <var>path</var> starts with the sequence <samp>target:</samp> and the target
+system is remote then <small>ROCGDB</small> will retrieve the target binaries
 from the remote system.  This is only supported when using a remote
-target that supports the <code class="code">remote get</code> command (see <a class="pxref" href="File-Transfer.html">Sending files to a remote system</a>).  The part of <var class="var">path</var>
-following the initial <samp class="file">target:</samp> (if present) is used as system
-root prefix on the remote file system.  If <var class="var">path</var> starts with the
-sequence <samp class="file">remote:</samp> this is converted to the sequence
-<samp class="file">target:</samp> by <code class="code">set sysroot</code><a class="footnote" id="DOCF15" href="#FOOT15"><sup>15</sup></a>.  If you want
+target that supports the <code>remote get</code> command (see <a href="File-Transfer.html">Sending files to a remote system</a>).  The part of <var>path</var>
+following the initial <samp>target:</samp> (if present) is used as system
+root prefix on the remote file system.  If <var>path</var> starts with the
+sequence <samp>remote:</samp> this is converted to the sequence
+<samp>target:</samp> by <code>set sysroot</code><a id="DOCF15" href="#FOOT15"><sup>15</sup></a>.  If you want
 to specify a local system root using a directory that happens to be
-named <samp class="file">target:</samp> or <samp class="file">remote:</samp>, you need to use some
-equivalent variant of the name like <samp class="file">./target:</samp>.
+named <samp>target:</samp> or <samp>remote:</samp>, you need to use some
+equivalent variant of the name like <samp>./target:</samp>.
 </p>
 <p>For targets with an MS-DOS based filesystem, such as MS-Windows,
-<small class="sc">ROCGDB</small> tries prefixing a few variants of the target
-absolute file name with <var class="var">path</var>.  But first, on Unix hosts,
-<small class="sc">ROCGDB</small> converts all backslash directory separators into forward
+<small>ROCGDB</small> tries prefixing a few variants of the target
+absolute file name with <var>path</var>.  But first, on Unix hosts,
+<small>ROCGDB</small> converts all backslash directory separators into forward
 slashes, because the backslash is not a directory separator on Unix:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">  c:\foo\bar.dll &rArr; c:/foo/bar.dll
+<div class="example">
+<pre class="example">  c:\foo\bar.dll &rArr; c:/foo/bar.dll
 </pre></div>
 
-<p>Then, <small class="sc">ROCGDB</small> attempts prefixing the target file name with
-<var class="var">path</var>, and looks for the resulting file name in the host file
+<p>Then, <small>ROCGDB</small> attempts prefixing the target file name with
+<var>path</var>, and looks for the resulting file name in the host file
 system:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">  c:/foo/bar.dll &rArr; /path/to/sysroot/c:/foo/bar.dll
+<div class="example">
+<pre class="example">  c:/foo/bar.dll &rArr; /path/to/sysroot/c:/foo/bar.dll
 </pre></div>
 
-<p>If that does not find the binary, <small class="sc">ROCGDB</small> tries removing
-the &lsquo;<samp class="samp">:</samp>&rsquo; character from the drive spec, both for convenience, and,
+<p>If that does not find the binary, <small>ROCGDB</small> tries removing
+the &lsquo;<samp>:</samp>&rsquo; character from the drive spec, both for convenience, and,
 for the case of the host file system not supporting file names with
 colons:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">  c:/foo/bar.dll &rArr; /path/to/sysroot/c/foo/bar.dll
+<div class="example">
+<pre class="example">  c:/foo/bar.dll &rArr; /path/to/sysroot/c/foo/bar.dll
 </pre></div>
 
 <p>This makes it possible to have a system root that mirrors a target
 with more than one drive.  E.g., you may want to setup your local
-copies of the target system shared libraries like so (note &lsquo;<samp class="samp">c</samp>&rsquo; vs
-&lsquo;<samp class="samp">z</samp>&rsquo;):
+copies of the target system shared libraries like so (note &lsquo;<samp>c</samp>&rsquo; vs
+&lsquo;<samp>z</samp>&rsquo;):
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted"> <samp class="file">/path/to/sysroot/c/sys/bin/foo.dll</samp>
- <samp class="file">/path/to/sysroot/c/sys/bin/bar.dll</samp>
- <samp class="file">/path/to/sysroot/z/sys/bin/bar.dll</samp>
+<div class="example">
+<pre class="example"> <samp>/path/to/sysroot/c/sys/bin/foo.dll</samp>
+ <samp>/path/to/sysroot/c/sys/bin/bar.dll</samp>
+ <samp>/path/to/sysroot/z/sys/bin/bar.dll</samp>
 </pre></div>
 
-<p>and point the system root at <samp class="file">/path/to/sysroot</samp>, so that
-<small class="sc">ROCGDB</small> can find the correct copies of both
-<samp class="file">c:\sys\bin\foo.dll</samp>, and <samp class="file">z:\sys\bin\bar.dll</samp>.
+<p>and point the system root at <samp>/path/to/sysroot</samp>, so that
+<small>ROCGDB</small> can find the correct copies of both
+<samp>c:\sys\bin\foo.dll</samp>, and <samp>z:\sys\bin\bar.dll</samp>.
 </p>
-<p>If that still does not find the binary, <small class="sc">ROCGDB</small> tries
+<p>If that still does not find the binary, <small>ROCGDB</small> tries
 removing the whole drive spec from the target file name:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">  c:/foo/bar.dll &rArr; /path/to/sysroot/foo/bar.dll
+<div class="example">
+<pre class="example">  c:/foo/bar.dll &rArr; /path/to/sysroot/foo/bar.dll
 </pre></div>
 
 <p>This last lookup makes it possible to not care about the drive name,
 if you don&rsquo;t want or need to.
 </p>
-<p>The <code class="code">set solib-absolute-prefix</code> command is an alias for <code class="code">set
+<p>The <code>set solib-absolute-prefix</code> command is an alias for <code>set
 sysroot</code>.
 </p>
-<a class="index-entry-id" id="index-default-system-root"></a>
-<a class="index-entry-id" id="index-_002d_002dwith_002dsysroot"></a>
+<span id="index-default-system-root"></span>
+<span id="index-_002d_002dwith_002dsysroot"></span>
 <p>You can set the default system root by using the configure-time
-&lsquo;<samp class="samp">--with-sysroot</samp>&rsquo; option.  If the system root is inside
-<small class="sc">ROCGDB</small>&rsquo;s configured binary prefix (set with &lsquo;<samp class="samp">--prefix</samp>&rsquo; or
-&lsquo;<samp class="samp">--exec-prefix</samp>&rsquo;), then the default system root will be updated
-automatically if the installed <small class="sc">ROCGDB</small> is moved to a new
+&lsquo;<samp>--with-sysroot</samp>&rsquo; option.  If the system root is inside
+<small>ROCGDB</small>&rsquo;s configured binary prefix (set with &lsquo;<samp>--prefix</samp>&rsquo; or
+&lsquo;<samp>--exec-prefix</samp>&rsquo;), then the default system root will be updated
+automatically if the installed <small>ROCGDB</small> is moved to a new
 location.
 </p>
+<span id="index-show-sysroot"></span>
 </dd>
-<dt><a id="index-show-sysroot"></a><span><code class="code">show sysroot</code><a class="copiable-link" href="#index-show-sysroot"> &para;</a></span></dt>
+<dt><span><code>show sysroot</code></span></dt>
 <dd><p>Display the current executable and shared library prefix.
 </p>
-<a class="anchor" id="set-solib_002dsearch_002dpath"></a></dd>
-<dt><a id="index-set-solib_002dsearch_002dpath"></a><span><code class="code">set solib-search-path <var class="var">path</var></code><a class="copiable-link" href="#index-set-solib_002dsearch_002dpath"> &para;</a></span></dt>
-<dd><p>If this variable is set, <var class="var">path</var> is a colon-separated list of
-directories to search for shared libraries.  &lsquo;<samp class="samp">solib-search-path</samp>&rsquo;
-is used after &lsquo;<samp class="samp">sysroot</samp>&rsquo; fails to locate the library, or if the
+<span id="set-solib_002dsearch_002dpath"></span><span id="index-set-solib_002dsearch_002dpath"></span>
+</dd>
+<dt><span><code>set solib-search-path <var>path</var></code></span></dt>
+<dd><p>If this variable is set, <var>path</var> is a colon-separated list of
+directories to search for shared libraries.  &lsquo;<samp>solib-search-path</samp>&rsquo;
+is used after &lsquo;<samp>sysroot</samp>&rsquo; fails to locate the library, or if the
 path to the library is relative instead of absolute.  If you want to
-use &lsquo;<samp class="samp">solib-search-path</samp>&rsquo; instead of &lsquo;<samp class="samp">sysroot</samp>&rsquo;, be sure to set
-&lsquo;<samp class="samp">sysroot</samp>&rsquo; to a nonexistent directory to prevent <small class="sc">ROCGDB</small> from
-finding your host&rsquo;s libraries.  &lsquo;<samp class="samp">sysroot</samp>&rsquo; is preferred; setting
+use &lsquo;<samp>solib-search-path</samp>&rsquo; instead of &lsquo;<samp>sysroot</samp>&rsquo;, be sure to set
+&lsquo;<samp>sysroot</samp>&rsquo; to a nonexistent directory to prevent <small>ROCGDB</small> from
+finding your host&rsquo;s libraries.  &lsquo;<samp>sysroot</samp>&rsquo; is preferred; setting
 it to a nonexistent directory may interfere with automatic loading
 of shared library symbols.
 </p>
+<span id="index-show-solib_002dsearch_002dpath"></span>
 </dd>
-<dt><a id="index-show-solib_002dsearch_002dpath"></a><span><code class="code">show solib-search-path</code><a class="copiable-link" href="#index-show-solib_002dsearch_002dpath"> &para;</a></span></dt>
+<dt><span><code>show solib-search-path</code></span></dt>
 <dd><p>Display the current shared library search path.
 </p>
+<span id="index-DOS-file_002dname-semantics-of-file-names_002e"></span>
+<span id="index-set-target_002dfile_002dsystem_002dkind-_0028unix_007cdos_002dbased_007cauto_0029"></span>
+<span id="index-show-target_002dfile_002dsystem_002dkind"></span>
 </dd>
-<dt><a class="index-entry-id" id="index-set-target_002dfile_002dsystem_002dkind-_0028unix_007cdos_002dbased_007cauto_0029"></a>
-<a class="index-entry-id" id="index-show-target_002dfile_002dsystem_002dkind"></a>
-<a id="index-DOS-file_002dname-semantics-of-file-names_002e"></a><span><code class="code">set target-file-system-kind <var class="var">kind</var></code><a class="copiable-link" href="#index-DOS-file_002dname-semantics-of-file-names_002e"> &para;</a></span></dt>
+<dt><span><code>set target-file-system-kind <var>kind</var></code></span></dt>
 <dd><p>Set assumed file system kind for target reported file names.
 </p>
 <p>Shared library file names as reported by the target system may not
-make sense as is on the system <small class="sc">ROCGDB</small> is running on.  For
+make sense as is on the system <small>ROCGDB</small> is running on.  For
 example, when remote debugging a target that has MS-DOS based file
 system semantics, from a Unix host, the target may be reporting to
-<small class="sc">ROCGDB</small> a list of loaded shared libraries with file names such as
-<samp class="file">c:\Windows\kernel32.dll</samp>.  On Unix hosts, there&rsquo;s no concept of
-drive letters, so the &lsquo;<samp class="samp">c:\</samp>&rsquo; prefix is not normally understood as
+<small>ROCGDB</small> a list of loaded shared libraries with file names such as
+<samp>c:\Windows\kernel32.dll</samp>.  On Unix hosts, there&rsquo;s no concept of
+drive letters, so the &lsquo;<samp>c:\</samp>&rsquo; prefix is not normally understood as
 indicating an absolute file name, and neither is the backslash
 normally considered a directory separator character.  In that case,
 the native file system would interpret this whole absolute file name
 as a relative file name with no directory components.  This would make
-it impossible to point <small class="sc">ROCGDB</small> at a copy of the remote target&rsquo;s
-shared libraries on the host using <code class="code">set sysroot</code>, and impractical
-with <code class="code">set solib-search-path</code>.  Setting
-<code class="code">target-file-system-kind</code> to <code class="code">dos-based</code> tells <small class="sc">ROCGDB</small>
+it impossible to point <small>ROCGDB</small> at a copy of the remote target&rsquo;s
+shared libraries on the host using <code>set sysroot</code>, and impractical
+with <code>set solib-search-path</code>.  Setting
+<code>target-file-system-kind</code> to <code>dos-based</code> tells <small>ROCGDB</small>
 to interpret such file names similarly to how the target would, and to
-map them to file names valid on <small class="sc">ROCGDB</small>&rsquo;s native file system
-semantics.  The value of <var class="var">kind</var> can be <code class="code">&quot;auto&quot;</code>, in addition
-to one of the supported file system kinds.  In that case, <small class="sc">ROCGDB</small>
+map them to file names valid on <small>ROCGDB</small>&rsquo;s native file system
+semantics.  The value of <var>kind</var> can be <code>&quot;auto&quot;</code>, in addition
+to one of the supported file system kinds.  In that case, <small>ROCGDB</small>
 tries to determine the appropriate file system variant based on the
-current target&rsquo;s operating system (see <a class="pxref" href="ABI.html">Configuring the
+current target&rsquo;s operating system (see <a href="ABI.html">Configuring the
 Current ABI</a>).  The supported file system settings are:
 </p>
-<dl class="table">
-<dt><code class="code">unix</code></dt>
-<dd><p>Instruct <small class="sc">ROCGDB</small> to assume the target file system is of Unix
-kind.  Only file names starting the forward slash (&lsquo;<samp class="samp">/</samp>&rsquo;) character
+<dl compact="compact">
+<dt><span><code>unix</code></span></dt>
+<dd><p>Instruct <small>ROCGDB</small> to assume the target file system is of Unix
+kind.  Only file names starting the forward slash (&lsquo;<samp>/</samp>&rsquo;) character
 are considered absolute, and the directory separator character is also
 the forward slash.
 </p>
 </dd>
-<dt><code class="code">dos-based</code></dt>
-<dd><p>Instruct <small class="sc">ROCGDB</small> to assume the target file system is DOS based.
+<dt><span><code>dos-based</code></span></dt>
+<dd><p>Instruct <small>ROCGDB</small> to assume the target file system is DOS based.
 File names starting with either a forward slash, or a drive letter
-followed by a colon (e.g., &lsquo;<samp class="samp">c:</samp>&rsquo;), are considered absolute, and
-both the slash (&lsquo;<samp class="samp">/</samp>&rsquo;) and the backslash (&lsquo;<samp class="samp">\\</samp>&rsquo;) characters are
+followed by a colon (e.g., &lsquo;<samp>c:</samp>&rsquo;), are considered absolute, and
+both the slash (&lsquo;<samp>/</samp>&rsquo;) and the backslash (&lsquo;<samp>\\</samp>&rsquo;) characters are
 considered directory separators.
 </p>
 </dd>
-<dt><code class="code">auto</code></dt>
-<dd><p>Instruct <small class="sc">ROCGDB</small> to use the file system kind associated with the
-target operating system (see <a class="pxref" href="ABI.html">Configuring the Current ABI</a>).
+<dt><span><code>auto</code></span></dt>
+<dd><p>Instruct <small>ROCGDB</small> to use the file system kind associated with the
+target operating system (see <a href="ABI.html">Configuring the Current ABI</a>).
 This is the default.
 </p></dd>
 </dl>
 </dd>
 </dl>
 
-<a class="index-entry-id" id="index-file-name-canonicalization"></a>
-<a class="index-entry-id" id="index-base-name-differences"></a>
-<p>When processing file names provided by the user, <small class="sc">ROCGDB</small>
+<span id="index-file-name-canonicalization"></span>
+<span id="index-base-name-differences"></span>
+<p>When processing file names provided by the user, <small>ROCGDB</small>
 frequently needs to compare them to the file names recorded in the
-program&rsquo;s debug info.  Normally, <small class="sc">ROCGDB</small> compares just the
-<em class="dfn">base names</em> of the files as strings, which is reasonably fast
+program&rsquo;s debug info.  Normally, <small>ROCGDB</small> compares just the
+<em>base names</em> of the files as strings, which is reasonably fast
 even for very large programs.  (The base name of a file is the last
 portion of its name, after stripping all the leading directories.)
 This shortcut in comparison is based upon the assumption that files
 cannot have more than one base name.  This is usually true, but
 references to files that use symlinks or similar filesystem
 facilities violate that assumption.  If your program records files
-using such facilities, or if you provide file names to <small class="sc">ROCGDB</small>
-using symlinks etc., you can set <code class="code">basenames-may-differ</code> to
-<code class="code">true</code> to instruct <small class="sc">ROCGDB</small> to completely canonicalize each
+using such facilities, or if you provide file names to <small>ROCGDB</small>
+using symlinks etc., you can set <code>basenames-may-differ</code> to
+<code>true</code> to instruct <small>ROCGDB</small> to completely canonicalize each
 pair of file names it needs to compare.  This will make file-name
 comparisons accurate, but at a price of a significant slowdown.
 </p>
-<dl class="table">
-<dt><a id="index-set-basenames_002dmay_002ddiffer"></a><span><code class="code">set basenames-may-differ</code><a class="copiable-link" href="#index-set-basenames_002dmay_002ddiffer"> &para;</a></span></dt>
+<dl compact="compact">
+<dt id='index-set-basenames_002dmay_002ddiffer'><span><code>set basenames-may-differ</code><a href='#index-set-basenames_002dmay_002ddiffer' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Set whether a source file may have multiple base names.
 </p>
 </dd>
-<dt><a id="index-show-basenames_002dmay_002ddiffer"></a><span><code class="code">show basenames-may-differ</code><a class="copiable-link" href="#index-show-basenames_002dmay_002ddiffer"> &para;</a></span></dt>
+<dt id='index-show-basenames_002dmay_002ddiffer'><span><code>show basenames-may-differ</code><a href='#index-show-basenames_002dmay_002ddiffer' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Show whether a source file may have multiple base names.
 </p></dd>
 </dl>
 
 </div>
-<div class="footnotes-segment">
+<div class="footnote">
 <hr>
 <h4 class="footnotes-heading">Footnotes</h4>
 
-<h5 class="footnote-body-heading"><a id="FOOT15" href="#DOCF15">(15)</a></h5>
+<h5><a id="FOOT15" href="#DOCF15">(15)</a></h5>
 <p>Historically the
 functionality to retrieve binaries from the remote system was
-provided by prefixing <var class="var">path</var> with <samp class="file">remote:</samp></p>
+provided by prefixing <var>path</var> with <samp>remote:</samp></p>
 </div>
 <hr>
-<div class="nav-panel">
+<div class="header">
 <p>
-Next: <a href="File-Caching.html">File Caching</a>, Up: <a href="GDB-Files.html"><small class="sc">ROCGDB</small> Files</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="File-Caching.html">File Caching</a>, Up: <a href="GDB-Files.html"><small>ROCGDB</small> Files</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

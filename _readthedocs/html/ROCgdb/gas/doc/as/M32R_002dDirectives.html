@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the GNU Assembler "as".
 
-Copyright © 1991-2024 Free Software Foundation, Inc.
+Copyright (C) 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -31,9 +31,21 @@ section entitled "GNU Free Documentation License".
 <link href="M32R_002dOpts.html" rel="prev" title="M32R-Opts">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
 div.example {margin-left: 3.2em}
-span:hover a.copiable-link {visibility: visible}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -41,56 +53,59 @@ span:hover a.copiable-link {visibility: visible}
 </head>
 
 <body lang="en">
-<div class="subsection-level-extent" id="M32R_002dDirectives">
-<div class="nav-panel">
+<div class="section" id="M32R_002dDirectives">
+<div class="header">
 <p>
 Next: <a href="M32R_002dWarnings.html" accesskey="n" rel="next">M32R Warnings</a>, Previous: <a href="M32R_002dOpts.html" accesskey="p" rel="prev">M32R Options</a>, Up: <a href="M32R_002dDependent.html" accesskey="u" rel="up">M32R Dependent Features</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h4 class="subsection section-level-set-subsection" id="M32R-Directives"><span>9.22.2 M32R Directives<a class="copiable-link" href="#M32R-Directives"> &para;</a></span></h4>
-<a class="index-entry-id" id="index-directives_002c-M32R"></a>
-<a class="index-entry-id" id="index-M32R-directives"></a>
+<span id="M32R-Directives"></span><h4 class="subsection">9.22.2 M32R Directives</h4>
+<span id="index-directives_002c-M32R"></span>
+<span id="index-M32R-directives"></span>
 
-<p>The Renesas M32R version of <code class="code">as</code> has a few architecture
+<p>The Renesas M32R version of <code>as</code> has a few architecture
 specific directives:
 </p>
-<dl class="table">
-<dt><a id="index-low-directive_002c-M32R"></a><span><code class="code">low <var class="var">expression</var></code><a class="copiable-link" href="#index-low-directive_002c-M32R"> &para;</a></span></dt>
-<dd><p>The <code class="code">low</code> directive computes the value of its expression and
+<dl compact="compact">
+<dd>
+<span id="index-low-directive_002c-M32R"></span>
+</dd>
+<dt><span><code>low <var>expression</var></code></span></dt>
+<dd><p>The <code>low</code> directive computes the value of its expression and
 places the lower 16-bits of the result into the immediate-field of the
 instruction.  For example:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">   or3   r0, r0, #low(0x12345678) ; compute r0 = r0 | 0x5678
+<div class="example">
+<pre class="example">   or3   r0, r0, #low(0x12345678) ; compute r0 = r0 | 0x5678
    add3, r0, r0, #low(fred)   ; compute r0 = r0 + low 16-bits of address of fred
 </pre></div>
 
 </dd>
-<dt><a id="index-high-directive_002c-M32R"></a><span><code class="code">high <var class="var">expression</var></code><a class="copiable-link" href="#index-high-directive_002c-M32R"> &para;</a></span></dt>
-<dd><p>The <code class="code">high</code> directive computes the value of its expression and
+<dt id='index-high-directive_002c-M32R'><span><code>high <var>expression</var></code><a href='#index-high-directive_002c-M32R' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>The <code>high</code> directive computes the value of its expression and
 places the upper 16-bits of the result into the immediate-field of the
 instruction.  For example:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">   seth  r0, #high(0x12345678) ; compute r0 = 0x12340000
+<div class="example">
+<pre class="example">   seth  r0, #high(0x12345678) ; compute r0 = 0x12340000
    seth, r0, #high(fred)       ; compute r0 = upper 16-bits of address of fred
 </pre></div>
 
 </dd>
-<dt><a id="index-shigh-directive_002c-M32R"></a><span><code class="code">shigh <var class="var">expression</var></code><a class="copiable-link" href="#index-shigh-directive_002c-M32R"> &para;</a></span></dt>
-<dd><p>The <code class="code">shigh</code> directive is very similar to the <code class="code">high</code>
+<dt id='index-shigh-directive_002c-M32R'><span><code>shigh <var>expression</var></code><a href='#index-shigh-directive_002c-M32R' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>The <code>shigh</code> directive is very similar to the <code>high</code>
 directive.  It also computes the value of its expression and places
 the upper 16-bits of the result into the immediate-field of the
-instruction.  The difference is that <code class="code">shigh</code> also checks to see
+instruction.  The difference is that <code>shigh</code> also checks to see
 if the lower 16-bits could be interpreted as a signed number, and if
 so it assumes that a borrow will occur from the upper-16 bits.  To
-compensate for this the <code class="code">shigh</code> directive pre-biases the upper
+compensate for this the <code>shigh</code> directive pre-biases the upper
 16 bit value by adding one to it.  For example:
 </p>
 <p>For example:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">   seth  r0, #shigh(0x12345678) ; compute r0 = 0x12340000
+<div class="example">
+<pre class="example">   seth  r0, #shigh(0x12345678) ; compute r0 = 0x12340000
    seth  r0, #shigh(0x00008000) ; compute r0 = 0x00010000
 </pre></div>
 
@@ -100,60 +115,65 @@ becomes 0xffff8000.  If this value is then added to 0x00010000 then
 the result is 0x00008000.
 </p>
 <p>This behaviour is to allow for the different semantics of the
-<code class="code">or3</code> and <code class="code">add3</code> instructions.  The <code class="code">or3</code> instruction
+<code>or3</code> and <code>add3</code> instructions.  The <code>or3</code> instruction
 treats its 16-bit immediate argument as unsigned whereas the
-<code class="code">add3</code> treats its 16-bit immediate as a signed value.  So for
+<code>add3</code> treats its 16-bit immediate as a signed value.  So for
 example:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">   seth  r0, #shigh(0x00008000)
+<div class="example">
+<pre class="example">   seth  r0, #shigh(0x00008000)
    add3  r0, r0, #low(0x00008000)
 </pre></div>
 
 <p>Produces the correct result in r0, whereas:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">   seth  r0, #shigh(0x00008000)
+<div class="example">
+<pre class="example">   seth  r0, #shigh(0x00008000)
    or3   r0, r0, #low(0x00008000)
 </pre></div>
 
 <p>Stores 0xffff8000 into r0.
 </p>
-<p>Note - the <code class="code">shigh</code> directive does not know where in the assembly
+<p>Note - the <code>shigh</code> directive does not know where in the assembly
 source code the lower 16-bits of the value are going set, so it cannot
-check to make sure that an <code class="code">or3</code> instruction is being used rather
-than an <code class="code">add3</code> instruction.  It is up to the programmer to make
+check to make sure that an <code>or3</code> instruction is being used rather
+than an <code>add3</code> instruction.  It is up to the programmer to make
 sure that correct directives are used.
 </p>
+<span id="index-_002em32r-directive_002c-M32R"></span>
 </dd>
-<dt><a id="index-_002em32r-directive_002c-M32R"></a><span><code class="code">.m32r</code><a class="copiable-link" href="#index-_002em32r-directive_002c-M32R"> &para;</a></span></dt>
-<dd><p>The directive performs a similar thing as the <em class="emph">-m32r</em> command
+<dt><span><code>.m32r</code></span></dt>
+<dd><p>The directive performs a similar thing as the <em>-m32r</em> command
 line option.  It tells the assembler to only accept M32R instructions
 from now on.  An instructions from later M32R architectures are
 refused.
 </p>
+<span id="index-_002em32rx-directive_002c-M32RX"></span>
 </dd>
-<dt><a id="index-_002em32rx-directive_002c-M32RX"></a><span><code class="code">.m32rx</code><a class="copiable-link" href="#index-_002em32rx-directive_002c-M32RX"> &para;</a></span></dt>
-<dd><p>The directive performs a similar thing as the <em class="emph">-m32rx</em> command
+<dt><span><code>.m32rx</code></span></dt>
+<dd><p>The directive performs a similar thing as the <em>-m32rx</em> command
 line option.  It tells the assembler to start accepting the extra
 instructions in the M32RX ISA as well as the ordinary M32R ISA.
 </p>
+<span id="index-_002em32r2-directive_002c-M32R2"></span>
 </dd>
-<dt><a id="index-_002em32r2-directive_002c-M32R2"></a><span><code class="code">.m32r2</code><a class="copiable-link" href="#index-_002em32r2-directive_002c-M32R2"> &para;</a></span></dt>
-<dd><p>The directive performs a similar thing as the <em class="emph">-m32r2</em> command
+<dt><span><code>.m32r2</code></span></dt>
+<dd><p>The directive performs a similar thing as the <em>-m32r2</em> command
 line option.  It tells the assembler to start accepting the extra
 instructions in the M32R2 ISA as well as the ordinary M32R ISA.
 </p>
+<span id="index-_002elittle-directive_002c-M32RX"></span>
 </dd>
-<dt><a id="index-_002elittle-directive_002c-M32RX"></a><span><code class="code">.little</code><a class="copiable-link" href="#index-_002elittle-directive_002c-M32RX"> &para;</a></span></dt>
-<dd><p>The directive performs a similar thing as the <em class="emph">-little</em> command
+<dt><span><code>.little</code></span></dt>
+<dd><p>The directive performs a similar thing as the <em>-little</em> command
 line option.  It tells the assembler to start producing little-endian
 code and data.  This option should be used with care as producing
 mixed-endian binary files is fraught with danger.
 </p>
+<span id="index-_002ebig-directive_002c-M32RX"></span>
 </dd>
-<dt><a id="index-_002ebig-directive_002c-M32RX"></a><span><code class="code">.big</code><a class="copiable-link" href="#index-_002ebig-directive_002c-M32RX"> &para;</a></span></dt>
-<dd><p>The directive performs a similar thing as the <em class="emph">-big</em> command
+<dt><span><code>.big</code></span></dt>
+<dd><p>The directive performs a similar thing as the <em>-big</em> command
 line option.  It tells the assembler to start producing big-endian
 code and data.  This option should be used with care as producing
 mixed-endian binary files is fraught with danger.
@@ -163,7 +183,7 @@ mixed-endian binary files is fraught with danger.
 
 </div>
 <hr>
-<div class="nav-panel">
+<div class="header">
 <p>
 Next: <a href="M32R_002dWarnings.html">M32R Warnings</a>, Previous: <a href="M32R_002dOpts.html">M32R Options</a>, Up: <a href="M32R_002dDependent.html">M32R Dependent Features</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

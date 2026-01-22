@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright © 1988-2024 Free Software Foundation, Inc.
+<!-- Copyright (C) 1988-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -26,7 +26,7 @@ the license, review the license.txt in the top-level directory for the
 library on https://github.com/ROCm/ (Github.com)).  The additional terms
 and conditions below apply to your use of AMD ROCm technical documentation.
 
-©2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
+(C)2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
 
 The information presented in this document is for informational purposes only
 and may contain technical inaccuracies, omissions, and typographical errors.
@@ -52,8 +52,8 @@ EVEN IF AMD IS EXPRESSLY ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
 
 AMD, the AMD Arrow logo, AMD Instinct™, Radeon™, AMD ROCm™, and combinations
 thereof are trademarks of Advanced Micro Devices, Inc.
-Linux® is the registered trademark of Linus Torvalds in the
-U.S. and other countries. PCIe® is a registered trademark of
+Linux(R) is the registered trademark of Linus Torvalds in the
+U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
@@ -74,9 +74,21 @@ companies. -->
 <link href="Auto_002dloading.html" rel="prev" title="Auto-loading">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
 div.example {margin-left: 3.2em}
-span:hover a.copiable-link {visibility: visible}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -84,64 +96,71 @@ span:hover a.copiable-link {visibility: visible}
 </head>
 
 <body lang="en">
-<div class="section-level-extent" id="Messages_002fWarnings">
-<div class="nav-panel">
+<div class="section" id="Messages_002fWarnings">
+<div class="header">
 <p>
-Next: <a href="Debugging-Output.html" accesskey="n" rel="next">Optional Messages about Internal Happenings</a>, Previous: <a href="Auto_002dloading.html" accesskey="p" rel="prev">Automatically loading associated files</a>, Up: <a href="Controlling-GDB.html" accesskey="u" rel="up">Controlling <small class="sc">ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Debugging-Output.html" accesskey="n" rel="next">Optional Messages about Internal Happenings</a>, Previous: <a href="Auto_002dloading.html" accesskey="p" rel="prev">Automatically loading associated files</a>, Up: <a href="Controlling-GDB.html" accesskey="u" rel="up">Controlling <small>ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h3 class="section" id="Optional-Warnings-and-Messages"><span>23.9 Optional Warnings and Messages<a class="copiable-link" href="#Optional-Warnings-and-Messages"> &para;</a></span></h3>
+<span id="Optional-Warnings-and-Messages"></span><h3 class="section">23.9 Optional Warnings and Messages</h3>
 
-<a class="index-entry-id" id="index-verbose-operation"></a>
-<a class="index-entry-id" id="index-optional-warnings"></a>
-<p>By default, <small class="sc">ROCGDB</small> is silent about its inner workings.  If you are
-running on a slow machine, you may want to use the <code class="code">set verbose</code>
-command.  This makes <small class="sc">ROCGDB</small> tell you when it does a lengthy
+<span id="index-verbose-operation"></span>
+<span id="index-optional-warnings"></span>
+<p>By default, <small>ROCGDB</small> is silent about its inner workings.  If you are
+running on a slow machine, you may want to use the <code>set verbose</code>
+command.  This makes <small>ROCGDB</small> tell you when it does a lengthy
 internal operation, so you will not think it has crashed.
 </p>
-<p>Currently, the messages controlled by <code class="code">set verbose</code> are those
+<p>Currently, the messages controlled by <code>set verbose</code> are those
 which announce that the symbol table for a source file is being read;
-see <code class="code">symbol-file</code> in <a class="ref" href="Files.html">Commands to Specify Files</a>.
+see <code>symbol-file</code> in <a href="Files.html">Commands to Specify Files</a>.
 </p>
-<dl class="table">
-<dt><a id="index-set-verbose"></a><span><code class="code">set verbose on</code><a class="copiable-link" href="#index-set-verbose"> &para;</a></span></dt>
-<dd><p>Enables <small class="sc">ROCGDB</small> output of certain informational messages.
+<dl compact="compact">
+<dd><span id="index-set-verbose"></span>
+</dd>
+<dt><span><code>set verbose on</code></span></dt>
+<dd><p>Enables <small>ROCGDB</small> output of certain informational messages.
 </p>
 </dd>
-<dt><code class="code">set verbose off</code></dt>
-<dd><p>Disables <small class="sc">ROCGDB</small> output of certain informational messages.
+<dt><span><code>set verbose off</code></span></dt>
+<dd><p>Disables <small>ROCGDB</small> output of certain informational messages.
 </p>
+<span id="index-show-verbose"></span>
 </dd>
-<dt><a id="index-show-verbose"></a><span><code class="code">show verbose</code><a class="copiable-link" href="#index-show-verbose"> &para;</a></span></dt>
-<dd><p>Displays whether <code class="code">set verbose</code> is on or off.
+<dt><span><code>show verbose</code></span></dt>
+<dd><p>Displays whether <code>set verbose</code> is on or off.
 </p></dd>
 </dl>
 
-<p>By default, if <small class="sc">ROCGDB</small> encounters bugs in the symbol table of an
+<p>By default, if <small>ROCGDB</small> encounters bugs in the symbol table of an
 object file, it is silent; but if you are debugging a compiler, you may
-find this information useful (see <a class="pxref" href="Symbol-Errors.html">Errors Reading
+find this information useful (see <a href="Symbol-Errors.html">Errors Reading
 Symbol Files</a>).
 </p>
-<dl class="table">
-<dt><a id="index-set-complaints"></a><span><code class="code">set complaints <var class="var">limit</var></code><a class="copiable-link" href="#index-set-complaints"> &para;</a></span></dt>
-<dd><p>Permits <small class="sc">ROCGDB</small> to output <var class="var">limit</var> complaints about each type of
+<dl compact="compact">
+<dd>
+<span id="index-set-complaints"></span>
+</dd>
+<dt><span><code>set complaints <var>limit</var></code></span></dt>
+<dd><p>Permits <small>ROCGDB</small> to output <var>limit</var> complaints about each type of
 unusual symbols before becoming silent about the problem.  Set
-<var class="var">limit</var> to zero to suppress all complaints; set it to a large number
+<var>limit</var> to zero to suppress all complaints; set it to a large number
 to prevent complaints from being suppressed.
 </p>
+<span id="index-show-complaints"></span>
 </dd>
-<dt><a id="index-show-complaints"></a><span><code class="code">show complaints</code><a class="copiable-link" href="#index-show-complaints"> &para;</a></span></dt>
-<dd><p>Displays how many symbol complaints <small class="sc">ROCGDB</small> is permitted to produce.
+<dt><span><code>show complaints</code></span></dt>
+<dd><p>Displays how many symbol complaints <small>ROCGDB</small> is permitted to produce.
 </p>
 </dd>
 </dl>
 
-<a class="anchor" id="confirmation-requests"></a><p>By default, <small class="sc">ROCGDB</small> is cautious, and asks what sometimes seems to be a
+<span id="confirmation-requests"></span><p>By default, <small>ROCGDB</small> is cautious, and asks what sometimes seems to be a
 lot of stupid questions to confirm certain commands.  For example, if
 you try to run a program which is already running:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">(gdb) run
+<div class="example">
+<pre class="example">(gdb) run
 The program being debugged has been started already.
 Start it from the beginning? (y or n)
 </pre></div>
@@ -149,50 +168,56 @@ Start it from the beginning? (y or n)
 <p>If you are willing to unflinchingly face the consequences of your own
 commands, you can disable this &ldquo;feature&rdquo;:
 </p>
-<dl class="table">
-<dt><a class="index-entry-id" id="index-flinching"></a>
-<a class="index-entry-id" id="index-confirmation"></a>
-<a class="index-entry-id" id="index-stupid-questions"></a>
-<a id="index-set-confirm"></a><span><code class="code">set confirm off</code><a class="copiable-link" href="#index-set-confirm"> &para;</a></span></dt>
-<dd><p>Disables confirmation requests.  Note that running <small class="sc">ROCGDB</small> with
-the <samp class="option">--batch</samp> option (see <a class="pxref" href="Mode-Options.html">-batch</a>) also
+<dl compact="compact">
+<dd>
+<span id="index-set-confirm"></span>
+<span id="index-flinching"></span>
+<span id="index-confirmation"></span>
+<span id="index-stupid-questions"></span>
+</dd>
+<dt><span><code>set confirm off</code></span></dt>
+<dd><p>Disables confirmation requests.  Note that running <small>ROCGDB</small> with
+the <samp>--batch</samp> option (see <a href="Mode-Options.html">-batch</a>) also
 automatically disables confirmation requests.
 </p>
 </dd>
-<dt><code class="code">set confirm on</code></dt>
+<dt><span><code>set confirm on</code></span></dt>
 <dd><p>Enables confirmation requests (the default).
 </p>
+<span id="index-show-confirm"></span>
 </dd>
-<dt><a id="index-show-confirm"></a><span><code class="code">show confirm</code><a class="copiable-link" href="#index-show-confirm"> &para;</a></span></dt>
+<dt><span><code>show confirm</code></span></dt>
 <dd><p>Displays state of confirmation requests.
 </p>
 </dd>
 </dl>
 
-<a class="index-entry-id" id="index-command-tracing"></a>
+<span id="index-command-tracing"></span>
 <p>If you need to debug user-defined commands or sourced files you may find it
-useful to enable <em class="dfn">command tracing</em>.  In this mode each command will be
-printed as it is executed, prefixed with one or more &lsquo;<samp class="samp">+</samp>&rsquo; symbols, the
+useful to enable <em>command tracing</em>.  In this mode each command will be
+printed as it is executed, prefixed with one or more &lsquo;<samp>+</samp>&rsquo; symbols, the
 quantity denoting the call depth of each command.
 </p>
-<dl class="table">
-<dt><a class="index-entry-id" id="index-command-scripts_002c-debugging"></a>
-<a id="index-set-trace_002dcommands"></a><span><code class="code">set trace-commands on</code><a class="copiable-link" href="#index-set-trace_002dcommands"> &para;</a></span></dt>
+<dl compact="compact">
+<dd><span id="index-set-trace_002dcommands"></span>
+<span id="index-command-scripts_002c-debugging"></span>
+</dd>
+<dt><span><code>set trace-commands on</code></span></dt>
 <dd><p>Enable command tracing.
 </p></dd>
-<dt><code class="code">set trace-commands off</code></dt>
+<dt><span><code>set trace-commands off</code></span></dt>
 <dd><p>Disable command tracing.
 </p></dd>
-<dt><code class="code">show trace-commands</code></dt>
+<dt><span><code>show trace-commands</code></span></dt>
 <dd><p>Display the current state of command tracing.
 </p></dd>
 </dl>
 
 </div>
 <hr>
-<div class="nav-panel">
+<div class="header">
 <p>
-Next: <a href="Debugging-Output.html">Optional Messages about Internal Happenings</a>, Previous: <a href="Auto_002dloading.html">Automatically loading associated files</a>, Up: <a href="Controlling-GDB.html">Controlling <small class="sc">ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Debugging-Output.html">Optional Messages about Internal Happenings</a>, Previous: <a href="Auto_002dloading.html">Automatically loading associated files</a>, Up: <a href="Controlling-GDB.html">Controlling <small>ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

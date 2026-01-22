@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright © 2021-2024 Free Software Foundation, Inc.
+<!-- Copyright (C) 2021-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU General Public License, Version 3 or any
@@ -27,9 +27,21 @@ License".
 <link href="SFrame-Header.html" rel="next" title="SFrame Header">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
 div.example {margin-left: 3.2em}
-span:hover a.copiable-link {visibility: visible}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -37,20 +49,20 @@ span:hover a.copiable-link {visibility: visible}
 </head>
 
 <body lang="en">
-<div class="section-level-extent" id="SFrame-Preamble">
-<div class="nav-panel">
+<div class="section" id="SFrame-Preamble">
+<div class="header">
 <p>
 Next: <a href="SFrame-Header.html" accesskey="n" rel="next">SFrame Header</a>, Up: <a href="SFrame-Section.html" accesskey="u" rel="up">SFrame Section</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h3 class="section" id="SFrame-Preamble-1"><span>2.1 SFrame Preamble<a class="copiable-link" href="#SFrame-Preamble-1"> &para;</a></span></h3>
-<a class="index-entry-id" id="index-SFrame-preamble"></a>
+<span id="SFrame-Preamble-1"></span><h3 class="section">2.1 SFrame Preamble</h3>
+<span id="index-SFrame-preamble"></span>
 
 <p>The preamble is a 32-bit packed structure; the only part of the SFrame section
 whose format cannot vary between versions.
 </p>
 <div class="example">
-<pre class="example-preformatted">typedef struct sframe_preamble
+<pre class="example">typedef struct sframe_preamble
 {
   uint16_t sfp_magic;
   uint8_t sfp_version;
@@ -63,20 +75,19 @@ whose format cannot vary between versions.
 <p>All values are stored in the endianness of the target system for which the
 SFrame section is intended.  Further details:
 </p>
-<table class="multitable">
+<table>
 <thead><tr><th>Offset</th><th>Type</th><th>Name</th><th>Description</th></tr></thead>
-<tbody><tr><td>0x00</td><td><code class="code">uint16_t</code></td><td><code class="code">sfp_magic</code></td><td>The magic number for SFrame section: 0xdee2.  Defined as a macro <code class="code">SFRAME_MAGIC</code>.
-<a class="index-entry-id" id="index-SFRAME_005fMAGIC"></a></td></tr>
-<tr><td>0x02</td><td><code class="code">uint8_t</code></td><td><code class="code">sfp_version</code></td><td>The version number of this SFrame section.  See <a class="xref" href="SFrame-Version.html">SFrame Version</a>, for the
+<tr><td>0x00</td><td><code>uint16_t</code></td><td><code>sfp_magic</code></td><td>The magic number for SFrame section: 0xdee2.  Defined as a macro <code>SFRAME_MAGIC</code>.
+<span id="index-SFRAME_005fMAGIC"></span></td></tr>
+<tr><td>0x02</td><td><code>uint8_t</code></td><td><code>sfp_version</code></td><td>The version number of this SFrame section.  See <a href="SFrame-Version.html">SFrame Version</a>, for the
 set of valid values.  Current version is
-<code class="code">SFRAME_VERSION_2</code>.</td></tr>
-<tr><td>0x03</td><td><code class="code">uint8_t</code></td><td><code class="code">sfp_flags</code></td><td>Flags (section-wide) for this SFrame section.  See <a class="xref" href="SFrame-Flags.html">SFrame Flags</a>, for the
+<code>SFRAME_VERSION_2</code>.</td></tr>
+<tr><td>0x03</td><td><code>uint8_t</code></td><td><code>sfp_flags</code></td><td>Flags (section-wide) for this SFrame section.  See <a href="SFrame-Flags.html">SFrame Flags</a>, for the
 set of valid values.</td></tr>
-</tbody>
 </table>
 
 
-<ul class="mini-toc">
+<ul class="section-toc">
 <li><a href="SFrame-Magic-Number-and-Endianness.html" accesskey="1">SFrame Magic Number and Endianness</a></li>
 <li><a href="SFrame-Version.html" accesskey="2">SFrame Version</a></li>
 <li><a href="SFrame-Flags.html" accesskey="3">SFrame Flags</a></li>

@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the GNU Assembler "as".
 
-Copyright © 1991-2024 Free Software Foundation, Inc.
+Copyright (C) 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -31,10 +31,21 @@ section entitled "GNU Free Documentation License".
 <link href="RISC_002dV_002dFloating_002dPoint.html" rel="prev" title="RISC-V-Floating-Point">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
 div.display {margin-left: 3.2em}
-pre.display-preformatted {font-family: inherit}
-span:hover a.copiable-link {visibility: visible}
+div.example {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -42,152 +53,151 @@ span:hover a.copiable-link {visibility: visible}
 </head>
 
 <body lang="en">
-<div class="subsection-level-extent" id="RISC_002dV_002dFormats">
-<div class="nav-panel">
+<div class="section" id="RISC_002dV_002dFormats">
+<div class="header">
 <p>
 Next: <a href="RISC_002dV_002dATTRIBUTE.html" accesskey="n" rel="next">RISC-V Object Attribute</a>, Previous: <a href="RISC_002dV_002dFloating_002dPoint.html" accesskey="p" rel="prev">RISC-V Floating Point</a>, Up: <a href="RISC_002dV_002dDependent.html" accesskey="u" rel="up">RISC-V Dependent Features</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h4 class="subsection section-level-set-subsection" id="RISC_002dV-Instruction-Formats"><span>9.38.5 RISC-V Instruction Formats<a class="copiable-link" href="#RISC_002dV-Instruction-Formats"> &para;</a></span></h4>
-<a class="index-entry-id" id="index-instruction-formats_002c-risc_002dv"></a>
-<a class="index-entry-id" id="index-RISC_002dV-instruction-formats"></a>
+<span id="RISC_002dV-Instruction-Formats"></span><h4 class="subsection">9.38.5 RISC-V Instruction Formats</h4>
+<span id="index-instruction-formats_002c-risc_002dv"></span>
+<span id="index-RISC_002dV-instruction-formats"></span>
 
 <p>The RISC-V Instruction Set Manual Volume I: User-Level ISA lists 15
 instruction formats where some of the formats have multiple variants.
-For the &lsquo;<samp class="samp">.insn</samp>&rsquo; pseudo directive the assembler recognizes some
+For the &lsquo;<samp>.insn</samp>&rsquo; pseudo directive the assembler recognizes some
 of the formats.
 Typically, the most general variant of the instruction format is used
-by the &lsquo;<samp class="samp">.insn</samp>&rsquo; directive.
+by the &lsquo;<samp>.insn</samp>&rsquo; directive.
 </p>
 <p>The following table lists the abbreviations used in the table of
 instruction formats:
 </p>
 <div class="display">
-<table class="multitable">
-<tbody><tr><td width="15%"><pre class="display-preformatted">opcode7</pre></td><td width="40%"><pre class="display-preformatted">Unsigned immediate or opcode name for 7-bits opcode.</pre></td></tr>
-<tr><td width="15%"><pre class="display-preformatted">opcode2</pre></td><td width="40%"><pre class="display-preformatted">Unsigned immediate or opcode name for 2-bits opcode.</pre></td></tr>
-<tr><td width="15%"><pre class="display-preformatted">funct7</pre></td><td width="40%"><pre class="display-preformatted">Unsigned immediate for 7-bits function code.</pre></td></tr>
-<tr><td width="15%"><pre class="display-preformatted">funct6</pre></td><td width="40%"><pre class="display-preformatted">Unsigned immediate for 6-bits function code.</pre></td></tr>
-<tr><td width="15%"><pre class="display-preformatted">funct4</pre></td><td width="40%"><pre class="display-preformatted">Unsigned immediate for 4-bits function code.</pre></td></tr>
-<tr><td width="15%"><pre class="display-preformatted">funct3</pre></td><td width="40%"><pre class="display-preformatted">Unsigned immediate for 3-bits function code.</pre></td></tr>
-<tr><td width="15%"><pre class="display-preformatted">funct2</pre></td><td width="40%"><pre class="display-preformatted">Unsigned immediate for 2-bits function code.</pre></td></tr>
-<tr><td width="15%"><pre class="display-preformatted">rd</pre></td><td width="40%"><pre class="display-preformatted">Destination register number for operand x, can be GPR or FPR.</pre></td></tr>
-<tr><td width="15%"><pre class="display-preformatted">rd&rsquo;</pre></td><td width="40%"><pre class="display-preformatted">Destination register number for operand x,
+<table>
+<tr><td width="15%"><pre class="display">opcode7</pre></td><td width="40%"><pre class="display">Unsigned immediate or opcode name for 7-bits opcode.</pre></td></tr>
+<tr><td width="15%"><pre class="display">opcode2</pre></td><td width="40%"><pre class="display">Unsigned immediate or opcode name for 2-bits opcode.</pre></td></tr>
+<tr><td width="15%"><pre class="display">funct7</pre></td><td width="40%"><pre class="display">Unsigned immediate for 7-bits function code.</pre></td></tr>
+<tr><td width="15%"><pre class="display">funct6</pre></td><td width="40%"><pre class="display">Unsigned immediate for 6-bits function code.</pre></td></tr>
+<tr><td width="15%"><pre class="display">funct4</pre></td><td width="40%"><pre class="display">Unsigned immediate for 4-bits function code.</pre></td></tr>
+<tr><td width="15%"><pre class="display">funct3</pre></td><td width="40%"><pre class="display">Unsigned immediate for 3-bits function code.</pre></td></tr>
+<tr><td width="15%"><pre class="display">funct2</pre></td><td width="40%"><pre class="display">Unsigned immediate for 2-bits function code.</pre></td></tr>
+<tr><td width="15%"><pre class="display">rd</pre></td><td width="40%"><pre class="display">Destination register number for operand x, can be GPR or FPR.</pre></td></tr>
+<tr><td width="15%"><pre class="display">rd&rsquo;</pre></td><td width="40%"><pre class="display">Destination register number for operand x,
 only accept s0-s1, a0-a5, fs0-fs1 and fa0-fa5.</pre></td></tr>
-<tr><td width="15%"><pre class="display-preformatted">rs1</pre></td><td width="40%"><pre class="display-preformatted">First source register number for operand x, can be GPR or FPR.</pre></td></tr>
-<tr><td width="15%"><pre class="display-preformatted">rs1&rsquo;</pre></td><td width="40%"><pre class="display-preformatted">First source register number for operand x,
+<tr><td width="15%"><pre class="display">rs1</pre></td><td width="40%"><pre class="display">First source register number for operand x, can be GPR or FPR.</pre></td></tr>
+<tr><td width="15%"><pre class="display">rs1&rsquo;</pre></td><td width="40%"><pre class="display">First source register number for operand x,
 only accept s0-s1, a0-a5, fs0-fs1 and fa0-fa5.</pre></td></tr>
-<tr><td width="15%"><pre class="display-preformatted">rs2</pre></td><td width="40%"><pre class="display-preformatted">Second source register number for operand x, can be GPR or FPR.</pre></td></tr>
-<tr><td width="15%"><pre class="display-preformatted">rs2&rsquo;</pre></td><td width="40%"><pre class="display-preformatted">Second source register number for operand x,
+<tr><td width="15%"><pre class="display">rs2</pre></td><td width="40%"><pre class="display">Second source register number for operand x, can be GPR or FPR.</pre></td></tr>
+<tr><td width="15%"><pre class="display">rs2&rsquo;</pre></td><td width="40%"><pre class="display">Second source register number for operand x,
 only accept s0-s1, a0-a5, fs0-fs1 and fa0-fa5.</pre></td></tr>
-<tr><td width="15%"><pre class="display-preformatted">simm12</pre></td><td width="40%"><pre class="display-preformatted">Sign-extended 12-bit immediate for operand x.</pre></td></tr>
-<tr><td width="15%"><pre class="display-preformatted">simm20</pre></td><td width="40%"><pre class="display-preformatted">Sign-extended 20-bit immediate for operand x.</pre></td></tr>
-<tr><td width="15%"><pre class="display-preformatted">simm6</pre></td><td width="40%"><pre class="display-preformatted">Sign-extended 6-bit immediate for operand x.</pre></td></tr>
-<tr><td width="15%"><pre class="display-preformatted">uimm5</pre></td><td width="40%"><pre class="display-preformatted">Unsigned 5-bit immediate for operand x.</pre></td></tr>
-<tr><td width="15%"><pre class="display-preformatted">uimm6</pre></td><td width="40%"><pre class="display-preformatted">Unsigned 6-bit immediate for operand x.</pre></td></tr>
-<tr><td width="15%"><pre class="display-preformatted">uimm8</pre></td><td width="40%"><pre class="display-preformatted">Unsigned 8-bit immediate for operand x.</pre></td></tr>
-<tr><td width="15%"><pre class="display-preformatted">symbol</pre></td><td width="40%"><pre class="display-preformatted">Symbol or label reference for operand x.</pre></td></tr>
-</tbody>
+<tr><td width="15%"><pre class="display">simm12</pre></td><td width="40%"><pre class="display">Sign-extended 12-bit immediate for operand x.</pre></td></tr>
+<tr><td width="15%"><pre class="display">simm20</pre></td><td width="40%"><pre class="display">Sign-extended 20-bit immediate for operand x.</pre></td></tr>
+<tr><td width="15%"><pre class="display">simm6</pre></td><td width="40%"><pre class="display">Sign-extended 6-bit immediate for operand x.</pre></td></tr>
+<tr><td width="15%"><pre class="display">uimm5</pre></td><td width="40%"><pre class="display">Unsigned 5-bit immediate for operand x.</pre></td></tr>
+<tr><td width="15%"><pre class="display">uimm6</pre></td><td width="40%"><pre class="display">Unsigned 6-bit immediate for operand x.</pre></td></tr>
+<tr><td width="15%"><pre class="display">uimm8</pre></td><td width="40%"><pre class="display">Unsigned 8-bit immediate for operand x.</pre></td></tr>
+<tr><td width="15%"><pre class="display">symbol</pre></td><td width="40%"><pre class="display">Symbol or label reference for operand x.</pre></td></tr>
 </table>
 </div>
 
 <p>The following table lists all available opcode name:
 </p>
-<dl class="table">
-<dt><code class="code">C0</code></dt>
-<dt><code class="code">C1</code></dt>
-<dt><code class="code">C2</code></dt>
+<dl compact="compact">
+<dt><span><code>C0</code></span></dt>
+<dt><span><code>C1</code></span></dt>
+<dt><span><code>C2</code></span></dt>
 <dd><p>Opcode space for compressed instructions.
 </p>
 </dd>
-<dt><code class="code">LOAD</code></dt>
+<dt><span><code>LOAD</code></span></dt>
 <dd><p>Opcode space for load instructions.
 </p>
 </dd>
-<dt><code class="code">LOAD_FP</code></dt>
+<dt><span><code>LOAD_FP</code></span></dt>
 <dd><p>Opcode space for floating-point load instructions.
 </p>
 </dd>
-<dt><code class="code">STORE</code></dt>
+<dt><span><code>STORE</code></span></dt>
 <dd><p>Opcode space for store instructions.
 </p>
 </dd>
-<dt><code class="code">STORE_FP</code></dt>
+<dt><span><code>STORE_FP</code></span></dt>
 <dd><p>Opcode space for floating-point store instructions.
 </p>
 </dd>
-<dt><code class="code">AUIPC</code></dt>
+<dt><span><code>AUIPC</code></span></dt>
 <dd><p>Opcode space for auipc instruction.
 </p>
 </dd>
-<dt><code class="code">LUI</code></dt>
+<dt><span><code>LUI</code></span></dt>
 <dd><p>Opcode space for lui instruction.
 </p>
 </dd>
-<dt><code class="code">BRANCH</code></dt>
+<dt><span><code>BRANCH</code></span></dt>
 <dd><p>Opcode space for branch instructions.
 </p>
 </dd>
-<dt><code class="code">JAL</code></dt>
+<dt><span><code>JAL</code></span></dt>
 <dd><p>Opcode space for jal instruction.
 </p>
 </dd>
-<dt><code class="code">JALR</code></dt>
+<dt><span><code>JALR</code></span></dt>
 <dd><p>Opcode space for jalr instruction.
 </p>
 </dd>
-<dt><code class="code">OP</code></dt>
+<dt><span><code>OP</code></span></dt>
 <dd><p>Opcode space for ALU instructions.
 </p>
 </dd>
-<dt><code class="code">OP_32</code></dt>
+<dt><span><code>OP_32</code></span></dt>
 <dd><p>Opcode space for 32-bits ALU instructions.
 </p>
 </dd>
-<dt><code class="code">OP_IMM</code></dt>
+<dt><span><code>OP_IMM</code></span></dt>
 <dd><p>Opcode space for ALU with immediate instructions.
 </p>
 </dd>
-<dt><code class="code">OP_IMM_32</code></dt>
+<dt><span><code>OP_IMM_32</code></span></dt>
 <dd><p>Opcode space for 32-bits ALU with immediate instructions.
 </p>
 </dd>
-<dt><code class="code">OP_FP</code></dt>
+<dt><span><code>OP_FP</code></span></dt>
 <dd><p>Opcode space for floating-point operation instructions.
 </p>
 </dd>
-<dt><code class="code">MADD</code></dt>
+<dt><span><code>MADD</code></span></dt>
 <dd><p>Opcode space for madd instruction.
 </p>
 </dd>
-<dt><code class="code">MSUB</code></dt>
+<dt><span><code>MSUB</code></span></dt>
 <dd><p>Opcode space for msub instruction.
 </p>
 </dd>
-<dt><code class="code">NMADD</code></dt>
+<dt><span><code>NMADD</code></span></dt>
 <dd><p>Opcode space for nmadd instruction.
 </p>
 </dd>
-<dt><code class="code">NMSUB</code></dt>
+<dt><span><code>NMSUB</code></span></dt>
 <dd><p>Opcode space for msub instruction.
 </p>
 </dd>
-<dt><code class="code">AMO</code></dt>
+<dt><span><code>AMO</code></span></dt>
 <dd><p>Opcode space for atomic memory operation instructions.
 </p>
 </dd>
-<dt><code class="code">MISC_MEM</code></dt>
+<dt><span><code>MISC_MEM</code></span></dt>
 <dd><p>Opcode space for misc instructions.
 </p>
 </dd>
-<dt><code class="code">SYSTEM</code></dt>
+<dt><span><code>SYSTEM</code></span></dt>
 <dd><p>Opcode space for system instructions.
 </p>
 </dd>
-<dt><code class="code">CUSTOM_0</code></dt>
-<dt><code class="code">CUSTOM_1</code></dt>
-<dt><code class="code">CUSTOM_2</code></dt>
-<dt><code class="code">CUSTOM_3</code></dt>
+<dt><span><code>CUSTOM_0</code></span></dt>
+<dt><span><code>CUSTOM_1</code></span></dt>
+<dt><span><code>CUSTOM_2</code></span></dt>
+<dt><span><code>CUSTOM_3</code></span></dt>
 <dd><p>Opcode space for customize instructions.
 </p>
 </dd>
@@ -199,119 +209,119 @@ length of the instruction, 00, 01 and 10 indicates a two byte instruction,
 11 indicates a four byte instruction.
 </p>
 <p>The following table lists the RISC-V instruction formats that are available
-with the &lsquo;<samp class="samp">.insn</samp>&rsquo; pseudo directive:
+with the &lsquo;<samp>.insn</samp>&rsquo; pseudo directive:
 </p>
-<dl class="table">
-<dt><code class="code">R type: .insn r opcode7, funct3, funct7, rd, rs1, rs2</code></dt>
+<dl compact="compact">
+<dt><span><code>R type: .insn r opcode7, funct3, funct7, rd, rs1, rs2</code></span></dt>
 <dd><pre class="verbatim">+--------+-----+-----+--------+----+---------+
 | funct7 | rs2 | rs1 | funct3 | rd | opcode7 |
 +--------+-----+-----+--------+----+---------+
 31       25    20    15       12   7         0
 </pre>
 </dd>
-<dt><code class="code">R type with 4 register operands: .insn r opcode7, funct3, funct2, rd, rs1, rs2, rs3</code></dt>
-<dt><code class="code">R4 type: .insn r4 opcode7, funct3, funct2, rd, rs1, rs2, rs3</code></dt>
+<dt><span><code>R type with 4 register operands: .insn r opcode7, funct3, funct2, rd, rs1, rs2, rs3</code></span></dt>
+<dt><span><code>R4 type: .insn r4 opcode7, funct3, funct2, rd, rs1, rs2, rs3</code></span></dt>
 <dd><pre class="verbatim">+-----+--------+-----+-----+--------+----+---------+
 | rs3 | funct2 | rs2 | rs1 | funct3 | rd | opcode7 |
 +-----+--------+-----+-----+--------+----+---------+
 31    27       25    20    15       12   7         0
 </pre>
 </dd>
-<dt><code class="code">I type: .insn i opcode7, funct3, rd, rs1, simm12</code></dt>
-<dt><code class="code">I type: .insn i opcode7, funct3, rd, simm12(rs1)</code></dt>
+<dt><span><code>I type: .insn i opcode7, funct3, rd, rs1, simm12</code></span></dt>
+<dt><span><code>I type: .insn i opcode7, funct3, rd, simm12(rs1)</code></span></dt>
 <dd><pre class="verbatim">+--------------+-----+--------+----+---------+
 | simm12[11:0] | rs1 | funct3 | rd | opcode7 |
 +--------------+-----+--------+----+---------+
 31             20    15       12   7         0
 </pre>
 </dd>
-<dt><code class="code">S type: .insn s opcode7, funct3, rs2, simm12(rs1)</code></dt>
+<dt><span><code>S type: .insn s opcode7, funct3, rs2, simm12(rs1)</code></span></dt>
 <dd><pre class="verbatim">+--------------+-----+-----+--------+-------------+---------+
 | simm12[11:5] | rs2 | rs1 | funct3 | simm12[4:0] | opcode7 |
 +--------------+-----+-----+--------+-------------+---------+
 31             25    20    15       12            7         0
 </pre>
 </dd>
-<dt><code class="code">B type: .insn s opcode7, funct3, rs1, rs2, symbol</code></dt>
-<dt><code class="code">SB type: .insn sb opcode7, funct3, rs1, rs2, symbol</code></dt>
+<dt><span><code>B type: .insn s opcode7, funct3, rs1, rs2, symbol</code></span></dt>
+<dt><span><code>SB type: .insn sb opcode7, funct3, rs1, rs2, symbol</code></span></dt>
 <dd><pre class="verbatim">+-----------------+-----+-----+--------+----------------+---------+
 | simm12[12|10:5] | rs2 | rs1 | funct3 | simm12[4:1|11] | opcode7 |
 +-----------------+-----+-----+--------+----------------+---------+
 31                25    20    15       12               7         0
 </pre>
 </dd>
-<dt><code class="code">U type: .insn u opcode7, rd, simm20</code></dt>
+<dt><span><code>U type: .insn u opcode7, rd, simm20</code></span></dt>
 <dd><pre class="verbatim">+--------------+----+---------+
 | simm20[19:0] | rd | opcode7 |
 +--------------+----+---------+
 31             12   7         0
 </pre>
 </dd>
-<dt><code class="code">J type: .insn j opcode7, rd, symbol</code></dt>
-<dt><code class="code">UJ type: .insn uj opcode7, rd, symbol</code></dt>
+<dt><span><code>J type: .insn j opcode7, rd, symbol</code></span></dt>
+<dt><span><code>UJ type: .insn uj opcode7, rd, symbol</code></span></dt>
 <dd><pre class="verbatim">+------------+--------------+------------+---------------+----+---------+
 | simm20[20] | simm20[10:1] | simm20[11] | simm20[19:12] | rd | opcode7 |
 +------------+--------------+------------+---------------+----+---------+
 31           30             21           20              12   7         0
 </pre>
 </dd>
-<dt><code class="code">CR type: .insn cr opcode2, funct4, rd, rs2</code></dt>
+<dt><span><code>CR type: .insn cr opcode2, funct4, rd, rs2</code></span></dt>
 <dd><pre class="verbatim">+--------+--------+-----+---------+
 | funct4 | rd/rs1 | rs2 | opcode2 |
 +--------+--------+-----+---------+
 15       12       7     2        0
 </pre>
 </dd>
-<dt><code class="code">CI type: .insn ci opcode2, funct3, rd, simm6</code></dt>
+<dt><span><code>CI type: .insn ci opcode2, funct3, rd, simm6</code></span></dt>
 <dd><pre class="verbatim">+--------+----------+--------+------------+---------+
 | funct3 | simm6[5] | rd/rs1 | simm6[4:0] | opcode2 |
 +--------+----------+--------+------------+---------+
 15       13         12       7            2         0
 </pre>
 </dd>
-<dt><code class="code">CIW type: .insn ciw opcode2, funct3, rd', uimm8</code></dt>
+<dt><span><code>CIW type: .insn ciw opcode2, funct3, rd', uimm8</code></span></dt>
 <dd><pre class="verbatim">+--------+------------+-----+---------+
 | funct3 | uimm8[7:0] | rd' | opcode2 |
 +--------+-------- ---+-----+---------+
 15       13           5     2         0
 </pre>
 </dd>
-<dt><code class="code">CSS type: .insn css opcode2, funct3, rd, uimm6</code></dt>
+<dt><span><code>CSS type: .insn css opcode2, funct3, rd, uimm6</code></span></dt>
 <dd><pre class="verbatim">+--------+------------+----+---------+
 | funct3 | uimm6[5:0] | rd | opcode2 |
 +--------+------------+----+---------+
 15       13           7    2         0
 </pre>
 </dd>
-<dt><code class="code">CL type: .insn cl opcode2, funct3, rd', uimm5(rs1')</code></dt>
+<dt><span><code>CL type: .insn cl opcode2, funct3, rd', uimm5(rs1')</code></span></dt>
 <dd><pre class="verbatim">+--------+------------+------+------------+------+---------+
 | funct3 | uimm5[4:2] | rs1' | uimm5[1:0] |  rd' | opcode2 |
 +--------+------------+------+------------+------+---------+
 15       13           10     7            5      2         0
 </pre>
 </dd>
-<dt><code class="code">CS type: .insn cs opcode2, funct3, rs2', uimm5(rs1')</code></dt>
+<dt><span><code>CS type: .insn cs opcode2, funct3, rs2', uimm5(rs1')</code></span></dt>
 <dd><pre class="verbatim">+--------+------------+------+------------+------+---------+
 | funct3 | uimm5[4:2] | rs1' | uimm5[1:0] | rs2' | opcode2 |
 +--------+------------+------+------------+------+---------+
 15       13           10     7            5      2         0
 </pre>
 </dd>
-<dt><code class="code">CA type: .insn ca opcode2, funct6, funct2, rd', rs2'</code></dt>
+<dt><span><code>CA type: .insn ca opcode2, funct6, funct2, rd', rs2'</code></span></dt>
 <dd><pre class="verbatim">+--------+----------+--------+------+---------+
 | funct6 | rd'/rs1' | funct2 | rs2' | opcode2 |
 +--------+----------+--------+------+---------+
 15       10         7        5      2         0
 </pre>
 </dd>
-<dt><code class="code">CB type: .insn cb opcode2, funct3, rs1', symbol</code></dt>
+<dt><span><code>CB type: .insn cb opcode2, funct3, rs1', symbol</code></span></dt>
 <dd><pre class="verbatim">+--------+--------------+------+------------------+---------+
 | funct3 | simm8[8|4:3] | rs1' | simm8[7:6|2:1|5] | opcode2 |
 +--------+--------------+------+------------------+---------+
 15       13             10     7                  2         0
 </pre>
 </dd>
-<dt><code class="code">CJ type: .insn cj opcode2, funct3, symbol</code></dt>
+<dt><span><code>CJ type: .insn cj opcode2, funct3, symbol</code></span></dt>
 <dd><pre class="verbatim">+--------+-------------------------------+---------+
 | funct3 | simm11[11|4|9:8|10|6|7|3:1|5] | opcode2 |
 +--------+-------------------------------+---------+
@@ -326,7 +336,7 @@ The RISC-V Instruction Set Manual Volume I: User-Level ISA.
 </p>
 </div>
 <hr>
-<div class="nav-panel">
+<div class="header">
 <p>
 Next: <a href="RISC_002dV_002dATTRIBUTE.html">RISC-V Object Attribute</a>, Previous: <a href="RISC_002dV_002dFloating_002dPoint.html">RISC-V Floating Point</a>, Up: <a href="RISC_002dV_002dDependent.html">RISC-V Dependent Features</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

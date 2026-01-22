@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the GNU Assembler "as".
 
-Copyright © 1991-2024 Free Software Foundation, Inc.
+Copyright (C) 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -30,9 +30,21 @@ section entitled "GNU Free Documentation License".
 <link href="MSP430_002dRegs.html" rel="prev" title="MSP430-Regs">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
 div.example {margin-left: 3.2em}
-span:hover a.copiable-link {visibility: visible}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -40,27 +52,27 @@ span:hover a.copiable-link {visibility: visible}
 </head>
 
 <body lang="en">
-<div class="subsubsection-level-extent" id="MSP430_002dExt">
-<div class="nav-panel">
+<div class="subsection" id="MSP430_002dExt">
+<div class="header">
 <p>
 Previous: <a href="MSP430_002dRegs.html" accesskey="p" rel="prev">Register Names</a>, Up: <a href="MSP430-Syntax.html" accesskey="u" rel="up">Syntax</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h4 class="subsubsection subsection-level-set-subsubsection" id="Assembler-Extensions"><span>9.30.2.4 Assembler Extensions<a class="copiable-link" href="#Assembler-Extensions"> &para;</a></span></h4>
-<a class="index-entry-id" id="index-MSP430-Assembler-Extensions"></a>
+<span id="Assembler-Extensions"></span><h4 class="subsubsection">9.30.2.4 Assembler Extensions</h4>
+<span id="index-MSP430-Assembler-Extensions"></span>
 
-<dl class="table">
-<dt><code class="code">@rN</code></dt>
-<dd><p>As destination operand being treated as &lsquo;<samp class="samp">0(rn)</samp>&rsquo;
+<dl compact="compact">
+<dt><span><code>@rN</code></span></dt>
+<dd><p>As destination operand being treated as &lsquo;<samp>0(rn)</samp>&rsquo;
 </p>
 </dd>
-<dt><code class="code">0(rN)</code></dt>
-<dd><p>As source operand being treated as &lsquo;<samp class="samp">@rn</samp>&rsquo;
+<dt><span><code>0(rN)</code></span></dt>
+<dd><p>As source operand being treated as &lsquo;<samp>@rn</samp>&rsquo;
 </p>
 </dd>
-<dt><code class="code">jCOND +N</code></dt>
+<dt><span><code>jCOND +N</code></span></dt>
 <dd><p>Skips next N bytes followed by jump instruction and equivalent to
-&lsquo;<samp class="samp">jCOND $+N+2</samp>&rsquo;
+&lsquo;<samp>jCOND $+N+2</samp>&rsquo;
 </p>
 </dd>
 </dl>
@@ -69,66 +81,66 @@ Previous: <a href="MSP430_002dRegs.html" accesskey="p" rel="prev">Register Names
 These are branch instructions, which has different opcodes upon jump distance.
 They all got PC relative addressing mode.
 </p>
-<dl class="table">
-<dt><code class="code">beq label</code></dt>
-<dd><p>A polymorph instruction which is &lsquo;<samp class="samp">jeq label</samp>&rsquo; in case if jump distance
+<dl compact="compact">
+<dt><span><code>beq label</code></span></dt>
+<dd><p>A polymorph instruction which is &lsquo;<samp>jeq label</samp>&rsquo; in case if jump distance
 within allowed range for cpu&rsquo;s jump instruction. If not, this unrolls into
 a sequence of
-</p><div class="example smallexample">
-<pre class="example-preformatted">  jne $+6
+</p><div class="example">
+<pre class="example">  jne $+6
   br  label
 </pre></div>
 
 </dd>
-<dt><code class="code">bne label</code></dt>
-<dd><p>A polymorph instruction which is &lsquo;<samp class="samp">jne label</samp>&rsquo; or &lsquo;<samp class="samp">jeq +4; br label</samp>&rsquo;
+<dt><span><code>bne label</code></span></dt>
+<dd><p>A polymorph instruction which is &lsquo;<samp>jne label</samp>&rsquo; or &lsquo;<samp>jeq +4; br label</samp>&rsquo;
 </p>
 </dd>
-<dt><code class="code">blt label</code></dt>
-<dd><p>A polymorph instruction which is &lsquo;<samp class="samp">jl label</samp>&rsquo; or &lsquo;<samp class="samp">jge +4; br label</samp>&rsquo;
+<dt><span><code>blt label</code></span></dt>
+<dd><p>A polymorph instruction which is &lsquo;<samp>jl label</samp>&rsquo; or &lsquo;<samp>jge +4; br label</samp>&rsquo;
 </p>
 </dd>
-<dt><code class="code">bltn label</code></dt>
-<dd><p>A polymorph instruction which is &lsquo;<samp class="samp">jn label</samp>&rsquo; or &lsquo;<samp class="samp">jn +2; jmp +4; br label</samp>&rsquo;
+<dt><span><code>bltn label</code></span></dt>
+<dd><p>A polymorph instruction which is &lsquo;<samp>jn label</samp>&rsquo; or &lsquo;<samp>jn +2; jmp +4; br label</samp>&rsquo;
 </p>
 </dd>
-<dt><code class="code">bltu label</code></dt>
-<dd><p>A polymorph instruction which is &lsquo;<samp class="samp">jlo label</samp>&rsquo; or &lsquo;<samp class="samp">jhs +2; br label</samp>&rsquo;
+<dt><span><code>bltu label</code></span></dt>
+<dd><p>A polymorph instruction which is &lsquo;<samp>jlo label</samp>&rsquo; or &lsquo;<samp>jhs +2; br label</samp>&rsquo;
 </p>
 </dd>
-<dt><code class="code">bge label</code></dt>
-<dd><p>A polymorph instruction which is &lsquo;<samp class="samp">jge label</samp>&rsquo; or &lsquo;<samp class="samp">jl +4; br label</samp>&rsquo;
+<dt><span><code>bge label</code></span></dt>
+<dd><p>A polymorph instruction which is &lsquo;<samp>jge label</samp>&rsquo; or &lsquo;<samp>jl +4; br label</samp>&rsquo;
 </p>
 </dd>
-<dt><code class="code">bgeu label</code></dt>
-<dd><p>A polymorph instruction which is &lsquo;<samp class="samp">jhs label</samp>&rsquo; or &lsquo;<samp class="samp">jlo +4; br label</samp>&rsquo;
+<dt><span><code>bgeu label</code></span></dt>
+<dd><p>A polymorph instruction which is &lsquo;<samp>jhs label</samp>&rsquo; or &lsquo;<samp>jlo +4; br label</samp>&rsquo;
 </p>
 </dd>
-<dt><code class="code">bgt label</code></dt>
-<dd><p>A polymorph instruction which is &lsquo;<samp class="samp">jeq +2; jge label</samp>&rsquo; or &lsquo;<samp class="samp">jeq +6; jl  +4; br label</samp>&rsquo;
+<dt><span><code>bgt label</code></span></dt>
+<dd><p>A polymorph instruction which is &lsquo;<samp>jeq +2; jge label</samp>&rsquo; or &lsquo;<samp>jeq +6; jl  +4; br label</samp>&rsquo;
 </p>
 </dd>
-<dt><code class="code">bgtu label</code></dt>
-<dd><p>A polymorph instruction which is &lsquo;<samp class="samp">jeq +2; jhs label</samp>&rsquo; or &lsquo;<samp class="samp">jeq +6; jlo +4; br label</samp>&rsquo;
+<dt><span><code>bgtu label</code></span></dt>
+<dd><p>A polymorph instruction which is &lsquo;<samp>jeq +2; jhs label</samp>&rsquo; or &lsquo;<samp>jeq +6; jlo +4; br label</samp>&rsquo;
 </p>
 </dd>
-<dt><code class="code">bleu label</code></dt>
-<dd><p>A polymorph instruction which is &lsquo;<samp class="samp">jeq label; jlo label</samp>&rsquo; or &lsquo;<samp class="samp">jeq +2; jhs +4; br label</samp>&rsquo;
+<dt><span><code>bleu label</code></span></dt>
+<dd><p>A polymorph instruction which is &lsquo;<samp>jeq label; jlo label</samp>&rsquo; or &lsquo;<samp>jeq +2; jhs +4; br label</samp>&rsquo;
 </p>
 </dd>
-<dt><code class="code">ble label</code></dt>
-<dd><p>A polymorph instruction which is &lsquo;<samp class="samp">jeq label; jl  label</samp>&rsquo; or &lsquo;<samp class="samp">jeq +2; jge +4; br label</samp>&rsquo;
+<dt><span><code>ble label</code></span></dt>
+<dd><p>A polymorph instruction which is &lsquo;<samp>jeq label; jl  label</samp>&rsquo; or &lsquo;<samp>jeq +2; jge +4; br label</samp>&rsquo;
 </p>
 </dd>
-<dt><code class="code">jump label</code></dt>
-<dd><p>A polymorph instruction which is &lsquo;<samp class="samp">jmp label</samp>&rsquo; or &lsquo;<samp class="samp">br label</samp>&rsquo;
+<dt><span><code>jump label</code></span></dt>
+<dd><p>A polymorph instruction which is &lsquo;<samp>jmp label</samp>&rsquo; or &lsquo;<samp>br label</samp>&rsquo;
 </p></dd>
 </dl>
 
 
 </div>
 <hr>
-<div class="nav-panel">
+<div class="header">
 <p>
 Previous: <a href="MSP430_002dRegs.html">Register Names</a>, Up: <a href="MSP430-Syntax.html">Syntax</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

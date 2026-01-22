@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the BFD library.
 
-Copyright © 1991-2024 Free Software Foundation, Inc.
+Copyright (C) 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -40,9 +40,21 @@ You have freedom to copy and modify this GNU Manual, like GNU
 <link href="Write-the-Derived-Creation-Routine.html" rel="prev" title="Write the Derived Creation Routine">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
-span:hover a.copiable-link {visibility: visible}
-strong.def-name {font-family: monospace; font-weight: bold; font-size: larger}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -50,193 +62,193 @@ strong.def-name {font-family: monospace; font-weight: bold; font-size: larger}
 </head>
 
 <body lang="en">
-<div class="subsubsection-level-extent" id="Write-Other-Derived-Routines">
-<div class="nav-panel">
+<div class="subsubsection" id="Write-Other-Derived-Routines">
+<div class="header">
 <p>
 Previous: <a href="Write-the-Derived-Creation-Routine.html" accesskey="p" rel="prev">Write the derived creation routine</a>, Up: <a href="Deriving-a-New-Hash-Table-Type.html" accesskey="u" rel="up">Deriving a new hash table type</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="BFD-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h4 class="subsubsection" id="Write-other-derived-routines"><span>2.18.4.3 Write other derived routines<a class="copiable-link" href="#Write-other-derived-routines"> &para;</a></span></h4>
+<span id="Write-other-derived-routines"></span><h4 class="subsubsection">2.18.4.3 Write other derived routines</h4>
 <p>You will want to write other routines for your new hash table,
 as well.
 </p>
 <p>You will want an initialization routine which calls the
 initialization routine of the hash table you are deriving from
 and initializes any other local fields.  For the linker hash
-table, this is <code class="code">_bfd_link_hash_table_init</code> in <code class="code">linker.c</code>.
+table, this is <code>_bfd_link_hash_table_init</code> in <code>linker.c</code>.
 </p>
 <p>You will want a lookup routine which calls the lookup routine
 of the hash table you are deriving from and casts the result.
-The linker hash table uses <code class="code">bfd_link_hash_lookup</code> in
-<code class="code">linker.c</code> (this actually takes an additional argument which
+The linker hash table uses <code>bfd_link_hash_lookup</code> in
+<code>linker.c</code> (this actually takes an additional argument which
 it uses to decide how to return the looked up value).
 </p>
 <p>You may want a traversal routine.  This should just call the
 traversal routine of the hash table you are deriving from with
 appropriate casts.  The linker hash table uses
-<code class="code">bfd_link_hash_traverse</code> in <code class="code">linker.c</code>.
+<code>bfd_link_hash_traverse</code> in <code>linker.c</code>.
 </p>
 <p>These routines may simply be defined as macros.  For example,
 the a.out backend linker hash table, which is derived from the
 linker hash table, uses macros for the lookup and traversal
-routines.  These are <code class="code">aout_link_hash_lookup</code> and
-<code class="code">aout_link_hash_traverse</code> in aoutx.h.
+routines.  These are <code>aout_link_hash_lookup</code> and
+<code>aout_link_hash_traverse</code> in aoutx.h.
 </p>
-<a class="index-entry-id" id="index-bfd_005fhash_005ftable_005finit_005fn-1"></a>
+<span id="index-bfd_005fhash_005ftable_005finit_005fn-1"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fhash_005ftable_005finit_005fn">
-<h4 class="subsubsection"><span>2.18.4.4 <code class="code">bfd_hash_table_init_n</code><a class="copiable-link" href="#bfd_005fhash_005ftable_005finit_005fn"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-bfd_005fhash_005ftable_005finit_005fn-2"><span class="category-def">Function: </span><span><code class="def-type">bool</code> <strong class="def-name">bfd_hash_table_init_n</strong> <code class="def-code-arguments">(struct bfd_hash_table *, struct bfd_hash_entry *(* *newfunc*) (struct bfd_hash_entry *, struct bfd_hash_table *, const char *), unsigned int *entsize*, unsigned int *size*);</code><a class="copiable-link" href="#index-bfd_005fhash_005ftable_005finit_005fn-2"> &para;</a></span></dt>
+<div class="subsubsection" id="bfd_005fhash_005ftable_005finit_005fn">
+<h4 class="subsubsection">2.18.4.4 <code>bfd_hash_table_init_n</code></h4>
+<dl class="def">
+<dt id="index-bfd_005fhash_005ftable_005finit_005fn-2"><span class="category">Function: </span><span><em>bool</em> <strong>bfd_hash_table_init_n</strong> <em>(struct bfd_hash_table *, struct bfd_hash_entry *(* *newfunc*) (struct bfd_hash_entry *, struct bfd_hash_table *, const char *), unsigned int *entsize*, unsigned int *size*);</em><a href='#index-bfd_005fhash_005ftable_005finit_005fn-2' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Create a new hash table, given a number of entries.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005fhash_005ftable_005finit-1"></a>
+<span id="index-bfd_005fhash_005ftable_005finit-1"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fhash_005ftable_005finit">
-<h4 class="subsubsection"><span>2.18.4.5 <code class="code">bfd_hash_table_init</code><a class="copiable-link" href="#bfd_005fhash_005ftable_005finit"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-bfd_005fhash_005ftable_005finit-2"><span class="category-def">Function: </span><span><code class="def-type">bool</code> <strong class="def-name">bfd_hash_table_init</strong> <code class="def-code-arguments">(struct bfd_hash_table *, struct bfd_hash_entry *(* *newfunc*) (struct bfd_hash_entry *, struct bfd_hash_table *, const char *), unsigned int *entsize*);</code><a class="copiable-link" href="#index-bfd_005fhash_005ftable_005finit-2"> &para;</a></span></dt>
+<div class="subsubsection" id="bfd_005fhash_005ftable_005finit">
+<h4 class="subsubsection">2.18.4.5 <code>bfd_hash_table_init</code></h4>
+<dl class="def">
+<dt id="index-bfd_005fhash_005ftable_005finit-2"><span class="category">Function: </span><span><em>bool</em> <strong>bfd_hash_table_init</strong> <em>(struct bfd_hash_table *, struct bfd_hash_entry *(* *newfunc*) (struct bfd_hash_entry *, struct bfd_hash_table *, const char *), unsigned int *entsize*);</em><a href='#index-bfd_005fhash_005ftable_005finit-2' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Create a new hash table with the default number of entries.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005fhash_005ftable_005ffree-1"></a>
+<span id="index-bfd_005fhash_005ftable_005ffree-1"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fhash_005ftable_005ffree">
-<h4 class="subsubsection"><span>2.18.4.6 <code class="code">bfd_hash_table_free</code><a class="copiable-link" href="#bfd_005fhash_005ftable_005ffree"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-bfd_005fhash_005ftable_005ffree-2"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">bfd_hash_table_free</strong> <code class="def-code-arguments">(struct bfd_hash_table *);</code><a class="copiable-link" href="#index-bfd_005fhash_005ftable_005ffree-2"> &para;</a></span></dt>
+<div class="subsubsection" id="bfd_005fhash_005ftable_005ffree">
+<h4 class="subsubsection">2.18.4.6 <code>bfd_hash_table_free</code></h4>
+<dl class="def">
+<dt id="index-bfd_005fhash_005ftable_005ffree-2"><span class="category">Function: </span><span><em>void</em> <strong>bfd_hash_table_free</strong> <em>(struct bfd_hash_table *);</em><a href='#index-bfd_005fhash_005ftable_005ffree-2' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Free a hash table.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005fhash_005flookup-1"></a>
+<span id="index-bfd_005fhash_005flookup-1"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fhash_005flookup">
-<h4 class="subsubsection"><span>2.18.4.7 <code class="code">bfd_hash_lookup</code><a class="copiable-link" href="#bfd_005fhash_005flookup"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-bfd_005fhash_005fentry"><span class="category-def">Function: </span><span><code class="def-type">struct</code> <strong class="def-name">bfd_hash_entry</strong> <code class="def-code-arguments">*bfd_hash_lookup (struct bfd_hash_table *, const char *, bool *create*, bool *copy*);</code><a class="copiable-link" href="#index-bfd_005fhash_005fentry"> &para;</a></span></dt>
+<div class="subsubsection" id="bfd_005fhash_005flookup">
+<h4 class="subsubsection">2.18.4.7 <code>bfd_hash_lookup</code></h4>
+<dl class="def">
+<dt id="index-bfd_005fhash_005fentry"><span class="category">Function: </span><span><em>struct</em> <strong>bfd_hash_entry</strong> <em>*bfd_hash_lookup (struct bfd_hash_table *, const char *, bool *create*, bool *copy*);</em><a href='#index-bfd_005fhash_005fentry' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Look up a string in a hash table.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005fhash_005finsert"></a>
+<span id="index-bfd_005fhash_005finsert"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fhash_005finsert">
-<h4 class="subsubsection"><span>2.18.4.8 <code class="code">bfd_hash_insert</code><a class="copiable-link" href="#bfd_005fhash_005finsert"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-bfd_005fhash_005fentry-1"><span class="category-def">Function: </span><span><code class="def-type">struct</code> <strong class="def-name">bfd_hash_entry</strong> <code class="def-code-arguments">*bfd_hash_insert (struct bfd_hash_table *, const char *, unsigned long *hash*);</code><a class="copiable-link" href="#index-bfd_005fhash_005fentry-1"> &para;</a></span></dt>
+<div class="subsubsection" id="bfd_005fhash_005finsert">
+<h4 class="subsubsection">2.18.4.8 <code>bfd_hash_insert</code></h4>
+<dl class="def">
+<dt id="index-bfd_005fhash_005fentry-1"><span class="category">Function: </span><span><em>struct</em> <strong>bfd_hash_entry</strong> <em>*bfd_hash_insert (struct bfd_hash_table *, const char *, unsigned long *hash*);</em><a href='#index-bfd_005fhash_005fentry-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Insert an entry in a hash table.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005fhash_005frename"></a>
+<span id="index-bfd_005fhash_005frename"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fhash_005frename">
-<h4 class="subsubsection"><span>2.18.4.9 <code class="code">bfd_hash_rename</code><a class="copiable-link" href="#bfd_005fhash_005frename"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-bfd_005fhash_005frename-1"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">bfd_hash_rename</strong> <code class="def-code-arguments">(struct bfd_hash_table *, const char *, struct bfd_hash_entry *);</code><a class="copiable-link" href="#index-bfd_005fhash_005frename-1"> &para;</a></span></dt>
+<div class="subsubsection" id="bfd_005fhash_005frename">
+<h4 class="subsubsection">2.18.4.9 <code>bfd_hash_rename</code></h4>
+<dl class="def">
+<dt id="index-bfd_005fhash_005frename-1"><span class="category">Function: </span><span><em>void</em> <strong>bfd_hash_rename</strong> <em>(struct bfd_hash_table *, const char *, struct bfd_hash_entry *);</em><a href='#index-bfd_005fhash_005frename-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Rename an entry in a hash table.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005fhash_005freplace"></a>
+<span id="index-bfd_005fhash_005freplace"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fhash_005freplace">
-<h4 class="subsubsection"><span>2.18.4.10 <code class="code">bfd_hash_replace</code><a class="copiable-link" href="#bfd_005fhash_005freplace"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-bfd_005fhash_005freplace-1"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">bfd_hash_replace</strong> <code class="def-code-arguments">(struct bfd_hash_table *, struct bfd_hash_entry * *old*, struct bfd_hash_entry * *new*);</code><a class="copiable-link" href="#index-bfd_005fhash_005freplace-1"> &para;</a></span></dt>
+<div class="subsubsection" id="bfd_005fhash_005freplace">
+<h4 class="subsubsection">2.18.4.10 <code>bfd_hash_replace</code></h4>
+<dl class="def">
+<dt id="index-bfd_005fhash_005freplace-1"><span class="category">Function: </span><span><em>void</em> <strong>bfd_hash_replace</strong> <em>(struct bfd_hash_table *, struct bfd_hash_entry * *old*, struct bfd_hash_entry * *new*);</em><a href='#index-bfd_005fhash_005freplace-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Replace an entry in a hash table.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005fhash_005fallocate-1"></a>
+<span id="index-bfd_005fhash_005fallocate-1"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fhash_005fallocate">
-<h4 class="subsubsection"><span>2.18.4.11 <code class="code">bfd_hash_allocate</code><a class="copiable-link" href="#bfd_005fhash_005fallocate"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-_002abfd_005fhash_005fallocate"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">*bfd_hash_allocate</strong> <code class="def-code-arguments">(struct bfd_hash_table *, unsigned int *size*);</code><a class="copiable-link" href="#index-_002abfd_005fhash_005fallocate"> &para;</a></span></dt>
+<div class="subsubsection" id="bfd_005fhash_005fallocate">
+<h4 class="subsubsection">2.18.4.11 <code>bfd_hash_allocate</code></h4>
+<dl class="def">
+<dt id="index-_002abfd_005fhash_005fallocate"><span class="category">Function: </span><span><em>void</em> <strong>*bfd_hash_allocate</strong> <em>(struct bfd_hash_table *, unsigned int *size*);</em><a href='#index-_002abfd_005fhash_005fallocate' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Allocate space in a hash table.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005fhash_005fnewfunc-1"></a>
+<span id="index-bfd_005fhash_005fnewfunc-1"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fhash_005fnewfunc">
-<h4 class="subsubsection"><span>2.18.4.12 <code class="code">bfd_hash_newfunc</code><a class="copiable-link" href="#bfd_005fhash_005fnewfunc"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-bfd_005fhash_005fentry-2"><span class="category-def">Function: </span><span><code class="def-type">struct</code> <strong class="def-name">bfd_hash_entry</strong> <code class="def-code-arguments">*bfd_hash_newfunc (struct bfd_hash_entry *, struct bfd_hash_table *, const char *);</code><a class="copiable-link" href="#index-bfd_005fhash_005fentry-2"> &para;</a></span></dt>
+<div class="subsubsection" id="bfd_005fhash_005fnewfunc">
+<h4 class="subsubsection">2.18.4.12 <code>bfd_hash_newfunc</code></h4>
+<dl class="def">
+<dt id="index-bfd_005fhash_005fentry-2"><span class="category">Function: </span><span><em>struct</em> <strong>bfd_hash_entry</strong> <em>*bfd_hash_newfunc (struct bfd_hash_entry *, struct bfd_hash_table *, const char *);</em><a href='#index-bfd_005fhash_005fentry-2' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Base method for creating a new hash table entry.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005fhash_005ftraverse-1"></a>
+<span id="index-bfd_005fhash_005ftraverse-1"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fhash_005ftraverse">
-<h4 class="subsubsection"><span>2.18.4.13 <code class="code">bfd_hash_traverse</code><a class="copiable-link" href="#bfd_005fhash_005ftraverse"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-bfd_005fhash_005ftraverse-2"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">bfd_hash_traverse</strong> <code class="def-code-arguments">(struct bfd_hash_table *, bool (*) (struct bfd_hash_entry *, void *), void *);</code><a class="copiable-link" href="#index-bfd_005fhash_005ftraverse-2"> &para;</a></span></dt>
+<div class="subsubsection" id="bfd_005fhash_005ftraverse">
+<h4 class="subsubsection">2.18.4.13 <code>bfd_hash_traverse</code></h4>
+<dl class="def">
+<dt id="index-bfd_005fhash_005ftraverse-2"><span class="category">Function: </span><span><em>void</em> <strong>bfd_hash_traverse</strong> <em>(struct bfd_hash_table *, bool (*) (struct bfd_hash_entry *, void *), void *);</em><a href='#index-bfd_005fhash_005ftraverse-2' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Traverse a hash table.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005fhash_005fset_005fdefault_005fsize-1"></a>
+<span id="index-bfd_005fhash_005fset_005fdefault_005fsize-1"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fhash_005fset_005fdefault_005fsize">
-<h4 class="subsubsection"><span>2.18.4.14 <code class="code">bfd_hash_set_default_size</code><a class="copiable-link" href="#bfd_005fhash_005fset_005fdefault_005fsize"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-int-7"><span class="category-def">Function: </span><span><code class="def-type">unsigned</code> <strong class="def-name">int</strong> <code class="def-code-arguments">bfd_hash_set_default_size (unsigned int);</code><a class="copiable-link" href="#index-int-7"> &para;</a></span></dt>
+<div class="subsubsection" id="bfd_005fhash_005fset_005fdefault_005fsize">
+<h4 class="subsubsection">2.18.4.14 <code>bfd_hash_set_default_size</code></h4>
+<dl class="def">
+<dt id="index-int-7"><span class="category">Function: </span><span><em>unsigned</em> <strong>int</strong> <em>bfd_hash_set_default_size (unsigned int);</em><a href='#index-int-7' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Set hash table default size.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-_005fbfd_005fstringtab_005finit"></a>
+<span id="index-_005fbfd_005fstringtab_005finit"></span>
 </div>
-<div class="subsubsection-level-extent" id="g_t_005fbfd_005fstringtab_005finit">
-<h4 class="subsubsection"><span>2.18.4.15 <code class="code">_bfd_stringtab_init</code><a class="copiable-link" href="#g_t_005fbfd_005fstringtab_005finit"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-bfd_005fstrtab_005fhash"><span class="category-def">Function: </span><span><code class="def-type">struct</code> <strong class="def-name">bfd_strtab_hash</strong> <code class="def-code-arguments">*_bfd_stringtab_init (void);</code><a class="copiable-link" href="#index-bfd_005fstrtab_005fhash"> &para;</a></span></dt>
+<div class="subsubsection" id="g_t_005fbfd_005fstringtab_005finit">
+<h4 class="subsubsection">2.18.4.15 <code>_bfd_stringtab_init</code></h4>
+<dl class="def">
+<dt id="index-bfd_005fstrtab_005fhash"><span class="category">Function: </span><span><em>struct</em> <strong>bfd_strtab_hash</strong> <em>*_bfd_stringtab_init (void);</em><a href='#index-bfd_005fstrtab_005fhash' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Create a new strtab.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-_005fbfd_005fxcoff_005fstringtab_005finit"></a>
+<span id="index-_005fbfd_005fxcoff_005fstringtab_005finit"></span>
 </div>
-<div class="subsubsection-level-extent" id="g_t_005fbfd_005fxcoff_005fstringtab_005finit">
-<h4 class="subsubsection"><span>2.18.4.16 <code class="code">_bfd_xcoff_stringtab_init</code><a class="copiable-link" href="#g_t_005fbfd_005fxcoff_005fstringtab_005finit"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-bfd_005fstrtab_005fhash-1"><span class="category-def">Function: </span><span><code class="def-type">struct</code> <strong class="def-name">bfd_strtab_hash</strong> <code class="def-code-arguments">*_bfd_xcoff_stringtab_init (bool *isxcoff64*);</code><a class="copiable-link" href="#index-bfd_005fstrtab_005fhash-1"> &para;</a></span></dt>
+<div class="subsubsection" id="g_t_005fbfd_005fxcoff_005fstringtab_005finit">
+<h4 class="subsubsection">2.18.4.16 <code>_bfd_xcoff_stringtab_init</code></h4>
+<dl class="def">
+<dt id="index-bfd_005fstrtab_005fhash-1"><span class="category">Function: </span><span><em>struct</em> <strong>bfd_strtab_hash</strong> <em>*_bfd_xcoff_stringtab_init (bool *isxcoff64*);</em><a href='#index-bfd_005fstrtab_005fhash-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Create a new strtab in which the strings are output in the format
 used in the XCOFF .debug section: a two byte length precedes each
 string.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-_005fbfd_005fstringtab_005ffree"></a>
+<span id="index-_005fbfd_005fstringtab_005ffree"></span>
 </div>
-<div class="subsubsection-level-extent" id="g_t_005fbfd_005fstringtab_005ffree">
-<h4 class="subsubsection"><span>2.18.4.17 <code class="code">_bfd_stringtab_free</code><a class="copiable-link" href="#g_t_005fbfd_005fstringtab_005ffree"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-_005fbfd_005fstringtab_005ffree-1"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">_bfd_stringtab_free</strong> <code class="def-code-arguments">(struct bfd_strtab_hash *);</code><a class="copiable-link" href="#index-_005fbfd_005fstringtab_005ffree-1"> &para;</a></span></dt>
+<div class="subsubsection" id="g_t_005fbfd_005fstringtab_005ffree">
+<h4 class="subsubsection">2.18.4.17 <code>_bfd_stringtab_free</code></h4>
+<dl class="def">
+<dt id="index-_005fbfd_005fstringtab_005ffree-1"><span class="category">Function: </span><span><em>void</em> <strong>_bfd_stringtab_free</strong> <em>(struct bfd_strtab_hash *);</em><a href='#index-_005fbfd_005fstringtab_005ffree-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Free a strtab.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-_005fbfd_005fstringtab_005fadd"></a>
+<span id="index-_005fbfd_005fstringtab_005fadd"></span>
 </div>
-<div class="subsubsection-level-extent" id="g_t_005fbfd_005fstringtab_005fadd">
-<h4 class="subsubsection"><span>2.18.4.18 <code class="code">_bfd_stringtab_add</code><a class="copiable-link" href="#g_t_005fbfd_005fstringtab_005fadd"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-_005fbfd_005fstringtab_005fadd-1"><span class="category-def">Function: </span><span><code class="def-type">bfd_size_type</code> <strong class="def-name">_bfd_stringtab_add</strong> <code class="def-code-arguments">(struct bfd_strtab_hash *, const char *, bool *hash*, bool *copy*);</code><a class="copiable-link" href="#index-_005fbfd_005fstringtab_005fadd-1"> &para;</a></span></dt>
+<div class="subsubsection" id="g_t_005fbfd_005fstringtab_005fadd">
+<h4 class="subsubsection">2.18.4.18 <code>_bfd_stringtab_add</code></h4>
+<dl class="def">
+<dt id="index-_005fbfd_005fstringtab_005fadd-1"><span class="category">Function: </span><span><em>bfd_size_type</em> <strong>_bfd_stringtab_add</strong> <em>(struct bfd_strtab_hash *, const char *, bool *hash*, bool *copy*);</em><a href='#index-_005fbfd_005fstringtab_005fadd-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Get the index of a string in a strtab, adding it if it is not
 already present.  If HASH is FALSE, we don&rsquo;t really use the hash
 table, and we don&rsquo;t eliminate duplicate strings.  If COPY is true
 then store a copy of STR if creating a new entry.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-_005fbfd_005fstringtab_005fsize"></a>
+<span id="index-_005fbfd_005fstringtab_005fsize"></span>
 </div>
-<div class="subsubsection-level-extent" id="g_t_005fbfd_005fstringtab_005fsize">
-<h4 class="subsubsection"><span>2.18.4.19 <code class="code">_bfd_stringtab_size</code><a class="copiable-link" href="#g_t_005fbfd_005fstringtab_005fsize"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-_005fbfd_005fstringtab_005fsize-1"><span class="category-def">Function: </span><span><code class="def-type">bfd_size_type</code> <strong class="def-name">_bfd_stringtab_size</strong> <code class="def-code-arguments">(struct bfd_strtab_hash *);</code><a class="copiable-link" href="#index-_005fbfd_005fstringtab_005fsize-1"> &para;</a></span></dt>
+<div class="subsubsection" id="g_t_005fbfd_005fstringtab_005fsize">
+<h4 class="subsubsection">2.18.4.19 <code>_bfd_stringtab_size</code></h4>
+<dl class="def">
+<dt id="index-_005fbfd_005fstringtab_005fsize-1"><span class="category">Function: </span><span><em>bfd_size_type</em> <strong>_bfd_stringtab_size</strong> <em>(struct bfd_strtab_hash *);</em><a href='#index-_005fbfd_005fstringtab_005fsize-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Get the number of bytes in a strtab.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-_005fbfd_005fstringtab_005femit"></a>
+<span id="index-_005fbfd_005fstringtab_005femit"></span>
 </div>
-<div class="subsubsection-level-extent" id="g_t_005fbfd_005fstringtab_005femit">
-<h4 class="subsubsection"><span>2.18.4.20 <code class="code">_bfd_stringtab_emit</code><a class="copiable-link" href="#g_t_005fbfd_005fstringtab_005femit"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-_005fbfd_005fstringtab_005femit-1"><span class="category-def">Function: </span><span><code class="def-type">bool</code> <strong class="def-name">_bfd_stringtab_emit</strong> <code class="def-code-arguments">(bfd *, struct bfd_strtab_hash *);</code><a class="copiable-link" href="#index-_005fbfd_005fstringtab_005femit-1"> &para;</a></span></dt>
+<div class="subsubsection" id="g_t_005fbfd_005fstringtab_005femit">
+<h4 class="subsubsection">2.18.4.20 <code>_bfd_stringtab_emit</code></h4>
+<dl class="def">
+<dt id="index-_005fbfd_005fstringtab_005femit-1"><span class="category">Function: </span><span><em>bool</em> <strong>_bfd_stringtab_emit</strong> <em>(bfd *, struct bfd_strtab_hash *);</em><a href='#index-_005fbfd_005fstringtab_005femit-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Write out a strtab.  ABFD must already be at the right location in
 the file.
 </p>
@@ -244,7 +256,7 @@ the file.
 
 </div>
 <hr>
-<div class="nav-panel">
+<div class="header">
 <p>
 Previous: <a href="Write-the-Derived-Creation-Routine.html">Write the derived creation routine</a>, Up: <a href="Deriving-a-New-Hash-Table-Type.html">Deriving a new hash table type</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="BFD-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

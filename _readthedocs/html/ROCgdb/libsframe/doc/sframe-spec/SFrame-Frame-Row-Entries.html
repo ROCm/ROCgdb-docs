@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright © 2021-2024 Free Software Foundation, Inc.
+<!-- Copyright (C) 2021-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU General Public License, Version 3 or any
@@ -27,10 +27,21 @@ License".
 <link href="SFrame-Function-Descriptor-Entries.html" rel="prev" title="SFrame Function Descriptor Entries">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
 div.example {margin-left: 3.2em}
-span:hover a.copiable-link {visibility: visible}
-ul.mark-minus {list-style-type: "\2212"}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -38,14 +49,14 @@ ul.mark-minus {list-style-type: "\2212"}
 </head>
 
 <body lang="en">
-<div class="section-level-extent" id="SFrame-Frame-Row-Entries">
-<div class="nav-panel">
+<div class="section" id="SFrame-Frame-Row-Entries">
+<div class="header">
 <p>
 Previous: <a href="SFrame-Function-Descriptor-Entries.html" accesskey="p" rel="prev">SFrame FDE</a>, Up: <a href="SFrame-Section.html" accesskey="u" rel="up">SFrame Section</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h3 class="section" id="SFrame-FRE"><span>2.4 SFrame FRE<a class="copiable-link" href="#SFrame-FRE"> &para;</a></span></h3>
-<a class="index-entry-id" id="index-SFrame-FRE"></a>
+<span id="SFrame-FRE"></span><h3 class="section">2.4 SFrame FRE</h3>
+<span id="index-SFrame-FRE"></span>
 
 <p>The SFrame frame row entry sub-section contains the core of the stack trace
 information.  An SFrame frame row entry (FRE) is a self-sufficient record
@@ -57,20 +68,20 @@ function.
 applicable) for the respective instruction addresses.  To encode this
 information, each SFrame FRE is followed by S*N bytes, where:
 </p>
-<ul class="itemize mark-minus">
-<li><code class="code">S</code> is the size of a stack offset for the FRE, and
-</li><li><code class="code">N</code> is the number of stack offsets in the FRE
+<ul class="no-bullet">
+<li>- <code>S</code> is the size of a stack offset for the FRE, and
+</li><li>- <code>N</code> is the number of stack offsets in the FRE
 </li></ul>
 
-<p>The entities <code class="code">S</code>, <code class="code">N</code> are encoded in the SFrame FRE info word, via
-the <code class="code">fre_offset_size</code> and the <code class="code">fre_offset_count</code> respectively.  More
-information about the precise encoding and range of values for <code class="code">S</code> and
-<code class="code">N</code> is provided later in the See <a class="xref" href="The-SFrame-FRE-Info-Word.html">The SFrame FRE Info Word</a>.
+<p>The entities <code>S</code>, <code>N</code> are encoded in the SFrame FRE info word, via
+the <code>fre_offset_size</code> and the <code>fre_offset_count</code> respectively.  More
+information about the precise encoding and range of values for <code>S</code> and
+<code>N</code> is provided later in the See <a href="The-SFrame-FRE-Info-Word.html">The SFrame FRE Info Word</a>.
 </p>
-<a class="index-entry-id" id="index-Provisions-for-future-ABIs-2"></a>
+<span id="index-Provisions-for-future-ABIs-2"></span>
 <p>It is important to underline here that although the canonical interpretation
 of these bytes is as stack offsets (to recover CFA, FP and RA), these bytes
-<em class="emph">may</em> be used by future ABIs/architectures to convey other information on
+<em>may</em> be used by future ABIs/architectures to convey other information on
 a per SFrame FRE basis.
 </p>
 <p>In summary, SFrame file format, by design, supports a variable number of stack
@@ -79,12 +90,12 @@ format specification flexible yet extensible, the interpretation of the stack
 offsets is ABI/arch-specific.  The precise interpretation of the FRE stack
 offsets in the currently supported ABIs/architectures is covered in the
 ABI/arch-specific definition of the SFrame file format,
-See <a class="xref" href="ABI_002farch_002dspecific-Definition.html">ABI/arch-specific Definition</a>.
+See <a href="ABI_002farch_002dspecific-Definition.html">ABI/arch-specific Definition</a>.
 </p>
 <p>Next, the definitions of the three SFrame FRE types are as follows:
 </p>
 <div class="example">
-<pre class="example-preformatted">typedef struct sframe_frame_row_entry_addr1
+<pre class="example">typedef struct sframe_frame_row_entry_addr1
 {
   uint8_t sfre_start_address;
   sframe_fre_info sfre_info;
@@ -92,7 +103,7 @@ See <a class="xref" href="ABI_002farch_002dspecific-Definition.html">ABI/arch-sp
 </pre></div>
 
 <div class="example">
-<pre class="example-preformatted">typedef struct sframe_frame_row_entry_addr2
+<pre class="example">typedef struct sframe_frame_row_entry_addr2
 {
   uint16_t sfre_start_address;
   sframe_fre_info sfre_info;
@@ -100,7 +111,7 @@ See <a class="xref" href="ABI_002farch_002dspecific-Definition.html">ABI/arch-sp
 </pre></div>
 
 <div class="example">
-<pre class="example-preformatted">typedef struct sframe_frame_row_entry_addr4
+<pre class="example">typedef struct sframe_frame_row_entry_addr4
 {
   uint32_t sfre_start_address;
   sframe_fre_info sfre_info;
@@ -112,22 +123,22 @@ disk.  Appropriate mechanisms need to be employed, as necessary, by the
 serializing and deserializing entities, if unaligned accesses need to be
 avoided.
 </p>
-<p><code class="code">sfre_start_address</code> is an unsigned 8-bit/16-bit/32-bit integral field
+<p><code>sfre_start_address</code> is an unsigned 8-bit/16-bit/32-bit integral field
 identifies the start address of the range of program counters, for which the
-SFrame FRE applies.  The value encoded in the <code class="code">sfre_start_address</code> field
+SFrame FRE applies.  The value encoded in the <code>sfre_start_address</code> field
 is the offset in bytes of the start address of the SFrame FRE, from the start
 address of the function.
 </p>
 <p>Further SFrame FRE types may be added in future.
 </p>
 
-<a class="index-entry-id" id="index-The-SFrame-FRE-Info-Word"></a>
-<ul class="mini-toc">
+<span id="index-The-SFrame-FRE-Info-Word"></span>
+<ul class="section-toc">
 <li><a href="The-SFrame-FRE-Info-Word.html" accesskey="1">The SFrame FRE Info Word</a></li>
 </ul>
 </div>
 <hr>
-<div class="nav-panel">
+<div class="header">
 <p>
 Previous: <a href="SFrame-Function-Descriptor-Entries.html">SFrame FDE</a>, Up: <a href="SFrame-Section.html">SFrame Section</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

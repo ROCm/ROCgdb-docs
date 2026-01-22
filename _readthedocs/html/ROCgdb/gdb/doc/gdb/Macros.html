@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright © 1988-2024 Free Software Foundation, Inc.
+<!-- Copyright (C) 1988-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -26,7 +26,7 @@ the license, review the license.txt in the top-level directory for the
 library on https://github.com/ROCm/ (Github.com)).  The additional terms
 and conditions below apply to your use of AMD ROCm technical documentation.
 
-©2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
+(C)2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
 
 The information presented in this document is for informational purposes only
 and may contain technical inaccuracies, omissions, and typographical errors.
@@ -52,8 +52,8 @@ EVEN IF AMD IS EXPRESSLY ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
 
 AMD, the AMD Arrow logo, AMD Instinct™, Radeon™, AMD ROCm™, and combinations
 thereof are trademarks of Advanced Micro Devices, Inc.
-Linux® is the registered trademark of Linus Torvalds in the
-U.S. and other countries. PCIe® is a registered trademark of
+Linux(R) is the registered trademark of Linus Torvalds in the
+U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
@@ -74,9 +74,21 @@ companies. -->
 <link href="Optimized-Code.html" rel="prev" title="Optimized Code">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
 div.example {margin-left: 3.2em}
-span:hover a.copiable-link {visibility: visible}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -84,117 +96,125 @@ span:hover a.copiable-link {visibility: visible}
 </head>
 
 <body lang="en">
-<div class="chapter-level-extent" id="Macros">
-<div class="nav-panel">
+<div class="chapter" id="Macros">
+<div class="header">
 <p>
-Next: <a href="Tracepoints.html" accesskey="n" rel="next">Tracepoints</a>, Previous: <a href="Optimized-Code.html" accesskey="p" rel="prev">Debugging Optimized Code</a>, Up: <a href="index.html" accesskey="u" rel="up">Debugging with <small class="sc">ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Tracepoints.html" accesskey="n" rel="next">Tracepoints</a>, Previous: <a href="Optimized-Code.html" accesskey="p" rel="prev">Debugging Optimized Code</a>, Up: <a href="index.html" accesskey="u" rel="up">Debugging with <small>ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h2 class="chapter" id="C-Preprocessor-Macros"><span>12 C Preprocessor Macros<a class="copiable-link" href="#C-Preprocessor-Macros"> &para;</a></span></h2>
+<span id="C-Preprocessor-Macros"></span><h2 class="chapter">12 C Preprocessor Macros</h2>
 
-<p>Some languages, such as C and C<code class="t">++</code>, provide a way to define and invoke
+<p>Some languages, such as C and C<tt>++</tt>, provide a way to define and invoke
 &ldquo;preprocessor macros&rdquo; which expand into strings of tokens.
-<small class="sc">ROCGDB</small> can evaluate expressions containing macro invocations, show
+<small>ROCGDB</small> can evaluate expressions containing macro invocations, show
 the result of macro expansion, and show a macro&rsquo;s definition, including
 where it was defined.
 </p>
-<p>You may need to compile your program specially to provide <small class="sc">ROCGDB</small>
+<p>You may need to compile your program specially to provide <small>ROCGDB</small>
 with information about preprocessor macros.  Most compilers do not
 include macros in their debugging information, even when you compile
-with the <samp class="option">-g</samp> flag.  See <a class="xref" href="Compilation.html">Compiling for Debugging</a>.
+with the <samp>-g</samp> flag.  See <a href="Compilation.html">Compiling for Debugging</a>.
 </p>
 <p>A program may define a macro at one point, remove that definition later,
 and then provide a different definition after that.  Thus, at different
 points in the program, a macro may have different definitions, or have
-no definition at all.  If there is a current stack frame, <small class="sc">ROCGDB</small>
+no definition at all.  If there is a current stack frame, <small>ROCGDB</small>
 uses the macros in scope at that frame&rsquo;s source code line.  Otherwise,
-<small class="sc">ROCGDB</small> uses the macros in scope at the current listing location;
-see <a class="ref" href="List.html">Printing Source Lines</a>.
+<small>ROCGDB</small> uses the macros in scope at the current listing location;
+see <a href="List.html">Printing Source Lines</a>.
 </p>
-<p>Whenever <small class="sc">ROCGDB</small> evaluates an expression, it always expands any
-macro invocations present in the expression.  <small class="sc">ROCGDB</small> also provides
+<p>Whenever <small>ROCGDB</small> evaluates an expression, it always expands any
+macro invocations present in the expression.  <small>ROCGDB</small> also provides
 the following commands for working with macros explicitly.
 </p>
-<dl class="table">
-<dt><a class="index-entry-id" id="index-macro-expansion_002c-showing-the-results-of-preprocessor"></a>
-<a class="index-entry-id" id="index-preprocessor-macro-expansion_002c-showing-the-results-of"></a>
-<a class="index-entry-id" id="index-expanding-preprocessor-macros"></a>
-<a id="index-macro-expand"></a><span><code class="code">macro expand <var class="var">expression</var></code><a class="copiable-link" href="#index-macro-expand"> &para;</a></span></dt>
-<dt><code class="code">macro exp <var class="var">expression</var></code></dt>
+<dl compact="compact">
+<dd>
+<span id="index-macro-expand"></span>
+<span id="index-macro-expansion_002c-showing-the-results-of-preprocessor"></span>
+<span id="index-preprocessor-macro-expansion_002c-showing-the-results-of"></span>
+<span id="index-expanding-preprocessor-macros"></span>
+</dd>
+<dt><span><code>macro expand <var>expression</var></code></span></dt>
+<dt><span><code>macro exp <var>expression</var></code></span></dt>
 <dd><p>Show the results of expanding all preprocessor macro invocations in
-<var class="var">expression</var>.  Since <small class="sc">ROCGDB</small> simply expands macros, but does
-not parse the result, <var class="var">expression</var> need not be a valid expression;
+<var>expression</var>.  Since <small>ROCGDB</small> simply expands macros, but does
+not parse the result, <var>expression</var> need not be a valid expression;
 it can be any string of tokens.
 </p>
+<span id="index-macro-exp1"></span>
 </dd>
-<dt><a class="index-entry-id" id="index-macro-exp1"></a>
-<a id="index-expand-macro-once"></a><span><code class="code">macro expand-once <var class="var">expression</var></code><a class="copiable-link" href="#index-expand-macro-once"> &para;</a></span></dt>
-<dt><code class="code">macro exp1 <var class="var">expression</var></code></dt>
-<dd><p><i class="i">(This command is not yet implemented.)</i>  Show the results of
+<dt id='index-expand-macro-once'><span><code>macro expand-once <var>expression</var></code><a href='#index-expand-macro-once' class='copiable-anchor'> &para;</a></span></dt>
+<dt><span><code>macro exp1 <var>expression</var></code></span></dt>
+<dd><p><i>(This command is not yet implemented.)</i>  Show the results of
 expanding those preprocessor macro invocations that appear explicitly in
-<var class="var">expression</var>.  Macro invocations appearing in that expansion are
+<var>expression</var>.  Macro invocations appearing in that expansion are
 left unchanged.  This command allows you to see the effect of a
 particular macro more clearly, without being confused by further
-expansions.  Since <small class="sc">ROCGDB</small> simply expands macros, but does not
-parse the result, <var class="var">expression</var> need not be a valid expression; it
+expansions.  Since <small>ROCGDB</small> simply expands macros, but does not
+parse the result, <var>expression</var> need not be a valid expression; it
 can be any string of tokens.
 </p>
+<span id="index-info-macro"></span>
+<span id="index-macro-definition_002c-showing"></span>
+<span id="index-definition-of-a-macro_002c-showing"></span>
+<span id="index-macros_002c-from-debug-info"></span>
 </dd>
-<dt><a class="index-entry-id" id="index-macro-definition_002c-showing"></a>
-<a class="index-entry-id" id="index-definition-of-a-macro_002c-showing"></a>
-<a class="index-entry-id" id="index-macros_002c-from-debug-info"></a>
-<a id="index-info-macro"></a><span><code class="code">info macro [-a|-all] [--] <var class="var">macro</var></code><a class="copiable-link" href="#index-info-macro"> &para;</a></span></dt>
-<dd><p>Show the current definition or all definitions of the named <var class="var">macro</var>,
+<dt><span><code>info macro [-a|-all] [--] <var>macro</var></code></span></dt>
+<dd><p>Show the current definition or all definitions of the named <var>macro</var>,
 and describe the source location or compiler command-line where that
 definition was established.  The optional double dash is to signify the end of
-argument processing and the beginning of <var class="var">macro</var> for non C-like macros where
+argument processing and the beginning of <var>macro</var> for non C-like macros where
 the macro may begin with a hyphen.
 </p>
+<span id="index-info-macros"></span>
 </dd>
-<dt><a id="index-info-macros"></a><span><code class="code">info macros <var class="var">locspec</var></code><a class="copiable-link" href="#index-info-macros"> &para;</a></span></dt>
+<dt><span><code>info macros <var>locspec</var></code></span></dt>
 <dd><p>Show all macro definitions that are in effect at the source line of
-the code location that results from resolving <var class="var">locspec</var>, and
+the code location that results from resolving <var>locspec</var>, and
 describe the source location or compiler command-line where those
 definitions were established.
 </p>
+<span id="index-macro-define"></span>
+<span id="index-user_002ddefined-macros"></span>
+<span id="index-defining-macros-interactively"></span>
+<span id="index-macros_002c-user_002ddefined"></span>
 </dd>
-<dt><a class="index-entry-id" id="index-user_002ddefined-macros"></a>
-<a class="index-entry-id" id="index-defining-macros-interactively"></a>
-<a class="index-entry-id" id="index-macros_002c-user_002ddefined"></a>
-<a id="index-macro-define"></a><span><code class="code">macro define <var class="var">macro</var> <var class="var">replacement-list</var></code><a class="copiable-link" href="#index-macro-define"> &para;</a></span></dt>
-<dt><code class="code">macro define <var class="var">macro</var>(<var class="var">arglist</var>) <var class="var">replacement-list</var></code></dt>
-<dd><p>Introduce a definition for a preprocessor macro named <var class="var">macro</var>,
+<dt><span><code>macro define <var>macro</var> <var>replacement-list</var></code></span></dt>
+<dt><span><code>macro define <var>macro</var>(<var>arglist</var>) <var>replacement-list</var></code></span></dt>
+<dd><p>Introduce a definition for a preprocessor macro named <var>macro</var>,
 invocations of which are replaced by the tokens given in
-<var class="var">replacement-list</var>.  The first form of this command defines an
+<var>replacement-list</var>.  The first form of this command defines an
 &ldquo;object-like&rdquo; macro, which takes no arguments; the second form
 defines a &ldquo;function-like&rdquo; macro, which takes the arguments given in
-<var class="var">arglist</var>.
+<var>arglist</var>.
 </p>
 <p>A definition introduced by this command is in scope in every
-expression evaluated in <small class="sc">ROCGDB</small>, until it is removed with the
-<code class="code">macro undef</code> command, described below.  The definition overrides
-all definitions for <var class="var">macro</var> present in the program being debugged,
+expression evaluated in <small>ROCGDB</small>, until it is removed with the
+<code>macro undef</code> command, described below.  The definition overrides
+all definitions for <var>macro</var> present in the program being debugged,
 as well as any previous user-supplied definition.
 </p>
+<span id="index-macro-undef"></span>
 </dd>
-<dt><a id="index-macro-undef"></a><span><code class="code">macro undef <var class="var">macro</var></code><a class="copiable-link" href="#index-macro-undef"> &para;</a></span></dt>
-<dd><p>Remove any user-supplied definition for the macro named <var class="var">macro</var>.
-This command only affects definitions provided with the <code class="code">macro
+<dt><span><code>macro undef <var>macro</var></code></span></dt>
+<dd><p>Remove any user-supplied definition for the macro named <var>macro</var>.
+This command only affects definitions provided with the <code>macro
 define</code> command, described above; it cannot remove definitions present
 in the program being debugged.
 </p>
+<span id="index-macro-list"></span>
 </dd>
-<dt><a id="index-macro-list"></a><span><code class="code">macro list</code><a class="copiable-link" href="#index-macro-list"> &para;</a></span></dt>
-<dd><p>List all the macros defined using the <code class="code">macro define</code> command.
+<dt><span><code>macro list</code></span></dt>
+<dd><p>List all the macros defined using the <code>macro define</code> command.
 </p></dd>
 </dl>
 
-<a class="index-entry-id" id="index-macros_002c-example-of-debugging-with"></a>
+<span id="index-macros_002c-example-of-debugging-with"></span>
 <p>Here is a transcript showing the above commands in action.  First, we
 show our source files:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">$ cat sample.c
+<div class="example">
+<pre class="example">$ cat sample.c
 #include &lt;stdio.h&gt;
 #include &quot;sample.h&quot;
 
@@ -215,32 +235,32 @@ $ cat sample.h
 $
 </pre></div>
 
-<p>Now, we compile the program using the <small class="sc">GNU</small> C compiler,
-<small class="sc">GCC</small>.  We pass the <samp class="option">-gdwarf-2</samp><a class="footnote" id="DOCF14" href="#FOOT14"><sup>14</sup></a> <em class="emph">and</em> <samp class="option">-g3</samp> flags to ensure the compiler
+<p>Now, we compile the program using the <small>GNU</small> C compiler,
+<small>GCC</small>.  We pass the <samp>-gdwarf-2</samp><a id="DOCF14" href="#FOOT14"><sup>14</sup></a> <em>and</em> <samp>-g3</samp> flags to ensure the compiler
 includes information about preprocessor macros in the debugging
 information.
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">$ gcc -gdwarf-2 -g3 sample.c -o sample
+<div class="example">
+<pre class="example">$ gcc -gdwarf-2 -g3 sample.c -o sample
 $
 </pre></div>
 
-<p>Now, we start <small class="sc">ROCGDB</small> on our sample program:
+<p>Now, we start <small>ROCGDB</small> on our sample program:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">$ gdb -nw sample
+<div class="example">
+<pre class="example">$ gdb -nw sample
 GNU gdb 2002-05-06-cvs
 Copyright 2002 Free Software Foundation, Inc.
-GDB is free software, ...
+GDB is free software, &hellip;
 (gdb)
 </pre></div>
 
 <p>We can expand macros and examine their definitions, even when the
-program is not running.  <small class="sc">ROCGDB</small> uses the current listing position
+program is not running.  <small>ROCGDB</small> uses the current listing position
 to decide which macro definitions are in scope:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">(gdb) list main
+<div class="example">
+<pre class="example">(gdb) list main
 3
 4       #define M 42
 5       #define ADD(x) (M + x)
@@ -265,16 +285,16 @@ expands to: once (M + 1)
 (gdb)
 </pre></div>
 
-<p>In the example above, note that <code class="code">macro expand-once</code> expands only
+<p>In the example above, note that <code>macro expand-once</code> expands only
 the macro invocation explicit in the original text &mdash; the invocation of
-<code class="code">ADD</code> &mdash; but does not expand the invocation of the macro <code class="code">M</code>,
-which was introduced by <code class="code">ADD</code>.
+<code>ADD</code> &mdash; but does not expand the invocation of the macro <code>M</code>,
+which was introduced by <code>ADD</code>.
 </p>
-<p>Once the program is running, <small class="sc">ROCGDB</small> uses the macro definitions in
+<p>Once the program is running, <small>ROCGDB</small> uses the macro definitions in
 force at the source line of the current stack frame:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">(gdb) break main
+<div class="example">
+<pre class="example">(gdb) break main
 Breakpoint 1 at 0x8048370: file sample.c, line 10.
 (gdb) run
 Starting program: /home/jimb/gdb/macros/play/sample
@@ -284,10 +304,10 @@ Breakpoint 1, main () at sample.c:10
 (gdb)
 </pre></div>
 
-<p>At line 10, the definition of the macro <code class="code">N</code> at line 9 is in force:
+<p>At line 10, the definition of the macro <code>N</code> at line 9 is in force:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">(gdb) info macro N
+<div class="example">
+<pre class="example">(gdb) info macro N
 Defined at /home/jimb/gdb/macros/play/sample.c:9
 #define N 28
 (gdb) macro expand N Q M
@@ -297,12 +317,12 @@ $1 = 1
 (gdb)
 </pre></div>
 
-<p>As we step over directives that remove <code class="code">N</code>&rsquo;s definition, and then
-give it a new definition, <small class="sc">ROCGDB</small> finds the definition (or lack
+<p>As we step over directives that remove <code>N</code>&rsquo;s definition, and then
+give it a new definition, <small>ROCGDB</small> finds the definition (or lack
 thereof) in force at each point:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">(gdb) next
+<div class="example">
+<pre class="example">(gdb) next
 Hello, world!
 12        printf (&quot;We're so creative.\n&quot;);
 (gdb) info macro N
@@ -322,12 +342,12 @@ $2 = 0
 </pre></div>
 
 <p>In addition to source files, macros can be defined on the compilation command
-line using the <samp class="option">-D<var class="var">name</var>=<var class="var">value</var></samp> syntax.  For macros defined in
-such a way, <small class="sc">ROCGDB</small> displays the location of their definition as line zero
+line using the <samp>-D<var>name</var>=<var>value</var></samp> syntax.  For macros defined in
+such a way, <small>ROCGDB</small> displays the location of their definition as line zero
 of the source file submitted to the compiler.
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">(gdb) info macro __STDC__
+<div class="example">
+<pre class="example">(gdb) info macro __STDC__
 Defined at /home/jimb/gdb/macros/play/sample.c:0
 -D__STDC__=1
 (gdb)
@@ -335,20 +355,20 @@ Defined at /home/jimb/gdb/macros/play/sample.c:0
 
 
 </div>
-<div class="footnotes-segment">
+<div class="footnote">
 <hr>
 <h4 class="footnotes-heading">Footnotes</h4>
 
-<h5 class="footnote-body-heading"><a id="FOOT14" href="#DOCF14">(14)</a></h5>
+<h5><a id="FOOT14" href="#DOCF14">(14)</a></h5>
 <p>This is the
-minimum.  Recent versions of <small class="sc">GCC</small> support <samp class="option">-gdwarf-3</samp>
-and <samp class="option">-gdwarf-4</samp>; we recommend always choosing the most recent
+minimum.  Recent versions of <small>GCC</small> support <samp>-gdwarf-3</samp>
+and <samp>-gdwarf-4</samp>; we recommend always choosing the most recent
 version of DWARF.</p>
 </div>
 <hr>
-<div class="nav-panel">
+<div class="header">
 <p>
-Next: <a href="Tracepoints.html">Tracepoints</a>, Previous: <a href="Optimized-Code.html">Debugging Optimized Code</a>, Up: <a href="index.html">Debugging with <small class="sc">ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Tracepoints.html">Tracepoints</a>, Previous: <a href="Optimized-Code.html">Debugging Optimized Code</a>, Up: <a href="index.html">Debugging with <small>ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

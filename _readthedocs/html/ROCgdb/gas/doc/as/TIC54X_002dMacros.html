@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the GNU Assembler "as".
 
-Copyright © 1991-2024 Free Software Foundation, Inc.
+Copyright (C) 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -31,8 +31,21 @@ section entitled "GNU Free Documentation License".
 <link href="TIC54X_002dDirectives.html" rel="prev" title="TIC54X-Directives">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
-span:hover a.copiable-link {visibility: visible}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -40,16 +53,16 @@ span:hover a.copiable-link {visibility: visible}
 </head>
 
 <body lang="en">
-<div class="subsection-level-extent" id="TIC54X_002dMacros">
-<div class="nav-panel">
+<div class="section" id="TIC54X_002dMacros">
+<div class="header">
 <p>
 Next: <a href="TIC54X_002dMMRegs.html" accesskey="n" rel="next">Memory-mapped Registers</a>, Previous: <a href="TIC54X_002dDirectives.html" accesskey="p" rel="prev">Directives</a>, Up: <a href="TIC54X_002dDependent.html" accesskey="u" rel="up">TIC54X Dependent Features</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h4 class="subsection section-level-set-subsection" id="Macros-1"><span>9.45.10 Macros<a class="copiable-link" href="#Macros-1"> &para;</a></span></h4>
+<span id="Macros-1"></span><h4 class="subsection">9.45.10 Macros</h4>
 
-<a class="index-entry-id" id="index-TIC54X_002dspecific-macros"></a>
-<a class="index-entry-id" id="index-macros_002c-TIC54X"></a>
+<span id="index-TIC54X_002dspecific-macros"></span>
+<span id="index-macros_002c-TIC54X"></span>
 <p>Macros do not require explicit dereferencing of arguments (i.e., \ARG).
 </p>
 <p>During macro expansion, the macro parameters are converted to subsyms.
@@ -59,70 +72,82 @@ equivalent of all remaining arguments.  If fewer arguments are given
 than parameters, the missing parameters are assigned empty strings.  To
 include a comma in an argument, you must enclose the argument in quotes.
 </p>
-<a class="index-entry-id" id="index-subsym-builtins_002c-TIC54X"></a>
-<a class="index-entry-id" id="index-TIC54X-subsym-builtins"></a>
-<a class="index-entry-id" id="index-builtin-subsym-functions_002c-TIC54X"></a>
+<span id="index-subsym-builtins_002c-TIC54X"></span>
+<span id="index-TIC54X-subsym-builtins"></span>
+<span id="index-builtin-subsym-functions_002c-TIC54X"></span>
 <p>The following built-in subsym functions allow examination of the string
 value of subsyms (or ordinary strings).  The arguments are strings
 unless otherwise indicated (subsyms passed as args will be replaced by
 the strings they represent).
-</p><dl class="table">
-<dt><a id="index-_0024symlen-subsym-builtin_002c-TIC54X"></a><span><code class="code"><code class="code">$symlen(<var class="var">str</var>)</code></code><a class="copiable-link" href="#index-_0024symlen-subsym-builtin_002c-TIC54X"> &para;</a></span></dt>
-<dd><p>Returns the length of <var class="var">str</var>.
-</p>
+</p><dl compact="compact">
+<dd><span id="index-_0024symlen-subsym-builtin_002c-TIC54X"></span>
 </dd>
-<dt><a id="index-_0024symcmp-subsym-builtin_002c-TIC54X"></a><span><code class="code"><code class="code">$symcmp(<var class="var">str1</var>,<var class="var">str2</var>)</code></code><a class="copiable-link" href="#index-_0024symcmp-subsym-builtin_002c-TIC54X"> &para;</a></span></dt>
-<dd><p>Returns 0 if <var class="var">str1</var> == <var class="var">str2</var>, non-zero otherwise.
+<dt><span><code><code>$symlen(<var>str</var>)</code></code></span></dt>
+<dd><p>Returns the length of <var>str</var>.
 </p>
+<span id="index-_0024symcmp-subsym-builtin_002c-TIC54X"></span>
 </dd>
-<dt><a id="index-_0024firstch-subsym-builtin_002c-TIC54X"></a><span><code class="code"><code class="code">$firstch(<var class="var">str</var>,<var class="var">ch</var>)</code></code><a class="copiable-link" href="#index-_0024firstch-subsym-builtin_002c-TIC54X"> &para;</a></span></dt>
-<dd><p>Returns index of the first occurrence of character constant <var class="var">ch</var> in
-<var class="var">str</var>.
+<dt><span><code><code>$symcmp(<var>str1</var>,<var>str2</var>)</code></code></span></dt>
+<dd><p>Returns 0 if <var>str1</var> == <var>str2</var>, non-zero otherwise.
 </p>
+<span id="index-_0024firstch-subsym-builtin_002c-TIC54X"></span>
 </dd>
-<dt><a id="index-_0024lastch-subsym-builtin_002c-TIC54X"></a><span><code class="code"><code class="code">$lastch(<var class="var">str</var>,<var class="var">ch</var>)</code></code><a class="copiable-link" href="#index-_0024lastch-subsym-builtin_002c-TIC54X"> &para;</a></span></dt>
-<dd><p>Returns index of the last occurrence of character constant <var class="var">ch</var> in
-<var class="var">str</var>.
+<dt><span><code><code>$firstch(<var>str</var>,<var>ch</var>)</code></code></span></dt>
+<dd><p>Returns index of the first occurrence of character constant <var>ch</var> in
+<var>str</var>.
 </p>
+<span id="index-_0024lastch-subsym-builtin_002c-TIC54X"></span>
 </dd>
-<dt><a id="index-_0024isdefed-subsym-builtin_002c-TIC54X"></a><span><code class="code"><code class="code">$isdefed(<var class="var">symbol</var>)</code></code><a class="copiable-link" href="#index-_0024isdefed-subsym-builtin_002c-TIC54X"> &para;</a></span></dt>
-<dd><p>Returns zero if the symbol <var class="var">symbol</var> is not in the symbol table,
+<dt><span><code><code>$lastch(<var>str</var>,<var>ch</var>)</code></code></span></dt>
+<dd><p>Returns index of the last occurrence of character constant <var>ch</var> in
+<var>str</var>.
+</p>
+<span id="index-_0024isdefed-subsym-builtin_002c-TIC54X"></span>
+</dd>
+<dt><span><code><code>$isdefed(<var>symbol</var>)</code></code></span></dt>
+<dd><p>Returns zero if the symbol <var>symbol</var> is not in the symbol table,
 non-zero otherwise.
 </p>
+<span id="index-_0024ismember-subsym-builtin_002c-TIC54X"></span>
 </dd>
-<dt><a id="index-_0024ismember-subsym-builtin_002c-TIC54X"></a><span><code class="code"><code class="code">$ismember(<var class="var">symbol</var>,<var class="var">list</var>)</code></code><a class="copiable-link" href="#index-_0024ismember-subsym-builtin_002c-TIC54X"> &para;</a></span></dt>
-<dd><p>Assign the first member of comma-separated string <var class="var">list</var> to
-<var class="var">symbol</var>; <var class="var">list</var> is reassigned the remainder of the list.  Returns
-zero if <var class="var">list</var> is a null string.  Both arguments must be subsyms.
+<dt><span><code><code>$ismember(<var>symbol</var>,<var>list</var>)</code></code></span></dt>
+<dd><p>Assign the first member of comma-separated string <var>list</var> to
+<var>symbol</var>; <var>list</var> is reassigned the remainder of the list.  Returns
+zero if <var>list</var> is a null string.  Both arguments must be subsyms.
 </p>
+<span id="index-_0024iscons-subsym-builtin_002c-TIC54X"></span>
 </dd>
-<dt><a id="index-_0024iscons-subsym-builtin_002c-TIC54X"></a><span><code class="code"><code class="code">$iscons(<var class="var">expr</var>)</code></code><a class="copiable-link" href="#index-_0024iscons-subsym-builtin_002c-TIC54X"> &para;</a></span></dt>
-<dd><p>Returns 1 if string <var class="var">expr</var> is binary, 2 if octal, 3 if hexadecimal,
+<dt><span><code><code>$iscons(<var>expr</var>)</code></code></span></dt>
+<dd><p>Returns 1 if string <var>expr</var> is binary, 2 if octal, 3 if hexadecimal,
 4 if a character, 5 if decimal, and zero if not an integer.
 </p>
+<span id="index-_0024isname-subsym-builtin_002c-TIC54X"></span>
 </dd>
-<dt><a id="index-_0024isname-subsym-builtin_002c-TIC54X"></a><span><code class="code"><code class="code">$isname(<var class="var">name</var>)</code></code><a class="copiable-link" href="#index-_0024isname-subsym-builtin_002c-TIC54X"> &para;</a></span></dt>
-<dd><p>Returns 1 if <var class="var">name</var> is a valid symbol name, zero otherwise.
+<dt><span><code><code>$isname(<var>name</var>)</code></code></span></dt>
+<dd><p>Returns 1 if <var>name</var> is a valid symbol name, zero otherwise.
 </p>
+<span id="index-_0024isreg-subsym-builtin_002c-TIC54X"></span>
 </dd>
-<dt><a id="index-_0024isreg-subsym-builtin_002c-TIC54X"></a><span><code class="code"><code class="code">$isreg(<var class="var">reg</var>)</code></code><a class="copiable-link" href="#index-_0024isreg-subsym-builtin_002c-TIC54X"> &para;</a></span></dt>
-<dd><p>Returns 1 if <var class="var">reg</var> is a valid predefined register name (AR0-AR7 only).
+<dt><span><code><code>$isreg(<var>reg</var>)</code></code></span></dt>
+<dd><p>Returns 1 if <var>reg</var> is a valid predefined register name (AR0-AR7 only).
 </p>
+<span id="index-_0024structsz-subsym-builtin_002c-TIC54X"></span>
 </dd>
-<dt><a id="index-_0024structsz-subsym-builtin_002c-TIC54X"></a><span><code class="code"><code class="code">$structsz(<var class="var">stag</var>)</code></code><a class="copiable-link" href="#index-_0024structsz-subsym-builtin_002c-TIC54X"> &para;</a></span></dt>
-<dd><p>Returns the size of the structure or union represented by <var class="var">stag</var>.
+<dt><span><code><code>$structsz(<var>stag</var>)</code></code></span></dt>
+<dd><p>Returns the size of the structure or union represented by <var>stag</var>.
 </p>
+<span id="index-_0024structacc-subsym-builtin_002c-TIC54X"></span>
 </dd>
-<dt><a id="index-_0024structacc-subsym-builtin_002c-TIC54X"></a><span><code class="code"><code class="code">$structacc(<var class="var">stag</var>)</code></code><a class="copiable-link" href="#index-_0024structacc-subsym-builtin_002c-TIC54X"> &para;</a></span></dt>
+<dt><span><code><code>$structacc(<var>stag</var>)</code></code></span></dt>
 <dd><p>Returns the reference point of the structure or union represented by
-<var class="var">stag</var>.   Always returns zero.
+<var>stag</var>.   Always returns zero.
 </p>
 </dd>
 </dl>
 
 </div>
 <hr>
-<div class="nav-panel">
+<div class="header">
 <p>
 Next: <a href="TIC54X_002dMMRegs.html">Memory-mapped Registers</a>, Previous: <a href="TIC54X_002dDirectives.html">Directives</a>, Up: <a href="TIC54X_002dDependent.html">TIC54X Dependent Features</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

@@ -1,13 +1,13 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the GNU linker LD
 (GNU Binutils)
 version 2.43.50.
 
-Copyright © 1991-2024 Free Software Foundation, Inc.
+Copyright (C) 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -32,10 +32,21 @@ section entitled "GNU Free Documentation License". -->
 <link href="M68HC11_002f68HC12.html" rel="prev" title="M68HC11/68HC12">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
 div.example {margin-left: 3.2em}
-span:hover a.copiable-link {visibility: visible}
-ul.mark-bullet {list-style-type: disc}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -43,97 +54,97 @@ ul.mark-bullet {list-style-type: disc}
 </head>
 
 <body lang="en">
-<div class="section-level-extent" id="ARM">
-<div class="nav-panel">
+<div class="section" id="ARM">
+<div class="header">
 <p>
-Next: <a href="HPPA-ELF32.html" accesskey="n" rel="next"><code class="command">ld</code> and HPPA 32-bit ELF Support</a>, Previous: <a href="M68HC11_002f68HC12.html" accesskey="p" rel="prev"><code class="command">ld</code> and the Motorola 68HC11 and 68HC12 families</a>, Up: <a href="Machine-Dependent.html" accesskey="u" rel="up">Machine Dependent Features</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="LD-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="HPPA-ELF32.html" accesskey="n" rel="next"><code>ld</code> and HPPA 32-bit ELF Support</a>, Previous: <a href="M68HC11_002f68HC12.html" accesskey="p" rel="prev"><code>ld</code> and the Motorola 68HC11 and 68HC12 families</a>, Up: <a href="Machine-Dependent.html" accesskey="u" rel="up">Machine Dependent Features</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="LD-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h3 class="section" id="ld-and-the-ARM-family"><span>6.3 <code class="command">ld</code> and the ARM family<a class="copiable-link" href="#ld-and-the-ARM-family"> &para;</a></span></h3>
+<span id="ld-and-the-ARM-family"></span><h3 class="section">6.3 <code>ld</code> and the ARM family</h3>
 
-<a class="index-entry-id" id="index-ARM-interworking-support"></a>
-<a class="index-entry-id" id="index-_002d_002dsupport_002dold_002dcode"></a>
-<p>For the ARM, <code class="command">ld</code> will generate code stubs to allow functions calls
+<span id="index-ARM-interworking-support"></span>
+<span id="index-_002d_002dsupport_002dold_002dcode"></span>
+<p>For the ARM, <code>ld</code> will generate code stubs to allow functions calls
 between ARM and Thumb code.  These stubs only work with code that has
-been compiled and assembled with the &lsquo;<samp class="samp">-mthumb-interwork</samp>&rsquo; command
+been compiled and assembled with the &lsquo;<samp>-mthumb-interwork</samp>&rsquo; command
 line option.  If it is necessary to link with old ARM object files or
 libraries, which have not been compiled with the -mthumb-interwork
-option then the &lsquo;<samp class="samp">--support-old-code</samp>&rsquo; command-line switch should be
+option then the &lsquo;<samp>--support-old-code</samp>&rsquo; command-line switch should be
 given to the linker.  This will make it generate larger stub functions
 which will work with non-interworking aware ARM code.  Note, however,
 the linker does not support generating stubs for function calls to
 non-interworking aware Thumb code.
 </p>
-<a class="index-entry-id" id="index-thumb-entry-point"></a>
-<a class="index-entry-id" id="index-entry-point_002c-thumb"></a>
-<a class="index-entry-id" id="index-_002d_002dthumb_002dentry_003dentry"></a>
-<p>The &lsquo;<samp class="samp">--thumb-entry</samp>&rsquo; switch is a duplicate of the generic
-&lsquo;<samp class="samp">--entry</samp>&rsquo; switch, in that it sets the program&rsquo;s starting address.
+<span id="index-thumb-entry-point"></span>
+<span id="index-entry-point_002c-thumb"></span>
+<span id="index-_002d_002dthumb_002dentry_003dentry"></span>
+<p>The &lsquo;<samp>--thumb-entry</samp>&rsquo; switch is a duplicate of the generic
+&lsquo;<samp>--entry</samp>&rsquo; switch, in that it sets the program&rsquo;s starting address.
 But it also sets the bottom bit of the address, so that it can be
 branched to using a BX instruction, and the program will start
 executing in Thumb mode straight away.
 </p>
-<a class="index-entry-id" id="index-PE-import-table-prefixing"></a>
-<a class="index-entry-id" id="index-_002d_002duse_002dnul_002dprefixed_002dimport_002dtables"></a>
-<p>The &lsquo;<samp class="samp">--use-nul-prefixed-import-tables</samp>&rsquo; switch is specifying, that
+<span id="index-PE-import-table-prefixing"></span>
+<span id="index-_002d_002duse_002dnul_002dprefixed_002dimport_002dtables"></span>
+<p>The &lsquo;<samp>--use-nul-prefixed-import-tables</samp>&rsquo; switch is specifying, that
 the import tables idata4 and idata5 have to be generated with a zero
 element prefix for import libraries. This is the old style to generate
 import tables. By default this option is turned off.
 </p>
-<a class="index-entry-id" id="index-BE8"></a>
-<a class="index-entry-id" id="index-_002d_002dbe8"></a>
-<p>The &lsquo;<samp class="samp">--be8</samp>&rsquo; switch instructs <code class="command">ld</code> to generate BE8 format
+<span id="index-BE8"></span>
+<span id="index-_002d_002dbe8"></span>
+<p>The &lsquo;<samp>--be8</samp>&rsquo; switch instructs <code>ld</code> to generate BE8 format
 executables.  This option is only valid when linking big-endian
-objects - ie ones which have been assembled with the <samp class="option">-EB</samp>
+objects - ie ones which have been assembled with the <samp>-EB</samp>
 option.  The resulting image will contain big-endian data and
 little-endian code.
 </p>
-<a class="index-entry-id" id="index-TARGET1"></a>
-<a class="index-entry-id" id="index-_002d_002dtarget1_002drel"></a>
-<a class="index-entry-id" id="index-_002d_002dtarget1_002dabs"></a>
-<p>The &lsquo;<samp class="samp">R_ARM_TARGET1</samp>&rsquo; relocation is typically used for entries in the
-&lsquo;<samp class="samp">.init_array</samp>&rsquo; section.  It is interpreted as either &lsquo;<samp class="samp">R_ARM_REL32</samp>&rsquo;
-or &lsquo;<samp class="samp">R_ARM_ABS32</samp>&rsquo;, depending on the target.  The &lsquo;<samp class="samp">--target1-rel</samp>&rsquo;
-and &lsquo;<samp class="samp">--target1-abs</samp>&rsquo; switches override the default.
+<span id="index-TARGET1"></span>
+<span id="index-_002d_002dtarget1_002drel"></span>
+<span id="index-_002d_002dtarget1_002dabs"></span>
+<p>The &lsquo;<samp>R_ARM_TARGET1</samp>&rsquo; relocation is typically used for entries in the
+&lsquo;<samp>.init_array</samp>&rsquo; section.  It is interpreted as either &lsquo;<samp>R_ARM_REL32</samp>&rsquo;
+or &lsquo;<samp>R_ARM_ABS32</samp>&rsquo;, depending on the target.  The &lsquo;<samp>--target1-rel</samp>&rsquo;
+and &lsquo;<samp>--target1-abs</samp>&rsquo; switches override the default.
 </p>
-<a class="index-entry-id" id="index-TARGET2"></a>
-<a class="index-entry-id" id="index-_002d_002dtarget2_003dtype"></a>
-<p>The &lsquo;<samp class="samp">--target2=type</samp>&rsquo; switch overrides the default definition of the
-&lsquo;<samp class="samp">R_ARM_TARGET2</samp>&rsquo; relocation.  Valid values for &lsquo;<samp class="samp">type</samp>&rsquo;, their
+<span id="index-TARGET2"></span>
+<span id="index-_002d_002dtarget2_003dtype"></span>
+<p>The &lsquo;<samp>--target2=type</samp>&rsquo; switch overrides the default definition of the
+&lsquo;<samp>R_ARM_TARGET2</samp>&rsquo; relocation.  Valid values for &lsquo;<samp>type</samp>&rsquo;, their
 meanings, and target defaults are as follows:
-</p><dl class="table">
-<dt>&lsquo;<samp class="samp">rel</samp>&rsquo;</dt>
-<dd><p>&lsquo;<samp class="samp">R_ARM_REL32</samp>&rsquo; (arm*-*-elf, arm*-*-eabi)
+</p><dl compact="compact">
+<dt><span>&lsquo;<samp>rel</samp>&rsquo;</span></dt>
+<dd><p>&lsquo;<samp>R_ARM_REL32</samp>&rsquo; (arm*-*-elf, arm*-*-eabi)
 </p></dd>
-<dt>&lsquo;<samp class="samp">abs</samp>&rsquo;</dt>
-<dd><p>&lsquo;<samp class="samp">R_ARM_ABS32</samp>&rsquo;
+<dt><span>&lsquo;<samp>abs</samp>&rsquo;</span></dt>
+<dd><p>&lsquo;<samp>R_ARM_ABS32</samp>&rsquo;
 </p></dd>
-<dt>&lsquo;<samp class="samp">got-rel</samp>&rsquo;</dt>
-<dd><p>&lsquo;<samp class="samp">R_ARM_GOT_PREL</samp>&rsquo; (arm*-*-linux, arm*-*-*bsd)
+<dt><span>&lsquo;<samp>got-rel</samp>&rsquo;</span></dt>
+<dd><p>&lsquo;<samp>R_ARM_GOT_PREL</samp>&rsquo; (arm*-*-linux, arm*-*-*bsd)
 </p></dd>
 </dl>
 
-<a class="index-entry-id" id="index-FIX_005fV4BX"></a>
-<a class="index-entry-id" id="index-_002d_002dfix_002dv4bx"></a>
-<p>The &lsquo;<samp class="samp">R_ARM_V4BX</samp>&rsquo; relocation (defined by the ARM AAELF
+<span id="index-FIX_005fV4BX"></span>
+<span id="index-_002d_002dfix_002dv4bx"></span>
+<p>The &lsquo;<samp>R_ARM_V4BX</samp>&rsquo; relocation (defined by the ARM AAELF
 specification) enables objects compiled for the ARMv4 architecture to be
 interworking-safe when linked with other objects compiled for ARMv4t, but
 also allows pure ARMv4 binaries to be built from the same ARMv4 objects.
 </p>
-<p>In the latter case, the switch <samp class="option">--fix-v4bx</samp> must be passed to the
-linker, which causes v4t <code class="code">BX rM</code> instructions to be rewritten as
-<code class="code">MOV PC,rM</code>, since v4 processors do not have a <code class="code">BX</code> instruction.
+<p>In the latter case, the switch <samp>--fix-v4bx</samp> must be passed to the
+linker, which causes v4t <code>BX rM</code> instructions to be rewritten as
+<code>MOV PC,rM</code>, since v4 processors do not have a <code>BX</code> instruction.
 </p>
-<p>In the former case, the switch should not be used, and &lsquo;<samp class="samp">R_ARM_V4BX</samp>&rsquo;
+<p>In the former case, the switch should not be used, and &lsquo;<samp>R_ARM_V4BX</samp>&rsquo;
 relocations are ignored.
 </p>
-<a class="index-entry-id" id="index-FIX_005fV4BX_005fINTERWORKING"></a>
-<a class="index-entry-id" id="index-_002d_002dfix_002dv4bx_002dinterworking"></a>
-<p>Replace <code class="code">BX rM</code> instructions identified by &lsquo;<samp class="samp">R_ARM_V4BX</samp>&rsquo;
+<span id="index-FIX_005fV4BX_005fINTERWORKING"></span>
+<span id="index-_002d_002dfix_002dv4bx_002dinterworking"></span>
+<p>Replace <code>BX rM</code> instructions identified by &lsquo;<samp>R_ARM_V4BX</samp>&rsquo;
 relocations with a branch to the following veneer:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">TST rM, #1
+<div class="example">
+<pre class="example">TST rM, #1
 MOVEQ PC, rM
 BX Rn
 </pre></div>
@@ -142,17 +153,17 @@ BX Rn
 and are still interworking safe.  Note that the above veneer clobbers the
 condition flags, so may cause incorrect program behavior in rare cases.
 </p>
-<a class="index-entry-id" id="index-USE_005fBLX"></a>
-<a class="index-entry-id" id="index-_002d_002duse_002dblx"></a>
-<p>The &lsquo;<samp class="samp">--use-blx</samp>&rsquo; switch enables the linker to use ARM/Thumb
+<span id="index-USE_005fBLX"></span>
+<span id="index-_002d_002duse_002dblx"></span>
+<p>The &lsquo;<samp>--use-blx</samp>&rsquo; switch enables the linker to use ARM/Thumb
 BLX instructions (available on ARMv5t and above) in various
 situations. Currently it is used to perform calls via the PLT from Thumb
 code using BLX rather than using BX and a mode-switching stub before
 each PLT entry. This should lead to such calls executing slightly faster.
 </p>
-<a class="index-entry-id" id="index-VFP11_005fDENORM_005fFIX"></a>
-<a class="index-entry-id" id="index-_002d_002dvfp11_002ddenorm_002dfix"></a>
-<p>The &lsquo;<samp class="samp">--vfp11-denorm-fix</samp>&rsquo; switch enables a link-time workaround for a
+<span id="index-VFP11_005fDENORM_005fFIX"></span>
+<span id="index-_002d_002dvfp11_002ddenorm_002dfix"></span>
+<p>The &lsquo;<samp>--vfp11-denorm-fix</samp>&rsquo; switch enables a link-time workaround for a
 bug in certain VFP11 coprocessor hardware, which sometimes allows
 instructions with denorm operands (which must be handled by support code)
 to have those operands overwritten by subsequent instructions before
@@ -167,10 +178,10 @@ you are using &quot;runfast&quot; mode. Please contact ARM for further details.
 </p>
 <p>If you know you are using buggy VFP11 hardware, you can
 enable this workaround by specifying the linker option
-&lsquo;<samp class="samp">--vfp-denorm-fix=scalar</samp>&rsquo; if you are using the VFP11 scalar
-mode only, or &lsquo;<samp class="samp">--vfp-denorm-fix=vector</samp>&rsquo; if you are using
+&lsquo;<samp>--vfp-denorm-fix=scalar</samp>&rsquo; if you are using the VFP11 scalar
+mode only, or &lsquo;<samp>--vfp-denorm-fix=vector</samp>&rsquo; if you are using
 vector mode (the latter also works for scalar code). The default is
-&lsquo;<samp class="samp">--vfp-denorm-fix=none</samp>&rsquo;.
+&lsquo;<samp>--vfp-denorm-fix=none</samp>&rsquo;.
 </p>
 <p>If the workaround is enabled, instructions are scanned for
 potentially-troublesome sequences, and a veneer is created for each
@@ -180,22 +191,22 @@ instruction. The original instruction is then replaced with a branch to
 the veneer. The extra cycles required to call and return from the veneer
 are sufficient to avoid the erratum in both the scalar and vector cases.
 </p>
-<a class="index-entry-id" id="index-ARM1176-erratum-workaround"></a>
-<a class="index-entry-id" id="index-_002d_002dfix_002darm1176"></a>
-<a class="index-entry-id" id="index-_002d_002dno_002dfix_002darm1176"></a>
-<p>The &lsquo;<samp class="samp">--fix-arm1176</samp>&rsquo; switch enables a link-time workaround for an erratum
+<span id="index-ARM1176-erratum-workaround"></span>
+<span id="index-_002d_002dfix_002darm1176"></span>
+<span id="index-_002d_002dno_002dfix_002darm1176"></span>
+<p>The &lsquo;<samp>--fix-arm1176</samp>&rsquo; switch enables a link-time workaround for an erratum
 in certain ARM1176 processors.  The workaround is enabled by default if you
 are targeting ARM v6 (excluding ARM v6T2) or earlier.  It can be disabled
-unconditionally by specifying &lsquo;<samp class="samp">--no-fix-arm1176</samp>&rsquo;.
+unconditionally by specifying &lsquo;<samp>--no-fix-arm1176</samp>&rsquo;.
 </p>
 <p>Further information is available in the &ldquo;ARM1176JZ-S and ARM1176JZF-S
 Programmer Advice Notice&rdquo; available on the ARM documentation website at:
 http://infocenter.arm.com/.
 </p>
-<a class="index-entry-id" id="index-STM32L4xx-erratum-workaround"></a>
-<a class="index-entry-id" id="index-_002d_002dfix_002dstm32l4xx_002d629360"></a>
+<span id="index-STM32L4xx-erratum-workaround"></span>
+<span id="index-_002d_002dfix_002dstm32l4xx_002d629360"></span>
 
-<p>The &lsquo;<samp class="samp">--fix-stm32l4xx-629360</samp>&rsquo; switch enables a link-time
+<p>The &lsquo;<samp>--fix-stm32l4xx-629360</samp>&rsquo; switch enables a link-time
 workaround for a bug in the bus matrix / memory controller for some of
 the STM32 Cortex-M4 based products (STM32L4xx).  When accessing
 off-chip memory via the affected bus for bus reads of 9 words or more,
@@ -208,10 +219,10 @@ VPOP.  Stores are not affected.
 necessary chunks to keep bus reads below 8 words.
 </p>
 <p>The workaround is not enabled by default, this is equivalent to use
-&lsquo;<samp class="samp">--fix-stm32l4xx-629360=none</samp>&rsquo;.  If you know you are using buggy
+&lsquo;<samp>--fix-stm32l4xx-629360=none</samp>&rsquo;.  If you know you are using buggy
 STM32L4xx hardware, you can enable the workaround by specifying the
-linker option &lsquo;<samp class="samp">--fix-stm32l4xx-629360</samp>&rsquo;, or the equivalent
-&lsquo;<samp class="samp">--fix-stm32l4xx-629360=default</samp>&rsquo;.
+linker option &lsquo;<samp>--fix-stm32l4xx-629360</samp>&rsquo;, or the equivalent
+&lsquo;<samp>--fix-stm32l4xx-629360=default</samp>&rsquo;.
 </p>
 <p>If the workaround is enabled, instructions are scanned for
 potentially-troublesome sequences, and a veneer is created for each
@@ -229,175 +240,175 @@ there.  In that case, the linker reports a warning and no replacement
 occurs.
 </p>
 <p>The workaround is not able to replace problematic instructions with a
-PC-relative branch instruction if the &lsquo;<samp class="samp">.text</samp>&rsquo; section is too
+PC-relative branch instruction if the &lsquo;<samp>.text</samp>&rsquo; section is too
 large.  In that case, when the branch that replaces the original code
 cannot be encoded, the linker reports a warning and no replacement
 occurs.
 </p>
-<a class="index-entry-id" id="index-NO_005fENUM_005fSIZE_005fWARNING"></a>
-<a class="index-entry-id" id="index-_002d_002dno_002denum_002dsize_002dwarning"></a>
-<p>The <samp class="option">--no-enum-size-warning</samp> switch prevents the linker from
+<span id="index-NO_005fENUM_005fSIZE_005fWARNING"></span>
+<span id="index-_002d_002dno_002denum_002dsize_002dwarning"></span>
+<p>The <samp>--no-enum-size-warning</samp> switch prevents the linker from
 warning when linking object files that specify incompatible EABI
 enumeration size attributes.  For example, with this switch enabled,
 linking of an object file using 32-bit enumeration values with another
 using enumeration values fitted into the smallest possible space will
 not be diagnosed.
 </p>
-<a class="index-entry-id" id="index-NO_005fWCHAR_005fSIZE_005fWARNING"></a>
-<a class="index-entry-id" id="index-_002d_002dno_002dwchar_002dsize_002dwarning"></a>
-<p>The <samp class="option">--no-wchar-size-warning</samp> switch prevents the linker from
+<span id="index-NO_005fWCHAR_005fSIZE_005fWARNING"></span>
+<span id="index-_002d_002dno_002dwchar_002dsize_002dwarning"></span>
+<p>The <samp>--no-wchar-size-warning</samp> switch prevents the linker from
 warning when linking object files that specify incompatible EABI
-<code class="code">wchar_t</code> size attributes.  For example, with this switch enabled,
-linking of an object file using 32-bit <code class="code">wchar_t</code> values with another
-using 16-bit <code class="code">wchar_t</code> values will not be diagnosed.
+<code>wchar_t</code> size attributes.  For example, with this switch enabled,
+linking of an object file using 32-bit <code>wchar_t</code> values with another
+using 16-bit <code>wchar_t</code> values will not be diagnosed.
 </p>
-<a class="index-entry-id" id="index-PIC_005fVENEER"></a>
-<a class="index-entry-id" id="index-_002d_002dpic_002dveneer"></a>
-<p>The &lsquo;<samp class="samp">--pic-veneer</samp>&rsquo; switch makes the linker use PIC sequences for
+<span id="index-PIC_005fVENEER"></span>
+<span id="index-_002d_002dpic_002dveneer"></span>
+<p>The &lsquo;<samp>--pic-veneer</samp>&rsquo; switch makes the linker use PIC sequences for
 ARM/Thumb interworking veneers, even if the rest of the binary
 is not PIC.  This avoids problems on uClinux targets where
-&lsquo;<samp class="samp">--emit-relocs</samp>&rsquo; is used to generate relocatable binaries.
+&lsquo;<samp>--emit-relocs</samp>&rsquo; is used to generate relocatable binaries.
 </p>
-<a class="index-entry-id" id="index-STUB_005fGROUP_005fSIZE"></a>
-<a class="index-entry-id" id="index-_002d_002dstub_002dgroup_002dsize_003dN"></a>
+<span id="index-STUB_005fGROUP_005fSIZE"></span>
+<span id="index-_002d_002dstub_002dgroup_002dsize_003dN"></span>
 <p>The linker will automatically generate and insert small sequences of
 code into a linked ARM ELF executable whenever an attempt is made to
 perform a function call to a symbol that is too far away.  The
 placement of these sequences of instructions - called stubs - is
-controlled by the command-line option <samp class="option">--stub-group-size=N</samp>.
+controlled by the command-line option <samp>--stub-group-size=N</samp>.
 The placement is important because a poor choice can create a need for
 duplicate stubs, increasing the code size.  The linker will try to
 group stubs together in order to reduce interruptions to the flow of
 code, but it needs guidance as to how big these groups should be and
 where they should be placed.
 </p>
-<p>The value of &lsquo;<samp class="samp">N</samp>&rsquo;, the parameter to the
-<samp class="option">--stub-group-size=</samp> option controls where the stub groups are
+<p>The value of &lsquo;<samp>N</samp>&rsquo;, the parameter to the
+<samp>--stub-group-size=</samp> option controls where the stub groups are
 placed.  If it is negative then all stubs are placed after the first
 branch that needs them.  If it is positive then the stubs can be
 placed either before or after the branches that need them.  If the
-value of &lsquo;<samp class="samp">N</samp>&rsquo; is 1 (either +1 or -1) then the linker will choose
+value of &lsquo;<samp>N</samp>&rsquo; is 1 (either +1 or -1) then the linker will choose
 exactly where to place groups of stubs, using its built in heuristics.
-A value of &lsquo;<samp class="samp">N</samp>&rsquo; greater than 1 (or smaller than -1) tells the
-linker that a single group of stubs can service at most &lsquo;<samp class="samp">N</samp>&rsquo; bytes
+A value of &lsquo;<samp>N</samp>&rsquo; greater than 1 (or smaller than -1) tells the
+linker that a single group of stubs can service at most &lsquo;<samp>N</samp>&rsquo; bytes
 from the input sections.
 </p>
-<p>The default, if <samp class="option">--stub-group-size=</samp> is not specified, is
-&lsquo;<samp class="samp">N = +1</samp>&rsquo;.
+<p>The default, if <samp>--stub-group-size=</samp> is not specified, is
+&lsquo;<samp>N = +1</samp>&rsquo;.
 </p>
 <p>Farcalls stubs insertion is fully supported for the ARM-EABI target
 only, because it relies on object files properties not present
 otherwise.
 </p>
-<a class="index-entry-id" id="index-Cortex_002dA8-erratum-workaround"></a>
-<a class="index-entry-id" id="index-_002d_002dfix_002dcortex_002da8"></a>
-<a class="index-entry-id" id="index-_002d_002dno_002dfix_002dcortex_002da8"></a>
-<p>The &lsquo;<samp class="samp">--fix-cortex-a8</samp>&rsquo; switch enables a link-time workaround for an erratum in certain Cortex-A8 processors.  The workaround is enabled by default if you are targeting the ARM v7-A architecture profile.  It can be enabled otherwise by specifying &lsquo;<samp class="samp">--fix-cortex-a8</samp>&rsquo;, or disabled unconditionally by specifying &lsquo;<samp class="samp">--no-fix-cortex-a8</samp>&rsquo;.
+<span id="index-Cortex_002dA8-erratum-workaround"></span>
+<span id="index-_002d_002dfix_002dcortex_002da8"></span>
+<span id="index-_002d_002dno_002dfix_002dcortex_002da8"></span>
+<p>The &lsquo;<samp>--fix-cortex-a8</samp>&rsquo; switch enables a link-time workaround for an erratum in certain Cortex-A8 processors.  The workaround is enabled by default if you are targeting the ARM v7-A architecture profile.  It can be enabled otherwise by specifying &lsquo;<samp>--fix-cortex-a8</samp>&rsquo;, or disabled unconditionally by specifying &lsquo;<samp>--no-fix-cortex-a8</samp>&rsquo;.
 </p>
 <p>The erratum only affects Thumb-2 code.  Please contact ARM for further details.
 </p>
-<a class="index-entry-id" id="index-Cortex_002dA53-erratum-835769-workaround"></a>
-<a class="index-entry-id" id="index-_002d_002dfix_002dcortex_002da53_002d835769"></a>
-<a class="index-entry-id" id="index-_002d_002dno_002dfix_002dcortex_002da53_002d835769"></a>
-<p>The &lsquo;<samp class="samp">--fix-cortex-a53-835769</samp>&rsquo; switch enables a link-time workaround for erratum 835769 present on certain early revisions of Cortex-A53 processors.  The workaround is disabled by default.  It can be enabled by specifying &lsquo;<samp class="samp">--fix-cortex-a53-835769</samp>&rsquo;, or disabled unconditionally by specifying &lsquo;<samp class="samp">--no-fix-cortex-a53-835769</samp>&rsquo;.
+<span id="index-Cortex_002dA53-erratum-835769-workaround"></span>
+<span id="index-_002d_002dfix_002dcortex_002da53_002d835769"></span>
+<span id="index-_002d_002dno_002dfix_002dcortex_002da53_002d835769"></span>
+<p>The &lsquo;<samp>--fix-cortex-a53-835769</samp>&rsquo; switch enables a link-time workaround for erratum 835769 present on certain early revisions of Cortex-A53 processors.  The workaround is disabled by default.  It can be enabled by specifying &lsquo;<samp>--fix-cortex-a53-835769</samp>&rsquo;, or disabled unconditionally by specifying &lsquo;<samp>--no-fix-cortex-a53-835769</samp>&rsquo;.
 </p>
 <p>Please contact ARM for further details.
 </p>
-<a class="index-entry-id" id="index-_002d_002dmerge_002dexidx_002dentries"></a>
-<a class="index-entry-id" id="index-_002d_002dno_002dmerge_002dexidx_002dentries-1"></a>
-<a class="index-entry-id" id="index-Merging-exidx-entries"></a>
-<p>The &lsquo;<samp class="samp">--no-merge-exidx-entries</samp>&rsquo; switch disables the merging of adjacent exidx entries in debuginfo.
+<span id="index-_002d_002dmerge_002dexidx_002dentries"></span>
+<span id="index-_002d_002dno_002dmerge_002dexidx_002dentries-1"></span>
+<span id="index-Merging-exidx-entries"></span>
+<p>The &lsquo;<samp>--no-merge-exidx-entries</samp>&rsquo; switch disables the merging of adjacent exidx entries in debuginfo.
 </p>
-<a class="index-entry-id" id="index-_002d_002dlong_002dplt"></a>
-<a class="index-entry-id" id="index-32_002dbit-PLT-entries"></a>
-<p>The &lsquo;<samp class="samp">--long-plt</samp>&rsquo; option enables the use of 16 byte PLT entries
+<span id="index-_002d_002dlong_002dplt"></span>
+<span id="index-32_002dbit-PLT-entries"></span>
+<p>The &lsquo;<samp>--long-plt</samp>&rsquo; option enables the use of 16 byte PLT entries
 which support up to 4Gb of code.  The default is to use 12 byte PLT
 entries which only support 512Mb of code.
 </p>
-<a class="index-entry-id" id="index-_002d_002dno_002dapply_002ddynamic_002drelocs"></a>
-<a class="index-entry-id" id="index-AArch64-rela-addend"></a>
-<p>The &lsquo;<samp class="samp">--no-apply-dynamic-relocs</samp>&rsquo; option makes AArch64 linker do not apply
+<span id="index-_002d_002dno_002dapply_002ddynamic_002drelocs"></span>
+<span id="index-AArch64-rela-addend"></span>
+<p>The &lsquo;<samp>--no-apply-dynamic-relocs</samp>&rsquo; option makes AArch64 linker do not apply
 link-time values for dynamic relocations.
 </p>
-<a class="index-entry-id" id="index-Placement-of-SG-veneers"></a>
-<p>All SG veneers are placed in the special output section <code class="code">.gnu.sgstubs</code>.
+<span id="index-Placement-of-SG-veneers"></span>
+<p>All SG veneers are placed in the special output section <code>.gnu.sgstubs</code>.
 Its start address must be set, either with the command-line option
-&lsquo;<samp class="samp">--section-start</samp>&rsquo; or in a linker script, to indicate where to place these
+&lsquo;<samp>--section-start</samp>&rsquo; or in a linker script, to indicate where to place these
 veneers in memory.
 </p>
-<a class="index-entry-id" id="index-_002d_002dcmse_002dimplib"></a>
-<a class="index-entry-id" id="index-Secure-gateway-import-library"></a>
-<p>The &lsquo;<samp class="samp">--cmse-implib</samp>&rsquo; option requests that the import libraries
-specified by the &lsquo;<samp class="samp">--out-implib</samp>&rsquo; and &lsquo;<samp class="samp">--in-implib</samp>&rsquo; options are
+<span id="index-_002d_002dcmse_002dimplib"></span>
+<span id="index-Secure-gateway-import-library"></span>
+<p>The &lsquo;<samp>--cmse-implib</samp>&rsquo; option requests that the import libraries
+specified by the &lsquo;<samp>--out-implib</samp>&rsquo; and &lsquo;<samp>--in-implib</samp>&rsquo; options are
 secure gateway import libraries, suitable for linking a non-secure
 executable against secure code as per ARMv8-M Security Extensions.
 </p>
-<a class="index-entry-id" id="index-_002d_002din_002dimplib_003dfile"></a>
-<a class="index-entry-id" id="index-Input-import-library"></a>
-<p>The &lsquo;<samp class="samp">--in-implib=file</samp>&rsquo; specifies an input import library whose symbols
+<span id="index-_002d_002din_002dimplib_003dfile"></span>
+<span id="index-Input-import-library"></span>
+<p>The &lsquo;<samp>--in-implib=file</samp>&rsquo; specifies an input import library whose symbols
 must keep the same address in the executable being produced.  A warning is
-given if no &lsquo;<samp class="samp">--out-implib</samp>&rsquo; is given but new symbols have been introduced
+given if no &lsquo;<samp>--out-implib</samp>&rsquo; is given but new symbols have been introduced
 in the executable that should be listed in its import library.  Otherwise, if
-&lsquo;<samp class="samp">--out-implib</samp>&rsquo; is specified, the symbols are added to the output import
+&lsquo;<samp>--out-implib</samp>&rsquo; is specified, the symbols are added to the output import
 library.  A warning is also given if some symbols present in the input import
 library have disappeared from the executable.  This option is only effective
-for Secure Gateway import libraries, ie. when &lsquo;<samp class="samp">--cmse-implib</samp>&rsquo; is
+for Secure Gateway import libraries, ie. when &lsquo;<samp>--cmse-implib</samp>&rsquo; is
 specified.
 </p>
-<a class="index-entry-id" id="index-_002dz-force_002dbti"></a>
-<a class="index-entry-id" id="index-Protect-PLTs-with-Branch-Target-Identification"></a>
-<p>The &lsquo;<samp class="samp">-z force-bti</samp>&rsquo; option turns on the verification of Branch Target
+<span id="index-_002dz-force_002dbti"></span>
+<span id="index-Protect-PLTs-with-Branch-Target-Identification"></span>
+<p>The &lsquo;<samp>-z force-bti</samp>&rsquo; option turns on the verification of Branch Target
 Identification (BTI) in input objects, generates PLTs with BTI, and marks the
 output with BTI.  If this option is omitted, but all input objects belonging to
 the link unit have the BTI marking, the linker implicitly generates PLTs with
 BTI, and marks the output with BTI.
 </p>
-<a class="index-entry-id" id="index-_002dz-bti_002dreport_005b_003dnone_007cwarning_007cerror_005d"></a>
-<a class="index-entry-id" id="index-Control-warnings-for-missing-BTI-markings_002e"></a>
-<p>The &lsquo;<samp class="samp">-z bti-report[=none|warning|error]</samp>&rsquo; option specifies how to report
+<span id="index-_002dz-bti_002dreport_005b_003dnone_007cwarning_007cerror_005d"></span>
+<span id="index-Control-warnings-for-missing-BTI-markings_002e"></span>
+<p>The &lsquo;<samp>-z bti-report[=none|warning|error]</samp>&rsquo; option specifies how to report
 missing BTI markings on inputs, i.e. the GNU_PROPERTY_AARCH64_FEATURE_1_BTI
 property.
-By default, if the option is omitted and &lsquo;<samp class="samp">-z force-bti</samp>&rsquo; is provided,
+By default, if the option is omitted and &lsquo;<samp>-z force-bti</samp>&rsquo; is provided,
 warnings are emitted.
-</p><ul class="itemize mark-bullet">
-<li>&lsquo;<samp class="samp">none</samp>&rsquo; disables any warning messages.
-</li><li>&lsquo;<samp class="samp">warning</samp>&rsquo; (the default value) emits warning messages when input objects
+</p><ul>
+<li> &lsquo;<samp>none</samp>&rsquo; disables any warning messages.
+</li><li> &lsquo;<samp>warning</samp>&rsquo; (the default value) emits warning messages when input objects
 composing the link unit are missing BTI markings.
-</li><li>&lsquo;<samp class="samp">error</samp>&rsquo; turns the warning messages into errors.
+</li><li> &lsquo;<samp>error</samp>&rsquo; turns the warning messages into errors.
 </li></ul>
 <p>If issues are found, a maximum of 20 messages will be emitted, and then a summary
 with the total number of issues will be displayed at the end.
 </p>
-<a class="index-entry-id" id="index-_002dz-pac_002dplt"></a>
-<a class="index-entry-id" id="index-Protect-PLTs-with-Returned-Pointer-Authentication"></a>
-<p>The &lsquo;<samp class="samp">-z pac-plt</samp>&rsquo; option enables the usage of pointer authentication in PLTs.
+<span id="index-_002dz-pac_002dplt"></span>
+<span id="index-Protect-PLTs-with-Returned-Pointer-Authentication"></span>
+<p>The &lsquo;<samp>-z pac-plt</samp>&rsquo; option enables the usage of pointer authentication in PLTs.
 </p>
-<a class="index-entry-id" id="index-_002dz-gcs_003d_005balways_007cnever_007cimplicit_005d"></a>
-<a class="index-entry-id" id="index-Controls-whether-the-output-object-supports-the-Guarded-Control-Stack-_0028GCS_0029-mechanism_002e"></a>
-<p>The &lsquo;<samp class="samp">-z gcs</samp>&rsquo; option controls the verification of Guarded Control Stack (GCS)
+<span id="index-_002dz-gcs_003d_005balways_007cnever_007cimplicit_005d"></span>
+<span id="index-Controls-whether-the-output-object-supports-the-Guarded-Control-Stack-_0028GCS_0029-mechanism_002e"></span>
+<p>The &lsquo;<samp>-z gcs</samp>&rsquo; option controls the verification of Guarded Control Stack (GCS)
 markings on input objects and marks the output with GCS if all conditions are
 validated.
-</p><ul class="itemize mark-bullet">
-<li>&lsquo;<samp class="samp">implicit</samp>&rsquo; (default if &lsquo;<samp class="samp">-z gcs</samp>&rsquo; is omitted) enables GCS marking
+</p><ul>
+<li> &lsquo;<samp>implicit</samp>&rsquo; (default if &lsquo;<samp>-z gcs</samp>&rsquo; is omitted) enables GCS marking
 on the output if, and only if, all input objects composing the link unit are
 marked with GCS.
-</li><li>&lsquo;<samp class="samp">always</samp>&rsquo; forces the marking of the output with GCS.
-</li><li>&lsquo;<samp class="samp">never</samp>&rsquo; ignores any GCS marking on the input objects, and does not
+</li><li> &lsquo;<samp>always</samp>&rsquo; forces the marking of the output with GCS.
+</li><li> &lsquo;<samp>never</samp>&rsquo; ignores any GCS marking on the input objects, and does not
 mark the output with GCS.
 </li></ul>
 
-<a class="index-entry-id" id="index-_002dz-gcs_002dreport_005b_003dnone_007cwarning_007cerror_005d"></a>
-<a class="index-entry-id" id="index-Control-warnings-for-missing-GCS-markings_002e"></a>
-<p>The &lsquo;<samp class="samp">-z gcs-report[=none|warning|error]</samp>&rsquo; specifies how to report the missing
+<span id="index-_002dz-gcs_002dreport_005b_003dnone_007cwarning_007cerror_005d"></span>
+<span id="index-Control-warnings-for-missing-GCS-markings_002e"></span>
+<p>The &lsquo;<samp>-z gcs-report[=none|warning|error]</samp>&rsquo; specifies how to report the missing
 GCS markings on inputs, i.e. the GNU_PROPERTY_AARCH64_FEATURE_1_GCS property.
-By default, if the option is omitted and &lsquo;<samp class="samp">-z gcs</samp>&rsquo; is provided, warnings are
+By default, if the option is omitted and &lsquo;<samp>-z gcs</samp>&rsquo; is provided, warnings are
 emitted.
-</p><ul class="itemize mark-bullet">
-<li>&lsquo;<samp class="samp">none</samp>&rsquo; disables any warning messages.
-</li><li>&lsquo;<samp class="samp">warning</samp>&rsquo; (the default value) emits warning messages when input objects
+</p><ul>
+<li> &lsquo;<samp>none</samp>&rsquo; disables any warning messages.
+</li><li> &lsquo;<samp>warning</samp>&rsquo; (the default value) emits warning messages when input objects
 composing the link unit are missing GCS markings, or dynamic objects containing
 external symbols used in the link unit.
-</li><li>&lsquo;<samp class="samp">error</samp>&rsquo; turns the warning messages into errors.
+</li><li> &lsquo;<samp>error</samp>&rsquo; turns the warning messages into errors.
 </li></ul>
 <p>If issues are found, a maximum of 20 messages will be emitted, and then a summary
 with the total number of issues will be displayed at the end.
@@ -406,9 +417,9 @@ with the total number of issues will be displayed at the end.
 
 </div>
 <hr>
-<div class="nav-panel">
+<div class="header">
 <p>
-Next: <a href="HPPA-ELF32.html"><code class="command">ld</code> and HPPA 32-bit ELF Support</a>, Previous: <a href="M68HC11_002f68HC12.html"><code class="command">ld</code> and the Motorola 68HC11 and 68HC12 families</a>, Up: <a href="Machine-Dependent.html">Machine Dependent Features</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="LD-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="HPPA-ELF32.html"><code>ld</code> and HPPA 32-bit ELF Support</a>, Previous: <a href="M68HC11_002f68HC12.html"><code>ld</code> and the Motorola 68HC11 and 68HC12 families</a>, Up: <a href="Machine-Dependent.html">Machine Dependent Features</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="LD-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

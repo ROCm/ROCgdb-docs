@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright © 1988-2024 Free Software Foundation, Inc.
+<!-- Copyright (C) 1988-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -26,7 +26,7 @@ the license, review the license.txt in the top-level directory for the
 library on https://github.com/ROCm/ (Github.com)).  The additional terms
 and conditions below apply to your use of AMD ROCm technical documentation.
 
-©2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
+(C)2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
 
 The information presented in this document is for informational purposes only
 and may contain technical inaccuracies, omissions, and typographical errors.
@@ -52,8 +52,8 @@ EVEN IF AMD IS EXPRESSLY ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
 
 AMD, the AMD Arrow logo, AMD Instinct™, Radeon™, AMD ROCm™, and combinations
 thereof are trademarks of Advanced Micro Devices, Inc.
-Linux® is the registered trademark of Linus Torvalds in the
-U.S. and other countries. PCIe® is a registered trademark of
+Linux(R) is the registered trademark of Linus Torvalds in the
+U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
@@ -74,9 +74,21 @@ companies. -->
 <link href="Values-From-Inferior-In-Guile.html" rel="prev" title="Values From Inferior In Guile">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
-span:hover a.copiable-link {visibility: visible}
-strong.def-name {font-family: monospace; font-weight: bold; font-size: larger}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -84,127 +96,127 @@ strong.def-name {font-family: monospace; font-weight: bold; font-size: larger}
 </head>
 
 <body lang="en">
-<div class="subsubsection-level-extent" id="Arithmetic-In-Guile">
-<div class="nav-panel">
+<div class="subsubsection" id="Arithmetic-In-Guile">
+<div class="header">
 <p>
 Next: <a href="Types-In-Guile.html" accesskey="n" rel="next">Types In Guile</a>, Previous: <a href="Values-From-Inferior-In-Guile.html" accesskey="p" rel="prev">Values From Inferior In Guile</a>, Up: <a href="Guile-API.html" accesskey="u" rel="up">Guile API</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h4 class="subsubsection" id="Arithmetic-In-Guile-1"><span>24.4.3.6 Arithmetic In Guile<a class="copiable-link" href="#Arithmetic-In-Guile-1"> &para;</a></span></h4>
+<span id="Arithmetic-In-Guile-1"></span><h4 class="subsubsection">24.4.3.6 Arithmetic In Guile</h4>
 
-<p>The <code class="code">(gdb)</code> module provides several functions for performing
-arithmetic on <code class="code">&lt;gdb:value&gt;</code> objects.
+<p>The <code>(gdb)</code> module provides several functions for performing
+arithmetic on <code>&lt;gdb:value&gt;</code> objects.
 The arithmetic is performed as if it were done by the target,
 and therefore has target semantics which are not necessarily
 those of Scheme.  For example operations work with a fixed precision,
 not the arbitrary precision of Scheme.
 </p>
 <p>Wherever a function takes an integer or pointer as an operand,
-<small class="sc">ROCGDB</small> will convert appropriate Scheme values to perform
+<small>ROCGDB</small> will convert appropriate Scheme values to perform
 the operation.
 </p>
-<dl class="first-deffn">
-<dt class="deffn" id="index-value_002dadd"><span class="category-def">Scheme Procedure: </span><span><strong class="def-name">value-add</strong> <var class="def-var-arguments">a b</var><a class="copiable-link" href="#index-value_002dadd"> &para;</a></span></dt>
+<dl class="def">
+<dt id="index-value_002dadd"><span class="category">Scheme Procedure: </span><span><strong>value-add</strong> <em>a b</em><a href='#index-value_002dadd' class='copiable-anchor'> &para;</a></span></dt>
 </dl>
 
-<dl class="first-deffn">
-<dt class="deffn" id="index-value_002dsub"><span class="category-def">Scheme Procedure: </span><span><strong class="def-name">value-sub</strong> <var class="def-var-arguments">a b</var><a class="copiable-link" href="#index-value_002dsub"> &para;</a></span></dt>
+<dl class="def">
+<dt id="index-value_002dsub"><span class="category">Scheme Procedure: </span><span><strong>value-sub</strong> <em>a b</em><a href='#index-value_002dsub' class='copiable-anchor'> &para;</a></span></dt>
 </dl>
 
-<dl class="first-deffn">
-<dt class="deffn" id="index-value_002dmul"><span class="category-def">Scheme Procedure: </span><span><strong class="def-name">value-mul</strong> <var class="def-var-arguments">a b</var><a class="copiable-link" href="#index-value_002dmul"> &para;</a></span></dt>
+<dl class="def">
+<dt id="index-value_002dmul"><span class="category">Scheme Procedure: </span><span><strong>value-mul</strong> <em>a b</em><a href='#index-value_002dmul' class='copiable-anchor'> &para;</a></span></dt>
 </dl>
 
-<dl class="first-deffn">
-<dt class="deffn" id="index-value_002ddiv"><span class="category-def">Scheme Procedure: </span><span><strong class="def-name">value-div</strong> <var class="def-var-arguments">a b</var><a class="copiable-link" href="#index-value_002ddiv"> &para;</a></span></dt>
+<dl class="def">
+<dt id="index-value_002ddiv"><span class="category">Scheme Procedure: </span><span><strong>value-div</strong> <em>a b</em><a href='#index-value_002ddiv' class='copiable-anchor'> &para;</a></span></dt>
 </dl>
 
-<dl class="first-deffn">
-<dt class="deffn" id="index-value_002drem"><span class="category-def">Scheme Procedure: </span><span><strong class="def-name">value-rem</strong> <var class="def-var-arguments">a b</var><a class="copiable-link" href="#index-value_002drem"> &para;</a></span></dt>
+<dl class="def">
+<dt id="index-value_002drem"><span class="category">Scheme Procedure: </span><span><strong>value-rem</strong> <em>a b</em><a href='#index-value_002drem' class='copiable-anchor'> &para;</a></span></dt>
 </dl>
 
-<dl class="first-deffn">
-<dt class="deffn" id="index-value_002dmod"><span class="category-def">Scheme Procedure: </span><span><strong class="def-name">value-mod</strong> <var class="def-var-arguments">a b</var><a class="copiable-link" href="#index-value_002dmod"> &para;</a></span></dt>
+<dl class="def">
+<dt id="index-value_002dmod"><span class="category">Scheme Procedure: </span><span><strong>value-mod</strong> <em>a b</em><a href='#index-value_002dmod' class='copiable-anchor'> &para;</a></span></dt>
 </dl>
 
-<dl class="first-deffn">
-<dt class="deffn" id="index-value_002dpow"><span class="category-def">Scheme Procedure: </span><span><strong class="def-name">value-pow</strong> <var class="def-var-arguments">a b</var><a class="copiable-link" href="#index-value_002dpow"> &para;</a></span></dt>
+<dl class="def">
+<dt id="index-value_002dpow"><span class="category">Scheme Procedure: </span><span><strong>value-pow</strong> <em>a b</em><a href='#index-value_002dpow' class='copiable-anchor'> &para;</a></span></dt>
 </dl>
 
-<dl class="first-deffn">
-<dt class="deffn" id="index-value_002dnot"><span class="category-def">Scheme Procedure: </span><span><strong class="def-name">value-not</strong> <var class="def-var-arguments">a</var><a class="copiable-link" href="#index-value_002dnot"> &para;</a></span></dt>
+<dl class="def">
+<dt id="index-value_002dnot"><span class="category">Scheme Procedure: </span><span><strong>value-not</strong> <em>a</em><a href='#index-value_002dnot' class='copiable-anchor'> &para;</a></span></dt>
 </dl>
 
-<dl class="first-deffn">
-<dt class="deffn" id="index-value_002dneg"><span class="category-def">Scheme Procedure: </span><span><strong class="def-name">value-neg</strong> <var class="def-var-arguments">a</var><a class="copiable-link" href="#index-value_002dneg"> &para;</a></span></dt>
+<dl class="def">
+<dt id="index-value_002dneg"><span class="category">Scheme Procedure: </span><span><strong>value-neg</strong> <em>a</em><a href='#index-value_002dneg' class='copiable-anchor'> &para;</a></span></dt>
 </dl>
 
-<dl class="first-deffn">
-<dt class="deffn" id="index-value_002dpos"><span class="category-def">Scheme Procedure: </span><span><strong class="def-name">value-pos</strong> <var class="def-var-arguments">a</var><a class="copiable-link" href="#index-value_002dpos"> &para;</a></span></dt>
+<dl class="def">
+<dt id="index-value_002dpos"><span class="category">Scheme Procedure: </span><span><strong>value-pos</strong> <em>a</em><a href='#index-value_002dpos' class='copiable-anchor'> &para;</a></span></dt>
 </dl>
 
-<dl class="first-deffn">
-<dt class="deffn" id="index-value_002dabs"><span class="category-def">Scheme Procedure: </span><span><strong class="def-name">value-abs</strong> <var class="def-var-arguments">a</var><a class="copiable-link" href="#index-value_002dabs"> &para;</a></span></dt>
+<dl class="def">
+<dt id="index-value_002dabs"><span class="category">Scheme Procedure: </span><span><strong>value-abs</strong> <em>a</em><a href='#index-value_002dabs' class='copiable-anchor'> &para;</a></span></dt>
 </dl>
 
-<dl class="first-deffn">
-<dt class="deffn" id="index-value_002dlsh"><span class="category-def">Scheme Procedure: </span><span><strong class="def-name">value-lsh</strong> <var class="def-var-arguments">a b</var><a class="copiable-link" href="#index-value_002dlsh"> &para;</a></span></dt>
+<dl class="def">
+<dt id="index-value_002dlsh"><span class="category">Scheme Procedure: </span><span><strong>value-lsh</strong> <em>a b</em><a href='#index-value_002dlsh' class='copiable-anchor'> &para;</a></span></dt>
 </dl>
 
-<dl class="first-deffn">
-<dt class="deffn" id="index-value_002drsh"><span class="category-def">Scheme Procedure: </span><span><strong class="def-name">value-rsh</strong> <var class="def-var-arguments">a b</var><a class="copiable-link" href="#index-value_002drsh"> &para;</a></span></dt>
+<dl class="def">
+<dt id="index-value_002drsh"><span class="category">Scheme Procedure: </span><span><strong>value-rsh</strong> <em>a b</em><a href='#index-value_002drsh' class='copiable-anchor'> &para;</a></span></dt>
 </dl>
 
-<dl class="first-deffn">
-<dt class="deffn" id="index-value_002dmin"><span class="category-def">Scheme Procedure: </span><span><strong class="def-name">value-min</strong> <var class="def-var-arguments">a b</var><a class="copiable-link" href="#index-value_002dmin"> &para;</a></span></dt>
+<dl class="def">
+<dt id="index-value_002dmin"><span class="category">Scheme Procedure: </span><span><strong>value-min</strong> <em>a b</em><a href='#index-value_002dmin' class='copiable-anchor'> &para;</a></span></dt>
 </dl>
 
-<dl class="first-deffn">
-<dt class="deffn" id="index-value_002dmax"><span class="category-def">Scheme Procedure: </span><span><strong class="def-name">value-max</strong> <var class="def-var-arguments">a b</var><a class="copiable-link" href="#index-value_002dmax"> &para;</a></span></dt>
+<dl class="def">
+<dt id="index-value_002dmax"><span class="category">Scheme Procedure: </span><span><strong>value-max</strong> <em>a b</em><a href='#index-value_002dmax' class='copiable-anchor'> &para;</a></span></dt>
 </dl>
 
-<dl class="first-deffn">
-<dt class="deffn" id="index-value_002dlognot"><span class="category-def">Scheme Procedure: </span><span><strong class="def-name">value-lognot</strong> <var class="def-var-arguments">a</var><a class="copiable-link" href="#index-value_002dlognot"> &para;</a></span></dt>
+<dl class="def">
+<dt id="index-value_002dlognot"><span class="category">Scheme Procedure: </span><span><strong>value-lognot</strong> <em>a</em><a href='#index-value_002dlognot' class='copiable-anchor'> &para;</a></span></dt>
 </dl>
 
-<dl class="first-deffn">
-<dt class="deffn" id="index-value_002dlogand"><span class="category-def">Scheme Procedure: </span><span><strong class="def-name">value-logand</strong> <var class="def-var-arguments">a b</var><a class="copiable-link" href="#index-value_002dlogand"> &para;</a></span></dt>
+<dl class="def">
+<dt id="index-value_002dlogand"><span class="category">Scheme Procedure: </span><span><strong>value-logand</strong> <em>a b</em><a href='#index-value_002dlogand' class='copiable-anchor'> &para;</a></span></dt>
 </dl>
 
-<dl class="first-deffn">
-<dt class="deffn" id="index-value_002dlogior"><span class="category-def">Scheme Procedure: </span><span><strong class="def-name">value-logior</strong> <var class="def-var-arguments">a b</var><a class="copiable-link" href="#index-value_002dlogior"> &para;</a></span></dt>
+<dl class="def">
+<dt id="index-value_002dlogior"><span class="category">Scheme Procedure: </span><span><strong>value-logior</strong> <em>a b</em><a href='#index-value_002dlogior' class='copiable-anchor'> &para;</a></span></dt>
 </dl>
 
-<dl class="first-deffn">
-<dt class="deffn" id="index-value_002dlogxor"><span class="category-def">Scheme Procedure: </span><span><strong class="def-name">value-logxor</strong> <var class="def-var-arguments">a b</var><a class="copiable-link" href="#index-value_002dlogxor"> &para;</a></span></dt>
+<dl class="def">
+<dt id="index-value_002dlogxor"><span class="category">Scheme Procedure: </span><span><strong>value-logxor</strong> <em>a b</em><a href='#index-value_002dlogxor' class='copiable-anchor'> &para;</a></span></dt>
 </dl>
 
-<dl class="first-deffn">
-<dt class="deffn" id="index-value_003d_003f"><span class="category-def">Scheme Procedure: </span><span><strong class="def-name">value=?</strong> <var class="def-var-arguments">a b</var><a class="copiable-link" href="#index-value_003d_003f"> &para;</a></span></dt>
+<dl class="def">
+<dt id="index-value_003d_003f"><span class="category">Scheme Procedure: </span><span><strong>value=?</strong> <em>a b</em><a href='#index-value_003d_003f' class='copiable-anchor'> &para;</a></span></dt>
 </dl>
 
-<dl class="first-deffn">
-<dt class="deffn" id="index-value_003c_003f"><span class="category-def">Scheme Procedure: </span><span><strong class="def-name">value&lt;?</strong> <var class="def-var-arguments">a b</var><a class="copiable-link" href="#index-value_003c_003f"> &para;</a></span></dt>
+<dl class="def">
+<dt id="index-value_003c_003f"><span class="category">Scheme Procedure: </span><span><strong>value&lt;?</strong> <em>a b</em><a href='#index-value_003c_003f' class='copiable-anchor'> &para;</a></span></dt>
 </dl>
 
-<dl class="first-deffn">
-<dt class="deffn" id="index-value_003c_003d_003f"><span class="category-def">Scheme Procedure: </span><span><strong class="def-name">value&lt;=?</strong> <var class="def-var-arguments">a b</var><a class="copiable-link" href="#index-value_003c_003d_003f"> &para;</a></span></dt>
+<dl class="def">
+<dt id="index-value_003c_003d_003f"><span class="category">Scheme Procedure: </span><span><strong>value&lt;=?</strong> <em>a b</em><a href='#index-value_003c_003d_003f' class='copiable-anchor'> &para;</a></span></dt>
 </dl>
 
-<dl class="first-deffn">
-<dt class="deffn" id="index-value_003e_003f"><span class="category-def">Scheme Procedure: </span><span><strong class="def-name">value&gt;?</strong> <var class="def-var-arguments">a b</var><a class="copiable-link" href="#index-value_003e_003f"> &para;</a></span></dt>
+<dl class="def">
+<dt id="index-value_003e_003f"><span class="category">Scheme Procedure: </span><span><strong>value&gt;?</strong> <em>a b</em><a href='#index-value_003e_003f' class='copiable-anchor'> &para;</a></span></dt>
 </dl>
 
-<dl class="first-deffn">
-<dt class="deffn" id="index-value_003e_003d_003f"><span class="category-def">Scheme Procedure: </span><span><strong class="def-name">value&gt;=?</strong> <var class="def-var-arguments">a b</var><a class="copiable-link" href="#index-value_003e_003d_003f"> &para;</a></span></dt>
+<dl class="def">
+<dt id="index-value_003e_003d_003f"><span class="category">Scheme Procedure: </span><span><strong>value&gt;=?</strong> <em>a b</em><a href='#index-value_003e_003d_003f' class='copiable-anchor'> &para;</a></span></dt>
 </dl>
 
-<p>Scheme does not provide a <code class="code">not-equal</code> function,
-and thus Guile support in <small class="sc">ROCGDB</small> does not either.
+<p>Scheme does not provide a <code>not-equal</code> function,
+and thus Guile support in <small>ROCGDB</small> does not either.
 </p>
 </div>
 <hr>
-<div class="nav-panel">
+<div class="header">
 <p>
 Next: <a href="Types-In-Guile.html">Types In Guile</a>, Previous: <a href="Values-From-Inferior-In-Guile.html">Values From Inferior In Guile</a>, Up: <a href="Guile-API.html">Guile API</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
