@@ -5,7 +5,6 @@
 
 set -e
 
-git submodule update --init --recursive
 rm -rf _build
 mkdir _build
 pushd _build
