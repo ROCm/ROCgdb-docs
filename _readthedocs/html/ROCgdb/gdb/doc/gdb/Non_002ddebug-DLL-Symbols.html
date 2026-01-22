@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright © 1988-2024 Free Software Foundation, Inc.
+<!-- Copyright (C) 1988-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -26,7 +26,7 @@ the license, review the license.txt in the top-level directory for the
 library on https://github.com/ROCm/ (Github.com)).  The additional terms
 and conditions below apply to your use of AMD ROCm technical documentation.
 
-©2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
+(C)2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
 
 The information presented in this document is for informational purposes only
 and may contain technical inaccuracies, omissions, and typographical errors.
@@ -52,8 +52,8 @@ EVEN IF AMD IS EXPRESSLY ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
 
 AMD, the AMD Arrow logo, AMD Instinct™, Radeon™, AMD ROCm™, and combinations
 thereof are trademarks of Advanced Micro Devices, Inc.
-Linux® is the registered trademark of Linus Torvalds in the
-U.S. and other countries. PCIe® is a registered trademark of
+Linux(R) is the registered trademark of Linus Torvalds in the
+U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
@@ -72,9 +72,21 @@ companies. -->
 <link href="Cygwin-Native.html" rel="up" title="Cygwin Native">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
 div.example {margin-left: 3.2em}
-span:hover a.copiable-link {visibility: visible}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -82,22 +94,22 @@ span:hover a.copiable-link {visibility: visible}
 </head>
 
 <body lang="en">
-<div class="subsubsection-level-extent" id="Non_002ddebug-DLL-Symbols">
-<div class="nav-panel">
+<div class="subsubsection" id="Non_002ddebug-DLL-Symbols">
+<div class="header">
 <p>
 Up: <a href="Cygwin-Native.html" accesskey="u" rel="up">Features for Debugging MS Windows PE Executables</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h4 class="subsubsection" id="Support-for-DLLs-without-Debugging-Symbols"><span>22.1.4.1 Support for DLLs without Debugging Symbols<a class="copiable-link" href="#Support-for-DLLs-without-Debugging-Symbols"> &para;</a></span></h4>
-<a class="index-entry-id" id="index-DLLs-with-no-debugging-symbols"></a>
-<a class="index-entry-id" id="index-Minimal-symbols-and-DLLs"></a>
+<span id="Support-for-DLLs-without-Debugging-Symbols"></span><h4 class="subsubsection">22.1.4.1 Support for DLLs without Debugging Symbols</h4>
+<span id="index-DLLs-with-no-debugging-symbols"></span>
+<span id="index-Minimal-symbols-and-DLLs"></span>
 
 <p>Very often on windows, some of the DLLs that your program relies on do
 not include symbolic debugging information (for example,
-<samp class="file">kernel32.dll</samp>).  When <small class="sc">ROCGDB</small> doesn&rsquo;t recognize any debugging
+<samp>kernel32.dll</samp>).  When <small>ROCGDB</small> doesn&rsquo;t recognize any debugging
 symbols in a DLL, it relies on the minimal amount of symbolic
 information contained in the DLL&rsquo;s export table.  This section
-describes working with such symbols, known internally to <small class="sc">ROCGDB</small> as
+describes working with such symbols, known internally to <small>ROCGDB</small> as
 &ldquo;minimal symbols&rdquo;.
 </p>
 <p>Note that before the debugged program has started execution, no DLLs
@@ -106,13 +118,13 @@ start the program &mdash; either by setting a breakpoint or letting the
 program run once to completion.
 </p>
 </div>
-<div class="subsubsection-level-extent" id="DLL-Name-Prefixes">
-<h4 class="subsubsection"><span>22.1.4.2 DLL Name Prefixes<a class="copiable-link" href="#DLL-Name-Prefixes"> &para;</a></span></h4>
+<div class="subsubsection" id="DLL-Name-Prefixes">
+<h4 class="subsubsection">22.1.4.2 DLL Name Prefixes</h4>
 
 <p>In keeping with the naming conventions used by the Microsoft debugging
 tools, DLL export symbols are made available with a prefix based on the
-DLL name, for instance <code class="code">KERNEL32!CreateFileA</code>.  The plain name is
-also entered into the symbol table, so <code class="code">CreateFileA</code> is often
+DLL name, for instance <code>KERNEL32!CreateFileA</code>.  The plain name is
+also entered into the symbol table, so <code>CreateFileA</code> is often
 sufficient.  In some cases there will be name clashes within a program
 (particularly if the executable itself includes full debugging symbols)
 necessitating the use of the fully qualified name when referring to the
@@ -121,13 +133,13 @@ exclamation mark (&ldquo;!&rdquo;)  being interpreted as a language operator.
 </p>
 <p>Note that the internal name of the DLL may be all upper-case, even
 though the file name of the DLL is lower-case, or vice-versa.  Since
-symbols within <small class="sc">ROCGDB</small> are <em class="emph">case-sensitive</em> this may cause
-some confusion. If in doubt, try the <code class="code">info functions</code> and
-<code class="code">info variables</code> commands or even <code class="code">maint print msymbols</code>
-(see <a class="pxref" href="Symbols.html">Examining the Symbol Table</a>). Here&rsquo;s an example:
+symbols within <small>ROCGDB</small> are <em>case-sensitive</em> this may cause
+some confusion. If in doubt, try the <code>info functions</code> and
+<code>info variables</code> commands or even <code>maint print msymbols</code>
+(see <a href="Symbols.html">Examining the Symbol Table</a>). Here&rsquo;s an example:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">(gdb) info function CreateFileA
+<div class="example">
+<pre class="example">(gdb) info function CreateFileA
 All functions matching regular expression &quot;CreateFileA&quot;:
 
 Non-debugging symbols:
@@ -135,8 +147,8 @@ Non-debugging symbols:
 0x77e885f4  KERNEL32!CreateFileA
 </pre></div>
 
-<div class="example smallexample">
-<pre class="example-preformatted">(gdb) info function !
+<div class="example">
+<pre class="example">(gdb) info function !
 All functions matching regular expression &quot;!&quot;:
 
 Non-debugging symbols:
@@ -147,11 +159,11 @@ Non-debugging symbols:
 </pre></div>
 
 </div>
-<div class="subsubsection-level-extent" id="Working-with-Minimal-Symbols">
-<h4 class="subsubsection"><span>22.1.4.3 Working with Minimal Symbols<a class="copiable-link" href="#Working-with-Minimal-Symbols"> &para;</a></span></h4>
+<div class="subsubsection" id="Working-with-Minimal-Symbols">
+<h4 class="subsubsection">22.1.4.3 Working with Minimal Symbols</h4>
 
 <p>Symbols extracted from a DLL&rsquo;s export table do not contain very much
-type information. All that <small class="sc">ROCGDB</small> can do is guess whether a symbol
+type information. All that <small>ROCGDB</small> can do is guess whether a symbol
 refers to a function or variable depending on the linker section that
 contains the symbol. Also note that the actual contents of the memory
 contained in a DLL are not available unless the program is running. This
@@ -164,25 +176,25 @@ variable name with the address-of operator (&ldquo;&amp;&rdquo;) and provide exp
 type information in the command. Here&rsquo;s an example of the type of
 problem:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">(gdb) print 'cygwin1!__argv'
+<div class="example">
+<pre class="example">(gdb) print 'cygwin1!__argv'
 'cygwin1!__argv' has unknown type; cast it to its declared type
 </pre></div>
 
-<div class="example smallexample">
-<pre class="example-preformatted">(gdb) x 'cygwin1!__argv'
+<div class="example">
+<pre class="example">(gdb) x 'cygwin1!__argv'
 'cygwin1!__argv' has unknown type; cast it to its declared type
 </pre></div>
 
 <p>And two possible solutions:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">(gdb) print ((char **)'cygwin1!__argv')[0]
+<div class="example">
+<pre class="example">(gdb) print ((char **)'cygwin1!__argv')[0]
 $2 = 0x22fd98 &quot;/cygdrive/c/mydirectory/myprogram&quot;
 </pre></div>
 
-<div class="example smallexample">
-<pre class="example-preformatted">(gdb) x/2x &amp;'cygwin1!__argv'
+<div class="example">
+<pre class="example">(gdb) x/2x &amp;'cygwin1!__argv'
 0x610c0aa8 &lt;cygwin1!__argv&gt;:    0x10021608      0x00000000
 (gdb) x/x 0x10021608
 0x10021608:     0x0022fd98
@@ -191,23 +203,23 @@ $2 = 0x22fd98 &quot;/cygdrive/c/mydirectory/myprogram&quot;
 </pre></div>
 
 <p>Setting a break point within a DLL is possible even before the program
-starts execution. However, under these circumstances, <small class="sc">ROCGDB</small> can&rsquo;t
+starts execution. However, under these circumstances, <small>ROCGDB</small> can&rsquo;t
 examine the initial instructions of the function in order to skip the
 function&rsquo;s frame set-up code. You can work around this by using &ldquo;*&amp;&rdquo;
 to set the breakpoint at a raw memory address:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">(gdb) break *&amp;'python22!PyOS_Readline'
+<div class="example">
+<pre class="example">(gdb) break *&amp;'python22!PyOS_Readline'
 Breakpoint 1 at 0x1e04eff0
 </pre></div>
 
 <p>The author of these extensions is not entirely convinced that setting a
-break point within a shared DLL like <samp class="file">kernel32.dll</samp> is completely
+break point within a shared DLL like <samp>kernel32.dll</samp> is completely
 safe.
 </p>
 </div>
 <hr>
-<div class="nav-panel">
+<div class="header">
 <p>
 Up: <a href="Cygwin-Native.html">Features for Debugging MS Windows PE Executables</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

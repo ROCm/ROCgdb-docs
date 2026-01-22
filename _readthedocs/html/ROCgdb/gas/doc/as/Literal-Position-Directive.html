@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the GNU Assembler "as".
 
-Copyright © 1991-2024 Free Software Foundation, Inc.
+Copyright (C) 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -31,9 +31,21 @@ section entitled "GNU Free Documentation License".
 <link href="Literal-Directive.html" rel="prev" title="Literal Directive">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
 div.example {margin-left: 3.2em}
-span:hover a.copiable-link {visibility: visible}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -41,54 +53,54 @@ span:hover a.copiable-link {visibility: visible}
 </head>
 
 <body lang="en">
-<div class="subsubsection-level-extent" id="Literal-Position-Directive">
-<div class="nav-panel">
+<div class="subsection" id="Literal-Position-Directive">
+<div class="header">
 <p>
 Next: <a href="Literal-Prefix-Directive.html" accesskey="n" rel="next">literal_prefix</a>, Previous: <a href="Literal-Directive.html" accesskey="p" rel="prev">literal</a>, Up: <a href="Xtensa-Directives.html" accesskey="u" rel="up">Directives</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h4 class="subsubsection subsection-level-set-subsubsection" id="literal_005fposition"><span>9.55.5.5 literal_position<a class="copiable-link" href="#literal_005fposition"> &para;</a></span></h4>
-<a class="index-entry-id" id="index-literal_005fposition-directive"></a>
+<span id="literal_005fposition"></span><h4 class="subsubsection">9.55.5.5 literal_position</h4>
+<span id="index-literal_005fposition-directive"></span>
 
-<p>When using &lsquo;<samp class="samp">--text-section-literals</samp>&rsquo; to place literals inline
-in the section being assembled, the <code class="code">.literal_position</code> directive
+<p>When using &lsquo;<samp>--text-section-literals</samp>&rsquo; to place literals inline
+in the section being assembled, the <code>.literal_position</code> directive
 can be used to mark a potential location for a literal pool.
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">    .literal_position
+<div class="example">
+<pre class="example">    .literal_position
 </pre></div>
 
-<p>The <code class="code">.literal_position</code> directive is ignored when the
-&lsquo;<samp class="samp">--text-section-literals</samp>&rsquo; option is not used or when
-<code class="code">L32R</code> instructions use the absolute addressing mode.
+<p>The <code>.literal_position</code> directive is ignored when the
+&lsquo;<samp>--text-section-literals</samp>&rsquo; option is not used or when
+<code>L32R</code> instructions use the absolute addressing mode.
 </p>
 <p>The assembler will automatically place text section literal pools
-before <code class="code">ENTRY</code> instructions, so the <code class="code">.literal_position</code>
+before <code>ENTRY</code> instructions, so the <code>.literal_position</code>
 directive is only needed to specify some other location for a literal
 pool.  You may need to add an explicit jump instruction to skip over an
 inline literal pool.
 </p>
-<p>For example, an interrupt vector does not begin with an <code class="code">ENTRY</code>
+<p>For example, an interrupt vector does not begin with an <code>ENTRY</code>
 instruction so the assembler will be unable to automatically find a good
 place to put a literal pool.  Moreover, the code for the interrupt
 vector must be at a specific starting address, so the literal pool
 cannot come before the start of the code.  The literal pool for the
 vector must be explicitly positioned in the middle of the vector (before
 any uses of the literals, due to the negative offsets used by
-PC-relative <code class="code">L32R</code> instructions).  The <code class="code">.literal_position</code>
+PC-relative <code>L32R</code> instructions).  The <code>.literal_position</code>
 directive can be used to do this.  In the following code, the literal
-for &lsquo;<samp class="samp">M</samp>&rsquo; will automatically be aligned correctly and is placed after
+for &lsquo;<samp>M</samp>&rsquo; will automatically be aligned correctly and is placed after
 the unconditional jump.
 </p>
-<div class="example smallexample">
-<div class="group"><pre class="example-preformatted">    .global M
+<div class="example">
+<pre class="example">    .global M
 code_start:
-</pre></div><pre class="example-preformatted">    j continue
+</pre><pre class="example">    j continue
     .literal_position
     .align 4
-</pre><div class="group"><pre class="example-preformatted">continue:
+</pre><pre class="example">continue:
     movi    a4, M
-</pre></div></div>
+</pre></div>
 
 </div>
 

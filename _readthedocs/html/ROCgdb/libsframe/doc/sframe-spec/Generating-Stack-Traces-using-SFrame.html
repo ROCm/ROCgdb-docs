@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright © 2021-2024 Free Software Foundation, Inc.
+<!-- Copyright (C) 2021-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU General Public License, Version 3 or any
@@ -28,10 +28,21 @@ License".
 <link href="ABI_002farch_002dspecific-Definition.html" rel="prev" title="ABI/arch-specific Definition">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
 div.example {margin-left: 3.2em}
-span:hover a.copiable-link {visibility: visible}
-ul.mark-minus {list-style-type: "\2212"}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -39,13 +50,13 @@ ul.mark-minus {list-style-type: "\2212"}
 </head>
 
 <body lang="en">
-<div class="appendix-level-extent" id="Generating-Stack-Traces-using-SFrame">
-<div class="nav-panel">
+<div class="appendix" id="Generating-Stack-Traces-using-SFrame">
+<div class="header">
 <p>
 Next: <a href="Index.html" accesskey="n" rel="next">Index</a>, Previous: <a href="ABI_002farch_002dspecific-Definition.html" accesskey="p" rel="prev">ABI/arch-specific Definition</a>, Up: <a href="index.html" accesskey="u" rel="up">The SFrame format</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h2 class="appendix" id="Generating-Stack-Traces-using-SFrame-1"><span>Appendix A Generating Stack Traces using SFrame<a class="copiable-link" href="#Generating-Stack-Traces-using-SFrame-1"> &para;</a></span></h2>
+<span id="Generating-Stack-Traces-using-SFrame-1"></span><h2 class="appendix">Appendix A Generating Stack Traces using SFrame</h2>
 
 <p>Using some C-like pseudocode, this section highlights how SFrame provides a
 simple, fast and low-overhead mechanism to generate stack traces.  Needless to
@@ -53,31 +64,31 @@ say that for generating accurate and useful stack traces, several other aspects
 will need attention: finding and decoding bits of SFrame section(s) in the
 program binary, symbolization of addresses, to name a few.
 </p>
-<p>In the current context, a <code class="code">frame</code> is the abstract construct that
+<p>In the current context, a <code>frame</code> is the abstract construct that
 encapsulates the following information:
-</p><ul class="itemize mark-minus">
-<li>program counter (PC),
-</li><li>stack pointer (SP), and
-</li><li>frame pointer (FP)
+</p><ul class="no-bullet">
+<li>- program counter (PC),
+</li><li>- stack pointer (SP), and
+</li><li>- frame pointer (FP)
 </li></ul>
 
-<p>With that said, establishing the first <code class="code">frame</code> should be trivial:
+<p>With that said, establishing the first <code>frame</code> should be trivial:
 </p>
 <div class="example">
-<pre class="example-preformatted">    // frame 0
+<pre class="example">    // frame 0
     frame-&gt;pc = current_IP;
     frame-&gt;sp = get_reg_value (REG_SP);
     frame-&gt;fp = get_reg_value (REG_FP);
 </pre></div>
 
-<p>where <code class="code">REG_SP</code> and <code class="code">REG_FP</code> are are ABI-designated stack pointer and
+<p>where <code>REG_SP</code> and <code>REG_FP</code> are are ABI-designated stack pointer and
 frame pointer registers respectively.
 </p>
 <p>Next, given frame N, generating stack trace needs us to get frame N+1.  This
 can be done as follows:
 </p>
 <div class="example">
-<pre class="example-preformatted">     // Get the PC, SP, and FP for frame N.
+<pre class="example">     // Get the PC, SP, and FP for frame N.
      pc = frame-&gt;pc;
      sp = frame-&gt;sp;
      fp = frame-&gt;fp;
@@ -86,13 +97,13 @@ can be done as follows:
 </pre></div>
 
 <p>where given the values of the program counter, stack pointer and frame pointer
-from frame N, <code class="code">get_next_frame</code> populates the provided <code class="code">next_frame</code>
+from frame N, <code>get_next_frame</code> populates the provided <code>next_frame</code>
 object and returns the error code, if any. In the following pseudocode for
-<code class="code">get_next_frame</code>, the <code class="code">sframe_*</code> functions fetch information from the
+<code>get_next_frame</code>, the <code>sframe_*</code> functions fetch information from the
 SFrame section.
 </p>
 <div class="example">
-<pre class="example-preformatted">    fre = sframe_find_fre (pc);
+<pre class="example">    fre = sframe_find_fre (pc);
     if (fre)
         // Whether the base register for CFA tracking is REG_FP.
         base_reg_val = sframe_fre_base_reg_fp_p (fre) ? fp : sp;
@@ -124,7 +135,7 @@ SFrame section.
 
 </div>
 <hr>
-<div class="nav-panel">
+<div class="header">
 <p>
 Next: <a href="Index.html">Index</a>, Previous: <a href="ABI_002farch_002dspecific-Definition.html">ABI/arch-specific Definition</a>, Up: <a href="index.html">The SFrame format</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

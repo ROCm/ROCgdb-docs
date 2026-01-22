@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright © 1988-2024 Free Software Foundation, Inc.
+<!-- Copyright (C) 1988-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -26,7 +26,7 @@ the license, review the license.txt in the top-level directory for the
 library on https://github.com/ROCm/ (Github.com)).  The additional terms
 and conditions below apply to your use of AMD ROCm technical documentation.
 
-©2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
+(C)2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
 
 The information presented in this document is for informational purposes only
 and may contain technical inaccuracies, omissions, and typographical errors.
@@ -52,8 +52,8 @@ EVEN IF AMD IS EXPRESSLY ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
 
 AMD, the AMD Arrow logo, AMD Instinct™, Radeon™, AMD ROCm™, and combinations
 thereof are trademarks of Advanced Micro Devices, Inc.
-Linux® is the registered trademark of Linus Torvalds in the
-U.S. and other countries. PCIe® is a registered trademark of
+Linux(R) is the registered trademark of Linus Torvalds in the
+U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
@@ -73,9 +73,21 @@ companies. -->
 <link href="Using-JIT-Debug-Info-Readers.html" rel="prev" title="Using JIT Debug Info Readers">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
 div.example {margin-left: 3.2em}
-span:hover a.copiable-link {visibility: visible}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -83,46 +95,46 @@ span:hover a.copiable-link {visibility: visible}
 </head>
 
 <body lang="en">
-<div class="subsection-level-extent" id="Writing-JIT-Debug-Info-Readers">
-<div class="nav-panel">
+<div class="subsection" id="Writing-JIT-Debug-Info-Readers">
+<div class="header">
 <p>
 Previous: <a href="Using-JIT-Debug-Info-Readers.html" accesskey="p" rel="prev">Using JIT Debug Info Readers</a>, Up: <a href="Custom-Debug-Info.html" accesskey="u" rel="up">Custom Debug Info</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h4 class="subsection" id="Writing-JIT-Debug-Info-Readers-1"><span>31.4.2 Writing JIT Debug Info Readers<a class="copiable-link" href="#Writing-JIT-Debug-Info-Readers-1"> &para;</a></span></h4>
-<a class="index-entry-id" id="index-writing-JIT-debug-info-readers"></a>
+<span id="Writing-JIT-Debug-Info-Readers-1"></span><h4 class="subsection">31.4.2 Writing JIT Debug Info Readers</h4>
+<span id="index-writing-JIT-debug-info-readers"></span>
 
 <p>As mentioned, a reader is essentially a shared object conforming to a
-certain ABI.  This ABI is described in <samp class="file">jit-reader.h</samp>.
+certain ABI.  This ABI is described in <samp>jit-reader.h</samp>.
 </p>
-<p><samp class="file">jit-reader.h</samp> defines the structures, macros and functions
+<p><samp>jit-reader.h</samp> defines the structures, macros and functions
 required to write a reader.  It is installed (along with
-<small class="sc">ROCGDB</small>), in <samp class="file"><var class="var">includedir</var>/gdb</samp> where <var class="var">includedir</var> is
+<small>ROCGDB</small>), in <samp><var>includedir</var>/gdb</samp> where <var>includedir</var> is
 the system include directory.
 </p>
 <p>Readers need to be released under a GPL compatible license.  A reader
 can be declared as released under such a license by placing the macro
-<code class="code">GDB_DECLARE_GPL_COMPATIBLE_READER</code> in a source file.
+<code>GDB_DECLARE_GPL_COMPATIBLE_READER</code> in a source file.
 </p>
-<p>The entry point for readers is the symbol <code class="code">gdb_init_reader</code>,
+<p>The entry point for readers is the symbol <code>gdb_init_reader</code>,
 which is expected to be a function with the prototype
 </p>
-<a class="index-entry-id" id="index-gdb_005finit_005freader"></a>
-<div class="example smallexample">
-<pre class="example-preformatted">extern struct gdb_reader_funcs *gdb_init_reader (void);
+<span id="index-gdb_005finit_005freader"></span>
+<div class="example">
+<pre class="example">extern struct gdb_reader_funcs *gdb_init_reader (void);
 </pre></div>
 
-<a class="index-entry-id" id="index-struct-gdb_005freader_005ffuncs"></a>
+<span id="index-struct-gdb_005freader_005ffuncs"></span>
 
-<p><code class="code">struct gdb_reader_funcs</code> contains a set of pointers to callback
+<p><code>struct gdb_reader_funcs</code> contains a set of pointers to callback
 functions.  These functions are executed to read the debug info
-generated by the JIT compiler (<code class="code">read</code>), to unwind stack frames
-(<code class="code">unwind</code>) and to create canonical frame IDs
-(<code class="code">get_frame_id</code>).  It also has a callback that is called when the
-reader is being unloaded (<code class="code">destroy</code>).  The struct looks like this
+generated by the JIT compiler (<code>read</code>), to unwind stack frames
+(<code>unwind</code>) and to create canonical frame IDs
+(<code>get_frame_id</code>).  It also has a callback that is called when the
+reader is being unloaded (<code>destroy</code>).  The struct looks like this
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">struct gdb_reader_funcs
+<div class="example">
+<pre class="example">struct gdb_reader_funcs
 {
   /* Must be set to GDB_READER_INTERFACE_VERSION.  */
   int reader_version;
@@ -137,23 +149,23 @@ reader is being unloaded (<code class="code">destroy</code>).  The struct looks 
 };
 </pre></div>
 
-<a class="index-entry-id" id="index-struct-gdb_005fsymbol_005fcallbacks"></a>
-<a class="index-entry-id" id="index-struct-gdb_005funwind_005fcallbacks"></a>
+<span id="index-struct-gdb_005fsymbol_005fcallbacks"></span>
+<span id="index-struct-gdb_005funwind_005fcallbacks"></span>
 
 <p>The callbacks are provided with another set of callbacks by
-<small class="sc">ROCGDB</small> to do their job.  For <code class="code">read</code>, these callbacks are
-passed in a <code class="code">struct gdb_symbol_callbacks</code> and for <code class="code">unwind</code>
-and <code class="code">get_frame_id</code>, in a <code class="code">struct gdb_unwind_callbacks</code>.
-<code class="code">struct gdb_symbol_callbacks</code> has callbacks to create new object
-files and new symbol tables inside those object files.  <code class="code">struct
+<small>ROCGDB</small> to do their job.  For <code>read</code>, these callbacks are
+passed in a <code>struct gdb_symbol_callbacks</code> and for <code>unwind</code>
+and <code>get_frame_id</code>, in a <code>struct gdb_unwind_callbacks</code>.
+<code>struct gdb_symbol_callbacks</code> has callbacks to create new object
+files and new symbol tables inside those object files.  <code>struct
 gdb_unwind_callbacks</code> has callbacks to read registers off the current
 frame and to write out the values of the registers in the previous
-frame.  Both have a callback (<code class="code">target_read</code>) to read bytes off the
+frame.  Both have a callback (<code>target_read</code>) to read bytes off the
 target&rsquo;s address space.
 </p>
 </div>
 <hr>
-<div class="nav-panel">
+<div class="header">
 <p>
 Previous: <a href="Using-JIT-Debug-Info-Readers.html">Using JIT Debug Info Readers</a>, Up: <a href="Custom-Debug-Info.html">Custom Debug Info</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

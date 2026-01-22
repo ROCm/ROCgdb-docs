@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright © 1988-2024 Free Software Foundation, Inc.
+<!-- Copyright (C) 1988-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -26,7 +26,7 @@ the license, review the license.txt in the top-level directory for the
 library on https://github.com/ROCm/ (Github.com)).  The additional terms
 and conditions below apply to your use of AMD ROCm technical documentation.
 
-©2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
+(C)2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
 
 The information presented in this document is for informational purposes only
 and may contain technical inaccuracies, omissions, and typographical errors.
@@ -52,8 +52,8 @@ EVEN IF AMD IS EXPRESSLY ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
 
 AMD, the AMD Arrow logo, AMD Instinct™, Radeon™, AMD ROCm™, and combinations
 thereof are trademarks of Advanced Micro Devices, Inc.
-Linux® is the registered trademark of Linus Torvalds in the
-U.S. and other countries. PCIe® is a registered trademark of
+Linux(R) is the registered trademark of Linus Torvalds in the
+U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
@@ -74,9 +74,21 @@ companies. -->
 <link href="Memory-Region-Attributes.html" rel="prev" title="Memory Region Attributes">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
-span.r {font-family: initial; font-weight: normal; font-style: normal}
-span:hover a.copiable-link {visibility: visible}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -84,87 +96,92 @@ span:hover a.copiable-link {visibility: visible}
 </head>
 
 <body lang="en">
-<div class="section-level-extent" id="Dump_002fRestore-Files">
-<div class="nav-panel">
+<div class="section" id="Dump_002fRestore-Files">
+<div class="header">
 <p>
 Next: <a href="Core-File-Generation.html" accesskey="n" rel="next">How to Produce a Core File from Your Program</a>, Previous: <a href="Memory-Region-Attributes.html" accesskey="p" rel="prev">Memory Region Attributes</a>, Up: <a href="Data.html" accesskey="u" rel="up">Examining Data</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h3 class="section" id="Copy-Between-Memory-and-a-File"><span>10.19 Copy Between Memory and a File<a class="copiable-link" href="#Copy-Between-Memory-and-a-File"> &para;</a></span></h3>
-<a class="index-entry-id" id="index-dump_002frestore-files"></a>
-<a class="index-entry-id" id="index-append-data-to-a-file"></a>
-<a class="index-entry-id" id="index-dump-data-to-a-file"></a>
-<a class="index-entry-id" id="index-restore-data-from-a-file"></a>
+<span id="Copy-Between-Memory-and-a-File"></span><h3 class="section">10.19 Copy Between Memory and a File</h3>
+<span id="index-dump_002frestore-files"></span>
+<span id="index-append-data-to-a-file"></span>
+<span id="index-dump-data-to-a-file"></span>
+<span id="index-restore-data-from-a-file"></span>
 
-<p>You can use the commands <code class="code">dump</code>, <code class="code">append</code>, and
-<code class="code">restore</code> to copy data between target memory and a file.  The
-<code class="code">dump</code> and <code class="code">append</code> commands write data to a file, and the
-<code class="code">restore</code> command reads data from a file back into the inferior&rsquo;s
+<p>You can use the commands <code>dump</code>, <code>append</code>, and
+<code>restore</code> to copy data between target memory and a file.  The
+<code>dump</code> and <code>append</code> commands write data to a file, and the
+<code>restore</code> command reads data from a file back into the inferior&rsquo;s
 memory.  Files may be in binary, Motorola S-record, Intel hex,
-Tektronix Hex, or Verilog Hex format; however, <small class="sc">ROCGDB</small> can only
+Tektronix Hex, or Verilog Hex format; however, <small>ROCGDB</small> can only
 append to binary files, and cannot read from Verilog Hex files.
 </p>
-<dl class="table">
-<dt><a id="index-dump"></a><span><code class="code">dump <span class="r">[</span><var class="var">format</var><span class="r">]</span> memory <var class="var">filename</var> <var class="var">start_addr</var> <var class="var">end_addr</var></code><a class="copiable-link" href="#index-dump"> &para;</a></span></dt>
-<dt><code class="code">dump <span class="r">[</span><var class="var">format</var><span class="r">]</span> value <var class="var">filename</var> <var class="var">expr</var></code></dt>
-<dd><p>Dump the contents of memory from <var class="var">start_addr</var> to <var class="var">end_addr</var>,
-or the value of <var class="var">expr</var>, to <var class="var">filename</var> in the given format.
+<dl compact="compact">
+<dd>
+<span id="index-dump"></span>
+</dd>
+<dt><span><code>dump <span class="roman">[</span><var>format</var><span class="roman">]</span> memory <var>filename</var> <var>start_addr</var> <var>end_addr</var></code></span></dt>
+<dt><span><code>dump <span class="roman">[</span><var>format</var><span class="roman">]</span> value <var>filename</var> <var>expr</var></code></span></dt>
+<dd><p>Dump the contents of memory from <var>start_addr</var> to <var>end_addr</var>,
+or the value of <var>expr</var>, to <var>filename</var> in the given format.
 </p>
-<p>The <var class="var">format</var> parameter may be any one of:
-</p><dl class="table">
-<dt><code class="code">binary</code></dt>
+<p>The <var>format</var> parameter may be any one of:
+</p><dl compact="compact">
+<dt><span><code>binary</code></span></dt>
 <dd><p>Raw binary form.
 </p></dd>
-<dt><code class="code">ihex</code></dt>
+<dt><span><code>ihex</code></span></dt>
 <dd><p>Intel hex format.
 </p></dd>
-<dt><code class="code">srec</code></dt>
+<dt><span><code>srec</code></span></dt>
 <dd><p>Motorola S-record format.
 </p></dd>
-<dt><code class="code">tekhex</code></dt>
+<dt><span><code>tekhex</code></span></dt>
 <dd><p>Tektronix Hex format.
 </p></dd>
-<dt><code class="code">verilog</code></dt>
+<dt><span><code>verilog</code></span></dt>
 <dd><p>Verilog Hex format.
 </p></dd>
 </dl>
 
-<p><small class="sc">ROCGDB</small> uses the same definitions of these formats as the
-<small class="sc">GNU</small> binary utilities, like &lsquo;<samp class="samp">objdump</samp>&rsquo; and &lsquo;<samp class="samp">objcopy</samp>&rsquo;.  If
-<var class="var">format</var> is omitted, <small class="sc">ROCGDB</small> dumps the data in raw binary
+<p><small>ROCGDB</small> uses the same definitions of these formats as the
+<small>GNU</small> binary utilities, like &lsquo;<samp>objdump</samp>&rsquo; and &lsquo;<samp>objcopy</samp>&rsquo;.  If
+<var>format</var> is omitted, <small>ROCGDB</small> dumps the data in raw binary
 form.
 </p>
+<span id="index-append"></span>
 </dd>
-<dt><a id="index-append"></a><span><code class="code">append <span class="r">[</span>binary<span class="r">]</span> memory <var class="var">filename</var> <var class="var">start_addr</var> <var class="var">end_addr</var></code><a class="copiable-link" href="#index-append"> &para;</a></span></dt>
-<dt><code class="code">append <span class="r">[</span>binary<span class="r">]</span> value <var class="var">filename</var> <var class="var">expr</var></code></dt>
-<dd><p>Append the contents of memory from <var class="var">start_addr</var> to <var class="var">end_addr</var>,
-or the value of <var class="var">expr</var>, to the file <var class="var">filename</var>, in raw binary form.
-(<small class="sc">ROCGDB</small> can only append data to files in raw binary form.)
+<dt><span><code>append <span class="roman">[</span>binary<span class="roman">]</span> memory <var>filename</var> <var>start_addr</var> <var>end_addr</var></code></span></dt>
+<dt><span><code>append <span class="roman">[</span>binary<span class="roman">]</span> value <var>filename</var> <var>expr</var></code></span></dt>
+<dd><p>Append the contents of memory from <var>start_addr</var> to <var>end_addr</var>,
+or the value of <var>expr</var>, to the file <var>filename</var>, in raw binary form.
+(<small>ROCGDB</small> can only append data to files in raw binary form.)
 </p>
+<span id="index-restore"></span>
 </dd>
-<dt><a id="index-restore"></a><span><code class="code">restore <var class="var">filename</var> <span class="r">[</span>binary<span class="r">]</span> <var class="var">bias</var> <var class="var">start</var> <var class="var">end</var></code><a class="copiable-link" href="#index-restore"> &para;</a></span></dt>
-<dd><p>Restore the contents of file <var class="var">filename</var> into memory.  The
-<code class="code">restore</code> command can automatically recognize any known <small class="sc">BFD</small>
+<dt><span><code>restore <var>filename</var> <span class="roman">[</span>binary<span class="roman">]</span> <var>bias</var> <var>start</var> <var>end</var></code></span></dt>
+<dd><p>Restore the contents of file <var>filename</var> into memory.  The
+<code>restore</code> command can automatically recognize any known <small>BFD</small>
 file format, except for raw binary.  To restore a raw binary file you
-must specify the optional keyword <code class="code">binary</code> after the filename.
+must specify the optional keyword <code>binary</code> after the filename.
 </p>
-<p>If <var class="var">bias</var> is non-zero, its value will be added to the addresses
+<p>If <var>bias</var> is non-zero, its value will be added to the addresses
 contained in the file.  Binary files always start at address zero, so
-they will be restored at address <var class="var">bias</var>.  Other bfd files have
-a built-in location; they will be restored at offset <var class="var">bias</var>
+they will be restored at address <var>bias</var>.  Other bfd files have
+a built-in location; they will be restored at offset <var>bias</var>
 from that location.
 </p>
-<p>If <var class="var">start</var> and/or <var class="var">end</var> are non-zero, then only data between
-file offset <var class="var">start</var> and file offset <var class="var">end</var> will be restored.
+<p>If <var>start</var> and/or <var>end</var> are non-zero, then only data between
+file offset <var>start</var> and file offset <var>end</var> will be restored.
 These offsets are relative to the addresses in the file, before
-the <var class="var">bias</var> argument is applied.
+the <var>bias</var> argument is applied.
 </p>
 </dd>
 </dl>
 
 </div>
 <hr>
-<div class="nav-panel">
+<div class="header">
 <p>
 Next: <a href="Core-File-Generation.html">How to Produce a Core File from Your Program</a>, Previous: <a href="Memory-Region-Attributes.html">Memory Region Attributes</a>, Up: <a href="Data.html">Examining Data</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

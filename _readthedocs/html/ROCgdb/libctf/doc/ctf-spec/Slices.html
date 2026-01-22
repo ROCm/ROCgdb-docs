@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright © 2021-2024 Free Software Foundation, Inc.
+<!-- Copyright (C) 2021-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU General Public License, Version 3 or any
@@ -28,8 +28,21 @@ License".
 <link href="Floating_002dpoint-types.html" rel="prev" title="Floating-point types">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
-span:hover a.copiable-link {visibility: visible}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -37,46 +50,46 @@ span:hover a.copiable-link {visibility: visible}
 </head>
 
 <body lang="en">
-<div class="subsection-level-extent" id="Slices">
-<div class="nav-panel">
+<div class="subsection" id="Slices">
+<div class="header">
 <p>
 Next: <a href="Pointers-typedefs-and-cvr_002dquals.html" accesskey="n" rel="next">Pointers, typedefs, and cvr-quals</a>, Previous: <a href="Floating_002dpoint-types.html" accesskey="p" rel="prev">Floating-point types</a>, Up: <a href="The-type-section.html" accesskey="u" rel="up">The type section</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h4 class="subsection" id="Slices-1"><span>2.3.6 Slices<a class="copiable-link" href="#Slices-1"> &para;</a></span></h4>
-<a class="index-entry-id" id="index-Slices"></a>
-<a class="index-entry-id" id="index-Types_002c-slices-of-integral"></a>
-<a class="index-entry-id" id="index-CTF_005fK_005fSLICE"></a>
+<span id="Slices-1"></span><h4 class="subsection">2.3.6 Slices</h4>
+<span id="index-Slices"></span>
+<span id="index-Types_002c-slices-of-integral"></span>
+<span id="index-CTF_005fK_005fSLICE"></span>
 
-<p>Slices, with kind <code class="code">CTF_K_SLICE</code>, are an unusual CTF construct: they do not
+<p>Slices, with kind <code>CTF_K_SLICE</code>, are an unusual CTF construct: they do not
 directly correspond to any C type, but are a way to model other types in a more
 convenient fashion for CTF generators.
 </p>
 <p>A slice is like a pointer or other reference type in that they are always
-represented by <code class="code">ctf_stype_t</code>: but unlike pointers and other reference
-types, they populate the <code class="code">ctt_size</code> field just like integral types do, and
+represented by <code>ctf_stype_t</code>: but unlike pointers and other reference
+types, they populate the <code>ctt_size</code> field just like integral types do, and
 come with an attached encoding and transform the encoding of the underlying
 type.  The underlying type is described in the variable-length data, similarly
 to structure and union fields: see below.  Requests for the type size should
 also chase down to the referenced type.
 </p>
-<p>Slices are always nameless: <code class="code">ctt_name</code> is always zero for them.
+<p>Slices are always nameless: <code>ctt_name</code> is always zero for them.
 </p>
-<p>(The <code class="code">libctf</code> API behaviour is unusual as well, and justifies the existence
-of slices: <code class="code">ctf_type_kind</code> never returns <code class="code">CTF_K_SLICE</code> but always the
+<p>(The <code>libctf</code> API behaviour is unusual as well, and justifies the existence
+of slices: <code>ctf_type_kind</code> never returns <code>CTF_K_SLICE</code> but always the
 underlying type kind, so that consumers never need to know about slices: they
 can tell if an apparent integer is actually a slice if they need to by calling
-<code class="code">ctf_type_reference</code>, which will uniquely return the underlying integral
-type rather than erroring out with <code class="code">ECTF_NOTREF</code> if this is actually a
+<code>ctf_type_reference</code>, which will uniquely return the underlying integral
+type rather than erroring out with <code>ECTF_NOTREF</code> if this is actually a
 slice. So slices act just like an integer with an encoding, but more closely
 mirror DWARF and other debugging information formats by allowing CTF file
 creators to represent a bitfield as a slice of an underlying integral type.)
-<a class="index-entry-id" id="index-Slices_002c-effect-on-ctf_005ftype_005fkind"></a>
-<a class="index-entry-id" id="index-Slices_002c-effect-on-ctf_005ftype_005freference"></a>
-<a class="index-entry-id" id="index-libctf_002c-effect-of-slices"></a>
+<span id="index-Slices_002c-effect-on-ctf_005ftype_005fkind"></span>
+<span id="index-Slices_002c-effect-on-ctf_005ftype_005freference"></span>
+<span id="index-libctf_002c-effect-of-slices"></span>
 </p>
 <p>The vlen in the info word for a slice should be ignored and is always zero. The
-variable-length data for a slice is a single <code class="code">ctf_slice_t</code>:
+variable-length data for a slice is a single <code>ctf_slice_t</code>:
 </p>
 <pre class="verbatim">typedef struct ctf_slice
 {
@@ -85,36 +98,35 @@ variable-length data for a slice is a single <code class="code">ctf_slice_t</cod
   unsigned short cts_bits;
 } ctf_slice_t;
 </pre>
-<a class="index-entry-id" id="index-struct-ctf_005fslice"></a>
-<a class="index-entry-id" id="index-ctf_005fslice_005ft"></a>
-<table class="multitable">
+<span id="index-struct-ctf_005fslice"></span>
+<span id="index-ctf_005fslice_005ft"></span>
+<table>
 <thead><tr><th>Offset</th><th>Name</th><th>Description</th></tr></thead>
-<tbody><tr><td>0x0</td><td><code class="code">uint32_t cts_type</code>
-<a class="index-entry-id" id="index-cts_005ftype"></a>
-<a class="index-entry-id" id="index-struct-ctf_005fslice_002c-cts_005ftype"></a>
-<a class="index-entry-id" id="index-ctf_005fslice_005ft_002c-cts_005ftype"></a></td><td>The type this slice is a slice of.  Must be an integral type (or a
+<tr><td>0x0</td><td><code>uint32_t cts_type</code>
+<span id="index-cts_005ftype"></span>
+<span id="index-struct-ctf_005fslice_002c-cts_005ftype"></span>
+<span id="index-ctf_005fslice_005ft_002c-cts_005ftype"></span></td><td>The type this slice is a slice of.  Must be an integral type (or a
 floating-point type, but this nonsensical option will go away in v4.)</td></tr>
-<tr><td>0x4</td><td><code class="code">unsigned short cts_offset</code>
-<a class="index-entry-id" id="index-cts_005foffset"></a>
-<a class="index-entry-id" id="index-struct-ctf_005fslice_002c-cts_005foffset"></a>
-<a class="index-entry-id" id="index-ctf_005fslice_005ft_002c-cts_005foffset"></a></td><td>The offset of this integral type in bits from the start of its enclosing
-structure field, adjusted for endianness: see <a class="pxref" href="Structs-and-unions.html">Structs and unions</a>. Identical
-semantics to the <code class="code">CTF_INT_OFFSET</code> field: see <a class="pxref" href="Integer-types.html">Integer types</a>.  This field
+<tr><td>0x4</td><td><code>unsigned short cts_offset</code>
+<span id="index-cts_005foffset"></span>
+<span id="index-struct-ctf_005fslice_002c-cts_005foffset"></span>
+<span id="index-ctf_005fslice_005ft_002c-cts_005foffset"></span></td><td>The offset of this integral type in bits from the start of its enclosing
+structure field, adjusted for endianness: see <a href="Structs-and-unions.html">Structs and unions</a>. Identical
+semantics to the <code>CTF_INT_OFFSET</code> field: see <a href="Integer-types.html">Integer types</a>.  This field
 is much too long, because the maximum possible offset of an integral type would
 easily fit in a char: this field is bigger just for the sake of alignment.  This
 will change in v4.</td></tr>
-<tr><td>0x6</td><td><code class="code">unsigned short cts_bits</code>
-<a class="index-entry-id" id="index-cts_005fbits"></a>
-<a class="index-entry-id" id="index-struct-ctf_005fslice_002c-cts_005fbits"></a>
-<a class="index-entry-id" id="index-ctf_005fslice_005ft_002c-cts_005fbits"></a></td><td>The bit-width of this integral type. Identical semantics to the
-<code class="code">CTF_INT_BITS</code> field: see <a class="pxref" href="Integer-types.html">Integer types</a>.  As above, this field is
+<tr><td>0x6</td><td><code>unsigned short cts_bits</code>
+<span id="index-cts_005fbits"></span>
+<span id="index-struct-ctf_005fslice_002c-cts_005fbits"></span>
+<span id="index-ctf_005fslice_005ft_002c-cts_005fbits"></span></td><td>The bit-width of this integral type. Identical semantics to the
+<code>CTF_INT_BITS</code> field: see <a href="Integer-types.html">Integer types</a>.  As above, this field is
 really too large and will shrink in v4.</td></tr>
-</tbody>
 </table>
 
 </div>
 <hr>
-<div class="nav-panel">
+<div class="header">
 <p>
 Next: <a href="Pointers-typedefs-and-cvr_002dquals.html">Pointers, typedefs, and cvr-quals</a>, Previous: <a href="Floating_002dpoint-types.html">Floating-point types</a>, Up: <a href="The-type-section.html">The type section</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

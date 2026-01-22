@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright © 1988-2024 Free Software Foundation, Inc.
+<!-- Copyright (C) 1988-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -26,7 +26,7 @@ the license, review the license.txt in the top-level directory for the
 library on https://github.com/ROCm/ (Github.com)).  The additional terms
 and conditions below apply to your use of AMD ROCm technical documentation.
 
-©2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
+(C)2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
 
 The information presented in this document is for informational purposes only
 and may contain technical inaccuracies, omissions, and typographical errors.
@@ -52,8 +52,8 @@ EVEN IF AMD IS EXPRESSLY ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
 
 AMD, the AMD Arrow logo, AMD Instinct™, Radeon™, AMD ROCm™, and combinations
 thereof are trademarks of Advanced Micro Devices, Inc.
-Linux® is the registered trademark of Linus Torvalds in the
-U.S. and other countries. PCIe® is a registered trademark of
+Linux(R) is the registered trademark of Linus Torvalds in the
+U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
@@ -74,8 +74,21 @@ companies. -->
 <link href="Index-Files.html" rel="prev" title="Index Files">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
-span:hover a.copiable-link {visibility: visible}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -83,48 +96,48 @@ span:hover a.copiable-link {visibility: visible}
 </head>
 
 <body lang="en">
-<div class="section-level-extent" id="Debug-Names">
-<div class="nav-panel">
+<div class="section" id="Debug-Names">
+<div class="header">
 <p>
-Next: <a href="Symbol-Errors.html" accesskey="n" rel="next">Errors Reading Symbol Files</a>, Previous: <a href="Index-Files.html" accesskey="p" rel="prev">Index Files Speed Up <small class="sc">ROCGDB</small></a>, Up: <a href="GDB-Files.html" accesskey="u" rel="up"><small class="sc">ROCGDB</small> Files</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Symbol-Errors.html" accesskey="n" rel="next">Errors Reading Symbol Files</a>, Previous: <a href="Index-Files.html" accesskey="p" rel="prev">Index Files Speed Up <small>ROCGDB</small></a>, Up: <a href="GDB-Files.html" accesskey="u" rel="up"><small>ROCGDB</small> Files</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h3 class="section" id="Extensions-to-_002edebug_005fnames"><span>18.6 Extensions to &lsquo;<samp class="samp">.debug_names</samp>&rsquo;<a class="copiable-link" href="#Extensions-to-_002edebug_005fnames"> &para;</a></span></h3>
-<a class="index-entry-id" id="index-index-files-1"></a>
-<a class="index-entry-id" id="index-_002edebug_005fnames-section"></a>
+<span id="Extensions-to-_002edebug_005fnames"></span><h3 class="section">18.6 Extensions to &lsquo;<samp>.debug_names</samp>&rsquo;</h3>
+<span id="index-index-files-1"></span>
+<span id="index-_002edebug_005fnames-section"></span>
 
 <p>The DWARF specification documents an optional index section called
-&lsquo;<samp class="samp">.debug_names</samp>&rsquo;.  <small class="sc">ROCGDB</small> can both read and create this
-section.  However, in order to work with <small class="sc">ROCGDB</small>, some extensions
+&lsquo;<samp>.debug_names</samp>&rsquo;.  <small>ROCGDB</small> can both read and create this
+section.  However, in order to work with <small>ROCGDB</small>, some extensions
 were necessary.
 </p>
-<p><small class="sc">ROCGDB</small> uses the augmentation string &lsquo;<samp class="samp">GDB2</samp>&rsquo;.  Earlier
-versions used the string &lsquo;<samp class="samp">GDB</samp>&rsquo;, but these versions of the index
+<p><small>ROCGDB</small> uses the augmentation string &lsquo;<samp>GDB2</samp>&rsquo;.  Earlier
+versions used the string &lsquo;<samp>GDB</samp>&rsquo;, but these versions of the index
 are no longer supported.
 </p>
-<p><small class="sc">ROCGDB</small> does not use the specified hash table.  Therefore,
-because this hash table is optional, <small class="sc">ROCGDB</small> also does not write
+<p><small>ROCGDB</small> does not use the specified hash table.  Therefore,
+because this hash table is optional, <small>ROCGDB</small> also does not write
 it.
 </p>
-<p><small class="sc">ROCGDB</small> also generates and uses some extra index attributes:
-</p><dl class="table">
-<dt><code class="code">DW_IDX_GNU_internal</code></dt>
-<dd><p>This has the value &lsquo;<samp class="samp">0x2000</samp>&rsquo;.  It is a flag that, when set,
-indicates that the associated entry has <code class="code">static</code> linkage.
+<p><small>ROCGDB</small> also generates and uses some extra index attributes:
+</p><dl compact="compact">
+<dt><span><code>DW_IDX_GNU_internal</code></span></dt>
+<dd><p>This has the value &lsquo;<samp>0x2000</samp>&rsquo;.  It is a flag that, when set,
+indicates that the associated entry has <code>static</code> linkage.
 </p>
 </dd>
-<dt><code class="code">DW_IDX_GNU_main</code></dt>
-<dd><p>This has the value &lsquo;<samp class="samp">0x2002</samp>&rsquo;.  It is a flag that, when set,
-indicates that the associated entry is the program&rsquo;s <code class="code">main</code>.
+<dt><span><code>DW_IDX_GNU_main</code></span></dt>
+<dd><p>This has the value &lsquo;<samp>0x2002</samp>&rsquo;.  It is a flag that, when set,
+indicates that the associated entry is the program&rsquo;s <code>main</code>.
 </p>
 </dd>
-<dt><code class="code">DW_IDX_GNU_language</code></dt>
-<dd><p>This has the value &lsquo;<samp class="samp">0x2003</samp>&rsquo;.  It is &lsquo;<samp class="samp">DW_LANG_</samp>&rsquo; constant,
+<dt><span><code>DW_IDX_GNU_language</code></span></dt>
+<dd><p>This has the value &lsquo;<samp>0x2003</samp>&rsquo;.  It is &lsquo;<samp>DW_LANG_</samp>&rsquo; constant,
 indicating the language of the associated entry.
 </p>
 </dd>
-<dt><code class="code">DW_IDX_GNU_linkage_name</code></dt>
-<dd><p>This has the value &lsquo;<samp class="samp">0x2004</samp>&rsquo;.  It is a flag that, when set,
+<dt><span><code>DW_IDX_GNU_linkage_name</code></span></dt>
+<dd><p>This has the value &lsquo;<samp>0x2004</samp>&rsquo;.  It is a flag that, when set,
 indicates that the associated entry is a linkage name, and not a
 source name.
 </p></dd>

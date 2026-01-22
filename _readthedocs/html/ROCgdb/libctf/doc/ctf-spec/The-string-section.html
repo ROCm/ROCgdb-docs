@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright © 2021-2024 Free Software Foundation, Inc.
+<!-- Copyright (C) 2021-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU General Public License, Version 3 or any
@@ -28,8 +28,21 @@ License".
 <link href="The-label-section.html" rel="prev" title="The label section">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
-span:hover a.copiable-link {visibility: visible}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -37,35 +50,35 @@ span:hover a.copiable-link {visibility: visible}
 </head>
 
 <body lang="en">
-<div class="section-level-extent" id="The-string-section">
-<div class="nav-panel">
+<div class="section" id="The-string-section">
+<div class="header">
 <p>
 Next: <a href="Data-models.html" accesskey="n" rel="next">Data models</a>, Previous: <a href="The-label-section.html" accesskey="p" rel="prev">The label section</a>, Up: <a href="CTF-dictionaries.html" accesskey="u" rel="up">CTF dictionaries</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h3 class="section" id="The-string-section-1"><span>2.7 The string section<a class="copiable-link" href="#The-string-section-1"> &para;</a></span></h3>
-<a class="index-entry-id" id="index-String-section"></a>
-<a class="index-entry-id" id="index-Sections_002c-string"></a>
+<span id="The-string-section-1"></span><h3 class="section">2.7 The string section</h3>
+<span id="index-String-section"></span>
+<span id="index-Sections_002c-string"></span>
 
 <p>This section is a simple ELF-format strtab, starting with a zero byte (thus
 ensuring that the string with offset 0 is the null string, as assumed elsewhere
 in this spec).  The strtab is usually ASCIIbetically sorted to somewhat improve
 compression efficiency.
 </p>
-<p>Where the strtab is unusual is the <em class="emph">references</em> to it.  CTF has two
+<p>Where the strtab is unusual is the <em>references</em> to it.  CTF has two
 string tables, the internal strtab and an external strtab associated
 with the CTF dictionary at open time: usually, this is the ELF dynamic
-strtab (<code class="code">.dynstr</code>) of a CTF dictionary embedded in an ELF file.  We
+strtab (<code>.dynstr</code>) of a CTF dictionary embedded in an ELF file.  We
 distinguish between these strtabs by the most significant bit, bit 31,
 of the 32-bit strtab references: if it is 0, the offset is in the
 internal strtab: if 1, the offset is in the external strtab.
 </p>
-<a class="index-entry-id" id="index-CTF_005fF_005fDYNSTR-2"></a>
-<a class="index-entry-id" id="index-Bug-workarounds_002c-CTF_005fF_005fDYNSTR-1"></a>
+<span id="index-CTF_005fF_005fDYNSTR-2"></span>
+<span id="index-Bug-workarounds_002c-CTF_005fF_005fDYNSTR-1"></span>
 <p>There is a bug workaround in this area: in format v3 (the first version
 to have working support for external strtabs), the external strtab is
-<code class="code">.strtab</code> unless the <code class="code">CTF_F_DYNSTR</code> flag is set on the
-dictionary (see <a class="pxref" href="CTF-file_002dwide-flags.html">CTF file-wide flags</a>).  Format v4 will introduce a
+<code>.strtab</code> unless the <code>CTF_F_DYNSTR</code> flag is set on the
+dictionary (see <a href="CTF-file_002dwide-flags.html">CTF file-wide flags</a>).  Format v4 will introduce a
 header field that explicitly names the external strtab, making this flag
 unnecessary.
 </p>

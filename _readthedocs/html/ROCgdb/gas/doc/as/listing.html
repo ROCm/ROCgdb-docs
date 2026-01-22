@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the GNU Assembler "as".
 
-Copyright © 1991-2024 Free Software Foundation, Inc.
+Copyright (C) 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -31,8 +31,21 @@ section entitled "GNU Free Documentation License".
 <link href="L.html" rel="prev" title="L">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
-span:hover a.copiable-link {visibility: visible}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -40,57 +53,57 @@ span:hover a.copiable-link {visibility: visible}
 </head>
 
 <body lang="en">
-<div class="section-level-extent" id="listing">
-<div class="nav-panel">
+<div class="section" id="listing">
+<div class="header">
 <p>
-Next: <a href="M.html" accesskey="n" rel="next">Assemble in MRI Compatibility Mode: <samp class="option">-M</samp></a>, Previous: <a href="L.html" accesskey="p" rel="prev">Include Local Symbols: <samp class="option">-L</samp></a>, Up: <a href="Invoking.html" accesskey="u" rel="up">Command-Line Options</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="M.html" accesskey="n" rel="next">Assemble in MRI Compatibility Mode: <samp>-M</samp></a>, Previous: <a href="L.html" accesskey="p" rel="prev">Include Local Symbols: <samp>-L</samp></a>, Up: <a href="Invoking.html" accesskey="u" rel="up">Command-Line Options</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h3 class="section" id="Configuring-listing-output_003a-_002d_002dlisting"><span>2.9 Configuring listing output: <samp class="option">--listing</samp><a class="copiable-link" href="#Configuring-listing-output_003a-_002d_002dlisting"> &para;</a></span></h3>
+<span id="Configuring-listing-output_003a-_002d_002dlisting"></span><h3 class="section">2.9 Configuring listing output: <samp>--listing</samp></h3>
 
 <p>The listing feature of the assembler can be enabled via the command-line switch
-&lsquo;<samp class="samp">-a</samp>&rsquo; (see <a class="pxref" href="a.html">Enable Listings: <samp class="option">-a[cdghilns]</samp></a>).  This feature combines the input source file(s) with a
+&lsquo;<samp>-a</samp>&rsquo; (see <a href="a.html">Enable Listings: <samp>-a[cdghilns]</samp></a>).  This feature combines the input source file(s) with a
 hex dump of the corresponding locations in the output object file, and displays
 them as a listing file.  The format of this listing can be controlled by
-directives inside the assembler source (i.e., <code class="code">.list</code> (see <a class="pxref" href="List.html"><code class="code">.list</code></a>),
-<code class="code">.title</code> (see <a class="pxref" href="Title.html"><code class="code">.title &quot;<var class="var">heading</var>&quot;</code></a>), <code class="code">.sbttl</code> (see <a class="pxref" href="Sbttl.html"><code class="code">.sbttl &quot;<var class="var">subheading</var>&quot;</code></a>),
-<code class="code">.psize</code> (see <a class="pxref" href="Psize.html"><code class="code">.psize <var class="var">lines</var> , <var class="var">columns</var></code></a>), and
-<code class="code">.eject</code> (see <a class="pxref" href="Eject.html"><code class="code">.eject</code></a>) and also by the following switches:
+directives inside the assembler source (i.e., <code>.list</code> (see <a href="List.html"><code>.list</code></a>),
+<code>.title</code> (see <a href="Title.html"><code>.title &quot;<var>heading</var>&quot;</code></a>), <code>.sbttl</code> (see <a href="Sbttl.html"><code>.sbttl &quot;<var>subheading</var>&quot;</code></a>),
+<code>.psize</code> (see <a href="Psize.html"><code>.psize <var>lines</var> , <var>columns</var></code></a>), and
+<code>.eject</code> (see <a href="Eject.html"><code>.eject</code></a>) and also by the following switches:
 </p>
-<dl class="table">
-<dt><a class="index-entry-id" id="index-Width-of-first-line-disassembly-output"></a>
-<a id="index-_002d_002dlisting_002dlhs_002dwidth"></a><span><code class="code">--listing-lhs-width=&lsquo;<samp class="samp">number</samp>&rsquo;</code><a class="copiable-link" href="#index-_002d_002dlisting_002dlhs_002dwidth"> &para;</a></span></dt>
-<dd><p>Sets the maximum width, in words, of the first line of the hex byte dump.  This
+<dl compact="compact">
+<dt id='index-_002d_002dlisting_002dlhs_002dwidth'><span><code>--listing-lhs-width=&lsquo;<samp>number</samp>&rsquo;</code><a href='#index-_002d_002dlisting_002dlhs_002dwidth' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="index-Width-of-first-line-disassembly-output"></span>
+<p>Sets the maximum width, in words, of the first line of the hex byte dump.  This
 dump appears on the left hand side of the listing output.
 </p>
 </dd>
-<dt><a class="index-entry-id" id="index-Width-of-continuation-lines-of-disassembly-output"></a>
-<a id="index-_002d_002dlisting_002dlhs_002dwidth2"></a><span><code class="code">--listing-lhs-width2=&lsquo;<samp class="samp">number</samp>&rsquo;</code><a class="copiable-link" href="#index-_002d_002dlisting_002dlhs_002dwidth2"> &para;</a></span></dt>
-<dd><p>Sets the maximum width, in words, of any further lines of the hex byte dump for
+<dt id='index-_002d_002dlisting_002dlhs_002dwidth2'><span><code>--listing-lhs-width2=&lsquo;<samp>number</samp>&rsquo;</code><a href='#index-_002d_002dlisting_002dlhs_002dwidth2' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="index-Width-of-continuation-lines-of-disassembly-output"></span>
+<p>Sets the maximum width, in words, of any further lines of the hex byte dump for
 a given input source line.  If this value is not specified, it defaults to being
-the same as the value specified for &lsquo;<samp class="samp">--listing-lhs-width</samp>&rsquo;.  If neither
+the same as the value specified for &lsquo;<samp>--listing-lhs-width</samp>&rsquo;.  If neither
 switch is used the default is to one.
 </p>
 </dd>
-<dt><a class="index-entry-id" id="index-Width-of-source-line-output"></a>
-<a id="index-_002d_002dlisting_002drhs_002dwidth"></a><span><code class="code">--listing-rhs-width=&lsquo;<samp class="samp">number</samp>&rsquo;</code><a class="copiable-link" href="#index-_002d_002dlisting_002drhs_002dwidth"> &para;</a></span></dt>
-<dd><p>Sets the maximum width, in characters, of the source line that is displayed
+<dt id='index-_002d_002dlisting_002drhs_002dwidth'><span><code>--listing-rhs-width=&lsquo;<samp>number</samp>&rsquo;</code><a href='#index-_002d_002dlisting_002drhs_002dwidth' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="index-Width-of-source-line-output"></span>
+<p>Sets the maximum width, in characters, of the source line that is displayed
 alongside the hex dump.  The default value for this parameter is 100.  The
 source line is displayed on the right hand side of the listing output.
 </p>
 </dd>
-<dt><a class="index-entry-id" id="index-Maximum-number-of-continuation-lines"></a>
-<a id="index-_002d_002dlisting_002dcont_002dlines"></a><span><code class="code">--listing-cont-lines=&lsquo;<samp class="samp">number</samp>&rsquo;</code><a class="copiable-link" href="#index-_002d_002dlisting_002dcont_002dlines"> &para;</a></span></dt>
-<dd><p>Sets the maximum number of continuation lines of hex dump that will be
+<dt id='index-_002d_002dlisting_002dcont_002dlines'><span><code>--listing-cont-lines=&lsquo;<samp>number</samp>&rsquo;</code><a href='#index-_002d_002dlisting_002dcont_002dlines' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="index-Maximum-number-of-continuation-lines"></span>
+<p>Sets the maximum number of continuation lines of hex dump that will be
 displayed for a given single line of source input.  The default value is 4.
 </p></dd>
 </dl>
 
 </div>
 <hr>
-<div class="nav-panel">
+<div class="header">
 <p>
-Next: <a href="M.html">Assemble in MRI Compatibility Mode: <samp class="option">-M</samp></a>, Previous: <a href="L.html">Include Local Symbols: <samp class="option">-L</samp></a>, Up: <a href="Invoking.html">Command-Line Options</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="M.html">Assemble in MRI Compatibility Mode: <samp>-M</samp></a>, Previous: <a href="L.html">Include Local Symbols: <samp>-L</samp></a>, Up: <a href="Invoking.html">Command-Line Options</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

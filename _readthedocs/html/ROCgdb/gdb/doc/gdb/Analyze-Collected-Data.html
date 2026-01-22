@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright © 1988-2024 Free Software Foundation, Inc.
+<!-- Copyright (C) 1988-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -26,7 +26,7 @@ the license, review the license.txt in the top-level directory for the
 library on https://github.com/ROCm/ (Github.com)).  The additional terms
 and conditions below apply to your use of AMD ROCm technical documentation.
 
-©2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
+(C)2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
 
 The information presented in this document is for informational purposes only
 and may contain technical inaccuracies, omissions, and typographical errors.
@@ -52,8 +52,8 @@ EVEN IF AMD IS EXPRESSLY ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
 
 AMD, the AMD Arrow logo, AMD Instinct™, Radeon™, AMD ROCm™, and combinations
 thereof are trademarks of Advanced Micro Devices, Inc.
-Linux® is the registered trademark of Linus Torvalds in the
-U.S. and other countries. PCIe® is a registered trademark of
+Linux(R) is the registered trademark of Linus Torvalds in the
+U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
@@ -74,8 +74,21 @@ companies. -->
 <link href="Set-Tracepoints.html" rel="prev" title="Set Tracepoints">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
-span:hover a.copiable-link {visibility: visible}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -83,35 +96,35 @@ span:hover a.copiable-link {visibility: visible}
 </head>
 
 <body lang="en">
-<div class="section-level-extent" id="Analyze-Collected-Data">
-<div class="nav-panel">
+<div class="section" id="Analyze-Collected-Data">
+<div class="header">
 <p>
 Next: <a href="Tracepoint-Variables.html" accesskey="n" rel="next">Convenience Variables for Tracepoints</a>, Previous: <a href="Set-Tracepoints.html" accesskey="p" rel="prev">Commands to Set Tracepoints</a>, Up: <a href="Tracepoints.html" accesskey="u" rel="up">Tracepoints</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h3 class="section" id="Using-the-Collected-Data"><span>13.2 Using the Collected Data<a class="copiable-link" href="#Using-the-Collected-Data"> &para;</a></span></h3>
+<span id="Using-the-Collected-Data"></span><h3 class="section">13.2 Using the Collected Data</h3>
 
-<p>After the tracepoint experiment ends, you use <small class="sc">ROCGDB</small> commands
+<p>After the tracepoint experiment ends, you use <small>ROCGDB</small> commands
 for examining the trace data.  The basic idea is that each tracepoint
-collects a trace <em class="dfn">snapshot</em> every time it is hit and another
+collects a trace <em>snapshot</em> every time it is hit and another
 snapshot every time it single-steps.  All these snapshots are
 consecutively numbered from zero and go into a buffer, and you can
-examine them later.  The way you examine them is to <em class="dfn">focus</em> on a
+examine them later.  The way you examine them is to <em>focus</em> on a
 specific trace snapshot.  When the remote stub is focused on a trace
-snapshot, it will respond to all <small class="sc">ROCGDB</small> requests for memory and
+snapshot, it will respond to all <small>ROCGDB</small> requests for memory and
 registers by reading from the buffer which belongs to that snapshot,
-rather than from <em class="emph">real</em> memory or registers of the program being
-debugged.  This means that <strong class="strong">all</strong> <small class="sc">ROCGDB</small> commands
-(<code class="code">print</code>, <code class="code">info registers</code>, <code class="code">backtrace</code>, etc.) will
+rather than from <em>real</em> memory or registers of the program being
+debugged.  This means that <strong>all</strong> <small>ROCGDB</small> commands
+(<code>print</code>, <code>info registers</code>, <code>backtrace</code>, etc.) will
 behave as if we were currently debugging the program state as it was
 when the tracepoint occurred.  Any requests for data that are not in
 the buffer will fail.
 </p>
 
-<ul class="mini-toc">
-<li><a href="tfind.html" accesskey="1"><code class="code">tfind <var class="var">n</var></code></a></li>
-<li><a href="tdump.html" accesskey="2"><code class="code">tdump</code></a></li>
-<li><a href="save-tracepoints.html" accesskey="3"><code class="code">save tracepoints <var class="var">filename</var></code></a></li>
+<ul class="section-toc">
+<li><a href="tfind.html" accesskey="1"><code>tfind <var>n</var></code></a></li>
+<li><a href="tdump.html" accesskey="2"><code>tdump</code></a></li>
+<li><a href="save-tracepoints.html" accesskey="3"><code>save tracepoints <var>filename</var></code></a></li>
 </ul>
 </div>
 

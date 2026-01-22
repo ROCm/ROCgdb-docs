@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the BFD library.
 
-Copyright © 1991-2024 Free Software Foundation, Inc.
+Copyright (C) 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -41,9 +41,21 @@ You have freedom to copy and modify this GNU Manual, like GNU
 <link href="Symbols.html" rel="prev" title="Symbols">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
-span:hover a.copiable-link {visibility: visible}
-strong.def-name {font-family: monospace; font-weight: bold; font-size: larger}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -51,13 +63,13 @@ strong.def-name {font-family: monospace; font-weight: bold; font-size: larger}
 </head>
 
 <body lang="en">
-<div class="section-level-extent" id="Archives">
-<div class="nav-panel">
+<div class="section" id="Archives">
+<div class="header">
 <p>
 Next: <a href="Formats.html" accesskey="n" rel="next">File formats</a>, Previous: <a href="Symbols.html" accesskey="p" rel="prev">Symbols</a>, Up: <a href="BFD-front-end.html" accesskey="u" rel="up">BFD Front End</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="BFD-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h3 class="section" id="Archives-1"><span>2.8 Archives<a class="copiable-link" href="#Archives-1"> &para;</a></span></h3>
+<span id="Archives-1"></span><h3 class="section">2.8 Archives</h3>
 
 
 <p>An archive (or library) is just another BFD.  It has a symbol
@@ -71,21 +83,21 @@ archive opened for reading will all be opened for reading.  You
 may put either input or output BFDs into an archive opened for
 output; they will be handled correctly when the archive is closed.
 </p>
-<p>Use <code class="code">bfd_openr_next_archived_file</code> to step through
+<p>Use <code>bfd_openr_next_archived_file</code> to step through
 the contents of an archive opened for input.  You don&rsquo;t
 have to read the entire archive if you don&rsquo;t want
 to!  Read it until you find what you want.
 </p>
-<p>A BFD returned by <code class="code">bfd_openr_next_archived_file</code> can be
-closed manually with <code class="code">bfd_close</code>.  If you do not close it,
+<p>A BFD returned by <code>bfd_openr_next_archived_file</code> can be
+closed manually with <code>bfd_close</code>.  If you do not close it,
 then a second iteration through the members of an archive may
 return the same BFD.  If you close the archive BFD, then all
 the member BFDs will automatically be closed as well.
 </p>
 <p>Archive contents of output BFDs are chained through the
-<code class="code">archive_next</code> pointer in a BFD.  The first one is findable
-through the <code class="code">archive_head</code> slot of the archive.  Set it with
-<code class="code">bfd_set_archive_head</code> (q.v.).  A given BFD may be in only
+<code>archive_next</code> pointer in a BFD.  The first one is findable
+through the <code>archive_head</code> slot of the archive.  Set it with
+<code>bfd_set_archive_head</code> (q.v.).  A given BFD may be in only
 one open output archive at a time.
 </p>
 <p>As expected, the BFD archive code is more general than the
@@ -112,55 +124,55 @@ archives.  Many Unix utilities are braindead in regards to
 spaces and such in filenames anyway, so this shouldn&rsquo;t be much
 of a restriction.
 </p>
-<p>Archives are supported in BFD in <code class="code">archive.c</code>.
+<p>Archives are supported in BFD in <code>archive.c</code>.
 </p>
-<ul class="mini-toc">
+<ul class="section-toc">
 <li><a href="#Archive-functions" accesskey="1">Archive functions</a></li>
 </ul>
-<div class="subsection-level-extent" id="Archive-functions">
-<h4 class="subsection"><span>2.8.1 Archive functions<a class="copiable-link" href="#Archive-functions"> &para;</a></span></h4>
+<div class="subsection" id="Archive-functions">
+<h4 class="subsection">2.8.1 Archive functions</h4>
 
 
-<a class="index-entry-id" id="index-bfd_005fget_005fnext_005fmapent"></a>
-<ul class="mini-toc">
-<li><a href="#bfd_005fget_005fnext_005fmapent" accesskey="1"><code class="code">bfd_get_next_mapent</code></a></li>
-<li><a href="#bfd_005fset_005farchive_005fhead" accesskey="2"><code class="code">bfd_set_archive_head</code></a></li>
-<li><a href="#bfd_005fopenr_005fnext_005farchived_005ffile" accesskey="3"><code class="code">bfd_openr_next_archived_file</code></a></li>
+<span id="index-bfd_005fget_005fnext_005fmapent"></span>
+<ul class="section-toc">
+<li><a href="#bfd_005fget_005fnext_005fmapent" accesskey="1"><code>bfd_get_next_mapent</code></a></li>
+<li><a href="#bfd_005fset_005farchive_005fhead" accesskey="2"><code>bfd_set_archive_head</code></a></li>
+<li><a href="#bfd_005fopenr_005fnext_005farchived_005ffile" accesskey="3"><code>bfd_openr_next_archived_file</code></a></li>
 </ul>
-<div class="subsubsection-level-extent" id="bfd_005fget_005fnext_005fmapent">
-<h4 class="subsubsection"><span>2.8.1.1 <code class="code">bfd_get_next_mapent</code><a class="copiable-link" href="#bfd_005fget_005fnext_005fmapent"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-bfd_005fget_005fnext_005fmapent-1"><span class="category-def">Function: </span><span><code class="def-type">symindex</code> <strong class="def-name">bfd_get_next_mapent</strong> <code class="def-code-arguments">(bfd *abfd, symindex previous, carsym **sym);</code><a class="copiable-link" href="#index-bfd_005fget_005fnext_005fmapent-1"> &para;</a></span></dt>
-<dd><p>Step through archive <var class="var">abfd</var>&rsquo;s symbol table (if it
-has one).  Successively update <var class="var">sym</var> with the next symbol&rsquo;s
+<div class="subsubsection" id="bfd_005fget_005fnext_005fmapent">
+<h4 class="subsubsection">2.8.1.1 <code>bfd_get_next_mapent</code></h4>
+<dl class="def">
+<dt id="index-bfd_005fget_005fnext_005fmapent-1"><span class="category">Function: </span><span><em>symindex</em> <strong>bfd_get_next_mapent</strong> <em>(bfd *abfd, symindex previous, carsym **sym);</em><a href='#index-bfd_005fget_005fnext_005fmapent-1' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Step through archive <var>abfd</var>&rsquo;s symbol table (if it
+has one).  Successively update <var>sym</var> with the next symbol&rsquo;s
 information, returning that symbol&rsquo;s (internal) index into the
 symbol table.
 </p>
-<p>Supply <code class="code">BFD_NO_MORE_SYMBOLS</code> as the <var class="var">previous</var> entry to get
-the first one; returns <code class="code">BFD_NO_MORE_SYMBOLS</code> when you&rsquo;ve already
+<p>Supply <code>BFD_NO_MORE_SYMBOLS</code> as the <var>previous</var> entry to get
+the first one; returns <code>BFD_NO_MORE_SYMBOLS</code> when you&rsquo;ve already
 got the last one.
 </p>
-<p>A <code class="code">carsym</code> is a canonical archive symbol.  The only
+<p>A <code>carsym</code> is a canonical archive symbol.  The only
 user-visible element is its name, a null-terminated string.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005fset_005farchive_005fhead"></a>
+<span id="index-bfd_005fset_005farchive_005fhead"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fset_005farchive_005fhead">
-<h4 class="subsubsection"><span>2.8.1.2 <code class="code">bfd_set_archive_head</code><a class="copiable-link" href="#bfd_005fset_005farchive_005fhead"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-bfd_005fset_005farchive_005fhead-1"><span class="category-def">Function: </span><span><code class="def-type">bool</code> <strong class="def-name">bfd_set_archive_head</strong> <code class="def-code-arguments">(bfd *output, bfd *new_head);</code><a class="copiable-link" href="#index-bfd_005fset_005farchive_005fhead-1"> &para;</a></span></dt>
+<div class="subsubsection" id="bfd_005fset_005farchive_005fhead">
+<h4 class="subsubsection">2.8.1.2 <code>bfd_set_archive_head</code></h4>
+<dl class="def">
+<dt id="index-bfd_005fset_005farchive_005fhead-1"><span class="category">Function: </span><span><em>bool</em> <strong>bfd_set_archive_head</strong> <em>(bfd *output, bfd *new_head);</em><a href='#index-bfd_005fset_005farchive_005fhead-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Set the head of the chain of
-BFDs contained in the archive <var class="var">output</var> to <var class="var">new_head</var>.
+BFDs contained in the archive <var>output</var> to <var>new_head</var>.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005fopenr_005fnext_005farchived_005ffile"></a>
+<span id="index-bfd_005fopenr_005fnext_005farchived_005ffile"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fopenr_005fnext_005farchived_005ffile">
-<h4 class="subsubsection"><span>2.8.1.3 <code class="code">bfd_openr_next_archived_file</code><a class="copiable-link" href="#bfd_005fopenr_005fnext_005farchived_005ffile"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-_002abfd_005fopenr_005fnext_005farchived_005ffile"><span class="category-def">Function: </span><span><code class="def-type">bfd</code> <strong class="def-name">*bfd_openr_next_archived_file</strong> <code class="def-code-arguments">(bfd *archive, bfd *previous);</code><a class="copiable-link" href="#index-_002abfd_005fopenr_005fnext_005farchived_005ffile"> &para;</a></span></dt>
-<dd><p>Provided a BFD, <var class="var">archive</var>, containing an archive and NULL, open
+<div class="subsubsection" id="bfd_005fopenr_005fnext_005farchived_005ffile">
+<h4 class="subsubsection">2.8.1.3 <code>bfd_openr_next_archived_file</code></h4>
+<dl class="def">
+<dt id="index-_002abfd_005fopenr_005fnext_005farchived_005ffile"><span class="category">Function: </span><span><em>bfd</em> <strong>*bfd_openr_next_archived_file</strong> <em>(bfd *archive, bfd *previous);</em><a href='#index-_002abfd_005fopenr_005fnext_005farchived_005ffile' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Provided a BFD, <var>archive</var>, containing an archive and NULL, open
 an input BFD on the first contained element and returns that.
 Subsequent calls should pass the archive and the previous return
 value to return a created BFD to the next contained element.  NULL
@@ -174,7 +186,7 @@ sure to call bfd_check_format() on it first.
 </div>
 </div>
 <hr>
-<div class="nav-panel">
+<div class="header">
 <p>
 Next: <a href="Formats.html">File formats</a>, Previous: <a href="Symbols.html">Symbols</a>, Up: <a href="BFD-front-end.html">BFD Front End</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="BFD-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

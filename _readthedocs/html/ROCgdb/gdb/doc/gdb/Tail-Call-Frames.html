@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright © 1988-2024 Free Software Foundation, Inc.
+<!-- Copyright (C) 1988-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -26,7 +26,7 @@ the license, review the license.txt in the top-level directory for the
 library on https://github.com/ROCm/ (Github.com)).  The additional terms
 and conditions below apply to your use of AMD ROCm technical documentation.
 
-©2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
+(C)2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
 
 The information presented in this document is for informational purposes only
 and may contain technical inaccuracies, omissions, and typographical errors.
@@ -52,8 +52,8 @@ EVEN IF AMD IS EXPRESSLY ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
 
 AMD, the AMD Arrow logo, AMD Instinct™, Radeon™, AMD ROCm™, and combinations
 thereof are trademarks of Advanced Micro Devices, Inc.
-Linux® is the registered trademark of Linus Torvalds in the
-U.S. and other countries. PCIe® is a registered trademark of
+Linux(R) is the registered trademark of Linus Torvalds in the
+U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
@@ -73,10 +73,21 @@ companies. -->
 <link href="Inline-Functions.html" rel="prev" title="Inline Functions">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
 div.example {margin-left: 3.2em}
-kbd.kbd {font-style: oblique}
-span:hover a.copiable-link {visibility: visible}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -84,39 +95,39 @@ span:hover a.copiable-link {visibility: visible}
 </head>
 
 <body lang="en">
-<div class="section-level-extent" id="Tail-Call-Frames">
-<div class="nav-panel">
+<div class="section" id="Tail-Call-Frames">
+<div class="header">
 <p>
 Previous: <a href="Inline-Functions.html" accesskey="p" rel="prev">Inline Functions</a>, Up: <a href="Optimized-Code.html" accesskey="u" rel="up">Debugging Optimized Code</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h3 class="section" id="Tail-Call-Frames-1"><span>11.2 Tail Call Frames<a class="copiable-link" href="#Tail-Call-Frames-1"> &para;</a></span></h3>
-<a class="index-entry-id" id="index-tail-call-frames_002c-debugging"></a>
+<span id="Tail-Call-Frames-1"></span><h3 class="section">11.2 Tail Call Frames</h3>
+<span id="index-tail-call-frames_002c-debugging"></span>
 
-<p>Function <code class="code">B</code> can call function <code class="code">C</code> in its very last statement.  In
-unoptimized compilation the call of <code class="code">C</code> is immediately followed by return
-instruction at the end of <code class="code">B</code> code.  Optimizing compiler may replace the
-call and return in function <code class="code">B</code> into one jump to function <code class="code">C</code>
-instead.  Such use of a jump instruction is called <em class="dfn">tail call</em>.
+<p>Function <code>B</code> can call function <code>C</code> in its very last statement.  In
+unoptimized compilation the call of <code>C</code> is immediately followed by return
+instruction at the end of <code>B</code> code.  Optimizing compiler may replace the
+call and return in function <code>B</code> into one jump to function <code>C</code>
+instead.  Such use of a jump instruction is called <em>tail call</em>.
 </p>
-<p>During execution of function <code class="code">C</code>, there will be no indication in the
-function call stack frames that it was tail-called from <code class="code">B</code>.  If function
-<code class="code">A</code> regularly calls function <code class="code">B</code> which tail-calls function <code class="code">C</code>,
-then <small class="sc">ROCGDB</small> will see <code class="code">A</code> as the caller of <code class="code">C</code>.  However, in
-some cases <small class="sc">ROCGDB</small> can determine that <code class="code">C</code> was tail-called from
-<code class="code">B</code>, and it will then create fictitious call frame for that, with the
-return address set up as if <code class="code">B</code> called <code class="code">C</code> normally.
+<p>During execution of function <code>C</code>, there will be no indication in the
+function call stack frames that it was tail-called from <code>B</code>.  If function
+<code>A</code> regularly calls function <code>B</code> which tail-calls function <code>C</code>,
+then <small>ROCGDB</small> will see <code>A</code> as the caller of <code>C</code>.  However, in
+some cases <small>ROCGDB</small> can determine that <code>C</code> was tail-called from
+<code>B</code>, and it will then create fictitious call frame for that, with the
+return address set up as if <code>B</code> called <code>C</code> normally.
 </p>
 <p>This functionality is currently supported only by DWARF 2 debugging format and
-the compiler has to produce &lsquo;<samp class="samp">DW_TAG_call_site</samp>&rsquo; tags.  With
-<small class="sc">GCC</small>, you need to specify <samp class="option">-O -g</samp> during compilation, to get
+the compiler has to produce &lsquo;<samp>DW_TAG_call_site</samp>&rsquo; tags.  With
+<small>GCC</small>, you need to specify <samp>-O -g</samp> during compilation, to get
 this information.
 </p>
-<p><kbd class="kbd">info frame</kbd> command (see <a class="pxref" href="Frame-Info.html">Information About a Frame</a>) will indicate the tail call frame
-kind by text <code class="code">tail call frame</code> such as in this sample <small class="sc">ROCGDB</small> output:
+<p><kbd>info frame</kbd> command (see <a href="Frame-Info.html">Information About a Frame</a>) will indicate the tail call frame
+kind by text <code>tail call frame</code> such as in this sample <small>ROCGDB</small> output:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">(gdb) x/i $pc - 2
+<div class="example">
+<pre class="example">(gdb) x/i $pc - 2
    0x40066b &lt;b(int, double)+11&gt;: jmp 0x400640 &lt;c(int, double)&gt;
 (gdb) info frame
 Stack level 1, frame at 0x7fffffffda30:
@@ -128,15 +139,15 @@ Stack level 1, frame at 0x7fffffffda30:
 </pre></div>
 
 <p>The detection of all the possible code path executions can find them ambiguous.
-There is no execution history stored (possible <a class="ref" href="Reverse-Execution.html">Running programs backward</a> is never
+There is no execution history stored (possible <a href="Reverse-Execution.html">Running programs backward</a> is never
 used for this purpose) and the last known caller could have reached the known
-callee by multiple different jump sequences.  In such case <small class="sc">ROCGDB</small> still
+callee by multiple different jump sequences.  In such case <small>ROCGDB</small> still
 tries to show at least all the unambiguous top tail callers and all the
 unambiguous bottom tail callees, if any.
 </p>
-<dl class="table">
-<dd><a class="anchor" id="set-debug-entry_002dvalues"></a></dd>
-<dt><a id="index-set-debug-entry_002dvalues"></a><span><code class="code">set debug entry-values</code><a class="copiable-link" href="#index-set-debug-entry_002dvalues"> &para;</a></span></dt>
+<dl compact="compact">
+<dd><span id="set-debug-entry_002dvalues"></span></dd>
+<dt id='index-set-debug-entry_002dvalues'><span><code>set debug entry-values</code><a href='#index-set-debug-entry_002dvalues' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>When set to on, enables printing of analysis messages for both frame argument
 values at function entry and tail calls.  It will show all the possible valid
 tail calls code paths it has considered.  It will also print the intersection
@@ -144,18 +155,18 @@ of them with the final unambiguous (possibly partial or even empty) code path
 result.
 </p>
 </dd>
-<dt><a id="index-show-debug-entry_002dvalues"></a><span><code class="code">show debug entry-values</code><a class="copiable-link" href="#index-show-debug-entry_002dvalues"> &para;</a></span></dt>
+<dt id='index-show-debug-entry_002dvalues'><span><code>show debug entry-values</code><a href='#index-show-debug-entry_002dvalues' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Show the current state of analysis messages printing for both frame argument
 values at function entry and tail calls.
 </p></dd>
 </dl>
 
 <p>The analysis messages for tail calls can for example show why the virtual tail
-call frame for function <code class="code">c</code> has not been recognized (due to the indirect
-reference by variable <code class="code">x</code>):
+call frame for function <code>c</code> has not been recognized (due to the indirect
+reference by variable <code>x</code>):
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">static void __attribute__((noinline, noclone)) c (void);
+<div class="example">
+<pre class="example">static void __attribute__((noinline, noclone)) c (void);
 void (*x) (void) = c;
 static void __attribute__((noinline, noclone)) a (void) { x++; }
 static void __attribute__((noinline, noclone)) c (void) { a (); }
@@ -172,8 +183,8 @@ a () at t.c:3
 
 <p>Another possibility is an ambiguous virtual tail call frames resolution:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">int i;
+<div class="example">
+<pre class="example">int i;
 static void __attribute__((noinline, noclone)) f (void) { i++; }
 static void __attribute__((noinline, noclone)) e (void) { f (); }
 static void __attribute__((noinline, noclone)) d (void) { f (); }
@@ -195,27 +206,27 @@ tailcall: reduced: 0x4004d2(a) |
 
 
 <p>Frames #0 and #2 are real, #1 is a virtual tail call frame.
-The code can have possible execution paths <code class="code">main&rarr;a&rarr;b&rarr;c&rarr;d&rarr;f</code> or
-<code class="code">main&rarr;a&rarr;b&rarr;e&rarr;f</code>, <small class="sc">ROCGDB</small> cannot find which one from the inferior state.
+The code can have possible execution paths <code>main&rarr;a&rarr;b&rarr;c&rarr;d&rarr;f</code> or
+<code>main&rarr;a&rarr;b&rarr;e&rarr;f</code>, <small>ROCGDB</small> cannot find which one from the inferior state.
 </p>
-<p><code class="code">initial:</code> state shows some random possible calling sequence <small class="sc">ROCGDB</small>
+<p><code>initial:</code> state shows some random possible calling sequence <small>ROCGDB</small>
 has found.  It then finds another possible calling sequence - that one is
-prefixed by <code class="code">compare:</code>.  The non-ambiguous intersection of these two is
-printed as the <code class="code">reduced:</code> calling sequence.  That one could have many
-further <code class="code">compare:</code> and <code class="code">reduced:</code> statements as long as there remain
+prefixed by <code>compare:</code>.  The non-ambiguous intersection of these two is
+printed as the <code>reduced:</code> calling sequence.  That one could have many
+further <code>compare:</code> and <code>reduced:</code> statements as long as there remain
 any non-ambiguous sequence entries.
 </p>
-<p>For the frame of function <code class="code">b</code> in both cases there are different possible
-<code class="code">$pc</code> values (<code class="code">0x4004cc</code> or <code class="code">0x4004ce</code>), therefore this frame is
-also ambiguous.  The only non-ambiguous frame is the one for function <code class="code">a</code>,
+<p>For the frame of function <code>b</code> in both cases there are different possible
+<code>$pc</code> values (<code>0x4004cc</code> or <code>0x4004ce</code>), therefore this frame is
+also ambiguous.  The only non-ambiguous frame is the one for function <code>a</code>,
 therefore this one is displayed to the user while the ambiguous frames are
 omitted.
 </p>
 <p>There can be also reasons why printing of frame argument values at function
 entry may fail:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">int v;
+<div class="example">
+<pre class="example">int v;
 static void __attribute__((noinline, noclone)) c (int i) { v++; }
 static void __attribute__((noinline, noclone)) a (int i);
 static void __attribute__((noinline, noclone)) b (int i) { a (i); }
@@ -231,15 +242,15 @@ i=&lt;optimized out&gt;) at t.c:6
 #2  0x000000000040036e in main () at t.c:7
 </pre></div>
 
-<p><small class="sc">ROCGDB</small> cannot find out from the inferior state if and how many times did
-function <code class="code">a</code> call itself (via function <code class="code">b</code>) as these calls would be
-tail calls.  Such tail calls would modify the <code class="code">i</code> variable, therefore
-<small class="sc">ROCGDB</small> cannot be sure the value it knows would be right - <small class="sc">ROCGDB</small>
-prints <code class="code">&lt;optimized out&gt;</code> instead.
+<p><small>ROCGDB</small> cannot find out from the inferior state if and how many times did
+function <code>a</code> call itself (via function <code>b</code>) as these calls would be
+tail calls.  Such tail calls would modify the <code>i</code> variable, therefore
+<small>ROCGDB</small> cannot be sure the value it knows would be right - <small>ROCGDB</small>
+prints <code>&lt;optimized out&gt;</code> instead.
 </p>
 </div>
 <hr>
-<div class="nav-panel">
+<div class="header">
 <p>
 Previous: <a href="Inline-Functions.html">Inline Functions</a>, Up: <a href="Optimized-Code.html">Debugging Optimized Code</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

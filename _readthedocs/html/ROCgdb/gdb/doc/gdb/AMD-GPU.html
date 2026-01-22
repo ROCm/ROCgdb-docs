@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright © 1988-2024 Free Software Foundation, Inc.
+<!-- Copyright (C) 1988-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -26,7 +26,7 @@ the license, review the license.txt in the top-level directory for the
 library on https://github.com/ROCm/ (Github.com)).  The additional terms
 and conditions below apply to your use of AMD ROCm technical documentation.
 
-©2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
+(C)2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
 
 The information presented in this document is for informational purposes only
 and may contain technical inaccuracies, omissions, and typographical errors.
@@ -52,8 +52,8 @@ EVEN IF AMD IS EXPRESSLY ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
 
 AMD, the AMD Arrow logo, AMD Instinct™, Radeon™, AMD ROCm™, and combinations
 thereof are trademarks of Advanced Micro Devices, Inc.
-Linux® is the registered trademark of Linus Torvalds in the
-U.S. and other countries. PCIe® is a registered trademark of
+Linux(R) is the registered trademark of Linus Torvalds in the
+U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
@@ -73,11 +73,21 @@ companies. -->
 <link href="S12Z.html" rel="prev" title="S12Z">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
 div.example {margin-left: 3.2em}
-kbd.kbd {font-style: oblique}
-span:hover a.copiable-link {visibility: visible}
-ul.mark-bullet {list-style-type: disc}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -85,282 +95,282 @@ ul.mark-bullet {list-style-type: disc}
 </head>
 
 <body lang="en">
-<div class="subsection-level-extent" id="AMD-GPU">
-<div class="nav-panel">
+<div class="subsection" id="AMD-GPU">
+<div class="header">
 <p>
 Previous: <a href="S12Z.html" accesskey="p" rel="prev">S12Z</a>, Up: <a href="Architectures.html" accesskey="u" rel="up">Architectures</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h4 class="subsection" id="AMD-GPU-1"><span>22.4.9 <abbr class="acronym">AMD GPU</abbr><a class="copiable-link" href="#AMD-GPU-1"> &para;</a></span></h4>
-<a class="index-entry-id" id="index-AMD-GPU-support"></a>
+<span id="AMD-GPU-1"></span><h4 class="subsection">22.4.9 <acronym>AMD GPU</acronym></h4>
+<span id="index-AMD-GPU-support"></span>
 
-<p><small class="sc">ROCGDB</small> provides support for systems that have heterogeneous
-agents associated with commercially available <abbr class="acronym">AMD GPU</abbr>
-devices (see <a class="pxref" href="Heterogeneous-Debugging.html">Debugging Heterogeneous Programs</a>) when the
-<a class="url" href="https://docs.amd.com"><abbr class="acronym">AMD ROCm</abbr></a> platform is installed.
+<p><small>ROCGDB</small> provides support for systems that have heterogeneous
+agents associated with commercially available <acronym>AMD GPU</acronym>
+devices (see <a href="Heterogeneous-Debugging.html">Debugging Heterogeneous Programs</a>) when the
+<a href="https://docs.amd.com"><acronym>AMD ROCm</acronym></a> platform is installed.
 </p>
-<ul class="mini-toc">
-<li><a href="#AMD-GPU-Architectures" accesskey="1"><abbr class="acronym">AMD GPU</abbr> Architectures</a></li>
-<li><a href="#AMD-ROCm-Source-Languages" accesskey="2"><abbr class="acronym">AMD ROCm</abbr> Source Languages</a></li>
-<li><a href="#AMD-GPU-Device-Driver-and-AMD-ROCm-Runtime" accesskey="3"><abbr class="acronym">AMD GPU</abbr> Device Driver and <abbr class="acronym">AMD ROCm</abbr> Runtime</a></li>
-<li><a href="#AMD-GPU-Heterogeneous-Agents" accesskey="4"><abbr class="acronym">AMD GPU</abbr> Heterogeneous Agents</a></li>
-<li><a href="#AMD-GPU-Heterogeneous-Queues" accesskey="5"><abbr class="acronym">AMD GPU</abbr> Heterogeneous Queues</a></li>
-<li><a href="#AMD-GPU-Heterogeneous-Dispatches" accesskey="6"><abbr class="acronym">AMD GPU</abbr> Heterogeneous Dispatches</a></li>
-<li><a href="#AMD-GPU-Wavefronts" accesskey="7"><abbr class="acronym">AMD GPU</abbr> Wavefronts</a></li>
-<li><a href="#AMD-GPU-Registers" accesskey="8"><abbr class="acronym">AMD GPU</abbr> Registers</a></li>
-<li><a href="#AMD-GPU-Code-Objects" accesskey="9"><abbr class="acronym">AMD GPU</abbr> Code Objects</a></li>
-<li><a href="#AMD-GPU-Heterogeneous-Entity-Target-Identifies-and-Convenience-Variables"><abbr class="acronym">AMD GPU</abbr> Heterogeneous Entity Target Identifies and Convenience Variables</a></li>
-<li><a href="#AMD-GPU-Address-Spaces"><abbr class="acronym">AMD GPU</abbr> Address Spaces</a></li>
-<li><a href="#AMD-GPU-Signals-1"><abbr class="acronym">AMD GPU</abbr> Signals</a></li>
-<li><a href="#AMD-GPU-Memory-Violation-Reporting"><abbr class="acronym">AMD GPU</abbr> Memory Violation Reporting</a></li>
-<li><a href="#AMD-GPU-ALU-Exception-Reporting"><abbr class="acronym">AMD GPU</abbr> ALU Exception Reporting</a></li>
-<li><a href="#AMD-GPU-Logging"><abbr class="acronym">AMD GPU</abbr> Logging</a></li>
-<li><a href="#AMD-GPU-Version"><abbr class="acronym">AMD GPU</abbr> Version</a></li>
-<li><a href="#AMD-GPU-core-dumps-1"><abbr class="acronym">AMD GPU</abbr> core dumps</a></li>
-<li><a href="#AMD-GPU-Restrictions"><abbr class="acronym">AMD GPU</abbr> Restrictions</a></li>
+<ul class="section-toc">
+<li><a href="#AMD-GPU-Architectures" accesskey="1"><acronym>AMD GPU</acronym> Architectures</a></li>
+<li><a href="#AMD-ROCm-Source-Languages" accesskey="2"><acronym>AMD ROCm</acronym> Source Languages</a></li>
+<li><a href="#AMD-GPU-Device-Driver-and-AMD-ROCm-Runtime" accesskey="3"><acronym>AMD GPU</acronym> Device Driver and <acronym>AMD ROCm</acronym> Runtime</a></li>
+<li><a href="#AMD-GPU-Heterogeneous-Agents" accesskey="4"><acronym>AMD GPU</acronym> Heterogeneous Agents</a></li>
+<li><a href="#AMD-GPU-Heterogeneous-Queues" accesskey="5"><acronym>AMD GPU</acronym> Heterogeneous Queues</a></li>
+<li><a href="#AMD-GPU-Heterogeneous-Dispatches" accesskey="6"><acronym>AMD GPU</acronym> Heterogeneous Dispatches</a></li>
+<li><a href="#AMD-GPU-Wavefronts" accesskey="7"><acronym>AMD GPU</acronym> Wavefronts</a></li>
+<li><a href="#AMD-GPU-Registers" accesskey="8"><acronym>AMD GPU</acronym> Registers</a></li>
+<li><a href="#AMD-GPU-Code-Objects" accesskey="9"><acronym>AMD GPU</acronym> Code Objects</a></li>
+<li><a href="#AMD-GPU-Heterogeneous-Entity-Target-Identifies-and-Convenience-Variables"><acronym>AMD GPU</acronym> Heterogeneous Entity Target Identifies and Convenience Variables</a></li>
+<li><a href="#AMD-GPU-Address-Spaces"><acronym>AMD GPU</acronym> Address Spaces</a></li>
+<li><a href="#AMD-GPU-Signals-1"><acronym>AMD GPU</acronym> Signals</a></li>
+<li><a href="#AMD-GPU-Memory-Violation-Reporting"><acronym>AMD GPU</acronym> Memory Violation Reporting</a></li>
+<li><a href="#AMD-GPU-ALU-Exception-Reporting"><acronym>AMD GPU</acronym> ALU Exception Reporting</a></li>
+<li><a href="#AMD-GPU-Logging"><acronym>AMD GPU</acronym> Logging</a></li>
+<li><a href="#AMD-GPU-Version"><acronym>AMD GPU</acronym> Version</a></li>
+<li><a href="#AMD-GPU-core-dumps-1"><acronym>AMD GPU</acronym> core dumps</a></li>
+<li><a href="#AMD-GPU-Restrictions"><acronym>AMD GPU</acronym> Restrictions</a></li>
 </ul>
-<div class="subsubsection-level-extent" id="AMD-GPU-Architectures">
-<h4 class="subsubsection"><span>22.4.9.1 <abbr class="acronym">AMD GPU</abbr> Architectures<a class="copiable-link" href="#AMD-GPU-Architectures"> &para;</a></span></h4>
+<div class="subsubsection" id="AMD-GPU-Architectures">
+<h4 class="subsubsection">22.4.9.1 <acronym>AMD GPU</acronym> Architectures</h4>
 
-<p>The following <abbr class="acronym">AMD GPU</abbr> architectures are supported:
+<p>The following <acronym>AMD GPU</acronym> architectures are supported:
 </p>
-<dl class="table">
-<dt><em class="emph"><code class="code">gfx900</code></em></dt>
+<dl compact="compact">
+<dt><span><em><code>gfx900</code></em></span></dt>
 <dd><p>AMD Vega 10 devices.
 </p>
 </dd>
-<dt><em class="emph"><code class="code">gfx906</code></em></dt>
+<dt><span><em><code>gfx906</code></em></span></dt>
 <dd><p>AMD Vega 7nm devices.
 </p>
 </dd>
-<dt><em class="emph"><code class="code">gfx908</code></em></dt>
+<dt><span><em><code>gfx908</code></em></span></dt>
 <dd><p>AMD Instinct&reg; MI100 accelerator devices.
 </p>
 </dd>
-<dt><em class="emph"><code class="code">gfx90a</code></em></dt>
+<dt><span><em><code>gfx90a</code></em></span></dt>
 <dd><p>AMD Instinct&reg; MI200 Series accelerator devices.
 </p>
 </dd>
-<dt><em class="emph"><code class="code">gfx942</code></em></dt>
-<dd><p>&lsquo;<samp class="samp">gfx942</samp>&rsquo; devices.
+<dt><span><em><code>gfx942</code></em></span></dt>
+<dd><p>&lsquo;<samp>gfx942</samp>&rsquo; devices.
 </p>
 </dd>
-<dt><em class="emph"><code class="code">gfx950</code></em></dt>
-<dd><p>&lsquo;<samp class="samp">gfx950</samp>&rsquo; devices.
+<dt><span><em><code>gfx950</code></em></span></dt>
+<dd><p>&lsquo;<samp>gfx950</samp>&rsquo; devices.
 </p>
 </dd>
-<dt><em class="emph"><code class="code">gfx1010</code></em></dt>
+<dt><span><em><code>gfx1010</code></em></span></dt>
 <dd><p>Navi 10 devices.
 </p>
 </dd>
-<dt><em class="emph"><code class="code">gfx1011</code></em></dt>
+<dt><span><em><code>gfx1011</code></em></span></dt>
 <dd><p>Navi 12 devices.
 </p>
 </dd>
-<dt><em class="emph"><code class="code">gfx1012</code></em></dt>
+<dt><span><em><code>gfx1012</code></em></span></dt>
 <dd><p>Navi 14 devices.
 </p>
 </dd>
-<dt><em class="emph"><code class="code">gfx1030</code></em></dt>
+<dt><span><em><code>gfx1030</code></em></span></dt>
 <dd><p>Sienna Cichlid devices.
 </p>
 </dd>
-<dt><em class="emph"><code class="code">gfx1031</code></em></dt>
+<dt><span><em><code>gfx1031</code></em></span></dt>
 <dd><p>Navy Flounder devices.
 </p>
 </dd>
-<dt><em class="emph"><code class="code">gfx1032</code></em></dt>
+<dt><span><em><code>gfx1032</code></em></span></dt>
 <dd><p>Dimgrey Cavefish devices.
 </p>
 </dd>
-<dt><em class="emph"><code class="code">gfx1100</code></em></dt>
+<dt><span><em><code>gfx1100</code></em></span></dt>
 <dd><p>Plum Bonito devices.
 </p>
 </dd>
-<dt><em class="emph"><code class="code">gfx1101</code></em></dt>
+<dt><span><em><code>gfx1101</code></em></span></dt>
 <dd><p>Wheat Nas devices.
 </p>
 </dd>
-<dt><em class="emph"><code class="code">gfx1102</code></em></dt>
+<dt><span><em><code>gfx1102</code></em></span></dt>
 <dd><p>Hotpink Bonefish devices.
 </p>
 </dd>
-<dt><em class="emph"><code class="code">gfx1150</code></em></dt>
+<dt><span><em><code>gfx1150</code></em></span></dt>
 <dd><p>Gfx1150 devices.
 </p>
 </dd>
-<dt><em class="emph"><code class="code">gfx1151</code></em></dt>
+<dt><span><em><code>gfx1151</code></em></span></dt>
 <dd><p>Gfx1151 devices.
 </p>
 </dd>
-<dt><em class="emph"><code class="code">gfx1200</code></em></dt>
+<dt><span><em><code>gfx1200</code></em></span></dt>
 <dd><p>Gfx1200 devices.
 </p>
 </dd>
-<dt><em class="emph"><code class="code">gfx1201</code></em></dt>
+<dt><span><em><code>gfx1201</code></em></span></dt>
 <dd><p>Gfx1201 devices.
 </p>
 </dd>
 </dl>
 
-<p>The following generic <abbr class="acronym">AMD GPU</abbr> architectures are supported:
+<p>The following generic <acronym>AMD GPU</acronym> architectures are supported:
 </p>
-<dl class="table">
-<dt><em class="emph"><code class="code">gfx9-generic</code></em></dt>
-<dt><em class="emph"><code class="code">gfx9-4-generic</code></em></dt>
-<dt><em class="emph"><code class="code">gfx10-1-generic</code></em></dt>
-<dt><em class="emph"><code class="code">gfx10-3-generic</code></em></dt>
-<dt><em class="emph"><code class="code">gfx11-generic</code></em></dt>
-<dt><em class="emph"><code class="code">gfx12-generic</code></em></dt>
+<dl compact="compact">
+<dt><span><em><code>gfx9-generic</code></em></span></dt>
+<dt><span><em><code>gfx9-4-generic</code></em></span></dt>
+<dt><span><em><code>gfx10-1-generic</code></em></span></dt>
+<dt><span><em><code>gfx10-3-generic</code></em></span></dt>
+<dt><span><em><code>gfx11-generic</code></em></span></dt>
+<dt><span><em><code>gfx12-generic</code></em></span></dt>
 </dl>
 
 <p>You can consult the
-<a class="url" href="https://llvm.org/docs/AMDGPUUsage.html#processors">LLVM
+<a href="https://llvm.org/docs/AMDGPUUsage.html#processors">LLVM
 documentation</a> for the correspondence between architecture names and
 examples of product names.
 </p>
 </div>
-<div class="subsubsection-level-extent" id="AMD-ROCm-Source-Languages">
-<h4 class="subsubsection"><span>22.4.9.2 <abbr class="acronym">AMD ROCm</abbr> Source Languages<a class="copiable-link" href="#AMD-ROCm-Source-Languages"> &para;</a></span></h4>
+<div class="subsubsection" id="AMD-ROCm-Source-Languages">
+<h4 class="subsubsection">22.4.9.2 <acronym>AMD ROCm</acronym> Source Languages</h4>
 
-<p><small class="sc">ROCGDB</small> supports the following source languages:
+<p><small>ROCGDB</small> supports the following source languages:
 </p>
-<dl class="table">
-<dt><em class="emph">HIP</em></dt>
+<dl compact="compact">
+<dt><span><em>HIP</em></span></dt>
 <dd><p>The
-<a class="url" href="https://github.com/ROCm-Developer-Tools/HIP/blob/master/docs/markdown/hip_kernel_language.md">HIP Programming Language</a> is supported.
+<a href="https://github.com/ROCm-Developer-Tools/HIP/blob/master/docs/markdown/hip_kernel_language.md">HIP Programming Language</a> is supported.
 </p>
-<p>When compiling, the <samp class="option">-g</samp><!-- /@w --> option should be used to produce
-debugging information suitable for use by <small class="sc">ROCGDB</small>.  The
-<samp class="option">--offload-arch</samp><!-- /@w --> option is used to specify the <abbr class="acronym">AMD
-GPU</abbr> chips that the executable is required to support.  For example,
+<p>When compiling, the <samp><span class="nolinebreak">-g</span></samp><!-- /@w --> option should be used to produce
+debugging information suitable for use by <small>ROCGDB</small>.  The
+<samp><span class="nolinebreak">--offload-arch</span></samp><!-- /@w --> option is used to specify the <acronym>AMD
+GPU</acronym> chips that the executable is required to support.  For example,
 to compile a HIP program that can utilize &ldquo;Vega 10&rdquo; and &ldquo;Vega 7nm&rdquo;
-<abbr class="acronym">AMD GPU</abbr> devices, with no optimization:
+<acronym>AMD GPU</acronym> devices, with no optimization:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">hipcc -O0 -g --offload-arch=gfx900 --offload-arch=gfx906 bit_extract.cpp -o bit_extract
+<div class="example">
+<pre class="example">hipcc -O0 -g --offload-arch=gfx900 --offload-arch=gfx906 bit_extract.cpp -o bit_extract
 </pre></div>
 
-<p>The <abbr class="acronym">AMD ROCm</abbr> compiler maps HIP source language device
-function work-items to the lanes of an <abbr class="acronym">AMD GPU</abbr> wavefront,
-which are represented in <small class="sc">ROCGDB</small> as heterogeneous lanes.
+<p>The <acronym>AMD ROCm</acronym> compiler maps HIP source language device
+function work-items to the lanes of an <acronym>AMD GPU</acronym> wavefront,
+which are represented in <small>ROCGDB</small> as heterogeneous lanes.
 </p>
 </dd>
-<dt><em class="emph">Assembly Code</em></dt>
+<dt><span><em>Assembly Code</em></span></dt>
 <dd><p>Assembly code kernels are supported.
 </p>
 </dd>
-<dt><em class="emph">Other Languages</em></dt>
+<dt><span><em>Other Languages</em></span></dt>
 <dd><p>Other languages, including OpenCL and Fortran, are currently supported
 as the minimal pseudo-language, provided they are compiled specifying
-at least the <abbr class="acronym">AMD GPU</abbr> Code Object V3 and DWARF 4 formats.
-See <a class="xref" href="Unsupported-Languages.html">Unsupported Languages</a>.
+at least the <acronym>AMD GPU</acronym> Code Object V3 and DWARF 4 formats.
+See <a href="Unsupported-Languages.html">Unsupported Languages</a>.
 </p>
 </dd>
 </dl>
 
 </div>
-<div class="subsubsection-level-extent" id="AMD-GPU-Device-Driver-and-AMD-ROCm-Runtime">
-<h4 class="subsubsection"><span>22.4.9.3 <abbr class="acronym">AMD GPU</abbr> Device Driver and <abbr class="acronym">AMD ROCm</abbr> Runtime<a class="copiable-link" href="#AMD-GPU-Device-Driver-and-AMD-ROCm-Runtime"> &para;</a></span></h4>
+<div class="subsubsection" id="AMD-GPU-Device-Driver-and-AMD-ROCm-Runtime">
+<h4 class="subsubsection">22.4.9.3 <acronym>AMD GPU</acronym> Device Driver and <acronym>AMD ROCm</acronym> Runtime</h4>
 
-<p><small class="sc">ROCGDB</small> requires a compatible <abbr class="acronym">AMD GPU</abbr> device driver to
+<p><small>ROCGDB</small> requires a compatible <acronym>AMD GPU</acronym> device driver to
 be installed.  A warning message is displayed if either the device
 driver version or the version of the debug support it implements is
 unsupported.  For example,
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">amd-dbgapi: warning: AMD GPU driver's version 1.6 not supported (version 2.x where x &gt;= 1 required)
+<div class="example">
+<pre class="example">amd-dbgapi: warning: AMD GPU driver's version 1.6 not supported (version 2.x where x &gt;= 1 required)
 amd-dbgapi: warning: AMD GPU driver's debug support version 9.0 not supported (version 10.x where x &gt;= 1) required
 </pre></div>
 
-<p><small class="sc">ROCGDB</small> will continue to function except no <abbr class="acronym">AMD GPU</abbr>
+<p><small>ROCGDB</small> will continue to function except no <acronym>AMD GPU</acronym>
 debugging will be possible.
 </p>
-<p><small class="sc">ROCGDB</small> requires each agent to have compatible firmware installed
+<p><small>ROCGDB</small> requires each agent to have compatible firmware installed
 by the device driver.  A warning message is displayed if unsupported
 firmware is detected.  For example,
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">amd-dbgapi: warning: AMD GPU gpu_id 17619's firmware version 458 not supported (version &gt;= 555 required)
+<div class="example">
+<pre class="example">amd-dbgapi: warning: AMD GPU gpu_id 17619's firmware version 458 not supported (version &gt;= 555 required)
 </pre></div>
 
-<p><small class="sc">ROCGDB</small> will continue to function except no <abbr class="acronym">AMD GPU</abbr>
+<p><small>ROCGDB</small> will continue to function except no <acronym>AMD GPU</acronym>
 debugging will be possible on the agent.
 </p>
-<p><small class="sc">ROCGDB</small> requires a compatible <abbr class="acronym">AMD ROCm</abbr> runtime to be
-loaded in order to detect <abbr class="acronym">AMD GPU</abbr> code objects and
+<p><small>ROCGDB</small> requires a compatible <acronym>AMD ROCm</acronym> runtime to be
+loaded in order to detect <acronym>AMD GPU</acronym> code objects and
 wavefronts.  A warning message is displayed if an unsupported
-<abbr class="acronym">AMD ROCm</abbr> runtime is detected, or there is an error or
+<acronym>AMD ROCm</acronym> runtime is detected, or there is an error or
 restriction that prevents debugging.  For example,
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">amd_dbgapi: warning: AMD GPU runtime's r_debug::r_version 5 not supported (r_debug::r_version &gt;= 6 required)
+<div class="example">
+<pre class="example">amd_dbgapi: warning: AMD GPU runtime's r_debug::r_version 5 not supported (r_debug::r_version &gt;= 6 required)
 </pre></div>
 
-<p><small class="sc">ROCGDB</small> will continue to function except no <abbr class="acronym">AMD GPU</abbr>
+<p><small>ROCGDB</small> will continue to function except no <acronym>AMD GPU</acronym>
 debugging will be possible.
 </p>
 </div>
-<div class="subsubsection-level-extent" id="AMD-GPU-Heterogeneous-Agents">
-<h4 class="subsubsection"><span>22.4.9.4 <abbr class="acronym">AMD GPU</abbr> Heterogeneous Agents<a class="copiable-link" href="#AMD-GPU-Heterogeneous-Agents"> &para;</a></span></h4>
+<div class="subsubsection" id="AMD-GPU-Heterogeneous-Agents">
+<h4 class="subsubsection">22.4.9.4 <acronym>AMD GPU</acronym> Heterogeneous Agents</h4>
 
-<p><abbr class="acronym">AMD GPU</abbr> heterogeneous agents are not listed by the
-&lsquo;<samp class="samp">info agents</samp>&rsquo; command until the inferior has started executing
+<p><acronym>AMD GPU</acronym> heterogeneous agents are not listed by the
+&lsquo;<samp>info agents</samp>&rsquo; command until the inferior has started executing
 the program.
 </p>
 <p>Debugging an agent is unsupported if it has an architecture that is
-not supported by <small class="sc">ROCGDB</small> or the <abbr class="acronym">AMD GPU</abbr> device driver,
-or the firmware version is not supported by <small class="sc">ROCGDB</small>.
+not supported by <small>ROCGDB</small> or the <acronym>AMD GPU</acronym> device driver,
+or the firmware version is not supported by <small>ROCGDB</small>.
 </p>
 </div>
-<div class="subsubsection-level-extent" id="AMD-GPU-Heterogeneous-Queues">
-<h4 class="subsubsection"><span>22.4.9.5 <abbr class="acronym">AMD GPU</abbr> Heterogeneous Queues<a class="copiable-link" href="#AMD-GPU-Heterogeneous-Queues"> &para;</a></span></h4>
+<div class="subsubsection" id="AMD-GPU-Heterogeneous-Queues">
+<h4 class="subsubsection">22.4.9.5 <acronym>AMD GPU</acronym> Heterogeneous Queues</h4>
 
-<p>The <abbr class="acronym">AMD GPU</abbr> heterogeneous queue types reported by the
-&lsquo;<samp class="samp">info queues</samp>&rsquo; command are:
+<p>The <acronym>AMD GPU</acronym> heterogeneous queue types reported by the
+&lsquo;<samp>info queues</samp>&rsquo; command are:
 </p>
-<dl class="table">
-<dt><em class="emph">HSA</em></dt>
+<dl compact="compact">
+<dt><span><em>HSA</em></span></dt>
 <dd><p>An HSA AQL queue.
 </p>
 </dd>
-<dt><em class="emph">PM4</em></dt>
+<dt><span><em>PM4</em></span></dt>
 <dd><p>An AMD PM4 queue.
 </p>
 </dd>
-<dt><em class="emph">DMA</em></dt>
+<dt><span><em>DMA</em></span></dt>
 <dd><p>A DMA queue.
 </p>
 </dd>
-<dt><em class="emph">XGMI</em></dt>
+<dt><span><em>XGMI</em></span></dt>
 <dd><p>An XGMI queue.
 </p>
 </dd>
 </dl>
 
 </div>
-<div class="subsubsection-level-extent" id="AMD-GPU-Heterogeneous-Dispatches">
-<h4 class="subsubsection"><span>22.4.9.6 <abbr class="acronym">AMD GPU</abbr> Heterogeneous Dispatches<a class="copiable-link" href="#AMD-GPU-Heterogeneous-Dispatches"> &para;</a></span></h4>
+<div class="subsubsection" id="AMD-GPU-Heterogeneous-Dispatches">
+<h4 class="subsubsection">22.4.9.6 <acronym>AMD GPU</acronym> Heterogeneous Dispatches</h4>
 
-<p><abbr class="acronym">AMD GPU</abbr> supports the following address spaces for the &lsquo;<samp class="samp">info
+<p><acronym>AMD GPU</acronym> supports the following address spaces for the &lsquo;<samp>info
 dispatches</samp>&rsquo; command:
 </p>
-<dl class="table">
-<dt><em class="emph">Shared</em></dt>
+<dl compact="compact">
+<dt><span><em>Shared</em></span></dt>
 <dd><p>Per work-group storage.
 </p>
 </dd>
-<dt><em class="emph">Private</em></dt>
+<dt><span><em>Private</em></span></dt>
 <dd><p>Per work-item storage.
 </p>
 </dd>
 </dl>
 
-<p>The &lsquo;<samp class="samp">info dispatches</samp>&rsquo; command uses the following BNF syntax for
-<abbr class="acronym">AMD GPU</abbr> heterogeneous dispatch fences:
+<p>The &lsquo;<samp>info dispatches</samp>&rsquo; command uses the following BNF syntax for
+<acronym>AMD GPU</acronym> heterogeneous dispatch fences:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">fence     ::== [ barrier ] [ separator ] [ acquire ]  [ separator ] [ release ]
+<div class="example">
+<pre class="example">fence     ::== [ barrier ] [ separator ] [ acquire ]  [ separator ] [ release ]
 separator ::== &quot;|&quot;
 barrier   ::== &quot;B&quot;
 acquire   ::== &quot;A&quot; scope
@@ -372,85 +382,92 @@ agent     ::== &quot;a&quot;
 
 <p>Where:
 </p>
-<dl class="table">
-<dt><var class="var">separator</var></dt>
-<dd><p>The elements are separated by &lsquo;<samp class="samp">|</samp>&rsquo;.
+<dl compact="compact">
+<dt><span><var>separator</var></span></dt>
+<dd><p>The elements are separated by &lsquo;<samp>|</samp>&rsquo;.
 </p>
 </dd>
-<dt><var class="var">barrier</var></dt>
+<dt><span><var>barrier</var></span></dt>
 <dd><p>If present indicates the next heterogeneous packet will not be initiated until
 heterogeneous dispatch completes.
 </p>
 </dd>
-<dt><var class="var">acquire</var></dt>
+<dt><span><var>acquire</var></span></dt>
 <dd><p>Indicates an acquire memory fence was performed before initiating the
 heterogeneous dispatch.
 </p>
 </dd>
-<dt><var class="var">release</var></dt>
+<dt><span><var>release</var></span></dt>
 <dd><p>Indicates a release memory fence will be performed when the heterogeneous
 dispatch completes.
 </p>
 </dd>
-<dt><var class="var">system</var></dt>
+<dt><span><var>system</var></span></dt>
 <dd><p>Indicates the memory fence is performed at the system memory scope.
 </p>
 </dd>
-<dt><var class="var">agent</var></dt>
+<dt><span><var>agent</var></span></dt>
 <dd><p>Indicates the memory fence is performed at the agent memory scope.
 </p>
 </dd>
 </dl>
 
 </div>
-<div class="subsubsection-level-extent" id="AMD-GPU-Wavefronts">
-<h4 class="subsubsection"><span>22.4.9.7 <abbr class="acronym">AMD GPU</abbr> Wavefronts<a class="copiable-link" href="#AMD-GPU-Wavefronts"> &para;</a></span></h4>
+<div class="subsubsection" id="AMD-GPU-Wavefronts">
+<h4 class="subsubsection">22.4.9.7 <acronym>AMD GPU</acronym> Wavefronts</h4>
 
-<p>An <abbr class="acronym">AMD GPU</abbr> wavefront is represented in <small class="sc">ROCGDB</small> as a
+<p>An <acronym>AMD GPU</acronym> wavefront is represented in <small>ROCGDB</small> as a
 thread.
 </p>
-<p>An <abbr class="acronym">AMD GPU</abbr> wavefront can enter the halt state by:
+<span id="index-AMD-GPU-thread-names"></span>
+<span id="index-AMD-GPU-wave-names"></span>
+<p><small>ROCGDB</small> determines the name of the wavefront based on the name of
+its kernel function.  If the name would be longer than 16 characters,
+it is truncated and a hash of the non-truncated name is appended.  See
+<a href="Threads.html#thread-name">thread name</a> and <a href="Heterogeneous-Debugging.html#info-dispatches">info dispatches</a>.
 </p>
-<ul class="itemize mark-bullet">
-<li>Executing a <code class="code">S_SETHALT 1</code> instruction.
+<p>An <acronym>AMD GPU</acronym> wavefront can enter the halt state by:
+</p>
+<ul>
+<li> Executing a <code>S_SETHALT 1</code> instruction.
 
-</li><li>Using the &lsquo;<samp class="samp">set $status</samp>&rsquo; command to change the bit in the
-<abbr class="acronym">AMD GPU</abbr> wavefront&rsquo;s register that controls the halt state.
+</li><li> Using the &lsquo;<samp>set $status</samp>&rsquo; command to change the bit in the
+<acronym>AMD GPU</acronym> wavefront&rsquo;s register that controls the halt state.
 
-</li><li>Delivering a signal to the wavefront (see <a class="pxref" href="#AMD-GPU-Signals"><abbr class="acronym">AMD GPU</abbr> Signals</a>).
+</li><li> Delivering a signal to the wavefront (see <a href="#AMD-GPU-Signals"><acronym>AMD GPU</acronym> Signals</a>).
 
 </li></ul>
 
 <p>When a wavefront is in the halt state, it executes no further
 instructions.  In addition, a wavefront that is associated with a
-queue that is in the queue error state (see <a class="pxref" href="#AMD-GPU-Signals"><abbr class="acronym">AMD GPU</abbr> Signals</a>) is inhibited from executing further
+queue that is in the queue error state (see <a href="#AMD-GPU-Signals"><acronym>AMD GPU</acronym> Signals</a>) is inhibited from executing further
 instructions.  Continuing such wavefronts will not hit any breakpoints
 nor report completion of a single step command.  If necessary,
-&lsquo;<samp class="samp">Ctrl-C</samp>&rsquo; can be used to cancel the command.
+&lsquo;<samp>Ctrl-C</samp>&rsquo; can be used to cancel the command.
 </p>
-<p>Note that some <abbr class="acronym">AMD GPU</abbr> architectures may have restrictions
-on providing information about <abbr class="acronym">AMD GPU</abbr> wavefronts created
-when <small class="sc">ROCGDB</small> is not attached (see <a class="pxref" href="#AMD-GPU-Attaching-Restrictions"><abbr class="acronym">AMD GPU</abbr> Attaching Restrictions</a>).
+<p>Note that some <acronym>AMD GPU</acronym> architectures may have restrictions
+on providing information about <acronym>AMD GPU</acronym> wavefronts created
+when <small>ROCGDB</small> is not attached (see <a href="#AMD-GPU-Attaching-Restrictions"><acronym>AMD GPU</acronym> Attaching Restrictions</a>).
 </p>
-<p>When scheduler-locking is in effect (see <a class="pxref" href="All_002dStop-Mode.html#set-scheduler_002dlocking">set scheduler-locking</a>),
+<p>When scheduler-locking is in effect (see <a href="All_002dStop-Mode.html#set-scheduler_002dlocking">set scheduler-locking</a>),
 new wavefronts created by the resumed thread (either CPU thread or GPU
 wavefront) are held in the halt state.
 </p>
 </div>
-<div class="subsubsection-level-extent" id="AMD-GPU-Registers">
-<h4 class="subsubsection"><span>22.4.9.8 <abbr class="acronym">AMD GPU</abbr> Registers<a class="copiable-link" href="#AMD-GPU-Registers"> &para;</a></span></h4>
+<div class="subsubsection" id="AMD-GPU-Registers">
+<h4 class="subsubsection">22.4.9.8 <acronym>AMD GPU</acronym> Registers</h4>
 
-<p><abbr class="acronym">AMD GPU</abbr> supports the following <var class="var">reggroup</var> values for the
-&lsquo;<samp class="samp">info registers <var class="var">reggroup</var> &hellip;</samp>&rsquo; command:
+<p><acronym>AMD GPU</acronym> supports the following <var>reggroup</var> values for the
+&lsquo;<samp>info registers <var>reggroup</var> &hellip;</samp>&rsquo; command:
 </p>
-<ul class="itemize mark-bullet">
-<li>general
+<ul>
+<li> general
 
-</li><li>vector
+</li><li> vector
 
-</li><li>scalar
+</li><li> scalar
 
-</li><li>system
+</li><li> system
 
 </li></ul>
 
@@ -462,22 +479,22 @@ wavefront is created.  Only allocated registers are displayed.
 <p>Vector registers are reported as a wavefront size vector of signed
 32-bit values.
 </p>
-<p>The <code class="code">pc</code> is reported as a function pointer value.
+<p>The <code>pc</code> is reported as a function pointer value.
 </p>
-<p>The <code class="code">exec</code> register is reported as a wavefront size-bit unsigned
+<p>The <code>exec</code> register is reported as a wavefront size-bit unsigned
 integer value.
 </p>
-<p>The <code class="code">vcc</code> and <code class="code">xnack_mask</code> pseudo registers are reported as
+<p>The <code>vcc</code> and <code>xnack_mask</code> pseudo registers are reported as
 a wavefront size-bit unsigned integer value.
 </p>
-<p>The <code class="code">flat_scratch</code> pseudo register is reported as a 64-bit
+<p>The <code>flat_scratch</code> pseudo register is reported as a 64-bit
 unsigned integer value.
 </p>
-<p>The <code class="code">mode</code>, <code class="code">status</code>, and <code class="code">trapsts</code> registers are
+<p>The <code>mode</code>, <code>status</code>, and <code>trapsts</code> registers are
 reported as flag values.  For example,
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">(gdb) p $mode
+<div class="example">
+<pre class="example">(gdb) p $mode
 $1 = [ FP_ROUND.32=NEAREST_EVEN FP_ROUND.64_16=NEAREST_EVEN FP_DENORM.32=FLUSH_NONE FP_DENORM.64_16=FLUSH_NONE DX10_CLAMP IEEE CSP=0 ]
 (gdb) p $status
 $2 = [ SPI_PRIO=0 USER_PRIO=0 TRAP_EN VCCZ VALID ]
@@ -485,17 +502,17 @@ $2 = [ SPI_PRIO=0 USER_PRIO=0 TRAP_EN VCCZ VALID ]
 $3 = [ EXCP_CYCLE=0 DP_RATE=FULL ]
 </pre></div>
 
-<p>Use the &lsquo;<samp class="samp">ptype</samp>&rsquo; command to see the type of any register.
+<p>Use the &lsquo;<samp>ptype</samp>&rsquo; command to see the type of any register.
 </p>
 </div>
-<div class="subsubsection-level-extent" id="AMD-GPU-Code-Objects">
-<h4 class="subsubsection"><span>22.4.9.9 <abbr class="acronym">AMD GPU</abbr> Code Objects<a class="copiable-link" href="#AMD-GPU-Code-Objects"> &para;</a></span></h4>
+<div class="subsubsection" id="AMD-GPU-Code-Objects">
+<h4 class="subsubsection">22.4.9.9 <acronym>AMD GPU</acronym> Code Objects</h4>
 
-<p>The &lsquo;<samp class="samp">info sharedlibrary</samp>&rsquo; command will show the <abbr class="acronym">AMD GPU</abbr> code objects
+<p>The &lsquo;<samp>info sharedlibrary</samp>&rsquo; command will show the <acronym>AMD GPU</acronym> code objects
 together with the CPU code objects.  For example:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">(gdb) info sharedlibrary
+<div class="example">
+<pre class="example">(gdb) info sharedlibrary
 From                To                  Syms Read   Shared Object Library
 0x00007fd120664ac0  0x00007fd120682790  Yes (*)     /lib64/ld-linux-x86-64.so.2
 ...
@@ -507,12 +524,12 @@ From                To                  Syms Read   Shared Object Library
 (gdb)
 </pre></div>
 
-<p>The code object path for <abbr class="acronym">AMD GPU</abbr> code objects is shown as a
-<abbr class="acronym" title="Universal Location Identifier">URI</abbr> (Universal Location Identifier) with a syntax defined by
+<p>The code object path for <acronym>AMD GPU</acronym> code objects is shown as a
+<acronym title="Universal Location Identifier">URI</acronym> (Universal Location Identifier) with a syntax defined by
 the following BNF syntax:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">code_object_uri ::== file_uri | memory_uri
+<div class="example">
+<pre class="example">code_object_uri ::== file_uri | memory_uri
 file_uri        ::== &quot;file://&quot; file_path [ range_specifier ]
 memory_uri      ::== &quot;memory://&quot; process_id range_specifier
 range_specifier ::== [ &quot;#&quot; | &quot;?&quot; ] &quot;offset=&quot; number &quot;&amp;&quot; &quot;size=&quot; number
@@ -523,44 +540,44 @@ number          ::== HEX_NUMBER | DECIMAL_NUMBER | OCTAL_NUMBER
 
 <p>Where:
 </p>
-<dl class="table">
-<dt><var class="var">number</var></dt>
+<dl compact="compact">
+<dt><span><var>number</var></span></dt>
 <dd><p>A C integral literal where hexadecimal values are prefixed by
-&lsquo;<samp class="samp">0x</samp>&rsquo; or &lsquo;<samp class="samp">0X</samp>&rsquo;, and octal values by &lsquo;<samp class="samp">0</samp>&rsquo;.
+&lsquo;<samp>0x</samp>&rsquo; or &lsquo;<samp>0X</samp>&rsquo;, and octal values by &lsquo;<samp>0</samp>&rsquo;.
 </p>
 </dd>
-<dt><var class="var">file_path</var></dt>
+<dt><span><var>file_path</var></span></dt>
 <dd><p>The file&rsquo;s path specified as a URI encoded UTF-8 string.  In URI
 encoding, every character that is not in the regular expression
-&lsquo;<samp class="samp">[a-zA-Z0-9/_.~-]</samp>&rsquo; is encoded as two uppercase hexidecimal digits
-proceeded by &lsquo;<samp class="samp">%</samp>&rsquo;.  Directories in the path are separated by
-&lsquo;<samp class="samp">/</samp>&rsquo;.
+&lsquo;<samp>[a-zA-Z0-9/_.~-]</samp>&rsquo; is encoded as two uppercase hexidecimal digits
+proceeded by &lsquo;<samp>%</samp>&rsquo;.  Directories in the path are separated by
+&lsquo;<samp>/</samp>&rsquo;.
 </p>
 </dd>
-<dt><var class="var">offset</var></dt>
+<dt><span><var>offset</var></span></dt>
 <dd><p>A 0-based byte offset to the start of the code object.  For a file
 URI, it is from the start of the file specified by the
-<var class="var">file_path</var>, and if omitted defaults to 0. For a memory URI, it is
+<var>file_path</var>, and if omitted defaults to 0. For a memory URI, it is
 the memory address and is required.
 </p>
 </dd>
-<dt><var class="var">size</var></dt>
+<dt><span><var>size</var></span></dt>
 <dd><p>The number of bytes in the code object.  For a file URI, if omitted it
 defaults to the size of the file.  It is required for a memory URI.
 </p>
 </dd>
-<dt><var class="var">process_id</var></dt>
+<dt><span><var>process_id</var></span></dt>
 <dd><p>The identity of the process owning the memory.  For Linux it is the C
-unsigned integral decimal literal for the process <var class="var">pid</var>.
+unsigned integral decimal literal for the process <var>pid</var>.
 </p>
 </dd>
 </dl>
 
-<p><abbr class="acronym">AMD GPU</abbr> code objects are loaded into each <abbr class="acronym">AMD GPU</abbr>
-device separately.  The &lsquo;<samp class="samp">info sharedlibrary</samp>&rsquo; command will
+<p><acronym>AMD GPU</acronym> code objects are loaded into each <acronym>AMD GPU</acronym>
+device separately.  The &lsquo;<samp>info sharedlibrary</samp>&rsquo; command will
 therefore show the same code object loaded multiple times.  As a
-consequence, setting a breakpoint in <abbr class="acronym">AMD GPU</abbr> code will
-result in multiple breakpoints if there are multiple <abbr class="acronym">AMD GPU</abbr>
+consequence, setting a breakpoint in <acronym>AMD GPU</acronym> code will
+result in multiple breakpoints if there are multiple <acronym>AMD GPU</acronym>
 devices.
 </p>
 <p>If the source language runtime defers loading code objects until
@@ -568,105 +585,105 @@ kernels are launched, then setting breakpoints may result in pending
 breakpoints that will be set when the code object is finally loaded.
 </p>
 </div>
-<div class="subsubsection-level-extent" id="AMD-GPU-Heterogeneous-Entity-Target-Identifies-and-Convenience-Variables">
-<h4 class="subsubsection"><span>22.4.9.10 <abbr class="acronym">AMD GPU</abbr> Heterogeneous Entity Target Identifies and Convenience Variables<a class="copiable-link" href="#AMD-GPU-Heterogeneous-Entity-Target-Identifies-and-Convenience-Variables"> &para;</a></span></h4>
+<div class="subsubsection" id="AMD-GPU-Heterogeneous-Entity-Target-Identifies-and-Convenience-Variables">
+<h4 class="subsubsection">22.4.9.10 <acronym>AMD GPU</acronym> Heterogeneous Entity Target Identifies and Convenience Variables</h4>
 
-<p>The <abbr class="acronym">AMD GPU</abbr> heterogeneous entities have the following target
+<p>The <acronym>AMD GPU</acronym> heterogeneous entities have the following target
 identifier formats:
 </p>
-<dl class="table">
-<dt><var class="var">Agent Target ID</var></dt>
-<dd><p>The <abbr class="acronym">AMD GPU</abbr> agent target identifier <var class="var">agent_systag</var> string has the
+<dl compact="compact">
+<dt><span><var>Agent Target ID</var></span></dt>
+<dd><p>The <acronym>AMD GPU</acronym> agent target identifier <var>agent_systag</var> string has the
 following format:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">AMDGPU Agent (GPUID <var class="var">target-agent-id</var>)
+<div class="example">
+<pre class="example">AMDGPU Agent (GPUID <var>target-agent-id</var>)
 </pre></div>
 
-<p>It is used in the &lsquo;<samp class="samp">Target ID</samp>&rsquo; column of the &lsquo;<samp class="samp">info agents</samp>&rsquo; command and
-is available using the <var class="var">$_agent_systag</var> convenience variable.
+<p>It is used in the &lsquo;<samp>Target ID</samp>&rsquo; column of the &lsquo;<samp>info agents</samp>&rsquo; command and
+is available using the <var>$_agent_systag</var> convenience variable.
 </p>
 </dd>
-<dt><var class="var">Queue Target ID</var></dt>
-<dd><p>The <abbr class="acronym">AMD GPU</abbr> queue target identifier <var class="var">queue_systag</var> string has the
+<dt><span><var>Queue Target ID</var></span></dt>
+<dd><p>The <acronym>AMD GPU</acronym> queue target identifier <var>queue_systag</var> string has the
 following format:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">AMDGPU Queue <var class="var">agent-id</var>:<var class="var">queue-id</var> (QID <var class="var">target-queue-id</var>)
+<div class="example">
+<pre class="example">AMDGPU Queue <var>agent-id</var>:<var>queue-id</var> (QID <var>target-queue-id</var>)
 </pre></div>
 
-<p>It is used in the &lsquo;<samp class="samp">Target ID</samp>&rsquo; column of the &lsquo;<samp class="samp">info queues</samp>&rsquo; command and
-is available using the <var class="var">$_queue_systag</var> convenience variable.
+<p>It is used in the &lsquo;<samp>Target ID</samp>&rsquo; column of the &lsquo;<samp>info queues</samp>&rsquo; command and
+is available using the <var>$_queue_systag</var> convenience variable.
 </p>
 </dd>
-<dt><var class="var">Dispatch Target ID</var></dt>
-<dd><p>The <abbr class="acronym">AMD GPU</abbr> dispatch target identifier <var class="var">dispatch_systag</var> string
+<dt><span><var>Dispatch Target ID</var></span></dt>
+<dd><p>The <acronym>AMD GPU</acronym> dispatch target identifier <var>dispatch_systag</var> string
 has the following format:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">AMDGPU Dispatch <var class="var">agent-id</var>:<var class="var">queue-id</var>:<var class="var">dispatch-id</var> (PKID <var class="var">target-packet-id</var>)
+<div class="example">
+<pre class="example">AMDGPU Dispatch <var>agent-id</var>:<var>queue-id</var>:<var>dispatch-id</var> (PKID <var>target-packet-id</var>)
 </pre></div>
 
-<p>It is used in the &lsquo;<samp class="samp">Target ID</samp>&rsquo; column of the &lsquo;<samp class="samp">info dispatches</samp>&rsquo; command
-and is available using the <var class="var">$_dispatch_systag</var> convenience variable.  The
-<var class="var">target-packet-id</var> corresponds to the dispatch packet that initiated the
+<p>It is used in the &lsquo;<samp>Target ID</samp>&rsquo; column of the &lsquo;<samp>info dispatches</samp>&rsquo; command
+and is available using the <var>$_dispatch_systag</var> convenience variable.  The
+<var>target-packet-id</var> corresponds to the dispatch packet that initiated the
 dispatch.
 </p>
 </dd>
-<dt><var class="var">Thread Target ID</var></dt>
-<dd><p>The <abbr class="acronym">AMD GPU</abbr> thread target identifier (<var class="var">systag</var>) string has the
+<dt><span><var>Thread Target ID</var></span></dt>
+<dd><p>The <acronym>AMD GPU</acronym> thread target identifier (<var>systag</var>) string has the
 following format:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">AMDGPU Wave <var class="var">agent-id</var>:<var class="var">queue-id</var>:<var class="var">dispatch-id</var>:<var class="var">wave-id</var> (<var class="var">work-group-x</var>,<var class="var">work-group-y</var>,<var class="var">work-group-z</var>)/<var class="var">work-group-thread-index</var>
+<div class="example">
+<pre class="example">AMDGPU Wave <var>agent-id</var>:<var>queue-id</var>:<var>dispatch-id</var>:<var>wave-id</var> (<var>work-group-x</var>,<var>work-group-y</var>,<var>work-group-z</var>)/<var>work-group-thread-index</var>
 </pre></div>
 
-<p>It is used in the &lsquo;<samp class="samp">Target ID</samp>&rsquo; column of the &lsquo;<samp class="samp">info threads</samp>&rsquo; command
-and is available using the <var class="var">$_thread_systag</var> convenience variable.
+<p>It is used in the &lsquo;<samp>Target ID</samp>&rsquo; column of the &lsquo;<samp>info threads</samp>&rsquo; command
+and is available using the <var>$_thread_systag</var> convenience variable.
 </p>
 </dd>
-<dt><var class="var">Lane Target ID</var></dt>
-<dd><p>The <abbr class="acronym">AMD GPU</abbr> lane target identifier (<var class="var">lane_systag</var>) string has the
+<dt><span><var>Lane Target ID</var></span></dt>
+<dd><p>The <acronym>AMD GPU</acronym> lane target identifier (<var>lane_systag</var>) string has the
 following format:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">AMDGPU Lane <var class="var">agent-id</var>:<var class="var">queue-id</var>:<var class="var">dispatch-id</var>:<var class="var">wave-id</var>/<var class="var">lane-index</var> (<var class="var">work-group-x</var>,<var class="var">work-group-y</var>,<var class="var">work-group-z</var>)[<var class="var">work-item-x</var>,<var class="var">work-item-y</var>,<var class="var">work-item-z</var>]
+<div class="example">
+<pre class="example">AMDGPU Lane <var>agent-id</var>:<var>queue-id</var>:<var>dispatch-id</var>:<var>wave-id</var>/<var>lane-index</var> (<var>work-group-x</var>,<var>work-group-y</var>,<var>work-group-z</var>)[<var>work-item-x</var>,<var>work-item-y</var>,<var>work-item-z</var>]
 </pre></div>
 
-<p>It is used in the &lsquo;<samp class="samp">Target ID</samp>&rsquo; column of the &lsquo;<samp class="samp">info lanes</samp>&rsquo; command and
-is available using the <var class="var">$_lane_systag</var> convenience variable.
+<p>It is used in the &lsquo;<samp>Target ID</samp>&rsquo; column of the &lsquo;<samp>info lanes</samp>&rsquo; command and
+is available using the <var>$_lane_systag</var> convenience variable.
 </p>
 </dd>
 </dl>
 
-<p>The <abbr class="acronym">AMD GPU</abbr> heterogeneous entities have the following
+<p>The <acronym>AMD GPU</acronym> heterogeneous entities have the following
 convenience variables:
 </p>
-<dl class="table">
-<dt><code class="code">$_dispatch_pos</code></dt>
-<dd><p>The string returned by the <code class="code">$_dispatch_pos</code> debugger convenience
+<dl compact="compact">
+<dt><span><code>$_dispatch_pos</code></span></dt>
+<dd><p>The string returned by the <code>$_dispatch_pos</code> debugger convenience
 variable has the following format:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">(<var class="var">work-group-x</var>,<var class="var">work-group-y</var>,<var class="var">work-group-z</var>)/<var class="var">work-group-thread-index</var>
+<div class="example">
+<pre class="example">(<var>work-group-x</var>,<var>work-group-y</var>,<var>work-group-z</var>)/<var>work-group-thread-index</var>
 </pre></div>
 
 </dd>
-<dt><code class="code">$_thread_workgroup_pos</code></dt>
-<dd><p>The string returned by the <code class="code">$_thread_workgroup_pos</code> debugger
+<dt><span><code>$_thread_workgroup_pos</code></span></dt>
+<dd><p>The string returned by the <code>$_thread_workgroup_pos</code> debugger
 convenience variable has the following format:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted"><var class="var">work-group-thread-index</var>
+<div class="example">
+<pre class="example"><var>work-group-thread-index</var>
 </pre></div>
 
 </dd>
-<dt><code class="code">$_lane_workgroup_pos</code></dt>
-<dd><p>The string returned by the <code class="code">$_lane_workgroup_pos</code> debugger
+<dt><span><code>$_lane_workgroup_pos</code></span></dt>
+<dd><p>The string returned by the <code>$_lane_workgroup_pos</code> debugger
 convenience variable has the following format:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">[<var class="var">work-item-x</var>,<var class="var">work-item-y</var>,<var class="var">work-item-z</var>]
+<div class="example">
+<pre class="example">[<var>work-item-x</var>,<var>work-item-y</var>,<var>work-item-z</var>]
 </pre></div>
 
 </dd>
@@ -674,44 +691,44 @@ convenience variable has the following format:
 
 <p>Where:
 </p>
-<dl class="table">
-<dt><var class="var">agent-id</var></dt>
-<dt><var class="var">queue-id</var></dt>
-<dt><var class="var">dispatch-id</var></dt>
-<dt><var class="var">wave-id</var></dt>
-<dd><p>The <abbr class="acronym">AMD GPU</abbr> target agent identifier, queue identifier, dispatch
+<dl compact="compact">
+<dt><span><var>agent-id</var></span></dt>
+<dt><span><var>queue-id</var></span></dt>
+<dt><span><var>dispatch-id</var></span></dt>
+<dt><span><var>wave-id</var></span></dt>
+<dd><p>The <acronym>AMD GPU</acronym> target agent identifier, queue identifier, dispatch
 identifier, and wave identifier respectively.  The identifiers are global across
 all inferiors.
 </p>
 </dd>
-<dt><var class="var">target-agent-id</var></dt>
-<dt><var class="var">target-queue-id</var></dt>
-<dd><p>The <abbr class="acronym">AMD GPU</abbr> target driver agent identifier and queue identifier
+<dt><span><var>target-agent-id</var></span></dt>
+<dt><span><var>target-queue-id</var></span></dt>
+<dd><p>The <acronym>AMD GPU</acronym> target driver agent identifier and queue identifier
 identifier respectively.  The identifiers are per process.
 </p>
 </dd>
-<dt><var class="var">target-packet-id</var></dt>
-<dd><p>The <abbr class="acronym">AMD GPU</abbr> target driver packet identifier.  The identifier is per
+<dt><span><var>target-packet-id</var></span></dt>
+<dd><p>The <acronym>AMD GPU</acronym> target driver packet identifier.  The identifier is per
 queue.
 </p>
 </dd>
-<dt><var class="var">work-group-x</var></dt>
-<dt><var class="var">work-group-y</var></dt>
-<dt><var class="var">work-group-z</var></dt>
+<dt><span><var>work-group-x</var></span></dt>
+<dt><span><var>work-group-y</var></span></dt>
+<dt><span><var>work-group-z</var></span></dt>
 <dd><p>The grid position of the thread&rsquo;s work-group within the heterogeneous dispatch.
 </p>
 </dd>
-<dt><var class="var">work-group-thread-index</var></dt>
+<dt><span><var>work-group-thread-index</var></span></dt>
 <dd><p>The thread&rsquo;s number within the heterogeneous work-group.
 </p>
 </dd>
-<dt><var class="var">lane-index</var></dt>
+<dt><span><var>lane-index</var></span></dt>
 <dd><p>The heterogeneous lane index within the thread.
 </p>
 </dd>
-<dt><var class="var">work-item-x</var></dt>
-<dt><var class="var">work-item-y</var></dt>
-<dt><var class="var">work-item-z</var></dt>
+<dt><span><var>work-item-x</var></span></dt>
+<dt><span><var>work-item-y</var></span></dt>
+<dt><span><var>work-item-z</var></span></dt>
 <dd><p>The position of the heterogeneous lane&rsquo;s work-item within the heterogeneous
 work-group.
 </p>
@@ -719,114 +736,114 @@ work-group.
 </dl>
 
 </div>
-<div class="subsubsection-level-extent" id="AMD-GPU-Address-Spaces">
-<h4 class="subsubsection"><span>22.4.9.11 <abbr class="acronym">AMD GPU</abbr> Address Spaces<a class="copiable-link" href="#AMD-GPU-Address-Spaces"> &para;</a></span></h4>
+<div class="subsubsection" id="AMD-GPU-Address-Spaces">
+<h4 class="subsubsection">22.4.9.11 <acronym>AMD GPU</acronym> Address Spaces</h4>
 
-<p><abbr class="acronym">AMD GPU</abbr> heterogeneous agents support the following address
+<p><acronym>AMD GPU</acronym> heterogeneous agents support the following address
 spaces:
 </p>
-<dl class="table">
-<dt><code class="code">global</code></dt>
+<dl compact="compact">
+<dt><span><code>global</code></span></dt>
 <dd><p>The default global virtual address space.
 </p>
 </dd>
-<dt><code class="code">local</code></dt>
-<dd><p>The per heterogeneous work-group shared address space (<abbr class="acronym" title="Local Data Store">LDS</abbr> (Local Data Store)).
+<dt><span><code>local</code></span></dt>
+<dd><p>The per heterogeneous work-group shared address space (<acronym title="Local Data Store">LDS</acronym> (Local Data Store)).
 </p>
 </dd>
-<dt><code class="code">private_lane</code></dt>
+<dt><span><code>private_lane</code></span></dt>
 <dd><p>The per heterogeneous lane private address space (Scratch).
 </p>
 </dd>
-<dt><code class="code">private_wave</code></dt>
+<dt><span><code>private_wave</code></span></dt>
 <dd><p>The per wave  private address space (Scratch).  This memory is
-the per wavefront unswizzled backing memory for <var class="var">private_lane</var>.
+the per wavefront unswizzled backing memory for <var>private_lane</var>.
 </p>
 </dd>
-<dt><code class="code">generic</code></dt>
-<dd><p>The generic address space that can access the <var class="var">global</var>,
-<var class="var">local</var>, or <var class="var">private_lane</var> address spaces (Flat).
+<dt><span><code>generic</code></span></dt>
+<dd><p>The generic address space that can access the <var>global</var>,
+<var>local</var>, or <var>private_lane</var> address spaces (Flat).
 </p>
 </dd>
 </dl>
 
-<p>The <abbr class="acronym">AMD GPU</abbr> architecture default address space is <code class="code">global</code>.
+<p>The <acronym>AMD GPU</acronym> architecture default address space is <code>global</code>.
 </p>
-<p>The <a class="ref" href="Heterogeneous-Debugging.html#maint-print-address_002dspaces"><code class="code">maint print address-spaces</code></a>
-command can be used to display the <abbr class="acronym">AMD GPU</abbr> architecture address
+<p>The <a href="Heterogeneous-Debugging.html#maint-print-address_002dspaces"><code>maint print address-spaces</code></a>
+command can be used to display the <acronym>AMD GPU</acronym> architecture address
 spaces.
 </p>
-<a class="anchor" id="AMD-GPU-Signals"></a></div>
-<div class="subsubsection-level-extent" id="AMD-GPU-Signals-1">
-<h4 class="subsubsection"><span>22.4.9.12 <abbr class="acronym">AMD GPU</abbr> Signals<a class="copiable-link" href="#AMD-GPU-Signals-1"> &para;</a></span></h4>
+<span id="AMD-GPU-Signals"></span></div>
+<div class="subsubsection" id="AMD-GPU-Signals-1">
+<h4 class="subsubsection">22.4.9.12 <acronym>AMD GPU</acronym> Signals</h4>
 
-<p><abbr class="acronym">AMD GPU</abbr> wavefronts can raise the following signals when
+<p><acronym>AMD GPU</acronym> wavefronts can raise the following signals when
 executing instructions:
 </p>
-<dl class="table">
-<dt><code class="code">SIGILL</code></dt>
+<dl compact="compact">
+<dt><span><code>SIGILL</code></span></dt>
 <dd><p>Execution of an illegal instruction.
 </p>
 </dd>
-<dt><code class="code">SIGTRAP</code></dt>
-<dd><p>Execution of a <code class="code">S_TRAP</code> instruction other than:
+<dt><span><code>SIGTRAP</code></span></dt>
+<dd><p>Execution of a <code>S_TRAP</code> instruction other than:
 </p>
-<ul class="itemize mark-bullet">
-<li><code class="code">S_TRAP 1</code> which is used by <small class="sc">ROCGDB</small> to insert breakpoints.
+<ul>
+<li> <code>S_TRAP 1</code> which is used by <small>ROCGDB</small> to insert breakpoints.
 
-</li><li><code class="code">S_TRAP 2</code> which raises <code class="code">SIGABRT</code>.
+</li><li> <code>S_TRAP 2</code> which raises <code>SIGABRT</code>.
 
 </li></ul>
 
-<p>Note that <code class="code">S_TRAP 3</code> only raises a signal when <small class="sc">ROCGDB</small> is
+<p>Note that <code>S_TRAP 3</code> only raises a signal when <small>ROCGDB</small> is
 attached to the inferior.  Otherwise, it is treated as a no-operation.
-The compiler generates <code class="code">S_TRAP 3</code> for the <code class="code">llvm.debugtrap</code>
+The compiler generates <code>S_TRAP 3</code> for the <code>llvm.debugtrap</code>
 intrinsic.
 </p>
 </dd>
-<dt><code class="code">SIGABRT</code></dt>
-<dd><p>Execution of a <code class="code">S_TRAP 2</code> instruction.  The compiler generates
-<code class="code">S_TRAP 2</code> for the <code class="code">llvm.trap</code> intrinsic which is used for
+<dt><span><code>SIGABRT</code></span></dt>
+<dd><p>Execution of a <code>S_TRAP 2</code> instruction.  The compiler generates
+<code>S_TRAP 2</code> for the <code>llvm.trap</code> intrinsic which is used for
 assertions.
 </p>
 </dd>
-<dt><code class="code">SIGFPE</code></dt>
+<dt><span><code>SIGFPE</code></span></dt>
 <dd><p>Execution of a floating point or integer instruction detects a
 condition that is enabled to raise a signal.  The conditions include:
 </p>
-<ul class="itemize mark-bullet">
-<li>Floating point operation is invalid.
+<ul>
+<li> Floating point operation is invalid.
 
-</li><li>Floating point operation had subnormal input that was rounded to zero.
+</li><li> Floating point operation had subnormal input that was rounded to zero.
 
-</li><li>Floating point operation performed a division by zero.
+</li><li> Floating point operation performed a division by zero.
 
-</li><li>Floating point operation produced an overflow result.  The result was
+</li><li> Floating point operation produced an overflow result.  The result was
 rounded to infinity.
 
-</li><li>Floating point operation produced an underflow result.  A subnormal
+</li><li> Floating point operation produced an underflow result.  A subnormal
 result was rounded to zero.
 
-</li><li>Floating point operation produced an inexact result.
+</li><li> Floating point operation produced an inexact result.
 
-</li><li>Integer operation performed a division by zero.
+</li><li> Integer operation performed a division by zero.
 
 </li></ul>
 
 <p>By default, these conditions are not enabled to raise signals.  The
-&lsquo;<samp class="samp">set $mode</samp>&rsquo; command can be used to change the <abbr class="acronym">AMD GPU</abbr>
+&lsquo;<samp>set $mode</samp>&rsquo; command can be used to change the <acronym>AMD GPU</acronym>
 wavefront&rsquo;s register that has bits controlling which conditions are
-enabled to raise signals.  The &lsquo;<samp class="samp">print $trapsts</samp>&rsquo; command can be
+enabled to raise signals.  The &lsquo;<samp>print $trapsts</samp>&rsquo; command can be
 used to inspect which conditions have been detected even if they are
 not enabled to raise a signal.
 </p>
 </dd>
-<dt><code class="code">SIGBUS</code></dt>
+<dt><span><code>SIGBUS</code></span></dt>
 <dd><p>Execution of an instruction that accessed global memory using an
 address that is outside the virtual address range.
 </p>
 </dd>
-<dt><code class="code">SIGSEGV</code></dt>
+<dt><span><code>SIGSEGV</code></span></dt>
 <dd><p>Execution of an instruction that accessed a global memory page that is
 either not mapped or accessed with incompatible permissions.
 </p>
@@ -837,64 +854,67 @@ either not mapped or accessed with incompatible permissions.
 reported one at a time each time the wavefront is continued.
 </p>
 <p>If any of these signals are delivered to the wavefront, it will cause
-the wavefront to enter the halt state and cause the <abbr class="acronym">AMD ROCm</abbr>
+the wavefront to enter the halt state and cause the <acronym>AMD ROCm</acronym>
 runtime to put the associated queue into the queue error state.  All
 wavefronts associated with a queue that is in the queue error state
 are inhibited from executing further instructions even if they are not
-in the halt state.  In addition, when the <abbr class="acronym">AMD ROCm</abbr> runtime
+in the halt state.  In addition, when the <acronym>AMD ROCm</acronym> runtime
 puts a queue into the queue error state it may invoke an application
 registered callback that could either abort the application or delete
 the queue which will delete any wavefronts associated with the queue.
 </p>
-<p>The <small class="sc">ROCGDB</small> signal-related commands (see <a class="pxref" href="Signals.html">Signals</a>) can be used
+<p>The <small>ROCGDB</small> signal-related commands (see <a href="Signals.html">Signals</a>) can be used
 to control when a signal is delivered to the inferior, what signal is
 delivered to the inferior, and even if a signal should not be
 delivered to the inferior.
 </p>
-<p>If the &lsquo;<samp class="samp">signal</samp>&rsquo; or &lsquo;<samp class="samp">queue-signal</samp>&rsquo; commands are used to
-deliver a signal other than those listed above to an <abbr class="acronym">AMD GPU</abbr>
+<p>If the &lsquo;<samp>signal</samp>&rsquo; or &lsquo;<samp>queue-signal</samp>&rsquo; commands are used to
+deliver a signal other than those listed above to an <acronym>AMD GPU</acronym>
 wavefront, then the following error will be displayed when the
 wavefront is resumed:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">Resuming with signal <var class="var">signal</var> is not supported by this agent.
+<div class="example">
+<pre class="example">Resuming with signal <var>signal</var> is not supported by this agent.
 </pre></div>
 
 <p>The wavefront will not be resumed and no signal will be delivered.
-Use the &lsquo;<samp class="samp">signal</samp>&rsquo; or &lsquo;<samp class="samp">queue-signal</samp>&rsquo; commands to change the
-signal to deliver, or use &lsquo;<samp class="samp">signal 0</samp>&rsquo; or &lsquo;<samp class="samp">queue-signal 0</samp>&rsquo; to
+Use the &lsquo;<samp>signal</samp>&rsquo; or &lsquo;<samp>queue-signal</samp>&rsquo; commands to change the
+signal to deliver, or use &lsquo;<samp>signal 0</samp>&rsquo; or &lsquo;<samp>queue-signal 0</samp>&rsquo; to
 suppress delivering a signal.
 </p>
-<p>Note that some <abbr class="acronym">AMD GPU</abbr> architectures may have restrictions
-on supressing delivering signals to a wavefront (see <a class="pxref" href="#AMD-GPU-Signal-Restrictions"><abbr class="acronym">AMD GPU</abbr> Signal Restrictions</a>).
+<p>Note that some <acronym>AMD GPU</acronym> architectures may have restrictions
+on supressing delivering signals to a wavefront (see <a href="#AMD-GPU-Signal-Restrictions"><acronym>AMD GPU</acronym> Signal Restrictions</a>).
 </p>
 </div>
-<div class="subsubsection-level-extent" id="AMD-GPU-Memory-Violation-Reporting">
-<h4 class="subsubsection"><span>22.4.9.13 <abbr class="acronym">AMD GPU</abbr> Memory Violation Reporting<a class="copiable-link" href="#AMD-GPU-Memory-Violation-Reporting"> &para;</a></span></h4>
-<a class="anchor" id="AMDGPU-Memory-Violation-Reporting"></a>
+<div class="subsubsection" id="AMD-GPU-Memory-Violation-Reporting">
+<h4 class="subsubsection">22.4.9.13 <acronym>AMD GPU</acronym> Memory Violation Reporting</h4>
+<span id="AMDGPU-Memory-Violation-Reporting"></span>
 <p>A wavefront can report memory violation and address watch access
 events.  However, the program location at which they are reported may
 be after the machine instruction that caused them.  This can result in
 the reported source statement being incorrect.  The following commands
 can be used to control this behavior:
 </p>
-<dl class="table">
-<dt><a class="index-entry-id" id="index-AMD-GPU-precise-memory-event-reporting"></a>
-<a id="index-set-amdgpu-precise_002dmemory"></a><span><code class="code">set amdgpu precise-memory <var class="var">mode</var></code><a class="copiable-link" href="#index-set-amdgpu-precise_002dmemory"> &para;</a></span></dt>
-<dd><p>Controls how <abbr class="acronym">AMD GPU</abbr> devices detect memory violations and address
-watch events, where <var class="var">mode</var> can be:
+<dl compact="compact">
+<dd>
+<span id="index-set-amdgpu-precise_002dmemory"></span>
+<span id="index-AMD-GPU-precise-memory-event-reporting"></span>
+</dd>
+<dt><span><code>set amdgpu precise-memory <var>mode</var></code></span></dt>
+<dd><p>Controls how <acronym>AMD GPU</acronym> devices detect memory violations and address
+watch events, where <var>mode</var> can be:
 </p>
-<dl class="table">
-<dt><code class="code">off</code></dt>
+<dl compact="compact">
+<dt><span><code>off</code></span></dt>
 <dd><p>The program location may not be immediately after the instruction that
 caused the memory violation or address watch event.  This is the
 default.
 </p>
 </dd>
-<dt><code class="code">on</code></dt>
+<dt><span><code>on</code></span></dt>
 <dd><p>Requests that the program location will be immediately after the
 instruction that caused a memory violation or address watch event.
-Enabling this mode may make the <abbr class="acronym">AMD GPU</abbr> device execution
+Enabling this mode may make the <acronym>AMD GPU</acronym> device execution
 significantly slower as it has to wait for each memory operation to
 complete before executing the next instruction.
 </p>
@@ -903,20 +923,20 @@ complete before executing the next instruction.
 
 <p>For example:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">(gdb) set amdgpu precise-memory off
+<div class="example">
+<pre class="example">(gdb) set amdgpu precise-memory off
 (gdb) show amdgpu precise-memory
 AMDGPU precise memory access reporting is off
 (gdb)
 </pre></div>
 
 <p>If a memory violation or address watch access event is reported for an
-<abbr class="acronym">AMD GPU</abbr> thread that supports controlling precise memory
-detection when the mode is &lsquo;<samp class="samp">off</samp>&rsquo;, then the message includes an
+<acronym>AMD GPU</acronym> thread that supports controlling precise memory
+detection when the mode is &lsquo;<samp>off</samp>&rsquo;, then the message includes an
 indication that the position may not be accurate.  For example:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">(gdb) run
+<div class="example">
+<pre class="example">(gdb) run
 Warning: precise memory violation signal reporting is not enabled, reported
 location may not be accurate.  See &quot;show amdgpu precise-memory&quot;.
 
@@ -927,12 +947,12 @@ Thread 6 &quot;bit_extract&quot; received signal SIGSEGV, Segmentation fault.
 </pre></div>
 
 <p>The precise memory mode cannot be enabled until the inferior is
-started or attached.  If at that time all <abbr class="acronym">AMD GPU</abbr> devices
-accessible to the inferior support the &lsquo;<samp class="samp">on</samp>&rsquo; mode, then it is
+started or attached.  If at that time all <acronym>AMD GPU</acronym> devices
+accessible to the inferior support the &lsquo;<samp>on</samp>&rsquo; mode, then it is
 enabled.  For example:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">(gdb) set amdgpu precise-memory on
+<div class="example">
+<pre class="example">(gdb) set amdgpu precise-memory on
 (gdb) show amdgpu precise-memory
 AMDGPU precise memory access reporting is on (currently disabled)
 (gdb) run
@@ -942,12 +962,12 @@ AMDGPU precise memory access reporting is on (currently enabled)
 (gdb)
 </pre></div>
 
-<p>Alternatively, if at that time any of the <abbr class="acronym">AMD GPU</abbr> devices
-accessible to the inferior do not support the &lsquo;<samp class="samp">on</samp>&rsquo; mode, then a
+<p>Alternatively, if at that time any of the <acronym>AMD GPU</acronym> devices
+accessible to the inferior do not support the &lsquo;<samp>on</samp>&rsquo; mode, then a
 warning is reported and the mode is not enabled.  For example:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">(gdb) set amdgpu precise-memory on
+<div class="example">
+<pre class="example">(gdb) set amdgpu precise-memory on
 (gdb) show amdgpu precise-memory
 AMDGPU precise memory access reporting is on (currently disabled)
 (gdb) run
@@ -955,42 +975,43 @@ AMDGPU precise memory access reporting could not be enabled
 (gdb)
 </pre></div>
 
-<p>If the inferior is already executing when setting the &lsquo;<samp class="samp">on</samp>&rsquo; mode,
+<p>If the inferior is already executing when setting the &lsquo;<samp>on</samp>&rsquo; mode,
 then a warning will be reported immediately.  For example:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">(gdb) set amdgpu precise-memory on
+<div class="example">
+<pre class="example">(gdb) set amdgpu precise-memory on
 AMDGPU precise memory access reporting could not be enabled
 (gdb) show amdgpu precise-memory
 AMDGPU precise memory access reporting is on (currently disabled)
 (gdb)
 </pre></div>
 
-<p>Otherwise, setting the &lsquo;<samp class="samp">on</samp>&rsquo; mode will enable it immediately.  For example:
+<p>Otherwise, setting the &lsquo;<samp>on</samp>&rsquo; mode will enable it immediately.  For example:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">(gdb) set amdgpu precise-memory on
+<div class="example">
+<pre class="example">(gdb) set amdgpu precise-memory on
 (gdb) show amdgpu precise-memory
 AMDGPU precise memory access reporting is on (currently enabled)
 (gdb)
 </pre></div>
 
-<p>The <code class="code">amdgpu precise-memory</code> parameter is per-inferior.  When an
-inferior forks or execs, or the user uses the <code class="code">clone-inferior</code> command,
+<p>The <code>amdgpu precise-memory</code> parameter is per-inferior.  When an
+inferior forks or execs, or the user uses the <code>clone-inferior</code> command,
 and an inferior is created as a result, the newly created inferior inherits
 the parameter value of the original inferior.
 </p>
+<span id="index-show-amdgpu-precise_002dmemory"></span>
+<span id="index-AMD-GPU-precise-memory-event-reporting-1"></span>
 </dd>
-<dt><a class="index-entry-id" id="index-AMD-GPU-precise-memory-event-reporting-1"></a>
-<a id="index-show-amdgpu-precise_002dmemory"></a><span><code class="code">show amdgpu precise-memory</code><a class="copiable-link" href="#index-show-amdgpu-precise_002dmemory"> &para;</a></span></dt>
+<dt><span><code>show amdgpu precise-memory</code></span></dt>
 <dd><p>Displays the currently requested AMD GPU precise memory setting.
 </p>
 </dd>
 </dl>
 
 </div>
-<div class="subsubsection-level-extent" id="AMD-GPU-ALU-Exception-Reporting">
-<h4 class="subsubsection"><span>22.4.9.14 <abbr class="acronym">AMD GPU</abbr> ALU Exception Reporting<a class="copiable-link" href="#AMD-GPU-ALU-Exception-Reporting"> &para;</a></span></h4>
+<div class="subsubsection" id="AMD-GPU-ALU-Exception-Reporting">
+<h4 class="subsubsection">22.4.9.14 <acronym>AMD GPU</acronym> ALU Exception Reporting</h4>
 
 <p>A wavefront can report ALU exceptions.  However, the program location at
 which they are reported may be after the machine instruction that caused
@@ -999,21 +1020,24 @@ them.  This can result in the reported source statement being incorrect.
 <p>The following commands can be used to control ALU exception reporting
 precision:
 </p>
-<dl class="table">
-<dt><a class="index-entry-id" id="index-AMD-GPU-precise-ALU-exceptions-reporting"></a>
-<a id="index-set-amdgpu-precise_002dalu_002dexceptions"></a><span><code class="code">set amdgpu precise-alu-exceptions <var class="var">mode</var></code><a class="copiable-link" href="#index-set-amdgpu-precise_002dalu_002dexceptions"> &para;</a></span></dt>
-<dd><p>Controls how <abbr class="acronym">AMD GPU</abbr> devices report ALU exceptions:
+<dl compact="compact">
+<dd>
+<span id="index-set-amdgpu-precise_002dalu_002dexceptions"></span>
+<span id="index-AMD-GPU-precise-ALU-exceptions-reporting"></span>
+</dd>
+<dt><span><code>set amdgpu precise-alu-exceptions <var>mode</var></code></span></dt>
+<dd><p>Controls how <acronym>AMD GPU</acronym> devices report ALU exceptions:
 </p>
-<dl class="table">
-<dt><code class="code">off</code></dt>
+<dl compact="compact">
+<dt><span><code>off</code></span></dt>
 <dd><p>The program location may not be immediately after the instruction that
 caused the ALU exception.  This is the default.
 </p>
 </dd>
-<dt><code class="code">on</code></dt>
+<dt><span><code>on</code></span></dt>
 <dd><p>Request that the program location will be immediately after the
 instruction that caused the ALU exception.  Enabling this mode may make
-the <abbr class="acronym">AMD GPU</abbr> device execution significantly slower as it has
+the <acronym>AMD GPU</acronym> device execution significantly slower as it has
 to wait for the ALU instruction to complete before executing the next
 instruction.
 </p>
@@ -1022,8 +1046,8 @@ the life of the program.  If the precise ALU exception reporting mode is
 updated before the inferior is started, the update request is recorded
 and applies as soon as possible.  For example:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted"> set amdgpu precise-alu-exceptions on
+<div class="example">
+<pre class="example"> set amdgpu precise-alu-exceptions on
 (gdb) set amdgpu precise-alu-exceptions on
 (gdb) show amdgpu precise-alu-exceptions
 AMDGPU precise ALU exceptions reporting is on (currently disabled).
@@ -1041,34 +1065,35 @@ AMDGPU precise ALU exceptions reporting is on (currently enabled).
 </dd>
 </dl>
 
+<span id="index-show-amdgpu-precise_002dalu_002dexceptions"></span>
+<span id="index-AMD-GPU-precise-ALU-exceptions-reporting-1"></span>
 </dd>
-<dt><a class="index-entry-id" id="index-AMD-GPU-precise-ALU-exceptions-reporting-1"></a>
-<a id="index-show-amdgpu-precise_002dalu_002dexceptions"></a><span><code class="code">show amdgpu precise-alu-exceptions</code><a class="copiable-link" href="#index-show-amdgpu-precise_002dalu_002dexceptions"> &para;</a></span></dt>
-<dd><p>Display the currently requested and effective <abbr class="acronym">AMD GPU</abbr> precise
+<dt><span><code>show amdgpu precise-alu-exceptions</code></span></dt>
+<dd><p>Display the currently requested and effective <acronym>AMD GPU</acronym> precise
 ALU exceptions setting.
 </p>
 </dd>
 </dl>
 
 </div>
-<div class="subsubsection-level-extent" id="AMD-GPU-Logging">
-<h4 class="subsubsection"><span>22.4.9.15 <abbr class="acronym">AMD GPU</abbr> Logging<a class="copiable-link" href="#AMD-GPU-Logging"> &para;</a></span></h4>
+<div class="subsubsection" id="AMD-GPU-Logging">
+<h4 class="subsubsection">22.4.9.15 <acronym>AMD GPU</acronym> Logging</h4>
 
-<p>The &lsquo;<samp class="samp">set debug amd-dbgapi-lib log-level <var class="var">level</var></samp>&rsquo; command can be used
-to enable diagnostic messages from the &lsquo;<samp class="samp">amd-dbgapi</samp>&rsquo; library.  The
-&lsquo;<samp class="samp">show debug amd-dbgapi-lib log-level</samp>&rsquo; command displays the current
-&lsquo;<samp class="samp">amd-dbgapi</samp>&rsquo; library log level.  See <a class="xref" href="Debugging-Output.html#set-debug-amd_002ddbgapi_002dlib">set debug amd-dbgapi-lib</a>.
+<p>The &lsquo;<samp>set debug amd-dbgapi-lib log-level <var>level</var></samp>&rsquo; command can be used
+to enable diagnostic messages from the &lsquo;<samp>amd-dbgapi</samp>&rsquo; library.  The
+&lsquo;<samp>show debug amd-dbgapi-lib log-level</samp>&rsquo; command displays the current
+&lsquo;<samp>amd-dbgapi</samp>&rsquo; library log level.  See <a href="Debugging-Output.html#set-debug-amd_002ddbgapi_002dlib">set debug amd-dbgapi-lib</a>.
 </p>
-<p>The &lsquo;<samp class="samp">set debug amd-dbgapi</samp>&rsquo; command can be used
-to enable diagnostic messages in the &lsquo;<samp class="samp">amd-dbgapi</samp>&rsquo; target.  The
-&lsquo;<samp class="samp">show debug amd-dbgapi</samp>&rsquo; command displays the current setting.
-See <a class="xref" href="Debugging-Output.html#set-debug-amd_002ddbgapi">set debug amd-dbgapi</a>.
+<p>The &lsquo;<samp>set debug amd-dbgapi</samp>&rsquo; command can be used
+to enable diagnostic messages in the &lsquo;<samp>amd-dbgapi</samp>&rsquo; target.  The
+&lsquo;<samp>show debug amd-dbgapi</samp>&rsquo; command displays the current setting.
+See <a href="Debugging-Output.html#set-debug-amd_002ddbgapi">set debug amd-dbgapi</a>.
 </p>
 <p>For example, the following will enable information messages and send
 the log to a new file:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">(gdb) set debug amd-dbgapi-lib log-level info
+<div class="example">
+<pre class="example">(gdb) set debug amd-dbgapi-lib log-level info
 (gdb) set debug amd-dbgapi on
 (gdb) set logging overwrite
 (gdb) set logging file log.out
@@ -1077,102 +1102,102 @@ the log to a new file:
 </pre></div>
 
 <p>If you want to print the log to both the console and a file, omit the
-&lsquo;<samp class="samp">set logging debugredirect on</samp>&rsquo; command.  See <a class="xref" href="Logging-Output.html">Logging Output</a>.
+&lsquo;<samp>set logging debugredirect on</samp>&rsquo; command.  See <a href="Logging-Output.html">Logging Output</a>.
 </p>
 </div>
-<div class="subsubsection-level-extent" id="AMD-GPU-Version">
-<h4 class="subsubsection"><span>22.4.9.16 <abbr class="acronym">AMD GPU</abbr> Version<a class="copiable-link" href="#AMD-GPU-Version"> &para;</a></span></h4>
+<div class="subsubsection" id="AMD-GPU-Version">
+<h4 class="subsubsection">22.4.9.16 <acronym>AMD GPU</acronym> Version</h4>
 
-<p>The &lsquo;<samp class="samp">show amdgpu version</samp>&rsquo; command can be used to print the ROCdbgapi
+<p>The &lsquo;<samp>show amdgpu version</samp>&rsquo; command can be used to print the ROCdbgapi
 library version and file path.  For example:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">(gdb) show amdgpu version
+<div class="example">
+<pre class="example">(gdb) show amdgpu version
 ROCdbgapi 0.56.0 (0.56.0-rocm-rel-4.5-56)
 Loaded from `/opt/rocm-4.5.0/lib/librocm-dbgapi.so.0'
 </pre></div>
 
-<a class="anchor" id="AMD-GPU-core-dumps"></a></div>
-<div class="subsubsection-level-extent" id="AMD-GPU-core-dumps-1">
-<h4 class="subsubsection"><span>22.4.9.17 <abbr class="acronym">AMD GPU</abbr> core dumps<a class="copiable-link" href="#AMD-GPU-core-dumps-1"> &para;</a></span></h4>
+<span id="AMD-GPU-core-dumps"></span></div>
+<div class="subsubsection" id="AMD-GPU-core-dumps-1">
+<h4 class="subsubsection">22.4.9.17 <acronym>AMD GPU</acronym> core dumps</h4>
 
-<p><small class="sc">ROCGDB</small> supports core files describing the state of a heterogeneous
+<p><small>ROCGDB</small> supports core files describing the state of a heterogeneous
 process including host (CPU) and device (GPU) threads.  Such file can be
-generated either by <small class="sc">ROCGDB</small> itself using the <code class="command">gcore</code> command
-(see <a class="pxref" href="Core-File-Generation.html">How to Produce a Core File from Your Program</a>) or by the <abbr class="acronym">AMD ROCm</abbr> runtime and the
+generated either by <small>ROCGDB</small> itself using the <code>gcore</code> command
+(see <a href="Core-File-Generation.html">How to Produce a Core File from Your Program</a>) or by the <acronym>AMD ROCm</acronym> runtime and the
 Linux kernel.
 </p>
-<p>When the core dump is generated outside of <small class="sc">ROCGDB</small>, then two distinct
+<p>When the core dump is generated outside of <small>ROCGDB</small>, then two distinct
 files are produced:
 </p>
-<dl class="table">
-<dt><a id="index-AMD-GPU-core-dump-file"></a><span>GPU core dump<a class="copiable-link" href="#index-AMD-GPU-core-dump-file"> &para;</a></span></dt>
-<dd><p>This file is produced by the <abbr class="acronym">AMD ROCm</abbr> runtime.  It contains
+<dl compact="compact">
+<dt id='index-AMD-GPU-core-dump-file'><span>GPU core dump<a href='#index-AMD-GPU-core-dump-file' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>This file is produced by the <acronym>AMD ROCm</acronym> runtime.  It contains
 the state of all the agents, queues and waves running on those agents
 when a fault occurred.  After this file has been generated, the
-<abbr class="acronym">AMD ROCm</abbr> runtime aborts the host process so the Linux kernel
+<acronym>AMD ROCm</acronym> runtime aborts the host process so the Linux kernel
 can generate the host core file describing the state of the host
 threads, and the inferior memory.
 </p>
-<p>The file produced by the <abbr class="acronym">AMD GPU</abbr> runtime is named
-<samp class="file">gpucore.<var class="var">pid</var></samp> where <var class="var">pid</var> is the process identifier of the host
+<p>The file produced by the <acronym>AMD GPU</acronym> runtime is named
+<samp>gpucore.<var>pid</var></samp> where <var>pid</var> is the process identifier of the host
 process.  The file is produced in the working directory of the process.
 </p>
-<p>By default, for some <abbr class="acronym">AMD GPU</abbr> architectures, when the heterogeneous
-process is not executed under <small class="sc">ROCGDB</small>, the <abbr class="acronym">AMD GPU</abbr> device driver
-does not initialize some metadata associated with the wavefronts (see <a class="pxref" href="#AMD-GPU-Attaching-Restrictions">AMD GPU Attaching Restrictions</a>).  In order to have the <abbr class="acronym">AMD ROCm</abbr> runtime
+<p>By default, for some <acronym>AMD GPU</acronym> architectures, when the heterogeneous
+process is not executed under <small>ROCGDB</small>, the <acronym>AMD GPU</acronym> device driver
+does not initialize some metadata associated with the wavefronts (see <a href="#AMD-GPU-Attaching-Restrictions">AMD GPU Attaching Restrictions</a>).  In order to have the <acronym>AMD ROCm</acronym> runtime
 generate a core dump with wavefronts&rsquo; positions in their dispatches, it is
-recommended to set the <code class="env">HSA_ENABLE_DEBUG</code> environment variable to &lsquo;<samp class="samp">1</samp>&rsquo;
+recommended to set the <code>HSA_ENABLE_DEBUG</code> environment variable to &lsquo;<samp>1</samp>&rsquo;
 before the runtime is initialized.
 </p>
 </dd>
-<dt><a id="index-core-dump-file-1"></a><span>Host core dump<a class="copiable-link" href="#index-core-dump-file-1"> &para;</a></span></dt>
+<dt id='index-core-dump-file-1'><span>Host core dump<a href='#index-core-dump-file-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd>
 <p>This file is produced by the Linux kernel.  It contains the state and
 memory of the host side of the heterogeneous process.  The name of the
-file is controlled by the <code class="code">core_pattern</code> system setting (see
-<code class="code">core(5)</code>).
+file is controlled by the <code>core_pattern</code> system setting (see
+<code>core(5)</code>).
 </p>
 <p>For example, the following command can be used to tell the Linux kernel
 to save core dumps in the working directory of the crashing process, and
-to name them <samp class="file">core.<var class="var">pid</var></samp>, where <var class="var">pid</var> is the process id:
+to name them <samp>core.<var>pid</var></samp>, where <var>pid</var> is the process id:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">sysctl kernel.core_pattern=/proc/%p/cwd/core.%p
+<div class="example">
+<pre class="example">sysctl kernel.core_pattern=/proc/%p/cwd/core.%p
 </pre></div>
 
 </dd>
 </dl>
 
-<p>Both the <abbr class="acronym">AMD GPU</abbr> runtime and the Linux kernel obey the resource
-limitations set by the user via the shell&rsquo;s <kbd class="kbd">ulimit</kbd> command.  The limit is
+<p>Both the <acronym>AMD GPU</acronym> runtime and the Linux kernel obey the resource
+limitations set by the user via the shell&rsquo;s <kbd>ulimit</kbd> command.  The limit is
 per core file, so if a heterogeneous process generates two core files (one for
 the agents and one for the host), the total core size can be up to twice the
-limit set using <kbd class="kbd">ulimit</kbd>.
+limit set using <kbd>ulimit</kbd>.
 </p>
-<p>A user can use the following command to prevent both the <abbr class="acronym">AMD ROCm</abbr>
-runtime and the Linux kernel to generate an <abbr class="acronym">AMD GPU</abbr> core dump if a
+<p>A user can use the following command to prevent both the <acronym>AMD ROCm</acronym>
+runtime and the Linux kernel to generate an <acronym>AMD GPU</acronym> core dump if a
 fault occurs on a GPU agent:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">ulimit -c 0
+<div class="example">
+<pre class="example">ulimit -c 0
 </pre></div>
 
-<p>If however the user wants to ensure that the <abbr class="acronym">AMD ROCm</abbr> runtime and the
+<p>If however the user wants to ensure that the <acronym>AMD ROCm</acronym> runtime and the
 Linux kernel generate a core dump if a fault occurs on an agent, the following
 command can be used:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">ulimit -c unlimited
+<div class="example">
+<pre class="example">ulimit -c unlimited
 </pre></div>
 
-<p><small class="sc">ROCGDB</small> needs to be presented a unified core file to inspect the state of
-a heterogeneous process.  You can use the <small class="sc">ROCCOREMERGE</small> utility
-program to merge the core files generated by the <abbr class="acronym">AMD GPU</abbr>
+<p><small>ROCGDB</small> needs to be presented a unified core file to inspect the state of
+a heterogeneous process.  You can use the <small>ROCCOREMERGE</small> utility
+program to merge the core files generated by the <acronym>AMD GPU</acronym>
 runtime and the Linux kernel into a unified core file:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">$ sysctl kernel.core_pattern=/proc/%p/cwd/core.%p
+<div class="example">
+<pre class="example">$ sysctl kernel.core_pattern=/proc/%p/cwd/core.%p
 $ ulimit -c unlimited
 $ HSA_ENABLE_DEBUG=1 ./a.out
 File gpucore.745818 created
@@ -1189,89 +1214,89 @@ Thread 3 (AMDGPU Wave 1:1:1:1 (0,0,0)/0) stopped because of SIGSEGV.
 (gdb)
 </pre></div>
 
-<p>When opening a core dump, <small class="sc">ROCGDB</small> tries to load GPU code objects at
+<p>When opening a core dump, <small>ROCGDB</small> tries to load GPU code objects at
 the same path they were on the system where the core dump got produced.
-If the code objects are not at the same location, <small class="sc">ROCGDB</small> can look
-in the <code class="code">sysroot</code> (see <a class="pxref" href="Files.html#set-sysroot">set sysroot</a>), or use the
-<code class="code">shared-library-path</code> (see <a class="pxref" href="Files.html#set-solib_002dsearch_002dpath">set
+If the code objects are not at the same location, <small>ROCGDB</small> can look
+in the <code>sysroot</code> (see <a href="Files.html#set-sysroot">set sysroot</a>), or use the
+<code>shared-library-path</code> (see <a href="Files.html#set-solib_002dsearch_002dpath">set
 solib-search-path</a>).
 </p>
 </div>
-<div class="subsubsection-level-extent" id="AMD-GPU-Restrictions">
-<h4 class="subsubsection"><span>22.4.9.18 <abbr class="acronym">AMD GPU</abbr> Restrictions<a class="copiable-link" href="#AMD-GPU-Restrictions"> &para;</a></span></h4>
+<div class="subsubsection" id="AMD-GPU-Restrictions">
+<h4 class="subsubsection">22.4.9.18 <acronym>AMD GPU</acronym> Restrictions</h4>
 
-<p><small class="sc">ROCGDB</small> <abbr class="acronym">AMD GPU</abbr> support is currently a prototype and
+<p><small>ROCGDB</small> <acronym>AMD GPU</acronym> support is currently a prototype and
 has the following restrictions.  Future releases aim to address these
 restrictions.
 </p>
-<ol class="enumerate">
+<ol>
 <li> The debugger convenience variables, convenience functions, and
-commands described in <a class="ref" href="Heterogeneous-Debugging.html">Debugging Heterogeneous Programs</a> are not yet
+commands described in <a href="Heterogeneous-Debugging.html">Debugging Heterogeneous Programs</a> are not yet
 implemented unless noted below.
 
-<p>The command line interface &lsquo;<samp class="samp">info agents</samp>&rsquo;, &lsquo;<samp class="samp">info queues</samp>&rsquo;, &lsquo;<samp class="samp">info
-dispatches</samp>&rsquo;, &lsquo;<samp class="samp">queue find</samp>&rsquo;, and &lsquo;<samp class="samp">dispatch find</samp>&rsquo; commands are
+<p>The command line interface &lsquo;<samp>info agents</samp>&rsquo;, &lsquo;<samp>info queues</samp>&rsquo;, &lsquo;<samp>info
+dispatches</samp>&rsquo;, &lsquo;<samp>queue find</samp>&rsquo;, and &lsquo;<samp>dispatch find</samp>&rsquo; commands are
 supported.  However, these have no Python bindings.
 </p>
-<p>The debugger convenience variable <code class="code">$_wave_id</code> is available which
+<p>The debugger convenience variable <code>$_wave_id</code> is available which
 returns a string that has the format:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">(<var class="var">work-group-x</var>,<var class="var">work-group-y</var>,<var class="var">work-group-z</var>)/<var class="var">work-group-thread-index</var>
+<div class="example">
+<pre class="example">(<var>work-group-x</var>,<var>work-group-y</var>,<var>work-group-z</var>)/<var>work-group-thread-index</var>
 </pre></div>
 
 <p>Where:
 </p>
-<dl class="table">
-<dt><var class="var">work-group-x</var></dt>
-<dt><var class="var">work-group-y</var></dt>
-<dt><var class="var">work-group-z</var></dt>
+<dl compact="compact">
+<dt><span><var>work-group-x</var></span></dt>
+<dt><span><var>work-group-y</var></span></dt>
+<dt><span><var>work-group-z</var></span></dt>
 <dd><p>The grid position of the thread&rsquo;s work-group within the heterogeneous
 dispatch.
 </p>
 </dd>
-<dt><var class="var">work-group-thread-index</var></dt>
+<dt><span><var>work-group-thread-index</var></span></dt>
 <dd><p>The thread&rsquo;s number within the heterogeneous work-group.
 </p>
 </dd>
 </dl>
 
-</li><li> The <abbr class="acronym">AMD ROCm</abbr> compiler currently has the following
+</li><li> The <acronym>AMD ROCm</acronym> compiler currently has the following
 limitations:
 
-<ul class="itemize mark-bullet">
-<li>DWARF information for symbolic variables is not always generated at
-optimization levels above <samp class="option">-O0</samp><!-- /@w -->.
+<ul>
+<li> DWARF information for symbolic variables is not always generated at
+optimization levels above <samp><span class="nolinebreak">-O0</span></samp><!-- /@w -->.
 
-</li><li>DWARF information for symbolic variables allocated in the local
+</li><li> DWARF information for symbolic variables allocated in the local
 address space is not generated correctly.  The locations of these
 variables are always reported with an address of 0x0 in the local
 address space.
 
-</li><li>The <abbr class="acronym">AMD ROCm</abbr> compiler currently adds the <samp class="option">-mllvm&nbsp;-amdgpu-spill-cfi-saved-regs</samp><!-- /@w --> option for <abbr class="acronym">AMD GPU</abbr> when the
-<samp class="option">-g</samp><!-- /@w --> option is specified.  This ensures registers not
+</li><li> The <acronym>AMD ROCm</acronym> compiler currently adds the <samp><span class="nolinebreak">-mllvm</span>&nbsp;<span class="nolinebreak">-amdgpu-spill-cfi-saved-regs</span></samp><!-- /@w --> option for <acronym>AMD GPU</acronym> when the
+<samp><span class="nolinebreak">-g</span></samp><!-- /@w --> option is specified.  This ensures registers not
 currently supported by the CFI generation are saved so the CFI
 information is correct.  If this option is not used, the invalid DWARF
-may cause <small class="sc">ROCGDB</small> to report that it is unable to read memory
+may cause <small>ROCGDB</small> to report that it is unable to read memory
 (such as when reading arguments in a backtrace).
 
 </li></ul>
 
-</li><li> <small class="sc">ROCGDB</small> does not currently make use of debug information
-describing an inactive lane&rsquo;s logical current PC (and the <abbr class="acronym">AMD
-ROCm</abbr> compiler currently does not generate it).  Such debug
+</li><li> <small>ROCGDB</small> does not currently make use of debug information
+describing an inactive lane&rsquo;s logical current PC (and the <acronym>AMD
+ROCm</acronym> compiler currently does not generate it).  Such debug
 information informs the debugger about what the instruction an
 inactive lane will execute next once it becomes active.  Thus,
 currently, source locations displayed for inactive lanes always point
 to the wave&rsquo;s physical PC.  This is the same PC address as the PC of
 the lanes that are active.
 
-</li><li> Only <abbr class="acronym">AMD GPU</abbr> Code Object V3 and above is supported.  This is
-the default for the <abbr class="acronym">AMD ROCm</abbr> compiler.  The following error
+</li><li> Only <acronym>AMD GPU</acronym> Code Object V3 and above is supported.  This is
+the default for the <acronym>AMD ROCm</acronym> compiler.  The following error
 will be reported for incompatible code objects:
 
-<div class="example smallexample">
-<pre class="example-preformatted">Error while mapping shared library sections:
+<div class="example">
+<pre class="example">Error while mapping shared library sections:
 `file:///rocm/bit_extract#offset=6751&amp;size=3136': ELF file ABI version (0) is not supported.
 </pre></div>
 
@@ -1281,112 +1306,112 @@ until the wavefront is next stopped.  Memory updated by non-stopped
 wavefronts may not be visible until the wavefront is next stopped.
 
 </li><li> Single-stepping or resuming execution from an illegal instruction may
-execute differently in <small class="sc">ROCGDB</small> than on real hardware.
+execute differently in <small>ROCGDB</small> than on real hardware.
 
-</li><li> Halting <abbr class="acronym">AMD GPU</abbr> wavefronts in an inferior can result in
-preventing other inferiors from executing <abbr class="acronym">AMD GPU</abbr>
+</li><li> Halting <acronym>AMD GPU</acronym> wavefronts in an inferior can result in
+preventing other inferiors from executing <acronym>AMD GPU</acronym>
 wavefronts.
 
 </li><li> The performance of resuming from a breakpoint when a large number of
-threads have hit a breakpoint on a fully occupied single <abbr class="acronym">AMD
-GPU</abbr> device is comparable to CPU debugging.  However, the techniques
-described in <a class="ref" href="Heterogeneous-Debugging.html">Debugging Heterogeneous Programs</a> can be used to improve
+threads have hit a breakpoint on a fully occupied single <acronym>AMD
+GPU</acronym> device is comparable to CPU debugging.  However, the techniques
+described in <a href="Heterogeneous-Debugging.html">Debugging Heterogeneous Programs</a> can be used to improve
 responsiveness.  Other techniques that can improve responsiveness are:
 
-<ul class="itemize mark-bullet">
-<li>Try to avoid having a lot of threads stopping at a breakpoint.  For
+<ul>
+<li> Try to avoid having a lot of threads stopping at a breakpoint.  For
 example, by placing breakpoints in conditional paths only executed by
 one thread.
 
-</li><li>Use of <code class="code">tbreak</code> so only one thread reports the breakpoint and the
+</li><li> Use of <code>tbreak</code> so only one thread reports the breakpoint and the
 other threads hitting the breakpoint will be continued.  A similar
 effect can be achieved by deleting the breakpoint manually when it is
 hit.
 
-</li><li>Reduce the number of wavefronts when debugging if practical.
+</li><li> Reduce the number of wavefronts when debugging if practical.
 
 </li></ul>
 
-</li><li> Some <abbr class="acronym">AMD GPU</abbr> devices, such as &lsquo;<samp class="samp">gfx908</samp>&rsquo;, cannot be in use by
-multiple processes that are being debugged by <small class="sc">ROCGDB</small>.  For such devices
+</li><li> Some <acronym>AMD GPU</acronym> devices, such as &lsquo;<samp>gfx908</samp>&rsquo;, cannot be in use by
+multiple processes that are being debugged by <small>ROCGDB</small>.  For such devices
 the following warning message may be displayed.
 
-<div class="example smallexample">
-<pre class="example-preformatted">amd-dbgapi: warning: At least one agent is busy (debugging may be enabled by another process)
+<div class="example">
+<pre class="example">amd-dbgapi: warning: At least one agent is busy (debugging may be enabled by another process)
 </pre></div>
 
-<p><small class="sc">ROCGDB</small> will continue to function except no <abbr class="acronym">AMD GPU</abbr>
+<p><small>ROCGDB</small> will continue to function except no <acronym>AMD GPU</acronym>
 debugging will be possible.
 </p>
-<p>The Linux <em class="emph">cgroups</em> facility can be used to limit which
-<abbr class="acronym">AMD GPU</abbr> devices are used by a process.  In order for a
-<small class="sc">ROCGDB</small> process to access the <abbr class="acronym">AMD GPU</abbr> devices of the
-process it is debugging, the <abbr class="acronym">AMD GPU</abbr> devices must be
-included in the <small class="sc">ROCGDB</small> process <em class="emph">cgroup</em>.
+<p>The Linux <em>cgroups</em> facility can be used to limit which
+<acronym>AMD GPU</acronym> devices are used by a process.  In order for a
+<small>ROCGDB</small> process to access the <acronym>AMD GPU</acronym> devices of the
+process it is debugging, the <acronym>AMD GPU</acronym> devices must be
+included in the <small>ROCGDB</small> process <em>cgroup</em>.
 </p>
-<p>Therefore, multiple <small class="sc">ROCGDB</small> processes can each debug a process
-provided the <em class="emph">cgroups</em> specify disjoint sets of <abbr class="acronym">AMD GPU</abbr>
-devices.  However, a single <small class="sc">ROCGDB</small> process cannot debug multiple
-inferiors that use <abbr class="acronym">AMD GPU</abbr> devices even if those inferiors
-have <em class="emph">cgroups</em> that specify disjoint <abbr class="acronym">AMD GPU</abbr> devices.
-This is because the <small class="sc">ROCGDB</small> process must have all the
-<abbr class="acronym">AMD GPU</abbr> devices in its <em class="emph">cgroups</em> and so will attempt to
+<p>Therefore, multiple <small>ROCGDB</small> processes can each debug a process
+provided the <em>cgroups</em> specify disjoint sets of <acronym>AMD GPU</acronym>
+devices.  However, a single <small>ROCGDB</small> process cannot debug multiple
+inferiors that use <acronym>AMD GPU</acronym> devices even if those inferiors
+have <em>cgroups</em> that specify disjoint <acronym>AMD GPU</acronym> devices.
+This is because the <small>ROCGDB</small> process must have all the
+<acronym>AMD GPU</acronym> devices in its <em>cgroups</em> and so will attempt to
 enable debugging for all AMD GPU devices for all inferiors it is
 debugging.
 </p>
-<p>It is suggested to use <em class="emph">Docker</em> rather than <em class="emph">cgroups</em>
-directly to limit the <abbr class="acronym">AMD GPU</abbr> devices visible inside a
+<p>It is suggested to use <em>Docker</em> rather than <em>cgroups</em>
+directly to limit the <acronym>AMD GPU</acronym> devices visible inside a
 container:
 </p>
-<ol class="enumerate">
-<li> &lsquo;<samp class="samp">/dev/kfd</samp>&rsquo; must be mapped into the container.
+<ol>
+<li> &lsquo;<samp>/dev/kfd</samp>&rsquo; must be mapped into the container.
 
-</li><li> The &lsquo;<samp class="samp">/dev/dri/renderD<var class="var">&lt;render-minor-number&gt;</var></samp>&rsquo; and
-&lsquo;<samp class="samp">/dev/drm/card<var class="var">&lt;node-number&gt;</var></samp>&rsquo; files corresponding to each
+</li><li> The &lsquo;<samp>/dev/dri/renderD<var>&lt;render-minor-number&gt;</var></samp>&rsquo; and
+&lsquo;<samp>/dev/drm/card<var>&lt;node-number&gt;</var></samp>&rsquo; files corresponding to each
 AMD GPU device that is to be visible must be mapped into the
-container.  Note that non-<abbr class="acronym">AMD GPU</abbr> devices may also be
+container.  Note that non-<acronym>AMD GPU</acronym> devices may also be
 present.
 
-<p>The <var class="var">render-minor-number</var> for a device can be obtained by looking
-at the &lsquo;<samp class="samp">drm_render_minor</samp>&rsquo; field value from:
+<p>The <var>render-minor-number</var> for a device can be obtained by looking
+at the &lsquo;<samp>drm_render_minor</samp>&rsquo; field value from:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">cat /sys/class/kfd/kfd/topology/nodes/<var class="var">&lt;node-number&gt;</var>/properties
+<div class="example">
+<pre class="example">cat /sys/class/kfd/kfd/topology/nodes/<var>&lt;node-number&gt;</var>/properties
 </pre></div>
 
-</li><li> Make sure the container user is a member of the <var class="var">render</var> group for
-Ubuntu 20.04 onward and the <var class="var">video</var> group for all other
+</li><li> Make sure the container user is a member of the <var>render</var> group for
+Ubuntu 20.04 onward and the <var>video</var> group for all other
 distributions.
 
-</li><li> Specify the &lsquo;<samp class="samp">--cap-add=SYS_PTRACE</samp>&rsquo; and
-&lsquo;<samp class="samp">--security-opt seccomp=unconfined</samp>&rsquo; options.
+</li><li> Specify the &lsquo;<samp>--cap-add=SYS_PTRACE</samp>&rsquo; and
+&lsquo;<samp>--security-opt seccomp=unconfined</samp>&rsquo; options.
 
-</li><li> Install the <abbr class="acronym">AMD ROCm</abbr> packages in the container.  See
-<a class="uref" href="https://github.com/RadeonOpenCompute/ROCm-docker">https://github.com/RadeonOpenCompute/ROCm-docker</a>.
+</li><li> Install the <acronym>AMD ROCm</acronym> packages in the container.  See
+<a href="https://github.com/RadeonOpenCompute/ROCm-docker">https://github.com/RadeonOpenCompute/ROCm-docker</a>.
 
 </li></ol>
 
 <p>All processes running in the container will see the same subset of
 devices.  By having two containers with non-overlapping sets of AMD
-GPUs, it is possible to use <small class="sc">ROCGDB</small> in both containers at the
-same time since each <abbr class="acronym">AMD GPU</abbr> device will only have one
-<small class="sc">ROCGDB</small> process accessing it.
+GPUs, it is possible to use <small>ROCGDB</small> in both containers at the
+same time since each <acronym>AMD GPU</acronym> device will only have one
+<small>ROCGDB</small> process accessing it.
 </p>
 <p>For example:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">docker run -it --rm --cap-add=SYS_PTRACE --security-opt seccomp=unconfined \
+<div class="example">
+<pre class="example">docker run -it --rm --cap-add=SYS_PTRACE --security-opt seccomp=unconfined \
     --device=/dev/kfd --device=/dev/drm/card0 --device=/dev/dri/renderD128 \
     --group-add render ubuntu:20.04 /bin/bash
 </pre></div>
 
 </li><li> The HIP runtime currently performs deferred code object loading by
-default.  <abbr class="acronym">AMD GPU</abbr> code objects are not loaded until the
+default.  <acronym>AMD GPU</acronym> code objects are not loaded until the
 first kernel is launched.  Before then, all breakpoints have to be set
 as pending breakpoints.
 
 <p>If source line positions are used that only correspond to source lines
-in unloaded code objects, then <small class="sc">ROCGDB</small> may not set pending
+in unloaded code objects, then <small>ROCGDB</small> may not set pending
 breakpoints, and instead set breakpoints in unpredictable places of
 the loaded code objects if they contain code from the same file.  This
 can result in unexpected breakpoint hits being reported.  When the
@@ -1395,42 +1420,42 @@ breakpoints will be removed and replaced by the correct ones.  This
 problem can be avoided by only setting breakpoints in unloaded code
 objects using symbol or function names.
 </p>
-<p>The <code class="code">HIP_ENABLE_DEFERRED_LOADING</code> environment variable can be
+<p>The <code>HIP_ENABLE_DEFERRED_LOADING</code> environment variable can be
 used to disable deferred code object loading by the HIP runtime.  This
 ensures all code objects will be loaded when the inferior reaches the
-beginning of the <code class="code">main</code> function.
+beginning of the <code>main</code> function.
 </p>
 <p>For example,
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">export HIP_ENABLE_DEFERRED_LOADING=0
+<div class="example">
+<pre class="example">export HIP_ENABLE_DEFERRED_LOADING=0
 </pre></div>
 
-<p><em class="emph">Note:</em>  If deferred code object loading is disabled and the
-application performs a <code class="code">fork</code>, then the program may crash.
+<p><em>Note:</em>  If deferred code object loading is disabled and the
+application performs a <code>fork</code>, then the program may crash.
 </p>
-<p><em class="emph">Note:</em>  Disabling code object loading can result in errors being
-reported when executing <small class="sc">ROCGDB</small> due to open file limitations when
+<p><em>Note:</em>  Disabling code object loading can result in errors being
+reported when executing <small>ROCGDB</small> due to open file limitations when
 the application contains a large number of embedded device code
 objects.  With deferred code object loading enabled, only the device
-code objects actually invoked are loaded, and so <small class="sc">ROCGDB</small> opens
+code objects actually invoked are loaded, and so <small>ROCGDB</small> opens
 fewer files.
 </p>
-</li><li> <small class="sc">ROCGDB</small> supports watchpoints, but limits the capabilities to the
+</li><li> <small>ROCGDB</small> supports watchpoints, but limits the capabilities to the
 lowest common denominator of the heterogeneous agents in the system.
 Hardware supported watchpoints are used when possible, otherwise
 software emulation is used.  Software emulation involves using-single
 stepping and reading memory to determine if values have changed, and
 as a result performs substantially slower than hardware watchpoints.
 
-<p>The <abbr class="acronym">AMD GPU</abbr> supported architectures provide a maximum of 4
+<p>The <acronym>AMD GPU</acronym> supported architectures provide a maximum of 4
 hardware write watchpoints.  Precise read watchpoints or access
 watchpoints are not supported.
 </p>
 <p>The x86 architecture provides 4 hardware watchpoints that can each
 monitor up to 8 bytes.
 </p>
-<p>When <small class="sc">ROCGDB</small> is used with x86 and <abbr class="acronym">AMD GPU</abbr> devices,
+<p>When <small>ROCGDB</small> is used with x86 and <acronym>AMD GPU</acronym> devices,
 hardware watchpoints are therefore limited to at most 4 write
 watchpoints that have a collective size of up to 32 bytes.  The
 collective size is calculated by adding the size of each watchpoint
@@ -1438,32 +1463,32 @@ rounded up to a multiple of 8 bytes.  Software emulation will be used
 for watchpoints that exceed the hardware limitations.
 </p>
 <p>Currently, watchpoints are only created on the CPU, and not the AMD
-GPU, until the <abbr class="acronym">AMD ROCm</abbr> runtime is initialized.  With
+GPU, until the <acronym>AMD ROCm</acronym> runtime is initialized.  With
 deferred code object loading disabled this does not happen until the
-inferior reaches the beginning of the <code class="code">main</code> function.  With
+inferior reaches the beginning of the <code>main</code> function.  With
 deferred code object loading enabled this does not happen until the
 first kernel is executed.  This also means that, when the inferior is
 re-run, watchpoints are only re-activated on the CPU, not on the AMD
 GPU.
 </p>
 </li><li> Watchpoints are not reported for memory that is written by memory
-transfers performed by <abbr class="acronym" title="Direct Memory Access">DMA</abbr> (Direct Memory Access) hardware.
-The <code class="env">HSA_ENABLE_SDMA</code> environment variable can be set to &lsquo;<samp class="samp">0</samp>&rsquo;
-to disable the <abbr class="acronym">AMD ROCm</abbr> runtime from using <abbr class="acronym" title="Direct Memory Access">DMA</abbr> for
-transfers between the CPU and <abbr class="acronym">AMD GPU</abbr>.
+transfers performed by <acronym title="Direct Memory Access">DMA</acronym> (Direct Memory Access) hardware.
+The <code>HSA_ENABLE_SDMA</code> environment variable can be set to &lsquo;<samp>0</samp>&rsquo;
+to disable the <acronym>AMD ROCm</acronym> runtime from using <acronym title="Direct Memory Access">DMA</acronym> for
+transfers between the CPU and <acronym>AMD GPU</acronym>.
 
-</li><li> When single stepping there can be times when <small class="sc">ROCGDB</small> appears to
+</li><li> When single stepping there can be times when <small>ROCGDB</small> appears to
 wait indefinitely for the single step to complete.  If this happens,
-&lsquo;<samp class="samp">Ctrl-C</samp>&rsquo; can be used to cancel the single step command so it can
+&lsquo;<samp>Ctrl-C</samp>&rsquo; can be used to cancel the single step command so it can
 be tried again.
 
-</li><li> If no CPU thread is running, then &lsquo;<samp class="samp">Ctrl-C</samp>&rsquo; is not able to stop
-<abbr class="acronym">AMD GPU</abbr> threads.  This can happen for example if you enable
-<code class="code">scheduler-locking</code> after the whole program stopped, and then
-resume an <abbr class="acronym">AMD GPU</abbr> thread.  For example:
+</li><li> If no CPU thread is running, then &lsquo;<samp>Ctrl-C</samp>&rsquo; is not able to stop
+<acronym>AMD GPU</acronym> threads.  This can happen for example if you enable
+<code>scheduler-locking</code> after the whole program stopped, and then
+resume an <acronym>AMD GPU</acronym> thread.  For example:
 
-<div class="example smallexample">
-<pre class="example-preformatted">Thread 6 hit Breakpoint 1, with lanes [0-63], kernel () at test.cpp:38
+<div class="example">
+<pre class="example">Thread 6 hit Breakpoint 1, with lanes [0-63], kernel () at test.cpp:38
 38          size_t l = 0;
 (gdb) info threads
   Id   Target Id                            Frame
@@ -1479,64 +1504,64 @@ Continuing.
 ^C
 </pre></div>
 
-<p>Above, <small class="sc">ROCGDB</small> does not respond to &lsquo;<samp class="samp">Ctrl-C</samp>&rsquo;.  The only way
-to unblock the situation is to kill the <small class="sc">ROCGDB</small> process.
+<p>Above, <small>ROCGDB</small> does not respond to &lsquo;<samp>Ctrl-C</samp>&rsquo;.  The only way
+to unblock the situation is to kill the <small>ROCGDB</small> process.
 </p>
 </li><li> The HIP runtime currently loads code objects from memory, including
 when loading modules from a file, which results in code object URIs
-being reported as &lsquo;<samp class="samp">memory://</samp>&rsquo;.
+being reported as &lsquo;<samp>memory://</samp>&rsquo;.
 
-<p>The <code class="env">HSA_LOADER_ENABLE_MMAP_URI</code> environment variable can be used
-to request that the <abbr class="acronym">AMD ROCm</abbr> runtime attempt to determine
-the file containing the code object memory so that &lsquo;<samp class="samp">file://</samp>&rsquo; URIs
+<p>The <code>HSA_LOADER_ENABLE_MMAP_URI</code> environment variable can be used
+to request that the <acronym>AMD ROCm</acronym> runtime attempt to determine
+the file containing the code object memory so that &lsquo;<samp>file://</samp>&rsquo; URIs
 can be reported.
 </p>
 <p>For example,
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">export HSA_LOADER_ENABLE_MMAP_URI=1
+<div class="example">
+<pre class="example">export HSA_LOADER_ENABLE_MMAP_URI=1
 </pre></div>
 
-</li><li> <abbr class="acronym">AMD GPU</abbr> target does not currently support calling inferior
+</li><li> <acronym>AMD GPU</acronym> target does not currently support calling inferior
 functions.
 
-</li><li> The <code class="code">gdbserver</code> is not supported.
+</li><li> The <code>gdbserver</code> is not supported.
 
 </li><li> No language specific support for Fortran or OpenCL.  No OpenMP
 language extension support for C, C++, or Fortran.
 
-</li><li> Does not support the <abbr class="acronym">AMD ROCm</abbr> HCC compiler or runtime
+</li><li> Does not support the <acronym>AMD ROCm</acronym> HCC compiler or runtime
 available as part of releases before ROCm 3.5.
 
-</li><li> <abbr class="acronym">AMD GPU</abbr> target does not currently support the compiler
+</li><li> <acronym>AMD GPU</acronym> target does not currently support the compiler
 address, memory, or thread sanitizers.
 
-<a class="anchor" id="AMD-GPU-Signal-Restrictions"></a></li><li> Supressing delivering some signals to a wavefront for some
-<abbr class="acronym">AMD GPU</abbr> architectures may not prevent the <abbr class="acronym">AMD ROCm</abbr>
+<span id="AMD-GPU-Signal-Restrictions"></span></li><li> Supressing delivering some signals to a wavefront for some
+<acronym>AMD GPU</acronym> architectures may not prevent the <acronym>AMD ROCm</acronym>
 runtime putting the associated queue into the queue error state.  For
-example, suppressing the <code class="code">SIGSEGV</code> signal may prevent the
-wavefront from being put in the halt state, but the <abbr class="acronym">AMD ROCm</abbr>
+example, suppressing the <code>SIGSEGV</code> signal may prevent the
+wavefront from being put in the halt state, but the <acronym>AMD ROCm</acronym>
 runtime may still put the associated queue into the queue error state.
 
-<p>Suppressing delivering some signals, such as <code class="code">SIGSEGV</code>, for a
+<p>Suppressing delivering some signals, such as <code>SIGSEGV</code>, for a
 wavefront may also suppress the same signal raised by other
-<abbr class="acronym">AMD GPU</abbr> hardware such as from <abbr class="acronym" title="Direct Memory Access">DMA</abbr> or from the
-<abbr class="acronym">packet processor</abbr>, preventing the <abbr class="acronym">AMD ROCm</abbr> runtime
+<acronym>AMD GPU</acronym> hardware such as from <acronym title="Direct Memory Access">DMA</acronym> or from the
+<acronym>packet processor</acronym>, preventing the <acronym>AMD ROCm</acronym> runtime
 being notified.
 </p>
-<p>See <a class="xref" href="#AMD-GPU-Signals"><abbr class="acronym">AMD GPU</abbr> Signals</a>.
+<p>See <a href="#AMD-GPU-Signals"><acronym>AMD GPU</acronym> Signals</a>.
 </p>
-<a class="anchor" id="AMD-GPU-Attaching-Restrictions"></a></li><li> By default, for some architectures, the <abbr class="acronym">AMD GPU</abbr> device
-driver causes all <abbr class="acronym">AMD GPU</abbr> wavefronts created when
-<small class="sc">ROCGDB</small> is not attached to be unable to report the heterogeneous
+<span id="AMD-GPU-Attaching-Restrictions"></span></li><li> By default, for some architectures, the <acronym>AMD GPU</acronym> device
+driver causes all <acronym>AMD GPU</acronym> wavefronts created when
+<small>ROCGDB</small> is not attached to be unable to report the heterogeneous
 dispatch associated with the wavefront, or the wavefront&rsquo;s
-heterogeneous work-group position.  The &lsquo;<samp class="samp">info threads</samp>&rsquo; command
-will display this missing information with a &lsquo;<samp class="samp">?</samp>&rsquo;.
+heterogeneous work-group position.  The &lsquo;<samp>info threads</samp>&rsquo; command
+will display this missing information with a &lsquo;<samp>?</samp>&rsquo;.
 
 <p>For example,
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">(gdb) info threads
+<div class="example">
+<pre class="example">(gdb) info threads
   Id   Target Id                                       Frame
 * 1    Thread 0x7ffff6987840 (LWP 62056) &quot;bit_extract&quot; 0x00007ffff6da489b in sched_yield () at ../sysdeps/unix/syscall-template.S:78
   2    Thread 0x7ffff6986700 (LWP 62064) &quot;bit_extract&quot; 0x00007ffff6db650b in ioctl () at ../sysdeps/unix/syscall-template.S:78
@@ -1545,84 +1570,84 @@ will display this missing information with a &lsquo;<samp class="samp">?</samp>&
   5    AMDGPU Wave 1:2:?:1 (?,?,?)/? &quot;bit_extract&quot;     bit_extract_kernel (C_d=&lt;optimized out&gt;, A_d=&lt;optimized out&gt;, N=&lt;optimized out&gt;) at bit_extract.cpp:41
 </pre></div>
 
-<p>This does not affect wavefronts created while <small class="sc">ROCGDB</small> is attached
+<p>This does not affect wavefronts created while <small>ROCGDB</small> is attached
 which are always capable of reporting this information.
 </p>
-<p>If the <code class="env">HSA_ENABLE_DEBUG</code> environment variable is set to &lsquo;<samp class="samp">1</samp>&rsquo;
-when the <abbr class="acronym">AMD ROCm</abbr> runtime is initialized, then this
+<p>If the <code>HSA_ENABLE_DEBUG</code> environment variable is set to &lsquo;<samp>1</samp>&rsquo;
+when the <acronym>AMD ROCm</acronym> runtime is initialized, then this
 information will be available for all archiectures even for wavefronts
-created when <small class="sc">ROCGDB</small> was not attached.  Setting this environment
+created when <small>ROCGDB</small> was not attached.  Setting this environment
 variable may very marginally reduce wavefront launch latency for some
 architectures for very short lived wavefronts.
 </p>
 </li><li> If the inferior exits while there are wavefronts that have reported
-events, such as breakpoints, that <small class="sc">ROCGDB</small> has not completed
+events, such as breakpoints, that <small>ROCGDB</small> has not completed
 processing, then the following error may be displayed.
 
-<div class="example smallexample">
-<pre class="example-preformatted">Couldn't get registers: No such process.
+<div class="example">
+<pre class="example">Couldn't get registers: No such process.
 </pre></div>
 
-</li><li> The current <small class="sc">ROCGDB</small> implementation represents addresses using a
+</li><li> The current <small>ROCGDB</small> implementation represents addresses using a
 64 bit value in which the top 8 bits are used to represent information
 about the address space.  This means that an explicit conversion
 between an integral value and a pointer (for example, in a user
 entered expression) may result in the top eight bits of that value
 being forced to zero.  The same happens if an integral value used with
-the &lsquo;<samp class="samp">#</samp>&rsquo; address space qualifier is large enough to have the top
+the &lsquo;<samp>#</samp>&rsquo; address space qualifier is large enough to have the top
 eight bits non-zero.
 
 
-</li><li> If an <abbr class="acronym">AMD GPU</abbr> wavefront has the <code class="code">DX10_CLAMP</code> bit set in
-the <code class="code">MODE</code> register, enabled arithmetic exceptions will not be
-reported as <code class="code">SIGFPE</code> signals.  This happens if the
-<code class="code">DX10_CLAMP</code> kernel descriptor field is enabled.
+</li><li> If an <acronym>AMD GPU</acronym> wavefront has the <code>DX10_CLAMP</code> bit set in
+the <code>MODE</code> register, enabled arithmetic exceptions will not be
+reported as <code>SIGFPE</code> signals.  This happens if the
+<code>DX10_CLAMP</code> kernel descriptor field is enabled.
 
-<p>See <a class="xref" href="#AMD-GPU-Signals"><abbr class="acronym">AMD GPU</abbr> Signals</a>.
+<p>See <a href="#AMD-GPU-Signals"><acronym>AMD GPU</acronym> Signals</a>.
 </p>
-</li><li> <small class="sc">ROCGDB</small> does not support single root I/O virtualization (SR-IOV)
-on any <abbr class="acronym">AMD GPU</abbr> architecture that supports it.  That includes
-&lsquo;<samp class="samp">gfx1030</samp>&rsquo;, &lsquo;<samp class="samp">gfx1031</samp>&rsquo;, and &lsquo;<samp class="samp">gfx1032</samp>&rsquo;.
+</li><li> <small>ROCGDB</small> does not support single root I/O virtualization (SR-IOV)
+on any <acronym>AMD GPU</acronym> architecture that supports it.  That includes
+&lsquo;<samp>gfx1030</samp>&rsquo;, &lsquo;<samp>gfx1031</samp>&rsquo;, and &lsquo;<samp>gfx1032</samp>&rsquo;.
 
-</li><li> <small class="sc">ROCGDB</small> does not support debugging programs that use cooperative
-groups or CU masking for <abbr class="acronym">AMD GPU</abbr> architectures &lsquo;<samp class="samp">gfx1100</samp>&rsquo;,
-&lsquo;<samp class="samp">gfx1101</samp>&rsquo;, and &lsquo;<samp class="samp">gfx11102</samp>&rsquo;.  A restriction will be reported
+</li><li> <small>ROCGDB</small> does not support debugging programs that use cooperative
+groups or CU masking for <acronym>AMD GPU</acronym> architectures &lsquo;<samp>gfx1100</samp>&rsquo;,
+&lsquo;<samp>gfx1101</samp>&rsquo;, and &lsquo;<samp>gfx11102</samp>&rsquo;.  A restriction will be reported
 when attaching to a process that has already created cooperative group
 queues or CU masked queues.  Any attempt to create a cooperative queue
-or CU masked queue when <small class="sc">ROCGDB</small> is attached will fail.
+or CU masked queue when <small>ROCGDB</small> is attached will fail.
 
-</li><li> For <abbr class="acronym">AMD GPU</abbr> architectures &lsquo;<samp class="samp">gfx1100</samp>&rsquo;, &lsquo;<samp class="samp">gfx1101</samp>&rsquo;,
-&lsquo;<samp class="samp">gfx1102</samp>&rsquo;, &lsquo;<samp class="samp">gfx1200</samp>&rsquo; and &lsquo;<samp class="samp">gfx1201</samp>&rsquo;, <small class="sc">ROCGDB</small> cannot
-debug a program past a &lsquo;<samp class="samp">s_sendmsg sendmsg(MSG_DEALLOC_VGPRS)</samp>&rsquo;
+</li><li> For <acronym>AMD GPU</acronym> architectures &lsquo;<samp>gfx1100</samp>&rsquo;, &lsquo;<samp>gfx1101</samp>&rsquo;,
+&lsquo;<samp>gfx1102</samp>&rsquo;, &lsquo;<samp>gfx1200</samp>&rsquo; and &lsquo;<samp>gfx1201</samp>&rsquo;, <small>ROCGDB</small> cannot
+debug a program past a &lsquo;<samp>s_sendmsg sendmsg(MSG_DEALLOC_VGPRS)</samp>&rsquo;
 instruction.  If an asynchronous exception is reported after this
 instruction has been executed and the debugger is attached, the wave is
-killed, and the exception is only reported by the <abbr class="acronym">AMD ROCm</abbr>
-runtime.  Note that on <abbr class="acronym">AMD GPU</abbr> devices, memory errors are
+killed, and the exception is only reported by the <acronym>AMD ROCm</acronym>
+runtime.  Note that on <acronym>AMD GPU</acronym> devices, memory errors are
 reported asynchronously so a memory fault caused by an instruction
-before the &lsquo;<samp class="samp">s_sendmsg</samp>&rsquo; might be reported after it.  Enabling
-precise memory event reporting (see <a class="pxref" href="#AMDGPU-Memory-Violation-Reporting">AMDGPU Memory Violation Reporting</a>) ensures that such memory fault would be reported before the
-&lsquo;<samp class="samp">s_sendmsg</samp>&rsquo; instruction is executed.
+before the &lsquo;<samp>s_sendmsg</samp>&rsquo; might be reported after it.  Enabling
+precise memory event reporting (see <a href="#AMDGPU-Memory-Violation-Reporting">AMDGPU Memory Violation Reporting</a>) ensures that such memory fault would be reported before the
+&lsquo;<samp>s_sendmsg</samp>&rsquo; instruction is executed.
 
-</li><li> The <abbr class="acronym">AMD ROCm</abbr> runtime cannot generate an <abbr class="acronym">AMD GPU</abbr> core dump
-(see <a class="pxref" href="#AMD-GPU-core-dumps">AMD GPU core dumps</a>) when <small class="sc">ROCGDB</small> is attached to the process.
+</li><li> The <acronym>AMD ROCm</acronym> runtime cannot generate an <acronym>AMD GPU</acronym> core dump
+(see <a href="#AMD-GPU-core-dumps">AMD GPU core dumps</a>) when <small>ROCGDB</small> is attached to the process.
 
 </li><li> If a fault on the host side of a heterogeneous application causes a core dump
-to be generated, then the <abbr class="acronym">AMD ROCm</abbr> runtime does not produce the
-<abbr class="acronym">AMD GPU</abbr> core file.  Only the host side of the process is captured in
+to be generated, then the <acronym>AMD ROCm</acronym> runtime does not produce the
+<acronym>AMD GPU</acronym> core file.  Only the host side of the process is captured in
 the file produced by the Linux kernel.
 
-</li><li> For <abbr class="acronym">AMD GPU</abbr> architectures &lsquo;<samp class="samp">gfx1100</samp>&rsquo;, &lsquo;<samp class="samp">gfx1101</samp>&rsquo; and
-&lsquo;<samp class="samp">gfx1102</samp>&rsquo;, the <abbr class="acronym">AMD ROCm</abbr> runtime cannot create a
-<abbr class="acronym">AMD GPU</abbr> core dump (see <a class="pxref" href="#AMD-GPU-core-dumps">AMD GPU core dumps</a>).
+</li><li> For <acronym>AMD GPU</acronym> architectures &lsquo;<samp>gfx1100</samp>&rsquo;, &lsquo;<samp>gfx1101</samp>&rsquo; and
+&lsquo;<samp>gfx1102</samp>&rsquo;, the <acronym>AMD ROCm</acronym> runtime cannot create a
+<acronym>AMD GPU</acronym> core dump (see <a href="#AMD-GPU-core-dumps">AMD GPU core dumps</a>).
 
-</li><li> For <abbr class="acronym">AMD GPU</abbr> architectures &lsquo;<samp class="samp">gfx10*</samp>&rsquo;, &lsquo;<samp class="samp">gfx11*</samp>&rsquo; and
-&lsquo;<samp class="samp">gx12*</samp>&rsquo;, a watchpoint (see <a class="pxref" href="Set-Watchpoints.html">Setting
+</li><li> For <acronym>AMD GPU</acronym> architectures &lsquo;<samp>gfx10*</samp>&rsquo;, &lsquo;<samp>gfx11*</samp>&rsquo; and
+&lsquo;<samp>gx12*</samp>&rsquo;, a watchpoint (see <a href="Set-Watchpoints.html">Setting
 Watchpoints</a>) might not be reported to the debugger if the memory is
 modified by the last instruction of the shader when precise memory
-is not enabled (see <a class="pxref" href="#AMDGPU-Memory-Violation-Reporting">AMDGPU Memory Violation Reporting</a>).
+is not enabled (see <a href="#AMDGPU-Memory-Violation-Reporting">AMDGPU Memory Violation Reporting</a>).
 
-</li><li> For architectures &lsquo;<samp class="samp">gfx10*</samp>&rsquo;, &lsquo;<samp class="samp">gfx11*</samp>&rsquo; and &lsquo;<samp class="samp">gfx12*</samp>&rsquo;, a
-breakpoint should not be placed in a clause (see the &lsquo;<samp class="samp">s_clause</samp>&rsquo;
+</li><li> For architectures &lsquo;<samp>gfx10*</samp>&rsquo;, &lsquo;<samp>gfx11*</samp>&rsquo; and &lsquo;<samp>gfx12*</samp>&rsquo;, a
+breakpoint should not be placed in a clause (see the &lsquo;<samp>s_clause</samp>&rsquo;
 instruction in the relevant instruction set manual).  It is possible to
 step through a clause.  Waves can receive asynchronous exceptions
 while in a clause.
@@ -1632,7 +1657,7 @@ while in a clause.
 </div>
 </div>
 <hr>
-<div class="nav-panel">
+<div class="header">
 <p>
 Previous: <a href="S12Z.html">S12Z</a>, Up: <a href="Architectures.html">Architectures</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

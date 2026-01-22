@@ -1,13 +1,13 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the GNU linker LD
 (GNU Binutils)
 version 2.43.50.
 
-Copyright © 1991-2024 Free Software Foundation, Inc.
+Copyright (C) 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -31,9 +31,21 @@ section entitled "GNU Free Documentation License". -->
 <link href="REGION_005fALIAS.html" rel="prev" title="REGION_ALIAS">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
 div.example {margin-left: 3.2em}
-span:hover a.copiable-link {visibility: visible}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -41,20 +53,20 @@ span:hover a.copiable-link {visibility: visible}
 </head>
 
 <body lang="en">
-<div class="subsection-level-extent" id="Miscellaneous-Commands">
-<div class="nav-panel">
+<div class="subsection" id="Miscellaneous-Commands">
+<div class="header">
 <p>
 Previous: <a href="REGION_005fALIAS.html" accesskey="p" rel="prev">Assign alias names to memory regions</a>, Up: <a href="Simple-Commands.html" accesskey="u" rel="up">Simple Linker Script Commands</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="LD-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h4 class="subsection" id="Other-Linker-Script-Commands"><span>3.4.5 Other Linker Script Commands<a class="copiable-link" href="#Other-Linker-Script-Commands"> &para;</a></span></h4>
+<span id="Other-Linker-Script-Commands"></span><h4 class="subsection">3.4.5 Other Linker Script Commands</h4>
 <p>There are a few other linker scripts commands.
 </p>
-<dl class="table">
-<dt><a class="index-entry-id" id="index-assertion-in-linker-script"></a>
-<a id="index-ASSERT"></a><span><code class="code">ASSERT(<var class="var">exp</var>, <var class="var">message</var>)</code><a class="copiable-link" href="#index-ASSERT"> &para;</a></span></dt>
-<dd><p>Ensure that <var class="var">exp</var> is non-zero.  If it is zero, then exit the linker
-with an error code, and print <var class="var">message</var>.
+<dl compact="compact">
+<dt id='index-ASSERT'><span><code>ASSERT(<var>exp</var>, <var>message</var>)</code><a href='#index-ASSERT' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="index-assertion-in-linker-script"></span>
+<p>Ensure that <var>exp</var> is non-zero.  If it is zero, then exit the linker
+with an error code, and print <var>message</var>.
 </p>
 <p>Note that assertions are checked before the final stages of linking
 take place.  This means that expressions involving symbols PROVIDEd
@@ -62,8 +74,8 @@ inside section definitions will fail if the user has not set values
 for those symbols.  The only exception to this rule is PROVIDEd
 symbols that just reference dot.  Thus an assertion like this:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">  .stack :
+<div class="example">
+<pre class="example">  .stack :
   {
     PROVIDE (__stack = .);
     PROVIDE (__stack_size = 0x100);
@@ -71,12 +83,12 @@ symbols that just reference dot.  Thus an assertion like this:
   }
 </pre></div>
 
-<p>will fail if <code class="code">__stack_size</code> is not defined elsewhere.  Symbols
+<p>will fail if <code>__stack_size</code> is not defined elsewhere.  Symbols
 PROVIDEd outside of section definitions are evaluated earlier, so they
 can be used inside ASSERTions.  Thus:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">  PROVIDE (__stack_size = 0x100);
+<div class="example">
+<pre class="example">  PROVIDE (__stack_size = 0x100);
   .stack :
   {
     PROVIDE (__stack = .);
@@ -87,58 +99,58 @@ can be used inside ASSERTions.  Thus:
 <p>will work.
 </p>
 </dd>
-<dt><a class="index-entry-id" id="index-undefined-symbol-in-linker-script"></a>
-<a id="index-EXTERN"></a><span><code class="code">EXTERN(<var class="var">symbol</var> <var class="var">symbol</var> &hellip;)</code><a class="copiable-link" href="#index-EXTERN"> &para;</a></span></dt>
-<dd><p>Force <var class="var">symbol</var> to be entered in the output file as an undefined
+<dt id='index-EXTERN'><span><code>EXTERN(<var>symbol</var> <var>symbol</var> &hellip;)</code><a href='#index-EXTERN' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="index-undefined-symbol-in-linker-script"></span>
+<p>Force <var>symbol</var> to be entered in the output file as an undefined
 symbol.  Doing this may, for example, trigger linking of additional
-modules from standard libraries.  You may list several <var class="var">symbol</var>s for
-each <code class="code">EXTERN</code>, and you may use <code class="code">EXTERN</code> multiple times.  This
-command has the same effect as the &lsquo;<samp class="samp">-u</samp>&rsquo; command-line option.
+modules from standard libraries.  You may list several <var>symbol</var>s for
+each <code>EXTERN</code>, and you may use <code>EXTERN</code> multiple times.  This
+command has the same effect as the &lsquo;<samp>-u</samp>&rsquo; command-line option.
 </p>
 </dd>
-<dt><a class="index-entry-id" id="index-common-allocation-in-linker-script"></a>
-<a id="index-FORCE_005fCOMMON_005fALLOCATION"></a><span><code class="code">FORCE_COMMON_ALLOCATION</code><a class="copiable-link" href="#index-FORCE_005fCOMMON_005fALLOCATION"> &para;</a></span></dt>
-<dd><p>This command has the same effect as the &lsquo;<samp class="samp">-d</samp>&rsquo; command-line option:
-to make <code class="command">ld</code> assign space to common symbols even if a relocatable
-output file is specified (&lsquo;<samp class="samp">-r</samp>&rsquo;).
+<dt id='index-FORCE_005fCOMMON_005fALLOCATION'><span><code>FORCE_COMMON_ALLOCATION</code><a href='#index-FORCE_005fCOMMON_005fALLOCATION' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="index-common-allocation-in-linker-script"></span>
+<p>This command has the same effect as the &lsquo;<samp>-d</samp>&rsquo; command-line option:
+to make <code>ld</code> assign space to common symbols even if a relocatable
+output file is specified (&lsquo;<samp>-r</samp>&rsquo;).
 </p>
 </dd>
-<dt><a class="index-entry-id" id="index-common-allocation-in-linker-script-1"></a>
-<a id="index-INHIBIT_005fCOMMON_005fALLOCATION"></a><span><code class="code">INHIBIT_COMMON_ALLOCATION</code><a class="copiable-link" href="#index-INHIBIT_005fCOMMON_005fALLOCATION"> &para;</a></span></dt>
-<dd><p>This command has the same effect as the &lsquo;<samp class="samp">--no-define-common</samp>&rsquo;
-command-line option: to make <code class="code">ld</code> omit the assignment of addresses
+<dt id='index-INHIBIT_005fCOMMON_005fALLOCATION'><span><code>INHIBIT_COMMON_ALLOCATION</code><a href='#index-INHIBIT_005fCOMMON_005fALLOCATION' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="index-common-allocation-in-linker-script-1"></span>
+<p>This command has the same effect as the &lsquo;<samp>--no-define-common</samp>&rsquo;
+command-line option: to make <code>ld</code> omit the assignment of addresses
 to common symbols even for a non-relocatable output file.
 </p>
 </dd>
-<dt><a class="index-entry-id" id="index-group-allocation-in-linker-script-1"></a>
-<a class="index-entry-id" id="index-section-groups-1"></a>
-<a class="index-entry-id" id="index-COMDAT-1"></a>
-<a id="index-FORCE_005fGROUP_005fALLOCATION"></a><span><code class="code">FORCE_GROUP_ALLOCATION</code><a class="copiable-link" href="#index-FORCE_005fGROUP_005fALLOCATION"> &para;</a></span></dt>
-<dd><p>This command has the same effect as the
-&lsquo;<samp class="samp">--force-group-allocation</samp>&rsquo; command-line option: to make
-<code class="command">ld</code> place section group members like normal input sections,
+<dt id='index-FORCE_005fGROUP_005fALLOCATION'><span><code>FORCE_GROUP_ALLOCATION</code><a href='#index-FORCE_005fGROUP_005fALLOCATION' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="index-group-allocation-in-linker-script-1"></span>
+<span id="index-section-groups-1"></span>
+<span id="index-COMDAT-1"></span>
+<p>This command has the same effect as the
+&lsquo;<samp>--force-group-allocation</samp>&rsquo; command-line option: to make
+<code>ld</code> place section group members like normal input sections,
 and to delete the section groups even if a relocatable output file is
-specified (&lsquo;<samp class="samp">-r</samp>&rsquo;).
+specified (&lsquo;<samp>-r</samp>&rsquo;).
 </p>
 </dd>
-<dt><a class="index-entry-id" id="index-insert-user-script-into-default-script"></a>
-<a id="index-INSERT"></a><span><code class="code">INSERT [ AFTER | BEFORE ] <var class="var">output_section</var></code><a class="copiable-link" href="#index-INSERT"> &para;</a></span></dt>
-<dd><p>This command is typically used in a script specified by &lsquo;<samp class="samp">-T</samp>&rsquo; to
-augment the default <code class="code">SECTIONS</code> with, for example, overlays.  It
+<dt id='index-INSERT'><span><code>INSERT [ AFTER | BEFORE ] <var>output_section</var></code><a href='#index-INSERT' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="index-insert-user-script-into-default-script"></span>
+<p>This command is typically used in a script specified by &lsquo;<samp>-T</samp>&rsquo; to
+augment the default <code>SECTIONS</code> with, for example, overlays.  It
 inserts all prior linker script statements after (or before)
-<var class="var">output_section</var>, and also causes &lsquo;<samp class="samp">-T</samp>&rsquo; to not override the
+<var>output_section</var>, and also causes &lsquo;<samp>-T</samp>&rsquo; to not override the
 default linker script.  The exact insertion point is as for orphan
-sections.  See <a class="xref" href="Location-Counter.html">The Location Counter</a>.  The insertion happens after the
+sections.  See <a href="Location-Counter.html">The Location Counter</a>.  The insertion happens after the
 linker has mapped input sections to output sections.  Prior to the
-insertion, since &lsquo;<samp class="samp">-T</samp>&rsquo; scripts are parsed before the default
-linker script, statements in the &lsquo;<samp class="samp">-T</samp>&rsquo; script occur before the
+insertion, since &lsquo;<samp>-T</samp>&rsquo; scripts are parsed before the default
+linker script, statements in the &lsquo;<samp>-T</samp>&rsquo; script occur before the
 default linker script statements in the internal linker representation
 of the script.  In particular, input section assignments will be made
-to &lsquo;<samp class="samp">-T</samp>&rsquo; output sections before those in the default script.  Here
-is an example of how a &lsquo;<samp class="samp">-T</samp>&rsquo; script using <code class="code">INSERT</code> might look:
+to &lsquo;<samp>-T</samp>&rsquo; output sections before those in the default script.  Here
+is an example of how a &lsquo;<samp>-T</samp>&rsquo; script using <code>INSERT</code> might look:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">SECTIONS
+<div class="example">
+<pre class="example">SECTIONS
 {
   OVERLAY :
   {
@@ -149,16 +161,16 @@ is an example of how a &lsquo;<samp class="samp">-T</samp>&rsquo; script using <
 INSERT AFTER .text;
 </pre></div>
 
-<p>Note that when &lsquo;<samp class="samp">-T</samp>&rsquo; is used twice, once to override the default
-script and once to augment that script using <code class="code">INSERT</code> the order
+<p>Note that when &lsquo;<samp>-T</samp>&rsquo; is used twice, once to override the default
+script and once to augment that script using <code>INSERT</code> the order
 of parsing and section assignments apply as for the default script.
-The script with <code class="code">INSERT</code> should be specified <em class="emph">first</em> on the
+The script with <code>INSERT</code> should be specified <em>first</em> on the
 command line.
 </p>
 </dd>
-<dt><a class="index-entry-id" id="index-cross-references"></a>
-<a id="index-NOCROSSREFS_0028sections_0029"></a><span><code class="code">NOCROSSREFS(<var class="var">section</var> <var class="var">section</var> &hellip;)</code><a class="copiable-link" href="#index-NOCROSSREFS_0028sections_0029"> &para;</a></span></dt>
-<dd><p>This command may be used to tell <code class="command">ld</code> to issue an error about any
+<dt id='index-NOCROSSREFS_0028sections_0029'><span><code>NOCROSSREFS(<var>section</var> <var>section</var> &hellip;)</code><a href='#index-NOCROSSREFS_0028sections_0029' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="index-cross-references"></span>
+<p>This command may be used to tell <code>ld</code> to issue an error about any
 references among certain output sections.
 </p>
 <p>In certain types of programs, particularly on embedded systems when
@@ -167,52 +179,52 @@ will not be.  Any direct references between the two sections would be
 errors.  For example, it would be an error if code in one section called
 a function defined in the other section.
 </p>
-<p>The <code class="code">NOCROSSREFS</code> command takes a list of output section names.  If
-<code class="command">ld</code> detects any cross references between the sections, it reports
+<p>The <code>NOCROSSREFS</code> command takes a list of output section names.  If
+<code>ld</code> detects any cross references between the sections, it reports
 an error and returns a non-zero exit status.  Note that the
-<code class="code">NOCROSSREFS</code> command uses output section names, not input section
+<code>NOCROSSREFS</code> command uses output section names, not input section
 names.
 </p>
 </dd>
-<dt><a class="index-entry-id" id="index-cross-references-1"></a>
-<a id="index-NOCROSSREFS_005fTO_0028tosection-fromsections_0029"></a><span><code class="code">NOCROSSREFS_TO(<var class="var">tosection</var> <var class="var">fromsection</var> &hellip;)</code><a class="copiable-link" href="#index-NOCROSSREFS_005fTO_0028tosection-fromsections_0029"> &para;</a></span></dt>
-<dd><p>This command may be used to tell <code class="command">ld</code> to issue an error about any
+<dt id='index-NOCROSSREFS_005fTO_0028tosection-fromsections_0029'><span><code>NOCROSSREFS_TO(<var>tosection</var> <var>fromsection</var> &hellip;)</code><a href='#index-NOCROSSREFS_005fTO_0028tosection-fromsections_0029' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="index-cross-references-1"></span>
+<p>This command may be used to tell <code>ld</code> to issue an error about any
 references to one section from a list of other sections.
 </p>
-<p>The <code class="code">NOCROSSREFS</code> command is useful when ensuring that two or more
+<p>The <code>NOCROSSREFS</code> command is useful when ensuring that two or more
 output sections are entirely independent but there are situations where
 a one-way dependency is needed. For example, in a multi-core application
 there may be shared code that can be called from each core but for safety
 must never call back.
 </p>
-<p>The <code class="code">NOCROSSREFS_TO</code> command takes a list of output section names.
+<p>The <code>NOCROSSREFS_TO</code> command takes a list of output section names.
 The first section can not be referenced from any of the other sections.
-If <code class="command">ld</code> detects any references to the first section from any of
+If <code>ld</code> detects any references to the first section from any of
 the other sections, it reports an error and returns a non-zero exit
-status.  Note that the <code class="code">NOCROSSREFS_TO</code> command uses output section
+status.  Note that the <code>NOCROSSREFS_TO</code> command uses output section
 names, not input section names.
 </p>
 </dd>
-<dt><a class="index-entry-id" id="index-machine-architecture"></a>
-<a class="index-entry-id" id="index-architecture"></a>
-<a id="index-OUTPUT_005fARCH_0028bfdarch_0029"></a><span><code class="code">OUTPUT_ARCH(<var class="var">bfdarch</var>)</code><a class="copiable-link" href="#index-OUTPUT_005fARCH_0028bfdarch_0029"> &para;</a></span></dt>
-<dd><p>Specify a particular output machine architecture.  The argument is one
-of the names used by the BFD library (see <a class="pxref" href="BFD.html">BFD</a>).  You can see the
-architecture of an object file by using the <code class="code">objdump</code> program with
-the &lsquo;<samp class="samp">-f</samp>&rsquo; option.
+<dt id='index-OUTPUT_005fARCH_0028bfdarch_0029'><span><code>OUTPUT_ARCH(<var>bfdarch</var>)</code><a href='#index-OUTPUT_005fARCH_0028bfdarch_0029' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="index-machine-architecture"></span>
+<span id="index-architecture"></span>
+<p>Specify a particular output machine architecture.  The argument is one
+of the names used by the BFD library (see <a href="BFD.html">BFD</a>).  You can see the
+architecture of an object file by using the <code>objdump</code> program with
+the &lsquo;<samp>-f</samp>&rsquo; option.
 </p>
 </dd>
-<dt><a id="index-LD_005fFEATURE_0028string_0029"></a><span><code class="code">LD_FEATURE(<var class="var">string</var>)</code><a class="copiable-link" href="#index-LD_005fFEATURE_0028string_0029"> &para;</a></span></dt>
-<dd><p>This command may be used to modify <code class="command">ld</code> behavior.  If
-<var class="var">string</var> is <code class="code">&quot;SANE_EXPR&quot;</code> then absolute symbols and numbers
+<dt id='index-LD_005fFEATURE_0028string_0029'><span><code>LD_FEATURE(<var>string</var>)</code><a href='#index-LD_005fFEATURE_0028string_0029' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>This command may be used to modify <code>ld</code> behavior.  If
+<var>string</var> is <code>&quot;SANE_EXPR&quot;</code> then absolute symbols and numbers
 in a script are simply treated as numbers everywhere.
-See <a class="xref" href="Expression-Section.html">The Section of an Expression</a>.
+See <a href="Expression-Section.html">The Section of an Expression</a>.
 </p></dd>
 </dl>
 
 </div>
 <hr>
-<div class="nav-panel">
+<div class="header">
 <p>
 Previous: <a href="REGION_005fALIAS.html">Assign alias names to memory regions</a>, Up: <a href="Simple-Commands.html">Simple Linker Script Commands</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="LD-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

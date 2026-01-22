@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright © 2021-2024 Free Software Foundation, Inc.
+<!-- Copyright (C) 2021-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU General Public License, Version 3 or any
@@ -27,8 +27,21 @@ License".
 <link href="The-SFrame-FDE-Types.html" rel="next" title="The SFrame FDE Types">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
-span:hover a.copiable-link {visibility: visible}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -36,30 +49,29 @@ span:hover a.copiable-link {visibility: visible}
 </head>
 
 <body lang="en">
-<div class="subsection-level-extent" id="The-SFrame-FDE-Info-Word">
-<div class="nav-panel">
+<div class="subsection" id="The-SFrame-FDE-Info-Word">
+<div class="header">
 <p>
 Next: <a href="The-SFrame-FDE-Types.html" accesskey="n" rel="next">The SFrame FDE Types</a>, Up: <a href="SFrame-Function-Descriptor-Entries.html" accesskey="u" rel="up">SFrame FDE</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h4 class="subsection" id="The-SFrame-FDE-Info-Word-1"><span>2.3.1 The SFrame FDE Info Word<a class="copiable-link" href="#The-SFrame-FDE-Info-Word-1"> &para;</a></span></h4>
+<span id="The-SFrame-FDE-Info-Word-1"></span><h4 class="subsection">2.3.1 The SFrame FDE Info Word</h4>
 
 <p>The info word is a bitfield split into three parts.  From MSB to LSB:
 </p>
-<table class="multitable">
+<table>
 <thead><tr><th>Bit offset</th><th>Name</th><th>Description</th></tr></thead>
-<tbody><tr><td>7&ndash;6</td><td><code class="code">unused</code></td><td>Unused bits.</td></tr>
-<tr><td>5</td><td><code class="code">pauth_key</code></td><td>(For AARCH64) Specify which key is used for signing the return addresses
+<tr><td>7&ndash;6</td><td><code>unused</code></td><td>Unused bits.</td></tr>
+<tr><td>5</td><td><code>pauth_key</code></td><td>(For AARCH64) Specify which key is used for signing the return addresses
 in the SFrame FDE.  Two possible values: <br>
 SFRAME_AARCH64_PAUTH_KEY_A (0), or <br>
 SFRAME_AARCH64_PAUTH_KEY_B (1). <br>
 Ununsed in AMD64.</td></tr>
-<tr><td>4</td><td><code class="code">fdetype</code></td><td>Specify the SFrame FDE type.  Two possible values: <br>
+<tr><td>4</td><td><code>fdetype</code></td><td>Specify the SFrame FDE type.  Two possible values: <br>
 SFRAME_FDE_TYPE_PCMASK (1), or <br>
 SFRAME_FDE_TYPE_PCINC (0). <br>
-See <a class="xref" href="The-SFrame-FDE-Types.html">The SFrame FDE Types</a>.</td></tr>
-<tr><td>0&ndash;3</td><td><code class="code">fretype</code></td><td>Choice of three SFrame FRE types. See <a class="xref" href="The-SFrame-FRE-Types.html">The SFrame FRE Types</a>.</td></tr>
-</tbody>
+See <a href="The-SFrame-FDE-Types.html">The SFrame FDE Types</a>.</td></tr>
+<tr><td>0&ndash;3</td><td><code>fretype</code></td><td>Choice of three SFrame FRE types. See <a href="The-SFrame-FRE-Types.html">The SFrame FRE Types</a>.</td></tr>
 </table>
 
 </div>

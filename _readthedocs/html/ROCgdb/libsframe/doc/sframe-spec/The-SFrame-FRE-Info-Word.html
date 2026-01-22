@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright © 2021-2024 Free Software Foundation, Inc.
+<!-- Copyright (C) 2021-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU General Public License, Version 3 or any
@@ -26,8 +26,21 @@ License".
 <link href="SFrame-Frame-Row-Entries.html" rel="up" title="SFrame Frame Row Entries">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
-span:hover a.copiable-link {visibility: visible}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -35,44 +48,42 @@ span:hover a.copiable-link {visibility: visible}
 </head>
 
 <body lang="en">
-<div class="subsection-level-extent" id="The-SFrame-FRE-Info-Word">
-<div class="nav-panel">
+<div class="subsection" id="The-SFrame-FRE-Info-Word">
+<div class="header">
 <p>
 Up: <a href="SFrame-Frame-Row-Entries.html" accesskey="u" rel="up">SFrame FRE</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h4 class="subsection" id="The-SFrame-FRE-Info-Word-1"><span>2.4.1 The SFrame FRE Info Word<a class="copiable-link" href="#The-SFrame-FRE-Info-Word-1"> &para;</a></span></h4>
+<span id="The-SFrame-FRE-Info-Word-1"></span><h4 class="subsection">2.4.1 The SFrame FRE Info Word</h4>
 
 <p>The SFrame FRE info word is a bitfield split into four parts.  From MSB to LSB:
 </p>
-<table class="multitable">
+<table>
 <thead><tr><th>Bit offset</th><th>Name</th><th>Description</th></tr></thead>
-<tbody><tr><td>7</td><td><code class="code">fre_mangled_ra_p</code></td><td>Indicate whether the return address is mangled with any authorization bits (signed RA).</td></tr>
-<tr><td>5-6</td><td><code class="code">fre_offset_size</code></td><td>Size of stack offsets in bytes.  Valid values are: <br>
+<tr><td>7</td><td><code>fre_mangled_ra_p</code></td><td>Indicate whether the return address is mangled with any authorization bits (signed RA).</td></tr>
+<tr><td>5-6</td><td><code>fre_offset_size</code></td><td>Size of stack offsets in bytes.  Valid values are: <br>
 SFRAME_FRE_OFFSET_1B, <br>
 SFRAME_FRE_OFFSET_2B, and <br>
 SFRAME_FRE_OFFSET_4B.</td></tr>
-<tr><td>1-4</td><td><code class="code">fre_offset_count</code></td><td>A max value of 15 is allowed.  Typically, a value of upto 3 is sufficient
+<tr><td>1-4</td><td><code>fre_offset_count</code></td><td>A max value of 15 is allowed.  Typically, a value of upto 3 is sufficient
 for most ABIs to track all three of CFA, FP and RA.</td></tr>
-<tr><td>0</td><td><code class="code">fre_cfa_base_reg_id</code></td><td>Distinguish between SP or FP based CFA recovery.</td></tr>
-</tbody>
+<tr><td>0</td><td><code>fre_cfa_base_reg_id</code></td><td>Distinguish between SP or FP based CFA recovery.</td></tr>
 </table>
 
-<table class="multitable">
+<table>
 <thead><tr><th>Name</th><th>Value</th><th>Description
 
-<a class="index-entry-id" id="index-SFRAME_005fFRE_005fOFFSET_005f1B"></a></th></tr></thead>
-<tbody><tr><td><code class="code">SFRAME_FRE_OFFSET_1B</code></td><td>0</td><td>All stack offsets following the fixed-length FRE structure are 1 byte
+<span id="index-SFRAME_005fFRE_005fOFFSET_005f1B"></span></th></tr></thead>
+<tr><td><code>SFRAME_FRE_OFFSET_1B</code></td><td>0</td><td>All stack offsets following the fixed-length FRE structure are 1 byte
 long.
 
-<a class="index-entry-id" id="index-SFRAME_005fFRE_005fOFFSET_005f2B"></a></td></tr>
-<tr><td><code class="code">SFRAME_FRE_OFFSET_2B</code></td><td>1</td><td>All stack offsets following the fixed-length FRE structure are 2 bytes
+<span id="index-SFRAME_005fFRE_005fOFFSET_005f2B"></span></td></tr>
+<tr><td><code>SFRAME_FRE_OFFSET_2B</code></td><td>1</td><td>All stack offsets following the fixed-length FRE structure are 2 bytes
 long.
 
-<a class="index-entry-id" id="index-SFRAME_005fFRE_005fOFFSET_005f4B"></a></td></tr>
-<tr><td><code class="code">SFRAME_FRE_OFFSET_4B</code></td><td>2</td><td>All stack offsets following the fixed-length FRE structure are 4 bytes
+<span id="index-SFRAME_005fFRE_005fOFFSET_005f4B"></span></td></tr>
+<tr><td><code>SFRAME_FRE_OFFSET_4B</code></td><td>2</td><td>All stack offsets following the fixed-length FRE structure are 4 bytes
 long.</td></tr>
-</tbody>
 </table>
 
 </div>

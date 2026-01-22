@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright © 1988-2024 Free Software Foundation, Inc.
+<!-- Copyright (C) 1988-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -26,7 +26,7 @@ the license, review the license.txt in the top-level directory for the
 library on https://github.com/ROCm/ (Github.com)).  The additional terms
 and conditions below apply to your use of AMD ROCm technical documentation.
 
-©2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
+(C)2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
 
 The information presented in this document is for informational purposes only
 and may contain technical inaccuracies, omissions, and typographical errors.
@@ -52,8 +52,8 @@ EVEN IF AMD IS EXPRESSLY ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
 
 AMD, the AMD Arrow logo, AMD Instinct™, Radeon™, AMD ROCm™, and combinations
 thereof are trademarks of Advanced Micro Devices, Inc.
-Linux® is the registered trademark of Linus Torvalds in the
-U.S. and other countries. PCIe® is a registered trademark of
+Linux(R) is the registered trademark of Linus Torvalds in the
+U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
@@ -74,8 +74,21 @@ companies. -->
 <link href="Overlays.html" rel="prev" title="Overlays">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
-span:hover a.copiable-link {visibility: visible}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -83,32 +96,32 @@ span:hover a.copiable-link {visibility: visible}
 </head>
 
 <body lang="en">
-<div class="chapter-level-extent" id="Languages">
-<div class="nav-panel">
+<div class="chapter" id="Languages">
+<div class="header">
 <p>
-Next: <a href="Symbols.html" accesskey="n" rel="next">Examining the Symbol Table</a>, Previous: <a href="Overlays.html" accesskey="p" rel="prev">Debugging Programs That Use Overlays</a>, Up: <a href="index.html" accesskey="u" rel="up">Debugging with <small class="sc">ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Symbols.html" accesskey="n" rel="next">Examining the Symbol Table</a>, Previous: <a href="Overlays.html" accesskey="p" rel="prev">Debugging Programs That Use Overlays</a>, Up: <a href="index.html" accesskey="u" rel="up">Debugging with <small>ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h2 class="chapter" id="Using-rocgdb-with-Different-Languages"><span>15 Using <small class="sc">ROCGDB</small> with Different Languages<a class="copiable-link" href="#Using-rocgdb-with-Different-Languages"> &para;</a></span></h2>
-<a class="index-entry-id" id="index-languages"></a>
+<span id="Using-ROCGDB-with-Different-Languages"></span><h2 class="chapter">15 Using <small>ROCGDB</small> with Different Languages</h2>
+<span id="index-languages"></span>
 
 <p>Although programming languages generally have common aspects, they are
 rarely expressed in the same manner.  For instance, in ANSI C,
-dereferencing a pointer <code class="code">p</code> is accomplished by <code class="code">*p</code>, but in
-Modula-2, it is accomplished by <code class="code">p^</code>.  Values can also be
+dereferencing a pointer <code>p</code> is accomplished by <code>*p</code>, but in
+Modula-2, it is accomplished by <code>p^</code>.  Values can also be
 represented (and displayed) differently.  Hex numbers in C appear as
-&lsquo;<samp class="samp">0x1ae</samp>&rsquo;, while in Modula-2 they appear as &lsquo;<samp class="samp">1AEH</samp>&rsquo;.
+&lsquo;<samp>0x1ae</samp>&rsquo;, while in Modula-2 they appear as &lsquo;<samp>1AEH</samp>&rsquo;.
 </p>
-<a class="index-entry-id" id="index-working-language"></a>
-<p>Language-specific information is built into <small class="sc">ROCGDB</small> for some languages,
+<span id="index-working-language"></span>
+<p>Language-specific information is built into <small>ROCGDB</small> for some languages,
 allowing you to express operations like the above in your program&rsquo;s
-native language, and allowing <small class="sc">ROCGDB</small> to output values in a manner
+native language, and allowing <small>ROCGDB</small> to output values in a manner
 consistent with the syntax of your program&rsquo;s native language.  The
-language you use to build expressions is called the <em class="dfn">working
+language you use to build expressions is called the <em>working
 language</em>.
 </p>
 
-<ul class="mini-toc">
+<ul class="section-toc">
 <li><a href="Setting.html" accesskey="1">Switching Between Source Languages</a></li>
 <li><a href="Show.html" accesskey="2">Displaying the Language</a></li>
 <li><a href="Checks.html" accesskey="3">Type and Range Checking</a></li>

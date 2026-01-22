@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the BFD library.
 
-Copyright © 1991-2024 Free Software Foundation, Inc.
+Copyright (C) 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -40,11 +40,21 @@ You have freedom to copy and modify this GNU Manual, like GNU
 <link href="typedef-asymbol.html" rel="prev" title="typedef asymbol">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
 div.example {margin-left: 3.2em}
-span:hover a.copiable-link {visibility: visible}
-strong.def-name {font-family: monospace; font-weight: bold; font-size: larger}
-ul.mark-bullet {list-style-type: disc}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -52,213 +62,213 @@ ul.mark-bullet {list-style-type: disc}
 </head>
 
 <body lang="en">
-<div class="subsection-level-extent" id="symbol-handling-functions">
-<div class="nav-panel">
+<div class="subsection" id="symbol-handling-functions">
+<div class="header">
 <p>
 Previous: <a href="typedef-asymbol.html" accesskey="p" rel="prev">typedef asymbol</a>, Up: <a href="Symbols.html" accesskey="u" rel="up">Symbols</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="BFD-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h4 class="subsection" id="Symbol-handling-functions"><span>2.7.5 Symbol handling functions<a class="copiable-link" href="#Symbol-handling-functions"> &para;</a></span></h4>
+<span id="Symbol-handling-functions"></span><h4 class="subsection">2.7.5 Symbol handling functions</h4>
 
 
-<a class="index-entry-id" id="index-bfd_005fget_005fsymtab_005fupper_005fbound"></a>
-<ul class="mini-toc">
-<li><a href="#bfd_005fget_005fsymtab_005fupper_005fbound" accesskey="1"><code class="code">bfd_get_symtab_upper_bound</code></a></li>
-<li><a href="#bfd_005fis_005flocal_005flabel" accesskey="2"><code class="code">bfd_is_local_label</code></a></li>
-<li><a href="#bfd_005fis_005flocal_005flabel_005fname" accesskey="3"><code class="code">bfd_is_local_label_name</code></a></li>
-<li><a href="#bfd_005fis_005ftarget_005fspecial_005fsymbol" accesskey="4"><code class="code">bfd_is_target_special_symbol</code></a></li>
-<li><a href="#bfd_005fcanonicalize_005fsymtab" accesskey="5"><code class="code">bfd_canonicalize_symtab</code></a></li>
-<li><a href="#bfd_005fset_005fsymtab" accesskey="6"><code class="code">bfd_set_symtab</code></a></li>
-<li><a href="#bfd_005fprint_005fsymbol_005fvandf" accesskey="7"><code class="code">bfd_print_symbol_vandf</code></a></li>
-<li><a href="#bfd_005fmake_005fempty_005fsymbol" accesskey="8"><code class="code">bfd_make_empty_symbol</code></a></li>
-<li><a href="#g_t_005fbfd_005fgeneric_005fmake_005fempty_005fsymbol" accesskey="9"><code class="code">_bfd_generic_make_empty_symbol</code></a></li>
-<li><a href="#bfd_005fmake_005fdebug_005fsymbol"><code class="code">bfd_make_debug_symbol</code></a></li>
-<li><a href="#bfd_005fdecode_005fsymclass"><code class="code">bfd_decode_symclass</code></a></li>
-<li><a href="#bfd_005fis_005fundefined_005fsymclass"><code class="code">bfd_is_undefined_symclass</code></a></li>
-<li><a href="#bfd_005fsymbol_005finfo"><code class="code">bfd_symbol_info</code></a></li>
-<li><a href="#bfd_005fcopy_005fprivate_005fsymbol_005fdata"><code class="code">bfd_copy_private_symbol_data</code></a></li>
+<span id="index-bfd_005fget_005fsymtab_005fupper_005fbound"></span>
+<ul class="section-toc">
+<li><a href="#bfd_005fget_005fsymtab_005fupper_005fbound" accesskey="1"><code>bfd_get_symtab_upper_bound</code></a></li>
+<li><a href="#bfd_005fis_005flocal_005flabel" accesskey="2"><code>bfd_is_local_label</code></a></li>
+<li><a href="#bfd_005fis_005flocal_005flabel_005fname" accesskey="3"><code>bfd_is_local_label_name</code></a></li>
+<li><a href="#bfd_005fis_005ftarget_005fspecial_005fsymbol" accesskey="4"><code>bfd_is_target_special_symbol</code></a></li>
+<li><a href="#bfd_005fcanonicalize_005fsymtab" accesskey="5"><code>bfd_canonicalize_symtab</code></a></li>
+<li><a href="#bfd_005fset_005fsymtab" accesskey="6"><code>bfd_set_symtab</code></a></li>
+<li><a href="#bfd_005fprint_005fsymbol_005fvandf" accesskey="7"><code>bfd_print_symbol_vandf</code></a></li>
+<li><a href="#bfd_005fmake_005fempty_005fsymbol" accesskey="8"><code>bfd_make_empty_symbol</code></a></li>
+<li><a href="#g_t_005fbfd_005fgeneric_005fmake_005fempty_005fsymbol" accesskey="9"><code>_bfd_generic_make_empty_symbol</code></a></li>
+<li><a href="#bfd_005fmake_005fdebug_005fsymbol"><code>bfd_make_debug_symbol</code></a></li>
+<li><a href="#bfd_005fdecode_005fsymclass"><code>bfd_decode_symclass</code></a></li>
+<li><a href="#bfd_005fis_005fundefined_005fsymclass"><code>bfd_is_undefined_symclass</code></a></li>
+<li><a href="#bfd_005fsymbol_005finfo"><code>bfd_symbol_info</code></a></li>
+<li><a href="#bfd_005fcopy_005fprivate_005fsymbol_005fdata"><code>bfd_copy_private_symbol_data</code></a></li>
 </ul>
-<div class="subsubsection-level-extent" id="bfd_005fget_005fsymtab_005fupper_005fbound">
-<h4 class="subsubsection"><span>2.7.5.1 <code class="code">bfd_get_symtab_upper_bound</code><a class="copiable-link" href="#bfd_005fget_005fsymtab_005fupper_005fbound"> &para;</a></span></h4>
+<div class="subsubsection" id="bfd_005fget_005fsymtab_005fupper_005fbound">
+<h4 class="subsubsection">2.7.5.1 <code>bfd_get_symtab_upper_bound</code></h4>
 <p>Return the number of bytes required to store a vector of pointers
-to <code class="code">asymbols</code> for all the symbols in the BFD <var class="var">abfd</var>,
+to <code>asymbols</code> for all the symbols in the BFD <var>abfd</var>,
 including a terminal NULL pointer. If there are no symbols in
 the BFD, then return 0.  If an error occurs, return -1.
 </p><div class="example">
-<pre class="example-preformatted">#define bfd_get_symtab_upper_bound(abfd) \
+<pre class="example">#define bfd_get_symtab_upper_bound(abfd) \
        BFD_SEND (abfd, _bfd_get_symtab_upper_bound, (abfd))
 
 </pre></div>
 
-<a class="index-entry-id" id="index-bfd_005fis_005flocal_005flabel"></a>
+<span id="index-bfd_005fis_005flocal_005flabel"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fis_005flocal_005flabel">
-<h4 class="subsubsection"><span>2.7.5.2 <code class="code">bfd_is_local_label</code><a class="copiable-link" href="#bfd_005fis_005flocal_005flabel"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-bfd_005fis_005flocal_005flabel-1"><span class="category-def">Function: </span><span><code class="def-type">bool</code> <strong class="def-name">bfd_is_local_label</strong> <code class="def-code-arguments">(bfd *abfd, asymbol *sym);</code><a class="copiable-link" href="#index-bfd_005fis_005flocal_005flabel-1"> &para;</a></span></dt>
-<dd><p>Return TRUE if the given symbol <var class="var">sym</var> in the BFD <var class="var">abfd</var> is
+<div class="subsubsection" id="bfd_005fis_005flocal_005flabel">
+<h4 class="subsubsection">2.7.5.2 <code>bfd_is_local_label</code></h4>
+<dl class="def">
+<dt id="index-bfd_005fis_005flocal_005flabel-1"><span class="category">Function: </span><span><em>bool</em> <strong>bfd_is_local_label</strong> <em>(bfd *abfd, asymbol *sym);</em><a href='#index-bfd_005fis_005flocal_005flabel-1' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Return TRUE if the given symbol <var>sym</var> in the BFD <var>abfd</var> is
 a compiler generated local label, else return FALSE.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005fis_005flocal_005flabel_005fname"></a>
+<span id="index-bfd_005fis_005flocal_005flabel_005fname"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fis_005flocal_005flabel_005fname">
-<h4 class="subsubsection"><span>2.7.5.3 <code class="code">bfd_is_local_label_name</code><a class="copiable-link" href="#bfd_005fis_005flocal_005flabel_005fname"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-bfd_005fis_005flocal_005flabel_005fname-1"><span class="category-def">Function: </span><span><code class="def-type">bool</code> <strong class="def-name">bfd_is_local_label_name</strong> <code class="def-code-arguments">(bfd *abfd, const char *name);</code><a class="copiable-link" href="#index-bfd_005fis_005flocal_005flabel_005fname-1"> &para;</a></span></dt>
-<dd><p>Return TRUE if a symbol with the name <var class="var">name</var> in the BFD
-<var class="var">abfd</var> is a compiler generated local label, else return
+<div class="subsubsection" id="bfd_005fis_005flocal_005flabel_005fname">
+<h4 class="subsubsection">2.7.5.3 <code>bfd_is_local_label_name</code></h4>
+<dl class="def">
+<dt id="index-bfd_005fis_005flocal_005flabel_005fname-1"><span class="category">Function: </span><span><em>bool</em> <strong>bfd_is_local_label_name</strong> <em>(bfd *abfd, const char *name);</em><a href='#index-bfd_005fis_005flocal_005flabel_005fname-1' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Return TRUE if a symbol with the name <var>name</var> in the BFD
+<var>abfd</var> is a compiler generated local label, else return
 FALSE.  This just checks whether the name has the form of a
 local label.
 </p><div class="example">
-<pre class="example-preformatted">#define bfd_is_local_label_name(abfd, name) \
+<pre class="example">#define bfd_is_local_label_name(abfd, name) \
        BFD_SEND (abfd, _bfd_is_local_label_name, (abfd, name))
 
 </pre></div>
 
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005fis_005ftarget_005fspecial_005fsymbol"></a>
+<span id="index-bfd_005fis_005ftarget_005fspecial_005fsymbol"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fis_005ftarget_005fspecial_005fsymbol">
-<h4 class="subsubsection"><span>2.7.5.4 <code class="code">bfd_is_target_special_symbol</code><a class="copiable-link" href="#bfd_005fis_005ftarget_005fspecial_005fsymbol"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-bfd_005fis_005ftarget_005fspecial_005fsymbol-1"><span class="category-def">Function: </span><span><code class="def-type">bool</code> <strong class="def-name">bfd_is_target_special_symbol</strong> <code class="def-code-arguments">(bfd *abfd, asymbol *sym);</code><a class="copiable-link" href="#index-bfd_005fis_005ftarget_005fspecial_005fsymbol-1"> &para;</a></span></dt>
-<dd><p>Return TRUE iff a symbol <var class="var">sym</var> in the BFD <var class="var">abfd</var> is something
+<div class="subsubsection" id="bfd_005fis_005ftarget_005fspecial_005fsymbol">
+<h4 class="subsubsection">2.7.5.4 <code>bfd_is_target_special_symbol</code></h4>
+<dl class="def">
+<dt id="index-bfd_005fis_005ftarget_005fspecial_005fsymbol-1"><span class="category">Function: </span><span><em>bool</em> <strong>bfd_is_target_special_symbol</strong> <em>(bfd *abfd, asymbol *sym);</em><a href='#index-bfd_005fis_005ftarget_005fspecial_005fsymbol-1' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Return TRUE iff a symbol <var>sym</var> in the BFD <var>abfd</var> is something
 special to the particular target represented by the BFD.  Such symbols
 should normally not be mentioned to the user.
 </p><div class="example">
-<pre class="example-preformatted">#define bfd_is_target_special_symbol(abfd, sym) \
+<pre class="example">#define bfd_is_target_special_symbol(abfd, sym) \
        BFD_SEND (abfd, _bfd_is_target_special_symbol, (abfd, sym))
 
 </pre></div>
 
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005fcanonicalize_005fsymtab"></a>
+<span id="index-bfd_005fcanonicalize_005fsymtab"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fcanonicalize_005fsymtab">
-<h4 class="subsubsection"><span>2.7.5.5 <code class="code">bfd_canonicalize_symtab</code><a class="copiable-link" href="#bfd_005fcanonicalize_005fsymtab"> &para;</a></span></h4>
-<p>Read the symbols from the BFD <var class="var">abfd</var>, and fills in
-the vector <var class="var">location</var> with pointers to the symbols and
+<div class="subsubsection" id="bfd_005fcanonicalize_005fsymtab">
+<h4 class="subsubsection">2.7.5.5 <code>bfd_canonicalize_symtab</code></h4>
+<p>Read the symbols from the BFD <var>abfd</var>, and fills in
+the vector <var>location</var> with pointers to the symbols and
 a trailing NULL.
 Return the actual number of symbol pointers, not
 including the NULL.
 </p><div class="example">
-<pre class="example-preformatted">#define bfd_canonicalize_symtab(abfd, location) \
+<pre class="example">#define bfd_canonicalize_symtab(abfd, location) \
        BFD_SEND (abfd, _bfd_canonicalize_symtab, (abfd, location))
 
 </pre></div>
 
-<a class="index-entry-id" id="index-bfd_005fset_005fsymtab"></a>
+<span id="index-bfd_005fset_005fsymtab"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fset_005fsymtab">
-<h4 class="subsubsection"><span>2.7.5.6 <code class="code">bfd_set_symtab</code><a class="copiable-link" href="#bfd_005fset_005fsymtab"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-bfd_005fset_005fsymtab-1"><span class="category-def">Function: </span><span><code class="def-type">bool</code> <strong class="def-name">bfd_set_symtab</strong> <code class="def-code-arguments">(bfd *abfd, asymbol **location, unsigned int count);</code><a class="copiable-link" href="#index-bfd_005fset_005fsymtab-1"> &para;</a></span></dt>
-<dd><p>Arrange that when the output BFD <var class="var">abfd</var> is closed,
-the table <var class="var">location</var> of <var class="var">count</var> pointers to symbols
+<div class="subsubsection" id="bfd_005fset_005fsymtab">
+<h4 class="subsubsection">2.7.5.6 <code>bfd_set_symtab</code></h4>
+<dl class="def">
+<dt id="index-bfd_005fset_005fsymtab-1"><span class="category">Function: </span><span><em>bool</em> <strong>bfd_set_symtab</strong> <em>(bfd *abfd, asymbol **location, unsigned int count);</em><a href='#index-bfd_005fset_005fsymtab-1' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Arrange that when the output BFD <var>abfd</var> is closed,
+the table <var>location</var> of <var>count</var> pointers to symbols
 will be written.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005fprint_005fsymbol_005fvandf"></a>
+<span id="index-bfd_005fprint_005fsymbol_005fvandf"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fprint_005fsymbol_005fvandf">
-<h4 class="subsubsection"><span>2.7.5.7 <code class="code">bfd_print_symbol_vandf</code><a class="copiable-link" href="#bfd_005fprint_005fsymbol_005fvandf"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-bfd_005fprint_005fsymbol_005fvandf-1"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">bfd_print_symbol_vandf</strong> <code class="def-code-arguments">(bfd *abfd, void *file, asymbol *symbol);</code><a class="copiable-link" href="#index-bfd_005fprint_005fsymbol_005fvandf-1"> &para;</a></span></dt>
-<dd><p>Print the value and flags of the <var class="var">symbol</var> supplied to the
-stream <var class="var">file</var>.
+<div class="subsubsection" id="bfd_005fprint_005fsymbol_005fvandf">
+<h4 class="subsubsection">2.7.5.7 <code>bfd_print_symbol_vandf</code></h4>
+<dl class="def">
+<dt id="index-bfd_005fprint_005fsymbol_005fvandf-1"><span class="category">Function: </span><span><em>void</em> <strong>bfd_print_symbol_vandf</strong> <em>(bfd *abfd, void *file, asymbol *symbol);</em><a href='#index-bfd_005fprint_005fsymbol_005fvandf-1' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Print the value and flags of the <var>symbol</var> supplied to the
+stream <var>file</var>.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005fmake_005fempty_005fsymbol"></a>
+<span id="index-bfd_005fmake_005fempty_005fsymbol"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fmake_005fempty_005fsymbol">
-<h4 class="subsubsection"><span>2.7.5.8 <code class="code">bfd_make_empty_symbol</code><a class="copiable-link" href="#bfd_005fmake_005fempty_005fsymbol"> &para;</a></span></h4>
-<p>Create a new <code class="code">asymbol</code> structure for the BFD <var class="var">abfd</var>
+<div class="subsubsection" id="bfd_005fmake_005fempty_005fsymbol">
+<h4 class="subsubsection">2.7.5.8 <code>bfd_make_empty_symbol</code></h4>
+<p>Create a new <code>asymbol</code> structure for the BFD <var>abfd</var>
 and return a pointer to it.
 </p>
 <p>This routine is necessary because each back end has private
-information surrounding the <code class="code">asymbol</code>. Building your own
-<code class="code">asymbol</code> and pointing to it will not create the private
+information surrounding the <code>asymbol</code>. Building your own
+<code>asymbol</code> and pointing to it will not create the private
 information, and will cause problems later on.
 </p><div class="example">
-<pre class="example-preformatted">#define bfd_make_empty_symbol(abfd) \
+<pre class="example">#define bfd_make_empty_symbol(abfd) \
        BFD_SEND (abfd, _bfd_make_empty_symbol, (abfd))
 
 </pre></div>
 
-<a class="index-entry-id" id="index-_005fbfd_005fgeneric_005fmake_005fempty_005fsymbol"></a>
+<span id="index-_005fbfd_005fgeneric_005fmake_005fempty_005fsymbol"></span>
 </div>
-<div class="subsubsection-level-extent" id="g_t_005fbfd_005fgeneric_005fmake_005fempty_005fsymbol">
-<h4 class="subsubsection"><span>2.7.5.9 <code class="code">_bfd_generic_make_empty_symbol</code><a class="copiable-link" href="#g_t_005fbfd_005fgeneric_005fmake_005fempty_005fsymbol"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-_002a_005fbfd_005fgeneric_005fmake_005fempty_005fsymbol"><span class="category-def">Function: </span><span><code class="def-type">asymbol</code> <strong class="def-name">*_bfd_generic_make_empty_symbol</strong> <code class="def-code-arguments">(bfd *);</code><a class="copiable-link" href="#index-_002a_005fbfd_005fgeneric_005fmake_005fempty_005fsymbol"> &para;</a></span></dt>
-<dd><p>Create a new <code class="code">asymbol</code> structure for the BFD <var class="var">abfd</var>
+<div class="subsubsection" id="g_t_005fbfd_005fgeneric_005fmake_005fempty_005fsymbol">
+<h4 class="subsubsection">2.7.5.9 <code>_bfd_generic_make_empty_symbol</code></h4>
+<dl class="def">
+<dt id="index-_002a_005fbfd_005fgeneric_005fmake_005fempty_005fsymbol"><span class="category">Function: </span><span><em>asymbol</em> <strong>*_bfd_generic_make_empty_symbol</strong> <em>(bfd *);</em><a href='#index-_002a_005fbfd_005fgeneric_005fmake_005fempty_005fsymbol' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Create a new <code>asymbol</code> structure for the BFD <var>abfd</var>
 and return a pointer to it.  Used by core file routines,
 binary back-end and anywhere else where no private info
 is needed.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005fmake_005fdebug_005fsymbol"></a>
+<span id="index-bfd_005fmake_005fdebug_005fsymbol"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fmake_005fdebug_005fsymbol">
-<h4 class="subsubsection"><span>2.7.5.10 <code class="code">bfd_make_debug_symbol</code><a class="copiable-link" href="#bfd_005fmake_005fdebug_005fsymbol"> &para;</a></span></h4>
-<p>Create a new <code class="code">asymbol</code> structure for the BFD <var class="var">abfd</var>,
+<div class="subsubsection" id="bfd_005fmake_005fdebug_005fsymbol">
+<h4 class="subsubsection">2.7.5.10 <code>bfd_make_debug_symbol</code></h4>
+<p>Create a new <code>asymbol</code> structure for the BFD <var>abfd</var>,
 to be used as a debugging symbol.
 </p><div class="example">
-<pre class="example-preformatted">#define bfd_make_debug_symbol(abfd) \
+<pre class="example">#define bfd_make_debug_symbol(abfd) \
        BFD_SEND (abfd, _bfd_make_debug_symbol, (abfd))
 
 </pre></div>
 
-<a class="index-entry-id" id="index-bfd_005fdecode_005fsymclass"></a>
+<span id="index-bfd_005fdecode_005fsymclass"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fdecode_005fsymclass">
-<h4 class="subsubsection"><span>2.7.5.11 <code class="code">bfd_decode_symclass</code><a class="copiable-link" href="#bfd_005fdecode_005fsymclass"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-bfd_005fdecode_005fsymclass-1"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">bfd_decode_symclass</strong> <code class="def-code-arguments">(asymbol *symbol);</code><a class="copiable-link" href="#index-bfd_005fdecode_005fsymclass-1"> &para;</a></span></dt>
+<div class="subsubsection" id="bfd_005fdecode_005fsymclass">
+<h4 class="subsubsection">2.7.5.11 <code>bfd_decode_symclass</code></h4>
+<dl class="def">
+<dt id="index-bfd_005fdecode_005fsymclass-1"><span class="category">Function: </span><span><em>int</em> <strong>bfd_decode_symclass</strong> <em>(asymbol *symbol);</em><a href='#index-bfd_005fdecode_005fsymclass-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Return a character corresponding to the symbol
-class of <var class="var">symbol</var>, or &rsquo;?&rsquo; for an unknown class.
+class of <var>symbol</var>, or &rsquo;?&rsquo; for an unknown class.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005fis_005fundefined_005fsymclass"></a>
+<span id="index-bfd_005fis_005fundefined_005fsymclass"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fis_005fundefined_005fsymclass">
-<h4 class="subsubsection"><span>2.7.5.12 <code class="code">bfd_is_undefined_symclass</code><a class="copiable-link" href="#bfd_005fis_005fundefined_005fsymclass"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-bfd_005fis_005fundefined_005fsymclass-1"><span class="category-def">Function: </span><span><code class="def-type">bool</code> <strong class="def-name">bfd_is_undefined_symclass</strong> <code class="def-code-arguments">(int symclass);</code><a class="copiable-link" href="#index-bfd_005fis_005fundefined_005fsymclass-1"> &para;</a></span></dt>
+<div class="subsubsection" id="bfd_005fis_005fundefined_005fsymclass">
+<h4 class="subsubsection">2.7.5.12 <code>bfd_is_undefined_symclass</code></h4>
+<dl class="def">
+<dt id="index-bfd_005fis_005fundefined_005fsymclass-1"><span class="category">Function: </span><span><em>bool</em> <strong>bfd_is_undefined_symclass</strong> <em>(int symclass);</em><a href='#index-bfd_005fis_005fundefined_005fsymclass-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Returns non-zero if the class symbol returned by
 bfd_decode_symclass represents an undefined symbol.
 Returns zero otherwise.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005fsymbol_005finfo"></a>
+<span id="index-bfd_005fsymbol_005finfo"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fsymbol_005finfo">
-<h4 class="subsubsection"><span>2.7.5.13 <code class="code">bfd_symbol_info</code><a class="copiable-link" href="#bfd_005fsymbol_005finfo"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-bfd_005fsymbol_005finfo-1"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">bfd_symbol_info</strong> <code class="def-code-arguments">(asymbol *symbol, symbol_info *ret);</code><a class="copiable-link" href="#index-bfd_005fsymbol_005finfo-1"> &para;</a></span></dt>
+<div class="subsubsection" id="bfd_005fsymbol_005finfo">
+<h4 class="subsubsection">2.7.5.13 <code>bfd_symbol_info</code></h4>
+<dl class="def">
+<dt id="index-bfd_005fsymbol_005finfo-1"><span class="category">Function: </span><span><em>void</em> <strong>bfd_symbol_info</strong> <em>(asymbol *symbol, symbol_info *ret);</em><a href='#index-bfd_005fsymbol_005finfo-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Fill in the basic info about symbol that nm needs.
 Additional info may be added by the back-ends after
 calling this function.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005fcopy_005fprivate_005fsymbol_005fdata"></a>
+<span id="index-bfd_005fcopy_005fprivate_005fsymbol_005fdata"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fcopy_005fprivate_005fsymbol_005fdata">
-<h4 class="subsubsection"><span>2.7.5.14 <code class="code">bfd_copy_private_symbol_data</code><a class="copiable-link" href="#bfd_005fcopy_005fprivate_005fsymbol_005fdata"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-bfd_005fcopy_005fprivate_005fsymbol_005fdata-1"><span class="category-def">Function: </span><span><code class="def-type">bool</code> <strong class="def-name">bfd_copy_private_symbol_data</strong> <code class="def-code-arguments">(bfd *ibfd, asymbol *isym, bfd *obfd, asymbol *osym);</code><a class="copiable-link" href="#index-bfd_005fcopy_005fprivate_005fsymbol_005fdata-1"> &para;</a></span></dt>
-<dd><p>Copy private symbol information from <var class="var">isym</var> in the BFD
-<var class="var">ibfd</var> to the symbol <var class="var">osym</var> in the BFD <var class="var">obfd</var>.
-Return <code class="code">TRUE</code> on success, <code class="code">FALSE</code> on error.  Possible error
+<div class="subsubsection" id="bfd_005fcopy_005fprivate_005fsymbol_005fdata">
+<h4 class="subsubsection">2.7.5.14 <code>bfd_copy_private_symbol_data</code></h4>
+<dl class="def">
+<dt id="index-bfd_005fcopy_005fprivate_005fsymbol_005fdata-1"><span class="category">Function: </span><span><em>bool</em> <strong>bfd_copy_private_symbol_data</strong> <em>(bfd *ibfd, asymbol *isym, bfd *obfd, asymbol *osym);</em><a href='#index-bfd_005fcopy_005fprivate_005fsymbol_005fdata-1' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Copy private symbol information from <var>isym</var> in the BFD
+<var>ibfd</var> to the symbol <var>osym</var> in the BFD <var>obfd</var>.
+Return <code>TRUE</code> on success, <code>FALSE</code> on error.  Possible error
 returns are:
 </p>
-<ul class="itemize mark-bullet">
-<li><code class="code">bfd_error_no_memory</code> -
-Not enough memory exists to create private data for <var class="var">osec</var>.
+<ul>
+<li> <code>bfd_error_no_memory</code> -
+Not enough memory exists to create private data for <var>osec</var>.
 </li></ul>
 <div class="example">
-<pre class="example-preformatted">#define bfd_copy_private_symbol_data(ibfd, isymbol, obfd, osymbol) \
+<pre class="example">#define bfd_copy_private_symbol_data(ibfd, isymbol, obfd, osymbol) \
        BFD_SEND (obfd, _bfd_copy_private_symbol_data, \
                  (ibfd, isymbol, obfd, osymbol))
 
@@ -269,7 +279,7 @@ Not enough memory exists to create private data for <var class="var">osec</var>.
 </div>
 </div>
 <hr>
-<div class="nav-panel">
+<div class="header">
 <p>
 Previous: <a href="typedef-asymbol.html">typedef asymbol</a>, Up: <a href="Symbols.html">Symbols</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="BFD-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

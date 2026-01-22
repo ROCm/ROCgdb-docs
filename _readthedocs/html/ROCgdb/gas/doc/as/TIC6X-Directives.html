@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the GNU Assembler "as".
 
-Copyright © 1991-2024 Free Software Foundation, Inc.
+Copyright (C) 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -30,8 +30,21 @@ section entitled "GNU Free Documentation License".
 <link href="TIC6X-Syntax.html" rel="prev" title="TIC6X Syntax">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
-span:hover a.copiable-link {visibility: visible}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -39,84 +52,96 @@ span:hover a.copiable-link {visibility: visible}
 </head>
 
 <body lang="en">
-<div class="subsection-level-extent" id="TIC6X-Directives">
-<div class="nav-panel">
+<div class="section" id="TIC6X-Directives">
+<div class="header">
 <p>
 Previous: <a href="TIC6X-Syntax.html" accesskey="p" rel="prev">TIC6X Syntax</a>, Up: <a href="TIC6X_002dDependent.html" accesskey="u" rel="up">TIC6X Dependent Features</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h4 class="subsection section-level-set-subsection" id="TIC6X-Directives-1"><span>9.46.3 TIC6X Directives<a class="copiable-link" href="#TIC6X-Directives-1"> &para;</a></span></h4>
+<span id="TIC6X-Directives-1"></span><h4 class="subsection">9.46.3 TIC6X Directives</h4>
 
-<a class="index-entry-id" id="index-machine-directives_002c-TIC6X"></a>
-<a class="index-entry-id" id="index-TIC6X-machine-directives"></a>
+<span id="index-machine-directives_002c-TIC6X"></span>
+<span id="index-TIC6X-machine-directives"></span>
 
 <p>Directives controlling the set of instructions accepted by the
 assembler have effect for instructions between the directive and any
 subsequent directive overriding it.
 </p>
-<dl class="table">
-<dt><a id="index-_002earch-directive_002c-TIC6X"></a><span><code class="code">.arch <var class="var">arch</var></code><a class="copiable-link" href="#index-_002earch-directive_002c-TIC6X"> &para;</a></span></dt>
-<dd><p>This has the same effect as <samp class="option">-march=<var class="var">arch</var></samp>.
-</p>
+<dl compact="compact">
+<dd>
+<span id="index-_002earch-directive_002c-TIC6X"></span>
 </dd>
-<dt><a id="index-_002ecantunwind-directive_002c-TIC6X"></a><span><code class="code">.cantunwind</code><a class="copiable-link" href="#index-_002ecantunwind-directive_002c-TIC6X"> &para;</a></span></dt>
+<dt><span><code>.arch <var>arch</var></code></span></dt>
+<dd><p>This has the same effect as <samp>-march=<var>arch</var></samp>.
+</p>
+<span id="index-_002ecantunwind-directive_002c-TIC6X"></span>
+</dd>
+<dt><span><code>.cantunwind</code></span></dt>
 <dd><p>Prevents unwinding through the current function.  No personality routine
 or exception table data is required or permitted.
 </p>
 <p>If this is not specified then frame unwinding information will be
-constructed from CFI directives. see <a class="pxref" href="CFI-directives.html">CFI directives</a>.
+constructed from CFI directives. see <a href="CFI-directives.html">CFI directives</a>.
 </p>
+<span id="index-_002ec6xabi_005fattribute-directive_002c-TIC6X"></span>
 </dd>
-<dt><a id="index-_002ec6xabi_005fattribute-directive_002c-TIC6X"></a><span><code class="code">.c6xabi_attribute <var class="var">tag</var>, <var class="var">value</var></code><a class="copiable-link" href="#index-_002ec6xabi_005fattribute-directive_002c-TIC6X"> &para;</a></span></dt>
-<dd><p>Set the C6000 EABI build attribute <var class="var">tag</var> to <var class="var">value</var>.
+<dt><span><code>.c6xabi_attribute <var>tag</var>, <var>value</var></code></span></dt>
+<dd><p>Set the C6000 EABI build attribute <var>tag</var> to <var>value</var>.
 </p>
-<p>The <var class="var">tag</var> is either an attribute number or one of
-<code class="code">Tag_ISA</code>, <code class="code">Tag_ABI_wchar_t</code>,
-<code class="code">Tag_ABI_stack_align_needed</code>,
-<code class="code">Tag_ABI_stack_align_preserved</code>, <code class="code">Tag_ABI_DSBT</code>,
-<code class="code">Tag_ABI_PID</code>, <code class="code">Tag_ABI_PIC</code>,
-<code class="code">TAG_ABI_array_object_alignment</code>,
-<code class="code">TAG_ABI_array_object_align_expected</code>,
-<code class="code">Tag_ABI_compatibility</code> and <code class="code">Tag_ABI_conformance</code>.  The
-<var class="var">value</var> is either a <code class="code">number</code>, <code class="code">&quot;string&quot;</code>, or
-<code class="code">number, &quot;string&quot;</code> depending on the tag.
+<p>The <var>tag</var> is either an attribute number or one of
+<code>Tag_ISA</code>, <code>Tag_ABI_wchar_t</code>,
+<code>Tag_ABI_stack_align_needed</code>,
+<code>Tag_ABI_stack_align_preserved</code>, <code>Tag_ABI_DSBT</code>,
+<code>Tag_ABI_PID</code>, <code>Tag_ABI_PIC</code>,
+<code>TAG_ABI_array_object_alignment</code>,
+<code>TAG_ABI_array_object_align_expected</code>,
+<code>Tag_ABI_compatibility</code> and <code>Tag_ABI_conformance</code>.  The
+<var>value</var> is either a <code>number</code>, <code>&quot;string&quot;</code>, or
+<code>number, &quot;string&quot;</code> depending on the tag.
 </p>
+<span id="index-_002eehtype-directive_002c-TIC6X"></span>
 </dd>
-<dt><a id="index-_002eehtype-directive_002c-TIC6X"></a><span><code class="code">.ehtype <var class="var">symbol</var></code><a class="copiable-link" href="#index-_002eehtype-directive_002c-TIC6X"> &para;</a></span></dt>
-<dd><p>Output an exception type table reference to <var class="var">symbol</var>.
+<dt><span><code>.ehtype <var>symbol</var></code></span></dt>
+<dd><p>Output an exception type table reference to <var>symbol</var>.
 </p>
+<span id="index-_002eendp-directive_002c-TIC6X"></span>
 </dd>
-<dt><a id="index-_002eendp-directive_002c-TIC6X"></a><span><code class="code">.endp</code><a class="copiable-link" href="#index-_002eendp-directive_002c-TIC6X"> &para;</a></span></dt>
+<dt><span><code>.endp</code></span></dt>
 <dd><p>Marks the end of and exception table or function.  If preceded by a
-<code class="code">.handlerdata</code> directive then this also switched back to the previous
+<code>.handlerdata</code> directive then this also switched back to the previous
 text section.
 </p>
+<span id="index-_002ehandlerdata-directive_002c-TIC6X"></span>
 </dd>
-<dt><a id="index-_002ehandlerdata-directive_002c-TIC6X"></a><span><code class="code">.handlerdata</code><a class="copiable-link" href="#index-_002ehandlerdata-directive_002c-TIC6X"> &para;</a></span></dt>
+<dt><span><code>.handlerdata</code></span></dt>
 <dd><p>Marks the end of the current function, and the start of the exception table
 entry for that function.  Anything between this directive and the
-<code class="code">.endp</code> directive will be added to the exception table entry.
+<code>.endp</code> directive will be added to the exception table entry.
 </p>
-<p>Must be preceded by a CFI block containing a <code class="code">.cfi_lsda</code> directive.
+<p>Must be preceded by a CFI block containing a <code>.cfi_lsda</code> directive.
 </p>
+<span id="index-_002enocmp-directive_002c-TIC6X"></span>
 </dd>
-<dt><a id="index-_002enocmp-directive_002c-TIC6X"></a><span><code class="code">.nocmp</code><a class="copiable-link" href="#index-_002enocmp-directive_002c-TIC6X"> &para;</a></span></dt>
+<dt><span><code>.nocmp</code></span></dt>
 <dd><p>Disallow use of C64x+ compact instructions in the current text
 section.
 </p>
+<span id="index-_002epersonalityindex-directive_002c-TIC6X"></span>
 </dd>
-<dt><a id="index-_002epersonalityindex-directive_002c-TIC6X"></a><span><code class="code">.personalityindex <var class="var">index</var></code><a class="copiable-link" href="#index-_002epersonalityindex-directive_002c-TIC6X"> &para;</a></span></dt>
+<dt><span><code>.personalityindex <var>index</var></code></span></dt>
 <dd><p>Sets the personality routine for the current function to the ABI specified
-compact routine number <var class="var">index</var>
+compact routine number <var>index</var>
 </p>
+<span id="index-_002epersonality-directive_002c-TIC6X"></span>
 </dd>
-<dt><a id="index-_002epersonality-directive_002c-TIC6X"></a><span><code class="code">.personality <var class="var">name</var></code><a class="copiable-link" href="#index-_002epersonality-directive_002c-TIC6X"> &para;</a></span></dt>
-<dd><p>Sets the personality routine for the current function to <var class="var">name</var>.
+<dt><span><code>.personality <var>name</var></code></span></dt>
+<dd><p>Sets the personality routine for the current function to <var>name</var>.
 </p>
+<span id="index-_002escomm-directive_002c-TIC6X"></span>
 </dd>
-<dt><a id="index-_002escomm-directive_002c-TIC6X"></a><span><code class="code">.scomm <var class="var">symbol</var>, <var class="var">size</var>, <var class="var">align</var></code><a class="copiable-link" href="#index-_002escomm-directive_002c-TIC6X"> &para;</a></span></dt>
-<dd><p>Like <code class="code">.comm</code>, creating a common symbol <var class="var">symbol</var> with size <var class="var">size</var>
-and alignment <var class="var">align</var>, but unlike when using <code class="code">.comm</code>, this symbol
+<dt><span><code>.scomm <var>symbol</var>, <var>size</var>, <var>align</var></code></span></dt>
+<dd><p>Like <code>.comm</code>, creating a common symbol <var>symbol</var> with size <var>size</var>
+and alignment <var>align</var>, but unlike when using <code>.comm</code>, this symbol
 will be placed into the small BSS section by the linker.
 </p>
 </dd>
@@ -125,7 +150,7 @@ will be placed into the small BSS section by the linker.
 
 </div>
 <hr>
-<div class="nav-panel">
+<div class="header">
 <p>
 Previous: <a href="TIC6X-Syntax.html">TIC6X Syntax</a>, Up: <a href="TIC6X_002dDependent.html">TIC6X Dependent Features</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

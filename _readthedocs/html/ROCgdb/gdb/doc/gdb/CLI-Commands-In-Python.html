@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright © 1988-2024 Free Software Foundation, Inc.
+<!-- Copyright (C) 1988-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -26,7 +26,7 @@ the license, review the license.txt in the top-level directory for the
 library on https://github.com/ROCm/ (Github.com)).  The additional terms
 and conditions below apply to your use of AMD ROCm technical documentation.
 
-©2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
+(C)2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
 
 The information presented in this document is for informational purposes only
 and may contain technical inaccuracies, omissions, and typographical errors.
@@ -52,8 +52,8 @@ EVEN IF AMD IS EXPRESSLY ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
 
 AMD, the AMD Arrow logo, AMD Instinct™, Radeon™, AMD ROCm™, and combinations
 thereof are trademarks of Advanced Micro Devices, Inc.
-Linux® is the registered trademark of Linus Torvalds in the
-U.S. and other countries. PCIe® is a registered trademark of
+Linux(R) is the registered trademark of Linus Torvalds in the
+U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
@@ -74,14 +74,21 @@ companies. -->
 <link href="Recordings-In-Python.html" rel="prev" title="Recordings In Python">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
 div.example {margin-left: 3.2em}
-kbd.kbd {font-style: oblique}
-kbd.key {font-style: normal}
-span.r {font-family: initial; font-weight: normal; font-style: normal}
-span:hover a.copiable-link {visibility: visible}
-strong.def-name {font-family: monospace; font-weight: bold; font-size: larger}
-ul.mark-bullet {list-style-type: disc}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -89,46 +96,46 @@ ul.mark-bullet {list-style-type: disc}
 </head>
 
 <body lang="en">
-<div class="subsubsection-level-extent" id="CLI-Commands-In-Python">
-<div class="nav-panel">
+<div class="subsubsection" id="CLI-Commands-In-Python">
+<div class="header">
 <p>
-Next: <a href="GDB_002fMI-Commands-In-Python.html" accesskey="n" rel="next"><small class="sc">GDB/MI</small> Commands In Python</a>, Previous: <a href="Recordings-In-Python.html" accesskey="p" rel="prev">Recordings In Python</a>, Up: <a href="Python-API.html" accesskey="u" rel="up">Python API</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="GDB_002fMI-Commands-In-Python.html" accesskey="n" rel="next"><small>GDB/MI</small> Commands In Python</a>, Previous: <a href="Recordings-In-Python.html" accesskey="p" rel="prev">Recordings In Python</a>, Up: <a href="Python-API.html" accesskey="u" rel="up">Python API</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h4 class="subsubsection" id="CLI-Commands-In-Python-1"><span>24.3.2.21 CLI Commands In Python<a class="copiable-link" href="#CLI-Commands-In-Python-1"> &para;</a></span></h4>
+<span id="CLI-Commands-In-Python-1"></span><h4 class="subsubsection">24.3.2.21 CLI Commands In Python</h4>
 
-<a class="index-entry-id" id="index-CLI-commands-in-python"></a>
-<a class="index-entry-id" id="index-commands-in-python_002c-CLI"></a>
-<a class="index-entry-id" id="index-python-commands_002c-CLI"></a>
-<p>You can implement new <small class="sc">ROCGDB</small> CLI commands in Python.  A CLI
-command is implemented using an instance of the <code class="code">gdb.Command</code>
+<span id="index-CLI-commands-in-python"></span>
+<span id="index-commands-in-python_002c-CLI"></span>
+<span id="index-python-commands_002c-CLI"></span>
+<p>You can implement new <small>ROCGDB</small> CLI commands in Python.  A CLI
+command is implemented using an instance of the <code>gdb.Command</code>
 class, most commonly using a subclass.
 </p>
-<dl class="first-deffn first-defun-alias-first-deffn">
-<dt class="deffn defun-alias-deffn" id="index-Command_002e_005f_005finit_005f_005f"><span class="category-def">Function: </span><span><strong class="def-name">Command.__init__</strong> <var class="def-var-arguments">(name, command_class <span class="r">[</span>, completer_class <span class="r">[</span>, prefix<span class="r">]]</span>)</var><a class="copiable-link" href="#index-Command_002e_005f_005finit_005f_005f"> &para;</a></span></dt>
-<dd><p>The object initializer for <code class="code">Command</code> registers the new command
-with <small class="sc">ROCGDB</small>.  This initializer is normally invoked from the
-subclass&rsquo; own <code class="code">__init__</code> method.
+<dl class="def">
+<dt id="index-Command_002e_005f_005finit_005f_005f"><span class="category">Function: </span><span><strong>Command.__init__</strong> <em>(name, command_class <span class="roman">[</span>, completer_class <span class="roman">[</span>, prefix<span class="roman">]]</span>)</em><a href='#index-Command_002e_005f_005finit_005f_005f' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>The object initializer for <code>Command</code> registers the new command
+with <small>ROCGDB</small>.  This initializer is normally invoked from the
+subclass&rsquo; own <code>__init__</code> method.
 </p>
-<p><var class="var">name</var> is the name of the command.  If <var class="var">name</var> consists of
+<p><var>name</var> is the name of the command.  If <var>name</var> consists of
 multiple words, then the initial words are looked for as prefix
 commands.  In this case, if one of the prefix commands does not exist,
 an exception is raised.
 </p>
 <p>There is no support for multi-line commands.
 </p>
-<p><var class="var">command_class</var> should be one of the &lsquo;<samp class="samp">COMMAND_</samp>&rsquo; constants
-defined below.  This argument tells <small class="sc">ROCGDB</small> how to categorize the
+<p><var>command_class</var> should be one of the &lsquo;<samp>COMMAND_</samp>&rsquo; constants
+defined below.  This argument tells <small>ROCGDB</small> how to categorize the
 new command in the help system.
 </p>
-<p><var class="var">completer_class</var> is an optional argument.  If given, it should be
-one of the &lsquo;<samp class="samp">COMPLETE_</samp>&rsquo; constants defined below.  This argument
-tells <small class="sc">ROCGDB</small> how to perform completion for this command.  If not
-given, <small class="sc">ROCGDB</small> will attempt to complete using the object&rsquo;s
-<code class="code">complete</code> method (see below); if no such method is found, an
+<p><var>completer_class</var> is an optional argument.  If given, it should be
+one of the &lsquo;<samp>COMPLETE_</samp>&rsquo; constants defined below.  This argument
+tells <small>ROCGDB</small> how to perform completion for this command.  If not
+given, <small>ROCGDB</small> will attempt to complete using the object&rsquo;s
+<code>complete</code> method (see below); if no such method is found, an
 error will occur when completion is attempted.
 </p>
-<p><var class="var">prefix</var> is an optional argument.  If <code class="code">True</code>, then the new
+<p><var>prefix</var> is an optional argument.  If <code>True</code>, then the new
 command is a prefix command; sub-commands of this command may be
 registered.
 </p>
@@ -138,73 +145,73 @@ documentation string is provided, the default value &ldquo;This command is
 not documented.&rdquo; is used.
 </p></dd></dl>
 
-<a class="index-entry-id" id="index-don_0027t-repeat-Python-command"></a>
-<dl class="first-deffn first-defun-alias-first-deffn">
-<dt class="deffn defun-alias-deffn" id="index-Command_002edont_005frepeat"><span class="category-def">Function: </span><span><strong class="def-name">Command.dont_repeat</strong> <var class="def-var-arguments">()</var><a class="copiable-link" href="#index-Command_002edont_005frepeat"> &para;</a></span></dt>
-<dd><p>By default, a <small class="sc">ROCGDB</small> command is repeated when the user enters a
+<span id="index-don_0027t-repeat-Python-command"></span>
+<dl class="def">
+<dt id="index-Command_002edont_005frepeat"><span class="category">Function: </span><span><strong>Command.dont_repeat</strong> <em>()</em><a href='#index-Command_002edont_005frepeat' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>By default, a <small>ROCGDB</small> command is repeated when the user enters a
 blank line at the command prompt.  A command can suppress this
-behavior by invoking the <code class="code">dont_repeat</code> method at some point in
-its <code class="code">invoke</code> method (normally this is done early in case of
-exception).  This is similar to the user command <code class="code">dont-repeat</code>,
-see <a class="ref" href="Define.html">dont-repeat</a>.
+behavior by invoking the <code>dont_repeat</code> method at some point in
+its <code>invoke</code> method (normally this is done early in case of
+exception).  This is similar to the user command <code>dont-repeat</code>,
+see <a href="Define.html">dont-repeat</a>.
 </p></dd></dl>
 
-<dl class="first-deffn first-defun-alias-first-deffn">
-<dt class="deffn defun-alias-deffn" id="index-Command_002einvoke"><span class="category-def">Function: </span><span><strong class="def-name">Command.invoke</strong> <var class="def-var-arguments">(argument, from_tty)</var><a class="copiable-link" href="#index-Command_002einvoke"> &para;</a></span></dt>
-<dd><p>This method is called by <small class="sc">ROCGDB</small> when this command is invoked.
+<dl class="def">
+<dt id="index-Command_002einvoke"><span class="category">Function: </span><span><strong>Command.invoke</strong> <em>(argument, from_tty)</em><a href='#index-Command_002einvoke' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>This method is called by <small>ROCGDB</small> when this command is invoked.
 </p>
-<p><var class="var">argument</var> is a string.  It is the argument to the command, after
+<p><var>argument</var> is a string.  It is the argument to the command, after
 leading and trailing whitespace has been stripped.
 </p>
-<p><var class="var">from_tty</var> is a boolean argument.  When true, this means that the
+<p><var>from_tty</var> is a boolean argument.  When true, this means that the
 command was entered by the user at the terminal; when false it means
 that the command came from elsewhere.
 </p>
-<p>If this method throws an exception, it is turned into a <small class="sc">ROCGDB</small>
-<code class="code">error</code> call.  Otherwise, the return value is ignored.
+<p>If this method throws an exception, it is turned into a <small>ROCGDB</small>
+<code>error</code> call.  Otherwise, the return value is ignored.
 </p>
-<a class="index-entry-id" id="index-gdb_002estring_005fto_005fargv"></a>
-<p>To break <var class="var">argument</var> up into an argv-like string use
-<code class="code">gdb.string_to_argv</code>.  This function behaves identically to
-<small class="sc">ROCGDB</small>&rsquo;s internal argument lexer <code class="code">buildargv</code>.
+<span id="index-gdb_002estring_005fto_005fargv"></span>
+<p>To break <var>argument</var> up into an argv-like string use
+<code>gdb.string_to_argv</code>.  This function behaves identically to
+<small>ROCGDB</small>&rsquo;s internal argument lexer <code>buildargv</code>.
 It is recommended to use this for consistency.
 Arguments are separated by spaces and may be quoted.
 Example:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">print gdb.string_to_argv (&quot;1 2\ \\\&quot;3 '4 \&quot;5' \&quot;6 '7\&quot;&quot;)
+<div class="example">
+<pre class="example">print gdb.string_to_argv (&quot;1 2\ \\\&quot;3 '4 \&quot;5' \&quot;6 '7\&quot;&quot;)
 ['1', '2 &quot;3', '4 &quot;5', &quot;6 '7&quot;]
 </pre></div>
 
 </dd></dl>
 
-<a class="index-entry-id" id="index-completion-of-Python-commands"></a>
-<dl class="first-deffn first-defun-alias-first-deffn">
-<dt class="deffn defun-alias-deffn" id="index-Command_002ecomplete"><span class="category-def">Function: </span><span><strong class="def-name">Command.complete</strong> <var class="def-var-arguments">(text, word)</var><a class="copiable-link" href="#index-Command_002ecomplete"> &para;</a></span></dt>
-<dd><p>This method is called by <small class="sc">ROCGDB</small> when the user attempts
+<span id="index-completion-of-Python-commands"></span>
+<dl class="def">
+<dt id="index-Command_002ecomplete"><span class="category">Function: </span><span><strong>Command.complete</strong> <em>(text, word)</em><a href='#index-Command_002ecomplete' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>This method is called by <small>ROCGDB</small> when the user attempts
 completion on this command.  All forms of completion are handled by
-this method, that is, the <kbd class="key">TAB</kbd> and <kbd class="key">M-?</kbd> key bindings
-(see <a class="pxref" href="Completion.html">Command Completion</a>), and the <code class="code">complete</code> command (see <a class="pxref" href="Help.html">complete</a>).
+this method, that is, the <tt class="key">TAB</tt> and <tt class="key">M-?</tt> key bindings
+(see <a href="Completion.html">Command Completion</a>), and the <code>complete</code> command (see <a href="Help.html">complete</a>).
 </p>
-<p>The arguments <var class="var">text</var> and <var class="var">word</var> are both strings; <var class="var">text</var>
+<p>The arguments <var>text</var> and <var>word</var> are both strings; <var>text</var>
 holds the complete command line up to the cursor&rsquo;s location, while
-<var class="var">word</var> holds the last word of the command line; this is computed
+<var>word</var> holds the last word of the command line; this is computed
 using a word-breaking heuristic.
 </p>
-<p>The <code class="code">complete</code> method can return several values:
-</p><ul class="itemize mark-bullet">
-<li>If the return value is a sequence, the contents of the sequence are
-used as the completions.  It is up to <code class="code">complete</code> to ensure that the
+<p>The <code>complete</code> method can return several values:
+</p><ul>
+<li> If the return value is a sequence, the contents of the sequence are
+used as the completions.  It is up to <code>complete</code> to ensure that the
 contents actually do complete the word.  A zero-length sequence is
 allowed, it means that there were no completions available.  Only
 string elements of the sequence are used; other elements in the
 sequence are ignored.
 
-</li><li>If the return value is one of the &lsquo;<samp class="samp">COMPLETE_</samp>&rsquo; constants defined
-below, then the corresponding <small class="sc">ROCGDB</small>-internal completion
+</li><li> If the return value is one of the &lsquo;<samp>COMPLETE_</samp>&rsquo; constants defined
+below, then the corresponding <small>ROCGDB</small>-internal completion
 function is invoked, and its result is used.
 
-</li><li>All other results are treated as though there were no available
+</li><li> All other results are treated as though there were no available
 completions.
 </li></ul>
 </dd></dl>
@@ -214,151 +221,166 @@ some general class of commands.  This is used to classify top-level
 commands in the on-line help system; note that prefix commands are not
 listed under their own category but rather that of their top-level
 command.  The available classifications are represented by constants
-defined in the <code class="code">gdb</code> module:
+defined in the <code>gdb</code> module:
 </p>
-<dl class="table">
-<dt><a class="index-entry-id" id="index-gdb_002eCOMMAND_005fNONE"></a>
-<a id="index-COMMAND_005fNONE"></a><span><code class="code">gdb.COMMAND_NONE</code><a class="copiable-link" href="#index-COMMAND_005fNONE"> &para;</a></span></dt>
+<dl compact="compact">
+<dd><span id="index-COMMAND_005fNONE"></span>
+<span id="index-gdb_002eCOMMAND_005fNONE"></span>
+</dd>
+<dt><span><code>gdb.COMMAND_NONE</code></span></dt>
 <dd><p>The command does not belong to any particular class.  A command in
 this category will not be displayed in any of the help categories.
 </p>
+<span id="index-COMMAND_005fRUNNING"></span>
+<span id="index-gdb_002eCOMMAND_005fRUNNING"></span>
 </dd>
-<dt><a class="index-entry-id" id="index-gdb_002eCOMMAND_005fRUNNING"></a>
-<a id="index-COMMAND_005fRUNNING"></a><span><code class="code">gdb.COMMAND_RUNNING</code><a class="copiable-link" href="#index-COMMAND_005fRUNNING"> &para;</a></span></dt>
+<dt><span><code>gdb.COMMAND_RUNNING</code></span></dt>
 <dd><p>The command is related to running the inferior.  For example,
-<code class="code">start</code>, <code class="code">step</code>, and <code class="code">continue</code> are in this category.
-Type <kbd class="kbd">help running</kbd> at the <small class="sc">ROCGDB</small> prompt to see a list of
+<code>start</code>, <code>step</code>, and <code>continue</code> are in this category.
+Type <kbd>help running</kbd> at the <small>ROCGDB</small> prompt to see a list of
 commands in this category.
 </p>
+<span id="index-COMMAND_005fDATA"></span>
+<span id="index-gdb_002eCOMMAND_005fDATA"></span>
 </dd>
-<dt><a class="index-entry-id" id="index-gdb_002eCOMMAND_005fDATA"></a>
-<a id="index-COMMAND_005fDATA"></a><span><code class="code">gdb.COMMAND_DATA</code><a class="copiable-link" href="#index-COMMAND_005fDATA"> &para;</a></span></dt>
+<dt><span><code>gdb.COMMAND_DATA</code></span></dt>
 <dd><p>The command is related to data or variables.  For example,
-<code class="code">call</code>, <code class="code">find</code>, and <code class="code">print</code> are in this category.  Type
-<kbd class="kbd">help data</kbd> at the <small class="sc">ROCGDB</small> prompt to see a list of commands
+<code>call</code>, <code>find</code>, and <code>print</code> are in this category.  Type
+<kbd>help data</kbd> at the <small>ROCGDB</small> prompt to see a list of commands
 in this category.
 </p>
+<span id="index-COMMAND_005fSTACK"></span>
+<span id="index-gdb_002eCOMMAND_005fSTACK"></span>
 </dd>
-<dt><a class="index-entry-id" id="index-gdb_002eCOMMAND_005fSTACK"></a>
-<a id="index-COMMAND_005fSTACK"></a><span><code class="code">gdb.COMMAND_STACK</code><a class="copiable-link" href="#index-COMMAND_005fSTACK"> &para;</a></span></dt>
+<dt><span><code>gdb.COMMAND_STACK</code></span></dt>
 <dd><p>The command has to do with manipulation of the stack.  For example,
-<code class="code">backtrace</code>, <code class="code">frame</code>, and <code class="code">return</code> are in this
-category.  Type <kbd class="kbd">help stack</kbd> at the <small class="sc">ROCGDB</small> prompt to see a
+<code>backtrace</code>, <code>frame</code>, and <code>return</code> are in this
+category.  Type <kbd>help stack</kbd> at the <small>ROCGDB</small> prompt to see a
 list of commands in this category.
 </p>
+<span id="index-COMMAND_005fFILES"></span>
+<span id="index-gdb_002eCOMMAND_005fFILES"></span>
 </dd>
-<dt><a class="index-entry-id" id="index-gdb_002eCOMMAND_005fFILES"></a>
-<a id="index-COMMAND_005fFILES"></a><span><code class="code">gdb.COMMAND_FILES</code><a class="copiable-link" href="#index-COMMAND_005fFILES"> &para;</a></span></dt>
+<dt><span><code>gdb.COMMAND_FILES</code></span></dt>
 <dd><p>This class is used for file-related commands.  For example,
-<code class="code">file</code>, <code class="code">list</code> and <code class="code">section</code> are in this category.
-Type <kbd class="kbd">help files</kbd> at the <small class="sc">ROCGDB</small> prompt to see a list of
+<code>file</code>, <code>list</code> and <code>section</code> are in this category.
+Type <kbd>help files</kbd> at the <small>ROCGDB</small> prompt to see a list of
 commands in this category.
 </p>
+<span id="index-COMMAND_005fSUPPORT"></span>
+<span id="index-gdb_002eCOMMAND_005fSUPPORT"></span>
 </dd>
-<dt><a class="index-entry-id" id="index-gdb_002eCOMMAND_005fSUPPORT"></a>
-<a id="index-COMMAND_005fSUPPORT"></a><span><code class="code">gdb.COMMAND_SUPPORT</code><a class="copiable-link" href="#index-COMMAND_005fSUPPORT"> &para;</a></span></dt>
+<dt><span><code>gdb.COMMAND_SUPPORT</code></span></dt>
 <dd><p>This should be used for &ldquo;support facilities&rdquo;, generally meaning
-things that are useful to the user when interacting with <small class="sc">ROCGDB</small>,
+things that are useful to the user when interacting with <small>ROCGDB</small>,
 but not related to the state of the inferior.  For example,
-<code class="code">help</code>, <code class="code">make</code>, and <code class="code">shell</code> are in this category.  Type
-<kbd class="kbd">help support</kbd> at the <small class="sc">ROCGDB</small> prompt to see a list of
+<code>help</code>, <code>make</code>, and <code>shell</code> are in this category.  Type
+<kbd>help support</kbd> at the <small>ROCGDB</small> prompt to see a list of
 commands in this category.
 </p>
+<span id="index-COMMAND_005fSTATUS"></span>
+<span id="index-gdb_002eCOMMAND_005fSTATUS"></span>
 </dd>
-<dt><a class="index-entry-id" id="index-gdb_002eCOMMAND_005fSTATUS"></a>
-<a id="index-COMMAND_005fSTATUS"></a><span><code class="code">gdb.COMMAND_STATUS</code><a class="copiable-link" href="#index-COMMAND_005fSTATUS"> &para;</a></span></dt>
-<dd><p>The command is an &lsquo;<samp class="samp">info</samp>&rsquo;-related command, that is, related to the
-state of <small class="sc">ROCGDB</small> itself.  For example, <code class="code">info</code>, <code class="code">macro</code>,
-and <code class="code">show</code> are in this category.  Type <kbd class="kbd">help status</kbd> at the
-<small class="sc">ROCGDB</small> prompt to see a list of commands in this category.
+<dt><span><code>gdb.COMMAND_STATUS</code></span></dt>
+<dd><p>The command is an &lsquo;<samp>info</samp>&rsquo;-related command, that is, related to the
+state of <small>ROCGDB</small> itself.  For example, <code>info</code>, <code>macro</code>,
+and <code>show</code> are in this category.  Type <kbd>help status</kbd> at the
+<small>ROCGDB</small> prompt to see a list of commands in this category.
 </p>
+<span id="index-COMMAND_005fBREAKPOINTS"></span>
+<span id="index-gdb_002eCOMMAND_005fBREAKPOINTS"></span>
 </dd>
-<dt><a class="index-entry-id" id="index-gdb_002eCOMMAND_005fBREAKPOINTS"></a>
-<a id="index-COMMAND_005fBREAKPOINTS"></a><span><code class="code">gdb.COMMAND_BREAKPOINTS</code><a class="copiable-link" href="#index-COMMAND_005fBREAKPOINTS"> &para;</a></span></dt>
-<dd><p>The command has to do with breakpoints.  For example, <code class="code">break</code>,
-<code class="code">clear</code>, and <code class="code">delete</code> are in this category.  Type <kbd class="kbd">help
-breakpoints</kbd> at the <small class="sc">ROCGDB</small> prompt to see a list of commands in
+<dt><span><code>gdb.COMMAND_BREAKPOINTS</code></span></dt>
+<dd><p>The command has to do with breakpoints.  For example, <code>break</code>,
+<code>clear</code>, and <code>delete</code> are in this category.  Type <kbd>help
+breakpoints</kbd> at the <small>ROCGDB</small> prompt to see a list of commands in
 this category.
 </p>
+<span id="index-COMMAND_005fTRACEPOINTS"></span>
+<span id="index-gdb_002eCOMMAND_005fTRACEPOINTS"></span>
 </dd>
-<dt><a class="index-entry-id" id="index-gdb_002eCOMMAND_005fTRACEPOINTS"></a>
-<a id="index-COMMAND_005fTRACEPOINTS"></a><span><code class="code">gdb.COMMAND_TRACEPOINTS</code><a class="copiable-link" href="#index-COMMAND_005fTRACEPOINTS"> &para;</a></span></dt>
-<dd><p>The command has to do with tracepoints.  For example, <code class="code">trace</code>,
-<code class="code">actions</code>, and <code class="code">tfind</code> are in this category.  Type
-<kbd class="kbd">help tracepoints</kbd> at the <small class="sc">ROCGDB</small> prompt to see a list of
+<dt><span><code>gdb.COMMAND_TRACEPOINTS</code></span></dt>
+<dd><p>The command has to do with tracepoints.  For example, <code>trace</code>,
+<code>actions</code>, and <code>tfind</code> are in this category.  Type
+<kbd>help tracepoints</kbd> at the <small>ROCGDB</small> prompt to see a list of
 commands in this category.
 </p>
+<span id="index-COMMAND_005fTUI"></span>
+<span id="index-gdb_002eCOMMAND_005fTUI"></span>
 </dd>
-<dt><a class="index-entry-id" id="index-gdb_002eCOMMAND_005fTUI"></a>
-<a id="index-COMMAND_005fTUI"></a><span><code class="code">gdb.COMMAND_TUI</code><a class="copiable-link" href="#index-COMMAND_005fTUI"> &para;</a></span></dt>
-<dd><p>The command has to do with the text user interface (see <a class="pxref" href="TUI.html"><small class="sc">ROCGDB</small> Text User Interface</a>).
-Type <kbd class="kbd">help tui</kbd> at the <small class="sc">ROCGDB</small> prompt to see a list of
+<dt><span><code>gdb.COMMAND_TUI</code></span></dt>
+<dd><p>The command has to do with the text user interface (see <a href="TUI.html"><small>ROCGDB</small> Text User Interface</a>).
+Type <kbd>help tui</kbd> at the <small>ROCGDB</small> prompt to see a list of
 commands in this category.
 </p>
+<span id="index-COMMAND_005fUSER"></span>
+<span id="index-gdb_002eCOMMAND_005fUSER"></span>
 </dd>
-<dt><a class="index-entry-id" id="index-gdb_002eCOMMAND_005fUSER"></a>
-<a id="index-COMMAND_005fUSER"></a><span><code class="code">gdb.COMMAND_USER</code><a class="copiable-link" href="#index-COMMAND_005fUSER"> &para;</a></span></dt>
+<dt><span><code>gdb.COMMAND_USER</code></span></dt>
 <dd><p>The command is a general purpose command for the user, and typically
 does not fit in one of the other categories.
-Type <kbd class="kbd">help user-defined</kbd> at the <small class="sc">ROCGDB</small> prompt to see
+Type <kbd>help user-defined</kbd> at the <small>ROCGDB</small> prompt to see
 a list of commands in this category, as well as the list of gdb macros
-(see <a class="pxref" href="Sequences.html">Canned Sequences of Commands</a>).
+(see <a href="Sequences.html">Canned Sequences of Commands</a>).
 </p>
+<span id="index-COMMAND_005fOBSCURE"></span>
+<span id="index-gdb_002eCOMMAND_005fOBSCURE"></span>
 </dd>
-<dt><a class="index-entry-id" id="index-gdb_002eCOMMAND_005fOBSCURE"></a>
-<a id="index-COMMAND_005fOBSCURE"></a><span><code class="code">gdb.COMMAND_OBSCURE</code><a class="copiable-link" href="#index-COMMAND_005fOBSCURE"> &para;</a></span></dt>
+<dt><span><code>gdb.COMMAND_OBSCURE</code></span></dt>
 <dd><p>The command is only used in unusual circumstances, or is not of
-general interest to users.  For example, <code class="code">checkpoint</code>,
-<code class="code">fork</code>, and <code class="code">stop</code> are in this category.  Type <kbd class="kbd">help
-obscure</kbd> at the <small class="sc">ROCGDB</small> prompt to see a list of commands in this
+general interest to users.  For example, <code>checkpoint</code>,
+<code>fork</code>, and <code>stop</code> are in this category.  Type <kbd>help
+obscure</kbd> at the <small>ROCGDB</small> prompt to see a list of commands in this
 category.
 </p>
+<span id="index-COMMAND_005fMAINTENANCE"></span>
+<span id="index-gdb_002eCOMMAND_005fMAINTENANCE"></span>
 </dd>
-<dt><a class="index-entry-id" id="index-gdb_002eCOMMAND_005fMAINTENANCE"></a>
-<a id="index-COMMAND_005fMAINTENANCE"></a><span><code class="code">gdb.COMMAND_MAINTENANCE</code><a class="copiable-link" href="#index-COMMAND_005fMAINTENANCE"> &para;</a></span></dt>
-<dd><p>The command is only useful to <small class="sc">ROCGDB</small> maintainers.  The
-<code class="code">maintenance</code> and <code class="code">flushregs</code> commands are in this category.
-Type <kbd class="kbd">help internals</kbd> at the <small class="sc">ROCGDB</small> prompt to see a list of
+<dt><span><code>gdb.COMMAND_MAINTENANCE</code></span></dt>
+<dd><p>The command is only useful to <small>ROCGDB</small> maintainers.  The
+<code>maintenance</code> and <code>flushregs</code> commands are in this category.
+Type <kbd>help internals</kbd> at the <small>ROCGDB</small> prompt to see a list of
 commands in this category.
 </p></dd>
 </dl>
 
 <p>A new command can use a predefined completion function, either by
 specifying it via an argument at initialization, or by returning it
-from the <code class="code">complete</code> method.  These predefined completion
-constants are all defined in the <code class="code">gdb</code> module:
+from the <code>complete</code> method.  These predefined completion
+constants are all defined in the <code>gdb</code> module:
 </p>
-<dl class="vtable">
-<dt><a class="index-entry-id" id="index-COMPLETE_005fNONE"></a>
-<a id="index-gdb_002eCOMPLETE_005fNONE"></a><span><code class="code">gdb.COMPLETE_NONE</code><a class="copiable-link" href="#index-gdb_002eCOMPLETE_005fNONE"> &para;</a></span></dt>
+<dl compact="compact">
+<dd><span id="index-COMPLETE_005fNONE"></span>
+</dd>
+<dt id='index-gdb_002eCOMPLETE_005fNONE'><span><code>gdb.COMPLETE_NONE</code><a href='#index-gdb_002eCOMPLETE_005fNONE' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>This constant means that no completion should be done.
 </p>
+<span id="index-COMPLETE_005fFILENAME"></span>
 </dd>
-<dt><a class="index-entry-id" id="index-COMPLETE_005fFILENAME"></a>
-<a id="index-gdb_002eCOMPLETE_005fFILENAME"></a><span><code class="code">gdb.COMPLETE_FILENAME</code><a class="copiable-link" href="#index-gdb_002eCOMPLETE_005fFILENAME"> &para;</a></span></dt>
+<dt id='index-gdb_002eCOMPLETE_005fFILENAME'><span><code>gdb.COMPLETE_FILENAME</code><a href='#index-gdb_002eCOMPLETE_005fFILENAME' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>This constant means that filename completion should be performed.
 </p>
+<span id="index-COMPLETE_005fLOCATION"></span>
 </dd>
-<dt><a class="index-entry-id" id="index-COMPLETE_005fLOCATION"></a>
-<a id="index-gdb_002eCOMPLETE_005fLOCATION"></a><span><code class="code">gdb.COMPLETE_LOCATION</code><a class="copiable-link" href="#index-gdb_002eCOMPLETE_005fLOCATION"> &para;</a></span></dt>
+<dt id='index-gdb_002eCOMPLETE_005fLOCATION'><span><code>gdb.COMPLETE_LOCATION</code><a href='#index-gdb_002eCOMPLETE_005fLOCATION' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>This constant means that location completion should be done.
-See <a class="xref" href="Location-Specifications.html">Location Specifications</a>.
+See <a href="Location-Specifications.html">Location Specifications</a>.
 </p>
+<span id="index-COMPLETE_005fCOMMAND"></span>
 </dd>
-<dt><a class="index-entry-id" id="index-COMPLETE_005fCOMMAND"></a>
-<a id="index-gdb_002eCOMPLETE_005fCOMMAND"></a><span><code class="code">gdb.COMPLETE_COMMAND</code><a class="copiable-link" href="#index-gdb_002eCOMPLETE_005fCOMMAND"> &para;</a></span></dt>
-<dd><p>This constant means that completion should examine <small class="sc">ROCGDB</small>
+<dt id='index-gdb_002eCOMPLETE_005fCOMMAND'><span><code>gdb.COMPLETE_COMMAND</code><a href='#index-gdb_002eCOMPLETE_005fCOMMAND' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>This constant means that completion should examine <small>ROCGDB</small>
 command names.
 </p>
+<span id="index-COMPLETE_005fSYMBOL"></span>
 </dd>
-<dt><a class="index-entry-id" id="index-COMPLETE_005fSYMBOL"></a>
-<a id="index-gdb_002eCOMPLETE_005fSYMBOL"></a><span><code class="code">gdb.COMPLETE_SYMBOL</code><a class="copiable-link" href="#index-gdb_002eCOMPLETE_005fSYMBOL"> &para;</a></span></dt>
+<dt id='index-gdb_002eCOMPLETE_005fSYMBOL'><span><code>gdb.COMPLETE_SYMBOL</code><a href='#index-gdb_002eCOMPLETE_005fSYMBOL' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>This constant means that completion should be done using symbol names
 as the source.
 </p>
+<span id="index-COMPLETE_005fEXPRESSION"></span>
 </dd>
-<dt><a class="index-entry-id" id="index-COMPLETE_005fEXPRESSION"></a>
-<a id="index-gdb_002eCOMPLETE_005fEXPRESSION"></a><span><code class="code">gdb.COMPLETE_EXPRESSION</code><a class="copiable-link" href="#index-gdb_002eCOMPLETE_005fEXPRESSION"> &para;</a></span></dt>
+<dt id='index-gdb_002eCOMPLETE_005fEXPRESSION'><span><code>gdb.COMPLETE_EXPRESSION</code><a href='#index-gdb_002eCOMPLETE_005fEXPRESSION' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>This constant means that completion should be done on expressions.
 Often this means completing on symbol names, but some language
 parsers also have support for completing on field names.
@@ -368,8 +390,8 @@ parsers also have support for completing on field names.
 <p>The following code snippet shows how a trivial CLI command can be
 implemented in Python:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">class HelloWorld (gdb.Command):
+<div class="example">
+<pre class="example">class HelloWorld (gdb.Command):
   &quot;&quot;&quot;Greet the whole world.&quot;&quot;&quot;
 
   def __init__ (self):
@@ -382,15 +404,15 @@ HelloWorld ()
 </pre></div>
 
 <p>The last line instantiates the class, and is necessary to trigger the
-registration of the command with <small class="sc">ROCGDB</small>.  Depending on how the
-Python code is read into <small class="sc">ROCGDB</small>, you may need to import the
-<code class="code">gdb</code> module explicitly.
+registration of the command with <small>ROCGDB</small>.  Depending on how the
+Python code is read into <small>ROCGDB</small>, you may need to import the
+<code>gdb</code> module explicitly.
 </p>
 </div>
 <hr>
-<div class="nav-panel">
+<div class="header">
 <p>
-Next: <a href="GDB_002fMI-Commands-In-Python.html"><small class="sc">GDB/MI</small> Commands In Python</a>, Previous: <a href="Recordings-In-Python.html">Recordings In Python</a>, Up: <a href="Python-API.html">Python API</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="GDB_002fMI-Commands-In-Python.html"><small>GDB/MI</small> Commands In Python</a>, Previous: <a href="Recordings-In-Python.html">Recordings In Python</a>, Up: <a href="Python-API.html">Python API</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

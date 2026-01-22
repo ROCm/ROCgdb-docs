@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright © 1992-2024 Free Software Foundation, Inc.
+<!-- Copyright (C) 1992-2024 Free Software Foundation, Inc.
 Contributed by Cygnus Support.  Written by Julia Menapace, Jim Kingdon,
 and David MacKenzie.
 
@@ -30,10 +30,21 @@ Free Documentation License". -->
 <link href="Register-Parameters.html" rel="prev" title="Register Parameters">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
 div.example {margin-left: 3.2em}
-span.r {font-family: initial; font-weight: normal; font-style: normal}
-span:hover a.copiable-link {visibility: visible}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -41,13 +52,13 @@ span:hover a.copiable-link {visibility: visible}
 </head>
 
 <body lang="en">
-<div class="subsection-level-extent" id="Local-Variable-Parameters">
-<div class="nav-panel">
+<div class="subsection" id="Local-Variable-Parameters">
+<div class="header">
 <p>
 Next: <a href="Reference-Parameters.html" accesskey="n" rel="next">Passing Parameters by Reference</a>, Previous: <a href="Register-Parameters.html" accesskey="p" rel="prev">Passing Parameters in Registers</a>, Up: <a href="Parameters.html" accesskey="u" rel="up">Parameters</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Symbol-Types-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h4 class="subsection" id="Storing-Parameters-as-Local-Variables"><span>4.7.2 Storing Parameters as Local Variables<a class="copiable-link" href="#Storing-Parameters-as-Local-Variables"> &para;</a></span></h4>
+<span id="Storing-Parameters-as-Local-Variables"></span><h4 class="subsection">4.7.2 Storing Parameters as Local Variables</h4>
 
 <p>There is a case similar to an argument in a register, which is an
 argument that is actually stored as a local variable.  Sometimes this
@@ -56,36 +67,36 @@ stores it as a local variable.  If possible, the compiler should claim
 that it&rsquo;s in a register, but this isn&rsquo;t always done.
 </p>
 <p>If a parameter is passed as one type and converted to a smaller type by
-the prologue (for example, the parameter is declared as a <code class="code">float</code>,
+the prologue (for example, the parameter is declared as a <code>float</code>,
 but the calling conventions specify that it is passed as a
-<code class="code">double</code>), then GCC2 (sometimes) uses a pair of symbols.  The first
-symbol uses symbol descriptor &lsquo;<samp class="samp">p</samp>&rsquo; and the type which is passed.
+<code>double</code>), then GCC2 (sometimes) uses a pair of symbols.  The first
+symbol uses symbol descriptor &lsquo;<samp>p</samp>&rsquo; and the type which is passed.
 The second symbol has the type and location which the parameter actually
 has after the prologue.  For example, suppose the following C code
 appears with no prototypes involved:
 </p>
 <div class="example">
-<pre class="example-preformatted">void
+<pre class="example">void
 subr (f)
      float f;
 {
 </pre></div>
 
-<p>if <code class="code">f</code> is passed as a double at stack offset 8, and the prologue
+<p>if <code>f</code> is passed as a double at stack offset 8, and the prologue
 converts it to a float in register number 0, then the stabs look like:
 </p>
 <div class="example">
-<pre class="example-preformatted">.stabs &quot;f:p13&quot;,160,0,3,8   # <span class="r">160 is <code class="code">N_PSYM</code>, here 13 is <code class="code">double</code></span>
-.stabs &quot;f:r12&quot;,64,0,3,0    # <span class="r">64 is <code class="code">N_RSYM</code>, here 12 is <code class="code">float</code></span>
+<pre class="example">.stabs &quot;f:p13&quot;,160,0,3,8   # <span class="roman">160 is <code>N_PSYM</code>, here 13 is <code>double</code></span>
+.stabs &quot;f:r12&quot;,64,0,3,0    # <span class="roman">64 is <code>N_RSYM</code>, here 12 is <code>float</code></span>
 </pre></div>
 
-<p>In both stabs 3 is the line number where <code class="code">f</code> is declared
-(see <a class="pxref" href="Line-Numbers.html">Line Numbers</a>).
+<p>In both stabs 3 is the line number where <code>f</code> is declared
+(see <a href="Line-Numbers.html">Line Numbers</a>).
 </p>
-<a class="index-entry-id" id="index-N_005fLSYM_002c-for-parameter"></a>
+<span id="index-N_005fLSYM_002c-for-parameter"></span>
 <p>GCC, at least on the 960, has another solution to the same problem.  It
-uses a single &lsquo;<samp class="samp">p</samp>&rsquo; symbol descriptor for an argument which is stored
-as a local variable but uses <code class="code">N_LSYM</code> instead of <code class="code">N_PSYM</code>.  In
+uses a single &lsquo;<samp>p</samp>&rsquo; symbol descriptor for an argument which is stored
+as a local variable but uses <code>N_LSYM</code> instead of <code>N_PSYM</code>.  In
 this case, the value of the symbol is an offset relative to the local
 variables for that function, not relative to the arguments; on some
 machines those are the same thing, but not on all.
@@ -97,24 +108,24 @@ print nameless arguments in addition to the formal parameters which it
 has printed because each one has a stab.  For example, in 
 </p>
 <div class="example">
-<pre class="example-preformatted">extern int fprintf (FILE *stream, char *format, ...);
-...
+<pre class="example">extern int fprintf (FILE *stream, char *format, &hellip;);
+&hellip;
 fprintf (stdout, &quot;%d\n&quot;, x);
 </pre></div>
 
-<p>there are stabs for <code class="code">stream</code> and <code class="code">format</code>.  On most machines,
+<p>there are stabs for <code>stream</code> and <code>format</code>.  On most machines,
 the debugger can only print those two arguments (because it has no way
 of knowing that additional arguments were passed), but on the VAX or
 other machines with a calling convention which indicates the number of
 words of arguments, the debugger can print all three arguments.  To do
-so, the parameter symbol (symbol descriptor &lsquo;<samp class="samp">p</samp>&rsquo;) (not necessarily
-&lsquo;<samp class="samp">r</samp>&rsquo; or symbol descriptor omitted symbols) needs to contain the
-actual type as passed (for example, <code class="code">double</code> not <code class="code">float</code> if it
+so, the parameter symbol (symbol descriptor &lsquo;<samp>p</samp>&rsquo;) (not necessarily
+&lsquo;<samp>r</samp>&rsquo; or symbol descriptor omitted symbols) needs to contain the
+actual type as passed (for example, <code>double</code> not <code>float</code> if it
 is passed as a double and converted to a float).
 </p>
 </div>
 <hr>
-<div class="nav-panel">
+<div class="header">
 <p>
 Next: <a href="Reference-Parameters.html">Passing Parameters by Reference</a>, Previous: <a href="Register-Parameters.html">Passing Parameters in Registers</a>, Up: <a href="Parameters.html">Parameters</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Symbol-Types-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the GNU Assembler "as".
 
-Copyright © 1991-2024 Free Software Foundation, Inc.
+Copyright (C) 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -31,9 +31,21 @@ section entitled "GNU Free Documentation License".
 <link href="Single.html" rel="prev" title="Single">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
 div.example {margin-left: 3.2em}
-span:hover a.copiable-link {visibility: visible}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -41,38 +53,38 @@ span:hover a.copiable-link {visibility: visible}
 </head>
 
 <body lang="en">
-<div class="section-level-extent" id="Size">
-<div class="nav-panel">
+<div class="section" id="Size">
+<div class="header">
 <p>
-Next: <a href="Skip.html" accesskey="n" rel="next"><code class="code">.skip <var class="var">size</var> [,<var class="var">fill</var>]</code></a>, Previous: <a href="Single.html" accesskey="p" rel="prev"><code class="code">.single <var class="var">flonums</var></code></a>, Up: <a href="Pseudo-Ops.html" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Skip.html" accesskey="n" rel="next"><code>.skip <var>size</var> [,<var>fill</var>]</code></a>, Previous: <a href="Single.html" accesskey="p" rel="prev"><code>.single <var>flonums</var></code></a>, Up: <a href="Pseudo-Ops.html" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h3 class="section" id="g_t_002esize"><span>7.90 <code class="code">.size</code><a class="copiable-link" href="#g_t_002esize"> &para;</a></span></h3>
+<span id="g_t_002esize"></span><h3 class="section">7.90 <code>.size</code></h3>
 
 <p>This directive is used to set the size associated with a symbol.
 </p>
-<h4 class="subheading" id="COFF-Version-1"><span>COFF Version<a class="copiable-link" href="#COFF-Version-1"> &para;</a></span></h4>
+<span id="COFF-Version-1"></span><h4 class="subheading">COFF Version</h4>
 
-<a class="index-entry-id" id="index-size-directive-_0028COFF-version_0029"></a>
-<p>For COFF targets, the <code class="code">.size</code> directive is only permitted inside
-<code class="code">.def</code>/<code class="code">.endef</code> pairs.  It is used like this:
+<span id="index-size-directive-_0028COFF-version_0029"></span>
+<p>For COFF targets, the <code>.size</code> directive is only permitted inside
+<code>.def</code>/<code>.endef</code> pairs.  It is used like this:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">.size <var class="var">expression</var>
+<div class="example">
+<pre class="example">.size <var>expression</var>
 </pre></div>
 
 
-<h4 class="subheading" id="ELF-Version-1"><span>ELF Version<a class="copiable-link" href="#ELF-Version-1"> &para;</a></span></h4>
+<span id="ELF-Version-1"></span><h4 class="subheading">ELF Version</h4>
 
-<a class="index-entry-id" id="index-size-directive-_0028ELF-version_0029"></a>
-<p>For ELF targets, the <code class="code">.size</code> directive is used like this:
+<span id="index-size-directive-_0028ELF-version_0029"></span>
+<p>For ELF targets, the <code>.size</code> directive is used like this:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">.size <var class="var">name</var> , <var class="var">expression</var>
+<div class="example">
+<pre class="example">.size <var>name</var> , <var>expression</var>
 </pre></div>
 
-<p>This directive sets the size associated with a symbol <var class="var">name</var>.
-The size in bytes is computed from <var class="var">expression</var> which can make use of label
+<p>This directive sets the size associated with a symbol <var>name</var>.
+The size in bytes is computed from <var>expression</var> which can make use of label
 arithmetic.  This directive is typically used to set the size of function
 symbols.
 </p>

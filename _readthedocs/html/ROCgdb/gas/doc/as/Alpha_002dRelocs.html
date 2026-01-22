@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the GNU Assembler "as".
 
-Copyright © 1991-2024 Free Software Foundation, Inc.
+Copyright (C) 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -30,9 +30,21 @@ section entitled "GNU Free Documentation License".
 <link href="Alpha_002dRegs.html" rel="prev" title="Alpha-Regs">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
 div.example {margin-left: 3.2em}
-span:hover a.copiable-link {visibility: visible}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -40,201 +52,201 @@ span:hover a.copiable-link {visibility: visible}
 </head>
 
 <body lang="en">
-<div class="subsubsection-level-extent" id="Alpha_002dRelocs">
-<div class="nav-panel">
+<div class="subsection" id="Alpha_002dRelocs">
+<div class="header">
 <p>
 Previous: <a href="Alpha_002dRegs.html" accesskey="p" rel="prev">Register Names</a>, Up: <a href="Alpha-Syntax.html" accesskey="u" rel="up">Syntax</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h4 class="subsubsection subsection-level-set-subsubsection" id="Relocations-1"><span>9.2.3.3 Relocations<a class="copiable-link" href="#Relocations-1"> &para;</a></span></h4>
-<a class="index-entry-id" id="index-Alpha-relocations"></a>
-<a class="index-entry-id" id="index-relocations_002c-Alpha"></a>
+<span id="Relocations-1"></span><h4 class="subsubsection">9.2.3.3 Relocations</h4>
+<span id="index-Alpha-relocations"></span>
+<span id="index-relocations_002c-Alpha"></span>
 
 <p>Some of these relocations are available for ECOFF, but mostly
 only for ELF.  They are modeled after the relocation format
 introduced in Digital Unix 4.0, but there are additions.
 </p>
-<p>The format is &lsquo;<samp class="samp">!<var class="var">tag</var></samp>&rsquo; or &lsquo;<samp class="samp">!<var class="var">tag</var>!<var class="var">number</var></samp>&rsquo;
-where <var class="var">tag</var> is the name of the relocation.  In some cases
-<var class="var">number</var> is used to relate specific instructions.
+<p>The format is &lsquo;<samp>!<var>tag</var></samp>&rsquo; or &lsquo;<samp>!<var>tag</var>!<var>number</var></samp>&rsquo;
+where <var>tag</var> is the name of the relocation.  In some cases
+<var>number</var> is used to relate specific instructions.
 </p>
 <p>The relocation is placed at the end of the instruction like so:
 </p>
 <div class="example">
-<pre class="example-preformatted">ldah  $0,a($29)    !gprelhigh
+<pre class="example">ldah  $0,a($29)    !gprelhigh
 lda   $0,a($0)     !gprellow
 ldq   $1,b($29)    !literal!100
 ldl   $2,0($1)     !lituse_base!100
 </pre></div>
 
-<dl class="table">
-<dt><code class="code">!literal</code></dt>
-<dt><code class="code">!literal!<var class="var">N</var></code></dt>
-<dd><p>Used with an <code class="code">ldq</code> instruction to load the address of a symbol
+<dl compact="compact">
+<dt><span><code>!literal</code></span></dt>
+<dt><span><code>!literal!<var>N</var></code></span></dt>
+<dd><p>Used with an <code>ldq</code> instruction to load the address of a symbol
 from the GOT.
 </p>
-<p>A sequence number <var class="var">N</var> is optional, and if present is used to pair
-<code class="code">lituse</code> relocations with this <code class="code">literal</code> relocation.  The
-<code class="code">lituse</code> relocations are used by the linker to optimize the code
+<p>A sequence number <var>N</var> is optional, and if present is used to pair
+<code>lituse</code> relocations with this <code>literal</code> relocation.  The
+<code>lituse</code> relocations are used by the linker to optimize the code
 based on the final location of the symbol.
 </p>
 <p>Note that these optimizations are dependent on the data flow of the
-program.  Therefore, if <em class="emph">any</em> <code class="code">lituse</code> is paired with a
-<code class="code">literal</code> relocation, then <em class="emph">all</em> uses of the register set by
-the <code class="code">literal</code> instruction must also be marked with <code class="code">lituse</code>
-relocations.  This is because the original <code class="code">literal</code> instruction
+program.  Therefore, if <em>any</em> <code>lituse</code> is paired with a
+<code>literal</code> relocation, then <em>all</em> uses of the register set by
+the <code>literal</code> instruction must also be marked with <code>lituse</code>
+relocations.  This is because the original <code>literal</code> instruction
 may be deleted or transformed into another instruction.
 </p>
 <p>Also note that there may be a one-to-many relationship between
-<code class="code">literal</code> and <code class="code">lituse</code>, but not a many-to-one.  That is, if
+<code>literal</code> and <code>lituse</code>, but not a many-to-one.  That is, if
 there are two code paths that load up the same address and feed the
-value to a single use, then the use may not use a <code class="code">lituse</code>
+value to a single use, then the use may not use a <code>lituse</code>
 relocation.
 </p>
 </dd>
-<dt><code class="code">!lituse_base!<var class="var">N</var></code></dt>
-<dd><p>Used with any memory format instruction (e.g. <code class="code">ldl</code>) to indicate
+<dt><span><code>!lituse_base!<var>N</var></code></span></dt>
+<dd><p>Used with any memory format instruction (e.g. <code>ldl</code>) to indicate
 that the literal is used for an address load.  The offset field of the
 instruction must be zero.  During relaxation, the code may be altered
 to use a gp-relative load.
 </p>
 </dd>
-<dt><code class="code">!lituse_jsr!<var class="var">N</var></code></dt>
-<dd><p>Used with a register branch format instruction (e.g. <code class="code">jsr</code>) to
+<dt><span><code>!lituse_jsr!<var>N</var></code></span></dt>
+<dd><p>Used with a register branch format instruction (e.g. <code>jsr</code>) to
 indicate that the literal is used for a call.  During relaxation, the
-code may be altered to use a direct branch (e.g. <code class="code">bsr</code>).
+code may be altered to use a direct branch (e.g. <code>bsr</code>).
 </p>
 </dd>
-<dt><code class="code">!lituse_jsrdirect!<var class="var">N</var></code></dt>
-<dd><p>Similar to <code class="code">lituse_jsr</code>, but also that this call cannot be vectored
+<dt><span><code>!lituse_jsrdirect!<var>N</var></code></span></dt>
+<dd><p>Similar to <code>lituse_jsr</code>, but also that this call cannot be vectored
 through a PLT entry.  This is useful for functions with special calling
 conventions which do not allow the normal call-clobbered registers to be
 clobbered.
 </p>
 </dd>
-<dt><code class="code">!lituse_bytoff!<var class="var">N</var></code></dt>
-<dd><p>Used with a byte mask instruction (e.g. <code class="code">extbl</code>) to indicate
+<dt><span><code>!lituse_bytoff!<var>N</var></code></span></dt>
+<dd><p>Used with a byte mask instruction (e.g. <code>extbl</code>) to indicate
 that only the low 3 bits of the address are relevant.  During relaxation,
 the code may be altered to use an immediate instead of a register shift.
 </p>
 </dd>
-<dt><code class="code">!lituse_addr!<var class="var">N</var></code></dt>
+<dt><span><code>!lituse_addr!<var>N</var></code></span></dt>
 <dd><p>Used with any other instruction to indicate that the original address
-is in fact used, and the original <code class="code">ldq</code> instruction may not be
-altered or deleted.  This is useful in conjunction with <code class="code">lituse_jsr</code>
+is in fact used, and the original <code>ldq</code> instruction may not be
+altered or deleted.  This is useful in conjunction with <code>lituse_jsr</code>
 to test whether a weak symbol is defined.
 </p>
 <div class="example">
-<pre class="example-preformatted">ldq  $27,foo($29)   !literal!1
+<pre class="example">ldq  $27,foo($29)   !literal!1
 beq  $27,is_undef   !lituse_addr!1
 jsr  $26,($27),foo  !lituse_jsr!1
 </pre></div>
 
 </dd>
-<dt><code class="code">!lituse_tlsgd!<var class="var">N</var></code></dt>
+<dt><span><code>!lituse_tlsgd!<var>N</var></code></span></dt>
 <dd><p>Used with a register branch format instruction to indicate that the
-literal is the call to <code class="code">__tls_get_addr</code> used to compute the
+literal is the call to <code>__tls_get_addr</code> used to compute the
 address of the thread-local storage variable whose descriptor was
-loaded with <code class="code">!tlsgd!<var class="var">N</var></code>.
+loaded with <code>!tlsgd!<var>N</var></code>.
 </p>
 </dd>
-<dt><code class="code">!lituse_tlsldm!<var class="var">N</var></code></dt>
+<dt><span><code>!lituse_tlsldm!<var>N</var></code></span></dt>
 <dd><p>Used with a register branch format instruction to indicate that the
-literal is the call to <code class="code">__tls_get_addr</code> used to compute the
+literal is the call to <code>__tls_get_addr</code> used to compute the
 address of the base of the thread-local storage block for the current
 module.  The descriptor for the module must have been loaded with
-<code class="code">!tlsldm!<var class="var">N</var></code>.
+<code>!tlsldm!<var>N</var></code>.
 </p>
 </dd>
-<dt><code class="code">!gpdisp!<var class="var">N</var></code></dt>
-<dd><p>Used with <code class="code">ldah</code> and <code class="code">lda</code> to load the GP from the current
-address, a-la the <code class="code">ldgp</code> macro.  The source register for the
-<code class="code">ldah</code> instruction must contain the address of the <code class="code">ldah</code>
-instruction.  There must be exactly one <code class="code">lda</code> instruction paired
-with the <code class="code">ldah</code> instruction, though it may appear anywhere in
+<dt><span><code>!gpdisp!<var>N</var></code></span></dt>
+<dd><p>Used with <code>ldah</code> and <code>lda</code> to load the GP from the current
+address, a-la the <code>ldgp</code> macro.  The source register for the
+<code>ldah</code> instruction must contain the address of the <code>ldah</code>
+instruction.  There must be exactly one <code>lda</code> instruction paired
+with the <code>ldah</code> instruction, though it may appear anywhere in
 the instruction stream.  The immediate operands must be zero.
 </p>
 <div class="example">
-<pre class="example-preformatted">bsr  $26,foo
+<pre class="example">bsr  $26,foo
 ldah $29,0($26)     !gpdisp!1
 lda  $29,0($29)     !gpdisp!1
 </pre></div>
 
 </dd>
-<dt><code class="code">!gprelhigh</code></dt>
-<dd><p>Used with an <code class="code">ldah</code> instruction to add the high 16 bits of a
+<dt><span><code>!gprelhigh</code></span></dt>
+<dd><p>Used with an <code>ldah</code> instruction to add the high 16 bits of a
 32-bit displacement from the GP.
 </p>
 </dd>
-<dt><code class="code">!gprellow</code></dt>
+<dt><span><code>!gprellow</code></span></dt>
 <dd><p>Used with any memory format instruction to add the low 16 bits of a
 32-bit displacement from the GP.
 </p>
 </dd>
-<dt><code class="code">!gprel</code></dt>
+<dt><span><code>!gprel</code></span></dt>
 <dd><p>Used with any memory format instruction to add a 16-bit displacement
 from the GP.
 </p>
 </dd>
-<dt><code class="code">!samegp</code></dt>
+<dt><span><code>!samegp</code></span></dt>
 <dd><p>Used with any branch format instruction to skip the GP load at the
 target address.  The referenced symbol must have the same GP as the
-source object file, and it must be declared to either not use <code class="code">$27</code>
+source object file, and it must be declared to either not use <code>$27</code>
 or perform a standard GP load in the first two instructions via the
-<code class="code">.prologue</code> directive.
+<code>.prologue</code> directive.
 </p>
 </dd>
-<dt><code class="code">!tlsgd</code></dt>
-<dt><code class="code">!tlsgd!<var class="var">N</var></code></dt>
-<dd><p>Used with an <code class="code">lda</code> instruction to load the address of a TLS
+<dt><span><code>!tlsgd</code></span></dt>
+<dt><span><code>!tlsgd!<var>N</var></code></span></dt>
+<dd><p>Used with an <code>lda</code> instruction to load the address of a TLS
 descriptor for a symbol in the GOT.
 </p>
-<p>The sequence number <var class="var">N</var> is optional, and if present it used to
-pair the descriptor load with both the <code class="code">literal</code> loading the
-address of the <code class="code">__tls_get_addr</code> function and the <code class="code">lituse_tlsgd</code>
+<p>The sequence number <var>N</var> is optional, and if present it used to
+pair the descriptor load with both the <code>literal</code> loading the
+address of the <code>__tls_get_addr</code> function and the <code>lituse_tlsgd</code>
 marking the call to that function.
 </p>
-<p>For proper relaxation, both the <code class="code">tlsgd</code>, <code class="code">literal</code> and
-<code class="code">lituse</code> relocations must be in the same extended basic block.
+<p>For proper relaxation, both the <code>tlsgd</code>, <code>literal</code> and
+<code>lituse</code> relocations must be in the same extended basic block.
 That is, the relocation with the lowest address must be executed
 first at runtime.
 </p>
 </dd>
-<dt><code class="code">!tlsldm</code></dt>
-<dt><code class="code">!tlsldm!<var class="var">N</var></code></dt>
-<dd><p>Used with an <code class="code">lda</code> instruction to load the address of a TLS
+<dt><span><code>!tlsldm</code></span></dt>
+<dt><span><code>!tlsldm!<var>N</var></code></span></dt>
+<dd><p>Used with an <code>lda</code> instruction to load the address of a TLS
 descriptor for the current module in the GOT.
 </p>
-<p>Similar in other respects to <code class="code">tlsgd</code>.
+<p>Similar in other respects to <code>tlsgd</code>.
 </p>
 </dd>
-<dt><code class="code">!gotdtprel</code></dt>
-<dd><p>Used with an <code class="code">ldq</code> instruction to load the offset of the TLS
+<dt><span><code>!gotdtprel</code></span></dt>
+<dd><p>Used with an <code>ldq</code> instruction to load the offset of the TLS
 symbol within its module&rsquo;s thread-local storage block.  Also known
 as the dynamic thread pointer offset or dtp-relative offset.
 </p>
 </dd>
-<dt><code class="code">!dtprelhi</code></dt>
-<dt><code class="code">!dtprello</code></dt>
-<dt><code class="code">!dtprel</code></dt>
-<dd><p>Like <code class="code">gprel</code> relocations except they compute dtp-relative offsets.
+<dt><span><code>!dtprelhi</code></span></dt>
+<dt><span><code>!dtprello</code></span></dt>
+<dt><span><code>!dtprel</code></span></dt>
+<dd><p>Like <code>gprel</code> relocations except they compute dtp-relative offsets.
 </p>
 </dd>
-<dt><code class="code">!gottprel</code></dt>
-<dd><p>Used with an <code class="code">ldq</code> instruction to load the offset of the TLS
+<dt><span><code>!gottprel</code></span></dt>
+<dd><p>Used with an <code>ldq</code> instruction to load the offset of the TLS
 symbol from the thread pointer.  Also known as the tp-relative offset.
 </p>
 </dd>
-<dt><code class="code">!tprelhi</code></dt>
-<dt><code class="code">!tprello</code></dt>
-<dt><code class="code">!tprel</code></dt>
-<dd><p>Like <code class="code">gprel</code> relocations except they compute tp-relative offsets.
+<dt><span><code>!tprelhi</code></span></dt>
+<dt><span><code>!tprello</code></span></dt>
+<dt><span><code>!tprel</code></span></dt>
+<dd><p>Like <code>gprel</code> relocations except they compute tp-relative offsets.
 </p></dd>
 </dl>
 
 </div>
 <hr>
-<div class="nav-panel">
+<div class="header">
 <p>
 Previous: <a href="Alpha_002dRegs.html">Register Names</a>, Up: <a href="Alpha-Syntax.html">Syntax</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

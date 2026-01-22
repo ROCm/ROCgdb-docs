@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the gprof profiler of the GNU system.
 
-Copyright © 1988-2024 Free Software Foundation, Inc.
+Copyright (C) 1988-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -30,8 +30,21 @@ section entitled "GNU Free Documentation License".
 <link href="File-Format.html" rel="prev" title="File Format">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
-span:hover a.copiable-link {visibility: visible}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -39,19 +52,19 @@ span:hover a.copiable-link {visibility: visible}
 </head>
 
 <body lang="en">
-<div class="section-level-extent" id="Internals">
-<div class="nav-panel">
+<div class="section" id="Internals">
+<div class="header">
 <p>
-Next: <a href="Debugging.html" accesskey="n" rel="next">Debugging <code class="code">gprof</code></a>, Previous: <a href="File-Format.html" accesskey="p" rel="prev">Profiling Data File Format</a>, Up: <a href="Details.html" accesskey="u" rel="up">Details of Profiling</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+Next: <a href="Debugging.html" accesskey="n" rel="next">Debugging <code>gprof</code></a>, Previous: <a href="File-Format.html" accesskey="p" rel="prev">Profiling Data File Format</a>, Up: <a href="Details.html" accesskey="u" rel="up">Details of Profiling</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
 </div>
 <hr>
-<h3 class="section" id="gprof_0027s-Internal-Operation"><span>9.3 <code class="code">gprof</code>&rsquo;s Internal Operation<a class="copiable-link" href="#gprof_0027s-Internal-Operation"> &para;</a></span></h3>
+<span id="gprof_0027s-Internal-Operation"></span><h3 class="section">9.3 <code>gprof</code>&rsquo;s Internal Operation</h3>
 
-<p>Like most programs, <code class="code">gprof</code> begins by processing its options.
+<p>Like most programs, <code>gprof</code> begins by processing its options.
 During this stage, it may building its symspec list
-(<code class="code">sym_ids.c:sym_id_add</code>), if
+(<code>sym_ids.c:sym_id_add</code>), if
 options are specified which use symspecs.
-<code class="code">gprof</code> maintains a single linked list of symspecs,
+<code>gprof</code> maintains a single linked list of symspecs,
 which will eventually get turned into 12 symbol tables,
 organized into six include/exclude pairs&mdash;one
 pair each for the flat profile (INCL_FLAT/EXCL_FLAT),
@@ -61,26 +74,26 @@ timing propagation in the call graph (INCL_TIME/EXCL_TIME),
 the annotated source listing (INCL_ANNO/EXCL_ANNO),
 and the execution count listing (INCL_EXEC/EXCL_EXEC).
 </p>
-<p>After option processing, <code class="code">gprof</code> finishes
+<p>After option processing, <code>gprof</code> finishes
 building the symspec list by adding all the symspecs in
-<code class="code">default_excluded_list</code> to the exclude lists
+<code>default_excluded_list</code> to the exclude lists
 EXCL_TIME and EXCL_GRAPH, and if line-by-line profiling is specified,
 EXCL_FLAT as well.
 These default excludes are not added to EXCL_ANNO, EXCL_ARCS, and EXCL_EXEC.
 </p>
 <p>Next, the BFD library is called to open the object file,
 verify that it is an object file,
-and read its symbol table (<code class="code">core.c:core_init</code>),
-using <code class="code">bfd_canonicalize_symtab</code> after mallocing
+and read its symbol table (<code>core.c:core_init</code>),
+using <code>bfd_canonicalize_symtab</code> after mallocing
 an appropriately sized array of symbols.  At this point,
-function mappings are read (if the &lsquo;<samp class="samp">--file-ordering</samp>&rsquo; option
+function mappings are read (if the &lsquo;<samp>--file-ordering</samp>&rsquo; option
 has been specified), and the core text space is read into
-memory (if the &lsquo;<samp class="samp">-c</samp>&rsquo; option was given).
+memory (if the &lsquo;<samp>-c</samp>&rsquo; option was given).
 </p>
-<p><code class="code">gprof</code>&rsquo;s own symbol table, an array of Sym structures,
+<p><code>gprof</code>&rsquo;s own symbol table, an array of Sym structures,
 is now built.
 This is done in one of two ways, by one of two routines, depending
-on whether line-by-line profiling (&lsquo;<samp class="samp">-l</samp>&rsquo; option) has been
+on whether line-by-line profiling (&lsquo;<samp>-l</samp>&rsquo; option) has been
 enabled.
 For normal profiling, the BFD canonical symbol table is scanned.
 For line-by-line profiling, every
@@ -89,29 +102,29 @@ gets created every time the line number changes.
 In either case, two passes are made through the symbol
 table&mdash;one to count the size of the symbol table required,
 and the other to actually read the symbols.  In between the
-two passes, a single array of type <code class="code">Sym</code> is created of
+two passes, a single array of type <code>Sym</code> is created of
 the appropriate length.
-Finally, <code class="code">symtab.c:symtab_finalize</code>
+Finally, <code>symtab.c:symtab_finalize</code>
 is called to sort the symbol table and remove duplicate entries
 (entries with the same memory address).
 </p>
 <p>The symbol table must be a contiguous array for two reasons.
-First, the <code class="code">qsort</code> library function (which sorts an array)
+First, the <code>qsort</code> library function (which sorts an array)
 will be used to sort the symbol table.
-Also, the symbol lookup routine (<code class="code">symtab.c:sym_lookup</code>),
+Also, the symbol lookup routine (<code>symtab.c:sym_lookup</code>),
 which finds symbols
 based on memory address, uses a binary search algorithm
 which requires the symbol table to be a sorted array.
-Function symbols are indicated with an <code class="code">is_func</code> flag.
+Function symbols are indicated with an <code>is_func</code> flag.
 Line number symbols have no special flags set.
-Additionally, a symbol can have an <code class="code">is_static</code> flag
+Additionally, a symbol can have an <code>is_static</code> flag
 to indicate that it is a local symbol.
 </p>
 <p>With the symbol table read, the symspecs can now be translated
-into Syms (<code class="code">sym_ids.c:sym_id_parse</code>).  Remember that a single
+into Syms (<code>sym_ids.c:sym_id_parse</code>).  Remember that a single
 symspec can match multiple symbols.
 An array of symbol tables
-(<code class="code">syms</code>) is created, each entry of which is a symbol table
+(<code>syms</code>) is created, each entry of which is a symbol table
 of Syms to be included or excluded from a particular listing.
 The master symbol table and the symspecs are examined by nested
 loops, and every symbol that matches a symspec is inserted
@@ -119,17 +132,17 @@ into the appropriate syms table.  This is done twice, once to
 count the size of each required symbol table, and again to build
 the tables, which have been malloced between passes.
 From now on, to determine whether a symbol is on an include
-or exclude symspec list, <code class="code">gprof</code> simply uses its
+or exclude symspec list, <code>gprof</code> simply uses its
 standard symbol lookup routine on the appropriate table
-in the <code class="code">syms</code> array.
+in the <code>syms</code> array.
 </p>
 <p>Now the profile data file(s) themselves are read
-(<code class="code">gmon_io.c:gmon_out_read</code>),
-first by checking for a new-style &lsquo;<samp class="samp">gmon.out</samp>&rsquo; header,
-then assuming this is an old-style BSD &lsquo;<samp class="samp">gmon.out</samp>&rsquo;
+(<code>gmon_io.c:gmon_out_read</code>),
+first by checking for a new-style &lsquo;<samp>gmon.out</samp>&rsquo; header,
+then assuming this is an old-style BSD &lsquo;<samp>gmon.out</samp>&rsquo;
 if the magic number test failed.
 </p>
-<p>New-style histogram records are read by <code class="code">hist.c:hist_read_rec</code>.
+<p>New-style histogram records are read by <code>hist.c:hist_read_rec</code>.
 For the first histogram record, allocate a memory array to hold
 all the bins, and read them in.
 When multiple profile data files (or files with multiple histogram
@@ -140,17 +153,17 @@ bins) must be the same.  The time unit must be the same for all
 histogram records. If the above containts are met, all histograms
 for the same memory range are merged.
 </p>
-<p>As each call graph record is read (<code class="code">call_graph.c:cg_read_rec</code>),
+<p>As each call graph record is read (<code>call_graph.c:cg_read_rec</code>),
 the parent and child addresses
 are matched to symbol table entries, and a call graph arc is
-created by <code class="code">cg_arcs.c:arc_add</code>, unless the arc fails a symspec
+created by <code>cg_arcs.c:arc_add</code>, unless the arc fails a symspec
 check against INCL_ARCS/EXCL_ARCS.  As each arc is added,
 a linked list is maintained of the parent&rsquo;s child arcs, and of the child&rsquo;s
 parent arcs.
 Both the child&rsquo;s call count and the arc&rsquo;s call count are
 incremented by the record&rsquo;s call count.
 </p>
-<p>Basic-block records are read (<code class="code">basic_blocks.c:bb_read_rec</code>),
+<p>Basic-block records are read (<code>basic_blocks.c:bb_read_rec</code>),
 but only if line-by-line profiling has been selected.
 Each basic-block address is matched to a corresponding line
 symbol in the symbol table, and an entry made in the symbol&rsquo;s
@@ -158,10 +171,10 @@ bb_addr and bb_calls arrays.  Again, if multiple basic-block
 records are present for the same address, the call counts
 are cumulative.
 </p>
-<p>A gmon.sum file is dumped, if requested (<code class="code">gmon_io.c:gmon_out_write</code>).
+<p>A gmon.sum file is dumped, if requested (<code>gmon_io.c:gmon_out_write</code>).
 </p>
 <p>If histograms were present in the data files, assign them to symbols
-(<code class="code">hist.c:hist_assign_samples</code>) by iterating over all the sample
+(<code>hist.c:hist_assign_samples</code>) by iterating over all the sample
 bins and assigning them to symbols.  Since the symbol table
 is sorted in order of ascending memory addresses, we can
 simple follow along in the symbol table as we make our pass
@@ -176,13 +189,13 @@ are more common during line-by-line profiling, and can
 cause each of two adjacent lines to be credited with half
 a hit, for example.
 </p>
-<p>If call graph data is present, <code class="code">cg_arcs.c:cg_assemble</code> is called.
-First, if &lsquo;<samp class="samp">-c</samp>&rsquo; was specified, a machine-dependent
-routine (<code class="code">find_call</code>) scans through each symbol&rsquo;s machine code,
+<p>If call graph data is present, <code>cg_arcs.c:cg_assemble</code> is called.
+First, if &lsquo;<samp>-c</samp>&rsquo; was specified, a machine-dependent
+routine (<code>find_call</code>) scans through each symbol&rsquo;s machine code,
 looking for subroutine call instructions, and adding them
 to the call graph with a zero call count.
 A topological sort is performed by depth-first numbering
-all the symbols (<code class="code">cg_dfn.c:cg_dfn</code>), so that
+all the symbols (<code>cg_dfn.c:cg_dfn</code>), so that
 children are always numbered less than their parents,
 then making a array of pointers into the symbol table and sorting it into
 numerical order, which is reverse topological
@@ -205,15 +218,15 @@ structures, the topological sort array is now discarded, and a
 new array of pointers is assembled, this time sorted by propagated time.
 </p>
 <p>Finally, print the various outputs the user requested, which is now fairly
-straightforward.  The call graph (<code class="code">cg_print.c:cg_print</code>) and
-flat profile (<code class="code">hist.c:hist_print</code>) are regurgitations of values
+straightforward.  The call graph (<code>cg_print.c:cg_print</code>) and
+flat profile (<code>hist.c:hist_print</code>) are regurgitations of values
 already computed.  The annotated source listing
-(<code class="code">basic_blocks.c:print_annotated_source</code>) uses basic-block
+(<code>basic_blocks.c:print_annotated_source</code>) uses basic-block
 information, if present, to label each line of code with call counts,
 otherwise only the function call counts are presented.
 </p>
 <p>The function ordering code is marginally well documented
-in the source code itself (<code class="code">cg_print.c</code>).  Basically,
+in the source code itself (<code>cg_print.c</code>).  Basically,
 the functions with the most use and the most parents are
 placed first, followed by other functions with the most use,
 followed by lower use functions, followed by unused functions
@@ -221,9 +234,9 @@ at the end.
 </p>
 </div>
 <hr>
-<div class="nav-panel">
+<div class="header">
 <p>
-Next: <a href="Debugging.html">Debugging <code class="code">gprof</code></a>, Previous: <a href="File-Format.html">Profiling Data File Format</a>, Up: <a href="Details.html">Details of Profiling</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+Next: <a href="Debugging.html">Debugging <code>gprof</code></a>, Previous: <a href="File-Format.html">Profiling Data File Format</a>, Up: <a href="Details.html">Details of Profiling</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
 </div>
 
 

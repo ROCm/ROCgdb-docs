@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the GNU Assembler "as".
 
-Copyright © 1991-2024 Free Software Foundation, Inc.
+Copyright (C) 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -31,8 +31,21 @@ section entitled "GNU Free Documentation License".
 <link href="MMIX_002dSymbols.html" rel="prev" title="MMIX-Symbols">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
-span:hover a.copiable-link {visibility: visible}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -40,24 +53,24 @@ span:hover a.copiable-link {visibility: visible}
 </head>
 
 <body lang="en">
-<div class="subsubsection-level-extent" id="MMIX_002dRegs">
-<div class="nav-panel">
+<div class="subsection" id="MMIX_002dRegs">
+<div class="header">
 <p>
 Next: <a href="MMIX_002dPseudos.html" accesskey="n" rel="next">Assembler Directives</a>, Previous: <a href="MMIX_002dSymbols.html" accesskey="p" rel="prev">Symbols</a>, Up: <a href="MMIX_002dSyntax.html" accesskey="u" rel="up">Syntax</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h4 class="subsubsection subsection-level-set-subsubsection" id="Register-names-1"><span>9.29.3.3 Register names<a class="copiable-link" href="#Register-names-1"> &para;</a></span></h4>
-<a class="index-entry-id" id="index-register-names_002c-MMIX"></a>
-<a class="index-entry-id" id="index-MMIX-register-names"></a>
+<span id="Register-names-1"></span><h4 class="subsubsection">9.29.3.3 Register names</h4>
+<span id="index-register-names_002c-MMIX"></span>
+<span id="index-MMIX-register-names"></span>
 
-<p>Local and global registers are specified as &lsquo;<samp class="samp">$0</samp>&rsquo; to &lsquo;<samp class="samp">$255</samp>&rsquo;.
-The recognized special register names are &lsquo;<samp class="samp">rJ</samp>&rsquo;, &lsquo;<samp class="samp">rA</samp>&rsquo;, &lsquo;<samp class="samp">rB</samp>&rsquo;,
-&lsquo;<samp class="samp">rC</samp>&rsquo;, &lsquo;<samp class="samp">rD</samp>&rsquo;, &lsquo;<samp class="samp">rE</samp>&rsquo;, &lsquo;<samp class="samp">rF</samp>&rsquo;, &lsquo;<samp class="samp">rG</samp>&rsquo;, &lsquo;<samp class="samp">rH</samp>&rsquo;,
-&lsquo;<samp class="samp">rI</samp>&rsquo;, &lsquo;<samp class="samp">rK</samp>&rsquo;, &lsquo;<samp class="samp">rL</samp>&rsquo;, &lsquo;<samp class="samp">rM</samp>&rsquo;, &lsquo;<samp class="samp">rN</samp>&rsquo;, &lsquo;<samp class="samp">rO</samp>&rsquo;,
-&lsquo;<samp class="samp">rP</samp>&rsquo;, &lsquo;<samp class="samp">rQ</samp>&rsquo;, &lsquo;<samp class="samp">rR</samp>&rsquo;, &lsquo;<samp class="samp">rS</samp>&rsquo;, &lsquo;<samp class="samp">rT</samp>&rsquo;, &lsquo;<samp class="samp">rU</samp>&rsquo;,
-&lsquo;<samp class="samp">rV</samp>&rsquo;, &lsquo;<samp class="samp">rW</samp>&rsquo;, &lsquo;<samp class="samp">rX</samp>&rsquo;, &lsquo;<samp class="samp">rY</samp>&rsquo;, &lsquo;<samp class="samp">rZ</samp>&rsquo;, &lsquo;<samp class="samp">rBB</samp>&rsquo;,
-&lsquo;<samp class="samp">rTT</samp>&rsquo;, &lsquo;<samp class="samp">rWW</samp>&rsquo;, &lsquo;<samp class="samp">rXX</samp>&rsquo;, &lsquo;<samp class="samp">rYY</samp>&rsquo; and &lsquo;<samp class="samp">rZZ</samp>&rsquo;.  A leading
-&lsquo;<samp class="samp">:</samp>&rsquo; is optional for special register names.
+<p>Local and global registers are specified as &lsquo;<samp>$0</samp>&rsquo; to &lsquo;<samp>$255</samp>&rsquo;.
+The recognized special register names are &lsquo;<samp>rJ</samp>&rsquo;, &lsquo;<samp>rA</samp>&rsquo;, &lsquo;<samp>rB</samp>&rsquo;,
+&lsquo;<samp>rC</samp>&rsquo;, &lsquo;<samp>rD</samp>&rsquo;, &lsquo;<samp>rE</samp>&rsquo;, &lsquo;<samp>rF</samp>&rsquo;, &lsquo;<samp>rG</samp>&rsquo;, &lsquo;<samp>rH</samp>&rsquo;,
+&lsquo;<samp>rI</samp>&rsquo;, &lsquo;<samp>rK</samp>&rsquo;, &lsquo;<samp>rL</samp>&rsquo;, &lsquo;<samp>rM</samp>&rsquo;, &lsquo;<samp>rN</samp>&rsquo;, &lsquo;<samp>rO</samp>&rsquo;,
+&lsquo;<samp>rP</samp>&rsquo;, &lsquo;<samp>rQ</samp>&rsquo;, &lsquo;<samp>rR</samp>&rsquo;, &lsquo;<samp>rS</samp>&rsquo;, &lsquo;<samp>rT</samp>&rsquo;, &lsquo;<samp>rU</samp>&rsquo;,
+&lsquo;<samp>rV</samp>&rsquo;, &lsquo;<samp>rW</samp>&rsquo;, &lsquo;<samp>rX</samp>&rsquo;, &lsquo;<samp>rY</samp>&rsquo;, &lsquo;<samp>rZ</samp>&rsquo;, &lsquo;<samp>rBB</samp>&rsquo;,
+&lsquo;<samp>rTT</samp>&rsquo;, &lsquo;<samp>rWW</samp>&rsquo;, &lsquo;<samp>rXX</samp>&rsquo;, &lsquo;<samp>rYY</samp>&rsquo; and &lsquo;<samp>rZZ</samp>&rsquo;.  A leading
+&lsquo;<samp>:</samp>&rsquo; is optional for special register names.
 </p>
 <p>Local and global symbols can be equated to register names and used in
 place of ordinary registers.
@@ -65,9 +78,9 @@ place of ordinary registers.
 <p>Similarly for special registers, local and global symbols can be used.
 Also, symbols equated from numbers and constant expressions are allowed in
 place of a special register, except when either of the options
-<code class="code">--no-predefined-syms</code> and <code class="code">--fixed-special-register-names</code> are
+<code>--no-predefined-syms</code> and <code>--fixed-special-register-names</code> are
 specified.  Then only the special register names above are allowed for the
-instructions having a special register operand; <code class="code">GET</code> and <code class="code">PUT</code>.
+instructions having a special register operand; <code>GET</code> and <code>PUT</code>.
 </p>
 </div>
 

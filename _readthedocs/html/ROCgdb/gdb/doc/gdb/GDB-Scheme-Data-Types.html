@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright © 1988-2024 Free Software Foundation, Inc.
+<!-- Copyright (C) 1988-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -26,7 +26,7 @@ the license, review the license.txt in the top-level directory for the
 library on https://github.com/ROCm/ (Github.com)).  The additional terms
 and conditions below apply to your use of AMD ROCm technical documentation.
 
-©2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
+(C)2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
 
 The information presented in this document is for informational purposes only
 and may contain technical inaccuracies, omissions, and typographical errors.
@@ -52,8 +52,8 @@ EVEN IF AMD IS EXPRESSLY ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
 
 AMD, the AMD Arrow logo, AMD Instinct™, Radeon™, AMD ROCm™, and combinations
 thereof are trademarks of Advanced Micro Devices, Inc.
-Linux® is the registered trademark of Linus Torvalds in the
-U.S. and other countries. PCIe® is a registered trademark of
+Linux(R) is the registered trademark of Linus Torvalds in the
+U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
@@ -74,9 +74,21 @@ companies. -->
 <link href="Guile-Configuration.html" rel="prev" title="Guile Configuration">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
-span:hover a.copiable-link {visibility: visible}
-strong.def-name {font-family: monospace; font-weight: bold; font-size: larger}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -84,127 +96,127 @@ strong.def-name {font-family: monospace; font-weight: bold; font-size: larger}
 </head>
 
 <body lang="en">
-<div class="subsubsection-level-extent" id="GDB-Scheme-Data-Types">
-<div class="nav-panel">
+<div class="subsubsection" id="GDB-Scheme-Data-Types">
+<div class="header">
 <p>
 Next: <a href="Guile-Exception-Handling.html" accesskey="n" rel="next">Guile Exception Handling</a>, Previous: <a href="Guile-Configuration.html" accesskey="p" rel="prev">Guile Configuration</a>, Up: <a href="Guile-API.html" accesskey="u" rel="up">Guile API</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h4 class="subsubsection" id="GDB-Scheme-Data-Types-1"><span>24.4.3.3 GDB Scheme Data Types<a class="copiable-link" href="#GDB-Scheme-Data-Types-1"> &para;</a></span></h4>
-<a class="index-entry-id" id="index-gdb-objects"></a>
+<span id="GDB-Scheme-Data-Types-1"></span><h4 class="subsubsection">24.4.3.3 GDB Scheme Data Types</h4>
+<span id="index-gdb-objects"></span>
 
-<p>The values exposed by <small class="sc">ROCGDB</small> to Guile are known as
-<em class="dfn"><small class="sc">ROCGDB</small> objects</em>.  There are several kinds of <small class="sc">ROCGDB</small>
+<p>The values exposed by <small>ROCGDB</small> to Guile are known as
+<em><small>ROCGDB</small> objects</em>.  There are several kinds of <small>ROCGDB</small>
 object, and each is disjoint from all other types known to Guile.
 </p>
-<dl class="first-deffn">
-<dt class="deffn" id="index-gdb_002dobject_002dkind"><span class="category-def">Scheme Procedure: </span><span><strong class="def-name">gdb-object-kind</strong> <var class="def-var-arguments">object</var><a class="copiable-link" href="#index-gdb_002dobject_002dkind"> &para;</a></span></dt>
-<dd><p>Return the kind of the <small class="sc">ROCGDB</small> object, e.g., <code class="code">&lt;gdb:breakpoint&gt;</code>,
+<dl class="def">
+<dt id="index-gdb_002dobject_002dkind"><span class="category">Scheme Procedure: </span><span><strong>gdb-object-kind</strong> <em>object</em><a href='#index-gdb_002dobject_002dkind' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Return the kind of the <small>ROCGDB</small> object, e.g., <code>&lt;gdb:breakpoint&gt;</code>,
 as a symbol.
 </p></dd></dl>
 
-<p><small class="sc">ROCGDB</small> defines the following object types:
+<p><small>ROCGDB</small> defines the following object types:
 </p>
-<dl class="table">
-<dt><code class="code">&lt;gdb:arch&gt;</code></dt>
-<dd><p>See <a class="xref" href="Architectures-In-Guile.html">Guile representation of architectures</a>.
-</p>
-</dd>
-<dt><code class="code">&lt;gdb:block&gt;</code></dt>
-<dd><p>See <a class="xref" href="Blocks-In-Guile.html">Accessing blocks from Guile.</a>.
+<dl compact="compact">
+<dt><span><code>&lt;gdb:arch&gt;</code></span></dt>
+<dd><p>See <a href="Architectures-In-Guile.html">Guile representation of architectures</a>.
 </p>
 </dd>
-<dt><code class="code">&lt;gdb:block-symbols-iterator&gt;</code></dt>
-<dd><p>See <a class="xref" href="Blocks-In-Guile.html">Accessing blocks from Guile.</a>.
+<dt><span><code>&lt;gdb:block&gt;</code></span></dt>
+<dd><p>See <a href="Blocks-In-Guile.html">Accessing blocks from Guile.</a>.
 </p>
 </dd>
-<dt><code class="code">&lt;gdb:breakpoint&gt;</code></dt>
-<dd><p>See <a class="xref" href="Breakpoints-In-Guile.html">Manipulating breakpoints using Guile</a>.
+<dt><span><code>&lt;gdb:block-symbols-iterator&gt;</code></span></dt>
+<dd><p>See <a href="Blocks-In-Guile.html">Accessing blocks from Guile.</a>.
 </p>
 </dd>
-<dt><code class="code">&lt;gdb:command&gt;</code></dt>
-<dd><p>See <a class="xref" href="Commands-In-Guile.html">Commands In Guile</a>.
+<dt><span><code>&lt;gdb:breakpoint&gt;</code></span></dt>
+<dd><p>See <a href="Breakpoints-In-Guile.html">Manipulating breakpoints using Guile</a>.
 </p>
 </dd>
-<dt><code class="code">&lt;gdb:exception&gt;</code></dt>
-<dd><p>See <a class="xref" href="Guile-Exception-Handling.html">Guile Exception Handling</a>.
+<dt><span><code>&lt;gdb:command&gt;</code></span></dt>
+<dd><p>See <a href="Commands-In-Guile.html">Commands In Guile</a>.
 </p>
 </dd>
-<dt><code class="code">&lt;gdb:frame&gt;</code></dt>
-<dd><p>See <a class="xref" href="Frames-In-Guile.html">Accessing inferior stack frames from Guile.</a>.
+<dt><span><code>&lt;gdb:exception&gt;</code></span></dt>
+<dd><p>See <a href="Guile-Exception-Handling.html">Guile Exception Handling</a>.
 </p>
 </dd>
-<dt><code class="code">&lt;gdb:iterator&gt;</code></dt>
-<dd><p>See <a class="xref" href="Iterators-In-Guile.html">Iterators In Guile</a>.
+<dt><span><code>&lt;gdb:frame&gt;</code></span></dt>
+<dd><p>See <a href="Frames-In-Guile.html">Accessing inferior stack frames from Guile.</a>.
 </p>
 </dd>
-<dt><code class="code">&lt;gdb:lazy-string&gt;</code></dt>
-<dd><p>See <a class="xref" href="Lazy-Strings-In-Guile.html">Guile representation of lazy strings.</a>.
+<dt><span><code>&lt;gdb:iterator&gt;</code></span></dt>
+<dd><p>See <a href="Iterators-In-Guile.html">Iterators In Guile</a>.
 </p>
 </dd>
-<dt><code class="code">&lt;gdb:objfile&gt;</code></dt>
-<dd><p>See <a class="xref" href="Objfiles-In-Guile.html">Objfiles In Guile</a>.
+<dt><span><code>&lt;gdb:lazy-string&gt;</code></span></dt>
+<dd><p>See <a href="Lazy-Strings-In-Guile.html">Guile representation of lazy strings.</a>.
 </p>
 </dd>
-<dt><code class="code">&lt;gdb:parameter&gt;</code></dt>
-<dd><p>See <a class="xref" href="Parameters-In-Guile.html">Parameters In Guile</a>.
+<dt><span><code>&lt;gdb:objfile&gt;</code></span></dt>
+<dd><p>See <a href="Objfiles-In-Guile.html">Objfiles In Guile</a>.
 </p>
 </dd>
-<dt><code class="code">&lt;gdb:pretty-printer&gt;</code></dt>
-<dd><p>See <a class="xref" href="Guile-Pretty-Printing-API.html">Guile Pretty Printing API</a>.
+<dt><span><code>&lt;gdb:parameter&gt;</code></span></dt>
+<dd><p>See <a href="Parameters-In-Guile.html">Parameters In Guile</a>.
 </p>
 </dd>
-<dt><code class="code">&lt;gdb:pretty-printer-worker&gt;</code></dt>
-<dd><p>See <a class="xref" href="Guile-Pretty-Printing-API.html">Guile Pretty Printing API</a>.
+<dt><span><code>&lt;gdb:pretty-printer&gt;</code></span></dt>
+<dd><p>See <a href="Guile-Pretty-Printing-API.html">Guile Pretty Printing API</a>.
 </p>
 </dd>
-<dt><code class="code">&lt;gdb:progspace&gt;</code></dt>
-<dd><p>See <a class="xref" href="Progspaces-In-Guile.html">Program Spaces In Guile</a>.
+<dt><span><code>&lt;gdb:pretty-printer-worker&gt;</code></span></dt>
+<dd><p>See <a href="Guile-Pretty-Printing-API.html">Guile Pretty Printing API</a>.
 </p>
 </dd>
-<dt><code class="code">&lt;gdb:symbol&gt;</code></dt>
-<dd><p>See <a class="xref" href="Symbols-In-Guile.html">Guile representation of Symbols.</a>.
+<dt><span><code>&lt;gdb:progspace&gt;</code></span></dt>
+<dd><p>See <a href="Progspaces-In-Guile.html">Program Spaces In Guile</a>.
 </p>
 </dd>
-<dt><code class="code">&lt;gdb:symtab&gt;</code></dt>
-<dd><p>See <a class="xref" href="Symbol-Tables-In-Guile.html">Symbol table representation in Guile.</a>.
+<dt><span><code>&lt;gdb:symbol&gt;</code></span></dt>
+<dd><p>See <a href="Symbols-In-Guile.html">Guile representation of Symbols.</a>.
 </p>
 </dd>
-<dt><code class="code">&lt;gdb:sal&gt;</code></dt>
-<dd><p>See <a class="xref" href="Symbol-Tables-In-Guile.html">Symbol table representation in Guile.</a>.
+<dt><span><code>&lt;gdb:symtab&gt;</code></span></dt>
+<dd><p>See <a href="Symbol-Tables-In-Guile.html">Symbol table representation in Guile.</a>.
 </p>
 </dd>
-<dt><code class="code">&lt;gdb:type&gt;</code></dt>
-<dd><p>See <a class="xref" href="Types-In-Guile.html">Types In Guile</a>.
+<dt><span><code>&lt;gdb:sal&gt;</code></span></dt>
+<dd><p>See <a href="Symbol-Tables-In-Guile.html">Symbol table representation in Guile.</a>.
 </p>
 </dd>
-<dt><code class="code">&lt;gdb:field&gt;</code></dt>
-<dd><p>See <a class="xref" href="Types-In-Guile.html">Types In Guile</a>.
+<dt><span><code>&lt;gdb:type&gt;</code></span></dt>
+<dd><p>See <a href="Types-In-Guile.html">Types In Guile</a>.
 </p>
 </dd>
-<dt><code class="code">&lt;gdb:value&gt;</code></dt>
-<dd><p>See <a class="xref" href="Values-From-Inferior-In-Guile.html">Values From Inferior In Guile</a>.
+<dt><span><code>&lt;gdb:field&gt;</code></span></dt>
+<dd><p>See <a href="Types-In-Guile.html">Types In Guile</a>.
+</p>
+</dd>
+<dt><span><code>&lt;gdb:value&gt;</code></span></dt>
+<dd><p>See <a href="Values-From-Inferior-In-Guile.html">Values From Inferior In Guile</a>.
 </p></dd>
 </dl>
 
-<p>The following <small class="sc">ROCGDB</small> objects are managed internally so that the
-Scheme function <code class="code">eq?</code> may be applied to them.
+<p>The following <small>ROCGDB</small> objects are managed internally so that the
+Scheme function <code>eq?</code> may be applied to them.
 </p>
-<dl class="table">
-<dt><code class="code">&lt;gdb:arch&gt;</code></dt>
-<dt><code class="code">&lt;gdb:block&gt;</code></dt>
-<dt><code class="code">&lt;gdb:breakpoint&gt;</code></dt>
-<dt><code class="code">&lt;gdb:frame&gt;</code></dt>
-<dt><code class="code">&lt;gdb:objfile&gt;</code></dt>
-<dt><code class="code">&lt;gdb:progspace&gt;</code></dt>
-<dt><code class="code">&lt;gdb:symbol&gt;</code></dt>
-<dt><code class="code">&lt;gdb:symtab&gt;</code></dt>
-<dt><code class="code">&lt;gdb:type&gt;</code></dt>
+<dl compact="compact">
+<dt><span><code>&lt;gdb:arch&gt;</code></span></dt>
+<dt><span><code>&lt;gdb:block&gt;</code></span></dt>
+<dt><span><code>&lt;gdb:breakpoint&gt;</code></span></dt>
+<dt><span><code>&lt;gdb:frame&gt;</code></span></dt>
+<dt><span><code>&lt;gdb:objfile&gt;</code></span></dt>
+<dt><span><code>&lt;gdb:progspace&gt;</code></span></dt>
+<dt><span><code>&lt;gdb:symbol&gt;</code></span></dt>
+<dt><span><code>&lt;gdb:symtab&gt;</code></span></dt>
+<dt><span><code>&lt;gdb:type&gt;</code></span></dt>
 </dl>
 
 </div>
 <hr>
-<div class="nav-panel">
+<div class="header">
 <p>
 Next: <a href="Guile-Exception-Handling.html">Guile Exception Handling</a>, Previous: <a href="Guile-Configuration.html">Guile Configuration</a>, Up: <a href="Guile-API.html">Guile API</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the BFD library.
 
-Copyright © 1991-2024 Free Software Foundation, Inc.
+Copyright (C) 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -40,10 +40,21 @@ You have freedom to copy and modify this GNU Manual, like GNU
 <link href="Targets.html" rel="prev" title="Targets">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
 div.example {margin-left: 3.2em}
-span:hover a.copiable-link {visibility: visible}
-strong.def-name {font-family: monospace; font-weight: bold; font-size: larger}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -51,34 +62,34 @@ strong.def-name {font-family: monospace; font-weight: bold; font-size: larger}
 </head>
 
 <body lang="en">
-<div class="subsection-level-extent" id="bfd_005ftarget">
-<div class="nav-panel">
+<div class="subsection" id="bfd_005ftarget">
+<div class="header">
 <p>
 Previous: <a href="Targets.html" accesskey="p" rel="prev">Targets</a>, Up: <a href="Targets.html" accesskey="u" rel="up">Targets</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="BFD-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
 
-<h4 class="subsection" id="bfd_005ftarget-1"><span>2.12.1 bfd_target<a class="copiable-link" href="#bfd_005ftarget-1"> &para;</a></span></h4>
+<span id="bfd_005ftarget-1"></span><h4 class="subsection">2.12.1 bfd_target</h4>
 
 
 <p>This structure contains everything that BFD knows about a
 target. It includes things like its byte order, name, and which
 routines to call to do various operations.
 </p>
-<p>Every BFD points to a target structure with its <code class="code">xvec</code>
+<p>Every BFD points to a target structure with its <code>xvec</code>
 member.
 </p>
 <p>The macros below are used to dispatch to functions through the
-<code class="code">bfd_target</code> vector. They are used in a number of macros further
-down in <samp class="file">bfd.h</samp>, and are also used when calling various
-routines by hand inside the BFD implementation.  The <var class="var">arglist</var>
+<code>bfd_target</code> vector. They are used in a number of macros further
+down in <samp>bfd.h</samp>, and are also used when calling various
+routines by hand inside the BFD implementation.  The <var>arglist</var>
 argument must be parenthesized; it contains all the arguments
 to the called function.
 </p>
 <p>They make the documentation (more) unpleasant to read, so if
 someone wants to fix this and not break the above, please do.
 </p><div class="example">
-<pre class="example-preformatted">#define BFD_SEND(bfd, message, arglist) \
+<pre class="example">#define BFD_SEND(bfd, message, arglist) \
   ((*((bfd)-&gt;xvec-&gt;message)) arglist)
 
 #ifdef DEBUG_BFD_SEND
@@ -91,7 +102,7 @@ someone wants to fix this and not break the above, please do.
 </pre></div>
 <p>For operations which index on the BFD format:
 </p><div class="example">
-<pre class="example-preformatted">#define BFD_SEND_FMT(bfd, message, arglist) \
+<pre class="example">#define BFD_SEND_FMT(bfd, message, arglist) \
   (((bfd)-&gt;xvec-&gt;message[(int) ((bfd)-&gt;format)]) arglist)
 
 #ifdef DEBUG_BFD_SEND
@@ -109,7 +120,7 @@ someone wants to fix this and not break the above, please do.
 
 </pre></div>
 <p>This is the structure which defines the type of BFD this is.  The
-<code class="code">xvec</code> member of the struct <code class="code">bfd</code> itself points here.  Each
+<code>xvec</code> member of the struct <code>bfd</code> itself points here.  Each
 module that implements access to a different target under BFD,
 defines one of these.
 </p>
@@ -119,7 +130,7 @@ macro to define them both!
 </p>
 
 <div class="example">
-<pre class="example-preformatted">typedef struct bfd_target
+<pre class="example">typedef struct bfd_target
 {
   /* Identifies the kind of target, e.g., SunOS4, Ultrix, etc.  */
   const char *name;
@@ -135,11 +146,11 @@ macro to define them both!
   enum bfd_endian header_byteorder;
 
   /* A mask of all the flags which an executable may have set -
-     from the set <code class="code">BFD_NO_FLAGS</code>, <code class="code">HAS_RELOC</code>, ...<code class="code">D_PAGED</code>.  */
+     from the set <code>BFD_NO_FLAGS</code>, <code>HAS_RELOC</code>, ...<code>D_PAGED</code>.  */
   flagword object_flags;
 
  /* A mask of all the flags which a section may have set - from
-    the set <code class="code">SEC_NO_FLAGS</code>, <code class="code">SEC_ALLOC</code>, ...<code class="code">SET_NEVER_LOAD</code>.  */
+    the set <code>SEC_NO_FLAGS</code>, <code>SEC_ALLOC</code>, ...<code>SET_NEVER_LOAD</code>.  */
   flagword section_flags;
 
  /* The character normally found at the front of a symbol.
@@ -186,21 +197,21 @@ macro to define them both!
   /* Format dependent routines: these are vectors of entry points
      within the target vector structure, one for each format to check.  */
 
-  /* Check the format of a file being read.  Return a <code class="code">bfd_cleanup</code> on
+  /* Check the format of a file being read.  Return a <code>bfd_cleanup</code> on
      success or zero on failure.  */
   bfd_cleanup (*_bfd_check_format[bfd_type_end]) (bfd *);
 
   /* Set the format of a file being written.  */
   bool (*_bfd_set_format[bfd_type_end]) (bfd *);
 
-  /* Write cached information into a file being written, at <code class="code">bfd_close</code>.  */
+  /* Write cached information into a file being written, at <code>bfd_close</code>.  */
   bool (*_bfd_write_contents[bfd_type_end]) (bfd *);
 
 </pre></div>
 <p>The general target vector.  These vectors are initialized using the
 BFD_JUMP_TABLE macros.
 </p><div class="example">
-<pre class="example-preformatted">  /* Generic entry points.  */
+<pre class="example">  /* Generic entry points.  */
 #define BFD_JUMP_TABLE_GENERIC(NAME) \
   NAME##_close_and_cleanup, \
   NAME##_bfd_free_cached_info, \
@@ -522,7 +533,7 @@ and little endian code, and target chosen by the linker has the wrong
 endianness.  The function open_output() in ld/ldlang.c uses this field
 to find an alternative output format that is suitable.
 </p><div class="example">
-<pre class="example-preformatted">  /* Opposite endian version of this target.  */
+<pre class="example">  /* Opposite endian version of this target.  */
   const struct bfd_target *alternative_target;
 
   /* Data for use by back-end routines, which isn't
@@ -606,105 +617,105 @@ bfd_keep_unused_section_symbols (const bfd *abfd)
 }
 
 </pre></div>
-<a class="index-entry-id" id="index-bfd_005fset_005fdefault_005ftarget"></a>
-<ul class="mini-toc">
-<li><a href="#bfd_005fset_005fdefault_005ftarget" accesskey="1"><code class="code">bfd_set_default_target</code></a></li>
-<li><a href="#bfd_005ffind_005ftarget" accesskey="2"><code class="code">bfd_find_target</code></a></li>
-<li><a href="#bfd_005fget_005ftarget_005finfo" accesskey="3"><code class="code">bfd_get_target_info</code></a></li>
-<li><a href="#bfd_005ftarget_005flist" accesskey="4"><code class="code">bfd_target_list</code></a></li>
-<li><a href="#bfd_005fiterate_005fover_005ftargets" accesskey="5"><code class="code">bfd_iterate_over_targets</code></a></li>
-<li><a href="#bfd_005fflavour_005fname" accesskey="6"><code class="code">bfd_flavour_name</code></a></li>
+<span id="index-bfd_005fset_005fdefault_005ftarget"></span>
+<ul class="section-toc">
+<li><a href="#bfd_005fset_005fdefault_005ftarget" accesskey="1"><code>bfd_set_default_target</code></a></li>
+<li><a href="#bfd_005ffind_005ftarget" accesskey="2"><code>bfd_find_target</code></a></li>
+<li><a href="#bfd_005fget_005ftarget_005finfo" accesskey="3"><code>bfd_get_target_info</code></a></li>
+<li><a href="#bfd_005ftarget_005flist" accesskey="4"><code>bfd_target_list</code></a></li>
+<li><a href="#bfd_005fiterate_005fover_005ftargets" accesskey="5"><code>bfd_iterate_over_targets</code></a></li>
+<li><a href="#bfd_005fflavour_005fname" accesskey="6"><code>bfd_flavour_name</code></a></li>
 </ul>
-<div class="subsubsection-level-extent" id="bfd_005fset_005fdefault_005ftarget">
-<h4 class="subsubsection"><span>2.12.1.1 <code class="code">bfd_set_default_target</code><a class="copiable-link" href="#bfd_005fset_005fdefault_005ftarget"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-bfd_005fset_005fdefault_005ftarget-1"><span class="category-def">Function: </span><span><code class="def-type">bool</code> <strong class="def-name">bfd_set_default_target</strong> <code class="def-code-arguments">(const char *name);</code><a class="copiable-link" href="#index-bfd_005fset_005fdefault_005ftarget-1"> &para;</a></span></dt>
+<div class="subsubsection" id="bfd_005fset_005fdefault_005ftarget">
+<h4 class="subsubsection">2.12.1.1 <code>bfd_set_default_target</code></h4>
+<dl class="def">
+<dt id="index-bfd_005fset_005fdefault_005ftarget-1"><span class="category">Function: </span><span><em>bool</em> <strong>bfd_set_default_target</strong> <em>(const char *name);</em><a href='#index-bfd_005fset_005fdefault_005ftarget-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Set the default target vector to use when recognizing a BFD.
 This takes the name of the target, which may be a BFD target
 name or a configuration triplet.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005ffind_005ftarget"></a>
+<span id="index-bfd_005ffind_005ftarget"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005ffind_005ftarget">
-<h4 class="subsubsection"><span>2.12.1.2 <code class="code">bfd_find_target</code><a class="copiable-link" href="#bfd_005ffind_005ftarget"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-bfd_005ftarget"><span class="category-def">Function: </span><span><code class="def-type">const</code> <strong class="def-name">bfd_target</strong> <code class="def-code-arguments">*bfd_find_target (const char *target_name, bfd *abfd);</code><a class="copiable-link" href="#index-bfd_005ftarget"> &para;</a></span></dt>
+<div class="subsubsection" id="bfd_005ffind_005ftarget">
+<h4 class="subsubsection">2.12.1.2 <code>bfd_find_target</code></h4>
+<dl class="def">
+<dt id="index-bfd_005ftarget"><span class="category">Function: </span><span><em>const</em> <strong>bfd_target</strong> <em>*bfd_find_target (const char *target_name, bfd *abfd);</em><a href='#index-bfd_005ftarget' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Return a pointer to the transfer vector for the object target
-named <var class="var">target_name</var>.  If <var class="var">target_name</var> is <code class="code">NULL</code>,
-choose the one in the environment variable <code class="code">GNUTARGET</code>; if
+named <var>target_name</var>.  If <var>target_name</var> is <code>NULL</code>,
+choose the one in the environment variable <code>GNUTARGET</code>; if
 that is null or not defined, then choose the first entry in the
 target list.  Passing in the string &quot;default&quot; or setting the
 environment variable to &quot;default&quot; will cause the first entry in
 the target list to be returned, and &quot;target_defaulted&quot; will be
-set in the BFD if <var class="var">abfd</var> isn&rsquo;t <code class="code">NULL</code>.  This causes
-<code class="code">bfd_check_format</code> to loop over all the targets to find the
+set in the BFD if <var>abfd</var> isn&rsquo;t <code>NULL</code>.  This causes
+<code>bfd_check_format</code> to loop over all the targets to find the
 one that matches the file being read.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005fget_005ftarget_005finfo"></a>
+<span id="index-bfd_005fget_005ftarget_005finfo"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fget_005ftarget_005finfo">
-<h4 class="subsubsection"><span>2.12.1.3 <code class="code">bfd_get_target_info</code><a class="copiable-link" href="#bfd_005fget_005ftarget_005finfo"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-bfd_005ftarget-1"><span class="category-def">Function: </span><span><code class="def-type">const</code> <strong class="def-name">bfd_target</strong> <code class="def-code-arguments">*bfd_get_target_info (const char *target_name, bfd *abfd, bool *is_bigendian, int *underscoring, const char **def_target_arch);</code><a class="copiable-link" href="#index-bfd_005ftarget-1"> &para;</a></span></dt>
+<div class="subsubsection" id="bfd_005fget_005ftarget_005finfo">
+<h4 class="subsubsection">2.12.1.3 <code>bfd_get_target_info</code></h4>
+<dl class="def">
+<dt id="index-bfd_005ftarget-1"><span class="category">Function: </span><span><em>const</em> <strong>bfd_target</strong> <em>*bfd_get_target_info (const char *target_name, bfd *abfd, bool *is_bigendian, int *underscoring, const char **def_target_arch);</em><a href='#index-bfd_005ftarget-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Return a pointer to the transfer vector for the object target
-named <var class="var">target_name</var>.  If <var class="var">target_name</var> is <code class="code">NULL</code>,
-choose the one in the environment variable <code class="code">GNUTARGET</code>; if
+named <var>target_name</var>.  If <var>target_name</var> is <code>NULL</code>,
+choose the one in the environment variable <code>GNUTARGET</code>; if
 that is null or not defined, then choose the first entry in the
 target list.  Passing in the string &quot;default&quot; or setting the
 environment variable to &quot;default&quot; will cause the first entry in
 the target list to be returned, and &quot;target_defaulted&quot; will be
-set in the BFD if <var class="var">abfd</var> isn&rsquo;t <code class="code">NULL</code>.  This causes
-<code class="code">bfd_check_format</code> to loop over all the targets to find the
+set in the BFD if <var>abfd</var> isn&rsquo;t <code>NULL</code>.  This causes
+<code>bfd_check_format</code> to loop over all the targets to find the
 one that matches the file being read.
-If <var class="var">is_bigendian</var> is not <code class="code">NULL</code>, then set this value to target&rsquo;s
+If <var>is_bigendian</var> is not <code>NULL</code>, then set this value to target&rsquo;s
 endian mode. True for big-endian, FALSE for little-endian or for
 invalid target.
-If <var class="var">underscoring</var> is not <code class="code">NULL</code>, then set this value to target&rsquo;s
+If <var>underscoring</var> is not <code>NULL</code>, then set this value to target&rsquo;s
 underscoring mode. Zero for none-underscoring, -1 for invalid target,
 else the value of target vector&rsquo;s symbol underscoring.
-If <var class="var">def_target_arch</var> is not <code class="code">NULL</code>, then set it to the architecture
+If <var>def_target_arch</var> is not <code>NULL</code>, then set it to the architecture
 string specified by the target_name.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005ftarget_005flist"></a>
+<span id="index-bfd_005ftarget_005flist"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005ftarget_005flist">
-<h4 class="subsubsection"><span>2.12.1.4 <code class="code">bfd_target_list</code><a class="copiable-link" href="#bfd_005ftarget_005flist"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-char-6"><span class="category-def">Function: </span><span><code class="def-type">const</code> <strong class="def-name">char</strong> <code class="def-code-arguments">** bfd_target_list (void);</code><a class="copiable-link" href="#index-char-6"> &para;</a></span></dt>
+<div class="subsubsection" id="bfd_005ftarget_005flist">
+<h4 class="subsubsection">2.12.1.4 <code>bfd_target_list</code></h4>
+<dl class="def">
+<dt id="index-char-6"><span class="category">Function: </span><span><em>const</em> <strong>char</strong> <em>** bfd_target_list (void);</em><a href='#index-char-6' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Return a freshly malloced NULL-terminated
 vector of the names of all the valid BFD targets. Do not
 modify the names.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005fiterate_005fover_005ftargets"></a>
+<span id="index-bfd_005fiterate_005fover_005ftargets"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fiterate_005fover_005ftargets">
-<h4 class="subsubsection"><span>2.12.1.5 <code class="code">bfd_iterate_over_targets</code><a class="copiable-link" href="#bfd_005fiterate_005fover_005ftargets"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-bfd_005ftarget-2"><span class="category-def">Function: </span><span><code class="def-type">const</code> <strong class="def-name">bfd_target</strong> <code class="def-code-arguments">*bfd_iterate_over_targets (int (*func) (const bfd_target *, void *), void *data);</code><a class="copiable-link" href="#index-bfd_005ftarget-2"> &para;</a></span></dt>
-<dd><p>Call <var class="var">func</var> for each target in the list of BFD target
-vectors, passing <var class="var">data</var> to <var class="var">func</var>.  Stop iterating if
-<var class="var">func</var> returns a non-zero result, and return that target
-vector.  Return NULL if <var class="var">func</var> always returns zero.
+<div class="subsubsection" id="bfd_005fiterate_005fover_005ftargets">
+<h4 class="subsubsection">2.12.1.5 <code>bfd_iterate_over_targets</code></h4>
+<dl class="def">
+<dt id="index-bfd_005ftarget-2"><span class="category">Function: </span><span><em>const</em> <strong>bfd_target</strong> <em>*bfd_iterate_over_targets (int (*func) (const bfd_target *, void *), void *data);</em><a href='#index-bfd_005ftarget-2' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Call <var>func</var> for each target in the list of BFD target
+vectors, passing <var>data</var> to <var>func</var>.  Stop iterating if
+<var>func</var> returns a non-zero result, and return that target
+vector.  Return NULL if <var>func</var> always returns zero.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005fflavour_005fname"></a>
+<span id="index-bfd_005fflavour_005fname"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fflavour_005fname">
-<h4 class="subsubsection"><span>2.12.1.6 <code class="code">bfd_flavour_name</code><a class="copiable-link" href="#bfd_005fflavour_005fname"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-char-7"><span class="category-def">Function: </span><span><code class="def-type">const</code> <strong class="def-name">char</strong> <code class="def-code-arguments">*bfd_flavour_name (enum bfd_flavour flavour);</code><a class="copiable-link" href="#index-char-7"> &para;</a></span></dt>
-<dd><p>Return the string form of <var class="var">flavour</var>.
+<div class="subsubsection" id="bfd_005fflavour_005fname">
+<h4 class="subsubsection">2.12.1.6 <code>bfd_flavour_name</code></h4>
+<dl class="def">
+<dt id="index-char-7"><span class="category">Function: </span><span><em>const</em> <strong>char</strong> <em>*bfd_flavour_name (enum bfd_flavour flavour);</em><a href='#index-char-7' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Return the string form of <var>flavour</var>.
 </p>
 </dd></dl>
 
 </div>
 </div>
 <hr>
-<div class="nav-panel">
+<div class="header">
 <p>
 Previous: <a href="Targets.html">Targets</a>, Up: <a href="Targets.html">Targets</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="BFD-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

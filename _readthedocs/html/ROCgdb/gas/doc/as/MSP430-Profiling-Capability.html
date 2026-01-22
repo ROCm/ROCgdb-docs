@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the GNU Assembler "as".
 
-Copyright © 1991-2024 Free Software Foundation, Inc.
+Copyright (C) 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -30,9 +30,21 @@ section entitled "GNU Free Documentation License".
 <link href="MSP430-Opcodes.html" rel="prev" title="MSP430 Opcodes">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
 div.example {margin-left: 3.2em}
-span:hover a.copiable-link {visibility: visible}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -40,102 +52,102 @@ span:hover a.copiable-link {visibility: visible}
 </head>
 
 <body lang="en">
-<div class="subsection-level-extent" id="MSP430-Profiling-Capability">
-<div class="nav-panel">
+<div class="section" id="MSP430-Profiling-Capability">
+<div class="header">
 <p>
 Previous: <a href="MSP430-Opcodes.html" accesskey="p" rel="prev">Opcodes</a>, Up: <a href="MSP430_002dDependent.html" accesskey="u" rel="up">MSP 430 Dependent Features</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h4 class="subsection section-level-set-subsection" id="Profiling-Capability"><span>9.30.6 Profiling Capability<a class="copiable-link" href="#Profiling-Capability"> &para;</a></span></h4>
+<span id="Profiling-Capability"></span><h4 class="subsection">9.30.6 Profiling Capability</h4>
 
-<a class="index-entry-id" id="index-MSP-430-profiling-capability"></a>
-<a class="index-entry-id" id="index-profiling-capability-for-MSP-430"></a>
+<span id="index-MSP-430-profiling-capability"></span>
+<span id="index-profiling-capability-for-MSP-430"></span>
 <p>It is a performance hit to use gcc&rsquo;s profiling approach for this tiny target.
 Even more &ndash; jtag hardware facility does not perform any profiling functions.
 However we&rsquo;ve got gdb&rsquo;s built-in simulator where we can do anything.
 </p>
-<p>We define new section &lsquo;<samp class="samp">.profiler</samp>&rsquo; which holds all profiling information.
-We define new pseudo operation &lsquo;<samp class="samp">.profiler</samp>&rsquo; which will instruct assembler to
+<p>We define new section &lsquo;<samp>.profiler</samp>&rsquo; which holds all profiling information.
+We define new pseudo operation &lsquo;<samp>.profiler</samp>&rsquo; which will instruct assembler to
 add new profile entry to the object file. Profile should take place at the
 present address.
 </p>
 <p>Pseudo operation format:
 </p>
-<p>&lsquo;<samp class="samp">.profiler flags,function_to_profile [, cycle_corrector, extra]</samp>&rsquo;
+<p>&lsquo;<samp>.profiler flags,function_to_profile [, cycle_corrector, extra]</samp>&rsquo;
 </p>
 
 <p>where:
 </p>
-<dl class="table">
+<dl compact="compact">
 <dd>
-<dl class="table">
+<dl compact="compact">
 <dd>
-<p>&lsquo;<samp class="samp">flags</samp>&rsquo; is a combination of the following characters:
+<p>&lsquo;<samp>flags</samp>&rsquo; is a combination of the following characters:
 </p>
 </dd>
-<dt><code class="code">s</code></dt>
+<dt><span><code>s</code></span></dt>
 <dd><p>function entry
 </p></dd>
-<dt><code class="code">x</code></dt>
+<dt><span><code>x</code></span></dt>
 <dd><p>function exit
 </p></dd>
-<dt><code class="code">i</code></dt>
+<dt><span><code>i</code></span></dt>
 <dd><p>function is in init section
 </p></dd>
-<dt><code class="code">f</code></dt>
+<dt><span><code>f</code></span></dt>
 <dd><p>function is in fini section
 </p></dd>
-<dt><code class="code">l</code></dt>
+<dt><span><code>l</code></span></dt>
 <dd><p>library call
 </p></dd>
-<dt><code class="code">c</code></dt>
+<dt><span><code>c</code></span></dt>
 <dd><p>libc standard call
 </p></dd>
-<dt><code class="code">d</code></dt>
+<dt><span><code>d</code></span></dt>
 <dd><p>stack value demand
 </p></dd>
-<dt><code class="code">I</code></dt>
+<dt><span><code>I</code></span></dt>
 <dd><p>interrupt service routine
 </p></dd>
-<dt><code class="code">P</code></dt>
+<dt><span><code>P</code></span></dt>
 <dd><p>prologue start
 </p></dd>
-<dt><code class="code">p</code></dt>
+<dt><span><code>p</code></span></dt>
 <dd><p>prologue end
 </p></dd>
-<dt><code class="code">E</code></dt>
+<dt><span><code>E</code></span></dt>
 <dd><p>epilogue start
 </p></dd>
-<dt><code class="code">e</code></dt>
+<dt><span><code>e</code></span></dt>
 <dd><p>epilogue end
 </p></dd>
-<dt><code class="code">j</code></dt>
+<dt><span><code>j</code></span></dt>
 <dd><p>long jump / sjlj unwind
 </p></dd>
-<dt><code class="code">a</code></dt>
+<dt><span><code>a</code></span></dt>
 <dd><p>an arbitrary code fragment
 </p></dd>
-<dt><code class="code">t</code></dt>
+<dt><span><code>t</code></span></dt>
 <dd><p>extra parameter saved (a constant value like frame size)
 </p></dd>
 </dl>
 
 </dd>
-<dt><code class="code">function_to_profile</code></dt>
+<dt><span><code>function_to_profile</code></span></dt>
 <dd><p>a function address
 </p></dd>
-<dt><code class="code">cycle_corrector</code></dt>
+<dt><span><code>cycle_corrector</code></span></dt>
 <dd><p>a value which should be added to the cycle counter, zero if omitted.
 </p></dd>
-<dt><code class="code">extra</code></dt>
+<dt><span><code>extra</code></span></dt>
 <dd><p>any extra parameter, zero if omitted.
 </p>
 </dd>
 </dl>
 
 <p>For example:
-</p><div class="example smallexample">
-<pre class="example-preformatted">.global fxx
+</p><div class="example">
+<pre class="example">.global fxx
 .type fxx,@function
 fxx:
 .LFrameOffset_fxx=0x08
@@ -163,7 +175,7 @@ fxx:
 
 </div>
 <hr>
-<div class="nav-panel">
+<div class="header">
 <p>
 Previous: <a href="MSP430-Opcodes.html">Opcodes</a>, Up: <a href="MSP430_002dDependent.html">MSP 430 Dependent Features</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

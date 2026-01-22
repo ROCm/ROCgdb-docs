@@ -1,13 +1,13 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the GNU linker LD
 (GNU Binutils)
 version 2.43.50.
 
-Copyright © 1991-2024 Free Software Foundation, Inc.
+Copyright (C) 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -31,10 +31,21 @@ section entitled "GNU Free Documentation License". -->
 <link href="Output-Section-Name.html" rel="next" title="Output Section Name">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
 div.example {margin-left: 3.2em}
-span:hover a.copiable-link {visibility: visible}
-ul.mark-bullet {list-style-type: disc}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -42,42 +53,42 @@ ul.mark-bullet {list-style-type: disc}
 </head>
 
 <body lang="en">
-<div class="subsection-level-extent" id="Output-Section-Description">
-<div class="nav-panel">
+<div class="subsection" id="Output-Section-Description">
+<div class="header">
 <p>
 Next: <a href="Output-Section-Name.html" accesskey="n" rel="next">Output Section Name</a>, Up: <a href="SECTIONS.html" accesskey="u" rel="up">SECTIONS Command</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="LD-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h4 class="subsection" id="Output-Section-Description-1"><span>3.6.1 Output Section Description<a class="copiable-link" href="#Output-Section-Description-1"> &para;</a></span></h4>
+<span id="Output-Section-Description-1"></span><h4 class="subsection">3.6.1 Output Section Description</h4>
 <p>The full description of an output section looks like this:
-</p><div class="example smallexample">
-<div class="group"><pre class="example-preformatted"><var class="var">section</var> [<var class="var">address</var>] [(<var class="var">type</var>)] :
-  [AT(<var class="var">lma</var>)]
-  [ALIGN(<var class="var">section_align</var>) | ALIGN_WITH_INPUT]
-  [SUBALIGN(<var class="var">subsection_align</var>)]
-  [<var class="var">constraint</var>]
+</p><div class="example">
+<pre class="example"><var>section</var> [<var>address</var>] [(<var>type</var>)] :
+  [AT(<var>lma</var>)]
+  [ALIGN(<var>section_align</var>) | ALIGN_WITH_INPUT]
+  [SUBALIGN(<var>subsection_align</var>)]
+  [<var>constraint</var>]
   {
-    <var class="var">output-section-command</var>
-    <var class="var">output-section-command</var>
-    ...
-  } [&gt;<var class="var">region</var>] [AT&gt;<var class="var">lma_region</var>] [:<var class="var">phdr</var> :<var class="var">phdr</var> ...] [=<var class="var">fillexp</var>] [,]
-</pre></div></div>
+    <var>output-section-command</var>
+    <var>output-section-command</var>
+    &hellip;
+  } [&gt;<var>region</var>] [AT&gt;<var>lma_region</var>] [:<var>phdr</var> :<var>phdr</var> &hellip;] [=<var>fillexp</var>] [,]
+</pre></div>
 
 <p>Most output sections do not use most of the optional section attributes.
 </p>
-<p>The whitespace around <var class="var">section</var> is required, so that the section
+<p>The whitespace around <var>section</var> is required, so that the section
 name is unambiguous.  The colon and the curly braces are also required.
-The comma at the end may be required if a <var class="var">fillexp</var> is used and
-the next <var class="var">sections-command</var> looks like a continuation of the expression.
+The comma at the end may be required if a <var>fillexp</var> is used and
+the next <var>sections-command</var> looks like a continuation of the expression.
 The line breaks and other white space are optional.
 </p>
-<p>Each <var class="var">output-section-command</var> may be one of the following:
+<p>Each <var>output-section-command</var> may be one of the following:
 </p>
-<ul class="itemize mark-bullet">
-<li>a symbol assignment (see <a class="pxref" href="Assignments.html">Assigning Values to Symbols</a>)
-</li><li>an input section description (see <a class="pxref" href="Input-Section.html">Input Section Description</a>)
-</li><li>data values to include directly (see <a class="pxref" href="Output-Section-Data.html">Output Section Data</a>)
-</li><li>a special output section keyword (see <a class="pxref" href="Output-Section-Keywords.html">Output Section Keywords</a>)
+<ul>
+<li> a symbol assignment (see <a href="Assignments.html">Assigning Values to Symbols</a>)
+</li><li> an input section description (see <a href="Input-Section.html">Input Section Description</a>)
+</li><li> data values to include directly (see <a href="Output-Section-Data.html">Output Section Data</a>)
+</li><li> a special output section keyword (see <a href="Output-Section-Keywords.html">Output Section Keywords</a>)
 </li></ul>
 
 </div>

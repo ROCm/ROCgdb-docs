@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright © 1988-2024 Free Software Foundation, Inc.
+<!-- Copyright (C) 1988-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -26,7 +26,7 @@ the license, review the license.txt in the top-level directory for the
 library on https://github.com/ROCm/ (Github.com)).  The additional terms
 and conditions below apply to your use of AMD ROCm technical documentation.
 
-©2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
+(C)2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
 
 The information presented in this document is for informational purposes only
 and may contain technical inaccuracies, omissions, and typographical errors.
@@ -52,8 +52,8 @@ EVEN IF AMD IS EXPRESSLY ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
 
 AMD, the AMD Arrow logo, AMD Instinct™, Radeon™, AMD ROCm™, and combinations
 thereof are trademarks of Advanced Micro Devices, Inc.
-Linux® is the registered trademark of Linus Torvalds in the
-U.S. and other countries. PCIe® is a registered trademark of
+Linux(R) is the registered trademark of Linus Torvalds in the
+U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
@@ -74,9 +74,21 @@ companies. -->
 <link href="Set-Catchpoints.html" rel="prev" title="Set Catchpoints">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
-span.r {font-family: initial; font-weight: normal; font-style: normal}
-span:hover a.copiable-link {visibility: visible}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -84,87 +96,90 @@ span:hover a.copiable-link {visibility: visible}
 </head>
 
 <body lang="en">
-<div class="subsection-level-extent" id="Delete-Breaks">
-<div class="nav-panel">
+<div class="subsection" id="Delete-Breaks">
+<div class="header">
 <p>
 Next: <a href="Disabling.html" accesskey="n" rel="next">Disabling Breakpoints</a>, Previous: <a href="Set-Catchpoints.html" accesskey="p" rel="prev">Setting Catchpoints</a>, Up: <a href="Breakpoints.html" accesskey="u" rel="up">Breakpoints, Watchpoints, and Catchpoints</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h4 class="subsection" id="Deleting-Breakpoints"><span>5.1.4 Deleting Breakpoints<a class="copiable-link" href="#Deleting-Breakpoints"> &para;</a></span></h4>
+<span id="Deleting-Breakpoints"></span><h4 class="subsection">5.1.4 Deleting Breakpoints</h4>
 
-<a class="index-entry-id" id="index-clearing-breakpoints_002c-watchpoints_002c-catchpoints"></a>
-<a class="index-entry-id" id="index-deleting-breakpoints_002c-watchpoints_002c-catchpoints"></a>
+<span id="index-clearing-breakpoints_002c-watchpoints_002c-catchpoints"></span>
+<span id="index-deleting-breakpoints_002c-watchpoints_002c-catchpoints"></span>
 <p>It is often necessary to eliminate a breakpoint, watchpoint, or
 catchpoint once it has done its job and you no longer want your program
-to stop there.  This is called <em class="dfn">deleting</em> the breakpoint.  A
+to stop there.  This is called <em>deleting</em> the breakpoint.  A
 breakpoint that has been deleted no longer exists; it is forgotten.
 </p>
-<p>With the <code class="code">clear</code> command you can delete breakpoints according to
-where they are in your program.  With the <code class="code">delete</code> command you can
+<p>With the <code>clear</code> command you can delete breakpoints according to
+where they are in your program.  With the <code>delete</code> command you can
 delete individual breakpoints, watchpoints, or catchpoints by specifying
 their breakpoint numbers.
 </p>
-<p>It is not necessary to delete a breakpoint to proceed past it.  <small class="sc">ROCGDB</small>
+<p>It is not necessary to delete a breakpoint to proceed past it.  <small>ROCGDB</small>
 automatically ignores breakpoints on the first instruction to be executed
 when you continue execution without changing the execution address.
 </p>
-<dl class="table">
-<dt><a id="index-clear"></a><span><code class="code">clear</code><a class="copiable-link" href="#index-clear"> &para;</a></span></dt>
+<dl compact="compact">
+<dd><span id="index-clear"></span>
+</dd>
+<dt><span><code>clear</code></span></dt>
 <dd><p>Delete any breakpoints at the next instruction to be executed in the
-selected stack frame (see <a class="pxref" href="Selection.html">Selecting a Frame</a>).  When
+selected stack frame (see <a href="Selection.html">Selecting a Frame</a>).  When
 the innermost frame is selected, this is a good way to delete a
 breakpoint where your program just stopped.
 </p>
 </dd>
-<dt><code class="code">clear <var class="var">locspec</var></code></dt>
+<dt><span><code>clear <var>locspec</var></code></span></dt>
 <dd><p>Delete any breakpoint with a code location that corresponds to
-<var class="var">locspec</var>.  See <a class="xref" href="Location-Specifications.html">Location Specifications</a>, for the various forms
-of <var class="var">locspec</var>.  Which code locations correspond to <var class="var">locspec</var>
-depends on the form used in the location specification <var class="var">locspec</var>:
+<var>locspec</var>.  See <a href="Location-Specifications.html">Location Specifications</a>, for the various forms
+of <var>locspec</var>.  Which code locations correspond to <var>locspec</var>
+depends on the form used in the location specification <var>locspec</var>:
 </p>
-<dl class="table">
-<dt><code class="code"><var class="var">linenum</var></code></dt>
-<dt><code class="code"><var class="var">filename</var>:<var class="var">linenum</var></code></dt>
-<dt><code class="code">-line <var class="var">linenum</var></code></dt>
-<dt><code class="code">-source <var class="var">filename</var> -line <var class="var">linenum</var></code></dt>
-<dd><p>If <var class="var">locspec</var> specifies a line number, with or without a file name,
+<dl compact="compact">
+<dt><span><code><var>linenum</var></code></span></dt>
+<dt><span><code><var>filename</var>:<var>linenum</var></code></span></dt>
+<dt><span><code>-line <var>linenum</var></code></span></dt>
+<dt><span><code>-source <var>filename</var> -line <var>linenum</var></code></span></dt>
+<dd><p>If <var>locspec</var> specifies a line number, with or without a file name,
 the command deletes any breakpoint with a code location that is at or
-within the specified line <var class="var">linenum</var> in files that match the
-specified <var class="var">filename</var>.  If <var class="var">filename</var> is omitted, it defaults
+within the specified line <var>linenum</var> in files that match the
+specified <var>filename</var>.  If <var>filename</var> is omitted, it defaults
 to the current source file.
 </p>
 </dd>
-<dt><code class="code">*<var class="var">address</var></code></dt>
-<dd><p>If <var class="var">locspec</var> specifies an address, the command deletes any
-breakpoint with a code location that is at the given <var class="var">address</var>.
+<dt><span><code>*<var>address</var></code></span></dt>
+<dd><p>If <var>locspec</var> specifies an address, the command deletes any
+breakpoint with a code location that is at the given <var>address</var>.
 </p>
 </dd>
-<dt><code class="code"><var class="var">function</var></code></dt>
-<dt><code class="code">-function <var class="var">function</var></code></dt>
-<dd><p>If <var class="var">locspec</var> specifies a function, the command deletes any
+<dt><span><code><var>function</var></code></span></dt>
+<dt><span><code>-function <var>function</var></code></span></dt>
+<dd><p>If <var>locspec</var> specifies a function, the command deletes any
 breakpoint with a code location that is at the entry to any function
-whose name matches <var class="var">function</var>.
+whose name matches <var>function</var>.
 </p></dd>
 </dl>
 
 <p>Ambiguity in names of files and functions can be resolved as described
-in <a class="ref" href="Location-Specifications.html">Location Specifications</a>.
+in <a href="Location-Specifications.html">Location Specifications</a>.
 </p>
+<span id="index-delete-breakpoints"></span>
+<span id="index-delete"></span>
+<span id="index-d-_0028delete_0029"></span>
 </dd>
-<dt><a class="index-entry-id" id="index-delete"></a>
-<a class="index-entry-id" id="index-d-_0028delete_0029"></a>
-<a id="index-delete-breakpoints"></a><span><code class="code">delete <span class="r">[</span>breakpoints<span class="r">]</span> <span class="r">[</span><var class="var">list</var>&hellip;<span class="r">]</span></code><a class="copiable-link" href="#index-delete-breakpoints"> &para;</a></span></dt>
+<dt><span><code>delete <span class="roman">[</span>breakpoints<span class="roman">]</span> <span class="roman">[</span><var>list</var>&hellip;<span class="roman">]</span></code></span></dt>
 <dd><p>Delete the breakpoints, watchpoints, tracepoints, or catchpoints of the
 breakpoint list specified as argument.  If no argument is specified, delete
-all breakpoints, watchpoints, tracepoints, and catchpoints (<small class="sc">ROCGDB</small> asks
-confirmation, unless you have <code class="code">set confirm off</code>).  You can abbreviate this
-command as <code class="code">d</code>.
+all breakpoints, watchpoints, tracepoints, and catchpoints (<small>ROCGDB</small> asks
+confirmation, unless you have <code>set confirm off</code>).  You can abbreviate this
+command as <code>d</code>.
 </p></dd>
 </dl>
 
 </div>
 <hr>
-<div class="nav-panel">
+<div class="header">
 <p>
 Next: <a href="Disabling.html">Disabling Breakpoints</a>, Previous: <a href="Set-Catchpoints.html">Setting Catchpoints</a>, Up: <a href="Breakpoints.html">Breakpoints, Watchpoints, and Catchpoints</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
