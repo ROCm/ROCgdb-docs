@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright © 1988-2024 Free Software Foundation, Inc.
+<!-- Copyright (C) 1988-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -26,7 +26,7 @@ the license, review the license.txt in the top-level directory for the
 library on https://github.com/ROCm/ (Github.com)).  The additional terms
 and conditions below apply to your use of AMD ROCm technical documentation.
 
-©2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
+(C)2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
 
 The information presented in this document is for informational purposes only
 and may contain technical inaccuracies, omissions, and typographical errors.
@@ -52,8 +52,8 @@ EVEN IF AMD IS EXPRESSLY ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
 
 AMD, the AMD Arrow logo, AMD Instinct™, Radeon™, AMD ROCm™, and combinations
 thereof are trademarks of Advanced Micro Devices, Inc.
-Linux® is the registered trademark of Linus Torvalds in the
-U.S. and other countries. PCIe® is a registered trademark of
+Linux(R) is the registered trademark of Linus Torvalds in the
+U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
@@ -74,9 +74,21 @@ companies. -->
 <link href="Emacs.html" rel="prev" title="Emacs">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
-span:hover a.copiable-link {visibility: visible}
-ul.mark-bullet {list-style-type: disc}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -84,83 +96,83 @@ ul.mark-bullet {list-style-type: disc}
 </head>
 
 <body lang="en">
-<div class="chapter-level-extent" id="GDB_002fMI">
-<div class="nav-panel">
+<div class="chapter" id="GDB_002fMI">
+<div class="header">
 <p>
-Next: <a href="Annotations.html" accesskey="n" rel="next"><small class="sc">ROCGDB</small> Annotations</a>, Previous: <a href="Emacs.html" accesskey="p" rel="prev">Using <small class="sc">ROCGDB</small> under <small class="sc">GNU</small> Emacs</a>, Up: <a href="index.html" accesskey="u" rel="up">Debugging with <small class="sc">ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Annotations.html" accesskey="n" rel="next"><small>ROCGDB</small> Annotations</a>, Previous: <a href="Emacs.html" accesskey="p" rel="prev">Using <small>ROCGDB</small> under <small>GNU</small> Emacs</a>, Up: <a href="index.html" accesskey="u" rel="up">Debugging with <small>ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h2 class="chapter" id="The-gdb_002fmi-Interface"><span>28 The <small class="sc">GDB/MI</small> Interface<a class="copiable-link" href="#The-gdb_002fmi-Interface"> &para;</a></span></h2>
+<span id="The-GDB_002fMI-Interface"></span><h2 class="chapter">28 The <small>GDB/MI</small> Interface</h2>
 
-<ul class="mini-toc">
+<ul class="section-toc">
 <li><a href="#Function-and-Purpose" accesskey="1">Function and Purpose</a></li>
 <li><a href="#Notation-and-Terminology" accesskey="2">Notation and Terminology</a></li>
-<li><a href="GDB_002fMI-General-Design.html" accesskey="3"><small class="sc">GDB/MI</small> General Design</a></li>
-<li><a href="GDB_002fMI-Command-Syntax.html" accesskey="4"><small class="sc">GDB/MI</small> Command Syntax</a></li>
-<li><a href="GDB_002fMI-Compatibility-with-CLI.html" accesskey="5"><small class="sc">GDB/MI</small> Compatibility with CLI</a></li>
-<li><a href="GDB_002fMI-Development-and-Front-Ends.html" accesskey="6"><small class="sc">GDB/MI</small> Development and Front Ends</a></li>
-<li><a href="GDB_002fMI-Output-Records.html" accesskey="7"><small class="sc">GDB/MI</small> Output Records</a></li>
-<li><a href="GDB_002fMI-Simple-Examples.html" accesskey="8">Simple Examples of <small class="sc">GDB/MI</small> Interaction</a></li>
-<li><a href="GDB_002fMI-Command-Description-Format.html" accesskey="9"><small class="sc">GDB/MI</small> Command Description Format</a></li>
-<li><a href="GDB_002fMI-Breakpoint-Commands.html"><small class="sc">GDB/MI</small> Breakpoint Commands</a></li>
-<li><a href="GDB_002fMI-Catchpoint-Commands.html"><small class="sc">GDB/MI</small> Catchpoint Commands</a></li>
-<li><a href="GDB_002fMI-Program-Context.html"><small class="sc">GDB/MI</small>  Program Context</a></li>
-<li><a href="GDB_002fMI-Thread-Commands.html"><small class="sc">GDB/MI</small> Thread Commands</a></li>
-<li><a href="GDB_002fMI-Ada-Tasking-Commands.html"><small class="sc">GDB/MI</small> Ada Tasking Commands</a></li>
-<li><a href="GDB_002fMI-Program-Execution.html"><small class="sc">GDB/MI</small> Program Execution</a></li>
-<li><a href="GDB_002fMI-Stack-Manipulation.html"><small class="sc">GDB/MI</small> Stack Manipulation Commands</a></li>
-<li><a href="GDB_002fMI-Heterogeneous-Debugging-Commands.html"><small class="sc">GDB/MI</small> Heterogeneous Debugging Commands</a></li>
-<li><a href="GDB_002fMI-Variable-Objects.html"><small class="sc">GDB/MI</small> Variable Objects</a></li>
-<li><a href="GDB_002fMI-Data-Manipulation.html"><small class="sc">GDB/MI</small> Data Manipulation</a></li>
-<li><a href="GDB_002fMI-Tracepoint-Commands.html"><small class="sc">GDB/MI</small> Tracepoint Commands</a></li>
-<li><a href="GDB_002fMI-Symbol-Query.html"><small class="sc">GDB/MI</small> Symbol Query Commands</a></li>
-<li><a href="GDB_002fMI-File-Commands.html"><small class="sc">GDB/MI</small> File Commands</a></li>
-<li><a href="GDB_002fMI-Target-Manipulation.html"><small class="sc">GDB/MI</small> Target Manipulation Commands</a></li>
-<li><a href="GDB_002fMI-File-Transfer-Commands.html"><small class="sc">GDB/MI</small> File Transfer Commands</a></li>
-<li><a href="GDB_002fMI-Ada-Exceptions-Commands.html">Ada Exceptions <small class="sc">GDB/MI</small> Commands</a></li>
-<li><a href="GDB_002fMI-Support-Commands.html"><small class="sc">GDB/MI</small> Support Commands</a></li>
-<li><a href="GDB_002fMI-Miscellaneous-Commands.html">Miscellaneous <small class="sc">GDB/MI</small> Commands</a></li>
+<li><a href="GDB_002fMI-General-Design.html" accesskey="3"><small>GDB/MI</small> General Design</a></li>
+<li><a href="GDB_002fMI-Command-Syntax.html" accesskey="4"><small>GDB/MI</small> Command Syntax</a></li>
+<li><a href="GDB_002fMI-Compatibility-with-CLI.html" accesskey="5"><small>GDB/MI</small> Compatibility with CLI</a></li>
+<li><a href="GDB_002fMI-Development-and-Front-Ends.html" accesskey="6"><small>GDB/MI</small> Development and Front Ends</a></li>
+<li><a href="GDB_002fMI-Output-Records.html" accesskey="7"><small>GDB/MI</small> Output Records</a></li>
+<li><a href="GDB_002fMI-Simple-Examples.html" accesskey="8">Simple Examples of <small>GDB/MI</small> Interaction</a></li>
+<li><a href="GDB_002fMI-Command-Description-Format.html" accesskey="9"><small>GDB/MI</small> Command Description Format</a></li>
+<li><a href="GDB_002fMI-Breakpoint-Commands.html"><small>GDB/MI</small> Breakpoint Commands</a></li>
+<li><a href="GDB_002fMI-Catchpoint-Commands.html"><small>GDB/MI</small> Catchpoint Commands</a></li>
+<li><a href="GDB_002fMI-Program-Context.html"><small>GDB/MI</small>  Program Context</a></li>
+<li><a href="GDB_002fMI-Thread-Commands.html"><small>GDB/MI</small> Thread Commands</a></li>
+<li><a href="GDB_002fMI-Ada-Tasking-Commands.html"><small>GDB/MI</small> Ada Tasking Commands</a></li>
+<li><a href="GDB_002fMI-Program-Execution.html"><small>GDB/MI</small> Program Execution</a></li>
+<li><a href="GDB_002fMI-Stack-Manipulation.html"><small>GDB/MI</small> Stack Manipulation Commands</a></li>
+<li><a href="GDB_002fMI-Heterogeneous-Debugging-Commands.html"><small>GDB/MI</small> Heterogeneous Debugging Commands</a></li>
+<li><a href="GDB_002fMI-Variable-Objects.html"><small>GDB/MI</small> Variable Objects</a></li>
+<li><a href="GDB_002fMI-Data-Manipulation.html"><small>GDB/MI</small> Data Manipulation</a></li>
+<li><a href="GDB_002fMI-Tracepoint-Commands.html"><small>GDB/MI</small> Tracepoint Commands</a></li>
+<li><a href="GDB_002fMI-Symbol-Query.html"><small>GDB/MI</small> Symbol Query Commands</a></li>
+<li><a href="GDB_002fMI-File-Commands.html"><small>GDB/MI</small> File Commands</a></li>
+<li><a href="GDB_002fMI-Target-Manipulation.html"><small>GDB/MI</small> Target Manipulation Commands</a></li>
+<li><a href="GDB_002fMI-File-Transfer-Commands.html"><small>GDB/MI</small> File Transfer Commands</a></li>
+<li><a href="GDB_002fMI-Ada-Exceptions-Commands.html">Ada Exceptions <small>GDB/MI</small> Commands</a></li>
+<li><a href="GDB_002fMI-Support-Commands.html"><small>GDB/MI</small> Support Commands</a></li>
+<li><a href="GDB_002fMI-Miscellaneous-Commands.html">Miscellaneous <small>GDB/MI</small> Commands</a></li>
 </ul>
-<div class="unnumberedsec-level-extent" id="Function-and-Purpose">
-<h3 class="unnumberedsec"><span>Function and Purpose<a class="copiable-link" href="#Function-and-Purpose"> &para;</a></span></h3>
+<div class="unnumberedsec" id="Function-and-Purpose">
+<h3 class="unnumberedsec">Function and Purpose</h3>
 
-<a class="index-entry-id" id="index-gdb_002fmi_002c-its-purpose"></a>
-<p><small class="sc">GDB/MI</small> is a line based machine oriented text interface to
-<small class="sc">ROCGDB</small> and is activated by specifying the
-<samp class="option">--interpreter</samp> command line option (see <a class="pxref" href="Mode-Options.html">Choosing Modes</a>).  It
+<span id="index-GDB_002fMI_002c-its-purpose"></span>
+<p><small>GDB/MI</small> is a line based machine oriented text interface to
+<small>ROCGDB</small> and is activated by specifying the
+<samp>--interpreter</samp> command line option (see <a href="Mode-Options.html">Choosing Modes</a>).  It
 is specifically intended to support the development of systems which
 use the debugger as just one small component of a larger system.
 </p>
-<p>This chapter is a specification of the <small class="sc">GDB/MI</small> interface.  It is written
+<p>This chapter is a specification of the <small>GDB/MI</small> interface.  It is written
 in the form of a reference manual.
 </p>
-<p>Note that <small class="sc">GDB/MI</small> is still under construction, so some of the
+<p>Note that <small>GDB/MI</small> is still under construction, so some of the
 features described below are incomplete and subject to change
-(see <a class="pxref" href="GDB_002fMI-Development-and-Front-Ends.html"><small class="sc">GDB/MI</small> Development and Front Ends</a>).  
+(see <a href="GDB_002fMI-Development-and-Front-Ends.html"><small>GDB/MI</small> Development and Front Ends</a>).  
 </p>
 </div>
-<div class="unnumberedsec-level-extent" id="Notation-and-Terminology">
-<h3 class="unnumberedsec"><span>Notation and Terminology<a class="copiable-link" href="#Notation-and-Terminology"> &para;</a></span></h3>
+<div class="unnumberedsec" id="Notation-and-Terminology">
+<h3 class="unnumberedsec">Notation and Terminology</h3>
 
-<a class="index-entry-id" id="index-notational-conventions_002c-for-gdb_002fmi"></a>
+<span id="index-notational-conventions_002c-for-GDB_002fMI"></span>
 <p>This chapter uses the following notation:
 </p>
-<ul class="itemize mark-bullet">
-<li><code class="code">|</code> separates two alternatives.
+<ul>
+<li> <code>|</code> separates two alternatives.
 
-</li><li><code class="code">[ <var class="var">something</var> ]</code> indicates that <var class="var">something</var> is optional:
+</li><li> <code>[ <var>something</var> ]</code> indicates that <var>something</var> is optional:
 it may or may not be given.
 
-</li><li><code class="code">( <var class="var">group</var> )*</code> means that <var class="var">group</var> inside the parentheses
+</li><li> <code>( <var>group</var> )*</code> means that <var>group</var> inside the parentheses
 may repeat zero or more times.
 
-</li><li><code class="code">( <var class="var">group</var> )+</code> means that <var class="var">group</var> inside the parentheses
+</li><li> <code>( <var>group</var> )+</code> means that <var>group</var> inside the parentheses
 may repeat one or more times.
 
-</li><li><code class="code">( <var class="var">group</var> )</code> means that <var class="var">group</var> inside the parentheses
+</li><li> <code>( <var>group</var> )</code> means that <var>group</var> inside the parentheses
 occurs exactly once.
 
-</li><li><code class="code">&quot;<var class="var">string</var>&quot;</code> means a literal <var class="var">string</var>.
+</li><li> <code>&quot;<var>string</var>&quot;</code> means a literal <var>string</var>.
 </li></ul>
 
 
@@ -168,9 +180,9 @@ occurs exactly once.
 </div>
 </div>
 <hr>
-<div class="nav-panel">
+<div class="header">
 <p>
-Next: <a href="Annotations.html"><small class="sc">ROCGDB</small> Annotations</a>, Previous: <a href="Emacs.html">Using <small class="sc">ROCGDB</small> under <small class="sc">GNU</small> Emacs</a>, Up: <a href="index.html">Debugging with <small class="sc">ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Annotations.html"><small>ROCGDB</small> Annotations</a>, Previous: <a href="Emacs.html">Using <small>ROCGDB</small> under <small>GNU</small> Emacs</a>, Up: <a href="index.html">Debugging with <small>ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

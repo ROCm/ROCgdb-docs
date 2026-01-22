@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright © 2021-2024 Free Software Foundation, Inc.
+<!-- Copyright (C) 2021-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU General Public License, Version 3 or any
@@ -28,8 +28,21 @@ License".
 <link href="Enums.html" rel="prev" title="Enums">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
-span:hover a.copiable-link {visibility: visible}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -37,40 +50,40 @@ span:hover a.copiable-link {visibility: visible}
 </head>
 
 <body lang="en">
-<div class="subsection-level-extent" id="Structs-and-unions">
-<div class="nav-panel">
+<div class="subsection" id="Structs-and-unions">
+<div class="header">
 <p>
 Next: <a href="Forward-declarations.html" accesskey="n" rel="next">Forward declarations</a>, Previous: <a href="Enums.html" accesskey="p" rel="prev">Enums</a>, Up: <a href="The-type-section.html" accesskey="u" rel="up">The type section</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h4 class="subsection" id="Structs-and-unions-1"><span>2.3.11 Structs and unions<a class="copiable-link" href="#Structs-and-unions-1"> &para;</a></span></h4>
-<a class="index-entry-id" id="index-Structures"></a>
-<a class="index-entry-id" id="index-Unions"></a>
-<a class="index-entry-id" id="index-struct"></a>
-<a class="index-entry-id" id="index-union"></a>
-<a class="index-entry-id" id="index-CTF_005fK_005fSTRUCT"></a>
-<a class="index-entry-id" id="index-CTF_005fK_005fUNION"></a>
+<span id="Structs-and-unions-1"></span><h4 class="subsection">2.3.11 Structs and unions</h4>
+<span id="index-Structures"></span>
+<span id="index-Unions"></span>
+<span id="index-struct"></span>
+<span id="index-union"></span>
+<span id="index-CTF_005fK_005fSTRUCT"></span>
+<span id="index-CTF_005fK_005fUNION"></span>
 
-<p>Structures and unions are represnted as types of kind <code class="code">CTF_K_STRUCT</code> and
-<code class="code">CTF_K_UNION</code>: their representation is otherwise identical, and it is
+<p>Structures and unions are represnted as types of kind <code>CTF_K_STRUCT</code> and
+<code>CTF_K_UNION</code>: their representation is otherwise identical, and it is
 perfectly allowed for &ldquo;structs&rdquo; to contain overlapping fields etc, so we will
 treat them together for the rest of this section.
 </p>
-<p>They fill out <code class="code">ctt_size</code>, and use <code class="code">ctf_type_t</code> in preference to
-<code class="code">ctf_stype_t</code> if the structure size is greater than <code class="code">CTF_MAX_SIZE</code>
+<p>They fill out <code>ctt_size</code>, and use <code>ctf_type_t</code> in preference to
+<code>ctf_stype_t</code> if the structure size is greater than <code>CTF_MAX_SIZE</code>
 (0xfffffffe).
-<a class="index-entry-id" id="index-CTF_005fMAX_005fLSIZE"></a>
+<span id="index-CTF_005fMAX_005fLSIZE"></span>
 </p>
 <p>The vlen for structures and unions is a count of structure fields, but the type
 used to represent a structure field (and thus the size of the variable-length
 array element representing the type) depends on the size of the structure: truly
-huge structures, greater than <code class="code">CTF_LSTRUCT_THRESH</code> bytes in length, use a
-different type.  (<code class="code">CTF_LSTRUCT_THRESH</code> is 536870912, so such structures are
+huge structures, greater than <code>CTF_LSTRUCT_THRESH</code> bytes in length, use a
+different type.  (<code>CTF_LSTRUCT_THRESH</code> is 536870912, so such structures are
 vanishingly rare: in v4, this representation will change somewhat for greater
 compactness. It&rsquo;s inherited from v1, where the limits were much lower.)
-<a class="index-entry-id" id="index-CTF_005fLSTRUCT_005fTHRESH"></a>
+<span id="index-CTF_005fLSTRUCT_005fTHRESH"></span>
 </p>
-<p>Most structures can get away with using <code class="code">ctf_member_t</code>:
+<p>Most structures can get away with using <code>ctf_member_t</code>:
 </p>
 <pre class="verbatim">typedef struct ctf_member_v2
 {
@@ -79,9 +92,9 @@ compactness. It&rsquo;s inherited from v1, where the limits were much lower.)
   uint32_t ctm_type;
 } ctf_member_t;
 </pre>
-<p>Huge structures that are represented by <code class="code">ctf_type_t</code> rather than
-<code class="code">ctf_stype_t</code> have to use <code class="code">ctf_lmember_t</code>, which splits the offset as
-<code class="code">ctf_type_t</code> splits the size:
+<p>Huge structures that are represented by <code>ctf_type_t</code> rather than
+<code>ctf_stype_t</code> have to use <code>ctf_lmember_t</code>, which splits the offset as
+<code>ctf_type_t</code> splits the size:
 </p>
 <pre class="verbatim">typedef struct ctf_lmember_v2
 {
@@ -91,75 +104,73 @@ compactness. It&rsquo;s inherited from v1, where the limits were much lower.)
   uint32_t ctlm_offsetlo;
 } ctf_lmember_t;
 </pre>
-<p>Here&rsquo;s what the fields of <code class="code">ctf_member</code> mean:
+<p>Here&rsquo;s what the fields of <code>ctf_member</code> mean:
 </p>
-<a class="index-entry-id" id="index-struct-ctf_005fmember_005fv2"></a>
-<a class="index-entry-id" id="index-ctf_005fmember_005ft"></a>
-<table class="multitable">
+<span id="index-struct-ctf_005fmember_005fv2"></span>
+<span id="index-ctf_005fmember_005ft"></span>
+<table>
 <thead><tr><th>Offset</th><th>Name</th><th>Description</th></tr></thead>
-<tbody><tr><td>0x00</td><td><code class="code">uint32_t ctm_name</code>
-<a class="index-entry-id" id="index-ctm_005fname"></a>
-<a class="index-entry-id" id="index-struct-ctf_005fmember_005fv2_002c-ctm_005fname"></a>
-<a class="index-entry-id" id="index-ctf_005fmember_005ft_002c-ctm_005fname"></a></td><td>Strtab offset of the field name.</td></tr>
-<tr><td>0x04</td><td><code class="code">uint32_t ctm_offset</code>
-<a class="index-entry-id" id="index-ctm_005foffset"></a>
-<a class="index-entry-id" id="index-struct-ctf_005fmember_005fv2_002c-ctm_005foffset"></a>
-<a class="index-entry-id" id="index-ctf_005fmember_005ft_002c-ctm_005foffset"></a></td><td>The offset of this field <em class="emph">in bits</em>.  (Usually, for bitfields, this is
+<tr><td>0x00</td><td><code>uint32_t ctm_name</code>
+<span id="index-ctm_005fname"></span>
+<span id="index-struct-ctf_005fmember_005fv2_002c-ctm_005fname"></span>
+<span id="index-ctf_005fmember_005ft_002c-ctm_005fname"></span></td><td>Strtab offset of the field name.</td></tr>
+<tr><td>0x04</td><td><code>uint32_t ctm_offset</code>
+<span id="index-ctm_005foffset"></span>
+<span id="index-struct-ctf_005fmember_005fv2_002c-ctm_005foffset"></span>
+<span id="index-ctf_005fmember_005ft_002c-ctm_005foffset"></span></td><td>The offset of this field <em>in bits</em>.  (Usually, for bitfields, this is
 machine-word-aligned and the individual field has an offset in bits, but
 the format allows for the offset to be encoded in bits here.)</td></tr>
-<tr><td>0x08</td><td><code class="code">uint32_t ctm_type</code>
-<a class="index-entry-id" id="index-ctm_005ftype"></a>
-<a class="index-entry-id" id="index-struct-ctf_005fmember_005fv2_002c-ctm_005ftype"></a>
-<a class="index-entry-id" id="index-ctf_005fmember_005ft_002c-ctm_005ftype"></a></td><td>The type ID of the type of the field.</td></tr>
-</tbody>
+<tr><td>0x08</td><td><code>uint32_t ctm_type</code>
+<span id="index-ctm_005ftype"></span>
+<span id="index-struct-ctf_005fmember_005fv2_002c-ctm_005ftype"></span>
+<span id="index-ctf_005fmember_005ft_002c-ctm_005ftype"></span></td><td>The type ID of the type of the field.</td></tr>
 </table>
 
-<p>Here&rsquo;s what the fields of the very similar <code class="code">ctf_lmember</code> mean:
+<p>Here&rsquo;s what the fields of the very similar <code>ctf_lmember</code> mean:
 </p>
-<a class="index-entry-id" id="index-struct-ctf_005flmember_005fv2"></a>
-<a class="index-entry-id" id="index-ctf_005flmember_005ft"></a>
-<table class="multitable">
+<span id="index-struct-ctf_005flmember_005fv2"></span>
+<span id="index-ctf_005flmember_005ft"></span>
+<table>
 <thead><tr><th>Offset</th><th>Name</th><th>Description</th></tr></thead>
-<tbody><tr><td>0x00</td><td><code class="code">uint32_t ctlm_name</code>
-<a class="index-entry-id" id="index-ctlm_005fname"></a>
-<a class="index-entry-id" id="index-struct-ctf_005flmember_005fv2_002c-ctlm_005fname"></a>
-<a class="index-entry-id" id="index-ctf_005flmember_005ft_002c-ctlm_005fname"></a></td><td>Strtab offset of the field name.</td></tr>
-<tr><td>0x04</td><td><code class="code">uint32_t ctlm_offsethi</code>
-<a class="index-entry-id" id="index-ctlm_005foffsethi"></a>
-<a class="index-entry-id" id="index-struct-ctf_005flmember_005fv2_002c-ctlm_005foffsethi"></a>
-<a class="index-entry-id" id="index-ctf_005flmember_005ft_002c-ctlm_005foffsethi"></a></td><td>The high 32 bits of the offset of this field in bits.</td></tr>
-<tr><td>0x08</td><td><code class="code">uint32_t ctlm_type</code>
-<a class="index-entry-id" id="index-ctm_005ftype-1"></a>
-<a class="index-entry-id" id="index-struct-ctf_005flmember_005fv2_002c-ctlm_005ftype"></a>
-<a class="index-entry-id" id="index-ctf_005fmember_005ft_002c-ctlm_005ftype"></a></td><td>The type ID of the type of the field.</td></tr>
-<tr><td>0x0c</td><td><code class="code">uint32_t ctlm_offsetlo</code>
-<a class="index-entry-id" id="index-ctlm_005foffsetlo"></a>
-<a class="index-entry-id" id="index-struct-ctf_005flmember_005fv2_002c-ctlm_005foffsetlo"></a>
-<a class="index-entry-id" id="index-ctf_005flmember_005ft_002c-ctlm_005foffsetlo"></a></td><td>The low 32 bits of the offset of this field in bits.</td></tr>
-</tbody>
+<tr><td>0x00</td><td><code>uint32_t ctlm_name</code>
+<span id="index-ctlm_005fname"></span>
+<span id="index-struct-ctf_005flmember_005fv2_002c-ctlm_005fname"></span>
+<span id="index-ctf_005flmember_005ft_002c-ctlm_005fname"></span></td><td>Strtab offset of the field name.</td></tr>
+<tr><td>0x04</td><td><code>uint32_t ctlm_offsethi</code>
+<span id="index-ctlm_005foffsethi"></span>
+<span id="index-struct-ctf_005flmember_005fv2_002c-ctlm_005foffsethi"></span>
+<span id="index-ctf_005flmember_005ft_002c-ctlm_005foffsethi"></span></td><td>The high 32 bits of the offset of this field in bits.</td></tr>
+<tr><td>0x08</td><td><code>uint32_t ctlm_type</code>
+<span id="index-ctm_005ftype-1"></span>
+<span id="index-struct-ctf_005flmember_005fv2_002c-ctlm_005ftype"></span>
+<span id="index-ctf_005fmember_005ft_002c-ctlm_005ftype"></span></td><td>The type ID of the type of the field.</td></tr>
+<tr><td>0x0c</td><td><code>uint32_t ctlm_offsetlo</code>
+<span id="index-ctlm_005foffsetlo"></span>
+<span id="index-struct-ctf_005flmember_005fv2_002c-ctlm_005foffsetlo"></span>
+<span id="index-ctf_005flmember_005ft_002c-ctlm_005foffsetlo"></span></td><td>The low 32 bits of the offset of this field in bits.</td></tr>
 </table>
 
-<p>Macros <code class="code">CTF_LMEM_OFFSET</code>, <code class="code">CTF_OFFSET_TO_LMEMHI</code> and
-<code class="code">CTF_OFFSET_TO_LMEMLO</code> serve to extract and install the values of the
-<code class="code">ctlm_offset</code> fields, much as with the split size fields in
-<code class="code">ctf_type_t</code>.
+<p>Macros <code>CTF_LMEM_OFFSET</code>, <code>CTF_OFFSET_TO_LMEMHI</code> and
+<code>CTF_OFFSET_TO_LMEMLO</code> serve to extract and install the values of the
+<code>ctlm_offset</code> fields, much as with the split size fields in
+<code>ctf_type_t</code>.
 </p>
 <p>Unnamed structure and union fields are simply implemented by collapsing the
 unnamed field&rsquo;s members into the containing structure or union: this does mean
 that a structure containing an unnamed union can end up being a &ldquo;structure&rdquo;
 with multiple members at the same offset.  (A future format revision may
-collapse <code class="code">CTF_K_STRUCT</code> and <code class="code">CTF_K_UNION</code> into the same kind and
+collapse <code>CTF_K_STRUCT</code> and <code>CTF_K_UNION</code> into the same kind and
 decide among them based on whether their members do in fact overlap.)
 </p>
 <p>Structure and union type names, as usual in C, go into their own namespace,
 just as enum type names do.
 </p>
 <p>Forward declarations of structures and unions are not implemented with this
-kind: see <a class="pxref" href="Forward-declarations.html">Forward declarations</a>.
+kind: see <a href="Forward-declarations.html">Forward declarations</a>.
 </p>
 </div>
 <hr>
-<div class="nav-panel">
+<div class="header">
 <p>
 Next: <a href="Forward-declarations.html">Forward declarations</a>, Previous: <a href="Enums.html">Enums</a>, Up: <a href="The-type-section.html">The type section</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

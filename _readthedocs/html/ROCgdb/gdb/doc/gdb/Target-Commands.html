@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright © 1988-2024 Free Software Foundation, Inc.
+<!-- Copyright (C) 1988-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -26,7 +26,7 @@ the license, review the license.txt in the top-level directory for the
 library on https://github.com/ROCm/ (Github.com)).  The additional terms
 and conditions below apply to your use of AMD ROCm technical documentation.
 
-©2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
+(C)2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
 
 The information presented in this document is for informational purposes only
 and may contain technical inaccuracies, omissions, and typographical errors.
@@ -52,8 +52,8 @@ EVEN IF AMD IS EXPRESSLY ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
 
 AMD, the AMD Arrow logo, AMD Instinct™, Radeon™, AMD ROCm™, and combinations
 thereof are trademarks of Advanced Micro Devices, Inc.
-Linux® is the registered trademark of Linus Torvalds in the
-U.S. and other countries. PCIe® is a registered trademark of
+Linux(R) is the registered trademark of Linus Torvalds in the
+U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
@@ -74,11 +74,21 @@ companies. -->
 <link href="Active-Targets.html" rel="prev" title="Active Targets">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
 div.example {margin-left: 3.2em}
-kbd.key {font-style: normal}
-span.r {font-family: initial; font-weight: normal; font-style: normal}
-span:hover a.copiable-link {visibility: visible}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -86,170 +96,177 @@ span:hover a.copiable-link {visibility: visible}
 </head>
 
 <body lang="en">
-<div class="section-level-extent" id="Target-Commands">
-<div class="nav-panel">
+<div class="section" id="Target-Commands">
+<div class="header">
 <p>
 Next: <a href="Byte-Order.html" accesskey="n" rel="next">Choosing Target Byte Order</a>, Previous: <a href="Active-Targets.html" accesskey="p" rel="prev">Active Targets</a>, Up: <a href="Targets.html" accesskey="u" rel="up">Specifying a Debugging Target</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h3 class="section" id="Commands-for-Managing-Targets"><span>19.2 Commands for Managing Targets<a class="copiable-link" href="#Commands-for-Managing-Targets"> &para;</a></span></h3>
+<span id="Commands-for-Managing-Targets"></span><h3 class="section">19.2 Commands for Managing Targets</h3>
 
-<dl class="table">
-<dt><code class="code">target <var class="var">type</var> <var class="var">parameters</var></code></dt>
-<dd><p>Connects the <small class="sc">ROCGDB</small> host environment to a target machine or
+<dl compact="compact">
+<dt><span><code>target <var>type</var> <var>parameters</var></code></span></dt>
+<dd><p>Connects the <small>ROCGDB</small> host environment to a target machine or
 process.  A target is typically a protocol for talking to debugging
-facilities.  You use the argument <var class="var">type</var> to specify the type or
+facilities.  You use the argument <var>type</var> to specify the type or
 protocol of the target machine.
 </p>
-<p>Further <var class="var">parameters</var> are interpreted by the target protocol, but
+<p>Further <var>parameters</var> are interpreted by the target protocol, but
 typically include things like device names or host names to connect
 with, process numbers, and baud rates.
 </p>
-<p>The <code class="code">target</code> command does not repeat if you press <kbd class="key">RET</kbd> again
+<p>The <code>target</code> command does not repeat if you press <tt class="key">RET</tt> again
 after executing the command.
 </p>
+<span id="index-help-target"></span>
 </dd>
-<dt><a id="index-help-target"></a><span><code class="code">help target</code><a class="copiable-link" href="#index-help-target"> &para;</a></span></dt>
+<dt><span><code>help target</code></span></dt>
 <dd><p>Displays the names of all targets available.  To display targets
-currently selected, use either <code class="code">info target</code> or <code class="code">info files</code>
-(see <a class="pxref" href="Files.html">Commands to Specify Files</a>).
+currently selected, use either <code>info target</code> or <code>info files</code>
+(see <a href="Files.html">Commands to Specify Files</a>).
 </p>
 </dd>
-<dt><code class="code">help target <var class="var">name</var></code></dt>
+<dt><span><code>help target <var>name</var></code></span></dt>
 <dd><p>Describe a particular target, including any parameters necessary to
 select it.
 </p>
+<span id="index-set-gnutarget"></span>
 </dd>
-<dt><a id="index-set-gnutarget"></a><span><code class="code">set gnutarget <var class="var">args</var></code><a class="copiable-link" href="#index-set-gnutarget"> &para;</a></span></dt>
-<dd><p><small class="sc">ROCGDB</small> uses its own library BFD to read your files.  <small class="sc">ROCGDB</small>
-knows whether it is reading an <em class="dfn">executable</em>,
-a <em class="dfn">core</em>, or a <em class="dfn">.o</em> file; however, you can specify the file format
-with the <code class="code">set gnutarget</code> command.  Unlike most <code class="code">target</code> commands,
-with <code class="code">gnutarget</code> the <code class="code">target</code> refers to a program, not a machine.
+<dt><span><code>set gnutarget <var>args</var></code></span></dt>
+<dd><p><small>ROCGDB</small> uses its own library BFD to read your files.  <small>ROCGDB</small>
+knows whether it is reading an <em>executable</em>,
+a <em>core</em>, or a <em>.o</em> file; however, you can specify the file format
+with the <code>set gnutarget</code> command.  Unlike most <code>target</code> commands,
+with <code>gnutarget</code> the <code>target</code> refers to a program, not a machine.
 </p>
-<blockquote class="quotation">
-<p><em class="emph">Warning:</em> To specify a file format with <code class="code">set gnutarget</code>,
+<blockquote>
+<p><em>Warning:</em> To specify a file format with <code>set gnutarget</code>,
 you must know the actual BFD name.
 </p></blockquote>
 
-<p>See <a class="xref" href="Files.html">Commands to Specify Files</a>.
+<p>See <a href="Files.html">Commands to Specify Files</a>.
 </p>
+<span id="index-show-gnutarget"></span>
 </dd>
-<dt><a id="index-show-gnutarget"></a><span><code class="code">show gnutarget</code><a class="copiable-link" href="#index-show-gnutarget"> &para;</a></span></dt>
-<dd><p>Use the <code class="code">show gnutarget</code> command to display what file format
-<code class="code">gnutarget</code> is set to read.  If you have not set <code class="code">gnutarget</code>,
-<small class="sc">ROCGDB</small> will determine the file format for each file automatically,
-and <code class="code">show gnutarget</code> displays &lsquo;<samp class="samp">The current BFD target is &quot;auto&quot;</samp>&rsquo;.
+<dt><span><code>show gnutarget</code></span></dt>
+<dd><p>Use the <code>show gnutarget</code> command to display what file format
+<code>gnutarget</code> is set to read.  If you have not set <code>gnutarget</code>,
+<small>ROCGDB</small> will determine the file format for each file automatically,
+and <code>show gnutarget</code> displays &lsquo;<samp>The current BFD target is &quot;auto&quot;</samp>&rsquo;.
 </p></dd>
 </dl>
 
-<a class="index-entry-id" id="index-common-targets"></a>
+<span id="index-common-targets"></span>
 <p>Here are some common targets (available, or not, depending on the GDB
 configuration):
 </p>
-<dl class="table">
-<dt><a class="index-entry-id" id="index-target"></a>
-<a id="index-executable-file-target"></a><span><code class="code">target exec <var class="var">program</var></code><a class="copiable-link" href="#index-executable-file-target"> &para;</a></span></dt>
-<dd><p>An executable file.  &lsquo;<samp class="samp">target exec <var class="var">program</var></samp>&rsquo; is the same as
-&lsquo;<samp class="samp">exec-file <var class="var">program</var></samp>&rsquo;.
+<dl compact="compact">
+<dd><span id="index-target"></span>
+</dd>
+<dt id='index-executable-file-target'><span><code>target exec <var>program</var></code><a href='#index-executable-file-target' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>An executable file.  &lsquo;<samp>target exec <var>program</var></samp>&rsquo; is the same as
+&lsquo;<samp>exec-file <var>program</var></samp>&rsquo;.
 </p>
-<p>The <var class="var">program</var> argument supports escaping and quoting, see
-<a class="ref" href="Filename-Arguments.html">Filenames As Command Arguments</a>.
+<p>The <var>program</var> argument supports escaping and quoting, see
+<a href="Filename-Arguments.html">Filenames As Command Arguments</a>.
 </p>
 </dd>
-<dt><a id="index-core-dump-file-target"></a><span><code class="code">target core <var class="var">filename</var></code><a class="copiable-link" href="#index-core-dump-file-target"> &para;</a></span></dt>
-<dd><p>A core dump file.  &lsquo;<samp class="samp">target core <var class="var">filename</var></samp>&rsquo; is the same as
-&lsquo;<samp class="samp">core-file <var class="var">filename</var></samp>&rsquo;.
+<dt id='index-core-dump-file-target'><span><code>target core <var>filename</var></code><a href='#index-core-dump-file-target' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>A core dump file.  &lsquo;<samp>target core <var>filename</var></samp>&rsquo; is the same as
+&lsquo;<samp>core-file <var>filename</var></samp>&rsquo;.
 </p>
-<p>The <var class="var">filename</var> argument supports escaping and quoting, see
-<a class="ref" href="Filename-Arguments.html">Filenames As Command Arguments</a>.
+<p>The <var>filename</var> argument supports escaping and quoting, see
+<a href="Filename-Arguments.html">Filenames As Command Arguments</a>.
 </p>
 </dd>
-<dt><a id="index-remote-target"></a><span><code class="code">target remote <var class="var">medium</var></code><a class="copiable-link" href="#index-remote-target"> &para;</a></span></dt>
-<dd><p>A remote system connected to <small class="sc">ROCGDB</small> via a serial line or network
-connection.  This command tells <small class="sc">ROCGDB</small> to use its own remote
-protocol over <var class="var">medium</var> for debugging.  See <a class="xref" href="Remote-Debugging.html">Debugging Remote Programs</a>.
+<dt id='index-remote-target'><span><code>target remote <var>medium</var></code><a href='#index-remote-target' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>A remote system connected to <small>ROCGDB</small> via a serial line or network
+connection.  This command tells <small>ROCGDB</small> to use its own remote
+protocol over <var>medium</var> for debugging.  See <a href="Remote-Debugging.html">Debugging Remote Programs</a>.
 </p>
-<p>For example, if you have a board connected to <samp class="file">/dev/ttya</samp> on the
-machine running <small class="sc">ROCGDB</small>, you could say:
+<p>For example, if you have a board connected to <samp>/dev/ttya</samp> on the
+machine running <small>ROCGDB</small>, you could say:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">target remote /dev/ttya
+<div class="example">
+<pre class="example">target remote /dev/ttya
 </pre></div>
 
-<p><code class="code">target remote</code> supports the <code class="code">load</code> command.  This is only
+<p><code>target remote</code> supports the <code>load</code> command.  This is only
 useful if you have some other way of getting the stub to the target
 system, and you can put it somewhere in memory where it won&rsquo;t get
 clobbered by the download.
 </p>
 </dd>
-<dt><a id="index-built_002din-simulator-target"></a><span><code class="code">target sim <span class="r">[</span><var class="var">simargs</var><span class="r">]</span> &hellip;</code><a class="copiable-link" href="#index-built_002din-simulator-target"> &para;</a></span></dt>
-<dd><p>Builtin CPU simulator.  <small class="sc">ROCGDB</small> includes simulators for most architectures.
+<dt id='index-built_002din-simulator-target'><span><code>target sim <span class="roman">[</span><var>simargs</var><span class="roman">]</span> &hellip;</code><a href='#index-built_002din-simulator-target' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Builtin CPU simulator.  <small>ROCGDB</small> includes simulators for most architectures.
 In general,
-</p><div class="example smallexample">
-<pre class="example-preformatted">        target sim
+</p><div class="example">
+<pre class="example">        target sim
         load
         run
 </pre></div>
 <p>works; however, you cannot assume that a specific memory map, device
 drivers, or even basic I/O is available, although some simulators do
 provide these.  For info about any processor-specific simulator details,
-see the appropriate section in <a class="ref" href="Embedded-Processors.html">Embedded
+see the appropriate section in <a href="Embedded-Processors.html">Embedded
 Processors</a>.
 </p>
 </dd>
-<dt><a id="index-native-target"></a><span><code class="code">target native</code><a class="copiable-link" href="#index-native-target"> &para;</a></span></dt>
+<dt id='index-native-target'><span><code>target native</code><a href='#index-native-target' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Setup for local/native process debugging.  Useful to make the
-<code class="code">run</code> command spawn native processes (likewise <code class="code">attach</code>,
-etc.) even when <code class="code">set auto-connect-native-target</code> is <code class="code">off</code>
-(see <a class="pxref" href="Starting.html#set-auto_002dconnect_002dnative_002dtarget">set auto-connect-native-target</a>).
+<code>run</code> command spawn native processes (likewise <code>attach</code>,
+etc.) even when <code>set auto-connect-native-target</code> is <code>off</code>
+(see <a href="Starting.html#set-auto_002dconnect_002dnative_002dtarget">set auto-connect-native-target</a>).
 </p>
 </dd>
 </dl>
 
-<p>Different targets are available on different configurations of <small class="sc">ROCGDB</small>;
+<p>Different targets are available on different configurations of <small>ROCGDB</small>;
 your configuration may have more or fewer targets.
 </p>
 <p>Many remote targets require you to download the executable&rsquo;s code once
 you&rsquo;ve successfully established a connection.  You may wish to control
 various aspects of this process.
 </p>
-<dl class="table">
-<dt><a class="index-entry-id" id="index-hash-mark-while-downloading"></a>
-<a id="index-set-hash_002c-for-remote-monitors"></a><span><code class="code">set hash</code><a class="copiable-link" href="#index-set-hash_002c-for-remote-monitors"> &para;</a></span></dt>
-<dd><p>This command controls whether a hash mark &lsquo;<samp class="samp">#</samp>&rsquo; is displayed while
+<dl compact="compact">
+<dt id='index-set-hash_002c-for-remote-monitors'><span><code>set hash</code><a href='#index-set-hash_002c-for-remote-monitors' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="index-hash-mark-while-downloading"></span>
+<p>This command controls whether a hash mark &lsquo;<samp>#</samp>&rsquo; is displayed while
 downloading a file to the remote monitor.  If on, a hash mark is
 displayed after each S-record is successfully downloaded to the
 monitor.
 </p>
 </dd>
-<dt><a id="index-show-hash_002c-for-remote-monitors"></a><span><code class="code">show hash</code><a class="copiable-link" href="#index-show-hash_002c-for-remote-monitors"> &para;</a></span></dt>
+<dt id='index-show-hash_002c-for-remote-monitors'><span><code>show hash</code><a href='#index-show-hash_002c-for-remote-monitors' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Show the current status of displaying the hash mark.
 </p>
 </dd>
-<dt><a class="index-entry-id" id="index-display-remote-monitor-communications"></a>
-<a id="index-set-debug-monitor"></a><span><code class="code">set debug monitor</code><a class="copiable-link" href="#index-set-debug-monitor"> &para;</a></span></dt>
-<dd><p>Enable or disable display of communications messages between
-<small class="sc">ROCGDB</small> and the remote monitor.
+<dt id='index-set-debug-monitor'><span><code>set debug monitor</code><a href='#index-set-debug-monitor' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="index-display-remote-monitor-communications"></span>
+<p>Enable or disable display of communications messages between
+<small>ROCGDB</small> and the remote monitor.
 </p>
 </dd>
-<dt><a id="index-show-debug-monitor"></a><span><code class="code">show debug monitor</code><a class="copiable-link" href="#index-show-debug-monitor"> &para;</a></span></dt>
+<dt id='index-show-debug-monitor'><span><code>show debug monitor</code><a href='#index-show-debug-monitor' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Show the current status of displaying communications between
-<small class="sc">ROCGDB</small> and the remote monitor.
+<small>ROCGDB</small> and the remote monitor.
 </p></dd>
 </dl>
 
-<dl class="table">
-<dt><a id="index-load-filename-offset"></a><span><code class="code">load <var class="var">filename</var> <var class="var">offset</var></code><a class="copiable-link" href="#index-load-filename-offset"> &para;</a></span></dt>
-<dd><a class="anchor" id="load"></a><p>Depending on what remote debugging facilities are configured into
-<small class="sc">ROCGDB</small>, the <code class="code">load</code> command may be available.  Where it exists, it
-is meant to make <var class="var">filename</var> (an executable) available for debugging
+<dl compact="compact">
+<dd>
+<span id="index-load-filename-offset"></span>
+</dd>
+<dt><span><code>load <var>filename</var> <var>offset</var></code></span></dt>
+<dd><span id="load"></span><p>Depending on what remote debugging facilities are configured into
+<small>ROCGDB</small>, the <code>load</code> command may be available.  Where it exists, it
+is meant to make <var>filename</var> (an executable) available for debugging
 on the remote system&mdash;by downloading, or dynamic linking, for example.
-<code class="code">load</code> also records the <var class="var">filename</var> symbol table in <small class="sc">ROCGDB</small>, like
-the <code class="code">add-symbol-file</code> command.
+<code>load</code> also records the <var>filename</var> symbol table in <small>ROCGDB</small>, like
+the <code>add-symbol-file</code> command.
 </p>
-<p>If your <small class="sc">ROCGDB</small> does not have a <code class="code">load</code> command, attempting to
-execute it gets the error message &ldquo;<code class="code">You can't do that when your
+<p>If your <small>ROCGDB</small> does not have a <code>load</code> command, attempting to
+execute it gets the error message &ldquo;<code>You can't do that when your
 target is &hellip;</code>&rdquo;
 </p>
 <p>The file is loaded at whatever address is specified in the executable.
@@ -257,20 +274,23 @@ For some object file formats, you can specify the load address when you
 link the program; for other formats, like a.out, the object file format
 specifies a fixed address.
 </p>
-<p>It is also possible to tell <small class="sc">ROCGDB</small> to load the executable file at a
-specific offset described by the optional argument <var class="var">offset</var>.  When
-<var class="var">offset</var> is provided, <var class="var">filename</var> must also be provided.
+<p>It is also possible to tell <small>ROCGDB</small> to load the executable file at a
+specific offset described by the optional argument <var>offset</var>.  When
+<var>offset</var> is provided, <var>filename</var> must also be provided.
 </p>
-<p>Depending on the remote side capabilities, <small class="sc">ROCGDB</small> may be able to
+<p>Depending on the remote side capabilities, <small>ROCGDB</small> may be able to
 load programs into flash memory.
 </p>
-<p><code class="code">load</code> does not repeat if you press <kbd class="key">RET</kbd> again after using it.
+<p><code>load</code> does not repeat if you press <tt class="key">RET</tt> again after using it.
 </p></dd>
 </dl>
 
-<dl class="table">
-<dt><a id="index-flash_002derase"></a><span><code class="code">flash-erase</code><a class="copiable-link" href="#index-flash_002derase"> &para;</a></span></dt>
-<dd><a class="anchor" id="flash_002derase"></a>
+<dl compact="compact">
+<dd>
+<span id="index-flash_002derase"></span>
+</dd>
+<dt><span><code>flash-erase</code></span></dt>
+<dd><span id="flash_002derase"></span>
 <p>Erases all known flash memory regions on the target.
 </p>
 </dd>
@@ -278,7 +298,7 @@ load programs into flash memory.
 
 </div>
 <hr>
-<div class="nav-panel">
+<div class="header">
 <p>
 Next: <a href="Byte-Order.html">Choosing Target Byte Order</a>, Previous: <a href="Active-Targets.html">Active Targets</a>, Up: <a href="Targets.html">Specifying a Debugging Target</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright © 1992-2024 Free Software Foundation, Inc.
+<!-- Copyright (C) 1992-2024 Free Software Foundation, Inc.
 Contributed by Cygnus Support.  Written by Julia Menapace, Jim Kingdon,
 and David MacKenzie.
 
@@ -30,10 +30,21 @@ Free Documentation License". -->
 <link href="Stack-Variables.html" rel="prev" title="Stack Variables">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
 div.example {margin-left: 3.2em}
-span.r {font-family: initial; font-weight: normal; font-style: normal}
-span:hover a.copiable-link {visibility: visible}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -41,46 +52,46 @@ span:hover a.copiable-link {visibility: visible}
 </head>
 
 <body lang="en">
-<div class="section-level-extent" id="Global-Variables">
-<div class="nav-panel">
+<div class="section" id="Global-Variables">
+<div class="header">
 <p>
 Next: <a href="Register-Variables.html" accesskey="n" rel="next">Register Variables</a>, Previous: <a href="Stack-Variables.html" accesskey="p" rel="prev">Automatic Variables Allocated on the Stack</a>, Up: <a href="Variables.html" accesskey="u" rel="up">Variables</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Symbol-Types-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h3 class="section" id="Global-Variables-1"><span>4.2 Global Variables<a class="copiable-link" href="#Global-Variables-1"> &para;</a></span></h3>
+<span id="Global-Variables-1"></span><h3 class="section">4.2 Global Variables</h3>
 
-<a class="index-entry-id" id="index-N_005fGSYM"></a>
-<a class="index-entry-id" id="index-C_005fGSYM"></a>
+<span id="index-N_005fGSYM"></span>
+<span id="index-C_005fGSYM"></span>
 <p>A variable whose scope is not specific to just one source file is
-represented by the &lsquo;<samp class="samp">G</samp>&rsquo; symbol descriptor.  These stabs use the
-<code class="code">N_GSYM</code> stab type (C_GSYM for XCOFF).  The type information for
-the stab (see <a class="pxref" href="String-Field.html">The String Field</a>) gives the type of the variable.
+represented by the &lsquo;<samp>G</samp>&rsquo; symbol descriptor.  These stabs use the
+<code>N_GSYM</code> stab type (C_GSYM for XCOFF).  The type information for
+the stab (see <a href="String-Field.html">The String Field</a>) gives the type of the variable.
 </p>
 <p>For example, the following source code:
 </p>
 <div class="example">
-<pre class="example-preformatted">char g_foo = 'c';
+<pre class="example">char g_foo = 'c';
 </pre></div>
 
 <p>yields the following assembly code:
 </p>
 <div class="example">
-<pre class="example-preformatted">.stabs &quot;g_foo:G2&quot;,32,0,0,0     # <span class="r">32 is N_GSYM</span>
+<pre class="example">.stabs &quot;g_foo:G2&quot;,32,0,0,0     # <span class="roman">32 is N_GSYM</span>
      .global _g_foo
      .data
 _g_foo:
      .byte 99
 </pre></div>
 
-<p>The address of the variable represented by the <code class="code">N_GSYM</code> is not
-contained in the <code class="code">N_GSYM</code> stab.  The debugger gets this information
+<p>The address of the variable represented by the <code>N_GSYM</code> is not
+contained in the <code>N_GSYM</code> stab.  The debugger gets this information
 from the external symbol for the global variable.  In the example above,
-the <code class="code">.global _g_foo</code> and <code class="code">_g_foo:</code> lines tell the assembler to
+the <code>.global _g_foo</code> and <code>_g_foo:</code> lines tell the assembler to
 produce an external symbol.
 </p>
-<p>Some compilers, like GCC, output <code class="code">N_GSYM</code> stabs only once, where
+<p>Some compilers, like GCC, output <code>N_GSYM</code> stabs only once, where
 the variable is defined.  Other compilers, like SunOS4 /bin/cc, output a
-<code class="code">N_GSYM</code> stab for each compilation unit which references the
+<code>N_GSYM</code> stab for each compilation unit which references the
 variable.
 </p>
 </div>

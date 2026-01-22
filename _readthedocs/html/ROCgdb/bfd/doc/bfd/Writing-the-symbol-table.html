@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the BFD library.
 
-Copyright © 1991-2024 Free Software Foundation, Inc.
+Copyright (C) 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -40,11 +40,21 @@ You have freedom to copy and modify this GNU Manual, like GNU
 <link href="Relocating-the-section-contents.html" rel="prev" title="Relocating the section contents">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
 div.example {margin-left: 3.2em}
-span:hover a.copiable-link {visibility: visible}
-strong.def-name {font-family: monospace; font-weight: bold; font-size: larger}
-ul.mark-bullet {list-style-type: disc}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -52,27 +62,27 @@ ul.mark-bullet {list-style-type: disc}
 </head>
 
 <body lang="en">
-<div class="subsubsection-level-extent" id="Writing-the-symbol-table">
-<div class="nav-panel">
+<div class="subsubsection" id="Writing-the-symbol-table">
+<div class="header">
 <p>
 Previous: <a href="Relocating-the-section-contents.html" accesskey="p" rel="prev">Relocating the section contents</a>, Up: <a href="Performing-the-Final-Link.html" accesskey="u" rel="up">Performing the final link</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="BFD-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h4 class="subsubsection" id="Writing-the-symbol-table-1"><span>2.17.3.3 Writing the symbol table<a class="copiable-link" href="#Writing-the-symbol-table-1"> &para;</a></span></h4>
-<p>The <code class="code">_bfd_final_link</code> function must gather all the symbols
+<span id="Writing-the-symbol-table-1"></span><h4 class="subsubsection">2.17.3.3 Writing the symbol table</h4>
+<p>The <code>_bfd_final_link</code> function must gather all the symbols
 in the input files and write them out.  It must also write out
 all the symbols in the global hash table.  This must be
-controlled by the <code class="code">strip</code> and <code class="code">discard</code> fields of the
-<code class="code">bfd_link_info</code> structure.
+controlled by the <code>strip</code> and <code>discard</code> fields of the
+<code>bfd_link_info</code> structure.
 </p>
 <p>The local symbols of the input files will not have been
-entered into the linker hash table.  The <code class="code">_bfd_final_link</code>
+entered into the linker hash table.  The <code>_bfd_final_link</code>
 routine must consider each input file and include the symbols
 in the output file.  It may be convenient to do this when
-looking through the <code class="code">link_order</code> structures, or it may be
-done by stepping through the <code class="code">input_bfds</code> list.
+looking through the <code>link_order</code> structures, or it may be
+done by stepping through the <code>input_bfds</code> list.
 </p>
-<p>The <code class="code">_bfd_final_link</code> routine must also traverse the global
+<p>The <code>_bfd_final_link</code> routine must also traverse the global
 hash table to gather all the externally visible symbols.  It
 is possible that most of the externally visible symbols may be
 written out when considering the symbols of each input file,
@@ -80,178 +90,178 @@ but it is still necessary to traverse the hash table since the
 linker script may have defined some symbols that are not in
 any of the input files.
 </p>
-<p>The <code class="code">strip</code> field of the <code class="code">bfd_link_info</code> structure
+<p>The <code>strip</code> field of the <code>bfd_link_info</code> structure
 controls which symbols are written out.  The possible values
-are listed in <code class="code">bfdlink.h</code>.  If the value is <code class="code">strip_some</code>,
-then the <code class="code">keep_hash</code> field of the <code class="code">bfd_link_info</code>
+are listed in <code>bfdlink.h</code>.  If the value is <code>strip_some</code>,
+then the <code>keep_hash</code> field of the <code>bfd_link_info</code>
 structure is a hash table of symbols to keep; each symbol
 should be looked up in this hash table, and only symbols which
 are present should be included in the output file.
 </p>
-<p>If the <code class="code">strip</code> field of the <code class="code">bfd_link_info</code> structure
-permits local symbols to be written out, the <code class="code">discard</code> field
+<p>If the <code>strip</code> field of the <code>bfd_link_info</code> structure
+permits local symbols to be written out, the <code>discard</code> field
 is used to further controls which local symbols are included
-in the output file.  If the value is <code class="code">discard_l</code>, then all
+in the output file.  If the value is <code>discard_l</code>, then all
 local symbols which begin with a certain prefix are discarded;
-this is controlled by the <code class="code">bfd_is_local_label_name</code> entry point.
+this is controlled by the <code>bfd_is_local_label_name</code> entry point.
 </p>
 <p>The a.out backend handles symbols by calling
-<code class="code">aout_link_write_symbols</code> on each input BFD and then
+<code>aout_link_write_symbols</code> on each input BFD and then
 traversing the global hash table with the function
-<code class="code">aout_link_write_other_symbol</code>.  It builds a string table
+<code>aout_link_write_other_symbol</code>.  It builds a string table
 while writing out the symbols, which is written to the output
-file at the end of <code class="code">NAME(aout,final_link)</code>.
+file at the end of <code>NAME(aout,final_link)</code>.
 </p>
-<a class="index-entry-id" id="index-bfd_005flink_005fsplit_005fsection"></a>
+<span id="index-bfd_005flink_005fsplit_005fsection"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005flink_005fsplit_005fsection">
-<h4 class="subsubsection"><span>2.17.3.4 <code class="code">bfd_link_split_section</code><a class="copiable-link" href="#bfd_005flink_005fsplit_005fsection"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-bfd_005flink_005fsplit_005fsection-1"><span class="category-def">Function: </span><span><code class="def-type">bool</code> <strong class="def-name">bfd_link_split_section</strong> <code class="def-code-arguments">(bfd *abfd, asection *sec);</code><a class="copiable-link" href="#index-bfd_005flink_005fsplit_005fsection-1"> &para;</a></span></dt>
-<dd><p>Return nonzero if <var class="var">sec</var> should be split during a
+<div class="subsubsection" id="bfd_005flink_005fsplit_005fsection">
+<h4 class="subsubsection">2.17.3.4 <code>bfd_link_split_section</code></h4>
+<dl class="def">
+<dt id="index-bfd_005flink_005fsplit_005fsection-1"><span class="category">Function: </span><span><em>bool</em> <strong>bfd_link_split_section</strong> <em>(bfd *abfd, asection *sec);</em><a href='#index-bfd_005flink_005fsplit_005fsection-1' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Return nonzero if <var>sec</var> should be split during a
 reloceatable or final link.
 </p><div class="example">
-<pre class="example-preformatted">#define bfd_link_split_section(abfd, sec) \
+<pre class="example">#define bfd_link_split_section(abfd, sec) \
        BFD_SEND (abfd, _bfd_link_split_section, (abfd, sec))
 
 </pre></div>
 
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005fsection_005falready_005flinked"></a>
+<span id="index-bfd_005fsection_005falready_005flinked"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fsection_005falready_005flinked">
-<h4 class="subsubsection"><span>2.17.3.5 <code class="code">bfd_section_already_linked</code><a class="copiable-link" href="#bfd_005fsection_005falready_005flinked"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-bfd_005fsection_005falready_005flinked-1"><span class="category-def">Function: </span><span><code class="def-type">bool</code> <strong class="def-name">bfd_section_already_linked</strong> <code class="def-code-arguments">(bfd *abfd, asection *sec, struct bfd_link_info *info);</code><a class="copiable-link" href="#index-bfd_005fsection_005falready_005flinked-1"> &para;</a></span></dt>
-<dd><p>Check if <var class="var">data</var> has been already linked during a reloceatable
+<div class="subsubsection" id="bfd_005fsection_005falready_005flinked">
+<h4 class="subsubsection">2.17.3.5 <code>bfd_section_already_linked</code></h4>
+<dl class="def">
+<dt id="index-bfd_005fsection_005falready_005flinked-1"><span class="category">Function: </span><span><em>bool</em> <strong>bfd_section_already_linked</strong> <em>(bfd *abfd, asection *sec, struct bfd_link_info *info);</em><a href='#index-bfd_005fsection_005falready_005flinked-1' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Check if <var>data</var> has been already linked during a reloceatable
 or final link.  Return TRUE if it has.
 </p><div class="example">
-<pre class="example-preformatted">#define bfd_section_already_linked(abfd, sec, info) \
+<pre class="example">#define bfd_section_already_linked(abfd, sec, info) \
        BFD_SEND (abfd, _section_already_linked, (abfd, sec, info))
 
 </pre></div>
 
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005fgeneric_005fdefine_005fcommon_005fsymbol"></a>
+<span id="index-bfd_005fgeneric_005fdefine_005fcommon_005fsymbol"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fgeneric_005fdefine_005fcommon_005fsymbol">
-<h4 class="subsubsection"><span>2.17.3.6 <code class="code">bfd_generic_define_common_symbol</code><a class="copiable-link" href="#bfd_005fgeneric_005fdefine_005fcommon_005fsymbol"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-bfd_005fgeneric_005fdefine_005fcommon_005fsymbol-1"><span class="category-def">Function: </span><span><code class="def-type">bool</code> <strong class="def-name">bfd_generic_define_common_symbol</strong> <code class="def-code-arguments">(bfd *output_bfd, struct bfd_link_info *info, struct bfd_link_hash_entry *h);</code><a class="copiable-link" href="#index-bfd_005fgeneric_005fdefine_005fcommon_005fsymbol-1"> &para;</a></span></dt>
-<dd><p>Convert common symbol <var class="var">h</var> into a defined symbol.
+<div class="subsubsection" id="bfd_005fgeneric_005fdefine_005fcommon_005fsymbol">
+<h4 class="subsubsection">2.17.3.6 <code>bfd_generic_define_common_symbol</code></h4>
+<dl class="def">
+<dt id="index-bfd_005fgeneric_005fdefine_005fcommon_005fsymbol-1"><span class="category">Function: </span><span><em>bool</em> <strong>bfd_generic_define_common_symbol</strong> <em>(bfd *output_bfd, struct bfd_link_info *info, struct bfd_link_hash_entry *h);</em><a href='#index-bfd_005fgeneric_005fdefine_005fcommon_005fsymbol-1' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Convert common symbol <var>h</var> into a defined symbol.
 Return TRUE on success and FALSE on failure.
 </p><div class="example">
-<pre class="example-preformatted">#define bfd_define_common_symbol(output_bfd, info, h) \
+<pre class="example">#define bfd_define_common_symbol(output_bfd, info, h) \
        BFD_SEND (output_bfd, _bfd_define_common_symbol, (output_bfd, info, h))
 
 </pre></div>
 
 </dd></dl>
-<a class="index-entry-id" id="index-_005fbfd_005fgeneric_005flink_005fhide_005fsymbol"></a>
+<span id="index-_005fbfd_005fgeneric_005flink_005fhide_005fsymbol"></span>
 </div>
-<div class="subsubsection-level-extent" id="g_t_005fbfd_005fgeneric_005flink_005fhide_005fsymbol">
-<h4 class="subsubsection"><span>2.17.3.7 <code class="code">_bfd_generic_link_hide_symbol</code><a class="copiable-link" href="#g_t_005fbfd_005fgeneric_005flink_005fhide_005fsymbol"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-_005fbfd_005fgeneric_005flink_005fhide_005fsymbol-1"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">_bfd_generic_link_hide_symbol</strong> <code class="def-code-arguments">(bfd *output_bfd, struct bfd_link_info *info, struct bfd_link_hash_entry *h);</code><a class="copiable-link" href="#index-_005fbfd_005fgeneric_005flink_005fhide_005fsymbol-1"> &para;</a></span></dt>
-<dd><p>Hide symbol <var class="var">h</var>.
+<div class="subsubsection" id="g_t_005fbfd_005fgeneric_005flink_005fhide_005fsymbol">
+<h4 class="subsubsection">2.17.3.7 <code>_bfd_generic_link_hide_symbol</code></h4>
+<dl class="def">
+<dt id="index-_005fbfd_005fgeneric_005flink_005fhide_005fsymbol-1"><span class="category">Function: </span><span><em>void</em> <strong>_bfd_generic_link_hide_symbol</strong> <em>(bfd *output_bfd, struct bfd_link_info *info, struct bfd_link_hash_entry *h);</em><a href='#index-_005fbfd_005fgeneric_005flink_005fhide_005fsymbol-1' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Hide symbol <var>h</var>.
 This is an internal function.  It should not be called from
 outside the BFD library.
 </p><div class="example">
-<pre class="example-preformatted">#define bfd_link_hide_symbol(output_bfd, info, h) \
+<pre class="example">#define bfd_link_hide_symbol(output_bfd, info, h) \
        BFD_SEND (output_bfd, _bfd_link_hide_symbol, (output_bfd, info, h))
 
 </pre></div>
 
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005fgeneric_005fdefine_005fstart_005fstop"></a>
+<span id="index-bfd_005fgeneric_005fdefine_005fstart_005fstop"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fgeneric_005fdefine_005fstart_005fstop">
-<h4 class="subsubsection"><span>2.17.3.8 <code class="code">bfd_generic_define_start_stop</code><a class="copiable-link" href="#bfd_005fgeneric_005fdefine_005fstart_005fstop"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-bfd_005flink_005fhash_005fentry"><span class="category-def">Function: </span><span><code class="def-type">struct</code> <strong class="def-name">bfd_link_hash_entry</strong> <code class="def-code-arguments">*bfd_generic_define_start_stop (struct bfd_link_info *info, const char *symbol, asection *sec);</code><a class="copiable-link" href="#index-bfd_005flink_005fhash_005fentry"> &para;</a></span></dt>
+<div class="subsubsection" id="bfd_005fgeneric_005fdefine_005fstart_005fstop">
+<h4 class="subsubsection">2.17.3.8 <code>bfd_generic_define_start_stop</code></h4>
+<dl class="def">
+<dt id="index-bfd_005flink_005fhash_005fentry"><span class="category">Function: </span><span><em>struct</em> <strong>bfd_link_hash_entry</strong> <em>*bfd_generic_define_start_stop (struct bfd_link_info *info, const char *symbol, asection *sec);</em><a href='#index-bfd_005flink_005fhash_005fentry' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Define a __start, __stop, .startof. or .sizeof. symbol.
 Return the symbol or NULL if no such undefined symbol exists.
 </p><div class="example">
-<pre class="example-preformatted">#define bfd_define_start_stop(output_bfd, info, symbol, sec) \
+<pre class="example">#define bfd_define_start_stop(output_bfd, info, symbol, sec) \
        BFD_SEND (output_bfd, _bfd_define_start_stop, (info, symbol, sec))
 
 </pre></div>
 
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005ffind_005fversion_005ffor_005fsym"></a>
+<span id="index-bfd_005ffind_005fversion_005ffor_005fsym"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005ffind_005fversion_005ffor_005fsym">
-<h4 class="subsubsection"><span>2.17.3.9 <code class="code">bfd_find_version_for_sym</code><a class="copiable-link" href="#bfd_005ffind_005fversion_005ffor_005fsym"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-bfd_005felf_005fversion_005ftree"><span class="category-def">Function: </span><span><code class="def-type">struct</code> <strong class="def-name">bfd_elf_version_tree</strong> <code class="def-code-arguments">* bfd_find_version_for_sym (struct bfd_elf_version_tree *verdefs, const char *sym_name, bool *hide);</code><a class="copiable-link" href="#index-bfd_005felf_005fversion_005ftree"> &para;</a></span></dt>
+<div class="subsubsection" id="bfd_005ffind_005fversion_005ffor_005fsym">
+<h4 class="subsubsection">2.17.3.9 <code>bfd_find_version_for_sym</code></h4>
+<dl class="def">
+<dt id="index-bfd_005felf_005fversion_005ftree"><span class="category">Function: </span><span><em>struct</em> <strong>bfd_elf_version_tree</strong> <em>* bfd_find_version_for_sym (struct bfd_elf_version_tree *verdefs, const char *sym_name, bool *hide);</em><a href='#index-bfd_005felf_005fversion_005ftree' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Search an elf version script tree for symbol versioning
 info and export / don&rsquo;t-export status for a given symbol.
 Return non-NULL on success and NULL on failure; also sets
-the output &lsquo;<samp class="samp">hide</samp>&rsquo; boolean parameter.
+the output &lsquo;<samp>hide</samp>&rsquo; boolean parameter.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005fhide_005fsym_005fby_005fversion"></a>
+<span id="index-bfd_005fhide_005fsym_005fby_005fversion"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fhide_005fsym_005fby_005fversion">
-<h4 class="subsubsection"><span>2.17.3.10 <code class="code">bfd_hide_sym_by_version</code><a class="copiable-link" href="#bfd_005fhide_005fsym_005fby_005fversion"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-bfd_005fhide_005fsym_005fby_005fversion-1"><span class="category-def">Function: </span><span><code class="def-type">bool</code> <strong class="def-name">bfd_hide_sym_by_version</strong> <code class="def-code-arguments">(struct bfd_elf_version_tree *verdefs, const char *sym_name);</code><a class="copiable-link" href="#index-bfd_005fhide_005fsym_005fby_005fversion-1"> &para;</a></span></dt>
+<div class="subsubsection" id="bfd_005fhide_005fsym_005fby_005fversion">
+<h4 class="subsubsection">2.17.3.10 <code>bfd_hide_sym_by_version</code></h4>
+<dl class="def">
+<dt id="index-bfd_005fhide_005fsym_005fby_005fversion-1"><span class="category">Function: </span><span><em>bool</em> <strong>bfd_hide_sym_by_version</strong> <em>(struct bfd_elf_version_tree *verdefs, const char *sym_name);</em><a href='#index-bfd_005fhide_005fsym_005fby_005fversion-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Search an elf version script tree for symbol versioning
 info for a given symbol.  Return TRUE if the symbol is hidden.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005flink_005fcheck_005frelocs"></a>
+<span id="index-bfd_005flink_005fcheck_005frelocs"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005flink_005fcheck_005frelocs">
-<h4 class="subsubsection"><span>2.17.3.11 <code class="code">bfd_link_check_relocs</code><a class="copiable-link" href="#bfd_005flink_005fcheck_005frelocs"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-bfd_005flink_005fcheck_005frelocs-1"><span class="category-def">Function: </span><span><code class="def-type">bool</code> <strong class="def-name">bfd_link_check_relocs</strong> <code class="def-code-arguments">(bfd *abfd, struct bfd_link_info *info);</code><a class="copiable-link" href="#index-bfd_005flink_005fcheck_005frelocs-1"> &para;</a></span></dt>
+<div class="subsubsection" id="bfd_005flink_005fcheck_005frelocs">
+<h4 class="subsubsection">2.17.3.11 <code>bfd_link_check_relocs</code></h4>
+<dl class="def">
+<dt id="index-bfd_005flink_005fcheck_005frelocs-1"><span class="category">Function: </span><span><em>bool</em> <strong>bfd_link_check_relocs</strong> <em>(bfd *abfd, struct bfd_link_info *info);</em><a href='#index-bfd_005flink_005fcheck_005frelocs-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Checks the relocs in ABFD for validity.
 Does not execute the relocs.
 Return TRUE if everything is OK, FALSE otherwise.
 This is the external entry point to this code.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-_005fbfd_005fgeneric_005flink_005fcheck_005frelocs"></a>
+<span id="index-_005fbfd_005fgeneric_005flink_005fcheck_005frelocs"></span>
 </div>
-<div class="subsubsection-level-extent" id="g_t_005fbfd_005fgeneric_005flink_005fcheck_005frelocs">
-<h4 class="subsubsection"><span>2.17.3.12 <code class="code">_bfd_generic_link_check_relocs</code><a class="copiable-link" href="#g_t_005fbfd_005fgeneric_005flink_005fcheck_005frelocs"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-_005fbfd_005fgeneric_005flink_005fcheck_005frelocs-1"><span class="category-def">Function: </span><span><code class="def-type">bool</code> <strong class="def-name">_bfd_generic_link_check_relocs</strong> <code class="def-code-arguments">(bfd *abfd, struct bfd_link_info *info);</code><a class="copiable-link" href="#index-_005fbfd_005fgeneric_005flink_005fcheck_005frelocs-1"> &para;</a></span></dt>
+<div class="subsubsection" id="g_t_005fbfd_005fgeneric_005flink_005fcheck_005frelocs">
+<h4 class="subsubsection">2.17.3.12 <code>_bfd_generic_link_check_relocs</code></h4>
+<dl class="def">
+<dt id="index-_005fbfd_005fgeneric_005flink_005fcheck_005frelocs-1"><span class="category">Function: </span><span><em>bool</em> <strong>_bfd_generic_link_check_relocs</strong> <em>(bfd *abfd, struct bfd_link_info *info);</em><a href='#index-_005fbfd_005fgeneric_005flink_005fcheck_005frelocs-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Stub function for targets that do not implement reloc checking.
 Return TRUE.
 This is an internal function.  It should not be called from
 outside the BFD library.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005fmerge_005fprivate_005fbfd_005fdata"></a>
+<span id="index-bfd_005fmerge_005fprivate_005fbfd_005fdata"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fmerge_005fprivate_005fbfd_005fdata">
-<h4 class="subsubsection"><span>2.17.3.13 <code class="code">bfd_merge_private_bfd_data</code><a class="copiable-link" href="#bfd_005fmerge_005fprivate_005fbfd_005fdata"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-bfd_005fmerge_005fprivate_005fbfd_005fdata-1"><span class="category-def">Function: </span><span><code class="def-type">bool</code> <strong class="def-name">bfd_merge_private_bfd_data</strong> <code class="def-code-arguments">(bfd *ibfd, struct bfd_link_info *info);</code><a class="copiable-link" href="#index-bfd_005fmerge_005fprivate_005fbfd_005fdata-1"> &para;</a></span></dt>
-<dd><p>Merge private BFD information from the BFD <var class="var">ibfd</var> to the
-the output file BFD when linking.  Return <code class="code">TRUE</code> on success,
-<code class="code">FALSE</code> on error.  Possible error returns are:
+<div class="subsubsection" id="bfd_005fmerge_005fprivate_005fbfd_005fdata">
+<h4 class="subsubsection">2.17.3.13 <code>bfd_merge_private_bfd_data</code></h4>
+<dl class="def">
+<dt id="index-bfd_005fmerge_005fprivate_005fbfd_005fdata-1"><span class="category">Function: </span><span><em>bool</em> <strong>bfd_merge_private_bfd_data</strong> <em>(bfd *ibfd, struct bfd_link_info *info);</em><a href='#index-bfd_005fmerge_005fprivate_005fbfd_005fdata-1' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Merge private BFD information from the BFD <var>ibfd</var> to the
+the output file BFD when linking.  Return <code>TRUE</code> on success,
+<code>FALSE</code> on error.  Possible error returns are:
 </p>
-<ul class="itemize mark-bullet">
-<li><code class="code">bfd_error_no_memory</code> -
-Not enough memory exists to create private data for <var class="var">obfd</var>.
+<ul>
+<li> <code>bfd_error_no_memory</code> -
+Not enough memory exists to create private data for <var>obfd</var>.
 </li></ul>
 <div class="example">
-<pre class="example-preformatted">#define bfd_merge_private_bfd_data(ibfd, info) \
+<pre class="example">#define bfd_merge_private_bfd_data(ibfd, info) \
        BFD_SEND ((info)-&gt;output_bfd, _bfd_merge_private_bfd_data, \
                  (ibfd, info))
 
 </pre></div>
 
 </dd></dl>
-<a class="index-entry-id" id="index-_005fbfd_005fgeneric_005fverify_005fendian_005fmatch"></a>
+<span id="index-_005fbfd_005fgeneric_005fverify_005fendian_005fmatch"></span>
 </div>
-<div class="subsubsection-level-extent" id="g_t_005fbfd_005fgeneric_005fverify_005fendian_005fmatch">
-<h4 class="subsubsection"><span>2.17.3.14 <code class="code">_bfd_generic_verify_endian_match</code><a class="copiable-link" href="#g_t_005fbfd_005fgeneric_005fverify_005fendian_005fmatch"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-_005fbfd_005fgeneric_005fverify_005fendian_005fmatch-1"><span class="category-def">Function: </span><span><code class="def-type">bool</code> <strong class="def-name">_bfd_generic_verify_endian_match</strong> <code class="def-code-arguments">(bfd *ibfd, struct bfd_link_info *info);</code><a class="copiable-link" href="#index-_005fbfd_005fgeneric_005fverify_005fendian_005fmatch-1"> &para;</a></span></dt>
+<div class="subsubsection" id="g_t_005fbfd_005fgeneric_005fverify_005fendian_005fmatch">
+<h4 class="subsubsection">2.17.3.14 <code>_bfd_generic_verify_endian_match</code></h4>
+<dl class="def">
+<dt id="index-_005fbfd_005fgeneric_005fverify_005fendian_005fmatch-1"><span class="category">Function: </span><span><em>bool</em> <strong>_bfd_generic_verify_endian_match</strong> <em>(bfd *ibfd, struct bfd_link_info *info);</em><a href='#index-_005fbfd_005fgeneric_005fverify_005fendian_005fmatch-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Can be used from / for bfd_merge_private_bfd_data to check that
 endianness matches between input and output file.  Returns
 TRUE for a match, otherwise returns FALSE and emits an error.
@@ -260,7 +270,7 @@ TRUE for a match, otherwise returns FALSE and emits an error.
 
 </div>
 <hr>
-<div class="nav-panel">
+<div class="header">
 <p>
 Previous: <a href="Relocating-the-section-contents.html">Relocating the section contents</a>, Up: <a href="Performing-the-Final-Link.html">Performing the final link</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="BFD-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

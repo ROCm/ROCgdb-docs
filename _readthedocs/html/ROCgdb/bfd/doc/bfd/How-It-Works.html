@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the BFD library.
 
-Copyright © 1991-2024 Free Software Foundation, Inc.
+Copyright (C) 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -41,10 +41,21 @@ You have freedom to copy and modify this GNU Manual, like GNU
 <link href="History.html" rel="prev" title="History">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
 div.example {margin-left: 3.2em}
-span:hover a.copiable-link {visibility: visible}
-ul.mark-bullet {list-style-type: disc}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -52,34 +63,34 @@ ul.mark-bullet {list-style-type: disc}
 </head>
 
 <body lang="en">
-<div class="section-level-extent" id="How-It-Works">
-<div class="nav-panel">
+<div class="section" id="How-It-Works">
+<div class="header">
 <p>
 Next: <a href="What-BFD-Version-2-Can-Do.html" accesskey="n" rel="next">What BFD Version 2 Can Do</a>, Previous: <a href="History.html" accesskey="p" rel="prev">History</a>, Up: <a href="Overview.html" accesskey="u" rel="up">Introduction</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="BFD-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h3 class="section" id="How-To-Use-BFD"><span>1.2 How To Use BFD<a class="copiable-link" href="#How-To-Use-BFD"> &para;</a></span></h3>
+<span id="How-To-Use-BFD"></span><h3 class="section">1.2 How To Use BFD</h3>
 
-<p>To use the library, include <samp class="file">bfd.h</samp> and link with <samp class="file">libbfd.a</samp>.	
+<p>To use the library, include <samp>bfd.h</samp> and link with <samp>libbfd.a</samp>.	
 </p>
 <p>BFD provides a common interface to the parts of an object file
 for a calling application. 
 </p>
 <p>When an application successfully opens a target file (object, archive, or
 whatever), a pointer to an internal structure is returned. This pointer
-points to a structure called <code class="code">bfd</code>, described in
-<samp class="file">bfd.h</samp>.  Our convention is to call this pointer a BFD, and
-instances of it within code <code class="code">abfd</code>.  All operations on
+points to a structure called <code>bfd</code>, described in
+<samp>bfd.h</samp>.  Our convention is to call this pointer a BFD, and
+instances of it within code <code>abfd</code>.  All operations on
 the target object file are applied as methods to the BFD.  The mapping is
-defined within <code class="code">bfd.h</code> in a set of macros, all beginning
-with &lsquo;<samp class="samp">bfd_</samp>&rsquo; to reduce namespace pollution.
+defined within <code>bfd.h</code> in a set of macros, all beginning
+with &lsquo;<samp>bfd_</samp>&rsquo; to reduce namespace pollution.
 </p>
 <p>For example, this sequence does what you would probably expect:
 return the number of sections in an object file attached to a BFD
-<code class="code">abfd</code>. 
+<code>abfd</code>. 
 </p>
 <div class="example">
-<pre class="example-preformatted">#include &quot;bfd.h&quot;
+<pre class="example">#include &quot;bfd.h&quot;
 
 unsigned int number_of_sections (abfd)
 bfd *abfd;
@@ -90,11 +101,11 @@ bfd *abfd;
 
 <p>The abstraction used within BFD is that an object file has:
 </p>
-<ul class="itemize mark-bullet">
-<li>a header,
-</li><li>a number of sections containing raw data (see <a class="pxref" href="Sections.html">Sections</a>),
-</li><li>a set of relocations (see <a class="pxref" href="Relocations.html">Relocations</a>), and
-</li><li>some symbol information (see <a class="pxref" href="Symbols.html">Symbols</a>).
+<ul>
+<li> a header,
+</li><li> a number of sections containing raw data (see <a href="Sections.html">Sections</a>),
+</li><li> a set of relocations (see <a href="Relocations.html">Relocations</a>), and
+</li><li> some symbol information (see <a href="Symbols.html">Symbols</a>).
 </li></ul>
 <p>Also, BFDs opened for archives have the additional attribute of an index
 and contain subordinate BFDs. This approach is fine for a.out and coff,

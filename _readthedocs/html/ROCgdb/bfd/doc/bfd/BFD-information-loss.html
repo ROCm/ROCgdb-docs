@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the BFD library.
 
-Copyright © 1991-2024 Free Software Foundation, Inc.
+Copyright (C) 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -40,8 +40,21 @@ You have freedom to copy and modify this GNU Manual, like GNU
 <link href="Canonical-format.html" rel="next" title="Canonical format">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
-span:hover a.copiable-link {visibility: visible}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -49,21 +62,21 @@ span:hover a.copiable-link {visibility: visible}
 </head>
 
 <body lang="en">
-<div class="subsection-level-extent" id="BFD-information-loss">
-<div class="nav-panel">
+<div class="subsection" id="BFD-information-loss">
+<div class="header">
 <p>
 Next: <a href="Canonical-format.html" accesskey="n" rel="next">The BFD canonical object-file format</a>, Up: <a href="What-BFD-Version-2-Can-Do.html" accesskey="u" rel="up">What BFD Version 2 Can Do</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="BFD-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h4 class="subsection" id="Information-Loss"><span>1.3.1 Information Loss<a class="copiable-link" href="#Information-Loss"> &para;</a></span></h4>
+<span id="Information-Loss"></span><h4 class="subsection">1.3.1 Information Loss</h4>
 
-<p><em class="emph">Information can be lost during output.</em> The output formats
+<p><em>Information can be lost during output.</em> The output formats
 supported by BFD do not provide identical facilities, and
 information which can be described in one form has nowhere to go in
 another format. One example of this is alignment information in
-<code class="code">b.out</code>. There is nowhere in an <code class="code">a.out</code> format file to store
+<code>b.out</code>. There is nowhere in an <code>a.out</code> format file to store
 alignment information on the contained data, so when a file is linked
-from <code class="code">b.out</code> and an <code class="code">a.out</code> image is produced, alignment
+from <code>b.out</code> and an <code>a.out</code> image is produced, alignment
 information will not propagate to the output file. (The linker will
 still use the alignment information internally, so the link is performed
 correctly).
@@ -71,12 +84,12 @@ correctly).
 <p>Another example is COFF section names. COFF files may contain an
 unlimited number of sections, each one with a textual section name. If
 the target of the link is a format which does not have many sections (e.g.,
-<code class="code">a.out</code>) or has sections without names (e.g., the Oasys format), the
+<code>a.out</code>) or has sections without names (e.g., the Oasys format), the
 link cannot be done simply. You can circumvent this problem by
 describing the desired input-to-output section mapping with the linker command
 language.
 </p>
-<p><em class="emph">Information can be lost during canonicalization.</em> The BFD
+<p><em>Information can be lost during canonicalization.</em> The BFD
 internal canonical form of the external formats is not exhaustive; there
 are structures in input formats for which there is no direct
 representation internally.  This means that the BFD back ends
@@ -95,13 +108,13 @@ end routine will be able to use the canonical form provided by the
 BFD core as well as the information it prepared earlier.  Since
 there is a great deal of commonality between back ends,
 there is no information lost when
-linking or copying big endian COFF to little endian COFF, or <code class="code">a.out</code> to
-<code class="code">b.out</code>.  When a mixture of formats is linked, the information is
+linking or copying big endian COFF to little endian COFF, or <code>a.out</code> to
+<code>b.out</code>.  When a mixture of formats is linked, the information is
 only lost from the files whose format differs from the destination.
 </p>
 </div>
 <hr>
-<div class="nav-panel">
+<div class="header">
 <p>
 Next: <a href="Canonical-format.html">The BFD canonical object-file format</a>, Up: <a href="What-BFD-Version-2-Can-Do.html">What BFD Version 2 Can Do</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="BFD-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

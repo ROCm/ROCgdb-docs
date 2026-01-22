@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright © 1988-2024 Free Software Foundation, Inc.
+<!-- Copyright (C) 1988-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -26,7 +26,7 @@ the license, review the license.txt in the top-level directory for the
 library on https://github.com/ROCm/ (Github.com)).  The additional terms
 and conditions below apply to your use of AMD ROCm technical documentation.
 
-©2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
+(C)2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
 
 The information presented in this document is for informational purposes only
 and may contain technical inaccuracies, omissions, and typographical errors.
@@ -52,8 +52,8 @@ EVEN IF AMD IS EXPRESSLY ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
 
 AMD, the AMD Arrow logo, AMD Instinct™, Radeon™, AMD ROCm™, and combinations
 thereof are trademarks of Advanced Micro Devices, Inc.
-Linux® is the registered trademark of Linus Torvalds in the
-U.S. and other countries. PCIe® is a registered trademark of
+Linux(R) is the registered trademark of Linus Torvalds in the
+U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
@@ -74,9 +74,21 @@ companies. -->
 <link href="Search.html" rel="prev" title="Search">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
 div.example {margin-left: 3.2em}
-span:hover a.copiable-link {visibility: visible}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -84,105 +96,105 @@ span:hover a.copiable-link {visibility: visible}
 </head>
 
 <body lang="en">
-<div class="section-level-extent" id="Source-Path">
-<div class="nav-panel">
+<div class="section" id="Source-Path">
+<div class="header">
 <p>
 Next: <a href="Machine-Code.html" accesskey="n" rel="next">Source and Machine Code</a>, Previous: <a href="Search.html" accesskey="p" rel="prev">Searching Source Files</a>, Up: <a href="Source.html" accesskey="u" rel="up">Examining Source Files</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h3 class="section" id="Specifying-Source-Directories"><span>9.5 Specifying Source Directories<a class="copiable-link" href="#Specifying-Source-Directories"> &para;</a></span></h3>
+<span id="Specifying-Source-Directories"></span><h3 class="section">9.5 Specifying Source Directories</h3>
 
-<a class="index-entry-id" id="index-source-path"></a>
-<a class="index-entry-id" id="index-directories-for-source-files"></a>
+<span id="index-source-path"></span>
+<span id="index-directories-for-source-files"></span>
 <p>Executable programs sometimes do not record the directories of the source
 files from which they were compiled, just the names.  Even when they do,
 the directories could be moved between the compilation and your debugging
-session.  <small class="sc">ROCGDB</small> has a list of directories to search for source files;
-this is called the <em class="dfn">source path</em>.  Each time <small class="sc">ROCGDB</small> wants a source file,
+session.  <small>ROCGDB</small> has a list of directories to search for source files;
+this is called the <em>source path</em>.  Each time <small>ROCGDB</small> wants a source file,
 it tries all the directories in the list, in the order they are present
 in the list, until it finds a file with the desired name.
 </p>
 <p>For example, suppose an executable references the file
-<samp class="file">/usr/src/foo-1.0/lib/foo.c</samp>, does not record a compilation
-directory, and the <em class="dfn">source path</em> is <samp class="file">/mnt/cross</samp>.
-<small class="sc">ROCGDB</small> would look for the source file in the following
+<samp>/usr/src/foo-1.0/lib/foo.c</samp>, does not record a compilation
+directory, and the <em>source path</em> is <samp>/mnt/cross</samp>.
+<small>ROCGDB</small> would look for the source file in the following
 locations:
 </p>
-<ol class="enumerate">
-<li> <samp class="file">/usr/src/foo-1.0/lib/foo.c</samp>
-</li><li> <samp class="file">/mnt/cross/usr/src/foo-1.0/lib/foo.c</samp>
-</li><li> <samp class="file">/mnt/cross/foo.c</samp>
+<ol>
+<li> <samp>/usr/src/foo-1.0/lib/foo.c</samp>
+</li><li> <samp>/mnt/cross/usr/src/foo-1.0/lib/foo.c</samp>
+</li><li> <samp>/mnt/cross/foo.c</samp>
 
 </li></ol>
 
 <p>If the source file is not present at any of the above locations then
-an error is printed.  <small class="sc">ROCGDB</small> does not look up the parts of the
-source file name, such as <samp class="file">/mnt/cross/src/foo-1.0/lib/foo.c</samp>.
+an error is printed.  <small>ROCGDB</small> does not look up the parts of the
+source file name, such as <samp>/mnt/cross/src/foo-1.0/lib/foo.c</samp>.
 Likewise, the subdirectories of the source path are not searched: if
-the source path is <samp class="file">/mnt/cross</samp>, and the binary refers to
-<samp class="file">foo.c</samp>, <small class="sc">ROCGDB</small> would not find it under
-<samp class="file">/mnt/cross/usr/src/foo-1.0/lib</samp>.
+the source path is <samp>/mnt/cross</samp>, and the binary refers to
+<samp>foo.c</samp>, <small>ROCGDB</small> would not find it under
+<samp>/mnt/cross/usr/src/foo-1.0/lib</samp>.
 </p>
 <p>Plain file names, relative file names with leading directories, file
 names containing dots, etc. are all treated as described above,
 except that non-absolute file names are not looked up literally.  If
-the <em class="dfn">source path</em> is <samp class="file">/mnt/cross</samp>, the source file is
-recorded as <samp class="file">../lib/foo.c</samp>, and no compilation directory is
-recorded, then <small class="sc">ROCGDB</small> will search in the following locations:
+the <em>source path</em> is <samp>/mnt/cross</samp>, the source file is
+recorded as <samp>../lib/foo.c</samp>, and no compilation directory is
+recorded, then <small>ROCGDB</small> will search in the following locations:
 </p>
-<ol class="enumerate">
-<li> <samp class="file">/mnt/cross/../lib/foo.c</samp>
-</li><li> <samp class="file">/mnt/cross/foo.c</samp>
+<ol>
+<li> <samp>/mnt/cross/../lib/foo.c</samp>
+</li><li> <samp>/mnt/cross/foo.c</samp>
 
 </li></ol>
 
-<a class="index-entry-id" id="index-cdir"></a>
-<a class="index-entry-id" id="index-cwd"></a>
-<a class="index-entry-id" id="index-_0024cdir_002c-convenience-variable"></a>
-<a class="index-entry-id" id="index-_0024cwd_002c-convenience-variable"></a>
-<a class="index-entry-id" id="index-compilation-directory"></a>
-<a class="index-entry-id" id="index-current-directory"></a>
-<a class="index-entry-id" id="index-working-directory"></a>
-<a class="index-entry-id" id="index-directory_002c-current"></a>
-<a class="index-entry-id" id="index-directory_002c-compilation"></a>
-<p>The <em class="dfn">source path</em> will always include two special entries
-&lsquo;<samp class="samp">$cdir</samp>&rsquo; and &lsquo;<samp class="samp">$cwd</samp>&rsquo;, these refer to the compilation directory
+<span id="index-cdir"></span>
+<span id="index-cwd"></span>
+<span id="index-_0024cdir_002c-convenience-variable"></span>
+<span id="index-_0024cwd_002c-convenience-variable"></span>
+<span id="index-compilation-directory"></span>
+<span id="index-current-directory"></span>
+<span id="index-working-directory"></span>
+<span id="index-directory_002c-current"></span>
+<span id="index-directory_002c-compilation"></span>
+<p>The <em>source path</em> will always include two special entries
+&lsquo;<samp>$cdir</samp>&rsquo; and &lsquo;<samp>$cwd</samp>&rsquo;, these refer to the compilation directory
 (if one is recorded) and the current working directory respectively.
 </p>
-<p>&lsquo;<samp class="samp">$cdir</samp>&rsquo; causes <small class="sc">ROCGDB</small> to search within the compilation
+<p>&lsquo;<samp>$cdir</samp>&rsquo; causes <small>ROCGDB</small> to search within the compilation
 directory, if one is recorded in the debug information.  If no
 compilation directory is recorded in the debug information then
-&lsquo;<samp class="samp">$cdir</samp>&rsquo; is ignored.
+&lsquo;<samp>$cdir</samp>&rsquo; is ignored.
 </p>
-<p>&lsquo;<samp class="samp">$cwd</samp>&rsquo; is not the same as &lsquo;<samp class="samp">.</samp>&rsquo;&mdash;the former tracks the
-current working directory as it changes during your <small class="sc">ROCGDB</small>
+<p>&lsquo;<samp>$cwd</samp>&rsquo; is not the same as &lsquo;<samp>.</samp>&rsquo;&mdash;the former tracks the
+current working directory as it changes during your <small>ROCGDB</small>
 session, while the latter is immediately expanded to the current
 directory at the time you add an entry to the source path.
 </p>
 <p>If a compilation directory is recorded in the debug information, and
-<small class="sc">ROCGDB</small> has not found the source file after the first search
-using <em class="dfn">source path</em>, then <small class="sc">ROCGDB</small> will combine the
+<small>ROCGDB</small> has not found the source file after the first search
+using <em>source path</em>, then <small>ROCGDB</small> will combine the
 compilation directory and the filename, and then search for the source
-file again using the <em class="dfn">source path</em>.
+file again using the <em>source path</em>.
 </p>
 <p>For example, if the executable records the source file as
-<samp class="file">/usr/src/foo-1.0/lib/foo.c</samp>, the compilation directory is
-recorded as <samp class="file">/project/build</samp>, and the <em class="dfn">source path</em> is
-<samp class="file">/mnt/cross:$cdir:$cwd</samp> while the current working directory of
-the <small class="sc">ROCGDB</small> session is <samp class="file">/home/user</samp>, then <small class="sc">ROCGDB</small> will
+<samp>/usr/src/foo-1.0/lib/foo.c</samp>, the compilation directory is
+recorded as <samp>/project/build</samp>, and the <em>source path</em> is
+<samp>/mnt/cross:$cdir:$cwd</samp> while the current working directory of
+the <small>ROCGDB</small> session is <samp>/home/user</samp>, then <small>ROCGDB</small> will
 search for the source file in the following locations:
 </p>
-<ol class="enumerate">
-<li> <samp class="file">/usr/src/foo-1.0/lib/foo.c</samp>
-</li><li> <samp class="file">/mnt/cross/usr/src/foo-1.0/lib/foo.c</samp>
-</li><li> <samp class="file">/project/build/usr/src/foo-1.0/lib/foo.c</samp>
-</li><li> <samp class="file">/home/user/usr/src/foo-1.0/lib/foo.c</samp>
-</li><li> <samp class="file">/mnt/cross/project/build/usr/src/foo-1.0/lib/foo.c</samp>
-</li><li> <samp class="file">/project/build/project/build/usr/src/foo-1.0/lib/foo.c</samp>
-</li><li> <samp class="file">/home/user/project/build/usr/src/foo-1.0/lib/foo.c</samp>
-</li><li> <samp class="file">/mnt/cross/foo.c</samp>
-</li><li> <samp class="file">/project/build/foo.c</samp>
-</li><li> <samp class="file">/home/user/foo.c</samp>
+<ol>
+<li> <samp>/usr/src/foo-1.0/lib/foo.c</samp>
+</li><li> <samp>/mnt/cross/usr/src/foo-1.0/lib/foo.c</samp>
+</li><li> <samp>/project/build/usr/src/foo-1.0/lib/foo.c</samp>
+</li><li> <samp>/home/user/usr/src/foo-1.0/lib/foo.c</samp>
+</li><li> <samp>/mnt/cross/project/build/usr/src/foo-1.0/lib/foo.c</samp>
+</li><li> <samp>/project/build/project/build/usr/src/foo-1.0/lib/foo.c</samp>
+</li><li> <samp>/home/user/project/build/usr/src/foo-1.0/lib/foo.c</samp>
+</li><li> <samp>/mnt/cross/foo.c</samp>
+</li><li> <samp>/project/build/foo.c</samp>
+</li><li> <samp>/home/user/foo.c</samp>
 
 </li></ol>
 
@@ -193,143 +205,143 @@ would be similar.
 </p>
 <p>When searching for source files on MS-DOS and MS-Windows, where
 absolute paths start with a drive letter (e.g.
-<samp class="file">C:/project/foo.c</samp>), <small class="sc">ROCGDB</small> will remove the drive letter
+<samp>C:/project/foo.c</samp>), <small>ROCGDB</small> will remove the drive letter
 from the file name before appending it to a search directory from
-<em class="dfn">source path</em>; for instance if the executable references the
-source file <samp class="file">C:/project/foo.c</samp> and <em class="dfn">source path</em> is set to
-<samp class="file">D:/mnt/cross</samp>, then <small class="sc">ROCGDB</small> will search in the following
+<em>source path</em>; for instance if the executable references the
+source file <samp>C:/project/foo.c</samp> and <em>source path</em> is set to
+<samp>D:/mnt/cross</samp>, then <small>ROCGDB</small> will search in the following
 locations for the source file:
 </p>
-<ol class="enumerate">
-<li> <samp class="file">C:/project/foo.c</samp>
-</li><li> <samp class="file">D:/mnt/cross/project/foo.c</samp>
-</li><li> <samp class="file">D:/mnt/cross/foo.c</samp>
+<ol>
+<li> <samp>C:/project/foo.c</samp>
+</li><li> <samp>D:/mnt/cross/project/foo.c</samp>
+</li><li> <samp>D:/mnt/cross/foo.c</samp>
 
 </li></ol>
 
-<p>Note that the executable search path is <em class="emph">not</em> used to locate the
+<p>Note that the executable search path is <em>not</em> used to locate the
 source files.
 </p>
-<p>Whenever you reset or rearrange the source path, <small class="sc">ROCGDB</small> clears out
+<p>Whenever you reset or rearrange the source path, <small>ROCGDB</small> clears out
 any information it has cached about where source files are found and where
 each line is in the file.
 </p>
-<a class="index-entry-id" id="index-directory"></a>
-<a class="index-entry-id" id="index-dir"></a>
-<p>When you start <small class="sc">ROCGDB</small>, its source path includes only &lsquo;<samp class="samp">$cdir</samp>&rsquo;
-and &lsquo;<samp class="samp">$cwd</samp>&rsquo;, in that order.
-To add other directories, use the <code class="code">directory</code> command.
+<span id="index-directory"></span>
+<span id="index-dir"></span>
+<p>When you start <small>ROCGDB</small>, its source path includes only &lsquo;<samp>$cdir</samp>&rsquo;
+and &lsquo;<samp>$cwd</samp>&rsquo;, in that order.
+To add other directories, use the <code>directory</code> command.
 </p>
-<p>The search path is used to find both program source files and <small class="sc">ROCGDB</small>
-script files (read using the &lsquo;<samp class="samp">-command</samp>&rsquo; option and &lsquo;<samp class="samp">source</samp>&rsquo; command).
+<p>The search path is used to find both program source files and <small>ROCGDB</small>
+script files (read using the &lsquo;<samp>-command</samp>&rsquo; option and &lsquo;<samp>source</samp>&rsquo; command).
 </p>
-<p>In addition to the source path, <small class="sc">ROCGDB</small> provides a set of commands
-that manage a list of source path substitution rules.  A <em class="dfn">substitution
+<p>In addition to the source path, <small>ROCGDB</small> provides a set of commands
+that manage a list of source path substitution rules.  A <em>substitution
 rule</em> specifies how to rewrite source directories stored in the program&rsquo;s
 debug information in case the sources were moved to a different
 directory between compilation and debugging.  A rule is made of
 two strings, the first specifying what needs to be rewritten in
 the path, and the second specifying how it should be rewritten.
-In <a class="ref" href="#set-substitute_002dpath">set substitute-path</a>, we name these two parts <var class="var">from</var> and
-<var class="var">to</var> respectively.  <small class="sc">ROCGDB</small> does a simple string replacement
-of <var class="var">from</var> with <var class="var">to</var> at the start of the directory part of the
+In <a href="#set-substitute_002dpath">set substitute-path</a>, we name these two parts <var>from</var> and
+<var>to</var> respectively.  <small>ROCGDB</small> does a simple string replacement
+of <var>from</var> with <var>to</var> at the start of the directory part of the
 source file name, and uses that result instead of the original file
 name to look up the sources.
 </p>
-<p>Using the previous example, suppose the <samp class="file">foo-1.0</samp> tree has been
-moved from <samp class="file">/usr/src</samp> to <samp class="file">/mnt/cross</samp>, then you can tell
-<small class="sc">ROCGDB</small> to replace <samp class="file">/usr/src</samp> in all source path names with
-<samp class="file">/mnt/cross</samp>.  The first lookup will then be
-<samp class="file">/mnt/cross/foo-1.0/lib/foo.c</samp> in place of the original location
-of <samp class="file">/usr/src/foo-1.0/lib/foo.c</samp>.  To define a source path
-substitution rule, use the <code class="code">set substitute-path</code> command
-(see <a class="pxref" href="#set-substitute_002dpath">set substitute-path</a>).
+<p>Using the previous example, suppose the <samp>foo-1.0</samp> tree has been
+moved from <samp>/usr/src</samp> to <samp>/mnt/cross</samp>, then you can tell
+<small>ROCGDB</small> to replace <samp>/usr/src</samp> in all source path names with
+<samp>/mnt/cross</samp>.  The first lookup will then be
+<samp>/mnt/cross/foo-1.0/lib/foo.c</samp> in place of the original location
+of <samp>/usr/src/foo-1.0/lib/foo.c</samp>.  To define a source path
+substitution rule, use the <code>set substitute-path</code> command
+(see <a href="#set-substitute_002dpath">set substitute-path</a>).
 </p>
 <p>To avoid unexpected substitution results, a rule is applied only if the
-<var class="var">from</var> part of the directory name ends at a directory separator.
-For instance, a rule substituting  <samp class="file">/usr/source</samp> into
-<samp class="file">/mnt/cross</samp> will be applied to <samp class="file">/usr/source/foo-1.0</samp> but
-not to <samp class="file">/usr/sourceware/foo-2.0</samp>.  And because the substitution
+<var>from</var> part of the directory name ends at a directory separator.
+For instance, a rule substituting  <samp>/usr/source</samp> into
+<samp>/mnt/cross</samp> will be applied to <samp>/usr/source/foo-1.0</samp> but
+not to <samp>/usr/sourceware/foo-2.0</samp>.  And because the substitution
 is applied only at the beginning of the directory name, this rule will
-not be applied to <samp class="file">/root/usr/source/baz.c</samp> either.
+not be applied to <samp>/root/usr/source/baz.c</samp> either.
 </p>
-<p>In many cases, you can achieve the same result using the <code class="code">directory</code>
-command.  However, <code class="code">set substitute-path</code> can be more efficient in
+<p>In many cases, you can achieve the same result using the <code>directory</code>
+command.  However, <code>set substitute-path</code> can be more efficient in
 the case where the sources are organized in a complex tree with multiple
-subdirectories.  With the <code class="code">directory</code> command, you need to add each
+subdirectories.  With the <code>directory</code> command, you need to add each
 subdirectory of your project.  If you moved the entire tree while
-preserving its internal organization, then <code class="code">set substitute-path</code>
+preserving its internal organization, then <code>set substitute-path</code>
 allows you to direct the debugger to all the sources with one single
 command.
 </p>
-<p><code class="code">set substitute-path</code> is also more than just a shortcut command.
+<p><code>set substitute-path</code> is also more than just a shortcut command.
 The source path is only used if the file at the original location no
-longer exists.  On the other hand, <code class="code">set substitute-path</code> modifies
+longer exists.  On the other hand, <code>set substitute-path</code> modifies
 the debugger behavior to look at the rewritten location instead.  So, if
 for any reason a source file that is not relevant to your executable is
 located at the original location, a substitution rule is the only
-method available to point <small class="sc">ROCGDB</small> at the new location.
+method available to point <small>ROCGDB</small> at the new location.
 </p>
-<a class="index-entry-id" id="index-_002d_002dwith_002drelocated_002dsources"></a>
-<a class="index-entry-id" id="index-default-source-path-substitution"></a>
+<span id="index-_002d_002dwith_002drelocated_002dsources"></span>
+<span id="index-default-source-path-substitution"></span>
 <p>You can configure a default source path substitution rule by
-configuring <small class="sc">ROCGDB</small> with the
-&lsquo;<samp class="samp">--with-relocated-sources=<var class="var">dir</var></samp>&rsquo; option.  The <var class="var">dir</var>
-should be the name of a directory under <small class="sc">ROCGDB</small>&rsquo;s configured
-prefix (set with &lsquo;<samp class="samp">--prefix</samp>&rsquo; or &lsquo;<samp class="samp">--exec-prefix</samp>&rsquo;), and
-directory names in debug information under <var class="var">dir</var> will be adjusted
-automatically if the installed <small class="sc">ROCGDB</small> is moved to a new
-location.  This is useful if <small class="sc">ROCGDB</small>, libraries or executables
+configuring <small>ROCGDB</small> with the
+&lsquo;<samp>--with-relocated-sources=<var>dir</var></samp>&rsquo; option.  The <var>dir</var>
+should be the name of a directory under <small>ROCGDB</small>&rsquo;s configured
+prefix (set with &lsquo;<samp>--prefix</samp>&rsquo; or &lsquo;<samp>--exec-prefix</samp>&rsquo;), and
+directory names in debug information under <var>dir</var> will be adjusted
+automatically if the installed <small>ROCGDB</small> is moved to a new
+location.  This is useful if <small>ROCGDB</small>, libraries or executables
 with debug information and corresponding source code are being moved
 together.
 </p>
-<dl class="table">
-<dt><code class="code">directory <var class="var">dirname</var> &hellip;</code></dt>
-<dt><code class="code">dir <var class="var">dirname</var> &hellip;</code></dt>
-<dd><p>Add directory <var class="var">dirname</var> to the front of the source path.  Several
-directory names may be given to this command, separated by &lsquo;<samp class="samp">:</samp>&rsquo;
-(&lsquo;<samp class="samp">;</samp>&rsquo; on MS-DOS and MS-Windows, where &lsquo;<samp class="samp">:</samp>&rsquo; usually appears as
+<dl compact="compact">
+<dt><span><code>directory <var>dirname</var> &hellip;</code></span></dt>
+<dt><span><code>dir <var>dirname</var> &hellip;</code></span></dt>
+<dd><p>Add directory <var>dirname</var> to the front of the source path.  Several
+directory names may be given to this command, separated by &lsquo;<samp>:</samp>&rsquo;
+(&lsquo;<samp>;</samp>&rsquo; on MS-DOS and MS-Windows, where &lsquo;<samp>:</samp>&rsquo; usually appears as
 part of absolute file names) or
 whitespace.  You may specify a directory that is already in the source
-path; this moves it forward, so <small class="sc">ROCGDB</small> searches it sooner.
+path; this moves it forward, so <small>ROCGDB</small> searches it sooner.
 </p>
-<p>The special strings &lsquo;<samp class="samp">$cdir</samp>&rsquo; (to refer to the compilation
-directory, if one is recorded), and &lsquo;<samp class="samp">$cwd</samp>&rsquo; (to refer to the
+<p>The special strings &lsquo;<samp>$cdir</samp>&rsquo; (to refer to the compilation
+directory, if one is recorded), and &lsquo;<samp>$cwd</samp>&rsquo; (to refer to the
 current working directory) can also be included in the list of
-directories <var class="var">dirname</var>.  Though these will already be in the source
-path they will be moved forward in the list so <small class="sc">ROCGDB</small> searches
+directories <var>dirname</var>.  Though these will already be in the source
+path they will be moved forward in the list so <small>ROCGDB</small> searches
 them sooner.
 </p>
 </dd>
-<dt><code class="code">directory</code></dt>
-<dd><p>Reset the source path to its default value (&lsquo;<samp class="samp">$cdir:$cwd</samp>&rsquo; on Unix systems).  This requires confirmation.
+<dt><span><code>directory</code></span></dt>
+<dd><p>Reset the source path to its default value (&lsquo;<samp>$cdir:$cwd</samp>&rsquo; on Unix systems).  This requires confirmation.
 </p>
 
 </dd>
-<dt><a id="index-set-directories"></a><span><code class="code">set directories <var class="var">path-list</var></code><a class="copiable-link" href="#index-set-directories"> &para;</a></span></dt>
-<dd><p>Set the source path to <var class="var">path-list</var>.
-&lsquo;<samp class="samp">$cdir:$cwd</samp>&rsquo; are added if missing.
+<dt id='index-set-directories'><span><code>set directories <var>path-list</var></code><a href='#index-set-directories' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Set the source path to <var>path-list</var>.
+&lsquo;<samp>$cdir:$cwd</samp>&rsquo; are added if missing.
 </p>
 </dd>
-<dt><a id="index-show-directories"></a><span><code class="code">show directories</code><a class="copiable-link" href="#index-show-directories"> &para;</a></span></dt>
+<dt id='index-show-directories'><span><code>show directories</code><a href='#index-show-directories' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Print the source path: show which directories it contains.
 </p>
-<a class="anchor" id="set-substitute_002dpath"></a></dd>
-<dt><a id="index-set-substitute_002dpath"></a><span><code class="code">set substitute-path <var class="var">from</var> <var class="var">to</var></code><a class="copiable-link" href="#index-set-substitute_002dpath"> &para;</a></span></dt>
+<span id="set-substitute_002dpath"></span></dd>
+<dt id='index-set-substitute_002dpath'><span><code>set substitute-path <var>from</var> <var>to</var></code><a href='#index-set-substitute_002dpath' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Define a source path substitution rule, and add it at the end of the
 current list of existing substitution rules.  If a rule with the same
-<var class="var">from</var> was already defined, then the old rule is also deleted.
+<var>from</var> was already defined, then the old rule is also deleted.
 </p>
-<p>For example, if the file <samp class="file">/foo/bar/baz.c</samp> was moved to
-<samp class="file">/mnt/cross/baz.c</samp>, then the command
+<p>For example, if the file <samp>/foo/bar/baz.c</samp> was moved to
+<samp>/mnt/cross/baz.c</samp>, then the command
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">(gdb) set substitute-path /foo/bar /mnt/cross
+<div class="example">
+<pre class="example">(gdb) set substitute-path /foo/bar /mnt/cross
 </pre></div>
 
-<p>will tell <small class="sc">ROCGDB</small> to replace &lsquo;<samp class="samp">/foo/bar</samp>&rsquo; with
-&lsquo;<samp class="samp">/mnt/cross</samp>&rsquo;, which will allow <small class="sc">ROCGDB</small> to find the file
-<samp class="file">baz.c</samp> even though it was moved.
+<p>will tell <small>ROCGDB</small> to replace &lsquo;<samp>/foo/bar</samp>&rsquo; with
+&lsquo;<samp>/mnt/cross</samp>&rsquo;, which will allow <small>ROCGDB</small> to find the file
+<samp>baz.c</samp> even though it was moved.
 </p>
 <p>In the case when more than one substitution rule have been defined,
 the rules are evaluated one by one in the order where they have been
@@ -338,19 +350,19 @@ the substitution.
 </p>
 <p>For instance, if we had entered the following commands:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">(gdb) set substitute-path /usr/src/include /mnt/include
+<div class="example">
+<pre class="example">(gdb) set substitute-path /usr/src/include /mnt/include
 (gdb) set substitute-path /usr/src /mnt/src
 </pre></div>
 
-<p><small class="sc">ROCGDB</small> would then rewrite <samp class="file">/usr/src/include/defs.h</samp> into
-<samp class="file">/mnt/include/defs.h</samp> by using the first rule.  However, it would
-use the second rule to rewrite <samp class="file">/usr/src/lib/foo.c</samp> into
-<samp class="file">/mnt/src/lib/foo.c</samp>.
+<p><small>ROCGDB</small> would then rewrite <samp>/usr/src/include/defs.h</samp> into
+<samp>/mnt/include/defs.h</samp> by using the first rule.  However, it would
+use the second rule to rewrite <samp>/usr/src/lib/foo.c</samp> into
+<samp>/mnt/src/lib/foo.c</samp>.
 </p>
 
 </dd>
-<dt><a id="index-unset-substitute_002dpath"></a><span><code class="code">unset substitute-path [path]</code><a class="copiable-link" href="#index-unset-substitute_002dpath"> &para;</a></span></dt>
+<dt id='index-unset-substitute_002dpath'><span><code>unset substitute-path [path]</code><a href='#index-unset-substitute_002dpath' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>If a path is specified, search the current list of substitution rules
 for a rule that would rewrite that path.  Delete that rule if found.
 A warning is emitted by the debugger if no rule could be found.
@@ -358,7 +370,7 @@ A warning is emitted by the debugger if no rule could be found.
 <p>If no path is specified, then all substitution rules are deleted.
 </p>
 </dd>
-<dt><a id="index-show-substitute_002dpath"></a><span><code class="code">show substitute-path [path]</code><a class="copiable-link" href="#index-show-substitute_002dpath"> &para;</a></span></dt>
+<dt id='index-show-substitute_002dpath'><span><code>show substitute-path [path]</code><a href='#index-show-substitute_002dpath' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>If a path is specified, then print the source path substitution rule
 which would rewrite that path, if any.
 </p>
@@ -369,20 +381,20 @@ rules.
 </dl>
 
 <p>If your source path is cluttered with directories that are no longer of
-interest, <small class="sc">ROCGDB</small> may sometimes cause confusion by finding the wrong
+interest, <small>ROCGDB</small> may sometimes cause confusion by finding the wrong
 versions of source.  You can correct the situation as follows:
 </p>
-<ol class="enumerate">
-<li> Use <code class="code">directory</code> with no argument to reset the source path to its default value.
+<ol>
+<li> Use <code>directory</code> with no argument to reset the source path to its default value.
 
-</li><li> Use <code class="code">directory</code> with suitable arguments to reinstall the
+</li><li> Use <code>directory</code> with suitable arguments to reinstall the
 directories you want in the source path.  You can add all the
 directories in one command.
 </li></ol>
 
 </div>
 <hr>
-<div class="nav-panel">
+<div class="header">
 <p>
 Next: <a href="Machine-Code.html">Source and Machine Code</a>, Previous: <a href="Search.html">Searching Source Files</a>, Up: <a href="Source.html">Examining Source Files</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

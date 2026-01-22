@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the GNU Assembler "as".
 
-Copyright © 1991-2024 Free Software Foundation, Inc.
+Copyright (C) 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -31,8 +31,21 @@ section entitled "GNU Free Documentation License".
 <link href="Lflags.html" rel="prev" title="Lflags">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
-span:hover a.copiable-link {visibility: visible}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -40,30 +53,30 @@ span:hover a.copiable-link {visibility: visible}
 </head>
 
 <body lang="en">
-<div class="section-level-extent" id="Line">
-<div class="nav-panel">
+<div class="section" id="Line">
+<div class="header">
 <p>
-Next: <a href="Linkonce.html" accesskey="n" rel="next"><code class="code">.linkonce [<var class="var">type</var>]</code></a>, Previous: <a href="Lflags.html" accesskey="p" rel="prev"><code class="code">.lflags</code></a>, Up: <a href="Pseudo-Ops.html" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Linkonce.html" accesskey="n" rel="next"><code>.linkonce [<var>type</var>]</code></a>, Previous: <a href="Lflags.html" accesskey="p" rel="prev"><code>.lflags</code></a>, Up: <a href="Pseudo-Ops.html" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h3 class="section" id="g_t_002eline-line_002dnumber"><span>7.56 <code class="code">.line <var class="var">line-number</var></code><a class="copiable-link" href="#g_t_002eline-line_002dnumber"> &para;</a></span></h3>
+<span id="g_t_002eline-line_002dnumber"></span><h3 class="section">7.56 <code>.line <var>line-number</var></code></h3>
 
-<a class="index-entry-id" id="index-line-directive"></a>
-<a class="index-entry-id" id="index-logical-line-number"></a>
-<p>Change the logical line number.  <var class="var">line-number</var> must be an absolute
+<span id="index-line-directive"></span>
+<span id="index-logical-line-number"></span>
+<p>Change the logical line number.  <var>line-number</var> must be an absolute
 expression.  The next line has that logical line number.  Therefore any other
 statements on the current line (after a statement separator character) are
-reported as on logical line number <var class="var">line-number</var> &minus; 1.  One day
-<code class="command">as</code> will no longer support this directive: it is recognized only
+reported as on logical line number <var>line-number</var> - 1.  One day
+<code>as</code> will no longer support this directive: it is recognized only
 for compatibility with existing assembler programs.
 </p>
-<p>Even though this is a directive associated with the <code class="code">a.out</code> or
-<code class="code">b.out</code> object-code formats, <code class="command">as</code> still recognizes it
-when producing COFF output, and treats &lsquo;<samp class="samp">.line</samp>&rsquo; as though it
-were the COFF &lsquo;<samp class="samp">.ln</samp>&rsquo; <em class="emph">if</em> it is found outside a
-<code class="code">.def</code>/<code class="code">.endef</code> pair.
+<p>Even though this is a directive associated with the <code>a.out</code> or
+<code>b.out</code> object-code formats, <code>as</code> still recognizes it
+when producing COFF output, and treats &lsquo;<samp>.line</samp>&rsquo; as though it
+were the COFF &lsquo;<samp>.ln</samp>&rsquo; <em>if</em> it is found outside a
+<code>.def</code>/<code>.endef</code> pair.
 </p>
-<p>Inside a <code class="code">.def</code>, &lsquo;<samp class="samp">.line</samp>&rsquo; is, instead, one of the directives
+<p>Inside a <code>.def</code>, &lsquo;<samp>.line</samp>&rsquo; is, instead, one of the directives
 used by compilers to generate auxiliary symbol information for
 debugging.
 </p>

@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the GNU Assembler "as".
 
-Copyright © 1991-2024 Free Software Foundation, Inc.
+Copyright (C) 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -31,9 +31,21 @@ section entitled "GNU Free Documentation License".
 <link href="As-Sections.html" rel="prev" title="As Sections">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
 div.example {margin-left: 3.2em}
-span:hover a.copiable-link {visibility: visible}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -41,30 +53,30 @@ span:hover a.copiable-link {visibility: visible}
 </head>
 
 <body lang="en">
-<div class="section-level-extent" id="Sub_002dSections">
-<div class="nav-panel">
+<div class="section" id="Sub_002dSections">
+<div class="header">
 <p>
 Next: <a href="bss.html" accesskey="n" rel="next">bss Section</a>, Previous: <a href="As-Sections.html" accesskey="p" rel="prev">Assembler Internal Sections</a>, Up: <a href="Sections.html" accesskey="u" rel="up">Sections and Relocation</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h3 class="section" id="Sub_002dSections-1"><span>4.4 Sub-Sections<a class="copiable-link" href="#Sub_002dSections-1"> &para;</a></span></h3>
+<span id="Sub_002dSections-1"></span><h3 class="section">4.4 Sub-Sections</h3>
 
-<a class="index-entry-id" id="index-numbered-subsections"></a>
-<a class="index-entry-id" id="index-grouping-data"></a>
+<span id="index-numbered-subsections"></span>
+<span id="index-grouping-data"></span>
 <p>Assembled bytes
 conventionally
 fall into two sections: text and data.
 You may have separate groups of
 data in named sections
 that you want to end up near to each other in the object file, even though they
-are not contiguous in the assembler source.  <code class="command">as</code> allows you to
-use <em class="dfn">subsections</em> for this purpose.  Within each section, there can be
+are not contiguous in the assembler source.  <code>as</code> allows you to
+use <em>subsections</em> for this purpose.  Within each section, there can be
 numbered subsections with values from 0 to 8192.  Objects assembled into the
 same subsection go into the object file together with other objects in the same
 subsection.  For example, a compiler might want to store constants in the text
 section, but might not want to have them interspersed with the program being
-assembled.  In this case, the compiler could issue a &lsquo;<samp class="samp">.text 0</samp>&rsquo; before each
-section of code being output, and a &lsquo;<samp class="samp">.text 1</samp>&rsquo; before each group of
+assembled.  In this case, the compiler could issue a &lsquo;<samp>.text 0</samp>&rsquo; before each
+section of code being output, and a &lsquo;<samp>.text 1</samp>&rsquo; before each group of
 constants being output.
 </p>
 <p>Subsections are optional.  If you do not use subsections, everything
@@ -72,31 +84,31 @@ goes in subsection number zero.
 </p>
 <p>Each subsection is zero-padded up to a multiple of four bytes.
 (Subsections may be padded a different amount on different flavors
-of <code class="command">as</code>.)
+of <code>as</code>.)
 </p>
 <p>Subsections appear in your object file in numeric order, lowest numbered
 to highest.  (All this to be compatible with other people&rsquo;s assemblers.)
-The object file contains no representation of subsections; <code class="code">ld</code> and
+The object file contains no representation of subsections; <code>ld</code> and
 other programs that manipulate object files see no trace of them.
 They just see all your text subsections as a text section, and all your
 data subsections as a data section.
 </p>
 <p>To specify which subsection you want subsequent statements assembled
-into, use a numeric argument to specify it, in a &lsquo;<samp class="samp">.text
-<var class="var">expression</var></samp>&rsquo; or a &lsquo;<samp class="samp">.data <var class="var">expression</var></samp>&rsquo; statement.
+into, use a numeric argument to specify it, in a &lsquo;<samp>.text
+<var>expression</var></samp>&rsquo; or a &lsquo;<samp>.data <var>expression</var></samp>&rsquo; statement.
 When generating COFF output, you
 can also use an extra subsection
-argument with arbitrary named sections: &lsquo;<samp class="samp">.section <var class="var">name</var>,
-<var class="var">expression</var></samp>&rsquo;.
+argument with arbitrary named sections: &lsquo;<samp>.section <var>name</var>,
+<var>expression</var></samp>&rsquo;.
 When generating ELF output, you
-can also use the <code class="code">.subsection</code> directive (see <a class="pxref" href="SubSection.html"><code class="code">.subsection <var class="var">name</var></code></a>)
-to specify a subsection: &lsquo;<samp class="samp">.subsection <var class="var">expression</var></samp>&rsquo;.
-<var class="var">Expression</var> should be an absolute expression
-(see <a class="pxref" href="Expressions.html">Expressions</a>).  If you just say &lsquo;<samp class="samp">.text</samp>&rsquo; then &lsquo;<samp class="samp">.text 0</samp>&rsquo;
-is assumed.  Likewise &lsquo;<samp class="samp">.data</samp>&rsquo; means &lsquo;<samp class="samp">.data 0</samp>&rsquo;.  Assembly
-begins in <code class="code">text 0</code>.  For instance:
-</p><div class="example smallexample">
-<pre class="example-preformatted">.text 0     # The default subsection is text 0 anyway.
+can also use the <code>.subsection</code> directive (see <a href="SubSection.html"><code>.subsection <var>name</var></code></a>)
+to specify a subsection: &lsquo;<samp>.subsection <var>expression</var></samp>&rsquo;.
+<var>Expression</var> should be an absolute expression
+(see <a href="Expressions.html">Expressions</a>).  If you just say &lsquo;<samp>.text</samp>&rsquo; then &lsquo;<samp>.text 0</samp>&rsquo;
+is assumed.  Likewise &lsquo;<samp>.data</samp>&rsquo; means &lsquo;<samp>.data 0</samp>&rsquo;.  Assembly
+begins in <code>text 0</code>.  For instance:
+</p><div class="example">
+<pre class="example">.text 0     # The default subsection is text 0 anyway.
 .ascii &quot;This lives in the first text subsection. *&quot;
 .text 1
 .ascii &quot;But this lives in the second text subsection.&quot;
@@ -108,17 +120,17 @@ begins in <code class="code">text 0</code>.  For instance:
 .ascii &quot;immediately following the asterisk (*).&quot;
 </pre></div>
 
-<p>Each section has a <em class="dfn">location counter</em> incremented by one for every byte
+<p>Each section has a <em>location counter</em> incremented by one for every byte
 assembled into that section.  Because subsections are merely a convenience
-restricted to <code class="command">as</code> there is no concept of a subsection location
+restricted to <code>as</code> there is no concept of a subsection location
 counter.  There is no way to directly manipulate a location counter&mdash;but the
-<code class="code">.align</code> directive changes it, and any label definition captures its
+<code>.align</code> directive changes it, and any label definition captures its
 current value.  The location counter of the section where statements are being
-assembled is said to be the <em class="dfn">active</em> location counter.
+assembled is said to be the <em>active</em> location counter.
 </p>
 </div>
 <hr>
-<div class="nav-panel">
+<div class="header">
 <p>
 Next: <a href="bss.html">bss Section</a>, Previous: <a href="As-Sections.html">Assembler Internal Sections</a>, Up: <a href="Sections.html">Sections and Relocation</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

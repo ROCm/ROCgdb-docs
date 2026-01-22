@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright © 2021-2024 Free Software Foundation, Inc.
+<!-- Copyright (C) 2021-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU General Public License, Version 3 or any
@@ -27,8 +27,21 @@ License".
 <link href="AArch64.html" rel="next" title="AArch64">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
-span:hover a.copiable-link {visibility: visible}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -36,36 +49,35 @@ span:hover a.copiable-link {visibility: visible}
 </head>
 
 <body lang="en">
-<div class="section-level-extent" id="AMD64">
-<div class="nav-panel">
+<div class="section" id="AMD64">
+<div class="header">
 <p>
 Next: <a href="AArch64.html" accesskey="n" rel="next">AArch64</a>, Up: <a href="ABI_002farch_002dspecific-Definition.html" accesskey="u" rel="up">ABI/arch-specific Definition</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h3 class="section" id="AMD64-1"><span>3.1 AMD64<a class="copiable-link" href="#AMD64-1"> &para;</a></span></h3>
+<span id="AMD64-1"></span><h3 class="section">3.1 AMD64</h3>
 
 <p>Irrespective of the ABI, the first stack offset is always used to locate the
-CFA, by interpreting it as: CFA = <code class="code">BASE_REG</code> + offset1.  The
-identification of the <code class="code">BASE_REG</code> is done by using the
-<code class="code">fre_cfa_base_reg_id</code> field in the SFrame FRE info word.
+CFA, by interpreting it as: CFA = <code>BASE_REG</code> + offset1.  The
+identification of the <code>BASE_REG</code> is done by using the
+<code>fre_cfa_base_reg_id</code> field in the SFrame FRE info word.
 </p>
 <p>In AMD64, the return address (RA) is always saved on stack when a function
 call is executed.  Further, AMD64 ABI mandates that the RA be saved at a
-<code class="code">fixed offset</code> from the CFA when entering a new function.  This means
+<code>fixed offset</code> from the CFA when entering a new function.  This means
 that the RA does not need to be tracked per SFrame FRE.  The fixed offset is
-encoded in the SFrame file format in the field <code class="code">sfh_cfa_fixed_ra_offset</code>
-in the SFrame header.  See <a class="xref" href="SFrame-Header.html">SFrame Header</a>.
+encoded in the SFrame file format in the field <code>sfh_cfa_fixed_ra_offset</code>
+in the SFrame header.  See <a href="SFrame-Header.html">SFrame Header</a>.
 </p>
 <p>Hence, the second stack offset (in the SFrame FRE), when present, will be used
 to locate the FP, by interpreting it as: FP = CFA + offset2.
 </p>
 <p>Hence, in summary:
 </p>
-<table class="multitable">
+<table>
 <thead><tr><th>Offset ID</th><th>Interpretation in AMD64</th></tr></thead>
-<tbody><tr><td>1</td><td>CFA = <code class="code">BASE_REG</code> + offset1</td></tr>
+<tr><td>1</td><td>CFA = <code>BASE_REG</code> + offset1</td></tr>
 <tr><td>2</td><td>FP = CFA + offset2</td></tr>
-</tbody>
 </table>
 
 </div>

@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright © 2021-2024 Free Software Foundation, Inc.
+<!-- Copyright (C) 2021-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU General Public License, Version 3 or any
@@ -28,8 +28,21 @@ License".
 <link href="Pointers-typedefs-and-cvr_002dquals.html" rel="prev" title="Pointers typedefs and cvr-quals">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
-span:hover a.copiable-link {visibility: visible}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -37,18 +50,18 @@ span:hover a.copiable-link {visibility: visible}
 </head>
 
 <body lang="en">
-<div class="subsection-level-extent" id="Arrays">
-<div class="nav-panel">
+<div class="subsection" id="Arrays">
+<div class="header">
 <p>
 Next: <a href="Function-pointers.html" accesskey="n" rel="next">Function pointers</a>, Previous: <a href="Pointers-typedefs-and-cvr_002dquals.html" accesskey="p" rel="prev">Pointers, typedefs, and cvr-quals</a>, Up: <a href="The-type-section.html" accesskey="u" rel="up">The type section</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h4 class="subsection" id="Arrays-1"><span>2.3.8 Arrays<a class="copiable-link" href="#Arrays-1"> &para;</a></span></h4>
-<a class="index-entry-id" id="index-Arrays"></a>
+<span id="Arrays-1"></span><h4 class="subsection">2.3.8 Arrays</h4>
+<span id="index-Arrays"></span>
 
-<p>Arrays are encoded as types of kind <code class="code">CTF_K_ARRAY</code> in a <code class="code">ctf_stype_t</code>.
+<p>Arrays are encoded as types of kind <code>CTF_K_ARRAY</code> in a <code>ctf_stype_t</code>.
 Both size and kind for arrays are zero.  The variable-length data is a
-<code class="code">ctf_array_t</code>: <code class="code">vlen</code> in the info word should be disregarded and is
+<code>ctf_array_t</code>: <code>vlen</code> in the info word should be disregarded and is
 always zero.
 </p>
 <pre class="verbatim">typedef struct ctf_array
@@ -58,32 +71,31 @@ always zero.
   uint32_t cta_nelems;
 } ctf_array_t;
 </pre>
-<a class="index-entry-id" id="index-struct-ctf_005farray"></a>
-<a class="index-entry-id" id="index-ctf_005farray_005ft"></a>
-<table class="multitable">
+<span id="index-struct-ctf_005farray"></span>
+<span id="index-ctf_005farray_005ft"></span>
+<table>
 <thead><tr><th>Offset</th><th>Name</th><th>Description</th></tr></thead>
-<tbody><tr><td>0x0</td><td><code class="code">uint32_t cta_contents</code>
-<a class="index-entry-id" id="index-cta_005fcontents"></a>
-<a class="index-entry-id" id="index-struct-ctf_005farray_002c-cta_005fcontents"></a>
-<a class="index-entry-id" id="index-ctf_005farray_005ft_002c-cta_005fcontents"></a></td><td>The type of the array elements: a type ID.</td></tr>
-<tr><td>0x4</td><td><code class="code">uint32_t cta_index</code>
-<a class="index-entry-id" id="index-cta_005findex"></a>
-<a class="index-entry-id" id="index-struct-ctf_005farray_002c-cta_005findex"></a>
-<a class="index-entry-id" id="index-ctf_005farray_005ft_002c-cta_005findex"></a></td><td>The type of the array index: a type ID of an integral type.
+<tr><td>0x0</td><td><code>uint32_t cta_contents</code>
+<span id="index-cta_005fcontents"></span>
+<span id="index-struct-ctf_005farray_002c-cta_005fcontents"></span>
+<span id="index-ctf_005farray_005ft_002c-cta_005fcontents"></span></td><td>The type of the array elements: a type ID.</td></tr>
+<tr><td>0x4</td><td><code>uint32_t cta_index</code>
+<span id="index-cta_005findex"></span>
+<span id="index-struct-ctf_005farray_002c-cta_005findex"></span>
+<span id="index-ctf_005farray_005ft_002c-cta_005findex"></span></td><td>The type of the array index: a type ID of an integral type.
 If this is a variable-length array, the index type ID will be 0
-(but the actual index type of this array is probably <code class="code">int</code>).
+(but the actual index type of this array is probably <code>int</code>).
 Probably redundant and may be dropped in v4.</td></tr>
-<tr><td>0x8</td><td><code class="code">uint32_t cta_nelems</code>
-<a class="index-entry-id" id="index-cta_005fnelems"></a>
-<a class="index-entry-id" id="index-struct-ctf_005farray_002c-cta_005fnelems"></a>
-<a class="index-entry-id" id="index-ctf_005farray_005ft_002c-cta_005fnelems"></a></td><td>The number of array elements.  0 for VLAs, and also for
+<tr><td>0x8</td><td><code>uint32_t cta_nelems</code>
+<span id="index-cta_005fnelems"></span>
+<span id="index-struct-ctf_005farray_002c-cta_005fnelems"></span>
+<span id="index-ctf_005farray_005ft_002c-cta_005fnelems"></span></td><td>The number of array elements.  0 for VLAs, and also for
 the historical variety of VLA which has explicit zero dimensions (which will
-have a nonzero <code class="code">cta_index</code>.)</td></tr>
-</tbody>
+have a nonzero <code>cta_index</code>.)</td></tr>
 </table>
 
 <p>The size of an array can be computed by simple multiplication of the size of the
-<code class="code">cta_contents</code> type by the <code class="code">cta_nelems</code>.
+<code>cta_contents</code> type by the <code>cta_nelems</code>.
 </p>
 </div>
 

@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the BFD library.
 
-Copyright © 1991-2024 Free Software Foundation, Inc.
+Copyright (C) 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -40,11 +40,21 @@ You have freedom to copy and modify this GNU Manual, like GNU
 <link href="typedef-asection.html" rel="prev" title="typedef asection">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
 div.example {margin-left: 3.2em}
-span:hover a.copiable-link {visibility: visible}
-strong.def-name {font-family: monospace; font-weight: bold; font-size: larger}
-ul.mark-bullet {list-style-type: disc}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -52,124 +62,124 @@ ul.mark-bullet {list-style-type: disc}
 </head>
 
 <body lang="en">
-<div class="subsection-level-extent" id="section-prototypes">
-<div class="nav-panel">
+<div class="subsection" id="section-prototypes">
+<div class="header">
 <p>
 Previous: <a href="typedef-asection.html" accesskey="p" rel="prev">typedef asection</a>, Up: <a href="Sections.html" accesskey="u" rel="up">Sections</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="BFD-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h4 class="subsection" id="Section-prototypes"><span>2.6.5 Section prototypes<a class="copiable-link" href="#Section-prototypes"> &para;</a></span></h4>
+<span id="Section-prototypes"></span><h4 class="subsection">2.6.5 Section prototypes</h4>
 <p>These are the functions exported by the section handling part of BFD.
 </p>
-<a class="index-entry-id" id="index-bfd_005fsection_005flist_005fclear"></a>
-<ul class="mini-toc">
-<li><a href="#bfd_005fsection_005flist_005fclear" accesskey="1"><code class="code">bfd_section_list_clear</code></a></li>
-<li><a href="#bfd_005fget_005fsection_005fby_005fname" accesskey="2"><code class="code">bfd_get_section_by_name</code></a></li>
-<li><a href="#bfd_005fget_005fnext_005fsection_005fby_005fname" accesskey="3"><code class="code">bfd_get_next_section_by_name</code></a></li>
-<li><a href="#bfd_005fget_005flinker_005fsection" accesskey="4"><code class="code">bfd_get_linker_section</code></a></li>
-<li><a href="#bfd_005fget_005fsection_005fby_005fname_005fif" accesskey="5"><code class="code">bfd_get_section_by_name_if</code></a></li>
-<li><a href="#bfd_005fget_005funique_005fsection_005fname" accesskey="6"><code class="code">bfd_get_unique_section_name</code></a></li>
-<li><a href="#bfd_005fmake_005fsection_005fold_005fway" accesskey="7"><code class="code">bfd_make_section_old_way</code></a></li>
-<li><a href="#bfd_005fmake_005fsection_005fanyway_005fwith_005fflags" accesskey="8"><code class="code">bfd_make_section_anyway_with_flags</code></a></li>
-<li><a href="#bfd_005fmake_005fsection_005fanyway" accesskey="9"><code class="code">bfd_make_section_anyway</code></a></li>
-<li><a href="#bfd_005fmake_005fsection_005fwith_005fflags"><code class="code">bfd_make_section_with_flags</code></a></li>
-<li><a href="#bfd_005fmake_005fsection"><code class="code">bfd_make_section</code></a></li>
-<li><a href="#bfd_005fset_005fsection_005fflags"><code class="code">bfd_set_section_flags</code></a></li>
-<li><a href="#bfd_005frename_005fsection"><code class="code">bfd_rename_section</code></a></li>
-<li><a href="#bfd_005fmap_005fover_005fsections"><code class="code">bfd_map_over_sections</code></a></li>
-<li><a href="#bfd_005fsections_005ffind_005fif"><code class="code">bfd_sections_find_if</code></a></li>
-<li><a href="#bfd_005fset_005fsection_005fsize"><code class="code">bfd_set_section_size</code></a></li>
-<li><a href="#bfd_005fset_005fsection_005fcontents"><code class="code">bfd_set_section_contents</code></a></li>
-<li><a href="#bfd_005fget_005fsection_005fcontents"><code class="code">bfd_get_section_contents</code></a></li>
-<li><a href="#bfd_005fmalloc_005fand_005fget_005fsection"><code class="code">bfd_malloc_and_get_section</code></a></li>
-<li><a href="#bfd_005fcopy_005fprivate_005fsection_005fdata"><code class="code">bfd_copy_private_section_data</code></a></li>
-<li><a href="#bfd_005fgeneric_005fis_005fgroup_005fsection"><code class="code">bfd_generic_is_group_section</code></a></li>
-<li><a href="#bfd_005fgeneric_005fgroup_005fname"><code class="code">bfd_generic_group_name</code></a></li>
-<li><a href="#bfd_005fgeneric_005fdiscard_005fgroup"><code class="code">bfd_generic_discard_group</code></a></li>
-<li><a href="#bfd_005fsection_005fsize_005finsane"><code class="code">bfd_section_size_insane</code></a></li>
+<span id="index-bfd_005fsection_005flist_005fclear"></span>
+<ul class="section-toc">
+<li><a href="#bfd_005fsection_005flist_005fclear" accesskey="1"><code>bfd_section_list_clear</code></a></li>
+<li><a href="#bfd_005fget_005fsection_005fby_005fname" accesskey="2"><code>bfd_get_section_by_name</code></a></li>
+<li><a href="#bfd_005fget_005fnext_005fsection_005fby_005fname" accesskey="3"><code>bfd_get_next_section_by_name</code></a></li>
+<li><a href="#bfd_005fget_005flinker_005fsection" accesskey="4"><code>bfd_get_linker_section</code></a></li>
+<li><a href="#bfd_005fget_005fsection_005fby_005fname_005fif" accesskey="5"><code>bfd_get_section_by_name_if</code></a></li>
+<li><a href="#bfd_005fget_005funique_005fsection_005fname" accesskey="6"><code>bfd_get_unique_section_name</code></a></li>
+<li><a href="#bfd_005fmake_005fsection_005fold_005fway" accesskey="7"><code>bfd_make_section_old_way</code></a></li>
+<li><a href="#bfd_005fmake_005fsection_005fanyway_005fwith_005fflags" accesskey="8"><code>bfd_make_section_anyway_with_flags</code></a></li>
+<li><a href="#bfd_005fmake_005fsection_005fanyway" accesskey="9"><code>bfd_make_section_anyway</code></a></li>
+<li><a href="#bfd_005fmake_005fsection_005fwith_005fflags"><code>bfd_make_section_with_flags</code></a></li>
+<li><a href="#bfd_005fmake_005fsection"><code>bfd_make_section</code></a></li>
+<li><a href="#bfd_005fset_005fsection_005fflags"><code>bfd_set_section_flags</code></a></li>
+<li><a href="#bfd_005frename_005fsection"><code>bfd_rename_section</code></a></li>
+<li><a href="#bfd_005fmap_005fover_005fsections"><code>bfd_map_over_sections</code></a></li>
+<li><a href="#bfd_005fsections_005ffind_005fif"><code>bfd_sections_find_if</code></a></li>
+<li><a href="#bfd_005fset_005fsection_005fsize"><code>bfd_set_section_size</code></a></li>
+<li><a href="#bfd_005fset_005fsection_005fcontents"><code>bfd_set_section_contents</code></a></li>
+<li><a href="#bfd_005fget_005fsection_005fcontents"><code>bfd_get_section_contents</code></a></li>
+<li><a href="#bfd_005fmalloc_005fand_005fget_005fsection"><code>bfd_malloc_and_get_section</code></a></li>
+<li><a href="#bfd_005fcopy_005fprivate_005fsection_005fdata"><code>bfd_copy_private_section_data</code></a></li>
+<li><a href="#bfd_005fgeneric_005fis_005fgroup_005fsection"><code>bfd_generic_is_group_section</code></a></li>
+<li><a href="#bfd_005fgeneric_005fgroup_005fname"><code>bfd_generic_group_name</code></a></li>
+<li><a href="#bfd_005fgeneric_005fdiscard_005fgroup"><code>bfd_generic_discard_group</code></a></li>
+<li><a href="#bfd_005fsection_005fsize_005finsane"><code>bfd_section_size_insane</code></a></li>
 </ul>
-<div class="subsubsection-level-extent" id="bfd_005fsection_005flist_005fclear">
-<h4 class="subsubsection"><span>2.6.5.1 <code class="code">bfd_section_list_clear</code><a class="copiable-link" href="#bfd_005fsection_005flist_005fclear"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-bfd_005fsection_005flist_005fclear-1"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">bfd_section_list_clear</strong> <code class="def-code-arguments">(bfd *);</code><a class="copiable-link" href="#index-bfd_005fsection_005flist_005fclear-1"> &para;</a></span></dt>
+<div class="subsubsection" id="bfd_005fsection_005flist_005fclear">
+<h4 class="subsubsection">2.6.5.1 <code>bfd_section_list_clear</code></h4>
+<dl class="def">
+<dt id="index-bfd_005fsection_005flist_005fclear-1"><span class="category">Function: </span><span><em>void</em> <strong>bfd_section_list_clear</strong> <em>(bfd *);</em><a href='#index-bfd_005fsection_005flist_005fclear-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Clears the section list, and also resets the section count and
 hash table entries.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005fget_005fsection_005fby_005fname"></a>
+<span id="index-bfd_005fget_005fsection_005fby_005fname"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fget_005fsection_005fby_005fname">
-<h4 class="subsubsection"><span>2.6.5.2 <code class="code">bfd_get_section_by_name</code><a class="copiable-link" href="#bfd_005fget_005fsection_005fby_005fname"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-_002abfd_005fget_005fsection_005fby_005fname"><span class="category-def">Function: </span><span><code class="def-type">asection</code> <strong class="def-name">*bfd_get_section_by_name</strong> <code class="def-code-arguments">(bfd *abfd, const char *name);</code><a class="copiable-link" href="#index-_002abfd_005fget_005fsection_005fby_005fname"> &para;</a></span></dt>
-<dd><p>Return the most recently created section attached to <var class="var">abfd</var>
-named <var class="var">name</var>.  Return NULL if no such section exists.
+<div class="subsubsection" id="bfd_005fget_005fsection_005fby_005fname">
+<h4 class="subsubsection">2.6.5.2 <code>bfd_get_section_by_name</code></h4>
+<dl class="def">
+<dt id="index-_002abfd_005fget_005fsection_005fby_005fname"><span class="category">Function: </span><span><em>asection</em> <strong>*bfd_get_section_by_name</strong> <em>(bfd *abfd, const char *name);</em><a href='#index-_002abfd_005fget_005fsection_005fby_005fname' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Return the most recently created section attached to <var>abfd</var>
+named <var>name</var>.  Return NULL if no such section exists.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005fget_005fnext_005fsection_005fby_005fname"></a>
+<span id="index-bfd_005fget_005fnext_005fsection_005fby_005fname"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fget_005fnext_005fsection_005fby_005fname">
-<h4 class="subsubsection"><span>2.6.5.3 <code class="code">bfd_get_next_section_by_name</code><a class="copiable-link" href="#bfd_005fget_005fnext_005fsection_005fby_005fname"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-_002abfd_005fget_005fnext_005fsection_005fby_005fname"><span class="category-def">Function: </span><span><code class="def-type">asection</code> <strong class="def-name">*bfd_get_next_section_by_name</strong> <code class="def-code-arguments">(bfd *ibfd, asection *sec);</code><a class="copiable-link" href="#index-_002abfd_005fget_005fnext_005fsection_005fby_005fname"> &para;</a></span></dt>
-<dd><p>Given <var class="var">sec</var> is a section returned by <code class="code">bfd_get_section_by_name</code>,
+<div class="subsubsection" id="bfd_005fget_005fnext_005fsection_005fby_005fname">
+<h4 class="subsubsection">2.6.5.3 <code>bfd_get_next_section_by_name</code></h4>
+<dl class="def">
+<dt id="index-_002abfd_005fget_005fnext_005fsection_005fby_005fname"><span class="category">Function: </span><span><em>asection</em> <strong>*bfd_get_next_section_by_name</strong> <em>(bfd *ibfd, asection *sec);</em><a href='#index-_002abfd_005fget_005fnext_005fsection_005fby_005fname' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Given <var>sec</var> is a section returned by <code>bfd_get_section_by_name</code>,
 return the next most recently created section attached to the same
 BFD with the same name, or if no such section exists in the same BFD and
 IBFD is non-NULL, the next section with the same name in any input
 BFD following IBFD.  Return NULL on finding no section.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005fget_005flinker_005fsection"></a>
+<span id="index-bfd_005fget_005flinker_005fsection"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fget_005flinker_005fsection">
-<h4 class="subsubsection"><span>2.6.5.4 <code class="code">bfd_get_linker_section</code><a class="copiable-link" href="#bfd_005fget_005flinker_005fsection"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-_002abfd_005fget_005flinker_005fsection"><span class="category-def">Function: </span><span><code class="def-type">asection</code> <strong class="def-name">*bfd_get_linker_section</strong> <code class="def-code-arguments">(bfd *abfd, const char *name);</code><a class="copiable-link" href="#index-_002abfd_005fget_005flinker_005fsection"> &para;</a></span></dt>
-<dd><p>Return the linker created section attached to <var class="var">abfd</var>
-named <var class="var">name</var>.  Return NULL if no such section exists.
+<div class="subsubsection" id="bfd_005fget_005flinker_005fsection">
+<h4 class="subsubsection">2.6.5.4 <code>bfd_get_linker_section</code></h4>
+<dl class="def">
+<dt id="index-_002abfd_005fget_005flinker_005fsection"><span class="category">Function: </span><span><em>asection</em> <strong>*bfd_get_linker_section</strong> <em>(bfd *abfd, const char *name);</em><a href='#index-_002abfd_005fget_005flinker_005fsection' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Return the linker created section attached to <var>abfd</var>
+named <var>name</var>.  Return NULL if no such section exists.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005fget_005fsection_005fby_005fname_005fif"></a>
+<span id="index-bfd_005fget_005fsection_005fby_005fname_005fif"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fget_005fsection_005fby_005fname_005fif">
-<h4 class="subsubsection"><span>2.6.5.5 <code class="code">bfd_get_section_by_name_if</code><a class="copiable-link" href="#bfd_005fget_005fsection_005fby_005fname_005fif"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-_002abfd_005fget_005fsection_005fby_005fname_005fif"><span class="category-def">Function: </span><span><code class="def-type">asection</code> <strong class="def-name">*bfd_get_section_by_name_if</strong> <code class="def-code-arguments">(bfd *abfd, const char *name, bool (*func) (bfd *abfd, asection *sect, void *obj), void *obj);</code><a class="copiable-link" href="#index-_002abfd_005fget_005fsection_005fby_005fname_005fif"> &para;</a></span></dt>
-<dd><p>Call the provided function <var class="var">func</var> for each section
-attached to the BFD <var class="var">abfd</var> whose name matches <var class="var">name</var>,
-passing <var class="var">obj</var> as an argument. The function will be called
+<div class="subsubsection" id="bfd_005fget_005fsection_005fby_005fname_005fif">
+<h4 class="subsubsection">2.6.5.5 <code>bfd_get_section_by_name_if</code></h4>
+<dl class="def">
+<dt id="index-_002abfd_005fget_005fsection_005fby_005fname_005fif"><span class="category">Function: </span><span><em>asection</em> <strong>*bfd_get_section_by_name_if</strong> <em>(bfd *abfd, const char *name, bool (*func) (bfd *abfd, asection *sect, void *obj), void *obj);</em><a href='#index-_002abfd_005fget_005fsection_005fby_005fname_005fif' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Call the provided function <var>func</var> for each section
+attached to the BFD <var>abfd</var> whose name matches <var>name</var>,
+passing <var>obj</var> as an argument. The function will be called
 as if by
 </p>
 <div class="example">
-<pre class="example-preformatted">       func (abfd, the_section, obj);
+<pre class="example">       func (abfd, the_section, obj);
 </pre></div>
 
-<p>It returns the first section for which <var class="var">func</var> returns true,
-otherwise <code class="code">NULL</code>.
+<p>It returns the first section for which <var>func</var> returns true,
+otherwise <code>NULL</code>.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005fget_005funique_005fsection_005fname"></a>
+<span id="index-bfd_005fget_005funique_005fsection_005fname"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fget_005funique_005fsection_005fname">
-<h4 class="subsubsection"><span>2.6.5.6 <code class="code">bfd_get_unique_section_name</code><a class="copiable-link" href="#bfd_005fget_005funique_005fsection_005fname"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-_002abfd_005fget_005funique_005fsection_005fname"><span class="category-def">Function: </span><span><code class="def-type">char</code> <strong class="def-name">*bfd_get_unique_section_name</strong> <code class="def-code-arguments">(bfd *abfd, const char *templat, int *count);</code><a class="copiable-link" href="#index-_002abfd_005fget_005funique_005fsection_005fname"> &para;</a></span></dt>
-<dd><p>Invent a section name that is unique in <var class="var">abfd</var> by tacking
-a dot and a digit suffix onto the original <var class="var">templat</var>.  If
-<var class="var">count</var> is non-NULL, then it specifies the first number
+<div class="subsubsection" id="bfd_005fget_005funique_005fsection_005fname">
+<h4 class="subsubsection">2.6.5.6 <code>bfd_get_unique_section_name</code></h4>
+<dl class="def">
+<dt id="index-_002abfd_005fget_005funique_005fsection_005fname"><span class="category">Function: </span><span><em>char</em> <strong>*bfd_get_unique_section_name</strong> <em>(bfd *abfd, const char *templat, int *count);</em><a href='#index-_002abfd_005fget_005funique_005fsection_005fname' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Invent a section name that is unique in <var>abfd</var> by tacking
+a dot and a digit suffix onto the original <var>templat</var>.  If
+<var>count</var> is non-NULL, then it specifies the first number
 tried as a suffix to generate a unique name.  The value
-pointed to by <var class="var">count</var> will be incremented in this case.
+pointed to by <var>count</var> will be incremented in this case.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005fmake_005fsection_005fold_005fway"></a>
+<span id="index-bfd_005fmake_005fsection_005fold_005fway"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fmake_005fsection_005fold_005fway">
-<h4 class="subsubsection"><span>2.6.5.7 <code class="code">bfd_make_section_old_way</code><a class="copiable-link" href="#bfd_005fmake_005fsection_005fold_005fway"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-_002abfd_005fmake_005fsection_005fold_005fway"><span class="category-def">Function: </span><span><code class="def-type">asection</code> <strong class="def-name">*bfd_make_section_old_way</strong> <code class="def-code-arguments">(bfd *abfd, const char *name);</code><a class="copiable-link" href="#index-_002abfd_005fmake_005fsection_005fold_005fway"> &para;</a></span></dt>
-<dd><p>Create a new empty section called <var class="var">name</var>
+<div class="subsubsection" id="bfd_005fmake_005fsection_005fold_005fway">
+<h4 class="subsubsection">2.6.5.7 <code>bfd_make_section_old_way</code></h4>
+<dl class="def">
+<dt id="index-_002abfd_005fmake_005fsection_005fold_005fway"><span class="category">Function: </span><span><em>asection</em> <strong>*bfd_make_section_old_way</strong> <em>(bfd *abfd, const char *name);</em><a href='#index-_002abfd_005fmake_005fsection_005fold_005fway' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Create a new empty section called <var>name</var>
 and attach it to the end of the chain of sections for the
-BFD <var class="var">abfd</var>. An attempt to create a section with a name which
+BFD <var>abfd</var>. An attempt to create a section with a name which
 is already in use returns its pointer without changing the
 section chain.
 </p>
@@ -177,270 +187,270 @@ section chain.
 before it was rewritten....
 </p>
 <p>Possible errors are:
-</p><ul class="itemize mark-bullet">
-<li><code class="code">bfd_error_invalid_operation</code> -
+</p><ul>
+<li> <code>bfd_error_invalid_operation</code> -
 If output has already started for this BFD.
-</li><li><code class="code">bfd_error_no_memory</code> -
+</li><li> <code>bfd_error_no_memory</code> -
 If memory allocation fails.
 </li></ul>
 
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005fmake_005fsection_005fanyway_005fwith_005fflags"></a>
+<span id="index-bfd_005fmake_005fsection_005fanyway_005fwith_005fflags"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fmake_005fsection_005fanyway_005fwith_005fflags">
-<h4 class="subsubsection"><span>2.6.5.8 <code class="code">bfd_make_section_anyway_with_flags</code><a class="copiable-link" href="#bfd_005fmake_005fsection_005fanyway_005fwith_005fflags"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-_002abfd_005fmake_005fsection_005fanyway_005fwith_005fflags"><span class="category-def">Function: </span><span><code class="def-type">asection</code> <strong class="def-name">*bfd_make_section_anyway_with_flags</strong> <code class="def-code-arguments">(bfd *abfd, const char *name, flagword flags);</code><a class="copiable-link" href="#index-_002abfd_005fmake_005fsection_005fanyway_005fwith_005fflags"> &para;</a></span></dt>
-<dd><p>Create a new empty section called <var class="var">name</var> and attach it to the end of
-the chain of sections for <var class="var">abfd</var>.  Create a new section even if there
+<div class="subsubsection" id="bfd_005fmake_005fsection_005fanyway_005fwith_005fflags">
+<h4 class="subsubsection">2.6.5.8 <code>bfd_make_section_anyway_with_flags</code></h4>
+<dl class="def">
+<dt id="index-_002abfd_005fmake_005fsection_005fanyway_005fwith_005fflags"><span class="category">Function: </span><span><em>asection</em> <strong>*bfd_make_section_anyway_with_flags</strong> <em>(bfd *abfd, const char *name, flagword flags);</em><a href='#index-_002abfd_005fmake_005fsection_005fanyway_005fwith_005fflags' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Create a new empty section called <var>name</var> and attach it to the end of
+the chain of sections for <var>abfd</var>.  Create a new section even if there
 is already a section with that name.  Also set the attributes of the
-new section to the value <var class="var">flags</var>.
+new section to the value <var>flags</var>.
 </p>
-<p>Return <code class="code">NULL</code> and set <code class="code">bfd_error</code> on error; possible errors are:
-</p><ul class="itemize mark-bullet">
-<li><code class="code">bfd_error_invalid_operation</code> - If output has already started for <var class="var">abfd</var>.
-</li><li><code class="code">bfd_error_no_memory</code> - If memory allocation fails.
+<p>Return <code>NULL</code> and set <code>bfd_error</code> on error; possible errors are:
+</p><ul>
+<li> <code>bfd_error_invalid_operation</code> - If output has already started for <var>abfd</var>.
+</li><li> <code>bfd_error_no_memory</code> - If memory allocation fails.
 </li></ul>
 
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005fmake_005fsection_005fanyway"></a>
+<span id="index-bfd_005fmake_005fsection_005fanyway"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fmake_005fsection_005fanyway">
-<h4 class="subsubsection"><span>2.6.5.9 <code class="code">bfd_make_section_anyway</code><a class="copiable-link" href="#bfd_005fmake_005fsection_005fanyway"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-_002abfd_005fmake_005fsection_005fanyway"><span class="category-def">Function: </span><span><code class="def-type">asection</code> <strong class="def-name">*bfd_make_section_anyway</strong> <code class="def-code-arguments">(bfd *abfd, const char *name);</code><a class="copiable-link" href="#index-_002abfd_005fmake_005fsection_005fanyway"> &para;</a></span></dt>
-<dd><p>Create a new empty section called <var class="var">name</var> and attach it to the end of
-the chain of sections for <var class="var">abfd</var>.  Create a new section even if there
+<div class="subsubsection" id="bfd_005fmake_005fsection_005fanyway">
+<h4 class="subsubsection">2.6.5.9 <code>bfd_make_section_anyway</code></h4>
+<dl class="def">
+<dt id="index-_002abfd_005fmake_005fsection_005fanyway"><span class="category">Function: </span><span><em>asection</em> <strong>*bfd_make_section_anyway</strong> <em>(bfd *abfd, const char *name);</em><a href='#index-_002abfd_005fmake_005fsection_005fanyway' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Create a new empty section called <var>name</var> and attach it to the end of
+the chain of sections for <var>abfd</var>.  Create a new section even if there
 is already a section with that name.
 </p>
-<p>Return <code class="code">NULL</code> and set <code class="code">bfd_error</code> on error; possible errors are:
-</p><ul class="itemize mark-bullet">
-<li><code class="code">bfd_error_invalid_operation</code> - If output has already started for <var class="var">abfd</var>.
-</li><li><code class="code">bfd_error_no_memory</code> - If memory allocation fails.
+<p>Return <code>NULL</code> and set <code>bfd_error</code> on error; possible errors are:
+</p><ul>
+<li> <code>bfd_error_invalid_operation</code> - If output has already started for <var>abfd</var>.
+</li><li> <code>bfd_error_no_memory</code> - If memory allocation fails.
 </li></ul>
 
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005fmake_005fsection_005fwith_005fflags"></a>
+<span id="index-bfd_005fmake_005fsection_005fwith_005fflags"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fmake_005fsection_005fwith_005fflags">
-<h4 class="subsubsection"><span>2.6.5.10 <code class="code">bfd_make_section_with_flags</code><a class="copiable-link" href="#bfd_005fmake_005fsection_005fwith_005fflags"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-_002abfd_005fmake_005fsection_005fwith_005fflags"><span class="category-def">Function: </span><span><code class="def-type">asection</code> <strong class="def-name">*bfd_make_section_with_flags</strong> <code class="def-code-arguments">(bfd *, const char *name, flagword flags);</code><a class="copiable-link" href="#index-_002abfd_005fmake_005fsection_005fwith_005fflags"> &para;</a></span></dt>
-<dd><p>Like <code class="code">bfd_make_section_anyway</code>, but return <code class="code">NULL</code> (without calling
+<div class="subsubsection" id="bfd_005fmake_005fsection_005fwith_005fflags">
+<h4 class="subsubsection">2.6.5.10 <code>bfd_make_section_with_flags</code></h4>
+<dl class="def">
+<dt id="index-_002abfd_005fmake_005fsection_005fwith_005fflags"><span class="category">Function: </span><span><em>asection</em> <strong>*bfd_make_section_with_flags</strong> <em>(bfd *, const char *name, flagword flags);</em><a href='#index-_002abfd_005fmake_005fsection_005fwith_005fflags' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Like <code>bfd_make_section_anyway</code>, but return <code>NULL</code> (without calling
 bfd_set_error ()) without changing the section chain if there is already a
-section named <var class="var">name</var>.  Also set the attributes of the new section to
-the value <var class="var">flags</var>.  If there is an error, return <code class="code">NULL</code> and set
-<code class="code">bfd_error</code>.
+section named <var>name</var>.  Also set the attributes of the new section to
+the value <var>flags</var>.  If there is an error, return <code>NULL</code> and set
+<code>bfd_error</code>.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005fmake_005fsection"></a>
+<span id="index-bfd_005fmake_005fsection"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fmake_005fsection">
-<h4 class="subsubsection"><span>2.6.5.11 <code class="code">bfd_make_section</code><a class="copiable-link" href="#bfd_005fmake_005fsection"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-_002abfd_005fmake_005fsection"><span class="category-def">Function: </span><span><code class="def-type">asection</code> <strong class="def-name">*bfd_make_section</strong> <code class="def-code-arguments">(bfd *, const char *name);</code><a class="copiable-link" href="#index-_002abfd_005fmake_005fsection"> &para;</a></span></dt>
-<dd><p>Like <code class="code">bfd_make_section_anyway</code>, but return <code class="code">NULL</code> (without calling
+<div class="subsubsection" id="bfd_005fmake_005fsection">
+<h4 class="subsubsection">2.6.5.11 <code>bfd_make_section</code></h4>
+<dl class="def">
+<dt id="index-_002abfd_005fmake_005fsection"><span class="category">Function: </span><span><em>asection</em> <strong>*bfd_make_section</strong> <em>(bfd *, const char *name);</em><a href='#index-_002abfd_005fmake_005fsection' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Like <code>bfd_make_section_anyway</code>, but return <code>NULL</code> (without calling
 bfd_set_error ()) without changing the section chain if there is already a
-section named <var class="var">name</var>.  If there is an error, return <code class="code">NULL</code> and set
-<code class="code">bfd_error</code>.
+section named <var>name</var>.  If there is an error, return <code>NULL</code> and set
+<code>bfd_error</code>.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005fset_005fsection_005fflags"></a>
+<span id="index-bfd_005fset_005fsection_005fflags"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fset_005fsection_005fflags">
-<h4 class="subsubsection"><span>2.6.5.12 <code class="code">bfd_set_section_flags</code><a class="copiable-link" href="#bfd_005fset_005fsection_005fflags"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-bfd_005fset_005fsection_005fflags-1"><span class="category-def">Function: </span><span><code class="def-type">bool</code> <strong class="def-name">bfd_set_section_flags</strong> <code class="def-code-arguments">(asection *sec, flagword flags);</code><a class="copiable-link" href="#index-bfd_005fset_005fsection_005fflags-1"> &para;</a></span></dt>
-<dd><p>Set the attributes of the section <var class="var">sec</var> to the value <var class="var">flags</var>.
-Return <code class="code">TRUE</code> on success, <code class="code">FALSE</code> on error.  Possible error
+<div class="subsubsection" id="bfd_005fset_005fsection_005fflags">
+<h4 class="subsubsection">2.6.5.12 <code>bfd_set_section_flags</code></h4>
+<dl class="def">
+<dt id="index-bfd_005fset_005fsection_005fflags-1"><span class="category">Function: </span><span><em>bool</em> <strong>bfd_set_section_flags</strong> <em>(asection *sec, flagword flags);</em><a href='#index-bfd_005fset_005fsection_005fflags-1' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Set the attributes of the section <var>sec</var> to the value <var>flags</var>.
+Return <code>TRUE</code> on success, <code>FALSE</code> on error.  Possible error
 returns are:
 </p>
-<ul class="itemize mark-bullet">
-<li><code class="code">bfd_error_invalid_operation</code> -
+<ul>
+<li> <code>bfd_error_invalid_operation</code> -
 The section cannot have one or more of the attributes
-requested. For example, a .bss section in <code class="code">a.out</code> may not
-have the <code class="code">SEC_HAS_CONTENTS</code> field set.
+requested. For example, a .bss section in <code>a.out</code> may not
+have the <code>SEC_HAS_CONTENTS</code> field set.
 </li></ul>
 
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005frename_005fsection"></a>
+<span id="index-bfd_005frename_005fsection"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005frename_005fsection">
-<h4 class="subsubsection"><span>2.6.5.13 <code class="code">bfd_rename_section</code><a class="copiable-link" href="#bfd_005frename_005fsection"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-bfd_005frename_005fsection-1"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">bfd_rename_section</strong> <code class="def-code-arguments">(asection *sec, const char *newname);</code><a class="copiable-link" href="#index-bfd_005frename_005fsection-1"> &para;</a></span></dt>
-<dd><p>Rename section <var class="var">sec</var> to <var class="var">newname</var>.
+<div class="subsubsection" id="bfd_005frename_005fsection">
+<h4 class="subsubsection">2.6.5.13 <code>bfd_rename_section</code></h4>
+<dl class="def">
+<dt id="index-bfd_005frename_005fsection-1"><span class="category">Function: </span><span><em>void</em> <strong>bfd_rename_section</strong> <em>(asection *sec, const char *newname);</em><a href='#index-bfd_005frename_005fsection-1' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Rename section <var>sec</var> to <var>newname</var>.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005fmap_005fover_005fsections"></a>
+<span id="index-bfd_005fmap_005fover_005fsections"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fmap_005fover_005fsections">
-<h4 class="subsubsection"><span>2.6.5.14 <code class="code">bfd_map_over_sections</code><a class="copiable-link" href="#bfd_005fmap_005fover_005fsections"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-bfd_005fmap_005fover_005fsections-1"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">bfd_map_over_sections</strong> <code class="def-code-arguments">(bfd *abfd, void (*func) (bfd *abfd, asection *sect, void *obj), void *obj);</code><a class="copiable-link" href="#index-bfd_005fmap_005fover_005fsections-1"> &para;</a></span></dt>
-<dd><p>Call the provided function <var class="var">func</var> for each section
-attached to the BFD <var class="var">abfd</var>, passing <var class="var">obj</var> as an
+<div class="subsubsection" id="bfd_005fmap_005fover_005fsections">
+<h4 class="subsubsection">2.6.5.14 <code>bfd_map_over_sections</code></h4>
+<dl class="def">
+<dt id="index-bfd_005fmap_005fover_005fsections-1"><span class="category">Function: </span><span><em>void</em> <strong>bfd_map_over_sections</strong> <em>(bfd *abfd, void (*func) (bfd *abfd, asection *sect, void *obj), void *obj);</em><a href='#index-bfd_005fmap_005fover_005fsections-1' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Call the provided function <var>func</var> for each section
+attached to the BFD <var>abfd</var>, passing <var>obj</var> as an
 argument. The function will be called as if by
 </p>
 <div class="example">
-<pre class="example-preformatted">       func (abfd, the_section, obj);
+<pre class="example">       func (abfd, the_section, obj);
 </pre></div>
 
 <p>This is the preferred method for iterating over sections; an
 alternative would be to use a loop:
 </p>
 <div class="example">
-<pre class="example-preformatted">          asection *p;
+<pre class="example">          asection *p;
           for (p = abfd-&gt;sections; p != NULL; p = p-&gt;next)
              func (abfd, p, ...)
 </pre></div>
 
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005fsections_005ffind_005fif"></a>
+<span id="index-bfd_005fsections_005ffind_005fif"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fsections_005ffind_005fif">
-<h4 class="subsubsection"><span>2.6.5.15 <code class="code">bfd_sections_find_if</code><a class="copiable-link" href="#bfd_005fsections_005ffind_005fif"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-_002abfd_005fsections_005ffind_005fif"><span class="category-def">Function: </span><span><code class="def-type">asection</code> <strong class="def-name">*bfd_sections_find_if</strong> <code class="def-code-arguments">(bfd *abfd, bool (*operation) (bfd *abfd, asection *sect, void *obj), void *obj);</code><a class="copiable-link" href="#index-_002abfd_005fsections_005ffind_005fif"> &para;</a></span></dt>
-<dd><p>Call the provided function <var class="var">operation</var> for each section
-attached to the BFD <var class="var">abfd</var>, passing <var class="var">obj</var> as an
+<div class="subsubsection" id="bfd_005fsections_005ffind_005fif">
+<h4 class="subsubsection">2.6.5.15 <code>bfd_sections_find_if</code></h4>
+<dl class="def">
+<dt id="index-_002abfd_005fsections_005ffind_005fif"><span class="category">Function: </span><span><em>asection</em> <strong>*bfd_sections_find_if</strong> <em>(bfd *abfd, bool (*operation) (bfd *abfd, asection *sect, void *obj), void *obj);</em><a href='#index-_002abfd_005fsections_005ffind_005fif' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Call the provided function <var>operation</var> for each section
+attached to the BFD <var>abfd</var>, passing <var>obj</var> as an
 argument. The function will be called as if by
 </p>
 <div class="example">
-<pre class="example-preformatted">       operation (abfd, the_section, obj);
+<pre class="example">       operation (abfd, the_section, obj);
 </pre></div>
 
-<p>It returns the first section for which <var class="var">operation</var> returns true.
+<p>It returns the first section for which <var>operation</var> returns true.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005fset_005fsection_005fsize"></a>
+<span id="index-bfd_005fset_005fsection_005fsize"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fset_005fsection_005fsize">
-<h4 class="subsubsection"><span>2.6.5.16 <code class="code">bfd_set_section_size</code><a class="copiable-link" href="#bfd_005fset_005fsection_005fsize"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-bfd_005fset_005fsection_005fsize-1"><span class="category-def">Function: </span><span><code class="def-type">bool</code> <strong class="def-name">bfd_set_section_size</strong> <code class="def-code-arguments">(asection *sec, bfd_size_type val);</code><a class="copiable-link" href="#index-bfd_005fset_005fsection_005fsize-1"> &para;</a></span></dt>
-<dd><p>Set <var class="var">sec</var> to the size <var class="var">val</var>. If the operation is
-ok, then <code class="code">TRUE</code> is returned, else <code class="code">FALSE</code>.
+<div class="subsubsection" id="bfd_005fset_005fsection_005fsize">
+<h4 class="subsubsection">2.6.5.16 <code>bfd_set_section_size</code></h4>
+<dl class="def">
+<dt id="index-bfd_005fset_005fsection_005fsize-1"><span class="category">Function: </span><span><em>bool</em> <strong>bfd_set_section_size</strong> <em>(asection *sec, bfd_size_type val);</em><a href='#index-bfd_005fset_005fsection_005fsize-1' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Set <var>sec</var> to the size <var>val</var>. If the operation is
+ok, then <code>TRUE</code> is returned, else <code>FALSE</code>.
 </p>
 <p>Possible error returns:
-</p><ul class="itemize mark-bullet">
-<li><code class="code">bfd_error_invalid_operation</code> -
+</p><ul>
+<li> <code>bfd_error_invalid_operation</code> -
 Writing has started to the BFD, so setting the size is invalid.
 </li></ul>
 
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005fset_005fsection_005fcontents"></a>
+<span id="index-bfd_005fset_005fsection_005fcontents"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fset_005fsection_005fcontents">
-<h4 class="subsubsection"><span>2.6.5.17 <code class="code">bfd_set_section_contents</code><a class="copiable-link" href="#bfd_005fset_005fsection_005fcontents"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-bfd_005fset_005fsection_005fcontents-1"><span class="category-def">Function: </span><span><code class="def-type">bool</code> <strong class="def-name">bfd_set_section_contents</strong> <code class="def-code-arguments">(bfd *abfd, asection *section, const void *data, file_ptr offset, bfd_size_type count);</code><a class="copiable-link" href="#index-bfd_005fset_005fsection_005fcontents-1"> &para;</a></span></dt>
-<dd><p>Sets the contents of the section <var class="var">section</var> in BFD
-<var class="var">abfd</var> to the data starting in memory at <var class="var">location</var>.
+<div class="subsubsection" id="bfd_005fset_005fsection_005fcontents">
+<h4 class="subsubsection">2.6.5.17 <code>bfd_set_section_contents</code></h4>
+<dl class="def">
+<dt id="index-bfd_005fset_005fsection_005fcontents-1"><span class="category">Function: </span><span><em>bool</em> <strong>bfd_set_section_contents</strong> <em>(bfd *abfd, asection *section, const void *data, file_ptr offset, bfd_size_type count);</em><a href='#index-bfd_005fset_005fsection_005fcontents-1' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Sets the contents of the section <var>section</var> in BFD
+<var>abfd</var> to the data starting in memory at <var>location</var>.
 The data is written to the output section starting at offset
-<var class="var">offset</var> for <var class="var">count</var> octets.
+<var>offset</var> for <var>count</var> octets.
 </p>
-<p>Normally <code class="code">TRUE</code> is returned, but <code class="code">FALSE</code> is returned if
+<p>Normally <code>TRUE</code> is returned, but <code>FALSE</code> is returned if
 there was an error.  Possible error returns are:
-</p><ul class="itemize mark-bullet">
-<li><code class="code">bfd_error_no_contents</code> -
-The output section does not have the <code class="code">SEC_HAS_CONTENTS</code>
+</p><ul>
+<li> <code>bfd_error_no_contents</code> -
+The output section does not have the <code>SEC_HAS_CONTENTS</code>
 attribute, so nothing can be written to it.
-</li><li><code class="code">bfd_error_bad_value</code> -
+</li><li> <code>bfd_error_bad_value</code> -
 The section is unable to contain all of the data.
-</li><li><code class="code">bfd_error_invalid_operation</code> -
+</li><li> <code>bfd_error_invalid_operation</code> -
 The BFD is not writeable.
-</li><li>and some more too.
+</li><li> and some more too.
 </li></ul>
 <p>This routine is front end to the back end function
-<code class="code">_bfd_set_section_contents</code>.
+<code>_bfd_set_section_contents</code>.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005fget_005fsection_005fcontents"></a>
+<span id="index-bfd_005fget_005fsection_005fcontents"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fget_005fsection_005fcontents">
-<h4 class="subsubsection"><span>2.6.5.18 <code class="code">bfd_get_section_contents</code><a class="copiable-link" href="#bfd_005fget_005fsection_005fcontents"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-bfd_005fget_005fsection_005fcontents-1"><span class="category-def">Function: </span><span><code class="def-type">bool</code> <strong class="def-name">bfd_get_section_contents</strong> <code class="def-code-arguments">(bfd *abfd, asection *section, void *location, file_ptr offset, bfd_size_type count);</code><a class="copiable-link" href="#index-bfd_005fget_005fsection_005fcontents-1"> &para;</a></span></dt>
-<dd><p>Read data from <var class="var">section</var> in BFD <var class="var">abfd</var>
-into memory starting at <var class="var">location</var>. The data is read at an
-offset of <var class="var">offset</var> from the start of the input section,
-and is read for <var class="var">count</var> bytes.
+<div class="subsubsection" id="bfd_005fget_005fsection_005fcontents">
+<h4 class="subsubsection">2.6.5.18 <code>bfd_get_section_contents</code></h4>
+<dl class="def">
+<dt id="index-bfd_005fget_005fsection_005fcontents-1"><span class="category">Function: </span><span><em>bool</em> <strong>bfd_get_section_contents</strong> <em>(bfd *abfd, asection *section, void *location, file_ptr offset, bfd_size_type count);</em><a href='#index-bfd_005fget_005fsection_005fcontents-1' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Read data from <var>section</var> in BFD <var>abfd</var>
+into memory starting at <var>location</var>. The data is read at an
+offset of <var>offset</var> from the start of the input section,
+and is read for <var>count</var> bytes.
 </p>
-<p>If the contents of a constructor with the <code class="code">SEC_CONSTRUCTOR</code>
+<p>If the contents of a constructor with the <code>SEC_CONSTRUCTOR</code>
 flag set are requested or if the section does not have the
-<code class="code">SEC_HAS_CONTENTS</code> flag set, then the <var class="var">location</var> is filled
-with zeroes. If no errors occur, <code class="code">TRUE</code> is returned, else
-<code class="code">FALSE</code>.
+<code>SEC_HAS_CONTENTS</code> flag set, then the <var>location</var> is filled
+with zeroes. If no errors occur, <code>TRUE</code> is returned, else
+<code>FALSE</code>.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005fmalloc_005fand_005fget_005fsection"></a>
+<span id="index-bfd_005fmalloc_005fand_005fget_005fsection"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fmalloc_005fand_005fget_005fsection">
-<h4 class="subsubsection"><span>2.6.5.19 <code class="code">bfd_malloc_and_get_section</code><a class="copiable-link" href="#bfd_005fmalloc_005fand_005fget_005fsection"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-bfd_005fmalloc_005fand_005fget_005fsection-1"><span class="category-def">Function: </span><span><code class="def-type">bool</code> <strong class="def-name">bfd_malloc_and_get_section</strong> <code class="def-code-arguments">(bfd *abfd, asection *section, bfd_byte **buf);</code><a class="copiable-link" href="#index-bfd_005fmalloc_005fand_005fget_005fsection-1"> &para;</a></span></dt>
-<dd><p>Read all data from <var class="var">section</var> in BFD <var class="var">abfd</var>
-into a buffer, *<var class="var">buf</var>, malloc&rsquo;d by this function.
-Return <code class="code">true</code> on success, <code class="code">false</code> on failure in which
-case *<var class="var">buf</var> will be NULL.
+<div class="subsubsection" id="bfd_005fmalloc_005fand_005fget_005fsection">
+<h4 class="subsubsection">2.6.5.19 <code>bfd_malloc_and_get_section</code></h4>
+<dl class="def">
+<dt id="index-bfd_005fmalloc_005fand_005fget_005fsection-1"><span class="category">Function: </span><span><em>bool</em> <strong>bfd_malloc_and_get_section</strong> <em>(bfd *abfd, asection *section, bfd_byte **buf);</em><a href='#index-bfd_005fmalloc_005fand_005fget_005fsection-1' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Read all data from <var>section</var> in BFD <var>abfd</var>
+into a buffer, *<var>buf</var>, malloc&rsquo;d by this function.
+Return <code>true</code> on success, <code>false</code> on failure in which
+case *<var>buf</var> will be NULL.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005fcopy_005fprivate_005fsection_005fdata"></a>
+<span id="index-bfd_005fcopy_005fprivate_005fsection_005fdata"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fcopy_005fprivate_005fsection_005fdata">
-<h4 class="subsubsection"><span>2.6.5.20 <code class="code">bfd_copy_private_section_data</code><a class="copiable-link" href="#bfd_005fcopy_005fprivate_005fsection_005fdata"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-bfd_005fcopy_005fprivate_005fsection_005fdata-1"><span class="category-def">Function: </span><span><code class="def-type">bool</code> <strong class="def-name">bfd_copy_private_section_data</strong> <code class="def-code-arguments">(bfd *ibfd, asection *isec, bfd *obfd, asection *osec);</code><a class="copiable-link" href="#index-bfd_005fcopy_005fprivate_005fsection_005fdata-1"> &para;</a></span></dt>
-<dd><p>Copy private section information from <var class="var">isec</var> in the BFD
-<var class="var">ibfd</var> to the section <var class="var">osec</var> in the BFD <var class="var">obfd</var>.
-Return <code class="code">TRUE</code> on success, <code class="code">FALSE</code> on error.  Possible error
+<div class="subsubsection" id="bfd_005fcopy_005fprivate_005fsection_005fdata">
+<h4 class="subsubsection">2.6.5.20 <code>bfd_copy_private_section_data</code></h4>
+<dl class="def">
+<dt id="index-bfd_005fcopy_005fprivate_005fsection_005fdata-1"><span class="category">Function: </span><span><em>bool</em> <strong>bfd_copy_private_section_data</strong> <em>(bfd *ibfd, asection *isec, bfd *obfd, asection *osec);</em><a href='#index-bfd_005fcopy_005fprivate_005fsection_005fdata-1' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Copy private section information from <var>isec</var> in the BFD
+<var>ibfd</var> to the section <var>osec</var> in the BFD <var>obfd</var>.
+Return <code>TRUE</code> on success, <code>FALSE</code> on error.  Possible error
 returns are:
 </p>
-<ul class="itemize mark-bullet">
-<li><code class="code">bfd_error_no_memory</code> -
-Not enough memory exists to create private data for <var class="var">osec</var>.
+<ul>
+<li> <code>bfd_error_no_memory</code> -
+Not enough memory exists to create private data for <var>osec</var>.
 </li></ul>
 <div class="example">
-<pre class="example-preformatted">#define bfd_copy_private_section_data(ibfd, isection, obfd, osection) \
+<pre class="example">#define bfd_copy_private_section_data(ibfd, isection, obfd, osection) \
        BFD_SEND (obfd, _bfd_copy_private_section_data, \
                  (ibfd, isection, obfd, osection))
 </pre></div>
 
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005fgeneric_005fis_005fgroup_005fsection"></a>
+<span id="index-bfd_005fgeneric_005fis_005fgroup_005fsection"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fgeneric_005fis_005fgroup_005fsection">
-<h4 class="subsubsection"><span>2.6.5.21 <code class="code">bfd_generic_is_group_section</code><a class="copiable-link" href="#bfd_005fgeneric_005fis_005fgroup_005fsection"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-bfd_005fgeneric_005fis_005fgroup_005fsection-1"><span class="category-def">Function: </span><span><code class="def-type">bool</code> <strong class="def-name">bfd_generic_is_group_section</strong> <code class="def-code-arguments">(bfd *, const asection *sec);</code><a class="copiable-link" href="#index-bfd_005fgeneric_005fis_005fgroup_005fsection-1"> &para;</a></span></dt>
-<dd><p>Returns TRUE if <var class="var">sec</var> is a member of a group.
+<div class="subsubsection" id="bfd_005fgeneric_005fis_005fgroup_005fsection">
+<h4 class="subsubsection">2.6.5.21 <code>bfd_generic_is_group_section</code></h4>
+<dl class="def">
+<dt id="index-bfd_005fgeneric_005fis_005fgroup_005fsection-1"><span class="category">Function: </span><span><em>bool</em> <strong>bfd_generic_is_group_section</strong> <em>(bfd *, const asection *sec);</em><a href='#index-bfd_005fgeneric_005fis_005fgroup_005fsection-1' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Returns TRUE if <var>sec</var> is a member of a group.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005fgeneric_005fgroup_005fname"></a>
+<span id="index-bfd_005fgeneric_005fgroup_005fname"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fgeneric_005fgroup_005fname">
-<h4 class="subsubsection"><span>2.6.5.22 <code class="code">bfd_generic_group_name</code><a class="copiable-link" href="#bfd_005fgeneric_005fgroup_005fname"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-char-2"><span class="category-def">Function: </span><span><code class="def-type">const</code> <strong class="def-name">char</strong> <code class="def-code-arguments">*bfd_generic_group_name (bfd *, const asection *sec);</code><a class="copiable-link" href="#index-char-2"> &para;</a></span></dt>
-<dd><p>Returns group name if <var class="var">sec</var> is a member of a group.
+<div class="subsubsection" id="bfd_005fgeneric_005fgroup_005fname">
+<h4 class="subsubsection">2.6.5.22 <code>bfd_generic_group_name</code></h4>
+<dl class="def">
+<dt id="index-char-2"><span class="category">Function: </span><span><em>const</em> <strong>char</strong> <em>*bfd_generic_group_name (bfd *, const asection *sec);</em><a href='#index-char-2' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Returns group name if <var>sec</var> is a member of a group.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005fgeneric_005fdiscard_005fgroup"></a>
+<span id="index-bfd_005fgeneric_005fdiscard_005fgroup"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fgeneric_005fdiscard_005fgroup">
-<h4 class="subsubsection"><span>2.6.5.23 <code class="code">bfd_generic_discard_group</code><a class="copiable-link" href="#bfd_005fgeneric_005fdiscard_005fgroup"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-bfd_005fgeneric_005fdiscard_005fgroup-1"><span class="category-def">Function: </span><span><code class="def-type">bool</code> <strong class="def-name">bfd_generic_discard_group</strong> <code class="def-code-arguments">(bfd *abfd, asection *group);</code><a class="copiable-link" href="#index-bfd_005fgeneric_005fdiscard_005fgroup-1"> &para;</a></span></dt>
-<dd><p>Remove all members of <var class="var">group</var> from the output.
+<div class="subsubsection" id="bfd_005fgeneric_005fdiscard_005fgroup">
+<h4 class="subsubsection">2.6.5.23 <code>bfd_generic_discard_group</code></h4>
+<dl class="def">
+<dt id="index-bfd_005fgeneric_005fdiscard_005fgroup-1"><span class="category">Function: </span><span><em>bool</em> <strong>bfd_generic_discard_group</strong> <em>(bfd *abfd, asection *group);</em><a href='#index-bfd_005fgeneric_005fdiscard_005fgroup-1' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Remove all members of <var>group</var> from the output.
 </p>
 </dd></dl>
-<a class="index-entry-id" id="index-bfd_005fsection_005fsize_005finsane"></a>
+<span id="index-bfd_005fsection_005fsize_005finsane"></span>
 </div>
-<div class="subsubsection-level-extent" id="bfd_005fsection_005fsize_005finsane">
-<h4 class="subsubsection"><span>2.6.5.24 <code class="code">bfd_section_size_insane</code><a class="copiable-link" href="#bfd_005fsection_005fsize_005finsane"> &para;</a></span></h4>
-<dl class="first-deftypefn">
-<dt class="deftypefn" id="index-bfd_005fsection_005fsize_005finsane-1"><span class="category-def">Function: </span><span><code class="def-type">bool</code> <strong class="def-name">bfd_section_size_insane</strong> <code class="def-code-arguments">(bfd *abfd, asection *sec);</code><a class="copiable-link" href="#index-bfd_005fsection_005fsize_005finsane-1"> &para;</a></span></dt>
+<div class="subsubsection" id="bfd_005fsection_005fsize_005finsane">
+<h4 class="subsubsection">2.6.5.24 <code>bfd_section_size_insane</code></h4>
+<dl class="def">
+<dt id="index-bfd_005fsection_005fsize_005finsane-1"><span class="category">Function: </span><span><em>bool</em> <strong>bfd_section_size_insane</strong> <em>(bfd *abfd, asection *sec);</em><a href='#index-bfd_005fsection_005fsize_005finsane-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Returns true if the given section has a size that indicates
 it cannot be read from file.  Return false if the size is OK
 or* this function can&rsquo;t say one way or the other.
@@ -450,7 +460,7 @@ or* this function can&rsquo;t say one way or the other.
 </div>
 </div>
 <hr>
-<div class="nav-panel">
+<div class="header">
 <p>
 Previous: <a href="typedef-asection.html">typedef asection</a>, Up: <a href="Sections.html">Sections</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="BFD-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

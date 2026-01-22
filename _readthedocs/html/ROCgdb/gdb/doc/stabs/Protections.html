@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright © 1992-2024 Free Software Foundation, Inc.
+<!-- Copyright (C) 1992-2024 Free Software Foundation, Inc.
 Contributed by Cygnus Support.  Written by Julia Menapace, Jim Kingdon,
 and David MacKenzie.
 
@@ -30,12 +30,21 @@ Free Documentation License". -->
 <link href="Member-Type-Descriptor.html" rel="prev" title="Member Type Descriptor">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
 div.display {margin-left: 3.2em}
 div.example {margin-left: 3.2em}
-pre.display-preformatted {font-family: inherit}
-span.r {font-family: initial; font-weight: normal; font-style: normal}
-span:hover a.copiable-link {visibility: visible}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -43,35 +52,35 @@ span:hover a.copiable-link {visibility: visible}
 </head>
 
 <body lang="en">
-<div class="section-level-extent" id="Protections">
-<div class="nav-panel">
+<div class="section" id="Protections">
+<div class="header">
 <p>
-Next: <a href="Method-Modifiers.html" accesskey="n" rel="next">Method Modifiers (<code class="code">const</code>, <code class="code">volatile</code>, <code class="code">const volatile</code>)</a>, Previous: <a href="Member-Type-Descriptor.html" accesskey="p" rel="prev">The &lsquo;<samp class="samp">@</samp>&rsquo; Type Descriptor</a>, Up: <a href="Cplusplus.html" accesskey="u" rel="up">GNU C<code class="t">++</code> Stabs</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Symbol-Types-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Method-Modifiers.html" accesskey="n" rel="next">Method Modifiers (<code>const</code>, <code>volatile</code>, <code>const volatile</code>)</a>, Previous: <a href="Member-Type-Descriptor.html" accesskey="p" rel="prev">The &lsquo;<samp>@</samp>&rsquo; Type Descriptor</a>, Up: <a href="Cplusplus.html" accesskey="u" rel="up">GNU C<tt>++</tt> Stabs</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Symbol-Types-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h3 class="section" id="Protections-1"><span>8.9 Protections<a class="copiable-link" href="#Protections-1"> &para;</a></span></h3>
+<span id="Protections-1"></span><h3 class="section">8.9 Protections</h3>
 
 <p>In the simple class definition shown above all member data and
 functions were publicly accessible.  The example that follows
 contrasts public, protected and privately accessible fields and shows
-how these protections are encoded in C<code class="t">++</code> stabs.
+how these protections are encoded in C<tt>++</tt> stabs.
 </p>
-<p>If the character following the &lsquo;<samp class="samp"><var class="var">field-name</var>:</samp>&rsquo; part of the
-string is &lsquo;<samp class="samp">/</samp>&rsquo;, then the next character is the visibility.  &lsquo;<samp class="samp">0</samp>&rsquo;
-means private, &lsquo;<samp class="samp">1</samp>&rsquo; means protected, and &lsquo;<samp class="samp">2</samp>&rsquo; means public.
+<p>If the character following the &lsquo;<samp><var>field-name</var>:</samp>&rsquo; part of the
+string is &lsquo;<samp>/</samp>&rsquo;, then the next character is the visibility.  &lsquo;<samp>0</samp>&rsquo;
+means private, &lsquo;<samp>1</samp>&rsquo; means protected, and &lsquo;<samp>2</samp>&rsquo; means public.
 Debuggers should ignore visibility characters they do not recognize, and
 assume a reasonable default (such as public) (GDB 4.11 does not, but
 this should be fixed in the next GDB release).  If no visibility is
-specified the field is public.  The visibility &lsquo;<samp class="samp">9</samp>&rsquo; means that the
+specified the field is public.  The visibility &lsquo;<samp>9</samp>&rsquo; means that the
 field has been optimized out and is public (there is no way to specify
 an optimized out field with a private or protected visibility).
-Visibility &lsquo;<samp class="samp">9</samp>&rsquo; is not supported by GDB 4.11; this should be fixed
+Visibility &lsquo;<samp>9</samp>&rsquo; is not supported by GDB 4.11; this should be fixed
 in the next GDB release.
 </p>
-<p>The following C<code class="t">++</code> source:
+<p>The following C<tt>++</tt> source:
 </p>
 <div class="example">
-<pre class="example-preformatted">class vis {
+<pre class="example">class vis {
 private:
         int   priv;
 protected:
@@ -84,24 +93,24 @@ public:
 <p>generates the following stab:
 </p>
 <div class="example">
-<pre class="example-preformatted"># <span class="r">128 is N_LSYM</span>
+<pre class="example"># <span class="roman">128 is N_LSYM</span>
 .stabs &quot;vis:T19=s12priv:/01,0,32;prot:/12,32,8;pub:12,64,32;;&quot;,128,0,0,0
 </pre></div>
 
-<p>&lsquo;<samp class="samp">vis:T19=s12</samp>&rsquo; indicates that type number 19 is a 12 byte structure
-named <code class="code">vis</code> The <code class="code">priv</code> field has public visibility
-(&lsquo;<samp class="samp">/0</samp>&rsquo;), type int (&lsquo;<samp class="samp">1</samp>&rsquo;), and offset and size &lsquo;<samp class="samp">,0,32;</samp>&rsquo;.
-The <code class="code">prot</code> field has protected visibility (&lsquo;<samp class="samp">/1</samp>&rsquo;), type char
-(&lsquo;<samp class="samp">2</samp>&rsquo;) and offset and size &lsquo;<samp class="samp">,32,8;</samp>&rsquo;.  The <code class="code">pub</code> field has
-type float (&lsquo;<samp class="samp">12</samp>&rsquo;), and offset and size &lsquo;<samp class="samp">,64,32;</samp>&rsquo;.
+<p>&lsquo;<samp>vis:T19=s12</samp>&rsquo; indicates that type number 19 is a 12 byte structure
+named <code>vis</code> The <code>priv</code> field has public visibility
+(&lsquo;<samp>/0</samp>&rsquo;), type int (&lsquo;<samp>1</samp>&rsquo;), and offset and size &lsquo;<samp>,0,32;</samp>&rsquo;.
+The <code>prot</code> field has protected visibility (&lsquo;<samp>/1</samp>&rsquo;), type char
+(&lsquo;<samp>2</samp>&rsquo;) and offset and size &lsquo;<samp>,32,8;</samp>&rsquo;.  The <code>pub</code> field has
+type float (&lsquo;<samp>12</samp>&rsquo;), and offset and size &lsquo;<samp>,64,32;</samp>&rsquo;.
 </p>
 <p>Protections for member functions are signified by one digit embedded in
 the field part of the stab describing the method.  The digit is 0 if
-private, 1 if protected and 2 if public.  Consider the C<code class="t">++</code> class
+private, 1 if protected and 2 if public.  Consider the C<tt>++</tt> class
 definition below:
 </p>
 <div class="example">
-<pre class="example-preformatted">class all_methods {
+<pre class="example">class all_methods {
 private:
         int   priv_meth(int in){return in;};
 protected:
@@ -112,11 +121,11 @@ public:
 </pre></div>
 
 <p>It generates the following stab.  The digit in question is to the left
-of an &lsquo;<samp class="samp">A</samp>&rsquo; in each case.  Notice also that in this case two symbol
+of an &lsquo;<samp>A</samp>&rsquo; in each case.  Notice also that in this case two symbol
 descriptors apply to the class name struct tag and struct type.
 </p>
 <div class="display">
-<pre class="display-preformatted">.stabs &quot;class_name:sym_desc(struct tag&amp;type)type_def(21)=
+<pre class="display">.stabs &quot;class_name:sym_desc(struct tag&amp;type)type_def(21)=
         sym_desc(struct)struct_bytes(1)
         meth_name::type_def(22)=sym_desc(method)returning(int);
         :args(int);protection(private)modifier(normal)virtual(no);
@@ -127,16 +136,16 @@ descriptors apply to the class name struct tag and struct type.
         N_LSYM,NIL,NIL,NIL
 </pre></div>
 
-<div class="example smallexample">
-<pre class="example-preformatted">.stabs &quot;all_methods:Tt21=s1priv_meth::22=##1;:i;0A.;protMeth::23=##2;:c;1A.;
+<div class="example">
+<pre class="example">.stabs &quot;all_methods:Tt21=s1priv_meth::22=##1;:i;0A.;protMeth::23=##2;:c;1A.;
         pubMeth::24=##12;:f;2A.;;&quot;,128,0,0,0
 </pre></div>
 
 </div>
 <hr>
-<div class="nav-panel">
+<div class="header">
 <p>
-Next: <a href="Method-Modifiers.html">Method Modifiers (<code class="code">const</code>, <code class="code">volatile</code>, <code class="code">const volatile</code>)</a>, Previous: <a href="Member-Type-Descriptor.html">The &lsquo;<samp class="samp">@</samp>&rsquo; Type Descriptor</a>, Up: <a href="Cplusplus.html">GNU C<code class="t">++</code> Stabs</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Symbol-Types-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Method-Modifiers.html">Method Modifiers (<code>const</code>, <code>volatile</code>, <code>const volatile</code>)</a>, Previous: <a href="Member-Type-Descriptor.html">The &lsquo;<samp>@</samp>&rsquo; Type Descriptor</a>, Up: <a href="Cplusplus.html">GNU C<tt>++</tt> Stabs</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Symbol-Types-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

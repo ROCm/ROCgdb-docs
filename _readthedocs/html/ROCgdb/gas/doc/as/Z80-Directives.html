@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the GNU Assembler "as".
 
-Copyright © 1991-2024 Free Software Foundation, Inc.
+Copyright (C) 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -31,8 +31,21 @@ section entitled "GNU Free Documentation License".
 <link href="Z80-Floating-Point.html" rel="prev" title="Z80 Floating Point">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
-span:hover a.copiable-link {visibility: visible}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -40,107 +53,107 @@ span:hover a.copiable-link {visibility: visible}
 </head>
 
 <body lang="en">
-<div class="subsection-level-extent" id="Z80-Directives">
-<div class="nav-panel">
+<div class="section" id="Z80-Directives">
+<div class="header">
 <p>
 Next: <a href="Z80-Opcodes.html" accesskey="n" rel="next">Opcodes</a>, Previous: <a href="Z80-Floating-Point.html" accesskey="p" rel="prev">Floating Point</a>, Up: <a href="Z80_002dDependent.html" accesskey="u" rel="up">Z80 Dependent Features</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h4 class="subsection section-level-set-subsection" id="Z80-Assembler-Directives"><span>9.56.4 Z80 Assembler Directives<a class="copiable-link" href="#Z80-Assembler-Directives"> &para;</a></span></h4>
-<a class="index-entry-id" id="index-Z80_002donly-directives"></a>
+<span id="Z80-Assembler-Directives"></span><h4 class="subsection">9.56.4 Z80 Assembler Directives</h4>
+<span id="index-Z80_002donly-directives"></span>
 
-<p><code class="command">as</code> for the Z80 supports some additional directives for
+<p><code>as</code> for the Z80 supports some additional directives for
 compatibility with other assemblers.
 </p>
-<p>These are the additional directives in <code class="code">as</code> for the Z80:
+<p>These are the additional directives in <code>as</code> for the Z80:
 </p>
-<dl class="table">
-<dt><a id="index-_002eassume-directive_002c-Z80"></a><span><code class="code"><code class="code">.assume ADL = <var class="var">expression</var></code></code><a class="copiable-link" href="#index-_002eassume-directive_002c-Z80"> &para;</a></span></dt>
+<dl compact="compact">
+<dt id='index-_002eassume-directive_002c-Z80'><span><code><code>.assume ADL = <var>expression</var></code></code><a href='#index-_002eassume-directive_002c-Z80' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Set ADL status for eZ80. Non-zero value enable compilation in ADL mode else
 used Z80 mode. ADL and Z80 mode produces incompatible object code. Mixing
 both of them within one binary may lead problems with disassembler.
 </p>
 </dd>
-<dt><a id="index-defm-directive_002c-Z80"></a><span><code class="code"><code class="code">db <var class="var">expression</var>|<var class="var">string</var>[,<var class="var">expression</var>|<var class="var">string</var>...]</code></code><a class="copiable-link" href="#index-defm-directive_002c-Z80"> &para;</a></span></dt>
-<dd><a class="index-entry-id" id="index-db-directive_002c-Z80"></a>
+<dt id='index-defm-directive_002c-Z80'><span><code><code>db <var>expression</var>|<var>string</var>[,<var>expression</var>|<var>string</var>...]</code></code><a href='#index-defm-directive_002c-Z80' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="index-db-directive_002c-Z80"></span>
 </dd>
-<dt><code class="code"><code class="code">defb <var class="var">expression</var>|<var class="var">string</var>[,<var class="var">expression</var>|<var class="var">string</var>...]</code></code></dt>
-<dd><a class="index-entry-id" id="index-defb-directive_002c-Z80"></a>
+<dt><span><code><code>defb <var>expression</var>|<var>string</var>[,<var>expression</var>|<var>string</var>...]</code></code></span></dt>
+<dd><span id="index-defb-directive_002c-Z80"></span>
 </dd>
-<dt><code class="code"><code class="code">defm <var class="var">string</var>[,<var class="var">string</var>...]</code></code></dt>
-<dd><p>For each <var class="var">string</var> the characters are copied to the object file, for
-each other <var class="var">expression</var> the value is stored in one byte.
+<dt><span><code><code>defm <var>string</var>[,<var>string</var>...]</code></code></span></dt>
+<dd><p>For each <var>string</var> the characters are copied to the object file, for
+each other <var>expression</var> the value is stored in one byte.
 A warning is issued in case of an overflow.
 Backslash symbol in the strings is generic symbol, it cannot be used as
-escape character.  See <a class="xref" href="Ascii.html"><code class="code">.ascii</code></a>.
+escape character.  See <a href="Ascii.html"><code>.ascii</code></a>.
 </p>
 </dd>
-<dt><a id="index-defw-directive_002c-Z80"></a><span><code class="code"><code class="code">dw <var class="var">expression</var>[,<var class="var">expression</var>...]</code></code><a class="copiable-link" href="#index-defw-directive_002c-Z80"> &para;</a></span></dt>
-<dd><a class="index-entry-id" id="index-dw-directive_002c-Z80"></a>
+<dt id='index-defw-directive_002c-Z80'><span><code><code>dw <var>expression</var>[,<var>expression</var>...]</code></code><a href='#index-defw-directive_002c-Z80' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="index-dw-directive_002c-Z80"></span>
 </dd>
-<dt><code class="code"><code class="code">defw <var class="var">expression</var>[,<var class="var">expression</var>...]</code></code></dt>
-<dd><p>For each <var class="var">expression</var> the value is stored in two bytes, ignoring
+<dt><span><code><code>defw <var>expression</var>[,<var>expression</var>...]</code></code></span></dt>
+<dd><p>For each <var>expression</var> the value is stored in two bytes, ignoring
 overflow.
 </p>
 </dd>
-<dt><a id="index-def24-directive_002c-Z80"></a><span><code class="code"><code class="code">d24 <var class="var">expression</var>[,<var class="var">expression</var>...]</code></code><a class="copiable-link" href="#index-def24-directive_002c-Z80"> &para;</a></span></dt>
-<dd><a class="index-entry-id" id="index-d24-directive_002c-Z80"></a>
+<dt id='index-def24-directive_002c-Z80'><span><code><code>d24 <var>expression</var>[,<var>expression</var>...]</code></code><a href='#index-def24-directive_002c-Z80' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="index-d24-directive_002c-Z80"></span>
 </dd>
-<dt><code class="code"><code class="code">def24 <var class="var">expression</var>[,<var class="var">expression</var>...]</code></code></dt>
-<dd><p>For each <var class="var">expression</var> the value is stored in three bytes, ignoring
+<dt><span><code><code>def24 <var>expression</var>[,<var>expression</var>...]</code></code></span></dt>
+<dd><p>For each <var>expression</var> the value is stored in three bytes, ignoring
 overflow.
 </p>
 </dd>
-<dt><a id="index-def32-directive_002c-Z80"></a><span><code class="code"><code class="code">d32 <var class="var">expression</var>[,<var class="var">expression</var>...]</code></code><a class="copiable-link" href="#index-def32-directive_002c-Z80"> &para;</a></span></dt>
-<dd><a class="index-entry-id" id="index-d32-directive_002c-Z80"></a>
+<dt id='index-def32-directive_002c-Z80'><span><code><code>d32 <var>expression</var>[,<var>expression</var>...]</code></code><a href='#index-def32-directive_002c-Z80' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="index-d32-directive_002c-Z80"></span>
 </dd>
-<dt><code class="code"><code class="code">def32 <var class="var">expression</var>[,<var class="var">expression</var>...]</code></code></dt>
-<dd><p>For each <var class="var">expression</var> the value is stored in four bytes, ignoring
+<dt><span><code><code>def32 <var>expression</var>[,<var>expression</var>...]</code></code></span></dt>
+<dd><p>For each <var>expression</var> the value is stored in four bytes, ignoring
 overflow.
 </p>
 </dd>
-<dt><a id="index-defs-directive_002c-Z80"></a><span><code class="code"><code class="code">ds <var class="var">count</var>[, <var class="var">value</var>]</code></code><a class="copiable-link" href="#index-defs-directive_002c-Z80"> &para;</a></span></dt>
-<dd><a class="index-entry-id" id="index-ds-directive_002c-Z80"></a>
+<dt id='index-defs-directive_002c-Z80'><span><code><code>ds <var>count</var>[, <var>value</var>]</code></code><a href='#index-defs-directive_002c-Z80' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="index-ds-directive_002c-Z80"></span>
 </dd>
-<dt><code class="code"><code class="code">defs <var class="var">count</var>[, <var class="var">value</var>]</code></code></dt>
-<dd><p>Fill <var class="var">count</var> bytes in the object file with <var class="var">value</var>, if
-<var class="var">value</var> is omitted it defaults to zero.
+<dt><span><code><code>defs <var>count</var>[, <var>value</var>]</code></code></span></dt>
+<dd><p>Fill <var>count</var> bytes in the object file with <var>value</var>, if
+<var>value</var> is omitted it defaults to zero.
 </p>
 </dd>
-<dt><a id="index-defl-directive_002c-Z80"></a><span><code class="code"><code class="code"><var class="var">symbol</var> defl <var class="var">expression</var></code></code><a class="copiable-link" href="#index-defl-directive_002c-Z80"> &para;</a></span></dt>
-<dd><p>The <code class="code">defl</code> directive is like <code class="code">.set</code> but with different
-syntax.  See <a class="xref" href="Set.html"><code class="code">.set</code></a>.
-It set the value of <var class="var">symbol</var> to <var class="var">expression</var>. Symbols defined
-with <code class="code">defl</code> are not protected from redefinition.
+<dt id='index-defl-directive_002c-Z80'><span><code><code><var>symbol</var> defl <var>expression</var></code></code><a href='#index-defl-directive_002c-Z80' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>The <code>defl</code> directive is like <code>.set</code> but with different
+syntax.  See <a href="Set.html"><code>.set</code></a>.
+It set the value of <var>symbol</var> to <var>expression</var>. Symbols defined
+with <code>defl</code> are not protected from redefinition.
 </p>
 </dd>
-<dt><a id="index-equ-directive_002c-Z80"></a><span><code class="code"><code class="code"><var class="var">symbol</var> equ <var class="var">expression</var></code></code><a class="copiable-link" href="#index-equ-directive_002c-Z80"> &para;</a></span></dt>
-<dd><p>The <code class="code">equ</code> directive is like <code class="code">.equiv</code> but with different
-syntax.  See <a class="xref" href="Equiv.html"><code class="code">.equiv</code></a>.
-It set the value of <var class="var">symbol</var> to <var class="var">expression</var>. It is an error
-if <var class="var">symbol</var> is already defined. Symbols defined with <code class="code">equ</code>
+<dt id='index-equ-directive_002c-Z80'><span><code><code><var>symbol</var> equ <var>expression</var></code></code><a href='#index-equ-directive_002c-Z80' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>The <code>equ</code> directive is like <code>.equiv</code> but with different
+syntax.  See <a href="Equiv.html"><code>.equiv</code></a>.
+It set the value of <var>symbol</var> to <var>expression</var>. It is an error
+if <var>symbol</var> is already defined. Symbols defined with <code>equ</code>
 are not protected from redefinition.
 </p>
 </dd>
-<dt><a id="index-psect-directive_002c-Z80"></a><span><code class="code"><code class="code">psect <var class="var">name</var></code></code><a class="copiable-link" href="#index-psect-directive_002c-Z80"> &para;</a></span></dt>
-<dd><p>A synonym for <code class="code">.section</code>, no second argument should be given.
-See <a class="xref" href="Section.html"><code class="code">.section</code></a>.
+<dt id='index-psect-directive_002c-Z80'><span><code><code>psect <var>name</var></code></code><a href='#index-psect-directive_002c-Z80' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>A synonym for <code>.section</code>, no second argument should be given.
+See <a href="Section.html"><code>.section</code></a>.
 </p>
 </dd>
-<dt><a id="index-xdef-directive_002c-Z80"></a><span><code class="code"><code class="code">xdef <var class="var">symbol</var></code></code><a class="copiable-link" href="#index-xdef-directive_002c-Z80"> &para;</a></span></dt>
-<dd><p>A synonym for <code class="code">.global</code>, make <var class="var">symbol</var> is visible to linker.
-See <a class="xref" href="Global.html"><code class="code">.global</code></a>.
+<dt id='index-xdef-directive_002c-Z80'><span><code><code>xdef <var>symbol</var></code></code><a href='#index-xdef-directive_002c-Z80' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>A synonym for <code>.global</code>, make <var>symbol</var> is visible to linker.
+See <a href="Global.html"><code>.global</code></a>.
 </p>
 </dd>
-<dt><a id="index-xref-directive_002c-Z80"></a><span><code class="code"><code class="code">xref <var class="var">name</var></code></code><a class="copiable-link" href="#index-xref-directive_002c-Z80"> &para;</a></span></dt>
-<dd><p>A synonym for <code class="code">.extern</code> (<a class="ref" href="Extern.html"><code class="code">.extern</code></a>).
+<dt id='index-xref-directive_002c-Z80'><span><code><code>xref <var>name</var></code></code><a href='#index-xref-directive_002c-Z80' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>A synonym for <code>.extern</code> (<a href="Extern.html"><code>.extern</code></a>).
 </p>
 </dd>
 </dl>
 
 </div>
 <hr>
-<div class="nav-panel">
+<div class="header">
 <p>
 Next: <a href="Z80-Opcodes.html">Opcodes</a>, Previous: <a href="Z80-Floating-Point.html">Floating Point</a>, Up: <a href="Z80_002dDependent.html">Z80 Dependent Features</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

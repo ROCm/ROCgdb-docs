@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright © 1988-2024 Free Software Foundation, Inc.
+<!-- Copyright (C) 1988-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -26,7 +26,7 @@ the license, review the license.txt in the top-level directory for the
 library on https://github.com/ROCm/ (Github.com)).  The additional terms
 and conditions below apply to your use of AMD ROCm technical documentation.
 
-©2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
+(C)2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
 
 The information presented in this document is for informational purposes only
 and may contain technical inaccuracies, omissions, and typographical errors.
@@ -52,8 +52,8 @@ EVEN IF AMD IS EXPRESSLY ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
 
 AMD, the AMD Arrow logo, AMD Instinct™, Radeon™, AMD ROCm™, and combinations
 thereof are trademarks of Advanced Micro Devices, Inc.
-Linux® is the registered trademark of Linus Torvalds in the
-U.S. and other countries. PCIe® is a registered trademark of
+Linux(R) is the registered trademark of Linus Torvalds in the
+U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
@@ -73,9 +73,21 @@ companies. -->
 <link href="Mode-Options.html" rel="next" title="Mode Options">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
 div.example {margin-left: 3.2em}
-span:hover a.copiable-link {visibility: visible}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -83,143 +95,143 @@ span:hover a.copiable-link {visibility: visible}
 </head>
 
 <body lang="en">
-<div class="subsection-level-extent" id="File-Options">
-<div class="nav-panel">
+<div class="subsection" id="File-Options">
+<div class="header">
 <p>
-Next: <a href="Mode-Options.html" accesskey="n" rel="next">Choosing Modes</a>, Up: <a href="Invoking-GDB.html" accesskey="u" rel="up">Invoking <small class="sc">ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Mode-Options.html" accesskey="n" rel="next">Choosing Modes</a>, Up: <a href="Invoking-GDB.html" accesskey="u" rel="up">Invoking <small>ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h4 class="subsection" id="Choosing-Files"><span>2.1.1 Choosing Files<a class="copiable-link" href="#Choosing-Files"> &para;</a></span></h4>
+<span id="Choosing-Files"></span><h4 class="subsection">2.1.1 Choosing Files</h4>
 
-<p>When <small class="sc">ROCGDB</small> starts, it reads any arguments other than options as
+<p>When <small>ROCGDB</small> starts, it reads any arguments other than options as
 specifying an executable file and core file (or process ID).  This is
-the same as if the arguments were specified by the &lsquo;<samp class="samp">-se</samp>&rsquo; and
-&lsquo;<samp class="samp">-c</samp>&rsquo; (or &lsquo;<samp class="samp">-p</samp>&rsquo;) options respectively.  (<small class="sc">ROCGDB</small> reads the
+the same as if the arguments were specified by the &lsquo;<samp>-se</samp>&rsquo; and
+&lsquo;<samp>-c</samp>&rsquo; (or &lsquo;<samp>-p</samp>&rsquo;) options respectively.  (<small>ROCGDB</small> reads the
 first argument that does not have an associated option flag as
-equivalent to the &lsquo;<samp class="samp">-se</samp>&rsquo; option followed by that argument; and the
+equivalent to the &lsquo;<samp>-se</samp>&rsquo; option followed by that argument; and the
 second argument that does not have an associated option flag, if any, as
-equivalent to the &lsquo;<samp class="samp">-c</samp>&rsquo;/&lsquo;<samp class="samp">-p</samp>&rsquo; option followed by that argument.)
-If the second argument begins with a decimal digit, <small class="sc">ROCGDB</small> will
+equivalent to the &lsquo;<samp>-c</samp>&rsquo;/&lsquo;<samp>-p</samp>&rsquo; option followed by that argument.)
+If the second argument begins with a decimal digit, <small>ROCGDB</small> will
 first attempt to attach to it as a process, and if that fails, attempt
 to open it as a corefile.  If you have a corefile whose name begins with
-a digit, you can prevent <small class="sc">ROCGDB</small> from treating it as a pid by
-prefixing it with <samp class="file">./</samp>, e.g. <samp class="file">./12345</samp>.
+a digit, you can prevent <small>ROCGDB</small> from treating it as a pid by
+prefixing it with <samp>./</samp>, e.g. <samp>./12345</samp>.
 </p>
-<p>If <small class="sc">ROCGDB</small> has not been configured to included core file support,
+<p>If <small>ROCGDB</small> has not been configured to included core file support,
 such as for most embedded targets, then it will complain about a second
 argument and ignore it.
 </p>
-<p>For the &lsquo;<samp class="samp">-s</samp>&rsquo;, &lsquo;<samp class="samp">-e</samp>&rsquo;, and &lsquo;<samp class="samp">-se</samp>&rsquo; options, and their long
+<p>For the &lsquo;<samp>-s</samp>&rsquo;, &lsquo;<samp>-e</samp>&rsquo;, and &lsquo;<samp>-se</samp>&rsquo; options, and their long
 form equivalents, the method used to search the file system for the
 symbol and/or executable file is the same as that used by the
-<code class="code">file</code> command.  See <a class="xref" href="Files.html">file</a>.
+<code>file</code> command.  See <a href="Files.html">file</a>.
 </p>
 <p>Many options have both long and short forms; both are shown in the
-following list.  <small class="sc">ROCGDB</small> also recognizes the long forms if you truncate
+following list.  <small>ROCGDB</small> also recognizes the long forms if you truncate
 them, so long as enough of the option is present to be unambiguous.
-(If you prefer, you can flag option arguments with &lsquo;<samp class="samp">--</samp>&rsquo; rather
-than &lsquo;<samp class="samp">-</samp>&rsquo;, though we illustrate the more usual convention.)
+(If you prefer, you can flag option arguments with &lsquo;<samp>--</samp>&rsquo; rather
+than &lsquo;<samp>-</samp>&rsquo;, though we illustrate the more usual convention.)
 </p>
 
-<dl class="table">
-<dt><a class="index-entry-id" id="index-_002ds"></a>
-<a id="index-_002d_002dsymbols"></a><span><code class="code">-symbols <var class="var">file</var></code><a class="copiable-link" href="#index-_002d_002dsymbols"> &para;</a></span></dt>
-<dt><code class="code">-s <var class="var">file</var></code></dt>
-<dd><p>Read symbol table from file <var class="var">file</var>.
+<dl compact="compact">
+<dt id='index-_002d_002dsymbols'><span><code>-symbols <var>file</var></code><a href='#index-_002d_002dsymbols' class='copiable-anchor'> &para;</a></span></dt>
+<dt><span><code>-s <var>file</var></code></span></dt>
+<dd><span id="index-_002ds"></span>
+<p>Read symbol table from file <var>file</var>.
 </p>
 </dd>
-<dt><a class="index-entry-id" id="index-_002de"></a>
-<a id="index-_002d_002dexec"></a><span><code class="code">-exec <var class="var">file</var></code><a class="copiable-link" href="#index-_002d_002dexec"> &para;</a></span></dt>
-<dt><code class="code">-e <var class="var">file</var></code></dt>
-<dd><p>Use file <var class="var">file</var> as the executable file to execute when appropriate,
+<dt id='index-_002d_002dexec'><span><code>-exec <var>file</var></code><a href='#index-_002d_002dexec' class='copiable-anchor'> &para;</a></span></dt>
+<dt><span><code>-e <var>file</var></code></span></dt>
+<dd><span id="index-_002de"></span>
+<p>Use file <var>file</var> as the executable file to execute when appropriate,
 and for examining pure data in conjunction with a core dump.
 </p>
 </dd>
-<dt><a id="index-_002d_002dse"></a><span><code class="code">-se <var class="var">file</var></code><a class="copiable-link" href="#index-_002d_002dse"> &para;</a></span></dt>
-<dd><p>Read symbol table from file <var class="var">file</var> and use it as the executable
+<dt id='index-_002d_002dse'><span><code>-se <var>file</var></code><a href='#index-_002d_002dse' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Read symbol table from file <var>file</var> and use it as the executable
 file.
 </p>
 </dd>
-<dt><a class="index-entry-id" id="index-_002dc"></a>
-<a id="index-_002d_002dcore"></a><span><code class="code">-core <var class="var">file</var></code><a class="copiable-link" href="#index-_002d_002dcore"> &para;</a></span></dt>
-<dt><code class="code">-c <var class="var">file</var></code></dt>
-<dd><p>Use file <var class="var">file</var> as a core dump to examine.
+<dt id='index-_002d_002dcore'><span><code>-core <var>file</var></code><a href='#index-_002d_002dcore' class='copiable-anchor'> &para;</a></span></dt>
+<dt><span><code>-c <var>file</var></code></span></dt>
+<dd><span id="index-_002dc"></span>
+<p>Use file <var>file</var> as a core dump to examine.
 </p>
 </dd>
-<dt><a class="index-entry-id" id="index-_002dp"></a>
-<a id="index-_002d_002dpid"></a><span><code class="code">-pid <var class="var">number</var></code><a class="copiable-link" href="#index-_002d_002dpid"> &para;</a></span></dt>
-<dt><code class="code">-p <var class="var">number</var></code></dt>
-<dd><p>Connect to process ID <var class="var">number</var>, as with the <code class="code">attach</code> command.
+<dt id='index-_002d_002dpid'><span><code>-pid <var>number</var></code><a href='#index-_002d_002dpid' class='copiable-anchor'> &para;</a></span></dt>
+<dt><span><code>-p <var>number</var></code></span></dt>
+<dd><span id="index-_002dp"></span>
+<p>Connect to process ID <var>number</var>, as with the <code>attach</code> command.
 </p>
 </dd>
-<dt><a class="index-entry-id" id="index-_002dx"></a>
-<a id="index-_002d_002dcommand"></a><span><code class="code">-command <var class="var">file</var></code><a class="copiable-link" href="#index-_002d_002dcommand"> &para;</a></span></dt>
-<dt><code class="code">-x <var class="var">file</var></code></dt>
-<dd><p>Execute commands from file <var class="var">file</var>.  The contents of this file is
-evaluated exactly as the <code class="code">source</code> command would.
-See <a class="xref" href="Command-Files.html">Command files</a>.
+<dt id='index-_002d_002dcommand'><span><code>-command <var>file</var></code><a href='#index-_002d_002dcommand' class='copiable-anchor'> &para;</a></span></dt>
+<dt><span><code>-x <var>file</var></code></span></dt>
+<dd><span id="index-_002dx"></span>
+<p>Execute commands from file <var>file</var>.  The contents of this file is
+evaluated exactly as the <code>source</code> command would.
+See <a href="Command-Files.html">Command files</a>.
 </p>
 </dd>
-<dt><a class="index-entry-id" id="index-_002dex"></a>
-<a id="index-_002d_002deval_002dcommand"></a><span><code class="code">-eval-command <var class="var">command</var></code><a class="copiable-link" href="#index-_002d_002deval_002dcommand"> &para;</a></span></dt>
-<dt><code class="code">-ex <var class="var">command</var></code></dt>
-<dd><p>Execute a single <small class="sc">ROCGDB</small> command.
+<dt id='index-_002d_002deval_002dcommand'><span><code>-eval-command <var>command</var></code><a href='#index-_002d_002deval_002dcommand' class='copiable-anchor'> &para;</a></span></dt>
+<dt><span><code>-ex <var>command</var></code></span></dt>
+<dd><span id="index-_002dex"></span>
+<p>Execute a single <small>ROCGDB</small> command.
 </p>
 <p>This option may be used multiple times to call multiple commands.  It may
-also be interleaved with &lsquo;<samp class="samp">-command</samp>&rsquo; as required.
+also be interleaved with &lsquo;<samp>-command</samp>&rsquo; as required.
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">gdb -ex 'target sim' -ex 'load' \
+<div class="example">
+<pre class="example">gdb -ex 'target sim' -ex 'load' \
    -x setbreakpoints -ex 'run' a.out
 </pre></div>
 
 </dd>
-<dt><a class="index-entry-id" id="index-_002dix"></a>
-<a id="index-_002d_002dinit_002dcommand"></a><span><code class="code">-init-command <var class="var">file</var></code><a class="copiable-link" href="#index-_002d_002dinit_002dcommand"> &para;</a></span></dt>
-<dt><code class="code">-ix <var class="var">file</var></code></dt>
-<dd><p>Execute commands from file <var class="var">file</var> before loading the inferior (but
+<dt id='index-_002d_002dinit_002dcommand'><span><code>-init-command <var>file</var></code><a href='#index-_002d_002dinit_002dcommand' class='copiable-anchor'> &para;</a></span></dt>
+<dt><span><code>-ix <var>file</var></code></span></dt>
+<dd><span id="index-_002dix"></span>
+<p>Execute commands from file <var>file</var> before loading the inferior (but
 after loading gdbinit files).
-See <a class="xref" href="Startup.html">What <small class="sc">ROCGDB</small> Does During Startup</a>.
+See <a href="Startup.html">What <small>ROCGDB</small> Does During Startup</a>.
 </p>
 </dd>
-<dt><a class="index-entry-id" id="index-_002diex"></a>
-<a id="index-_002d_002dinit_002deval_002dcommand"></a><span><code class="code">-init-eval-command <var class="var">command</var></code><a class="copiable-link" href="#index-_002d_002dinit_002deval_002dcommand"> &para;</a></span></dt>
-<dt><code class="code">-iex <var class="var">command</var></code></dt>
-<dd><p>Execute a single <small class="sc">ROCGDB</small> command before loading the inferior (but
+<dt id='index-_002d_002dinit_002deval_002dcommand'><span><code>-init-eval-command <var>command</var></code><a href='#index-_002d_002dinit_002deval_002dcommand' class='copiable-anchor'> &para;</a></span></dt>
+<dt><span><code>-iex <var>command</var></code></span></dt>
+<dd><span id="index-_002diex"></span>
+<p>Execute a single <small>ROCGDB</small> command before loading the inferior (but
 after loading gdbinit files).
-See <a class="xref" href="Startup.html">What <small class="sc">ROCGDB</small> Does During Startup</a>.
+See <a href="Startup.html">What <small>ROCGDB</small> Does During Startup</a>.
 </p>
 </dd>
-<dt><a class="index-entry-id" id="index-_002deix"></a>
-<a id="index-_002d_002dearly_002dinit_002dcommand"></a><span><code class="code">-early-init-command <var class="var">file</var></code><a class="copiable-link" href="#index-_002d_002dearly_002dinit_002dcommand"> &para;</a></span></dt>
-<dt><code class="code">-eix <var class="var">file</var></code></dt>
-<dd><p>Execute commands from <var class="var">file</var> very early in the initialization
-process, before any output is produced.  See <a class="xref" href="Startup.html">What <small class="sc">ROCGDB</small> Does During Startup</a>.
+<dt id='index-_002d_002dearly_002dinit_002dcommand'><span><code>-early-init-command <var>file</var></code><a href='#index-_002d_002dearly_002dinit_002dcommand' class='copiable-anchor'> &para;</a></span></dt>
+<dt><span><code>-eix <var>file</var></code></span></dt>
+<dd><span id="index-_002deix"></span>
+<p>Execute commands from <var>file</var> very early in the initialization
+process, before any output is produced.  See <a href="Startup.html">What <small>ROCGDB</small> Does During Startup</a>.
 </p>
 </dd>
-<dt><a class="index-entry-id" id="index-_002deiex"></a>
-<a id="index-_002d_002dearly_002dinit_002deval_002dcommand"></a><span><code class="code">-early-init-eval-command <var class="var">command</var></code><a class="copiable-link" href="#index-_002d_002dearly_002dinit_002deval_002dcommand"> &para;</a></span></dt>
-<dt><code class="code">-eiex <var class="var">command</var></code></dt>
-<dd><p>Execute a single <small class="sc">ROCGDB</small> command very early in the initialization
+<dt id='index-_002d_002dearly_002dinit_002deval_002dcommand'><span><code>-early-init-eval-command <var>command</var></code><a href='#index-_002d_002dearly_002dinit_002deval_002dcommand' class='copiable-anchor'> &para;</a></span></dt>
+<dt><span><code>-eiex <var>command</var></code></span></dt>
+<dd><span id="index-_002deiex"></span>
+<p>Execute a single <small>ROCGDB</small> command very early in the initialization
 process, before any output is produced.
 </p>
 </dd>
-<dt><a class="index-entry-id" id="index-_002dd"></a>
-<a id="index-_002d_002ddirectory"></a><span><code class="code">-directory <var class="var">directory</var></code><a class="copiable-link" href="#index-_002d_002ddirectory"> &para;</a></span></dt>
-<dt><code class="code">-d <var class="var">directory</var></code></dt>
-<dd><p>Add <var class="var">directory</var> to the path to search for source and script files.
+<dt id='index-_002d_002ddirectory'><span><code>-directory <var>directory</var></code><a href='#index-_002d_002ddirectory' class='copiable-anchor'> &para;</a></span></dt>
+<dt><span><code>-d <var>directory</var></code></span></dt>
+<dd><span id="index-_002dd"></span>
+<p>Add <var>directory</var> to the path to search for source and script files.
 </p>
 </dd>
-<dt><a class="index-entry-id" id="index-_002dr"></a>
-<a id="index-_002d_002dreadnow"></a><span><code class="code">-r</code><a class="copiable-link" href="#index-_002d_002dreadnow"> &para;</a></span></dt>
-<dt><code class="code">-readnow</code></dt>
-<dd><p>Read each symbol file&rsquo;s entire symbol table immediately, rather than
+<dt id='index-_002d_002dreadnow'><span><code>-r</code><a href='#index-_002d_002dreadnow' class='copiable-anchor'> &para;</a></span></dt>
+<dt><span><code>-readnow</code></span></dt>
+<dd><span id="index-_002dr"></span>
+<p>Read each symbol file&rsquo;s entire symbol table immediately, rather than
 the default, which is to read it incrementally as it is needed.
 This makes startup slower, but makes future operations faster.
 </p>
 </dd>
-<dt><code class="code">--readnever</code></dt>
-<dd><a class="anchor" id="g_t_002d_002dreadnever"></a><a class="index-entry-id" id="index-_002d_002dreadnever_002c-command_002dline-option"></a>
+<dt><span><code>--readnever</code></span></dt>
+<dd><span id="g_t_002d_002dreadnever"></span><span id="index-_002d_002dreadnever_002c-command_002dline-option"></span>
 <p>Do not read each symbol file&rsquo;s symbolic debug information.  This makes
 startup faster but at the expense of not being able to perform
 symbolic debugging.  DWARF unwind information is also not read,
@@ -232,9 +244,9 @@ an unnecessary cause of delay.
 
 </div>
 <hr>
-<div class="nav-panel">
+<div class="header">
 <p>
-Next: <a href="Mode-Options.html">Choosing Modes</a>, Up: <a href="Invoking-GDB.html">Invoking <small class="sc">ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Mode-Options.html">Choosing Modes</a>, Up: <a href="Invoking-GDB.html">Invoking <small>ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

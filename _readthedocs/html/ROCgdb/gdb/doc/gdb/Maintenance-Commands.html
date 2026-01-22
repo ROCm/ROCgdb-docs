@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright © 1988-2024 Free Software Foundation, Inc.
+<!-- Copyright (C) 1988-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -26,7 +26,7 @@ the license, review the license.txt in the top-level directory for the
 library on https://github.com/ROCm/ (Github.com)).  The additional terms
 and conditions below apply to your use of AMD ROCm technical documentation.
 
-©2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
+(C)2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
 
 The information presented in this document is for informational purposes only
 and may contain technical inaccuracies, omissions, and typographical errors.
@@ -52,8 +52,8 @@ EVEN IF AMD IS EXPRESSLY ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
 
 AMD, the AMD Arrow logo, AMD Instinct™, Radeon™, AMD ROCm™, and combinations
 thereof are trademarks of Advanced Micro Devices, Inc.
-Linux® is the registered trademark of Linus Torvalds in the
-U.S. and other countries. PCIe® is a registered trademark of
+Linux(R) is the registered trademark of Linus Torvalds in the
+U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
@@ -74,11 +74,21 @@ companies. -->
 <link href="Installing-GDB.html" rel="prev" title="Installing GDB">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
 div.example {margin-left: 3.2em}
-kbd.kbd {font-style: oblique}
-span.r {font-family: initial; font-weight: normal; font-style: normal}
-span:hover a.copiable-link {visibility: visible}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -86,494 +96,526 @@ span:hover a.copiable-link {visibility: visible}
 </head>
 
 <body lang="en">
-<div class="appendix-level-extent" id="Maintenance-Commands">
-<div class="nav-panel">
+<div class="appendix" id="Maintenance-Commands">
+<div class="header">
 <p>
-Next: <a href="Remote-Protocol.html" accesskey="n" rel="next"><small class="sc">ROCGDB</small> Remote Serial Protocol</a>, Previous: <a href="Installing-GDB.html" accesskey="p" rel="prev">Installing <small class="sc">ROCGDB</small></a>, Up: <a href="index.html" accesskey="u" rel="up">Debugging with <small class="sc">ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Remote-Protocol.html" accesskey="n" rel="next"><small>ROCGDB</small> Remote Serial Protocol</a>, Previous: <a href="Installing-GDB.html" accesskey="p" rel="prev">Installing <small>ROCGDB</small></a>, Up: <a href="index.html" accesskey="u" rel="up">Debugging with <small>ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h2 class="appendix" id="Maintenance-Commands-1"><span>Appendix D Maintenance Commands<a class="copiable-link" href="#Maintenance-Commands-1"> &para;</a></span></h2>
-<a class="index-entry-id" id="index-maintenance-commands"></a>
-<a class="index-entry-id" id="index-internal-commands"></a>
+<span id="Maintenance-Commands-1"></span><h2 class="appendix">Appendix D Maintenance Commands</h2>
+<span id="index-maintenance-commands"></span>
+<span id="index-internal-commands"></span>
 
-<p>In addition to commands intended for <small class="sc">ROCGDB</small> users, <small class="sc">ROCGDB</small>
-includes a number of commands intended for <small class="sc">ROCGDB</small> developers,
+<p>In addition to commands intended for <small>ROCGDB</small> users, <small>ROCGDB</small>
+includes a number of commands intended for <small>ROCGDB</small> developers,
 that are not documented elsewhere in this manual.  These commands are
 provided here for reference.  (For commands that turn on debugging
-messages, see <a class="ref" href="Debugging-Output.html">Optional Messages about Internal Happenings</a>.)
+messages, see <a href="Debugging-Output.html">Optional Messages about Internal Happenings</a>.)
 </p>
-<dl class="table">
-<dt><a class="index-entry-id" id="index-maint-agent_002deval"></a>
-<a id="index-maint-agent"></a><span><code class="code">maint agent <span class="r">[</span>-at <var class="var">linespec</var><span class="r">,</span><span class="r">]</span> <var class="var">expression</var></code><a class="copiable-link" href="#index-maint-agent"> &para;</a></span></dt>
-<dt><code class="code">maint agent-eval <span class="r">[</span>-at <var class="var">linespec</var><span class="r">,</span><span class="r">]</span> <var class="var">expression</var></code></dt>
-<dd><p>Translate the given <var class="var">expression</var> into remote agent bytecodes.
+<dl compact="compact">
+<dd><span id="index-maint-agent"></span>
+<span id="index-maint-agent_002deval"></span>
+</dd>
+<dt><span><code>maint agent <span class="roman">[</span>-at <var>linespec</var><span class="roman">,</span><span class="roman">]</span> <var>expression</var></code></span></dt>
+<dt><span><code>maint agent-eval <span class="roman">[</span>-at <var>linespec</var><span class="roman">,</span><span class="roman">]</span> <var>expression</var></code></span></dt>
+<dd><p>Translate the given <var>expression</var> into remote agent bytecodes.
 This command is useful for debugging the Agent Expression mechanism
-(see <a class="pxref" href="Agent-Expressions.html">The GDB Agent Expression Mechanism</a>).  The &lsquo;<samp class="samp">agent</samp>&rsquo; version produces an
+(see <a href="Agent-Expressions.html">The GDB Agent Expression Mechanism</a>).  The &lsquo;<samp>agent</samp>&rsquo; version produces an
 expression useful for data collection, such as by tracepoints, while
-&lsquo;<samp class="samp">maint agent-eval</samp>&rsquo; produces an expression that evaluates directly
-to a result.  For instance, a collection expression for <code class="code">globa +
+&lsquo;<samp>maint agent-eval</samp>&rsquo; produces an expression that evaluates directly
+to a result.  For instance, a collection expression for <code>globa +
 globb</code> will include bytecodes to record four bytes of memory at each
-of the addresses of <code class="code">globa</code> and <code class="code">globb</code>, while discarding
+of the addresses of <code>globa</code> and <code>globb</code>, while discarding
 the result of the addition, while an evaluation expression will do the
 addition and return the sum.
-If <code class="code">-at</code> is given, generate remote agent bytecode for all the
-addresses to which <var class="var">linespec</var> resolves (see <a class="pxref" href="Linespec-Locations.html">Linespec Locations</a>).
+If <code>-at</code> is given, generate remote agent bytecode for all the
+addresses to which <var>linespec</var> resolves (see <a href="Linespec-Locations.html">Linespec Locations</a>).
 If not, generate remote agent bytecode for current frame PC address.
 </p>
+<span id="index-maint-agent_002dprintf"></span>
 </dd>
-<dt><a id="index-maint-agent_002dprintf"></a><span><code class="code">maint agent-printf <var class="var">format</var>,<var class="var">expr</var>,...</code><a class="copiable-link" href="#index-maint-agent_002dprintf"> &para;</a></span></dt>
+<dt><span><code>maint agent-printf <var>format</var>,<var>expr</var>,...</code></span></dt>
 <dd><p>Translate the given format string and list of argument expressions
 into remote agent bytecodes and display them as a disassembled list.
 This command is useful for debugging the agent version of dynamic
-printf (see <a class="pxref" href="Dynamic-Printf.html">Dynamic Printf</a>).
+printf (see <a href="Dynamic-Printf.html">Dynamic Printf</a>).
 </p>
-<a class="index-entry-id" id="index-maint-info-breakpoints"></a>
-<a class="anchor" id="maint-info-breakpoints"></a></dd>
-<dt><code class="code">maint info breakpoints</code></dt>
-<dd><p>Using the same format as &lsquo;<samp class="samp">info breakpoints</samp>&rsquo;, display both the
-breakpoints you&rsquo;ve set explicitly, and those <small class="sc">ROCGDB</small> is using for
+<span id="index-maint-info-breakpoints"></span>
+<span id="maint-info-breakpoints"></span></dd>
+<dt><span><code>maint info breakpoints</code></span></dt>
+<dd><p>Using the same format as &lsquo;<samp>info breakpoints</samp>&rsquo;, display both the
+breakpoints you&rsquo;ve set explicitly, and those <small>ROCGDB</small> is using for
 internal purposes.  Internal breakpoints are shown with negative
 breakpoint numbers.  The type column identifies what kind of breakpoint
 is shown:
 </p>
-<dl class="table">
-<dt><code class="code">breakpoint</code></dt>
+<dl compact="compact">
+<dt><span><code>breakpoint</code></span></dt>
 <dd><p>Normal, explicitly set breakpoint.
 </p>
 </dd>
-<dt><code class="code">watchpoint</code></dt>
+<dt><span><code>watchpoint</code></span></dt>
 <dd><p>Normal, explicitly set watchpoint.
 </p>
 </dd>
-<dt><code class="code">longjmp</code></dt>
+<dt><span><code>longjmp</code></span></dt>
 <dd><p>Internal breakpoint, used to handle correctly stepping through
-<code class="code">longjmp</code> calls.
+<code>longjmp</code> calls.
 </p>
 </dd>
-<dt><code class="code">longjmp resume</code></dt>
-<dd><p>Internal breakpoint at the target of a <code class="code">longjmp</code>.
+<dt><span><code>longjmp resume</code></span></dt>
+<dd><p>Internal breakpoint at the target of a <code>longjmp</code>.
 </p>
 </dd>
-<dt><code class="code">until</code></dt>
-<dd><p>Temporary internal breakpoint used by the <small class="sc">ROCGDB</small> <code class="code">until</code> command.
+<dt><span><code>until</code></span></dt>
+<dd><p>Temporary internal breakpoint used by the <small>ROCGDB</small> <code>until</code> command.
 </p>
 </dd>
-<dt><code class="code">finish</code></dt>
-<dd><p>Temporary internal breakpoint used by the <small class="sc">ROCGDB</small> <code class="code">finish</code> command.
+<dt><span><code>finish</code></span></dt>
+<dd><p>Temporary internal breakpoint used by the <small>ROCGDB</small> <code>finish</code> command.
 </p>
 </dd>
-<dt><code class="code">shlib events</code></dt>
+<dt><span><code>shlib events</code></span></dt>
 <dd><p>Shared library events.
 </p>
 </dd>
 </dl>
 
+<span id="index-maint-info-btrace"></span>
 </dd>
-<dt><a id="index-maint-info-btrace"></a><span><code class="code">maint info btrace</code><a class="copiable-link" href="#index-maint-info-btrace"> &para;</a></span></dt>
+<dt><span><code>maint info btrace</code></span></dt>
 <dd><p>Pint information about raw branch tracing data.
 </p>
+<span id="index-maint-btrace-packet_002dhistory"></span>
 </dd>
-<dt><a id="index-maint-btrace-packet_002dhistory"></a><span><code class="code">maint btrace packet-history</code><a class="copiable-link" href="#index-maint-btrace-packet_002dhistory"> &para;</a></span></dt>
+<dt><span><code>maint btrace packet-history</code></span></dt>
 <dd><p>Print the raw branch trace packets that are used to compute the
-execution history for the &lsquo;<samp class="samp">record btrace</samp>&rsquo; command.  Both the
+execution history for the &lsquo;<samp>record btrace</samp>&rsquo; command.  Both the
 information and the format in which it is printed depend on the btrace
 recording format.
 </p>
-<dl class="table">
-<dt><code class="code">bts</code></dt>
+<dl compact="compact">
+<dt><span><code>bts</code></span></dt>
 <dd><p>For the BTS recording format, print a list of blocks of sequential
 code.  For each block, the following information is printed:
 </p>
-<dl class="table">
-<dt>Block number</dt>
+<dl compact="compact">
+<dt><span>Block number</span></dt>
 <dd><p>Newer blocks have higher numbers.  The oldest block has number zero.
 </p></dd>
-<dt>Lowest &lsquo;<samp class="samp">PC</samp>&rsquo;</dt>
-<dt>Highest &lsquo;<samp class="samp">PC</samp>&rsquo;</dt>
+<dt><span>Lowest &lsquo;<samp>PC</samp>&rsquo;</span></dt>
+<dt><span>Highest &lsquo;<samp>PC</samp>&rsquo;</span></dt>
 </dl>
 
 </dd>
-<dt><code class="code">pt</code></dt>
+<dt><span><code>pt</code></span></dt>
 <dd><p>For the Intel Processor Trace recording format, print a list of
 Intel Processor Trace packets.  For each packet, the following
 information is printed:
 </p>
-<dl class="table">
-<dt>Packet number</dt>
+<dl compact="compact">
+<dt><span>Packet number</span></dt>
 <dd><p>Newer packets have higher numbers.  The oldest packet has number zero.
 </p></dd>
-<dt>Trace offset</dt>
+<dt><span>Trace offset</span></dt>
 <dd><p>The packet&rsquo;s offset in the trace stream.
 </p></dd>
-<dt>Packet opcode and payload</dt>
+<dt><span>Packet opcode and payload</span></dt>
 </dl>
 </dd>
 </dl>
 
+<span id="index-maint-btrace-clear_002dpacket_002dhistory"></span>
 </dd>
-<dt><a id="index-maint-btrace-clear_002dpacket_002dhistory"></a><span><code class="code">maint btrace clear-packet-history</code><a class="copiable-link" href="#index-maint-btrace-clear_002dpacket_002dhistory"> &para;</a></span></dt>
-<dd><p>Discards the cached packet history printed by the &lsquo;<samp class="samp">maint btrace
+<dt><span><code>maint btrace clear-packet-history</code></span></dt>
+<dd><p>Discards the cached packet history printed by the &lsquo;<samp>maint btrace
 packet-history</samp>&rsquo; command.  The history will be computed again when
 needed.
 </p>
+<span id="index-maint-btrace-clear"></span>
 </dd>
-<dt><a id="index-maint-btrace-clear"></a><span><code class="code">maint btrace clear</code><a class="copiable-link" href="#index-maint-btrace-clear"> &para;</a></span></dt>
+<dt><span><code>maint btrace clear</code></span></dt>
 <dd><p>Discard the branch trace data.  The data will be fetched anew and the
 branch trace will be recomputed when needed.
 </p>
 <p>This implicitly truncates the branch trace to a single branch trace
 buffer.  When updating branch trace incrementally, the branch trace
-available to <small class="sc">ROCGDB</small> may be bigger than a single branch trace
+available to <small>ROCGDB</small> may be bigger than a single branch trace
 buffer.
 </p>
+<span id="index-maint-set-btrace-pt-skip_002dpad"></span>
 </dd>
-<dt><a class="index-entry-id" id="index-maint-set-btrace-pt-skip_002dpad"></a>
-<a id="index-maint-show-btrace-pt-skip_002dpad"></a><span><code class="code">maint set btrace pt skip-pad</code><a class="copiable-link" href="#index-maint-show-btrace-pt-skip_002dpad"> &para;</a></span></dt>
-<dt><code class="code">maint show btrace pt skip-pad</code></dt>
-<dd><p>Control whether <small class="sc">ROCGDB</small> will skip PAD packets when computing the
+<dt id='index-maint-show-btrace-pt-skip_002dpad'><span><code>maint set btrace pt skip-pad</code><a href='#index-maint-show-btrace-pt-skip_002dpad' class='copiable-anchor'> &para;</a></span></dt>
+<dt><span><code>maint show btrace pt skip-pad</code></span></dt>
+<dd><p>Control whether <small>ROCGDB</small> will skip PAD packets when computing the
 packet history.
 </p>
+<span id="index-maint-info-jit"></span>
 </dd>
-<dt><a id="index-maint-info-jit"></a><span><code class="code">maint info jit</code><a class="copiable-link" href="#index-maint-info-jit"> &para;</a></span></dt>
+<dt><span><code>maint info jit</code></span></dt>
 <dd><p>Print information about JIT code objects loaded in the current inferior.
 </p>
-<a class="anchor" id="maint-info-python_002ddisassemblers"></a></dd>
-<dt><a id="index-maint-info-python_002ddisassemblers"></a><span><code class="code">maint info python-disassemblers</code><a class="copiable-link" href="#index-maint-info-python_002ddisassemblers"> &para;</a></span></dt>
-<dd><p>This command is defined within the <code class="code">gdb.disassembler</code> Python
-module (see <a class="pxref" href="Disassembly-In-Python.html">Instruction Disassembly In Python</a>), and will only be present after
+<span id="maint-info-python_002ddisassemblers"></span><span id="index-maint-info-python_002ddisassemblers"></span>
+</dd>
+<dt><span><code>maint info python-disassemblers</code></span></dt>
+<dd><p>This command is defined within the <code>gdb.disassembler</code> Python
+module (see <a href="Disassembly-In-Python.html">Instruction Disassembly In Python</a>), and will only be present after
 that module has been imported.  To force the module to be imported do
 the following:
 </p>
+<span id="index-maint-info-linux_002dlwps"></span>
 </dd>
-<dt><a id="index-maint-info-linux_002dlwps"></a><span><code class="code">maint info linux-lwps</code><a class="copiable-link" href="#index-maint-info-linux_002dlwps"> &para;</a></span></dt>
+<dt><span><code>maint info linux-lwps</code></span></dt>
 <dd><p>Print information about LWPs under control of the Linux native target.
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">(gdb) python import gdb.disassembler
+<div class="example">
+<pre class="example">(gdb) python import gdb.disassembler
 </pre></div>
 
 <p>This command lists all the architectures for which a disassembler is
 currently registered, and the name of the disassembler.  If a
 disassembler is registered for all architectures, then this is listed
-last against the &lsquo;<samp class="samp">GLOBAL</samp>&rsquo; architecture.
+last against the &lsquo;<samp>GLOBAL</samp>&rsquo; architecture.
 </p>
 <p>If one of the disassemblers would be selected for the architecture of
 the current inferior, then this disassembler will be marked.
 </p>
 <p>The following example shows a situation in which two disassemblers are
-registered, initially the &lsquo;<samp class="samp">i386</samp>&rsquo; disassembler matches the current
-architecture, then the architecture is changed, now the &lsquo;<samp class="samp">GLOBAL</samp>&rsquo;
+registered, initially the &lsquo;<samp>i386</samp>&rsquo; disassembler matches the current
+architecture, then the architecture is changed, now the &lsquo;<samp>GLOBAL</samp>&rsquo;
 disassembler matches.
 </p>
-<div class="example smallexample">
-<div class="group"><pre class="example-preformatted">(gdb) show architecture
+<div class="example">
+<pre class="example">(gdb) show architecture
 The target architecture is set to &quot;auto&quot; (currently &quot;i386&quot;).
 (gdb) maint info python-disassemblers
 Architecture        Disassember Name
 i386                Disassembler_1	(Matches current architecture)
 GLOBAL              Disassembler_2
-</pre></div><div class="group"><pre class="example-preformatted">(gdb) set architecture arm
+</pre><pre class="example">(gdb) set architecture arm
 The target architecture is set to &quot;arm&quot;.
 (gdb) maint info python-disassemblers
 quit
 Architecture        Disassember Name
 i386                Disassembler_1
 GLOBAL              Disassembler_2	(Matches current architecture)
-</pre></div></div>
+</pre></div>
 
+<span id="index-set-displaced_002dstepping"></span>
+<span id="index-show-displaced_002dstepping"></span>
+<span id="index-displaced-stepping-support"></span>
+<span id="index-out_002dof_002dline-single_002dstepping"></span>
 </dd>
-<dt><a class="index-entry-id" id="index-show-displaced_002dstepping"></a>
-<a class="index-entry-id" id="index-displaced-stepping-support"></a>
-<a class="index-entry-id" id="index-out_002dof_002dline-single_002dstepping"></a>
-<a id="index-set-displaced_002dstepping"></a><span><code class="code">set displaced-stepping</code><a class="copiable-link" href="#index-set-displaced_002dstepping"> &para;</a></span></dt>
-<dt><code class="code">show displaced-stepping</code></dt>
-<dd><p>Control whether or not <small class="sc">ROCGDB</small> will do <em class="dfn">displaced stepping</em>
+<dt><span><code>set displaced-stepping</code></span></dt>
+<dt><span><code>show displaced-stepping</code></span></dt>
+<dd><p>Control whether or not <small>ROCGDB</small> will do <em>displaced stepping</em>
 if the target supports it.  Displaced stepping is a way to single-step
 over breakpoints without removing them from the inferior, by executing
 an out-of-line copy of the instruction that was originally at the
 breakpoint location.  It is also known as out-of-line single-stepping.
 </p>
-<dl class="table">
-<dt><code class="code">set displaced-stepping on</code></dt>
-<dd><p>If the target architecture supports it, <small class="sc">ROCGDB</small> will use
+<dl compact="compact">
+<dt><span><code>set displaced-stepping on</code></span></dt>
+<dd><p>If the target architecture supports it, <small>ROCGDB</small> will use
 displaced stepping to step over breakpoints.
 </p>
 </dd>
-<dt><code class="code">set displaced-stepping off</code></dt>
-<dd><p><small class="sc">ROCGDB</small> will not use displaced stepping to step over breakpoints,
+<dt><span><code>set displaced-stepping off</code></span></dt>
+<dd><p><small>ROCGDB</small> will not use displaced stepping to step over breakpoints,
 even if such is supported by the target architecture.
 </p>
+<span id="index-non_002dstop-mode_002c-and-set-displaced_002dstepping"></span>
 </dd>
-<dt><a id="index-non_002dstop-mode_002c-and-set-displaced_002dstepping"></a><span><code class="code">set displaced-stepping auto</code><a class="copiable-link" href="#index-non_002dstop-mode_002c-and-set-displaced_002dstepping"> &para;</a></span></dt>
-<dd><p>This is the default mode.  <small class="sc">ROCGDB</small> will use displaced stepping
-only if non-stop mode is active (see <a class="pxref" href="Non_002dStop-Mode.html">Non-Stop Mode</a>) and the target
+<dt><span><code>set displaced-stepping auto</code></span></dt>
+<dd><p>This is the default mode.  <small>ROCGDB</small> will use displaced stepping
+only if non-stop mode is active (see <a href="Non_002dStop-Mode.html">Non-Stop Mode</a>) and the target
 architecture supports displaced stepping.
 </p></dd>
 </dl>
 
+<span id="index-maint-check_002dpsymtabs"></span>
 </dd>
-<dt><a id="index-maint-check_002dpsymtabs"></a><span><code class="code">maint check-psymtabs</code><a class="copiable-link" href="#index-maint-check_002dpsymtabs"> &para;</a></span></dt>
+<dt><span><code>maint check-psymtabs</code></span></dt>
 <dd><p>Check the consistency of currently expanded psymtabs versus symtabs.
 Use this to check, for example, whether a symbol is in one but not the other.
 </p>
+<span id="index-maint-check_002dsymtabs"></span>
 </dd>
-<dt><a id="index-maint-check_002dsymtabs"></a><span><code class="code">maint check-symtabs</code><a class="copiable-link" href="#index-maint-check_002dsymtabs"> &para;</a></span></dt>
+<dt><span><code>maint check-symtabs</code></span></dt>
 <dd><p>Check the consistency of currently expanded symtabs.
 </p>
+<span id="index-maint-expand_002dsymtabs"></span>
 </dd>
-<dt><a id="index-maint-expand_002dsymtabs"></a><span><code class="code">maint expand-symtabs [<var class="var">regexp</var>]</code><a class="copiable-link" href="#index-maint-expand_002dsymtabs"> &para;</a></span></dt>
+<dt><span><code>maint expand-symtabs [<var>regexp</var>]</code></span></dt>
 <dd><p>Expand symbol tables.
-If <var class="var">regexp</var> is specified, only expand symbol tables for file
-names matching <var class="var">regexp</var>.
+If <var>regexp</var> is specified, only expand symbol tables for file
+names matching <var>regexp</var>.
 </p>
+<span id="index-maint-set-catch_002ddemangler_002dcrashes"></span>
+<span id="index-maint-show-catch_002ddemangler_002dcrashes"></span>
+<span id="index-demangler-crashes"></span>
 </dd>
-<dt><a class="index-entry-id" id="index-maint-show-catch_002ddemangler_002dcrashes"></a>
-<a class="index-entry-id" id="index-demangler-crashes"></a>
-<a id="index-maint-set-catch_002ddemangler_002dcrashes"></a><span><code class="code">maint set catch-demangler-crashes [on|off]</code><a class="copiable-link" href="#index-maint-set-catch_002ddemangler_002dcrashes"> &para;</a></span></dt>
-<dt><code class="code">maint show catch-demangler-crashes</code></dt>
-<dd><p>Control whether <small class="sc">ROCGDB</small> should attempt to catch crashes in the
+<dt><span><code>maint set catch-demangler-crashes [on|off]</code></span></dt>
+<dt><span><code>maint show catch-demangler-crashes</code></span></dt>
+<dd><p>Control whether <small>ROCGDB</small> should attempt to catch crashes in the
 symbol name demangler.  The default is to attempt to catch crashes.
 If enabled, the first time a crash is caught, a core file is created,
 the offending symbol is displayed and the user is presented with the
 option to terminate the current session.
 </p>
+<span id="index-maint-cplus-first_005fcomponent"></span>
 </dd>
-<dt><a id="index-maint-cplus-first_005fcomponent"></a><span><code class="code">maint cplus first_component <var class="var">name</var></code><a class="copiable-link" href="#index-maint-cplus-first_005fcomponent"> &para;</a></span></dt>
-<dd><p>Print the first C<code class="t">++</code> class/namespace component of <var class="var">name</var>.
+<dt><span><code>maint cplus first_component <var>name</var></code></span></dt>
+<dd><p>Print the first C<tt>++</tt> class/namespace component of <var>name</var>.
 </p>
+<span id="index-maint-cplus-namespace"></span>
 </dd>
-<dt><a id="index-maint-cplus-namespace"></a><span><code class="code">maint cplus namespace</code><a class="copiable-link" href="#index-maint-cplus-namespace"> &para;</a></span></dt>
-<dd><p>Print the list of possible C<code class="t">++</code> namespaces.
+<dt><span><code>maint cplus namespace</code></span></dt>
+<dd><p>Print the list of possible C<tt>++</tt> namespaces.
 </p>
+<span id="index-maint-deprecate"></span>
+<span id="index-maint-undeprecate"></span>
+<span id="index-deprecated-commands"></span>
 </dd>
-<dt><a class="index-entry-id" id="index-maint-undeprecate"></a>
-<a class="index-entry-id" id="index-deprecated-commands"></a>
-<a id="index-maint-deprecate"></a><span><code class="code">maint deprecate <var class="var">command</var> <span class="r">[</span><var class="var">replacement</var><span class="r">]</span></code><a class="copiable-link" href="#index-maint-deprecate"> &para;</a></span></dt>
-<dt><code class="code">maint undeprecate <var class="var">command</var></code></dt>
-<dd><p>Deprecate or undeprecate the named <var class="var">command</var>.  Deprecated commands
-cause <small class="sc">ROCGDB</small> to issue a warning when you use them.  The optional
-argument <var class="var">replacement</var> says which newer command should be used in
-favor of the deprecated one; if it is given, <small class="sc">ROCGDB</small> will mention
+<dt><span><code>maint deprecate <var>command</var> <span class="roman">[</span><var>replacement</var><span class="roman">]</span></code></span></dt>
+<dt><span><code>maint undeprecate <var>command</var></code></span></dt>
+<dd><p>Deprecate or undeprecate the named <var>command</var>.  Deprecated commands
+cause <small>ROCGDB</small> to issue a warning when you use them.  The optional
+argument <var>replacement</var> says which newer command should be used in
+favor of the deprecated one; if it is given, <small>ROCGDB</small> will mention
 the replacement as part of the warning.
 </p>
+<span id="index-maint-dump_002dme"></span>
 </dd>
-<dt><a class="index-entry-id" id="index-maint-dump_002dme"></a>
-<a id="index-SIGQUIT-signal_002c-dump-core-of-rocgdb"></a><span><code class="code">maint dump-me</code><a class="copiable-link" href="#index-SIGQUIT-signal_002c-dump-core-of-rocgdb"> &para;</a></span></dt>
+<dt id='index-SIGQUIT-signal_002c-dump-core-of-ROCGDB'><span><code>maint dump-me</code><a href='#index-SIGQUIT-signal_002c-dump-core-of-ROCGDB' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Cause a fatal signal in the debugger and force it to dump its core.
 This is supported only on systems which support aborting a program
-with the <code class="code">SIGQUIT</code> signal.
+with the <code>SIGQUIT</code> signal.
 </p>
+<span id="index-maint-internal_002derror"></span>
+<span id="index-maint-internal_002dwarning"></span>
+<span id="index-maint-demangler_002dwarning"></span>
+<span id="index-demangler-crashes-1"></span>
 </dd>
-<dt><a class="index-entry-id" id="index-maint-internal_002dwarning"></a>
-<a class="index-entry-id" id="index-maint-demangler_002dwarning"></a>
-<a class="index-entry-id" id="index-demangler-crashes-1"></a>
-<a id="index-maint-internal_002derror"></a><span><code class="code">maint internal-error <span class="r">[</span><var class="var">message-text</var><span class="r">]</span></code><a class="copiable-link" href="#index-maint-internal_002derror"> &para;</a></span></dt>
-<dt><code class="code">maint internal-warning <span class="r">[</span><var class="var">message-text</var><span class="r">]</span></code></dt>
-<dt><code class="code">maint demangler-warning <span class="r">[</span><var class="var">message-text</var><span class="r">]</span></code></dt>
+<dt><span><code>maint internal-error <span class="roman">[</span><var>message-text</var><span class="roman">]</span></code></span></dt>
+<dt><span><code>maint internal-warning <span class="roman">[</span><var>message-text</var><span class="roman">]</span></code></span></dt>
+<dt><span><code>maint demangler-warning <span class="roman">[</span><var>message-text</var><span class="roman">]</span></code></span></dt>
 <dd>
-<p>Cause <small class="sc">ROCGDB</small> to call the internal function <code class="code">internal_error</code>,
-<code class="code">internal_warning</code> or <code class="code">demangler_warning</code> and hence behave
+<p>Cause <small>ROCGDB</small> to call the internal function <code>internal_error</code>,
+<code>internal_warning</code> or <code>demangler_warning</code> and hence behave
 as though an internal problem has been detected.  In addition to
 reporting the internal problem, these functions give the user the
-opportunity to either quit <small class="sc">ROCGDB</small> or (for <code class="code">internal_error</code>
-and <code class="code">internal_warning</code>) create a core file of the current
-<small class="sc">ROCGDB</small> session.
+opportunity to either quit <small>ROCGDB</small> or (for <code>internal_error</code>
+and <code>internal_warning</code>) create a core file of the current
+<small>ROCGDB</small> session.
 </p>
-<p>These commands take an optional parameter <var class="var">message-text</var> that is
+<p>These commands take an optional parameter <var>message-text</var> that is
 used as the text of the error or warning message.
 </p>
-<p>Here&rsquo;s an example of using <code class="code">internal-error</code>:
+<p>Here&rsquo;s an example of using <code>internal-error</code>:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">(gdb) <kbd class="kbd">maint internal-error testing, 1, 2</kbd>
-.../maint.c:121: internal-error: testing, 1, 2
+<div class="example">
+<pre class="example">(gdb) <kbd>maint internal-error testing, 1, 2</kbd>
+&hellip;/maint.c:121: internal-error: testing, 1, 2
 A problem internal to GDB has been detected.  Further
 debugging may prove unreliable.
-Quit this debugging session? (y or n) <kbd class="kbd">n</kbd>
-Create a core file? (y or n) <kbd class="kbd">n</kbd>
+Quit this debugging session? (y or n) <kbd>n</kbd>
+Create a core file? (y or n) <kbd>n</kbd>
 (gdb)
 </pre></div>
 
+<span id="index-maint-set-debuginfod-download_002dsections"></span>
+<span id="index-maint-show-debuginfod-download_002dsections"></span>
+<span id="index-debuginfod_002c-maintenance-commands"></span>
 </dd>
-<dt><a class="index-entry-id" id="index-maint-show-debuginfod-download_002dsections"></a>
-<a class="index-entry-id" id="index-debuginfod_002c-maintenance-commands"></a>
-<a id="index-maint-set-debuginfod-download_002dsections"></a><span><code class="code">maint set debuginfod download-sections</code><a class="copiable-link" href="#index-maint-set-debuginfod-download_002dsections"> &para;</a></span></dt>
-<dt><code class="code">maint set debuginfod download-sections <span class="r">[</span>on|off<span class="r">]</span></code></dt>
-<dt><code class="code">maint show debuginfod download-sections</code></dt>
-<dd><p>Controls whether <small class="sc">ROCGDB</small> will attempt to download individual
-ELF/DWARF sections from <code class="code">debuginfod</code>.  If disabled, only
+<dt><span><code>maint set debuginfod download-sections</code></span></dt>
+<dt><span><code>maint set debuginfod download-sections <span class="roman">[</span>on|off<span class="roman">]</span></code></span></dt>
+<dt><span><code>maint show debuginfod download-sections</code></span></dt>
+<dd><p>Controls whether <small>ROCGDB</small> will attempt to download individual
+ELF/DWARF sections from <code>debuginfod</code>.  If disabled, only
 whole debug info files will be downloaded; this could result
-in <small class="sc">ROCGDB</small> downloading larger amounts of data.
+in <small>ROCGDB</small> downloading larger amounts of data.
 </p>
-<a class="index-entry-id" id="index-rocgdb-internal-error"></a>
-<a class="index-entry-id" id="index-internal-errors_002c-control-of-rocgdb-behavior"></a>
-<a class="index-entry-id" id="index-demangler-crashes-2"></a>
+<span id="index-ROCGDB-internal-error"></span>
+<span id="index-internal-errors_002c-control-of-ROCGDB-behavior"></span>
+<span id="index-demangler-crashes-2"></span>
 
+<span id="index-maint-set-internal_002derror"></span>
+<span id="index-maint-show-internal_002derror"></span>
+<span id="index-maint-set-internal_002dwarning"></span>
+<span id="index-maint-show-internal_002dwarning"></span>
+<span id="index-maint-set-demangler_002dwarning"></span>
+<span id="index-maint-show-demangler_002dwarning"></span>
 </dd>
-<dt><a class="index-entry-id" id="index-maint-show-internal_002derror"></a>
-<a class="index-entry-id" id="index-maint-set-internal_002dwarning"></a>
-<a class="index-entry-id" id="index-maint-show-internal_002dwarning"></a>
-<a class="index-entry-id" id="index-maint-set-demangler_002dwarning"></a>
-<a class="index-entry-id" id="index-maint-show-demangler_002dwarning"></a>
-<a id="index-maint-set-internal_002derror"></a><span><code class="code">maint set internal-error <var class="var">action</var> [ask|yes|no]</code><a class="copiable-link" href="#index-maint-set-internal_002derror"> &para;</a></span></dt>
-<dt><code class="code">maint show internal-error <var class="var">action</var></code></dt>
-<dt><code class="code">maint set internal-warning <var class="var">action</var> [ask|yes|no]</code></dt>
-<dt><code class="code">maint show internal-warning <var class="var">action</var></code></dt>
-<dt><code class="code">maint set demangler-warning <var class="var">action</var> [ask|yes|no]</code></dt>
-<dt><code class="code">maint show demangler-warning <var class="var">action</var></code></dt>
-<dd><p>When <small class="sc">ROCGDB</small> reports an internal problem (error or warning) it
-gives the user the opportunity to both quit <small class="sc">ROCGDB</small> and create a
-core file of the current <small class="sc">ROCGDB</small> session.  These commands let you
-override the default behavior for each particular <var class="var">action</var>,
+<dt><span><code>maint set internal-error <var>action</var> [ask|yes|no]</code></span></dt>
+<dt><span><code>maint show internal-error <var>action</var></code></span></dt>
+<dt><span><code>maint set internal-warning <var>action</var> [ask|yes|no]</code></span></dt>
+<dt><span><code>maint show internal-warning <var>action</var></code></span></dt>
+<dt><span><code>maint set demangler-warning <var>action</var> [ask|yes|no]</code></span></dt>
+<dt><span><code>maint show demangler-warning <var>action</var></code></span></dt>
+<dd><p>When <small>ROCGDB</small> reports an internal problem (error or warning) it
+gives the user the opportunity to both quit <small>ROCGDB</small> and create a
+core file of the current <small>ROCGDB</small> session.  These commands let you
+override the default behavior for each particular <var>action</var>,
 described in the table below.
 </p>
-<dl class="table">
-<dt>&lsquo;<samp class="samp">quit</samp>&rsquo;</dt>
-<dd><p>You can specify that <small class="sc">ROCGDB</small> should always (yes) or never (no)
+<dl compact="compact">
+<dt><span>&lsquo;<samp>quit</samp>&rsquo;</span></dt>
+<dd><p>You can specify that <small>ROCGDB</small> should always (yes) or never (no)
 quit.  The default is to ask the user what to do.
 </p>
 </dd>
-<dt>&lsquo;<samp class="samp">corefile</samp>&rsquo;</dt>
-<dd><p>You can specify that <small class="sc">ROCGDB</small> should always (yes) or never (no)
+<dt><span>&lsquo;<samp>corefile</samp>&rsquo;</span></dt>
+<dd><p>You can specify that <small>ROCGDB</small> should always (yes) or never (no)
 create a core file.  The default is to ask the user what to do.  Note
-that there is no <code class="code">corefile</code> option for <code class="code">demangler-warning</code>:
+that there is no <code>corefile</code> option for <code>demangler-warning</code>:
 demangler warnings always create a core file and this cannot be
 disabled.
 </p></dd>
 </dl>
 
+<span id="index-maint-set-internal_002derror-1"></span>
+<span id="index-maint-show-internal_002derror-1"></span>
+<span id="index-maint-set-internal_002dwarning-1"></span>
+<span id="index-maint-show-internal_002dwarning-1"></span>
 </dd>
-<dt><a class="index-entry-id" id="index-maint-show-internal_002derror-1"></a>
-<a class="index-entry-id" id="index-maint-set-internal_002dwarning-1"></a>
-<a class="index-entry-id" id="index-maint-show-internal_002dwarning-1"></a>
-<a id="index-maint-set-internal_002derror-1"></a><span><code class="code">maint set internal-error backtrace <span class="r">[</span>on|off<span class="r">]</span></code><a class="copiable-link" href="#index-maint-set-internal_002derror-1"> &para;</a></span></dt>
-<dt><code class="code">maint show internal-error backtrace</code></dt>
-<dt><code class="code">maint set internal-warning backtrace <span class="r">[</span>on|off<span class="r">]</span></code></dt>
-<dt><code class="code">maint show internal-warning backtrace</code></dt>
-<dd><p>When <small class="sc">ROCGDB</small> reports an internal problem (error or warning) it is
-possible to have a backtrace of <small class="sc">ROCGDB</small> printed to the standard
-error stream.  This is &lsquo;<samp class="samp">on</samp>&rsquo; by default for <code class="code">internal-error</code>
-and &lsquo;<samp class="samp">off</samp>&rsquo; by default for <code class="code">internal-warning</code>.
+<dt><span><code>maint set internal-error backtrace <span class="roman">[</span>on|off<span class="roman">]</span></code></span></dt>
+<dt><span><code>maint show internal-error backtrace</code></span></dt>
+<dt><span><code>maint set internal-warning backtrace <span class="roman">[</span>on|off<span class="roman">]</span></code></span></dt>
+<dt><span><code>maint show internal-warning backtrace</code></span></dt>
+<dd><p>When <small>ROCGDB</small> reports an internal problem (error or warning) it is
+possible to have a backtrace of <small>ROCGDB</small> printed to the standard
+error stream.  This is &lsquo;<samp>on</samp>&rsquo; by default for <code>internal-error</code>
+and &lsquo;<samp>off</samp>&rsquo; by default for <code>internal-warning</code>.
 </p>
-<a class="anchor" id="maint-packet"></a></dd>
-<dt><a id="index-maint-packet-1"></a><span><code class="code">maint packet <var class="var">text</var></code><a class="copiable-link" href="#index-maint-packet-1"> &para;</a></span></dt>
-<dd><p>If <small class="sc">ROCGDB</small> is talking to an inferior via the serial protocol,
-then this command sends the string <var class="var">text</var> to the inferior, and
-displays the response packet.  <small class="sc">ROCGDB</small> supplies the initial
-&lsquo;<samp class="samp">$</samp>&rsquo; character, the terminating &lsquo;<samp class="samp">#</samp>&rsquo; character, and the
+<span id="maint-packet"></span><span id="index-maint-packet-1"></span>
+</dd>
+<dt><span><code>maint packet <var>text</var></code></span></dt>
+<dd><p>If <small>ROCGDB</small> is talking to an inferior via the serial protocol,
+then this command sends the string <var>text</var> to the inferior, and
+displays the response packet.  <small>ROCGDB</small> supplies the initial
+&lsquo;<samp>$</samp>&rsquo; character, the terminating &lsquo;<samp>#</samp>&rsquo; character, and the
 checksum.
 </p>
 <p>Any non-printable characters in the reply are printed as escaped hex,
-e.g. &lsquo;<samp class="samp">\x00</samp>&rsquo;, &lsquo;<samp class="samp">\x01</samp>&rsquo;, etc.
+e.g. &lsquo;<samp>\x00</samp>&rsquo;, &lsquo;<samp>\x01</samp>&rsquo;, etc.
 </p>
+<span id="index-maint-print-architecture"></span>
 </dd>
-<dt><a id="index-maint-print-architecture"></a><span><code class="code">maint print architecture <span class="r">[</span><var class="var">file</var><span class="r">]</span></code><a class="copiable-link" href="#index-maint-print-architecture"> &para;</a></span></dt>
+<dt><span><code>maint print architecture <span class="roman">[</span><var>file</var><span class="roman">]</span></code></span></dt>
 <dd><p>Print the entire architecture configuration.  The optional argument
-<var class="var">file</var> names the file where the output goes.
+<var>file</var> names the file where the output goes.
 </p>
+<span id="index-maint-print-c_002dtdesc"></span>
 </dd>
-<dt><a id="index-maint-print-c_002dtdesc"></a><span><code class="code">maint print c-tdesc <span class="r">[</span>-single-feature<span class="r">]</span> <span class="r">[</span><var class="var">file</var><span class="r">]</span></code><a class="copiable-link" href="#index-maint-print-c_002dtdesc"> &para;</a></span></dt>
-<dd><p>Print the target description (see <a class="pxref" href="Target-Descriptions.html">Target Descriptions</a>) as
+<dt><span><code>maint print c-tdesc <span class="roman">[</span>-single-feature<span class="roman">]</span> <span class="roman">[</span><var>file</var><span class="roman">]</span></code></span></dt>
+<dd><p>Print the target description (see <a href="Target-Descriptions.html">Target Descriptions</a>) as
 a C source file.  By default, the target description is for the current
-target, but if the optional argument <var class="var">file</var> is provided, that file
-is used to produce the description.  The <var class="var">file</var> should be an XML
-document, of the form described in <a class="ref" href="Target-Description-Format.html">Target Description Format</a>.
-The created source file is built into <small class="sc">ROCGDB</small> when <small class="sc">ROCGDB</small> is
+target, but if the optional argument <var>file</var> is provided, that file
+is used to produce the description.  The <var>file</var> should be an XML
+document, of the form described in <a href="Target-Description-Format.html">Target Description Format</a>.
+The created source file is built into <small>ROCGDB</small> when <small>ROCGDB</small> is
 built again.  This command is used by developers after they add or
 modify XML target descriptions.
 </p>
-<p>When the optional flag &lsquo;<samp class="samp">-single-feature</samp>&rsquo; is provided then the
+<p>When the optional flag &lsquo;<samp>-single-feature</samp>&rsquo; is provided then the
 target description being processed (either the default, or from
-<var class="var">file</var>) must only contain a single feature.  The source file
+<var>file</var>) must only contain a single feature.  The source file
 produced is different in this case.
 </p>
-<p>The <var class="var">file</var> argument supports escaping and quoting, see
-<a class="ref" href="Filename-Arguments.html">Filenames As Command Arguments</a>.
+<p>The <var>file</var> argument supports escaping and quoting, see
+<a href="Filename-Arguments.html">Filenames As Command Arguments</a>.
 </p>
+<span id="index-maint-print-xml_002dtdesc"></span>
 </dd>
-<dt><a id="index-maint-print-xml_002dtdesc"></a><span><code class="code">maint print xml-tdesc  <span class="r">[</span><var class="var">file</var><span class="r">]</span></code><a class="copiable-link" href="#index-maint-print-xml_002dtdesc"> &para;</a></span></dt>
-<dd><p>Print the target description (see <a class="pxref" href="Target-Descriptions.html">Target Descriptions</a>) as an XML
+<dt><span><code>maint print xml-tdesc  <span class="roman">[</span><var>file</var><span class="roman">]</span></code></span></dt>
+<dd><p>Print the target description (see <a href="Target-Descriptions.html">Target Descriptions</a>) as an XML
 file.  By default print the target description for the current target,
-but if the optional argument <var class="var">file</var> is provided, then that file is
+but if the optional argument <var>file</var> is provided, then that file is
 read in by GDB and then used to produce the description.  The
-<var class="var">file</var> should be an XML document, of the form described in
-<a class="ref" href="Target-Description-Format.html">Target Description Format</a>.
+<var>file</var> should be an XML document, of the form described in
+<a href="Target-Description-Format.html">Target Description Format</a>.
 </p>
+<span id="index-maint-check-xml_002ddescriptions"></span>
 </dd>
-<dt><a id="index-maint-check-xml_002ddescriptions"></a><span><code class="code">maint check xml-descriptions <var class="var">dir</var></code><a class="copiable-link" href="#index-maint-check-xml_002ddescriptions"> &para;</a></span></dt>
-<dd><p>Check that the target descriptions dynamically created by <small class="sc">ROCGDB</small>
-equal the descriptions created from XML files found in <var class="var">dir</var>.
+<dt><span><code>maint check xml-descriptions <var>dir</var></code></span></dt>
+<dd><p>Check that the target descriptions dynamically created by <small>ROCGDB</small>
+equal the descriptions created from XML files found in <var>dir</var>.
 </p>
-<a class="anchor" id="maint-check-libthread_002ddb"></a></dd>
-<dt><a id="index-maint-check-libthread_002ddb"></a><span><code class="code">maint check libthread-db</code><a class="copiable-link" href="#index-maint-check-libthread_002ddb"> &para;</a></span></dt>
+<span id="maint-check-libthread_002ddb"></span><span id="index-maint-check-libthread_002ddb"></span>
+</dd>
+<dt><span><code>maint check libthread-db</code></span></dt>
 <dd><p>Run integrity checks on the current inferior&rsquo;s thread debugging
-library.  This exercises all <code class="code">libthread_db</code> functionality used by
-<small class="sc">ROCGDB</small> on GNU/Linux systems, and by extension also exercises the
-<code class="code">proc_service</code> functions provided by <small class="sc">ROCGDB</small> that
-<code class="code">libthread_db</code> uses.  Note that parts of the test may be skipped
+library.  This exercises all <code>libthread_db</code> functionality used by
+<small>ROCGDB</small> on GNU/Linux systems, and by extension also exercises the
+<code>proc_service</code> functions provided by <small>ROCGDB</small> that
+<code>libthread_db</code> uses.  Note that parts of the test may be skipped
 on some platforms when debugging core files.
 </p>
+<span id="index-maint-print-core_002dfile_002dbacked_002dmappings"></span>
+<span id="index-memory-address-space-mappings-1"></span>
 </dd>
-<dt><a class="index-entry-id" id="index-memory-address-space-mappings-1"></a>
-<a id="index-maint-print-core_002dfile_002dbacked_002dmappings"></a><span><code class="code">maint print core-file-backed-mappings</code><a class="copiable-link" href="#index-maint-print-core_002dfile_002dbacked_002dmappings"> &para;</a></span></dt>
+<dt><span><code>maint print core-file-backed-mappings</code></span></dt>
 <dd><p>Print the file-backed mappings which were loaded from a core file note.
-This output represents state internal to <small class="sc">ROCGDB</small> and should be
-similar to the mappings displayed by the <code class="code">info proc mappings</code>
+This output represents state internal to <small>ROCGDB</small> and should be
+similar to the mappings displayed by the <code>info proc mappings</code>
 command.
 </p>
+<span id="index-maint-print-dummy_002dframes"></span>
 </dd>
-<dt><a id="index-maint-print-dummy_002dframes"></a><span><code class="code">maint print dummy-frames</code><a class="copiable-link" href="#index-maint-print-dummy_002dframes"> &para;</a></span></dt>
-<dd><p>Prints the contents of <small class="sc">ROCGDB</small>&rsquo;s internal dummy-frame stack.
+<dt><span><code>maint print dummy-frames</code></span></dt>
+<dd><p>Prints the contents of <small>ROCGDB</small>&rsquo;s internal dummy-frame stack.
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">(gdb) <kbd class="kbd">b add</kbd>
-...
-(gdb) <kbd class="kbd">print add(2,3)</kbd>
-Breakpoint 2, add (a=2, b=3) at ...
+<div class="example">
+<pre class="example">(gdb) <kbd>b add</kbd>
+&hellip;
+(gdb) <kbd>print add(2,3)</kbd>
+Breakpoint 2, add (a=2, b=3) at &hellip;
 58	  return (a + b);
 The program being debugged stopped while in a function called from GDB.
-...
-(gdb) <kbd class="kbd">maint print dummy-frames</kbd>
+&hellip;
+(gdb) <kbd>maint print dummy-frames</kbd>
 0xa8206d8: id={stack=0xbfffe734,code=0xbfffe73f,!special}, ptid=process 9353
 (gdb)
 </pre></div>
 
 <p>Takes an optional file parameter.
 </p>
+<span id="index-maint-print-frame_002did"></span>
 </dd>
-<dt><a id="index-maint-print-frame_002did"></a><span><code class="code">maint print frame-id</code><a class="copiable-link" href="#index-maint-print-frame_002did"> &para;</a></span></dt>
-<dt><code class="code">maint print frame-id <var class="var">level</var></code></dt>
-<dd><p>Print <small class="sc">ROCGDB</small>&rsquo;s internal frame-id for the frame at relative
-<var class="var">level</var>, or for the currently selected frame when <var class="var">level</var> is
+<dt><span><code>maint print frame-id</code></span></dt>
+<dt><span><code>maint print frame-id <var>level</var></code></span></dt>
+<dd><p>Print <small>ROCGDB</small>&rsquo;s internal frame-id for the frame at relative
+<var>level</var>, or for the currently selected frame when <var>level</var> is
 not given.
 </p>
-<p>If used, <var class="var">level</var> should be an integer, as displayed in the
-<code class="command">backtrace</code> output.
+<p>If used, <var>level</var> should be an integer, as displayed in the
+<code>backtrace</code> output.
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">(gdb) maint print frame-id
+<div class="example">
+<pre class="example">(gdb) maint print frame-id
 frame-id for frame #0: {stack=0x7fffffffac70,code=0x0000000000401106,!special}
 (gdb) maint print frame-id 2
 frame-id for frame #2: {stack=0x7fffffffac90,code=0x000000000040111c,!special}
 </pre></div>
 
 </dd>
-<dt><a class="index-entry-id" id="index-maint-info-inline_002dframes"></a>
-<a id="index-frames-of-inlined-functions"></a><span><code class="code">maint info inline-frames</code><a class="copiable-link" href="#index-frames-of-inlined-functions"> &para;</a></span></dt>
-<dt><code class="code">maint info inline-frames <var class="var">address</var></code></dt>
-<dd><p>Print information about inlined frames which start at the current
-address, or <var class="var">address</var> if specified.
+<dt id='index-frames-of-inlined-functions'><span><code>maint info inline-frames</code><a href='#index-frames-of-inlined-functions' class='copiable-anchor'> &para;</a></span></dt>
+<dt><span><code>maint info inline-frames <var>address</var></code></span></dt>
+<dd><span id="index-maint-info-inline_002dframes"></span>
+<p>Print information about inlined frames which start at the current
+address, or <var>address</var> if specified.
 </p>
 <p>In order to allow the user to correctly step into inlined functions,
-<small class="sc">ROCGDB</small> needs to identify which inlined functions start at a
-particular address, and <small class="sc">ROCGDB</small> also needs to track which of
+<small>ROCGDB</small> needs to identify which inlined functions start at a
+particular address, and <small>ROCGDB</small> also needs to track which of
 these functions was last displayed to the user as the current frame.
 </p>
-<p>Imagine a situation where function <code class="code">main</code> calls <code class="code">foo</code>, which
-then calls <code class="code">bar</code>, something like this:
+<p>Imagine a situation where function <code>main</code> calls <code>foo</code>, which
+then calls <code>bar</code>, something like this:
 </p>
-<div class="example smallexample">
-<div class="group"><pre class="example-preformatted">int
+<div class="example">
+<pre class="example">int
 main ()
 {
   /* Some interesting code here...  */
@@ -594,21 +636,21 @@ bar ()
 {
   /* Some interesting code here...  */
 }
-</pre></div></div>
+</pre></div>
 
-<p>As both <code class="code">foo</code> and <code class="code">bar</code> are inlined within <code class="code">main</code> then
-there could be one address within <code class="code">main</code> which is also the start
-of <code class="code">foo</code> and also the start of <code class="code">bar</code>.  When the user stops
+<p>As both <code>foo</code> and <code>bar</code> are inlined within <code>main</code> then
+there could be one address within <code>main</code> which is also the start
+of <code>foo</code> and also the start of <code>bar</code>.  When the user stops
 at this address they will initially be told the inferior is in
-<code class="code">main</code>, if the user does a <kbd class="kbd">step</kbd> then <small class="sc">ROCGDB</small> doesn&rsquo;t
+<code>main</code>, if the user does a <kbd>step</kbd> then <small>ROCGDB</small> doesn&rsquo;t
 actually step the inferior, instead the user is told the inferior
-entered <code class="code">foo</code>.  After the next <kbd class="kbd">step</kbd> the user is told the
-inferior entered <code class="code">bar</code>.  The <kbd class="kbd">maint info inline-frames</kbd>
-command can be used to view this internal <small class="sc">ROCGDB</small> state, like
+entered <code>foo</code>.  After the next <kbd>step</kbd> the user is told the
+inferior entered <code>bar</code>.  The <kbd>maint info inline-frames</kbd>
+command can be used to view this internal <small>ROCGDB</small> state, like
 this:
 </p>
-<div class="example smallexample">
-<div class="group"><pre class="example-preformatted">(gdb) step
+<div class="example">
+<pre class="example">(gdb) step
 24	  foo ();
 (gdb) maintenance info inline-frames
 Cached inline state information for thread 1.
@@ -617,19 +659,19 @@ skipped frames = 2
   bar
   foo
 &gt; main
-</pre></div></div>
+</pre></div>
 
-<p>Here the user is stopped in <code class="code">main</code> at the call to <code class="code">foo</code>.  The
-inline-frames information shows that at this address <small class="sc">ROCGDB</small> has
-found the start of inlined functions <code class="code">bar</code> and <code class="code">foo</code>, but
-currently <small class="sc">ROCGDB</small> has skipped 2 frames and considers <code class="code">main</code>
-to be the current frame, this is indicated with the &lsquo;<samp class="samp">&gt;</samp>&rsquo;.
+<p>Here the user is stopped in <code>main</code> at the call to <code>foo</code>.  The
+inline-frames information shows that at this address <small>ROCGDB</small> has
+found the start of inlined functions <code>bar</code> and <code>foo</code>, but
+currently <small>ROCGDB</small> has skipped 2 frames and considers <code>main</code>
+to be the current frame, this is indicated with the &lsquo;<samp>&gt;</samp>&rsquo;.
 </p>
-<p>If the user performs a <kbd class="kbd">step</kbd> to enter <code class="code">foo</code> then the
+<p>If the user performs a <kbd>step</kbd> to enter <code>foo</code> then the
 situation is updated:
 </p>
-<div class="example smallexample">
-<div class="group"><pre class="example-preformatted">(gdb) step
+<div class="example">
+<pre class="example">(gdb) step
 foo () at inline.c:14
 14	  bar ();
 (gdb) maintenance info inline-frames
@@ -639,16 +681,16 @@ skipped frames = 1
   bar
 &gt; foo
   main
-</pre></div></div>
+</pre></div>
 
-<p>Notice that the program counter value <code class="code">0x401137</code> hasn&rsquo;t change,
-but now <small class="sc">ROCGDB</small> considers <code class="code">foo</code> to be the current frame, and
-it is marked as such with the &lsquo;<samp class="samp">&gt;</samp>&rsquo;.
+<p>Notice that the program counter value <code>0x401137</code> hasn&rsquo;t change,
+but now <small>ROCGDB</small> considers <code>foo</code> to be the current frame, and
+it is marked as such with the &lsquo;<samp>&gt;</samp>&rsquo;.
 </p>
-<p>Finally, the user performs another <kbd class="kbd">step</kbd> to enter <code class="code">bar</code>:
+<p>Finally, the user performs another <kbd>step</kbd> to enter <code>bar</code>:
 </p>
-<div class="example smallexample">
-<div class="group"><pre class="example-preformatted">(gdb) step
+<div class="example">
+<pre class="example">(gdb) step
 bar () at inline.c:6
 6	  ++global_counter;
 (gdb) maintenance info inline-frames
@@ -658,22 +700,23 @@ skipped frames = 0
 &gt; bar
   foo
   main
-</pre></div></div>
+</pre></div>
 
+<span id="index-maint-info-blocks"></span>
 </dd>
-<dt><a id="index-maint-info-blocks"></a><span><code class="code">maint info blocks</code><a class="copiable-link" href="#index-maint-info-blocks"> &para;</a></span></dt>
-<dt><code class="code">maint info blocks <var class="var">address</var></code></dt>
-<dd><p>Print information about all blocks at <var class="var">address</var>, or at the current
-<code class="code">$pc</code> if <var class="var">address</var> is not given.
+<dt><span><code>maint info blocks</code></span></dt>
+<dt><span><code>maint info blocks <var>address</var></code></span></dt>
+<dd><p>Print information about all blocks at <var>address</var>, or at the current
+<code>$pc</code> if <var>address</var> is not given.
 </p>
-<p>For information about what blocks are in <small class="sc">ROCGDB</small> see <a class="ref" href="Blocks-In-Python.html">Accessing blocks from Python</a>.
+<p>For information about what blocks are in <small>ROCGDB</small> see <a href="Blocks-In-Python.html">Accessing blocks from Python</a>.
 </p>
 <p>Blocks are listed starting from the global block, then the static
 block, and then proceeding through progressively narrower scopes.
 </p>
 <p>Here is an example of the command&rsquo;s output:
-</p><div class="example smallexample">
-<div class="group"><pre class="example-preformatted">(gdb) maintenance info blocks
+</p><div class="example">
+<pre class="example">(gdb) maintenance info blocks
 Blocks at 0x401137:
   from objfile: [(objfile *) 0x50507d0] /tmp/inline_func_demo
 
@@ -682,69 +725,71 @@ Blocks at 0x401137:
   is global block
   symbol count: 2
   is contiguous
-</pre></div><div class="group"><pre class="example-preformatted">[(block *) 0x504d9f0] 0x401106..0x40119a
+</pre><pre class="example">[(block *) 0x504d9f0] 0x401106..0x40119a
   entry pc: 0x401106
   is static block
   symbol count: 1
   is contiguous
-</pre></div><div class="group"><pre class="example-preformatted">[(block *) 0x504d9a0] 0x401106..0x40119a
+</pre><pre class="example">[(block *) 0x504d9a0] 0x401106..0x40119a
   entry pc: 0x401106
   function: main
   is contiguous
-</pre></div><div class="group"><pre class="example-preformatted">[(block *) 0x504d900] 0x401137..0x401166
+</pre><pre class="example">[(block *) 0x504d900] 0x401137..0x401166
   entry pc: 0x401137
   inline function: foo
   symbol count: 1
   is contiguous
-</pre></div><div class="group"><pre class="example-preformatted">[(block *) 0x504d860] 0x401137..0x401165
+</pre><pre class="example">[(block *) 0x504d860] 0x401137..0x401165
   entry pc: 0x401137
   inline function: bar
   symbol count: 1
   is contiguous
-</pre></div></div>
+</pre></div>
 
-<p>The command <kbd class="kbd">maint info blocks</kbd> lists the symbol count for each
+<p>The command <kbd>maint info blocks</kbd> lists the symbol count for each
 block but doesn&rsquo;t print the symbols themselves.  The symbol names can
-be found using <kbd class="kbd">maint print symbols</kbd> (see <a class="pxref" href="Symbols.html#maint-print-symbols">maint print symbols</a>).
+be found using <kbd>maint print symbols</kbd> (see <a href="Symbols.html#maint-print-symbols">maint print symbols</a>).
 </p>
+<span id="index-maint-print-registers"></span>
+<span id="index-maint-print-raw_002dregisters"></span>
+<span id="index-maint-print-cooked_002dregisters"></span>
+<span id="index-maint-print-register_002dgroups"></span>
+<span id="index-maint-print-remote_002dregisters"></span>
 </dd>
-<dt><a class="index-entry-id" id="index-maint-print-raw_002dregisters"></a>
-<a class="index-entry-id" id="index-maint-print-cooked_002dregisters"></a>
-<a class="index-entry-id" id="index-maint-print-register_002dgroups"></a>
-<a class="index-entry-id" id="index-maint-print-remote_002dregisters"></a>
-<a id="index-maint-print-registers"></a><span><code class="code">maint print registers <span class="r">[</span><var class="var">file</var><span class="r">]</span></code><a class="copiable-link" href="#index-maint-print-registers"> &para;</a></span></dt>
-<dt><code class="code">maint print raw-registers <span class="r">[</span><var class="var">file</var><span class="r">]</span></code></dt>
-<dt><code class="code">maint print cooked-registers <span class="r">[</span><var class="var">file</var><span class="r">]</span></code></dt>
-<dt><code class="code">maint print register-groups <span class="r">[</span><var class="var">file</var><span class="r">]</span></code></dt>
-<dt><code class="code">maint print remote-registers <span class="r">[</span><var class="var">file</var><span class="r">]</span></code></dt>
-<dd><p>Print <small class="sc">ROCGDB</small>&rsquo;s internal register data structures.
+<dt><span><code>maint print registers <span class="roman">[</span><var>file</var><span class="roman">]</span></code></span></dt>
+<dt><span><code>maint print raw-registers <span class="roman">[</span><var>file</var><span class="roman">]</span></code></span></dt>
+<dt><span><code>maint print cooked-registers <span class="roman">[</span><var>file</var><span class="roman">]</span></code></span></dt>
+<dt><span><code>maint print register-groups <span class="roman">[</span><var>file</var><span class="roman">]</span></code></span></dt>
+<dt><span><code>maint print remote-registers <span class="roman">[</span><var>file</var><span class="roman">]</span></code></span></dt>
+<dd><p>Print <small>ROCGDB</small>&rsquo;s internal register data structures.
 </p>
-<p>The command <code class="code">maint print raw-registers</code> includes the contents of
-the raw register cache; the command <code class="code">maint print
+<p>The command <code>maint print raw-registers</code> includes the contents of
+the raw register cache; the command <code>maint print
 cooked-registers</code> includes the (cooked) value of all registers,
 including registers which aren&rsquo;t available on the target nor visible
-to user; the command <code class="code">maint print register-groups</code> includes the
-groups that each register is a member of; and the command <code class="code">maint
+to user; the command <code>maint print register-groups</code> includes the
+groups that each register is a member of; and the command <code>maint
 print remote-registers</code> includes the remote target&rsquo;s register numbers
 and offsets in the &lsquo;G&rsquo; packets, as well as an indication of which
 registers were included in the last stop reply packet received by
-<small class="sc">ROCGDB</small> (see <a class="pxref" href="Stop-Reply-Packets.html">Stop Reply Packets</a>).  Please note that the list
+<small>ROCGDB</small> (see <a href="Stop-Reply-Packets.html">Stop Reply Packets</a>).  Please note that the list
 of registers included in a stop reply can change from one stop to the
 next.
 </p>
 <p>These commands take an optional parameter, a file name to which to
 write the information.
 </p>
+<span id="index-maint-print-reggroups"></span>
 </dd>
-<dt><a id="index-maint-print-reggroups"></a><span><code class="code">maint print reggroups <span class="r">[</span><var class="var">file</var><span class="r">]</span></code><a class="copiable-link" href="#index-maint-print-reggroups"> &para;</a></span></dt>
-<dd><p>Print <small class="sc">ROCGDB</small>&rsquo;s internal register group data structures.  The
-optional argument <var class="var">file</var> tells to what file to write the
+<dt><span><code>maint print reggroups <span class="roman">[</span><var>file</var><span class="roman">]</span></code></span></dt>
+<dd><p>Print <small>ROCGDB</small>&rsquo;s internal register group data structures.  The
+optional argument <var>file</var> tells to what file to write the
 information.
 </p>
 <p>The register groups info looks like this:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">(gdb) <kbd class="kbd">maint print reggroups</kbd>
+<div class="example">
+<pre class="example">(gdb) <kbd>maint print reggroups</kbd>
  Group      Type
  general    user
  float      user
@@ -755,70 +800,77 @@ information.
  restore    internal
 </pre></div>
 
+<span id="index-maint-flush-register_002dcache"></span>
+<span id="index-flushregs"></span>
+<span id="index-register-cache_002c-flushing"></span>
 </dd>
-<dt><a class="index-entry-id" id="index-flushregs"></a>
-<a class="index-entry-id" id="index-register-cache_002c-flushing"></a>
-<a id="index-maint-flush-register_002dcache"></a><span><code class="code">maint flush register-cache</code><a class="copiable-link" href="#index-maint-flush-register_002dcache"> &para;</a></span></dt>
-<dt><code class="code">flushregs</code></dt>
+<dt><span><code>maint flush register-cache</code></span></dt>
+<dt><span><code>flushregs</code></span></dt>
 <dd><p>Flush the contents of the register cache and as a consequence the
 frame cache.  This command is useful when debugging issues related to
-register fetching, or frame unwinding.  The command <code class="code">flushregs</code>
-is deprecated in favor of <code class="code">maint flush register-cache</code>.
+register fetching, or frame unwinding.  The command <code>flushregs</code>
+is deprecated in favor of <code>maint flush register-cache</code>.
 </p>
+<span id="index-maint-flush-source_002dcache"></span>
+<span id="index-source-code_002c-caching"></span>
 </dd>
-<dt><a class="index-entry-id" id="index-source-code_002c-caching"></a>
-<a id="index-maint-flush-source_002dcache"></a><span><code class="code">maint flush source-cache</code><a class="copiable-link" href="#index-maint-flush-source_002dcache"> &para;</a></span></dt>
-<dd><p>Flush <small class="sc">ROCGDB</small>&rsquo;s cache of source code file contents.  After
-<small class="sc">ROCGDB</small> reads a source file, and optionally applies styling
-(see <a class="pxref" href="Output-Styling.html">Output Styling</a>), the file contents are cached.  This command
-clears that cache.  The next time <small class="sc">ROCGDB</small> wants to show lines
+<dt><span><code>maint flush source-cache</code></span></dt>
+<dd><p>Flush <small>ROCGDB</small>&rsquo;s cache of source code file contents.  After
+<small>ROCGDB</small> reads a source file, and optionally applies styling
+(see <a href="Output-Styling.html">Output Styling</a>), the file contents are cached.  This command
+clears that cache.  The next time <small>ROCGDB</small> wants to show lines
 from a source file, the content will be re-read.
 </p>
 <p>This command is useful when debugging issues related to source code
 styling.  After flushing the cache any source code displayed by
-<small class="sc">ROCGDB</small> will be re-read and re-styled.
+<small>ROCGDB</small> will be re-read and re-styled.
 </p>
+<span id="index-maint-print-address_002dspaces"></span>
 </dd>
-<dt><a id="index-maint-print-address_002dspaces"></a><span><code class="code">maint print address-spaces <span class="r">[</span><var class="var">file</var><span class="r">]</span></code><a class="copiable-link" href="#index-maint-print-address_002dspaces"> &para;</a></span></dt>
-<dd><p>Print <small class="sc">ROCGDB</small>&rsquo;s internal address space data structures.  The
-optional argument <var class="var">file</var> tells to what file to write the
-information.  See <a class="xref" href="Heterogeneous-Debugging.html#maint-print-address_002dspaces"><code class="code">maint print
+<dt><span><code>maint print address-spaces <span class="roman">[</span><var>file</var><span class="roman">]</span></code></span></dt>
+<dd><p>Print <small>ROCGDB</small>&rsquo;s internal address space data structures.  The
+optional argument <var>file</var> tells to what file to write the
+information.  See <a href="Heterogeneous-Debugging.html#maint-print-address_002dspaces"><code>maint print
 address-spaces</code></a>.
 </p>
+<span id="index-maint-print-objfiles"></span>
+<span id="index-info-for-known-object-files"></span>
 </dd>
-<dt><a class="index-entry-id" id="index-info-for-known-object-files"></a>
-<a id="index-maint-print-objfiles"></a><span><code class="code">maint print objfiles <span class="r">[</span><var class="var">regexp</var><span class="r">]</span></code><a class="copiable-link" href="#index-maint-print-objfiles"> &para;</a></span></dt>
+<dt><span><code>maint print objfiles <span class="roman">[</span><var>regexp</var><span class="roman">]</span></code></span></dt>
 <dd><p>Print a dump of all known object files.
-If <var class="var">regexp</var> is specified, only print object files whose names
-match <var class="var">regexp</var>.  For each object file, this command prints its name,
+If <var>regexp</var> is specified, only print object files whose names
+match <var>regexp</var>.  For each object file, this command prints its name,
 address in memory, and all of its psymtabs and symtabs.
 </p>
+<span id="index-maint-print-user_002dregisters"></span>
+<span id="index-user-registers"></span>
 </dd>
-<dt><a class="index-entry-id" id="index-user-registers"></a>
-<a id="index-maint-print-user_002dregisters"></a><span><code class="code">maint print user-registers</code><a class="copiable-link" href="#index-maint-print-user_002dregisters"> &para;</a></span></dt>
-<dd><p>List all currently available <em class="dfn">user registers</em>.  User registers
+<dt><span><code>maint print user-registers</code></span></dt>
+<dd><p>List all currently available <em>user registers</em>.  User registers
 typically provide alternate names for actual hardware registers.  They
-include the four &ldquo;standard&rdquo; registers <code class="code">$fp</code>, <code class="code">$pc</code>,
-<code class="code">$sp</code>, and <code class="code">$ps</code>.  See <a class="xref" href="Registers.html#standard-registers">standard registers</a>.  User
+include the four &ldquo;standard&rdquo; registers <code>$fp</code>, <code>$pc</code>,
+<code>$sp</code>, and <code>$ps</code>.  See <a href="Registers.html#standard-registers">standard registers</a>.  User
 registers can be used in expressions in the same way as the canonical
-register names, but only the latter are listed by the <code class="code">info
-registers</code> and <code class="code">maint print registers</code> commands.
+register names, but only the latter are listed by the <code>info
+registers</code> and <code>maint print registers</code> commands.
 </p>
+<span id="index-maint-print-section_002dscripts"></span>
+<span id="index-info-for-known-_002edebug_005fgdb_005fscripts_002dloaded-scripts"></span>
 </dd>
-<dt><a class="index-entry-id" id="index-info-for-known-_002edebug_005fgdb_005fscripts_002dloaded-scripts"></a>
-<a id="index-maint-print-section_002dscripts"></a><span><code class="code">maint print section-scripts [<var class="var">regexp</var>]</code><a class="copiable-link" href="#index-maint-print-section_002dscripts"> &para;</a></span></dt>
-<dd><p>Print a dump of scripts specified in the <code class="code">.debug_gdb_section</code> section.
-If <var class="var">regexp</var> is specified, only print scripts loaded by object files
-matching <var class="var">regexp</var>.
+<dt><span><code>maint print section-scripts [<var>regexp</var>]</code></span></dt>
+<dd><p>Print a dump of scripts specified in the <code>.debug_gdb_section</code> section.
+If <var>regexp</var> is specified, only print scripts loaded by object files
+matching <var>regexp</var>.
 For each script, this command prints its name as specified in the objfile,
 and the full path if known.
-See <a class="xref" href="dotdebug_005fgdb_005fscripts-section.html">The <code class="code">.debug_gdb_scripts</code> section</a>.
+See <a href="dotdebug_005fgdb_005fscripts-section.html">The <code>.debug_gdb_scripts</code> section</a>.
 </p>
+<span id="index-maint-print-statistics"></span>
+<span id="index-bcache-statistics"></span>
 </dd>
-<dt><a class="index-entry-id" id="index-bcache-statistics"></a>
-<a id="index-maint-print-statistics"></a><span><code class="code">maint print statistics</code><a class="copiable-link" href="#index-maint-print-statistics"> &para;</a></span></dt>
+<dt><span><code>maint print statistics</code></span></dt>
 <dd><p>This command prints, for each object file in the program, various data
-about that object file followed by the byte cache (<em class="dfn">bcache</em>)
+about that object file followed by the byte cache (<em>bcache</em>)
 statistics for the object file.  The objfile data includes the number
 of minimal, partial, full, and stabs symbols, the number of types
 defined by the objfile, the number of as yet unexpanded psym tables,
@@ -829,124 +881,134 @@ average, and median entry size, total memory used and its overhead and
 savings, and various measures of the hash table size and chain
 lengths.
 </p>
+<span id="index-maint-print-target_002dstack"></span>
+<span id="index-target-stack-description"></span>
 </dd>
-<dt><a class="index-entry-id" id="index-target-stack-description"></a>
-<a id="index-maint-print-target_002dstack"></a><span><code class="code">maint print target-stack</code><a class="copiable-link" href="#index-maint-print-target_002dstack"> &para;</a></span></dt>
-<dd><p>A <em class="dfn">target</em> is an interface between the debugger and a particular
-kind of file or process.  Targets can be stacked in <em class="dfn">strata</em>,
+<dt><span><code>maint print target-stack</code></span></dt>
+<dd><p>A <em>target</em> is an interface between the debugger and a particular
+kind of file or process.  Targets can be stacked in <em>strata</em>,
 so that more than one target can potentially respond to a request.
 In particular, memory accesses will walk down the stack of targets
 until they find a target that is interested in handling that particular
 address.
 </p>
 <p>This command prints a short description of each layer that was pushed on
-the <em class="dfn">target stack</em>, starting from the top layer down to the bottom one.
+the <em>target stack</em>, starting from the top layer down to the bottom one.
 </p>
+<span id="index-maint-print-type"></span>
+<span id="index-type-chain-of-a-data-type"></span>
 </dd>
-<dt><a class="index-entry-id" id="index-type-chain-of-a-data-type"></a>
-<a id="index-maint-print-type"></a><span><code class="code">maint print type <var class="var">expr</var></code><a class="copiable-link" href="#index-maint-print-type"> &para;</a></span></dt>
-<dd><p>Print the type chain for a type specified by <var class="var">expr</var>.  The argument
+<dt><span><code>maint print type <var>expr</var></code></span></dt>
+<dd><p>Print the type chain for a type specified by <var>expr</var>.  The argument
 can be either a type name or a symbol.  If it is a symbol, the type of
 that symbol is described.  The type chain produced by this command is
-a recursive definition of the data type as stored in <small class="sc">ROCGDB</small>&rsquo;s
+a recursive definition of the data type as stored in <small>ROCGDB</small>&rsquo;s
 data structures, including its flags and contained types.
 </p>
+<span id="index-maint-print-record_002dinstruction"></span>
 </dd>
-<dt><a id="index-maint-print-record_002dinstruction"></a><span><code class="code">maint print record-instruction</code><a class="copiable-link" href="#index-maint-print-record_002dinstruction"> &para;</a></span></dt>
-<dt><code class="code">maint print record-instruction <var class="var">N</var></code></dt>
-<dd><p>print how GDB recorded a given instruction.  If <var class="var">n</var> is not positive
-number, it prints the values stored by the inferior before the <var class="var">n</var>-th previous
-instruction was executed.  If <var class="var">n</var> is positive, print the values after the <var class="var">n</var>-th
-following instruction is executed.  If <var class="var">n</var> is not given, 0 is assumed.
+<dt><span><code>maint print record-instruction</code></span></dt>
+<dt><span><code>maint print record-instruction <var>N</var></code></span></dt>
+<dd><p>print how GDB recorded a given instruction.  If <var>n</var> is not positive
+number, it prints the values stored by the inferior before the <var>n</var>-th previous
+instruction was executed.  If <var>n</var> is positive, print the values after the <var>n</var>-th
+following instruction is executed.  If <var>n</var> is not given, 0 is assumed.
 </p>
+<span id="index-maint-selftest"></span>
+<span id="index-self-tests"></span>
 </dd>
-<dt><a class="index-entry-id" id="index-self-tests"></a>
-<a id="index-maint-selftest"></a><span><code class="code">maint selftest <span class="r">[</span>-verbose<span class="r">]</span> <span class="r">[</span><var class="var">filter</var><span class="r">]</span></code><a class="copiable-link" href="#index-maint-selftest"> &para;</a></span></dt>
-<dd><p>Run any self tests that were compiled in to <small class="sc">ROCGDB</small>.  This will
+<dt><span><code>maint selftest <span class="roman">[</span>-verbose<span class="roman">]</span> <span class="roman">[</span><var>filter</var><span class="roman">]</span></code></span></dt>
+<dd><p>Run any self tests that were compiled in to <small>ROCGDB</small>.  This will
 print a message showing how many tests were run, and how many failed.
-If a <var class="var">filter</var> is passed, only the tests with <var class="var">filter</var> in their
-name will be ran.  If <code class="code">-verbose</code> is passed, the self tests can be
+If a <var>filter</var> is passed, only the tests with <var>filter</var> in their
+name will be ran.  If <code>-verbose</code> is passed, the self tests can be
 more verbose.
 </p>
+<span id="index-maint-set-selftest-verbose"></span>
+<span id="index-maint-show-selftest-verbose"></span>
+<span id="index-self-tests-1"></span>
 </dd>
-<dt><a class="index-entry-id" id="index-maint-show-selftest-verbose"></a>
-<a class="index-entry-id" id="index-self-tests-1"></a>
-<a id="index-maint-set-selftest-verbose"></a><span><code class="code">maint set selftest verbose</code><a class="copiable-link" href="#index-maint-set-selftest-verbose"> &para;</a></span></dt>
-<dt><code class="code">maint show selftest verbose</code></dt>
+<dt><span><code>maint set selftest verbose</code></span></dt>
+<dt><span><code>maint show selftest verbose</code></span></dt>
 <dd><p>Control whether self tests are run verbosely or not.
 </p>
+<span id="index-maint-info-selftests"></span>
+<span id="index-self-tests-2"></span>
 </dd>
-<dt><a class="index-entry-id" id="index-self-tests-2"></a>
-<a id="index-maint-info-selftests"></a><span><code class="code">maint info selftests</code><a class="copiable-link" href="#index-maint-info-selftests"> &para;</a></span></dt>
-<dd><p>List the selftests compiled in to <small class="sc">ROCGDB</small>.
+<dt><span><code>maint info selftests</code></span></dt>
+<dd><p>List the selftests compiled in to <small>ROCGDB</small>.
 </p>
+<span id="index-maint-set-dwarf-always_002ddisassemble"></span>
+<span id="index-maint-show-dwarf-always_002ddisassemble"></span>
 </dd>
-<dt><a class="index-entry-id" id="index-maint-show-dwarf-always_002ddisassemble"></a>
-<a id="index-maint-set-dwarf-always_002ddisassemble"></a><span><code class="code">maint set dwarf always-disassemble</code><a class="copiable-link" href="#index-maint-set-dwarf-always_002ddisassemble"> &para;</a></span></dt>
-<dt><code class="code">maint show dwarf always-disassemble</code></dt>
-<dd><p>Control the behavior of <code class="code">info address</code> when using DWARF debugging
+<dt><span><code>maint set dwarf always-disassemble</code></span></dt>
+<dt><span><code>maint show dwarf always-disassemble</code></span></dt>
+<dd><p>Control the behavior of <code>info address</code> when using DWARF debugging
 information.
 </p>
-<p>The default is <code class="code">off</code>, which means that <small class="sc">ROCGDB</small> should try to
+<p>The default is <code>off</code>, which means that <small>ROCGDB</small> should try to
 describe a variable&rsquo;s location in an easily readable format.  When
-<code class="code">on</code>, <small class="sc">ROCGDB</small> will instead display the DWARF location
+<code>on</code>, <small>ROCGDB</small> will instead display the DWARF location
 expression in an assembly-like format.  Note that some locations are
-too complex for <small class="sc">ROCGDB</small> to describe simply; in this case you will
+too complex for <small>ROCGDB</small> to describe simply; in this case you will
 always see the disassembly form.
 </p>
 <p>Here is an example of the resulting disassembly:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">(gdb) info addr argc
+<div class="example">
+<pre class="example">(gdb) info addr argc
 Symbol &quot;argc&quot; is a complex DWARF expression:
      1: DW_OP_fbreg 0
 </pre></div>
 
 <p>For more information on these expressions, see
-<a class="uref" href="http://www.dwarfstd.org/">the DWARF standard</a>.
+<a href="http://www.dwarfstd.org/">the DWARF standard</a>.
 </p>
+<span id="index-maint-set-dwarf-max_002dcache_002dage"></span>
+<span id="index-maint-show-dwarf-max_002dcache_002dage"></span>
 </dd>
-<dt><a class="index-entry-id" id="index-maint-show-dwarf-max_002dcache_002dage"></a>
-<a id="index-maint-set-dwarf-max_002dcache_002dage"></a><span><code class="code">maint set dwarf max-cache-age</code><a class="copiable-link" href="#index-maint-set-dwarf-max_002dcache_002dage"> &para;</a></span></dt>
-<dt><code class="code">maint show dwarf max-cache-age</code></dt>
+<dt><span><code>maint set dwarf max-cache-age</code></span></dt>
+<dt><span><code>maint show dwarf max-cache-age</code></span></dt>
 <dd><p>Control the DWARF compilation unit cache.
 </p>
-<a class="index-entry-id" id="index-DWARF-compilation-units-cache"></a>
+<span id="index-DWARF-compilation-units-cache"></span>
 <p>In object files with inter-compilation-unit references, such as those
-produced by the GCC option &lsquo;<samp class="samp">-feliminate-dwarf2-dups</samp>&rsquo;, the DWARF
+produced by the GCC option &lsquo;<samp>-feliminate-dwarf2-dups</samp>&rsquo;, the DWARF
 reader needs to frequently refer to previously read compilation units.
 This setting controls how long a compilation unit will remain in the
 cache if it is not referenced.  A higher limit means that cached
 compilation units will be stored in memory longer, and more total
 memory will be used.  Setting it to zero disables caching, which will
-slow down <small class="sc">ROCGDB</small> startup, but reduce memory consumption.
+slow down <small>ROCGDB</small> startup, but reduce memory consumption.
 </p>
+<span id="index-maint-set-dwarf-synchronous"></span>
+<span id="index-maint-show-dwarf-synchronous"></span>
 </dd>
-<dt><a class="index-entry-id" id="index-maint-show-dwarf-synchronous"></a>
-<a id="index-maint-set-dwarf-synchronous"></a><span><code class="code">maint set dwarf synchronous</code><a class="copiable-link" href="#index-maint-set-dwarf-synchronous"> &para;</a></span></dt>
-<dt><code class="code">maint show dwarf synchronous</code></dt>
+<dt><span><code>maint set dwarf synchronous</code></span></dt>
+<dt><span><code>maint show dwarf synchronous</code></span></dt>
 <dd><p>Control whether DWARF is read asynchronously.
 </p>
 <p>On hosts where threading is available, the DWARF reader is mostly
-asynchronous with respect to the rest of <small class="sc">ROCGDB</small>.  That is, the
-bulk of the reading is done in the background, and <small class="sc">ROCGDB</small> will
+asynchronous with respect to the rest of <small>ROCGDB</small>.  That is, the
+bulk of the reading is done in the background, and <small>ROCGDB</small> will
 only pause for completion of this task when absolutely necessary.
 </p>
-<p>When this setting is enabled, <small class="sc">ROCGDB</small> will instead wait for DWARF
+<p>When this setting is enabled, <small>ROCGDB</small> will instead wait for DWARF
 processing to complete before continuing.
 </p>
 <p>On hosts without threading, or where worker threads have been disabled
 at runtime, this setting has no effect, as DWARF reading is always
 done on the main thread, and is therefore always synchronous.
 </p>
+<span id="index-maint-set-dwarf-unwinders"></span>
+<span id="index-maint-show-dwarf-unwinders"></span>
 </dd>
-<dt><a class="index-entry-id" id="index-maint-show-dwarf-unwinders"></a>
-<a id="index-maint-set-dwarf-unwinders"></a><span><code class="code">maint set dwarf unwinders</code><a class="copiable-link" href="#index-maint-set-dwarf-unwinders"> &para;</a></span></dt>
-<dt><code class="code">maint show dwarf unwinders</code></dt>
+<dt><span><code>maint set dwarf unwinders</code></span></dt>
+<dt><span><code>maint show dwarf unwinders</code></span></dt>
 <dd><p>Control use of the DWARF frame unwinders.
 </p>
-<a class="index-entry-id" id="index-DWARF-frame-unwinders"></a>
-<p>Many targets that support DWARF debugging use <small class="sc">ROCGDB</small>&rsquo;s DWARF
+<span id="index-DWARF-frame-unwinders"></span>
+<p>Many targets that support DWARF debugging use <small>ROCGDB</small>&rsquo;s DWARF
 frame unwinders to build the backtrace.  Many of these targets will
 also have a second mechanism for building the backtrace for use in
 cases where DWARF information is not available, this second mechanism
@@ -956,7 +1018,7 @@ is often an analysis of a function&rsquo;s prologue.
 unwinding mechanisms it is helpful to be able to disable the DWARF
 stack unwinders, this can be done with this switch.
 </p>
-<p>In normal use of <small class="sc">ROCGDB</small> disabling the DWARF unwinders is not
+<p>In normal use of <small>ROCGDB</small> disabling the DWARF unwinders is not
 advisable, there are cases that are better handled through DWARF than
 prologue analysis, and the debug experience is likely to be better
 with the DWARF frame unwinders enabled.
@@ -964,163 +1026,172 @@ with the DWARF frame unwinders enabled.
 <p>If DWARF frame unwinders are not supported for a particular target
 architecture, then enabling this flag does not cause them to be used.
 </p>
+<span id="index-maint-info-frame_002dunwinders"></span>
 </dd>
-<dt><a id="index-maint-info-frame_002dunwinders"></a><span><code class="code">maint info frame-unwinders</code><a class="copiable-link" href="#index-maint-info-frame_002dunwinders"> &para;</a></span></dt>
+<dt><span><code>maint info frame-unwinders</code></span></dt>
 <dd><p>List the frame unwinders currently in effect, starting with the highest priority.
 </p>
+<span id="index-maint-set-worker_002dthreads"></span>
+<span id="index-maint-show-worker_002dthreads"></span>
 </dd>
-<dt><a class="index-entry-id" id="index-maint-show-worker_002dthreads"></a>
-<a id="index-maint-set-worker_002dthreads"></a><span><code class="code">maint set worker-threads</code><a class="copiable-link" href="#index-maint-set-worker_002dthreads"> &para;</a></span></dt>
-<dt><code class="code">maint show worker-threads</code></dt>
-<dd><p>Control the number of worker threads that may be used by <small class="sc">ROCGDB</small>.
-On capable hosts, <small class="sc">ROCGDB</small> may use multiple threads to speed up
+<dt><span><code>maint set worker-threads</code></span></dt>
+<dt><span><code>maint show worker-threads</code></span></dt>
+<dd><p>Control the number of worker threads that may be used by <small>ROCGDB</small>.
+On capable hosts, <small>ROCGDB</small> may use multiple threads to speed up
 certain CPU-intensive operations, such as demangling symbol names.
-While the number of threads used by <small class="sc">ROCGDB</small> may vary, this
+While the number of threads used by <small>ROCGDB</small> may vary, this
 command can be used to set an upper bound on this number.  The default
-is <code class="code">unlimited</code>, which lets <small class="sc">ROCGDB</small> choose a reasonable
+is <code>unlimited</code>, which lets <small>ROCGDB</small> choose a reasonable
 number.  Note that this only controls worker threads started by
-<small class="sc">ROCGDB</small> itself; libraries used by <small class="sc">ROCGDB</small> may start threads
+<small>ROCGDB</small> itself; libraries used by <small>ROCGDB</small> may start threads
 of their own.
 </p>
+<span id="index-maint-set-profile"></span>
+<span id="index-maint-show-profile"></span>
+<span id="index-profiling-GDB"></span>
 </dd>
-<dt><a class="index-entry-id" id="index-maint-show-profile"></a>
-<a class="index-entry-id" id="index-profiling-GDB"></a>
-<a id="index-maint-set-profile"></a><span><code class="code">maint set profile</code><a class="copiable-link" href="#index-maint-set-profile"> &para;</a></span></dt>
-<dt><code class="code">maint show profile</code></dt>
-<dd><p>Control profiling of <small class="sc">ROCGDB</small>.
+<dt><span><code>maint set profile</code></span></dt>
+<dt><span><code>maint show profile</code></span></dt>
+<dd><p>Control profiling of <small>ROCGDB</small>.
 </p>
-<p>Profiling will be disabled until you use the &lsquo;<samp class="samp">maint set profile</samp>&rsquo;
+<p>Profiling will be disabled until you use the &lsquo;<samp>maint set profile</samp>&rsquo;
 command to enable it.  When you enable profiling, the system will begin
 collecting timing and execution count data; when you disable profiling or
-exit <small class="sc">ROCGDB</small>, the results will be written to a log file.  Remember that
-if you use profiling, <small class="sc">ROCGDB</small> will overwrite the profiling log file
-(often called <samp class="file">gmon.out</samp>).  If you have a record of important profiling
-data in a <samp class="file">gmon.out</samp> file, be sure to move it to a safe location.
+exit <small>ROCGDB</small>, the results will be written to a log file.  Remember that
+if you use profiling, <small>ROCGDB</small> will overwrite the profiling log file
+(often called <samp>gmon.out</samp>).  If you have a record of important profiling
+data in a <samp>gmon.out</samp> file, be sure to move it to a safe location.
 </p>
-<p>Configuring with &lsquo;<samp class="samp">--enable-profiling</samp>&rsquo; arranges for <small class="sc">ROCGDB</small> to be
-compiled with the &lsquo;<samp class="samp">-pg</samp>&rsquo; compiler option.
+<p>Configuring with &lsquo;<samp>--enable-profiling</samp>&rsquo; arranges for <small>ROCGDB</small> to be
+compiled with the &lsquo;<samp>-pg</samp>&rsquo; compiler option.
 </p>
+<span id="index-maint-set-show_002ddebug_002dregs"></span>
+<span id="index-maint-show-show_002ddebug_002dregs"></span>
+<span id="index-hardware-debug-registers"></span>
 </dd>
-<dt><a class="index-entry-id" id="index-maint-show-show_002ddebug_002dregs"></a>
-<a class="index-entry-id" id="index-hardware-debug-registers"></a>
-<a id="index-maint-set-show_002ddebug_002dregs"></a><span><code class="code">maint set show-debug-regs</code><a class="copiable-link" href="#index-maint-set-show_002ddebug_002dregs"> &para;</a></span></dt>
-<dt><code class="code">maint show show-debug-regs</code></dt>
+<dt><span><code>maint set show-debug-regs</code></span></dt>
+<dt><span><code>maint show show-debug-regs</code></span></dt>
 <dd><p>Control whether to show variables that mirror the hardware debug
-registers.  Use <code class="code">on</code> to enable, <code class="code">off</code> to disable.  If
-enabled, the debug registers values are shown when <small class="sc">ROCGDB</small> inserts or
+registers.  Use <code>on</code> to enable, <code>off</code> to disable.  If
+enabled, the debug registers values are shown when <small>ROCGDB</small> inserts or
 removes a hardware breakpoint or watchpoint, and when the inferior
 triggers a hardware-assisted breakpoint or watchpoint.
 </p>
+<span id="index-maint-set-show_002dall_002dtib"></span>
+<span id="index-maint-show-show_002dall_002dtib"></span>
 </dd>
-<dt><a class="index-entry-id" id="index-maint-show-show_002dall_002dtib"></a>
-<a id="index-maint-set-show_002dall_002dtib"></a><span><code class="code">maint set show-all-tib</code><a class="copiable-link" href="#index-maint-set-show_002dall_002dtib"> &para;</a></span></dt>
-<dt><code class="code">maint show show-all-tib</code></dt>
+<dt><span><code>maint set show-all-tib</code></span></dt>
+<dt><span><code>maint show show-all-tib</code></span></dt>
 <dd><p>Control whether to show all non zero areas within a 1k block starting
-at thread local base, when using the &lsquo;<samp class="samp">info w32 thread-information-block</samp>&rsquo;
+at thread local base, when using the &lsquo;<samp>info w32 thread-information-block</samp>&rsquo;
 command.
 </p>
+<span id="index-maint-set-target_002dasync"></span>
+<span id="index-maint-show-target_002dasync"></span>
 </dd>
-<dt><a class="index-entry-id" id="index-maint-show-target_002dasync"></a>
-<a id="index-maint-set-target_002dasync"></a><span><code class="code">maint set target-async</code><a class="copiable-link" href="#index-maint-set-target_002dasync"> &para;</a></span></dt>
-<dt><code class="code">maint show target-async</code></dt>
-<dd><p>This controls whether <small class="sc">ROCGDB</small> targets operate in synchronous or
-asynchronous mode (see <a class="pxref" href="Background-Execution.html">Background Execution</a>).  Normally the
+<dt><span><code>maint set target-async</code></span></dt>
+<dt><span><code>maint show target-async</code></span></dt>
+<dd><p>This controls whether <small>ROCGDB</small> targets operate in synchronous or
+asynchronous mode (see <a href="Background-Execution.html">Background Execution</a>).  Normally the
 default is asynchronous, if it is available; but this can be changed
 to more easily debug problems occurring only in synchronous mode.
 </p>
+<span id="index-maint-set-target_002dnon_002dstop-mode-_005bon_007coff_007cauto_005d"></span>
+<span id="index-maint-show-target_002dnon_002dstop"></span>
 </dd>
-<dt><a class="index-entry-id" id="index-maint-show-target_002dnon_002dstop"></a>
-<a id="index-maint-set-target_002dnon_002dstop-mode-_005bon_007coff_007cauto_005d"></a><span><code class="code">maint set target-non-stop</code><a class="copiable-link" href="#index-maint-set-target_002dnon_002dstop-mode-_005bon_007coff_007cauto_005d"> &para;</a></span></dt>
-<dt><code class="code">maint show target-non-stop</code></dt>
+<dt><span><code>maint set target-non-stop</code></span></dt>
+<dt><span><code>maint show target-non-stop</code></span></dt>
 <dd>
-<p>This controls whether <small class="sc">ROCGDB</small> targets always operate in non-stop
-mode even if <code class="code">set non-stop</code> is <code class="code">off</code> (see <a class="pxref" href="Non_002dStop-Mode.html">Non-Stop Mode</a>).  The default is <code class="code">auto</code>, meaning non-stop mode is enabled
+<p>This controls whether <small>ROCGDB</small> targets always operate in non-stop
+mode even if <code>set non-stop</code> is <code>off</code> (see <a href="Non_002dStop-Mode.html">Non-Stop Mode</a>).  The default is <code>auto</code>, meaning non-stop mode is enabled
 if supported by the target.
 </p>
-<dl class="table">
-<dt><code class="code">maint set target-non-stop auto</code></dt>
-<dd><p>This is the default mode.  <small class="sc">ROCGDB</small> controls the target in
+<dl compact="compact">
+<dt><span><code>maint set target-non-stop auto</code></span></dt>
+<dd><p>This is the default mode.  <small>ROCGDB</small> controls the target in
 non-stop mode if the target supports it.
 </p>
 </dd>
-<dt><code class="code">maint set target-non-stop on</code></dt>
-<dd><p><small class="sc">ROCGDB</small> controls the target in non-stop mode even if the target
+<dt><span><code>maint set target-non-stop on</code></span></dt>
+<dd><p><small>ROCGDB</small> controls the target in non-stop mode even if the target
 does not indicate support.
 </p>
 </dd>
-<dt><code class="code">maint set target-non-stop off</code></dt>
-<dd><p><small class="sc">ROCGDB</small> does not control the target in non-stop mode even if the
+<dt><span><code>maint set target-non-stop off</code></span></dt>
+<dd><p><small>ROCGDB</small> does not control the target in non-stop mode even if the
 target supports it.
 </p></dd>
 </dl>
 
+<span id="index-maint-set-tui_002dresize_002dmessage"></span>
+<span id="index-maint-show-tui_002dresize_002dmessage"></span>
 </dd>
-<dt><a class="index-entry-id" id="index-maint-show-tui_002dresize_002dmessage"></a>
-<a id="index-maint-set-tui_002dresize_002dmessage"></a><span><code class="code">maint set tui-resize-message</code><a class="copiable-link" href="#index-maint-set-tui_002dresize_002dmessage"> &para;</a></span></dt>
-<dt><code class="code">maint show tui-resize-message</code></dt>
-<dd><p>Control whether <small class="sc">ROCGDB</small> displays a message each time the terminal
-is resized when in TUI mode.  The default is <code class="code">off</code>, which means
-that <small class="sc">ROCGDB</small> is silent during resizes.  When <code class="code">on</code>,
-<small class="sc">ROCGDB</small> will display a message after a resize is completed; the
+<dt><span><code>maint set tui-resize-message</code></span></dt>
+<dt><span><code>maint show tui-resize-message</code></span></dt>
+<dd><p>Control whether <small>ROCGDB</small> displays a message each time the terminal
+is resized when in TUI mode.  The default is <code>off</code>, which means
+that <small>ROCGDB</small> is silent during resizes.  When <code>on</code>,
+<small>ROCGDB</small> will display a message after a resize is completed; the
 message will include a number indicating how many times the terminal
 has been resized.  This setting is intended for use by the test suite,
 where it would otherwise be difficult to determine when a resize and
 refresh has been completed.
 </p>
+<span id="index-maint-set-tui_002dleft_002dmargin_002dverbose"></span>
+<span id="index-maint-show-tui_002dleft_002dmargin_002dverbose"></span>
 </dd>
-<dt><a class="index-entry-id" id="index-maint-show-tui_002dleft_002dmargin_002dverbose"></a>
-<a id="index-maint-set-tui_002dleft_002dmargin_002dverbose"></a><span><code class="code">maint set tui-left-margin-verbose</code><a class="copiable-link" href="#index-maint-set-tui_002dleft_002dmargin_002dverbose"> &para;</a></span></dt>
-<dt><code class="code">maint show tui-left-margin-verbose</code></dt>
+<dt><span><code>maint set tui-left-margin-verbose</code></span></dt>
+<dt><span><code>maint show tui-left-margin-verbose</code></span></dt>
 <dd><p>Control whether the left margin of the TUI source and disassembly windows
-uses &lsquo;<samp class="samp">_</samp>&rsquo; and &lsquo;<samp class="samp">0</samp>&rsquo; at locations where otherwise there would be a
-space.  The default is <code class="code">off</code>, which means spaces are used.  The
+uses &lsquo;<samp>_</samp>&rsquo; and &lsquo;<samp>0</samp>&rsquo; at locations where otherwise there would be a
+space.  The default is <code>off</code>, which means spaces are used.  The
 setting is intended to make it clear where the left margin begins and
 ends, to avoid incorrectly interpreting a space as being part of the
 the left margin.
 </p>
+<span id="index-maint-set-per_002dcommand"></span>
+<span id="index-maint-show-per_002dcommand"></span>
 </dd>
-<dt><a class="index-entry-id" id="index-maint-set-per_002dcommand"></a>
-<a class="index-entry-id" id="index-maint-show-per_002dcommand"></a>
-<a id="index-resources-used-by-commands"></a><span><code class="code">maint set per-command</code><a class="copiable-link" href="#index-resources-used-by-commands"> &para;</a></span></dt>
-<dt><code class="code">maint show per-command</code></dt>
+<dt id='index-resources-used-by-commands'><span><code>maint set per-command</code><a href='#index-resources-used-by-commands' class='copiable-anchor'> &para;</a></span></dt>
+<dt><span><code>maint show per-command</code></span></dt>
 <dd>
-<p><small class="sc">ROCGDB</small> can display the resources used by each command.
+<p><small>ROCGDB</small> can display the resources used by each command.
 This is useful in debugging performance problems.
 </p>
-<dl class="table">
-<dt><code class="code">maint set per-command space [on|off]</code></dt>
-<dt><code class="code">maint show per-command space</code></dt>
+<dl compact="compact">
+<dt><span><code>maint set per-command space [on|off]</code></span></dt>
+<dt><span><code>maint show per-command space</code></span></dt>
 <dd><p>Enable or disable the printing of the memory used by GDB for each command.
-If enabled, <small class="sc">ROCGDB</small> will display how much memory each command
+If enabled, <small>ROCGDB</small> will display how much memory each command
 took, following the command&rsquo;s own output.
-This can also be requested by invoking <small class="sc">ROCGDB</small> with the
-<samp class="option">--statistics</samp> command-line switch (see <a class="pxref" href="Mode-Options.html">Choosing Modes</a>).
+This can also be requested by invoking <small>ROCGDB</small> with the
+<samp>--statistics</samp> command-line switch (see <a href="Mode-Options.html">Choosing Modes</a>).
 </p>
 </dd>
-<dt><code class="code">maint set per-command time [on|off]</code></dt>
-<dt><code class="code">maint show per-command time</code></dt>
-<dd><p>Enable or disable the printing of the execution time of <small class="sc">ROCGDB</small>
+<dt><span><code>maint set per-command time [on|off]</code></span></dt>
+<dt><span><code>maint show per-command time</code></span></dt>
+<dd><p>Enable or disable the printing of the execution time of <small>ROCGDB</small>
 for each command.
-If enabled, <small class="sc">ROCGDB</small> will display how much time it
+If enabled, <small>ROCGDB</small> will display how much time it
 took to execute each command, following the command&rsquo;s own output.
 Both CPU time and wallclock time are printed.
 Printing both is useful when trying to determine whether the cost is
 CPU or, e.g., disk/network latency.
-Note that the CPU time printed is for <small class="sc">ROCGDB</small> only, it does not include
+Note that the CPU time printed is for <small>ROCGDB</small> only, it does not include
 the execution time of the inferior because there&rsquo;s no mechanism currently
-to compute how much time was spent by <small class="sc">ROCGDB</small> and how much time was
+to compute how much time was spent by <small>ROCGDB</small> and how much time was
 spent by the program been debugged.
-This can also be requested by invoking <small class="sc">ROCGDB</small> with the
-<samp class="option">--statistics</samp> command-line switch (see <a class="pxref" href="Mode-Options.html">Choosing Modes</a>).
+This can also be requested by invoking <small>ROCGDB</small> with the
+<samp>--statistics</samp> command-line switch (see <a href="Mode-Options.html">Choosing Modes</a>).
 </p>
 </dd>
-<dt><code class="code">maint set per-command symtab [on|off]</code></dt>
-<dt><code class="code">maint show per-command symtab</code></dt>
+<dt><span><code>maint set per-command symtab [on|off]</code></span></dt>
+<dt><span><code>maint show per-command symtab</code></span></dt>
 <dd><p>Enable or disable the printing of basic symbol table statistics
 for each command.
-If enabled, <small class="sc">ROCGDB</small> will display the following information:
+If enabled, <small>ROCGDB</small> will display the following information:
 </p>
-<ol class="enumerate" type="a" start="1">
+<ol type="a" start="1">
 <li> number of symbol tables
 </li><li> number of primary symbol tables
 </li><li> number of blocks in the blockvector
@@ -1128,159 +1199,173 @@ If enabled, <small class="sc">ROCGDB</small> will display the following informat
 </dd>
 </dl>
 
+<span id="index-maint-set-check_002dlibthread_002ddb"></span>
+<span id="index-maint-show-check_002dlibthread_002ddb"></span>
 </dd>
-<dt><a class="index-entry-id" id="index-maint-show-check_002dlibthread_002ddb"></a>
-<a id="index-maint-set-check_002dlibthread_002ddb"></a><span><code class="code">maint set check-libthread-db [on|off]</code><a class="copiable-link" href="#index-maint-set-check_002dlibthread_002ddb"> &para;</a></span></dt>
-<dt><code class="code">maint show check-libthread-db</code></dt>
-<dd><p>Control whether <small class="sc">ROCGDB</small> should run integrity checks on inferior
+<dt><span><code>maint set check-libthread-db [on|off]</code></span></dt>
+<dt><span><code>maint show check-libthread-db</code></span></dt>
+<dd><p>Control whether <small>ROCGDB</small> should run integrity checks on inferior
 specific thread debugging libraries as they are loaded.  The default
-is not to perform such checks.  If any check fails <small class="sc">ROCGDB</small> will
+is not to perform such checks.  If any check fails <small>ROCGDB</small> will
 unload the library and continue searching for a suitable candidate as
-described in <a class="ref" href="Threads.html#set-libthread_002ddb_002dsearch_002dpath">set libthread-db-search-path</a>.  For more information
-about the tests, see <a class="ref" href="#maint-check-libthread_002ddb">maint check libthread-db</a>.
+described in <a href="Threads.html#set-libthread_002ddb_002dsearch_002dpath">set libthread-db-search-path</a>.  For more information
+about the tests, see <a href="#maint-check-libthread_002ddb">maint check libthread-db</a>.
 </p>
+<span id="index-maint-set-gnu_002dsource_002dhighlight-enabled"></span>
+<span id="index-maint-show-gnu_002dsource_002dhighlight-enabled"></span>
 </dd>
-<dt><a class="index-entry-id" id="index-maint-show-gnu_002dsource_002dhighlight-enabled"></a>
-<a id="index-maint-set-gnu_002dsource_002dhighlight-enabled"></a><span><code class="code">maint set gnu-source-highlight enabled <span class="r">[</span>on|off<span class="r">]</span></code><a class="copiable-link" href="#index-maint-set-gnu_002dsource_002dhighlight-enabled"> &para;</a></span></dt>
-<dt><code class="code">maint show gnu-source-highlight enabled</code></dt>
-<dd><p>Control whether <small class="sc">ROCGDB</small> should use the GNU Source Highlight
-library for applying styling to source code (see <a class="pxref" href="Output-Styling.html">Output Styling</a>).
-This will be &lsquo;<samp class="samp">on</samp>&rsquo; by default if the GNU Source Highlight library
+<dt><span><code>maint set gnu-source-highlight enabled <span class="roman">[</span>on|off<span class="roman">]</span></code></span></dt>
+<dt><span><code>maint show gnu-source-highlight enabled</code></span></dt>
+<dd><p>Control whether <small>ROCGDB</small> should use the GNU Source Highlight
+library for applying styling to source code (see <a href="Output-Styling.html">Output Styling</a>).
+This will be &lsquo;<samp>on</samp>&rsquo; by default if the GNU Source Highlight library
 is available.  If the GNU Source Highlight library is not available,
-then this will be &lsquo;<samp class="samp">off</samp>&rsquo; by default, and attempting to change this
-value to &lsquo;<samp class="samp">on</samp>&rsquo; will give an error.
+then this will be &lsquo;<samp>off</samp>&rsquo; by default, and attempting to change this
+value to &lsquo;<samp>on</samp>&rsquo; will give an error.
 </p>
 <p>If the GNU Source Highlight library is not being used, then
-<small class="sc">ROCGDB</small> will use the Python Pygments package for source code
+<small>ROCGDB</small> will use the Python Pygments package for source code
 styling, if it is available.
 </p>
-<p>This option is useful for debugging <small class="sc">ROCGDB</small>&rsquo;s use of the Pygments
-library when <small class="sc">ROCGDB</small> is linked against the GNU Source Highlight
+<p>This option is useful for debugging <small>ROCGDB</small>&rsquo;s use of the Pygments
+library when <small>ROCGDB</small> is linked against the GNU Source Highlight
 library.
 </p>
-<a class="anchor" id="maint_005flibopcodes_005fstyling"></a></dd>
-<dt><a class="index-entry-id" id="index-maint-show-libopcodes_002dstyling-enabled"></a>
-<a id="index-maint-set-libopcodes_002dstyling-enabled"></a><span><code class="code">maint set libopcodes-styling enabled <span class="r">[</span>on|off<span class="r">]</span></code><a class="copiable-link" href="#index-maint-set-libopcodes_002dstyling-enabled"> &para;</a></span></dt>
-<dt><code class="code">maint show libopcodes-styling enabled</code></dt>
-<dd><p>Control whether <small class="sc">ROCGDB</small> should use its builtin disassembler
-(<samp class="file">libopcodes</samp>) to style disassembler output (see <a class="pxref" href="Output-Styling.html">Output Styling</a>).  The builtin disassembler does not support styling for all
+<span id="maint_005flibopcodes_005fstyling"></span><span id="index-maint-set-libopcodes_002dstyling-enabled"></span>
+<span id="index-maint-show-libopcodes_002dstyling-enabled"></span>
+</dd>
+<dt><span><code>maint set libopcodes-styling enabled <span class="roman">[</span>on|off<span class="roman">]</span></code></span></dt>
+<dt><span><code>maint show libopcodes-styling enabled</code></span></dt>
+<dd><p>Control whether <small>ROCGDB</small> should use its builtin disassembler
+(<samp>libopcodes</samp>) to style disassembler output (see <a href="Output-Styling.html">Output Styling</a>).  The builtin disassembler does not support styling for all
 architectures.
 </p>
-<p>When this option is &lsquo;<samp class="samp">off</samp>&rsquo; the builtin disassembler will not be
-used for styling, <small class="sc">ROCGDB</small> will fall back to using the Python
+<p>When this option is &lsquo;<samp>off</samp>&rsquo; the builtin disassembler will not be
+used for styling, <small>ROCGDB</small> will fall back to using the Python
 Pygments package if possible.
 </p>
-<p>Trying to set this option &lsquo;<samp class="samp">on</samp>&rsquo; for an architecture that the
+<p>Trying to set this option &lsquo;<samp>on</samp>&rsquo; for an architecture that the
 builtin disassembler is unable to style will give an error, otherwise,
 the builtin disassembler will be used to style disassembler output.
 </p>
-<p>This option is &lsquo;<samp class="samp">on</samp>&rsquo; by default for supported architectures.
+<p>This option is &lsquo;<samp>on</samp>&rsquo; by default for supported architectures.
 </p>
-<p>This option is useful for debugging <small class="sc">ROCGDB</small>&rsquo;s use of the Pygments
-library when <small class="sc">ROCGDB</small> is built for an architecture that supports
+<p>This option is useful for debugging <small>ROCGDB</small>&rsquo;s use of the Pygments
+library when <small>ROCGDB</small> is built for an architecture that supports
 styling with the builtin disassembler
 </p>
+<span id="index-maint-info-screen"></span>
+<span id="index-show-screen-characteristics"></span>
 </dd>
-<dt><a class="index-entry-id" id="index-show-screen-characteristics"></a>
-<a id="index-maint-info-screen"></a><span><code class="code">maint info screen</code><a class="copiable-link" href="#index-maint-info-screen"> &para;</a></span></dt>
+<dt><span><code>maint info screen</code></span></dt>
 <dd><p>Print various characteristics of the screen, such as various notions
 of width and height.
 </p>
+<span id="index-maint-space"></span>
+<span id="index-memory-used-by-commands"></span>
 </dd>
-<dt><a class="index-entry-id" id="index-memory-used-by-commands"></a>
-<a id="index-maint-space"></a><span><code class="code">maint space <var class="var">value</var></code><a class="copiable-link" href="#index-maint-space"> &para;</a></span></dt>
-<dd><p>An alias for <code class="code">maint set per-command space</code>.
+<dt><span><code>maint space <var>value</var></code></span></dt>
+<dd><p>An alias for <code>maint set per-command space</code>.
 A non-zero value enables it, zero disables it.
 </p>
+<span id="index-maint-time"></span>
+<span id="index-time-of-command-execution"></span>
 </dd>
-<dt><a class="index-entry-id" id="index-time-of-command-execution"></a>
-<a id="index-maint-time"></a><span><code class="code">maint time <var class="var">value</var></code><a class="copiable-link" href="#index-maint-time"> &para;</a></span></dt>
-<dd><p>An alias for <code class="code">maint set per-command time</code>.
+<dt><span><code>maint time <var>value</var></code></span></dt>
+<dd><p>An alias for <code>maint set per-command time</code>.
 A non-zero value enables it, zero disables it.
 </p>
+<span id="index-maint-translate_002daddress"></span>
 </dd>
-<dt><a id="index-maint-translate_002daddress"></a><span><code class="code">maint translate-address <span class="r">[</span><var class="var">section</var><span class="r">]</span> <var class="var">addr</var></code><a class="copiable-link" href="#index-maint-translate_002daddress"> &para;</a></span></dt>
+<dt><span><code>maint translate-address <span class="roman">[</span><var>section</var><span class="roman">]</span> <var>addr</var></code></span></dt>
 <dd><p>Find the symbol stored at the location specified by the address
-<var class="var">addr</var> and an optional section name <var class="var">section</var>.  If found,
-<small class="sc">ROCGDB</small> prints the name of the closest symbol and an offset from
+<var>addr</var> and an optional section name <var>section</var>.  If found,
+<small>ROCGDB</small> prints the name of the closest symbol and an offset from
 the symbol&rsquo;s location to the specified address.  This is similar to
-the <code class="code">info address</code> command (see <a class="pxref" href="Symbols.html">Examining the Symbol Table</a>), except that this
+the <code>info address</code> command (see <a href="Symbols.html">Examining the Symbol Table</a>), except that this
 command also allows to find symbols in other sections.
 </p>
 <p>If section was not specified, the section in which the symbol was found
 is also printed.  For dynamically linked executables, the name of
 executable or shared library containing the symbol is printed as well.
 </p>
+<span id="index-maint-test_002doptions"></span>
 </dd>
-<dt><a id="index-maint-test_002doptions"></a><span><code class="code">maint test-options require-delimiter</code><a class="copiable-link" href="#index-maint-test_002doptions"> &para;</a></span></dt>
-<dt><code class="code">maint test-options unknown-is-error</code></dt>
-<dt><code class="code">maint test-options unknown-is-operand</code></dt>
+<dt><span><code>maint test-options require-delimiter</code></span></dt>
+<dt><span><code>maint test-options unknown-is-error</code></span></dt>
+<dt><span><code>maint test-options unknown-is-operand</code></span></dt>
 <dd><p>These commands are used by the testsuite to validate the command
-options framework.  The <code class="code">require-delimiter</code> variant requires a
+options framework.  The <code>require-delimiter</code> variant requires a
 double-dash delimiter to indicate end of options.  The
-<code class="code">unknown-is-error</code> and <code class="code">unknown-is-operand</code> do not.  The
-<code class="code">unknown-is-error</code> variant throws an error on unknown option,
-while <code class="code">unknown-is-operand</code> treats unknown options as the start of
+<code>unknown-is-error</code> and <code>unknown-is-operand</code> do not.  The
+<code>unknown-is-error</code> variant throws an error on unknown option,
+while <code>unknown-is-operand</code> treats unknown options as the start of
 the command&rsquo;s operands.  When run, the commands output the result of
 the processed options.  When completed, the commands store the
-internal result of completion in a variable exposed by the <code class="code">maint
+internal result of completion in a variable exposed by the <code>maint
 show test-options-completion-result</code> command.
 </p>
+<span id="index-maint-show-test_002doptions_002dcompletion_002dresult"></span>
 </dd>
-<dt><a id="index-maint-show-test_002doptions_002dcompletion_002dresult"></a><span><code class="code">maint show test-options-completion-result</code><a class="copiable-link" href="#index-maint-show-test_002doptions_002dcompletion_002dresult"> &para;</a></span></dt>
-<dd><p>Shows the result of completing the <code class="code">maint test-options</code>
+<dt><span><code>maint show test-options-completion-result</code></span></dt>
+<dd><p>Shows the result of completing the <code>maint test-options</code>
 subcommands.  This is used by the testsuite to validate completion
 support in the command options framework.
 </p>
+<span id="index-maint-set-test_002dsettings"></span>
+<span id="index-maint-show-test_002dsettings"></span>
 </dd>
-<dt><a class="index-entry-id" id="index-maint-show-test_002dsettings"></a>
-<a id="index-maint-set-test_002dsettings"></a><span><code class="code">maint set test-settings <var class="var">kind</var></code><a class="copiable-link" href="#index-maint-set-test_002dsettings"> &para;</a></span></dt>
-<dt><code class="code">maint show test-settings <var class="var">kind</var></code></dt>
-<dd><p>These are representative commands for each <var class="var">kind</var> of setting type
-<small class="sc">ROCGDB</small> supports.  They are used by the testsuite for exercising
+<dt><span><code>maint set test-settings <var>kind</var></code></span></dt>
+<dt><span><code>maint show test-settings <var>kind</var></code></span></dt>
+<dd><p>These are representative commands for each <var>kind</var> of setting type
+<small>ROCGDB</small> supports.  They are used by the testsuite for exercising
 the settings infrastructure.
 </p>
+<span id="index-maint-set-backtrace_002don_002dfatal_002dsignal"></span>
+<span id="index-maint-show-backtrace_002don_002dfatal_002dsignal"></span>
 </dd>
-<dt><a class="index-entry-id" id="index-maint-show-backtrace_002don_002dfatal_002dsignal"></a>
-<a id="index-maint-set-backtrace_002don_002dfatal_002dsignal"></a><span><code class="code">maint set backtrace-on-fatal-signal [on|off]</code><a class="copiable-link" href="#index-maint-set-backtrace_002don_002dfatal_002dsignal"> &para;</a></span></dt>
-<dt><code class="code">maint show backtrace-on-fatal-signal</code></dt>
-<dd><p>When this setting is <code class="code">on</code>, if <small class="sc">ROCGDB</small> itself terminates with
+<dt><span><code>maint set backtrace-on-fatal-signal [on|off]</code></span></dt>
+<dt><span><code>maint show backtrace-on-fatal-signal</code></span></dt>
+<dd><p>When this setting is <code>on</code>, if <small>ROCGDB</small> itself terminates with
 a fatal signal (e.g. SIGSEGV), then a limited backtrace will be
 printed to the standard error stream.  This backtrace can be used to
-help diagnose crashes within <small class="sc">ROCGDB</small> in situations where a user
-is unable to share a corefile with the <small class="sc">ROCGDB</small> developers.
+help diagnose crashes within <small>ROCGDB</small> in situations where a user
+is unable to share a corefile with the <small>ROCGDB</small> developers.
 </p>
 <p>If the functionality to provide this backtrace is not available for
 the platform on which GDB is running then this feature will be
-<code class="code">off</code> by default, and attempting to turn this feature on will
+<code>off</code> by default, and attempting to turn this feature on will
 give an error.
 </p>
 <p>For platforms that do support creating the backtrace this feature is
-<code class="code">on</code> by default.
+<code>on</code> by default.
 </p>
+<span id="index-maint-wait_002dfor_002dindex_002dcache"></span>
 </dd>
-<dt><a id="index-maint-wait_002dfor_002dindex_002dcache"></a><span><code class="code">maint wait-for-index-cache</code><a class="copiable-link" href="#index-maint-wait_002dfor_002dindex_002dcache"> &para;</a></span></dt>
+<dt><span><code>maint wait-for-index-cache</code></span></dt>
 <dd><p>Wait until all pending writes to the index cache have completed.  This
 is used by the test suite to avoid races when the index cache is being
 updated by a worker thread.
 </p>
+<span id="index-maint-with"></span>
 </dd>
-<dt><a id="index-maint-with"></a><span><code class="code">maint with <var class="var">setting</var> [<var class="var">value</var>] [-- <var class="var">command</var>]</code><a class="copiable-link" href="#index-maint-with"> &para;</a></span></dt>
-<dd><p>Like the <code class="code">with</code> command, but works with <code class="code">maintenance set</code>
-variables.  This is used by the testsuite to exercise the <code class="code">with</code>
+<dt><span><code>maint with <var>setting</var> [<var>value</var>] [-- <var>command</var>]</code></span></dt>
+<dd><p>Like the <code>with</code> command, but works with <code>maintenance set</code>
+variables.  This is used by the testsuite to exercise the <code>with</code>
 command&rsquo;s infrastructure.
 </p>
+<span id="index-maint-ignore_002dprobes"></span>
 </dd>
-<dt><a id="index-maint-ignore_002dprobes"></a><span><code class="code">maint ignore-probes [<var class="var">-v</var>|<var class="var">-verbose</var>] [<var class="var">provider</var> [<var class="var">name</var> [<var class="var">objfile</var>]]]</code><a class="copiable-link" href="#index-maint-ignore_002dprobes"> &para;</a></span></dt>
-<dt><code class="code">maint ignore-probes <var class="var">-reset</var></code></dt>
-<dd><p>Set or reset the ignore-probes filter.  The <var class="var">provider</var>, <var class="var">name</var>
-and <var class="var">objfile</var> arguments are as in <code class="code">enable probes</code> and
-<code class="code">disable probes</code> (see <a class="pxref" href="Static-Probe-Points.html#enable-probes">enable probes</a>).  Only supported for
+<dt><span><code>maint ignore-probes [<var>-v</var>|<var>-verbose</var>] [<var>provider</var> [<var>name</var> [<var>objfile</var>]]]</code></span></dt>
+<dt><span><code>maint ignore-probes <var>-reset</var></code></span></dt>
+<dd><p>Set or reset the ignore-probes filter.  The <var>provider</var>, <var>name</var>
+and <var>objfile</var> arguments are as in <code>enable probes</code> and
+<code>disable probes</code> (see <a href="Static-Probe-Points.html#enable-probes">enable probes</a>).  Only supported for
 SystemTap probes.
 </p>
-<p>Here&rsquo;s an example of using <code class="code">maint ignore-probes</code>:
-</p><div class="example smallexample">
-<pre class="example-preformatted">(gdb) maint ignore-probes -verbose libc ^longjmp$
+<p>Here&rsquo;s an example of using <code>maint ignore-probes</code>:
+</p><div class="example">
+<pre class="example">(gdb) maint ignore-probes -verbose libc ^longjmp$
 ignore-probes filter has been set to:
 PROVIDER: 'libc'
 PROBE_NAME: '^longjmp$'
@@ -1295,27 +1380,27 @@ Ignoring SystemTap probe libc longjmp in /lib64/libc.so.6.^M
 </dl>
 
 <p>The following command is useful for non-interactive invocations of
-<small class="sc">ROCGDB</small>, such as in the test suite.
+<small>ROCGDB</small>, such as in the test suite.
 </p>
-<dl class="table">
-<dt><a class="index-entry-id" id="index-watchdog-timer"></a>
-<a class="index-entry-id" id="index-timeout-for-commands"></a>
-<a id="index-set-watchdog"></a><span><code class="code">set watchdog <var class="var">nsec</var></code><a class="copiable-link" href="#index-set-watchdog"> &para;</a></span></dt>
-<dd><p>Set the maximum number of seconds <small class="sc">ROCGDB</small> will wait for the
-target operation to finish.  If this time expires, <small class="sc">ROCGDB</small>
+<dl compact="compact">
+<dt id='index-set-watchdog'><span><code>set watchdog <var>nsec</var></code><a href='#index-set-watchdog' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="index-watchdog-timer"></span>
+<span id="index-timeout-for-commands"></span>
+<p>Set the maximum number of seconds <small>ROCGDB</small> will wait for the
+target operation to finish.  If this time expires, <small>ROCGDB</small>
 reports and error and the command is aborted.
 </p>
 </dd>
-<dt><code class="code">show watchdog</code></dt>
+<dt><span><code>show watchdog</code></span></dt>
 <dd><p>Show the current setting of the target wait timeout.
 </p></dd>
 </dl>
 
 </div>
 <hr>
-<div class="nav-panel">
+<div class="header">
 <p>
-Next: <a href="Remote-Protocol.html"><small class="sc">ROCGDB</small> Remote Serial Protocol</a>, Previous: <a href="Installing-GDB.html">Installing <small class="sc">ROCGDB</small></a>, Up: <a href="index.html">Debugging with <small class="sc">ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Remote-Protocol.html"><small>ROCGDB</small> Remote Serial Protocol</a>, Previous: <a href="Installing-GDB.html">Installing <small>ROCGDB</small></a>, Up: <a href="index.html">Debugging with <small>ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

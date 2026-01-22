@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the GNU Assembler "as".
 
-Copyright © 1991-2024 Free Software Foundation, Inc.
+Copyright (C) 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -30,9 +30,21 @@ section entitled "GNU Free Documentation License".
 <link href="AVR_002dRegs.html" rel="prev" title="AVR-Regs">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
 div.example {margin-left: 3.2em}
-span:hover a.copiable-link {visibility: visible}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -40,71 +52,71 @@ span:hover a.copiable-link {visibility: visible}
 </head>
 
 <body lang="en">
-<div class="subsubsection-level-extent" id="AVR_002dModifiers">
-<div class="nav-panel">
+<div class="subsection" id="AVR_002dModifiers">
+<div class="header">
 <p>
 Previous: <a href="AVR_002dRegs.html" accesskey="p" rel="prev">Register Names</a>, Up: <a href="AVR-Syntax.html" accesskey="u" rel="up">Syntax</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h4 class="subsubsection subsection-level-set-subsubsection" id="Relocatable-Expression-Modifiers"><span>9.5.2.3 Relocatable Expression Modifiers<a class="copiable-link" href="#Relocatable-Expression-Modifiers"> &para;</a></span></h4>
+<span id="Relocatable-Expression-Modifiers"></span><h4 class="subsubsection">9.5.2.3 Relocatable Expression Modifiers</h4>
 
-<a class="index-entry-id" id="index-AVR-modifiers"></a>
-<a class="index-entry-id" id="index-syntax_002c-AVR"></a>
+<span id="index-AVR-modifiers"></span>
+<span id="index-syntax_002c-AVR"></span>
 
 <p>The assembler supports several modifiers when using relocatable addresses
 in AVR instruction operands.  The general syntax is the following:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">modifier(relocatable-expression)
+<div class="example">
+<pre class="example">modifier(relocatable-expression)
 </pre></div>
 
-<dl class="table">
-<dd><a class="index-entry-id" id="index-symbol-modifiers"></a>
+<dl compact="compact">
+<dd><span id="index-symbol-modifiers"></span>
 
 </dd>
-<dt><code class="code">lo8</code></dt>
+<dt><span><code>lo8</code></span></dt>
 <dd>
 <p>This modifier allows you to use bits 0 through 7 of
 an address expression as an 8 bit relocatable expression.
 </p>
 </dd>
-<dt><code class="code">hi8</code></dt>
+<dt><span><code>hi8</code></span></dt>
 <dd>
 <p>This modifier allows you to use bits 7 through 15 of an address expression
 as an 8 bit relocatable expression. This is useful with, for example, the
-AVR &lsquo;<samp class="samp">ldi</samp>&rsquo; instruction and &lsquo;<samp class="samp">lo8</samp>&rsquo; modifier.
+AVR &lsquo;<samp>ldi</samp>&rsquo; instruction and &lsquo;<samp>lo8</samp>&rsquo; modifier.
 </p>
 <p>For example
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">ldi r26, lo8(sym+10)
+<div class="example">
+<pre class="example">ldi r26, lo8(sym+10)
 ldi r27, hi8(sym+10)
 </pre></div>
 
 </dd>
-<dt><code class="code">hh8</code></dt>
+<dt><span><code>hh8</code></span></dt>
 <dd>
 <p>This modifier allows you to use bits 16 through 23 of
 an address expression as an 8 bit relocatable expression.
 Also, can be useful for loading 32 bit constants.
 </p>
 </dd>
-<dt><code class="code">hlo8</code></dt>
+<dt><span><code>hlo8</code></span></dt>
 <dd>
-<p>Synonym of &lsquo;<samp class="samp">hh8</samp>&rsquo;.
+<p>Synonym of &lsquo;<samp>hh8</samp>&rsquo;.
 </p>
 </dd>
-<dt><code class="code">hhi8</code></dt>
+<dt><span><code>hhi8</code></span></dt>
 <dd>
 <p>This modifier allows you to use bits 24 through 31 of
 an expression as an 8 bit expression. This is useful with, for example, the
-AVR &lsquo;<samp class="samp">ldi</samp>&rsquo; instruction and &lsquo;<samp class="samp">lo8</samp>&rsquo;, &lsquo;<samp class="samp">hi8</samp>&rsquo;, &lsquo;<samp class="samp">hlo8</samp>&rsquo;,
-&lsquo;<samp class="samp">hhi8</samp>&rsquo;, modifier.
+AVR &lsquo;<samp>ldi</samp>&rsquo; instruction and &lsquo;<samp>lo8</samp>&rsquo;, &lsquo;<samp>hi8</samp>&rsquo;, &lsquo;<samp>hlo8</samp>&rsquo;,
+&lsquo;<samp>hhi8</samp>&rsquo;, modifier.
 </p>
 <p>For example
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">ldi r26, lo8(285774925)
+<div class="example">
+<pre class="example">ldi r26, lo8(285774925)
 ldi r27, hi8(285774925)
 ldi r28, hlo8(285774925)
 ldi r29, hhi8(285774925)
@@ -112,33 +124,33 @@ ldi r29, hhi8(285774925)
 </pre></div>
 
 </dd>
-<dt><code class="code">pm_lo8</code></dt>
+<dt><span><code>pm_lo8</code></span></dt>
 <dd>
 <p>This modifier allows you to use bits 0 through 7 of
 an address expression as an 8 bit relocatable expression.
 This modifier is useful for addressing data or code from
-Flash/Program memory by two-byte words. The use of &lsquo;<samp class="samp">pm_lo8</samp>&rsquo;
-is similar to &lsquo;<samp class="samp">lo8</samp>&rsquo;.
+Flash/Program memory by two-byte words. The use of &lsquo;<samp>pm_lo8</samp>&rsquo;
+is similar to &lsquo;<samp>lo8</samp>&rsquo;.
 </p>
 </dd>
-<dt><code class="code">pm_hi8</code></dt>
+<dt><span><code>pm_hi8</code></span></dt>
 <dd>
 <p>This modifier allows you to use bits 8 through 15 of
 an address expression as an 8 bit relocatable expression.
 This modifier is useful for addressing data or code from
 Flash/Program memory by two-byte words.
 </p>
-<p>For example, when setting the AVR &lsquo;<samp class="samp">Z</samp>&rsquo; register with the &lsquo;<samp class="samp">ldi</samp>&rsquo;
-instruction for subsequent use by the &lsquo;<samp class="samp">ijmp</samp>&rsquo; instruction:
+<p>For example, when setting the AVR &lsquo;<samp>Z</samp>&rsquo; register with the &lsquo;<samp>ldi</samp>&rsquo;
+instruction for subsequent use by the &lsquo;<samp>ijmp</samp>&rsquo; instruction:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">ldi r30, pm_lo8(sym)
+<div class="example">
+<pre class="example">ldi r30, pm_lo8(sym)
 ldi r31, pm_hi8(sym)
 ijmp
 </pre></div>
 
 </dd>
-<dt><code class="code">pm_hh8</code></dt>
+<dt><span><code>pm_hh8</code></span></dt>
 <dd>
 <p>This modifier allows you to use bits 15 through 23 of
 an address expression as an 8 bit relocatable expression.
@@ -150,7 +162,7 @@ Flash/Program memory by two-byte words.
 
 </div>
 <hr>
-<div class="nav-panel">
+<div class="header">
 <p>
 Previous: <a href="AVR_002dRegs.html">Register Names</a>, Up: <a href="AVR-Syntax.html">Syntax</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

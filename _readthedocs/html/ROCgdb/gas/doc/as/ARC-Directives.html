@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the GNU Assembler "as".
 
-Copyright © 1991-2024 Free Software Foundation, Inc.
+Copyright (C) 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -31,9 +31,21 @@ section entitled "GNU Free Documentation License".
 <link href="ARC-Syntax.html" rel="prev" title="ARC Syntax">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
 div.example {margin-left: 3.2em}
-span:hover a.copiable-link {visibility: visible}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -41,27 +53,30 @@ span:hover a.copiable-link {visibility: visible}
 </head>
 
 <body lang="en">
-<div class="subsection-level-extent" id="ARC-Directives">
-<div class="nav-panel">
+<div class="section" id="ARC-Directives">
+<div class="header">
 <p>
 Next: <a href="ARC-Modifiers.html" accesskey="n" rel="next">ARC Assembler Modifiers</a>, Previous: <a href="ARC-Syntax.html" accesskey="p" rel="prev">Syntax</a>, Up: <a href="ARC_002dDependent.html" accesskey="u" rel="up">ARC Dependent Features</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h4 class="subsection section-level-set-subsection" id="ARC-Machine-Directives"><span>9.3.3 ARC Machine Directives<a class="copiable-link" href="#ARC-Machine-Directives"> &para;</a></span></h4>
+<span id="ARC-Machine-Directives"></span><h4 class="subsection">9.3.3 ARC Machine Directives</h4>
 
-<a class="index-entry-id" id="index-machine-directives_002c-ARC"></a>
-<a class="index-entry-id" id="index-ARC-machine-directives"></a>
-<p>The ARC version of <code class="code">as</code> supports the following additional
+<span id="index-machine-directives_002c-ARC"></span>
+<span id="index-ARC-machine-directives"></span>
+<p>The ARC version of <code>as</code> supports the following additional
 machine directives:
 </p>
-<dl class="table">
-<dt><a id="index-lcomm-directive-1"></a><span><code class="code">.lcomm <var class="var">symbol</var>, <var class="var">length</var>[, <var class="var">alignment</var>]</code><a class="copiable-link" href="#index-lcomm-directive-1"> &para;</a></span></dt>
-<dd><p>Reserve <var class="var">length</var> (an absolute expression) bytes for a local common
-denoted by <var class="var">symbol</var>.  The section and value of <var class="var">symbol</var> are
+<dl compact="compact">
+<dd>
+<span id="index-lcomm-directive-1"></span>
+</dd>
+<dt><span><code>.lcomm <var>symbol</var>, <var>length</var>[, <var>alignment</var>]</code></span></dt>
+<dd><p>Reserve <var>length</var> (an absolute expression) bytes for a local common
+denoted by <var>symbol</var>.  The section and value of <var>symbol</var> are
 those of the new local common.  The addresses are allocated in the bss
 section, so that at run-time the bytes start off zeroed.  Since
-<var class="var">symbol</var> is not declared global, it is normally not visible to
-<code class="code">ld</code>.  The optional third parameter, <var class="var">alignment</var>,
+<var>symbol</var> is not declared global, it is normally not visible to
+<code>ld</code>.  The optional third parameter, <var>alignment</var>,
 specifies the desired alignment of the symbol in the bss section,
 specified as a byte boundary (for example, an alignment of 16 means
 that the least significant 4 bits of the address should be zero).  The
@@ -70,132 +85,134 @@ two.  If no alignment is specified, as will set the alignment to the
 largest power of two less than or equal to the size of the symbol, up
 to a maximum of 16.
 </p>
+<span id="index-lcommon-directive_002c-ARC"></span>
 </dd>
-<dt><a id="index-lcommon-directive_002c-ARC"></a><span><code class="code">.lcommon <var class="var">symbol</var>, <var class="var">length</var>[, <var class="var">alignment</var>]</code><a class="copiable-link" href="#index-lcommon-directive_002c-ARC"> &para;</a></span></dt>
-<dd><p>The same as <code class="code">lcomm</code> directive.
+<dt><span><code>.lcommon <var>symbol</var>, <var>length</var>[, <var>alignment</var>]</code></span></dt>
+<dd><p>The same as <code>lcomm</code> directive.
 </p>
+<span id="index-cpu-directive_002c-ARC"></span>
 </dd>
-<dt><a id="index-cpu-directive_002c-ARC"></a><span><code class="code">.cpu <var class="var">cpu</var></code><a class="copiable-link" href="#index-cpu-directive_002c-ARC"> &para;</a></span></dt>
-<dd><p>The <code class="code">.cpu</code> directive must be followed by the desired core
+<dt><span><code>.cpu <var>cpu</var></code></span></dt>
+<dd><p>The <code>.cpu</code> directive must be followed by the desired core
 version.  Permitted values for CPU are:
-</p><dl class="table">
-<dt><code class="code">ARC600</code></dt>
+</p><dl compact="compact">
+<dt><span><code>ARC600</code></span></dt>
 <dd><p>Assemble for the ARC600 instruction set.
 </p>
 </dd>
-<dt><code class="code">arc600_norm</code></dt>
+<dt><span><code>arc600_norm</code></span></dt>
 <dd><p>Assemble for ARC 600 with norm instructions.
 </p>
 </dd>
-<dt><code class="code">arc600_mul64</code></dt>
+<dt><span><code>arc600_mul64</code></span></dt>
 <dd><p>Assemble for ARC 600 with mul64 instructions.
 </p>
 </dd>
-<dt><code class="code">arc600_mul32x16</code></dt>
+<dt><span><code>arc600_mul32x16</code></span></dt>
 <dd><p>Assemble for ARC 600 with mul32x16 instructions.
 </p>
 </dd>
-<dt><code class="code">arc601</code></dt>
+<dt><span><code>arc601</code></span></dt>
 <dd><p>Assemble for ARC 601 instruction set.
 </p>
 </dd>
-<dt><code class="code">arc601_norm</code></dt>
+<dt><span><code>arc601_norm</code></span></dt>
 <dd><p>Assemble for ARC 601 with norm instructions.
 </p>
 </dd>
-<dt><code class="code">arc601_mul64</code></dt>
+<dt><span><code>arc601_mul64</code></span></dt>
 <dd><p>Assemble for ARC 601 with mul64 instructions.
 </p>
 </dd>
-<dt><code class="code">arc601_mul32x16</code></dt>
+<dt><span><code>arc601_mul32x16</code></span></dt>
 <dd><p>Assemble for ARC 601 with mul32x16 instructions.
 </p>
 </dd>
-<dt><code class="code">ARC700</code></dt>
+<dt><span><code>ARC700</code></span></dt>
 <dd><p>Assemble for the ARC700 instruction set.
 </p>
 </dd>
-<dt><code class="code">NPS400</code></dt>
+<dt><span><code>NPS400</code></span></dt>
 <dd><p>Assemble for the NPS400 instruction set.
 </p>
 </dd>
-<dt><code class="code">EM</code></dt>
+<dt><span><code>EM</code></span></dt>
 <dd><p>Assemble for the ARC EM instruction set.
 </p>
 </dd>
-<dt><code class="code">arcem</code></dt>
+<dt><span><code>arcem</code></span></dt>
 <dd><p>Assemble for ARC EM instruction set
 </p>
 </dd>
-<dt><code class="code">em4</code></dt>
+<dt><span><code>em4</code></span></dt>
 <dd><p>Assemble for ARC EM with code-density instructions.
 </p>
 </dd>
-<dt><code class="code">em4_dmips</code></dt>
+<dt><span><code>em4_dmips</code></span></dt>
 <dd><p>Assemble for ARC EM with code-density instructions.
 </p>
 </dd>
-<dt><code class="code">em4_fpus</code></dt>
+<dt><span><code>em4_fpus</code></span></dt>
 <dd><p>Assemble for ARC EM with code-density instructions.
 </p>
 </dd>
-<dt><code class="code">em4_fpuda</code></dt>
+<dt><span><code>em4_fpuda</code></span></dt>
 <dd><p>Assemble for ARC EM with code-density, and double-precision assist
 instructions.
 </p>
 </dd>
-<dt><code class="code">quarkse_em</code></dt>
+<dt><span><code>quarkse_em</code></span></dt>
 <dd><p>Assemble for QuarkSE-EM instruction set.
 </p>
 </dd>
-<dt><code class="code">HS</code></dt>
+<dt><span><code>HS</code></span></dt>
 <dd><p>Assemble for the ARC HS instruction set.
 </p>
 </dd>
-<dt><code class="code">archs</code></dt>
+<dt><span><code>archs</code></span></dt>
 <dd><p>Assemble for ARC HS instruction set.
 </p>
 </dd>
-<dt><code class="code">hs</code></dt>
+<dt><span><code>hs</code></span></dt>
 <dd><p>Assemble for ARC HS instruction set.
 </p>
 </dd>
-<dt><code class="code">hs34</code></dt>
+<dt><span><code>hs34</code></span></dt>
 <dd><p>Assemble for ARC HS34 instruction set.
 </p>
 </dd>
-<dt><code class="code">hs38</code></dt>
+<dt><span><code>hs38</code></span></dt>
 <dd><p>Assemble for ARC HS38 instruction set.
 </p>
 </dd>
-<dt><code class="code">hs38_linux</code></dt>
+<dt><span><code>hs38_linux</code></span></dt>
 <dd><p>Assemble for ARC HS38 with floating point support on.
 </p>
 </dd>
 </dl>
 
-<p>Note: the <code class="code">.cpu</code> directive overrides the command-line option
-<code class="code">-mcpu=<var class="var">cpu</var></code>; a warning is emitted when the version is not
+<p>Note: the <code>.cpu</code> directive overrides the command-line option
+<code>-mcpu=<var>cpu</var></code>; a warning is emitted when the version is not
 consistent between the two.
 </p>
 </dd>
-<dt><a id="index-extAuxRegister-directive_002c-ARC"></a><span><code class="code">.extAuxRegister <var class="var">name</var>, <var class="var">addr</var>, <var class="var">mode</var></code><a class="copiable-link" href="#index-extAuxRegister-directive_002c-ARC"> &para;</a></span></dt>
+<dt id='index-extAuxRegister-directive_002c-ARC'><span><code>.extAuxRegister <var>name</var>, <var>addr</var>, <var>mode</var></code><a href='#index-extAuxRegister-directive_002c-ARC' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Auxiliary registers can be defined in the assembler source code by
-using this directive.  The first parameter, <var class="var">name</var>, is the name of the
-new auxiliary register.  The second parameter, <var class="var">addr</var>, is
+using this directive.  The first parameter, <var>name</var>, is the name of the
+new auxiliary register.  The second parameter, <var>addr</var>, is
 address the of the auxiliary register.  The third parameter,
-<var class="var">mode</var>, specifies whether the register is readable and/or writable
+<var>mode</var>, specifies whether the register is readable and/or writable
 and is one of:
-</p><dl class="table">
-<dt><code class="code">r</code></dt>
+</p><dl compact="compact">
+<dt><span><code>r</code></span></dt>
 <dd><p>Read only;
 </p>
 </dd>
-<dt><code class="code">w</code></dt>
+<dt><span><code>w</code></span></dt>
 <dd><p>Write only;
 </p>
 </dd>
-<dt><code class="code">r|w</code></dt>
+<dt><span><code>r|w</code></span></dt>
 <dd><p>Read and write.
 </p>
 </dd>
@@ -203,140 +220,140 @@ and is one of:
 
 <p>For example:
 </p><div class="example">
-<pre class="example-preformatted">	.extAuxRegister mulhi, 0x12, w
+<pre class="example">	.extAuxRegister mulhi, 0x12, w
 </pre></div>
-<p>specifies a write only extension auxiliary register, <var class="var">mulhi</var> at
+<p>specifies a write only extension auxiliary register, <var>mulhi</var> at
 address 0x12.
 </p>
 </dd>
-<dt><a id="index-extCondCode-directive_002c-ARC"></a><span><code class="code">.extCondCode <var class="var">suffix</var>, <var class="var">val</var></code><a class="copiable-link" href="#index-extCondCode-directive_002c-ARC"> &para;</a></span></dt>
+<dt id='index-extCondCode-directive_002c-ARC'><span><code>.extCondCode <var>suffix</var>, <var>val</var></code><a href='#index-extCondCode-directive_002c-ARC' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>ARC supports extensible condition codes.  This directive defines a new
-condition code, to be known by the suffix, <var class="var">suffix</var> and will
-depend on the value, <var class="var">val</var> in the condition code.
+condition code, to be known by the suffix, <var>suffix</var> and will
+depend on the value, <var>val</var> in the condition code.
 </p>
 <p>For example:
 </p><div class="example">
-<pre class="example-preformatted">	.extCondCode is_busy,0x14
+<pre class="example">	.extCondCode is_busy,0x14
 	add.is_busy  r1,r2,r3
 </pre></div>
-<p>will only execute the <code class="code">add</code> instruction if the condition code
+<p>will only execute the <code>add</code> instruction if the condition code
 value is 0x14.
 </p>
 </dd>
-<dt><a id="index-extCoreRegister-directive_002c-ARC"></a><span><code class="code">.extCoreRegister <var class="var">name</var>, <var class="var">regnum</var>, <var class="var">mode</var>, <var class="var">shortcut</var></code><a class="copiable-link" href="#index-extCoreRegister-directive_002c-ARC"> &para;</a></span></dt>
-<dd><p>Specifies an extension core register named <var class="var">name</var> as a synonym for
-the register numbered <var class="var">regnum</var>.  The register number must be
-between 32 and 59.  The third argument, <var class="var">mode</var>, indicates whether
+<dt id='index-extCoreRegister-directive_002c-ARC'><span><code>.extCoreRegister <var>name</var>, <var>regnum</var>, <var>mode</var>, <var>shortcut</var></code><a href='#index-extCoreRegister-directive_002c-ARC' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>Specifies an extension core register named <var>name</var> as a synonym for
+the register numbered <var>regnum</var>.  The register number must be
+between 32 and 59.  The third argument, <var>mode</var>, indicates whether
 the register is readable and/or writable and is one of:
-</p><dl class="table">
-<dt><code class="code">r</code></dt>
+</p><dl compact="compact">
+<dt><span><code>r</code></span></dt>
 <dd><p>Read only;
 </p>
 </dd>
-<dt><code class="code">w</code></dt>
+<dt><span><code>w</code></span></dt>
 <dd><p>Write only;
 </p>
 </dd>
-<dt><code class="code">r|w</code></dt>
+<dt><span><code>r|w</code></span></dt>
 <dd><p>Read and write.
 </p>
 </dd>
 </dl>
 
-<p>The final parameter, <var class="var">shortcut</var> indicates whether the register has
+<p>The final parameter, <var>shortcut</var> indicates whether the register has
 a short cut in the pipeline.  The valid values are:
-</p><dl class="table">
-<dt><code class="code">can_shortcut</code></dt>
+</p><dl compact="compact">
+<dt><span><code>can_shortcut</code></span></dt>
 <dd><p>The register has a short cut in the pipeline;
 </p>
 </dd>
-<dt><code class="code">cannot_shortcut</code></dt>
+<dt><span><code>cannot_shortcut</code></span></dt>
 <dd><p>The register does not have a short cut in the pipeline.
 </p></dd>
 </dl>
 
 <p>For example:
 </p><div class="example">
-<pre class="example-preformatted">	.extCoreRegister mlo, 57, r , can_shortcut
+<pre class="example">	.extCoreRegister mlo, 57, r , can_shortcut
 </pre></div>
-<p>defines a read only extension core register, <code class="code">mlo</code>, which is
+<p>defines a read only extension core register, <code>mlo</code>, which is
 register 57, and can short cut the pipeline.
 </p>
 </dd>
-<dt><a id="index-extInstruction-directive_002c-ARC"></a><span><code class="code">.extInstruction <var class="var">name</var>, <var class="var">opcode</var>, <var class="var">subopcode</var>, <var class="var">suffixclass</var>, <var class="var">syntaxclass</var></code><a class="copiable-link" href="#index-extInstruction-directive_002c-ARC"> &para;</a></span></dt>
+<dt id='index-extInstruction-directive_002c-ARC'><span><code>.extInstruction <var>name</var>, <var>opcode</var>, <var>subopcode</var>, <var>suffixclass</var>, <var>syntaxclass</var></code><a href='#index-extInstruction-directive_002c-ARC' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>ARC allows the user to specify extension instructions.  These
 extension instructions are not macros; the assembler creates encodings
 for use of these instructions according to the specification by the
 user.
 </p>
-<p>The first argument, <var class="var">name</var>, gives the name of the instruction.
+<p>The first argument, <var>name</var>, gives the name of the instruction.
 </p>
-<p>The second argument, <var class="var">opcode</var>, is the opcode to be used (bits 31:27
+<p>The second argument, <var>opcode</var>, is the opcode to be used (bits 31:27
 in the encoding).
 </p>
-<p>The third argument, <var class="var">subopcode</var>, is the sub-opcode to be used, but
+<p>The third argument, <var>subopcode</var>, is the sub-opcode to be used, but
 the correct value also depends on the fifth argument,
-<var class="var">syntaxclass</var>
+<var>syntaxclass</var>
 </p>
-<p>The fourth argument, <var class="var">suffixclass</var>, determines the kinds of
+<p>The fourth argument, <var>suffixclass</var>, determines the kinds of
 suffixes to be allowed.  Valid values are:
-</p><dl class="table">
-<dt><code class="code">SUFFIX_NONE</code></dt>
+</p><dl compact="compact">
+<dt><span><code>SUFFIX_NONE</code></span></dt>
 <dd><p>No suffixes are permitted;
 </p>
 </dd>
-<dt><code class="code">SUFFIX_COND</code></dt>
+<dt><span><code>SUFFIX_COND</code></span></dt>
 <dd><p>Conditional suffixes are permitted;
 </p>
 </dd>
-<dt><code class="code">SUFFIX_FLAG</code></dt>
+<dt><span><code>SUFFIX_FLAG</code></span></dt>
 <dd><p>Flag setting suffixes are permitted.
 </p>
 </dd>
-<dt><code class="code">SUFFIX_COND|SUFFIX_FLAG</code></dt>
+<dt><span><code>SUFFIX_COND|SUFFIX_FLAG</code></span></dt>
 <dd><p>Both conditional and flag setting suffices are permitted.
 </p>
 </dd>
 </dl>
 
-<p>The fifth and final argument, <var class="var">syntaxclass</var>, determines the syntax
+<p>The fifth and final argument, <var>syntaxclass</var>, determines the syntax
 class for the instruction.  It can have the following values:
-</p><dl class="table">
-<dt><code class="code">SYNTAX_2OP</code></dt>
+</p><dl compact="compact">
+<dt><span><code>SYNTAX_2OP</code></span></dt>
 <dd><p>Two Operand Instruction;
 </p>
 </dd>
-<dt><code class="code">SYNTAX_3OP</code></dt>
+<dt><span><code>SYNTAX_3OP</code></span></dt>
 <dd><p>Three Operand Instruction.
 </p>
 </dd>
-<dt><code class="code">SYNTAX_1OP</code></dt>
+<dt><span><code>SYNTAX_1OP</code></span></dt>
 <dd><p>One Operand Instruction.
 </p>
 </dd>
-<dt><code class="code">SYNTAX_NOP</code></dt>
+<dt><span><code>SYNTAX_NOP</code></span></dt>
 <dd><p>No Operand Instruction.
 </p></dd>
 </dl>
 
-<p>The syntax class may be followed by &lsquo;<samp class="samp">|</samp>&rsquo; and one of the following
+<p>The syntax class may be followed by &lsquo;<samp>|</samp>&rsquo; and one of the following
 modifiers.
-</p><dl class="table">
-<dt><code class="code">OP1_MUST_BE_IMM</code></dt>
-<dd><p>Modifies syntax class <code class="code">SYNTAX_3OP</code>, specifying that the first
+</p><dl compact="compact">
+<dt><span><code>OP1_MUST_BE_IMM</code></span></dt>
+<dd><p>Modifies syntax class <code>SYNTAX_3OP</code>, specifying that the first
 operand of a three-operand instruction must be an immediate (i.e., the
 result is discarded).  This is usually used to set the flags using
 specific instructions and not retain results.
 </p>
 </dd>
-<dt><code class="code">OP1_IMM_IMPLIED</code></dt>
-<dd><p>Modifies syntax class <code class="code">SYNTAX_20P</code>, specifying that there is an
+<dt><span><code>OP1_IMM_IMPLIED</code></span></dt>
+<dd><p>Modifies syntax class <code>SYNTAX_20P</code>, specifying that there is an
 implied immediate destination operand which does not appear in the
 syntax.
 </p>
 <p>For example, if the source code contains an instruction like:
 </p><div class="example">
-<pre class="example-preformatted">inst r1,r2
+<pre class="example">inst r1,r2
 </pre></div>
 <p>the first argument is an implied immediate (that is, the result is
 discarded).  This is the same as though the source code were: inst
@@ -347,44 +364,45 @@ discarded).  This is the same as though the source code were: inst
 
 <p>For example, defining a 64-bit multiplier with immediate operands:
 </p><div class="example">
-<pre class="example-preformatted">	.extInstruction  mp64, 0x07, 0x2d, SUFFIX_COND|SUFFIX_FLAG,
+<pre class="example">	.extInstruction  mp64, 0x07, 0x2d, SUFFIX_COND|SUFFIX_FLAG,
 			 SYNTAX_3OP|OP1_MUST_BE_IMM
 </pre></div>
-<p>which specifies an extension instruction named <code class="code">mp64</code> with 3
+<p>which specifies an extension instruction named <code>mp64</code> with 3
 operands.  It sets the flags and can be used with a condition code,
 for which the first operand is an immediate, i.e. equivalent to
 discarding the result of the operation.
 </p>
 <p>A two operands instruction variant would be:
 </p><div class="example">
-<pre class="example-preformatted">	.extInstruction mul64, 0x07, 0x2d, SUFFIX_COND,
+<pre class="example">	.extInstruction mul64, 0x07, 0x2d, SUFFIX_COND,
 	SYNTAX_2OP|OP1_IMM_IMPLIED
 </pre></div>
 <p>which describes a two operand instruction with an implicit first
 immediate operand.  The result of this operation would be discarded.
 </p>
+<span id="index-_002earc_005fattribute-directive_002c-ARC"></span>
 </dd>
-<dt><a id="index-_002earc_005fattribute-directive_002c-ARC"></a><span><code class="code">.arc_attribute <var class="var">tag</var>, <var class="var">value</var></code><a class="copiable-link" href="#index-_002earc_005fattribute-directive_002c-ARC"> &para;</a></span></dt>
-<dd><p>Set the ARC object attribute <var class="var">tag</var> to <var class="var">value</var>.
+<dt><span><code>.arc_attribute <var>tag</var>, <var>value</var></code></span></dt>
+<dd><p>Set the ARC object attribute <var>tag</var> to <var>value</var>.
 </p>
-<p>The <var class="var">tag</var> is either an attribute number, or one of the following:
-<code class="code">Tag_ARC_PCS_config</code>, <code class="code">Tag_ARC_CPU_base</code>,
-<code class="code">Tag_ARC_CPU_variation</code>, <code class="code">Tag_ARC_CPU_name</code>,
-<code class="code">Tag_ARC_ABI_rf16</code>, <code class="code">Tag_ARC_ABI_osver</code>, <code class="code">Tag_ARC_ABI_sda</code>,
-<code class="code">Tag_ARC_ABI_pic</code>, <code class="code">Tag_ARC_ABI_tls</code>, <code class="code">Tag_ARC_ABI_enumsize</code>,
-<code class="code">Tag_ARC_ABI_exceptions</code>, <code class="code">Tag_ARC_ABI_double_size</code>,
-<code class="code">Tag_ARC_ISA_config</code>, <code class="code">Tag_ARC_ISA_apex</code>,
-<code class="code">Tag_ARC_ISA_mpy_option</code>
+<p>The <var>tag</var> is either an attribute number, or one of the following:
+<code>Tag_ARC_PCS_config</code>, <code>Tag_ARC_CPU_base</code>,
+<code>Tag_ARC_CPU_variation</code>, <code>Tag_ARC_CPU_name</code>,
+<code>Tag_ARC_ABI_rf16</code>, <code>Tag_ARC_ABI_osver</code>, <code>Tag_ARC_ABI_sda</code>,
+<code>Tag_ARC_ABI_pic</code>, <code>Tag_ARC_ABI_tls</code>, <code>Tag_ARC_ABI_enumsize</code>,
+<code>Tag_ARC_ABI_exceptions</code>, <code>Tag_ARC_ABI_double_size</code>,
+<code>Tag_ARC_ISA_config</code>, <code>Tag_ARC_ISA_apex</code>,
+<code>Tag_ARC_ISA_mpy_option</code>
 </p>
-<p>The <var class="var">value</var> is either a <code class="code">number</code>, <code class="code">&quot;string&quot;</code>, or
-<code class="code">number, &quot;string&quot;</code> depending on the tag.
+<p>The <var>value</var> is either a <code>number</code>, <code>&quot;string&quot;</code>, or
+<code>number, &quot;string&quot;</code> depending on the tag.
 </p>
 </dd>
 </dl>
 
 </div>
 <hr>
-<div class="nav-panel">
+<div class="header">
 <p>
 Next: <a href="ARC-Modifiers.html">ARC Assembler Modifiers</a>, Previous: <a href="ARC-Syntax.html">Syntax</a>, Up: <a href="ARC_002dDependent.html">ARC Dependent Features</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright © 1988-2024 Free Software Foundation, Inc.
+<!-- Copyright (C) 1988-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -26,7 +26,7 @@ the license, review the license.txt in the top-level directory for the
 library on https://github.com/ROCm/ (Github.com)).  The additional terms
 and conditions below apply to your use of AMD ROCm technical documentation.
 
-©2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
+(C)2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
 
 The information presented in this document is for informational purposes only
 and may contain technical inaccuracies, omissions, and typographical errors.
@@ -52,8 +52,8 @@ EVEN IF AMD IS EXPRESSLY ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
 
 AMD, the AMD Arrow logo, AMD Instinct™, Radeon™, AMD ROCm™, and combinations
 thereof are trademarks of Advanced Micro Devices, Inc.
-Linux® is the registered trademark of Linus Torvalds in the
-U.S. and other countries. PCIe® is a registered trademark of
+Linux(R) is the registered trademark of Linus Torvalds in the
+U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
@@ -74,9 +74,21 @@ companies. -->
 <link href="GDB_002fMI-Tracepoint-Commands.html" rel="prev" title="GDB/MI Tracepoint Commands">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
 div.example {margin-left: 3.2em}
-span:hover a.copiable-link {visibility: visible}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -84,26 +96,26 @@ span:hover a.copiable-link {visibility: visible}
 </head>
 
 <body lang="en">
-<div class="section-level-extent" id="GDB_002fMI-Symbol-Query">
-<div class="nav-panel">
+<div class="section" id="GDB_002fMI-Symbol-Query">
+<div class="header">
 <p>
-Next: <a href="GDB_002fMI-File-Commands.html" accesskey="n" rel="next"><small class="sc">GDB/MI</small> File Commands</a>, Previous: <a href="GDB_002fMI-Tracepoint-Commands.html" accesskey="p" rel="prev"><small class="sc">GDB/MI</small> Tracepoint Commands</a>, Up: <a href="GDB_002fMI.html" accesskey="u" rel="up">The <small class="sc">GDB/MI</small> Interface</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="GDB_002fMI-File-Commands.html" accesskey="n" rel="next"><small>GDB/MI</small> File Commands</a>, Previous: <a href="GDB_002fMI-Tracepoint-Commands.html" accesskey="p" rel="prev"><small>GDB/MI</small> Tracepoint Commands</a>, Up: <a href="GDB_002fMI.html" accesskey="u" rel="up">The <small>GDB/MI</small> Interface</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h3 class="section" id="gdb_002fmi-Symbol-Query-Commands"><span>28.19 <small class="sc">GDB/MI</small> Symbol Query Commands<a class="copiable-link" href="#gdb_002fmi-Symbol-Query-Commands"> &para;</a></span></h3>
+<span id="GDB_002fMI-Symbol-Query-Commands"></span><h3 class="section">28.19 <small>GDB/MI</small> Symbol Query Commands</h3>
 
 
 
-<a class="index-entry-id" id="index-_002dsymbol_002dinfo_002dfunctions"></a>
-<a class="anchor" id="g_t_002dsymbol_002dinfo_002dfunctions"></a><h4 class="subheading" id="The-_002dsymbol_002dinfo_002dfunctions-Command"><span>The <code class="code">-symbol-info-functions</code> Command<a class="copiable-link" href="#The-_002dsymbol_002dinfo_002dfunctions-Command"> &para;</a></span></h4>
+<span id="index-_002dsymbol_002dinfo_002dfunctions"></span>
+<span id="g_t_002dsymbol_002dinfo_002dfunctions"></span><span id="The-_002dsymbol_002dinfo_002dfunctions-Command"></span><h4 class="subheading">The <code>-symbol-info-functions</code> Command</h4>
 
-<h4 class="subsubheading" id="Synopsis-84"><span>Synopsis<a class="copiable-link" href="#Synopsis-84"> &para;</a></span></h4>
+<span id="Synopsis-84"></span><h4 class="subsubheading">Synopsis</h4>
 
-<div class="example smallexample">
-<pre class="example-preformatted"> -symbol-info-functions [--include-nondebug]
-                        [--type <var class="var">type_regexp</var>]
-                        [--name <var class="var">name_regexp</var>]
-                        [--max-results <var class="var">limit</var>]
+<div class="example">
+<pre class="example"> -symbol-info-functions [--include-nondebug]
+                        [--type <var>type_regexp</var>]
+                        [--name <var>name_regexp</var>]
+                        [--max-results <var>limit</var>]
 </pre></div>
 
 <p>Return a list containing the names and types for all global functions
@@ -111,25 +123,25 @@ taken from the debug information.  The functions are grouped by source
 file, and shown with the line number on which each function is
 defined.
 </p>
-<p>The <code class="code">--include-nondebug</code> option causes the output to include
+<p>The <code>--include-nondebug</code> option causes the output to include
 code symbols from the symbol table.
 </p>
-<p>The options <code class="code">--type</code> and <code class="code">--name</code> allow the symbols returned
+<p>The options <code>--type</code> and <code>--name</code> allow the symbols returned
 to be filtered based on either the name of the function, or the type
 signature of the function.
 </p>
-<p>The option <code class="code">--max-results</code> restricts the command to return no
-more than <var class="var">limit</var> results.  If exactly <var class="var">limit</var> results are
+<p>The option <code>--max-results</code> restricts the command to return no
+more than <var>limit</var> results.  If exactly <var>limit</var> results are
 returned then there might be additional results available if a higher
 limit is used.
 </p>
-<h4 class="subsubheading" id="rocgdb-Command-66"><span><small class="sc">ROCGDB</small> Command<a class="copiable-link" href="#rocgdb-Command-66"> &para;</a></span></h4>
+<span id="ROCGDB-Command-66"></span><h4 class="subsubheading"><small>ROCGDB</small> Command</h4>
 
-<p>The corresponding <small class="sc">ROCGDB</small> command is &lsquo;<samp class="samp">info functions</samp>&rsquo;.
+<p>The corresponding <small>ROCGDB</small> command is &lsquo;<samp>info functions</samp>&rsquo;.
 </p>
-<h4 class="subsubheading" id="Example-66"><span>Example<a class="copiable-link" href="#Example-66"> &para;</a></span></h4>
-<div class="example smallexample">
-<div class="group"><pre class="example-preformatted">(gdb)
+<span id="Example-66"></span><h4 class="subsubheading">Example</h4>
+<div class="example">
+<pre class="example">(gdb)
 -symbol-info-functions
 ^done,symbols=
   {debug=
@@ -149,7 +161,7 @@ limit is used.
                 description=&quot;int f3(another_int_t);&quot;},
                {line=&quot;27&quot;, name=&quot;f1&quot;, type=&quot;another_float_t (int)&quot;,
                 description=&quot;static another_float_t f1(int);&quot;}]}]}
-</pre></div><div class="group"><pre class="example-preformatted">(gdb)
+</pre><pre class="example">(gdb)
 -symbol-info-functions --name f1
 ^done,symbols=
   {debug=
@@ -161,7 +173,7 @@ limit is used.
       fullname=&quot;/project/gdb/testsuite/gdb.mi/mi-sym-info-2.c&quot;,
       symbols=[{line=&quot;27&quot;, name=&quot;f1&quot;, type=&quot;another_float_t (int)&quot;,
                 description=&quot;static another_float_t f1(int);&quot;}]}]}
-</pre></div><div class="group"><pre class="example-preformatted">(gdb)
+</pre><pre class="example">(gdb)
 -symbol-info-functions --type void
 ^done,symbols=
   {debug=
@@ -169,7 +181,7 @@ limit is used.
       fullname=&quot;/project/gdb/testsuite/gdb.mi/mi-sym-info-1.c&quot;,
       symbols=[{line=&quot;36&quot;, name=&quot;f4&quot;, type=&quot;void (int *)&quot;,
                 description=&quot;void f4(int *);&quot;}]}]}
-</pre></div><div class="group"><pre class="example-preformatted">(gdb)
+</pre><pre class="example">(gdb)
 -symbol-info-functions --include-nondebug
 ^done,symbols=
   {debug=
@@ -194,17 +206,17 @@ limit is used.
      {address=&quot;0x00000000004003b0&quot;,name=&quot;_start&quot;},
       ...
     ]}
-</pre></div></div>
+</pre></div>
 
-<a class="index-entry-id" id="index-_002dsymbol_002dinfo_002dmodule_002dfunctions"></a>
-<a class="anchor" id="g_t_002dsymbol_002dinfo_002dmodule_002dfunctions"></a><h4 class="subheading" id="The-_002dsymbol_002dinfo_002dmodule_002dfunctions-Command"><span>The <code class="code">-symbol-info-module-functions</code> Command<a class="copiable-link" href="#The-_002dsymbol_002dinfo_002dmodule_002dfunctions-Command"> &para;</a></span></h4>
+<span id="index-_002dsymbol_002dinfo_002dmodule_002dfunctions"></span>
+<span id="g_t_002dsymbol_002dinfo_002dmodule_002dfunctions"></span><span id="The-_002dsymbol_002dinfo_002dmodule_002dfunctions-Command"></span><h4 class="subheading">The <code>-symbol-info-module-functions</code> Command</h4>
 
-<h4 class="subsubheading" id="Synopsis-85"><span>Synopsis<a class="copiable-link" href="#Synopsis-85"> &para;</a></span></h4>
+<span id="Synopsis-85"></span><h4 class="subsubheading">Synopsis</h4>
 
-<div class="example smallexample">
-<pre class="example-preformatted"> -symbol-info-module-functions [--module <var class="var">module_regexp</var>]
-                               [--name <var class="var">name_regexp</var>]
-                               [--type <var class="var">type_regexp</var>]
+<div class="example">
+<pre class="example"> -symbol-info-module-functions [--module <var>module_regexp</var>]
+                               [--name <var>name_regexp</var>]
+                               [--type <var>type_regexp</var>]
 </pre></div>
 
 <p>Return a list containing the names of all known functions within all
@@ -212,19 +224,19 @@ know Fortran modules.  The functions are grouped by source file and
 containing module, and shown with the line number on which each
 function is defined.
 </p>
-<p>The option <code class="code">--module</code> only returns results for modules matching
-<var class="var">module_regexp</var>.  The option <code class="code">--name</code> only returns functions
-whose name matches <var class="var">name_regexp</var>, and <code class="code">--type</code> only returns
-functions whose type matches <var class="var">type_regexp</var>.
+<p>The option <code>--module</code> only returns results for modules matching
+<var>module_regexp</var>.  The option <code>--name</code> only returns functions
+whose name matches <var>name_regexp</var>, and <code>--type</code> only returns
+functions whose type matches <var>type_regexp</var>.
 </p>
-<h4 class="subsubheading" id="rocgdb-Command-67"><span><small class="sc">ROCGDB</small> Command<a class="copiable-link" href="#rocgdb-Command-67"> &para;</a></span></h4>
+<span id="ROCGDB-Command-67"></span><h4 class="subsubheading"><small>ROCGDB</small> Command</h4>
 
-<p>The corresponding <small class="sc">ROCGDB</small> command is &lsquo;<samp class="samp">info module functions</samp>&rsquo;.
+<p>The corresponding <small>ROCGDB</small> command is &lsquo;<samp>info module functions</samp>&rsquo;.
 </p>
-<h4 class="subsubheading" id="Example-67"><span>Example<a class="copiable-link" href="#Example-67"> &para;</a></span></h4>
+<span id="Example-67"></span><h4 class="subsubheading">Example</h4>
 
-<div class="example smallexample">
-<div class="group"><pre class="example-preformatted">(gdb)
+<div class="example">
+<pre class="example">(gdb)
 -symbol-info-module-functions
 ^done,symbols=
   [{module=&quot;mod1&quot;,
@@ -256,17 +268,17 @@ functions whose type matches <var class="var">type_regexp</var>.
                        description=&quot;void moduse::check_all(void);&quot;},
                       {line=&quot;49&quot;,name=&quot;moduse::check_var_x&quot;,type=&quot;void (void)&quot;,
                        description=&quot;void moduse::check_var_x(void);&quot;}]}]}]
-</pre></div></div>
+</pre></div>
 
-<a class="index-entry-id" id="index-_002dsymbol_002dinfo_002dmodule_002dvariables"></a>
-<a class="anchor" id="g_t_002dsymbol_002dinfo_002dmodule_002dvariables"></a><h4 class="subheading" id="The-_002dsymbol_002dinfo_002dmodule_002dvariables-Command"><span>The <code class="code">-symbol-info-module-variables</code> Command<a class="copiable-link" href="#The-_002dsymbol_002dinfo_002dmodule_002dvariables-Command"> &para;</a></span></h4>
+<span id="index-_002dsymbol_002dinfo_002dmodule_002dvariables"></span>
+<span id="g_t_002dsymbol_002dinfo_002dmodule_002dvariables"></span><span id="The-_002dsymbol_002dinfo_002dmodule_002dvariables-Command"></span><h4 class="subheading">The <code>-symbol-info-module-variables</code> Command</h4>
 
-<h4 class="subsubheading" id="Synopsis-86"><span>Synopsis<a class="copiable-link" href="#Synopsis-86"> &para;</a></span></h4>
+<span id="Synopsis-86"></span><h4 class="subsubheading">Synopsis</h4>
 
-<div class="example smallexample">
-<pre class="example-preformatted"> -symbol-info-module-variables [--module <var class="var">module_regexp</var>]
-                               [--name <var class="var">name_regexp</var>]
-                               [--type <var class="var">type_regexp</var>]
+<div class="example">
+<pre class="example"> -symbol-info-module-variables [--module <var>module_regexp</var>]
+                               [--name <var>name_regexp</var>]
+                               [--type <var>type_regexp</var>]
 </pre></div>
 
 <p>Return a list containing the names of all known variables within all
@@ -274,19 +286,19 @@ know Fortran modules.  The variables are grouped by source file and
 containing module, and shown with the line number on which each
 variable is defined.
 </p>
-<p>The option <code class="code">--module</code> only returns results for modules matching
-<var class="var">module_regexp</var>.  The option <code class="code">--name</code> only returns variables
-whose name matches <var class="var">name_regexp</var>, and <code class="code">--type</code> only returns
-variables whose type matches <var class="var">type_regexp</var>.
+<p>The option <code>--module</code> only returns results for modules matching
+<var>module_regexp</var>.  The option <code>--name</code> only returns variables
+whose name matches <var>name_regexp</var>, and <code>--type</code> only returns
+variables whose type matches <var>type_regexp</var>.
 </p>
-<h4 class="subsubheading" id="rocgdb-Command-68"><span><small class="sc">ROCGDB</small> Command<a class="copiable-link" href="#rocgdb-Command-68"> &para;</a></span></h4>
+<span id="ROCGDB-Command-68"></span><h4 class="subsubheading"><small>ROCGDB</small> Command</h4>
 
-<p>The corresponding <small class="sc">ROCGDB</small> command is &lsquo;<samp class="samp">info module variables</samp>&rsquo;.
+<p>The corresponding <small>ROCGDB</small> command is &lsquo;<samp>info module variables</samp>&rsquo;.
 </p>
-<h4 class="subsubheading" id="Example-68"><span>Example<a class="copiable-link" href="#Example-68"> &para;</a></span></h4>
+<span id="Example-68"></span><h4 class="subsubheading">Example</h4>
 
-<div class="example smallexample">
-<div class="group"><pre class="example-preformatted">(gdb)
+<div class="example">
+<pre class="example">(gdb)
 -symbol-info-module-variables
 ^done,symbols=
   [{module=&quot;mod1&quot;,
@@ -328,16 +340,16 @@ variables whose type matches <var class="var">type_regexp</var>.
                       description=&quot;integer(kind=4) moduse::var_x;&quot;},
                      {line=&quot;42&quot;,name=&quot;moduse::var_y&quot;,type=&quot;integer(kind=4)&quot;,
                       description=&quot;integer(kind=4) moduse::var_y;&quot;}]}]}]
-</pre></div></div>
+</pre></div>
 
-<a class="index-entry-id" id="index-_002dsymbol_002dinfo_002dmodules"></a>
-<a class="anchor" id="g_t_002dsymbol_002dinfo_002dmodules"></a><h4 class="subheading" id="The-_002dsymbol_002dinfo_002dmodules-Command"><span>The <code class="code">-symbol-info-modules</code> Command<a class="copiable-link" href="#The-_002dsymbol_002dinfo_002dmodules-Command"> &para;</a></span></h4>
+<span id="index-_002dsymbol_002dinfo_002dmodules"></span>
+<span id="g_t_002dsymbol_002dinfo_002dmodules"></span><span id="The-_002dsymbol_002dinfo_002dmodules-Command"></span><h4 class="subheading">The <code>-symbol-info-modules</code> Command</h4>
 
-<h4 class="subsubheading" id="Synopsis-87"><span>Synopsis<a class="copiable-link" href="#Synopsis-87"> &para;</a></span></h4>
+<span id="Synopsis-87"></span><h4 class="subsubheading">Synopsis</h4>
 
-<div class="example smallexample">
-<pre class="example-preformatted"> -symbol-info-modules [--name <var class="var">name_regexp</var>]
-                      [--max-results <var class="var">limit</var>]
+<div class="example">
+<pre class="example"> -symbol-info-modules [--name <var>name_regexp</var>]
+                      [--max-results <var>limit</var>]
 
 </pre></div>
 
@@ -345,21 +357,21 @@ variables whose type matches <var class="var">type_regexp</var>.
 modules are grouped by source file, and shown with the line number on
 which each modules is defined.
 </p>
-<p>The option <code class="code">--name</code> allows the modules returned to be filtered
+<p>The option <code>--name</code> allows the modules returned to be filtered
 based the name of the module.
 </p>
-<p>The option <code class="code">--max-results</code> restricts the command to return no
-more than <var class="var">limit</var> results.  If exactly <var class="var">limit</var> results are
+<p>The option <code>--max-results</code> restricts the command to return no
+more than <var>limit</var> results.  If exactly <var>limit</var> results are
 returned then there might be additional results available if a higher
 limit is used.
 </p>
-<h4 class="subsubheading" id="rocgdb-Command-69"><span><small class="sc">ROCGDB</small> Command<a class="copiable-link" href="#rocgdb-Command-69"> &para;</a></span></h4>
+<span id="ROCGDB-Command-69"></span><h4 class="subsubheading"><small>ROCGDB</small> Command</h4>
 
-<p>The corresponding <small class="sc">ROCGDB</small> command is &lsquo;<samp class="samp">info modules</samp>&rsquo;.
+<p>The corresponding <small>ROCGDB</small> command is &lsquo;<samp>info modules</samp>&rsquo;.
 </p>
-<h4 class="subsubheading" id="Example-69"><span>Example<a class="copiable-link" href="#Example-69"> &para;</a></span></h4>
-<div class="example smallexample">
-<div class="group"><pre class="example-preformatted">(gdb)
+<span id="Example-69"></span><h4 class="subsubheading">Example</h4>
+<div class="example">
+<pre class="example">(gdb)
 -symbol-info-modules
 ^done,symbols=
   {debug=
@@ -372,7 +384,7 @@ limit is used.
       symbols=[{line=&quot;16&quot;,name=&quot;mod3&quot;},
                {line=&quot;22&quot;,name=&quot;modmany&quot;},
                {line=&quot;26&quot;,name=&quot;moduse&quot;}]}]}
-</pre></div><div class="group"><pre class="example-preformatted">(gdb)
+</pre><pre class="example">(gdb)
 -symbol-info-modules --name mod[123]
 ^done,symbols=
   {debug=
@@ -383,16 +395,16 @@ limit is used.
      {filename=&quot;/project/gdb/testsuite/gdb.mi/mi-fortran-modules.f90&quot;,
       fullname=&quot;/project/gdb/testsuite/gdb.mi/mi-fortran-modules.f90&quot;,
       symbols=[{line=&quot;16&quot;,name=&quot;mod3&quot;}]}]}
-</pre></div></div>
+</pre></div>
 
-<a class="index-entry-id" id="index-_002dsymbol_002dinfo_002dtypes"></a>
-<a class="anchor" id="g_t_002dsymbol_002dinfo_002dtypes"></a><h4 class="subheading" id="The-_002dsymbol_002dinfo_002dtypes-Command"><span>The <code class="code">-symbol-info-types</code> Command<a class="copiable-link" href="#The-_002dsymbol_002dinfo_002dtypes-Command"> &para;</a></span></h4>
+<span id="index-_002dsymbol_002dinfo_002dtypes"></span>
+<span id="g_t_002dsymbol_002dinfo_002dtypes"></span><span id="The-_002dsymbol_002dinfo_002dtypes-Command"></span><h4 class="subheading">The <code>-symbol-info-types</code> Command</h4>
 
-<h4 class="subsubheading" id="Synopsis-88"><span>Synopsis<a class="copiable-link" href="#Synopsis-88"> &para;</a></span></h4>
+<span id="Synopsis-88"></span><h4 class="subsubheading">Synopsis</h4>
 
-<div class="example smallexample">
-<pre class="example-preformatted"> -symbol-info-types [--name <var class="var">name_regexp</var>]
-                    [--max-results <var class="var">limit</var>]
+<div class="example">
+<pre class="example"> -symbol-info-types [--name <var>name_regexp</var>]
+                    [--max-results <var>limit</var>]
 
 </pre></div>
 
@@ -400,24 +412,24 @@ limit is used.
 file, and shown with the line number on which each user defined type
 is defined.  Some base types are not defined in the source code but
 are added to the debug information by the compiler, for example
-<code class="code">int</code>, <code class="code">float</code>, etc.; these types do not have an associated
+<code>int</code>, <code>float</code>, etc.; these types do not have an associated
 line number.
 </p>
-<p>The option <code class="code">--name</code> allows the list of types returned to be
+<p>The option <code>--name</code> allows the list of types returned to be
 filtered by name.
 </p>
-<p>The option <code class="code">--max-results</code> restricts the command to return no
-more than <var class="var">limit</var> results.  If exactly <var class="var">limit</var> results are
+<p>The option <code>--max-results</code> restricts the command to return no
+more than <var>limit</var> results.  If exactly <var>limit</var> results are
 returned then there might be additional results available if a higher
 limit is used.
 </p>
-<h4 class="subsubheading" id="rocgdb-Command-70"><span><small class="sc">ROCGDB</small> Command<a class="copiable-link" href="#rocgdb-Command-70"> &para;</a></span></h4>
+<span id="ROCGDB-Command-70"></span><h4 class="subsubheading"><small>ROCGDB</small> Command</h4>
 
-<p>The corresponding <small class="sc">ROCGDB</small> command is &lsquo;<samp class="samp">info types</samp>&rsquo;.
+<p>The corresponding <small>ROCGDB</small> command is &lsquo;<samp>info types</samp>&rsquo;.
 </p>
-<h4 class="subsubheading" id="Example-70"><span>Example<a class="copiable-link" href="#Example-70"> &para;</a></span></h4>
-<div class="example smallexample">
-<div class="group"><pre class="example-preformatted">(gdb)
+<span id="Example-70"></span><h4 class="subsubheading">Example</h4>
+<div class="example">
+<pre class="example">(gdb)
 -symbol-info-types
 ^done,symbols=
   {debug=
@@ -432,7 +444,7 @@ limit is used.
                 {line=&quot;23&quot;,name=&quot;typedef int another_int_t;&quot;},
                 {name=&quot;float&quot;},
                 {name=&quot;int&quot;}]}]}
-</pre></div><div class="group"><pre class="example-preformatted">(gdb)
+</pre><pre class="example">(gdb)
 -symbol-info-types --name _int_
 ^done,symbols=
   {debug=
@@ -442,18 +454,18 @@ limit is used.
       {filename=&quot;gdb.mi/mi-sym-info-2.c&quot;,
        fullname=&quot;/project/gdb.mi/mi-sym-info-2.c&quot;,
        symbols=[{line=&quot;23&quot;,name=&quot;typedef int another_int_t;&quot;}]}]}
-</pre></div></div>
+</pre></div>
 
-<a class="index-entry-id" id="index-_002dsymbol_002dinfo_002dvariables"></a>
-<a class="anchor" id="g_t_002dsymbol_002dinfo_002dvariables"></a><h4 class="subheading" id="The-_002dsymbol_002dinfo_002dvariables-Command"><span>The <code class="code">-symbol-info-variables</code> Command<a class="copiable-link" href="#The-_002dsymbol_002dinfo_002dvariables-Command"> &para;</a></span></h4>
+<span id="index-_002dsymbol_002dinfo_002dvariables"></span>
+<span id="g_t_002dsymbol_002dinfo_002dvariables"></span><span id="The-_002dsymbol_002dinfo_002dvariables-Command"></span><h4 class="subheading">The <code>-symbol-info-variables</code> Command</h4>
 
-<h4 class="subsubheading" id="Synopsis-89"><span>Synopsis<a class="copiable-link" href="#Synopsis-89"> &para;</a></span></h4>
+<span id="Synopsis-89"></span><h4 class="subsubheading">Synopsis</h4>
 
-<div class="example smallexample">
-<pre class="example-preformatted"> -symbol-info-variables [--include-nondebug]
-                        [--type <var class="var">type_regexp</var>]
-                        [--name <var class="var">name_regexp</var>]
-                        [--max-results <var class="var">limit</var>]
+<div class="example">
+<pre class="example"> -symbol-info-variables [--include-nondebug]
+                        [--type <var>type_regexp</var>]
+                        [--name <var>name_regexp</var>]
+                        [--max-results <var>limit</var>]
 
 </pre></div>
 
@@ -462,25 +474,25 @@ taken from the debug information.  The variables are grouped by source
 file, and shown with the line number on which each variable is
 defined.
 </p>
-<p>The <code class="code">--include-nondebug</code> option causes the output to include
+<p>The <code>--include-nondebug</code> option causes the output to include
 data symbols from the symbol table.
 </p>
-<p>The options <code class="code">--type</code> and <code class="code">--name</code> allow the symbols returned
+<p>The options <code>--type</code> and <code>--name</code> allow the symbols returned
 to be filtered based on either the name of the variable, or the type
 of the variable.
 </p>
-<p>The option <code class="code">--max-results</code> restricts the command to return no
-more than <var class="var">limit</var> results.  If exactly <var class="var">limit</var> results are
+<p>The option <code>--max-results</code> restricts the command to return no
+more than <var>limit</var> results.  If exactly <var>limit</var> results are
 returned then there might be additional results available if a higher
 limit is used.
 </p>
-<h4 class="subsubheading" id="rocgdb-Command-71"><span><small class="sc">ROCGDB</small> Command<a class="copiable-link" href="#rocgdb-Command-71"> &para;</a></span></h4>
+<span id="ROCGDB-Command-71"></span><h4 class="subsubheading"><small>ROCGDB</small> Command</h4>
 
-<p>The corresponding <small class="sc">ROCGDB</small> command is &lsquo;<samp class="samp">info variables</samp>&rsquo;.
+<p>The corresponding <small>ROCGDB</small> command is &lsquo;<samp>info variables</samp>&rsquo;.
 </p>
-<h4 class="subsubheading" id="Example-71"><span>Example<a class="copiable-link" href="#Example-71"> &para;</a></span></h4>
-<div class="example smallexample">
-<div class="group"><pre class="example-preformatted">(gdb)
+<span id="Example-71"></span><h4 class="subsubheading">Example</h4>
+<div class="example">
+<pre class="example">(gdb)
 -symbol-info-variables
 ^done,symbols=
   {debug=
@@ -500,7 +512,7 @@ limit is used.
                 description=&quot;static float global_f1;&quot;},
                {line=&quot;18&quot;,name=&quot;global_i1&quot;,type=&quot;int&quot;,
                 description=&quot;static int global_i1;&quot;}]}]}
-</pre></div><div class="group"><pre class="example-preformatted">(gdb)
+</pre><pre class="example">(gdb)
 -symbol-info-variables --name f1
 ^done,symbols=
   {debug=
@@ -512,7 +524,7 @@ limit is used.
       fullname=&quot;/project/gdb/testsuite/gdb.mi/mi-sym-info-2.c&quot;,
       symbols=[{line=&quot;19&quot;,name=&quot;global_f1&quot;,type=&quot;float&quot;,
                 description=&quot;static float global_f1;&quot;}]}]}
-</pre></div><div class="group"><pre class="example-preformatted">(gdb)
+</pre><pre class="example">(gdb)
 -symbol-info-variables --type float
 ^done,symbols=
   {debug=
@@ -524,7 +536,7 @@ limit is used.
       fullname=&quot;/project/gdb/testsuite/gdb.mi/mi-sym-info-2.c&quot;,
       symbols=[{line=&quot;19&quot;,name=&quot;global_f1&quot;,type=&quot;float&quot;,
                 description=&quot;static float global_f1;&quot;}]}]}
-</pre></div><div class="group"><pre class="example-preformatted">(gdb)
+</pre><pre class="example">(gdb)
 -symbol-info-variables --include-nondebug
 ^done,symbols=
   {debug=
@@ -549,30 +561,30 @@ limit is used.
      {address=&quot;0x00000000004005d8&quot;,name=&quot;__dso_handle&quot;}
       ...
     ]}
-</pre></div></div>
+</pre></div>
 
 
 
-<a class="index-entry-id" id="index-_002dsymbol_002dlist_002dlines"></a>
-<h4 class="subheading" id="The-_002dsymbol_002dlist_002dlines-Command"><span>The <code class="code">-symbol-list-lines</code> Command<a class="copiable-link" href="#The-_002dsymbol_002dlist_002dlines-Command"> &para;</a></span></h4>
+<span id="index-_002dsymbol_002dlist_002dlines"></span>
+<span id="The-_002dsymbol_002dlist_002dlines-Command"></span><h4 class="subheading">The <code>-symbol-list-lines</code> Command</h4>
 
-<h4 class="subsubheading" id="Synopsis-90"><span>Synopsis<a class="copiable-link" href="#Synopsis-90"> &para;</a></span></h4>
+<span id="Synopsis-90"></span><h4 class="subsubheading">Synopsis</h4>
 
-<div class="example smallexample">
-<pre class="example-preformatted"> -symbol-list-lines <var class="var">filename</var>
+<div class="example">
+<pre class="example"> -symbol-list-lines <var>filename</var>
 </pre></div>
 
 <p>Print the list of lines that contain code and their associated program
 addresses for the given source filename.  The entries are sorted in
 ascending PC order.
 </p>
-<h4 class="subsubheading" id="rocgdb-Command-72"><span><small class="sc">ROCGDB</small> Command<a class="copiable-link" href="#rocgdb-Command-72"> &para;</a></span></h4>
+<span id="ROCGDB-Command-72"></span><h4 class="subsubheading"><small>ROCGDB</small> Command</h4>
 
-<p>There is no corresponding <small class="sc">ROCGDB</small> command.
+<p>There is no corresponding <small>ROCGDB</small> command.
 </p>
-<h4 class="subsubheading" id="Example-72"><span>Example<a class="copiable-link" href="#Example-72"> &para;</a></span></h4>
-<div class="example smallexample">
-<pre class="example-preformatted">(gdb)
+<span id="Example-72"></span><h4 class="subsubheading">Example</h4>
+<div class="example">
+<pre class="example">(gdb)
 -symbol-list-lines basics.c
 ^done,lines=[{pc=&quot;0x08048554&quot;,line=&quot;7&quot;},{pc=&quot;0x0804855a&quot;,line=&quot;8&quot;}]
 (gdb)
@@ -583,9 +595,9 @@ ascending PC order.
 
 </div>
 <hr>
-<div class="nav-panel">
+<div class="header">
 <p>
-Next: <a href="GDB_002fMI-File-Commands.html"><small class="sc">GDB/MI</small> File Commands</a>, Previous: <a href="GDB_002fMI-Tracepoint-Commands.html"><small class="sc">GDB/MI</small> Tracepoint Commands</a>, Up: <a href="GDB_002fMI.html">The <small class="sc">GDB/MI</small> Interface</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="GDB_002fMI-File-Commands.html"><small>GDB/MI</small> File Commands</a>, Previous: <a href="GDB_002fMI-Tracepoint-Commands.html"><small>GDB/MI</small> Tracepoint Commands</a>, Up: <a href="GDB_002fMI.html">The <small>GDB/MI</small> Interface</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

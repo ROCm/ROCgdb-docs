@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright © 1988-2024 Free Software Foundation, Inc.
+<!-- Copyright (C) 1988-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -26,7 +26,7 @@ the license, review the license.txt in the top-level directory for the
 library on https://github.com/ROCm/ (Github.com)).  The additional terms
 and conditions below apply to your use of AMD ROCm technical documentation.
 
-©2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
+(C)2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
 
 The information presented in this document is for informational purposes only
 and may contain technical inaccuracies, omissions, and typographical errors.
@@ -52,8 +52,8 @@ EVEN IF AMD IS EXPRESSLY ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
 
 AMD, the AMD Arrow logo, AMD Instinct™, Radeon™, AMD ROCm™, and combinations
 thereof are trademarks of Advanced Micro Devices, Inc.
-Linux® is the registered trademark of Linus Torvalds in the
-U.S. and other countries. PCIe® is a registered trademark of
+Linux(R) is the registered trademark of Linus Torvalds in the
+U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
@@ -74,9 +74,21 @@ companies. -->
 <link href="Linespec-Locations.html" rel="prev" title="Linespec Locations">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
-kbd.kbd {font-style: oblique}
-span:hover a.copiable-link {visibility: visible}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -84,16 +96,16 @@ span:hover a.copiable-link {visibility: visible}
 </head>
 
 <body lang="en">
-<div class="subsection-level-extent" id="Explicit-Locations">
-<div class="nav-panel">
+<div class="subsection" id="Explicit-Locations">
+<div class="header">
 <p>
 Next: <a href="Address-Locations.html" accesskey="n" rel="next">Address Locations</a>, Previous: <a href="Linespec-Locations.html" accesskey="p" rel="prev">Linespec Locations</a>, Up: <a href="Location-Specifications.html" accesskey="u" rel="up">Location Specifications</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h4 class="subsection" id="Explicit-Locations-1"><span>9.2.2 Explicit Locations<a class="copiable-link" href="#Explicit-Locations-1"> &para;</a></span></h4>
-<a class="index-entry-id" id="index-explicit-locations"></a>
+<span id="Explicit-Locations-1"></span><h4 class="subsection">9.2.2 Explicit Locations</h4>
+<span id="index-explicit-locations"></span>
 
-<p><em class="dfn">Explicit locations</em> allow the user to directly specify the source
+<p><em>Explicit locations</em> allow the user to directly specify the source
 location&rsquo;s parameters using option-value pairs.
 </p>
 <p>Explicit locations are useful when several functions, labels, or
@@ -102,74 +114,74 @@ sources.  In these cases, explicit locations point to the source
 line you meant more accurately and unambiguously.  Also, using
 explicit locations might be faster in large programs.
 </p>
-<p>For example, the linespec &lsquo;<samp class="samp">foo:bar</samp>&rsquo; may refer to a function <code class="code">bar</code>
-defined in the file named <samp class="file">foo</samp> or the label <code class="code">bar</code> in a function
-named <code class="code">foo</code>.  <small class="sc">ROCGDB</small> must search either the file system or
+<p>For example, the linespec &lsquo;<samp>foo:bar</samp>&rsquo; may refer to a function <code>bar</code>
+defined in the file named <samp>foo</samp> or the label <code>bar</code> in a function
+named <code>foo</code>.  <small>ROCGDB</small> must search either the file system or
 the symbol table to know.
 </p>
 <p>The list of valid explicit location options is summarized in the
 following table:
 </p>
-<dl class="table">
-<dt><code class="code">-source <var class="var">filename</var></code></dt>
+<dl compact="compact">
+<dt><span><code>-source <var>filename</var></code></span></dt>
 <dd><p>The value specifies the source file name.  To differentiate between
 files with the same base name, prepend as many directories as is necessary
-to uniquely identify the desired file, e.g., <samp class="file">foo/bar/baz.c</samp>.  Otherwise
-<small class="sc">ROCGDB</small> will use the first file it finds with the given base
-name.   This option requires the use of either <code class="code">-function</code> or <code class="code">-line</code>.
+to uniquely identify the desired file, e.g., <samp>foo/bar/baz.c</samp>.  Otherwise
+<small>ROCGDB</small> will use the first file it finds with the given base
+name.   This option requires the use of either <code>-function</code> or <code>-line</code>.
 </p>
 </dd>
-<dt><code class="code">-function <var class="var">function</var></code></dt>
+<dt><span><code>-function <var>function</var></code></span></dt>
 <dd><p>The value specifies the name of a function.  Operations
-on function locations unmodified by other options (such as <code class="code">-label</code>
-or <code class="code">-line</code>) refer to the line that begins the body of the function.
+on function locations unmodified by other options (such as <code>-label</code>
+or <code>-line</code>) refer to the line that begins the body of the function.
 In C, for example, this is the line with the open brace.
 </p>
-<p>By default, in C<code class="t">++</code> and Ada, <var class="var">function</var> is interpreted as
-specifying all functions named <var class="var">function</var> in all scopes.  For
-C<code class="t">++</code>, this means in all namespaces and classes.  For Ada, this
+<p>By default, in C<tt>++</tt> and Ada, <var>function</var> is interpreted as
+specifying all functions named <var>function</var> in all scopes.  For
+C<tt>++</tt>, this means in all namespaces and classes.  For Ada, this
 means in all packages.
 </p>
-<p>For example, assuming a program with C<code class="t">++</code> symbols named
-<code class="code">A::B::func</code> and <code class="code">B::func</code>, both commands <kbd class="kbd">break&nbsp;-function&nbsp;func</kbd><!-- /@w --> and <kbd class="kbd">break&nbsp;-function&nbsp;B::func</kbd><!-- /@w --> set a
+<p>For example, assuming a program with C<tt>++</tt> symbols named
+<code>A::B::func</code> and <code>B::func</code>, both commands <kbd>break&nbsp;<span class="nolinebreak">-function</span>&nbsp;func</kbd><!-- /@w --> and <kbd>break&nbsp;<span class="nolinebreak">-function</span>&nbsp;B::func</kbd><!-- /@w --> set a
 breakpoint on both symbols.
 </p>
-<p>You can use the <kbd class="kbd">-qualified</kbd> flag to override this (see below).
+<p>You can use the <kbd>-qualified</kbd> flag to override this (see below).
 </p>
 </dd>
-<dt><code class="code">-qualified</code></dt>
+<dt><span><code>-qualified</code></span></dt>
 <dd>
-<p>This flag makes <small class="sc">ROCGDB</small> interpret a function name specified with
-<kbd class="kbd">-function</kbd> as a complete fully-qualified name.
+<p>This flag makes <small>ROCGDB</small> interpret a function name specified with
+<kbd>-function</kbd> as a complete fully-qualified name.
 </p>
-<p>For example, assuming a C<code class="t">++</code> program with symbols named
-<code class="code">A::B::func</code> and <code class="code">B::func</code>, the <kbd class="kbd">break&nbsp;-qualified&nbsp;-function&nbsp;B::func</kbd><!-- /@w --> command sets a breakpoint on <code class="code">B::func</code>, only.
+<p>For example, assuming a C<tt>++</tt> program with symbols named
+<code>A::B::func</code> and <code>B::func</code>, the <kbd>break&nbsp;<span class="nolinebreak">-qualified</span>&nbsp;<span class="nolinebreak">-function</span>&nbsp;B::func</kbd><!-- /@w --> command sets a breakpoint on <code>B::func</code>, only.
 </p>
-<p>(Note: the <kbd class="kbd">-qualified</kbd> option can precede a linespec as well
-(see <a class="pxref" href="Linespec-Locations.html">Linespec Locations</a>), so the particular example above could be
-simplified as <kbd class="kbd">break&nbsp;-qualified&nbsp;B::func</kbd><!-- /@w -->.)
+<p>(Note: the <kbd>-qualified</kbd> option can precede a linespec as well
+(see <a href="Linespec-Locations.html">Linespec Locations</a>), so the particular example above could be
+simplified as <kbd>break&nbsp;<span class="nolinebreak">-qualified</span>&nbsp;B::func</kbd><!-- /@w -->.)
 </p>
 </dd>
-<dt><code class="code">-label <var class="var">label</var></code></dt>
+<dt><span><code>-label <var>label</var></code></span></dt>
 <dd><p>The value specifies the name of a label.  When the function
 name is not specified, the label is searched in the function of the currently
 selected stack frame.
 </p>
 </dd>
-<dt><code class="code">-line <var class="var">number</var></code></dt>
+<dt><span><code>-line <var>number</var></code></span></dt>
 <dd><p>The value specifies a line offset for the location.  The offset may either
-be absolute (<code class="code">-line 3</code>) or relative (<code class="code">-line +3</code>), depending on
+be absolute (<code>-line 3</code>) or relative (<code>-line +3</code>), depending on
 the command.  When specified without any other options, the line offset is
 relative to the current line.
 </p></dd>
 </dl>
 
 <p>Explicit location options may be abbreviated by omitting any non-unique
-trailing characters from the option name, e.g., <kbd class="kbd">break&nbsp;-s&nbsp;main.c&nbsp;-li&nbsp;3</kbd><!-- /@w -->.
+trailing characters from the option name, e.g., <kbd>break&nbsp;<span class="nolinebreak">-s</span>&nbsp;main.c&nbsp;<span class="nolinebreak">-li</span>&nbsp;3</kbd><!-- /@w -->.
 </p>
 </div>
 <hr>
-<div class="nav-panel">
+<div class="header">
 <p>
 Next: <a href="Address-Locations.html">Address Locations</a>, Previous: <a href="Linespec-Locations.html">Linespec Locations</a>, Up: <a href="Location-Specifications.html">Location Specifications</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

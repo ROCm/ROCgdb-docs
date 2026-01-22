@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright © 1988-2024 Free Software Foundation, Inc.
+<!-- Copyright (C) 1988-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -26,7 +26,7 @@ the license, review the license.txt in the top-level directory for the
 library on https://github.com/ROCm/ (Github.com)).  The additional terms
 and conditions below apply to your use of AMD ROCm technical documentation.
 
-©2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
+(C)2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
 
 The information presented in this document is for informational purposes only
 and may contain technical inaccuracies, omissions, and typographical errors.
@@ -52,8 +52,8 @@ EVEN IF AMD IS EXPRESSLY ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
 
 AMD, the AMD Arrow logo, AMD Instinct™, Radeon™, AMD ROCm™, and combinations
 thereof are trademarks of Advanced Micro Devices, Inc.
-Linux® is the registered trademark of Linus Torvalds in the
-U.S. and other countries. PCIe® is a registered trademark of
+Linux(R) is the registered trademark of Linus Torvalds in the
+U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
@@ -74,9 +74,21 @@ companies. -->
 <link href="Completion.html" rel="prev" title="Completion">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
 div.example {margin-left: 3.2em}
-span:hover a.copiable-link {visibility: visible}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -84,37 +96,37 @@ span:hover a.copiable-link {visibility: visible}
 </head>
 
 <body lang="en">
-<div class="section-level-extent" id="Filename-Arguments">
-<div class="nav-panel">
+<div class="section" id="Filename-Arguments">
+<div class="header">
 <p>
-Next: <a href="Command-Options.html" accesskey="n" rel="next">Command options</a>, Previous: <a href="Completion.html" accesskey="p" rel="prev">Command Completion</a>, Up: <a href="Commands.html" accesskey="u" rel="up"><small class="sc">ROCGDB</small> Commands</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Command-Options.html" accesskey="n" rel="next">Command options</a>, Previous: <a href="Completion.html" accesskey="p" rel="prev">Command Completion</a>, Up: <a href="Commands.html" accesskey="u" rel="up"><small>ROCGDB</small> Commands</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h3 class="section" id="Filenames-As-Command-Arguments"><span>3.4 Filenames As Command Arguments<a class="copiable-link" href="#Filenames-As-Command-Arguments"> &para;</a></span></h3>
-<a class="index-entry-id" id="index-file-names_002c-quoting-and-escaping"></a>
+<span id="Filenames-As-Command-Arguments"></span><h3 class="section">3.4 Filenames As Command Arguments</h3>
+<span id="index-file-names_002c-quoting-and-escaping"></span>
 
 <p>When passing filenames (or directory names) as arguments to a command,
 if the filename argument does not include any whitespace, double
 quotes, or single quotes, then for all commands the filename can be
 written as a simple string, for example:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">(gdb) file /path/to/some/file
+<div class="example">
+<pre class="example">(gdb) file /path/to/some/file
 </pre></div>
 
 <p>If the filename does include whitespace, double quotes, or single
-quotes, then <small class="sc">ROCGDB</small> has two approaches for how these filenames
+quotes, then <small>ROCGDB</small> has two approaches for how these filenames
 should be formatted; which format to use depends on which command is
 being used.
 </p>
-<p>Most <small class="sc">ROCGDB</small> commands don&rsquo;t require, or support, quoting and
+<p>Most <small>ROCGDB</small> commands don&rsquo;t require, or support, quoting and
 escaping.  These commands treat any text after the command name, that
-is not a command option (see <a class="pxref" href="Command-Options.html">Command options</a>), as the filename,
+is not a command option (see <a href="Command-Options.html">Command options</a>), as the filename,
 even if the filename contains whitespace or quote characters.  In the
-following example the user is adding <samp class="file">/path/that&nbsp;contains/two&nbsp;spaces/</samp><!-- /@w --> to the auto-load safe-path (see <a class="pxref" href="Auto_002dloading-safe-path.html#add_002dauto_002dload_002dsafe_002dpath">add-auto-load-safe-path</a>):
+following example the user is adding <samp>/path/that&nbsp;contains/two&nbsp;spaces/</samp><!-- /@w --> to the auto-load safe-path (see <a href="Auto_002dloading-safe-path.html#add_002dauto_002dload_002dsafe_002dpath">add-auto-load-safe-path</a>):
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">(gdb) add-auto-load-safe-path /path/that contains/two spaces/
+<div class="example">
+<pre class="example">(gdb) add-auto-load-safe-path /path/that contains/two spaces/
 </pre></div>
 
 <p>A small number of commands require that filenames containing
@@ -124,19 +136,19 @@ are marked as such in the manual, any command not marked as accepting
 quoting and escaping of its filename argument, does not accept this
 filename argument style.
 </p>
-<p>For example, to load the file <samp class="file">/path/with&nbsp;spaces/to/a&nbsp;file</samp><!-- /@w -->
-with the <code class="code">file</code> command (see <a class="pxref" href="Files.html">Commands to Specify
+<p>For example, to load the file <samp>/path/with&nbsp;spaces/to/a&nbsp;file</samp><!-- /@w -->
+with the <code>file</code> command (see <a href="Files.html">Commands to Specify
 Files</a>), you can escape the whitespace characters with a backslash:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">(gdb) file /path/with\ spaces/to/a\ file
+<div class="example">
+<pre class="example">(gdb) file /path/with\ spaces/to/a\ file
 </pre></div>
 
 <p>Alternatively the entire filename can be wrapped in either single or
 double quotes, in which case no backlsashes are needed, for example:
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">(gdb) symbol-file &quot;/path/with spaces/to/a file&quot;
+<div class="example">
+<pre class="example">(gdb) symbol-file &quot;/path/with spaces/to/a file&quot;
 (gdb) exec-file '/path/with spaces/to/a file'
 </pre></div>
 
@@ -152,9 +164,9 @@ a backslash.
 </p>
 </div>
 <hr>
-<div class="nav-panel">
+<div class="header">
 <p>
-Next: <a href="Command-Options.html">Command options</a>, Previous: <a href="Completion.html">Command Completion</a>, Up: <a href="Commands.html"><small class="sc">ROCGDB</small> Commands</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Command-Options.html">Command options</a>, Previous: <a href="Completion.html">Command Completion</a>, Up: <a href="Commands.html"><small>ROCGDB</small> Commands</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the GNU Assembler "as".
 
-Copyright © 1991-2024 Free Software Foundation, Inc.
+Copyright (C) 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -30,11 +30,21 @@ section entitled "GNU Free Documentation License".
 <link href="Ld-Sections.html" rel="next" title="Ld Sections">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
 div.display {margin-left: 3.2em}
-pre.display-preformatted {font-family: inherit}
-span:hover a.copiable-link {visibility: visible}
-ul.mark-bullet {list-style-type: disc}
+div.example {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -42,130 +52,130 @@ ul.mark-bullet {list-style-type: disc}
 </head>
 
 <body lang="en">
-<div class="section-level-extent" id="Secs-Background">
-<div class="nav-panel">
+<div class="section" id="Secs-Background">
+<div class="header">
 <p>
 Next: <a href="Ld-Sections.html" accesskey="n" rel="next">Linker Sections</a>, Up: <a href="Sections.html" accesskey="u" rel="up">Sections and Relocation</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h3 class="section" id="Background"><span>4.1 Background<a class="copiable-link" href="#Background"> &para;</a></span></h3>
+<span id="Background"></span><h3 class="section">4.1 Background</h3>
 
 <p>Roughly, a section is a range of addresses, with no gaps; all data
 &ldquo;in&rdquo; those addresses is treated the same for some particular purpose.
 For example there may be a &ldquo;read only&rdquo; section.
 </p>
-<a class="index-entry-id" id="index-linker_002c-and-assembler"></a>
-<a class="index-entry-id" id="index-assembler_002c-and-linker"></a>
-<p>The linker <code class="code">ld</code> reads many object files (partial programs) and
-combines their contents to form a runnable program.  When <code class="command">as</code>
+<span id="index-linker_002c-and-assembler"></span>
+<span id="index-assembler_002c-and-linker"></span>
+<p>The linker <code>ld</code> reads many object files (partial programs) and
+combines their contents to form a runnable program.  When <code>as</code>
 emits an object file, the partial program is assumed to start at address 0.
-<code class="code">ld</code> assigns the final addresses for the partial program, so that
+<code>ld</code> assigns the final addresses for the partial program, so that
 different partial programs do not overlap.  This is actually an
-oversimplification, but it suffices to explain how <code class="command">as</code> uses
+oversimplification, but it suffices to explain how <code>as</code> uses
 sections.
 </p>
-<p><code class="code">ld</code> moves blocks of bytes of your program to their run-time
+<p><code>ld</code> moves blocks of bytes of your program to their run-time
 addresses.  These blocks slide to their run-time addresses as rigid
 units; their length does not change and neither does the order of bytes
-within them.  Such a rigid unit is called a <em class="emph">section</em>.  Assigning
-run-time addresses to sections is called <em class="dfn">relocation</em>.  It includes
+within them.  Such a rigid unit is called a <em>section</em>.  Assigning
+run-time addresses to sections is called <em>relocation</em>.  It includes
 the task of adjusting mentions of object-file addresses so they refer to
 the proper run-time addresses.
 For the H8/300, and for the Renesas / SuperH SH,
-<code class="command">as</code> pads sections if needed to
+<code>as</code> pads sections if needed to
 ensure they end on a word (sixteen bit) boundary.
 </p>
-<a class="index-entry-id" id="index-standard-assembler-sections"></a>
-<p>An object file written by <code class="command">as</code> has at least three sections, any
-of which may be empty.  These are named <em class="dfn">text</em>, <em class="dfn">data</em> and
-<em class="dfn">bss</em> sections.
+<span id="index-standard-assembler-sections"></span>
+<p>An object file written by <code>as</code> has at least three sections, any
+of which may be empty.  These are named <em>text</em>, <em>data</em> and
+<em>bss</em> sections.
 </p>
 <p>When it generates COFF or ELF output,
-<code class="command">as</code> can also generate whatever other named sections you specify
-using the &lsquo;<samp class="samp">.section</samp>&rsquo; directive (see <a class="pxref" href="Section.html"><code class="code">.section</code></a>).
-If you do not use any directives that place output in the &lsquo;<samp class="samp">.text</samp>&rsquo;
-or &lsquo;<samp class="samp">.data</samp>&rsquo; sections, these sections still exist, but are empty.
+<code>as</code> can also generate whatever other named sections you specify
+using the &lsquo;<samp>.section</samp>&rsquo; directive (see <a href="Section.html"><code>.section</code></a>).
+If you do not use any directives that place output in the &lsquo;<samp>.text</samp>&rsquo;
+or &lsquo;<samp>.data</samp>&rsquo; sections, these sections still exist, but are empty.
 </p>
-<p>When <code class="command">as</code> generates SOM or ELF output for the HPPA,
-<code class="command">as</code> can also generate whatever other named sections you
-specify using the &lsquo;<samp class="samp">.space</samp>&rsquo; and &lsquo;<samp class="samp">.subspace</samp>&rsquo; directives.  See
-<cite class="cite">HP9000 Series 800 Assembly Language Reference Manual</cite>
-(HP 92432-90001) for details on the &lsquo;<samp class="samp">.space</samp>&rsquo; and &lsquo;<samp class="samp">.subspace</samp>&rsquo;
+<p>When <code>as</code> generates SOM or ELF output for the HPPA,
+<code>as</code> can also generate whatever other named sections you
+specify using the &lsquo;<samp>.space</samp>&rsquo; and &lsquo;<samp>.subspace</samp>&rsquo; directives.  See
+<cite>HP9000 Series 800 Assembly Language Reference Manual</cite>
+(HP 92432-90001) for details on the &lsquo;<samp>.space</samp>&rsquo; and &lsquo;<samp>.subspace</samp>&rsquo;
 assembler directives.
 </p>
-<p>Additionally, <code class="command">as</code> uses different names for the standard
+<p>Additionally, <code>as</code> uses different names for the standard
 text, data, and bss sections when generating SOM output.  Program text
-is placed into the &lsquo;<samp class="samp">$CODE$</samp>&rsquo; section, data into &lsquo;<samp class="samp">$DATA$</samp>&rsquo;, and
-BSS into &lsquo;<samp class="samp">$BSS$</samp>&rsquo;.
+is placed into the &lsquo;<samp>$CODE$</samp>&rsquo; section, data into &lsquo;<samp>$DATA$</samp>&rsquo;, and
+BSS into &lsquo;<samp>$BSS$</samp>&rsquo;.
 </p>
-<p>Within the object file, the text section starts at address <code class="code">0</code>, the
+<p>Within the object file, the text section starts at address <code>0</code>, the
 data section follows, and the bss section follows the data section.
 </p>
 <p>When generating either SOM or ELF output files on the HPPA, the text
-section starts at address <code class="code">0</code>, the data section at address
-<code class="code">0x4000000</code>, and the bss section follows the data section.
+section starts at address <code>0</code>, the data section at address
+<code>0x4000000</code>, and the bss section follows the data section.
 </p>
-<p>To let <code class="code">ld</code> know which data changes when the sections are
-relocated, and how to change that data, <code class="command">as</code> also writes to the
+<p>To let <code>ld</code> know which data changes when the sections are
+relocated, and how to change that data, <code>as</code> also writes to the
 object file details of the relocation needed.  To perform relocation
-<code class="code">ld</code> must know, each time an address in the object
+<code>ld</code> must know, each time an address in the object
 file is mentioned:
-</p><ul class="itemize mark-bullet">
-<li>Where in the object file is the beginning of this reference to
+</p><ul>
+<li> Where in the object file is the beginning of this reference to
 an address?
-</li><li>How long (in bytes) is this reference?
-</li><li>Which section does the address refer to?  What is the numeric value of
+</li><li> How long (in bytes) is this reference?
+</li><li> Which section does the address refer to?  What is the numeric value of
 <div class="display">
-<pre class="display-preformatted">(<var class="var">address</var>) &minus; (<var class="var">start-address of section</var>)?
+<pre class="display">(<var>address</var>) - (<var>start-address of section</var>)?
 </pre></div>
-</li><li>Is the reference to an address &ldquo;Program-Counter relative&rdquo;?
+</li><li> Is the reference to an address &ldquo;Program-Counter relative&rdquo;?
 </li></ul>
 
-<a class="index-entry-id" id="index-addresses_002c-format-of"></a>
-<a class="index-entry-id" id="index-section_002drelative-addressing"></a>
-<p>In fact, every address <code class="command">as</code> ever uses is expressed as
+<span id="index-addresses_002c-format-of"></span>
+<span id="index-section_002drelative-addressing"></span>
+<p>In fact, every address <code>as</code> ever uses is expressed as
 </p><div class="display">
-<pre class="display-preformatted">(<var class="var">section</var>) + (<var class="var">offset into section</var>)
+<pre class="display">(<var>section</var>) + (<var>offset into section</var>)
 </pre></div>
-<p>Further, most expressions <code class="command">as</code> computes have this section-relative
+<p>Further, most expressions <code>as</code> computes have this section-relative
 nature.
 (For some object formats, such as SOM for the HPPA, some expressions are
 symbol-relative instead.)
 </p>
-<p>In this manual we use the notation {<var class="var">secname</var> <var class="var">N</var>} to mean &ldquo;offset
-<var class="var">N</var> into section <var class="var">secname</var>.&rdquo;
+<p>In this manual we use the notation {<var>secname</var> <var>N</var>} to mean &ldquo;offset
+<var>N</var> into section <var>secname</var>.&rdquo;
 </p>
 <p>Apart from text, data and bss sections you need to know about the
-<em class="dfn">absolute</em> section.  When <code class="code">ld</code> mixes partial programs,
+<em>absolute</em> section.  When <code>ld</code> mixes partial programs,
 addresses in the absolute section remain unchanged.  For example, address
-<code class="code">{absolute 0}</code> is &ldquo;relocated&rdquo; to run-time address 0 by
-<code class="code">ld</code>.  Although the linker never arranges two partial programs&rsquo;
-data sections with overlapping addresses after linking, <em class="emph">by definition</em>
-their absolute sections must overlap.  Address <code class="code">{absolute&nbsp;239}</code> in one
+<code>{absolute 0}</code> is &ldquo;relocated&rdquo; to run-time address 0 by
+<code>ld</code>.  Although the linker never arranges two partial programs&rsquo;
+data sections with overlapping addresses after linking, <em>by definition</em>
+their absolute sections must overlap.  Address <code>{absolute&nbsp;239}</code> in one
 part of a program is always the same address when the program is running as
-address <code class="code">{absolute&nbsp;239}</code> in any other part of the program.
+address <code>{absolute&nbsp;239}</code> in any other part of the program.
 </p>
-<p>The idea of sections is extended to the <em class="dfn">undefined</em> section.  Any
+<p>The idea of sections is extended to the <em>undefined</em> section.  Any
 address whose section is unknown at assembly time is by definition
-rendered {undefined <var class="var">U</var>}&mdash;where <var class="var">U</var> is filled in later.
+rendered {undefined <var>U</var>}&mdash;where <var>U</var> is filled in later.
 Since numbers are always defined, the only way to generate an undefined
 address is to mention an undefined symbol.  A reference to a named
 common block would be such a symbol: its value is unknown at assembly
-time so it has section <em class="emph">undefined</em>.
+time so it has section <em>undefined</em>.
 </p>
-<p>By analogy the word <em class="emph">section</em> is used to describe groups of sections in
-the linked program.  <code class="code">ld</code> puts all partial programs&rsquo; text
+<p>By analogy the word <em>section</em> is used to describe groups of sections in
+the linked program.  <code>ld</code> puts all partial programs&rsquo; text
 sections in contiguous addresses in the linked program.  It is
-customary to refer to the <em class="emph">text section</em> of a program, meaning all
+customary to refer to the <em>text section</em> of a program, meaning all
 the addresses of all partial programs&rsquo; text sections.  Likewise for
 data and bss sections.
 </p>
-<p>Some sections are manipulated by <code class="code">ld</code>; others are invented for
-use of <code class="command">as</code> and have no meaning except during assembly.
+<p>Some sections are manipulated by <code>ld</code>; others are invented for
+use of <code>as</code> and have no meaning except during assembly.
 </p>
 </div>
 <hr>
-<div class="nav-panel">
+<div class="header">
 <p>
 Next: <a href="Ld-Sections.html">Linker Sections</a>, Up: <a href="Sections.html">Sections and Relocation</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

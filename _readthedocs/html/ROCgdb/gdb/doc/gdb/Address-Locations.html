@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright © 1988-2024 Free Software Foundation, Inc.
+<!-- Copyright (C) 1988-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -26,7 +26,7 @@ the license, review the license.txt in the top-level directory for the
 library on https://github.com/ROCm/ (Github.com)).  The additional terms
 and conditions below apply to your use of AMD ROCm technical documentation.
 
-©2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
+(C)2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
 
 The information presented in this document is for informational purposes only
 and may contain technical inaccuracies, omissions, and typographical errors.
@@ -52,8 +52,8 @@ EVEN IF AMD IS EXPRESSLY ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
 
 AMD, the AMD Arrow logo, AMD Instinct™, Radeon™, AMD ROCm™, and combinations
 thereof are trademarks of Advanced Micro Devices, Inc.
-Linux® is the registered trademark of Linus Torvalds in the
-U.S. and other countries. PCIe® is a registered trademark of
+Linux(R) is the registered trademark of Linus Torvalds in the
+U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
@@ -73,8 +73,21 @@ companies. -->
 <link href="Explicit-Locations.html" rel="prev" title="Explicit Locations">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
-span:hover a.copiable-link {visibility: visible}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -82,61 +95,56 @@ span:hover a.copiable-link {visibility: visible}
 </head>
 
 <body lang="en">
-<div class="subsection-level-extent" id="Address-Locations">
-<div class="nav-panel">
+<div class="subsection" id="Address-Locations">
+<div class="header">
 <p>
 Previous: <a href="Explicit-Locations.html" accesskey="p" rel="prev">Explicit Locations</a>, Up: <a href="Location-Specifications.html" accesskey="u" rel="up">Location Specifications</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h4 class="subsection" id="Address-Locations-1"><span>9.2.3 Address Locations<a class="copiable-link" href="#Address-Locations-1"> &para;</a></span></h4>
-<a class="index-entry-id" id="index-address-locations"></a>
+<span id="Address-Locations-1"></span><h4 class="subsection">9.2.3 Address Locations</h4>
+<span id="index-address-locations"></span>
 
-<p><em class="dfn">Address locations</em> indicate a specific program address.  They have
-the generalized form *<var class="var">address</var>.
+<p><em>Address locations</em> indicate a specific program address.  They have
+the generalized form *<var>address</var>.
 </p>
-<p>For line-oriented commands, such as <code class="code">list</code> and <code class="code">edit</code>, this
-specifies a source line that contains <var class="var">address</var>.  For <code class="code">break</code> and
+<p>For line-oriented commands, such as <code>list</code> and <code>edit</code>, this
+specifies a source line that contains <var>address</var>.  For <code>break</code> and
 other breakpoint-oriented commands, this can be used to set breakpoints in
 parts of your program which do not have debugging information or
 source files.
 </p>
-<p>Here <var class="var">address</var> may be any expression valid in the current working
-language (see <a class="pxref" href="Languages.html">working language</a>) that specifies a code
-address.  In addition, as a convenience, <small class="sc">ROCGDB</small> extends the
+<p>Here <var>address</var> may be any expression valid in the current working
+language (see <a href="Languages.html">working language</a>) that specifies a code
+address.  In addition, as a convenience, <small>ROCGDB</small> extends the
 semantics of expressions used in locations to cover several situations
 that frequently occur during debugging.  Here are the various forms
-of <var class="var">address</var>:
+of <var>address</var>:
 </p>
-<dl class="table">
-<dt><code class="code"><var class="var">expression</var></code></dt>
+<dl compact="compact">
+<dt><span><code><var>expression</var></code></span></dt>
 <dd><p>Any expression valid in the current working language.
 </p>
 </dd>
-<dt><code class="code"><var class="var">funcaddr</var></code></dt>
+<dt><span><code><var>funcaddr</var></code></span></dt>
 <dd><p>An address of a function or procedure derived from its name.  In C,
-C<code class="t">++</code>, Objective-C, Fortran, minimal, and assembly, this is
-simply the function&rsquo;s name <var class="var">function</var> (and actually a special case
+C<tt>++</tt>, Objective-C, Fortran, minimal, and assembly, this is
+simply the function&rsquo;s name <var>function</var> (and actually a special case
 of a valid expression).  In Pascal and Modula-2, this is
-<code class="code">&amp;<var class="var">function</var></code>.  In Ada, this is <code class="code"><var class="var">function</var>'Address</code>
+<code>&amp;<var>function</var></code>.  In Ada, this is <code><var>function</var>'Address</code>
 (although the Pascal form also works).
 </p>
 <p>This form specifies the address of the function&rsquo;s first instruction,
 before the stack frame and arguments have been set up.
 </p>
 </dd>
-<dt><code class="code">'<var class="var">filename</var>':<var class="var">funcaddr</var></code></dt>
-<dd><p>Like <var class="var">funcaddr</var> above, but also specifies the name of the source
+<dt><span><code>'<var>filename</var>':<var>funcaddr</var></code></span></dt>
+<dd><p>Like <var>funcaddr</var> above, but also specifies the name of the source
 file explicitly.  This is useful if the name of the function does not
 specify the function unambiguously, e.g., if there are several
 functions with identical names in different source files.
 </p></dd>
 </dl>
 
-</div>
-<hr>
-<div class="nav-panel">
-<p>
-Previous: <a href="Explicit-Locations.html">Explicit Locations</a>, Up: <a href="Location-Specifications.html">Location Specifications</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

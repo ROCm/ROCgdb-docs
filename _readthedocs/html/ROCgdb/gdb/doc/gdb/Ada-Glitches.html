@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright © 1988-2024 Free Software Foundation, Inc.
+<!-- Copyright (C) 1988-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -26,7 +26,7 @@ the license, review the license.txt in the top-level directory for the
 library on https://github.com/ROCm/ (Github.com)).  The additional terms
 and conditions below apply to your use of AMD ROCm technical documentation.
 
-©2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
+(C)2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
 
 The information presented in this document is for informational purposes only
 and may contain technical inaccuracies, omissions, and typographical errors.
@@ -52,8 +52,8 @@ EVEN IF AMD IS EXPRESSLY ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
 
 AMD, the AMD Arrow logo, AMD Instinct™, Radeon™, AMD ROCm™, and combinations
 thereof are trademarks of Advanced Micro Devices, Inc.
-Linux® is the registered trademark of Linus Torvalds in the
-U.S. and other countries. PCIe® is a registered trademark of
+Linux(R) is the registered trademark of Linus Torvalds in the
+U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
@@ -73,9 +73,21 @@ companies. -->
 <link href="Ada-Source-Character-Set.html" rel="prev" title="Ada Source Character Set">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
-span:hover a.copiable-link {visibility: visible}
-ul.mark-bullet {list-style-type: disc}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -83,45 +95,45 @@ ul.mark-bullet {list-style-type: disc}
 </head>
 
 <body lang="en">
-<div class="subsubsection-level-extent" id="Ada-Glitches">
-<div class="nav-panel">
+<div class="subsubsection" id="Ada-Glitches">
+<div class="header">
 <p>
 Previous: <a href="Ada-Source-Character-Set.html" accesskey="p" rel="prev">Ada Source Character Set</a>, Up: <a href="Ada.html" accesskey="u" rel="up">Ada</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h4 class="subsubsection" id="Known-Peculiarities-of-Ada-Mode"><span>15.4.10.11 Known Peculiarities of Ada Mode<a class="copiable-link" href="#Known-Peculiarities-of-Ada-Mode"> &para;</a></span></h4>
-<a class="index-entry-id" id="index-Ada_002c-problems"></a>
+<span id="Known-Peculiarities-of-Ada-Mode"></span><h4 class="subsubsection">15.4.10.11 Known Peculiarities of Ada Mode</h4>
+<span id="index-Ada_002c-problems"></span>
 
-<p>Besides the omissions listed previously (see <a class="pxref" href="Omissions-from-Ada.html">Omissions from Ada</a>),
+<p>Besides the omissions listed previously (see <a href="Omissions-from-Ada.html">Omissions from Ada</a>),
 we know of several problems with and limitations of Ada mode in
-<small class="sc">ROCGDB</small>,
+<small>ROCGDB</small>,
 some of which will be fixed with planned future releases of the debugger 
 and the GNU Ada compiler.
 </p>
-<ul class="itemize mark-bullet">
-<li>Static constants that the compiler chooses not to materialize as objects in 
+<ul>
+<li> Static constants that the compiler chooses not to materialize as objects in 
 storage are invisible to the debugger.
 
-</li><li>Named parameter associations in function argument lists are ignored (the
+</li><li> Named parameter associations in function argument lists are ignored (the
 argument lists are treated as positional).
 
-</li><li>Many useful library packages are currently invisible to the debugger.
+</li><li> Many useful library packages are currently invisible to the debugger.
 
-</li><li>Fixed-point arithmetic, conversions, input, and output is carried out using 
+</li><li> Fixed-point arithmetic, conversions, input, and output is carried out using 
 floating-point arithmetic, and may give results that only approximate those on 
 the host machine.
 
-</li><li>The GNAT compiler never generates the prefix <code class="code">Standard</code> for any of 
-the standard symbols defined by the Ada language.  <small class="sc">ROCGDB</small> knows about 
+</li><li> The GNAT compiler never generates the prefix <code>Standard</code> for any of 
+the standard symbols defined by the Ada language.  <small>ROCGDB</small> knows about 
 this: it will strip the prefix from names when you use it, and will never
 look for a name you have so qualified among local symbols, nor match against
 symbols in other packages or subprograms.  If you have 
 defined entities anywhere in your program other than parameters and 
-local variables whose simple names match names in <code class="code">Standard</code>, 
+local variables whose simple names match names in <code>Standard</code>, 
 GNAT&rsquo;s lack of qualification here can cause confusion.  When this happens,
 you can usually resolve the confusion 
 by qualifying the problematic names with package
-<code class="code">Standard</code> explicitly.  
+<code>Standard</code> explicitly.  
 </li></ul>
 
 <p>Older versions of the compiler sometimes generate erroneous debugging
@@ -131,35 +143,35 @@ around an issue automatically. In other cases, the debugger is able
 to work around the issue, but the work-around has to be specifically
 enabled.
 </p>
-<a class="index-entry-id" id="index-set-ada-trust_002dPAD_002dover_002dXVS"></a>
-<a class="index-entry-id" id="index-show-ada-trust_002dPAD_002dover_002dXVS"></a>
-<dl class="table">
-<dt><code class="code">set ada trust-PAD-over-XVS on</code></dt>
+<span id="index-set-ada-trust_002dPAD_002dover_002dXVS"></span>
+<span id="index-show-ada-trust_002dPAD_002dover_002dXVS"></span>
+<dl compact="compact">
+<dt><span><code>set ada trust-PAD-over-XVS on</code></span></dt>
 <dd><p>Configure GDB to strictly follow the GNAT encoding when computing the
-value of Ada entities, particularly when <code class="code">PAD</code> and <code class="code">PAD___XVS</code>
-types are involved (see <code class="code">ada/exp_dbug.ads</code> in the GCC sources for
+value of Ada entities, particularly when <code>PAD</code> and <code>PAD___XVS</code>
+types are involved (see <code>ada/exp_dbug.ads</code> in the GCC sources for
 a complete description of the encoding used by the GNAT compiler).
 This is the default.
 </p>
 </dd>
-<dt><code class="code">set ada trust-PAD-over-XVS off</code></dt>
-<dd><p>This is related to the encoding using by the GNAT compiler.  If <small class="sc">ROCGDB</small>
-sometimes prints the wrong value for certain entities, changing <code class="code">ada
-trust-PAD-over-XVS</code> to <code class="code">off</code> activates a work-around which may fix
-the issue.  It is always safe to set <code class="code">ada trust-PAD-over-XVS</code> to
-<code class="code">off</code>, but this incurs a slight performance penalty, so it is
-recommended to leave this setting to <code class="code">on</code> unless necessary.
+<dt><span><code>set ada trust-PAD-over-XVS off</code></span></dt>
+<dd><p>This is related to the encoding using by the GNAT compiler.  If <small>ROCGDB</small>
+sometimes prints the wrong value for certain entities, changing <code>ada
+trust-PAD-over-XVS</code> to <code>off</code> activates a work-around which may fix
+the issue.  It is always safe to set <code>ada trust-PAD-over-XVS</code> to
+<code>off</code>, but this incurs a slight performance penalty, so it is
+recommended to leave this setting to <code>on</code> unless necessary.
 </p>
 </dd>
 </dl>
 
-<a class="index-entry-id" id="index-GNAT-descriptive-types"></a>
-<a class="index-entry-id" id="index-GNAT-encoding"></a>
+<span id="index-GNAT-descriptive-types"></span>
+<span id="index-GNAT-encoding"></span>
 <p>Internally, the debugger also relies on the compiler following a number
-of conventions known as the &lsquo;<samp class="samp">GNAT Encoding</samp>&rsquo;, all documented in
-<samp class="file">gcc/ada/exp_dbug.ads</samp> in the GCC sources. This encoding describes
+of conventions known as the &lsquo;<samp>GNAT Encoding</samp>&rsquo;, all documented in
+<samp>gcc/ada/exp_dbug.ads</samp> in the GCC sources. This encoding describes
 how the debugging information should be generated for certain types.
-In particular, this convention makes use of <em class="dfn">descriptive types</em>,
+In particular, this convention makes use of <em>descriptive types</em>,
 which are artificial types generated purely to help the debugger.
 </p>
 <p>These encodings were defined at a time when the debugging information
@@ -169,23 +181,27 @@ Ada features, the long-term goal is to slowly replace these descriptive
 types by their pure DWARF equivalent.  To facilitate that transition,
 a new maintenance option is available to force the debugger to ignore
 those descriptive types.  It allows the user to quickly evaluate how
-well <small class="sc">ROCGDB</small> works without them.
+well <small>ROCGDB</small> works without them.
 </p>
-<dl class="table">
-<dt><a id="index-maint-ada-set-ignore_002ddescriptive_002dtypes"></a><span><code class="code">maintenance ada set ignore-descriptive-types [on|off]</code><a class="copiable-link" href="#index-maint-ada-set-ignore_002ddescriptive_002dtypes"> &para;</a></span></dt>
-<dd><p>Control whether the debugger should ignore descriptive types.
-The default is not to ignore descriptives types (<code class="code">off</code>).
-</p>
+<dl compact="compact">
+<dd>
+<span id="index-maint-ada-set-ignore_002ddescriptive_002dtypes"></span>
 </dd>
-<dt><a id="index-maint-ada-show-ignore_002ddescriptive_002dtypes"></a><span><code class="code">maintenance ada show ignore-descriptive-types</code><a class="copiable-link" href="#index-maint-ada-show-ignore_002ddescriptive_002dtypes"> &para;</a></span></dt>
-<dd><p>Show if descriptive types are ignored by <small class="sc">ROCGDB</small>.
+<dt><span><code>maintenance ada set ignore-descriptive-types [on|off]</code></span></dt>
+<dd><p>Control whether the debugger should ignore descriptive types.
+The default is not to ignore descriptives types (<code>off</code>).
+</p>
+<span id="index-maint-ada-show-ignore_002ddescriptive_002dtypes"></span>
+</dd>
+<dt><span><code>maintenance ada show ignore-descriptive-types</code></span></dt>
+<dd><p>Show if descriptive types are ignored by <small>ROCGDB</small>.
 </p>
 </dd>
 </dl>
 
 </div>
 <hr>
-<div class="nav-panel">
+<div class="header">
 <p>
 Previous: <a href="Ada-Source-Character-Set.html">Ada Source Character Set</a>, Up: <a href="Ada.html">Ada</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

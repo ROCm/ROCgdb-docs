@@ -1,13 +1,13 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the GNU linker LD
 (GNU Binutils)
 version 2.43.50.
 
-Copyright © 1991-2024 Free Software Foundation, Inc.
+Copyright (C) 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -32,9 +32,21 @@ section entitled "GNU Free Documentation License". -->
 <link href="Input-Section-Basics.html" rel="prev" title="Input Section Basics">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
 div.example {margin-left: 3.2em}
-span:hover a.copiable-link {visibility: visible}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -42,108 +54,108 @@ span:hover a.copiable-link {visibility: visible}
 </head>
 
 <body lang="en">
-<div class="subsubsection-level-extent" id="Input-Section-Wildcards">
-<div class="nav-panel">
+<div class="subsubsection" id="Input-Section-Wildcards">
+<div class="header">
 <p>
 Next: <a href="Input-Section-Common.html" accesskey="n" rel="next">Input Section for Common Symbols</a>, Previous: <a href="Input-Section-Basics.html" accesskey="p" rel="prev">Input Section Basics</a>, Up: <a href="Input-Section.html" accesskey="u" rel="up">Input Section Description</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="LD-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h4 class="subsubsection" id="Input-Section-Wildcard-Patterns"><span>3.6.4.2 Input Section Wildcard Patterns<a class="copiable-link" href="#Input-Section-Wildcard-Patterns"> &para;</a></span></h4>
-<a class="index-entry-id" id="index-input-section-wildcards"></a>
-<a class="index-entry-id" id="index-wildcard-file-name-patterns"></a>
-<a class="index-entry-id" id="index-file-name-wildcard-patterns"></a>
-<a class="index-entry-id" id="index-section-name-wildcard-patterns"></a>
+<span id="Input-Section-Wildcard-Patterns"></span><h4 class="subsubsection">3.6.4.2 Input Section Wildcard Patterns</h4>
+<span id="index-input-section-wildcards"></span>
+<span id="index-wildcard-file-name-patterns"></span>
+<span id="index-file-name-wildcard-patterns"></span>
+<span id="index-section-name-wildcard-patterns"></span>
 <p>In an input section description, either the file name or the section
 name or both may be wildcard patterns.
 </p>
-<p>The file name of &lsquo;<samp class="samp">*</samp>&rsquo; seen in many examples is a simple wildcard
+<p>The file name of &lsquo;<samp>*</samp>&rsquo; seen in many examples is a simple wildcard
 pattern for the file name.
 </p>
 <p>The wildcard patterns are like those used by the Unix shell.
 </p>
-<dl class="table">
-<dt>&lsquo;<samp class="samp">*</samp>&rsquo;</dt>
+<dl compact="compact">
+<dt><span>&lsquo;<samp>*</samp>&rsquo;</span></dt>
 <dd><p>matches any number of characters
 </p></dd>
-<dt>&lsquo;<samp class="samp">?</samp>&rsquo;</dt>
+<dt><span>&lsquo;<samp>?</samp>&rsquo;</span></dt>
 <dd><p>matches any single character
 </p></dd>
-<dt>&lsquo;<samp class="samp">[<var class="var">chars</var>]</samp>&rsquo;</dt>
-<dd><p>matches a single instance of any of the <var class="var">chars</var>; the &lsquo;<samp class="samp">-</samp>&rsquo;
+<dt><span>&lsquo;<samp>[<var>chars</var>]</samp>&rsquo;</span></dt>
+<dd><p>matches a single instance of any of the <var>chars</var>; the &lsquo;<samp>-</samp>&rsquo;
 character may be used to specify a range of characters, as in
-&lsquo;<samp class="samp">[a-z]</samp>&rsquo; to match any lower case letter
+&lsquo;<samp>[a-z]</samp>&rsquo; to match any lower case letter
 </p></dd>
-<dt>&lsquo;<samp class="samp">\</samp>&rsquo;</dt>
+<dt><span>&lsquo;<samp>\</samp>&rsquo;</span></dt>
 <dd><p>quotes the following character
 </p></dd>
 </dl>
 
 <p>File name wildcard patterns only match files which are explicitly
-specified on the command line or in an <code class="code">INPUT</code> command.  The linker
+specified on the command line or in an <code>INPUT</code> command.  The linker
 does not search directories to expand wildcards.
 </p>
 <p>If a file name matches more than one wildcard pattern, or if a file name
 appears explicitly and is also matched by a wildcard pattern, the linker
 will use the first match in the linker script.  For example, this
 sequence of input section descriptions is probably in error, because the
-<samp class="file">data.o</samp> rule will not be used:
-</p><div class="example smallexample">
-<pre class="example-preformatted">.data : { *(.data) }
+<samp>data.o</samp> rule will not be used:
+</p><div class="example">
+<pre class="example">.data : { *(.data) }
 .data1 : { data.o(.data) }
 </pre></div>
 
-<a class="index-entry-id" id="index-SORT_005fBY_005fNAME"></a>
+<span id="index-SORT_005fBY_005fNAME"></span>
 <p>Normally, the linker will place files and sections matched by wildcards
 in the order in which they are seen during the link.  You can change
-this by using the <code class="code">SORT_BY_NAME</code> keyword, which appears before a wildcard
-pattern in parentheses (e.g., <code class="code">SORT_BY_NAME(.text*)</code>).  When the
-<code class="code">SORT_BY_NAME</code> keyword is used, the linker will sort the files or sections
+this by using the <code>SORT_BY_NAME</code> keyword, which appears before a wildcard
+pattern in parentheses (e.g., <code>SORT_BY_NAME(.text*)</code>).  When the
+<code>SORT_BY_NAME</code> keyword is used, the linker will sort the files or sections
 into ascending order by name before placing them in the output file.
 </p>
-<a class="index-entry-id" id="index-SORT_005fBY_005fALIGNMENT"></a>
-<p><code class="code">SORT_BY_ALIGNMENT</code> is similar to <code class="code">SORT_BY_NAME</code>.
-<code class="code">SORT_BY_ALIGNMENT</code> will sort sections into descending order of
+<span id="index-SORT_005fBY_005fALIGNMENT"></span>
+<p><code>SORT_BY_ALIGNMENT</code> is similar to <code>SORT_BY_NAME</code>.
+<code>SORT_BY_ALIGNMENT</code> will sort sections into descending order of
 alignment before placing them in the output file.  Placing larger
 alignments before smaller alignments can reduce the amount of padding
 needed.
 </p>
-<a class="index-entry-id" id="index-SORT_005fBY_005fINIT_005fPRIORITY"></a>
-<p><code class="code">SORT_BY_INIT_PRIORITY</code> is also similar to <code class="code">SORT_BY_NAME</code>.
-<code class="code">SORT_BY_INIT_PRIORITY</code> will sort sections into ascending
+<span id="index-SORT_005fBY_005fINIT_005fPRIORITY"></span>
+<p><code>SORT_BY_INIT_PRIORITY</code> is also similar to <code>SORT_BY_NAME</code>.
+<code>SORT_BY_INIT_PRIORITY</code> will sort sections into ascending
 numerical order of the GCC init_priority attribute encoded in the
 section name before placing them in the output file.  In
-<code class="code">.init_array.NNNNN</code> and <code class="code">.fini_array.NNNNN</code>, <code class="code">NNNNN</code> is
-the init_priority.  In <code class="code">.ctors.NNNNN</code> and <code class="code">.dtors.NNNNN</code>,
-<code class="code">NNNNN</code> is 65535 minus the init_priority.
+<code>.init_array.NNNNN</code> and <code>.fini_array.NNNNN</code>, <code>NNNNN</code> is
+the init_priority.  In <code>.ctors.NNNNN</code> and <code>.dtors.NNNNN</code>,
+<code>NNNNN</code> is 65535 minus the init_priority.
 </p>
-<a class="index-entry-id" id="index-SORT"></a>
-<p><code class="code">SORT</code> is an alias for <code class="code">SORT_BY_NAME</code>.
+<span id="index-SORT"></span>
+<p><code>SORT</code> is an alias for <code>SORT_BY_NAME</code>.
 </p>
-<a class="index-entry-id" id="index-REVERSE"></a>
-<p><code class="code">REVERSE</code> indicates that the sorting should be reversed.  If used
-on its own then <code class="code">REVERSE</code> implies <code class="code">SORT_BY_NAME</code>, otherwise
-it reverses the enclosed <code class="code">SORT..</code> command.  Note - reverse
+<span id="index-REVERSE"></span>
+<p><code>REVERSE</code> indicates that the sorting should be reversed.  If used
+on its own then <code>REVERSE</code> implies <code>SORT_BY_NAME</code>, otherwise
+it reverses the enclosed <code>SORT..</code> command.  Note - reverse
 sorting of alignment is not currently supported.
 </p>
 <p>Note - the sorting commands only accept a single wildcard pattern.  So
 for example the following will not work:
-</p><div class="example smallexample">
-<pre class="example-preformatted">  *(REVERSE(.text* .init*))
+</p><div class="example">
+<pre class="example">  *(REVERSE(.text* .init*))
 </pre></div>
 <p>To resolve this problem list the patterns individually, like this:
-</p><div class="example smallexample">
-<pre class="example-preformatted">  *(REVERSE(.text*))
+</p><div class="example">
+<pre class="example">  *(REVERSE(.text*))
   *(REVERSE(.init*))
 </pre></div>
 
-<p>Note - you can put the <code class="code">EXCLUDE_FILE</code> command inside a sorting
+<p>Note - you can put the <code>EXCLUDE_FILE</code> command inside a sorting
 command, but not the other way around.  So for example:
-</p><div class="example smallexample">
-<pre class="example-preformatted">  *(SORT_BY_NAME(EXCLUDE_FILE(foo) .text*))
+</p><div class="example">
+<pre class="example">  *(SORT_BY_NAME(EXCLUDE_FILE(foo) .text*))
 </pre></div>
 <p>will work, but:
-</p><div class="example smallexample">
-<pre class="example-preformatted">  *(EXCLUDE_FILE(foo) SORT_BY_NAME(.text*))
+</p><div class="example">
+<pre class="example">  *(EXCLUDE_FILE(foo) SORT_BY_NAME(.text*))
 </pre></div>
 <p>will not.
 </p>
@@ -151,22 +163,22 @@ command, but not the other way around.  So for example:
 <p>When there are nested section sorting commands in linker script, there
 can be at most 1 level of nesting for section sorting commands.
 </p>
-<ol class="enumerate">
-<li> <code class="code">SORT_BY_NAME</code> (<code class="code">SORT_BY_ALIGNMENT</code> (wildcard section pattern)).
+<ol>
+<li> <code>SORT_BY_NAME</code> (<code>SORT_BY_ALIGNMENT</code> (wildcard section pattern)).
 It will sort the input sections by name first, then by alignment if two
 sections have the same name.
-</li><li> <code class="code">SORT_BY_ALIGNMENT</code> (<code class="code">SORT_BY_NAME</code> (wildcard section pattern)).
+</li><li> <code>SORT_BY_ALIGNMENT</code> (<code>SORT_BY_NAME</code> (wildcard section pattern)).
 It will sort the input sections by alignment first, then by name if two
 sections have the same alignment.
-</li><li> <code class="code">SORT_BY_NAME</code> (<code class="code">SORT_BY_NAME</code> (wildcard section pattern)) is
-treated the same as <code class="code">SORT_BY_NAME</code> (wildcard section pattern).
-</li><li> <code class="code">SORT_BY_ALIGNMENT</code> (<code class="code">SORT_BY_ALIGNMENT</code> (wildcard section pattern))
-is treated the same as <code class="code">SORT_BY_ALIGNMENT</code> (wildcard section pattern).
-</li><li> <code class="code">SORT_BY_NAME</code> (<code class="code">REVERSE</code> (wildcard section pattern))
+</li><li> <code>SORT_BY_NAME</code> (<code>SORT_BY_NAME</code> (wildcard section pattern)) is
+treated the same as <code>SORT_BY_NAME</code> (wildcard section pattern).
+</li><li> <code>SORT_BY_ALIGNMENT</code> (<code>SORT_BY_ALIGNMENT</code> (wildcard section pattern))
+is treated the same as <code>SORT_BY_ALIGNMENT</code> (wildcard section pattern).
+</li><li> <code>SORT_BY_NAME</code> (<code>REVERSE</code> (wildcard section pattern))
 reverse sorts by name.
-</li><li> <code class="code">REVERSE</code> (<code class="code">SORT_BY_NAME</code> (wildcard section pattern))
+</li><li> <code>REVERSE</code> (<code>SORT_BY_NAME</code> (wildcard section pattern))
 reverse sorts by name.
-</li><li> <code class="code">SORT_BY_INIT_PRIORITY</code> (<code class="code">REVERSE</code> (wildcard section pattern))
+</li><li> <code>SORT_BY_INIT_PRIORITY</code> (<code>REVERSE</code> (wildcard section pattern))
 reverse sorts by init priority.
 </li><li> All other nested section sorting commands are invalid.
 </li></ol>
@@ -179,44 +191,44 @@ takes precedence over the command-line option.
 command-line option will make the section sorting command to be
 treated as nested sorting command.
 </p>
-<ol class="enumerate">
-<li> <code class="code">SORT_BY_NAME</code> (wildcard section pattern ) with
-<samp class="option">--sort-sections alignment</samp> is equivalent to
-<code class="code">SORT_BY_NAME</code> (<code class="code">SORT_BY_ALIGNMENT</code> (wildcard section pattern)).
-</li><li> <code class="code">SORT_BY_ALIGNMENT</code> (wildcard section pattern) with
-<samp class="option">--sort-section name</samp> is equivalent to
-<code class="code">SORT_BY_ALIGNMENT</code> (<code class="code">SORT_BY_NAME</code> (wildcard section pattern)).
+<ol>
+<li> <code>SORT_BY_NAME</code> (wildcard section pattern ) with
+<samp>--sort-sections alignment</samp> is equivalent to
+<code>SORT_BY_NAME</code> (<code>SORT_BY_ALIGNMENT</code> (wildcard section pattern)).
+</li><li> <code>SORT_BY_ALIGNMENT</code> (wildcard section pattern) with
+<samp>--sort-section name</samp> is equivalent to
+<code>SORT_BY_ALIGNMENT</code> (<code>SORT_BY_NAME</code> (wildcard section pattern)).
 </li></ol>
 
 <p>If the section sorting command in linker script is nested, the
 command-line option will be ignored.
 </p>
-<a class="index-entry-id" id="index-SORT_005fNONE"></a>
-<p><code class="code">SORT_NONE</code> disables section sorting by ignoring the command-line
+<span id="index-SORT_005fNONE"></span>
+<p><code>SORT_NONE</code> disables section sorting by ignoring the command-line
 section sorting option.
 </p>
 <p>If you ever get confused about where input sections are going, use the
-&lsquo;<samp class="samp">-M</samp>&rsquo; linker option to generate a map file.  The map file shows
+&lsquo;<samp>-M</samp>&rsquo; linker option to generate a map file.  The map file shows
 precisely how input sections are mapped to output sections.
 </p>
 <p>This example shows how wildcard patterns might be used to partition
-files.  This linker script directs the linker to place all &lsquo;<samp class="samp">.text</samp>&rsquo;
-sections in &lsquo;<samp class="samp">.text</samp>&rsquo; and all &lsquo;<samp class="samp">.bss</samp>&rsquo; sections in &lsquo;<samp class="samp">.bss</samp>&rsquo;.
-The linker will place the &lsquo;<samp class="samp">.data</samp>&rsquo; section from all files beginning
-with an upper case character in &lsquo;<samp class="samp">.DATA</samp>&rsquo;; for all other files, the
-linker will place the &lsquo;<samp class="samp">.data</samp>&rsquo; section in &lsquo;<samp class="samp">.data</samp>&rsquo;.
-</p><div class="example smallexample">
-<div class="group"><pre class="example-preformatted">SECTIONS {
+files.  This linker script directs the linker to place all &lsquo;<samp>.text</samp>&rsquo;
+sections in &lsquo;<samp>.text</samp>&rsquo; and all &lsquo;<samp>.bss</samp>&rsquo; sections in &lsquo;<samp>.bss</samp>&rsquo;.
+The linker will place the &lsquo;<samp>.data</samp>&rsquo; section from all files beginning
+with an upper case character in &lsquo;<samp>.DATA</samp>&rsquo;; for all other files, the
+linker will place the &lsquo;<samp>.data</samp>&rsquo; section in &lsquo;<samp>.data</samp>&rsquo;.
+</p><div class="example">
+<pre class="example">SECTIONS {
   .text : { *(.text) }
   .DATA : { [A-Z]*(.data) }
   .data : { *(.data) }
   .bss : { *(.bss) }
 }
-</pre></div></div>
+</pre></div>
 
 </div>
 <hr>
-<div class="nav-panel">
+<div class="header">
 <p>
 Next: <a href="Input-Section-Common.html">Input Section for Common Symbols</a>, Previous: <a href="Input-Section-Basics.html">Input Section Basics</a>, Up: <a href="Input-Section.html">Input Section Description</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="LD-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>

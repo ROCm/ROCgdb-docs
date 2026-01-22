@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright © 1988-2024 Free Software Foundation, Inc.
+<!-- Copyright (C) 1988-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -26,7 +26,7 @@ the license, review the license.txt in the top-level directory for the
 library on https://github.com/ROCm/ (Github.com)).  The additional terms
 and conditions below apply to your use of AMD ROCm technical documentation.
 
-©2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
+(C)2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
 
 The information presented in this document is for informational purposes only
 and may contain technical inaccuracies, omissions, and typographical errors.
@@ -52,8 +52,8 @@ EVEN IF AMD IS EXPRESSLY ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
 
 AMD, the AMD Arrow logo, AMD Instinct™, Radeon™, AMD ROCm™, and combinations
 thereof are trademarks of Advanced Micro Devices, Inc.
-Linux® is the registered trademark of Linus Torvalds in the
-U.S. and other countries. PCIe® is a registered trademark of
+Linux(R) is the registered trademark of Linus Torvalds in the
+U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
@@ -74,10 +74,21 @@ companies. -->
 <link href="Types-In-Python.html" rel="prev" title="Types In Python">
 <style type="text/css">
 <!--
-a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
 div.example {margin-left: 3.2em}
-span:hover a.copiable-link {visibility: visible}
-strong.def-name {font-family: monospace; font-weight: bold; font-size: larger}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
 -->
 </style>
 
@@ -85,179 +96,179 @@ strong.def-name {font-family: monospace; font-weight: bold; font-size: larger}
 </head>
 
 <body lang="en">
-<div class="subsubsection-level-extent" id="Pretty-Printing-API">
-<div class="nav-panel">
+<div class="subsubsection" id="Pretty-Printing-API">
+<div class="header">
 <p>
 Next: <a href="Selecting-Pretty_002dPrinters.html" accesskey="n" rel="next">Selecting Pretty-Printers</a>, Previous: <a href="Types-In-Python.html" accesskey="p" rel="prev">Types In Python</a>, Up: <a href="Python-API.html" accesskey="u" rel="up">Python API</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<h4 class="subsubsection" id="Pretty-Printing-API-1"><span>24.3.2.6 Pretty Printing API<a class="copiable-link" href="#Pretty-Printing-API-1"> &para;</a></span></h4>
-<a class="index-entry-id" id="index-python-pretty-printing-api"></a>
+<span id="Pretty-Printing-API-1"></span><h4 class="subsubsection">24.3.2.6 Pretty Printing API</h4>
+<span id="index-python-pretty-printing-api"></span>
 
 <p>A pretty-printer is just an object that holds a value and implements a
 specific interface, defined here.  An example output is provided
-(see <a class="pxref" href="Pretty-Printing.html">Pretty Printing</a>).
+(see <a href="Pretty-Printing.html">Pretty Printing</a>).
 </p>
-<p>Because <small class="sc">ROCGDB</small> did not document extensibility for
-pretty-printers, by default <small class="sc">ROCGDB</small> will assume that only the
+<p>Because <small>ROCGDB</small> did not document extensibility for
+pretty-printers, by default <small>ROCGDB</small> will assume that only the
 basic pretty-printer methods may be available.  The basic methods are
 marked as such, below.
 </p>
-<p>To allow extensibility, <small class="sc">ROCGDB</small> provides the
-<code class="code">gdb.ValuePrinter</code> base class.  This class does not provide any
+<p>To allow extensibility, <small>ROCGDB</small> provides the
+<code>gdb.ValuePrinter</code> base class.  This class does not provide any
 attributes or behavior, but instead serves as a tag that can be
-recognized by <small class="sc">ROCGDB</small>.  For such printers, <small class="sc">ROCGDB</small> reserves
+recognized by <small>ROCGDB</small>.  For such printers, <small>ROCGDB</small> reserves
 all attributes starting with a lower-case letter.  That is, in the
-future, <small class="sc">ROCGDB</small> may add a new method or attribute to the
-pretty-printer protocol, and <code class="code">gdb.ValuePrinter</code>-based printers
+future, <small>ROCGDB</small> may add a new method or attribute to the
+pretty-printer protocol, and <code>gdb.ValuePrinter</code>-based printers
 are expected to handle this gracefully.  A simple way to do this would
 be to use a leading underscore (or two, following the Python
 name-mangling scheme) to any attributes local to the implementation.
 </p>
-<dl class="first-deffn first-defun-alias-first-deffn">
-<dt class="deffn defun-alias-deffn" id="index-pretty_005fprinter_002echildren"><span class="category-def">Function: </span><span><strong class="def-name">pretty_printer.children</strong> <var class="def-var-arguments">(self)</var><a class="copiable-link" href="#index-pretty_005fprinter_002echildren"> &para;</a></span></dt>
-<dd><p><small class="sc">ROCGDB</small> will call this method on a pretty-printer to compute the
+<dl class="def">
+<dt id="index-pretty_005fprinter_002echildren"><span class="category">Function: </span><span><strong>pretty_printer.children</strong> <em>(self)</em><a href='#index-pretty_005fprinter_002echildren' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p><small>ROCGDB</small> will call this method on a pretty-printer to compute the
 children of the pretty-printer&rsquo;s value.
 </p>
 <p>This method must return an object conforming to the Python iterator
 protocol.  Each item returned by the iterator must be a tuple holding
 two elements.  The first element is the &ldquo;name&rdquo; of the child; the
 second element is the child&rsquo;s value.  The value can be any Python
-object which is convertible to a <small class="sc">ROCGDB</small> value.
+object which is convertible to a <small>ROCGDB</small> value.
 </p>
 <p>This is a basic method, and is optional.  If it does not exist,
-<small class="sc">ROCGDB</small> will act as though the value has no children.
+<small>ROCGDB</small> will act as though the value has no children.
 </p>
-<p>For efficiency, the <code class="code">children</code> method should lazily compute its
-results.  This will let <small class="sc">ROCGDB</small> read as few elements as
-necessary, for example when various print settings (see <a class="pxref" href="Print-Settings.html">Print Settings</a>) or <code class="code">-var-list-children</code> (see <a class="pxref" href="GDB_002fMI-Variable-Objects.html"><small class="sc">GDB/MI</small> Variable Objects</a>) limit the number of elements to be displayed.
+<p>For efficiency, the <code>children</code> method should lazily compute its
+results.  This will let <small>ROCGDB</small> read as few elements as
+necessary, for example when various print settings (see <a href="Print-Settings.html">Print Settings</a>) or <code>-var-list-children</code> (see <a href="GDB_002fMI-Variable-Objects.html"><small>GDB/MI</small> Variable Objects</a>) limit the number of elements to be displayed.
 </p>
-<p>Children may be hidden from display based on the value of &lsquo;<samp class="samp">set
-print max-depth</samp>&rsquo; (see <a class="pxref" href="Print-Settings.html">Print Settings</a>).
+<p>Children may be hidden from display based on the value of &lsquo;<samp>set
+print max-depth</samp>&rsquo; (see <a href="Print-Settings.html">Print Settings</a>).
 </p></dd></dl>
 
-<dl class="first-deffn first-defun-alias-first-deffn">
-<dt class="deffn defun-alias-deffn" id="index-pretty_005fprinter_002edisplay_005fhint"><span class="category-def">Function: </span><span><strong class="def-name">pretty_printer.display_hint</strong> <var class="def-var-arguments">(self)</var><a class="copiable-link" href="#index-pretty_005fprinter_002edisplay_005fhint"> &para;</a></span></dt>
+<dl class="def">
+<dt id="index-pretty_005fprinter_002edisplay_005fhint"><span class="category">Function: </span><span><strong>pretty_printer.display_hint</strong> <em>(self)</em><a href='#index-pretty_005fprinter_002edisplay_005fhint' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>The CLI may call this method and use its result to change the
 formatting of a value.  The result will also be supplied to an MI
-consumer as a &lsquo;<samp class="samp">displayhint</samp>&rsquo; attribute of the variable being
+consumer as a &lsquo;<samp>displayhint</samp>&rsquo; attribute of the variable being
 printed.
 </p>
 <p>This is a basic method, and is optional.  If it does exist, this
-method must return a string or the special value <code class="code">None</code>.
+method must return a string or the special value <code>None</code>.
 </p>
-<p>Some display hints are predefined by <small class="sc">ROCGDB</small>:
+<p>Some display hints are predefined by <small>ROCGDB</small>:
 </p>
-<dl class="table">
-<dt>&lsquo;<samp class="samp">array</samp>&rsquo;</dt>
+<dl compact="compact">
+<dt><span>&lsquo;<samp>array</samp>&rsquo;</span></dt>
 <dd><p>Indicate that the object being printed is &ldquo;array-like&rdquo;.  The CLI
-uses this to respect parameters such as <code class="code">set print elements</code> and
-<code class="code">set print array</code>.
+uses this to respect parameters such as <code>set print elements</code> and
+<code>set print array</code>.
 </p>
 </dd>
-<dt>&lsquo;<samp class="samp">map</samp>&rsquo;</dt>
+<dt><span>&lsquo;<samp>map</samp>&rsquo;</span></dt>
 <dd><p>Indicate that the object being printed is &ldquo;map-like&rdquo;, and that the
 children of this value can be assumed to alternate between keys and
 values.
 </p>
 </dd>
-<dt>&lsquo;<samp class="samp">string</samp>&rsquo;</dt>
+<dt><span>&lsquo;<samp>string</samp>&rsquo;</span></dt>
 <dd><p>Indicate that the object being printed is &ldquo;string-like&rdquo;.  If the
-printer&rsquo;s <code class="code">to_string</code> method returns a Python string of some
-kind, then <small class="sc">ROCGDB</small> will call its internal language-specific
+printer&rsquo;s <code>to_string</code> method returns a Python string of some
+kind, then <small>ROCGDB</small> will call its internal language-specific
 string-printing function to format the string.  For the CLI this means
 adding quotation marks, possibly escaping some characters, respecting
-<code class="code">set print elements</code>, and the like.
+<code>set print elements</code>, and the like.
 </p></dd>
 </dl>
 
-<p>The special value <code class="code">None</code> causes <small class="sc">ROCGDB</small> to apply the default
+<p>The special value <code>None</code> causes <small>ROCGDB</small> to apply the default
 display rules.
 </p></dd></dl>
 
-<dl class="first-deffn first-defun-alias-first-deffn">
-<dt class="deffn defun-alias-deffn" id="index-pretty_005fprinter_002eto_005fstring"><span class="category-def">Function: </span><span><strong class="def-name">pretty_printer.to_string</strong> <var class="def-var-arguments">(self)</var><a class="copiable-link" href="#index-pretty_005fprinter_002eto_005fstring"> &para;</a></span></dt>
-<dd><p><small class="sc">ROCGDB</small> will call this method to display the string
+<dl class="def">
+<dt id="index-pretty_005fprinter_002eto_005fstring"><span class="category">Function: </span><span><strong>pretty_printer.to_string</strong> <em>(self)</em><a href='#index-pretty_005fprinter_002eto_005fstring' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p><small>ROCGDB</small> will call this method to display the string
 representation of the value passed to the object&rsquo;s constructor.
 </p>
 <p>This is a basic method, and is optional.
 </p>
-<p>When printing from the CLI, if the <code class="code">to_string</code> method exists,
-then <small class="sc">ROCGDB</small> will prepend its result to the values returned by
-<code class="code">children</code>.  Exactly how this formatting is done is dependent on
+<p>When printing from the CLI, if the <code>to_string</code> method exists,
+then <small>ROCGDB</small> will prepend its result to the values returned by
+<code>children</code>.  Exactly how this formatting is done is dependent on
 the display hint, and may change as more hints are added.  Also,
-depending on the print settings (see <a class="pxref" href="Print-Settings.html">Print Settings</a>), the CLI may
-print just the result of <code class="code">to_string</code> in a stack trace, omitting
-the result of <code class="code">children</code>.
+depending on the print settings (see <a href="Print-Settings.html">Print Settings</a>), the CLI may
+print just the result of <code>to_string</code> in a stack trace, omitting
+the result of <code>children</code>.
 </p>
 <p>If this method returns a string, it is printed verbatim.
 </p>
-<p>Otherwise, if this method returns an instance of <code class="code">gdb.Value</code>,
-then <small class="sc">ROCGDB</small> prints this value.  This may result in a call to
+<p>Otherwise, if this method returns an instance of <code>gdb.Value</code>,
+then <small>ROCGDB</small> prints this value.  This may result in a call to
 another pretty-printer.
 </p>
 <p>If instead the method returns a Python value which is convertible to a
-<code class="code">gdb.Value</code>, then <small class="sc">ROCGDB</small> performs the conversion and prints
+<code>gdb.Value</code>, then <small>ROCGDB</small> performs the conversion and prints
 the resulting value.  Again, this may result in a call to another
 pretty-printer.  Python scalars (integers, floats, and booleans) and
-strings are convertible to <code class="code">gdb.Value</code>; other types are not.
+strings are convertible to <code>gdb.Value</code>; other types are not.
 </p>
-<p>Finally, if this method returns <code class="code">None</code> then no further operations
+<p>Finally, if this method returns <code>None</code> then no further operations
 are performed in this method and nothing is printed.
 </p>
 <p>If the result is not one of these types, an exception is raised.
 </p></dd></dl>
 
-<dl class="first-deffn first-defun-alias-first-deffn">
-<dt class="deffn defun-alias-deffn" id="index-pretty_005fprinter_002enum_005fchildren"><span class="category-def">Function: </span><span><strong class="def-name">pretty_printer.num_children</strong> <var class="def-var-arguments">()</var><a class="copiable-link" href="#index-pretty_005fprinter_002enum_005fchildren"> &para;</a></span></dt>
-<dd><p>This is not a basic method, so <small class="sc">ROCGDB</small> will only ever call it for
-objects derived from <code class="code">gdb.ValuePrinter</code>.
+<dl class="def">
+<dt id="index-pretty_005fprinter_002enum_005fchildren"><span class="category">Function: </span><span><strong>pretty_printer.num_children</strong> <em>()</em><a href='#index-pretty_005fprinter_002enum_005fchildren' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>This is not a basic method, so <small>ROCGDB</small> will only ever call it for
+objects derived from <code>gdb.ValuePrinter</code>.
 </p>
 <p>If available, this method should return the number of children.
-<code class="code">None</code> may be returned if the number can&rsquo;t readily be computed.
+<code>None</code> may be returned if the number can&rsquo;t readily be computed.
 </p></dd></dl>
 
-<dl class="first-deffn first-defun-alias-first-deffn">
-<dt class="deffn defun-alias-deffn" id="index-pretty_005fprinter_002echild"><span class="category-def">Function: </span><span><strong class="def-name">pretty_printer.child</strong> <var class="def-var-arguments">(n)</var><a class="copiable-link" href="#index-pretty_005fprinter_002echild"> &para;</a></span></dt>
-<dd><p>This is not a basic method, so <small class="sc">ROCGDB</small> will only ever call it for
-objects derived from <code class="code">gdb.ValuePrinter</code>.
+<dl class="def">
+<dt id="index-pretty_005fprinter_002echild"><span class="category">Function: </span><span><strong>pretty_printer.child</strong> <em>(n)</em><a href='#index-pretty_005fprinter_002echild' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>This is not a basic method, so <small>ROCGDB</small> will only ever call it for
+objects derived from <code>gdb.ValuePrinter</code>.
 </p>
 <p>If available, this method should return the child item (that is, a
-tuple holding the name and value of this child) indicated by <var class="var">n</var>.
+tuple holding the name and value of this child) indicated by <var>n</var>.
 Indices start at zero.
 </p></dd></dl>
 
-<p><small class="sc">ROCGDB</small> provides a function which can be used to look up the
-default pretty-printer for a <code class="code">gdb.Value</code>:
+<p><small>ROCGDB</small> provides a function which can be used to look up the
+default pretty-printer for a <code>gdb.Value</code>:
 </p>
-<dl class="first-deffn first-defun-alias-first-deffn">
-<dt class="deffn defun-alias-deffn" id="index-gdb_002edefault_005fvisualizer"><span class="category-def">Function: </span><span><strong class="def-name">gdb.default_visualizer</strong> <var class="def-var-arguments">(value)</var><a class="copiable-link" href="#index-gdb_002edefault_005fvisualizer"> &para;</a></span></dt>
-<dd><p>This function takes a <code class="code">gdb.Value</code> object as an argument.  If a
+<dl class="def">
+<dt id="index-gdb_002edefault_005fvisualizer"><span class="category">Function: </span><span><strong>gdb.default_visualizer</strong> <em>(value)</em><a href='#index-gdb_002edefault_005fvisualizer' class='copiable-anchor'> &para;</a></span></dt>
+<dd><p>This function takes a <code>gdb.Value</code> object as an argument.  If a
 pretty-printer for this value exists, then it is returned.  If no such
-printer exists, then this returns <code class="code">None</code>.
+printer exists, then this returns <code>None</code>.
 </p></dd></dl>
 
 <p>Normally, a pretty-printer can respect the user&rsquo;s print settings
-(including temporarily applied settings, such as &lsquo;<samp class="samp">/x</samp>&rsquo;) simply by
-calling <code class="code">Value.format_string</code> (see <a class="pxref" href="Values-From-Inferior.html">Values From Inferior</a>).
+(including temporarily applied settings, such as &lsquo;<samp>/x</samp>&rsquo;) simply by
+calling <code>Value.format_string</code> (see <a href="Values-From-Inferior.html">Values From Inferior</a>).
 However, these settings can also be queried directly:
 </p>
-<dl class="first-deffn first-defun-alias-first-deffn">
-<dt class="deffn defun-alias-deffn" id="index-gdb_002eprint_005foptions"><span class="category-def">Function: </span><span><strong class="def-name">gdb.print_options</strong> <var class="def-var-arguments">()</var><a class="copiable-link" href="#index-gdb_002eprint_005foptions"> &para;</a></span></dt>
+<dl class="def">
+<dt id="index-gdb_002eprint_005foptions"><span class="category">Function: </span><span><strong>gdb.print_options</strong> <em>()</em><a href='#index-gdb_002eprint_005foptions' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Return a dictionary whose keys are the valid keywords that can be
-given to <code class="code">Value.format_string</code>, and whose values are the user&rsquo;s
-settings.  During a <code class="code">print</code> or other operation, the values will
+given to <code>Value.format_string</code>, and whose values are the user&rsquo;s
+settings.  During a <code>print</code> or other operation, the values will
 reflect any flags that are temporarily in effect.
 </p>
-<div class="example smallexample">
-<pre class="example-preformatted">(gdb) python print (gdb.print_options ()['max_elements'])
+<div class="example">
+<pre class="example">(gdb) python print (gdb.print_options ()['max_elements'])
 200
 </pre></div>
 </dd></dl>
 
 </div>
 <hr>
-<div class="nav-panel">
+<div class="header">
 <p>
 Next: <a href="Selecting-Pretty_002dPrinters.html">Selecting Pretty-Printers</a>, Previous: <a href="Types-In-Python.html">Types In Python</a>, Up: <a href="Python-API.html">Python API</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
