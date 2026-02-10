@@ -22,9 +22,6 @@ ROCgdb provides the following features:
 - Supports :doc:`HIP <hip:index>` kernel debugging
 - Allows you to set breakpoints, single-step ROCm applications, and inspect and modify the memory and variables of any given thread running on the hardware
 
-.. note::
-    The current version of ROCgdb is an initial prototype that focuses on source line debugging and doesn't support symbolic variable debugging capabilities.
-
 The code is open source and hosted at: https://github.com/ROCm/ROCgdb
 
 .. grid:: 2
