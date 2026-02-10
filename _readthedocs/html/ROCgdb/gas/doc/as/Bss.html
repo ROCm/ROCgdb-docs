@@ -14,10 +14,10 @@ with no Invariant Sections, with no Front-Cover Texts, and with no
 Back-Cover Texts.  A copy of the license is included in the
 section entitled "GNU Free Documentation License".
  -->
-<title>bss (Using as)</title>
+<title>Bss (Using as)</title>
 
-<meta name="description" content="bss (Using as)">
-<meta name="keywords" content="bss (Using as)">
+<meta name="description" content="Bss (Using as)">
+<meta name="keywords" content="Bss (Using as)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -26,8 +26,9 @@ section entitled "GNU Free Documentation License".
 <link href="index.html" rel="start" title="Top">
 <link href="AS-Index.html" rel="index" title="AS Index">
 <link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="Sections.html" rel="up" title="Sections">
-<link href="Sub_002dSections.html" rel="prev" title="Sub-Sections">
+<link href="Pseudo-Ops.html" rel="up" title="Pseudo Ops">
+<link href="Bundle-directives.html" rel="next" title="Bundle directives">
+<link href="Base64.html" rel="prev" title="Base64">
 <style type="text/css">
 <!--
 a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
@@ -52,33 +53,20 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<div class="section" id="bss">
+<div class="section" id="Bss">
 <div class="header">
 <p>
-Previous: <a href="Sub_002dSections.html" accesskey="p" rel="prev">Sub-Sections</a>, Up: <a href="Sections.html" accesskey="u" rel="up">Sections and Relocation</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Bundle-directives.html" accesskey="n" rel="next">Bundle directives</a>, Previous: <a href="Base64.html" accesskey="p" rel="prev"><code>.base64 &quot;<var>string</var>&quot;[, &hellip;]</code></a>, Up: <a href="Pseudo-Ops.html" accesskey="u" rel="up">Assembler Directives</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="AS-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="bss-Section"></span><h3 class="section">4.5 bss Section</h3>
+<span id="g_t_002ebss-subsection"></span><h3 class="section">7.10 <code>.bss <var>subsection</var></code></h3>
+<span id="index-bss-directive"></span>
 
-<span id="index-bss-section-1"></span>
-<span id="index-common-variable-storage"></span>
-<p>The bss section is used for local common variable storage.
-You may allocate address space in the bss section, but you may
-not dictate data to load into it before your program executes.  When
-your program starts running, all the contents of the bss
-section are zeroed bytes.
-</p>
-<p>The <code>.lcomm</code> pseudo-op defines a symbol in the bss section; see
-<a href="Lcomm.html"><code>.lcomm</code></a>.
-</p>
-<p>The <code>.comm</code> pseudo-op may be used to declare a common symbol, which is
-another form of uninitialized symbol; see <a href="Comm.html"><code>.comm</code></a>.
-</p>
-<p>When assembling for a target which supports multiple sections, such as ELF or
-COFF, you may switch into the <code>.bss</code> section and define symbols as usual;
-see <a href="Section.html"><code>.section</code></a>.  You may only assemble zero values into the
-section.  Typically the section will only contain symbol definitions and
-<code>.skip</code> directives (see <a href="Skip.html"><code>.skip</code></a>).
+<p><code>.bss</code> tells <code>as</code> to assemble the following statements
+onto the end of the bss section.
+For most ELF based targets an optional <var>subsection</var> expression (which must
+evaluate to a positive integer) can be provided.  In this case the statements
+are appended to the end of the indicated bss subsection.
 </p>
 </div>
 
