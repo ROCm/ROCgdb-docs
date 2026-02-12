@@ -305,7 +305,7 @@ Print formats
     // (gdb) p/<code> <value>
     (gdb) p/x foo[1]
 
-Where, the values for <code> can be:
+The values for <code> are:
 
 - x - hexadecimal
 - d - decimal
