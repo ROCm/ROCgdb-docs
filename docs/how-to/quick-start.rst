@@ -28,7 +28,7 @@ To compile your source with debug symbols, use:
 
 Adding the ``-g`` flag to your compilation command generates debug information even when optimizations
 are turned on. Note that higher optimization levels make debugging more difficult,
-so it might be helpful to turn off these optimizations using the ``-O0`` compiler option.
+so it might be helpful to turn off these optimizations with the ``-O0`` compiler option.
 
 Debugging using ROCgdb
 ========================
