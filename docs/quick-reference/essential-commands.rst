@@ -227,7 +227,7 @@ This command dumps the content of the current wavefront's registers.
     exec           0x5555555555555555  6148914691236517205
     vcc            0xffffffffffffffff  18446744073709551615
 
-This command only dumps the general purpose registers, which is all-inclusive data about the state of the current wavefront.
+This command dumps only the general-purpose registers, which provide all-inclusive data about the state of the current wavefront.
 
 To get data for all registers, use:
 

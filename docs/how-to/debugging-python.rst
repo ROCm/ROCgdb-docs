@@ -46,7 +46,7 @@ Key considerations
 Configuration file: launch.json
 ================================
 
-The launch.json configuration file contains information required by VS Code to debug the Python program.This information includes path information for the Python program along with the environment variables.
+The launch.json configuration file contains the information required by VS Code to debug the Python program. This information includes the path information and environment variables required for the Python program.
 
 See the configuration items in the following sample launch.json configuration file:
 
@@ -76,7 +76,7 @@ See the configuration items in the following sample launch.json configuration fi
 Python and C++ breakpoints
 ===========================
 
-Running the launch configuration for Python C++ Debugger commences program execution in the Python code and stops execution at any preset breakpoint. There will be two entries in the **CALL STACK** window, one for **Python Debugger** and another for **(gdb) Attach**, as shown here:
+Running the launch configuration for the Python C++ Debugger starts program execution in the Python code and stops it at any preset breakpoint. As shown in the following image, there will be two entries in the **CALL STACK** window: one for **Python Debugger** and another for **(gdb) Attach**:
 
 .. image:: /data/Python_breakpoint1.png
    :width: 100%

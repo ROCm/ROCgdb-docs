@@ -8,7 +8,7 @@
 Setting up GDB dashboard TUI
 *****************************
 
-`GDB dashboard <https://github.com/cyrus-and/gdb-dashboard>`_ is a standalone ``.gdbinit`` file written using the `Python API <https://sourceware.org/gdb/onlinedocs/gdb/Python-API.html>`_, that enables a modular interface showing relevant information about the program being debugged.
+The `GDB dashboard <https://github.com/cyrus-and/gdb-dashboard>`_ is a Text User Interface (TUI). It's a standalone ``.gdbinit`` file written using the `Python API <https://sourceware.org/gdb/onlinedocs/gdb/Python-API.html>`_, that provides a modular interface for showing relevant information about the program being debugged.
 
 Installation
 =============
@@ -18,7 +18,7 @@ To install the GDB dashboard, download the `.gdbinit file <https://raw.githubuse
 Layout setup
 =============
 
-During debugging, the default dashboard layout setup appears automatically every time the inferior program stops. The purpose of GDB dashboard is to reduce the number of GDB commands needed to inspect the status of current program thus allowing the developer to primarily focus on the control flow.
+During debugging, the default dashboard layout setup appears automatically every time the inferior program stops. The GDB dashboard's purpose is to reduce the number of GDB commands needed to inspect the current program's status, allowing you to focus on the control flow.
 
 To display the default set of views, use this command:
 
@@ -66,7 +66,7 @@ Here is how compact the customized dashboard will look:
    :width: 100%
    :align: center
 
-Furthermore, the dashboard offers several stylable attributes that can be modified via the ``-style`` command, which applies to both the dashboard and individual modules. For example, the height of the Source view can be increased using the following command:
+Furthermore, the dashboard offers several stylable attributes that can be modified via the ``-style`` command, which applies to both the dashboard and individual modules. For example, the height of the **Source view** can be increased using the following command:
 
 .. code-block:: shell
 

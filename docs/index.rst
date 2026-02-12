@@ -19,7 +19,7 @@ ROCgdb provides the following features:
 
 - Debugs ROCm applications running on AMD GPU-supported hardware.
 - Debugs applications without the potential variations introduced by simulation and emulation environments.
-- Offers a seamless debugging environment that allows simultaneous GPU and CPU code debugging within the same application, just like programming in HIP, which is a seamless extension of C++ programming.
+- Offers a seamless debugging environment that allows simultaneous GPU and CPU code debugging within the same application, just like programming in :doc:`HIP <hip:index>`, which is a seamless extension of C++ programming.
 - Additional features to support debugging ROCm device code on top of the existing GDB debugging features, which are inherently present for debugging the host code.
 - Supports :doc:`HIP <hip:index>` kernel debugging.
 - Allows you to set breakpoints, single-step ROCm applications, and inspect and modify the memory and variables of any given thread running on the hardware.

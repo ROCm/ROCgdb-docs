@@ -12,13 +12,10 @@ After :ref:`installing ROCgdb <rocgdb-installation>`, follow the :ref:`setup <ro
 
 .. _rocgdb-setup:
 
-Setup
-=======
+Source compilation
+===================
 
 Before debugging, compile your software with debug information.
-
-Source compilation
--------------------
 
 To compile your source with debug symbols, use:
 
@@ -44,10 +41,7 @@ To start debugging your application under debugger control, follow these steps:
       $ rocgdb ./saxpy
       […]
 
-   At this point, the application is not running, but you'll have access to the debugger
-   console. Here you can use every gdb option for host debugging and you can use them and
-console. Here you can use every gdb option for host debugging, and you can use them
-along with ROCgdb-specific features for device debugging.
+   At this point, the application is not running, but you'll have access to the debugger console. On the console, you can use any :ref:`gdb option <rocgdb-essential-commands>` for host debugging along with ROCgdb-specific features for device debugging.
 
 2. Set a breakpoint before running the application with debugger.
 
@@ -66,7 +60,7 @@ along with ROCgdb-specific features for device debugging.
    wavefront on the device. You can switch between the device wavefronts as you can
    between the host threads.
 
-To attach the debugger to running processes and continue execution, use:
+To attach the debugger to a running process and continue execution, use:
 
 .. code-block:: shell
 
@@ -81,7 +75,7 @@ You can also switch between layouts, which allows you to use different layouts f
    layout src
    layout asm
 
-The ``src`` layout is the source code view, while the ``asm`` is the assembly view. For more layouts, see `GDB documentation <https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/TUI-Commands.html>`_.
+The ``src`` layout is the source code view, while the ``asm`` is the assembly view. For more layouts, see `TUI-specific commands <https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/TUI-Commands.html>`_.
 
 After starting or attaching your application with the debugger, you can utilize these :ref:`rocgdb-essential-commands` to perform further operations.
 
