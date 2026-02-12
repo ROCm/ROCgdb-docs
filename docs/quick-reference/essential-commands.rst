@@ -345,7 +345,7 @@ The ``print`` command is an indirect way to modify the kernel data.
 Changing kernel focus
 ======================
 
-Here are the commands to change the kernel thread, lane, or frame:
+Commands to change the kernel thread, lane, or frame:
 
 Change thread
 --------------
