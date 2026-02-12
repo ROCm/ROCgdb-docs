@@ -34,7 +34,7 @@ The code is open source and hosted at: https://github.com/ROCm/ROCgdb
   .. grid-item-card:: Quick reference
 
     * :ref:`Quick start <rocgdb-quick-start>`
-    * :ref:`Essential commands <rocgdb-essential-commands>`
+    * :ref:`Commands for key operations <rocgdb-essential-commands>`
 
   .. grid-item-card:: How to
 
