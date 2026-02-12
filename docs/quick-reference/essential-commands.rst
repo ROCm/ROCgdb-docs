@@ -22,7 +22,7 @@ View kernel code
 
     (gdb) list
 
-**Sample output:**
+Sample output:
 
 .. code-block:: shell
 
@@ -54,7 +54,7 @@ View disassembly
 
     (gdb) disassemble
 
-**Sample output:**
+Sample output:
 
 .. code-block:: shell
 
@@ -80,7 +80,7 @@ View system information
 
     (gdb) info agents
 
-  **Sample output:**
+  Sample output:
 
   .. code-block:: shell
 
@@ -96,7 +96,7 @@ View system information
 
     (gdb) info queues
 
-  **Sample output:**
+  Sample output:
 
   .. code-block:: shell
 
@@ -110,7 +110,7 @@ View system information
 
     (gdb) info dispatches
 
-  **Sample output:**
+  Sample output:
 
   .. code-block:: shell
 
@@ -123,7 +123,7 @@ View system information
 
     (gdb) info threads
 
-  **Sample output:**
+  Sample output:
 
   .. code-block:: shell
 
@@ -140,7 +140,7 @@ View system information
 
     (gdb) info lanes
 
-  **Sample output:**
+  Sample output:
 
   .. code-block:: shell
 
@@ -154,7 +154,7 @@ View back trace
 
     (gdb) backtrace
 
-**Sample output:**
+Sample output:
 
 .. code-block:: shell
 
@@ -168,7 +168,7 @@ View stack frames
 
     (gdb) info frame
 
-**Sample output:**
+Sample output:
 
 .. code-block:: shell
 
@@ -187,7 +187,7 @@ View frame arguments
 
     (gdb) info args
 
-**Sample output:**
+Sample output:
 
 .. code-block:: shell
 
@@ -200,7 +200,7 @@ View frame local variables
 
     (gdb) info locals
 
-**Sample output:**
+Sample output:
 
 .. code-block:: shell
 
@@ -215,7 +215,7 @@ View GPU registers
 
 This command dumps the content of the current wavefront's registers.
 
-**Sample output:**
+Sample output:
 
 .. code-block:: shell
 
@@ -253,7 +253,7 @@ View CPU/GPU threads
 
     (gdb) info threads
 
-**Sample output:**
+Sample output:
 
 .. code-block:: shell
 
