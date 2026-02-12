@@ -66,7 +66,7 @@ along with ROCgdb-specific features for device debugging.
    wavefront on the device. You can switch between the device wavefronts as you can
    between the host threads.
 
-To attach debugger to running processes and continue execution, use:
+To attach the debugger to running processes and continue execution, use:
 
 .. code-block:: shell
 
