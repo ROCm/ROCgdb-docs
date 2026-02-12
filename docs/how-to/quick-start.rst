@@ -33,7 +33,7 @@ so it might be helpful to turn off these optimizations with the ``-O0`` compiler
 Debugging using ROCgdb
 ========================
 
-You can either launch and run your application under debugger control or attach debugger to running processes and continue execution.
+You can either launch and run your application under debugger control or attach the debugger to a running process and continue execution.
 
 To start debugging your application under debugger control, follow these steps:
 
