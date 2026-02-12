@@ -45,7 +45,7 @@ To display the default set of views, use this command:
 Customizing the dashboard
 ==========================
 
-The GDB dashboard TUI is very customizable. You can customize the TUI to eliminate the less-commonly used views from the default display during a debug session, such as **Expressions**, **History**, and **Memory** views.
+The GDB dashboard TUI is customizable. For example, you can customize the TUI to exclude less commonly used views from the default display during a debug session, such as **Expressions**, **History**, and **Memory** views.
 
 To avoid a cluttered display with a lot of AMD GPU registers displaying constantly on the dashboard, you can elide the **Register** view from the default dashboard using the following commands:
 
