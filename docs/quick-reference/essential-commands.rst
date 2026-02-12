@@ -373,7 +373,7 @@ Change frame
 Controlling kernel execution
 =============================
 
-Here are the commands to control kernel execution:
+Commands to control kernel execution:
 
 Set breakpoints
 ----------------
