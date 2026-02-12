@@ -327,7 +327,7 @@ The commands to modify the kernel data:
 Using set command
 ------------------
 
-The ``set`` command allows you to modify kernel data directly.
+Use the ``set`` command to modify kernel data directly.
 
 .. code-block:: shell
 
