@@ -24,7 +24,7 @@ To start debugging Python code, follow these steps:
 
 2. Add Python Debugger configuration.
 
-3. Specify the Python version using interpreter (ctrl+shift+P).
+3. Specify the Python version using interpreter (Ctrl+Shift+P).
 
 4. Select **Python C++ Debugger Custom** option in the configurations. It launches the Python Debugger and attaches gdb to the Python process.
 
