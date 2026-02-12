@@ -322,7 +322,7 @@ The values for <code> are:
 Modifying kernel data
 ======================
 
-Here are the commands to modify the kernel data:
+The commands to modify the kernel data:
 
 Using set command
 ------------------
