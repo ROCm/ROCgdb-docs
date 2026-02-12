@@ -30,7 +30,7 @@ To start debugging Python code, follow these steps:
 
 5. Verify the (gdb) Attach configuration. You might need to run ``echo 0|sudo tee /proc/sys/kernel/yama/ptrace_scope`` to allow attach.
 
-6. You can now see the Python Debugger and gdb threads in the call stack window. The breakpoint window works for both and is easy to navigate.
+6. You can now see the Python Debugger and gdb threads in the **CALL STACK** window. The **Breakpoint** window works for both and is easy to navigate.
 
 Key considerations
 -------------------
@@ -76,7 +76,7 @@ See the configuration items in the following sample launch.json configuration fi
 Python and C++ breakpoints
 ===========================
 
-Running the launch configuration for Python C++ Debugger commences program execution in the Python code and stops execution at any preset breakpoint. There will be two entries in the CALL STACK window, one for **Python Debugger** and another for **(gdb) Attach**, as shown here:
+Running the launch configuration for Python C++ Debugger commences program execution in the Python code and stops execution at any preset breakpoint. There will be two entries in the **CALL STACK** window, one for **Python Debugger** and another for **(gdb) Attach**, as shown here:
 
 .. image:: /data/Python_breakpoint1.png
    :width: 100%
@@ -84,7 +84,7 @@ Running the launch configuration for Python C++ Debugger commences program execu
 
 Whenever Python code execution pauses at a breakpoint, additional breakpoints can be set in the C/C++ code layer so that when Python code execution resumes and calls down to the C/C++ layer, program execution will stop at that C/C++ layer breakpoint.
 
-Under the CALL STACK window in the following image, see the call stack hierarchy under the (gdb) Attach inferior. If the C/C++ layer breakpoint is set at the ``amd::roc::VirtualGPU::submitKernel()`` function, the name field for the ``amd::device::kernel`` object shows the name of the HIP kernel about to be submitted.
+Under the **CALL STACK** window in the following image, see the call stack hierarchy under the (gdb) Attach inferior. If the C/C++ layer breakpoint is set at the ``amd::roc::VirtualGPU::submitKernel()`` function, the name field for the ``amd::device::kernel`` object shows the name of the HIP kernel about to be submitted.
 
 .. image:: /data/Python_breakpoint2.png
    :width: 100%

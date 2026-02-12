@@ -87,12 +87,12 @@ Follow these steps to configure the Remote Debugger settings:
 
    - Launch requires the environment variable ``LD_LIBRARY_PATH`` to point to the debug build of runtime.
 
-   - If required, set the Debugger path to ``rocgdb``. For example, ``miDebuggerPath: /opt/rocm-7.2.0/bin/rocgdb``.
+   - If required, set the debugger path to ``rocgdb``. For example, ``miDebuggerPath: /opt/rocm-7.2.0/bin/rocgdb``.
 
 Configuration file: launch.json
 ================================
 
-The launch.json configuration file contains information required by VS Code to Launch or Attach to a program for debugging. This information includes path information for the Debugger and the program including the arguments and environment variables.
+The launch.json configuration file contains information required by VS Code to Launch or Attach to a program for debugging. This information includes path information for the debugger and the program including the arguments and environment variables.
 
 Here is a sample launch.json file:
 
@@ -160,18 +160,18 @@ Here is a sample launch.json file:
       ]
    }
 
-Launching the Debugger
+Launching the debugger
 =======================
 
-After the Debugger settings are configured, the Run and Debug tab will show these two options:
+After the debugger settings are configured, the **Run and Debug** tab will show these two options:
 
-- **(gdb) Attach option:** This option is used to connect the Debugger to a running process.
+- **(gdb) Attach option:** This option is used to connect the debugger to a running process.
 
-- **(gdb) Launch option:** This option is used to start a process under Debugger control.
+- **(gdb) Launch option:** This option is used to start a process under debugger control.
 
 To start remote debugging, follow these steps:
 
-1. Click on the **Launch** option to start the application under Debugger control:
+1. Click on the **Launch** option to start the application under debugger control:
 
    - ``stopAtEntry: true`` stops the application on ``main()``.
 

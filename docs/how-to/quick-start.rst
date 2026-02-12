@@ -95,12 +95,13 @@ This user guide is also installed in the following directories when you `install
 
 For specific information about debugging heterogeneous programs on ROCm software, refer to the following chapters in the ROCgdb user guide:
 
-- *Debugging Heterogeneous Programs:* It provides general information about
+- **Debugging Heterogeneous Programs:** Provides general information about
   debugging heterogeneous programs. It also discusses features and commands that are
   not currently implemented but provisionally planned for future versions.
-- *Configuration-Specific Information > Architectures > AMD GPU:* It provides
+
+- **Configuration-Specific Information > Architectures > AMD GPU:** Provides
   specific information about debugging heterogeneous programs on ROCm software with
-  supported AMDGPU chips. This section also lists the implementation status
+  supported AMD GPU hardware. This section also lists the implementation status
   and known issues of the current version.
 
 You can use the standard `GDB <http://www.gnu.org/software/gdb>`_ commands for both CPU and GPU code debugging.

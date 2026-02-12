@@ -22,7 +22,7 @@ View kernel code
 
     (gdb) list
 
-Sample output:
+**Sample output:**
 
 .. code-block:: shell
 
@@ -54,7 +54,7 @@ View disassembly
 
     (gdb) disassemble
 
-Sample output:
+**Sample output:**
 
 .. code-block:: shell
 
@@ -74,13 +74,13 @@ Sample output:
 View system information
 ------------------------
 
-- Agents:
+- **Agents:**
 
   .. code-block:: shell
 
     (gdb) info agents
 
-  Sample output:
+  **Sample output:**
 
   .. code-block:: shell
 
@@ -90,13 +90,13 @@ View system information
       3  A     AMDGPU Agent (GPUID 56224) gfx90a       AMD Instinct MI210 416   3328    0000:0c:00.0
       4  A     AMDGPU Agent (GPUID 33385) gfx90a       AMD Instinct MI210 416   3328    0000:11:00.0
 
-- Queues:
+- **Queues:**
 
   .. code-block:: shell
 
     (gdb) info queues
 
-  Sample output:
+  **Sample output:**
 
   .. code-block:: shell
 
@@ -104,26 +104,26 @@ View system information
       1    AMDGPU Queue 1:1 (QID 0) HSA          2      2      4096     0x00007ffff626e000
     * 2    AMDGPU Queue 1:2 (QID 1) HSA          0      2      1048576  0x00007fffe5800000
 
-- Dispatches:
+- **Dispatches:**
 
   .. code-block:: shell
 
     (gdb) info dispatches
 
-  Sample output:
+  **Sample output:**
 
   .. code-block:: shell
 
      Id   Target Id                      Grid    Workgroup Fence   Kernel Function
     * 1    AMDGPU Dispatch 1:2:1 (PKID 0) [1,1,1] [1,1,1]   B|Aa|Ra kern()
 
-- Threads:
+- **Threads:**
 
   .. code-block:: shell
 
     (gdb) info threads
 
-  Sample output:
+  **Sample output:**
 
   .. code-block:: shell
 
@@ -134,13 +134,13 @@ View system information
       6    Thread 0x7ffff5fff6c0 (LWP 645930) "nosimple" __GI___ioctl (fd=3, request=3222817548) at ../sysdeps/unix/sysv/linux/ioctl.c:36
     * 7    AMDGPU Wave 1:2:1:1 (0,0,0)/0 "saxpy"      kern () at /home/user/saxpy.cpp:7
 
-- Lanes:
+- **Lanes:**
 
   .. code-block:: shell
 
     (gdb) info lanes
 
-  Sample output:
+  **Sample output:**
 
   .. code-block:: shell
 
@@ -154,7 +154,7 @@ View back trace
 
     (gdb) backtrace
 
-Sample output:
+**Sample output:**
 
 .. code-block:: shell
 
@@ -168,7 +168,7 @@ View stack frames
 
     (gdb) info frame
 
-Sample output:
+**Sample output:**
 
 .. code-block:: shell
 
@@ -187,7 +187,7 @@ View frame arguments
 
     (gdb) info args
 
-Sample output:
+**Sample output:**
 
 .. code-block:: shell
 
@@ -200,7 +200,7 @@ View frame local variables
 
     (gdb) info locals
 
-Sample output:
+**Sample output:**
 
 .. code-block:: shell
 
@@ -215,7 +215,7 @@ View GPU registers
 
 This command dumps the content of the current wavefront's registers.
 
-Sample output:
+**Sample output:**
 
 .. code-block:: shell
 
@@ -253,7 +253,7 @@ View CPU/GPU threads
 
     (gdb) info threads
 
-Sample output:
+**Sample output:**
 
 .. code-block:: shell
 
