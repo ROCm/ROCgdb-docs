@@ -423,7 +423,7 @@ Set catchpoints
     (gdb) catch unload          -- Catch unloads of shared libraries (track cleanup/unloading).
     (gdb) catch rethrow         -- Catch an exception, when rethrown (trace exception propagation).
     (gdb) catch signal SIGSEGV  -- Catch signals by their names and/or numbers (debug crashes or signals).
-    (gdb) catch syscall open    -- Catch system calls by names, groups or numbers (trace system-level calls).
+    (gdb) catch syscall open    -- Catch system calls by names, groups, or numbers (trace system-level calls).
     (gdb) catch throw           -- Catch an exception, when thrown (trace exception origins).
     (gdb) catch vfork           -- Catch calls to vfork (monitor child process creation).
 
