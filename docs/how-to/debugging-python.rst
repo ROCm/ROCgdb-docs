@@ -39,9 +39,9 @@ Key considerations
 
 - Breaks in the Python script don't activate gdb automatically.
 
-- Ensure that Python picks the right runtime libs. To see the location of the loaded libs, use ``-exec info shared``.
+- Ensure that Python picks the correct runtime libraries. To see the location of the loaded libraries, use ``-exec info shared``.
 
-- There are mulitple terminal windows. Switch as per requirement.
+- There are multiple terminal windows. Switch as required.
 
 Configuration file: launch.json
 ================================
