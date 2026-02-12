@@ -13,7 +13,7 @@ Setting up GDB dashboard TUI
 Installation
 =============
 
-To install the GDB dashboard, download the `.gdbinit file <https://raw.githubusercontent.com/cyrus-and/gdb-dashboard/master/.gdbinit>`_ and place in your home directory.
+To install the GDB dashboard, download the `.gdbinit file <https://raw.githubusercontent.com/cyrus-and/gdb-dashboard/master/.gdbinit>`_ and move it to your home directory.
 
 Layout setup
 =============
