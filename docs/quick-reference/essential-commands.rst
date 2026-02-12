@@ -4,9 +4,9 @@
 
 .. _rocgdb-essential-commands:
 
-**************************
-ROCgdb essential commands
-**************************
+***********************************
+ROCgdb commands for key operations
+***********************************
 
 This topic summarizes the ROCgdb commands for key operations.
 
