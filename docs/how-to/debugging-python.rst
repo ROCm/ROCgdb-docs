@@ -20,7 +20,7 @@ Getting started
 
 To start debugging Python code, follow these steps:
 
-1. Install Python extensions on the remote system or docker.
+1. Install Python extensions on the remote system or Docker.
 
 2. Add Python Debugger configuration.
 
