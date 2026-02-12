@@ -8,7 +8,7 @@
 ROCgdb essential commands
 **************************
 
-This topic compiles the ROCgdb commands used to perform essential operations.
+This topic summarizes the ROCgdb commands for key operations.
 
 Inspecting kernel state
 ========================
