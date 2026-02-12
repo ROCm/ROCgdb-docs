@@ -274,7 +274,7 @@ Switch threads
 Printing kernel data
 =====================
 
-Here are the commands to print the kernel data:
+Commands to print the kernel data:
 
 Print variable
 ---------------
