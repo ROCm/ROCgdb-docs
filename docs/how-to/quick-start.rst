@@ -44,7 +44,7 @@ To start debugging your application under debugger control, follow these steps:
       $ rocgdb ./saxpy
       […]
 
-   At this point the application is not running, but you'll have access to the debugger
+   At this point, the application is not running, but you'll have access to the debugger
    console. Here you can use every gdb option for host debugging and you can use them and
    extra ROCgdb specific features for device debugging.
 
