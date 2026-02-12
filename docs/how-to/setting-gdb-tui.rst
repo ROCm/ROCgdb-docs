@@ -66,7 +66,7 @@ Here is how compact the customized dashboard will look:
    :width: 100%
    :align: center
 
-Furthermore, the dashboard offers a number of stylable attributes that can be modified via the ``-style`` command, which applies to both the dashboard and individual modules. For example, the height of the Source view can be increased using the following command:
+Furthermore, the dashboard offers several stylable attributes that can be modified via the ``-style`` command, which applies to both the dashboard and individual modules. For example, the height of the Source view can be increased using the following command:
 
 .. code-block:: shell
 
