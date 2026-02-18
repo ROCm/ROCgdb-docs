@@ -74,7 +74,11 @@ Sample output:
 View system information
 ------------------------
 
+The following commands are related to heterogeneous debugging:
+
 - **Agents:**
+
+  The following command lists the information shown in the sample output for each heterogeneous agent:
 
   .. code-block:: shell
 
@@ -90,7 +94,11 @@ View system information
       3  A     AMDGPU Agent (GPUID 56224) gfx90a       AMD Instinct MI210 416   3328    0000:0c:00.0
       4  A     AMDGPU Agent (GPUID 33385) gfx90a       AMD Instinct MI210 416   3328    0000:11:00.0
 
+  For more information, see `info agents command <https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/Heterogeneous-Debugging.html#index-info-agents>`_.
+
 - **Queues:**
+
+  The following command lists the information shown in the sample output for each heterogeneous queue:
 
   .. code-block:: shell
 
@@ -104,7 +112,11 @@ View system information
       1    AMDGPU Queue 1:1 (QID 0) HSA          2      2      4096     0x00007ffff626e000
     * 2    AMDGPU Queue 1:2 (QID 1) HSA          0      2      1048576  0x00007fffe5800000
 
+  For more information, see `info queues command <https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/Heterogeneous-Debugging.html#index-info-agents>`_.
+
 - **Dispatches:**
+
+  The following command lists the information shown in the sample output for each heterogeneous dispatch:
 
   .. code-block:: shell
 
@@ -117,7 +129,13 @@ View system information
      Id   Target Id                      Grid    Workgroup Fence   Kernel Function
     * 1    AMDGPU Dispatch 1:2:1 (PKID 0) [1,1,1] [1,1,1]   B|Aa|Ra kern()
 
+  For more information, see `info dispatches command <https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/Heterogeneous-Debugging.html#index-info-dispatches>`_.
+
 - **Threads:**
+
+  In some operating systems where a single program might have more than one thread of execution, the threads are akin to multiple processes with a shared address space but individual registers, execution stack, and perhaps private memory.
+
+  To faciliate debugging such multi-thread programs, the following command lists the threads created on all heterogeneous agents:
 
   .. code-block:: shell
 
@@ -134,7 +152,13 @@ View system information
       6    Thread 0x7ffff5fff6c0 (LWP 645930) "nosimple" __GI___ioctl (fd=3, request=3222817548) at ../sysdeps/unix/sysv/linux/ioctl.c:36
     * 7    AMDGPU Wave 1:2:1:1 (0,0,0)/0 "saxpy"      kern () at /home/user/saxpy.cpp:7
 
+  For more information, see `Debugging programs with multiple threads <https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/Threads.html>`_.
+
 - **Lanes:**
+
+  On some heterogeneous systems there can be heterogeneous agents that support Single Instruction Multiple Data (SIMD) or Single Instruction Multiple Threads (STMT) machine instructions. On these target architectures, a single machine instruction can operate in parallel on multiple heterogeneous lanes.
+
+  To facilitate debugging heterogeneous programs, the following command displays information about individual source language threads of execution that are mapped to SIMD-like lanes of a thread.
 
   .. code-block:: shell
 
@@ -146,6 +170,8 @@ View system information
 
       Id   State Target Id                            Frame
     * 0    A     AMDGPU Lane 1:2:1:1/0 (0,0,0)[0,0,0] kern () at /home/user/saxpy.cpp:7
+
+  For more information, see `Debugging heterogeneous programs <https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/Heterogeneous-Debugging.html>`_.
 
 View back trace
 ----------------

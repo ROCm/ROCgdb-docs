@@ -64,9 +64,11 @@ To attach the debugger to a running process and continue execution, use:
 
 .. code-block:: shell
 
-   $ rocgdb -pid 1234
+   $ rocgdb -pid <process_id>
    […]
    (gdb) continue
+
+Use ``ps`` command to get the <process_id> of the running application, to which the debugger needs to be attached.
 
 You can also switch between layouts, which allows you to use different layouts for different situations while debugging.
 
