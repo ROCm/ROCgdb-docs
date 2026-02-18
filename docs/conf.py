@@ -6,6 +6,8 @@
 
 import re
 import subprocess
+import sys
+from pathlib import Path
 
 from rocm_docs import ROCmDocs
 
@@ -29,6 +31,8 @@ external_toc_path = "./sphinx/_toc.yml"
 
 docs_core = ROCmDocs(left_nav_title)
 docs_core.setup()
+
+html_static_path = ['_static']
 
 external_projects_current_project = "rocgdb"
 
