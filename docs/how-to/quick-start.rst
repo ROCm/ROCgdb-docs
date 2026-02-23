@@ -23,6 +23,12 @@ To compile your source with debug symbols, use:
 
    $ hipcc -ggdb -O0 saxpy.cpp -o saxpy
 
+Or, compile using amd-llvm:
+
+.. code-block:: shell
+
+   amdclang++ -ggdb -O0 -x hip --offload-arch=native saxpy.cpp -o saxpy
+
 Adding the ``-g`` flag to your compilation command generates debug information even when optimizations
 are turned on. Note that higher optimization levels make debugging more difficult,
 so it might be helpful to turn off these optimizations with the ``-O0`` compiler option.

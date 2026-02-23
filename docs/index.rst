@@ -39,8 +39,7 @@ The code is open source and hosted at: https://github.com/ROCm/ROCgdb
   .. grid-item-card:: How to
 
     * |ROCgdb user guide|
-    * :ref:`setting-gdb-tui`
-    * :ref:`setting-vsc-gui`
+    * :ref:`setting-third-party`
     * :ref:`debugging-python`
 
 To contribute to the documentation, refer to

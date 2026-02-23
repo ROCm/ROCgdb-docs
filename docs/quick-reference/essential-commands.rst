@@ -112,7 +112,7 @@ The following commands are related to heterogeneous debugging:
       1    AMDGPU Queue 1:1 (QID 0) HSA          2      2      4096     0x00007ffff626e000
     * 2    AMDGPU Queue 1:2 (QID 1) HSA          0      2      1048576  0x00007fffe5800000
 
-  For more information, see `info queues command <https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/Heterogeneous-Debugging.html#index-info-agents>`_.
+  For more information, see `info queues command <https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/Heterogeneous-Debugging.html#index-info-queues>`_.
 
 - **Dispatches:**
 
@@ -135,7 +135,7 @@ The following commands are related to heterogeneous debugging:
 
   In some operating systems where a single program might have more than one thread of execution, the threads are akin to multiple processes with a shared address space but individual registers, execution stack, and perhaps private memory.
 
-  To faciliate debugging such multi-thread programs, the following command lists the threads created on all heterogeneous agents:
+  To facilitate debugging such multi-thread programs, the following command lists the threads created on all heterogeneous agents:
 
   .. code-block:: shell
 
@@ -314,7 +314,7 @@ Print array
 
 .. code-block:: shell
 
-    (gdb) print *foo[2]@8     -- i.e. (gbb) print *<address>@<count>
+    (gdb) print *foo[2]@8     -- i.e. (gdb) print *<address>@<count>
 
 Print expressions
 ------------------

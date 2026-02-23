@@ -63,12 +63,12 @@ See the configuration items in the following sample launch.json configuration fi
         "name": "Python Debugger",
         "type": "debugpy",
         "request": "launch",
-        "program": "/home/amd/german/triton_simple.py",
+        "program": "/home/test_dir/test.py",
         "console": "integratedTerminal",
-        "cwd": "/home/amd/german/",
+        "cwd": "/home/test_dir/",
         "env": {
-            "PYTHONPATH":"${PYTHONPATH}:/opt/rocm/bin:/opt/rocm/lib:/home/amd/myenv-py311/lib/python3.11/site-packages",
-            "LD_LIBRARY_PATH":"/home/amd/german/udp/clr/build/install/lib/:/opt/rocm/lib",
+            "PYTHONPATH":"${PYTHONPATH}:/opt/rocm/bin:/opt/rocm/lib:/home/myenv-py311/lib/python3.11/site-packages",
+            "LD_LIBRARY_PATH":"/home/test_dir/udp/clr/build/install/lib/:/opt/rocm/lib",
             "AMD_LOG_LEVEL":"4"
     }
     },
@@ -107,6 +107,6 @@ To inspect the HIP kernel state:
 
 The following image demonstrates the HIP kernel breakpoints:
 
-.. image:: /data/Python_breakpoint2.png
+.. image:: /data/hip_kernel_breakpoint.png
    :width: 100%
    :align: center
