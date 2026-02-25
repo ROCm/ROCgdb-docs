@@ -12,7 +12,7 @@ This topic discusses how to configure third-party tools or plugins such as the G
 
 .. note::
 
-    AMD is not repsonsible for providing any support for issues or bugs reported on the these third-party tools.
+    AMD is not repsonsible for providing any support for issues or bugs reported on these third-party tools.
 
 .. _setting-gdb-tui:
 
