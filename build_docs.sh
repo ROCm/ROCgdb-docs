@@ -8,7 +8,7 @@ set -e
 rm -rf _build
 mkdir _build
 pushd _build
-../ROCgdb/configure
+../ROCgdb/configure --with-bugurl="https://github.com/ROCm/ROCgdb/issues"
 make
 
 # Generate HTML
