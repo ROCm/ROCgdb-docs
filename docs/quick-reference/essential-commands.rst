@@ -272,6 +272,8 @@ View GPU data @ address spaces
     (gdb) x/nfu private_wave#0xdeadbeef
     (gdb) x/nfu private_lane#0xdeadbeef
 
+For more information, see `AMD GPU address spaces <https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/AMD-GPU.html#AMD-GPU-Address-Spaces>`_.
+
 View CPU/GPU threads
 ---------------------
 
@@ -460,6 +462,8 @@ Set scheduler locking (waves)
 
     (gdb) set scheduler-locking on
 
+For more information, see `Scheduler locking mode <https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/All_002dStop-Mode.html#set-scheduler_002dlocking>`_.
+
 Set scheduler non-stop (waves)
 -------------------------------
 
@@ -467,12 +471,16 @@ Set scheduler non-stop (waves)
 
     set non-stop non
 
+For more information, see `Non-stop mode <https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/Non_002dStop-Mode.html>`_.
+
 Set scheduler all-stop (waves)
 -------------------------------
 
 .. code-block:: shell
 
     set non-stop off
+
+For more information, see `All-stop mode <https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/All_002dStop-Mode.html>`_.
 
 Disable breakpoint, watchpoint, catchpoint
 -------------------------------------------

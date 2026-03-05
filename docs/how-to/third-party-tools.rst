@@ -12,7 +12,7 @@ This topic discusses how to configure third-party tools or plugins such as the G
 
 .. note::
 
-    AMD is not repsonsible for providing any support for issues or bugs reported on these third-party tools.
+   AMD is not responsible for providing any support for issues or bugs reported on these third-party tools. To report such issues, visit the GitHub or webpage for these third-party tools. AMD doesn't guarantee that these third-party tools will work seamlessly across ROCm releases.
 
 .. _setting-gdb-tui:
 
@@ -223,7 +223,7 @@ Follow these steps to configure the Remote Debugger settings:
 
 1. Select **Remote Explorer** and add the new remote:
 
-   - Add the ssh command line ``ssh amd@<mi300-system>.ctr.dcgpu``.
+   - Add the ssh command line ``ssh <user_name>@<remote_server_url>``.
 
 2. Connect to the remote system.
 
@@ -239,7 +239,7 @@ Follow these steps to configure the Remote Debugger settings:
 
    - Launch requires the environment variable ``LD_LIBRARY_PATH`` to point to the debug build of runtime.
 
-   - If required, set the debugger path to ``rocgdb``. For example, ``miDebuggerPath: /opt/rocm-7.2.0/bin/rocgdb``.
+   - If required, set the debugger path to ``rocgdb`` installation path. For example, ``miDebuggerPath: /opt/rocm-7.2.0/bin/rocgdb``.
 
 Configuration file: launch.json
 --------------------------------
