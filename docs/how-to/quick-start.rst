@@ -12,89 +12,82 @@ After :ref:`installing ROCgdb <rocgdb-installation>`, follow the :ref:`setup <ro
 
 .. _rocgdb-setup:
 
-Setup
-=======
+Source compilation
+===================
 
-Before debugging, compile your software with debug information. To achieve this, add the ``-g`` flag to your
-compilation command. This generates debug information even when optimizations
+Before debugging, compile your software with debug information.
+
+To compile your source with debug symbols, use:
+
+.. code-block:: shell
+
+   $ hipcc -ggdb -O0 saxpy.cpp -o saxpy
+
+Or, compile using amd-llvm:
+
+.. code-block:: shell
+
+   amdclang++ -ggdb -O0 -x hip --offload-arch=native saxpy.cpp -o saxpy
+
+Adding the ``-g`` flag to your compilation command generates debug information even when optimizations
 are turned on. Note that higher optimization levels make debugging more difficult,
-so it might be helpful to turn off these optimizations using the ``-O0`` compiler option.
+so it might be helpful to turn off these optimizations with the ``-O0`` compiler option.
+
+For saxpy source code, see `main.hip <https://github.com/ROCm/rocm-examples/blob/amd-staging/HIP-Basic/saxpy/main.hip>`_.
 
 Debugging using ROCgdb
 ========================
 
-To start debugging your application, follow these steps:
+You can either launch and run your application under debugger control or attach the debugger to a running process and continue execution.
 
-1. Run ROCgdb with your ROCm application.
+To start debugging your application under debugger control, follow these steps:
+
+1. Launch your application under debugger control:
 
    .. code-block:: shell
 
-    rocgdb my_application
+      $ rocgdb ./saxpy
+      […]
 
-   At this point the application is not running, but you'll have access to the debugger
-   console. Here you can use every gdb option for host debugging and you can use them and
-   extra ROCgdb specific features for device debugging.
+   At this point, the application is not running, but you'll have access to the debugger console. On the console, you can use any :ref:`gdb option <rocgdb-essential-commands>` for host debugging along with ROCgdb-specific features for device debugging.
 
 2. Set a breakpoint before running the application with debugger.
 
    .. code-block:: shell
 
-    tbreak my_app.cpp:458
+      tbreak my_app.cpp:458
 
    This places a temporary breakpoint at the specified line. To start your application, use:
 
    .. code-block:: shell
 
-    run
+      (gdb) run
 
    If the breakpoint is in the device code, the debugger shows the device and host
    threads. The device threads are not individual work items; instead, they represent a
    wavefront on the device. You can switch between the device wavefronts as you can
    between the host threads.
 
-3. You can also switch between layouts, which allows you to use different layouts for different situations while debugging.
+To attach the debugger to a running process and continue execution, use:
 
-   .. code-block:: shell
+.. code-block:: shell
 
-    layout src
-    layout asm
+   $ rocgdb -pid <process_id>
+   […]
+   (gdb) continue
 
-   The ``src`` layout is the source code view, while the ``asm`` is the assembly view. For more layouts, see `GDB documentation <https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/TUI-Commands.html>`_.
+Use ``ps`` command to get the <process_id> of the running application, to which the debugger needs to be attached.
 
-   .. code-block:: shell
+You can also switch between layouts, which allows you to use different layouts for different situations while debugging.
 
-    info threads
+.. code-block:: shell
 
-   The preceding command lists all threads with Id and information on where the thread is stopped.
+   layout src
+   layout asm
 
-4. To switch threads, use:
+The ``src`` layout is the source code view, while the ``asm`` is the assembly view. For more layouts, see `TUI-specific commands <https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/TUI-Commands.html>`_.
 
-   .. code-block:: shell
-
-    thread <id>
-
-5. To take a step in the execution, use:
-
-   .. code-block:: shell
-
-    next
-
-    # Alternatively you can use the shorthand
-
-    n
-
-6. To dump the content of the current wavefront's registers, use:
-
-   .. code-block:: shell
-
-    info registers
-
-    # Alternatively you can use the shorthand
-
-    i r
-
-   The preceding command only dumps the general purpose registers, which is all-inclusive data
-   about the state of the current wavefront. To get data for all registers, use command ``info all-registers``.
+After starting or attaching your application with the debugger, you can utilize these :ref:`rocgdb-essential-commands` to perform further operations.
 
 ROCgdb user guide
 ===================
@@ -107,12 +100,13 @@ This user guide is also installed in the following directories when you `install
 
 For specific information about debugging heterogeneous programs on ROCm software, refer to the following chapters in the ROCgdb user guide:
 
-- *Debugging Heterogeneous Programs:* It provides general information about
+- **Debugging Heterogeneous Programs:** Provides general information about
   debugging heterogeneous programs. It also discusses features and commands that are
   not currently implemented but provisionally planned for future versions.
-- *Configuration-Specific Information > Architectures > AMD GPU:* It provides
+
+- **Configuration-Specific Information > Architectures > AMD GPU:** Provides
   specific information about debugging heterogeneous programs on ROCm software with
-  supported AMDGPU chips. This section also lists the implementation status
+  supported AMD GPU hardware. This section also lists the implementation status
   and known issues of the current version.
 
 You can use the standard `GDB <http://www.gnu.org/software/gdb>`_ commands for both CPU and GPU code debugging.
