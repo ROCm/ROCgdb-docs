@@ -4,26 +4,22 @@
 
 .. _index:
 
-===========================
+======================
 ROCgdb documentation
-===========================
+======================
 
-The AMD ROCm Debugger (ROCgdb) is the AMD source-level debugger for Linux,
-based on the `GNU Debugger (GDB) <https://www.sourceware.org/gdb/documentation/>`_. ROCgdb enables heterogeneous debugging on the ROCm software that consists of an x86-based host architecture along with
+This is the documentation for AMD ROCm Debugger (ROCgdb) for Linux, which is the AMD source-level debugger based on the `GNU Debugger (GDB) <https://www.sourceware.org/gdb/documentation/>`_. For documentation on ROCgdb for Windows, see `AMD ROCm debugger for Windows <https://rocm.docs.amd.com/projects/install-on-windows/en/latest/how-to/debugger-windows.html>`_. ROCgdb enables heterogeneous debugging on the ROCm software that consists of an x86-based host architecture along with
 commercially available AMD GPU architectures supported by the :doc:`AMD Debugger API
 Library (ROCdbgapi) <rocdbgapi:index>`. ROCdbgapi is included with ROCm.
 
 ROCgdb provides the following features:
 
-- Debugs ROCm applications running on actual hardware
-- Debugs applications without the potential variations introduced by simulation and emulation environments
-- Offers a seamless debugging environment that allows simultaneous GPU and CPU code debugging within the same application, just like programming in HIP, which is a seamless extension of C++ programming
-- Additional features to support debugging ROCm device code on top of the existing GDB debugging features, which are inherently present for debugging the host code
-- Supports :doc:`HIP <hip:index>` kernel debugging
-- Allows you to set breakpoints, single-step ROCm applications, and inspect and modify the memory and variables of any given thread running on the hardware
-
-.. note::
-    The current version of ROCgdb is an initial prototype that focuses on source line debugging and doesn't support symbolic variable debugging capabilities.
+- Debugs ROCm applications running on AMD GPU-supported hardware.
+- Debugs applications without the potential variations introduced by simulation and emulation environments.
+- Offers a seamless debugging environment that allows simultaneous GPU and CPU code debugging within the same application, just like programming in :doc:`HIP <hip:index>`, which is a seamless extension of C++ programming.
+- Additional features to support debugging ROCm device code on top of the existing GDB debugging features, which are inherently present for debugging the host code.
+- Supports :doc:`HIP <hip:index>` kernel debugging.
+- Allows you to set breakpoints, single-step ROCm applications, and inspect and modify the memory and variables of any given thread running on the hardware.
 
 The code is open source and hosted at: https://github.com/ROCm/ROCgdb
 
@@ -34,11 +30,16 @@ The code is open source and hosted at: https://github.com/ROCm/ROCgdb
 
     * :ref:`Installation <rocgdb-installation>`
 
-  .. grid-item-card:: How to
+  .. grid-item-card:: Quick reference
 
     * :ref:`Quick start <rocgdb-quick-start>`
+    * :ref:`Commands for key operations <rocgdb-essential-commands>`
+
+  .. grid-item-card:: How to
 
     * |ROCgdb user guide|
+    * :ref:`setting-third-party`
+    * :ref:`debugging-python`
 
 To contribute to the documentation, refer to
 `Contributing to ROCm  <https://rocm.docs.amd.com/en/latest/contribute/contributing.html>`_.
