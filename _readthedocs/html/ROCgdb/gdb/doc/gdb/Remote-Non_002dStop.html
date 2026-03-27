@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Remote Non-Stop (Debugging with ROCGDB)</title>
+<title>Remote Non-Stop (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Remote Non-Stop (Debugging with ROCGDB)">
-<meta name="keywords" content="Remote Non-Stop (Debugging with ROCGDB)">
+<meta name="description" content="Remote Non-Stop (Debugging with ROCgdb)">
+<meta name="keywords" content="Remote Non-Stop (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -99,27 +99,27 @@ ul.no-bullet {list-style: none}
 <div class="section" id="Remote-Non_002dStop">
 <div class="header">
 <p>
-Next: <a href="Packet-Acknowledgment.html" accesskey="n" rel="next">Packet Acknowledgment</a>, Previous: <a href="Notification-Packets.html" accesskey="p" rel="prev">Notification Packets</a>, Up: <a href="Remote-Protocol.html" accesskey="u" rel="up"><small>ROCGDB</small> Remote Serial Protocol</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Packet-Acknowledgment.html" accesskey="n" rel="next">Packet Acknowledgment</a>, Previous: <a href="Notification-Packets.html" accesskey="p" rel="prev">Notification Packets</a>, Up: <a href="Remote-Protocol.html" accesskey="u" rel="up">ROCgdb Remote Serial Protocol</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
 <span id="Remote-Protocol-Support-for-Non_002dStop-Mode"></span><h3 class="section">E.11 Remote Protocol Support for Non-Stop Mode</h3>
 
-<p><small>ROCGDB</small>&rsquo;s remote protocol supports non-stop debugging of
+<p>ROCgdb&rsquo;s remote protocol supports non-stop debugging of
 multi-threaded programs, as described in <a href="Non_002dStop-Mode.html">Non-Stop Mode</a>.  If the stub
-supports non-stop mode, it should report that to <small>ROCGDB</small> by including
+supports non-stop mode, it should report that to ROCgdb by including
 &lsquo;<samp>QNonStop+</samp>&rsquo; in its &lsquo;<samp>qSupported</samp>&rsquo; response (see <a href="General-Query-Packets.html#qSupported">qSupported</a>).
 </p>
-<p><small>ROCGDB</small> typically sends a &lsquo;<samp>QNonStop</samp>&rsquo; packet only when
+<p>ROCgdb typically sends a &lsquo;<samp>QNonStop</samp>&rsquo; packet only when
 establishing a new connection with the stub.  Entering non-stop mode
 does not alter the state of any currently-running threads, but targets
 must stop all threads in any already-attached processes when entering
-all-stop mode.  <small>ROCGDB</small> uses the &lsquo;<samp>?</samp>&rsquo; packet as necessary to
+all-stop mode.  ROCgdb uses the &lsquo;<samp>?</samp>&rsquo; packet as necessary to
 probe the target state after a mode change.
 </p>
 <p>In non-stop mode, when an attached process encounters an event that
 would otherwise be reported with a stop reply, it uses the
 asynchronous notification mechanism (see <a href="Notification-Packets.html">Notification Packets</a>) to
-inform <small>ROCGDB</small>.  In contrast to all-stop mode, where all threads
+inform ROCgdb.  In contrast to all-stop mode, where all threads
 in all processes are stopped when a stop reply is sent, in non-stop
 mode only the thread reporting the stop event is stopped.  That is,
 when reporting a &lsquo;<samp>S</samp>&rsquo; or &lsquo;<samp>T</samp>&rsquo; response to indicate completion
@@ -132,7 +132,7 @@ threads belonging to other attached processes continue to run.
 follows.  First, any incomplete stop reply notification/&lsquo;<samp>vStopped</samp>&rsquo; 
 sequence in progress is abandoned.  The target must begin a new
 sequence reporting stop events for all stopped threads, whether or not
-it has previously reported those events to <small>ROCGDB</small>.  The first
+it has previously reported those events to ROCgdb.  The first
 stop reply is sent as a synchronous reply to the &lsquo;<samp>?</samp>&rsquo; packet, and
 subsequent stop replies are sent as responses to &lsquo;<samp>vStopped</samp>&rsquo; packets
 using the mechanism described above.  The target must not send
@@ -146,9 +146,9 @@ or if the target is not attached to any process, it shall respond
 the &lsquo;<samp>hwbreak</samp>&rsquo; stop reason if hardware breakpoints are supported
 (see <a href="Stop-Reply-Packets.html#swbreak-stop-reason">swbreak stop reason</a>).  This is because given the asynchronous
 nature of non-stop mode, between the time a thread hits a breakpoint
-and the time the event is finally processed by <small>ROCGDB</small>, the
+and the time the event is finally processed by ROCgdb, the
 breakpoint may have already been removed from the target.  Due to
-this, <small>ROCGDB</small> needs to be able to tell whether a trap stop was
+this, ROCgdb needs to be able to tell whether a trap stop was
 caused by a delayed breakpoint event, which should be ignored, as
 opposed to a random trap signal, which should be reported to the user.
 Note the &lsquo;<samp>swbreak</samp>&rsquo; feature implies that the target is responsible
@@ -159,7 +159,7 @@ necessary, such as on the x86 architecture.
 <hr>
 <div class="header">
 <p>
-Next: <a href="Packet-Acknowledgment.html">Packet Acknowledgment</a>, Previous: <a href="Notification-Packets.html">Notification Packets</a>, Up: <a href="Remote-Protocol.html"><small>ROCGDB</small> Remote Serial Protocol</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Packet-Acknowledgment.html">Packet Acknowledgment</a>, Previous: <a href="Notification-Packets.html">Notification Packets</a>, Up: <a href="Remote-Protocol.html">ROCgdb Remote Serial Protocol</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

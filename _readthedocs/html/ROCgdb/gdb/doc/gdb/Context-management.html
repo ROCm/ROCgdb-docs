@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Context management (Debugging with ROCGDB)</title>
+<title>Context management (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Context management (Debugging with ROCGDB)">
-<meta name="keywords" content="Context management (Debugging with ROCGDB)">
+<meta name="description" content="Context management (Debugging with ROCgdb)">
+<meta name="keywords" content="Context management (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -110,7 +110,7 @@ Next: <a href="Asynchronous-and-non_002dstop-modes.html" accesskey="n" rel="next
 <div class="subsubsection" id="Threads-and-Frames">
 <h4 class="subsubsection">28.1.1.1 Threads and Frames</h4>
 
-<p>In most cases when <small>ROCGDB</small> accesses the target, this access is
+<p>In most cases when ROCgdb accesses the target, this access is
 done in context of a specific thread and frame (see <a href="Frames.html">Stack Frames</a>).  If
 the thread has multiple lanes (see <a href="Heterogeneous-Debugging.html">Debugging Heterogeneous Programs</a>), then
 the access is further done in the context of a specific lane of the
@@ -120,7 +120,7 @@ be specified.  The CLI interface maintains the selected thread, lane, and frame,
 and supplies them to target on each command.  This is convenient,
 because a command line user would not want to specify that information
 explicitly on each command, and because user interacts with
-<small>ROCGDB</small> via a single terminal, so no confusion is possible as 
+ROCgdb via a single terminal, so no confusion is possible as 
 to what thread, lane, and frame are the current ones.
 </p>
 <p>In the case of MI, the concept of selected thread, lane, and frame is less
@@ -132,17 +132,17 @@ increases the risk that by relying on implicitly selected thread, the
 frontend may be operating on a wrong one.  Therefore, each MI command
 should explicitly specify which thread, lane, and frame to operate on.  To
 make it possible, each MI command accepts the &lsquo;<samp>--thread</samp>&rsquo;,  &lsquo;<samp>--lane</samp>&rsquo;, and
-&lsquo;<samp>--frame</samp>&rsquo; options, the value to each is <small>ROCGDB</small> global
+&lsquo;<samp>--frame</samp>&rsquo; options, the value to each is ROCgdb global
 identifier for thread, lane, and frame to operate on.
 </p>
 <p>Usually, each top-level window in a frontend allows the user to select
 a thread, lane, and a frame, and remembers the user selection for further
-operations.  However, in some cases <small>ROCGDB</small> may suggest that the
+operations.  However, in some cases ROCgdb may suggest that the
 current thread, lane, or frame be changed.  For example, when stopping on a
 breakpoint it is reasonable to switch to the thread where breakpoint is
 hit.  For another example, if the user issues the CLI &lsquo;<samp>thread</samp>&rsquo;, &lsquo;<samp>lane</samp>&rsquo; or
 &lsquo;<samp>frame</samp>&rsquo; commands via the frontend, it is desirable to change the
-frontend&rsquo;s selection to the one specified by user.  <small>ROCGDB</small>
+frontend&rsquo;s selection to the one specified by user.  ROCgdb
 communicates the suggestion to change current thread, lane, and frame using the
 &lsquo;<samp>=thread-selected</samp>&rsquo; notification.
 </p>
@@ -152,10 +152,10 @@ right context.  However, getting this to work right is cumbersome.  The
 simplest way is for frontend to emit <code>-thread-select</code> command
 before every command.  This doubles the number of commands that need
 to be sent.  The alternative approach is to suppress <code>-thread-select</code>
-if the selected thread in <small>ROCGDB</small> is supposed to be identical to the
+if the selected thread in ROCgdb is supposed to be identical to the
 thread the frontend wants to operate on.  However, getting this
 optimization right can be tricky.  In particular, if the frontend
-sends several commands to <small>ROCGDB</small>, and one of the commands changes the
+sends several commands to ROCgdb, and one of the commands changes the
 selected thread, then the behavior of subsequent commands will
 change.  So, a frontend should either wait for response from such
 problematic commands, or explicitly add <code>-thread-select</code> for

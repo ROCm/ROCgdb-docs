@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Finish Breakpoints in Python (Debugging with ROCGDB)</title>
+<title>Finish Breakpoints in Python (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Finish Breakpoints in Python (Debugging with ROCGDB)">
-<meta name="keywords" content="Finish Breakpoints in Python (Debugging with ROCGDB)">
+<meta name="description" content="Finish Breakpoints in Python (Debugging with ROCgdb)">
+<meta name="keywords" content="Finish Breakpoints in Python (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -126,9 +126,9 @@ details about this argument.
 
 <dl class="def">
 <dt id="index-FinishBreakpoint_002eout_005fof_005fscope"><span class="category">Function: </span><span><strong>FinishBreakpoint.out_of_scope</strong> <em>(self)</em><a href='#index-FinishBreakpoint_002eout_005fof_005fscope' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>In some circumstances (e.g. <code>longjmp</code>, C<tt>++</tt> exceptions, <small>ROCGDB</small> 
+<dd><p>In some circumstances (e.g. <code>longjmp</code>, C<tt>++</tt> exceptions, ROCgdb 
 <code>return</code> command, &hellip;), a function may not properly terminate, and
-thus never hit the finish breakpoint.  When <small>ROCGDB</small> notices such a
+thus never hit the finish breakpoint.  When ROCgdb notices such a
 situation, the <code>out_of_scope</code> callback will be triggered.
 </p>
 <p>You may want to sub-class <code>gdb.FinishBreakpoint</code> and override this
@@ -147,7 +147,7 @@ method:
 
 <dl class="def">
 <dt id="index-FinishBreakpoint_002ereturn_005fvalue"><span class="category">Variable: </span><span><strong>FinishBreakpoint.return_value</strong><a href='#index-FinishBreakpoint_002ereturn_005fvalue' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>When <small>ROCGDB</small> is stopped at a finish breakpoint and the frame 
+<dd><p>When ROCgdb is stopped at a finish breakpoint and the frame 
 used to build the <code>gdb.FinishBreakpoint</code> object had debug symbols, this
 attribute will contain a <code>gdb.Value</code> object corresponding to the return
 value of the function.  The value will be <code>None</code> if the function return 

@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Threads (Debugging with ROCGDB)</title>
+<title>Threads (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Threads (Debugging with ROCGDB)">
-<meta name="keywords" content="Threads (Debugging with ROCGDB)">
+<meta name="description" content="Threads (Debugging with ROCgdb)">
+<meta name="keywords" content="Threads (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -99,7 +99,7 @@ ul.no-bullet {list-style: none}
 <div class="section" id="Threads">
 <div class="header">
 <p>
-Next: <a href="Forks.html" accesskey="n" rel="next">Debugging Forks</a>, Previous: <a href="Inferiors-Connections-and-Programs.html" accesskey="p" rel="prev">Debugging Multiple Inferiors Connections and Programs</a>, Up: <a href="Running.html" accesskey="u" rel="up">Running Programs Under <small>ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Forks.html" accesskey="n" rel="next">Debugging Forks</a>, Previous: <a href="Inferiors-Connections-and-Programs.html" accesskey="p" rel="prev">Debugging Multiple Inferiors Connections and Programs</a>, Up: <a href="Running.html" accesskey="u" rel="up">Running Programs Under ROCgdb</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
 <span id="Debugging-Programs-with-Multiple-Threads"></span><h3 class="section">4.10 Debugging Programs with Multiple Threads</h3>
@@ -115,7 +115,7 @@ that they share one address space (that is, they can all examine and
 modify the same variables).  On the other hand, each thread has its own
 registers and execution stack, and perhaps private memory.
 </p>
-<p><small>ROCGDB</small> provides these facilities for debugging multi-thread
+<p>ROCgdb provides these facilities for debugging multi-thread
 programs:
 </p>
 <ul>
@@ -134,8 +134,8 @@ isn&rsquo;t compatible with the program.
 
 <span id="index-focus-of-debugging"></span>
 <span id="index-current-thread"></span>
-<p>The <small>ROCGDB</small> thread debugging facility allows you to observe all
-threads while your program runs&mdash;but whenever <small>ROCGDB</small> takes
+<p>The ROCgdb thread debugging facility allows you to observe all
+threads while your program runs&mdash;but whenever ROCgdb takes
 control, one thread in particular is always the focus of debugging.
 This thread is called the <em>current thread</em>.  If SIMD/SIMT lanes
 are available (See <a href="Heterogeneous-Debugging.html#heterogeneous-lane">heterogeneous lane</a>), you can switch the focus
@@ -145,7 +145,7 @@ applicable, of the current lane within this thread.
 </p>
 <span id="index-New-systag-message"></span>
 <span id="index-thread-identifier-_0028system_0029"></span>
-<span id="target-system-thread-identifier"></span><p>Whenever <small>ROCGDB</small> detects a new thread in your program, it displays
+<span id="target-system-thread-identifier"></span><p>Whenever ROCgdb detects a new thread in your program, it displays
 the target system&rsquo;s identification for the thread with a message in the
 form &lsquo;<samp>[New <var>systag</var>]</samp>&rsquo;, where <var>systag</var> is a thread identifier
 whose form varies depending on the particular system.  For example, on
@@ -155,14 +155,14 @@ whose form varies depending on the particular system.  For example, on
 <pre class="example">[New Thread 0x41e02940 (LWP 25582)]
 </pre></div>
 
-<p>when <small>ROCGDB</small> notices a new thread.  In contrast, on other systems,
+<p>when ROCgdb notices a new thread.  In contrast, on other systems,
 the <var>systag</var> is simply something like &lsquo;<samp>process 368</samp>&rsquo;, with no
 further qualifier.
 </p>
 
 <span id="thread-numbers"></span><span id="index-thread-number_002c-per-inferior"></span>
 <span id="index-thread-identifier-_0028GDB_0029"></span>
-<p>For debugging purposes, <small>ROCGDB</small> associates its own thread number
+<p>For debugging purposes, ROCgdb associates its own thread number
 &mdash;always a single integer&mdash;with each thread of an inferior.  This
 number is unique between all threads of an inferior, but not unique
 between threads of different inferiors.
@@ -174,10 +174,10 @@ between threads of different inferiors.
 number and <var>thread-num</var> being the thread number of the given
 inferior.  For example, thread <code>2.3</code> refers to thread number 3 of
 inferior 2.  If you omit <var>inferior-num</var> (e.g., <code>thread 3</code>),
-then <small>ROCGDB</small> infers you&rsquo;re referring to a thread of the current
+then ROCgdb infers you&rsquo;re referring to a thread of the current
 inferior.
 </p>
-<p>Until you create a second inferior, <small>ROCGDB</small> does not show the
+<p>Until you create a second inferior, ROCgdb does not show the
 <var>inferior-num</var> part of thread IDs, even though you can always use
 the full <var>inferior-num</var>.<var>thread-num</var> form to refer to threads
 of inferior 1, the initial inferior.
@@ -219,8 +219,8 @@ thread ID</em>, a single integer.  Unlike the thread number component of
 the thread ID, no two threads have the same global ID, even when
 you&rsquo;re debugging multiple inferiors.
 </p>
-<p>From <small>ROCGDB</small>&rsquo;s perspective, a process always has at least one
-thread.  In other words, <small>ROCGDB</small> assigns a thread number to the
+<p>From ROCgdb&rsquo;s perspective, a process always has at least one
+thread.  In other words, ROCgdb assigns a thread number to the
 program&rsquo;s &ldquo;main thread&rdquo; even if the program is not multi-threaded.
 </p>
 <span id="index-_0024_005fthread_002c-convenience-variable"></span>
@@ -244,7 +244,7 @@ threads can be created, and existing threads exit, at any time,
 &lsquo;<samp>$_inferior_thread_count</samp>&rsquo; could return a different value each
 time it is evaluated.
 </p>
-<p>If <small>ROCGDB</small> detects the program is multi-threaded, it augments the
+<p>If ROCgdb detects the program is multi-threaded, it augments the
 usual message about stopping at a breakpoint with the ID and name of
 the thread that hit the breakpoint.
 </p>
@@ -268,12 +268,12 @@ displays information about all threads.  You can specify the list of
 threads that you want to display using the thread ID list syntax
 (see <a href="#thread-ID-list">thread ID list</a>).
 </p>
-<p><small>ROCGDB</small> displays for each thread (in this order):
+<p>ROCgdb displays for each thread (in this order):
 </p>
 <ol>
-<li> the per-inferior thread number assigned by <small>ROCGDB</small>
+<li> the per-inferior thread number assigned by ROCgdb
 
-</li><li> the global thread number assigned by <small>ROCGDB</small>, if the
+</li><li> the global thread number assigned by ROCgdb, if the
 <samp><span class="nolinebreak">-gid</span></samp><!-- /@w --> option was specified
 
 </li><li> the target system&rsquo;s thread identifier (<var>systag</var>)
@@ -285,7 +285,7 @@ program itself.
 </li><li> the current stack frame summary for that thread
 </li></ol>
 
-<p>An asterisk &lsquo;<samp>*</samp>&rsquo; to the left of the <small>ROCGDB</small> thread number
+<p>An asterisk &lsquo;<samp>*</samp>&rsquo; to the left of the ROCgdb thread number
 indicates the current thread.
 </p>
 <p>For example,
@@ -300,11 +300,11 @@ indicates the current thread.
   3    process 35 thread 27  0x34e5 in sigpause ()
 </pre></div>
 
-<p>If you&rsquo;re debugging multiple inferiors, <small>ROCGDB</small> displays thread
+<p>If you&rsquo;re debugging multiple inferiors, ROCgdb displays thread
 IDs using the qualified <var>inferior-num</var>.<var>thread-num</var> format.
 Otherwise, only <var>thread-num</var> is shown.
 </p>
-<p>If you specify the <samp><span class="nolinebreak">-gid</span></samp><!-- /@w --> option, <small>ROCGDB</small> displays a
+<p>If you specify the <samp><span class="nolinebreak">-gid</span></samp><!-- /@w --> option, ROCgdb displays a
 column indicating each thread&rsquo;s global thread ID:
 </p>
 <div class="example">
@@ -331,14 +331,14 @@ Solaris-specific command:
 </dd>
 <dt><span><code>thread <span class="roman">[</span>-gid<span class="roman">]</span> <var>thread-id</var></code></span></dt>
 <dd><p>Make thread ID <var>thread-id</var> the current thread.  The command
-argument <var>thread-id</var> is the <small>ROCGDB</small> thread ID: if the
+argument <var>thread-id</var> is the ROCgdb thread ID: if the
 <samp><span class="nolinebreak">-gid</span></samp><!-- /@w --> option is given it is a global thread identifier, as
 shown in the second field of the &lsquo;<samp>info threads -gid</samp>&rsquo; display;
 otherwise it is a per process thread identifier, with or without an
 inferior qualifier (e.g., &lsquo;<samp>2.1</samp>&rsquo; or &lsquo;<samp>1</samp>&rsquo;), as shown in the
 first field of the &lsquo;<samp>info threads</samp>&rsquo; display.
 </p>
-<p><small>ROCGDB</small> responds by displaying the system identifier of the
+<p>ROCgdb responds by displaying the system identifier of the
 thread you selected, and its current stack frame summary:
 </p>
 <div class="example">
@@ -369,7 +369,7 @@ must start with a <code>-</code> directly followed by one letter in
 <code>qcs</code>.  If several flags are provided, they must be given
 individually, such as <code>-c -q</code>.
 </p>
-<p>By default, <small>ROCGDB</small> displays some thread information before the
+<p>By default, ROCgdb displays some thread information before the
 output produced by <var>command</var>, and an error raised during the
 execution of a <var>command</var> will abort <code>thread apply</code>.  The
 following flags can be used to fine-tune this behavior:
@@ -435,11 +435,11 @@ apply</code> command.  See <a href="Frame-Apply.html">frame apply</a>.
 given, any existing user-specified name is removed.  The thread name
 appears in the &lsquo;<samp>info threads</samp>&rsquo; display.
 </p>
-<p>On some systems, such as <small>GNU</small>/Linux, <small>ROCGDB</small> is able to
+<p>On some systems, such as <small>GNU</small>/Linux, ROCgdb is able to
 determine the name of the thread as given by the OS.  On these
 systems, a name specified with &lsquo;<samp>thread name</samp>&rsquo; will override the
 system-specified name, and removing the user-specified name will cause
-<small>ROCGDB</small> to once again display the system-specified name.
+ROCgdb to once again display the system-specified name.
 </p>
 <span id="index-thread-find"></span>
 <span id="index-search-for-a-thread"></span>
@@ -469,7 +469,7 @@ Thread 4 has target id 'Thread 0x41e02940 (LWP 26688)'
 <dt><span><code>set print thread-events on</code></span></dt>
 <dt><span><code>set print thread-events off</code></span></dt>
 <dd><p>The <code>set print thread-events</code> command allows you to enable or
-disable printing of messages when <small>ROCGDB</small> notices that new threads have
+disable printing of messages when ROCgdb notices that new threads have
 started or that threads have exited.  By default, these messages will
 be printed if detection of these events is supported by the target.
 Note that these messages cannot be disabled on all targets.
@@ -477,13 +477,13 @@ Note that these messages cannot be disabled on all targets.
 <span id="index-show-print-thread_002devents"></span>
 </dd>
 <dt><span><code>show print thread-events</code></span></dt>
-<dd><p>Show whether messages will be printed when <small>ROCGDB</small> detects that threads
+<dd><p>Show whether messages will be printed when ROCgdb detects that threads
 have started and exited.
 </p></dd>
 </dl>
 
 <p>See <a href="Thread-Stops.html">Stopping and Starting Multi-thread Programs</a>, for
-more information about how <small>ROCGDB</small> behaves when you stop and start
+more information about how ROCgdb behaves when you stop and start
 programs with multiple threads.
 </p>
 <p>See <a href="Set-Watchpoints.html">Setting Watchpoints</a>, for information about
@@ -495,16 +495,16 @@ watchpoints in programs with multiple threads.
 </dd>
 <dt><span><code>set libthread-db-search-path <span class="roman">[</span><var>path</var><span class="roman">]</span></code></span></dt>
 <dd><p>If this variable is set, <var>path</var> is a colon-separated list of
-directories <small>ROCGDB</small> will use to search for <code>libthread_db</code>.
+directories ROCgdb will use to search for <code>libthread_db</code>.
 If you omit <var>path</var>, &lsquo;<samp>libthread-db-search-path</samp>&rsquo; will be reset to
 its default value (<code>$sdir:$pdir</code> on <small>GNU</small>/Linux and Solaris systems).
 Internally, the default value comes from the <code>LIBTHREAD_DB_SEARCH_PATH</code>
 macro.
 </p>
-<p>On <small>GNU</small>/Linux and Solaris systems, <small>ROCGDB</small> uses a &ldquo;helper&rdquo;
+<p>On <small>GNU</small>/Linux and Solaris systems, ROCgdb uses a &ldquo;helper&rdquo;
 <code>libthread_db</code> library to obtain information about threads in the
-inferior process.  <small>ROCGDB</small> will use &lsquo;<samp>libthread-db-search-path</samp>&rsquo;
-to find <code>libthread_db</code>.  <small>ROCGDB</small> also consults first if inferior
+inferior process.  ROCgdb will use &lsquo;<samp>libthread-db-search-path</samp>&rsquo;
+to find <code>libthread_db</code>.  ROCgdb also consults first if inferior
 specific thread debugging library loading is enabled
 by &lsquo;<samp>set auto-load libthread-db</samp>&rsquo; (see <a href="libthread_005fdb_002eso_002e1-file.html">Automatically loading thread debugging library</a>).
 </p>
@@ -518,13 +518,13 @@ is the only kind not needing to be enabled by &lsquo;<samp>set auto-load libthre
 refers to the directory from which <code>libpthread</code>
 was loaded in the inferior process.
 </p>
-<p>For any <code>libthread_db</code> library <small>ROCGDB</small> finds in above directories,
-<small>ROCGDB</small> attempts to initialize it with the current inferior process.
+<p>For any <code>libthread_db</code> library ROCgdb finds in above directories,
+ROCgdb attempts to initialize it with the current inferior process.
 If this initialization fails (which could happen because of a version
-mismatch between <code>libthread_db</code> and <code>libpthread</code>), <small>ROCGDB</small>
+mismatch between <code>libthread_db</code> and <code>libpthread</code>), ROCgdb
 will unload <code>libthread_db</code>, and continue with the next directory.
 If none of <code>libthread_db</code> libraries initialize successfully,
-<small>ROCGDB</small> will issue a warning and thread debugging will be disabled.
+ROCgdb will issue a warning and thread debugging will be disabled.
 </p>
 <p>Setting <code>libthread-db-search-path</code> is currently implemented
 only on some platforms.
@@ -549,7 +549,7 @@ Use <code>1</code> to enable, <code>0</code> to disable.
 </dd>
 <dt><span><code>set debug threads <span class="roman">[</span>on<span class="roman">|</span>off<span class="roman">]</span></code></span></dt>
 <dt><span><code>show debug threads</code></span></dt>
-<dd><p>When &lsquo;<samp>on</samp>&rsquo; <small>ROCGDB</small> will print additional messages when
+<dd><p>When &lsquo;<samp>on</samp>&rsquo; ROCgdb will print additional messages when
 threads are created and deleted.
 </p></dd>
 </dl>
@@ -561,7 +561,7 @@ to threads in heterogeneous systems.
 <hr>
 <div class="header">
 <p>
-Next: <a href="Forks.html">Debugging Forks</a>, Previous: <a href="Inferiors-Connections-and-Programs.html">Debugging Multiple Inferiors Connections and Programs</a>, Up: <a href="Running.html">Running Programs Under <small>ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Forks.html">Debugging Forks</a>, Previous: <a href="Inferiors-Connections-and-Programs.html">Debugging Multiple Inferiors Connections and Programs</a>, Up: <a href="Running.html">Running Programs Under ROCgdb</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

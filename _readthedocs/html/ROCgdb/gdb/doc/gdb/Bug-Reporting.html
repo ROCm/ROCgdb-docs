@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Bug Reporting (Debugging with ROCGDB)</title>
+<title>Bug Reporting (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Bug Reporting (Debugging with ROCGDB)">
-<meta name="keywords" content="Bug Reporting (Debugging with ROCGDB)">
+<meta name="description" content="Bug Reporting (Debugging with ROCgdb)">
+<meta name="keywords" content="Bug Reporting (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -98,15 +98,15 @@ ul.no-bullet {list-style: none}
 <div class="section" id="Bug-Reporting">
 <div class="header">
 <p>
-Previous: <a href="Bug-Criteria.html" accesskey="p" rel="prev">Have You Found a Bug?</a>, Up: <a href="GDB-Bugs.html" accesskey="u" rel="up">Reporting Bugs in <small>ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Previous: <a href="Bug-Criteria.html" accesskey="p" rel="prev">Have You Found a Bug?</a>, Up: <a href="GDB-Bugs.html" accesskey="u" rel="up">Reporting Bugs in ROCgdb</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
 <span id="How-to-Report-Bugs"></span><h3 class="section">33.2 How to Report Bugs</h3>
 <span id="index-bug-reports"></span>
-<span id="index-ROCGDB-bugs_002c-reporting"></span>
+<span id="index-ROCgdb-bugs_002c-reporting"></span>
 
 <p>A number of companies and individuals offer support for <small>GNU</small> products.
-If you obtained <small>ROCGDB</small> from a support organization, we recommend you
+If you obtained ROCgdb from a support organization, we recommend you
 contact that organization first.
 </p>
 <p>You can find contact information for many support companies and
@@ -114,7 +114,7 @@ individuals in the file <samp>etc/SERVICE</samp> in the <small>GNU</small> Emacs
 distribution.
 </p>
 <p>In any event, we also recommend that you submit bug reports for
-<small>ROCGDB</small> to <a href="https://www.gnu.org/software/gdb/bugs/">https://www.gnu.org/software/gdb/bugs/</a>.
+ROCgdb to <a href="https://github.com/ROCm/ROCgdb/issues">https://github.com/ROCm/ROCgdb/issues</a>.
 </p>
 <p>The fundamental principle of reporting bugs usefully is this:
 <strong>report all the facts</strong>.  If you are not sure whether to state a
@@ -143,22 +143,22 @@ bugs properly.
 <p>To enable us to fix the bug, you should include all these things:
 </p>
 <ul>
-<li> The version of <small>ROCGDB</small>.  <small>ROCGDB</small> announces it if you start
+<li> The version of ROCgdb.  ROCgdb announces it if you start
 with no arguments; you can also print it at any time using <code>show
 version</code>.
 
 <p>Without this, we will not know whether there is any point in looking for
-the bug in the current version of <small>ROCGDB</small>.
+the bug in the current version of ROCgdb.
 </p>
 </li><li> The type of machine you are using, and the operating system name and
 version number.
 
-</li><li> The details of the <small>ROCGDB</small> build-time configuration.
-<small>ROCGDB</small> shows these details if you invoke it with the
+</li><li> The details of the ROCgdb build-time configuration.
+ROCgdb shows these details if you invoke it with the
 <samp>--configuration</samp> command-line option, or if you type
-<code>show configuration</code> at <small>ROCGDB</small>&rsquo;s prompt.
+<code>show configuration</code> at ROCgdb&rsquo;s prompt.
 
-</li><li> What compiler (and its version) was used to compile <small>ROCGDB</small>&mdash;e.g.
+</li><li> What compiler (and its version) was used to compile ROCgdb&mdash;e.g.
 &ldquo;gcc&ndash;2.8.1&rdquo;.
 
 </li><li> What compiler (and its version) was used to compile the program you are
@@ -181,14 +181,14 @@ reproduce the bug.
 </li><li> A description of what behavior you observe that you believe is
 incorrect.  For example, &ldquo;It gets a fatal signal.&rdquo;
 
-<p>Of course, if the bug is that <small>ROCGDB</small> gets a fatal signal, then we
+<p>Of course, if the bug is that ROCgdb gets a fatal signal, then we
 will certainly notice it.  But if the bug is incorrect output, we might
 not notice unless it is glaringly wrong.  You might as well not give us
 a chance to make a mistake.
 </p>
 <p>Even if the problem you experience is a fatal signal, you should still
 say so explicitly.  Suppose something strange is going on, such as, your
-copy of <small>ROCGDB</small> is out of synch, or you have encountered a bug in
+copy of ROCgdb is out of synch, or you have encountered a bug in
 the C library on your system.  (This has happened!)  Your copy might
 crash and ours would not.  If you told us to expect a crash, then when
 ours fails to crash, we would know that the bug was not happening for
@@ -199,14 +199,14 @@ to draw any conclusion from our observations.
 <span id="index-recording-a-session-script"></span>
 <p>To collect all this information, you can use a session recording program
 such as <code>script</code>, which is available on many Unix systems.
-Just run your <small>ROCGDB</small> session inside <code>script</code> and then
+Just run your ROCgdb session inside <code>script</code> and then
 include the <samp>typescript</samp> file with your bug report.
 </p>
-<p>Another way to record a <small>ROCGDB</small> session is to run <small>ROCGDB</small>
+<p>Another way to record a ROCgdb session is to run ROCgdb
 inside Emacs and then save the entire buffer to a file.
 </p>
-</li><li> If you wish to suggest changes to the <small>ROCGDB</small> source, send us context
-diffs.  If you even discuss something in the <small>ROCGDB</small> source, refer to
+</li><li> If you wish to suggest changes to the ROCgdb source, send us context
+diffs.  If you even discuss something in the ROCgdb source, refer to
 it by context, not by line number.
 
 <p>The line numbers in our development sources will not match those in your
@@ -243,7 +243,7 @@ the necessary information, such as the test case, on the assumption that
 a patch is all we need.  We might see problems with your patch and decide
 to fix the problem another way, or we might not understand it at all.
 </p>
-<p>Sometimes with a program as complicated as <small>ROCGDB</small> it is very hard to
+<p>Sometimes with a program as complicated as ROCgdb it is very hard to
 construct an example that will make the program follow a certain path
 through the code.  If you do not send us the example, we will not be able
 to construct one, so we will not be able to verify that the bug is fixed.
@@ -266,7 +266,7 @@ things without first using the debugger to find the facts.
 <hr>
 <div class="header">
 <p>
-Previous: <a href="Bug-Criteria.html">Have You Found a Bug?</a>, Up: <a href="GDB-Bugs.html">Reporting Bugs in <small>ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Previous: <a href="Bug-Criteria.html">Have You Found a Bug?</a>, Up: <a href="GDB-Bugs.html">Reporting Bugs in ROCgdb</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

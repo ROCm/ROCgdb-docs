@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Ada Mode Intro (Debugging with ROCGDB)</title>
+<title>Ada Mode Intro (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Ada Mode Intro (Debugging with ROCGDB)">
-<meta name="keywords" content="Ada Mode Intro (Debugging with ROCGDB)">
+<meta name="description" content="Ada Mode Intro (Debugging with ROCgdb)">
+<meta name="keywords" content="Ada Mode Intro (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -104,34 +104,34 @@ Next: <a href="Omissions-from-Ada.html" accesskey="n" rel="next">Omissions from 
 <span id="Introduction"></span><h4 class="subsubsection">15.4.10.1 Introduction</h4>
 <span id="index-Ada-mode_002c-general"></span>
 
-<p>The Ada mode of <small>ROCGDB</small> supports a fairly large subset of Ada expression 
+<p>The Ada mode of ROCgdb supports a fairly large subset of Ada expression 
 syntax, with some extensions.
 The philosophy behind the design of this subset is 
 </p>
 <ul>
-<li> That <small>ROCGDB</small> should provide basic literals and access to operations for 
+<li> That ROCgdb should provide basic literals and access to operations for 
 arithmetic, dereferencing, field selection, indexing, and subprogram calls, 
 leaving more sophisticated computations to subprograms written into the
-program (which therefore may be called from <small>ROCGDB</small>).
+program (which therefore may be called from ROCgdb).
 
 </li><li> That type safety and strict adherence to Ada language restrictions
-are not particularly important to the <small>ROCGDB</small> user.
+are not particularly important to the ROCgdb user.
 
-</li><li> That brevity is important to the <small>ROCGDB</small> user.
+</li><li> That brevity is important to the ROCgdb user.
 </li></ul>
 
 <p>Thus, for brevity, the debugger acts as if all names declared in
 user-written packages are directly visible, even if they are not visible
 according to Ada rules, thus making it unnecessary to fully qualify most
 names with their packages, regardless of context.  Where this causes
-ambiguity, <small>ROCGDB</small> asks the user&rsquo;s intent.
+ambiguity, ROCgdb asks the user&rsquo;s intent.
 </p>
 <p>The debugger will start in Ada mode if it detects an Ada main program. 
 As for other languages, it will enter Ada mode when stopped in a program that
 was translated from an Ada source file.
 </p>
 <p>While in Ada mode, you may use &lsquo;<tt>--</tt>&rsquo; for comments.  This is useful 
-mostly for documenting command files.  The standard <small>ROCGDB</small> comment 
+mostly for documenting command files.  The standard ROCgdb comment 
 (&lsquo;<samp>#</samp>&rsquo;) still works at the beginning of a line in Ada mode, but not in the 
 middle (to allow based literals).
 </p>

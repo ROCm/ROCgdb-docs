@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Notification Packets (Debugging with ROCGDB)</title>
+<title>Notification Packets (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Notification Packets (Debugging with ROCGDB)">
-<meta name="keywords" content="Notification Packets (Debugging with ROCGDB)">
+<meta name="description" content="Notification Packets (Debugging with ROCgdb)">
+<meta name="keywords" content="Notification Packets (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -99,14 +99,14 @@ ul.no-bullet {list-style: none}
 <div class="section" id="Notification-Packets">
 <div class="header">
 <p>
-Next: <a href="Remote-Non_002dStop.html" accesskey="n" rel="next">Remote Protocol Support for Non-Stop Mode</a>, Previous: <a href="Interrupts.html" accesskey="p" rel="prev">Interrupts</a>, Up: <a href="Remote-Protocol.html" accesskey="u" rel="up"><small>ROCGDB</small> Remote Serial Protocol</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Remote-Non_002dStop.html" accesskey="n" rel="next">Remote Protocol Support for Non-Stop Mode</a>, Previous: <a href="Interrupts.html" accesskey="p" rel="prev">Interrupts</a>, Up: <a href="Remote-Protocol.html" accesskey="u" rel="up">ROCgdb Remote Serial Protocol</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
 <span id="Notification-Packets-1"></span><h3 class="section">E.10 Notification Packets</h3>
 <span id="index-notification-packets"></span>
 <span id="index-packets_002c-notification"></span>
 
-<p>The <small>ROCGDB</small> remote serial protocol includes <em>notifications</em>,
+<p>The ROCgdb remote serial protocol includes <em>notifications</em>,
 packets that require no acknowledgment.  Both the GDB and the stub
 may send notifications (although the only notifications defined at
 present are sent by the stub).  Notifications carry information
@@ -117,7 +117,7 @@ is not a problem.
 <p>A notification packet has the form &lsquo;<samp>% <var>data</var> #
 <var>checksum</var></samp>&rsquo;, where <var>data</var> is the content of the notification,
 and <var>checksum</var> is a checksum of <var>data</var>, computed and formatted
-as for ordinary <small>ROCGDB</small> packets.  A notification&rsquo;s <var>data</var>
+as for ordinary ROCgdb packets.  A notification&rsquo;s <var>data</var>
 never contains &lsquo;<samp>$</samp>&rsquo;, &lsquo;<samp>%</samp>&rsquo; or &lsquo;<samp>#</samp>&rsquo; characters.  Upon
 receiving a notification, the recipient sends no &lsquo;<samp>+</samp>&rsquo; or &lsquo;<samp>-</samp>&rsquo;
 to acknowledge the notification&rsquo;s receipt or to report its corruption.
@@ -136,10 +136,10 @@ future, we may extend the protocol to permit existing notifications in
 new contexts; this rule helps older senders avoid confusing newer
 recipients.
 </p>
-<p>(Older versions of <small>ROCGDB</small> ignore bytes received until they see
+<p>(Older versions of ROCgdb ignore bytes received until they see
 the &lsquo;<samp>$</samp>&rsquo; byte that begins an ordinary packet, so new stubs may
 transmit notifications without fear of confusing older clients.  There
-are no notifications defined for <small>ROCGDB</small> to send at the moment, but we
+are no notifications defined for ROCgdb to send at the moment, but we
 assume that most older stubs would ignore them, as well.)
 </p>
 <p>Each notification is comprised of three parts:
@@ -151,52 +151,52 @@ carrying the specific information about the notification, and
 <var>name</var> specifying the name of the notification.
 </p></dd>
 <dt><span>&lsquo;<samp><var>ack</var></samp>&rsquo;</span></dt>
-<dd><p>The acknowledge sent by the other side, usually <small>ROCGDB</small>, to
+<dd><p>The acknowledge sent by the other side, usually ROCgdb, to
 acknowledge the exchange and request the event.
 </p></dd>
 </dl>
 
 <p>The purpose of an asynchronous notification mechanism is to report to
-<small>ROCGDB</small> that something interesting happened in the remote stub.
+ROCgdb that something interesting happened in the remote stub.
 </p>
 <p>The remote stub may send notification <var>name</var>:<var>event</var>
-at any time, but <small>ROCGDB</small> acknowledges the notification when
-appropriate.  The notification event is pending before <small>ROCGDB</small>
+at any time, but ROCgdb acknowledges the notification when
+appropriate.  The notification event is pending before ROCgdb
 acknowledges.  Only one notification at a time may be pending; if
-additional events occur before <small>ROCGDB</small> has acknowledged the
+additional events occur before ROCgdb has acknowledged the
 previous notification, they must be queued by the stub for later
 synchronous transmission in response to <var>ack</var> packets from
-<small>ROCGDB</small>.  Because the notification mechanism is unreliable,
+ROCgdb.  Because the notification mechanism is unreliable,
 the stub is permitted to resend a notification if it believes
-<small>ROCGDB</small> may not have received it.
+ROCgdb may not have received it.
 </p>
-<p>Specifically, notifications may appear when <small>ROCGDB</small> is not
-otherwise reading input from the stub, or when <small>ROCGDB</small> is
+<p>Specifically, notifications may appear when ROCgdb is not
+otherwise reading input from the stub, or when ROCgdb is
 expecting to read a normal synchronous response or a
 &lsquo;<samp>+</samp>&rsquo;/&lsquo;<samp>-</samp>&rsquo; acknowledgment to a packet it has sent.
 Notification packets are distinct from any other communication from
 the stub so there is no ambiguity.
 </p>
-<p>After receiving a notification, <small>ROCGDB</small> shall acknowledge it by
+<p>After receiving a notification, ROCgdb shall acknowledge it by
 sending a <var>ack</var> packet as a regular, synchronous request to the
 stub.  Such acknowledgment is not required to happen immediately, as
-<small>ROCGDB</small> is permitted to send other, unrelated packets to the
+ROCgdb is permitted to send other, unrelated packets to the
 stub first, which the stub should process normally.
 </p>
 <p>Upon receiving a <var>ack</var> packet, if the stub has other queued
-events to report to <small>ROCGDB</small>, it shall respond by sending a
-normal <var>event</var>.  <small>ROCGDB</small> shall then send another <var>ack</var>
+events to report to ROCgdb, it shall respond by sending a
+normal <var>event</var>.  ROCgdb shall then send another <var>ack</var>
 packet to solicit further responses; again, it is permitted to send
 other, unrelated packets as well which the stub should process
 normally.
 </p>
 <p>If the stub receives a <var>ack</var> packet and there are no additional
 <var>event</var> to report, the stub shall return an &lsquo;<samp>OK</samp>&rsquo; response.
-At this point, <small>ROCGDB</small> has finished processing a notification
-and the stub has completed sending any queued events.  <small>ROCGDB</small>
+At this point, ROCgdb has finished processing a notification
+and the stub has completed sending any queued events.  ROCgdb
 won&rsquo;t accept any new notifications until the final &lsquo;<samp>OK</samp>&rsquo; is
 received .  If further notification events occur, the stub shall send
-a new notification, <small>ROCGDB</small> shall accept the notification, and
+a new notification, ROCgdb shall accept the notification, and
 the process shall be repeated.
 </p>
 <p>The process of asynchronous notification can be illustrated by the
@@ -218,14 +218,14 @@ following example:
 <tr><td width="12%">Stop</td><td width="12%">vStopped</td><td width="38%"><var>reply</var>.  The <var>reply</var> has the form of a stop reply, as
 described in <a href="Stop-Reply-Packets.html">Stop Reply Packets</a>.  Refer to <a href="Remote-Non_002dStop.html">Remote Protocol Support for Non-Stop Mode</a>,
 for information on how these notifications are acknowledged by 
-<small>ROCGDB</small>.</td><td width="38%">Report an asynchronous stop event in non-stop mode.</td></tr>
+ROCgdb.</td><td width="38%">Report an asynchronous stop event in non-stop mode.</td></tr>
 </table>
 
 </div>
 <hr>
 <div class="header">
 <p>
-Next: <a href="Remote-Non_002dStop.html">Remote Protocol Support for Non-Stop Mode</a>, Previous: <a href="Interrupts.html">Interrupts</a>, Up: <a href="Remote-Protocol.html"><small>ROCGDB</small> Remote Serial Protocol</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Remote-Non_002dStop.html">Remote Protocol Support for Non-Stop Mode</a>, Previous: <a href="Interrupts.html">Interrupts</a>, Up: <a href="Remote-Protocol.html">ROCgdb Remote Serial Protocol</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

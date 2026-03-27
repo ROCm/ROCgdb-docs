@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Protocol Basics (Debugging with ROCGDB)</title>
+<title>Protocol Basics (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Protocol Basics (Debugging with ROCGDB)">
-<meta name="keywords" content="Protocol Basics (Debugging with ROCGDB)">
+<meta name="description" content="Protocol Basics (Debugging with ROCgdb)">
+<meta name="keywords" content="Protocol Basics (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -107,10 +107,10 @@ Next: <a href="The-F-Request-Packet.html" accesskey="n" rel="next">The <code>F</
 
 <p>The File-I/O protocol uses the <code>F</code> packet as the request as well
 as reply packet.  Since a File-I/O system call can only occur when
-<small>ROCGDB</small> is waiting for a response from the continuing or stepping target, 
-the File-I/O request is a reply that <small>ROCGDB</small> has to expect as a result
+ROCgdb is waiting for a response from the continuing or stepping target, 
+the File-I/O request is a reply that ROCgdb has to expect as a result
 of a previous &lsquo;<samp>C</samp>&rsquo;, &lsquo;<samp>c</samp>&rsquo;, &lsquo;<samp>S</samp>&rsquo; or &lsquo;<samp>s</samp>&rsquo; packet.
-This <code>F</code> packet contains all information needed to allow <small>ROCGDB</small>
+This <code>F</code> packet contains all information needed to allow ROCgdb
 to call the appropriate host system call:
 </p>
 <ul>
@@ -123,19 +123,19 @@ Numerical control flags are given in a protocol-specific representation.
 
 </li></ul>
 
-<p>At this point, <small>ROCGDB</small> has to perform the following actions.
+<p>At this point, ROCgdb has to perform the following actions.
 </p>
 <ul>
 <li> If the parameters include pointer values to data needed as input to a 
-system call, <small>ROCGDB</small> requests this data from the target with a
+system call, ROCgdb requests this data from the target with a
 standard <code>m</code> packet request.  This additional communication has to be
 expected by the target implementation and is handled as any other <code>m</code>
 packet.
 
-</li><li> <small>ROCGDB</small> translates all value from protocol representation to host
+</li><li> ROCgdb translates all value from protocol representation to host
 representation as needed.  Datatypes are coerced into the host types.
 
-</li><li> <small>ROCGDB</small> calls the system call.
+</li><li> ROCgdb calls the system call.
 
 </li><li> It then coerces datatypes back to protocol representation.
 
@@ -147,7 +147,7 @@ packet.
 
 </li></ul>
 
-<p>Eventually <small>ROCGDB</small> replies with another <code>F</code> packet which contains all
+<p>Eventually ROCgdb replies with another <code>F</code> packet which contains all
 necessary information for the target to continue.  This at least contains
 </p>
 <ul>

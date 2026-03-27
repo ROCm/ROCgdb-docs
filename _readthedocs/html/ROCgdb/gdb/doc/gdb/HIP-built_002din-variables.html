@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>GDB/MI Heterogeneous Agent Information (Debugging with ROCgdb)</title>
+<title>HIP built-in variables (Debugging with ROCgdb)</title>
 
-<meta name="description" content="GDB/MI Heterogeneous Agent Information (Debugging with ROCgdb)">
-<meta name="keywords" content="GDB/MI Heterogeneous Agent Information (Debugging with ROCgdb)">
+<meta name="description" content="HIP built-in variables (Debugging with ROCgdb)">
+<meta name="keywords" content="HIP built-in variables (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -69,9 +69,7 @@ companies. -->
 <link href="index.html" rel="start" title="Top">
 <link href="Concept-Index.html" rel="index" title="Concept Index">
 <link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="GDB_002fMI-Output-Records.html" rel="up" title="GDB/MI Output Records">
-<link href="GDB_002fMI-Heterogeneous-Queue-Information.html" rel="next" title="GDB/MI Heterogeneous Queue Information">
-<link href="GDB_002fMI-Thread-Information.html" rel="prev" title="GDB/MI Thread Information">
+<link href="HIP.html" rel="up" title="HIP">
 <style type="text/css">
 <!--
 a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
@@ -96,60 +94,42 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<div class="subsection" id="GDB_002fMI-Heterogeneous-Agent-Information">
+<div class="subsubsection" id="HIP-built_002din-variables">
 <div class="header">
 <p>
-Next: <a href="GDB_002fMI-Heterogeneous-Queue-Information.html" accesskey="n" rel="next"><small>GDB/MI</small> Heterogeneous Queue Information</a>, Previous: <a href="GDB_002fMI-Thread-Information.html" accesskey="p" rel="prev"><small>GDB/MI</small> Thread Information</a>, Up: <a href="GDB_002fMI-Output-Records.html" accesskey="u" rel="up"><small>GDB/MI</small> Output Records</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Up: <a href="HIP.html" accesskey="u" rel="up">HIP</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="GDB_002fMI-Heterogeneous-Agent-Information-1"></span><h4 class="subsection">28.5.7 <small>GDB/MI</small> Heterogeneous Agent Information</h4>
-
-<p>Whenever ROCgdb has to report information about a heterogeneous
-agent (see <a href="Heterogeneous-Debugging.html">Debugging Heterogeneous Programs</a>), it uses a tuple with the
-following fields.  The fields are always present unless stated
-otherwise.
+<span id="HIP-Built_002din-Variables"></span><h4 class="subsubsection">15.4.11.1 HIP Built-in Variables</h4>
+<p>These context variables exist throughout the lifetime of a HIP
+kernel.  ROCgdb can evaluate them in any expression, as
+long as the current language is <code>hip</code>.
 </p>
 <dl compact="compact">
-<dt><span><code>id</code></span></dt>
-<dd><p>The qualified heterogeneous agent ID.  See <a href="Heterogeneous-Debugging.html#qualified-heterogeneous-entity-numbers">qualified heterogeneous entity numbers</a>.
+<dt><span><var>threadIdx</var></span></dt>
+<dd><p>The three-dimensional position of the current HIP thread (a.k.a. lane)
+within the HIP block.
 </p>
 </dd>
-<dt><span><code>state</code></span></dt>
-<dd><p>The state of the the heterogeneous agent.  The value is &lsquo;<samp>U</samp>&rsquo; if
-debugging is unsupported and &lsquo;<samp>A</samp>&rsquo; if debugging is active.
+<dt><span><var>blockIdx</var></span></dt>
+<dd><p>The three-dimensional position of the current HIP block within the grid.
 </p>
 </dd>
-<dt><span><code>target-id</code></span></dt>
-<dd><p>The target-specific string identifying the heterogeneous agent.
+<dt><span><var>blockDim</var></span></dt>
+<dd><p>Dimensions of the current HIP block.
 </p>
 </dd>
-<dt><span><code>details</code></span></dt>
-<dd><p>Additional information about the heterogeneous agent provided by the
-target.  It is supposed to be human-readable and not interpreted by
-the frontend.  This field is optional.
+<dt><span><var>gridDim</var></span></dt>
+<dd><p>Dimensions of the current HIP grid in number of HIP blocks.
 </p>
 </dd>
-<dt><span><code>device-name</code></span></dt>
-<dd><p>The target system&rsquo;s heterogeneous agent identifier.  This field is
-optional.
+<dt><span><var>warpSize</var></span></dt>
+<dd><p>The size of the wavefront for the dispatch that the current kernel
+belongs to.
 </p>
 </dd>
-<dt><span><code>cores</code></span></dt>
-<dd><p>The number of compute unit cores.
-</p>
-</dd>
-<dt><span><code>threads</code></span></dt>
-<dd><p>The total number of threads.  The number of threads that a core can
-execute concurrently is dependent on the target architecture of the
-device.
-</p>
-</dd>
-<dt><span><code>location</code></span></dt>
-<dd><p>The target-specific string identifying the location of the agent.  For
-example, some target agents may use the <acronym>PCI</acronym> slot number in
-<acronym title="Bus:Device.Function">BDF</acronym> (Bus:Device.Function) notation.
-</p></dd>
 </dl>
+
 
 </div>
 

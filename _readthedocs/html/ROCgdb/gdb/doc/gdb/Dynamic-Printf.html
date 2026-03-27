@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Dynamic Printf (Debugging with ROCGDB)</title>
+<title>Dynamic Printf (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Dynamic Printf (Debugging with ROCGDB)">
-<meta name="keywords" content="Dynamic Printf (Debugging with ROCGDB)">
+<meta name="description" content="Dynamic Printf (Debugging with ROCgdb)">
+<meta name="keywords" content="Dynamic Printf (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -124,7 +124,7 @@ ensuring that the output goes to the remote program&rsquo;s device along
 with any other output the program might produce, you can also ask that
 the dprintf remain active even after disconnecting from the remote
 target.  Using the stub/agent is also more efficient, as it can do
-everything without needing to communicate with <small>ROCGDB</small>.
+everything without needing to communicate with ROCgdb.
 </p>
 <dl compact="compact">
 <dd><span id="index-dprintf-1"></span>
@@ -145,7 +145,7 @@ explicitly-supplied command lists.)
 </p>
 <dl compact="compact">
 <dt id='index-dprintf_002dstyle-gdb'><span><code>gdb</code><a href='#index-dprintf_002dstyle-gdb' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Handle the output using the <small>ROCGDB</small> <code>printf</code> command.  When
+<dd><p>Handle the output using the ROCgdb <code>printf</code> command.  When
 using this style, it is possible to use the &lsquo;<samp>%V</samp>&rsquo; format specifier
 (see <a href="Output.html#g_t_0025V-Format-Specifier">%V Format Specifier</a>).
 </p>
@@ -155,8 +155,8 @@ using this style, it is possible to use the &lsquo;<samp>%V</samp>&rsquo; format
 <code>printf</code>).  When using this style the supported format specifiers
 depend entirely on the function being called.
 </p>
-<p>Most of <small>ROCGDB</small>&rsquo;s format specifiers align with those supported by
-the <code>printf</code> function, however, <small>ROCGDB</small>&rsquo;s &lsquo;<samp>%V</samp>&rsquo; format
+<p>Most of ROCgdb&rsquo;s format specifiers align with those supported by
+the <code>printf</code> function, however, ROCgdb&rsquo;s &lsquo;<samp>%V</samp>&rsquo; format
 specifier extension is not supported by <code>printf</code>.  When using
 &lsquo;<samp>call</samp>&rsquo; style dprintf, care should be taken to ensure that only
 format specifiers supported by the output function are used, otherwise
@@ -175,13 +175,13 @@ running commands on the target.  This style does not support the
 <dt><span><code>set dprintf-function <var>function</var></code></span></dt>
 <dd><p>Set the function to call if the dprintf style is <code>call</code>.  By
 default its value is <code>printf</code>.  You may set it to any expression
-that <small>ROCGDB</small> can evaluate to a function, as per the <code>call</code>
+that ROCgdb can evaluate to a function, as per the <code>call</code>
 command.
 </p>
 </dd>
 <dt><span><code>set dprintf-channel <var>channel</var></code></span></dt>
 <dd><p>Set a &ldquo;channel&rdquo; for dprintf.  If set to a non-empty value,
-<small>ROCGDB</small> will evaluate it as an expression and pass the result as
+ROCgdb will evaluate it as an expression and pass the result as
 a first argument to the <code>dprintf-function</code>, in the manner of
 <code>fprintf</code> and similar functions.  Otherwise, the dprintf format
 string will be the first argument, in the manner of <code>printf</code>.
@@ -211,7 +211,7 @@ the variable settings.
 <dt id='index-set-disconnected_002ddprintf'><span><code>set disconnected-dprintf on</code><a href='#index-set-disconnected_002ddprintf' class='copiable-anchor'> &para;</a></span></dt>
 <dt><span><code>set disconnected-dprintf off</code></span></dt>
 <dd><p>Choose whether <code>dprintf</code> commands should continue to run if
-<small>ROCGDB</small> has disconnected from the target.  This only applies
+ROCgdb has disconnected from the target.  This only applies
 if the <code>dprintf-style</code> is <code>agent</code>.
 </p>
 </dd>
@@ -221,12 +221,12 @@ if the <code>dprintf-style</code> is <code>agent</code>.
 </dd>
 </dl>
 
-<p><small>ROCGDB</small> does not check the validity of function and channel,
+<p>ROCgdb does not check the validity of function and channel,
 relying on you to supply values that are meaningful for the contexts
 in which they are being used.  For instance, the function and channel
 may be the values of local variables, but if that is the case, then
 all enabled dynamic prints must be at locations within the scope of
-those locals.  If evaluation fails, <small>ROCGDB</small> will report an error.
+those locals.  If evaluation fails, ROCgdb will report an error.
 </p>
 </div>
 <hr>

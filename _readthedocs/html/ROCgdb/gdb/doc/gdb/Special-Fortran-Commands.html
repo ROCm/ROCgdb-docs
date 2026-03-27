@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Special Fortran Commands (Debugging with ROCGDB)</title>
+<title>Special Fortran Commands (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Special Fortran Commands (Debugging with ROCGDB)">
-<meta name="keywords" content="Special Fortran Commands (Debugging with ROCGDB)">
+<meta name="description" content="Special Fortran Commands (Debugging with ROCgdb)">
+<meta name="keywords" content="Special Fortran Commands (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -105,7 +105,7 @@ Previous: <a href="Fortran-Intrinsics.html" accesskey="p" rel="prev">Fortran Int
 
 <span id="index-Special-Fortran-commands"></span>
 
-<p><small>ROCGDB</small> has some commands to support Fortran-specific features,
+<p>ROCgdb has some commands to support Fortran-specific features,
 such as displaying common blocks.
 </p>
 <dl compact="compact">
@@ -128,16 +128,16 @@ either produce an array descriptor that describes the slice in place,
 or it may repack the slice, copying the elements of the slice into a
 new region of memory.
 </p>
-<p>When this setting is on, then <small>ROCGDB</small> will also repack array
+<p>When this setting is on, then ROCgdb will also repack array
 slices in some situations.  When this setting is off, then
-<small>ROCGDB</small> will create array descriptors for slices that reference
+ROCgdb will create array descriptors for slices that reference
 the original data in place.
 </p>
-<p><small>ROCGDB</small> will never repack an array slice if the data for the
+<p>ROCgdb will never repack an array slice if the data for the
 slice is contiguous within the original array.
 </p>
-<p><small>ROCGDB</small> will always repack string slices if the data for the
-slice is non-contiguous within the original string as <small>ROCGDB</small>
+<p>ROCgdb will always repack string slices if the data for the
+slice is non-contiguous within the original string as ROCgdb
 does not support printing non-contiguous strings.
 </p>
 <p>The default for this setting is <code>off</code>.

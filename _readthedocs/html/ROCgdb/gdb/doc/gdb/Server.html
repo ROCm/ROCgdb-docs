@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Server (Debugging with ROCGDB)</title>
+<title>Server (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Server (Debugging with ROCGDB)">
-<meta name="keywords" content="Server (Debugging with ROCGDB)">
+<meta name="description" content="Server (Debugging with ROCgdb)">
+<meta name="keywords" content="Server (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -107,17 +107,17 @@ Next: <a href="Remote-Configuration.html" accesskey="n" rel="next">Remote Config
 <span id="index-gdbserver"></span>
 <span id="index-remote-connection-without-stubs"></span>
 <p><code>gdbserver</code> is a control program for Unix-like systems, which
-allows you to connect your program with a remote <small>ROCGDB</small> via
+allows you to connect your program with a remote ROCgdb via
 <code>target remote</code> or <code>target extended-remote</code>&mdash;but without
 linking in the usual debugging stub.
 </p>
 <p><code>gdbserver</code> is not a complete replacement for the debugging stubs,
 because it requires essentially the same operating-system facilities
-that <small>ROCGDB</small> itself does.  In fact, a system that can run
-<code>gdbserver</code> to connect to a remote <small>ROCGDB</small> could also run
-<small>ROCGDB</small> locally!  <code>gdbserver</code> is sometimes useful nevertheless,
-because it is a much smaller program than <small>ROCGDB</small> itself.  It is
-also easier to port than all of <small>ROCGDB</small>, so you may be able to get
+that ROCgdb itself does.  In fact, a system that can run
+<code>gdbserver</code> to connect to a remote ROCgdb could also run
+ROCgdb locally!  <code>gdbserver</code> is sometimes useful nevertheless,
+because it is a much smaller program than ROCgdb itself.  It is
+also easier to port than all of ROCgdb, so you may be able to get
 started more quickly on a new system by using <code>gdbserver</code>.
 Finally, if you develop code for real-time systems, you may find that
 the tradeoffs involved in real-time operation make it more convenient to
@@ -125,14 +125,14 @@ do as much development work as possible on another system, for example
 by cross-compiling.  You can use <code>gdbserver</code> to make a similar
 choice for debugging.
 </p>
-<p><small>ROCGDB</small> and <code>gdbserver</code> communicate via either a serial line
-or a TCP connection, using the standard <small>ROCGDB</small> remote serial
+<p>ROCgdb and <code>gdbserver</code> communicate via either a serial line
+or a TCP connection, using the standard ROCgdb remote serial
 protocol.
 </p>
 <blockquote>
 <p><em>Warning:</em> <code>gdbserver</code> does not have any built-in security.
 Do not run <code>gdbserver</code> connected to any public network; a
-<small>ROCGDB</small> connection to <code>gdbserver</code> provides access to the
+ROCgdb connection to <code>gdbserver</code> provides access to the
 target system with the same privileges as the user running
 <code>gdbserver</code>.
 </p></blockquote>
@@ -151,10 +151,10 @@ target system with the same privileges as the user running
 <p>Run <code>gdbserver</code> on the target system.  You need a copy of the
 program you want to debug, including any libraries it requires.
 <code>gdbserver</code> does not need your program&rsquo;s symbol table, so you can
-strip the program if necessary to save space.  <small>ROCGDB</small> on the host
+strip the program if necessary to save space.  ROCgdb on the host
 system does all the symbol handling.
 </p>
-<p>To use the server, you must tell it how to communicate with <small>ROCGDB</small>;
+<p>To use the server, you must tell it how to communicate with ROCgdb;
 the name of your program; and the arguments for your program.  The usual
 syntax is:
 </p>
@@ -166,14 +166,14 @@ syntax is:
 hostname and portnumber, or <code>-</code> or <code>stdio</code> to use
 stdin/stdout of <code>gdbserver</code>.
 For example, to debug Emacs with the argument
-&lsquo;<samp>foo.txt</samp>&rsquo; and communicate with <small>ROCGDB</small> over the serial port
+&lsquo;<samp>foo.txt</samp>&rsquo; and communicate with ROCgdb over the serial port
 <samp>/dev/com1</samp>:
 </p>
 <div class="example">
 <pre class="example">target&gt; gdbserver /dev/com1 emacs foo.txt
 </pre></div>
 
-<p><code>gdbserver</code> waits passively for the host <small>ROCGDB</small> to communicate
+<p><code>gdbserver</code> waits passively for the host ROCgdb to communicate
 with it.
 </p>
 <p>To use a TCP connection instead of a serial line:
@@ -183,13 +183,13 @@ with it.
 </pre></div>
 
 <p>The only difference from the previous example is the first argument,
-specifying that you are communicating with the host <small>ROCGDB</small> via
+specifying that you are communicating with the host ROCgdb via
 TCP.  The &lsquo;<samp>host:2345</samp>&rsquo; argument means that <code>gdbserver</code> is to
 expect a TCP connection from machine &lsquo;<samp>host</samp>&rsquo; to local TCP port 2345.
 (Currently, the &lsquo;<samp>host</samp>&rsquo; part is ignored.)  You can choose any number
 you want for the port number as long as it does not conflict with any
 TCP ports already in use on the target system (for example, <code>23</code> is
-reserved for <code>telnet</code>).<a id="DOCF16" href="#FOOT16"><sup>16</sup></a>  You must use the same port number with the host <small>ROCGDB</small>
+reserved for <code>telnet</code>).<a id="DOCF17" href="#FOOT17"><sup>17</sup></a>  You must use the same port number with the host ROCgdb
 <code>target remote</code> command.
 </p>
 <p>The <code>stdio</code> connection is useful when starting <code>gdbserver</code>
@@ -230,7 +230,7 @@ This is accomplished via the <code>--attach</code> argument.  The syntax is:
 necessary to point <code>gdbserver</code> at a binary for the running process.
 </p>
 <p>In <code>target extended-remote</code> mode, you can also attach using the
-<small>ROCGDB</small> attach command
+ROCgdb attach command
 (see <a href="Connecting.html#Attaching-in-Types-of-Remote-Connections">Attaching in Types of Remote Connections</a>).
 </p>
 <span id="index-pidof"></span>
@@ -255,24 +255,24 @@ port.
 <p><code>gdbserver</code> normally terminates after all of its debugged processes have
 terminated in <kbd>target remote</kbd> mode.  On the other hand, for <kbd>target
 extended-remote</kbd>, <code>gdbserver</code> stays running even with no processes left.
-<small>ROCGDB</small> normally terminates the spawned debugged process on its exit,
+ROCgdb normally terminates the spawned debugged process on its exit,
 which normally also terminates <code>gdbserver</code> in the <kbd>target remote</kbd>
-mode.  Therefore, when the connection drops unexpectedly, and <small>ROCGDB</small>
+mode.  Therefore, when the connection drops unexpectedly, and ROCgdb
 cannot ask <code>gdbserver</code> to kill its debugged processes, <code>gdbserver</code>
 stays running even in the <kbd>target remote</kbd> mode.
 </p>
-<p>When <code>gdbserver</code> stays running, <small>ROCGDB</small> can connect to it again later.
+<p>When <code>gdbserver</code> stays running, ROCgdb can connect to it again later.
 Such reconnecting is useful for features like <a href="Starting-and-Stopping-Trace-Experiments.html#disconnected-tracing">disconnected tracing</a>.  For
-completeness, at most one <small>ROCGDB</small> can be connected at a time.
+completeness, at most one ROCgdb can be connected at a time.
 </p>
 <span id="index-_002d_002donce_002c-gdbserver-option"></span>
 <p>By default, <code>gdbserver</code> keeps the listening TCP port open, so that
 subsequent connections are possible.  However, if you start <code>gdbserver</code>
 with the <samp>--once</samp> option, it will stop listening for any further
-connection attempts after connecting to the first <small>ROCGDB</small> session.  This
+connection attempts after connecting to the first ROCgdb session.  This
 means no further connections to <code>gdbserver</code> will be possible after the
 first one.  It also means <code>gdbserver</code> will terminate after the first
-connection with remote <small>ROCGDB</small> has closed, even for unexpectedly closed
+connection with remote ROCgdb has closed, even for unexpectedly closed
 connections and even in the <kbd>target extended-remote</kbd> mode.  The
 <samp>--once</samp> option allows reusing the same port number for connecting to
 multiple instances of <code>gdbserver</code> running on the same host, since each
@@ -362,7 +362,7 @@ wrapper, then any command-line arguments to pass to the wrapper, then
 <p><code>gdbserver</code> runs the specified wrapper program with a combined
 command line including the wrapper arguments, then the name of the
 program to debug, then any arguments to the program.  The wrapper
-runs until it executes your program, and then <small>ROCGDB</small> gains control.
+runs until it executes your program, and then ROCgdb gains control.
 </p>
 <p>You can use any program that eventually calls <code>execve</code> with
 its arguments as a wrapper.  Several standard Unix utilities do
@@ -393,13 +393,13 @@ Ran 2 unit tests, 0 failed
 
 <p>The basic procedure for connecting to the remote target is:
 </p><ul>
-<li> Run <small>ROCGDB</small> on the host system.
+<li> Run ROCgdb on the host system.
 
 </li><li> Make sure you have the necessary symbol files
 (see <a href="Connecting.html#Host-and-target-files">Host and target files</a>).
 Load symbols for your application using the <code>file</code> command before you
 connect.  Use <code>set sysroot</code> to locate target libraries (unless your
-<small>ROCGDB</small> was compiled with the correct sysroot using
+ROCgdb was compiled with the correct sysroot using
 <code>--with-sysroot</code>).
 
 </li><li> Connect to your target (see <a href="Connecting.html">Connecting to a Remote Target</a>).
@@ -407,7 +407,7 @@ For TCP connections, you must start up <code>gdbserver</code> prior to using
 the <code>target</code> command.  Otherwise you may get an error whose
 text depends on the host system, but which usually looks something like
 &lsquo;<samp>Connection refused</samp>&rsquo;.  Don&rsquo;t use the <code>load</code>
-command in <small>ROCGDB</small> when using <code>target remote</code> mode, since the
+command in ROCgdb when using <code>target remote</code> mode, since the
 program is already on the target.
 
 </li></ul>
@@ -417,7 +417,7 @@ program is already on the target.
 <h4 class="subsection">21.3.3 Monitor Commands for <code>gdbserver</code></h4>
 <span id="index-monitor-commands_002c-for-gdbserver"></span>
 
-<p>During a <small>ROCGDB</small> session using <code>gdbserver</code>, you can use the
+<p>During a ROCgdb session using <code>gdbserver</code>, you can use the
 <code>monitor</code> command to send special requests to <code>gdbserver</code>.
 Here are the available commands.
 </p>
@@ -447,7 +447,7 @@ could change in future releases of gdbserver.
 <dt><span><code>monitor set debug remote off</code></span></dt>
 <dt><span><code>monitor set debug remote on</code></span></dt>
 <dd><p>Disable or enable specific logging messages associated with the remote
-protocol (see <a href="Remote-Protocol.html"><small>ROCGDB</small> Remote Serial Protocol</a>).
+protocol (see <a href="Remote-Protocol.html">ROCgdb Remote Serial Protocol</a>).
 </p>
 </dd>
 <dt><span><code>monitor set debug event-loop off</code></span></dt>
@@ -542,7 +542,7 @@ in the environment.  See also the description of <code>gdbserver</code>&rsquo;s
 <samp>--wrapper</samp> command line option.
 </p>
 </dd>
-<dt><span><code>Using <small>ROCGDB</small> to force loading the agent at run time</code></span></dt>
+<dt><span><code>Using ROCgdb to force loading the agent at run time</code></span></dt>
 <dd>
 <p>On some systems, you can force the inferior to load a shared library,
 by calling a dynamic loader function in the inferior that takes care
@@ -597,7 +597,7 @@ tracing.
 <hr>
 <h4 class="footnotes-heading">Footnotes</h4>
 
-<h5><a id="FOOT16" href="#DOCF16">(16)</a></h5>
+<h5><a id="FOOT17" href="#DOCF17">(17)</a></h5>
 <p>If you choose a port number that
 conflicts with another service, <code>gdbserver</code> prints an error message
 and exits.</p>

@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Bootstrapping (Debugging with ROCGDB)</title>
+<title>Bootstrapping (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Bootstrapping (Debugging with ROCGDB)">
-<meta name="keywords" content="Bootstrapping (Debugging with ROCGDB)">
+<meta name="description" content="Bootstrapping (Debugging with ROCgdb)">
+<meta name="keywords" content="Bootstrapping (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -105,7 +105,7 @@ Next: <a href="Debug-Session.html" accesskey="n" rel="next">Putting it All Toget
 <span id="What-You-Must-Do-for-the-Stub"></span><h4 class="subsection">21.5.2 What You Must Do for the Stub</h4>
 
 <span id="index-remote-stub_002c-support-routines"></span>
-<p>The debugging stubs that come with <small>ROCGDB</small> are set up for a particular
+<p>The debugging stubs that come with ROCgdb are set up for a particular
 chip architecture, but they have no information about the rest of your
 debugging target machine.
 </p>
@@ -131,16 +131,16 @@ different name is used to allow you to distinguish the two if you wish.
 
 <span id="index-control-C_002c-and-remote-debugging"></span>
 <span id="index-interrupting-remote-targets"></span>
-<p>If you want <small>ROCGDB</small> to be able to stop your program while it is
+<p>If you want ROCgdb to be able to stop your program while it is
 running, you need to use an interrupt-driven serial driver, and arrange
 for it to stop when it receives a <code>^C</code> (&lsquo;<samp>\003</samp>&rsquo;, the control-C
-character).  That is the character which <small>ROCGDB</small> uses to tell the
+character).  That is the character which ROCgdb uses to tell the
 remote system to stop.
 </p>
-<p>Getting the debugging target to return the proper status to <small>ROCGDB</small>
+<p>Getting the debugging target to return the proper status to ROCgdb
 probably requires changes to the standard stub; one quick and dirty way
 is to just execute a breakpoint instruction (the &ldquo;dirty&rdquo; part is that
-<small>ROCGDB</small> reports a <code>SIGTRAP</code> instead of a <code>SIGINT</code>).
+ROCgdb reports a <code>SIGTRAP</code> instead of a <code>SIGINT</code>).
 </p>
 <p>Other routines you need to supply are:
 </p>
@@ -175,7 +175,7 @@ help from <code>exceptionHandler</code>.
 instruction cache, if any, on your target machine.  If there is no
 instruction cache, this subroutine may be a no-op.
 </p>
-<p>On target machines that have instruction caches, <small>ROCGDB</small> requires this
+<p>On target machines that have instruction caches, ROCgdb requires this
 function to make certain that the state of your program is stable.
 </p></dd>
 </dl>

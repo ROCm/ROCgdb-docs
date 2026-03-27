@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Asynchronous and non-stop modes (Debugging with ROCGDB)</title>
+<title>Asynchronous and non-stop modes (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Asynchronous and non-stop modes (Debugging with ROCGDB)">
-<meta name="keywords" content="Asynchronous and non-stop modes (Debugging with ROCGDB)">
+<meta name="description" content="Asynchronous and non-stop modes (Debugging with ROCgdb)">
+<meta name="keywords" content="Asynchronous and non-stop modes (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -104,7 +104,7 @@ Next: <a href="Thread-groups.html" accesskey="n" rel="next">Thread groups</a>, P
 <hr>
 <span id="Asynchronous-command-execution-and-non_002dstop-mode"></span><h4 class="subsection">28.1.2 Asynchronous command execution and non-stop mode</h4>
 
-<p>On some targets, <small>ROCGDB</small> is capable of processing MI commands
+<p>On some targets, ROCgdb is capable of processing MI commands
 even while the target is running.  This is called <em>asynchronous
 command execution</em> (see <a href="Background-Execution.html">Background Execution</a>).  The frontend may
 specify a preference for asynchronous execution using the
@@ -125,12 +125,12 @@ find if asynchronous execution is enabled using the
 <dd><p>Set whether MI is in asynchronous mode.
 </p>
 <p>When <code>off</code>, which is the default, MI execution commands (e.g.,
-<code>-exec-continue</code>) are foreground commands, and <small>ROCGDB</small> waits
+<code>-exec-continue</code>) are foreground commands, and ROCgdb waits
 for the program to stop before processing further commands.
 </p>
 <p>When <code>on</code>, MI execution commands are background execution
 commands (e.g., <code>-exec-continue</code> becomes the equivalent of the
-<code>c&amp;</code> CLI command), and so <small>ROCGDB</small> is capable of processing
+<code>c&amp;</code> CLI command), and so ROCgdb is capable of processing
 MI commands even while the target is running.
 </p>
 <span id="index-show-mi_002dasync"></span>
@@ -140,14 +140,14 @@ MI commands even while the target is running.
 </p></dd>
 </dl>
 
-<p>Note: In <small>ROCGDB</small> version 7.7 and earlier, this option was called
+<p>Note: In ROCgdb version 7.7 and earlier, this option was called
 <code>target-async</code> instead of <code>mi-async</code>, and it had the effect
 of both putting MI in asynchronous mode and making CLI background
 commands possible.  CLI background commands are now always possible
 &ldquo;out of the box&rdquo; if the target supports them.  The old spelling is
 kept as a deprecated alias for backwards compatibility.
 </p>
-<p>Even if <small>ROCGDB</small> can accept a command while target is running,
+<p>Even if ROCgdb can accept a command while target is running,
 many commands that access the target do not work when the target is
 running.  Therefore, asynchronous command execution is most useful
 when combined with non-stop mode (see <a href="Non_002dStop-Mode.html">Non-Stop Mode</a>).  Then,

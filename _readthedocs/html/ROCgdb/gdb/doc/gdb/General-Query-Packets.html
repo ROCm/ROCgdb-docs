@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>General Query Packets (Debugging with ROCGDB)</title>
+<title>General Query Packets (Debugging with ROCgdb)</title>
 
-<meta name="description" content="General Query Packets (Debugging with ROCGDB)">
-<meta name="keywords" content="General Query Packets (Debugging with ROCGDB)">
+<meta name="description" content="General Query Packets (Debugging with ROCgdb)">
+<meta name="keywords" content="General Query Packets (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -99,7 +99,7 @@ ul.no-bullet {list-style: none}
 <div class="section" id="General-Query-Packets">
 <div class="header">
 <p>
-Next: <a href="Architecture_002dSpecific-Protocol-Details.html" accesskey="n" rel="next">Architecture-Specific Protocol Details</a>, Previous: <a href="Stop-Reply-Packets.html" accesskey="p" rel="prev">Stop Reply Packets</a>, Up: <a href="Remote-Protocol.html" accesskey="u" rel="up"><small>ROCGDB</small> Remote Serial Protocol</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Architecture_002dSpecific-Protocol-Details.html" accesskey="n" rel="next">Architecture-Specific Protocol Details</a>, Previous: <a href="Stop-Reply-Packets.html" accesskey="p" rel="prev">Stop Reply Packets</a>, Up: <a href="Remote-Protocol.html" accesskey="u" rel="up">ROCgdb Remote Serial Protocol</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
 <span id="General-Query-Packets-1"></span><h3 class="section">E.5 General Query Packets</h3>
@@ -112,13 +112,13 @@ sending information to and from the stub.
 </p>
 <p>The initial letter of a query or set packet is followed by a name
 indicating what sort of thing the packet applies to.  For example,
-<small>ROCGDB</small> may use a &lsquo;<samp>qSymbol</samp>&rsquo; packet to exchange symbol
+ROCgdb may use a &lsquo;<samp>qSymbol</samp>&rsquo; packet to exchange symbol
 definitions with the stub.  These packet names follow some
 conventions:
 </p>
 <ul>
 <li> The name must not contain commas, colons or semicolons.
-</li><li> Most <small>ROCGDB</small> query and set packets have a leading upper case
+</li><li> Most ROCgdb query and set packets have a leading upper case
 letter.
 </li><li> The names of custom vendor packets should use a company prefix, in
 lower case, followed by a period.  For example, packets designed at
@@ -131,13 +131,13 @@ parameters by a &lsquo;<samp>:</samp>&rsquo;; the parameters themselves should b
 separated by &lsquo;<samp>,</samp>&rsquo; or &lsquo;<samp>;</samp>&rsquo;.  Stubs must be careful to match the
 full packet name, and check for a separator or the end of the packet,
 in case two packet names share a common prefix.  New packets should not begin
-with &lsquo;<samp>qC</samp>&rsquo;, &lsquo;<samp>qP</samp>&rsquo;, or &lsquo;<samp>qL</samp>&rsquo;<a id="DOCF21" href="#FOOT21"><sup>21</sup></a>.
+with &lsquo;<samp>qC</samp>&rsquo;, &lsquo;<samp>qP</samp>&rsquo;, or &lsquo;<samp>qL</samp>&rsquo;<a id="DOCF22" href="#FOOT22"><sup>22</sup></a>.
 </p>
 <p>Like the descriptions of the other packets, each description here
 has a template showing the packet&rsquo;s overall syntax, followed by an
 explanation of the packet&rsquo;s meaning.  We include spaces in some of the
 templates for clarity; these are not part of the packet&rsquo;s syntax.  No
-<small>ROCGDB</small> packet uses spaces to separate its components.
+ROCgdb packet uses spaces to separate its components.
 </p>
 <p>Here are the currently defined query and set packets:
 </p>
@@ -145,16 +145,16 @@ templates for clarity; these are not part of the packet&rsquo;s syntax.  No
 <dt><span>&lsquo;<samp>QAgent:1</samp>&rsquo;</span></dt>
 <dt><span>&lsquo;<samp>QAgent:0</samp>&rsquo;</span></dt>
 <dd><p>Turn on or off the agent as a helper to perform some debugging operations
-delegated from <small>ROCGDB</small> (see <a href="In_002dProcess-Agent.html#Control-Agent">Control Agent</a>).
+delegated from ROCgdb (see <a href="In_002dProcess-Agent.html#Control-Agent">Control Agent</a>).
 </p>
 </dd>
 <dt id='index-QAllow-packet'><span>&lsquo;<samp>QAllow:<var>op</var>:<var>val</var>&hellip;</samp>&rsquo;<a href='#index-QAllow-packet' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Specify which operations <small>ROCGDB</small> expects to request of the
+<dd><p>Specify which operations ROCgdb expects to request of the
 target, as a semicolon-separated list of operation name and value
 pairs.  Possible values for <var>op</var> include &lsquo;<samp>WriteReg</samp>&rsquo;,
 &lsquo;<samp>WriteMem</samp>&rsquo;, &lsquo;<samp>InsertBreak</samp>&rsquo;, &lsquo;<samp>InsertTrace</samp>&rsquo;,
 &lsquo;<samp>InsertFastTrace</samp>&rsquo;, and &lsquo;<samp>Stop</samp>&rsquo;. <var>val</var> is either 0,
-indicating that <small>ROCGDB</small> will not request the operation, or 1,
+indicating that ROCgdb will not request the operation, or 1,
 indicating that it may.  (The target can then use this to set up its
 own internals optimally, for instance if the debugger never expects to
 insert breakpoints, it may not need to install its own trap handler.)
@@ -227,7 +227,7 @@ address space randomization.
 <dt id='index-startup-with-shell_002c-remote-request'><span>&lsquo;<samp>QStartupWithShell:<var>value</var></samp>&rsquo;<a href='#index-startup-with-shell_002c-remote-request' class='copiable-anchor'> &para;</a></span></dt>
 <dd><span id="index-QStartupWithShell-packet"></span>
 <p>On UNIX-like targets, it is possible to start the inferior using a
-shell program.  This is the default behavior on both <small>ROCGDB</small> and
+shell program.  This is the default behavior on both ROCgdb and
 <code>gdbserver</code> (see <a href="Starting.html#set-startup_002dwith_002dshell">set startup-with-shell</a>).  This packet is
 used to inform <code>gdbserver</code> whether it should start the
 inferior using a shell or not.
@@ -261,7 +261,7 @@ command; see <a href="Starting.html#set-startup_002dwith_002dshell">set startup-
 <p>On UNIX-like targets, it is possible to set environment variables that
 will be passed to the inferior during the startup process.  This
 packet is used to inform <code>gdbserver</code> of an environment
-variable that has been defined by the user on <small>ROCGDB</small> (see <a href="Environment.html#set-environment">set environment</a>).
+variable that has been defined by the user on ROCgdb (see <a href="Environment.html#set-environment">set environment</a>).
 </p>
 <p>The packet is composed by <var>hex-value</var>, an hex encoded
 representation of the <var>name=value</var> format representing an
@@ -296,7 +296,7 @@ see <a href="Environment.html#set-environment">set environment</a>.
 <p>On UNIX-like targets, it is possible to unset environment variables
 before starting the inferior in the remote target.  This packet is
 used to inform <code>gdbserver</code> of an environment variable that has
-been unset by the user on <small>ROCGDB</small> (see <a href="Environment.html#unset-environment">unset environment</a>).
+been unset by the user on ROCgdb (see <a href="Environment.html#unset-environment">unset environment</a>).
 </p>
 <p>The packet is composed by <var>hex-value</var>, an hex encoded
 representation of the name of the environment variable to be unset.
@@ -398,17 +398,17 @@ sequence will be the &lsquo;<samp>qsThreadInfo</samp>&rsquo; query.
 
 <p>In response to each query, the target will reply with a list of one or
 more thread IDs, separated by commas.
-<small>ROCGDB</small> will respond to each reply with a request for more thread
+ROCgdb will respond to each reply with a request for more thread
 ids (using the &lsquo;<samp>qs</samp>&rsquo; form of the query), until the target responds
 with &lsquo;<samp>l</samp>&rsquo; (lower-case ell, for <em>last</em>).
 Refer to <a href="Packets.html#thread_002did-syntax">thread-id syntax</a>, for the format of the <var>thread-id</var>
 fields.
 </p>
-<p><em>Note: <small>ROCGDB</small> will send the <code>qfThreadInfo</code> query during the
+<p><em>Note: ROCgdb will send the <code>qfThreadInfo</code> query during the
 initial connection with the remote target, and the very first thread ID
-mentioned in the reply will be stopped by <small>ROCGDB</small> in a subsequent
+mentioned in the reply will be stopped by ROCgdb in a subsequent
 message.  Therefore, the stub should ensure that the first thread ID in
-the <code>qfThreadInfo</code> reply is suitable for being stopped by <small>ROCGDB</small>.</em>
+the <code>qfThreadInfo</code> reply is suitable for being stopped by ROCgdb.</em>
 </p>
 </dd>
 <dt id='index-get-thread_002dlocal-storage-address_002c-remote-request'><span>&lsquo;<samp>qGetTLSAddr:<var>thread-id</var>,<var>offset</var>,<var>lm</var></samp>&rsquo;<a href='#index-get-thread_002dlocal-storage-address_002c-remote-request' class='copiable-anchor'> &para;</a></span></dt>
@@ -492,7 +492,7 @@ is architecture-specific.
 <p><var>type</var> is the type of tag the request wants to fetch.  The type is a signed
 integer.
 </p>
-<p><small>ROCGDB</small> will only send this packet if the stub has advertised
+<p>ROCgdb will only send this packet if the stub has advertised
 support for memory tagging via &lsquo;<samp>qSupported</samp>&rsquo;.
 </p>
 <p>Reply:
@@ -561,7 +561,7 @@ integer.
 interpreted by the target.  Each pair of hex digits is interpreted as a
 single byte.
 </p>
-<p><small>ROCGDB</small> will only send this packet if the stub has advertised
+<p>ROCgdb will only send this packet if the stub has advertised
 support for memory tagging via &lsquo;<samp>qSupported</samp>&rsquo;.
 </p>
 <p>Reply:
@@ -584,11 +584,11 @@ image.
 <dd><p>Relocate the <code>Text</code> section by <var>xxx</var> from its original address.
 Relocate the <code>Data</code> section by <var>yyy</var> from its original address.
 If the object file format provides segment information (e.g. <small>ELF</small>
-&lsquo;<samp>PT_LOAD</samp>&rsquo; program headers), <small>ROCGDB</small> will relocate entire
+&lsquo;<samp>PT_LOAD</samp>&rsquo; program headers), ROCgdb will relocate entire
 segments by the supplied offsets.
 </p>
 <p><em>Note: while a <code>Bss</code> offset may be included in the response,
-<small>ROCGDB</small> ignores this and instead applies the <code>Data</code> offset
+ROCgdb ignores this and instead applies the <code>Data</code> offset
 to the <code>Bss</code> section.</em>
 </p>
 </dd>
@@ -597,7 +597,7 @@ to the <code>Bss</code> section.</em>
 contains program code, to a starting address of <var>xxx</var>.  If
 &lsquo;<samp>DataSeg</samp>&rsquo; is specified, relocate the second segment, which
 conventionally contains modifiable data, to a starting address of
-<var>yyy</var>.  <small>ROCGDB</small> will report an error if the object file
+<var>yyy</var>.  ROCgdb will report an error if the object file
 does not contain segment information, or does not contain at least
 as many segments as mentioned in the reply.  Extra segments are
 kept at fixed offsets relative to the last relocated segment.
@@ -643,10 +643,10 @@ see <a href="Non_002dStop-Mode.html">Non-Stop Mode</a>.
 catching syscalls from the inferior process.
 </p>
 <p>For &lsquo;<samp>QCatchSyscalls:1</samp>&rsquo;, each listed syscall <var>sysno</var> (encoded
-in hex) should be reported to <small>ROCGDB</small>.  If no syscall <var>sysno</var>
+in hex) should be reported to ROCgdb.  If no syscall <var>sysno</var>
 is listed, every system call should be reported.
 </p>
-<p>Note that if a syscall not in the list is reported, <small>ROCGDB</small> will
+<p>Note that if a syscall not in the list is reported, ROCgdb will
 still filter the event according to its own list from all corresponding
 <code>catch syscall</code> commands.  However, it is more efficient to only
 report the requested syscalls.
@@ -678,8 +678,8 @@ by supplying an appropriate &lsquo;<samp>qSupported</samp>&rsquo; response (see 
 Signals are numbered identically to continue packets and stop replies
 (see <a href="Stop-Reply-Packets.html">Stop Reply Packets</a>).  Each <var>signal</var> list item should be
 strictly greater than the previous item.  These signals do not need to stop
-the inferior, or be reported to <small>ROCGDB</small>.  All other signals should be
-reported to <small>ROCGDB</small>.  Multiple &lsquo;<samp>QPassSignals</samp>&rsquo; packets do not
+the inferior, or be reported to ROCgdb.  All other signals should be
+reported to ROCgdb.  Multiple &lsquo;<samp>QPassSignals</samp>&rsquo; packets do not
 combine; any earlier &lsquo;<samp>QPassSignals</samp>&rsquo; list is completely replaced by the
 new list.  This packet improves performance when using &lsquo;<samp>handle
 <var>signal</var> nostop noprint pass</samp>&rsquo;.
@@ -703,10 +703,10 @@ by supplying an appropriate &lsquo;<samp>qSupported</samp>&rsquo; response (see 
 Others should be silently discarded.
 </p>
 <p>In some cases, the remote stub may need to decide whether to deliver a
-signal to the program or not without <small>ROCGDB</small> involvement.  One
+signal to the program or not without ROCgdb involvement.  One
 example of that is while detaching &mdash; the program&rsquo;s threads may have
 stopped for signals that haven&rsquo;t yet had a chance of being reported to
-<small>ROCGDB</small>, and so the remote stub can use the signal list specified
+ROCgdb, and so the remote stub can use the signal list specified
 by this packet to know whether to deliver or ignore those pending
 signals.
 </p>
@@ -738,11 +738,11 @@ by supplying an appropriate &lsquo;<samp>qSupported</samp>&rsquo; response (see 
 
 <p>Enable (&lsquo;<samp>QThreadEvents:1</samp>&rsquo;) or disable (&lsquo;<samp>QThreadEvents:0</samp>&rsquo;)
 reporting of thread create and exit events.  See <a href="Stop-Reply-Packets.html#thread-create-event">thread create event</a>, for the reply specifications.  For example, this is used in
-non-stop mode when <small>ROCGDB</small> stops a set of threads and
+non-stop mode when ROCgdb stops a set of threads and
 synchronously waits for the their corresponding stop replies.  Without
-exit events, if one of the threads exits, <small>ROCGDB</small> would hang
+exit events, if one of the threads exits, ROCgdb would hang
 forever not knowing that it should no longer expect a stop for that
-same thread.  <small>ROCGDB</small> does not enable this feature unless the
+same thread.  ROCgdb does not enable this feature unless the
 stub reports that it supports it by including &lsquo;<samp>QThreadEvents+</samp>&rsquo; in
 its &lsquo;<samp>qSupported</samp>&rsquo; reply.
 </p>
@@ -794,14 +794,14 @@ systems).
 </dl>
 
 
-<p>For example, <small>ROCGDB</small> enables the <code>GDB_THREAD_OPTION_EXIT</code>
+<p>For example, ROCgdb enables the <code>GDB_THREAD_OPTION_EXIT</code>
 and <code>GDB_THREAD_OPTION_CLONE</code> options when single-stepping a
 thread past a breakpoint, for the following reasons:
 </p>
 <ul>
 <li> If the single-stepped thread exits (e.g., it executes a thread exit
 system call), enabling <code>GDB_THREAD_OPTION_EXIT</code> prevents
-<small>ROCGDB</small> from waiting forever, not knowing that it should no
+ROCgdb from waiting forever, not knowing that it should no
 longer expect a stop for that same thread, and blocking other threads
 from progressing.
 
@@ -825,7 +825,7 @@ crashing or corrupting data.
 
 <p>New threads start with thread options cleared.
 </p>
-<p><small>ROCGDB</small> does not enable this feature unless the stub reports that
+<p>ROCgdb does not enable this feature unless the stub reports that
 it supports it by including
 &lsquo;<samp>QThreadOptions=<var>supported_options</var></samp>&rsquo; in its &lsquo;<samp>qSupported</samp>&rsquo;
 reply.
@@ -862,7 +862,7 @@ stubs&rsquo;s interpreter may have security implications</em>.
 
 <p>Unlike most packets, this packet does not support
 &lsquo;<samp>E.<var>errtext</var></samp>&rsquo;-style textual error replies (see <a href="Standard-Replies.html#textual-error-reply">textual error reply</a>) by default.  Stubs should be careful to only send such a
-reply if <small>ROCGDB</small> reported support for it with the
+reply if ROCgdb reported support for it with the
 <code>error-message</code> feature (see <a href="#error_002dmessage">error-message</a>).
 </p>
 <p>(Note that the <code>qRcmd</code> packet&rsquo;s name is separated from the
@@ -897,8 +897,8 @@ protocol acknowledgments (see <a href="Packet-Acknowledgment.html">Packet Acknow
 </p><dl compact="compact">
 <dt><span>&lsquo;<samp>OK</samp>&rsquo;</span></dt>
 <dd><p>The stub has switched to no-acknowledgment mode.
-<small>ROCGDB</small> acknowledges this response,
-but neither the stub nor <small>ROCGDB</small> shall send or expect further
+ROCgdb acknowledges this response,
+but neither the stub nor ROCgdb shall send or expect further
 &lsquo;<samp>+</samp>&rsquo;/&lsquo;<samp>-</samp>&rsquo; acknowledgments in the current connection.
 </p></dd>
 </dl>
@@ -907,20 +907,20 @@ but neither the stub nor <small>ROCGDB</small> shall send or expect further
 <dt id='index-supported-packets_002c-remote-query'><span>&lsquo;<samp>qSupported <span class="roman">[</span>:<var>gdbfeature</var> <span class="roman">[</span>;<var>gdbfeature</var><span class="roman">]</span>&hellip; <span class="roman">]</span></samp>&rsquo;<a href='#index-supported-packets_002c-remote-query' class='copiable-anchor'> &para;</a></span></dt>
 <dd><span id="index-features-of-the-remote-protocol"></span>
 <span id="index-qSupported-packet"></span>
-<span id="qSupported"></span><p>Tell the remote stub about features supported by <small>ROCGDB</small>, and
+<span id="qSupported"></span><p>Tell the remote stub about features supported by ROCgdb, and
 query the stub for features it supports.  This packet allows
-<small>ROCGDB</small> and the remote stub to take advantage of each others&rsquo;
+ROCgdb and the remote stub to take advantage of each others&rsquo;
 features.  &lsquo;<samp>qSupported</samp>&rsquo; also consolidates multiple feature probes
-at startup, to improve <small>ROCGDB</small> performance&mdash;a single larger
+at startup, to improve ROCgdb performance&mdash;a single larger
 packet performs better than multiple smaller probe packets on
 high-latency links.  Some features may enable behavior which must not
 be on by default, e.g. because it would confuse older clients or
 stubs.  Other features may describe packets which could be
 automatically probed for, but are not.  These features must be
-reported before <small>ROCGDB</small> will use them.  This &ldquo;default
+reported before ROCgdb will use them.  This &ldquo;default
 unsupported&rdquo; behavior is not appropriate for all packets, but it
 helps to keep the initial connection time under control with new
-versions of <small>ROCGDB</small> which support increasing numbers of packets.
+versions of ROCgdb which support increasing numbers of packets.
 </p>
 <p>Reply:
 </p><dl compact="compact">
@@ -950,85 +950,85 @@ need an associated value.
 </p></dd>
 <dt><span>&lsquo;<samp><var>name</var>?</samp>&rsquo;</span></dt>
 <dd><p>The remote protocol feature <var>name</var> may be supported, and
-<small>ROCGDB</small> should auto-detect support in some other way when it is
+ROCgdb should auto-detect support in some other way when it is
 needed.  This form will not be used for <var>gdbfeature</var> notifications,
 but may be used for <var>stubfeature</var> responses.
 </p></dd>
 </dl>
 
 <p>Whenever the stub receives a &lsquo;<samp>qSupported</samp>&rsquo; request, the
-supplied set of <small>ROCGDB</small> features should override any previous
-request.  This allows <small>ROCGDB</small> to put the stub in a known
+supplied set of ROCgdb features should override any previous
+request.  This allows ROCgdb to put the stub in a known
 state, even if the stub had previously been communicating with
-a different version of <small>ROCGDB</small>.
+a different version of ROCgdb.
 </p>
-<p>The following values of <var>gdbfeature</var> (for the packet sent by <small>ROCGDB</small>)
+<p>The following values of <var>gdbfeature</var> (for the packet sent by ROCgdb)
 are defined:  
 </p>
 <dl compact="compact">
 <dt><span>&lsquo;<samp>multiprocess</samp>&rsquo;</span></dt>
-<dd><p>This feature indicates whether <small>ROCGDB</small> supports multiprocess 
-extensions to the remote protocol.  <small>ROCGDB</small> does not use such
+<dd><p>This feature indicates whether ROCgdb supports multiprocess 
+extensions to the remote protocol.  ROCgdb does not use such
 extensions unless the stub also reports that it supports them by
 including &lsquo;<samp>multiprocess+</samp>&rsquo; in its &lsquo;<samp>qSupported</samp>&rsquo; reply.
 See <a href="#multiprocess-extensions">multiprocess extensions</a>, for details.
 </p>
 </dd>
 <dt><span>&lsquo;<samp>xmlRegisters</samp>&rsquo;</span></dt>
-<dd><p>This feature indicates that <small>ROCGDB</small> supports the XML target
+<dd><p>This feature indicates that ROCgdb supports the XML target
 description.  If the stub sees &lsquo;<samp>xmlRegisters=</samp>&rsquo; with target
 specific strings separated by a comma, it will report register
 description.
 </p>
 </dd>
 <dt><span>&lsquo;<samp>qRelocInsn</samp>&rsquo;</span></dt>
-<dd><p>This feature indicates whether <small>ROCGDB</small> supports the
+<dd><p>This feature indicates whether ROCgdb supports the
 &lsquo;<samp>qRelocInsn</samp>&rsquo; packet (see <a href="Tracepoint-Packets.html">Relocate
 instruction reply packet</a>).
 </p>
 </dd>
 <dt><span>&lsquo;<samp>swbreak</samp>&rsquo;</span></dt>
-<dd><p>This feature indicates whether <small>ROCGDB</small> supports the swbreak stop
+<dd><p>This feature indicates whether ROCgdb supports the swbreak stop
 reason in stop replies.  See <a href="Stop-Reply-Packets.html#swbreak-stop-reason">swbreak stop reason</a>, for details.
 </p>
 </dd>
 <dt><span>&lsquo;<samp>hwbreak</samp>&rsquo;</span></dt>
-<dd><p>This feature indicates whether <small>ROCGDB</small> supports the hwbreak stop
+<dd><p>This feature indicates whether ROCgdb supports the hwbreak stop
 reason in stop replies.  See <a href="Stop-Reply-Packets.html#swbreak-stop-reason">swbreak stop reason</a>, for details.
 </p>
 </dd>
 <dt><span>&lsquo;<samp>fork-events</samp>&rsquo;</span></dt>
-<dd><p>This feature indicates whether <small>ROCGDB</small> supports fork event
-extensions to the remote protocol.  <small>ROCGDB</small> does not use such
+<dd><p>This feature indicates whether ROCgdb supports fork event
+extensions to the remote protocol.  ROCgdb does not use such
 extensions unless the stub also reports that it supports them by
 including &lsquo;<samp>fork-events+</samp>&rsquo; in its &lsquo;<samp>qSupported</samp>&rsquo; reply.
 </p>
 </dd>
 <dt><span>&lsquo;<samp>vfork-events</samp>&rsquo;</span></dt>
-<dd><p>This feature indicates whether <small>ROCGDB</small> supports vfork event
-extensions to the remote protocol.  <small>ROCGDB</small> does not use such
+<dd><p>This feature indicates whether ROCgdb supports vfork event
+extensions to the remote protocol.  ROCgdb does not use such
 extensions unless the stub also reports that it supports them by
 including &lsquo;<samp>vfork-events+</samp>&rsquo; in its &lsquo;<samp>qSupported</samp>&rsquo; reply.
 </p>
 </dd>
 <dt><span>&lsquo;<samp>exec-events</samp>&rsquo;</span></dt>
-<dd><p>This feature indicates whether <small>ROCGDB</small> supports exec event
-extensions to the remote protocol.  <small>ROCGDB</small> does not use such
+<dd><p>This feature indicates whether ROCgdb supports exec event
+extensions to the remote protocol.  ROCgdb does not use such
 extensions unless the stub also reports that it supports them by
 including &lsquo;<samp>exec-events+</samp>&rsquo; in its &lsquo;<samp>qSupported</samp>&rsquo; reply.
 </p>
 </dd>
 <dt><span>&lsquo;<samp>vContSupported</samp>&rsquo;</span></dt>
-<dd><p>This feature indicates whether <small>ROCGDB</small> wants to know the
+<dd><p>This feature indicates whether ROCgdb wants to know the
 supported actions in the reply to &lsquo;<samp>vCont?</samp>&rsquo; packet.
 </p>
 <span id="error_002dmessage"></span></dd>
 <dt><span>&lsquo;<samp>error-message</samp>&rsquo;</span></dt>
-<dd><p>This feature indicates whether <small>ROCGDB</small> supports accepting a reply
+<dd><p>This feature indicates whether ROCgdb supports accepting a reply
 in &lsquo;<samp>E.<var>errtext</var></samp>&rsquo; format (See <a href="Standard-Replies.html#textual-error-reply">textual error reply</a>) from the
 &lsquo;<samp>qRcmd</samp>&rsquo; and &lsquo;<samp>m</samp>&rsquo; packets.  These packets, historically,
 didn&rsquo;t support &lsquo;<samp>E.<var>errtext</var></samp>&rsquo;, and older versions of
-<small>ROCGDB</small> didn&rsquo;t expect to see a reply in this format.
+ROCgdb didn&rsquo;t expect to see a reply in this format.
 </p>
 <p>New packets should be written to support &lsquo;<samp>E.<var>errtext</var></samp>&rsquo;
 regardless of this feature being true or not.
@@ -1036,18 +1036,18 @@ regardless of this feature being true or not.
 </dl>
 
 <p>Stubs should ignore any unknown values for
-<var>gdbfeature</var>.  Any <small>ROCGDB</small> which sends a &lsquo;<samp>qSupported</samp>&rsquo;
+<var>gdbfeature</var>.  Any ROCgdb which sends a &lsquo;<samp>qSupported</samp>&rsquo;
 packet supports receiving packets of unlimited length (earlier
-versions of <small>ROCGDB</small> may reject overly long responses).  Additional values
+versions of ROCgdb may reject overly long responses).  Additional values
 for <var>gdbfeature</var> may be defined in the future to let the stub take
-advantage of new features in <small>ROCGDB</small>, e.g. incompatible
+advantage of new features in ROCgdb, e.g. incompatible
 improvements in the remote protocol&mdash;the &lsquo;<samp>multiprocess</samp>&rsquo; feature is
 an example of such a feature.  The stub&rsquo;s reply should be independent
-of the <var>gdbfeature</var> entries sent by <small>ROCGDB</small>; first <small>ROCGDB</small>
+of the <var>gdbfeature</var> entries sent by ROCgdb; first ROCgdb
 describes all the features it supports, and then the stub replies with
 all the features it supports.
 </p>
-<p>Similarly, <small>ROCGDB</small> will silently ignore unrecognized stub feature
+<p>Similarly, ROCgdb will silently ignore unrecognized stub feature
 responses, as long as each response uses one of the standard forms.
 </p>
 <p>Some features are flags.  A stub which supports a flag feature
@@ -1055,7 +1055,7 @@ should respond with a &lsquo;<samp>+</samp>&rsquo; form response.  Other feature
 require values, and the stub should respond with an &lsquo;<samp>=</samp>&rsquo;
 form response.
 </p>
-<p>Each feature has a default value, which <small>ROCGDB</small> will use if
+<p>Each feature has a default value, which ROCgdb will use if
 &lsquo;<samp>qSupported</samp>&rsquo; is not available or if the feature is not mentioned
 in the &lsquo;<samp>qSupported</samp>&rsquo; response.  The default values are fixed; a
 stub is free to omit any feature responses that match the defaults.
@@ -1131,13 +1131,13 @@ stubs which may be configured for multiple targets.
 </dd>
 <dt><span>&lsquo;<samp>PacketSize=<var>bytes</var></samp>&rsquo;</span></dt>
 <dd><p>The remote stub can accept packets up to at least <var>bytes</var> in
-length.  <small>ROCGDB</small> will send packets up to this size for bulk
+length.  ROCgdb will send packets up to this size for bulk
 transfers, and will never send larger packets.  This is a limit on the
 data characters in the packet, not including the frame and checksum.
 There is no trailing NUL byte in a remote protocol packet; if the stub
 stores packets in a NUL-terminated format, it should allow an extra
 byte in its buffer for the NUL.  If this stub feature is not supported,
-<small>ROCGDB</small> guesses based on the size of the &lsquo;<samp>g</samp>&rsquo; packet response.
+ROCgdb guesses based on the size of the &lsquo;<samp>g</samp>&rsquo; packet response.
 </p>
 </dd>
 <dt><span>&lsquo;<samp>qXfer:auxv:read</samp>&rsquo;</span></dt>
@@ -1250,7 +1250,7 @@ add process IDs to the &lsquo;<samp>D</samp>&rsquo; packet and &lsquo;<samp>W</s
 replies.  Note that reporting this feature indicates support for the
 syntactic extensions only, not that the stub necessarily supports
 debugging of more than one process at a time.  The stub must not use
-multiprocess extensions in packet replies unless <small>ROCGDB</small> has also
+multiprocess extensions in packet replies unless ROCgdb has also
 indicated it supports them in its &lsquo;<samp>qSupported</samp>&rsquo; request.
 </p>
 </dd>
@@ -1323,7 +1323,7 @@ See <a href="Bytecode-Descriptions.html">Bytecode Descriptions</a> for details a
 </dd>
 <dt id='index-breakpoint-commands_002c-in-remote-protocol'><span>&lsquo;<samp>BreakpointCommands</samp>&rsquo;<a href='#index-breakpoint-commands_002c-in-remote-protocol' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>The remote stub supports running a breakpoint&rsquo;s command list itself,
-rather than reporting the hit to <small>ROCGDB</small>.
+rather than reporting the hit to ROCgdb.
 </p>
 </dd>
 <dt><span>&lsquo;<samp>Qbtrace:off</samp>&rsquo;</span></dt>
@@ -1415,8 +1415,8 @@ file is done via &lsquo;<samp>vFile</samp>&rsquo; requests.
 <dd><p>The remote stub supports replying with an error in a
 &lsquo;<samp>E.<var>errtext</var></samp>&rsquo; (See <a href="Standard-Replies.html#textual-error-reply">textual error reply</a>) format from the
 &lsquo;<samp>m</samp>&rsquo; and &lsquo;<samp>qRcmd</samp>&rsquo; packets.  It is not usually necessary to
-send this feature back to <small>ROCGDB</small> in the &lsquo;<samp>qSupported</samp>&rsquo; reply,
-<small>ROCGDB</small> will always support &lsquo;<samp>E.<var>errtext</var></samp>&rsquo; format replies
+send this feature back to ROCgdb in the &lsquo;<samp>qSupported</samp>&rsquo; reply,
+ROCgdb will always support &lsquo;<samp>E.<var>errtext</var></samp>&rsquo; format replies
 if it sent the &lsquo;<samp>error-message</samp>&rsquo; feature.
 </p>
 </dd>
@@ -1428,7 +1428,7 @@ if it sent the &lsquo;<samp>error-message</samp>&rsquo; feature.
 </dd>
 <dt id='index-symbol-lookup_002c-remote-request'><span>&lsquo;<samp>qSymbol::</samp>&rsquo;<a href='#index-symbol-lookup_002c-remote-request' class='copiable-anchor'> &para;</a></span></dt>
 <dd><span id="index-qSymbol-packet"></span>
-<p>Notify the target that <small>ROCGDB</small> is prepared to serve symbol lookup
+<p>Notify the target that ROCgdb is prepared to serve symbol lookup
 requests.  Accept requests from the target for the values of symbols.
 </p>
 <p>Reply:
@@ -1438,7 +1438,7 @@ requests.  Accept requests from the target for the values of symbols.
 </p></dd>
 <dt><span>&lsquo;<samp>qSymbol:<var>sym_name</var></samp>&rsquo;</span></dt>
 <dd><p>The target requests the value of symbol <var>sym_name</var> (hex encoded).
-<small>ROCGDB</small> may provide the value by using the
+ROCgdb may provide the value by using the
 &lsquo;<samp>qSymbol:<var>sym_value</var>:<var>sym_name</var></samp>&rsquo; message, described
 below.
 </p></dd>
@@ -1452,7 +1452,7 @@ below.
 target has previously requested.
 </p>
 <p><var>sym_value</var> (hex) is the value for symbol <var>sym_name</var>.  If
-<small>ROCGDB</small> cannot supply a value for <var>sym_name</var>, then this field
+ROCgdb cannot supply a value for <var>sym_name</var>, then this field
 will be empty.
 </p>
 <p>Reply:
@@ -1462,7 +1462,7 @@ will be empty.
 </p></dd>
 <dt><span>&lsquo;<samp>qSymbol:<var>sym_name</var></samp>&rsquo;</span></dt>
 <dd><p>The target requests the value of a new symbol <var>sym_name</var> (hex
-encoded).  <small>ROCGDB</small> will continue to supply the values of symbols
+encoded).  ROCgdb will continue to supply the values of symbols
 (if available), until the target ceases to request them.
 </p></dd>
 </dl>
@@ -1488,8 +1488,8 @@ encoded).  <small>ROCGDB</small> will continue to supply the values of symbols
 attributes for the thread <var>thread-id</var>; see <a href="Packets.html#thread_002did-syntax">thread-id syntax</a>,
 for the forms of <var>thread-id</var>.  This
 string may contain anything that the target OS thinks is interesting
-for <small>ROCGDB</small> to tell the user about the thread.  The string is
-displayed in <small>ROCGDB</small>&rsquo;s <code>info threads</code> display.  Some
+for ROCgdb to tell the user about the thread.  The string is
+displayed in ROCgdb&rsquo;s <code>info threads</code> display.  Some
 examples of possible thread extra info strings are &lsquo;<samp>Runnable</samp>&rsquo;, or
 &lsquo;<samp>Blocked on Mutex</samp>&rsquo;.
 </p>
@@ -1651,7 +1651,7 @@ by supplying an appropriate &lsquo;<samp>qSupported</samp>&rsquo; response
 (see <a href="#qXfer-read">qXfer read</a>, <a href="#qSupported">qSupported</a>).
 </p>
 <p>This packet is optional for better performance on SVR4 targets.  
-<small>ROCGDB</small> uses memory read packets to read the SVR4 library list otherwise.
+ROCgdb uses memory read packets to read the SVR4 library list otherwise.
 </p>
 <p>This packet is not probed by default; the remote stub must request it,
 by supplying an appropriate &lsquo;<samp>qSupported</samp>&rsquo; response (see <a href="#qSupported">qSupported</a>).
@@ -1680,8 +1680,8 @@ exists prior to the starting point.
 <dt><span><code>lmid=<var>lmid</var></code></span></dt>
 <dd><p>A hexadecimal number specifying a namespace identifier.  This is
 currently only used together with &lsquo;<samp>start</samp>&rsquo; to provide the
-namespace identifier back to <small>ROCGDB</small> in the response.
-<small>ROCGDB</small> will only provide values that were previously reported to
+namespace identifier back to ROCgdb in the response.
+ROCgdb will only provide values that were previously reported to
 it.  If unset, the response will include &lsquo;<samp>lmid=&quot;0x0&quot;</samp>&rsquo;.
 </p></dd>
 </dl>
@@ -1811,11 +1811,11 @@ must respond with an empty packet.
 existing process or created a new process.  When the multiprocess
 protocol extensions are supported (see <a href="#multiprocess-extensions">multiprocess extensions</a>),
 <var>pid</var> is an integer in hexadecimal format identifying the target
-process.  Otherwise, <small>ROCGDB</small> will omit the <var>pid</var> field and
+process.  Otherwise, ROCgdb will omit the <var>pid</var> field and
 the query packet will be simplified as &lsquo;<samp>qAttached</samp>&rsquo;.
 </p>
 <p>This query is used, for example, to know whether the remote process
-should be detached or killed when a <small>ROCGDB</small> session is ended with
+should be detached or killed when a ROCgdb session is ended with
 the <code>quit</code> command.
 </p>
 <p>Reply:
@@ -1923,7 +1923,7 @@ compatibility.
 <hr>
 <h4 class="footnotes-heading">Footnotes</h4>
 
-<h5><a id="FOOT21" href="#DOCF21">(21)</a></h5>
+<h5><a id="FOOT22" href="#DOCF22">(22)</a></h5>
 <p>The &lsquo;<samp>qP</samp>&rsquo; and &lsquo;<samp>qL</samp>&rsquo;
 packets predate these conventions, and have arguments without any terminator
 for the packet name; we suspect they are in widespread use in places that
@@ -1934,7 +1934,7 @@ packet.</p>
 <hr>
 <div class="header">
 <p>
-Next: <a href="Architecture_002dSpecific-Protocol-Details.html">Architecture-Specific Protocol Details</a>, Previous: <a href="Stop-Reply-Packets.html">Stop Reply Packets</a>, Up: <a href="Remote-Protocol.html"><small>ROCGDB</small> Remote Serial Protocol</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Architecture_002dSpecific-Protocol-Details.html">Architecture-Specific Protocol Details</a>, Previous: <a href="Stop-Reply-Packets.html">Stop Reply Packets</a>, Up: <a href="Remote-Protocol.html">ROCgdb Remote Serial Protocol</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

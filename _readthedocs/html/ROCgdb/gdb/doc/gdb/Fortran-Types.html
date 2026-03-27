@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Fortran Types (Debugging with ROCGDB)</title>
+<title>Fortran Types (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Fortran Types (Debugging with ROCGDB)">
-<meta name="keywords" content="Fortran Types (Debugging with ROCGDB)">
+<meta name="description" content="Fortran Types (Debugging with ROCgdb)">
+<meta name="keywords" content="Fortran Types (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -107,14 +107,14 @@ Next: <a href="Fortran-Operators.html" accesskey="n" rel="next">Fortran Operator
 
 <p>In Fortran the primitive data-types have an associated <code>KIND</code> type
 parameter, written as &lsquo;<samp><var>type</var>*<var>kindparam</var></samp>&rsquo;,
-&lsquo;<samp><var>type</var>*<var>kindparam</var></samp>&rsquo;, or in the <small>ROCGDB</small>-only dialect
+&lsquo;<samp><var>type</var>*<var>kindparam</var></samp>&rsquo;, or in the ROCgdb-only dialect
 &lsquo;<samp><var>type</var>_<var>kindparam</var></samp>&rsquo;.  A concrete example would be
 &lsquo;<samp><code>Real*4</code></samp>&rsquo;, &lsquo;<samp><code>Real(kind=4)</code></samp>&rsquo;, and &lsquo;<samp><code>Real_4</code></samp>&rsquo;.
 The kind of a type can be retrieved by using the intrinsic function
 <code>KIND</code>, see <a href="Fortran-Intrinsics.html">Fortran Intrinsics</a>.
 </p>
 <p>Generally, the actual implementation of the <code>KIND</code> type parameter is
-compiler specific.  In <small>ROCGDB</small> the kind parameter is implemented in
+compiler specific.  In ROCgdb the kind parameter is implemented in
 accordance with its use in the <small>GNU</small> <code>gfortran</code> compiler.  Here, the
 kind parameter for a given <var>type</var> specifies its size in memory &mdash; a
 Fortran <code>Integer*4</code> or <code>Integer(kind=4)</code> would be an integer type
@@ -124,13 +124,13 @@ the size of each of the two <code>Real</code>&rsquo;s it is composed of.  A
 <code>Complex*4</code> would thus consist of two <code>Real*4</code>s and occupy 8 bytes
 of memory.
 </p>
-<p>For every type there is also a default kind associated with it, e.g.&nbsp;<code>Integer</code> in <small>ROCGDB</small> will internally be an <code>Integer*4</code> (see the
+<p>For every type there is also a default kind associated with it, e.g.&nbsp;<code>Integer</code> in ROCgdb will internally be an <code>Integer*4</code> (see the
 table below for default types).  The default types are the same as in <small>GNU</small>
 compilers but note, that the <small>GNU</small> default types can actually be changed by
 compiler flags such as <samp>-fdefault-integer-8</samp> and
 <samp>-fdefault-real-8</samp>.
 </p>
-<p>Not every kind parameter is valid for every type and in <small>ROCGDB</small> the
+<p>Not every kind parameter is valid for every type and in ROCgdb the
 following type kinds are available.
 </p>
 <dl compact="compact">

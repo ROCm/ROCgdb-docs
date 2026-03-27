@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Commands In Guile (Debugging with ROCGDB)</title>
+<title>Commands In Guile (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Commands In Guile (Debugging with ROCGDB)">
-<meta name="keywords" content="Commands In Guile (Debugging with ROCGDB)">
+<meta name="description" content="Commands In Guile (Debugging with ROCgdb)">
+<meta name="keywords" content="Commands In Guile (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -106,11 +106,11 @@ Next: <a href="Parameters-In-Guile.html" accesskey="n" rel="next">Parameters In 
 
 <span id="index-commands-in-guile"></span>
 <span id="index-guile-commands-1"></span>
-<p>You can implement new <small>ROCGDB</small> CLI commands in Guile.  A CLI
+<p>You can implement new ROCgdb CLI commands in Guile.  A CLI
 command object is created with the <code>make-command</code> Guile function,
-and added to <small>ROCGDB</small> with the <code>register-command!</code> Guile function.
+and added to ROCgdb with the <code>register-command!</code> Guile function.
 This two-step approach is taken to separate out the side-effect of adding
-the command to <small>ROCGDB</small> from <code>make-command</code>.
+the command to ROCgdb from <code>make-command</code>.
 </p>
 <p>There is no support for multi-line commands, that is commands that
 consist of multiple lines and are terminated with <code>end</code>.
@@ -124,7 +124,7 @@ commands.  In this case, if one of the prefix commands does not exist,
 an exception is raised.
 </p>
 <p>The result is the <code>&lt;gdb:command&gt;</code> object representing the command.
-The command is not usable until it has been registered with <small>ROCGDB</small>
+The command is not usable until it has been registered with ROCgdb
 with <code>register-command!</code>.
 </p>
 <p>The rest of the arguments are optional.
@@ -137,16 +137,16 @@ the command, after leading and trailing whitespace has been stripped.
 The argument <var>from-tty</var> is a boolean flag and specifies whether the
 command should consider itself to have been originated from the user
 invoking it interactively.  If this function throws an exception,
-it is turned into a <small>ROCGDB</small> <code>error</code> call.
+it is turned into a ROCgdb <code>error</code> call.
 Otherwise, the return value is ignored.
 </p>
 <p>The argument <var>command-class</var> is one of the &lsquo;<samp>COMMAND_</samp>&rsquo; constants
-defined below.  This argument tells <small>ROCGDB</small> how to categorize the
+defined below.  This argument tells ROCgdb how to categorize the
 new command in the help system.  The default is <code>COMMAND_NONE</code>.
 </p>
 <p>The argument <var>completer</var> is either <code>#f</code>, one of the &lsquo;<samp>COMPLETE_</samp>&rsquo;
 constants defined below, or a procedure, also defined below.
-This argument tells <small>ROCGDB</small> how to perform completion
+This argument tells ROCgdb how to perform completion
 for this command.  If not provided or if the value is <code>#f</code>,
 then no completion is performed on the command.
 </p>
@@ -161,7 +161,7 @@ not documented.&rdquo; is used.
 
 <dl class="def">
 <dt id="index-register_002dcommand_0021"><span class="category">Scheme Procedure: </span><span><strong>register-command!</strong> <em>command</em><a href='#index-register_002dcommand_0021' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Add <var>command</var>, a <code>&lt;gdb:command&gt;</code> object, to <small>ROCGDB</small>&rsquo;s
+<dd><p>Add <var>command</var>, a <code>&lt;gdb:command&gt;</code> object, to ROCgdb&rsquo;s
 list of commands.
 It is an error to register a command more than once.
 The result is unspecified.
@@ -176,7 +176,7 @@ Otherwise return <code>#f</code>.
 <span id="index-don_0027t-repeat-Guile-command"></span>
 <dl class="def">
 <dt id="index-dont_002drepeat"><span class="category">Scheme Procedure: </span><span><strong>dont-repeat</strong><a href='#index-dont_002drepeat' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>By default, a <small>ROCGDB</small> command is repeated when the user enters a
+<dd><p>By default, a ROCgdb command is repeated when the user enters a
 blank line at the command prompt.  A command can suppress this
 behavior by invoking the <code>dont-repeat</code> function.  This is similar
 to the user command <code>dont-repeat</code>, see <a href="Define.html">dont-repeat</a>.
@@ -185,7 +185,7 @@ to the user command <code>dont-repeat</code>, see <a href="Define.html">dont-rep
 <dl class="def">
 <dt id="index-string_002d_003eargv"><span class="category">Scheme Procedure: </span><span><strong>string-&gt;argv</strong> <em>string</em><a href='#index-string_002d_003eargv' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Convert a string to a list of strings split up according to
-<small>ROCGDB</small>&rsquo;s argv parsing rules.
+ROCgdb&rsquo;s argv parsing rules.
 It is recommended to use this for consistency.
 Arguments are separated by spaces and may be quoted.
 Example:
@@ -272,65 +272,65 @@ This is the default.
 <dt id='index-COMMAND_005fRUNNING-1'><span><code>COMMAND_RUNNING</code><a href='#index-COMMAND_005fRUNNING-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>The command is related to running the inferior.  For example,
 <code>start</code>, <code>step</code>, and <code>continue</code> are in this category.
-Type <kbd>help running</kbd> at the <small>ROCGDB</small> prompt to see a list of
+Type <kbd>help running</kbd> at the ROCgdb prompt to see a list of
 commands in this category.
 </p>
 </dd>
 <dt id='index-COMMAND_005fDATA-1'><span><code>COMMAND_DATA</code><a href='#index-COMMAND_005fDATA-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>The command is related to data or variables.  For example,
 <code>call</code>, <code>find</code>, and <code>print</code> are in this category.  Type
-<kbd>help data</kbd> at the <small>ROCGDB</small> prompt to see a list of commands
+<kbd>help data</kbd> at the ROCgdb prompt to see a list of commands
 in this category.
 </p>
 </dd>
 <dt id='index-COMMAND_005fSTACK-1'><span><code>COMMAND_STACK</code><a href='#index-COMMAND_005fSTACK-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>The command has to do with manipulation of the stack.  For example,
 <code>backtrace</code>, <code>frame</code>, and <code>return</code> are in this
-category.  Type <kbd>help stack</kbd> at the <small>ROCGDB</small> prompt to see a
+category.  Type <kbd>help stack</kbd> at the ROCgdb prompt to see a
 list of commands in this category.
 </p>
 </dd>
 <dt id='index-COMMAND_005fFILES-1'><span><code>COMMAND_FILES</code><a href='#index-COMMAND_005fFILES-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>This class is used for file-related commands.  For example,
 <code>file</code>, <code>list</code> and <code>section</code> are in this category.
-Type <kbd>help files</kbd> at the <small>ROCGDB</small> prompt to see a list of
+Type <kbd>help files</kbd> at the ROCgdb prompt to see a list of
 commands in this category.
 </p>
 </dd>
 <dt id='index-COMMAND_005fSUPPORT-1'><span><code>COMMAND_SUPPORT</code><a href='#index-COMMAND_005fSUPPORT-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>This should be used for &ldquo;support facilities&rdquo;, generally meaning
-things that are useful to the user when interacting with <small>ROCGDB</small>,
+things that are useful to the user when interacting with ROCgdb,
 but not related to the state of the inferior.  For example,
 <code>help</code>, <code>make</code>, and <code>shell</code> are in this category.  Type
-<kbd>help support</kbd> at the <small>ROCGDB</small> prompt to see a list of
+<kbd>help support</kbd> at the ROCgdb prompt to see a list of
 commands in this category.
 </p>
 </dd>
 <dt id='index-COMMAND_005fSTATUS-1'><span><code>COMMAND_STATUS</code><a href='#index-COMMAND_005fSTATUS-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>The command is an &lsquo;<samp>info</samp>&rsquo;-related command, that is, related to the
-state of <small>ROCGDB</small> itself.  For example, <code>info</code>, <code>macro</code>,
+state of ROCgdb itself.  For example, <code>info</code>, <code>macro</code>,
 and <code>show</code> are in this category.  Type <kbd>help status</kbd> at the
-<small>ROCGDB</small> prompt to see a list of commands in this category.
+ROCgdb prompt to see a list of commands in this category.
 </p>
 </dd>
 <dt id='index-COMMAND_005fBREAKPOINTS-1'><span><code>COMMAND_BREAKPOINTS</code><a href='#index-COMMAND_005fBREAKPOINTS-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>The command has to do with breakpoints.  For example, <code>break</code>,
 <code>clear</code>, and <code>delete</code> are in this category.  Type <kbd>help
-breakpoints</kbd> at the <small>ROCGDB</small> prompt to see a list of commands in
+breakpoints</kbd> at the ROCgdb prompt to see a list of commands in
 this category.
 </p>
 </dd>
 <dt id='index-COMMAND_005fTRACEPOINTS-1'><span><code>COMMAND_TRACEPOINTS</code><a href='#index-COMMAND_005fTRACEPOINTS-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>The command has to do with tracepoints.  For example, <code>trace</code>,
 <code>actions</code>, and <code>tfind</code> are in this category.  Type
-<kbd>help tracepoints</kbd> at the <small>ROCGDB</small> prompt to see a list of
+<kbd>help tracepoints</kbd> at the ROCgdb prompt to see a list of
 commands in this category.
 </p>
 </dd>
 <dt id='index-COMMAND_005fUSER-1'><span><code>COMMAND_USER</code><a href='#index-COMMAND_005fUSER-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>The command is a general purpose command for the user, and typically
 does not fit in one of the other categories.
-Type <kbd>help user-defined</kbd> at the <small>ROCGDB</small> prompt to see
+Type <kbd>help user-defined</kbd> at the ROCgdb prompt to see
 a list of commands in this category, as well as the list of gdb macros
 (see <a href="Sequences.html">Canned Sequences of Commands</a>).
 </p>
@@ -339,14 +339,14 @@ a list of commands in this category, as well as the list of gdb macros
 <dd><p>The command is only used in unusual circumstances, or is not of
 general interest to users.  For example, <code>checkpoint</code>,
 <code>fork</code>, and <code>stop</code> are in this category.  Type <kbd>help
-obscure</kbd> at the <small>ROCGDB</small> prompt to see a list of commands in this
+obscure</kbd> at the ROCgdb prompt to see a list of commands in this
 category.
 </p>
 </dd>
 <dt id='index-COMMAND_005fMAINTENANCE-1'><span><code>COMMAND_MAINTENANCE</code><a href='#index-COMMAND_005fMAINTENANCE-1' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>The command is only useful to <small>ROCGDB</small> maintainers.  The
+<dd><p>The command is only useful to ROCgdb maintainers.  The
 <code>maintenance</code> and <code>flushregs</code> commands are in this category.
-Type <kbd>help internals</kbd> at the <small>ROCGDB</small> prompt to see a list of
+Type <kbd>help internals</kbd> at the ROCgdb prompt to see a list of
 commands in this category.
 </p></dd>
 </dl>
@@ -371,7 +371,7 @@ See <a href="Location-Specifications.html">Location Specifications</a>.
 </p>
 </dd>
 <dt id='index-COMPLETE_005fCOMMAND-1'><span><code>COMPLETE_COMMAND</code><a href='#index-COMPLETE_005fCOMMAND-1' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>This constant means that completion should examine <small>ROCGDB</small>
+<dd><p>This constant means that completion should examine ROCgdb
 command names.
 </p>
 </dd>

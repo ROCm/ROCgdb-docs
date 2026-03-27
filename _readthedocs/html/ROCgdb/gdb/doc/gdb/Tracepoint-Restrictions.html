@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Tracepoint Restrictions (Debugging with ROCGDB)</title>
+<title>Tracepoint Restrictions (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Tracepoint Restrictions (Debugging with ROCGDB)">
-<meta name="keywords" content="Tracepoint Restrictions (Debugging with ROCGDB)">
+<meta name="description" content="Tracepoint Restrictions (Debugging with ROCgdb)">
+<meta name="keywords" content="Tracepoint Restrictions (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -106,7 +106,7 @@ Previous: <a href="Starting-and-Stopping-Trace-Experiments.html" accesskey="p" r
 <span id="index-tracepoint-restrictions"></span>
 <p>There are a number of restrictions on the use of tracepoints.  As
 described above, tracepoint data gathering occurs on the target
-without interaction from <small>ROCGDB</small>.  Thus the full capabilities of
+without interaction from ROCgdb.  Thus the full capabilities of
 the debugger are not available during data gathering, and then at data
 examination time, you will be limited by only having what was
 collected.  The following items describe some common problems, but it
@@ -134,10 +134,10 @@ where the steps of a <code>while-stepping</code> sequence will advance the
 program&mdash;particularly if a conditional branch is stepped.
 
 </li><li> Collection of an incompletely-initialized or partially-destroyed object
-may result in something that <small>ROCGDB</small> cannot display, or displays
+may result in something that ROCgdb cannot display, or displays
 in a misleading way.
 
-</li><li> When <small>ROCGDB</small> displays a pointer to character it automatically
+</li><li> When ROCgdb displays a pointer to character it automatically
 dereferences the pointer to also display characters of the string
 being pointed to.  However, collecting the pointer during tracing does
 not automatically collect the string.  You need to explicitly
@@ -158,13 +158,13 @@ if you ask for a block so large that it goes past the bottom of the
 stack, the target agent may report an error trying to read from an
 invalid address.
 
-</li><li> If you do not collect registers at a tracepoint, <small>ROCGDB</small> can
+</li><li> If you do not collect registers at a tracepoint, ROCgdb can
 infer that the value of <code>$pc</code> must be the same as the address of
 the tracepoint and use that when you are looking at a trace frame
 for that tracepoint.  However, this cannot work if the tracepoint has
 multiple locations (for instance if it was set in a function that was
 inlined), or if it has a <code>while-stepping</code> loop.  In those cases
-<small>ROCGDB</small> will warn you that it can&rsquo;t infer <code>$pc</code>, and default
+ROCgdb will warn you that it can&rsquo;t infer <code>$pc</code>, and default
 it to zero.
 
 </li></ul>

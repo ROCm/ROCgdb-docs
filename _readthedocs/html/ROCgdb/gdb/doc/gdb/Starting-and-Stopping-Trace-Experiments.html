@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Starting and Stopping Trace Experiments (Debugging with ROCGDB)</title>
+<title>Starting and Stopping Trace Experiments (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Starting and Stopping Trace Experiments (Debugging with ROCGDB)">
-<meta name="keywords" content="Starting and Stopping Trace Experiments (Debugging with ROCGDB)">
+<meta name="description" content="Starting and Stopping Trace Experiments (Debugging with ROCgdb)">
+<meta name="keywords" content="Starting and Stopping Trace Experiments (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -161,18 +161,18 @@ Enter actions for tracepoint #1, one per line.
 
 <span id="disconnected-tracing"></span><span id="index-disconnected-tracing"></span>
 <p>You can choose to continue running the trace experiment even if
-<small>ROCGDB</small> disconnects from the target, voluntarily or
+ROCgdb disconnects from the target, voluntarily or
 involuntarily.  For commands such as <code>detach</code>, the debugger will
 ask what you want to do with the trace.  But for unexpected
-terminations (<small>ROCGDB</small> crash, network outage), it would be
+terminations (ROCgdb crash, network outage), it would be
 unfortunate to lose hard-won trace data, so the variable
 <code>disconnected-tracing</code> lets you decide whether the trace should
-continue running without <small>ROCGDB</small>.
+continue running without ROCgdb.
 </p>
 <dl compact="compact">
 <dt id='index-set-disconnected_002dtracing'><span><code>set disconnected-tracing on</code><a href='#index-set-disconnected_002dtracing' class='copiable-anchor'> &para;</a></span></dt>
 <dt><span><code>set disconnected-tracing off</code></span></dt>
-<dd><p>Choose whether a tracing run should continue to run if <small>ROCGDB</small>
+<dd><p>Choose whether a tracing run should continue to run if ROCgdb
 has disconnected from the target.  Note that <code>detach</code> or
 <code>quit</code> will ask you directly what to do about a running trace no
 matter what this variable&rsquo;s setting, so the variable is mainly useful
@@ -191,11 +191,11 @@ meantime, or stopped for one of the other reasons.  If it is running,
 it will continue after reconnection.
 </p>
 <p>Upon reconnection, the target will upload information about the
-tracepoints in effect.  <small>ROCGDB</small> will then compare that
+tracepoints in effect.  ROCgdb will then compare that
 information to the set of tracepoints currently defined, and attempt
 to match them up, allowing for the possibility that the numbers may
 have changed due to creation and deletion in the meantime.  If one of
-the target&rsquo;s tracepoints does not match any in <small>ROCGDB</small>, the
+the target&rsquo;s tracepoints does not match any in ROCgdb, the
 debugger will create a new tracepoint, so that you have a number with
 which to specify that tracepoint.  This matching-up process is
 necessarily heuristic, and it may result in useless tracepoints being

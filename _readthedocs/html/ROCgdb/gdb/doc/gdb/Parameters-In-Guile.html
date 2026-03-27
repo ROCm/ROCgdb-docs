@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Parameters In Guile (Debugging with ROCGDB)</title>
+<title>Parameters In Guile (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Parameters In Guile (Debugging with ROCGDB)">
-<meta name="keywords" content="Parameters In Guile (Debugging with ROCGDB)">
+<meta name="description" content="Parameters In Guile (Debugging with ROCgdb)">
+<meta name="keywords" content="Parameters In Guile (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -107,19 +107,19 @@ Next: <a href="Progspaces-In-Guile.html" accesskey="n" rel="next">Program Spaces
 <span id="index-parameters-in-guile"></span>
 <span id="index-guile-parameters"></span>
 <span id="index-Parameter-1"></span>
-<p>You can implement new <small>ROCGDB</small> <em>parameters</em> using Guile
-<a id="DOCF19" href="#FOOT19"><sup>19</sup></a>.
+<p>You can implement new ROCgdb <em>parameters</em> using Guile
+<a id="DOCF20" href="#FOOT20"><sup>20</sup></a>.
 </p>
 <p>There are many parameters that already exist and can be set in
-<small>ROCGDB</small>.  Two examples are: <code>set follow-fork</code> and
+ROCgdb.  Two examples are: <code>set follow-fork</code> and
 <code>set charset</code>.  Setting these parameters influences certain
-behavior in <small>ROCGDB</small>.  Similarly, you can define parameters that
+behavior in ROCgdb.  Similarly, you can define parameters that
 can be used to influence behavior in custom Guile scripts and commands.
 </p>
 <p>A new parameter is defined with the <code>make-parameter</code> Guile function,
-and added to <small>ROCGDB</small> with the <code>register-parameter!</code> Guile function.
+and added to ROCgdb with the <code>register-parameter!</code> Guile function.
 This two-step approach is taken to separate out the side-effect of adding
-the parameter to <small>ROCGDB</small> from <code>make-parameter</code>.
+the parameter to ROCgdb from <code>make-parameter</code>.
 </p>
 <p>Parameters are exposed to the user via the <code>set</code> and
 <code>show</code> commands.  See <a href="Help.html">Getting Help</a>.
@@ -133,23 +133,23 @@ parameters.  An example of this can be illustrated with the
 <code>set print</code> set of parameters.  If <var>name</var> is
 <code>print foo</code>, then <code>print</code> will be searched as the prefix
 parameter.  In this case the parameter can subsequently be accessed in
-<small>ROCGDB</small> as <code>set print foo</code>.
+ROCgdb as <code>set print foo</code>.
 If <var>name</var> consists of multiple words, and no prefix parameter group
 can be found, an exception is raised.
 </p>
 <p>The result is the <code>&lt;gdb:parameter&gt;</code> object representing the parameter.
-The parameter is not usable until it has been registered with <small>ROCGDB</small>
+The parameter is not usable until it has been registered with ROCgdb
 with <code>register-parameter!</code>.
 </p>
 <p>The rest of the arguments are optional.
 </p>
 <p>The argument <var>command-class</var> should be one of the &lsquo;<samp>COMMAND_</samp>&rsquo; constants
-(see <a href="Commands-In-Guile.html">Commands In Guile</a>).  This argument tells <small>ROCGDB</small> how to
+(see <a href="Commands-In-Guile.html">Commands In Guile</a>).  This argument tells ROCgdb how to
 categorize the new parameter in the help system.
 The default is <code>COMMAND_NONE</code>.
 </p>
 <p>The argument <var>parameter-type</var> should be one of the &lsquo;<samp>PARAM_</samp>&rsquo; constants
-defined below.  This argument tells <small>ROCGDB</small> the type of the new
+defined below.  This argument tells ROCgdb the type of the new
 parameter; this information is used for input validation and
 completion.  The default is <code>PARAM_BOOLEAN</code>.
 </p>
@@ -162,12 +162,12 @@ of <var>enum-list</var> will cause an exception to be thrown.
 </p>
 <p>The argument <var>set-func</var> is a function of one argument: <var>self</var> which
 is the <code>&lt;gdb:parameter&gt;</code> object representing the parameter.
-<small>ROCGDB</small> will call this function when a <var>parameter</var>&rsquo;s value has
+ROCgdb will call this function when a <var>parameter</var>&rsquo;s value has
 been changed via the <code>set</code> API (for example, <kbd>set foo off</kbd>).
 The value of the parameter has already been set to the new value.
 This function must return a string to be displayed to the user.
-<small>ROCGDB</small> will add a trailing newline if the string is non-empty.
-<small>ROCGDB</small> generally doesn&rsquo;t print anything when a parameter is set,
+ROCgdb will add a trailing newline if the string is non-empty.
+ROCgdb generally doesn&rsquo;t print anything when a parameter is set,
 thus typically this function should return &lsquo;<samp>&quot;&quot;</samp>&rsquo;.
 A non-empty string result should typically be used for displaying warnings
 and errors.
@@ -175,10 +175,10 @@ and errors.
 <p>The argument <var>show-func</var> is a function of two arguments: <var>self</var> which
 is the <code>&lt;gdb:parameter&gt;</code> object representing the parameter, and
 <var>svalue</var> which is the string representation of the current value.
-<small>ROCGDB</small> will call this function when a <var>parameter</var>&rsquo;s
+ROCgdb will call this function when a <var>parameter</var>&rsquo;s
 <code>show</code> API has been invoked (for example, <kbd>show foo</kbd>).
 This function must return a string, and will be displayed to the user.
-<small>ROCGDB</small> will add a trailing newline.
+ROCgdb will add a trailing newline.
 </p>
 <p>The argument <var>doc</var> is the help text for the new parameter.
 If there is no documentation string, a default value is used.
@@ -198,7 +198,7 @@ otherwise an exception is thrown.
 
 <dl class="def">
 <dt id="index-register_002dparameter_0021"><span class="category">Scheme Procedure: </span><span><strong>register-parameter!</strong> <em>parameter</em><a href='#index-register_002dparameter_0021' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Add <var>parameter</var>, a <code>&lt;gdb:parameter&gt;</code> object, to <small>ROCGDB</small>&rsquo;s
+<dd><p>Add <var>parameter</var>, a <code>&lt;gdb:parameter&gt;</code> object, to ROCgdb&rsquo;s
 list of parameters.
 It is an error to register a parameter more than once.
 The result is unspecified.
@@ -220,7 +220,7 @@ a <code>&lt;gdb:parameter&gt;</code> object or a string naming the parameter.
 <dt id="index-set_002dparameter_002dvalue_0021"><span class="category">Scheme Procedure: </span><span><strong>set-parameter-value!</strong> <em>parameter new-value</em><a href='#index-set_002dparameter_002dvalue_0021' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Assign <var>parameter</var> the value of <var>new-value</var>.
 The argument <var>parameter</var> must be an object of type <code>&lt;gdb:parameter&gt;</code>.
-<small>ROCGDB</small> does validation when assignments are made.
+ROCgdb does validation when assignments are made.
 </p></dd></dl>
 
 <p>When a new parameter is defined, its type must be specified.  The
@@ -292,8 +292,8 @@ constants provided when the parameter is created.
 <hr>
 <h4 class="footnotes-heading">Footnotes</h4>
 
-<h5><a id="FOOT19" href="#DOCF19">(19)</a></h5>
-<p>Note that <small>ROCGDB</small> parameters must not be confused with
+<h5><a id="FOOT20" href="#DOCF20">(20)</a></h5>
+<p>Note that ROCgdb parameters must not be confused with
 Guile’s parameter objects (see <a data-manual="guile" href="https://www.gnu.org/software/guile/manual/html_node/Parameters.html#Parameters">Parameters</a> in <cite>GNU Guile
 Reference Manual</cite>).</p>
 </div>

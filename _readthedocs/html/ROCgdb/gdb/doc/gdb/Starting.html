@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Starting (Debugging with ROCGDB)</title>
+<title>Starting (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Starting (Debugging with ROCGDB)">
-<meta name="keywords" content="Starting (Debugging with ROCGDB)">
+<meta name="description" content="Starting (Debugging with ROCgdb)">
+<meta name="keywords" content="Starting (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -99,7 +99,7 @@ ul.no-bullet {list-style: none}
 <div class="section" id="Starting">
 <div class="header">
 <p>
-Next: <a href="Arguments.html" accesskey="n" rel="next">Your Program&rsquo;s Arguments</a>, Previous: <a href="Compilation.html" accesskey="p" rel="prev">Compiling for Debugging</a>, Up: <a href="Running.html" accesskey="u" rel="up">Running Programs Under <small>ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Arguments.html" accesskey="n" rel="next">Your Program&rsquo;s Arguments</a>, Previous: <a href="Compilation.html" accesskey="p" rel="prev">Compiling for Debugging</a>, Up: <a href="Running.html" accesskey="u" rel="up">Running Programs Under ROCgdb</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
 <span id="Starting-your-Program"></span><h3 class="section">4.2 Starting your Program</h3>
@@ -112,10 +112,10 @@ Next: <a href="Arguments.html" accesskey="n" rel="next">Your Program&rsquo;s Arg
 </dd>
 <dt><span><code>run</code></span></dt>
 <dt><span><code>r</code></span></dt>
-<dd><p>Use the <code>run</code> command to start your program under <small>ROCGDB</small>.
+<dd><p>Use the <code>run</code> command to start your program under ROCgdb.
 You must first specify the program name with an argument to
-<small>ROCGDB</small> (see <a href="Invocation.html">Getting In and Out of
-<small>ROCGDB</small></a>), or by using the <code>file</code> or <code>exec-file</code>
+ROCgdb (see <a href="Invocation.html">Getting In and Out of
+ROCgdb</a>), or by using the <code>file</code> or <code>exec-file</code>
 command (see <a href="Files.html">Commands to Specify Files</a>).
 </p>
 </dd>
@@ -137,7 +137,7 @@ Try &quot;help target&quot; or &quot;continue&quot;.
 first (see <a href="Target-Commands.html#load">load</a>).
 </p>
 <p>The execution of a program is affected by certain information it
-receives from its superior.  <small>ROCGDB</small> provides ways to specify this
+receives from its superior.  ROCgdb provides ways to specify this
 information, which you must do <em>before</em> starting your program.  (You
 can change it after starting your program, but such changes only affect
 your program the next time you start it.)  This information may be
@@ -152,14 +152,14 @@ is used to pass the arguments, so that you may use normal conventions
 the arguments.
 In Unix systems, you can control which shell is used with the
 <code>SHELL</code> environment variable.  If you do not define <code>SHELL</code>,
-<small>ROCGDB</small> uses the default shell (<samp>/bin/sh</samp>).  You can disable
+ROCgdb uses the default shell (<samp>/bin/sh</samp>).  You can disable
 use of any shell with the <code>set startup-with-shell</code> command (see
 below for details).
 </p>
 </dd>
 <dt><span>The <em>environment.</em></span></dt>
-<dd><p>Your program normally inherits its environment from <small>ROCGDB</small>, but you can
-use the <small>ROCGDB</small> commands <code>set environment</code> and <code>unset
+<dd><p>Your program normally inherits its environment from ROCgdb, but you can
+use the ROCgdb commands <code>set environment</code> and <code>unset
 environment</code> to change parts of the environment that affect
 your program.  See <a href="Environment.html">Your Program&rsquo;s Environment</a>.
 </p>
@@ -167,7 +167,7 @@ your program.  See <a href="Environment.html">Your Program&rsquo;s Environment</
 <dt><span>The <em>working directory.</em></span></dt>
 <dd><p>You can set your program&rsquo;s working directory with the command
 <kbd>set cwd</kbd>.  If you do not set any working directory with this
-command, your program will inherit <small>ROCGDB</small>&rsquo;s working directory if
+command, your program will inherit ROCgdb&rsquo;s working directory if
 native debugging, or the remote server&rsquo;s working directory if remote
 debugging.  See <a href="Working-Directory.html">Your Program&rsquo;s Working
 Directory</a>.
@@ -175,7 +175,7 @@ Directory</a>.
 </dd>
 <dt><span>The <em>standard input and output.</em></span></dt>
 <dd><p>Your program normally uses the same device for standard input and
-standard output as <small>ROCGDB</small> is using.  You can redirect input and output
+standard output as ROCgdb is using.  You can redirect input and output
 in the <code>run</code> command line, or you can use the <code>tty</code> command to
 set a different device for your program.
 See <a href="Input_002fOutput.html">Your Program&rsquo;s Input and Output</a>.
@@ -183,7 +183,7 @@ See <a href="Input_002fOutput.html">Your Program&rsquo;s Input and Output</a>.
 <span id="index-pipes"></span>
 <p><em>Warning:</em> While input and output redirection work, you cannot use
 pipes to pass the output of the program you are debugging to another
-program; if you attempt this, <small>ROCGDB</small> is likely to wind up debugging the
+program; if you attempt this, ROCgdb is likely to wind up debugging the
 wrong program.
 </p></dd>
 </dl>
@@ -195,8 +195,8 @@ stopped, you may call functions in your program, using the <code>print</code>
 or <code>call</code> commands.  See <a href="Data.html">Examining Data</a>.
 </p>
 <p>If the modification time of your symbol file has changed since the last
-time <small>ROCGDB</small> read its symbols, <small>ROCGDB</small> discards its symbol
-table, and reads it again.  When it does this, <small>ROCGDB</small> tries to retain
+time ROCgdb read its symbols, ROCgdb discards its symbol
+table, and reads it again.  When it does this, ROCgdb tries to retain
 your current breakpoints.
 </p>
 <dl compact="compact">
@@ -251,12 +251,12 @@ the start of the elaboration phase.
 <dt><span><code>show exec-wrapper</code></span></dt>
 <dt><span><code>unset exec-wrapper</code></span></dt>
 <dd><p>When &lsquo;<samp>exec-wrapper</samp>&rsquo; is set, the specified wrapper is used to
-launch programs for debugging.  <small>ROCGDB</small> starts your program
+launch programs for debugging.  ROCgdb starts your program
 with a shell command of the form <kbd>exec <var>wrapper</var>
 <var>program</var></kbd>.  Quoting is added to <var>program</var> and its
 arguments, but not to <var>wrapper</var>, so you should add quotes if
 appropriate for your shell.  The wrapper runs until it executes
-your program, and then <small>ROCGDB</small> takes control.
+your program, and then ROCgdb takes control.
 </p>
 <p>You can use any program that eventually calls <code>execve</code> with
 its arguments as a wrapper.  Several standard Unix utilities do
@@ -282,7 +282,7 @@ environment:
 <dt><span><code>set startup-with-shell off</code></span></dt>
 <dt><span><code>show startup-with-shell</code></span></dt>
 <dd><p>On Unix systems, by default, if a shell is available on your target,
-<small>ROCGDB</small>) uses it to start your program.  Arguments of the
+ROCgdb) uses it to start your program.  Arguments of the
 <code>run</code> command are passed to the shell, which does variable
 substitution, expands wildcard characters and performs redirection of
 I/O.  In some circumstances, it may be useful to disable such use of a
@@ -311,9 +311,9 @@ $<samp>.zshenv</samp> for the Z shell, or the file specified in the
 <dd>
 <p>By default, if the current inferior is not connected to any target yet
 (e.g., with <code>target remote</code>), the <code>run</code> command starts your
-program as a native process under <small>ROCGDB</small>, on your local machine.
+program as a native process under ROCgdb, on your local machine.
 If you&rsquo;re sure you don&rsquo;t want to debug programs on your local machine,
-you can tell <small>ROCGDB</small> to not connect to the native target
+you can tell ROCgdb to not connect to the native target
 automatically with the <code>set auto-connect-native-target off</code>
 command.
 </p>
@@ -329,7 +329,7 @@ target already, the <code>run</code> command fails with an error:
 Don't know how to run.  Try &quot;help target&quot;.
 </pre></div>
 
-<p>If the current inferior is already connected to a target, <small>ROCGDB</small>
+<p>If the current inferior is already connected to a target, ROCgdb
 always uses it with the <code>run</code> command.
 </p>
 <p>In any case, you can explicitly connect to the native target with the
@@ -346,7 +346,7 @@ Starting program: ./a.out
 </pre></div>
 
 <p>In case you connected explicitly to the <code>native</code> target,
-<small>ROCGDB</small> remains connected even if all inferiors exit, ready for
+ROCgdb remains connected even if all inferiors exit, ready for
 the next <code>run</code> command.  Use the <code>disconnect</code> command to
 disconnect.
 </p>
@@ -358,7 +358,7 @@ proc</code>, <code>info os</code>.
 </dd>
 <dt><span><code>set disable-randomization</code></span></dt>
 <dt><span><code>set disable-randomization on</code></span></dt>
-<dd><p>This option (enabled by default in <small>ROCGDB</small>) will turn off the native
+<dd><p>This option (enabled by default in ROCgdb) will turn off the native
 randomization of the virtual address space of the started program.  This option
 is useful for multiple debugging sessions to make the execution better
 reproducible and memory addresses reusable across debugging sessions.
@@ -374,8 +374,8 @@ On <small>GNU</small>/Linux you can get the same behavior using
 <dt><span><code>set disable-randomization off</code></span></dt>
 <dd><p>Leave the behavior of the started executable unchanged.  Some bugs rear their
 ugly heads only when the program is loaded at certain addresses.  If your bug
-disappears when you run the program under <small>ROCGDB</small>, that might be because
-<small>ROCGDB</small> by default disables the address randomization on platforms, such
+disappears when you run the program under ROCgdb, that might be because
+ROCgdb by default disables the address randomization on platforms, such
 as <small>GNU</small>/Linux, which do that for stand-alone programs.  Use <kbd>set
 disable-randomization off</kbd> to try to reproduce such elusive bugs.
 </p>
@@ -415,7 +415,7 @@ the virtual address space of the started program.
 <hr>
 <div class="header">
 <p>
-Next: <a href="Arguments.html">Your Program&rsquo;s Arguments</a>, Previous: <a href="Compilation.html">Compiling for Debugging</a>, Up: <a href="Running.html">Running Programs Under <small>ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Arguments.html">Your Program&rsquo;s Arguments</a>, Previous: <a href="Compilation.html">Compiling for Debugging</a>, Up: <a href="Running.html">Running Programs Under ROCgdb</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

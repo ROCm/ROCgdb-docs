@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Packet Acknowledgment (Debugging with ROCGDB)</title>
+<title>Packet Acknowledgment (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Packet Acknowledgment (Debugging with ROCGDB)">
-<meta name="keywords" content="Packet Acknowledgment (Debugging with ROCGDB)">
+<meta name="description" content="Packet Acknowledgment (Debugging with ROCgdb)">
+<meta name="keywords" content="Packet Acknowledgment (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -99,17 +99,17 @@ ul.no-bullet {list-style: none}
 <div class="section" id="Packet-Acknowledgment">
 <div class="header">
 <p>
-Next: <a href="Examples.html" accesskey="n" rel="next">Examples</a>, Previous: <a href="Remote-Non_002dStop.html" accesskey="p" rel="prev">Remote Protocol Support for Non-Stop Mode</a>, Up: <a href="Remote-Protocol.html" accesskey="u" rel="up"><small>ROCGDB</small> Remote Serial Protocol</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Examples.html" accesskey="n" rel="next">Examples</a>, Previous: <a href="Remote-Non_002dStop.html" accesskey="p" rel="prev">Remote Protocol Support for Non-Stop Mode</a>, Up: <a href="Remote-Protocol.html" accesskey="u" rel="up">ROCgdb Remote Serial Protocol</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
 <span id="Packet-Acknowledgment-1"></span><h3 class="section">E.12 Packet Acknowledgment</h3>
 
-<span id="index-acknowledgment_002c-for-ROCGDB-remote"></span>
-<span id="index-packet-acknowledgment_002c-for-ROCGDB-remote"></span>
+<span id="index-acknowledgment_002c-for-ROCgdb-remote"></span>
+<span id="index-packet-acknowledgment_002c-for-ROCgdb-remote"></span>
 <p>By default, when either the host or the target machine receives a packet,
 the first response expected is an acknowledgment: either &lsquo;<samp>+</samp>&rsquo; (to indicate
 the package was received correctly) or &lsquo;<samp>-</samp>&rsquo; (to request retransmission).
-This mechanism allows the <small>ROCGDB</small> remote protocol to operate over
+This mechanism allows the ROCgdb remote protocol to operate over
 unreliable transport mechanisms, such as a serial line.
 </p>
 <p>In cases where the transport mechanism is itself reliable (such as a pipe or
@@ -118,25 +118,25 @@ It may be desirable to disable them in that case to reduce communication
 overhead, or for other reasons.  This can be accomplished by means of the
 &lsquo;<samp>QStartNoAckMode</samp>&rsquo; packet; see <a href="General-Query-Packets.html#QStartNoAckMode">QStartNoAckMode</a>.
 </p>
-<p>When in no-acknowledgment mode, neither the stub nor <small>ROCGDB</small> shall send or
+<p>When in no-acknowledgment mode, neither the stub nor ROCgdb shall send or
 expect &lsquo;<samp>+</samp>&rsquo;/&lsquo;<samp>-</samp>&rsquo; protocol acknowledgments.  The packet
 and response format still includes the normal checksum, as described in
 <a href="Overview.html">Overview</a>, but the checksum may be ignored by the receiver.
 </p>
 <p>If the stub supports &lsquo;<samp>QStartNoAckMode</samp>&rsquo; and prefers to operate in
-no-acknowledgment mode, it should report that to <small>ROCGDB</small>
+no-acknowledgment mode, it should report that to ROCgdb
 by including &lsquo;<samp>QStartNoAckMode+</samp>&rsquo; in its response to &lsquo;<samp>qSupported</samp>&rsquo;;
 see <a href="General-Query-Packets.html#qSupported">qSupported</a>.
-If <small>ROCGDB</small> also supports &lsquo;<samp>QStartNoAckMode</samp>&rsquo; and it has not been
+If ROCgdb also supports &lsquo;<samp>QStartNoAckMode</samp>&rsquo; and it has not been
 disabled via the <code>set remote noack-packet off</code> command
 (see <a href="Remote-Configuration.html">Remote Configuration</a>),
-<small>ROCGDB</small> may then send a &lsquo;<samp>QStartNoAckMode</samp>&rsquo; packet to the stub.
+ROCgdb may then send a &lsquo;<samp>QStartNoAckMode</samp>&rsquo; packet to the stub.
 Only then may the stub actually turn off packet acknowledgments.
-<small>ROCGDB</small> sends a final &lsquo;<samp>+</samp>&rsquo; acknowledgment of the stub&rsquo;s &lsquo;<samp>OK</samp>&rsquo;
+ROCgdb sends a final &lsquo;<samp>+</samp>&rsquo; acknowledgment of the stub&rsquo;s &lsquo;<samp>OK</samp>&rsquo;
 response, which can be safely ignored by the stub.
 </p>
 <p>Note that <code>set remote noack-packet</code> command only affects negotiation
-between <small>ROCGDB</small> and the stub when subsequent connections are made;
+between ROCgdb and the stub when subsequent connections are made;
 it does not affect the protocol acknowledgment state for any current
 connection.
 Since &lsquo;<samp>+</samp>&rsquo;/&lsquo;<samp>-</samp>&rsquo; acknowledgments are enabled by default when a
@@ -148,7 +148,7 @@ for the current connection, once disabled.
 <hr>
 <div class="header">
 <p>
-Next: <a href="Examples.html">Examples</a>, Previous: <a href="Remote-Non_002dStop.html">Remote Protocol Support for Non-Stop Mode</a>, Up: <a href="Remote-Protocol.html"><small>ROCGDB</small> Remote Serial Protocol</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Examples.html">Examples</a>, Previous: <a href="Remote-Non_002dStop.html">Remote Protocol Support for Non-Stop Mode</a>, Up: <a href="Remote-Protocol.html">ROCgdb Remote Serial Protocol</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

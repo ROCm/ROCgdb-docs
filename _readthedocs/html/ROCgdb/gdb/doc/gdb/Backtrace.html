@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Backtrace (Debugging with ROCGDB)</title>
+<title>Backtrace (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Backtrace (Debugging with ROCGDB)">
-<meta name="keywords" content="Backtrace (Debugging with ROCGDB)">
+<meta name="description" content="Backtrace (Debugging with ROCgdb)">
+<meta name="keywords" content="Backtrace (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -150,7 +150,7 @@ with the optional <var>count</var> to limit the number of frames shown.
 </dd>
 <dt><span><code>-no-filters</code></span></dt>
 <dd><p>Do not run Python frame filters on this backtrace.  See <a href="Frame-Filter-API.html">Filtering Frames</a>, for more information.  Additionally use <a href="Frame-Filter-Management.html#disable-frame_002dfilter-all">disable frame-filter all</a> to turn off all frame filters.  This is only
-relevant when <small>ROCGDB</small> has been configured with <code>Python</code>
+relevant when ROCgdb has been configured with <code>Python</code>
 support.
 </p>
 </dd>
@@ -224,11 +224,11 @@ It can be one of the following:
 are additional aliases for <code>backtrace</code>.
 </p>
 <span id="index-multiple-threads_002c-backtrace"></span>
-<p>In a multi-threaded program, <small>ROCGDB</small> by default shows the
+<p>In a multi-threaded program, ROCgdb by default shows the
 backtrace only for the current thread.  To display the backtrace for
 several or all of the threads, use the command <code>thread apply</code>
 (see <a href="Threads.html">thread apply</a>).  For example, if you type <kbd>thread
-apply all backtrace</kbd>, <small>ROCGDB</small> will display the backtrace for all
+apply all backtrace</kbd>, ROCgdb will display the backtrace for all
 the threads; this is handy when you debug a core dump of a
 multi-threaded program.
 </p>
@@ -256,7 +256,7 @@ value, indicating that your program has stopped at the beginning of the
 code for line <code>993</code> of <code>builtin.c</code>.
 </p>
 <p>The value of parameter <code>data</code> in frame 1 has been replaced by
-<code>&hellip;</code>.  By default, <small>ROCGDB</small> prints the value of a parameter
+<code>&hellip;</code>.  By default, ROCgdb prints the value of a parameter
 only if it is a scalar (integer, pointer, enumeration, etc).  See command
 <kbd>set print frame-arguments</kbd> in <a href="Print-Settings.html">Print Settings</a> for more details
 on how to configure the way function parameter values are printed.
@@ -269,7 +269,7 @@ what frame information is printed.
 optimize away arguments passed to functions if those arguments are
 never used after the call.  Such optimizations generate code that
 passes arguments through registers, but doesn&rsquo;t store those arguments
-in the stack frame.  <small>ROCGDB</small> has no way of displaying such
+in the stack frame.  ROCgdb has no way of displaying such
 arguments in stack frames other than the innermost one.  Here&rsquo;s what
 such a backtrace might look like:
 </p>
@@ -295,7 +295,7 @@ you are interested in, or recompile without optimizations.
 <p>Most programs have a standard user entry point&mdash;a place where system
 libraries and startup code transition into user code.  For C this is
 <code>main</code><a id="DOCF9" href="#FOOT9"><sup>9</sup></a>.
-When <small>ROCGDB</small> finds the entry function in a backtrace
+When ROCgdb finds the entry function in a backtrace
 it will terminate the backtrace, to avoid tracing into highly
 system-specific (and generally uninteresting) code.
 </p>

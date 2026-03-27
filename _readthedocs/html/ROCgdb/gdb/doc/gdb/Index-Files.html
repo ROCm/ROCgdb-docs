@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Index Files (Debugging with ROCGDB)</title>
+<title>Index Files (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Index Files (Debugging with ROCGDB)">
-<meta name="keywords" content="Index Files (Debugging with ROCGDB)">
+<meta name="description" content="Index Files (Debugging with ROCgdb)">
+<meta name="keywords" content="Index Files (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -99,21 +99,21 @@ ul.no-bullet {list-style: none}
 <div class="section" id="Index-Files">
 <div class="header">
 <p>
-Next: <a href="Debug-Names.html" accesskey="n" rel="next">Extensions to &lsquo;<samp>.debug_names</samp>&rsquo;</a>, Previous: <a href="MiniDebugInfo.html" accesskey="p" rel="prev">Debugging information in a special section</a>, Up: <a href="GDB-Files.html" accesskey="u" rel="up"><small>ROCGDB</small> Files</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Debug-Names.html" accesskey="n" rel="next">Extensions to &lsquo;<samp>.debug_names</samp>&rsquo;</a>, Previous: <a href="MiniDebugInfo.html" accesskey="p" rel="prev">Debugging information in a special section</a>, Up: <a href="GDB-Files.html" accesskey="u" rel="up">ROCgdb Files</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="Index-Files-Speed-Up-ROCGDB"></span><h3 class="section">18.5 Index Files Speed Up <small>ROCGDB</small></h3>
+<span id="Index-Files-Speed-Up-ROCgdb"></span><h3 class="section">18.5 Index Files Speed Up ROCgdb</h3>
 <span id="index-index-files"></span>
 <span id="index-_002egdb_005findex-section"></span>
 
-<p>When <small>ROCGDB</small> finds a symbol file, it scans the symbols in the
+<p>When ROCgdb finds a symbol file, it scans the symbols in the
 file in order to construct an internal symbol table.  This lets most
-<small>ROCGDB</small> operations work quickly&mdash;at the cost of a delay early
+ROCgdb operations work quickly&mdash;at the cost of a delay early
 on.  For large programs, this delay can be quite lengthy, so
-<small>ROCGDB</small> provides a way to build an index, which speeds up
+ROCgdb provides a way to build an index, which speeds up
 startup.
 </p>
-<p>For convenience, <small>ROCGDB</small> comes with a program,
+<p>For convenience, ROCgdb comes with a program,
 <code>gdb-add-index</code>, which can be used to add the index to a
 symbol file.  It takes the symbol file as its only argument:
 </p>
@@ -126,7 +126,7 @@ symbol file.  It takes the symbol file as its only argument:
 <p>It is also possible to do the work manually.  Here is what
 <code>gdb-add-index</code> does behind the curtains.
 </p>
-<p>The index is stored as a section in the symbol file.  <small>ROCGDB</small> can
+<p>The index is stored as a section in the symbol file.  ROCgdb can
 write the index to a file, then you can put it into the symbol file
 using <code>objcopy</code>.
 </p>
@@ -135,7 +135,7 @@ using <code>objcopy</code>.
 <dl compact="compact">
 <dt id='index-save-gdb_002dindex'><span><code>save gdb-index [-dwarf-5] <var>directory</var></code><a href='#index-save-gdb_002dindex' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Create index files for all symbol files currently known by
-<small>ROCGDB</small>.  For each known <var>symbol-file</var>, this command by
+ROCgdb.  For each known <var>symbol-file</var>, this command by
 default creates it produces a single file
 <samp><var>symbol-file</var>.gdb-index</samp>.  If you invoke this command with
 the <samp>-dwarf-5</samp> option, it produces 2 files:
@@ -166,10 +166,10 @@ $ objcopy --add-section .debug_names=symfile.gdb-index \
     --update-section .debug_str=symfile.debug_str.new symfile symfile
 </pre></div>
 
-<p><small>ROCGDB</small> will normally ignore older versions of <samp>.gdb_index</samp>
+<p>ROCgdb will normally ignore older versions of <samp>.gdb_index</samp>
 sections that have been deprecated.  Usually they are deprecated because
 they are missing a new feature or have performance issues.
-To tell <small>ROCGDB</small> to use a deprecated index section anyway
+To tell ROCgdb to use a deprecated index section anyway
 specify <code>set use-deprecated-index-sections on</code>.
 The default is <code>off</code>.
 This can speed up startup, but may result in some functionality being lost.
@@ -198,7 +198,7 @@ must be done before gdb reads the file.  The following will not work:
 <h4 class="subsection">18.5.1 Automatic symbol index cache</h4>
 
 <span id="index-automatic-symbol-index-cache"></span>
-<p>It is possible for <small>ROCGDB</small> to automatically save a copy of this index in a
+<p>It is possible for ROCgdb to automatically save a copy of this index in a
 cache on disk and retrieve it from there when loading the same binary in the
 future.  This feature can be turned on with <kbd>set index-cache enabled on</kbd>.
 The following commands can be used to tweak the behavior of the index cache.
@@ -230,7 +230,7 @@ to delete the content of that directory to free up disk space.
 </p>
 </dd>
 <dt><span><code>show index-cache stats</code></span></dt>
-<dd><p>Print the number of cache hits and misses since the launch of <small>ROCGDB</small>.
+<dd><p>Print the number of cache hits and misses since the launch of ROCgdb.
 </p>
 </dd>
 </dl>
@@ -244,7 +244,7 @@ the resulting ELF file, by passing the <code>--gdb-index</code> flag to
 <code>gold</code>.
 </p>
 <p>This is especially helpful if you intend to build a program and immediately
-run it under <small>ROCGDB</small>.  You may find that it is faster overall for
+run it under ROCgdb.  You may find that it is faster overall for
 the linker to write the index while it has the relevant information in
 memory anyways, rather than re-reloading the data from disk with
 <code>gdb-add-index</code>, or debugging the program without an index at
@@ -255,7 +255,7 @@ all, especially for large programs.
 <hr>
 <div class="header">
 <p>
-Next: <a href="Debug-Names.html">Extensions to &lsquo;<samp>.debug_names</samp>&rsquo;</a>, Previous: <a href="MiniDebugInfo.html">Debugging information in a special section</a>, Up: <a href="GDB-Files.html"><small>ROCGDB</small> Files</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Debug-Names.html">Extensions to &lsquo;<samp>.debug_names</samp>&rsquo;</a>, Previous: <a href="MiniDebugInfo.html">Debugging information in a special section</a>, Up: <a href="GDB-Files.html">ROCgdb Files</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

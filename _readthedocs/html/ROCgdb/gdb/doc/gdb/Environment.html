@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Environment (Debugging with ROCGDB)</title>
+<title>Environment (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Environment (Debugging with ROCGDB)">
-<meta name="keywords" content="Environment (Debugging with ROCGDB)">
+<meta name="description" content="Environment (Debugging with ROCgdb)">
+<meta name="keywords" content="Environment (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -99,7 +99,7 @@ ul.no-bullet {list-style: none}
 <div class="section" id="Environment">
 <div class="header">
 <p>
-Next: <a href="Working-Directory.html" accesskey="n" rel="next">Your Program&rsquo;s Working Directory</a>, Previous: <a href="Arguments.html" accesskey="p" rel="prev">Your Program&rsquo;s Arguments</a>, Up: <a href="Running.html" accesskey="u" rel="up">Running Programs Under <small>ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Working-Directory.html" accesskey="n" rel="next">Your Program&rsquo;s Working Directory</a>, Previous: <a href="Arguments.html" accesskey="p" rel="prev">Your Program&rsquo;s Arguments</a>, Up: <a href="Running.html" accesskey="u" rel="up">Running Programs Under ROCgdb</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
 <span id="Your-Program_0027s-Environment"></span><h3 class="section">4.4 Your Program&rsquo;s Environment</h3>
@@ -111,7 +111,7 @@ your user name, your home directory, your terminal type, and your search
 path for programs to run.  Usually you set up environment variables with
 the shell and they are inherited by all the other programs you run.  When
 debugging, it can be useful to try running your program with a modified
-environment without having to start <small>ROCGDB</small> over again.
+environment without having to start ROCgdb over again.
 </p>
 <dl compact="compact">
 <dd><span id="index-path"></span>
@@ -119,16 +119,16 @@ environment without having to start <small>ROCGDB</small> over again.
 <dt><span><code>path <var>directory</var></code></span></dt>
 <dd><p>Add <var>directory</var> to the front of the <code>PATH</code> environment variable
 (the search path for executables) that will be passed to your program.
-The value of <code>PATH</code> used by <small>ROCGDB</small> does not change.
+The value of <code>PATH</code> used by ROCgdb does not change.
 You may specify several directory names, separated by whitespace or by a
 system-dependent separator character (&lsquo;<samp>:</samp>&rsquo; on Unix, &lsquo;<samp>;</samp>&rsquo; on
 MS-DOS and MS-Windows).  If <var>directory</var> is already in the path, it
 is moved to the front, so it is searched sooner.
 </p>
 <p>You can use the string &lsquo;<samp>$cwd</samp>&rsquo; to refer to whatever is the current
-working directory at the time <small>ROCGDB</small> searches the path.  If you
+working directory at the time ROCgdb searches the path.  If you
 use &lsquo;<samp>.</samp>&rsquo; instead, it refers to the directory where you executed the
-<code>path</code> command.  <small>ROCGDB</small> replaces &lsquo;<samp>.</samp>&rsquo; in the
+<code>path</code> command.  ROCgdb replaces &lsquo;<samp>.</samp>&rsquo; in the
 <var>directory</var> argument (with the current path) before adding
 <var>directory</var> to the search path.
 </p>
@@ -150,8 +150,8 @@ your program.  You can abbreviate <code>environment</code> as <code>env</code>.
 <span id="set-environment"></span></dd>
 <dt><span><code>set environment <var>varname</var> <span class="roman">[</span>=<var>value</var><span class="roman">]</span></code></span></dt>
 <dd><p>Set environment variable <var>varname</var> to <var>value</var>.  The value
-changes for your program (and the shell <small>ROCGDB</small> uses to launch
-it), not for <small>ROCGDB</small> itself.  The <var>value</var> may be any string; the
+changes for your program (and the shell ROCgdb uses to launch
+it), not for ROCgdb itself.  The <var>value</var> may be any string; the
 values of environment variables are just strings, and any
 interpretation is supplied by your program itself.  The <var>value</var>
 parameter is optional; if it is eliminated, the variable is set to a
@@ -167,7 +167,7 @@ null value.
 &lsquo;<samp>foo</samp>&rsquo;.  (The spaces around &lsquo;<samp>=</samp>&rsquo; are used for clarity here; they
 are not actually required.)
 </p>
-<p>Note that on Unix systems, <small>ROCGDB</small> runs your program via a shell,
+<p>Note that on Unix systems, ROCgdb runs your program via a shell,
 which also inherits the environment set with <code>set environment</code>.
 If necessary, you can avoid that by using the &lsquo;<samp>env</samp>&rsquo; program as a
 wrapper instead of using <code>set environment</code>.  See <a href="Starting.html#set-exec_002dwrapper">set exec-wrapper</a>, for an example doing just that.
@@ -190,7 +190,7 @@ see <a href="General-Query-Packets.html#QEnvironmentUnset">QEnvironmentUnset</a>
 </p></dd>
 </dl>
 
-<p><em>Warning:</em> On Unix systems, <small>ROCGDB</small> runs your program using
+<p><em>Warning:</em> On Unix systems, ROCgdb runs your program using
 the shell indicated by your <code>SHELL</code> environment variable if it
 exists (or <code>/bin/sh</code> if not).  If your <code>SHELL</code> variable
 names a shell that runs an initialization file when started
@@ -205,7 +205,7 @@ variables to files that are only run when you sign on, such as
 <hr>
 <div class="header">
 <p>
-Next: <a href="Working-Directory.html">Your Program&rsquo;s Working Directory</a>, Previous: <a href="Arguments.html">Your Program&rsquo;s Arguments</a>, Up: <a href="Running.html">Running Programs Under <small>ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Working-Directory.html">Your Program&rsquo;s Working Directory</a>, Previous: <a href="Arguments.html">Your Program&rsquo;s Arguments</a>, Up: <a href="Running.html">Running Programs Under ROCgdb</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Events In Python (Debugging with ROCGDB)</title>
+<title>Events In Python (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Events In Python (Debugging with ROCGDB)">
-<meta name="keywords" content="Events In Python (Debugging with ROCGDB)">
+<meta name="description" content="Events In Python (Debugging with ROCgdb)">
+<meta name="keywords" content="Events In Python (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -105,7 +105,7 @@ Next: <a href="Threads-In-Python.html" accesskey="n" rel="next">Threads In Pytho
 <span id="Events-In-Python-1"></span><h4 class="subsubsection">24.3.2.18 Events In Python</h4>
 <span id="index-inferior-events-in-Python"></span>
 
-<p><small>ROCGDB</small> provides a general event facility so that Python code can be
+<p>ROCgdb provides a general event facility so that Python code can be
 notified of various state changes, particularly changes that occur in
 the inferior.
 </p>
@@ -150,7 +150,7 @@ of type <code>gdb.ExitedEvent</code>.  As you can see in the example the
 <code>ExitedEvent</code> object has an attribute which indicates the exit code of
 the inferior.
 </p>
-<p>Some events can be thread specific when <small>ROCGDB</small> is running in
+<p>Some events can be thread specific when ROCgdb is running in
 non-stop mode.  When represented in Python, these events all extend
 <code>gdb.ThreadEvent</code>.  This event is a base class and is never
 emitted directly; instead, events which are emitted by this or other
@@ -182,7 +182,7 @@ exited.  <code>events.ExitedEvent</code> has two attributes:
 <dt id="index-ExitedEvent_002eexit_005fcode"><span class="category">Variable: </span><span><strong>ExitedEvent.exit_code</strong><a href='#index-ExitedEvent_002eexit_005fcode' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>An integer representing the exit code, if available, which the inferior 
 has returned.  (The exit code could be unavailable if, for example,
-<small>ROCGDB</small> detaches from the inferior.) If the exit code is unavailable,
+ROCgdb detaches from the inferior.) If the exit code is unavailable,
 the attribute does not exist.
 </p></dd></dl>
 
@@ -198,7 +198,7 @@ the attribute does not exist.
 <p>Indicates that the inferior has stopped.  All events emitted by this
 registry extend <code>gdb.StopEvent</code>.  As a child of
 <code>gdb.ThreadEvent</code>, <code>gdb.StopEvent</code> will indicate the stopped
-thread when <small>ROCGDB</small> is running in non-stop mode.  Refer to
+thread when ROCgdb is running in non-stop mode.  Refer to
 <code>gdb.ThreadEvent</code> above for more details.
 </p>
 <p><code>gdb.StopEvent</code> has the following additional attributes:
@@ -229,7 +229,7 @@ attributes:
 <dt id="index-SignalEvent_002estop_005fsignal"><span class="category">Variable: </span><span><strong>SignalEvent.stop_signal</strong><a href='#index-SignalEvent_002estop_005fsignal' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>A string representing the signal received by the inferior.  A list of possible
 signal values can be obtained by running the command <code>info signals</code> in
-the <small>ROCGDB</small> command prompt.
+the ROCgdb command prompt.
 </p></dd></dl>
 
 <p>Also emits <code>gdb.BreakpointEvent</code>, which extends
@@ -255,7 +255,7 @@ of the <code>gdb.BreakpointEvent.breakpoints</code> attribute.
 </dd>
 <dt><span><code>events.new_objfile</code></span></dt>
 <dd><p>Emits <code>gdb.NewObjFileEvent</code> which indicates that a new object file has
-been loaded by <small>ROCGDB</small>.  <code>gdb.NewObjFileEvent</code> has one attribute:
+been loaded by ROCgdb.  <code>gdb.NewObjFileEvent</code> has one attribute:
 </p>
 <dl class="def">
 <dt id="index-NewObjFileEvent_002enew_005fobjfile"><span class="category">Variable: </span><span><strong>NewObjFileEvent.new_objfile</strong><a href='#index-NewObjFileEvent_002enew_005fobjfile' class='copiable-anchor'> &para;</a></span></dt>
@@ -266,7 +266,7 @@ See <a href="Objfiles-In-Python.html">Objfiles In Python</a>, for details of the
 </dd>
 <dt><span><code>events.free_objfile</code></span></dt>
 <dd><p>Emits <code>gdb.FreeObjFileEvent</code> which indicates that an object file
-is about to be removed from <small>ROCGDB</small>.  One reason this can happen
+is about to be removed from ROCgdb.  One reason this can happen
 is when the inferior calls <code>dlclose</code>.
 <code>gdb.FreeObjFileEvent</code> has one attribute:
 </p>
@@ -291,7 +291,7 @@ been cleared.  See <a href="Progspaces-In-Python.html">Program Spaces In Python<
 </dd>
 <dt><span><code>events.inferior_call</code></span></dt>
 <dd><p>Emits events just before and after a function in the inferior is
-called by <small>ROCGDB</small>.  Before an inferior call, this emits an event
+called by ROCgdb.  Before an inferior call, this emits an event
 of type <code>gdb.InferiorCallPreEvent</code>, and after an inferior call,
 this emits an event of type <code>gdb.InferiorCallPostEvent</code>.
 </p>
@@ -331,7 +331,7 @@ this emits an event of type <code>gdb.InferiorCallPostEvent</code>.
 </dd>
 <dt><span><code>events.memory_changed</code></span></dt>
 <dd><p>Emits <code>gdb.MemoryChangedEvent</code> which indicates that the memory of the
-inferior has been modified by the <small>ROCGDB</small> user, for instance via a
+inferior has been modified by the ROCgdb user, for instance via a
 command like <code>set&nbsp;*addr&nbsp;=&nbsp;value</code><!-- /@w -->.  The event has the following
 attributes:
 </p>
@@ -348,7 +348,7 @@ attributes:
 </dd>
 <dt><span><code>events.register_changed</code></span></dt>
 <dd><p>Emits <code>gdb.RegisterChangedEvent</code> which indicates that a register in the
-inferior has been modified by the <small>ROCGDB</small> user.
+inferior has been modified by the ROCgdb user.
 </p>
 <dl class="def">
 <dt id="index-RegisterChangedEvent_002eframe"><span class="category">Variable: </span><span><strong>RegisterChangedEvent.frame</strong><a href='#index-RegisterChangedEvent_002eframe' class='copiable-anchor'> &para;</a></span></dt>
@@ -379,7 +379,7 @@ invalid state; that is, the <code>is_valid</code> method will return
 </p>
 </dd>
 <dt><span><code>events.before_prompt</code></span></dt>
-<dd><p>This event carries no payload.  It is emitted each time <small>ROCGDB</small>
+<dd><p>This event carries no payload.  It is emitted each time ROCgdb
 presents a prompt to the user.
 </p>
 </dd>
@@ -412,7 +412,7 @@ attribute:
 
 </dd>
 <dt><span><code>events.new_thread</code></span></dt>
-<dd><p>This is emitted when <small>ROCGDB</small> notices a new thread.  The event is of
+<dd><p>This is emitted when ROCgdb notices a new thread.  The event is of
 type <code>gdb.NewThreadEvent</code>, which extends <code>gdb.ThreadEvent</code>.
 This has a single attribute:
 </p>
@@ -423,7 +423,7 @@ This has a single attribute:
 
 </dd>
 <dt><span><code>events.thread_exited</code></span></dt>
-<dd><p>This is emitted when <small>ROCGDB</small> notices a thread has exited.  The event
+<dd><p>This is emitted when ROCgdb notices a thread has exited.  The event
 is of type <code>gdb.ThreadExitedEvent</code> which extends <code>gdb.ThreadEvent</code>.
 This has a single attribute:
 </p>
@@ -434,19 +434,19 @@ This has a single attribute:
 
 </dd>
 <dt><span><code>events.gdb_exiting</code></span></dt>
-<dd><p>This is emitted when <small>ROCGDB</small> exits.  This event is not emitted if
-<small>ROCGDB</small> exits as a result of an internal error, or after an
+<dd><p>This is emitted when ROCgdb exits.  This event is not emitted if
+ROCgdb exits as a result of an internal error, or after an
 unexpected signal.  The event is of type <code>gdb.GdbExitingEvent</code>,
 which has a single attribute:
 </p>
 <dl class="def">
 <dt id="index-GdbExitingEvent_002eexit_005fcode"><span class="category">Variable: </span><span><strong>GdbExitingEvent.exit_code</strong><a href='#index-GdbExitingEvent_002eexit_005fcode' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>An integer, the value of the exit code <small>ROCGDB</small> will return.
+<dd><p>An integer, the value of the exit code ROCgdb will return.
 </p></dd></dl>
 
 </dd>
 <dt><span><code>events.connection_removed</code></span></dt>
-<dd><p>This is emitted when <small>ROCGDB</small> removes a connection
+<dd><p>This is emitted when ROCgdb removes a connection
 (see <a href="Connections-In-Python.html">Connections In Python</a>).  The event is of type
 <code>gdb.ConnectionEvent</code>.  This has a single read-only attribute:
 </p>
@@ -464,7 +464,7 @@ which has a single attribute:
 <code>gdb.Progspace.executable_filename </code> has changed to name a
 different file, or the executable file named by
 <code>gdb.Progspace.executable_filename</code> has changed on disk, and
-<small>ROCGDB</small> has therefore reloaded it.
+ROCgdb has therefore reloaded it.
 </p>
 <dl class="def">
 <dt id="index-ExecutableChangedEvent_002eprogspace"><span class="category">Variable: </span><span><strong>ExecutableChangedEvent.progspace</strong><a href='#index-ExecutableChangedEvent_002eprogspace' class='copiable-anchor'> &para;</a></span></dt>
@@ -476,42 +476,42 @@ The file name of the updated executable will be visible in
 <dt id="index-ExecutableChangedEvent_002ereload"><span class="category">Variable: </span><span><strong>ExecutableChangedEvent.reload</strong><a href='#index-ExecutableChangedEvent_002ereload' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>This attribute will be <code>True</code> if the value of
 <code>gdb.Progspace.executable_filename</code> didn&rsquo;t change, but the file
-it names changed on disk instead, and <small>ROCGDB</small> reloaded it.
+it names changed on disk instead, and ROCgdb reloaded it.
 </p>
 <p>When this attribute is <code>False</code>, the value in
 <code>gdb.Progspace.executable_filename</code> was changed to name a
 different file.
 </p></dd></dl>
 
-<p>Remember that <small>ROCGDB</small> tracks the executable file and the symbol
+<p>Remember that ROCgdb tracks the executable file and the symbol
 file separately, these are visible as
 <code>gdb.Progspace.executable_filename</code> and
 <code>gdb.Progspace.filename</code> respectively.  When using the <kbd>file</kbd>
-command, <small>ROCGDB</small> updates both of these fields, but the executable
+command, ROCgdb updates both of these fields, but the executable
 file is updated first, so when this event is emitted, the executable
 filename will have changed, but the symbol filename might still hold
 its previous value.
 </p>
 </dd>
 <dt><span><code>events.new_progspace</code></span></dt>
-<dd><p>This is emitted when <small>ROCGDB</small> adds a new program space
+<dd><p>This is emitted when ROCgdb adds a new program space
 (see <a href="Progspaces-In-Python.html">Program Spaces In Python</a>).  The event
 is of type <code>gdb.NewProgspaceEvent</code>, and has a single read-only
 attribute:
 </p>
 <dl class="def">
 <dt id="index-NewProgspaceEvent_002eprogspace"><span class="category">Variable: </span><span><strong>NewProgspaceEvent.progspace</strong><a href='#index-NewProgspaceEvent_002eprogspace' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>The <code>gdb.Progspace</code> that was added to <small>ROCGDB</small>.
+<dd><p>The <code>gdb.Progspace</code> that was added to ROCgdb.
 </p></dd></dl>
 
 <p>No <code>NewProgspaceEvent</code> is emitted for the very first program
 space, which is assigned to the first inferior.  This first program
-space is created within <small>ROCGDB</small> before any Python scripts are
+space is created within ROCgdb before any Python scripts are
 sourced.
 </p>
 </dd>
 <dt><span><code>events.free_progspace</code></span></dt>
-<dd><p>This is emitted when <small>ROCGDB</small> removes a program space
+<dd><p>This is emitted when ROCgdb removes a program space
 (see <a href="Progspaces-In-Python.html">Program Spaces In Python</a>), for example
 as a result of the <kbd>remove-inferiors</kbd> command
 (see <a href="Inferiors-Connections-and-Programs.html#remove_005finferiors_005fcli"><kbd>remove-inferiors</kbd></a>).  The event is
@@ -521,7 +521,7 @@ attribute:
 <dl class="def">
 <dt id="index-FreeProgspaceEvent_002eprogspace"><span class="category">Variable: </span><span><strong>FreeProgspaceEvent.progspace</strong><a href='#index-FreeProgspaceEvent_002eprogspace' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>The <code>gdb.Progspace</code> that is about to be removed from
-<small>ROCGDB</small>.
+ROCgdb.
 </p></dd></dl>
 
 </dd>

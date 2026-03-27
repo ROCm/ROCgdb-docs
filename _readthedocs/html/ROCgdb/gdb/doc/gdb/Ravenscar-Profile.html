@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Ravenscar Profile (Debugging with ROCGDB)</title>
+<title>Ravenscar Profile (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Ravenscar Profile (Debugging with ROCGDB)">
-<meta name="keywords" content="Ravenscar Profile (Debugging with ROCGDB)">
+<meta name="description" content="Ravenscar Profile (Debugging with ROCgdb)">
+<meta name="keywords" content="Ravenscar Profile (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -122,8 +122,8 @@ Profile.  This is the default.
 <dt><span><code>set ravenscar task-switching off</code></span></dt>
 <dd><p>Turn off task switching when debugging a program that uses the Ravenscar
 Profile.  This is mostly intended to disable the code that adds support
-for the Ravenscar Profile, in case a bug in either <small>ROCGDB</small> or in
-the Ravenscar runtime is preventing <small>ROCGDB</small> from working properly.
+for the Ravenscar Profile, in case a bug in either ROCgdb or in
+the Ravenscar runtime is preventing ROCgdb from working properly.
 To be effective, this command should be run before the program is started.
 </p>
 <span id="index-show-ravenscar-task_002dswitching"></span>
@@ -137,7 +137,7 @@ using the Ravenscar Profile.
 
 <span id="index-Ravenscar-thread"></span>
 <p>When Ravenscar task-switching is enabled, Ravenscar tasks are
-announced by <small>ROCGDB</small> as if they were threads:
+announced by ROCgdb as if they were threads:
 </p>
 <div class="example">
 <pre class="example">(gdb) continue
@@ -158,7 +158,7 @@ the output of <code>info threads</code>:
   6    Ravenscar Thread 0x2f150   0x000000000000c6ec in system.task_primitives.operations.idle ()
 </pre></div>
 
-<p>One known limitation of the Ravenscar support in <small>ROCGDB</small> is that
+<p>One known limitation of the Ravenscar support in ROCgdb is that
 it isn&rsquo;t currently possible to single-step through the runtime
 initialization sequence.  If you need to debug this code, you should
 use <code>set ravenscar task-switching off</code>.

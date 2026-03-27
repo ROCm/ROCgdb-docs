@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Parameters In Python (Debugging with ROCGDB)</title>
+<title>Parameters In Python (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Parameters In Python (Debugging with ROCGDB)">
-<meta name="keywords" content="Parameters In Python (Debugging with ROCGDB)">
+<meta name="description" content="Parameters In Python (Debugging with ROCgdb)">
+<meta name="keywords" content="Parameters In Python (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -108,7 +108,7 @@ Next: <a href="Functions-In-Python.html" accesskey="n" rel="next">Writing new co
 <span id="index-python-parameters"></span>
 <span id="index-gdb_002eParameter"></span>
 <span id="index-Parameter"></span>
-<p>You can implement new <small>ROCGDB</small> parameters using Python.  A new
+<p>You can implement new ROCgdb parameters using Python.  A new
 parameter is implemented as an instance of the <code>gdb.Parameter</code>
 class.
 </p>
@@ -116,15 +116,15 @@ class.
 <code>show</code> commands.  See <a href="Help.html">Getting Help</a>.
 </p>
 <p>There are many parameters that already exist and can be set in
-<small>ROCGDB</small>.  Two examples are: <code>set follow fork</code> and
+ROCgdb.  Two examples are: <code>set follow fork</code> and
 <code>set charset</code>.  Setting these parameters influences certain
-behavior in <small>ROCGDB</small>.  Similarly, you can define parameters that
+behavior in ROCgdb.  Similarly, you can define parameters that
 can be used to influence behavior in custom Python scripts and commands.
 </p>
 <dl class="def">
 <dt id="index-Parameter_002e_005f_005finit_005f_005f"><span class="category">Function: </span><span><strong>Parameter.__init__</strong> <em>(name, command_class, parameter_class <span class="roman">[</span>, enum_sequence<span class="roman">]</span>)</em><a href='#index-Parameter_002e_005f_005finit_005f_005f' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>The object initializer for <code>Parameter</code> registers the new
-parameter with <small>ROCGDB</small>.  This initializer is normally invoked
+parameter with ROCgdb.  This initializer is normally invoked
 from the subclass&rsquo; own <code>__init__</code> method.
 </p>
 <p><var>name</var> is the name of the new parameter.  If <var>name</var> consists
@@ -133,17 +133,17 @@ parameters.  An example of this can be illustrated with the
 <code>set print</code> set of parameters.  If <var>name</var> is
 <code>print foo</code>, then <code>print</code> will be searched as the prefix
 parameter.  In this case the parameter can subsequently be accessed in
-<small>ROCGDB</small> as <code>set print foo</code>.
+ROCgdb as <code>set print foo</code>.
 </p>
 <p>If <var>name</var> consists of multiple words, and no prefix parameter group
 can be found, an exception is raised.
 </p>
 <p><var>command_class</var> should be one of the &lsquo;<samp>COMMAND_</samp>&rsquo; constants
-(see <a href="CLI-Commands-In-Python.html">CLI Commands In Python</a>).  This argument tells <small>ROCGDB</small> how to
+(see <a href="CLI-Commands-In-Python.html">CLI Commands In Python</a>).  This argument tells ROCgdb how to
 categorize the new parameter in the help system.
 </p>
 <p><var>parameter_class</var> should be one of the &lsquo;<samp>PARAM_</samp>&rsquo; constants
-defined below.  This argument tells <small>ROCGDB</small> the type of the new
+defined below.  This argument tells ROCgdb the type of the new
 parameter; this information is used for input validation and
 completion.
 </p>
@@ -202,7 +202,7 @@ is invoked; subsequent changes have no effect.
 <dt id="index-Parameter_002evalue"><span class="category">Variable: </span><span><strong>Parameter.value</strong><a href='#index-Parameter_002evalue' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>The <code>value</code> attribute holds the underlying value of the
 parameter.  It can be read and assigned to just as any other
-attribute.  <small>ROCGDB</small> does validation when assignments are made.
+attribute.  ROCgdb does validation when assignments are made.
 </p></dd></dl>
 
 <p>There are two methods that may be implemented in any <code>Parameter</code>
@@ -210,15 +210,15 @@ class.  These are:
 </p>
 <dl class="def">
 <dt id="index-Parameter_002eget_005fset_005fstring"><span class="category">Function: </span><span><strong>Parameter.get_set_string</strong> <em>(self)</em><a href='#index-Parameter_002eget_005fset_005fstring' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>If this method exists, <small>ROCGDB</small> will call it when a
+<dd><p>If this method exists, ROCgdb will call it when a
 <var>parameter</var>&rsquo;s value has been changed via the <code>set</code> API (for
 example, <kbd>set foo off</kbd>).  The <code>value</code> attribute has already
 been populated with the new value and may be used in output.  This
 method must return a string.  If the returned string is not empty,
-<small>ROCGDB</small> will present it to the user.
+ROCgdb will present it to the user.
 </p>
 <p>If this method raises the <code>gdb.GdbError</code> exception
-(see <a href="Exception-Handling.html">Exception Handling</a>), then <small>ROCGDB</small> will print the
+(see <a href="Exception-Handling.html">Exception Handling</a>), then ROCgdb will print the
 exception&rsquo;s string and the <code>set</code> command will fail.  Note,
 however, that the <code>value</code> attribute will not be reset in this
 case.  So, if your parameter must validate values, it should store the
@@ -245,7 +245,7 @@ old value internally and reset the exposed value, like so:
 
 <dl class="def">
 <dt id="index-Parameter_002eget_005fshow_005fstring"><span class="category">Function: </span><span><strong>Parameter.get_show_string</strong> <em>(self, svalue)</em><a href='#index-Parameter_002eget_005fshow_005fstring' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p><small>ROCGDB</small> will call this method when a <var>parameter</var>&rsquo;s
+<dd><p>ROCgdb will call this method when a <var>parameter</var>&rsquo;s
 <code>show</code> API has been invoked (for example, <kbd>show foo</kbd>).  The
 argument <code>svalue</code> receives the string representation of the
 current value.  This method must return a string.

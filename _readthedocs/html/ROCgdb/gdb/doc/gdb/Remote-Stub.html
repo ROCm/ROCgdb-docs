@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Remote Stub (Debugging with ROCGDB)</title>
+<title>Remote Stub (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Remote Stub (Debugging with ROCGDB)">
-<meta name="keywords" content="Remote Stub (Debugging with ROCGDB)">
+<meta name="description" content="Remote Stub (Debugging with ROCgdb)">
+<meta name="keywords" content="Remote Stub (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -106,9 +106,9 @@ Previous: <a href="Remote-Configuration.html" accesskey="p" rel="prev">Remote Co
 <span id="index-debugging-stub_002c-example"></span>
 <span id="index-remote-stub_002c-example"></span>
 <span id="index-stub-example_002c-remote-debugging"></span>
-<p>The stub files provided with <small>ROCGDB</small> implement the target side of the
-communication protocol, and the <small>ROCGDB</small> side is implemented in the
-<small>ROCGDB</small> source file <samp>remote.c</samp>.  Normally, you can simply allow
+<p>The stub files provided with ROCgdb implement the target side of the
+communication protocol, and the ROCgdb side is implemented in the
+ROCgdb source file <samp>remote.c</samp>.  Normally, you can simply allow
 these subroutines to communicate, and ignore the details.  (If you&rsquo;re
 implementing your own stub file, you can still ignore the details: start
 with one of the existing stub files.  <samp>sparc-stub.c</samp> is the best
@@ -135,19 +135,19 @@ documentation.
 </li></ol>
 
 <p>The next step is to arrange for your program to use a serial port to
-communicate with the machine where <small>ROCGDB</small> is running (the <em>host</em>
+communicate with the machine where ROCgdb is running (the <em>host</em>
 machine).  In general terms, the scheme looks like this:
 </p>
 <dl compact="compact">
 <dt><span><em>On the host,</em></span></dt>
-<dd><p><small>ROCGDB</small> already understands how to use this protocol; when everything
+<dd><p>ROCgdb already understands how to use this protocol; when everything
 else is set up, you can simply use the &lsquo;<samp>target remote</samp>&rsquo; command
 (see <a href="Targets.html">Specifying a Debugging Target</a>).
 </p>
 </dd>
 <dt><span><em>On the target,</em></span></dt>
 <dd><p>you must link with your program a few special-purpose subroutines that
-implement the <small>ROCGDB</small> remote serial protocol.  The file containing these
+implement the ROCgdb remote serial protocol.  The file containing these
 subroutines is called  a <em>debugging stub</em>.
 </p>
 <p>On certain remote targets, you can use an auxiliary program
@@ -161,7 +161,7 @@ machine; for example, use <samp>sparc-stub.c</samp> to debug programs on
 <small>SPARC</small> boards.
 </p>
 <span id="index-remote-serial-stub-list"></span>
-<p>These working remote stubs are distributed with <small>ROCGDB</small>:
+<p>These working remote stubs are distributed with ROCgdb:
 </p>
 <dl compact="compact">
 <dt id='index-i386_002dstub_002ec'><span><code>i386-stub.c</code><a href='#index-i386_002dstub_002ec' class='copiable-anchor'> &para;</a></span></dt>
@@ -195,7 +195,7 @@ machine; for example, use <samp>sparc-stub.c</samp> to debug programs on
 </dd>
 </dl>
 
-<p>The <samp>README</samp> file in the <small>ROCGDB</small> distribution may list other
+<p>The <samp>README</samp> file in the ROCgdb distribution may list other
 recently added stubs.
 </p>
 

@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Set Watchpoints (Debugging with ROCGDB)</title>
+<title>Set Watchpoints (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Set Watchpoints (Debugging with ROCGDB)">
-<meta name="keywords" content="Set Watchpoints (Debugging with ROCGDB)">
+<meta name="description" content="Set Watchpoints (Debugging with ROCgdb)">
+<meta name="keywords" content="Set Watchpoints (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -120,37 +120,37 @@ address (assuming an <code>int</code> occupies 4 bytes).
 
 </li><li> An arbitrarily complex expression, such as &lsquo;<samp>a*b + c/d</samp>&rsquo;.  The
 expression can use any operators valid in the program&rsquo;s native
-language (see <a href="Languages.html">Using <small>ROCGDB</small> with Different Languages</a>).
+language (see <a href="Languages.html">Using ROCgdb with Different Languages</a>).
 </li></ul>
 
 <p>You can set a watchpoint on an expression even if the expression can
 not be evaluated yet.  For instance, you can set a watchpoint on
 &lsquo;<samp>*global_ptr</samp>&rsquo; before &lsquo;<samp>global_ptr</samp>&rsquo; is initialized.
-<small>ROCGDB</small> will stop when your program sets &lsquo;<samp>global_ptr</samp>&rsquo; and
+ROCgdb will stop when your program sets &lsquo;<samp>global_ptr</samp>&rsquo; and
 the expression produces a valid value.  If the expression becomes
 valid in some other way than changing a variable (e.g. if the memory
 pointed to by &lsquo;<samp>*global_ptr</samp>&rsquo; becomes readable as the result of a
-<code>malloc</code> call), <small>ROCGDB</small> may not stop until the next time
+<code>malloc</code> call), ROCgdb may not stop until the next time
 the expression changes.
 </p>
 <span id="index-software-watchpoints"></span>
 <span id="index-hardware-watchpoints"></span>
 <p>Depending on your system, watchpoints may be implemented in software or
-hardware.  <small>ROCGDB</small> does software watchpointing by single-stepping your
+hardware.  ROCgdb does software watchpointing by single-stepping your
 program and testing the variable&rsquo;s value each time, which is hundreds of
 times slower than normal execution.  (But this may still be worth it, to
 catch errors where you have no clue what part of your program is the
 culprit.)
 </p>
 <p>On some systems, such as most PowerPC or x86-based targets,
-<small>ROCGDB</small> includes support for hardware watchpoints, which do not
+ROCgdb includes support for hardware watchpoints, which do not
 slow down the running of your program.
 </p>
 <dl compact="compact">
 <dd><span id="index-watch"></span>
 </dd>
 <dt><span><code>watch <span class="roman">[</span>-l<span class="roman">|</span>-location<span class="roman">]</span> <var>expr</var> <span class="roman">[</span>thread <var>thread-id</var><span class="roman">]</span> <span class="roman">[</span>mask <var>maskvalue</var><span class="roman">]</span> <span class="roman">[</span>task <var>task-id</var><span class="roman">]</span></code></span></dt>
-<dd><p>Set a watchpoint for an expression.  <small>ROCGDB</small> will break when the
+<dd><p>Set a watchpoint for an expression.  ROCgdb will break when the
 expression <var>expr</var> is written into by the program and its value
 changes.  The simplest (and the most popular) use of this command is
 to watch the value of a single variable:
@@ -160,9 +160,9 @@ to watch the value of a single variable:
 </pre></div>
 
 <p>If the command includes a <code><span class="roman">[</span>thread <var>thread-id</var><span class="roman">]</span></code>
-argument, <small>ROCGDB</small> breaks only when the thread identified by
+argument, ROCgdb breaks only when the thread identified by
 <var>thread-id</var> changes the value of <var>expr</var>.  If any other threads
-change the value of <var>expr</var>, <small>ROCGDB</small> will not break.  Note
+change the value of <var>expr</var>, ROCgdb will not break.  Note
 that watchpoints restricted to a single thread in this way only work
 with Hardware Watchpoints.
 </p>
@@ -170,12 +170,12 @@ with Hardware Watchpoints.
 will be specific to the indicated Ada task (see <a href="Ada-Tasks.html">Extensions for Ada Tasks</a>).
 </p>
 <p>Ordinarily a watchpoint respects the scope of variables in <var>expr</var>
-(see below).  The <code>-location</code> argument tells <small>ROCGDB</small> to
+(see below).  The <code>-location</code> argument tells ROCgdb to
 instead watch the memory referred to by <var>expr</var>.  In this case,
-<small>ROCGDB</small> will evaluate <var>expr</var>, take the address of the result,
+ROCgdb will evaluate <var>expr</var>, take the address of the result,
 and watch the memory at that address.  The type of the result is used
 to determine the size of the watched memory.  If the expression&rsquo;s
-result does not have an address, then <small>ROCGDB</small> will print an
+result does not have an address, then ROCgdb will print an
 error.
 </p>
 <p>The <code><span class="roman">[</span>mask <var>maskvalue</var><span class="roman">]</span></code> argument allows creation
@@ -216,7 +216,7 @@ or written into by the program.
 
 <p>If you watch for a change in a numerically entered address you need to
 dereference it, as the address itself is just a constant number which will
-never change.  <small>ROCGDB</small> refuses to create a watchpoint that watches
+never change.  ROCgdb refuses to create a watchpoint that watches
 a never-changing value:
 </p>
 <div class="example">
@@ -226,17 +226,17 @@ Cannot watch constant value 0x600850.
 Watchpoint 1: *(int *) 6293584
 </pre></div>
 
-<p><small>ROCGDB</small> sets a <em>hardware watchpoint</em> if possible.  Hardware
+<p>ROCgdb sets a <em>hardware watchpoint</em> if possible.  Hardware
 watchpoints execute very quickly, and the debugger reports a change in
-value at the exact instruction where the change occurs.  If <small>ROCGDB</small>
+value at the exact instruction where the change occurs.  If ROCgdb
 cannot set a hardware watchpoint, it sets a software watchpoint, which
 executes more slowly and reports the change in value at the next
 <em>statement</em>, not the instruction, after the change occurs.
 </p>
 <span id="index-use-only-software-watchpoints"></span>
-<p>You can force <small>ROCGDB</small> to use only software watchpoints with the
+<p>You can force ROCgdb to use only software watchpoints with the
 <kbd>set can-use-hw-watchpoints 0</kbd> command.  With this variable set to
-zero, <small>ROCGDB</small> will never try to use hardware watchpoints, even if
+zero, ROCgdb will never try to use hardware watchpoints, even if
 the underlying system supports them.  (Note that hardware-assisted
 watchpoints that were set <em>before</em> setting
 <code>can-use-hw-watchpoints</code> to zero will still use the hardware
@@ -253,9 +253,9 @@ mechanism of watching expression values.)
 </dl>
 
 <p>For remote targets, you can restrict the number of hardware
-watchpoints <small>ROCGDB</small> will use, see <a href="Remote-Configuration.html#set-remote-hardware_002dbreakpoint_002dlimit">set remote hardware-breakpoint-limit</a>.
+watchpoints ROCgdb will use, see <a href="Remote-Configuration.html#set-remote-hardware_002dbreakpoint_002dlimit">set remote hardware-breakpoint-limit</a>.
 </p>
-<p>When you issue the <code>watch</code> command, <small>ROCGDB</small> reports
+<p>When you issue the <code>watch</code> command, ROCgdb reports
 </p>
 <div class="example">
 <pre class="example">Hardware watchpoint <var>num</var>: <var>expr</var>
@@ -266,8 +266,8 @@ watchpoints <small>ROCGDB</small> will use, see <a href="Remote-Configuration.ht
 <p>Currently, the <code>awatch</code> and <code>rwatch</code> commands can only set
 hardware watchpoints, because accesses to data that don&rsquo;t change the
 value of the watched expression cannot be detected without examining
-every instruction as it is being executed, and <small>ROCGDB</small> does not do
-that currently.  If <small>ROCGDB</small> finds that it is unable to set a
+every instruction as it is being executed, and ROCgdb does not do
+that currently.  If ROCgdb finds that it is unable to set a
 hardware breakpoint with the <code>awatch</code> or <code>rwatch</code> command, it
 will print a message like this:
 </p>
@@ -275,7 +275,7 @@ will print a message like this:
 <pre class="example">Expression cannot be implemented with read/access watchpoint.
 </pre></div>
 
-<p>Sometimes, <small>ROCGDB</small> cannot set a hardware watchpoint because the
+<p>Sometimes, ROCgdb cannot set a hardware watchpoint because the
 data type of the watched expression is wider than what a hardware
 watchpoint on the target machine can handle.  For example, some systems
 can only watch regions that are up to 4 bytes wide; on such systems you
@@ -284,10 +284,10 @@ double-precision floating-point number (which is typically 8 bytes
 wide).  As a work-around, it might be possible to break the large region
 into a series of smaller ones and watch them with separate watchpoints.
 </p>
-<p>If you set too many hardware watchpoints, <small>ROCGDB</small> might be unable
+<p>If you set too many hardware watchpoints, ROCgdb might be unable
 to insert all of them when you resume the execution of your program.
 Since the precise number of active watchpoints is unknown until such
-time as the program is about to be resumed, <small>ROCGDB</small> might not be
+time as the program is about to be resumed, ROCgdb might not be
 able to warn you about this when you set the watchpoints, and the
 warning will be printed only when the program is resumed:
 </p>
@@ -299,14 +299,14 @@ warning will be printed only when the program is resumed:
 </p>
 <p>Watching complex expressions that reference many variables can also
 exhaust the resources available for hardware-assisted watchpoints.
-That&rsquo;s because <small>ROCGDB</small> needs to watch every variable in the
+That&rsquo;s because ROCgdb needs to watch every variable in the
 expression with separately allocated resources.
 </p>
 <p>If you call a function interactively using <code>print</code> or <code>call</code>,
-any watchpoints you have set will be inactive until <small>ROCGDB</small> reaches another
+any watchpoints you have set will be inactive until ROCgdb reaches another
 kind of breakpoint or the call completes.
 </p>
-<p><small>ROCGDB</small> automatically deletes watchpoints that watch local
+<p>ROCgdb automatically deletes watchpoints that watch local
 (automatic) variables, or expressions that involve such variables, when
 they go out of scope, that is, when the execution leaves the block in
 which these variables were defined.  In particular, when the program
@@ -323,12 +323,12 @@ watched expression from every thread.
 </p>
 <blockquote>
 <p><em>Warning:</em> In multi-threaded programs, software watchpoints
-have only limited usefulness.  If <small>ROCGDB</small> creates a software
+have only limited usefulness.  If ROCgdb creates a software
 watchpoint, it can only watch the value of an expression <em>in a
 single thread</em>.  If you are confident that the expression can only
 change due to the current thread&rsquo;s activity (and if you are also
 confident that no other thread can become current), then you can use
-software watchpoints as usual.  However, <small>ROCGDB</small> may not notice
+software watchpoints as usual.  However, ROCgdb may not notice
 when a non-current thread&rsquo;s activity changes the expression.  (Hardware
 watchpoints, in contrast, watch an expression in all threads.)
 </p></blockquote>

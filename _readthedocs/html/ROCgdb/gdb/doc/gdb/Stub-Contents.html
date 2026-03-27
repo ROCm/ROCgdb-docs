@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Stub Contents (Debugging with ROCGDB)</title>
+<title>Stub Contents (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Stub Contents (Debugging with ROCGDB)">
-<meta name="keywords" content="Stub Contents (Debugging with ROCGDB)">
+<meta name="description" content="Stub Contents (Debugging with ROCgdb)">
+<meta name="keywords" content="Stub Contents (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -124,12 +124,12 @@ run when a trap is triggered.
 </p>
 <p><code>handle_exception</code> takes control when your program stops during
 execution (for example, on a breakpoint), and mediates communications
-with <small>ROCGDB</small> on the host machine.  This is where the communications
-protocol is implemented; <code>handle_exception</code> acts as the <small>ROCGDB</small>
+with ROCgdb on the host machine.  This is where the communications
+protocol is implemented; <code>handle_exception</code> acts as the ROCgdb
 representative on the target machine.  It begins by sending summary
 information on the state of your program, then continues to execute,
-retrieving and transmitting any information <small>ROCGDB</small> needs, until you
-execute a <small>ROCGDB</small> command that makes your program resume; at that point,
+retrieving and transmitting any information ROCgdb needs, until you
+execute a ROCgdb command that makes your program resume; at that point,
 <code>handle_exception</code> returns control to your own code on the target
 machine.
 </p>
@@ -137,14 +137,14 @@ machine.
 <dt id='index-breakpoint-subroutine_002c-remote'><span><code>breakpoint</code><a href='#index-breakpoint-subroutine_002c-remote' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Use this auxiliary subroutine to make your program contain a
 breakpoint.  Depending on the particular situation, this may be the only
-way for <small>ROCGDB</small> to get control.  For instance, if your target
+way for ROCgdb to get control.  For instance, if your target
 machine has some sort of interrupt button, you won&rsquo;t need to call this;
 pressing the interrupt button transfers control to
-<code>handle_exception</code>&mdash;in effect, to <small>ROCGDB</small>.  On some machines,
+<code>handle_exception</code>&mdash;in effect, to ROCgdb.  On some machines,
 simply receiving characters on the serial port may also trigger a trap;
 again, in that situation, you don&rsquo;t need to call <code>breakpoint</code> from
 your own program&mdash;simply running &lsquo;<samp>target remote</samp>&rsquo; from the host
-<small>ROCGDB</small> session gets control.
+ROCgdb session gets control.
 </p>
 <p>Call <code>breakpoint</code> if none of these is true, or if you simply want
 to make certain your program stops at a predetermined point for the

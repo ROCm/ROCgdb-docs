@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>ARM Features (Debugging with ROCGDB)</title>
+<title>ARM Features (Debugging with ROCgdb)</title>
 
-<meta name="description" content="ARM Features (Debugging with ROCGDB)">
-<meta name="keywords" content="ARM Features (Debugging with ROCGDB)">
+<meta name="description" content="ARM Features (Debugging with ROCgdb)">
+<meta name="keywords" content="ARM Features (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -139,7 +139,7 @@ anymore.
 </li></ul>
 
 <p>Extra registers are allowed in this feature, but they will not affect
-<small>ROCGDB</small>.
+ROCgdb.
 </p>
 </div>
 <div class="subsubsection" id="Core-register-set-for-M_002dprofile">
@@ -163,12 +163,12 @@ number 25, but debugging stubs that report XML do not need to use this number
 anymore.
 </li></ul>
 
-<p>Upon seeing this feature, <small>ROCGDB</small> will acknowledge that it is dealing
-with an M-profile target.  This means <small>ROCGDB</small> will use hooks and
+<p>Upon seeing this feature, ROCgdb will acknowledge that it is dealing
+with an M-profile target.  This means ROCgdb will use hooks and
 configurations that are meaningful to M-profiles.
 </p>
 <p>Extra registers are allowed in this feature, but they will not affect
-<small>ROCGDB</small>.
+ROCgdb.
 </p>
 </div>
 <div class="subsubsection" id="FPA-registers-feature-_0028obsolete_0029">
@@ -178,7 +178,7 @@ configurations that are meaningful to M-profiles.
 advertised by debugging stubs anymore.  It used to advertise registers for
 the old FPA architecture that has long been discontinued in toolchains.
 </p>
-<p>It is kept in <small>ROCGDB</small> for backward compatibility purposes so older
+<p>It is kept in ROCgdb for backward compatibility purposes so older
 debugging stubs that don&rsquo;t support XML target descriptions still work
 correctly.  One such example is the KGDB debugging stub from
 Linux or BSD kernels.
@@ -211,20 +211,20 @@ bits 16 to 19 and the &lsquo;<samp>MASK23</samp>&rsquo; field from bits 20 to 23
 <p>Bits 24 through 31 are reserved.
 </p></li></ul>
 
-<p>When this feature is available, <small>ROCGDB</small> will synthesize the &lsquo;<samp>p0</samp>&rsquo;
+<p>When this feature is available, ROCgdb will synthesize the &lsquo;<samp>p0</samp>&rsquo;
 pseudo-register from &lsquo;<samp>vpr</samp>&rsquo; contents.
 </p>
 <p>This feature must only be advertised if the target is M-profile.  Advertising
-this feature for targets that are not M-profile may cause <small>ROCGDB</small> to
+this feature for targets that are not M-profile may cause ROCgdb to
 assume the target is M-profile when it isn&rsquo;t.
 </p>
 <p>If the &lsquo;<samp>org.gnu.gdb.arm.vfp</samp>&rsquo; feature is available alongside the
-&lsquo;<samp>org.gnu.gdb.arm.m-profile-mve</samp>&rsquo; feature, <small>ROCGDB</small> will
+&lsquo;<samp>org.gnu.gdb.arm.m-profile-mve</samp>&rsquo; feature, ROCgdb will
 synthesize the &lsquo;<samp>q</samp>&rsquo; pseudo-registers from &lsquo;<samp>d</samp>&rsquo; register
 contents.
 </p>
 <p>Extra registers are allowed in this feature, but they will not affect
-<small>ROCGDB</small>.
+ROCgdb.
 </p>
 </div>
 <div class="subsubsection" id="XScale-iwMMXt-feature">
@@ -254,7 +254,7 @@ type &lsquo;<samp>int</samp>&rsquo;.
 <p>This feature should only be reported if the target is XScale.
 </p>
 <p>Extra registers are allowed in this feature, but they will not affect
-<small>ROCGDB</small>.
+ROCgdb.
 </p>
 </div>
 <div class="subsubsection" id="Vector-Floating_002dPoint-_0028VFP_0029-feature">
@@ -282,26 +282,26 @@ of 32 bits and a type of &lsquo;<samp>int</samp>&rsquo;.
 of 32 bits and a type of &lsquo;<samp>int</samp>&rsquo;.
 </li></ul>
 
-<p>If this feature is available, <small>ROCGDB</small> will synthesize the
+<p>If this feature is available, ROCgdb will synthesize the
 single-precision floating-point registers from halves of the double-precision
 registers as pseudo-registers.
 </p>
 <p>Extra registers are allowed in this feature, but they will not affect
-<small>ROCGDB</small>.
+ROCgdb.
 </p>
 </div>
 <div class="subsubsection" id="NEON-architecture-feature">
 <h4 class="subsubsection">G.5.3.7 NEON architecture feature</h4>
 
 <p>The &lsquo;<samp>org.gnu.gdb.arm.neon</samp>&rsquo; feature is optional.  It does not
-need to contain registers; it instructs <small>ROCGDB</small> to display the
+need to contain registers; it instructs ROCgdb to display the
 VFP double-precision registers as vectors and to synthesize the
 quad-precision registers from pairs of double-precision registers.
 If this feature is present, &lsquo;<samp>org.gnu.gdb.arm.vfp</samp>&rsquo; must also
 be present and include 32 double-precision registers.
 </p>
 <p>Extra registers are allowed in this feature, but they will not affect
-<small>ROCGDB</small>.
+ROCgdb.
 </p>
 </div>
 <div class="subsubsection" id="M_002dprofile-Pointer-Authentication-and-Branch-Target-Identification-feature">
@@ -311,23 +311,23 @@ be present and include 32 double-precision registers.
 acknowledges support for the ARMv8.1-m PACBTI extensions.
 </p>
 <p>This feature doesn&rsquo;t contain any required registers, and it only serves as a
-hint to <small>ROCGDB</small> that the debugging stub supports the ARMv8.1-m PACBTI
+hint to ROCgdb that the debugging stub supports the ARMv8.1-m PACBTI
 extensions.
 </p>
-<p>When <small>ROCGDB</small> sees this feature, it will track return address signing
+<p>When ROCgdb sees this feature, it will track return address signing
 states and will decorate backtraces using the [PAC] marker, similar to
 AArch64&rsquo;s PAC extension.
 See <a href="AArch64.html#AArch64-PAC">AArch64 PAC</a>.
 </p>
 <p>Extra registers are allowed in this feature, but they will not affect
-<small>ROCGDB</small>.
+ROCgdb.
 </p>
 </div>
 <div class="subsubsection" id="M_002dprofile-system-registers-feature">
 <h4 class="subsubsection">G.5.3.9 M-profile system registers feature</h4>
 
 <p>The &lsquo;<samp>org.gnu.gdb.arm.m-system</samp>&rsquo; optional feature was introduced as a way to
-inform <small>ROCGDB</small> about additional system registers.
+inform ROCgdb about additional system registers.
 </p>
 <p>At the moment this feature must contain the following:
 </p>
@@ -338,19 +338,19 @@ type &lsquo;<samp>data_ptr</samp>&rsquo;.
 type &lsquo;<samp>data_ptr</samp>&rsquo;.
 </li></ul>
 
-<p>This feature must only be advertised for M-profile targets.  When <small>ROCGDB</small>
+<p>This feature must only be advertised for M-profile targets.  When ROCgdb
 sees this feature, it will attempt to track the values of &lsquo;<samp>msp</samp>&rsquo; and
 &lsquo;<samp>psp</samp>&rsquo; across frames.
 </p>
 <p>Extra registers are allowed in this feature, but they will not affect
-<small>ROCGDB</small>.
+ROCgdb.
 </p>
 </div>
 <div class="subsubsection" id="M_002dprofile-Security-Extensions-feature">
 <h4 class="subsubsection">G.5.3.10 M-profile Security Extensions feature</h4>
 
 <p>The &lsquo;<samp>org.gnu.gdb.arm.secext</samp>&rsquo; optional feature was introduced so
-<small>ROCGDB</small> could better support the switching of stack pointers and
+ROCgdb could better support the switching of stack pointers and
 secure states in the Security Extensions.
 </p>
 <p>At the moment this feature must contain the following:
@@ -366,12 +366,12 @@ in size with type &lsquo;<samp>data_ptr</samp>&rsquo;.
 in size with type &lsquo;<samp>data_ptr</samp>&rsquo;.
 </li></ul>
 
-<p>When <small>ROCGDB</small> sees this feature, it will attempt to track the values of
+<p>When ROCgdb sees this feature, it will attempt to track the values of
 all 4 stack pointers across secure state transitions, potentially improving
 unwinding when applications switch between security states.
 </p>
 <p>Extra registers are allowed in this feature, but they will not affect
-<small>ROCGDB</small>.
+ROCgdb.
 </p>
 </div>
 <div class="subsubsection" id="TLS-registers-feature">
@@ -386,11 +386,11 @@ unwinding when applications switch between security states.
 and has type &lsquo;<samp>data_ptr</samp>&rsquo;.
 </li></ul>
 
-<p>At the moment <small>ROCGDB</small> looks for this feature, but doesn&rsquo;t do anything
+<p>At the moment ROCgdb looks for this feature, but doesn&rsquo;t do anything
 with it other than displaying it.
 </p>
 <p>Extra registers are allowed in this feature, but they will not affect
-<small>ROCGDB</small>.
+ROCgdb.
 </p>
 </div>
 </div>

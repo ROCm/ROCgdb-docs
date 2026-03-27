@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>MIPS (Debugging with ROCGDB)</title>
+<title>MIPS (Debugging with ROCgdb)</title>
 
-<meta name="description" content="MIPS (Debugging with ROCGDB)">
-<meta name="keywords" content="MIPS (Debugging with ROCGDB)">
+<meta name="description" content="MIPS (Debugging with ROCgdb)">
+<meta name="keywords" content="MIPS (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -109,12 +109,12 @@ Next: <a href="HPPA.html" accesskey="n" rel="next">HPPA</a>, Previous: <a href="
 <span id="index-Alpha-stack"></span>
 <span id="index-MIPS-stack"></span>
 <p>Alpha- and <acronym>MIPS</acronym>-based computers use an unusual stack frame, which
-sometimes requires <small>ROCGDB</small> to search backward in the object code to
+sometimes requires ROCgdb to search backward in the object code to
 find the beginning of a function.
 </p>
 <span id="index-response-time_002c-MIPS-debugging"></span>
 <p>To improve response time (especially for embedded applications, where
-<small>ROCGDB</small> may be restricted to a slow serial line for this search)
+ROCgdb may be restricted to a slow serial line for this search)
 you may want to limit the size of this search, using one of these
 commands:
 </p>
@@ -122,7 +122,7 @@ commands:
 <dd><span id="index-heuristic_002dfence_002dpost-_0028Alpha_002c-MIPS_0029"></span>
 </dd>
 <dt><span><code>set heuristic-fence-post <var>limit</var></code></span></dt>
-<dd><p>Restrict <small>ROCGDB</small> to examining at most <var>limit</var> bytes in its
+<dd><p>Restrict ROCgdb to examining at most <var>limit</var> bytes in its
 search for the beginning of a function.  A value of <var>0</var> (the
 default) means there is no limit.  However, except for <var>0</var>, the
 larger the limit the more bytes <code>heuristic-fence-post</code> must search
@@ -135,7 +135,7 @@ this command when debugging a stripped executable.
 </p></dd>
 </dl>
 
-<p>These commands are available <em>only</em> when <small>ROCGDB</small> is configured
+<p>These commands are available <em>only</em> when ROCgdb is configured
 for debugging programs on Alpha or <acronym>MIPS</acronym> processors.
 </p>
 <p>Several <acronym>MIPS</acronym>-specific commands are available when debugging <acronym>MIPS</acronym>
@@ -144,7 +144,7 @@ programs:
 <dl compact="compact">
 <dt id='index-set-mips-abi'><span><code>set mips abi <var>arg</var></code><a href='#index-set-mips-abi' class='copiable-anchor'> &para;</a></span></dt>
 <dd><span id="index-set-ABI-for-MIPS"></span>
-<p>Tell <small>ROCGDB</small> which <acronym>MIPS</acronym> ABI is used by the inferior.  Possible
+<p>Tell ROCgdb which <acronym>MIPS</acronym> ABI is used by the inferior.  Possible
 values of <var>arg</var> are:
 </p>
 <dl compact="compact">
@@ -162,14 +162,14 @@ default).
 
 </dd>
 <dt id='index-show-mips-abi'><span><code>show mips abi</code><a href='#index-show-mips-abi' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Show the <acronym>MIPS</acronym> ABI used by <small>ROCGDB</small> to debug the inferior.
+<dd><p>Show the <acronym>MIPS</acronym> ABI used by ROCgdb to debug the inferior.
 </p>
 </dd>
 <dt id='index-set-mips-compression'><span><code>set mips compression <var>arg</var></code><a href='#index-set-mips-compression' class='copiable-anchor'> &para;</a></span></dt>
 <dd><span id="index-code-compression_002c-MIPS"></span>
-<p>Tell <small>ROCGDB</small> which <acronym>MIPS</acronym> compressed
+<p>Tell ROCgdb which <acronym>MIPS</acronym> compressed
 <acronym title="Instruction Set Architecture">ISA</acronym> (Instruction Set Architecture) encoding is used by the
-inferior.  <small>ROCGDB</small> uses this for code disassembly and other
+inferior.  ROCgdb uses this for code disassembly and other
 internal interpretation purposes.  This setting is only referred to
 when no executable has been associated with the debugging session or
 the executable does not provide information about the encoding it uses.
@@ -188,13 +188,13 @@ implicitly from an executable.
 <p>The compiler and/or assembler typically add symbol table annotations to
 identify functions compiled for the <acronym>MIPS16</acronym> or
 <acronym>microMIPS</acronym> <acronym title="Instruction Set Architecture">ISA</acronym>s.  If these function-scope annotations
-are present, <small>ROCGDB</small> uses them in preference to the global
+are present, ROCgdb uses them in preference to the global
 compressed <acronym title="Instruction Set Architecture">ISA</acronym> encoding setting.
 </p>
 </dd>
 <dt id='index-show-mips-compression'><span><code>show mips compression</code><a href='#index-show-mips-compression' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Show the <acronym>MIPS</acronym> compressed <acronym title="Instruction Set Architecture">ISA</acronym> encoding used by
-<small>ROCGDB</small> to debug the inferior.
+ROCgdb to debug the inferior.
 </p>
 </dd>
 <dt><span><code>set mipsfpu</code></span></dt>
@@ -207,7 +207,7 @@ compressed <acronym title="Instruction Set Architecture">ISA</acronym> encoding 
 <p>This command determines whether the most-significant 32 bits of 64-bit
 <acronym>MIPS</acronym> addresses are masked off.  The argument <var>arg</var> can be
 &lsquo;<samp>on</samp>&rsquo;, &lsquo;<samp>off</samp>&rsquo;, or &lsquo;<samp>auto</samp>&rsquo;.  The latter is the default
-setting, which lets <small>ROCGDB</small> determine the correct value.
+setting, which lets ROCgdb determine the correct value.
 </p>
 </dd>
 <dt id='index-show-mips-mask_002daddress'><span><code>show mips mask-address</code><a href='#index-show-mips-mask_002daddress' class='copiable-anchor'> &para;</a></span></dt>
@@ -228,7 +228,7 @@ and 64 bits for other registers, set this option to &lsquo;<samp>on</samp>&rsquo
 </dd>
 <dt id='index-set-debug-mips'><span><code>set debug mips</code><a href='#index-set-debug-mips' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>This command turns on and off debugging messages for the <acronym>MIPS</acronym>-specific
-target code in <small>ROCGDB</small>.
+target code in ROCgdb.
 </p>
 </dd>
 <dt id='index-show-debug-mips'><span><code>show debug mips</code><a href='#index-show-debug-mips' class='copiable-anchor'> &para;</a></span></dt>

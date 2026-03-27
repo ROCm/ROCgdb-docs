@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>GDB/MI Variable Objects (Debugging with ROCGDB)</title>
+<title>GDB/MI Variable Objects (Debugging with ROCgdb)</title>
 
-<meta name="description" content="GDB/MI Variable Objects (Debugging with ROCGDB)">
-<meta name="keywords" content="GDB/MI Variable Objects (Debugging with ROCGDB)">
+<meta name="description" content="GDB/MI Variable Objects (Debugging with ROCgdb)">
+<meta name="keywords" content="GDB/MI Variable Objects (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -183,7 +183,7 @@ object will report the value of <code>state</code> in the current frame.
 refers to a local variable, the variable object becomes bound to the
 thread, lane (if available, see <a href="Heterogeneous-Debugging.html#heterogeneous-lane">heterogeneous lane</a>), and frame in
 which the variable object is created.
-When such variable object is updated, <small>ROCGDB</small> makes
+When such variable object is updated, ROCgdb makes
 sure that the thread/lane/frame combination the variable object is
 bound to still exists, and re-evaluates the variable object in context
 of that thread/lane/frame.
@@ -223,14 +223,14 @@ how it can be used.
 <pre class="example">-enable-pretty-printing
 </pre></div>
 
-<p><small>ROCGDB</small> allows Python-based visualizers to affect the output of the
+<p>ROCgdb allows Python-based visualizers to affect the output of the
 MI variable object commands.  However, because there was no way to
 implement this in a fully backward-compatible way, a front end must
 request that this functionality be enabled.
 </p>
 <p>Once enabled, this feature cannot be disabled.
 </p>
-<p>Note that if Python support has not been compiled into <small>ROCGDB</small>,
+<p>Note that if Python support has not been compiled into ROCgdb,
 this command will still succeed (and do nothing).
 </p>
 <span id="index-_002dvar_002dcreate"></span>
@@ -273,7 +273,7 @@ begin with a &lsquo;<samp>*</samp>&rsquo;), or one of the following:
 <p>A varobj&rsquo;s contents may be provided by a Python-based pretty-printer.  In this
 case the varobj is known as a <em>dynamic varobj</em>.  Dynamic varobjs
 have slightly different semantics in some cases.  If the
-<code>-enable-pretty-printing</code> command is not sent, then <small>ROCGDB</small>
+<code>-enable-pretty-printing</code> command is not sent, then ROCgdb
 will never create a dynamic varobj.  This ensures backward
 compatibility for existing clients.
 </p>
@@ -302,7 +302,7 @@ pretty-printer object&rsquo;s <code>to_string</code> method.
 </dd>
 <dt><span>&lsquo;<samp>type</samp>&rsquo;</span></dt>
 <dd><p>The varobj&rsquo;s type.  This is a string representation of the type, as
-would be printed by the <small>ROCGDB</small> CLI.  If &lsquo;<samp>print object</samp>&rsquo;
+would be printed by the ROCgdb CLI.  If &lsquo;<samp>print object</samp>&rsquo;
 (see <a href="Print-Settings.html">set print object</a>) is set to <code>on</code>, the
 <em>actual</em> (derived) type of the object is shown rather than the
 <em>declared</em> one.
@@ -569,7 +569,7 @@ remaining after the end of the selected range.
 
 <p>Returns the type of the specified variable <var>name</var>.  The type is
 returned as a string in the same format as it is output by the
-<small>ROCGDB</small> CLI:
+ROCgdb CLI:
 </p>
 <div class="example">
 <pre class="example"> type=<var>typename</var>
@@ -762,7 +762,7 @@ scope.
 <dt><span><code>&quot;invalid&quot;</code></span></dt>
 <dd><p>The variable object no longer holds a valid value.
 This can occur when the executable file being debugged has changed,
-either through recompilation or by using the <small>ROCGDB</small> <code>file</code>
+either through recompilation or by using the ROCgdb <code>file</code>
 command.  The front end should normally choose to delete these variable
 objects.
 </p></dd>
@@ -795,12 +795,12 @@ type changed, this will be the new number of children.
 </p>
 <p>The &lsquo;<samp>numchild</samp>&rsquo; field in other varobj responses is generally not
 valid for a dynamic varobj &ndash; it will show the number of children that
-<small>ROCGDB</small> knows about, but because dynamic varobjs lazily
+ROCgdb knows about, but because dynamic varobjs lazily
 instantiate their children, this will not reflect the number of
 children which may be available.
 </p>
 <p>The &lsquo;<samp>new_num_children</samp>&rsquo; attribute only reports changes to the
-number of children known by <small>ROCGDB</small>.  This is the only way to
+number of children known by ROCgdb.  This is the only way to
 detect whether an update has removed children (which necessarily can
 only happen at the end of the update range).
 </p>
@@ -911,7 +911,7 @@ children will be reported.  Otherwise, children starting at <var>from</var>
 </p>
 <p>If not &lsquo;<samp>None</samp>&rsquo;, <var>visualizer</var> must be a Python expression.
 This expression must evaluate to a callable object which accepts a
-single argument.  <small>ROCGDB</small> will call this object with the value of
+single argument.  ROCgdb will call this object with the value of
 the varobj <var>name</var> as an argument (this is done so that the same
 Python pretty-printing code can be used for both the CLI and MI).
 When called, this object must return an object which conforms to the

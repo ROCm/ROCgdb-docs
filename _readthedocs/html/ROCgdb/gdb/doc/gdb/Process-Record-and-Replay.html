@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Process Record and Replay (Debugging with ROCGDB)</title>
+<title>Process Record and Replay (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Process Record and Replay (Debugging with ROCGDB)">
-<meta name="keywords" content="Process Record and Replay (Debugging with ROCGDB)">
+<meta name="description" content="Process Record and Replay (Debugging with ROCgdb)">
+<meta name="keywords" content="Process Record and Replay (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -99,20 +99,20 @@ ul.no-bullet {list-style: none}
 <div class="chapter" id="Process-Record-and-Replay">
 <div class="header">
 <p>
-Next: <a href="Stack.html" accesskey="n" rel="next">Examining the Stack</a>, Previous: <a href="Reverse-Execution.html" accesskey="p" rel="prev">Running programs backward</a>, Up: <a href="index.html" accesskey="u" rel="up">Debugging with <small>ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Stack.html" accesskey="n" rel="next">Examining the Stack</a>, Previous: <a href="Reverse-Execution.html" accesskey="p" rel="prev">Running programs backward</a>, Up: <a href="index.html" accesskey="u" rel="up">Debugging with ROCgdb</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
 <span id="Recording-Inferior_0027s-Execution-and-Replaying-It"></span><h2 class="chapter">7 Recording Inferior&rsquo;s Execution and Replaying It</h2>
 <span id="index-process-record-and-replay"></span>
 <span id="index-recording-inferior_0027s-execution-and-replaying-it"></span>
 
-<p>On some platforms, <small>ROCGDB</small> provides a special <em>process record
+<p>On some platforms, ROCgdb provides a special <em>process record
 and replay</em> target that can record a log of the process execution, and
 replay it later with both forward and reverse execution commands.
 </p>
 <span id="index-replay-mode"></span>
 <p>When this target is in use, if the execution log includes the record
-for the next instruction, <small>ROCGDB</small> will debug in <em>replay
+for the next instruction, ROCgdb will debug in <em>replay
 mode</em>.  In the replay mode, the inferior does not really execute code
 instructions.  Instead, all the events that normally happen during
 code execution are taken from the execution log.  While code is not
@@ -123,8 +123,8 @@ execution log.
 </p>
 <span id="index-record-mode"></span>
 <p>If the record for the next instruction is not in the execution log,
-<small>ROCGDB</small> will debug in <em>record mode</em>.  In this mode, the
-inferior executes normally, and <small>ROCGDB</small> records the execution log
+ROCgdb will debug in <em>record mode</em>.  In this mode, the
+inferior executes normally, and ROCgdb records the execution log
 for future replay.
 </p>
 <p>The process record and replay target supports reverse execution
@@ -134,7 +134,7 @@ this case by the range of the instructions recorded in the execution
 log.  In other words, reverse execution on platforms that don&rsquo;t
 support it directly can only be done in the replay mode.
 </p>
-<p>When debugging in the reverse direction, <small>ROCGDB</small> will work in
+<p>When debugging in the reverse direction, ROCgdb will work in
 replay mode as long as the execution log includes the record for the
 previous instruction; otherwise, it will work in record mode, if the
 platform supports reverse execution, or stop if not.
@@ -144,11 +144,11 @@ LoongArch, Moxie, PowerPC, PowerPC64, S/390, and x86 (i386/amd64) running
 GNU/Linux.  Process record and replay can be used both when native
 debugging, and when remote debugging via <code>gdbserver</code>.
 </p>
-<p>When recording an inferior, <small>ROCGDB</small> may print auxiliary information
+<p>When recording an inferior, ROCgdb may print auxiliary information
 during stepping commands and commands displaying the execution history.
 </p>
 <p>For architecture environments that support process record and replay,
-<small>ROCGDB</small> provides the following commands:
+ROCgdb provides the following commands:
 </p>
 <dl compact="compact">
 <dd><span id="index-target-record"></span>
@@ -177,7 +177,7 @@ recording methods are available:
 </p>
 <dl compact="compact">
 <dt><span><code>full</code></span></dt>
-<dd><p>Full record/replay recording using <small>ROCGDB</small>&rsquo;s software record and
+<dd><p>Full record/replay recording using ROCgdb&rsquo;s software record and
 replay implementation.  This method allows replaying and reverse
 execution.
 </p>
@@ -206,7 +206,7 @@ branch in the btrace ring buffer.
 <dt id='index-Intel-Processor-Trace'><span><code>pt</code><a href='#index-Intel-Processor-Trace' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Use the <em>Intel Processor Trace</em> recording format.  In this
 format, the processor stores the execution trace in a compressed form
-that is afterwards decoded by <small>ROCGDB</small>.
+that is afterwards decoded by ROCgdb.
 </p>
 <p>The trace can be recorded with very low overhead.  The compressed
 trace format also allows small trace buffers to already contain a big
@@ -261,7 +261,7 @@ but at some earlier point), the inferior process will become &ldquo;live&rdquo;
 at that earlier state, and it will then be possible to continue the
 usual &ldquo;live&rdquo; debugging of the process from that state.
 </p>
-<p>When the inferior process exits, or <small>ROCGDB</small> detaches from it,
+<p>When the inferior process exits, or ROCgdb detaches from it,
 process record and replay target will automatically stop itself.
 </p>
 <span id="index-record-goto"></span>
@@ -307,16 +307,16 @@ File must have been created with <code>record save</code>.
 <dd><p>Set the limit of instructions to be recorded for the <code>full</code>
 recording method.  Default value is 200000.
 </p>
-<p>If <var>limit</var> is a positive number, then <small>ROCGDB</small> will start
+<p>If <var>limit</var> is a positive number, then ROCgdb will start
 deleting instructions from the log once the number of the record
 instructions becomes greater than <var>limit</var>.  For every new recorded
-instruction, <small>ROCGDB</small> will delete the earliest recorded
+instruction, ROCgdb will delete the earliest recorded
 instruction to keep the number of recorded instructions at the limit.
-(Since deleting recorded instructions loses information, <small>ROCGDB</small>
+(Since deleting recorded instructions loses information, ROCgdb
 lets you control what happens when the limit is reached, by means of
 the <code>stop-at-limit</code> option, described below.)
 </p>
-<p>If <var>limit</var> is <code>unlimited</code> or zero, <small>ROCGDB</small> will never
+<p>If <var>limit</var> is <code>unlimited</code> or zero, ROCgdb will never
 delete recorded instructions from the execution log.  The number of
 recorded instructions is limited only by the available memory.
 </p>
@@ -330,13 +330,13 @@ recording method.
 <dt><span><code>set record full stop-at-limit</code></span></dt>
 <dd><p>Control the behavior of the  <code>full</code> recording method when the
 number of recorded instructions reaches the limit.  If ON (the
-default), <small>ROCGDB</small> will stop when the limit is reached for the
+default), ROCgdb will stop when the limit is reached for the
 first time and ask you whether you want to stop the inferior or
 continue running it and recording the execution log.  If you decide
 to continue recording, each new recorded instruction will cause the
 oldest one to be deleted.
 </p>
-<p>If this option is OFF, <small>ROCGDB</small> will automatically delete the
+<p>If this option is OFF, ROCgdb will automatically delete the
 oldest record to make room for each new one, without asking.
 </p>
 </dd>
@@ -345,14 +345,14 @@ oldest record to make room for each new one, without asking.
 </p>
 </dd>
 <dt><span><code>set record full memory-query</code></span></dt>
-<dd><p>Control the behavior when <small>ROCGDB</small> is unable to record memory
+<dd><p>Control the behavior when ROCgdb is unable to record memory
 changes caused by an instruction for the <code>full</code> recording method.
-If ON, <small>ROCGDB</small> will query whether to stop the inferior in that
+If ON, ROCgdb will query whether to stop the inferior in that
 case.
 </p>
-<p>If this option is OFF (the default), <small>ROCGDB</small> will automatically
+<p>If this option is OFF (the default), ROCgdb will automatically
 ignore the effect of such instructions on memory.  Later, when
-<small>ROCGDB</small> replays this execution log, it will mark the log of this
+ROCgdb replays this execution log, it will mark the log of this
 instruction as not accessible, and it will not affect the replay
 results.
 </p>
@@ -362,7 +362,7 @@ results.
 </p>
 <span id="index-set-record-btrace"></span>
 <p>The <code>btrace</code> record target does not trace data.  As a
-convenience, when replaying, <small>ROCGDB</small> reads read-only memory off
+convenience, when replaying, ROCgdb reads read-only memory off
 the live program directly, assuming that the addresses of the
 read-only areas don&rsquo;t change.  This for example makes it possible to
 disassemble code while replaying, but not to print variables.
@@ -373,8 +373,8 @@ You can use the following command for that:
 <dt><span><code>set record btrace replay-memory-access</code></span></dt>
 <dd><p>Control the behavior of the <code>btrace</code> recording method when
 accessing memory during replay.  If <code>read-only</code> (the default),
-<small>ROCGDB</small> will only allow accesses to read-only memory.
-If <code>read-write</code>, <small>ROCGDB</small> will allow accesses to read-only
+ROCgdb will only allow accesses to read-only memory.
+If <code>read-write</code>, ROCgdb will allow accesses to read-only
 and to read-write memory.  Beware that the accessed memory corresponds
 to the live target and not necessarily to the current replay
 position.
@@ -387,14 +387,14 @@ errata when decoding the trace.
 <p>Processor errata are defects in processor operation, caused by its
 design or manufacture.  They can cause a trace not to match the
 specification.  This, in turn, may cause trace decode to fail.
-<small>ROCGDB</small> can detect erroneous trace packets and correct them, thus
+ROCgdb can detect erroneous trace packets and correct them, thus
 avoiding the decoding failures.  These corrections are known as
 <em>errata workarounds</em>, and are enabled based on the processor on
 which the trace was recorded.
 </p>
-<p>By default, <small>ROCGDB</small> attempts to detect the processor
+<p>By default, ROCgdb attempts to detect the processor
 automatically, and apply the necessary workarounds for it.  However,
-you may need to specify the processor if <small>ROCGDB</small> does not yet
+you may need to specify the processor if ROCgdb does not yet
 support it.  This command allows you to do that, and also allows to
 disable the workarounds.
 </p>
@@ -417,9 +417,9 @@ identifiers are currently supported:
 processor on which the trace was recorded.  If <var>identifier</var> is
 <code>none</code>, errata workarounds are disabled.
 </p>
-<p>For example, when using an old <small>ROCGDB</small> on a new system, decode
-may fail because <small>ROCGDB</small> does not support the new processor.  It
-often suffices to specify an older processor that <small>ROCGDB</small>
+<p>For example, when using an old ROCgdb on a new system, decode
+may fail because ROCgdb does not support the new processor.  It
+often suffices to specify an older processor that ROCgdb
 supports.
 </p>
 <div class="example">
@@ -453,7 +453,7 @@ workarounds.
 <dd><p>Set the requested ring buffer size for branch tracing in <acronym>BTS</acronym>
 format.  Default is 64KB.
 </p>
-<p>If <var>size</var> is a positive number, then <small>ROCGDB</small> will try to
+<p>If <var>size</var> is a positive number, then ROCgdb will try to
 allocate a buffer of at least <var>size</var> bytes for each new thread
 that uses the btrace recording method and the <acronym>BTS</acronym> format.
 The actually obtained buffer size may differ from the requested
@@ -461,10 +461,10 @@ The actually obtained buffer size may differ from the requested
 buffer size for each thread that uses the btrace recording method and
 the <acronym>BTS</acronym> format.
 </p>
-<p>If <var>limit</var> is <code>unlimited</code> or zero, <small>ROCGDB</small> will try to
+<p>If <var>limit</var> is <code>unlimited</code> or zero, ROCgdb will try to
 allocate a buffer of 4MB.
 </p>
-<p>Bigger buffers mean longer traces.  On the other hand, <small>ROCGDB</small> will
+<p>Bigger buffers mean longer traces.  On the other hand, ROCgdb will
 also need longer to process the branch trace data before it can be used.
 </p>
 </dd>
@@ -479,17 +479,17 @@ tracing in <acronym>BTS</acronym> format.
 <dd><p>Set the requested ring buffer size for branch tracing in Intel
 Processor Trace format.  Default is 16KB.
 </p>
-<p>If <var>size</var> is a positive number, then <small>ROCGDB</small> will try to
+<p>If <var>size</var> is a positive number, then ROCgdb will try to
 allocate a buffer of at least <var>size</var> bytes for each new thread
 that uses the btrace recording method and the Intel Processor Trace
 format.  The actually obtained buffer size may differ from the
 requested <var>size</var>.  Use the <code>info record</code> command to see the
 actual buffer size for each thread.
 </p>
-<p>If <var>limit</var> is <code>unlimited</code> or zero, <small>ROCGDB</small> will try to
+<p>If <var>limit</var> is <code>unlimited</code> or zero, ROCgdb will try to
 allocate a buffer of 4MB.
 </p>
-<p>Bigger buffers mean longer traces.  On the other hand, <small>ROCGDB</small> will
+<p>Bigger buffers mean longer traces.  On the other hand, ROCgdb will
 also need longer to process the branch trace data before it can be used.
 </p>
 </dd>
@@ -726,7 +726,7 @@ A size of <code>unlimited</code> means unlimited functions.
 <hr>
 <div class="header">
 <p>
-Next: <a href="Stack.html">Examining the Stack</a>, Previous: <a href="Reverse-Execution.html">Running programs backward</a>, Up: <a href="index.html">Debugging with <small>ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Stack.html">Examining the Stack</a>, Previous: <a href="Reverse-Execution.html">Running programs backward</a>, Up: <a href="index.html">Debugging with ROCgdb</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

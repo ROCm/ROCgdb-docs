@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Packets (Debugging with ROCGDB)</title>
+<title>Packets (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Packets (Debugging with ROCGDB)">
-<meta name="keywords" content="Packets (Debugging with ROCGDB)">
+<meta name="description" content="Packets (Debugging with ROCgdb)">
+<meta name="keywords" content="Packets (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -99,7 +99,7 @@ ul.no-bullet {list-style: none}
 <div class="section" id="Packets">
 <div class="header">
 <p>
-Next: <a href="Stop-Reply-Packets.html" accesskey="n" rel="next">Stop Reply Packets</a>, Previous: <a href="Standard-Replies.html" accesskey="p" rel="prev">Standard Replies</a>, Up: <a href="Remote-Protocol.html" accesskey="u" rel="up"><small>ROCGDB</small> Remote Serial Protocol</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Stop-Reply-Packets.html" accesskey="n" rel="next">Stop Reply Packets</a>, Previous: <a href="Standard-Replies.html" accesskey="p" rel="prev">Standard Replies</a>, Up: <a href="Remote-Protocol.html" accesskey="u" rel="up">ROCgdb Remote Serial Protocol</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
 <span id="Packets-1"></span><h3 class="section">E.3 Packets</h3>
@@ -112,11 +112,11 @@ I/O extension of the remote protocol.
 <p>Each packet&rsquo;s description has a template showing the packet&rsquo;s overall
 syntax, followed by an explanation of the packet&rsquo;s meaning.  We
 include spaces in some of the templates for clarity; these are not
-part of the packet&rsquo;s syntax.  No <small>ROCGDB</small> packet uses spaces to
+part of the packet&rsquo;s syntax.  No ROCgdb packet uses spaces to
 separate its components.  For example, a template like &lsquo;<samp>foo
 <var>bar</var> <var>baz</var></samp>&rsquo; describes a packet beginning with the three ASCII
 bytes &lsquo;<samp>foo</samp>&rsquo;, followed by a <var>bar</var>, followed directly by a
-<var>baz</var>.  <small>ROCGDB</small> does not transmit a space character between the
+<var>baz</var>.  ROCgdb does not transmit a space character between the
 &lsquo;<samp>foo</samp>&rsquo; and the <var>bar</var>, or between the <var>bar</var> and the
 <var>baz</var>.
 </p>
@@ -142,7 +142,7 @@ for those packets and replies explicitly documented to include a process
 ID, rather than a <var>thread-id</var>.
 </p>
 <p>The multiprocess <var>thread-id</var> syntax extensions are only used if both
-<small>ROCGDB</small> and the stub report support for the &lsquo;<samp>multiprocess</samp>&rsquo;
+ROCgdb and the stub report support for the &lsquo;<samp>multiprocess</samp>&rsquo;
 feature using &lsquo;<samp>qSupported</samp>&rsquo;.  See <a href="General-Query-Packets.html#multiprocess-extensions">multiprocess extensions</a>, for
 more information.
 </p>
@@ -258,9 +258,9 @@ See <a href="Stop-Reply-Packets.html">Stop Reply Packets</a>, for the reply spec
 </dd>
 <dt id='index-D-packet'><span>&lsquo;<samp>D</samp>&rsquo;<a href='#index-D-packet' class='copiable-anchor'> &para;</a></span></dt>
 <dt><span>&lsquo;<samp>D;<var>pid</var></samp>&rsquo;</span></dt>
-<dd><p>The first form of the packet is used to detach <small>ROCGDB</small> from the 
+<dd><p>The first form of the packet is used to detach ROCgdb from the 
 remote system.  It is sent to the remote target
-before <small>ROCGDB</small> disconnects via the <code>detach</code> command.
+before ROCgdb disconnects via the <code>detach</code> command.
 </p>
 <p>The second form, including a process ID, is used when multiprocess
 protocol extensions are enabled (see <a href="General-Query-Packets.html#multiprocess-extensions">multiprocess extensions</a>), to
@@ -276,7 +276,7 @@ big-endian hex string.
 
 </dd>
 <dt id='index-F-packet'><span>&lsquo;<samp>F <var>RC</var>,<var>EE</var>,<var>CF</var>;<var>XX</var></samp>&rsquo;<a href='#index-F-packet' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>A reply from <small>ROCGDB</small> to an &lsquo;<samp>F</samp>&rsquo; packet sent by the target.
+<dd><p>A reply from ROCgdb to an &lsquo;<samp>F</samp>&rsquo; packet sent by the target.
 This is part of the File-I/O protocol extension.  See <a href="File_002dI_002fO-Remote-Protocol-Extension.html">File-I/O Remote Protocol Extension</a>, for the specification.
 </p>
 </dd>
@@ -292,7 +292,7 @@ with the register are transmitted in target byte order.  The size of
 each register and their position within the &lsquo;<samp>g</samp>&rsquo; packet are
 determined by the target description (see <a href="Target-Descriptions.html">Target Descriptions</a>); in
 the absence of a target description, this is done using code internal
-to <small>ROCGDB</small>; typically this is some customary register layout for
+to ROCgdb; typically this is some customary register layout for
 the architecture in question.
 </p>
 <p>When reading registers, the stub may also return a string of literal
@@ -307,7 +307,7 @@ then it is better to not include it in the target description in the
 first place.
 </p>
 <p>For example, for an architecture with 4 registers of
-4 bytes each, the following reply indicates to <small>ROCGDB</small> that
+4 bytes each, the following reply indicates to ROCgdb that
 registers 0 and 2 are unavailable, while registers 1 and 3
 are available, and both have zero value:
 </p>
@@ -372,15 +372,15 @@ system.  For that reason, the &lsquo;<samp>k</samp>&rsquo; packet has no reply.
 <p>For a single-process target, it may kill that process if possible.
 </p>
 <p>A multiple-process target may choose to kill just one process, or all
-that are under <small>ROCGDB</small>&rsquo;s control.  For more precise control, use
+that are under ROCgdb&rsquo;s control.  For more precise control, use
 the vKill packet (see <a href="#vKill-packet">vKill packet</a>).
 </p>
 <p>If the target system immediately closes the connection in response to
-&lsquo;<samp>k</samp>&rsquo;, <small>ROCGDB</small> does not consider the lack of packet
+&lsquo;<samp>k</samp>&rsquo;, ROCgdb does not consider the lack of packet
 acknowledgment to be an error, and assumes the kill was successful.
 </p>
 <p>If connected using <kbd>target extended-remote</kbd>, and the target does
-not close the connection in response to a kill request, <small>ROCGDB</small>
+not close the connection in response to a kill request, ROCgdb
 probes the target state as if a new connection was opened
 (see <a href="#g_t_003f-packet">? packet</a>).
 </p>
@@ -411,7 +411,7 @@ of the region of memory.
 
 <p>Unlike most packets, this packet does not support
 &lsquo;<samp>E.<var>errtext</var></samp>&rsquo;-style textual error replies (see <a href="Standard-Replies.html#textual-error-reply">textual error reply</a>) by default.  Stubs should be careful to only send such a
-reply if <small>ROCGDB</small> reported support for it with the
+reply if ROCgdb reported support for it with the
 <code>error-message</code> feature (see <a href="General-Query-Packets.html#error_002dmessage">error-message</a>).
 </p>
 </dd>
@@ -608,7 +608,7 @@ the server must ignore &lsquo;<samp>t</samp>&rsquo; actions for threads that are
 stopped.
 </p>
 <p><em>Note:</em> In non-stop mode, a thread is considered running until
-<small>ROCGDB</small> acknowledges an asynchronous stop notification for it with
+ROCgdb acknowledges an asynchronous stop notification for it with
 the &lsquo;<samp>vStopped</samp>&rsquo; packet (see <a href="Remote-Non_002dStop.html">Remote Protocol Support for Non-Stop Mode</a>).
 </p>
 <p>The stub must support &lsquo;<samp>vCont</samp>&rsquo; if it reports support for
@@ -655,7 +655,7 @@ see <a href="Host-I_002fO-Packets.html">Host I/O Packets</a>.
 <dd><p>Direct the stub to erase <var>length</var> bytes of flash starting at
 <var>addr</var>.  The region may enclose any number of flash blocks, but
 its start and end must fall on block boundaries, as indicated by the
-flash block size appearing in the memory map (see <a href="Memory-Map-Format.html">Memory Map Format</a>).  <small>ROCGDB</small> groups flash memory programming operations
+flash block size appearing in the memory map (see <a href="Memory-Map-Format.html">Memory Map Format</a>).  ROCgdb groups flash memory programming operations
 together, and sends a &lsquo;<samp>vFlashDone</samp>&rsquo; request after each group; the
 stub is allowed to delay erase operation until the &lsquo;<samp>vFlashDone</samp>&rsquo;
 packet is received.
@@ -724,7 +724,7 @@ incorrectly return &lsquo;<samp>OK</samp>&rsquo; for unknown &lsquo;<samp>v</sam
 <code>gdbserver</code> handles unknown packets, it is important that this
 packet be handled in the same way as other unknown &lsquo;<samp>v</samp>&rsquo; packets.
 If this packet is handled differently to other unknown &lsquo;<samp>v</samp>&rsquo;
-packets then it is possible that <small>ROCGDB</small> may run into problems in
+packets then it is possible that ROCgdb may run into problems in
 other areas, specifically around use of &lsquo;<samp>vFile:setfs:</samp>&rsquo;.
 </p>
 </dd>
@@ -765,7 +765,7 @@ and <var>length</var> is a multiple of the word size, the stub is free to
 use byte accesses, or not.  For this reason, this packet may not be
 suitable for accessing memory-mapped I/O devices.
 </p>
-<p><small>ROCGDB</small> will only use this packet if the stub reports the
+<p>ROCgdb will only use this packet if the stub reports the
 &lsquo;<samp>binary-upload</samp>&rsquo; feature is supported in its &lsquo;<samp>qSupported</samp>&rsquo;
 reply (see <a href="General-Query-Packets.html#qSupported">qSupported</a>).
 </p>
@@ -834,10 +834,10 @@ architecture-specific value is being used, it should be &lsquo;<samp>0</samp>&rs
 conditional expressions in bytecode form that should be evaluated on
 the target&rsquo;s side.  These are the conditions that should be taken into
 consideration when deciding if the breakpoint trigger should be
-reported back to <small>ROCGDB</small>.
+reported back to ROCgdb.
 </p>
 <p>See also the &lsquo;<samp>swbreak</samp>&rsquo; stop reason (see <a href="Stop-Reply-Packets.html#swbreak-stop-reason">swbreak stop reason</a>)
-for how to best report a software breakpoint event to <small>ROCGDB</small>.
+for how to best report a software breakpoint event to ROCgdb.
 </p>
 <p>The <var>cond_list</var> parameter is comprised of a series of expressions,
 concatenated without separators. Each expression has the following form:
@@ -851,10 +851,10 @@ actual conditional expression in bytecode form.
 </dl>
 
 <p>The optional <var>cmd_list</var> parameter introduces commands that may be
-run on the target, rather than being reported back to <small>ROCGDB</small>.
+run on the target, rather than being reported back to ROCgdb.
 The parameter starts with a numeric flag <var>persist</var>; if the flag is
 nonzero, then the breakpoint may remain active and the commands
-continue to be run even when <small>ROCGDB</small> disconnects from the target.
+continue to be run even when ROCgdb disconnects from the target.
 Following this flag is a series of expressions concatenated with no
 separators.  Each expression has the following form:
 </p>
@@ -949,7 +949,7 @@ The number of bytes to watch is specified by <var>kind</var>.
 <hr>
 <div class="header">
 <p>
-Next: <a href="Stop-Reply-Packets.html">Stop Reply Packets</a>, Previous: <a href="Standard-Replies.html">Standard Replies</a>, Up: <a href="Remote-Protocol.html"><small>ROCGDB</small> Remote Serial Protocol</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Stop-Reply-Packets.html">Stop Reply Packets</a>, Previous: <a href="Standard-Replies.html">Standard Replies</a>, Up: <a href="Remote-Protocol.html">ROCgdb Remote Serial Protocol</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

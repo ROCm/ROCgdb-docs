@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Inline Functions (Debugging with ROCGDB)</title>
+<title>Inline Functions (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Inline Functions (Debugging with ROCGDB)">
-<meta name="keywords" content="Inline Functions (Debugging with ROCGDB)">
+<meta name="description" content="Inline Functions (Debugging with ROCgdb)">
+<meta name="keywords" content="Inline Functions (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -106,27 +106,27 @@ Next: <a href="Tail-Call-Frames.html" accesskey="n" rel="next">Tail Call Frames<
 
 <p><em>Inlining</em> is an optimization that inserts a copy of the function
 body directly at each call site, instead of jumping to a shared
-routine.  <small>ROCGDB</small> displays inlined functions just like
+routine.  ROCgdb displays inlined functions just like
 non-inlined functions.  They appear in backtraces.  You can view their
 arguments and local variables, step into them with <code>step</code>, skip
 them with <code>next</code>, and escape from them with <code>finish</code>.
 You can check whether a function was inlined by using the
 <code>info frame</code> command.
 </p>
-<p>For <small>ROCGDB</small> to support inlined functions, the compiler must
+<p>For ROCgdb to support inlined functions, the compiler must
 record information about inlining in the debug information &mdash;
 <small>GCC</small> using the <small>DWARF 2</small> format does this, and several
-other compilers do also.  <small>ROCGDB</small> only supports inlined functions
+other compilers do also.  ROCgdb only supports inlined functions
 when using <small>DWARF 2</small>.  Versions of <small>GCC</small> before 4.1
 do not emit two required attributes (&lsquo;<samp>DW_AT_call_file</samp>&rsquo; and
-&lsquo;<samp>DW_AT_call_line</samp>&rsquo;); <small>ROCGDB</small> does not display inlined
+&lsquo;<samp>DW_AT_call_line</samp>&rsquo;); ROCgdb does not display inlined
 function calls with earlier versions of <small>GCC</small>.  It instead
 displays the arguments and local variables of inlined functions as
 local variables in the caller.
 </p>
 <p>The body of an inlined function is directly included at its call site;
 unlike a non-inlined function, there are no instructions devoted to
-the call.  <small>ROCGDB</small> still pretends that the call site and the
+the call.  ROCgdb still pretends that the call site and the
 start of the inlined function are different instructions.  Stepping to
 the call site shows the call site, and then stepping again shows
 the first line of the inlined function, even though no additional
@@ -137,18 +137,18 @@ context of the call and then the effect of the call.  Only stepping by
 a single instruction using <code>stepi</code> or <code>nexti</code> does not do
 this; single instruction steps always show the inlined body.
 </p>
-<p>There are some ways that <small>ROCGDB</small> does not pretend that inlined
+<p>There are some ways that ROCgdb does not pretend that inlined
 function calls are the same as normal calls:
 </p>
 <ul>
 <li> Setting breakpoints at the call site of an inlined function may not
-work, because the call site does not contain any code.  <small>ROCGDB</small>
+work, because the call site does not contain any code.  ROCgdb
 may incorrectly move the breakpoint to the next line of the enclosing
 function, after the call.  This limitation will be removed in a future
-version of <small>ROCGDB</small>; until then, set a breakpoint on an earlier line
+version of ROCgdb; until then, set a breakpoint on an earlier line
 or inside the inlined function instead.
 
-</li><li> <small>ROCGDB</small> cannot locate the return value of inlined calls after
+</li><li> ROCgdb cannot locate the return value of inlined calls after
 using the <code>finish</code> command.  This is a limitation of compiler-generated
 debugging information; after <code>finish</code>, you can step to the next line
 and print a variable where your program stored the return value.

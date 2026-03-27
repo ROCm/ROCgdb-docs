@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Rust (Debugging with ROCGDB)</title>
+<title>Rust (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Rust (Debugging with ROCGDB)">
-<meta name="keywords" content="Rust (Debugging with ROCGDB)">
+<meta name="description" content="Rust (Debugging with ROCgdb)">
+<meta name="keywords" content="Rust (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -104,7 +104,7 @@ Next: <a href="Modula_002d2.html" accesskey="n" rel="next">Modula-2</a>, Previou
 <hr>
 <span id="Rust-1"></span><h4 class="subsection">15.4.8 Rust</h4>
 
-<p><small>ROCGDB</small> supports the <a href="https://www.rust-lang.org/">Rust
+<p>ROCgdb supports the <a href="https://www.rust-lang.org/">Rust
 Programming Language</a>.  Type- and value-printing, and expression
 parsing, are reasonably complete.  However, there are a few
 peculiarities and holes to be aware of.
@@ -114,7 +114,7 @@ peculiarities and holes to be aware of.
 current crate.  Instead, they act as if there were a global namespace
 of crates, somewhat similar to the way <code>extern crate</code> behaves.
 
-<p>That is, if <small>ROCGDB</small> is stopped at a breakpoint in a function in
+<p>That is, if ROCgdb is stopped at a breakpoint in a function in
 crate &lsquo;<samp>A</samp>&rsquo;, module &lsquo;<samp>B</samp>&rsquo;, then <code>break B::f</code> will attempt
 to set a breakpoint in a function named &lsquo;<samp>f</samp>&rsquo; in a crate named
 &lsquo;<samp>B</samp>&rsquo;.
@@ -122,14 +122,14 @@ to set a breakpoint in a function named &lsquo;<samp>f</samp>&rsquo; in a crate 
 <p>As a consequence of this approach, linespecs also cannot refer to
 items using &lsquo;<samp>self::</samp>&rsquo; or &lsquo;<samp>super::</samp>&rsquo;.
 </p>
-</li><li> Because <small>ROCGDB</small> implements Rust name-lookup semantics in
+</li><li> Because ROCgdb implements Rust name-lookup semantics in
 expressions, it will sometimes prepend the current crate to a name.
-For example, if <small>ROCGDB</small> is stopped at a breakpoint in the crate
+For example, if ROCgdb is stopped at a breakpoint in the crate
 &lsquo;<samp>K</samp>&rsquo;, then <code>print ::x::y</code> will try to find the symbol
 &lsquo;<samp>K::x::y</samp>&rsquo;.
 
 <p>However, since it is useful to be able to refer to other crates when
-debugging, <small>ROCGDB</small> provides the <code>extern</code> extension to
+debugging, ROCgdb provides the <code>extern</code> extension to
 circumvent this.  To use the extension, just put <code>extern</code> before
 a path expression to refer to the otherwise unavailable &ldquo;global&rdquo;
 scope.
@@ -146,22 +146,22 @@ expressions such as <code>if</code> or <code>match</code>, or lambda expressions
 <code>Drop</code> trait.  Objects that may be created by the evaluator will
 never be destroyed.
 
-</li><li> <small>ROCGDB</small> does not implement type inference for generics.  In order
+</li><li> ROCgdb does not implement type inference for generics.  In order
 to call generic functions or otherwise refer to generic items, you
 will have to specify the type parameters manually.
 
-</li><li> <small>ROCGDB</small> currently uses the C<tt>++</tt> demangler for Rust.  In most
+</li><li> ROCgdb currently uses the C<tt>++</tt> demangler for Rust.  In most
 cases this does not cause any problems.  However, in an expression
 context, completing a generic function name will give syntactically
 invalid results.  This happens because Rust requires the &lsquo;<samp>::</samp>&rsquo;
 operator between the function name and its generic arguments.  For
-example, <small>ROCGDB</small> might provide a completion like
+example, ROCgdb might provide a completion like
 <code>crate::f&lt;u32&gt;</code>, where the parser would require
 <code>crate::f::&lt;u32&gt;</code>.
 
 </li><li> As of this writing, the Rust compiler (version 1.8) has a few holes in
 the debugging information it generates.  These holes prevent certain
-features from being implemented by <small>ROCGDB</small>:
+features from being implemented by ROCgdb:
 <ul>
 <li> Method calls cannot be made via traits.
 

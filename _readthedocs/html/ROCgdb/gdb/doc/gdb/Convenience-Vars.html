@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Convenience Vars (Debugging with ROCGDB)</title>
+<title>Convenience Vars (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Convenience Vars (Debugging with ROCGDB)">
-<meta name="keywords" content="Convenience Vars (Debugging with ROCGDB)">
+<meta name="description" content="Convenience Vars (Debugging with ROCgdb)">
+<meta name="keywords" content="Convenience Vars (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -106,9 +106,9 @@ Next: <a href="Convenience-Funs.html" accesskey="n" rel="next">Convenience Funct
 
 <span id="index-convenience-variables"></span>
 <span id="index-user_002ddefined-variables"></span>
-<p><small>ROCGDB</small> provides <em>convenience variables</em> that you can use within
-<small>ROCGDB</small> to hold on to a value and refer to it later.  These variables
-exist entirely within <small>ROCGDB</small>; they are not part of your program, and
+<p>ROCgdb provides <em>convenience variables</em> that you can use within
+ROCgdb to hold on to a value and refer to it later.  These variables
+exist entirely within ROCgdb; they are not part of your program, and
 setting a convenience variable has no direct effect on further execution
 of your program.  That is why you can use them freely.
 </p>
@@ -173,7 +173,7 @@ print bar[$i++]-&gt;contents
 
 <p>Repeat that command by typing <tt class="key">RET</tt>.
 </p>
-<p>Some convenience variables are created automatically by <small>ROCGDB</small> and given
+<p>Some convenience variables are created automatically by ROCgdb and given
 values likely to be useful.
 </p>
 <dl compact="compact">
@@ -197,14 +197,14 @@ to match the format in which the data was printed.
 </p>
 </dd>
 <dt id='index-_0024_005fexitcode_002c-convenience-variable'><span><code>$_exitcode</code><a href='#index-_0024_005fexitcode_002c-convenience-variable' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>When the program being debugged terminates normally, <small>ROCGDB</small>
+<dd><p>When the program being debugged terminates normally, ROCgdb
 automatically sets this variable to the exit code of the program, and
 resets <code>$_exitsignal</code> to <code>void</code>.
 </p>
 </dd>
 <dt id='index-_0024_005fexitsignal_002c-convenience-variable'><span><code>$_exitsignal</code><a href='#index-_0024_005fexitsignal_002c-convenience-variable' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>When the program being debugged dies due to an uncaught signal,
-<small>ROCGDB</small> automatically sets this variable to that signal&rsquo;s number,
+ROCgdb automatically sets this variable to that signal&rsquo;s number,
 and resets <code>$_exitcode</code> to <code>void</code>.
 </p>
 <p>To distinguish between whether the program being debugged has exited
@@ -246,10 +246,10 @@ The program no longer exists.
 The program has signalled
 </pre></div>
 
-<p>As can be seen, <small>ROCGDB</small> correctly informs that the program being
+<p>As can be seen, ROCgdb correctly informs that the program being
 debugged has signalled, since it calls <code>raise</code> and raises a
 <code>SIGALRM</code> signal.  If the program being debugged had not called
-<code>raise</code>, then <small>ROCGDB</small> would report a normal exit:
+<code>raise</code>, then ROCgdb would report a normal exit:
 </p>
 <div class="example">
 <pre class="example">(gdb) has_exited_or_signalled
@@ -324,11 +324,11 @@ no name has been assigned.  See <a href="Threads.html#thread-name">thread name</
 <dt id='index-_0024_005fgdb_005fmajor_002c-convenience-variable'><span><code>$_gdb_major</code><a href='#index-_0024_005fgdb_005fmajor_002c-convenience-variable' class='copiable-anchor'> &para;</a></span></dt>
 <dt><span><code>$_gdb_minor</code></span></dt>
 <dd><span id="index-_0024_005fgdb_005fminor_002c-convenience-variable"></span>
-<p>The major and minor version numbers of the running <small>ROCGDB</small>.
+<p>The major and minor version numbers of the running ROCgdb.
 Development snapshots and pretest versions have their minor version
-incremented by one; thus, <small>ROCGDB</small> pretest 9.11.90 will produce
+incremented by one; thus, ROCgdb pretest 9.11.90 will produce
 the value 12 for <code>$_gdb_minor</code>.  These variables allow you to
-write scripts that work with different versions of <small>ROCGDB</small>
+write scripts that work with different versions of ROCgdb
 without errors caused by features unavailable in some of those
 versions.
 </p>
@@ -339,8 +339,8 @@ versions.
 <span id="index-shell-command_002c-exit-code"></span>
 <span id="index-shell-command_002c-exit-signal"></span>
 <span id="index-exit-status-of-shell-commands"></span>
-<p><small>ROCGDB</small> commands such as <code>shell</code> and <code>|</code> are launching
-shell commands.  When a launched command terminates, <small>ROCGDB</small>
+<p>ROCgdb commands such as <code>shell</code> and <code>|</code> are launching
+shell commands.  When a launched command terminates, ROCgdb
 automatically maintains the variables <code>$_shell_exitcode</code>
 and <code>$_shell_exitsignal</code> according to the exit status of the last
 launched command.  These variables are set and used similarly to

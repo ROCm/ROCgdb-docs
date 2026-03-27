@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>JIT Interface (Debugging with ROCGDB)</title>
+<title>JIT Interface (Debugging with ROCgdb)</title>
 
-<meta name="description" content="JIT Interface (Debugging with ROCGDB)">
-<meta name="keywords" content="JIT Interface (Debugging with ROCGDB)">
+<meta name="description" content="JIT Interface (Debugging with ROCgdb)">
+<meta name="keywords" content="JIT Interface (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -99,34 +99,34 @@ ul.no-bullet {list-style: none}
 <div class="chapter" id="JIT-Interface">
 <div class="header">
 <p>
-Next: <a href="In_002dProcess-Agent.html" accesskey="n" rel="next">In-Process Agent</a>, Previous: <a href="Debugger-Adapter-Protocol.html" accesskey="p" rel="prev">Debugger Adapter Protocol</a>, Up: <a href="index.html" accesskey="u" rel="up">Debugging with <small>ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="In_002dProcess-Agent.html" accesskey="n" rel="next">In-Process Agent</a>, Previous: <a href="Debugger-Adapter-Protocol.html" accesskey="p" rel="prev">Debugger Adapter Protocol</a>, Up: <a href="index.html" accesskey="u" rel="up">Debugging with ROCgdb</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
 <span id="JIT-Compilation-Interface"></span><h2 class="chapter">31 JIT Compilation Interface</h2>
 <span id="index-just_002din_002dtime-compilation"></span>
 <span id="index-JIT-compilation-interface"></span>
 
-<p>This chapter documents <small>ROCGDB</small>&rsquo;s <em>just-in-time</em> (JIT) compilation
+<p>This chapter documents ROCgdb&rsquo;s <em>just-in-time</em> (JIT) compilation
 interface.  A JIT compiler is a program or library that generates native
 executable code at runtime and executes it, usually in order to achieve good
 performance while maintaining platform independence. 
 </p>
 <p>Programs that use JIT compilation are normally difficult to debug because
 portions of their code are generated at runtime, instead of being loaded from
-object files, which is where <small>ROCGDB</small> normally finds the program&rsquo;s symbols
+object files, which is where ROCgdb normally finds the program&rsquo;s symbols
 and debug information.  In order to debug programs that use JIT compilation,
-<small>ROCGDB</small> has an interface that allows the program to register in-memory
-symbol files with <small>ROCGDB</small> at runtime.
+ROCgdb has an interface that allows the program to register in-memory
+symbol files with ROCgdb at runtime.
 </p>
-<p>If you are using <small>ROCGDB</small> to debug a program that uses this interface, then
+<p>If you are using ROCgdb to debug a program that uses this interface, then
 it should work transparently so long as you have not stripped the binary.  If
 you are developing a JIT compiler, then the interface is documented in the rest
 of this chapter.  At this time, the only known client of this interface is the
 LLVM JIT.
 </p>
 <p>Broadly speaking, the JIT interface mirrors the dynamic loader interface.  The
-JIT compiler communicates with <small>ROCGDB</small> by writing data into a global
-variable and calling a function at a well-known symbol.  When <small>ROCGDB</small>
+JIT compiler communicates with ROCgdb by writing data into a global
+variable and calling a function at a well-known symbol.  When ROCgdb
 attaches, it reads a linked list of symbol files from the global variable to
 find existing code, and puts a breakpoint in the function so that it can find
 out about additional code.
