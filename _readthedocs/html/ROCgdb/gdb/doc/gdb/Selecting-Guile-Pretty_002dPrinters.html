@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Selecting Guile Pretty-Printers (Debugging with ROCGDB)</title>
+<title>Selecting Guile Pretty-Printers (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Selecting Guile Pretty-Printers (Debugging with ROCGDB)">
-<meta name="keywords" content="Selecting Guile Pretty-Printers (Debugging with ROCGDB)">
+<meta name="description" content="Selecting Guile Pretty-Printers (Debugging with ROCgdb)">
+<meta name="keywords" content="Selecting Guile Pretty-Printers (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -105,7 +105,7 @@ Next: <a href="Writing-a-Guile-Pretty_002dPrinter.html" accesskey="n" rel="next"
 <span id="Selecting-Guile-Pretty_002dPrinters-1"></span><h4 class="subsubsection">24.4.3.9 Selecting Guile Pretty-Printers</h4>
 <span id="index-selecting-guile-pretty_002dprinters"></span>
 
-<p>There are three sets of pretty-printers that <small>ROCGDB</small> searches:
+<p>There are three sets of pretty-printers that ROCgdb searches:
 </p>
 <ul>
 <li> Per-objfile list of pretty-printers (see <a href="Objfiles-In-Guile.html">Objfiles In Guile</a>).
@@ -121,11 +121,11 @@ or when the list is exhausted.
 Lookup functions must return either a <code>&lt;gdb:pretty-printer-worker&gt;</code>
 object or <code>#f</code>.  Otherwise an exception is thrown.
 </p>
-<p><small>ROCGDB</small> first checks the result of <code>objfile-pretty-printers</code>
+<p>ROCgdb first checks the result of <code>objfile-pretty-printers</code>
 of each <code>&lt;gdb:objfile&gt;</code> in the current program space and iteratively
 calls each enabled lookup function in the list for that <code>&lt;gdb:objfile&gt;</code>
 until a non-<code>#f</code> object is returned.
-If no pretty-printer is found in the objfile lists, <small>ROCGDB</small> then
+If no pretty-printer is found in the objfile lists, ROCgdb then
 searches the result of <code>progspace-pretty-printers</code> of the current
 program space, calling each enabled function until a non-<code>#f</code> object
 is returned.
@@ -143,7 +143,7 @@ For example, the underlying data structure may have changed and
 the pretty-printer is out of date.
 </p>
 <p>The consequences of a broken pretty-printer are severe enough that
-<small>ROCGDB</small> provides support for enabling and disabling individual
+ROCgdb provides support for enabling and disabling individual
 printers.  For example, if <code>print frame-arguments</code> is on,
 a backtrace can become highly illegible if any argument is printed
 with a broken printer.

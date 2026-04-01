@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Unwinding Frames in Python (Debugging with ROCGDB)</title>
+<title>Unwinding Frames in Python (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Unwinding Frames in Python (Debugging with ROCGDB)">
-<meta name="keywords" content="Unwinding Frames in Python (Debugging with ROCGDB)">
+<meta name="description" content="Unwinding Frames in Python (Debugging with ROCgdb)">
+<meta name="keywords" content="Unwinding Frames in Python (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -105,20 +105,20 @@ Next: <a href="Xmethods-In-Python.html" accesskey="n" rel="next">Xmethods In Pyt
 <span id="Unwinding-Frames-in-Python-1"></span><h4 class="subsubsection">24.3.2.13 Unwinding Frames in Python</h4>
 <span id="index-unwinding-frames-in-Python"></span>
 
-<p>In <small>ROCGDB</small> terminology &ldquo;unwinding&rdquo; is the process of finding
+<p>In ROCgdb terminology &ldquo;unwinding&rdquo; is the process of finding
 the previous frame (that is, caller&rsquo;s) from the current one.  An
 unwinder has three methods.  The first one checks if it can handle
 given frame (&ldquo;sniff&rdquo; it).  For the frames it can sniff an unwinder
 provides two additional methods: it can return frame&rsquo;s ID, and it can
-fetch registers from the previous frame.  A running <small>ROCGDB</small>
+fetch registers from the previous frame.  A running ROCgdb
 maintains a list of the unwinders and calls each unwinder&rsquo;s sniffer in
 turn until it finds the one that recognizes the current frame.  There
 is an API to register an unwinder.
 </p>
-<p>The unwinders that come with <small>ROCGDB</small> handle standard frames.
+<p>The unwinders that come with ROCgdb handle standard frames.
 However, mixed language applications (for example, an application
 running Java Virtual Machine) sometimes use frame layouts that cannot
-be handled by the <small>ROCGDB</small> unwinders.  You can write Python code
+be handled by the ROCgdb unwinders.  You can write Python code
 that can handle such custom frames.
 </p>
 <p>You implement a frame unwinder in Python as a class with which has two
@@ -126,15 +126,15 @@ attributes, <code>name</code> and <code>enabled</code>, with obvious meanings, a
 a single method <code>__call__</code>, which examines a given frame and
 returns an object (an instance of <code>gdb.UnwindInfo class)</code>
 describing it.  If an unwinder does not recognize a frame, it should
-return <code>None</code>.  The code in <small>ROCGDB</small> that enables writing
+return <code>None</code>.  The code in ROCgdb that enables writing
 unwinders in Python uses this object to return frame&rsquo;s ID and previous
-frame registers when <small>ROCGDB</small> core asks for them.
+frame registers when ROCgdb core asks for them.
 </p>
 <p>An unwinder should do as little work as possible.  Some otherwise
 innocuous operations can cause problems (even crashes, as this code is
 not well-hardened yet).  For example, making an inferior call from
 an unwinder is unadvisable, as an inferior call will reset
-<small>ROCGDB</small>&rsquo;s stack unwinding process, potentially causing re-entrant
+ROCgdb&rsquo;s stack unwinding process, potentially causing re-entrant
 unwinding.
 </p>
 <span id="Unwinder-Input"></span><h4 class="subheading">Unwinder Input</h4>
@@ -167,15 +167,15 @@ pointer, pointer-to-function, floating point or vector types.
 </p></dd></dl>
 
 <p>It also provides a factory method to create a <code>gdb.UnwindInfo</code>
-instance to be returned to <small>ROCGDB</small>:
+instance to be returned to ROCgdb:
 </p>
 <span id="gdb_002ePendingFrame_002ecreate_005funwind_005finfo"></span><dl class="def">
 <dt id="index-PendingFrame_002ecreate_005funwind_005finfo"><span class="category">Function: </span><span><strong>PendingFrame.create_unwind_info</strong> <em>(frame_id)</em><a href='#index-PendingFrame_002ecreate_005funwind_005finfo' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Returns a new <code>gdb.UnwindInfo</code> instance identified by given
-<var>frame_id</var>.  The <var>frame_id</var> is used internally by <small>ROCGDB</small>
+<var>frame_id</var>.  The <var>frame_id</var> is used internally by ROCgdb
 to identify the frames within the current thread&rsquo;s stack.  The
 attributes of <var>frame_id</var> determine what type of frame is
-created within <small>ROCGDB</small>:
+created within ROCgdb:
 </p>
 <dl compact="compact">
 <dt><span><code>sp, pc</code></span></dt>
@@ -289,7 +289,7 @@ values see <a href="Frames-In-Python.html#gdbpy_005fframe_005fread_005fregister"
 
 <span id="The-gdb_002eunwinder-Module"></span><h4 class="subheading">The <code>gdb.unwinder</code> Module</h4>
 
-<p><small>ROCGDB</small> comes with a <code>gdb.unwinder</code> module which contains
+<p>ROCgdb comes with a <code>gdb.unwinder</code> module which contains
 the following classes:
 </p>
 <dl class="def">
@@ -302,7 +302,7 @@ from this class, so long as any user created unwinder has the required
 <dl class="def">
 <dt id="index-gdb_002eunwinder_002eUnwinder_002e_005f_005finit_005f_005f_0028name_0029"><span class="category">Function: </span><span><strong>gdb.unwinder.Unwinder.__init__(name)</strong><a href='#index-gdb_002eunwinder_002eUnwinder_002e_005f_005finit_005f_005f_0028name_0029' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>The <var>name</var> is a string used to reference this unwinder within some
-<small>ROCGDB</small> commands (see <a href="#Managing-Registered-Unwinders">Managing Registered Unwinders</a>).
+ROCgdb commands (see <a href="#Managing-Registered-Unwinders">Managing Registered Unwinders</a>).
 </p></dd></dl>
 
 <dl class="def">
@@ -313,7 +313,7 @@ from this class, so long as any user created unwinder has the required
 <dl class="def">
 <dt id="index-gdb_002eunwinder_002eenabled"><span class="category">Variable: </span><span><strong>gdb.unwinder.enabled</strong><a href='#index-gdb_002eunwinder_002eenabled' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>A modifiable attribute containing a boolean; when <code>True</code>, the
-unwinder is enabled, and will be used by <small>ROCGDB</small>.  When
+unwinder is enabled, and will be used by ROCgdb.  When
 <code>False</code>, the unwinder has been disabled, and will not be used.
 </p></dd></dl>
 </dd></dl>
@@ -376,10 +376,10 @@ name raises an exception unless <var>replace</var> is <code>True</code>, in whic
 case the old unwinder is deleted and the new unwinder is registered in
 its place.
 </p>
-<p><small>ROCGDB</small> first calls the unwinders from all the object files in no
+<p>ROCgdb first calls the unwinders from all the object files in no
 particular order, then the unwinders from the current program space,
 then the globally registered unwinders, and finally the unwinders
-builtin to <small>ROCGDB</small>.
+builtin to ROCgdb.
 </p></dd></dl>
 
 <span id="Unwinder-Skeleton-Code"></span><h4 class="subheading">Unwinder Skeleton Code</h4>
@@ -415,7 +415,7 @@ gdb.unwinder.register_unwinder(&lt;locus&gt;, MyUnwinder(), &lt;replace&gt;)
 </pre></div>
 
 <span id="Managing-Registered-Unwinders"></span><span id="Managing-Registered-Unwinders-1"></span><h4 class="subheading">Managing Registered Unwinders</h4>
-<p><small>ROCGDB</small> defines 3 commands to manage registered unwinders.  These
+<p>ROCgdb defines 3 commands to manage registered unwinders.  These
 are:
 </p>
 <dl compact="compact">

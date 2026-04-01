@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Inferiors In Python (Debugging with ROCGDB)</title>
+<title>Inferiors In Python (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Inferiors In Python (Debugging with ROCGDB)">
-<meta name="keywords" content="Inferiors In Python (Debugging with ROCGDB)">
+<meta name="description" content="Inferiors In Python (Debugging with ROCgdb)">
+<meta name="keywords" content="Inferiors In Python (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -106,9 +106,9 @@ Next: <a href="Events-In-Python.html" accesskey="n" rel="next">Events In Python<
 <span id="index-inferiors-in-Python"></span>
 
 <span id="index-gdb_002eInferior"></span>
-<p>Programs which are being run under <small>ROCGDB</small> are called inferiors
+<p>Programs which are being run under ROCgdb are called inferiors
 (see <a href="Inferiors-Connections-and-Programs.html">Debugging Multiple Inferiors Connections and Programs</a>).  Python scripts can access
-information about and manipulate inferiors controlled by <small>ROCGDB</small>
+information about and manipulate inferiors controlled by ROCgdb
 via objects of the <code>gdb.Inferior</code> class.
 </p>
 <p>The following inferior-related functions are available in the <code>gdb</code>
@@ -128,7 +128,7 @@ module:
 </p>
 <dl class="def">
 <dt id="index-Inferior_002enum"><span class="category">Variable: </span><span><strong>Inferior.num</strong><a href='#index-Inferior_002enum' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>ID of inferior, as assigned by <small>ROCGDB</small>.  You can use this to make
+<dd><p>ID of inferior, as assigned by ROCgdb.  You can use this to make
 Python breakpoints inferior-specific, for example
 (see <a href="Breakpoints-In-Python.html#python_005fbreakpoint_005finferior">The Breakpoint.inferior
 attribute</a>).
@@ -141,7 +141,7 @@ attribute</a>).
 
 <dl class="def">
 <dt id="index-Inferior_002econnection_005fnum"><span class="category">Variable: </span><span><strong>Inferior.connection_num</strong><a href='#index-Inferior_002econnection_005fnum' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>ID of inferior&rsquo;s connection as assigned by <small>ROCGDB</small>, or None if
+<dd><p>ID of inferior&rsquo;s connection as assigned by ROCgdb, or None if
 the inferior is not connected to a target.  See <a href="Inferiors-Connections-and-Programs.html">Debugging Multiple Inferiors Connections and Programs</a>.  This is equivalent to
 <code>gdb.Inferior.connection.num</code> in the case where
 <code>gdb.Inferior.connection</code> is not <code>None</code>.
@@ -156,7 +156,7 @@ system.
 <dl class="def">
 <dt id="index-Inferior_002ewas_005fattached"><span class="category">Variable: </span><span><strong>Inferior.was_attached</strong><a href='#index-Inferior_002ewas_005fattached' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Boolean signaling whether the inferior was created using &lsquo;attach&rsquo;, or
-started by <small>ROCGDB</small> itself.
+started by ROCgdb itself.
 </p></dd></dl>
 
 <dl class="def">
@@ -183,7 +183,7 @@ there are no arguments, the value is <code>None</code>.
 <p>Either a string or a sequence of strings can be assigned to this
 attribute.  When a string is assigned, it is assumed to have any
 necessary quoting for the shell; when a sequence is assigned, the
-quoting is applied by <small>ROCGDB</small>.
+quoting is applied by ROCgdb.
 </p></dd></dl>
 
 <p>A <code>gdb.Inferior</code> object has the following methods:
@@ -192,7 +192,7 @@ quoting is applied by <small>ROCGDB</small>.
 <dt id="index-Inferior_002eis_005fvalid"><span class="category">Function: </span><span><strong>Inferior.is_valid</strong> <em>()</em><a href='#index-Inferior_002eis_005fvalid' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Returns <code>True</code> if the <code>gdb.Inferior</code> object is valid,
 <code>False</code> if not.  A <code>gdb.Inferior</code> object will become invalid
-if the inferior no longer exists within <small>ROCGDB</small>.  All other
+if the inferior no longer exists within ROCgdb.  All other
 <code>gdb.Inferior</code> methods will throw an exception if it is invalid
 at the time the method is called.
 </p></dd></dl>
@@ -284,7 +284,7 @@ some extra record keeping associated with the inferior.
 </p>
 <span id="choosing-attribute-names"></span><p>When selecting a name for a new attribute, avoid starting the new
 attribute name with a lower case letter; future attributes added by
-<small>ROCGDB</small> will start with a lower case letter.  Additionally, avoid
+ROCgdb will start with a lower case letter.  Additionally, avoid
 starting attribute names with two underscore characters, as these
 could clash with Python builtin attribute names.
 </p>

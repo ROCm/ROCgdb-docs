@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Static Probe Points (Debugging with ROCGDB)</title>
+<title>Static Probe Points (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Static Probe Points (Debugging with ROCGDB)">
-<meta name="keywords" content="Static Probe Points (Debugging with ROCGDB)">
+<meta name="description" content="Static Probe Points (Debugging with ROCgdb)">
+<meta name="keywords" content="Static Probe Points (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -106,7 +106,7 @@ Next: <a href="Error-in-Breakpoints.html" accesskey="n" rel="next">&ldquo;Cannot
 
 <span id="index-static-probe-point_002c-SystemTap"></span>
 <span id="index-static-probe-point_002c-DTrace"></span>
-<p><small>ROCGDB</small> supports <em>SDT</em> probes in the code.  <acronym>SDT</acronym> stands
+<p>ROCgdb supports <em>SDT</em> probes in the code.  <acronym>SDT</acronym> stands
 for Statically Defined Tracing, and the probes are designed to have a tiny
 runtime code and data footprint, and no dynamic relocations.
 </p>
@@ -127,10 +127,10 @@ C<tt>++</tt> languages.
 <p>Some <code>SystemTap</code> probes have an associated semaphore variable;
 for instance, this happens automatically if you defined your probe
 using a DTrace-style <samp>.d</samp> file.  If your probe has a semaphore,
-<small>ROCGDB</small> will automatically enable it when you specify a
+ROCgdb will automatically enable it when you specify a
 breakpoint using the &lsquo;<samp>-probe-stap</samp>&rsquo; notation.  But, if you put a
 breakpoint at a probe&rsquo;s location by some other method (e.g.,
-<code>break file:line</code>), then <small>ROCGDB</small> will not automatically set
+<code>break file:line</code>), then ROCgdb will not automatically set
 the semaphore.  <code>DTrace</code> probes do not support semaphores.
 </p>
 <p>You can examine the available static static probes using <code>info
@@ -203,13 +203,13 @@ convenience variables (see <a href="Convenience-Vars.html">Convenience Variables
 <code>$_probe_arg0</code>&hellip;<code>$_probe_arg11</code>.  In <code>SystemTap</code>
 probes each probe argument is an integer of the appropriate size;
 types are not preserved.  In <code>DTrace</code> probes types are preserved
-provided that they are recognized as such by <small>ROCGDB</small>; otherwise
+provided that they are recognized as such by ROCgdb; otherwise
 the value of the probe argument will be a long integer.  The
 convenience variable <code>$_probe_argc</code> holds the number of arguments
 at the current probe point.
 </p>
 <p>These variables are always available, but attempts to access them at
-any location other than a probe point will cause <small>ROCGDB</small> to give
+any location other than a probe point will cause ROCgdb to give
 an error message.
 </p>
 

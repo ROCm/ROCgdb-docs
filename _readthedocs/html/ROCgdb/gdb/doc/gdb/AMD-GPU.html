@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>AMD GPU (Debugging with ROCGDB)</title>
+<title>AMD GPU (Debugging with ROCgdb)</title>
 
-<meta name="description" content="AMD GPU (Debugging with ROCGDB)">
-<meta name="keywords" content="AMD GPU (Debugging with ROCGDB)">
+<meta name="description" content="AMD GPU (Debugging with ROCgdb)">
+<meta name="keywords" content="AMD GPU (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -104,7 +104,7 @@ Previous: <a href="S12Z.html" accesskey="p" rel="prev">S12Z</a>, Up: <a href="Ar
 <span id="AMD-GPU-1"></span><h4 class="subsection">22.4.9 <acronym>AMD GPU</acronym></h4>
 <span id="index-AMD-GPU-support"></span>
 
-<p><small>ROCGDB</small> provides support for systems that have heterogeneous
+<p>ROCgdb provides support for systems that have heterogeneous
 agents associated with commercially available <acronym>AMD GPU</acronym>
 devices (see <a href="Heterogeneous-Debugging.html">Debugging Heterogeneous Programs</a>) when the
 <a href="https://docs.amd.com"><acronym>AMD ROCm</acronym></a> platform is installed.
@@ -233,7 +233,7 @@ examples of product names.
 <div class="subsubsection" id="AMD-ROCm-Source-Languages">
 <h4 class="subsubsection">22.4.9.2 <acronym>AMD ROCm</acronym> Source Languages</h4>
 
-<p><small>ROCGDB</small> supports the following source languages:
+<p>ROCgdb supports the following source languages:
 </p>
 <dl compact="compact">
 <dt><span><em>HIP</em></span></dt>
@@ -241,7 +241,7 @@ examples of product names.
 <a href="https://github.com/ROCm-Developer-Tools/HIP/blob/master/docs/markdown/hip_kernel_language.md">HIP Programming Language</a> is supported.
 </p>
 <p>When compiling, the <samp><span class="nolinebreak">-g</span></samp><!-- /@w --> option should be used to produce
-debugging information suitable for use by <small>ROCGDB</small>.  The
+debugging information suitable for use by ROCgdb.  The
 <samp><span class="nolinebreak">--offload-arch</span></samp><!-- /@w --> option is used to specify the <acronym>AMD
 GPU</acronym> chips that the executable is required to support.  For example,
 to compile a HIP program that can utilize &ldquo;Vega 10&rdquo; and &ldquo;Vega 7nm&rdquo;
@@ -253,7 +253,7 @@ to compile a HIP program that can utilize &ldquo;Vega 10&rdquo; and &ldquo;Vega 
 
 <p>The <acronym>AMD ROCm</acronym> compiler maps HIP source language device
 function work-items to the lanes of an <acronym>AMD GPU</acronym> wavefront,
-which are represented in <small>ROCGDB</small> as heterogeneous lanes.
+which are represented in ROCgdb as heterogeneous lanes.
 </p>
 </dd>
 <dt><span><em>Assembly Code</em></span></dt>
@@ -273,7 +273,7 @@ See <a href="Unsupported-Languages.html">Unsupported Languages</a>.
 <div class="subsubsection" id="AMD-GPU-Device-Driver-and-AMD-ROCm-Runtime">
 <h4 class="subsubsection">22.4.9.3 <acronym>AMD GPU</acronym> Device Driver and <acronym>AMD ROCm</acronym> Runtime</h4>
 
-<p><small>ROCGDB</small> requires a compatible <acronym>AMD GPU</acronym> device driver to
+<p>ROCgdb requires a compatible <acronym>AMD GPU</acronym> device driver to
 be installed.  A warning message is displayed if either the device
 driver version or the version of the debug support it implements is
 unsupported.  For example,
@@ -283,10 +283,10 @@ unsupported.  For example,
 amd-dbgapi: warning: AMD GPU driver's debug support version 9.0 not supported (version 10.x where x &gt;= 1) required
 </pre></div>
 
-<p><small>ROCGDB</small> will continue to function except no <acronym>AMD GPU</acronym>
+<p>ROCgdb will continue to function except no <acronym>AMD GPU</acronym>
 debugging will be possible.
 </p>
-<p><small>ROCGDB</small> requires each agent to have compatible firmware installed
+<p>ROCgdb requires each agent to have compatible firmware installed
 by the device driver.  A warning message is displayed if unsupported
 firmware is detected.  For example,
 </p>
@@ -294,10 +294,10 @@ firmware is detected.  For example,
 <pre class="example">amd-dbgapi: warning: AMD GPU gpu_id 17619's firmware version 458 not supported (version &gt;= 555 required)
 </pre></div>
 
-<p><small>ROCGDB</small> will continue to function except no <acronym>AMD GPU</acronym>
+<p>ROCgdb will continue to function except no <acronym>AMD GPU</acronym>
 debugging will be possible on the agent.
 </p>
-<p><small>ROCGDB</small> requires a compatible <acronym>AMD ROCm</acronym> runtime to be
+<p>ROCgdb requires a compatible <acronym>AMD ROCm</acronym> runtime to be
 loaded in order to detect <acronym>AMD GPU</acronym> code objects and
 wavefronts.  A warning message is displayed if an unsupported
 <acronym>AMD ROCm</acronym> runtime is detected, or there is an error or
@@ -307,7 +307,7 @@ restriction that prevents debugging.  For example,
 <pre class="example">amd_dbgapi: warning: AMD GPU runtime's r_debug::r_version 5 not supported (r_debug::r_version &gt;= 6 required)
 </pre></div>
 
-<p><small>ROCGDB</small> will continue to function except no <acronym>AMD GPU</acronym>
+<p>ROCgdb will continue to function except no <acronym>AMD GPU</acronym>
 debugging will be possible.
 </p>
 </div>
@@ -319,8 +319,8 @@ debugging will be possible.
 the program.
 </p>
 <p>Debugging an agent is unsupported if it has an architecture that is
-not supported by <small>ROCGDB</small> or the <acronym>AMD GPU</acronym> device driver,
-or the firmware version is not supported by <small>ROCGDB</small>.
+not supported by ROCgdb or the <acronym>AMD GPU</acronym> device driver,
+or the firmware version is not supported by ROCgdb.
 </p>
 </div>
 <div class="subsubsection" id="AMD-GPU-Heterogeneous-Queues">
@@ -416,12 +416,12 @@ dispatch completes.
 <div class="subsubsection" id="AMD-GPU-Wavefronts">
 <h4 class="subsubsection">22.4.9.7 <acronym>AMD GPU</acronym> Wavefronts</h4>
 
-<p>An <acronym>AMD GPU</acronym> wavefront is represented in <small>ROCGDB</small> as a
+<p>An <acronym>AMD GPU</acronym> wavefront is represented in ROCgdb as a
 thread.
 </p>
 <span id="index-AMD-GPU-thread-names"></span>
 <span id="index-AMD-GPU-wave-names"></span>
-<p><small>ROCGDB</small> determines the name of the wavefront based on the name of
+<p>ROCgdb determines the name of the wavefront based on the name of
 its kernel function.  If the name would be longer than 16 characters,
 it is truncated and a hash of the non-truncated name is appended.  See
 <a href="Threads.html#thread-name">thread name</a> and <a href="Heterogeneous-Debugging.html#info-dispatches">info dispatches</a>.
@@ -447,7 +447,7 @@ nor report completion of a single step command.  If necessary,
 </p>
 <p>Note that some <acronym>AMD GPU</acronym> architectures may have restrictions
 on providing information about <acronym>AMD GPU</acronym> wavefronts created
-when <small>ROCGDB</small> is not attached (see <a href="#AMD-GPU-Attaching-Restrictions"><acronym>AMD GPU</acronym> Attaching Restrictions</a>).
+when ROCgdb is not attached (see <a href="#AMD-GPU-Attaching-Restrictions"><acronym>AMD GPU</acronym> Attaching Restrictions</a>).
 </p>
 <p>When scheduler-locking is in effect (see <a href="All_002dStop-Mode.html#set-scheduler_002dlocking">set scheduler-locking</a>),
 new wavefronts created by the resumed thread (either CPU thread or GPU
@@ -789,13 +789,13 @@ executing instructions:
 <dd><p>Execution of a <code>S_TRAP</code> instruction other than:
 </p>
 <ul>
-<li> <code>S_TRAP 1</code> which is used by <small>ROCGDB</small> to insert breakpoints.
+<li> <code>S_TRAP 1</code> which is used by ROCgdb to insert breakpoints.
 
 </li><li> <code>S_TRAP 2</code> which raises <code>SIGABRT</code>.
 
 </li></ul>
 
-<p>Note that <code>S_TRAP 3</code> only raises a signal when <small>ROCGDB</small> is
+<p>Note that <code>S_TRAP 3</code> only raises a signal when ROCgdb is
 attached to the inferior.  Otherwise, it is treated as a no-operation.
 The compiler generates <code>S_TRAP 3</code> for the <code>llvm.debugtrap</code>
 intrinsic.
@@ -863,7 +863,7 @@ puts a queue into the queue error state it may invoke an application
 registered callback that could either abort the application or delete
 the queue which will delete any wavefronts associated with the queue.
 </p>
-<p>The <small>ROCGDB</small> signal-related commands (see <a href="Signals.html">Signals</a>) can be used
+<p>The ROCgdb signal-related commands (see <a href="Signals.html">Signals</a>) can be used
 to control when a signal is delivered to the inferior, what signal is
 delivered to the inferior, and even if a signal should not be
 delivered to the inferior.
@@ -1121,13 +1121,13 @@ Loaded from `/opt/rocm-4.5.0/lib/librocm-dbgapi.so.0'
 <div class="subsubsection" id="AMD-GPU-core-dumps-1">
 <h4 class="subsubsection">22.4.9.17 <acronym>AMD GPU</acronym> core dumps</h4>
 
-<p><small>ROCGDB</small> supports core files describing the state of a heterogeneous
+<p>ROCgdb supports core files describing the state of a heterogeneous
 process including host (CPU) and device (GPU) threads.  Such file can be
-generated either by <small>ROCGDB</small> itself using the <code>gcore</code> command
+generated either by ROCgdb itself using the <code>gcore</code> command
 (see <a href="Core-File-Generation.html">How to Produce a Core File from Your Program</a>) or by the <acronym>AMD ROCm</acronym> runtime and the
 Linux kernel.
 </p>
-<p>When the core dump is generated outside of <small>ROCGDB</small>, then two distinct
+<p>When the core dump is generated outside of ROCgdb, then two distinct
 files are produced:
 </p>
 <dl compact="compact">
@@ -1144,7 +1144,7 @@ threads, and the inferior memory.
 process.  The file is produced in the working directory of the process.
 </p>
 <p>By default, for some <acronym>AMD GPU</acronym> architectures, when the heterogeneous
-process is not executed under <small>ROCGDB</small>, the <acronym>AMD GPU</acronym> device driver
+process is not executed under ROCgdb, the <acronym>AMD GPU</acronym> device driver
 does not initialize some metadata associated with the wavefronts (see <a href="#AMD-GPU-Attaching-Restrictions">AMD GPU Attaching Restrictions</a>).  In order to have the <acronym>AMD ROCm</acronym> runtime
 generate a core dump with wavefronts&rsquo; positions in their dispatches, it is
 recommended to set the <code>HSA_ENABLE_DEBUG</code> environment variable to &lsquo;<samp>1</samp>&rsquo;
@@ -1191,7 +1191,7 @@ command can be used:
 <pre class="example">ulimit -c unlimited
 </pre></div>
 
-<p><small>ROCGDB</small> needs to be presented a unified core file to inspect the state of
+<p>ROCgdb needs to be presented a unified core file to inspect the state of
 a heterogeneous process.  You can use the <small>ROCCOREMERGE</small> utility
 program to merge the core files generated by the <acronym>AMD GPU</acronym>
 runtime and the Linux kernel into a unified core file:
@@ -1214,9 +1214,9 @@ Thread 3 (AMDGPU Wave 1:1:1:1 (0,0,0)/0) stopped because of SIGSEGV.
 (gdb)
 </pre></div>
 
-<p>When opening a core dump, <small>ROCGDB</small> tries to load GPU code objects at
+<p>When opening a core dump, ROCgdb tries to load GPU code objects at
 the same path they were on the system where the core dump got produced.
-If the code objects are not at the same location, <small>ROCGDB</small> can look
+If the code objects are not at the same location, ROCgdb can look
 in the <code>sysroot</code> (see <a href="Files.html#set-sysroot">set sysroot</a>), or use the
 <code>shared-library-path</code> (see <a href="Files.html#set-solib_002dsearch_002dpath">set
 solib-search-path</a>).
@@ -1225,7 +1225,7 @@ solib-search-path</a>).
 <div class="subsubsection" id="AMD-GPU-Restrictions">
 <h4 class="subsubsection">22.4.9.18 <acronym>AMD GPU</acronym> Restrictions</h4>
 
-<p><small>ROCGDB</small> <acronym>AMD GPU</acronym> support is currently a prototype and
+<p>ROCgdb <acronym>AMD GPU</acronym> support is currently a prototype and
 has the following restrictions.  Future releases aim to address these
 restrictions.
 </p>
@@ -1277,12 +1277,12 @@ address space.
 <samp><span class="nolinebreak">-g</span></samp><!-- /@w --> option is specified.  This ensures registers not
 currently supported by the CFI generation are saved so the CFI
 information is correct.  If this option is not used, the invalid DWARF
-may cause <small>ROCGDB</small> to report that it is unable to read memory
+may cause ROCgdb to report that it is unable to read memory
 (such as when reading arguments in a backtrace).
 
 </li></ul>
 
-</li><li> <small>ROCGDB</small> does not currently make use of debug information
+</li><li> ROCgdb does not currently make use of debug information
 describing an inactive lane&rsquo;s logical current PC (and the <acronym>AMD
 ROCm</acronym> compiler currently does not generate it).  Such debug
 information informs the debugger about what the instruction an
@@ -1306,7 +1306,7 @@ until the wavefront is next stopped.  Memory updated by non-stopped
 wavefronts may not be visible until the wavefront is next stopped.
 
 </li><li> Single-stepping or resuming execution from an illegal instruction may
-execute differently in <small>ROCGDB</small> than on real hardware.
+execute differently in ROCgdb than on real hardware.
 
 </li><li> Halting <acronym>AMD GPU</acronym> wavefronts in an inferior can result in
 preventing other inferiors from executing <acronym>AMD GPU</acronym>
@@ -1333,28 +1333,28 @@ hit.
 </li></ul>
 
 </li><li> Some <acronym>AMD GPU</acronym> devices, such as &lsquo;<samp>gfx908</samp>&rsquo;, cannot be in use by
-multiple processes that are being debugged by <small>ROCGDB</small>.  For such devices
+multiple processes that are being debugged by ROCgdb.  For such devices
 the following warning message may be displayed.
 
 <div class="example">
 <pre class="example">amd-dbgapi: warning: At least one agent is busy (debugging may be enabled by another process)
 </pre></div>
 
-<p><small>ROCGDB</small> will continue to function except no <acronym>AMD GPU</acronym>
+<p>ROCgdb will continue to function except no <acronym>AMD GPU</acronym>
 debugging will be possible.
 </p>
 <p>The Linux <em>cgroups</em> facility can be used to limit which
 <acronym>AMD GPU</acronym> devices are used by a process.  In order for a
-<small>ROCGDB</small> process to access the <acronym>AMD GPU</acronym> devices of the
+ROCgdb process to access the <acronym>AMD GPU</acronym> devices of the
 process it is debugging, the <acronym>AMD GPU</acronym> devices must be
-included in the <small>ROCGDB</small> process <em>cgroup</em>.
+included in the ROCgdb process <em>cgroup</em>.
 </p>
-<p>Therefore, multiple <small>ROCGDB</small> processes can each debug a process
+<p>Therefore, multiple ROCgdb processes can each debug a process
 provided the <em>cgroups</em> specify disjoint sets of <acronym>AMD GPU</acronym>
-devices.  However, a single <small>ROCGDB</small> process cannot debug multiple
+devices.  However, a single ROCgdb process cannot debug multiple
 inferiors that use <acronym>AMD GPU</acronym> devices even if those inferiors
 have <em>cgroups</em> that specify disjoint <acronym>AMD GPU</acronym> devices.
-This is because the <small>ROCGDB</small> process must have all the
+This is because the ROCgdb process must have all the
 <acronym>AMD GPU</acronym> devices in its <em>cgroups</em> and so will attempt to
 enable debugging for all AMD GPU devices for all inferiors it is
 debugging.
@@ -1393,9 +1393,9 @@ distributions.
 
 <p>All processes running in the container will see the same subset of
 devices.  By having two containers with non-overlapping sets of AMD
-GPUs, it is possible to use <small>ROCGDB</small> in both containers at the
+GPUs, it is possible to use ROCgdb in both containers at the
 same time since each <acronym>AMD GPU</acronym> device will only have one
-<small>ROCGDB</small> process accessing it.
+ROCgdb process accessing it.
 </p>
 <p>For example:
 </p>
@@ -1411,7 +1411,7 @@ first kernel is launched.  Before then, all breakpoints have to be set
 as pending breakpoints.
 
 <p>If source line positions are used that only correspond to source lines
-in unloaded code objects, then <small>ROCGDB</small> may not set pending
+in unloaded code objects, then ROCgdb may not set pending
 breakpoints, and instead set breakpoints in unpredictable places of
 the loaded code objects if they contain code from the same file.  This
 can result in unexpected breakpoint hits being reported.  When the
@@ -1435,13 +1435,13 @@ beginning of the <code>main</code> function.
 application performs a <code>fork</code>, then the program may crash.
 </p>
 <p><em>Note:</em>  Disabling code object loading can result in errors being
-reported when executing <small>ROCGDB</small> due to open file limitations when
+reported when executing ROCgdb due to open file limitations when
 the application contains a large number of embedded device code
 objects.  With deferred code object loading enabled, only the device
-code objects actually invoked are loaded, and so <small>ROCGDB</small> opens
+code objects actually invoked are loaded, and so ROCgdb opens
 fewer files.
 </p>
-</li><li> <small>ROCGDB</small> supports watchpoints, but limits the capabilities to the
+</li><li> ROCgdb supports watchpoints, but limits the capabilities to the
 lowest common denominator of the heterogeneous agents in the system.
 Hardware supported watchpoints are used when possible, otherwise
 software emulation is used.  Software emulation involves using-single
@@ -1455,7 +1455,7 @@ watchpoints are not supported.
 <p>The x86 architecture provides 4 hardware watchpoints that can each
 monitor up to 8 bytes.
 </p>
-<p>When <small>ROCGDB</small> is used with x86 and <acronym>AMD GPU</acronym> devices,
+<p>When ROCgdb is used with x86 and <acronym>AMD GPU</acronym> devices,
 hardware watchpoints are therefore limited to at most 4 write
 watchpoints that have a collective size of up to 32 bytes.  The
 collective size is calculated by adding the size of each watchpoint
@@ -1477,7 +1477,7 @@ The <code>HSA_ENABLE_SDMA</code> environment variable can be set to &lsquo;<samp
 to disable the <acronym>AMD ROCm</acronym> runtime from using <acronym title="Direct Memory Access">DMA</acronym> for
 transfers between the CPU and <acronym>AMD GPU</acronym>.
 
-</li><li> When single stepping there can be times when <small>ROCGDB</small> appears to
+</li><li> When single stepping there can be times when ROCgdb appears to
 wait indefinitely for the single step to complete.  If this happens,
 &lsquo;<samp>Ctrl-C</samp>&rsquo; can be used to cancel the single step command so it can
 be tried again.
@@ -1504,8 +1504,8 @@ Continuing.
 ^C
 </pre></div>
 
-<p>Above, <small>ROCGDB</small> does not respond to &lsquo;<samp>Ctrl-C</samp>&rsquo;.  The only way
-to unblock the situation is to kill the <small>ROCGDB</small> process.
+<p>Above, ROCgdb does not respond to &lsquo;<samp>Ctrl-C</samp>&rsquo;.  The only way
+to unblock the situation is to kill the ROCgdb process.
 </p>
 </li><li> The HIP runtime currently loads code objects from memory, including
 when loading modules from a file, which results in code object URIs
@@ -1553,7 +1553,7 @@ being notified.
 </p>
 <span id="AMD-GPU-Attaching-Restrictions"></span></li><li> By default, for some architectures, the <acronym>AMD GPU</acronym> device
 driver causes all <acronym>AMD GPU</acronym> wavefronts created when
-<small>ROCGDB</small> is not attached to be unable to report the heterogeneous
+ROCgdb is not attached to be unable to report the heterogeneous
 dispatch associated with the wavefront, or the wavefront&rsquo;s
 heterogeneous work-group position.  The &lsquo;<samp>info threads</samp>&rsquo; command
 will display this missing information with a &lsquo;<samp>?</samp>&rsquo;.
@@ -1570,25 +1570,25 @@ will display this missing information with a &lsquo;<samp>?</samp>&rsquo;.
   5    AMDGPU Wave 1:2:?:1 (?,?,?)/? &quot;bit_extract&quot;     bit_extract_kernel (C_d=&lt;optimized out&gt;, A_d=&lt;optimized out&gt;, N=&lt;optimized out&gt;) at bit_extract.cpp:41
 </pre></div>
 
-<p>This does not affect wavefronts created while <small>ROCGDB</small> is attached
+<p>This does not affect wavefronts created while ROCgdb is attached
 which are always capable of reporting this information.
 </p>
 <p>If the <code>HSA_ENABLE_DEBUG</code> environment variable is set to &lsquo;<samp>1</samp>&rsquo;
 when the <acronym>AMD ROCm</acronym> runtime is initialized, then this
 information will be available for all archiectures even for wavefronts
-created when <small>ROCGDB</small> was not attached.  Setting this environment
+created when ROCgdb was not attached.  Setting this environment
 variable may very marginally reduce wavefront launch latency for some
 architectures for very short lived wavefronts.
 </p>
 </li><li> If the inferior exits while there are wavefronts that have reported
-events, such as breakpoints, that <small>ROCGDB</small> has not completed
+events, such as breakpoints, that ROCgdb has not completed
 processing, then the following error may be displayed.
 
 <div class="example">
 <pre class="example">Couldn't get registers: No such process.
 </pre></div>
 
-</li><li> The current <small>ROCGDB</small> implementation represents addresses using a
+</li><li> The current ROCgdb implementation represents addresses using a
 64 bit value in which the top 8 bits are used to represent information
 about the address space.  This means that an explicit conversion
 between an integral value and a pointer (for example, in a user
@@ -1605,19 +1605,19 @@ reported as <code>SIGFPE</code> signals.  This happens if the
 
 <p>See <a href="#AMD-GPU-Signals"><acronym>AMD GPU</acronym> Signals</a>.
 </p>
-</li><li> <small>ROCGDB</small> does not support single root I/O virtualization (SR-IOV)
+</li><li> ROCgdb does not support single root I/O virtualization (SR-IOV)
 on any <acronym>AMD GPU</acronym> architecture that supports it.  That includes
 &lsquo;<samp>gfx1030</samp>&rsquo;, &lsquo;<samp>gfx1031</samp>&rsquo;, and &lsquo;<samp>gfx1032</samp>&rsquo;.
 
-</li><li> <small>ROCGDB</small> does not support debugging programs that use cooperative
+</li><li> ROCgdb does not support debugging programs that use cooperative
 groups or CU masking for <acronym>AMD GPU</acronym> architectures &lsquo;<samp>gfx1100</samp>&rsquo;,
 &lsquo;<samp>gfx1101</samp>&rsquo;, and &lsquo;<samp>gfx11102</samp>&rsquo;.  A restriction will be reported
 when attaching to a process that has already created cooperative group
 queues or CU masked queues.  Any attempt to create a cooperative queue
-or CU masked queue when <small>ROCGDB</small> is attached will fail.
+or CU masked queue when ROCgdb is attached will fail.
 
 </li><li> For <acronym>AMD GPU</acronym> architectures &lsquo;<samp>gfx1100</samp>&rsquo;, &lsquo;<samp>gfx1101</samp>&rsquo;,
-&lsquo;<samp>gfx1102</samp>&rsquo;, &lsquo;<samp>gfx1200</samp>&rsquo; and &lsquo;<samp>gfx1201</samp>&rsquo;, <small>ROCGDB</small> cannot
+&lsquo;<samp>gfx1102</samp>&rsquo;, &lsquo;<samp>gfx1200</samp>&rsquo; and &lsquo;<samp>gfx1201</samp>&rsquo;, ROCgdb cannot
 debug a program past a &lsquo;<samp>s_sendmsg sendmsg(MSG_DEALLOC_VGPRS)</samp>&rsquo;
 instruction.  If an asynchronous exception is reported after this
 instruction has been executed and the debugger is attached, the wave is
@@ -1629,7 +1629,7 @@ precise memory event reporting (see <a href="#AMDGPU-Memory-Violation-Reporting"
 &lsquo;<samp>s_sendmsg</samp>&rsquo; instruction is executed.
 
 </li><li> The <acronym>AMD ROCm</acronym> runtime cannot generate an <acronym>AMD GPU</acronym> core dump
-(see <a href="#AMD-GPU-core-dumps">AMD GPU core dumps</a>) when <small>ROCGDB</small> is attached to the process.
+(see <a href="#AMD-GPU-core-dumps">AMD GPU core dumps</a>) when ROCgdb is attached to the process.
 
 </li><li> If a fault on the host side of a heterogeneous application causes a core dump
 to be generated, then the <acronym>AMD ROCm</acronym> runtime does not produce the

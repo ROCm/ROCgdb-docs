@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Missing Objfiles In Python (Debugging with ROCGDB)</title>
+<title>Missing Objfiles In Python (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Missing Objfiles In Python (Debugging with ROCGDB)">
-<meta name="keywords" content="Missing Objfiles In Python (Debugging with ROCGDB)">
+<meta name="description" content="Missing Objfiles In Python (Debugging with ROCgdb)">
+<meta name="keywords" content="Missing Objfiles In Python (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -104,23 +104,23 @@ Previous: <a href="Missing-Debug-Info-In-Python.html" accesskey="p" rel="prev">M
 <span id="Missing-Objfiles-In-Python-1"></span><h4 class="subsubsection">24.3.2.42 Missing Objfiles In Python</h4>
 <span id="index-python_002c-handle-missing-objfiles"></span>
 
-<p>When <small>ROCGDB</small> opens a core file, for example with the
-<kbd>core-file</kbd> command (see <a href="Files.html#core_002dfile-command">core-file command</a>), <small>ROCGDB</small> will
+<p>When ROCgdb opens a core file, for example with the
+<kbd>core-file</kbd> command (see <a href="Files.html#core_002dfile-command">core-file command</a>), ROCgdb will
 attempt to load the corresponding executable and shared libraries.
 Often these files can be found on the local machine, but sometimes
 these files cannot be found, in which case the debugging experience
 will be restricted.
 </p>
-<p>If <small>ROCGDB</small> fails to locate a particular file then there is an
+<p>If ROCgdb fails to locate a particular file then there is an
 opportunity for a Python extension to step in.  A Python extension can
 potentially locate the missing file using some platform- or
-project-specific steps, and inform <small>ROCGDB</small> of its location.  Or a
+project-specific steps, and inform ROCgdb of its location.  Or a
 Python extension might provide some platform- or project-specific
 advice to the user about how to obtain the missing file.
 </p>
 <p>A missing-objfile Python extension consists of a handler object which
 has the <code>name</code> and <code>enabled</code> attributes, and implements the
-<code>__call__</code> method.  When <small>ROCGDB</small> encounters a situation
+<code>__call__</code> method.  When ROCgdb encounters a situation
 where a file cannot be found, but the build-id (see <a href="Separate-Debug-Files.html#build-ID">build ID</a>) for
 the missing file is known, then the <code>__call__</code> method is invoked
 to try and find the file.  Full details of how handlers are written
@@ -128,7 +128,7 @@ can be found below.
 </p>
 <span id="The-gdb_002emissing_005fobjfile-Module"></span><h4 class="subheading">The <code>gdb.missing_objfile</code> Module</h4>
 
-<p><small>ROCGDB</small> comes with a <code>gdb.missing_objfile</code> module which
+<p>ROCgdb comes with a <code>gdb.missing_objfile</code> module which
 contains the following class and global function:
 </p>
 <dl class="def">
@@ -143,7 +143,7 @@ from this class, so long as any user created handler has the
 <dl class="def">
 <dt id="index-MissingObjfileHandler_002e_005f_005finit_005f_005f"><span class="category">Function: </span><span><strong>MissingObjfileHandler.__init__</strong> <em>(name)</em><a href='#index-MissingObjfileHandler_002e_005f_005finit_005f_005f' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>The <var>name</var> is a string used to reference this missing-objfile
-handler within some <small>ROCGDB</small> commands.  Valid names consist of the
+handler within some ROCgdb commands.  Valid names consist of the
 characters &lsquo;<samp>[-_a-zA-Z0-9]</samp>&rsquo;, creating a handler with an invalid
 name raises a <code>ValueError</code> exception.
 </p></dd></dl>
@@ -154,60 +154,60 @@ name raises a <code>ValueError</code> exception.
 <p>Sub-classes must override the <code>__call__</code> method.  The
 <var>pspace</var> argument will be a <code>gdb.Progspace</code>
 (see <a href="Progspaces-In-Python.html">Program Spaces In Python</a>), this is the program space in which
-<small>ROCGDB</small> is looking for the missing file.
+ROCgdb is looking for the missing file.
 </p>
 <p>The <var>build_id</var> argument is a string containing the build-id of the
 file that is missing, this will be in the same format as returned by
 <code>Objfile.build_id</code> (see <a href="Objfiles-In-Python.html#Objfile_002ebuild_005fid">Objfile.build_id</a>).
 </p>
 <p>The <var>filename</var> argument contains the name of the file that
-<small>ROCGDB</small> is looking for.  This information is provided to allow
+ROCgdb is looking for.  This information is provided to allow
 handlers to generate informative messages for the user.  A handler is
 not required to place the missing file at this location.  There might
 already be a file present at this location, but it might not match the
-required build-id, in which case <small>ROCGDB</small> will have ignored it.
-In some limited cases <small>ROCGDB</small> might not be able to establish the
+required build-id, in which case ROCgdb will have ignored it.
+In some limited cases ROCgdb might not be able to establish the
 <var>filename</var> of the file it is searching for, in this case
-<small>ROCGDB</small> will use a string &lsquo;<samp>with build-id <var>build_id</var></samp>&rsquo; as a
+ROCgdb will use a string &lsquo;<samp>with build-id <var>build_id</var></samp>&rsquo; as a
 replacement.
 </p>
 <p>The return value from the <code>__call__</code> method indicates what
-<small>ROCGDB</small> should do next.  The possible return values are:
+ROCgdb should do next.  The possible return values are:
 </p>
 <ul>
 <li> <code>None</code>
 
 <p>This indicates that this handler could not locate the missing file and
-<small>ROCGDB</small> should call any other registered handlers.
+ROCgdb should call any other registered handlers.
 </p>
 </li><li> <code>True</code>
 
 <p>This indicates that this handler has installed the missing file into a
-location where <small>ROCGDB</small> would normally expect to find it.  The
-only location in which <small>ROCGDB</small> will look is within the
+location where ROCgdb would normally expect to find it.  The
+only location in which ROCgdb will look is within the
 <samp>.build-id</samp> sub-directory within the <var>debug-file-directory</var>
 (see <a href="Separate-Debug-Files.html#debug_002dfile_002ddirectory">debug-file-directory</a>).
 </p>
-<p><small>ROCGDB</small> will repeat the normal lookup process, which should now
+<p>ROCgdb will repeat the normal lookup process, which should now
 find the previously missing file.
 </p>
-<p>If <small>ROCGDB</small> still doesn&rsquo;t find file after this second attempt,
+<p>If ROCgdb still doesn&rsquo;t find file after this second attempt,
 then the Python missing-objfile handlers are not invoked a second
-time, this prevents a badly behaved handler causing <small>ROCGDB</small> to
-get stuck in a loop.  <small>ROCGDB</small> will continue without the missing
+time, this prevents a badly behaved handler causing ROCgdb to
+get stuck in a loop.  ROCgdb will continue without the missing
 file, though this will degrade the debugging experience.
 </p>
 </li><li> <code>False</code>
 
 <p>This indicates that this handler has done everything that it intends
-to do but the missing file could not be found.  <small>ROCGDB</small> will not
+to do but the missing file could not be found.  ROCgdb will not
 call any other registered handlers to look for the missing file.
-<small>ROCGDB</small> will continue without the missing file, though this will
+ROCgdb will continue without the missing file, though this will
 degrade the debugging experience.
 </p>
 </li><li> A string
 
-<p>The returned string should contain a filename.  <small>ROCGDB</small> will not
+<p>The returned string should contain a filename.  ROCgdb will not
 call any further registered handlers, and will instead use the
 returned filename as the missing file.
 </p></li></ul>
@@ -225,14 +225,14 @@ passed to the <code>__init__</code> method.
 <dl class="def">
 <dt id="index-MissingObjfileHandler_002eenabled"><span class="category">Variable: </span><span><strong>MissingObjfileHandler.enabled</strong><a href='#index-MissingObjfileHandler_002eenabled' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>A modifiable attribute containing a boolean; when <code>True</code>, the
-handler is enabled, and will be used by <small>ROCGDB</small>.  When
+handler is enabled, and will be used by ROCgdb.  When
 <code>False</code>, the handler has been disabled, and will not be used.
 </p></dd></dl>
 </dd></dl>
 
 <dl class="def">
 <dt id="index-gdb_002emissing_005fobjfile_002eregister_005fhandler"><span class="category">Function: </span><span><strong>gdb.missing_objfile.register_handler</strong> <em>(locus, handler, replace=<code>False</code>)</em><a href='#index-gdb_002emissing_005fobjfile_002eregister_005fhandler' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Register a new missing-objfile handler with <small>ROCGDB</small>.
+<dd><p>Register a new missing-objfile handler with ROCgdb.
 </p>
 <p><var>handler</var> is an instance of a sub-class of
 <code>MissingObjfileHandler</code>, or at least an instance of an object that
@@ -248,7 +248,7 @@ raises an exception unless <var>replace</var> is <code>True</code>, in which cas
 the old handler is deleted and the new handler is prepended to the
 selected handler list.
 </p>
-<p><small>ROCGDB</small> first calls the handlers for the current program space,
+<p>ROCgdb first calls the handlers for the current program space,
 and then the globally registered handlers.  As soon as a handler
 returns a value other than <code>None</code>, no further handlers are
 called.
@@ -256,7 +256,7 @@ called.
 
 <span id="Managing-Missing_002dObjfile-Handlers"></span><h4 class="subheading">Managing Missing-Objfile Handlers</h4>
 
-<p><small>ROCGDB</small> defines the following commands to manage registered
+<p>ROCgdb defines the following commands to manage registered
 missing-objfile handlers:
 </p>
 <dl compact="compact">

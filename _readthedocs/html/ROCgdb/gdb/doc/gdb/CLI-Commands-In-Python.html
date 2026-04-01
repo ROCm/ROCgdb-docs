@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>CLI Commands In Python (Debugging with ROCGDB)</title>
+<title>CLI Commands In Python (Debugging with ROCgdb)</title>
 
-<meta name="description" content="CLI Commands In Python (Debugging with ROCGDB)">
-<meta name="keywords" content="CLI Commands In Python (Debugging with ROCGDB)">
+<meta name="description" content="CLI Commands In Python (Debugging with ROCgdb)">
+<meta name="keywords" content="CLI Commands In Python (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -107,14 +107,14 @@ Next: <a href="GDB_002fMI-Commands-In-Python.html" accesskey="n" rel="next"><sma
 <span id="index-CLI-commands-in-python"></span>
 <span id="index-commands-in-python_002c-CLI"></span>
 <span id="index-python-commands_002c-CLI"></span>
-<p>You can implement new <small>ROCGDB</small> CLI commands in Python.  A CLI
+<p>You can implement new ROCgdb CLI commands in Python.  A CLI
 command is implemented using an instance of the <code>gdb.Command</code>
 class, most commonly using a subclass.
 </p>
 <dl class="def">
 <dt id="index-Command_002e_005f_005finit_005f_005f"><span class="category">Function: </span><span><strong>Command.__init__</strong> <em>(name, command_class <span class="roman">[</span>, completer_class <span class="roman">[</span>, prefix<span class="roman">]]</span>)</em><a href='#index-Command_002e_005f_005finit_005f_005f' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>The object initializer for <code>Command</code> registers the new command
-with <small>ROCGDB</small>.  This initializer is normally invoked from the
+with ROCgdb.  This initializer is normally invoked from the
 subclass&rsquo; own <code>__init__</code> method.
 </p>
 <p><var>name</var> is the name of the command.  If <var>name</var> consists of
@@ -125,13 +125,13 @@ an exception is raised.
 <p>There is no support for multi-line commands.
 </p>
 <p><var>command_class</var> should be one of the &lsquo;<samp>COMMAND_</samp>&rsquo; constants
-defined below.  This argument tells <small>ROCGDB</small> how to categorize the
+defined below.  This argument tells ROCgdb how to categorize the
 new command in the help system.
 </p>
 <p><var>completer_class</var> is an optional argument.  If given, it should be
 one of the &lsquo;<samp>COMPLETE_</samp>&rsquo; constants defined below.  This argument
-tells <small>ROCGDB</small> how to perform completion for this command.  If not
-given, <small>ROCGDB</small> will attempt to complete using the object&rsquo;s
+tells ROCgdb how to perform completion for this command.  If not
+given, ROCgdb will attempt to complete using the object&rsquo;s
 <code>complete</code> method (see below); if no such method is found, an
 error will occur when completion is attempted.
 </p>
@@ -148,7 +148,7 @@ not documented.&rdquo; is used.
 <span id="index-don_0027t-repeat-Python-command"></span>
 <dl class="def">
 <dt id="index-Command_002edont_005frepeat"><span class="category">Function: </span><span><strong>Command.dont_repeat</strong> <em>()</em><a href='#index-Command_002edont_005frepeat' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>By default, a <small>ROCGDB</small> command is repeated when the user enters a
+<dd><p>By default, a ROCgdb command is repeated when the user enters a
 blank line at the command prompt.  A command can suppress this
 behavior by invoking the <code>dont_repeat</code> method at some point in
 its <code>invoke</code> method (normally this is done early in case of
@@ -158,7 +158,7 @@ see <a href="Define.html">dont-repeat</a>.
 
 <dl class="def">
 <dt id="index-Command_002einvoke"><span class="category">Function: </span><span><strong>Command.invoke</strong> <em>(argument, from_tty)</em><a href='#index-Command_002einvoke' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>This method is called by <small>ROCGDB</small> when this command is invoked.
+<dd><p>This method is called by ROCgdb when this command is invoked.
 </p>
 <p><var>argument</var> is a string.  It is the argument to the command, after
 leading and trailing whitespace has been stripped.
@@ -167,13 +167,13 @@ leading and trailing whitespace has been stripped.
 command was entered by the user at the terminal; when false it means
 that the command came from elsewhere.
 </p>
-<p>If this method throws an exception, it is turned into a <small>ROCGDB</small>
+<p>If this method throws an exception, it is turned into a ROCgdb
 <code>error</code> call.  Otherwise, the return value is ignored.
 </p>
 <span id="index-gdb_002estring_005fto_005fargv"></span>
 <p>To break <var>argument</var> up into an argv-like string use
 <code>gdb.string_to_argv</code>.  This function behaves identically to
-<small>ROCGDB</small>&rsquo;s internal argument lexer <code>buildargv</code>.
+ROCgdb&rsquo;s internal argument lexer <code>buildargv</code>.
 It is recommended to use this for consistency.
 Arguments are separated by spaces and may be quoted.
 Example:
@@ -188,7 +188,7 @@ Example:
 <span id="index-completion-of-Python-commands"></span>
 <dl class="def">
 <dt id="index-Command_002ecomplete"><span class="category">Function: </span><span><strong>Command.complete</strong> <em>(text, word)</em><a href='#index-Command_002ecomplete' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>This method is called by <small>ROCGDB</small> when the user attempts
+<dd><p>This method is called by ROCgdb when the user attempts
 completion on this command.  All forms of completion are handled by
 this method, that is, the <tt class="key">TAB</tt> and <tt class="key">M-?</tt> key bindings
 (see <a href="Completion.html">Command Completion</a>), and the <code>complete</code> command (see <a href="Help.html">complete</a>).
@@ -208,7 +208,7 @@ string elements of the sequence are used; other elements in the
 sequence are ignored.
 
 </li><li> If the return value is one of the &lsquo;<samp>COMPLETE_</samp>&rsquo; constants defined
-below, then the corresponding <small>ROCGDB</small>-internal completion
+below, then the corresponding ROCgdb-internal completion
 function is invoked, and its result is used.
 
 </li><li> All other results are treated as though there were no available
@@ -237,7 +237,7 @@ this category will not be displayed in any of the help categories.
 <dt><span><code>gdb.COMMAND_RUNNING</code></span></dt>
 <dd><p>The command is related to running the inferior.  For example,
 <code>start</code>, <code>step</code>, and <code>continue</code> are in this category.
-Type <kbd>help running</kbd> at the <small>ROCGDB</small> prompt to see a list of
+Type <kbd>help running</kbd> at the ROCgdb prompt to see a list of
 commands in this category.
 </p>
 <span id="index-COMMAND_005fDATA"></span>
@@ -246,7 +246,7 @@ commands in this category.
 <dt><span><code>gdb.COMMAND_DATA</code></span></dt>
 <dd><p>The command is related to data or variables.  For example,
 <code>call</code>, <code>find</code>, and <code>print</code> are in this category.  Type
-<kbd>help data</kbd> at the <small>ROCGDB</small> prompt to see a list of commands
+<kbd>help data</kbd> at the ROCgdb prompt to see a list of commands
 in this category.
 </p>
 <span id="index-COMMAND_005fSTACK"></span>
@@ -255,7 +255,7 @@ in this category.
 <dt><span><code>gdb.COMMAND_STACK</code></span></dt>
 <dd><p>The command has to do with manipulation of the stack.  For example,
 <code>backtrace</code>, <code>frame</code>, and <code>return</code> are in this
-category.  Type <kbd>help stack</kbd> at the <small>ROCGDB</small> prompt to see a
+category.  Type <kbd>help stack</kbd> at the ROCgdb prompt to see a
 list of commands in this category.
 </p>
 <span id="index-COMMAND_005fFILES"></span>
@@ -264,7 +264,7 @@ list of commands in this category.
 <dt><span><code>gdb.COMMAND_FILES</code></span></dt>
 <dd><p>This class is used for file-related commands.  For example,
 <code>file</code>, <code>list</code> and <code>section</code> are in this category.
-Type <kbd>help files</kbd> at the <small>ROCGDB</small> prompt to see a list of
+Type <kbd>help files</kbd> at the ROCgdb prompt to see a list of
 commands in this category.
 </p>
 <span id="index-COMMAND_005fSUPPORT"></span>
@@ -272,10 +272,10 @@ commands in this category.
 </dd>
 <dt><span><code>gdb.COMMAND_SUPPORT</code></span></dt>
 <dd><p>This should be used for &ldquo;support facilities&rdquo;, generally meaning
-things that are useful to the user when interacting with <small>ROCGDB</small>,
+things that are useful to the user when interacting with ROCgdb,
 but not related to the state of the inferior.  For example,
 <code>help</code>, <code>make</code>, and <code>shell</code> are in this category.  Type
-<kbd>help support</kbd> at the <small>ROCGDB</small> prompt to see a list of
+<kbd>help support</kbd> at the ROCgdb prompt to see a list of
 commands in this category.
 </p>
 <span id="index-COMMAND_005fSTATUS"></span>
@@ -283,9 +283,9 @@ commands in this category.
 </dd>
 <dt><span><code>gdb.COMMAND_STATUS</code></span></dt>
 <dd><p>The command is an &lsquo;<samp>info</samp>&rsquo;-related command, that is, related to the
-state of <small>ROCGDB</small> itself.  For example, <code>info</code>, <code>macro</code>,
+state of ROCgdb itself.  For example, <code>info</code>, <code>macro</code>,
 and <code>show</code> are in this category.  Type <kbd>help status</kbd> at the
-<small>ROCGDB</small> prompt to see a list of commands in this category.
+ROCgdb prompt to see a list of commands in this category.
 </p>
 <span id="index-COMMAND_005fBREAKPOINTS"></span>
 <span id="index-gdb_002eCOMMAND_005fBREAKPOINTS"></span>
@@ -293,7 +293,7 @@ and <code>show</code> are in this category.  Type <kbd>help status</kbd> at the
 <dt><span><code>gdb.COMMAND_BREAKPOINTS</code></span></dt>
 <dd><p>The command has to do with breakpoints.  For example, <code>break</code>,
 <code>clear</code>, and <code>delete</code> are in this category.  Type <kbd>help
-breakpoints</kbd> at the <small>ROCGDB</small> prompt to see a list of commands in
+breakpoints</kbd> at the ROCgdb prompt to see a list of commands in
 this category.
 </p>
 <span id="index-COMMAND_005fTRACEPOINTS"></span>
@@ -302,15 +302,15 @@ this category.
 <dt><span><code>gdb.COMMAND_TRACEPOINTS</code></span></dt>
 <dd><p>The command has to do with tracepoints.  For example, <code>trace</code>,
 <code>actions</code>, and <code>tfind</code> are in this category.  Type
-<kbd>help tracepoints</kbd> at the <small>ROCGDB</small> prompt to see a list of
+<kbd>help tracepoints</kbd> at the ROCgdb prompt to see a list of
 commands in this category.
 </p>
 <span id="index-COMMAND_005fTUI"></span>
 <span id="index-gdb_002eCOMMAND_005fTUI"></span>
 </dd>
 <dt><span><code>gdb.COMMAND_TUI</code></span></dt>
-<dd><p>The command has to do with the text user interface (see <a href="TUI.html"><small>ROCGDB</small> Text User Interface</a>).
-Type <kbd>help tui</kbd> at the <small>ROCGDB</small> prompt to see a list of
+<dd><p>The command has to do with the text user interface (see <a href="TUI.html">ROCgdb Text User Interface</a>).
+Type <kbd>help tui</kbd> at the ROCgdb prompt to see a list of
 commands in this category.
 </p>
 <span id="index-COMMAND_005fUSER"></span>
@@ -319,7 +319,7 @@ commands in this category.
 <dt><span><code>gdb.COMMAND_USER</code></span></dt>
 <dd><p>The command is a general purpose command for the user, and typically
 does not fit in one of the other categories.
-Type <kbd>help user-defined</kbd> at the <small>ROCGDB</small> prompt to see
+Type <kbd>help user-defined</kbd> at the ROCgdb prompt to see
 a list of commands in this category, as well as the list of gdb macros
 (see <a href="Sequences.html">Canned Sequences of Commands</a>).
 </p>
@@ -330,16 +330,16 @@ a list of commands in this category, as well as the list of gdb macros
 <dd><p>The command is only used in unusual circumstances, or is not of
 general interest to users.  For example, <code>checkpoint</code>,
 <code>fork</code>, and <code>stop</code> are in this category.  Type <kbd>help
-obscure</kbd> at the <small>ROCGDB</small> prompt to see a list of commands in this
+obscure</kbd> at the ROCgdb prompt to see a list of commands in this
 category.
 </p>
 <span id="index-COMMAND_005fMAINTENANCE"></span>
 <span id="index-gdb_002eCOMMAND_005fMAINTENANCE"></span>
 </dd>
 <dt><span><code>gdb.COMMAND_MAINTENANCE</code></span></dt>
-<dd><p>The command is only useful to <small>ROCGDB</small> maintainers.  The
+<dd><p>The command is only useful to ROCgdb maintainers.  The
 <code>maintenance</code> and <code>flushregs</code> commands are in this category.
-Type <kbd>help internals</kbd> at the <small>ROCGDB</small> prompt to see a list of
+Type <kbd>help internals</kbd> at the ROCgdb prompt to see a list of
 commands in this category.
 </p></dd>
 </dl>
@@ -369,7 +369,7 @@ See <a href="Location-Specifications.html">Location Specifications</a>.
 <span id="index-COMPLETE_005fCOMMAND"></span>
 </dd>
 <dt id='index-gdb_002eCOMPLETE_005fCOMMAND'><span><code>gdb.COMPLETE_COMMAND</code><a href='#index-gdb_002eCOMPLETE_005fCOMMAND' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>This constant means that completion should examine <small>ROCGDB</small>
+<dd><p>This constant means that completion should examine ROCgdb
 command names.
 </p>
 <span id="index-COMPLETE_005fSYMBOL"></span>
@@ -404,8 +404,8 @@ HelloWorld ()
 </pre></div>
 
 <p>The last line instantiates the class, and is necessary to trigger the
-registration of the command with <small>ROCGDB</small>.  Depending on how the
-Python code is read into <small>ROCGDB</small>, you may need to import the
+registration of the command with ROCgdb.  Depending on how the
+Python code is read into ROCgdb, you may need to import the
 <code>gdb</code> module explicitly.
 </p>
 </div>

@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Macros (Debugging with ROCGDB)</title>
+<title>Macros (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Macros (Debugging with ROCGDB)">
-<meta name="keywords" content="Macros (Debugging with ROCGDB)">
+<meta name="description" content="Macros (Debugging with ROCgdb)">
+<meta name="keywords" content="Macros (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -99,18 +99,18 @@ ul.no-bullet {list-style: none}
 <div class="chapter" id="Macros">
 <div class="header">
 <p>
-Next: <a href="Tracepoints.html" accesskey="n" rel="next">Tracepoints</a>, Previous: <a href="Optimized-Code.html" accesskey="p" rel="prev">Debugging Optimized Code</a>, Up: <a href="index.html" accesskey="u" rel="up">Debugging with <small>ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Tracepoints.html" accesskey="n" rel="next">Tracepoints</a>, Previous: <a href="Optimized-Code.html" accesskey="p" rel="prev">Debugging Optimized Code</a>, Up: <a href="index.html" accesskey="u" rel="up">Debugging with ROCgdb</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
 <span id="C-Preprocessor-Macros"></span><h2 class="chapter">12 C Preprocessor Macros</h2>
 
 <p>Some languages, such as C and C<tt>++</tt>, provide a way to define and invoke
 &ldquo;preprocessor macros&rdquo; which expand into strings of tokens.
-<small>ROCGDB</small> can evaluate expressions containing macro invocations, show
+ROCgdb can evaluate expressions containing macro invocations, show
 the result of macro expansion, and show a macro&rsquo;s definition, including
 where it was defined.
 </p>
-<p>You may need to compile your program specially to provide <small>ROCGDB</small>
+<p>You may need to compile your program specially to provide ROCgdb
 with information about preprocessor macros.  Most compilers do not
 include macros in their debugging information, even when you compile
 with the <samp>-g</samp> flag.  See <a href="Compilation.html">Compiling for Debugging</a>.
@@ -118,13 +118,13 @@ with the <samp>-g</samp> flag.  See <a href="Compilation.html">Compiling for Deb
 <p>A program may define a macro at one point, remove that definition later,
 and then provide a different definition after that.  Thus, at different
 points in the program, a macro may have different definitions, or have
-no definition at all.  If there is a current stack frame, <small>ROCGDB</small>
+no definition at all.  If there is a current stack frame, ROCgdb
 uses the macros in scope at that frame&rsquo;s source code line.  Otherwise,
-<small>ROCGDB</small> uses the macros in scope at the current listing location;
+ROCgdb uses the macros in scope at the current listing location;
 see <a href="List.html">Printing Source Lines</a>.
 </p>
-<p>Whenever <small>ROCGDB</small> evaluates an expression, it always expands any
-macro invocations present in the expression.  <small>ROCGDB</small> also provides
+<p>Whenever ROCgdb evaluates an expression, it always expands any
+macro invocations present in the expression.  ROCgdb also provides
 the following commands for working with macros explicitly.
 </p>
 <dl compact="compact">
@@ -137,7 +137,7 @@ the following commands for working with macros explicitly.
 <dt><span><code>macro expand <var>expression</var></code></span></dt>
 <dt><span><code>macro exp <var>expression</var></code></span></dt>
 <dd><p>Show the results of expanding all preprocessor macro invocations in
-<var>expression</var>.  Since <small>ROCGDB</small> simply expands macros, but does
+<var>expression</var>.  Since ROCgdb simply expands macros, but does
 not parse the result, <var>expression</var> need not be a valid expression;
 it can be any string of tokens.
 </p>
@@ -150,7 +150,7 @@ expanding those preprocessor macro invocations that appear explicitly in
 <var>expression</var>.  Macro invocations appearing in that expansion are
 left unchanged.  This command allows you to see the effect of a
 particular macro more clearly, without being confused by further
-expansions.  Since <small>ROCGDB</small> simply expands macros, but does not
+expansions.  Since ROCgdb simply expands macros, but does not
 parse the result, <var>expression</var> need not be a valid expression; it
 can be any string of tokens.
 </p>
@@ -189,7 +189,7 @@ defines a &ldquo;function-like&rdquo; macro, which takes the arguments given in
 <var>arglist</var>.
 </p>
 <p>A definition introduced by this command is in scope in every
-expression evaluated in <small>ROCGDB</small>, until it is removed with the
+expression evaluated in ROCgdb, until it is removed with the
 <code>macro undef</code> command, described below.  The definition overrides
 all definitions for <var>macro</var> present in the program being debugged,
 as well as any previous user-supplied definition.
@@ -245,7 +245,7 @@ information.
 $
 </pre></div>
 
-<p>Now, we start <small>ROCGDB</small> on our sample program:
+<p>Now, we start ROCgdb on our sample program:
 </p>
 <div class="example">
 <pre class="example">$ gdb -nw sample
@@ -256,7 +256,7 @@ GDB is free software, &hellip;
 </pre></div>
 
 <p>We can expand macros and examine their definitions, even when the
-program is not running.  <small>ROCGDB</small> uses the current listing position
+program is not running.  ROCgdb uses the current listing position
 to decide which macro definitions are in scope:
 </p>
 <div class="example">
@@ -290,7 +290,7 @@ the macro invocation explicit in the original text &mdash; the invocation of
 <code>ADD</code> &mdash; but does not expand the invocation of the macro <code>M</code>,
 which was introduced by <code>ADD</code>.
 </p>
-<p>Once the program is running, <small>ROCGDB</small> uses the macro definitions in
+<p>Once the program is running, ROCgdb uses the macro definitions in
 force at the source line of the current stack frame:
 </p>
 <div class="example">
@@ -318,7 +318,7 @@ $1 = 1
 </pre></div>
 
 <p>As we step over directives that remove <code>N</code>&rsquo;s definition, and then
-give it a new definition, <small>ROCGDB</small> finds the definition (or lack
+give it a new definition, ROCgdb finds the definition (or lack
 thereof) in force at each point:
 </p>
 <div class="example">
@@ -343,7 +343,7 @@ $2 = 0
 
 <p>In addition to source files, macros can be defined on the compilation command
 line using the <samp>-D<var>name</var>=<var>value</var></samp> syntax.  For macros defined in
-such a way, <small>ROCGDB</small> displays the location of their definition as line zero
+such a way, ROCgdb displays the location of their definition as line zero
 of the source file submitted to the compiler.
 </p>
 <div class="example">
@@ -368,7 +368,7 @@ version of DWARF.</p>
 <hr>
 <div class="header">
 <p>
-Next: <a href="Tracepoints.html">Tracepoints</a>, Previous: <a href="Optimized-Code.html">Debugging Optimized Code</a>, Up: <a href="index.html">Debugging with <small>ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Tracepoints.html">Tracepoints</a>, Previous: <a href="Optimized-Code.html">Debugging Optimized Code</a>, Up: <a href="index.html">Debugging with ROCgdb</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

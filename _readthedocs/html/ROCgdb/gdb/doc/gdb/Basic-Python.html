@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Basic Python (Debugging with ROCGDB)</title>
+<title>Basic Python (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Basic Python (Debugging with ROCGDB)">
-<meta name="keywords" content="Basic Python (Debugging with ROCGDB)">
+<meta name="description" content="Basic Python (Debugging with ROCgdb)">
+<meta name="keywords" content="Basic Python (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -105,26 +105,26 @@ Next: <a href="Threading-in-GDB.html" accesskey="n" rel="next">Threading in GDB<
 
 <span id="index-python-stdout"></span>
 <span id="index-python-pagination"></span>
-<p>At startup, <small>ROCGDB</small> overrides Python&rsquo;s <code>sys.stdout</code> and
-<code>sys.stderr</code> to print using <small>ROCGDB</small>&rsquo;s output-paging streams.
+<p>At startup, ROCgdb overrides Python&rsquo;s <code>sys.stdout</code> and
+<code>sys.stderr</code> to print using ROCgdb&rsquo;s output-paging streams.
 A Python program which outputs to one of these streams may have its
 output interrupted by the user (see <a href="Screen-Size.html">Screen Size</a>).  In this
 situation, a Python <code>KeyboardInterrupt</code> exception is thrown.
 </p>
 <p>Some care must be taken when writing Python code to run in
-<small>ROCGDB</small>.  Two things worth noting in particular:
+ROCgdb.  Two things worth noting in particular:
 </p>
 <ul>
-<li> <small>ROCGDB</small> installs handlers for <code>SIGCHLD</code> and <code>SIGINT</code>.
+<li> ROCgdb installs handlers for <code>SIGCHLD</code> and <code>SIGINT</code>.
 Python code must not override these, or even change the options using
 <code>sigaction</code>.  If your program changes the handling of these
-signals, <small>ROCGDB</small> will most likely stop working correctly.  Note
+signals, ROCgdb will most likely stop working correctly.  Note
 that it is unfortunately common for GUI toolkits to install a
 <code>SIGCHLD</code> handler.  When creating a new Python thread, you can
 use <code>gdb.block_signals</code> or <code>gdb.Thread</code> to handle this
 correctly; see <a href="Threading-in-GDB.html">Threading in GDB</a>.
 
-</li><li> <small>ROCGDB</small> takes care to mark its internal file descriptors as
+</li><li> ROCgdb takes care to mark its internal file descriptors as
 close-on-exec.  However, this cannot be done in a thread-safe way on
 all platforms.  Your Python programs should be aware of this and
 should both create new file descriptors with the close-on-exec flag
@@ -135,9 +135,9 @@ child process.
 <span id="index-python-functions"></span>
 <span id="index-python-module"></span>
 <span id="index-gdb-module"></span>
-<p><small>ROCGDB</small> introduces a new Python module, named <code>gdb</code>.  All
-methods and classes added by <small>ROCGDB</small> are placed in this module.
-<small>ROCGDB</small> automatically <code>import</code>s the <code>gdb</code> module for
+<p>ROCgdb introduces a new Python module, named <code>gdb</code>.  All
+methods and classes added by ROCgdb are placed in this module.
+ROCgdb automatically <code>import</code>s the <code>gdb</code> module for
 use in all scripts evaluated by the <code>python</code> command.
 </p>
 <p>Some types of the <code>gdb</code> module come with a textual representation
@@ -146,33 +146,33 @@ offered for debugging purposes only, expect them to change over time.
 </p>
 <dl class="def">
 <dt id="index-gdb_002ePYTHONDIR"><span class="category">Variable: </span><span><strong>gdb.PYTHONDIR</strong><a href='#index-gdb_002ePYTHONDIR' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>A string containing the python directory (see <a href="Python.html">Extending <small>ROCGDB</small> using Python</a>).
+<dd><p>A string containing the python directory (see <a href="Python.html">Extending ROCgdb using Python</a>).
 </p></dd></dl>
 
 <dl class="def">
 <dt id="index-gdb_002eexecute"><span class="category">Function: </span><span><strong>gdb.execute</strong> <em>(command <span class="roman">[</span>, from_tty <span class="roman">[</span>, to_string<span class="roman">]]</span>)</em><a href='#index-gdb_002eexecute' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Evaluate <var>command</var>, a string, as a <small>ROCGDB</small> CLI command.
+<dd><p>Evaluate <var>command</var>, a string, as a ROCgdb CLI command.
 If a GDB exception happens while <var>command</var> runs, it is
 translated as described in <a href="Exception-Handling.html">Exception Handling</a>.
 </p>
-<p>The <var>from_tty</var> flag specifies whether <small>ROCGDB</small> ought to consider this
+<p>The <var>from_tty</var> flag specifies whether ROCgdb ought to consider this
 command as having originated from the user invoking it interactively.
 It must be a boolean value.  If omitted, it defaults to <code>False</code>.
 </p>
 <p>By default, any output produced by <var>command</var> is sent to
-<small>ROCGDB</small>&rsquo;s standard output (and to the log output if logging is
+ROCgdb&rsquo;s standard output (and to the log output if logging is
 turned on).  If the <var>to_string</var> parameter is
 <code>True</code>, then output will be collected by <code>gdb.execute</code> and
 returned as a string.  The default is <code>False</code>, in which case the
 return value is <code>None</code>.  If <var>to_string</var> is <code>True</code>, the
-<small>ROCGDB</small> virtual terminal will be temporarily set to unlimited width
+ROCgdb virtual terminal will be temporarily set to unlimited width
 and height, and its pagination will be disabled; see <a href="Screen-Size.html">Screen Size</a>.
 </p></dd></dl>
 
 <dl class="def">
 <dt id="index-gdb_002ebreakpoints"><span class="category">Function: </span><span><strong>gdb.breakpoints</strong> <em>()</em><a href='#index-gdb_002ebreakpoints' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Return a sequence holding all of <small>ROCGDB</small>&rsquo;s breakpoints.
-See <a href="Breakpoints-In-Python.html">Manipulating breakpoints using Python</a>, for more information.  In <small>ROCGDB</small>
+<dd><p>Return a sequence holding all of ROCgdb&rsquo;s breakpoints.
+See <a href="Breakpoints-In-Python.html">Manipulating breakpoints using Python</a>, for more information.  In ROCgdb
 version 7.11 and earlier, this function returned <code>None</code> if there
 were no breakpoints.  This peculiarity was subsequently fixed, and now
 <code>gdb.breakpoints</code> returns an empty sequence in this case.
@@ -198,7 +198,7 @@ functions only contained within the <code>gdb.Symtab</code> objects.
 
 <dl class="def">
 <dt id="index-gdb_002eparameter"><span class="category">Function: </span><span><strong>gdb.parameter</strong> <em>(parameter)</em><a href='#index-gdb_002eparameter' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Return the value of a <small>ROCGDB</small> <var>parameter</var> given by its name,
+<dd><p>Return the value of a ROCgdb <var>parameter</var> given by its name,
 a string; the parameter name string may contain spaces if the parameter has a
 multi-part name.  For example, &lsquo;<samp>print object</samp>&rsquo; is a valid
 parameter name.
@@ -237,10 +237,10 @@ particular gdb language:
 
 <dl class="def">
 <dt id="index-gdb_002ehistory"><span class="category">Function: </span><span><strong>gdb.history</strong> <em>(number)</em><a href='#index-gdb_002ehistory' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Return a value from <small>ROCGDB</small>&rsquo;s value history (see <a href="Value-History.html">Value History</a>).  The <var>number</var> argument indicates which history element to return.
-If <var>number</var> is negative, then <small>ROCGDB</small> will take its absolute value
+<dd><p>Return a value from ROCgdb&rsquo;s value history (see <a href="Value-History.html">Value History</a>).  The <var>number</var> argument indicates which history element to return.
+If <var>number</var> is negative, then ROCgdb will take its absolute value
 and count backward from the last element (i.e., the most recent element) to
-find the value to return.  If <var>number</var> is zero, then <small>ROCGDB</small> will
+find the value to return.  If <var>number</var> is zero, then ROCgdb will
 return the most recent element.  If the element specified by <var>number</var>
 doesn&rsquo;t exist in the value history, a <code>gdb.error</code> exception will be
 raised.
@@ -252,7 +252,7 @@ raised.
 <dl class="def">
 <dt id="index-gdb_002eadd_005fhistory"><span class="category">Function: </span><span><strong>gdb.add_history</strong> <em>(value)</em><a href='#index-gdb_002eadd_005fhistory' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Takes <var>value</var>, an instance of <code>gdb.Value</code> (see <a href="Values-From-Inferior.html">Values From Inferior</a>), and appends the value this object represents to
-<small>ROCGDB</small>&rsquo;s value history (see <a href="Value-History.html">Value History</a>), and return an
+ROCgdb&rsquo;s value history (see <a href="Value-History.html">Value History</a>), and return an
 integer, its history number.  If <var>value</var> is not a
 <code>gdb.Value</code>, it is is converted using the <code>gdb.Value</code>
 constructor.  If <var>value</var> can&rsquo;t be converted to a <code>gdb.Value</code>
@@ -265,7 +265,7 @@ user convenient access to those values via CLI history facilities.
 
 <dl class="def">
 <dt id="index-gdb_002ehistory_005fcount"><span class="category">Function: </span><span><strong>gdb.history_count</strong> <em>()</em><a href='#index-gdb_002ehistory_005fcount' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Return an integer indicating the number of values in <small>ROCGDB</small>&rsquo;s
+<dd><p>Return an integer indicating the number of values in ROCgdb&rsquo;s
 value history (see <a href="Value-History.html">Value History</a>).
 </p></dd></dl>
 
@@ -319,9 +319,9 @@ historical compatibility.
 
 <dl class="def">
 <dt id="index-gdb_002ewrite"><span class="category">Function: </span><span><strong>gdb.write</strong> <em>(string <span class="roman">[</span>, stream<span class="roman">]</span>)</em><a href='#index-gdb_002ewrite' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Print a string to <small>ROCGDB</small>&rsquo;s paginated output stream.  The
+<dd><p>Print a string to ROCgdb&rsquo;s paginated output stream.  The
 optional <var>stream</var> determines the stream to print to.  The default
-stream is <small>ROCGDB</small>&rsquo;s standard output stream.  Possible stream
+stream is ROCgdb&rsquo;s standard output stream.  Possible stream
 values are:
 </p>
 <dl compact="compact">
@@ -329,19 +329,19 @@ values are:
 <span id="index-gdb_002eSTDOUT"></span>
 </dd>
 <dt><span><code>gdb.STDOUT</code></span></dt>
-<dd><p><small>ROCGDB</small>&rsquo;s standard output stream.
+<dd><p>ROCgdb&rsquo;s standard output stream.
 </p>
 <span id="index-STDERR"></span>
 <span id="index-gdb_002eSTDERR"></span>
 </dd>
 <dt><span><code>gdb.STDERR</code></span></dt>
-<dd><p><small>ROCGDB</small>&rsquo;s standard error stream.
+<dd><p>ROCgdb&rsquo;s standard error stream.
 </p>
 <span id="index-STDLOG"></span>
 <span id="index-gdb_002eSTDLOG"></span>
 </dd>
 <dt><span><code>gdb.STDLOG</code></span></dt>
-<dd><p><small>ROCGDB</small>&rsquo;s log stream (see <a href="Logging-Output.html">Logging Output</a>).
+<dd><p>ROCgdb&rsquo;s log stream (see <a href="Logging-Output.html">Logging Output</a>).
 </p></dd>
 </dl>
 
@@ -352,11 +352,11 @@ relevant stream.
 
 <dl class="def">
 <dt id="index-gdb_002eflush"><span class="category">Function: </span><span><strong>gdb.flush</strong> <em>(<span class="roman">[</span>, stream<span class="roman">]</span>)</em><a href='#index-gdb_002eflush' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Flush the buffer of a <small>ROCGDB</small> paginated stream so that the
-contents are displayed immediately.  <small>ROCGDB</small> will flush the
+<dd><p>Flush the buffer of a ROCgdb paginated stream so that the
+contents are displayed immediately.  ROCgdb will flush the
 contents of a stream automatically when it encounters a newline in the
 buffer.  The optional <var>stream</var> determines the stream to flush.  The
-default stream is <small>ROCGDB</small>&rsquo;s standard output stream.  Possible
+default stream is ROCgdb&rsquo;s standard output stream.  Possible
 stream values are: 
 </p>
 <dl compact="compact">
@@ -364,19 +364,19 @@ stream values are:
 <span id="index-gdb_002eSTDOUT-1"></span>
 </dd>
 <dt><span><code>gdb.STDOUT</code></span></dt>
-<dd><p><small>ROCGDB</small>&rsquo;s standard output stream.
+<dd><p>ROCgdb&rsquo;s standard output stream.
 </p>
 <span id="index-STDERR-1"></span>
 <span id="index-gdb_002eSTDERR-1"></span>
 </dd>
 <dt><span><code>gdb.STDERR</code></span></dt>
-<dd><p><small>ROCGDB</small>&rsquo;s standard error stream.
+<dd><p>ROCgdb&rsquo;s standard error stream.
 </p>
 <span id="index-STDLOG-1"></span>
 <span id="index-gdb_002eSTDLOG-1"></span>
 </dd>
 <dt><span><code>gdb.STDLOG</code></span></dt>
-<dd><p><small>ROCGDB</small>&rsquo;s log stream (see <a href="Logging-Output.html">Logging Output</a>).
+<dd><p>ROCgdb&rsquo;s log stream (see <a href="Logging-Output.html">Logging Output</a>).
 </p>
 </dd>
 </dl>
@@ -425,24 +425,24 @@ the expression has been fully parsed).  The second element contains
 either <code>None</code> or another tuple that contains all the locations
 that match the expression represented as <code>gdb.Symtab_and_line</code>
 objects (see <a href="Symbol-Tables-In-Python.html">Symbol table representation in Python</a>).  If <var>expression</var> is
-provided, it is decoded the way that <small>ROCGDB</small>&rsquo;s inbuilt
+provided, it is decoded the way that ROCgdb&rsquo;s inbuilt
 <code>break</code> or <code>edit</code> commands do (see <a href="Location-Specifications.html">Location Specifications</a>).
 </p></dd></dl>
 
 <dl class="def">
 <dt id="index-gdb_002eprompt_005fhook"><span class="category">Function: </span><span><strong>gdb.prompt_hook</strong> <em>(current_prompt)</em><a href='#index-gdb_002eprompt_005fhook' class='copiable-anchor'> &para;</a></span></dt>
 <dd><span id="prompt_005fhook"></span>
-<p>If <var>prompt_hook</var> is callable, <small>ROCGDB</small> will call the method
+<p>If <var>prompt_hook</var> is callable, ROCgdb will call the method
 assigned to this operation before a prompt is displayed by
-<small>ROCGDB</small>.
+ROCgdb.
 </p>
-<p>The parameter <code>current_prompt</code> contains the current <small>ROCGDB</small> 
+<p>The parameter <code>current_prompt</code> contains the current ROCgdb 
 prompt.  This method must return a Python string, or <code>None</code>.  If
-a string is returned, the <small>ROCGDB</small> prompt will be set to that
-string.  If <code>None</code> is returned, <small>ROCGDB</small> will continue to use
+a string is returned, the ROCgdb prompt will be set to that
+string.  If <code>None</code> is returned, ROCgdb will continue to use
 the current prompt.
 </p>
-<p>Some prompts cannot be substituted in <small>ROCGDB</small>.  Secondary prompts
+<p>Some prompts cannot be substituted in ROCgdb.  Secondary prompts
 such as those used by readline for command input, and annotation
 related prompts are prohibited from being changed.
 </p></dd></dl>
@@ -450,7 +450,7 @@ related prompts are prohibited from being changed.
 <span id="gdb_005farchitecture_005fnames"></span><dl class="def">
 <dt id="index-gdb_002earchitecture_005fnames"><span class="category">Function: </span><span><strong>gdb.architecture_names</strong> <em>()</em><a href='#index-gdb_002earchitecture_005fnames' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Return a list containing all of the architecture names that the
-current build of <small>ROCGDB</small> supports.  Each architecture name is a
+current build of ROCgdb supports.  Each architecture name is a
 string.  The names returned in this list are the same names as are
 returned from <code>gdb.Architecture.name</code>
 (see <a href="Architectures-In-Python.html#gdbpy_005farchitecture_005fname">Architecture.name</a>).
@@ -474,7 +474,7 @@ is the offset from <var>symbol</var> to <var>address</var> in decimal.
 <p>If no suitable <var>symbol</var> was found, then the
 &lt;<var>symbol</var>+<var>offset</var>&gt; part is not included in the returned
 string, instead the returned string will just contain the
-<var>address</var> formatted as hexadecimal.  How far <small>ROCGDB</small> looks
+<var>address</var> formatted as hexadecimal.  How far ROCgdb looks
 back for a suitable symbol can be controlled with <kbd>set print
 max-symbolic-offset</kbd> (see <a href="Print-Settings.html">Print Settings</a>).
 </p>
@@ -490,7 +490,7 @@ looked up, and <var>architecture</var> is used when formatting <var>addr</var>,
 e.g. in order to determine the size of an address in bytes.
 </p>
 <p>If neither <var>progspace</var> or <var>architecture</var> are passed, then by
-default <small>ROCGDB</small> will use the program space and architecture of
+default ROCgdb will use the program space and architecture of
 the currently selected inferior, thus, the following two calls are
 equivalent:
 </p>
@@ -506,7 +506,7 @@ gdb.format_address(address,
 be provided (and the defaults will be used).
 </p>
 <p>This method uses the same mechanism for formatting address, symbol,
-and offset information as core <small>ROCGDB</small> does in commands such as
+and offset information as core ROCgdb does in commands such as
 <kbd>disassemble</kbd>.
 </p>
 <p>Here are some examples of the possible string formats:

@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Writing JIT Debug Info Readers (Debugging with ROCGDB)</title>
+<title>Writing JIT Debug Info Readers (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Writing JIT Debug Info Readers (Debugging with ROCGDB)">
-<meta name="keywords" content="Writing JIT Debug Info Readers (Debugging with ROCGDB)">
+<meta name="description" content="Writing JIT Debug Info Readers (Debugging with ROCgdb)">
+<meta name="keywords" content="Writing JIT Debug Info Readers (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -109,7 +109,7 @@ certain ABI.  This ABI is described in <samp>jit-reader.h</samp>.
 </p>
 <p><samp>jit-reader.h</samp> defines the structures, macros and functions
 required to write a reader.  It is installed (along with
-<small>ROCGDB</small>), in <samp><var>includedir</var>/gdb</samp> where <var>includedir</var> is
+ROCgdb), in <samp><var>includedir</var>/gdb</samp> where <var>includedir</var> is
 the system include directory.
 </p>
 <p>Readers need to be released under a GPL compatible license.  A reader
@@ -153,7 +153,7 @@ reader is being unloaded (<code>destroy</code>).  The struct looks like this
 <span id="index-struct-gdb_005funwind_005fcallbacks"></span>
 
 <p>The callbacks are provided with another set of callbacks by
-<small>ROCGDB</small> to do their job.  For <code>read</code>, these callbacks are
+ROCgdb to do their job.  For <code>read</code>, these callbacks are
 passed in a <code>struct gdb_symbol_callbacks</code> and for <code>unwind</code>
 and <code>get_frame_id</code>, in a <code>struct gdb_unwind_callbacks</code>.
 <code>struct gdb_symbol_callbacks</code> has callbacks to create new object

@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Blocks In Python (Debugging with ROCGDB)</title>
+<title>Blocks In Python (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Blocks In Python (Debugging with ROCGDB)">
-<meta name="keywords" content="Blocks In Python (Debugging with ROCGDB)">
+<meta name="description" content="Blocks In Python (Debugging with ROCgdb)">
+<meta name="keywords" content="Blocks In Python (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -107,7 +107,7 @@ Next: <a href="Symbols-In-Python.html" accesskey="n" rel="next">Python represent
 <span id="index-blocks-in-python"></span>
 <span id="index-gdb_002eBlock"></span>
 
-<p>In <small>ROCGDB</small>, symbols are stored in blocks.  A block corresponds
+<p>In ROCgdb, symbols are stored in blocks.  A block corresponds
 roughly to a scope in the source code.  Blocks are organized
 hierarchically, and are represented individually in Python as a
 <code>gdb.Block</code>.  Blocks rely on debugging information being
@@ -123,7 +123,7 @@ block typically holds public global variables and functions.
 block</em>.  The static block typically holds file-scoped variables and
 functions.
 </p>
-<p><small>ROCGDB</small> provides a method to get a block&rsquo;s superblock, but there
+<p>ROCgdb provides a method to get a block&rsquo;s superblock, but there
 is currently no way to examine the sub-blocks of a block, or to
 iterate over all the blocks in a symbol table (see <a href="Symbol-Tables-In-Python.html">Symbol table representation in Python</a>).
 </p>
@@ -160,7 +160,7 @@ int function (int argument)
 <p>A <code>gdb.Block</code> is iterable.  The iterator returns the symbols
 (see <a href="Symbols-In-Python.html">Python representation of Symbols</a>) local to the block.  Python programs
 should not assume that a specific block object will always contain a
-given symbol, since changes in <small>ROCGDB</small> features and
+given symbol, since changes in ROCgdb features and
 infrastructure may cause symbols move across blocks in a symbol
 table.  You can also use Python&rsquo;s <em>dictionary syntax</em> to access
 variables in this block, e.g.:

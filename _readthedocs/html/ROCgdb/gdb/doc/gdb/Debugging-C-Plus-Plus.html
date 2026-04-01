@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Debugging C Plus Plus (Debugging with ROCGDB)</title>
+<title>Debugging C Plus Plus (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Debugging C Plus Plus (Debugging with ROCGDB)">
-<meta name="keywords" content="Debugging C Plus Plus (Debugging with ROCGDB)">
+<meta name="description" content="Debugging C Plus Plus (Debugging with ROCgdb)">
+<meta name="keywords" content="Debugging C Plus Plus (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -99,14 +99,14 @@ ul.no-bullet {list-style: none}
 <div class="subsubsection" id="Debugging-C-Plus-Plus">
 <div class="header">
 <p>
-Next: <a href="Decimal-Floating-Point.html" accesskey="n" rel="next">Decimal Floating Point format</a>, Previous: <a href="Debugging-C.html" accesskey="p" rel="prev"><small>ROCGDB</small> and C</a>, Up: <a href="C.html" accesskey="u" rel="up">C and C<tt>++</tt></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Decimal-Floating-Point.html" accesskey="n" rel="next">Decimal Floating Point format</a>, Previous: <a href="Debugging-C.html" accesskey="p" rel="prev">ROCgdb and C</a>, Up: <a href="C.html" accesskey="u" rel="up">C and C<tt>++</tt></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="ROCGDB-Features-for-C_002b_002b"></span><h4 class="subsubsection">15.4.1.7 <small>ROCGDB</small> Features for C<tt>++</tt></h4>
+<span id="ROCgdb-Features-for-C_002b_002b"></span><h4 class="subsubsection">15.4.1.7 ROCgdb Features for C<tt>++</tt></h4>
 
 <span id="index-commands-for-C_002b_002b"></span>
 
-<p>Some <small>ROCGDB</small> commands are particularly useful with C<tt>++</tt>, and some are
+<p>Some ROCgdb commands are particularly useful with C<tt>++</tt>, and some are
 designed specifically for use with C<tt>++</tt>.  Here is a summary:
 </p>
 <dl compact="compact">
@@ -114,7 +114,7 @@ designed specifically for use with C<tt>++</tt>.  Here is a summary:
 </dd>
 <dt><span><code><span class="roman">breakpoint menus</span></code></span></dt>
 <dd><p>When you want a breakpoint in a function whose name is overloaded,
-<small>ROCGDB</small> has the capability to display a menu of possible breakpoint
+ROCgdb has the capability to display a menu of possible breakpoint
 locations to help you specify which function definition you want.
 See <a href="Ambiguous-Expressions.html">Ambiguous Expressions</a>.
 </p>
@@ -182,7 +182,7 @@ ANSI C<tt>++</tt> compiler (<code>aCC</code>).)
 </dd>
 <dt><span><code>set overload-resolution on</code></span></dt>
 <dd><p>Enable overload resolution for C<tt>++</tt> expression evaluation.  The default
-is on.  For overloaded functions, <small>ROCGDB</small> evaluates the arguments
+is on.  For overloaded functions, ROCgdb evaluates the arguments
 and searches for a function whose signature matches the argument types,
 using the standard C<tt>++</tt> conversion rules (see <a href="C-Plus-Plus-Expressions.html">C<tt>++</tt> Expressions</a>, for details).
 If it cannot find a match, it emits a message.
@@ -190,10 +190,10 @@ If it cannot find a match, it emits a message.
 </dd>
 <dt><span><code>set overload-resolution off</code></span></dt>
 <dd><p>Disable overload resolution for C<tt>++</tt> expression evaluation.  For
-overloaded functions that are not class member functions, <small>ROCGDB</small>
+overloaded functions that are not class member functions, ROCgdb
 chooses the first function of the specified name that it finds in the
 symbol table, whether or not its arguments are of the correct type.  For
-overloaded functions that are class member functions, <small>ROCGDB</small>
+overloaded functions that are class member functions, ROCgdb
 searches for a function whose signature <em>exactly</em> matches the
 argument types.
 </p>
@@ -207,22 +207,22 @@ argument types.
 <dd><p>You can specify a particular definition of an overloaded symbol, using
 the same notation that is used to declare such symbols in C<tt>++</tt>: type
 <code><var>symbol</var>(<var>types</var>)</code> rather than just <var>symbol</var>.  You can
-also use the <small>ROCGDB</small> command-line word completion facilities to list the
+also use the ROCgdb command-line word completion facilities to list the
 available choices, or to finish the type list for you.
 See <a href="Completion.html">Command Completion</a>, for details on how to do this.
 </p>
 </dd>
 <dt><span><code><span class="roman">Breakpoints in template functions</span></code></span></dt>
 <dd>
-<p>Similar to how overloaded symbols are handled, <small>ROCGDB</small> will ignore
+<p>Similar to how overloaded symbols are handled, ROCgdb will ignore
 template parameter lists when it encounters a symbol which includes a
 C<tt>++</tt> template.  This permits setting breakpoints on families of template functions
 or functions whose parameters include template types.
 </p>
 <p>The <kbd>-qualified</kbd> flag may be used to override this behavior, causing
-<small>ROCGDB</small> to search for a specific function or type.
+ROCgdb to search for a specific function or type.
 </p>
-<p>The <small>ROCGDB</small> command-line word completion facility also understands
+<p>The ROCgdb command-line word completion facility also understands
 template parameters and may be used to list available choices or finish
 template parameter lists for you. See <a href="Completion.html">Command Completion</a>, for
 details on how to do this.
@@ -244,7 +244,7 @@ function that returns a std::string:
 </pre></div>
 
 <p>when compiled for the C++11 ABI is marked with the <code>cxx11</code> ABI
-tag, and <small>ROCGDB</small> displays the symbol like this:
+tag, and ROCgdb displays the symbol like this:
 </p>
 <div class="example">
 <pre class="example">function[abi:cxx11](int)
@@ -276,7 +276,7 @@ name, like:
 <hr>
 <div class="header">
 <p>
-Next: <a href="Decimal-Floating-Point.html">Decimal Floating Point format</a>, Previous: <a href="Debugging-C.html"><small>ROCGDB</small> and C</a>, Up: <a href="C.html">C and C<tt>++</tt></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Decimal-Floating-Point.html">Decimal Floating Point format</a>, Previous: <a href="Debugging-C.html">ROCgdb and C</a>, Up: <a href="C.html">C and C<tt>++</tt></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

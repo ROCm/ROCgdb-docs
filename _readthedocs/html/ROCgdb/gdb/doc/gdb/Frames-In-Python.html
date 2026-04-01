@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Frames In Python (Debugging with ROCGDB)</title>
+<title>Frames In Python (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Frames In Python (Debugging with ROCGDB)">
-<meta name="keywords" content="Frames In Python (Debugging with ROCGDB)">
+<meta name="description" content="Frames In Python (Debugging with ROCgdb)">
+<meta name="keywords" content="Frames In Python (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -105,11 +105,11 @@ Next: <a href="Blocks-In-Python.html" accesskey="n" rel="next">Accessing blocks 
 <span id="Accessing-inferior-stack-frames-from-Python"></span><h4 class="subsubsection">24.3.2.28 Accessing inferior stack frames from Python</h4>
 
 <span id="index-frames-in-python"></span>
-<p>When the debugged program stops, <small>ROCGDB</small> is able to analyze its call
+<p>When the debugged program stops, ROCgdb is able to analyze its call
 stack (see <a href="Frames.html">Stack frames</a>).  The <code>gdb.Frame</code> class
 represents a frame in the stack.  A <code>gdb.Frame</code> object is only valid
 while its corresponding frame exists in the inferior&rsquo;s stack.  If you try
-to use an invalid frame object, <small>ROCGDB</small> will throw a <code>gdb.error</code>
+to use an invalid frame object, ROCgdb will throw a <code>gdb.error</code>
 exception (see <a href="Exception-Handling.html">Exception Handling</a>).
 </p>
 <p>Two <code>gdb.Frame</code> objects can be compared for equality with the <code>==</code>
@@ -134,14 +134,14 @@ True
 
 <dl class="def">
 <dt id="index-gdb_002eframe_005fstop_005freason_005fstring"><span class="category">Function: </span><span><strong>gdb.frame_stop_reason_string</strong> <em>(reason)</em><a href='#index-gdb_002eframe_005fstop_005freason_005fstring' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Return a string explaining the reason why <small>ROCGDB</small> stopped unwinding
+<dd><p>Return a string explaining the reason why ROCgdb stopped unwinding
 frames, as expressed by the given <var>reason</var> code (an integer, see the
 <code>unwind_stop_reason</code> method further down in this section).
 </p></dd></dl>
 
 <dl class="def">
 <dt id="index-gdb_002einvalidate_005fcached_005fframes"><span class="category">Function: </span><span><strong>gdb.invalidate_cached_frames</strong><a href='#index-gdb_002einvalidate_005fcached_005fframes' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p><small>ROCGDB</small> internally keeps a cache of the frames that have been
+<dd><p>ROCgdb internally keeps a cache of the frames that have been
 unwound.  This function invalidates this cache.
 </p>
 <p>This function should not generally be called by ordinary Python code.
@@ -179,7 +179,7 @@ architecture.  See <a href="Architectures-In-Python.html">Python representation 
 </p>
 </dd>
 <dt><span><code>gdb.DUMMY_FRAME</code></span></dt>
-<dd><p>A fake stack frame that was created by <small>ROCGDB</small> when performing an
+<dd><p>A fake stack frame that was created by ROCgdb when performing an
 inferior function call.
 </p>
 </dd>
@@ -222,7 +222,7 @@ function to a string. The value can be one of:
 </dd>
 <dt><span><code>gdb.FRAME_UNWIND_NULL_ID</code></span></dt>
 <dd><p>The previous frame&rsquo;s analyzer returns an invalid result.  This is no
-longer used by <small>ROCGDB</small>, and is kept only for backward
+longer used by ROCgdb, and is kept only for backward
 compatibility.
 </p>
 </dd>
@@ -262,7 +262,7 @@ one to unwind further.
 <dd><p>Any stop reason greater or equal to this value indicates some kind
 of error.  This special value facilitates writing code that tests
 for errors in unwinding in a way that will work correctly even if
-the list of the other values is modified in future <small>ROCGDB</small>
+the list of the other values is modified in future ROCgdb
 versions.  Using it, you could write:
 </p><div class="example">
 <pre class="example">reason = gdb.selected_frame().unwind_stop_reason ()
@@ -321,16 +321,16 @@ not exist.  The <var>register</var> argument must be one of the following:
 <li> A string that is the name of a valid register (e.g., <code>'sp'</code> or
 <code>'rax'</code>).
 </li><li> A <code>gdb.RegisterDescriptor</code> object (see <a href="Registers-In-Python.html">Registers In Python</a>).
-</li><li> A <small>ROCGDB</small> internal, platform specific number.  Using these
+</li><li> A ROCgdb internal, platform specific number.  Using these
 numbers is supported for historic reasons, but is not recommended as
-future changes to <small>ROCGDB</small> could change the mapping between
+future changes to ROCgdb could change the mapping between
 numbers and the registers they represent, breaking any Python code
 that uses the platform-specific numbers.  The numbers are usually
 found in the corresponding <samp><var>platform</var>-tdep.h</samp> file in the
-<small>ROCGDB</small> source tree.
+ROCgdb source tree.
 </li></ol>
 <p>Using a string to access registers will be slightly slower than the
-other two methods as <small>ROCGDB</small> must look up the mapping between
+other two methods as ROCgdb must look up the mapping between
 name and internal register number.  If performance is critical
 consider looking up and caching a <code>gdb.RegisterDescriptor</code>
 object.

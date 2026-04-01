@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Decimal Floating Point (Debugging with ROCGDB)</title>
+<title>Decimal Floating Point (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Decimal Floating Point (Debugging with ROCGDB)">
-<meta name="keywords" content="Decimal Floating Point (Debugging with ROCGDB)">
+<meta name="description" content="Decimal Floating Point (Debugging with ROCgdb)">
+<meta name="keywords" content="Decimal Floating Point (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -98,31 +98,31 @@ ul.no-bullet {list-style: none}
 <div class="subsubsection" id="Decimal-Floating-Point">
 <div class="header">
 <p>
-Previous: <a href="Debugging-C-Plus-Plus.html" accesskey="p" rel="prev"><small>ROCGDB</small> Features for C<tt>++</tt></a>, Up: <a href="C.html" accesskey="u" rel="up">C and C<tt>++</tt></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Previous: <a href="Debugging-C-Plus-Plus.html" accesskey="p" rel="prev">ROCgdb Features for C<tt>++</tt></a>, Up: <a href="C.html" accesskey="u" rel="up">C and C<tt>++</tt></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
 <span id="Decimal-Floating-Point-format"></span><h4 class="subsubsection">15.4.1.8 Decimal Floating Point format</h4>
 <span id="index-decimal-floating-point-format"></span>
 
-<p><small>ROCGDB</small> can examine, set and perform computations with numbers in
+<p>ROCgdb can examine, set and perform computations with numbers in
 decimal floating point format, which in the C language correspond to the
 <code>_Decimal32</code>, <code>_Decimal64</code> and <code>_Decimal128</code> types as
 specified by the extension to support decimal floating-point arithmetic.
 </p>
 <p>There are two encodings in use, depending on the architecture: BID (Binary
 Integer Decimal) for x86 and x86-64, and DPD (Densely Packed Decimal) for
-PowerPC and S/390.  <small>ROCGDB</small> will use the appropriate encoding for the
+PowerPC and S/390.  ROCgdb will use the appropriate encoding for the
 configured target.
 </p>
-<p>Because of a limitation in <samp>libdecnumber</samp>, the library used by <small>ROCGDB</small>
+<p>Because of a limitation in <samp>libdecnumber</samp>, the library used by ROCgdb
 to manipulate decimal floating point numbers, it is not possible to convert
 (using a cast, for example) integers wider than 32-bit to decimal float.
 </p>
-<p>In addition, in order to imitate <small>ROCGDB</small>&rsquo;s behavior with binary floating
+<p>In addition, in order to imitate ROCgdb&rsquo;s behavior with binary floating
 point computations, error checking in decimal float operations ignores
 underflow, overflow and divide by zero exceptions.
 </p>
-<p>In the PowerPC architecture, <small>ROCGDB</small> provides a set of pseudo-registers
+<p>In the PowerPC architecture, ROCgdb provides a set of pseudo-registers
 to inspect <code>_Decimal128</code> values stored in floating point registers.
 See <a href="PowerPC.html">PowerPC</a> for more details.
 </p>

@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>objfile-gdbdotext file (Debugging with ROCGDB)</title>
+<title>objfile-gdbdotext file (Debugging with ROCgdb)</title>
 
-<meta name="description" content="objfile-gdbdotext file (Debugging with ROCGDB)">
-<meta name="keywords" content="objfile-gdbdotext file (Debugging with ROCGDB)">
+<meta name="description" content="objfile-gdbdotext file (Debugging with ROCgdb)">
+<meta name="keywords" content="objfile-gdbdotext file (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -106,7 +106,7 @@ Next: <a href="dotdebug_005fgdb_005fscripts-section.html" accesskey="n" rel="nex
 <span id="index-objfile_002dgdb_002epy"></span>
 <span id="index-objfile_002dgdb_002escm"></span>
 
-<p>When a new object file is read, <small>ROCGDB</small> looks for a file named
+<p>When a new object file is read, ROCgdb looks for a file named
 <samp><var>objfile</var>-gdb.<var>ext</var></samp> (we call it <var>script-name</var> below),
 where <var>objfile</var> is the object file&rsquo;s name and
 where <var>ext</var> is the file extension for the extension language:
@@ -126,10 +126,10 @@ where <var>ext</var> is the file extension for the extension language:
 <p><var>script-name</var> is formed by ensuring that the file name of <var>objfile</var>
 is absolute, following all symlinks, and resolving <code>.</code> and <code>..</code>
 components, and appending the <samp>-gdb.<var>ext</var></samp> suffix.
-If this file exists and is readable, <small>ROCGDB</small> will evaluate it as a
+If this file exists and is readable, ROCgdb will evaluate it as a
 script in the specified extension language.
 </p>
-<p>If this file does not exist, then <small>ROCGDB</small> will look for
+<p>If this file does not exist, then ROCgdb will look for
 <var>script-name</var> file in all of the directories as specified below.
 (On MS-Windows/MS-DOS, the drive letter of the executable&rsquo;s leading
 directories is converted to a one-letter subdirectory, i.e.
@@ -139,9 +139,9 @@ filesystems disallow colons in file names.)
 <p>Note that loading of these files requires an accordingly configured
 <code>auto-load safe-path</code> (see <a href="Auto_002dloading-safe-path.html">Security restriction for auto-loading</a>).
 </p>
-<p>For object files using <samp>.exe</samp> suffix <small>ROCGDB</small> tries to load first the
+<p>For object files using <samp>.exe</samp> suffix ROCgdb tries to load first the
 scripts normally according to its <samp>.exe</samp> filename.  But if no scripts are
-found <small>ROCGDB</small> also tries script filenames matching the object file without
+found ROCgdb also tries script filenames matching the object file without
 its <samp>.exe</samp> suffix.  This <samp>.exe</samp> stripping is case insensitive and it
 is attempted on any platform.  This makes the script filenames compatible
 between Unix and MS-Windows hosts.
@@ -150,7 +150,7 @@ between Unix and MS-Windows hosts.
 <dd><span id="set-auto_002dload-scripts_002ddirectory"></span><span id="index-set-auto_002dload-scripts_002ddirectory"></span>
 </dd>
 <dt><span><code>set auto-load scripts-directory <span class="roman">[</span><var>directories</var><span class="roman">]</span></code></span></dt>
-<dd><p>Control <small>ROCGDB</small> auto-loaded scripts location.  Multiple directory entries
+<dd><p>Control ROCgdb auto-loaded scripts location.  Multiple directory entries
 may be delimited by the host platform path separator in use
 (&lsquo;<samp>:</samp>&rsquo; on Unix, &lsquo;<samp>;</samp>&rsquo; on MS-Windows and MS-DOS).
 </p>
@@ -158,13 +158,13 @@ may be delimited by the host platform path separator in use
 <code>set auto-load safe-path</code> (see <a href="Auto_002dloading-safe-path.html#set-auto_002dload-safe_002dpath">set auto-load safe-path</a>).
 </p>
 <span id="with_002dauto_002dload_002ddir"></span><p>This variable defaults to <samp>$debugdir:$datadir/auto-load</samp>.  The default
-<code>set auto-load safe-path</code> value can be also overridden by <small>ROCGDB</small>
+<code>set auto-load safe-path</code> value can be also overridden by ROCgdb
 configuration option <samp>--with-auto-load-dir</samp>.
 </p>
 <p>Any reference to <samp>$debugdir</samp> will get replaced by
 <var>debug-file-directory</var> value (see <a href="Separate-Debug-Files.html">Debugging Information in Separate Files</a>) and any
 reference to <samp>$datadir</samp> will get replaced by <var>data-directory</var> which is
-determined at <small>ROCGDB</small> startup (see <a href="Data-Files.html"><small>ROCGDB</small> Data Files</a>).  <samp>$debugdir</samp> and
+determined at ROCgdb startup (see <a href="Data-Files.html">ROCgdb Data Files</a>).  <samp>$debugdir</samp> and
 <samp>$datadir</samp> must be placed as a directory component &mdash; either alone or
 delimited by <samp>/</samp> or <samp>\</samp> directory separators, depending on the host
 platform.
@@ -176,7 +176,7 @@ to the <code>PATH</code> environment variable.
 <span id="show-auto_002dload-scripts_002ddirectory"></span><span id="index-show-auto_002dload-scripts_002ddirectory"></span>
 </dd>
 <dt><span><code>show auto-load scripts-directory</code></span></dt>
-<dd><p>Show <small>ROCGDB</small> auto-loaded scripts location.
+<dd><p>Show ROCgdb auto-loaded scripts location.
 </p>
 <span id="add_002dauto_002dload_002dscripts_002ddirectory"></span><span id="index-add_002dauto_002dload_002dscripts_002ddirectory"></span>
 </dd>
@@ -186,8 +186,8 @@ Multiple entries may be delimited by the host platform path separator in use.
 </p></dd>
 </dl>
 
-<p><small>ROCGDB</small> does not track which files it has already auto-loaded this way.
-<small>ROCGDB</small> will load the associated script every time the corresponding
+<p>ROCgdb does not track which files it has already auto-loaded this way.
+ROCgdb will load the associated script every time the corresponding
 <var>objfile</var> is opened.
 So your <samp>-gdb.<var>ext</var></samp> file should be careful to avoid errors if it
 is evaluated more than once.

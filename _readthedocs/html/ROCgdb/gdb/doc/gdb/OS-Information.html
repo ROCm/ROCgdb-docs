@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>OS Information (Debugging with ROCGDB)</title>
+<title>OS Information (Debugging with ROCgdb)</title>
 
-<meta name="description" content="OS Information (Debugging with ROCGDB)">
-<meta name="keywords" content="OS Information (Debugging with ROCGDB)">
+<meta name="description" content="OS Information (Debugging with ROCgdb)">
+<meta name="keywords" content="OS Information (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -105,7 +105,7 @@ Next: <a href="Memory-Region-Attributes.html" accesskey="n" rel="next">Memory Re
 <span id="Operating-System-Auxiliary-Information"></span><h3 class="section">10.17 Operating System Auxiliary Information</h3>
 <span id="index-OS-information"></span>
 
-<p><small>ROCGDB</small> provides interfaces to useful OS facilities that can help
+<p>ROCgdb provides interfaces to useful OS facilities that can help
 you debug your program.
 </p>
 <span id="index-auxiliary-vector"></span>
@@ -117,7 +117,7 @@ binary values that tell system libraries important details about the
 hardware, operating system, and process.  Each value&rsquo;s purpose is
 identified by an integer tag; the meanings are well-known but system-specific.
 Depending on the configuration and operating system facilities,
-<small>ROCGDB</small> may be able to show you this information.  For remote
+ROCgdb may be able to show you this information.  For remote
 targets, this functionality may further depend on the remote stub&rsquo;s
 support of the &lsquo;<samp>qXfer:auxv:read</samp>&rsquo; packet, see
 <a href="General-Query-Packets.html#qXfer-auxiliary-vector-read">qXfer auxiliary vector read</a>.
@@ -127,16 +127,16 @@ support of the &lsquo;<samp>qXfer:auxv:read</samp>&rsquo; packet, see
 </dd>
 <dt><span><code>info auxv</code></span></dt>
 <dd><p>Display the auxiliary vector of the inferior, which can be either a
-live process or a core dump file.  <small>ROCGDB</small> prints each tag value
+live process or a core dump file.  ROCgdb prints each tag value
 numerically, and also shows names and text descriptions for recognized
 tags.  Some values in the vector are numbers, some bit masks, and some
-pointers to strings or other data.  <small>ROCGDB</small> displays each value in the
+pointers to strings or other data.  ROCgdb displays each value in the
 most appropriate form for a recognized tag, and in hexadecimal for
 an unrecognized tag.
 </p></dd>
 </dl>
 
-<p>On some targets, <small>ROCGDB</small> can access operating system-specific
+<p>On some targets, ROCgdb can access operating system-specific
 information and show it to you.  The types of information available
 will differ depending on the type of operating system running on the
 target.  The mechanism used to fetch the data is described in
@@ -157,7 +157,7 @@ functionality depends on the remote stub&rsquo;s support of the
 <dd><span id="index-info-os-cpus"></span>
 </dd>
 <dt><span><code>cpus</code></span></dt>
-<dd><p>Display the list of all CPUs/cores. For each CPU/core, <small>ROCGDB</small> prints
+<dd><p>Display the list of all CPUs/cores. For each CPU/core, ROCgdb prints
 the available fields from /proc/cpuinfo. For each supported architecture
 different fields are available. Two common entries are processor which gives
 CPU number and bogomips; a system constant that is calculated during
@@ -167,7 +167,7 @@ kernel initialization.
 </dd>
 <dt><span><code>files</code></span></dt>
 <dd><p>Display the list of open file descriptors on the target.  For each
-file descriptor, <small>ROCGDB</small> prints the identifier of the process
+file descriptor, ROCgdb prints the identifier of the process
 owning the descriptor, the command of the owning process, the value
 of the descriptor, and the target of the descriptor.
 </p>
@@ -175,7 +175,7 @@ of the descriptor, and the target of the descriptor.
 </dd>
 <dt><span><code>modules</code></span></dt>
 <dd><p>Display the list of all loaded kernel modules on the target.  For each
-module, <small>ROCGDB</small> prints the module name, the size of the module in
+module, ROCgdb prints the module name, the size of the module in
 bytes, the number of times the module is used, the dependencies of the
 module, the status of the module, and the address of the loaded module
 in memory.
@@ -184,7 +184,7 @@ in memory.
 </dd>
 <dt><span><code>msg</code></span></dt>
 <dd><p>Display the list of all System V message queues on the target.  For each
-message queue, <small>ROCGDB</small> prints the message queue key, the message
+message queue, ROCgdb prints the message queue key, the message
 queue identifier, the access permissions, the current number of bytes
 on the queue, the current number of messages on the queue, the processes
 that last sent and received a message on the queue, the user and group
@@ -196,7 +196,7 @@ the message queue was last changed.
 </dd>
 <dt><span><code>processes</code></span></dt>
 <dd><p>Display the list of processes on the target.  For each process,
-<small>ROCGDB</small> prints the process identifier, the name of the user, the
+ROCgdb prints the process identifier, the name of the user, the
 command corresponding to the process, and the list of processor cores
 that the process is currently running on.  (To understand what these
 properties mean, for this and the following info types, please consult
@@ -206,7 +206,7 @@ the general <small>GNU</small>/Linux documentation.)
 </dd>
 <dt><span><code>procgroups</code></span></dt>
 <dd><p>Display the list of process groups on the target.  For each process,
-<small>ROCGDB</small> prints the identifier of the process group that it belongs
+ROCgdb prints the identifier of the process group that it belongs
 to, the command corresponding to the process group leader, the process
 identifier, and the command line of the process.  The list is sorted
 first by the process group identifier, then by the process identifier,
@@ -217,7 +217,7 @@ and the process group leader is listed first.
 </dd>
 <dt><span><code>semaphores</code></span></dt>
 <dd><p>Display the list of all System V semaphore sets on the target.  For each
-semaphore set, <small>ROCGDB</small> prints the semaphore set key, the semaphore
+semaphore set, ROCgdb prints the semaphore set key, the semaphore
 set identifier, the access permissions, the number of semaphores in the
 set, the user and group of the owner and creator of the semaphore set,
 and the times at which the semaphore set was operated upon and changed.
@@ -226,7 +226,7 @@ and the times at which the semaphore set was operated upon and changed.
 </dd>
 <dt><span><code>shm</code></span></dt>
 <dd><p>Display the list of all System V shared-memory regions on the target.
-For each shared-memory region, <small>ROCGDB</small> prints the region key,
+For each shared-memory region, ROCgdb prints the region key,
 the shared-memory identifier, the access permissions, the size of the
 region, the process that created the region, the process that last
 attached to or detached from the region, the current number of live
@@ -237,7 +237,7 @@ attached to, detach from, and changed.
 </dd>
 <dt><span><code>sockets</code></span></dt>
 <dd><p>Display the list of Internet-domain sockets on the target.  For each
-socket, <small>ROCGDB</small> prints the address and port of the local and
+socket, ROCgdb prints the address and port of the local and
 remote endpoints, the current state of the connection, the creator of
 the socket, the IP address family of the socket, and the type of the
 connection.
@@ -246,7 +246,7 @@ connection.
 </dd>
 <dt><span><code>threads</code></span></dt>
 <dd><p>Display the list of threads running on the target.  For each thread,
-<small>ROCGDB</small> prints the identifier of the process that the thread
+ROCgdb prints the identifier of the process that the thread
 belongs to, the command of the process, the thread identifier, and the
 processor core that it is currently running on.  The main thread of a
 process is not listed.

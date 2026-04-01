@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Initialization Files (Debugging with ROCGDB)</title>
+<title>Initialization Files (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Initialization Files (Debugging with ROCGDB)">
-<meta name="keywords" content="Initialization Files (Debugging with ROCGDB)">
+<meta name="description" content="Initialization Files (Debugging with ROCgdb)">
+<meta name="keywords" content="Initialization Files (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -98,29 +98,29 @@ ul.no-bullet {list-style: none}
 <div class="subsection" id="Initialization-Files">
 <div class="header">
 <p>
-Previous: <a href="Startup.html" accesskey="p" rel="prev">What <small>ROCGDB</small> Does During Startup</a>, Up: <a href="Invoking-GDB.html" accesskey="u" rel="up">Invoking <small>ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Previous: <a href="Startup.html" accesskey="p" rel="prev">What ROCgdb Does During Startup</a>, Up: <a href="Invoking-GDB.html" accesskey="u" rel="up">Invoking ROCgdb</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
 <span id="Initialization-Files-1"></span><h4 class="subsection">2.1.4 Initialization Files</h4>
 <span id="index-init-file-name"></span>
 
-<p>During startup (see <a href="Startup.html">What <small>ROCGDB</small> Does During Startup</a>) <small>ROCGDB</small> will execute commands
+<p>During startup (see <a href="Startup.html">What ROCgdb Does During Startup</a>) ROCgdb will execute commands
 from several initialization files.  These initialization files use the
 same syntax as <em>command files</em> (see <a href="Command-Files.html">Command Files</a>) and are
-processed by <small>ROCGDB</small> in the same way.
+processed by ROCgdb in the same way.
 </p>
-<p>To display the list of initialization files loaded by <small>ROCGDB</small> at
+<p>To display the list of initialization files loaded by ROCgdb at
 startup, in the order they will be loaded, you can use <kbd>gdb
 --help</kbd>.
 </p>
 <span id="index-early-initialization"></span>
 <p>The <em>early initialization</em> file is loaded very early in
-<small>ROCGDB</small>&rsquo;s initialization process, before the interpreter
+ROCgdb&rsquo;s initialization process, before the interpreter
 (see <a href="Interpreters.html">Command Interpreters</a>) has been initialized, and before the default
 target (see <a href="Targets.html">Specifying a Debugging Target</a>) is initialized.  Only <code>set</code> or
 <code>source</code> commands should be placed into an early initialization
 file, and the only <code>set</code> commands that can be used are those that
-control how <small>ROCGDB</small> starts up.
+control how ROCgdb starts up.
 </p>
 <p>Commands that can be placed into an early initialization file will be
 documented as such throughout this manual.  Any command that is not
@@ -133,7 +133,7 @@ passed to <code>--early-init-eval-command</code> or <code>-eiex</code>.
 </p>
 <span id="index-general-initialization"></span>
 <p>In contrast, the <em>general initialization</em> files are processed
-later, after <small>ROCGDB</small> has finished its own internal initialization
+later, after ROCgdb has finished its own internal initialization
 process, any valid command can be used in these files.
 </p>
 <span id="index-initialization-file"></span>
@@ -148,7 +148,7 @@ processed before most command line options, changes to settings
 (e.g. &lsquo;<samp>set complaints</samp>&rsquo;) can affect subsequent processing of
 command line options and operands.
 </p>
-<p>The following sections describe where <small>ROCGDB</small> looks for the early
+<p>The following sections describe where ROCgdb looks for the early
 initialization and initialization files, and the order that the files
 are searched for.
 </p>
@@ -161,10 +161,10 @@ are searched for.
 <div class="subsubsection" id="Home-directory-early-initialization-files">
 <h4 class="subsubsection">2.1.4.1 Home directory early initialization files</h4>
 
-<p><small>ROCGDB</small> initially looks for an early initialization file in the
-users home directory<a id="DOCF1" href="#FOOT1"><sup>1</sup></a>.  There are a number of locations that <small>ROCGDB</small> will
+<p>ROCgdb initially looks for an early initialization file in the
+users home directory<a id="DOCF1" href="#FOOT1"><sup>1</sup></a>.  There are a number of locations that ROCgdb will
 search in the home directory, these locations are searched in order
-and <small>ROCGDB</small> will load the first file that it finds, and
+and ROCgdb will load the first file that it finds, and
 subsequent locations will not be checked.
 </p>
 <p>On non-macOS hosts the locations searched are:
@@ -202,7 +202,7 @@ initialization files.  Both of these locations are always checked:
 <dd><p>This is a single system-wide initialization file.  Its location is
 specified with the <code>--with-system-gdbinit</code> configure option
 (see <a href="System_002dwide-configuration.html">System-wide configuration and settings</a>).  It is loaded first when
-<small>ROCGDB</small> starts, before command line options have been processed.
+ROCgdb starts, before command line options have been processed.
 </p>
 </dd>
 <dt><span><code><samp>system.gdbinit.d</samp></code></span></dt>
@@ -210,11 +210,11 @@ specified with the <code>--with-system-gdbinit</code> configure option
 specified with the <code>--with-system-gdbinit-dir</code> configure option
 (see <a href="System_002dwide-configuration.html">System-wide configuration and settings</a>).  Files in this directory are
 loaded in alphabetical order immediately after <samp>system.gdbinit</samp>
-(if enabled) when <small>ROCGDB</small> starts, before command line options
+(if enabled) when ROCgdb starts, before command line options
 have been processed.  Files need to have a recognized scripting
 language extension (<samp>.py</samp>/<samp>.scm</samp>) or be named with a
-<samp>.gdb</samp> extension to be interpreted as regular <small>ROCGDB</small>
-commands.  <small>ROCGDB</small> will not recurse into any subdirectories of
+<samp>.gdb</samp> extension to be interpreted as regular ROCgdb
+commands.  ROCgdb will not recurse into any subdirectories of
 this directory.
 </p>
 </dd>
@@ -230,11 +230,11 @@ being loaded using the &lsquo;<samp>-nx</samp>&rsquo; command line option, see <
 <span id="index-_002egdbinit"></span>
 <span id="index-gdb_002eini"></span>
 
-<p>After loading the system wide initialization files <small>ROCGDB</small> will
+<p>After loading the system wide initialization files ROCgdb will
 look for an initialization file in the users home
 directory<a id="DOCF2" href="#FOOT2"><sup>2</sup></a>.  There are a
-number of locations that <small>ROCGDB</small> will search in the home
-directory, these locations are searched in order and <small>ROCGDB</small> will
+number of locations that ROCgdb will search in the home
+directory, these locations are searched in order and ROCgdb will
 load the first file that it finds, and subsequent locations will not
 be checked.
 </p>
@@ -255,9 +255,9 @@ be checked.
 being loaded using the &lsquo;<samp>-nx</samp>&rsquo; or &lsquo;<samp>-nh</samp>&rsquo; command line options,
 see <a href="Mode-Options.html">Choosing Modes</a>.
 </p>
-<p>The DJGPP port of <small>ROCGDB</small> uses the name <samp>gdb.ini</samp> instead of
+<p>The DJGPP port of ROCgdb uses the name <samp>gdb.ini</samp> instead of
 <samp>.gdbinit</samp> or <samp>gdbinit</samp>, due to the limitations of file
-names imposed by DOS filesystems.  The Windows port of <small>ROCGDB</small>
+names imposed by DOS filesystems.  The Windows port of ROCgdb
 uses the standard name, but if it finds a <samp>gdb.ini</samp> file in your
 home directory, it warns you about that and suggests to rename the
 file to the standard name.
@@ -266,7 +266,7 @@ file to the standard name.
 <div class="subsubsection" id="Local-directory-initialization-file">
 <h4 class="subsubsection">2.1.4.4 Local directory initialization file</h4>
 
-<p><small>ROCGDB</small> will check the current directory for a file called
+<p>ROCgdb will check the current directory for a file called
 <samp>.gdbinit</samp>.  It is loaded last, after command line options
 other than &lsquo;<samp>-x</samp>&rsquo; and &lsquo;<samp>-ex</samp>&rsquo; have been processed.  The command
 line options &lsquo;<samp>-x</samp>&rsquo; and &lsquo;<samp>-ex</samp>&rsquo; are processed last, after
@@ -297,7 +297,7 @@ one pointed to by the <code>HOME</code> environment variable.</p>
 <hr>
 <div class="header">
 <p>
-Previous: <a href="Startup.html">What <small>ROCGDB</small> Does During Startup</a>, Up: <a href="Invoking-GDB.html">Invoking <small>ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Previous: <a href="Startup.html">What ROCgdb Does During Startup</a>, Up: <a href="Invoking-GDB.html">Invoking ROCgdb</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

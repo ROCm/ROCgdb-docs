@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Values From Inferior In Guile (Debugging with ROCGDB)</title>
+<title>Values From Inferior In Guile (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Values From Inferior In Guile (Debugging with ROCGDB)">
-<meta name="keywords" content="Values From Inferior In Guile (Debugging with ROCGDB)">
+<meta name="description" content="Values From Inferior In Guile (Debugging with ROCgdb)">
+<meta name="keywords" content="Values From Inferior In Guile (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -107,12 +107,12 @@ Next: <a href="Arithmetic-In-Guile.html" accesskey="n" rel="next">Arithmetic In 
 <span id="index-guile_002c-working-with-values-from-inferior"></span>
 
 <span id="index-_003cgdb_003avalue_003e"></span>
-<p><small>ROCGDB</small> provides values it obtains from the inferior program in
-an object of type <code>&lt;gdb:value&gt;</code>.  <small>ROCGDB</small> uses this object
+<p>ROCgdb provides values it obtains from the inferior program in
+an object of type <code>&lt;gdb:value&gt;</code>.  ROCgdb uses this object
 for its internal bookkeeping of the inferior&rsquo;s values, and for
 fetching values when necessary.
 </p>
-<p><small>ROCGDB</small> does not memoize <code>&lt;gdb:value&gt;</code> objects.
+<p>ROCgdb does not memoize <code>&lt;gdb:value&gt;</code> objects.
 <code>make-value</code> always returns a fresh object.
 </p>
 <div class="example">
@@ -137,7 +137,7 @@ execute this function, call it like so:
 
 <p>Any values returned from a function call are <code>&lt;gdb:value&gt;</code> objects.
 </p>
-<p>Note: Unlike Python scripting in <small>ROCGDB</small>,
+<p>Note: Unlike Python scripting in ROCgdb,
 inferior values that are simple scalars cannot be used directly in
 Scheme expressions that are valid for the value&rsquo;s data type.
 For example, <code>(+ (parse-and-eval &quot;int_variable&quot;) 2)</code> does not work.
@@ -482,14 +482,14 @@ converts <var>value</var> to a <code>&lt;gdb:lazy-string</code> (see <a href="La
 <p>If the optional <var>encoding</var> argument is given, it must be a string
 naming the encoding of the <code>&lt;gdb:lazy-string</code>.  Some examples are:
 <code>&quot;ascii&quot;</code>, <code>&quot;iso-8859-6&quot;</code> or <code>&quot;utf-8&quot;</code>.  If the
-<var>encoding</var> argument is an encoding that <small>ROCGDB</small> does not
-recognize, <small>ROCGDB</small> will raise an error.
+<var>encoding</var> argument is an encoding that ROCgdb does not
+recognize, ROCgdb will raise an error.
 </p>
-<p>When a lazy string is printed, the <small>ROCGDB</small> encoding machinery is
+<p>When a lazy string is printed, the ROCgdb encoding machinery is
 used to convert the string during printing.  If the optional
 <var>encoding</var> argument is not provided, or is an empty string,
-<small>ROCGDB</small> will automatically select the encoding most suitable for
-the string type.  For further information on encoding in <small>ROCGDB</small>
+ROCgdb will automatically select the encoding most suitable for
+the string type.  For further information on encoding in ROCgdb
 please see <a href="Character-Sets.html">Character Sets</a>.
 </p>
 <p>If the optional <var>length</var> argument is given, the string will be
@@ -504,7 +504,7 @@ The length must be a Scheme integer and not a <code>&lt;gdb:value&gt;</code> int
 <dd><p>Return <code>#t</code> if <var>value</var> has not yet been fetched
 from the inferior.
 Otherwise return <code>#f</code>.
-<small>ROCGDB</small> does not fetch values until necessary, for efficiency.
+ROCgdb does not fetch values until necessary, for efficiency.
 For example:
 </p>
 <div class="example">

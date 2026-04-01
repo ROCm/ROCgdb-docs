@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Interrupts (Debugging with ROCGDB)</title>
+<title>Interrupts (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Interrupts (Debugging with ROCGDB)">
-<meta name="keywords" content="Interrupts (Debugging with ROCGDB)">
+<meta name="description" content="Interrupts (Debugging with ROCgdb)">
+<meta name="keywords" content="Interrupts (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -99,21 +99,21 @@ ul.no-bullet {list-style: none}
 <div class="section" id="Interrupts">
 <div class="header">
 <p>
-Next: <a href="Notification-Packets.html" accesskey="n" rel="next">Notification Packets</a>, Previous: <a href="Host-I_002fO-Packets.html" accesskey="p" rel="prev">Host I/O Packets</a>, Up: <a href="Remote-Protocol.html" accesskey="u" rel="up"><small>ROCGDB</small> Remote Serial Protocol</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Notification-Packets.html" accesskey="n" rel="next">Notification Packets</a>, Previous: <a href="Host-I_002fO-Packets.html" accesskey="p" rel="prev">Host I/O Packets</a>, Up: <a href="Remote-Protocol.html" accesskey="u" rel="up">ROCgdb Remote Serial Protocol</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
 <span id="Interrupts-1"></span><h3 class="section">E.9 Interrupts</h3>
 <span id="index-interrupts-_0028remote-protocol_0029"></span>
 <span id="interrupting-remote-targets"></span>
 <p>In all-stop mode, when a program on the remote target is running,
-<small>ROCGDB</small> may attempt to interrupt it by sending a &lsquo;<samp>Ctrl-C</samp>&rsquo;,
+ROCgdb may attempt to interrupt it by sending a &lsquo;<samp>Ctrl-C</samp>&rsquo;,
 <code>BREAK</code> or a <code>BREAK</code> followed by <code>g</code>, control of which
-is specified via <small>ROCGDB</small>&rsquo;s &lsquo;<samp>interrupt-sequence</samp>&rsquo;.
+is specified via ROCgdb&rsquo;s &lsquo;<samp>interrupt-sequence</samp>&rsquo;.
 </p>
 <p>The precise meaning of <code>BREAK</code> is defined by the transport
-mechanism and may, in fact, be undefined.  <small>ROCGDB</small> does not
+mechanism and may, in fact, be undefined.  ROCgdb does not
 currently define a <code>BREAK</code> mechanism for any of the network
-interfaces except for TCP, in which case <small>ROCGDB</small> sends the
+interfaces except for TCP, in which case ROCgdb sends the
 <code>telnet</code> BREAK sequence.
 </p>
 <p>&lsquo;<samp>Ctrl-C</samp>&rsquo;, on the other hand, is defined and implemented for all
@@ -130,9 +130,9 @@ When Linux kernel receives this sequence from serial port,
 it stops execution and connects to gdb.
 </p>
 <p>In non-stop mode, because packet resumptions are asynchronous
-(see <a href="Packets.html#vCont-packet">vCont packet</a>), <small>ROCGDB</small> is always free to send a remote
+(see <a href="Packets.html#vCont-packet">vCont packet</a>), ROCgdb is always free to send a remote
 command to the remote stub, even when the target is running.  For that
-reason, <small>ROCGDB</small> instead sends a regular packet (see <a href="Packets.html#vCtrlC-packet">vCtrlC packet</a>) with the usual packet framing instead of the single byte
+reason, ROCgdb instead sends a regular packet (see <a href="Packets.html#vCtrlC-packet">vCtrlC packet</a>) with the usual packet framing instead of the single byte
 <code>0x03</code>.
 </p>
 <p>Stubs are not required to recognize these interrupt mechanisms and the
@@ -142,7 +142,7 @@ threads and/or processes, it should attempt to interrupt all
 currently-executing threads and processes.
 If the stub is successful at interrupting the
 running program, it should send one of the stop
-reply packets (see <a href="Stop-Reply-Packets.html">Stop Reply Packets</a>) to <small>ROCGDB</small> as a result
+reply packets (see <a href="Stop-Reply-Packets.html">Stop Reply Packets</a>) to ROCgdb as a result
 of successfully stopping the program in all-stop mode, and a stop reply
 for each stopped thread in non-stop mode.
 Interrupts received while the
@@ -153,7 +153,7 @@ it is resumed next time.
 <hr>
 <div class="header">
 <p>
-Next: <a href="Notification-Packets.html">Notification Packets</a>, Previous: <a href="Host-I_002fO-Packets.html">Host I/O Packets</a>, Up: <a href="Remote-Protocol.html"><small>ROCGDB</small> Remote Serial Protocol</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Notification-Packets.html">Notification Packets</a>, Previous: <a href="Host-I_002fO-Packets.html">Host I/O Packets</a>, Up: <a href="Remote-Protocol.html">ROCgdb Remote Serial Protocol</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

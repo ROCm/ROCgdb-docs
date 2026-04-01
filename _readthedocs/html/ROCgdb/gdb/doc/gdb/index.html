@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Top (Debugging with ROCGDB)</title>
+<title>Top (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Top (Debugging with ROCGDB)">
-<meta name="keywords" content="Top (Debugging with ROCGDB)">
+<meta name="description" content="Top (Debugging with ROCgdb)">
+<meta name="keywords" content="Top (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -94,7 +94,7 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<h1 class="settitle" align="center">Debugging with <small>ROCGDB</small></h1>
+<h1 class="settitle" align="center">Debugging with ROCgdb</h1>
 
 
 
@@ -104,10 +104,11 @@ ul.no-bullet {list-style: none}
 
 
 
-<p>This file documents the <small>GNU</small> debugger <small>ROCGDB</small>.
+<p>This file documents ROCgdb, the AMD ROCm debugger based on the
+<small>GNU</small> debugger <small>GDB</small>.
 </p>
-<p>This is the Tenth Edition, of <cite>Debugging with
-<small>ROCGDB</small>: the <small>GNU</small> Source-Level Debugger</cite> for <small>ROCGDB</small>
+<p>Based on the Tenth Edition, of <cite>Debugging with
+<small>GDB</small>: the <small>GNU</small> Source-Level Debugger</cite> for <small>GDB</small>
 (GDB)
 Version 16.3.
 </p>
@@ -170,15 +171,16 @@ companies.
 <div class="top" id="Top">
 <div class="header">
 <p>
-Next: <a href="Summary.html" accesskey="n" rel="next">Summary of <small>ROCGDB</small></a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Summary.html" accesskey="n" rel="next">Summary of ROCgdb</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
 
-<span id="Debugging-with-ROCGDB"></span><h1 class="top">Debugging with <small>ROCGDB</small></h1>
+<span id="Debugging-with-ROCgdb"></span><h1 class="top">Debugging with ROCgdb</h1>
 
-<p>This file describes <small>ROCGDB</small>, the <small>GNU</small> symbolic debugger.
+<p>This file describes ROCgdb, the AMD ROCm debugger based on the
+<small>GNU</small> symbolic debugger.
 </p>
-<p>This is the Tenth Edition, for <small>ROCGDB</small>
+<p>Based on the Tenth Edition of <cite>Debugging with <small>GDB</small></cite>, for <small>GDB</small>
 (GDB)
 Version 16.3.
 </p>
@@ -197,20 +199,20 @@ software in general.  We will miss him.
 <div class="contents">
 
 <ul class="no-bullet">
-  <li><a id="toc-Summary-of-ROCGDB" href="Summary.html">Summary of <small>ROCGDB</small></a>
+  <li><a id="toc-Summary-of-ROCgdb" href="Summary.html">Summary of ROCgdb</a>
   <ul class="no-bullet">
     <li><a id="toc-Free-Software-1" href="Free-Software.html">Free Software</a></li>
     <li><a id="toc-Free-Software-Needs-Free-Documentation" href="Free-Documentation.html">Free Software Needs Free Documentation</a></li>
-    <li><a id="toc-Contributors-to-ROCGDB" href="Contributors.html">Contributors to <small>ROCGDB</small></a></li>
+    <li><a id="toc-Contributors-to-GDB" href="Contributors.html">Contributors to <small>GDB</small></a></li>
   </ul></li>
-  <li><a id="toc-A-Sample-ROCGDB-Session" href="Sample-Session.html">1 A Sample <small>ROCGDB</small> Session</a></li>
-  <li><a id="toc-Getting-In-and-Out-of-ROCGDB" href="Invocation.html">2 Getting In and Out of <small>ROCGDB</small></a>
+  <li><a id="toc-A-Sample-ROCgdb-Session" href="Sample-Session.html">1 A Sample ROCgdb Session</a></li>
+  <li><a id="toc-Getting-In-and-Out-of-ROCgdb" href="Invocation.html">2 Getting In and Out of ROCgdb</a>
   <ul class="no-bullet">
-    <li><a id="toc-Invoking-ROCGDB" href="Invoking-GDB.html">2.1 Invoking <small>ROCGDB</small></a>
+    <li><a id="toc-Invoking-ROCgdb" href="Invoking-GDB.html">2.1 Invoking ROCgdb</a>
     <ul class="no-bullet">
       <li><a id="toc-Choosing-Files" href="File-Options.html">2.1.1 Choosing Files</a></li>
       <li><a id="toc-Choosing-Modes" href="Mode-Options.html">2.1.2 Choosing Modes</a></li>
-      <li><a id="toc-What-ROCGDB-Does-During-Startup" href="Startup.html">2.1.3 What <small>ROCGDB</small> Does During Startup</a></li>
+      <li><a id="toc-What-ROCgdb-Does-During-Startup" href="Startup.html">2.1.3 What ROCgdb Does During Startup</a></li>
       <li><a id="toc-Initialization-Files-1" href="Initialization-Files.html">2.1.4 Initialization Files</a>
       <ul class="no-bullet">
         <li><a id="toc-Home-directory-early-initialization-files" href="Initialization-Files.html#Home-directory-early-initialization-files">2.1.4.1 Home directory early initialization files</a></li>
@@ -219,11 +221,11 @@ software in general.  We will miss him.
         <li><a id="toc-Local-directory-initialization-file" href="Initialization-Files.html#Local-directory-initialization-file">2.1.4.4 Local directory initialization file</a></li>
       </ul></li>
     </ul></li>
-    <li><a id="toc-Quitting-ROCGDB" href="Quitting-GDB.html">2.2 Quitting <small>ROCGDB</small></a></li>
+    <li><a id="toc-Quitting-ROCgdb" href="Quitting-GDB.html">2.2 Quitting ROCgdb</a></li>
     <li><a id="toc-Shell-Commands-1" href="Shell-Commands.html">2.3 Shell Commands</a></li>
     <li><a id="toc-Logging-Output-1" href="Logging-Output.html">2.4 Logging Output</a></li>
   </ul></li>
-  <li><a id="toc-ROCGDB-Commands" href="Commands.html">3 <small>ROCGDB</small> Commands</a>
+  <li><a id="toc-ROCgdb-Commands" href="Commands.html">3 ROCgdb Commands</a>
   <ul class="no-bullet">
     <li><a id="toc-Command-Syntax-1" href="Command-Syntax.html">3.1 Command Syntax</a></li>
     <li><a id="toc-Command-Settings-1" href="Command-Settings.html">3.2 Command Settings</a></li>
@@ -232,7 +234,7 @@ software in general.  We will miss him.
     <li><a id="toc-Command-options" href="Command-Options.html">3.5 Command options</a></li>
     <li><a id="toc-Getting-Help" href="Help.html">3.6 Getting Help</a></li>
   </ul></li>
-  <li><a id="toc-Running-Programs-Under-ROCGDB" href="Running.html">4 Running Programs Under <small>ROCGDB</small></a>
+  <li><a id="toc-Running-Programs-Under-ROCgdb" href="Running.html">4 Running Programs Under ROCgdb</a>
   <ul class="no-bullet">
     <li><a id="toc-Compiling-for-Debugging" href="Compilation.html">4.1 Compiling for Debugging</a></li>
     <li><a id="toc-Starting-your-Program" href="Starting.html">4.2 Starting your Program</a></li>
@@ -390,13 +392,13 @@ software in general.  We will miss him.
     <li><a id="toc-Automatic-Overlay-Debugging-1" href="Automatic-Overlay-Debugging.html">14.3 Automatic Overlay Debugging</a></li>
     <li><a id="toc-Overlay-Sample-Program-1" href="Overlay-Sample-Program.html">14.4 Overlay Sample Program</a></li>
   </ul></li>
-  <li><a id="toc-Using-ROCGDB-with-Different-Languages" href="Languages.html">15 Using <small>ROCGDB</small> with Different Languages</a>
+  <li><a id="toc-Using-ROCgdb-with-Different-Languages" href="Languages.html">15 Using ROCgdb with Different Languages</a>
   <ul class="no-bullet">
     <li><a id="toc-Switching-Between-Source-Languages" href="Setting.html">15.1 Switching Between Source Languages</a>
     <ul class="no-bullet">
       <li><a id="toc-List-of-Filename-Extensions-and-Languages" href="Filenames.html">15.1.1 List of Filename Extensions and Languages</a></li>
       <li><a id="toc-Setting-the-Working-Language" href="Manually.html">15.1.2 Setting the Working Language</a></li>
-      <li><a id="toc-Having-ROCGDB-Infer-the-Source-Language" href="Automatically.html">15.1.3 Having <small>ROCGDB</small> Infer the Source Language</a></li>
+      <li><a id="toc-Having-ROCgdb-Infer-the-Source-Language" href="Automatically.html">15.1.3 Having ROCgdb Infer the Source Language</a></li>
     </ul></li>
     <li><a id="toc-Displaying-the-Language" href="Show.html">15.2 Displaying the Language</a></li>
     <li><a id="toc-Type-and-Range-Checking" href="Checks.html">15.3 Type and Range Checking</a>
@@ -413,8 +415,8 @@ software in general.  We will miss him.
         <li><a id="toc-C_002b_002b-Expressions" href="C-Plus-Plus-Expressions.html">15.4.1.3 C<tt>++</tt> Expressions</a></li>
         <li><a id="toc-C-and-C_002b_002b-Defaults" href="C-Defaults.html">15.4.1.4 C and C<tt>++</tt> Defaults</a></li>
         <li><a id="toc-C-and-C_002b_002b-Type-and-Range-Checks" href="C-Checks.html">15.4.1.5 C and C<tt>++</tt> Type and Range Checks</a></li>
-        <li><a id="toc-ROCGDB-and-C" href="Debugging-C.html">15.4.1.6 <small>ROCGDB</small> and C</a></li>
-        <li><a id="toc-ROCGDB-Features-for-C_002b_002b" href="Debugging-C-Plus-Plus.html">15.4.1.7 <small>ROCGDB</small> Features for C<tt>++</tt></a></li>
+        <li><a id="toc-ROCgdb-and-C" href="Debugging-C.html">15.4.1.6 ROCgdb and C</a></li>
+        <li><a id="toc-ROCgdb-Features-for-C_002b_002b" href="Debugging-C-Plus-Plus.html">15.4.1.7 ROCgdb Features for C<tt>++</tt></a></li>
         <li><a id="toc-Decimal-Floating-Point-format" href="Decimal-Floating-Point.html">15.4.1.8 Decimal Floating Point format</a></li>
       </ul></li>
       <li><a id="toc-D-1" href="D.html">15.4.2 D</a></li>
@@ -449,7 +451,7 @@ software in general.  We will miss him.
         <li><a id="toc-Deviations-from-Standard-Modula_002d2" href="Deviations.html">15.4.9.6 Deviations from Standard Modula-2</a></li>
         <li><a id="toc-Modula_002d2-Type-and-Range-Checks" href="M2-Checks.html">15.4.9.7 Modula-2 Type and Range Checks</a></li>
         <li><a id="toc-The-Scope-Operators-_003a_003a-and-_002e" href="M2-Scope.html">15.4.9.8 The Scope Operators <code>::</code> and <code>.</code></a></li>
-        <li><a id="toc-ROCGDB-and-Modula_002d2" href="GDB_002fM2.html">15.4.9.9 <small>ROCGDB</small> and Modula-2</a></li>
+        <li><a id="toc-ROCgdb-and-Modula_002d2" href="GDB_002fM2.html">15.4.9.9 ROCgdb and Modula-2</a></li>
       </ul></li>
       <li><a id="toc-Ada-1" href="Ada.html">15.4.10 Ada</a>
       <ul class="no-bullet">
@@ -481,27 +483,27 @@ software in general.  We will miss him.
       <li><a id="toc-Calling-functions-with-no-debug-info" href="Calling.html#Calling-functions-with-no-debug-info">17.5.1 Calling functions with no debug info</a></li>
     </ul></li>
     <li><a id="toc-Patching-Programs" href="Patching.html">17.6 Patching Programs</a></li>
-    <li><a id="toc-Compiling-and-injecting-code-in-ROCGDB" href="Compiling-and-Injecting-Code.html">17.7 Compiling and injecting code in <small>ROCGDB</small></a>
+    <li><a id="toc-Compiling-and-injecting-code-in-ROCgdb" href="Compiling-and-Injecting-Code.html">17.7 Compiling and injecting code in ROCgdb</a>
     <ul class="no-bullet">
       <li><a id="toc-Compilation-options-for-the-compile-command" href="Compiling-and-Injecting-Code.html#Compilation-options-for-the-compile-command">17.7.1 Compilation options for the <code>compile</code> command</a></li>
       <li><a id="toc-Caveats-when-using-the-compile-command" href="Compiling-and-Injecting-Code.html#Caveats-when-using-the-compile-command">17.7.2 Caveats when using the <code>compile</code> command</a></li>
       <li><a id="toc-Compiler-search-for-the-compile-command" href="Compiling-and-Injecting-Code.html#Compiler-search-for-the-compile-command">17.7.3 Compiler search for the <code>compile</code> command</a></li>
     </ul></li>
   </ul></li>
-  <li><a id="toc-ROCGDB-Files" href="GDB-Files.html">18 <small>ROCGDB</small> Files</a>
+  <li><a id="toc-ROCgdb-Files" href="GDB-Files.html">18 ROCgdb Files</a>
   <ul class="no-bullet">
     <li><a id="toc-Commands-to-Specify-Files" href="Files.html">18.1 Commands to Specify Files</a></li>
     <li><a id="toc-File-Caching-1" href="File-Caching.html">18.2 File Caching</a></li>
     <li><a id="toc-Debugging-Information-in-Separate-Files" href="Separate-Debug-Files.html">18.3 Debugging Information in Separate Files</a></li>
     <li><a id="toc-Debugging-information-in-a-special-section" href="MiniDebugInfo.html">18.4 Debugging information in a special section</a></li>
-    <li><a id="toc-Index-Files-Speed-Up-ROCGDB" href="Index-Files.html">18.5 Index Files Speed Up <small>ROCGDB</small></a>
+    <li><a id="toc-Index-Files-Speed-Up-ROCgdb" href="Index-Files.html">18.5 Index Files Speed Up ROCgdb</a>
     <ul class="no-bullet">
       <li><a id="toc-Automatic-symbol-index-cache" href="Index-Files.html#Automatic-symbol-index-cache">18.5.1 Automatic symbol index cache</a></li>
       <li><a id="toc-Building-the-index-with-GNU-gold" href="Index-Files.html#Building-the-index-with-GNU-gold">18.5.2 Building the index with GNU <code>gold</code></a></li>
     </ul></li>
     <li><a id="toc-Extensions-to-_002edebug_005fnames" href="Debug-Names.html">18.6 Extensions to &lsquo;<samp>.debug_names</samp>&rsquo;</a></li>
     <li><a id="toc-Errors-Reading-Symbol-Files" href="Symbol-Errors.html">18.7 Errors Reading Symbol Files</a></li>
-    <li><a id="toc-ROCGDB-Data-Files" href="Data-Files.html">18.8 <small>ROCGDB</small> Data Files</a></li>
+    <li><a id="toc-ROCgdb-Data-Files" href="Data-Files.html">18.8 ROCgdb Data Files</a></li>
   </ul></li>
   <li><a id="toc-Specifying-a-Debugging-Target" href="Targets.html">19 Specifying a Debugging Target</a>
   <ul class="no-bullet">
@@ -617,7 +619,7 @@ software in general.  We will miss him.
       </ul></li>
     </ul></li>
   </ul></li>
-  <li><a id="toc-Controlling-ROCGDB" href="Controlling-GDB.html">23 Controlling <small>ROCGDB</small></a>
+  <li><a id="toc-Controlling-ROCgdb" href="Controlling-GDB.html">23 Controlling ROCgdb</a>
   <ul class="no-bullet">
     <li><a id="toc-Prompt-1" href="Prompt.html">23.1 Prompt</a></li>
     <li><a id="toc-Command-Editing" href="Editing.html">23.2 Command Editing</a></li>
@@ -637,7 +639,7 @@ software in general.  We will miss him.
     <li><a id="toc-Optional-Messages-about-Internal-Happenings" href="Debugging-Output.html">23.10 Optional Messages about Internal Happenings</a></li>
     <li><a id="toc-Other-Miscellaneous-Settings" href="Other-Misc-Settings.html">23.11 Other Miscellaneous Settings</a></li>
   </ul></li>
-  <li><a id="toc-Extending-ROCGDB" href="Extending-GDB.html">24 Extending <small>ROCGDB</small></a>
+  <li><a id="toc-Extending-ROCgdb" href="Extending-GDB.html">24 Extending ROCgdb</a>
   <ul class="no-bullet">
     <li><a id="toc-Canned-Sequences-of-Commands" href="Sequences.html">24.1 Canned Sequences of Commands</a>
     <ul class="no-bullet">
@@ -645,13 +647,13 @@ software in general.  We will miss him.
       <li><a id="toc-User_002ddefined-Command-Hooks" href="Hooks.html">24.1.2 User-defined Command Hooks</a></li>
       <li><a id="toc-Command-Files-1" href="Command-Files.html">24.1.3 Command Files</a></li>
       <li><a id="toc-Commands-for-Controlled-Output" href="Output.html">24.1.4 Commands for Controlled Output</a></li>
-      <li><a id="toc-Controlling-auto_002dloading-native-ROCGDB-scripts" href="Auto_002dloading-sequences.html">24.1.5 Controlling auto-loading native <small>ROCGDB</small> scripts</a></li>
+      <li><a id="toc-Controlling-auto_002dloading-native-ROCgdb-scripts" href="Auto_002dloading-sequences.html">24.1.5 Controlling auto-loading native ROCgdb scripts</a></li>
     </ul></li>
     <li><a id="toc-Command-Aliases" href="Aliases.html">24.2 Command Aliases</a>
     <ul class="no-bullet">
       <li><a id="toc-Default-Arguments" href="Command-aliases-default-args.html">24.2.1 Default Arguments</a></li>
     </ul></li>
-    <li><a id="toc-Extending-ROCGDB-using-Python" href="Python.html">24.3 Extending <small>ROCGDB</small> using Python</a>
+    <li><a id="toc-Extending-ROCgdb-using-Python" href="Python.html">24.3 Extending ROCgdb using Python</a>
     <ul class="no-bullet">
       <li><a id="toc-Python-Commands-1" href="Python-Commands.html">24.3.1 Python Commands</a></li>
       <li><a id="toc-Python-API-1" href="Python-API.html">24.3.2 Python API</a>
@@ -708,7 +710,7 @@ software in general.  We will miss him.
         <li><a id="toc-gdb_002eptwrite-1" href="gdb_002eptwrite.html">24.3.4.4 gdb.ptwrite</a></li>
       </ul></li>
     </ul></li>
-    <li><a id="toc-Extending-ROCGDB-using-Guile" href="Guile.html">24.4 Extending <small>ROCGDB</small> using Guile</a>
+    <li><a id="toc-Extending-ROCgdb-using-Guile" href="Guile.html">24.4 Extending ROCgdb using Guile</a>
     <ul class="no-bullet">
       <li><a id="toc-Guile-Introduction-1" href="Guile-Introduction.html">24.4.1 Guile Introduction</a></li>
       <li><a id="toc-Guile-Commands-1" href="Guile-Commands.html">24.4.2 Guile Commands</a></li>
@@ -763,7 +765,7 @@ software in general.  We will miss him.
     </ul></li>
   </ul></li>
   <li><a id="toc-Command-Interpreters" href="Interpreters.html">25 Command Interpreters</a></li>
-  <li><a id="toc-ROCGDB-Text-User-Interface" href="TUI.html">26 <small>ROCGDB</small> Text User Interface</a>
+  <li><a id="toc-ROCgdb-Text-User-Interface" href="TUI.html">26 ROCgdb Text User Interface</a>
   <ul class="no-bullet">
     <li><a id="toc-TUI-Overview-1" href="TUI-Overview.html">26.1 TUI Overview</a></li>
     <li><a id="toc-TUI-Key-Bindings" href="TUI-Keys.html">26.2 TUI Key Bindings</a></li>
@@ -772,7 +774,7 @@ software in general.  We will miss him.
     <li><a id="toc-TUI_002dspecific-Commands" href="TUI-Commands.html">26.5 TUI-specific Commands</a></li>
     <li><a id="toc-TUI-Configuration-Variables" href="TUI-Configuration.html">26.6 TUI Configuration Variables</a></li>
   </ul></li>
-  <li><a id="toc-Using-ROCGDB-under-GNU-Emacs" href="Emacs.html">27 Using <small>ROCGDB</small> under <small>GNU</small> Emacs</a></li>
+  <li><a id="toc-Using-ROCgdb-under-GNU-Emacs" href="Emacs.html">27 Using ROCgdb under <small>GNU</small> Emacs</a></li>
   <li><a id="toc-The-GDB_002fMI-Interface" href="GDB_002fMI.html">28 The <small>GDB/MI</small> Interface</a>
   <ul class="no-bullet">
     <li><a id="toc-Function-and-Purpose" href="GDB_002fMI.html#Function-and-Purpose">Function and Purpose</a></li>
@@ -833,11 +835,11 @@ software in general.  We will miss him.
     <li><a id="toc-GDB_002fMI-Support-Commands-1" href="GDB_002fMI-Support-Commands.html">28.24 <small>GDB/MI</small> Support Commands</a></li>
     <li><a id="toc-Miscellaneous-GDB_002fMI-Commands" href="GDB_002fMI-Miscellaneous-Commands.html">28.25 Miscellaneous <small>GDB/MI</small> Commands</a></li>
   </ul></li>
-  <li><a id="toc-ROCGDB-Annotations" href="Annotations.html">29 <small>ROCGDB</small> Annotations</a>
+  <li><a id="toc-ROCgdb-Annotations" href="Annotations.html">29 ROCgdb Annotations</a>
   <ul class="no-bullet">
     <li><a id="toc-What-is-an-Annotation_003f" href="Annotations-Overview.html">29.1 What is an Annotation?</a></li>
     <li><a id="toc-The-Server-Prefix" href="Server-Prefix.html">29.2 The Server Prefix</a></li>
-    <li><a id="toc-Annotation-for-ROCGDB-Input" href="Prompting.html">29.3 Annotation for <small>ROCGDB</small> Input</a></li>
+    <li><a id="toc-Annotation-for-ROCgdb-Input" href="Prompting.html">29.3 Annotation for ROCgdb Input</a></li>
     <li><a id="toc-Errors-1" href="Errors.html">29.4 Errors</a></li>
     <li><a id="toc-Invalidation-Notices" href="Invalidation.html">29.5 Invalidation Notices</a></li>
     <li><a id="toc-Running-the-Program" href="Annotations-for-Running.html">29.6 Running the Program</a></li>
@@ -863,7 +865,7 @@ software in general.  We will miss him.
       <li><a id="toc-IPA-Protocol-Commands-1" href="IPA-Protocol-Commands.html">32.1.2 IPA Protocol Commands</a></li>
     </ul></li>
   </ul></li>
-  <li><a id="toc-Reporting-Bugs-in-ROCGDB" href="GDB-Bugs.html">33 Reporting Bugs in <small>ROCGDB</small></a>
+  <li><a id="toc-Reporting-Bugs-in-ROCgdb" href="GDB-Bugs.html">33 Reporting Bugs in ROCgdb</a>
   <ul class="no-bullet">
     <li><a id="toc-Have-You-Found-a-Bug_003f" href="Bug-Criteria.html">33.1 Have You Found a Bug?</a></li>
     <li><a id="toc-How-to-Report-Bugs" href="Bug-Reporting.html">33.2 How to Report Bugs</a></li>
@@ -909,11 +911,11 @@ software in general.  We will miss him.
   </ul></li>
   <li><a id="toc-In-Memoriam-1" href="In-Memoriam.html">Appendix A In Memoriam</a></li>
   <li><a id="toc-Formatting-Documentation-1" href="Formatting-Documentation.html">Appendix B Formatting Documentation</a></li>
-  <li><a id="toc-Installing-ROCGDB" href="Installing-GDB.html">Appendix C Installing <small>ROCGDB</small></a>
+  <li><a id="toc-Installing-ROCgdb" href="Installing-GDB.html">Appendix C Installing ROCgdb</a>
   <ul class="no-bullet">
-    <li><a id="toc-Requirements-for-Building-ROCGDB" href="Requirements.html">C.1 Requirements for Building <small>ROCGDB</small></a></li>
-    <li><a id="toc-Invoking-the-ROCGDB-configure-Script" href="Running-Configure.html">C.2 Invoking the <small>ROCGDB</small> <samp>configure</samp> Script</a></li>
-    <li><a id="toc-Compiling-ROCGDB-in-Another-Directory" href="Separate-Objdir.html">C.3 Compiling <small>ROCGDB</small> in Another Directory</a></li>
+    <li><a id="toc-Requirements-for-Building-ROCgdb" href="Requirements.html">C.1 Requirements for Building ROCgdb</a></li>
+    <li><a id="toc-Invoking-the-ROCgdb-configure-Script" href="Running-Configure.html">C.2 Invoking the ROCgdb <samp>configure</samp> Script</a></li>
+    <li><a id="toc-Compiling-ROCgdb-in-Another-Directory" href="Separate-Objdir.html">C.3 Compiling ROCgdb in Another Directory</a></li>
     <li><a id="toc-Specifying-Names-for-Hosts-and-Targets" href="Config-Names.html">C.4 Specifying Names for Hosts and Targets</a></li>
     <li><a id="toc-configure-Options" href="Configure-Options.html">C.5 <samp>configure</samp> Options</a></li>
     <li><a id="toc-System_002dwide-configuration-and-settings" href="System_002dwide-configuration.html">C.6 System-wide configuration and settings</a>
@@ -922,7 +924,7 @@ software in general.  We will miss him.
     </ul></li>
   </ul></li>
   <li><a id="toc-Maintenance-Commands-1" href="Maintenance-Commands.html">Appendix D Maintenance Commands</a></li>
-  <li><a id="toc-ROCGDB-Remote-Serial-Protocol" href="Remote-Protocol.html">Appendix E <small>ROCGDB</small> Remote Serial Protocol</a>
+  <li><a id="toc-ROCgdb-Remote-Serial-Protocol" href="Remote-Protocol.html">Appendix E ROCgdb Remote Serial Protocol</a>
   <ul class="no-bullet">
     <li><a id="toc-Overview-1" href="Overview.html">E.1 Overview</a></li>
     <li><a id="toc-Standard-Replies-1" href="Standard-Replies.html">E.2 Standard Replies</a></li>
@@ -1088,7 +1090,7 @@ software in general.  We will miss him.
 <hr>
 <div class="header">
 <p>
-Next: <a href="Summary.html" accesskey="n" rel="next">Summary of <small>ROCGDB</small></a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Summary.html" accesskey="n" rel="next">Summary of ROCgdb</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

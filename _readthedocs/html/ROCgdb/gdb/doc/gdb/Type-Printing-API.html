@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Type Printing API (Debugging with ROCGDB)</title>
+<title>Type Printing API (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Type Printing API (Debugging with ROCGDB)">
-<meta name="keywords" content="Type Printing API (Debugging with ROCGDB)">
+<meta name="description" content="Type Printing API (Debugging with ROCgdb)">
+<meta name="keywords" content="Type Printing API (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -105,7 +105,7 @@ Next: <a href="Frame-Filter-API.html" accesskey="n" rel="next">Filtering Frames<
 <span id="Type-Printing-API-1"></span><h4 class="subsubsection">24.3.2.9 Type Printing API</h4>
 <span id="index-type-printing-API-for-Python"></span>
 
-<p><small>ROCGDB</small> provides a way for Python code to customize type display.
+<p>ROCgdb provides a way for Python code to customize type display.
 This is mainly useful for substituting canonical typedef names for
 types.
 </p>
@@ -130,22 +130,22 @@ commands.
 
 <dl class="def">
 <dt id="index-instantiate-on-type_005fprinter"><span>Method on type_printer: <strong>instantiate</strong> <em>(self)</em><a href='#index-instantiate-on-type_005fprinter' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>This is called by <small>ROCGDB</small> at the start of type-printing.  It is
+<dd><p>This is called by ROCgdb at the start of type-printing.  It is
 only called if the type printer is enabled.  This method must return a
 new object that supplies a <code>recognize</code> method, as described below.
 </p></dd></dl>
 
 
-<p>When displaying a type, say via the <code>ptype</code> command, <small>ROCGDB</small>
+<p>When displaying a type, say via the <code>ptype</code> command, ROCgdb
 will compute a list of type recognizers.  This is done by iterating
 first over the per-objfile type printers (see <a href="Objfiles-In-Python.html">Objfiles In Python</a>),
 followed by the per-progspace type printers (see <a href="Progspaces-In-Python.html">Program Spaces In Python</a>), and finally the global type printers.
 </p>
-<p><small>ROCGDB</small> will call the <code>instantiate</code> method of each enabled
+<p>ROCgdb will call the <code>instantiate</code> method of each enabled
 type printer.  If this method returns <code>None</code>, then the result is
 ignored; otherwise, it is appended to the list of recognizers.
 </p>
-<p>Then, when <small>ROCGDB</small> is going to display a type name, it iterates
+<p>Then, when ROCgdb is going to display a type name, it iterates
 over the list of recognizers.  For each one, it calls the recognition
 function, stopping if the function returns a non-<code>None</code> value.
 The recognition function is defined as:
@@ -158,7 +158,7 @@ The <var>type</var> argument will be an instance of <code>gdb.Type</code>
 (see <a href="Types-In-Python.html">Types In Python</a>).
 </p></dd></dl>
 
-<p><small>ROCGDB</small> uses this two-pass approach so that type printers can
+<p>ROCgdb uses this two-pass approach so that type printers can
 efficiently cache information without holding on to it too long.  For
 example, it can be convenient to look up type information in a type
 printer and hold it for a recognizer&rsquo;s lifetime; if a single pass were

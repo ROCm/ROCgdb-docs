@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>GDB/MI Async Records (Debugging with ROCGDB)</title>
+<title>GDB/MI Async Records (Debugging with ROCgdb)</title>
 
-<meta name="description" content="GDB/MI Async Records (Debugging with ROCGDB)">
-<meta name="keywords" content="GDB/MI Async Records (Debugging with ROCGDB)">
+<meta name="description" content="GDB/MI Async Records (Debugging with ROCgdb)">
+<meta name="keywords" content="GDB/MI Async Records (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -120,7 +120,7 @@ thread ID of the thread that is now running, and it can be
 &lsquo;<samp>all</samp>&rsquo; if all threads are running.  The frontend should assume
 that no interaction with a running thread is possible after this
 notification is produced.  The frontend should not assume that this
-notification is output only once for any command.  <small>ROCGDB</small> may
+notification is output only once for any command.  ROCgdb may
 emit this notification several times, either for different threads,
 because it cannot resume all threads together, or even for a single
 thread, if the thread must be stepped though some code before letting
@@ -204,13 +204,13 @@ syscall</code> (see <a href="Set-Catchpoints.html">Setting Catchpoints</a>) has 
 that directly caused the stop &ndash; for example by hitting a breakpoint.
 The <var>lane-id</var> field is present if the thread has multiple lanes,
 in which case <var>lid</var> indentifies the lane ID of the lane that
-<small>ROCGDB</small> is reporting the stop for, and thus gets the focus.  This
+ROCgdb is reporting the stop for, and thus gets the focus.  This
 lane is the one for which the arguments in the frame field are for.
 No stop record is reported for the other lanes in the thread.  Note
 that the <var>lane-id</var> field always indicates one lane only, while
 <var>hit-lanes</var> may indicate a set of lanes.
 Depending on whether all-stop
-mode is in effect (see <a href="All_002dStop-Mode.html">All-Stop Mode</a>), <small>ROCGDB</small> may either
+mode is in effect (see <a href="All_002dStop-Mode.html">All-Stop Mode</a>), ROCgdb may either
 stop all threads, or only the thread that directly triggered the stop.
 If all threads are stopped, the <var>stopped</var> field will have the
 value of <code>&quot;all&quot;</code>.  Otherwise, the value of the <var>stopped</var>
@@ -224,7 +224,7 @@ if such information is not available.
 <dt><span><code>=thread-group-added,id=&quot;<var>id</var>&quot;</code></span></dt>
 <dt><span><code>=thread-group-removed,id=&quot;<var>id</var>&quot;</code></span></dt>
 <dd><p>A thread group was either added or removed.  The <var>id</var> field
-contains the <small>ROCGDB</small> identifier of the thread group.  When a thread
+contains the ROCgdb identifier of the thread group.  When a thread
 group is added, it generally might not be associated with a running
 process.  When a thread group is removed, its id becomes invalid and
 cannot be used in any way.
@@ -234,14 +234,14 @@ cannot be used in any way.
 <dd><p>A thread group became associated with a running program,
 either because the program was just started or the thread group
 was attached to a program.  The <var>id</var> field contains the
-<small>ROCGDB</small> identifier of the thread group.  The <var>pid</var> field
+ROCgdb identifier of the thread group.  The <var>pid</var> field
 contains process identifier, specific to the operating system.
 </p>
 </dd>
 <dt><span><code>=thread-group-exited,id=&quot;<var>id</var>&quot;[,exit-code=&quot;<var>code</var>&quot;]</code></span></dt>
 <dd><p>A thread group is no longer associated with a running program,
 either because the program has exited, or because it was detached
-from.  The <var>id</var> field contains the <small>ROCGDB</small> identifier of the
+from.  The <var>id</var> field contains the ROCgdb identifier of the
 thread group.  The <var>code</var> field is the exit code of the inferior; it exists
 only when the inferior exited with some code.
 </p>
@@ -249,7 +249,7 @@ only when the inferior exited with some code.
 <dt><span><code>=thread-created,id=&quot;<var>id</var>&quot;,group-id=&quot;<var>gid</var>&quot;</code></span></dt>
 <dt><span><code>=thread-exited,id=&quot;<var>id</var>&quot;,group-id=&quot;<var>gid</var>&quot;</code></span></dt>
 <dd><p>A thread either was created, or has exited.  The <var>id</var> field
-contains the global <small>ROCGDB</small> identifier of the thread.  The <var>gid</var>
+contains the global ROCgdb identifier of the thread.  The <var>gid</var>
 field identifies the thread group this thread belongs to.
 </p>
 </dd>
@@ -341,7 +341,7 @@ command, then it will not also be emitted in an async record.
 <dt><span><code>=record-started,thread-group=&quot;<var>id</var>&quot;,method=&quot;<var>method</var>&quot;[,format=&quot;<var>format</var>&quot;]</code></span></dt>
 <dt><span><code>=record-stopped,thread-group=&quot;<var>id</var>&quot;</code></span></dt>
 <dd><p>Execution log recording was either started or stopped on an
-inferior.  The <var>id</var> is the <small>ROCGDB</small> identifier of the thread
+inferior.  The <var>id</var> is the ROCgdb identifier of the thread
 group corresponding to the affected inferior.
 </p>
 <p>The <var>method</var> field indicates the method used to record execution.  If the

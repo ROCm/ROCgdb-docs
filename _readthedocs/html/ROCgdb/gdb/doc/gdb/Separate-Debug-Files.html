@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Separate Debug Files (Debugging with ROCGDB)</title>
+<title>Separate Debug Files (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Separate Debug Files (Debugging with ROCGDB)">
-<meta name="keywords" content="Separate Debug Files (Debugging with ROCGDB)">
+<meta name="description" content="Separate Debug Files (Debugging with ROCgdb)">
+<meta name="keywords" content="Separate Debug Files (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -99,7 +99,7 @@ ul.no-bullet {list-style: none}
 <div class="section" id="Separate-Debug-Files">
 <div class="header">
 <p>
-Next: <a href="MiniDebugInfo.html" accesskey="n" rel="next">Debugging information in a special section</a>, Previous: <a href="File-Caching.html" accesskey="p" rel="prev">File Caching</a>, Up: <a href="GDB-Files.html" accesskey="u" rel="up"><small>ROCGDB</small> Files</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="MiniDebugInfo.html" accesskey="n" rel="next">Debugging information in a special section</a>, Previous: <a href="File-Caching.html" accesskey="p" rel="prev">File Caching</a>, Up: <a href="GDB-Files.html" accesskey="u" rel="up">ROCgdb Files</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
 <span id="Debugging-Information-in-Separate-Files"></span><h3 class="section">18.3 Debugging Information in Separate Files</h3>
@@ -111,15 +111,15 @@ Next: <a href="MiniDebugInfo.html" accesskey="n" rel="next">Debugging informatio
 <span id="index-build-ID_002c-and-separate-debugging-files"></span>
 <span id="index-_002ebuild_002did-directory"></span>
 
-<p><small>ROCGDB</small> allows you to put a program&rsquo;s debugging information in a
+<p>ROCgdb allows you to put a program&rsquo;s debugging information in a
 file separate from the executable itself, in a way that allows
-<small>ROCGDB</small> to find and load the debugging information automatically.
+ROCgdb to find and load the debugging information automatically.
 Since debugging information can be very large&mdash;sometimes larger
 than the executable code itself&mdash;some systems distribute debugging
 information for their executables in separate files, which users can
 install only when they need to debug a problem.
 </p>
-<p><small>ROCGDB</small> supports two ways of specifying the separate debug info
+<p>ROCgdb supports two ways of specifying the separate debug info
 file:
 </p>
 <ul>
@@ -129,7 +129,7 @@ usually <samp><var>executable</var>.debug</samp>, where <var>executable</var> is
 name of the corresponding executable file without leading directories
 (e.g., <samp>ls.debug</samp> for <samp>/usr/bin/ls</samp>).  In addition, the
 debug link specifies a 32-bit <em>Cyclic Redundancy Check</em> (CRC)
-checksum for the debug file, which <small>ROCGDB</small> uses to validate that
+checksum for the debug file, which ROCgdb uses to validate that
 the executable and the debug file came from the same build.
 
 </li><li> <span id="build-ID"></span>The executable contains a <em>build ID</em>, a unique bit string that is
@@ -142,11 +142,11 @@ explicitly by the build ID, but can be computed from the build ID, see
 below.
 </li></ul>
 
-<p>Depending on the way the debug info file is specified, <small>ROCGDB</small>
+<p>Depending on the way the debug info file is specified, ROCgdb
 uses two different methods of looking for the debug file:
 </p>
 <ul>
-<li> For the &ldquo;debug link&rdquo; method, <small>ROCGDB</small> looks up the named file in
+<li> For the &ldquo;debug link&rdquo; method, ROCgdb looks up the named file in
 the directory of the executable file, then in a subdirectory of that
 directory named <samp>.debug</samp>, and finally under each one of the
 global debug directories, in a subdirectory whose name is identical to
@@ -156,21 +156,21 @@ directories is converted to a one-letter subdirectory, i.e.
 <samp>d:/usr/bin/</samp> is converted to <samp>/d/usr/bin/</samp>, because Windows
 filesystems disallow colons in file names.)
 
-</li><li> For the &ldquo;build ID&rdquo; method, <small>ROCGDB</small> looks in the
+</li><li> For the &ldquo;build ID&rdquo; method, ROCgdb looks in the
 <samp>.build-id</samp> subdirectory of each one of the global debug directories for
 a file named <samp><var>nn</var>/<var>nnnnnnnn</var>.debug</samp>, where <var>nn</var> are the
 first 2 hex characters of the build ID bit string, and <var>nnnnnnnn</var>
 are the rest of the bit string.  (Real build ID strings are 32 or more
-hex characters, not 10.)  <small>ROCGDB</small> can automatically query
+hex characters, not 10.)  ROCgdb can automatically query
 <code>debuginfod</code> servers using build IDs in order to download separate debug
 files that cannot be found locally.  For more information see <a href="Debuginfod.html">Download debugging resources with Debuginfod</a>.
 </li></ul>
 
-<p>So, for example, suppose you ask <small>ROCGDB</small> to debug
+<p>So, for example, suppose you ask ROCgdb to debug
 <samp>/usr/bin/ls</samp>, which has a debug link that specifies the
 file <samp>ls.debug</samp>, and a build ID whose value in hex is
 <code>abcdef1234</code>.  If the list of the global debug directories includes
-<samp>/usr/lib/debug</samp>, then <small>ROCGDB</small> will look for the following
+<samp>/usr/lib/debug</samp>, then ROCgdb will look for the following
 debug information files, in the indicated order:
 </p>
 <ul class="no-bullet">
@@ -181,29 +181,29 @@ debug information files, in the indicated order:
 </li></ul>
 
 <p>If the debug file still has not been found and <code>debuginfod</code>
-(see <a href="Debuginfod.html">Download debugging resources with Debuginfod</a>) is enabled, <small>ROCGDB</small> will attempt to download the
+(see <a href="Debuginfod.html">Download debugging resources with Debuginfod</a>) is enabled, ROCgdb will attempt to download the
 file from <code>debuginfod</code> servers.
 </p>
-<span id="debug_002dfile_002ddirectory"></span><p>Global debugging info directories default to what is set by <small>ROCGDB</small>
+<span id="debug_002dfile_002ddirectory"></span><p>Global debugging info directories default to what is set by ROCgdb
 configure option <samp>--with-separate-debug-dir</samp> and augmented by the
-colon-separated list of directories provided via <small>ROCGDB</small> configure
-option <samp>--additional-debug-dirs</samp>.  During <small>ROCGDB</small> run you can
+colon-separated list of directories provided via ROCgdb configure
+option <samp>--additional-debug-dirs</samp>.  During ROCgdb run you can
 also set the global debugging info directories, and view the list
-<small>ROCGDB</small> is currently using.
+ROCgdb is currently using.
 </p>
 <dl compact="compact">
 <dd>
 <span id="index-set-debug_002dfile_002ddirectory"></span>
 </dd>
 <dt><span><code>set debug-file-directory <var>directories</var></code></span></dt>
-<dd><p>Set the directories which <small>ROCGDB</small> searches for separate debugging
+<dd><p>Set the directories which ROCgdb searches for separate debugging
 information files to <var>directory</var>.  Multiple path components can be set
 concatenating them by a path separator.
 </p>
 <span id="index-show-debug_002dfile_002ddirectory"></span>
 </dd>
 <dt><span><code>show debug-file-directory</code></span></dt>
-<dd><p>Show the directories <small>ROCGDB</small> searches for separate debugging
+<dd><p>Show the directories ROCgdb searches for separate debugging
 information files.
 </p>
 </dd>
@@ -232,7 +232,7 @@ described above.
 <span id="index-_002enote_002egnu_002ebuild_002did-sections"></span>
 <span id="index-build-ID-sections"></span>
 <p>The build ID is a special section in the executable file (and in other
-ELF binary files that <small>ROCGDB</small> may consider).  This section is
+ELF binary files that ROCgdb may consider).  This section is
 often named <code>.note.gnu.build-id</code>, but that name is not mandatory.
 It contains unique identification for the built files&mdash;the ID remains
 the same across multiple builds of the same build tree.  The default
@@ -386,7 +386,7 @@ gnu_debuglink_crc32 (unsigned long crc,
 <hr>
 <div class="header">
 <p>
-Next: <a href="MiniDebugInfo.html">Debugging information in a special section</a>, Previous: <a href="File-Caching.html">File Caching</a>, Up: <a href="GDB-Files.html"><small>ROCGDB</small> Files</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="MiniDebugInfo.html">Debugging information in a special section</a>, Previous: <a href="File-Caching.html">File Caching</a>, Up: <a href="GDB-Files.html">ROCgdb Files</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

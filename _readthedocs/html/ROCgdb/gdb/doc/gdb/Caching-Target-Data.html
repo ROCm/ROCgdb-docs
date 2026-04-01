@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Caching Target Data (Debugging with ROCGDB)</title>
+<title>Caching Target Data (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Caching Target Data (Debugging with ROCGDB)">
-<meta name="keywords" content="Caching Target Data (Debugging with ROCGDB)">
+<meta name="description" content="Caching Target Data (Debugging with ROCgdb)">
+<meta name="keywords" content="Caching Target Data (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -105,18 +105,18 @@ Next: <a href="Searching-Memory.html" accesskey="n" rel="next">Search Memory</a>
 <span id="Caching-Data-of-Targets"></span><h3 class="section">10.22 Caching Data of Targets</h3>
 <span id="index-caching-data-of-targets"></span>
 
-<p><small>ROCGDB</small> caches data exchanged between the debugger and a target.
+<p>ROCgdb caches data exchanged between the debugger and a target.
 Each cache is associated with the address space of the inferior.
 See <a href="Inferiors-Connections-and-Programs.html">Debugging Multiple Inferiors Connections and Programs</a>, about inferior and address space.
 Such caching generally improves performance in remote debugging
 (see <a href="Remote-Debugging.html">Debugging Remote Programs</a>), because it reduces the overhead of the
 remote protocol by bundling memory reads and writes into large chunks.
 Unfortunately, simply caching everything would lead to incorrect results,
-since <small>ROCGDB</small> does not necessarily know anything about volatile
+since ROCgdb does not necessarily know anything about volatile
 values, memory-mapped I/O addresses, etc.  Furthermore, in non-stop mode
 (see <a href="Non_002dStop-Mode.html">Non-Stop Mode</a>) memory can be changed <em>while</em> a gdb command
 is executing.
-Therefore, by default, <small>ROCGDB</small> only caches data
+Therefore, by default, ROCgdb only caches data
 known to be on the stack<a id="DOCF13" href="#FOOT13"><sup>13</sup></a> or
 in the code segment.
 Other regions of memory can be explicitly marked as

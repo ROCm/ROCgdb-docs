@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Non-Stop Mode (Debugging with ROCGDB)</title>
+<title>Non-Stop Mode (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Non-Stop Mode (Debugging with ROCGDB)">
-<meta name="keywords" content="Non-Stop Mode (Debugging with ROCGDB)">
+<meta name="description" content="Non-Stop Mode (Debugging with ROCgdb)">
+<meta name="keywords" content="Non-Stop Mode (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -107,7 +107,7 @@ Next: <a href="Background-Execution.html" accesskey="n" rel="next">Background Ex
 <span id="index-non_002dstop-mode"></span>
 
 
-<p>For some multi-threaded targets, <small>ROCGDB</small> supports an optional
+<p>For some multi-threaded targets, ROCgdb supports an optional
 mode of operation in which you can examine stopped program threads in
 the debugger while other threads continue to execute freely.  This
 minimizes intrusion when debugging live systems, such as programs
@@ -115,7 +115,7 @@ where some threads have real-time constraints or must continue to
 respond to external events.  This is referred to as <em>non-stop</em> mode.
 </p>
 <p>In non-stop mode, when a thread stops to report a debugging event,
-<em>only</em> that thread is stopped; <small>ROCGDB</small> does not stop other
+<em>only</em> that thread is stopped; ROCgdb does not stop other
 threads as well, in contrast to the all-stop mode behavior.  Additionally,
 execution commands such as <code>continue</code> and <code>step</code> apply by default
 only to the current thread in non-stop mode, rather than all threads as
@@ -156,19 +156,19 @@ set non-stop on
 <p>Note these commands only reflect whether non-stop mode is enabled,
 not whether the currently-executing program is being run in non-stop mode.
 In particular, the <code>set non-stop</code> preference is only consulted when
-<small>ROCGDB</small> starts or connects to the target program, and it is generally
+ROCgdb starts or connects to the target program, and it is generally
 not possible to switch modes once debugging has started.  Furthermore,
 since not all targets support non-stop mode, even when you have enabled
-non-stop mode, <small>ROCGDB</small> may still fall back to all-stop operation by
+non-stop mode, ROCgdb may still fall back to all-stop operation by
 default.
 </p>
 <p>In non-stop mode, all execution commands apply only to the current thread
 by default.  That is, <code>continue</code> only continues one thread.
 To continue all threads, issue <code>continue -a</code> or <code>c -a</code>.
 </p>
-<p>You can use <small>ROCGDB</small>&rsquo;s background execution commands
+<p>You can use ROCgdb&rsquo;s background execution commands
 (see <a href="Background-Execution.html">Background Execution</a>) to run some threads in the background
-while you continue to examine or step others from <small>ROCGDB</small>.
+while you continue to examine or step others from ROCgdb.
 The MI execution commands (see <a href="GDB_002fMI-Program-Execution.html"><small>GDB/MI</small> Program Execution</a>) are
 always executed asynchronously in non-stop mode.
 </p>
@@ -180,10 +180,10 @@ To stop the whole program, use <code>interrupt -a</code>.
 </p>
 <p>Other execution commands do not currently support the <code>-a</code> option.
 </p>
-<p>In non-stop mode, when a thread stops, <small>ROCGDB</small> doesn&rsquo;t automatically make
+<p>In non-stop mode, when a thread stops, ROCgdb doesn&rsquo;t automatically make
 that thread current, as it does in all-stop mode.  This is because the
-thread stop notifications are asynchronous with respect to <small>ROCGDB</small>&rsquo;s
-command interpreter, and it would be confusing if <small>ROCGDB</small> unexpectedly
+thread stop notifications are asynchronous with respect to ROCgdb&rsquo;s
+command interpreter, and it would be confusing if ROCgdb unexpectedly
 changed to a different thread just as you entered a command to operate on the
 previously current thread.
 </p>

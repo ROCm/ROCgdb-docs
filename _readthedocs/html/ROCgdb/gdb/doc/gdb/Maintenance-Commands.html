@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Maintenance Commands (Debugging with ROCGDB)</title>
+<title>Maintenance Commands (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Maintenance Commands (Debugging with ROCGDB)">
-<meta name="keywords" content="Maintenance Commands (Debugging with ROCGDB)">
+<meta name="description" content="Maintenance Commands (Debugging with ROCgdb)">
+<meta name="keywords" content="Maintenance Commands (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -99,15 +99,15 @@ ul.no-bullet {list-style: none}
 <div class="appendix" id="Maintenance-Commands">
 <div class="header">
 <p>
-Next: <a href="Remote-Protocol.html" accesskey="n" rel="next"><small>ROCGDB</small> Remote Serial Protocol</a>, Previous: <a href="Installing-GDB.html" accesskey="p" rel="prev">Installing <small>ROCGDB</small></a>, Up: <a href="index.html" accesskey="u" rel="up">Debugging with <small>ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Remote-Protocol.html" accesskey="n" rel="next">ROCgdb Remote Serial Protocol</a>, Previous: <a href="Installing-GDB.html" accesskey="p" rel="prev">Installing ROCgdb</a>, Up: <a href="index.html" accesskey="u" rel="up">Debugging with ROCgdb</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
 <span id="Maintenance-Commands-1"></span><h2 class="appendix">Appendix D Maintenance Commands</h2>
 <span id="index-maintenance-commands"></span>
 <span id="index-internal-commands"></span>
 
-<p>In addition to commands intended for <small>ROCGDB</small> users, <small>ROCGDB</small>
-includes a number of commands intended for <small>ROCGDB</small> developers,
+<p>In addition to commands intended for ROCgdb users, ROCgdb
+includes a number of commands intended for ROCgdb developers,
 that are not documented elsewhere in this manual.  These commands are
 provided here for reference.  (For commands that turn on debugging
 messages, see <a href="Debugging-Output.html">Optional Messages about Internal Happenings</a>.)
@@ -144,7 +144,7 @@ printf (see <a href="Dynamic-Printf.html">Dynamic Printf</a>).
 <span id="maint-info-breakpoints"></span></dd>
 <dt><span><code>maint info breakpoints</code></span></dt>
 <dd><p>Using the same format as &lsquo;<samp>info breakpoints</samp>&rsquo;, display both the
-breakpoints you&rsquo;ve set explicitly, and those <small>ROCGDB</small> is using for
+breakpoints you&rsquo;ve set explicitly, and those ROCgdb is using for
 internal purposes.  Internal breakpoints are shown with negative
 breakpoint numbers.  The type column identifies what kind of breakpoint
 is shown:
@@ -168,11 +168,11 @@ is shown:
 </p>
 </dd>
 <dt><span><code>until</code></span></dt>
-<dd><p>Temporary internal breakpoint used by the <small>ROCGDB</small> <code>until</code> command.
+<dd><p>Temporary internal breakpoint used by the ROCgdb <code>until</code> command.
 </p>
 </dd>
 <dt><span><code>finish</code></span></dt>
-<dd><p>Temporary internal breakpoint used by the <small>ROCGDB</small> <code>finish</code> command.
+<dd><p>Temporary internal breakpoint used by the ROCgdb <code>finish</code> command.
 </p>
 </dd>
 <dt><span><code>shlib events</code></span></dt>
@@ -240,14 +240,14 @@ branch trace will be recomputed when needed.
 </p>
 <p>This implicitly truncates the branch trace to a single branch trace
 buffer.  When updating branch trace incrementally, the branch trace
-available to <small>ROCGDB</small> may be bigger than a single branch trace
+available to ROCgdb may be bigger than a single branch trace
 buffer.
 </p>
 <span id="index-maint-set-btrace-pt-skip_002dpad"></span>
 </dd>
 <dt id='index-maint-show-btrace-pt-skip_002dpad'><span><code>maint set btrace pt skip-pad</code><a href='#index-maint-show-btrace-pt-skip_002dpad' class='copiable-anchor'> &para;</a></span></dt>
 <dt><span><code>maint show btrace pt skip-pad</code></span></dt>
-<dd><p>Control whether <small>ROCGDB</small> will skip PAD packets when computing the
+<dd><p>Control whether ROCgdb will skip PAD packets when computing the
 packet history.
 </p>
 <span id="index-maint-info-jit"></span>
@@ -308,7 +308,7 @@ GLOBAL              Disassembler_2	(Matches current architecture)
 </dd>
 <dt><span><code>set displaced-stepping</code></span></dt>
 <dt><span><code>show displaced-stepping</code></span></dt>
-<dd><p>Control whether or not <small>ROCGDB</small> will do <em>displaced stepping</em>
+<dd><p>Control whether or not ROCgdb will do <em>displaced stepping</em>
 if the target supports it.  Displaced stepping is a way to single-step
 over breakpoints without removing them from the inferior, by executing
 an out-of-line copy of the instruction that was originally at the
@@ -316,18 +316,18 @@ breakpoint location.  It is also known as out-of-line single-stepping.
 </p>
 <dl compact="compact">
 <dt><span><code>set displaced-stepping on</code></span></dt>
-<dd><p>If the target architecture supports it, <small>ROCGDB</small> will use
+<dd><p>If the target architecture supports it, ROCgdb will use
 displaced stepping to step over breakpoints.
 </p>
 </dd>
 <dt><span><code>set displaced-stepping off</code></span></dt>
-<dd><p><small>ROCGDB</small> will not use displaced stepping to step over breakpoints,
+<dd><p>ROCgdb will not use displaced stepping to step over breakpoints,
 even if such is supported by the target architecture.
 </p>
 <span id="index-non_002dstop-mode_002c-and-set-displaced_002dstepping"></span>
 </dd>
 <dt><span><code>set displaced-stepping auto</code></span></dt>
-<dd><p>This is the default mode.  <small>ROCGDB</small> will use displaced stepping
+<dd><p>This is the default mode.  ROCgdb will use displaced stepping
 only if non-stop mode is active (see <a href="Non_002dStop-Mode.html">Non-Stop Mode</a>) and the target
 architecture supports displaced stepping.
 </p></dd>
@@ -357,7 +357,7 @@ names matching <var>regexp</var>.
 </dd>
 <dt><span><code>maint set catch-demangler-crashes [on|off]</code></span></dt>
 <dt><span><code>maint show catch-demangler-crashes</code></span></dt>
-<dd><p>Control whether <small>ROCGDB</small> should attempt to catch crashes in the
+<dd><p>Control whether ROCgdb should attempt to catch crashes in the
 symbol name demangler.  The default is to attempt to catch crashes.
 If enabled, the first time a crash is caught, a core file is created,
 the offending symbol is displayed and the user is presented with the
@@ -380,14 +380,14 @@ option to terminate the current session.
 <dt><span><code>maint deprecate <var>command</var> <span class="roman">[</span><var>replacement</var><span class="roman">]</span></code></span></dt>
 <dt><span><code>maint undeprecate <var>command</var></code></span></dt>
 <dd><p>Deprecate or undeprecate the named <var>command</var>.  Deprecated commands
-cause <small>ROCGDB</small> to issue a warning when you use them.  The optional
+cause ROCgdb to issue a warning when you use them.  The optional
 argument <var>replacement</var> says which newer command should be used in
-favor of the deprecated one; if it is given, <small>ROCGDB</small> will mention
+favor of the deprecated one; if it is given, ROCgdb will mention
 the replacement as part of the warning.
 </p>
 <span id="index-maint-dump_002dme"></span>
 </dd>
-<dt id='index-SIGQUIT-signal_002c-dump-core-of-ROCGDB'><span><code>maint dump-me</code><a href='#index-SIGQUIT-signal_002c-dump-core-of-ROCGDB' class='copiable-anchor'> &para;</a></span></dt>
+<dt id='index-SIGQUIT-signal_002c-dump-core-of-ROCgdb'><span><code>maint dump-me</code><a href='#index-SIGQUIT-signal_002c-dump-core-of-ROCgdb' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Cause a fatal signal in the debugger and force it to dump its core.
 This is supported only on systems which support aborting a program
 with the <code>SIGQUIT</code> signal.
@@ -401,13 +401,13 @@ with the <code>SIGQUIT</code> signal.
 <dt><span><code>maint internal-warning <span class="roman">[</span><var>message-text</var><span class="roman">]</span></code></span></dt>
 <dt><span><code>maint demangler-warning <span class="roman">[</span><var>message-text</var><span class="roman">]</span></code></span></dt>
 <dd>
-<p>Cause <small>ROCGDB</small> to call the internal function <code>internal_error</code>,
+<p>Cause ROCgdb to call the internal function <code>internal_error</code>,
 <code>internal_warning</code> or <code>demangler_warning</code> and hence behave
 as though an internal problem has been detected.  In addition to
 reporting the internal problem, these functions give the user the
-opportunity to either quit <small>ROCGDB</small> or (for <code>internal_error</code>
+opportunity to either quit ROCgdb or (for <code>internal_error</code>
 and <code>internal_warning</code>) create a core file of the current
-<small>ROCGDB</small> session.
+ROCgdb session.
 </p>
 <p>These commands take an optional parameter <var>message-text</var> that is
 used as the text of the error or warning message.
@@ -431,13 +431,13 @@ Create a core file? (y or n) <kbd>n</kbd>
 <dt><span><code>maint set debuginfod download-sections</code></span></dt>
 <dt><span><code>maint set debuginfod download-sections <span class="roman">[</span>on|off<span class="roman">]</span></code></span></dt>
 <dt><span><code>maint show debuginfod download-sections</code></span></dt>
-<dd><p>Controls whether <small>ROCGDB</small> will attempt to download individual
+<dd><p>Controls whether ROCgdb will attempt to download individual
 ELF/DWARF sections from <code>debuginfod</code>.  If disabled, only
 whole debug info files will be downloaded; this could result
-in <small>ROCGDB</small> downloading larger amounts of data.
+in ROCgdb downloading larger amounts of data.
 </p>
-<span id="index-ROCGDB-internal-error"></span>
-<span id="index-internal-errors_002c-control-of-ROCGDB-behavior"></span>
+<span id="index-ROCgdb-internal-error"></span>
+<span id="index-internal-errors_002c-control-of-ROCgdb-behavior"></span>
 <span id="index-demangler-crashes-2"></span>
 
 <span id="index-maint-set-internal_002derror"></span>
@@ -453,20 +453,20 @@ in <small>ROCGDB</small> downloading larger amounts of data.
 <dt><span><code>maint show internal-warning <var>action</var></code></span></dt>
 <dt><span><code>maint set demangler-warning <var>action</var> [ask|yes|no]</code></span></dt>
 <dt><span><code>maint show demangler-warning <var>action</var></code></span></dt>
-<dd><p>When <small>ROCGDB</small> reports an internal problem (error or warning) it
-gives the user the opportunity to both quit <small>ROCGDB</small> and create a
-core file of the current <small>ROCGDB</small> session.  These commands let you
+<dd><p>When ROCgdb reports an internal problem (error or warning) it
+gives the user the opportunity to both quit ROCgdb and create a
+core file of the current ROCgdb session.  These commands let you
 override the default behavior for each particular <var>action</var>,
 described in the table below.
 </p>
 <dl compact="compact">
 <dt><span>&lsquo;<samp>quit</samp>&rsquo;</span></dt>
-<dd><p>You can specify that <small>ROCGDB</small> should always (yes) or never (no)
+<dd><p>You can specify that ROCgdb should always (yes) or never (no)
 quit.  The default is to ask the user what to do.
 </p>
 </dd>
 <dt><span>&lsquo;<samp>corefile</samp>&rsquo;</span></dt>
-<dd><p>You can specify that <small>ROCGDB</small> should always (yes) or never (no)
+<dd><p>You can specify that ROCgdb should always (yes) or never (no)
 create a core file.  The default is to ask the user what to do.  Note
 that there is no <code>corefile</code> option for <code>demangler-warning</code>:
 demangler warnings always create a core file and this cannot be
@@ -483,17 +483,17 @@ disabled.
 <dt><span><code>maint show internal-error backtrace</code></span></dt>
 <dt><span><code>maint set internal-warning backtrace <span class="roman">[</span>on|off<span class="roman">]</span></code></span></dt>
 <dt><span><code>maint show internal-warning backtrace</code></span></dt>
-<dd><p>When <small>ROCGDB</small> reports an internal problem (error or warning) it is
-possible to have a backtrace of <small>ROCGDB</small> printed to the standard
+<dd><p>When ROCgdb reports an internal problem (error or warning) it is
+possible to have a backtrace of ROCgdb printed to the standard
 error stream.  This is &lsquo;<samp>on</samp>&rsquo; by default for <code>internal-error</code>
 and &lsquo;<samp>off</samp>&rsquo; by default for <code>internal-warning</code>.
 </p>
 <span id="maint-packet"></span><span id="index-maint-packet-1"></span>
 </dd>
 <dt><span><code>maint packet <var>text</var></code></span></dt>
-<dd><p>If <small>ROCGDB</small> is talking to an inferior via the serial protocol,
+<dd><p>If ROCgdb is talking to an inferior via the serial protocol,
 then this command sends the string <var>text</var> to the inferior, and
-displays the response packet.  <small>ROCGDB</small> supplies the initial
+displays the response packet.  ROCgdb supplies the initial
 &lsquo;<samp>$</samp>&rsquo; character, the terminating &lsquo;<samp>#</samp>&rsquo; character, and the
 checksum.
 </p>
@@ -514,7 +514,7 @@ a C source file.  By default, the target description is for the current
 target, but if the optional argument <var>file</var> is provided, that file
 is used to produce the description.  The <var>file</var> should be an XML
 document, of the form described in <a href="Target-Description-Format.html">Target Description Format</a>.
-The created source file is built into <small>ROCGDB</small> when <small>ROCGDB</small> is
+The created source file is built into ROCgdb when ROCgdb is
 built again.  This command is used by developers after they add or
 modify XML target descriptions.
 </p>
@@ -539,7 +539,7 @@ read in by GDB and then used to produce the description.  The
 <span id="index-maint-check-xml_002ddescriptions"></span>
 </dd>
 <dt><span><code>maint check xml-descriptions <var>dir</var></code></span></dt>
-<dd><p>Check that the target descriptions dynamically created by <small>ROCGDB</small>
+<dd><p>Check that the target descriptions dynamically created by ROCgdb
 equal the descriptions created from XML files found in <var>dir</var>.
 </p>
 <span id="maint-check-libthread_002ddb"></span><span id="index-maint-check-libthread_002ddb"></span>
@@ -547,8 +547,8 @@ equal the descriptions created from XML files found in <var>dir</var>.
 <dt><span><code>maint check libthread-db</code></span></dt>
 <dd><p>Run integrity checks on the current inferior&rsquo;s thread debugging
 library.  This exercises all <code>libthread_db</code> functionality used by
-<small>ROCGDB</small> on GNU/Linux systems, and by extension also exercises the
-<code>proc_service</code> functions provided by <small>ROCGDB</small> that
+ROCgdb on GNU/Linux systems, and by extension also exercises the
+<code>proc_service</code> functions provided by ROCgdb that
 <code>libthread_db</code> uses.  Note that parts of the test may be skipped
 on some platforms when debugging core files.
 </p>
@@ -557,14 +557,14 @@ on some platforms when debugging core files.
 </dd>
 <dt><span><code>maint print core-file-backed-mappings</code></span></dt>
 <dd><p>Print the file-backed mappings which were loaded from a core file note.
-This output represents state internal to <small>ROCGDB</small> and should be
+This output represents state internal to ROCgdb and should be
 similar to the mappings displayed by the <code>info proc mappings</code>
 command.
 </p>
 <span id="index-maint-print-dummy_002dframes"></span>
 </dd>
 <dt><span><code>maint print dummy-frames</code></span></dt>
-<dd><p>Prints the contents of <small>ROCGDB</small>&rsquo;s internal dummy-frame stack.
+<dd><p>Prints the contents of ROCgdb&rsquo;s internal dummy-frame stack.
 </p>
 <div class="example">
 <pre class="example">(gdb) <kbd>b add</kbd>
@@ -585,7 +585,7 @@ The program being debugged stopped while in a function called from GDB.
 </dd>
 <dt><span><code>maint print frame-id</code></span></dt>
 <dt><span><code>maint print frame-id <var>level</var></code></span></dt>
-<dd><p>Print <small>ROCGDB</small>&rsquo;s internal frame-id for the frame at relative
+<dd><p>Print ROCgdb&rsquo;s internal frame-id for the frame at relative
 <var>level</var>, or for the currently selected frame when <var>level</var> is
 not given.
 </p>
@@ -607,8 +607,8 @@ frame-id for frame #2: {stack=0x7fffffffac90,code=0x000000000040111c,!special}
 address, or <var>address</var> if specified.
 </p>
 <p>In order to allow the user to correctly step into inlined functions,
-<small>ROCGDB</small> needs to identify which inlined functions start at a
-particular address, and <small>ROCGDB</small> also needs to track which of
+ROCgdb needs to identify which inlined functions start at a
+particular address, and ROCgdb also needs to track which of
 these functions was last displayed to the user as the current frame.
 </p>
 <p>Imagine a situation where function <code>main</code> calls <code>foo</code>, which
@@ -642,11 +642,11 @@ bar ()
 there could be one address within <code>main</code> which is also the start
 of <code>foo</code> and also the start of <code>bar</code>.  When the user stops
 at this address they will initially be told the inferior is in
-<code>main</code>, if the user does a <kbd>step</kbd> then <small>ROCGDB</small> doesn&rsquo;t
+<code>main</code>, if the user does a <kbd>step</kbd> then ROCgdb doesn&rsquo;t
 actually step the inferior, instead the user is told the inferior
 entered <code>foo</code>.  After the next <kbd>step</kbd> the user is told the
 inferior entered <code>bar</code>.  The <kbd>maint info inline-frames</kbd>
-command can be used to view this internal <small>ROCGDB</small> state, like
+command can be used to view this internal ROCgdb state, like
 this:
 </p>
 <div class="example">
@@ -662,9 +662,9 @@ skipped frames = 2
 </pre></div>
 
 <p>Here the user is stopped in <code>main</code> at the call to <code>foo</code>.  The
-inline-frames information shows that at this address <small>ROCGDB</small> has
+inline-frames information shows that at this address ROCgdb has
 found the start of inlined functions <code>bar</code> and <code>foo</code>, but
-currently <small>ROCGDB</small> has skipped 2 frames and considers <code>main</code>
+currently ROCgdb has skipped 2 frames and considers <code>main</code>
 to be the current frame, this is indicated with the &lsquo;<samp>&gt;</samp>&rsquo;.
 </p>
 <p>If the user performs a <kbd>step</kbd> to enter <code>foo</code> then the
@@ -684,7 +684,7 @@ skipped frames = 1
 </pre></div>
 
 <p>Notice that the program counter value <code>0x401137</code> hasn&rsquo;t change,
-but now <small>ROCGDB</small> considers <code>foo</code> to be the current frame, and
+but now ROCgdb considers <code>foo</code> to be the current frame, and
 it is marked as such with the &lsquo;<samp>&gt;</samp>&rsquo;.
 </p>
 <p>Finally, the user performs another <kbd>step</kbd> to enter <code>bar</code>:
@@ -709,7 +709,7 @@ skipped frames = 0
 <dd><p>Print information about all blocks at <var>address</var>, or at the current
 <code>$pc</code> if <var>address</var> is not given.
 </p>
-<p>For information about what blocks are in <small>ROCGDB</small> see <a href="Blocks-In-Python.html">Accessing blocks from Python</a>.
+<p>For information about what blocks are in ROCgdb see <a href="Blocks-In-Python.html">Accessing blocks from Python</a>.
 </p>
 <p>Blocks are listed starting from the global block, then the static
 block, and then proceeding through progressively narrower scopes.
@@ -761,7 +761,7 @@ be found using <kbd>maint print symbols</kbd> (see <a href="Symbols.html#maint-p
 <dt><span><code>maint print cooked-registers <span class="roman">[</span><var>file</var><span class="roman">]</span></code></span></dt>
 <dt><span><code>maint print register-groups <span class="roman">[</span><var>file</var><span class="roman">]</span></code></span></dt>
 <dt><span><code>maint print remote-registers <span class="roman">[</span><var>file</var><span class="roman">]</span></code></span></dt>
-<dd><p>Print <small>ROCGDB</small>&rsquo;s internal register data structures.
+<dd><p>Print ROCgdb&rsquo;s internal register data structures.
 </p>
 <p>The command <code>maint print raw-registers</code> includes the contents of
 the raw register cache; the command <code>maint print
@@ -772,7 +772,7 @@ groups that each register is a member of; and the command <code>maint
 print remote-registers</code> includes the remote target&rsquo;s register numbers
 and offsets in the &lsquo;G&rsquo; packets, as well as an indication of which
 registers were included in the last stop reply packet received by
-<small>ROCGDB</small> (see <a href="Stop-Reply-Packets.html">Stop Reply Packets</a>).  Please note that the list
+ROCgdb (see <a href="Stop-Reply-Packets.html">Stop Reply Packets</a>).  Please note that the list
 of registers included in a stop reply can change from one stop to the
 next.
 </p>
@@ -782,7 +782,7 @@ write the information.
 <span id="index-maint-print-reggroups"></span>
 </dd>
 <dt><span><code>maint print reggroups <span class="roman">[</span><var>file</var><span class="roman">]</span></code></span></dt>
-<dd><p>Print <small>ROCGDB</small>&rsquo;s internal register group data structures.  The
+<dd><p>Print ROCgdb&rsquo;s internal register group data structures.  The
 optional argument <var>file</var> tells to what file to write the
 information.
 </p>
@@ -815,20 +815,20 @@ is deprecated in favor of <code>maint flush register-cache</code>.
 <span id="index-source-code_002c-caching"></span>
 </dd>
 <dt><span><code>maint flush source-cache</code></span></dt>
-<dd><p>Flush <small>ROCGDB</small>&rsquo;s cache of source code file contents.  After
-<small>ROCGDB</small> reads a source file, and optionally applies styling
+<dd><p>Flush ROCgdb&rsquo;s cache of source code file contents.  After
+ROCgdb reads a source file, and optionally applies styling
 (see <a href="Output-Styling.html">Output Styling</a>), the file contents are cached.  This command
-clears that cache.  The next time <small>ROCGDB</small> wants to show lines
+clears that cache.  The next time ROCgdb wants to show lines
 from a source file, the content will be re-read.
 </p>
 <p>This command is useful when debugging issues related to source code
 styling.  After flushing the cache any source code displayed by
-<small>ROCGDB</small> will be re-read and re-styled.
+ROCgdb will be re-read and re-styled.
 </p>
 <span id="index-maint-print-address_002dspaces"></span>
 </dd>
 <dt><span><code>maint print address-spaces <span class="roman">[</span><var>file</var><span class="roman">]</span></code></span></dt>
-<dd><p>Print <small>ROCGDB</small>&rsquo;s internal address space data structures.  The
+<dd><p>Print ROCgdb&rsquo;s internal address space data structures.  The
 optional argument <var>file</var> tells to what file to write the
 information.  See <a href="Heterogeneous-Debugging.html#maint-print-address_002dspaces"><code>maint print
 address-spaces</code></a>.
@@ -902,7 +902,7 @@ the <em>target stack</em>, starting from the top layer down to the bottom one.
 <dd><p>Print the type chain for a type specified by <var>expr</var>.  The argument
 can be either a type name or a symbol.  If it is a symbol, the type of
 that symbol is described.  The type chain produced by this command is
-a recursive definition of the data type as stored in <small>ROCGDB</small>&rsquo;s
+a recursive definition of the data type as stored in ROCgdb&rsquo;s
 data structures, including its flags and contained types.
 </p>
 <span id="index-maint-print-record_002dinstruction"></span>
@@ -918,7 +918,7 @@ following instruction is executed.  If <var>n</var> is not given, 0 is assumed.
 <span id="index-self-tests"></span>
 </dd>
 <dt><span><code>maint selftest <span class="roman">[</span>-verbose<span class="roman">]</span> <span class="roman">[</span><var>filter</var><span class="roman">]</span></code></span></dt>
-<dd><p>Run any self tests that were compiled in to <small>ROCGDB</small>.  This will
+<dd><p>Run any self tests that were compiled in to ROCgdb.  This will
 print a message showing how many tests were run, and how many failed.
 If a <var>filter</var> is passed, only the tests with <var>filter</var> in their
 name will be ran.  If <code>-verbose</code> is passed, the self tests can be
@@ -936,7 +936,7 @@ more verbose.
 <span id="index-self-tests-2"></span>
 </dd>
 <dt><span><code>maint info selftests</code></span></dt>
-<dd><p>List the selftests compiled in to <small>ROCGDB</small>.
+<dd><p>List the selftests compiled in to ROCgdb.
 </p>
 <span id="index-maint-set-dwarf-always_002ddisassemble"></span>
 <span id="index-maint-show-dwarf-always_002ddisassemble"></span>
@@ -946,11 +946,11 @@ more verbose.
 <dd><p>Control the behavior of <code>info address</code> when using DWARF debugging
 information.
 </p>
-<p>The default is <code>off</code>, which means that <small>ROCGDB</small> should try to
+<p>The default is <code>off</code>, which means that ROCgdb should try to
 describe a variable&rsquo;s location in an easily readable format.  When
-<code>on</code>, <small>ROCGDB</small> will instead display the DWARF location
+<code>on</code>, ROCgdb will instead display the DWARF location
 expression in an assembly-like format.  Note that some locations are
-too complex for <small>ROCGDB</small> to describe simply; in this case you will
+too complex for ROCgdb to describe simply; in this case you will
 always see the disassembly form.
 </p>
 <p>Here is an example of the resulting disassembly:
@@ -979,7 +979,7 @@ This setting controls how long a compilation unit will remain in the
 cache if it is not referenced.  A higher limit means that cached
 compilation units will be stored in memory longer, and more total
 memory will be used.  Setting it to zero disables caching, which will
-slow down <small>ROCGDB</small> startup, but reduce memory consumption.
+slow down ROCgdb startup, but reduce memory consumption.
 </p>
 <span id="index-maint-set-dwarf-synchronous"></span>
 <span id="index-maint-show-dwarf-synchronous"></span>
@@ -989,11 +989,11 @@ slow down <small>ROCGDB</small> startup, but reduce memory consumption.
 <dd><p>Control whether DWARF is read asynchronously.
 </p>
 <p>On hosts where threading is available, the DWARF reader is mostly
-asynchronous with respect to the rest of <small>ROCGDB</small>.  That is, the
-bulk of the reading is done in the background, and <small>ROCGDB</small> will
+asynchronous with respect to the rest of ROCgdb.  That is, the
+bulk of the reading is done in the background, and ROCgdb will
 only pause for completion of this task when absolutely necessary.
 </p>
-<p>When this setting is enabled, <small>ROCGDB</small> will instead wait for DWARF
+<p>When this setting is enabled, ROCgdb will instead wait for DWARF
 processing to complete before continuing.
 </p>
 <p>On hosts without threading, or where worker threads have been disabled
@@ -1008,7 +1008,7 @@ done on the main thread, and is therefore always synchronous.
 <dd><p>Control use of the DWARF frame unwinders.
 </p>
 <span id="index-DWARF-frame-unwinders"></span>
-<p>Many targets that support DWARF debugging use <small>ROCGDB</small>&rsquo;s DWARF
+<p>Many targets that support DWARF debugging use ROCgdb&rsquo;s DWARF
 frame unwinders to build the backtrace.  Many of these targets will
 also have a second mechanism for building the backtrace for use in
 cases where DWARF information is not available, this second mechanism
@@ -1018,7 +1018,7 @@ is often an analysis of a function&rsquo;s prologue.
 unwinding mechanisms it is helpful to be able to disable the DWARF
 stack unwinders, this can be done with this switch.
 </p>
-<p>In normal use of <small>ROCGDB</small> disabling the DWARF unwinders is not
+<p>In normal use of ROCgdb disabling the DWARF unwinders is not
 advisable, there are cases that are better handled through DWARF than
 prologue analysis, and the debug experience is likely to be better
 with the DWARF frame unwinders enabled.
@@ -1036,14 +1036,14 @@ architecture, then enabling this flag does not cause them to be used.
 </dd>
 <dt><span><code>maint set worker-threads</code></span></dt>
 <dt><span><code>maint show worker-threads</code></span></dt>
-<dd><p>Control the number of worker threads that may be used by <small>ROCGDB</small>.
-On capable hosts, <small>ROCGDB</small> may use multiple threads to speed up
+<dd><p>Control the number of worker threads that may be used by ROCgdb.
+On capable hosts, ROCgdb may use multiple threads to speed up
 certain CPU-intensive operations, such as demangling symbol names.
-While the number of threads used by <small>ROCGDB</small> may vary, this
+While the number of threads used by ROCgdb may vary, this
 command can be used to set an upper bound on this number.  The default
-is <code>unlimited</code>, which lets <small>ROCGDB</small> choose a reasonable
+is <code>unlimited</code>, which lets ROCgdb choose a reasonable
 number.  Note that this only controls worker threads started by
-<small>ROCGDB</small> itself; libraries used by <small>ROCGDB</small> may start threads
+ROCgdb itself; libraries used by ROCgdb may start threads
 of their own.
 </p>
 <span id="index-maint-set-profile"></span>
@@ -1052,17 +1052,17 @@ of their own.
 </dd>
 <dt><span><code>maint set profile</code></span></dt>
 <dt><span><code>maint show profile</code></span></dt>
-<dd><p>Control profiling of <small>ROCGDB</small>.
+<dd><p>Control profiling of ROCgdb.
 </p>
 <p>Profiling will be disabled until you use the &lsquo;<samp>maint set profile</samp>&rsquo;
 command to enable it.  When you enable profiling, the system will begin
 collecting timing and execution count data; when you disable profiling or
-exit <small>ROCGDB</small>, the results will be written to a log file.  Remember that
-if you use profiling, <small>ROCGDB</small> will overwrite the profiling log file
+exit ROCgdb, the results will be written to a log file.  Remember that
+if you use profiling, ROCgdb will overwrite the profiling log file
 (often called <samp>gmon.out</samp>).  If you have a record of important profiling
 data in a <samp>gmon.out</samp> file, be sure to move it to a safe location.
 </p>
-<p>Configuring with &lsquo;<samp>--enable-profiling</samp>&rsquo; arranges for <small>ROCGDB</small> to be
+<p>Configuring with &lsquo;<samp>--enable-profiling</samp>&rsquo; arranges for ROCgdb to be
 compiled with the &lsquo;<samp>-pg</samp>&rsquo; compiler option.
 </p>
 <span id="index-maint-set-show_002ddebug_002dregs"></span>
@@ -1073,7 +1073,7 @@ compiled with the &lsquo;<samp>-pg</samp>&rsquo; compiler option.
 <dt><span><code>maint show show-debug-regs</code></span></dt>
 <dd><p>Control whether to show variables that mirror the hardware debug
 registers.  Use <code>on</code> to enable, <code>off</code> to disable.  If
-enabled, the debug registers values are shown when <small>ROCGDB</small> inserts or
+enabled, the debug registers values are shown when ROCgdb inserts or
 removes a hardware breakpoint or watchpoint, and when the inferior
 triggers a hardware-assisted breakpoint or watchpoint.
 </p>
@@ -1091,7 +1091,7 @@ command.
 </dd>
 <dt><span><code>maint set target-async</code></span></dt>
 <dt><span><code>maint show target-async</code></span></dt>
-<dd><p>This controls whether <small>ROCGDB</small> targets operate in synchronous or
+<dd><p>This controls whether ROCgdb targets operate in synchronous or
 asynchronous mode (see <a href="Background-Execution.html">Background Execution</a>).  Normally the
 default is asynchronous, if it is available; but this can be changed
 to more easily debug problems occurring only in synchronous mode.
@@ -1102,23 +1102,23 @@ to more easily debug problems occurring only in synchronous mode.
 <dt><span><code>maint set target-non-stop</code></span></dt>
 <dt><span><code>maint show target-non-stop</code></span></dt>
 <dd>
-<p>This controls whether <small>ROCGDB</small> targets always operate in non-stop
+<p>This controls whether ROCgdb targets always operate in non-stop
 mode even if <code>set non-stop</code> is <code>off</code> (see <a href="Non_002dStop-Mode.html">Non-Stop Mode</a>).  The default is <code>auto</code>, meaning non-stop mode is enabled
 if supported by the target.
 </p>
 <dl compact="compact">
 <dt><span><code>maint set target-non-stop auto</code></span></dt>
-<dd><p>This is the default mode.  <small>ROCGDB</small> controls the target in
+<dd><p>This is the default mode.  ROCgdb controls the target in
 non-stop mode if the target supports it.
 </p>
 </dd>
 <dt><span><code>maint set target-non-stop on</code></span></dt>
-<dd><p><small>ROCGDB</small> controls the target in non-stop mode even if the target
+<dd><p>ROCgdb controls the target in non-stop mode even if the target
 does not indicate support.
 </p>
 </dd>
 <dt><span><code>maint set target-non-stop off</code></span></dt>
-<dd><p><small>ROCGDB</small> does not control the target in non-stop mode even if the
+<dd><p>ROCgdb does not control the target in non-stop mode even if the
 target supports it.
 </p></dd>
 </dl>
@@ -1128,10 +1128,10 @@ target supports it.
 </dd>
 <dt><span><code>maint set tui-resize-message</code></span></dt>
 <dt><span><code>maint show tui-resize-message</code></span></dt>
-<dd><p>Control whether <small>ROCGDB</small> displays a message each time the terminal
+<dd><p>Control whether ROCgdb displays a message each time the terminal
 is resized when in TUI mode.  The default is <code>off</code>, which means
-that <small>ROCGDB</small> is silent during resizes.  When <code>on</code>,
-<small>ROCGDB</small> will display a message after a resize is completed; the
+that ROCgdb is silent during resizes.  When <code>on</code>,
+ROCgdb will display a message after a resize is completed; the
 message will include a number indicating how many times the terminal
 has been resized.  This setting is intended for use by the test suite,
 where it would otherwise be difficult to determine when a resize and
@@ -1155,33 +1155,33 @@ the left margin.
 <dt id='index-resources-used-by-commands'><span><code>maint set per-command</code><a href='#index-resources-used-by-commands' class='copiable-anchor'> &para;</a></span></dt>
 <dt><span><code>maint show per-command</code></span></dt>
 <dd>
-<p><small>ROCGDB</small> can display the resources used by each command.
+<p>ROCgdb can display the resources used by each command.
 This is useful in debugging performance problems.
 </p>
 <dl compact="compact">
 <dt><span><code>maint set per-command space [on|off]</code></span></dt>
 <dt><span><code>maint show per-command space</code></span></dt>
 <dd><p>Enable or disable the printing of the memory used by GDB for each command.
-If enabled, <small>ROCGDB</small> will display how much memory each command
+If enabled, ROCgdb will display how much memory each command
 took, following the command&rsquo;s own output.
-This can also be requested by invoking <small>ROCGDB</small> with the
+This can also be requested by invoking ROCgdb with the
 <samp>--statistics</samp> command-line switch (see <a href="Mode-Options.html">Choosing Modes</a>).
 </p>
 </dd>
 <dt><span><code>maint set per-command time [on|off]</code></span></dt>
 <dt><span><code>maint show per-command time</code></span></dt>
-<dd><p>Enable or disable the printing of the execution time of <small>ROCGDB</small>
+<dd><p>Enable or disable the printing of the execution time of ROCgdb
 for each command.
-If enabled, <small>ROCGDB</small> will display how much time it
+If enabled, ROCgdb will display how much time it
 took to execute each command, following the command&rsquo;s own output.
 Both CPU time and wallclock time are printed.
 Printing both is useful when trying to determine whether the cost is
 CPU or, e.g., disk/network latency.
-Note that the CPU time printed is for <small>ROCGDB</small> only, it does not include
+Note that the CPU time printed is for ROCgdb only, it does not include
 the execution time of the inferior because there&rsquo;s no mechanism currently
-to compute how much time was spent by <small>ROCGDB</small> and how much time was
+to compute how much time was spent by ROCgdb and how much time was
 spent by the program been debugged.
-This can also be requested by invoking <small>ROCGDB</small> with the
+This can also be requested by invoking ROCgdb with the
 <samp>--statistics</samp> command-line switch (see <a href="Mode-Options.html">Choosing Modes</a>).
 </p>
 </dd>
@@ -1189,7 +1189,7 @@ This can also be requested by invoking <small>ROCGDB</small> with the
 <dt><span><code>maint show per-command symtab</code></span></dt>
 <dd><p>Enable or disable the printing of basic symbol table statistics
 for each command.
-If enabled, <small>ROCGDB</small> will display the following information:
+If enabled, ROCgdb will display the following information:
 </p>
 <ol type="a" start="1">
 <li> number of symbol tables
@@ -1204,9 +1204,9 @@ If enabled, <small>ROCGDB</small> will display the following information:
 </dd>
 <dt><span><code>maint set check-libthread-db [on|off]</code></span></dt>
 <dt><span><code>maint show check-libthread-db</code></span></dt>
-<dd><p>Control whether <small>ROCGDB</small> should run integrity checks on inferior
+<dd><p>Control whether ROCgdb should run integrity checks on inferior
 specific thread debugging libraries as they are loaded.  The default
-is not to perform such checks.  If any check fails <small>ROCGDB</small> will
+is not to perform such checks.  If any check fails ROCgdb will
 unload the library and continue searching for a suitable candidate as
 described in <a href="Threads.html#set-libthread_002ddb_002dsearch_002dpath">set libthread-db-search-path</a>.  For more information
 about the tests, see <a href="#maint-check-libthread_002ddb">maint check libthread-db</a>.
@@ -1216,7 +1216,7 @@ about the tests, see <a href="#maint-check-libthread_002ddb">maint check libthre
 </dd>
 <dt><span><code>maint set gnu-source-highlight enabled <span class="roman">[</span>on|off<span class="roman">]</span></code></span></dt>
 <dt><span><code>maint show gnu-source-highlight enabled</code></span></dt>
-<dd><p>Control whether <small>ROCGDB</small> should use the GNU Source Highlight
+<dd><p>Control whether ROCgdb should use the GNU Source Highlight
 library for applying styling to source code (see <a href="Output-Styling.html">Output Styling</a>).
 This will be &lsquo;<samp>on</samp>&rsquo; by default if the GNU Source Highlight library
 is available.  If the GNU Source Highlight library is not available,
@@ -1224,11 +1224,11 @@ then this will be &lsquo;<samp>off</samp>&rsquo; by default, and attempting to c
 value to &lsquo;<samp>on</samp>&rsquo; will give an error.
 </p>
 <p>If the GNU Source Highlight library is not being used, then
-<small>ROCGDB</small> will use the Python Pygments package for source code
+ROCgdb will use the Python Pygments package for source code
 styling, if it is available.
 </p>
-<p>This option is useful for debugging <small>ROCGDB</small>&rsquo;s use of the Pygments
-library when <small>ROCGDB</small> is linked against the GNU Source Highlight
+<p>This option is useful for debugging ROCgdb&rsquo;s use of the Pygments
+library when ROCgdb is linked against the GNU Source Highlight
 library.
 </p>
 <span id="maint_005flibopcodes_005fstyling"></span><span id="index-maint-set-libopcodes_002dstyling-enabled"></span>
@@ -1236,12 +1236,12 @@ library.
 </dd>
 <dt><span><code>maint set libopcodes-styling enabled <span class="roman">[</span>on|off<span class="roman">]</span></code></span></dt>
 <dt><span><code>maint show libopcodes-styling enabled</code></span></dt>
-<dd><p>Control whether <small>ROCGDB</small> should use its builtin disassembler
+<dd><p>Control whether ROCgdb should use its builtin disassembler
 (<samp>libopcodes</samp>) to style disassembler output (see <a href="Output-Styling.html">Output Styling</a>).  The builtin disassembler does not support styling for all
 architectures.
 </p>
 <p>When this option is &lsquo;<samp>off</samp>&rsquo; the builtin disassembler will not be
-used for styling, <small>ROCGDB</small> will fall back to using the Python
+used for styling, ROCgdb will fall back to using the Python
 Pygments package if possible.
 </p>
 <p>Trying to set this option &lsquo;<samp>on</samp>&rsquo; for an architecture that the
@@ -1250,8 +1250,8 @@ the builtin disassembler will be used to style disassembler output.
 </p>
 <p>This option is &lsquo;<samp>on</samp>&rsquo; by default for supported architectures.
 </p>
-<p>This option is useful for debugging <small>ROCGDB</small>&rsquo;s use of the Pygments
-library when <small>ROCGDB</small> is built for an architecture that supports
+<p>This option is useful for debugging ROCgdb&rsquo;s use of the Pygments
+library when ROCgdb is built for an architecture that supports
 styling with the builtin disassembler
 </p>
 <span id="index-maint-info-screen"></span>
@@ -1280,7 +1280,7 @@ A non-zero value enables it, zero disables it.
 <dt><span><code>maint translate-address <span class="roman">[</span><var>section</var><span class="roman">]</span> <var>addr</var></code></span></dt>
 <dd><p>Find the symbol stored at the location specified by the address
 <var>addr</var> and an optional section name <var>section</var>.  If found,
-<small>ROCGDB</small> prints the name of the closest symbol and an offset from
+ROCgdb prints the name of the closest symbol and an offset from
 the symbol&rsquo;s location to the specified address.  This is similar to
 the <code>info address</code> command (see <a href="Symbols.html">Examining the Symbol Table</a>), except that this
 command also allows to find symbols in other sections.
@@ -1318,7 +1318,7 @@ support in the command options framework.
 <dt><span><code>maint set test-settings <var>kind</var></code></span></dt>
 <dt><span><code>maint show test-settings <var>kind</var></code></span></dt>
 <dd><p>These are representative commands for each <var>kind</var> of setting type
-<small>ROCGDB</small> supports.  They are used by the testsuite for exercising
+ROCgdb supports.  They are used by the testsuite for exercising
 the settings infrastructure.
 </p>
 <span id="index-maint-set-backtrace_002don_002dfatal_002dsignal"></span>
@@ -1326,11 +1326,11 @@ the settings infrastructure.
 </dd>
 <dt><span><code>maint set backtrace-on-fatal-signal [on|off]</code></span></dt>
 <dt><span><code>maint show backtrace-on-fatal-signal</code></span></dt>
-<dd><p>When this setting is <code>on</code>, if <small>ROCGDB</small> itself terminates with
+<dd><p>When this setting is <code>on</code>, if ROCgdb itself terminates with
 a fatal signal (e.g. SIGSEGV), then a limited backtrace will be
 printed to the standard error stream.  This backtrace can be used to
-help diagnose crashes within <small>ROCGDB</small> in situations where a user
-is unable to share a corefile with the <small>ROCGDB</small> developers.
+help diagnose crashes within ROCgdb in situations where a user
+is unable to share a corefile with the ROCgdb developers.
 </p>
 <p>If the functionality to provide this backtrace is not available for
 the platform on which GDB is running then this feature will be
@@ -1380,14 +1380,14 @@ Ignoring SystemTap probe libc longjmp in /lib64/libc.so.6.^M
 </dl>
 
 <p>The following command is useful for non-interactive invocations of
-<small>ROCGDB</small>, such as in the test suite.
+ROCgdb, such as in the test suite.
 </p>
 <dl compact="compact">
 <dt id='index-set-watchdog'><span><code>set watchdog <var>nsec</var></code><a href='#index-set-watchdog' class='copiable-anchor'> &para;</a></span></dt>
 <dd><span id="index-watchdog-timer"></span>
 <span id="index-timeout-for-commands"></span>
-<p>Set the maximum number of seconds <small>ROCGDB</small> will wait for the
-target operation to finish.  If this time expires, <small>ROCGDB</small>
+<p>Set the maximum number of seconds ROCgdb will wait for the
+target operation to finish.  If this time expires, ROCgdb
 reports and error and the command is aborted.
 </p>
 </dd>
@@ -1400,7 +1400,7 @@ reports and error and the command is aborted.
 <hr>
 <div class="header">
 <p>
-Next: <a href="Remote-Protocol.html"><small>ROCGDB</small> Remote Serial Protocol</a>, Previous: <a href="Installing-GDB.html">Installing <small>ROCGDB</small></a>, Up: <a href="index.html">Debugging with <small>ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Remote-Protocol.html">ROCgdb Remote Serial Protocol</a>, Previous: <a href="Installing-GDB.html">Installing ROCgdb</a>, Up: <a href="index.html">Debugging with ROCgdb</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

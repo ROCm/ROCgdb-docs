@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Command Files (Debugging with ROCGDB)</title>
+<title>Command Files (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Command Files (Debugging with ROCGDB)">
-<meta name="keywords" content="Command Files (Debugging with ROCGDB)">
+<meta name="description" content="Command Files (Debugging with ROCgdb)">
+<meta name="keywords" content="Command Files (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -106,8 +106,8 @@ Next: <a href="Output.html" accesskey="n" rel="next">Commands for Controlled Out
 
 <span id="index-command-files"></span>
 <span id="index-scripting-commands"></span>
-<p>A command file for <small>ROCGDB</small> is a text file made of lines that are
-<small>ROCGDB</small> commands.  Comments (lines starting with <kbd>#</kbd>) may
+<p>A command file for ROCgdb is a text file made of lines that are
+ROCgdb commands.  Comments (lines starting with <kbd>#</kbd>) may
 also be included.  An empty line in a command file does nothing; it
 does not mean to repeat the last command, as it would from the
 terminal.
@@ -133,38 +133,38 @@ unless the order of execution is changed by one of the
 printed as they are executed.  An error in any command terminates
 execution of the command file and control is returned to the console.
 </p>
-<p><small>ROCGDB</small> first searches for <var>filename</var> in the current directory.
+<p>ROCgdb first searches for <var>filename</var> in the current directory.
 If the file is not found there, and <var>filename</var> does not specify a
-directory, then <small>ROCGDB</small> also looks for the file on the source search path
+directory, then ROCgdb also looks for the file on the source search path
 (specified with the &lsquo;<samp>directory</samp>&rsquo; command);
 except that <samp>$cdir</samp> is not searched because the compilation directory
 is not relevant to scripts.
 </p>
-<p>If <code>-s</code> is specified, then <small>ROCGDB</small> searches for <var>filename</var>
+<p>If <code>-s</code> is specified, then ROCgdb searches for <var>filename</var>
 on the search path even if <var>filename</var> specifies a directory.
 The search is done by appending <var>filename</var> to each element of the
 search path.  So, for example, if <var>filename</var> is <samp>mylib/myscript</samp>
-and the search path contains <samp>/home/user</samp> then <small>ROCGDB</small> will
+and the search path contains <samp>/home/user</samp> then ROCgdb will
 look for the script <samp>/home/user/mylib/myscript</samp>.
 The search is also done if <var>filename</var> is an absolute path.
 For example, if <var>filename</var> is <samp>/tmp/myscript</samp> and
-the search path contains <samp>/home/user</samp> then <small>ROCGDB</small> will
+the search path contains <samp>/home/user</samp> then ROCgdb will
 look for the script <samp>/home/user/tmp/myscript</samp>.
 For DOS-like systems, if <var>filename</var> contains a drive specification,
 it is stripped before concatenation.  For example, if <var>filename</var> is
-<samp>d:myscript</samp> and the search path contains <samp>c:/tmp</samp> then <small>ROCGDB</small>
+<samp>d:myscript</samp> and the search path contains <samp>c:/tmp</samp> then ROCgdb
 will look for the script <samp>c:/tmp/myscript</samp>.
 </p>
-<p>If <code>-v</code>, for verbose mode, is given then <small>ROCGDB</small> displays
+<p>If <code>-v</code>, for verbose mode, is given then ROCgdb displays
 each command as it is executed.  The option must be given before
 <var>filename</var>, and is interpreted as part of the filename anywhere else.
 </p>
 <p>Commands that would ask for confirmation if used interactively proceed
-without asking when used in a command file.  Many <small>ROCGDB</small> commands that
+without asking when used in a command file.  Many ROCgdb commands that
 normally print messages to say what they are doing omit the messages
 when called from command files.
 </p>
-<p><small>ROCGDB</small> also accepts command input from standard input.  In this
+<p>ROCgdb also accepts command input from standard input.  In this
 mode, normal output goes to standard output and error output goes to
 standard error.  Errors in a command file supplied on standard input do
 not terminate execution of the command file&mdash;execution continues with
@@ -182,7 +182,7 @@ would be directed to <samp>log</samp>.
 commands typed interactively, they frequently need to deal with
 complicated situations, such as different or unexpected values of
 variables and symbols, changes in how the program being debugged is
-built, etc.  <small>ROCGDB</small> provides a set of flow-control commands to
+built, etc.  ROCgdb provides a set of flow-control commands to
 deal with these complexities.  Using these commands, you can write
 complex scripts that loop over data structures, execute commands
 conditionally, etc.

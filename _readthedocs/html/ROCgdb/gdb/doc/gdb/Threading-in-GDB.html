@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Threading in GDB (Debugging with ROCGDB)</title>
+<title>Threading in GDB (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Threading in GDB (Debugging with ROCGDB)">
-<meta name="keywords" content="Threading in GDB (Debugging with ROCGDB)">
+<meta name="description" content="Threading in GDB (Debugging with ROCgdb)">
+<meta name="keywords" content="Threading in GDB (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -104,15 +104,15 @@ Next: <a href="Exception-Handling.html" accesskey="n" rel="next">Exception Handl
 <hr>
 <span id="Threading-in-GDB-1"></span><h4 class="subsubsection">24.3.2.2 Threading in GDB</h4>
 
-<p><small>ROCGDB</small> is not thread-safe.  If your Python program uses multiple
-threads, you must be careful to only call <small>ROCGDB</small>-specific
-functions in the <small>ROCGDB</small> thread.  <small>ROCGDB</small> provides some
+<p>ROCgdb is not thread-safe.  If your Python program uses multiple
+threads, you must be careful to only call ROCgdb-specific
+functions in the ROCgdb thread.  ROCgdb provides some
 functions to help with this.
 </p>
 <dl class="def">
 <dt id="index-gdb_002eblock_005fsignals"><span class="category">Function: </span><span><strong>gdb.block_signals</strong> <em>()</em><a href='#index-gdb_002eblock_005fsignals' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>As mentioned earlier (see <a href="Basic-Python.html">Basic Python</a>), certain signals must be
-delivered to the <small>ROCGDB</small> main thread.  The <code>block_signals</code>
+delivered to the ROCgdb main thread.  The <code>block_signals</code>
 function returns a context manager that will block these signals on
 entry.  This can be used when starting a new thread to ensure that the
 signals are blocked there, like:
@@ -128,31 +128,31 @@ signals are blocked there, like:
 <dd><p>This is a subclass of Python&rsquo;s <code>threading.Thread</code> class.  It
 overrides the <code>start</code> method to call <code>block_signals</code>, making
 this an easy-to-use drop-in replacement for creating threads that will
-work well in <small>ROCGDB</small>.
+work well in ROCgdb.
 </p></dd></dl>
 
 <dl class="def">
 <dt id="index-gdb_002einterrupt"><span class="category">Function: </span><span><strong>gdb.interrupt</strong> <em>()</em><a href='#index-gdb_002einterrupt' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>This causes <small>ROCGDB</small> to react as if the user had typed a control-C
+<dd><p>This causes ROCgdb to react as if the user had typed a control-C
 character at the terminal.  That is, if the inferior is running, it is
-interrupted; if a <small>ROCGDB</small> command is executing, it is stopped;
+interrupted; if a ROCgdb command is executing, it is stopped;
 and if a Python command is running, <code>KeyboardInterrupt</code> will be
 raised.
 </p>
-<p>Unlike most Python APIs in <small>ROCGDB</small>, <code>interrupt</code> is
+<p>Unlike most Python APIs in ROCgdb, <code>interrupt</code> is
 thread-safe.
 </p></dd></dl>
 
 <dl class="def">
 <dt id="index-gdb_002epost_005fevent"><span class="category">Function: </span><span><strong>gdb.post_event</strong> <em>(event)</em><a href='#index-gdb_002epost_005fevent' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Put <var>event</var>, a callable object taking no arguments, into
-<small>ROCGDB</small>&rsquo;s internal event queue.  This callable will be invoked at
-some later point, during <small>ROCGDB</small>&rsquo;s event processing.  Events
+ROCgdb&rsquo;s internal event queue.  This callable will be invoked at
+some later point, during ROCgdb&rsquo;s event processing.  Events
 posted using <code>post_event</code> will be run in the order in which they
 were posted; however, there is no way to know when they will be
-processed relative to other events inside <small>ROCGDB</small>.
+processed relative to other events inside ROCgdb.
 </p>
-<p>Unlike most Python APIs in <small>ROCGDB</small>, <code>post_event</code> is
+<p>Unlike most Python APIs in ROCgdb, <code>post_event</code> is
 thread-safe.  For example:
 </p>
 <div class="example">

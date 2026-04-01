@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Symbols (Debugging with ROCGDB)</title>
+<title>Symbols (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Symbols (Debugging with ROCGDB)">
-<meta name="keywords" content="Symbols (Debugging with ROCGDB)">
+<meta name="description" content="Symbols (Debugging with ROCgdb)">
+<meta name="keywords" content="Symbols (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -99,7 +99,7 @@ ul.no-bullet {list-style: none}
 <div class="chapter" id="Symbols">
 <div class="header">
 <p>
-Next: <a href="Altering.html" accesskey="n" rel="next">Altering Execution</a>, Previous: <a href="Languages.html" accesskey="p" rel="prev">Using <small>ROCGDB</small> with Different Languages</a>, Up: <a href="index.html" accesskey="u" rel="up">Debugging with <small>ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Altering.html" accesskey="n" rel="next">Altering Execution</a>, Previous: <a href="Languages.html" accesskey="p" rel="prev">Using ROCgdb with Different Languages</a>, Up: <a href="index.html" accesskey="u" rel="up">Debugging with ROCgdb</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
 <span id="Examining-the-Symbol-Table"></span><h2 class="chapter">16 Examining the Symbol Table</h2>
@@ -107,8 +107,8 @@ Next: <a href="Altering.html" accesskey="n" rel="next">Altering Execution</a>, P
 <p>The commands described in this chapter allow you to inquire about the
 symbols (names of variables, functions and types) defined in your
 program.  This information is inherent in the text of your program and
-does not change as your program executes.  <small>ROCGDB</small> finds it in your
-program&rsquo;s symbol table, in the file indicated when you started <small>ROCGDB</small>
+does not change as your program executes.  ROCgdb finds it in your
+program&rsquo;s symbol table, in the file indicated when you started ROCgdb
 (see <a href="File-Options.html">Choosing Files</a>), or by one of the
 file-management commands (see <a href="Files.html">Commands to Specify Files</a>).
 </p>
@@ -116,12 +116,12 @@ file-management commands (see <a href="Files.html">Commands to Specify Files</a>
 <span id="index-names-of-symbols"></span>
 <span id="index-quoting-names"></span>
 <span id="quoting-names"></span><p>Occasionally, you may need to refer to symbols that contain unusual
-characters, which <small>ROCGDB</small> ordinarily treats as word delimiters.  The
+characters, which ROCgdb ordinarily treats as word delimiters.  The
 most frequent case is in referring to static variables in other
 source files (see <a href="Variables.html">Program Variables</a>).  File names
-are recorded in object files as debugging symbols, but <small>ROCGDB</small> would
+are recorded in object files as debugging symbols, but ROCgdb would
 ordinarily parse a typical file name, like <samp>foo.c</samp>, as the three words
-&lsquo;<samp>foo</samp>&rsquo; &lsquo;<samp>.</samp>&rsquo; &lsquo;<samp>c</samp>&rsquo;.  To allow <small>ROCGDB</small> to recognize
+&lsquo;<samp>foo</samp>&rsquo; &lsquo;<samp>.</samp>&rsquo; &lsquo;<samp>c</samp>&rsquo;.  To allow ROCgdb to recognize
 &lsquo;<samp>foo.c</samp>&rsquo; as a single symbol, enclose it in single quotes; for example,
 </p>
 <div class="example">
@@ -138,7 +138,7 @@ ordinarily parse a typical file name, like <samp>foo.c</samp>, as the three word
 <dt><span><code>set case-sensitive on</code></span></dt>
 <dt><span><code>set case-sensitive off</code></span></dt>
 <dt><span><code>set case-sensitive auto</code></span></dt>
-<dd><p>Normally, when <small>ROCGDB</small> looks up symbols, it matches their names
+<dd><p>Normally, when ROCgdb looks up symbols, it matches their names
 with case sensitivity determined by the current source language.
 Occasionally, you may wish to control that.  The command <code>set
 case-sensitive</code> lets you do that by specifying <code>on</code> for
@@ -159,12 +159,12 @@ lookups.
 <dt><span><code>set print type methods</code></span></dt>
 <dt><span><code>set print type methods on</code></span></dt>
 <dt><span><code>set print type methods off</code></span></dt>
-<dd><p>Normally, when <small>ROCGDB</small> prints a class, it displays any methods
+<dd><p>Normally, when ROCgdb prints a class, it displays any methods
 declared in that class.  You can control this behavior either by
 passing the appropriate flag to <code>ptype</code>, or using <code>set
-print type methods</code>.  Specifying <code>on</code> will cause <small>ROCGDB</small> to
+print type methods</code>.  Specifying <code>on</code> will cause ROCgdb to
 display the methods; this is the default.  Specifying <code>off</code> will
-cause <small>ROCGDB</small> to omit the methods.
+cause ROCgdb to omit the methods.
 </p>
 <span id="index-show-print-type-methods"></span>
 </dd>
@@ -193,12 +193,12 @@ printing classes.
 <dt><span><code>set print type typedefs on</code></span></dt>
 <dt><span><code>set print type typedefs off</code></span></dt>
 <dd>
-<p>Normally, when <small>ROCGDB</small> prints a class, it displays any typedefs
+<p>Normally, when ROCgdb prints a class, it displays any typedefs
 defined in that class.  You can control this behavior either by
 passing the appropriate flag to <code>ptype</code>, or using <code>set
-print type typedefs</code>.  Specifying <code>on</code> will cause <small>ROCGDB</small> to
+print type typedefs</code>.  Specifying <code>on</code> will cause ROCgdb to
 display the typedef definitions; this is the default.  Specifying
-<code>off</code> will cause <small>ROCGDB</small> to omit the typedef definitions.
+<code>off</code> will cause ROCgdb to omit the typedef definitions.
 Note that this controls whether the typedef definition itself is
 printed, not whether typedef names are substituted when printing other
 types.
@@ -215,7 +215,7 @@ printing classes.
 <dt><span><code>set print type hex on</code></span></dt>
 <dt><span><code>set print type hex off</code></span></dt>
 <dd>
-<p>When <small>ROCGDB</small> prints sizes and offsets of struct members, it can use
+<p>When ROCgdb prints sizes and offsets of struct members, it can use
 either the decimal or hexadecimal notation.  You can select one or the
 other either by passing the appropriate flag to <code>ptype</code>, or by using
 the <code>set print type hex</code> command.
@@ -245,7 +245,7 @@ the exact address of the current instantiation of the variable.
 </dd>
 <dt><span><code>info symbol <var>addr</var></code></span></dt>
 <dd><p>Print the name of a symbol which is stored at the address <var>addr</var>.
-If no symbol is stored exactly at <var>addr</var>, <small>ROCGDB</small> prints the
+If no symbol is stored exactly at <var>addr</var>, ROCgdb prints the
 nearest symbol and an offset from it:
 </p>
 <div class="example">
@@ -317,7 +317,7 @@ Available flags are:
 </p>
 <dl compact="compact">
 <dt><span><code>r</code></span></dt>
-<dd><p>Display in &ldquo;raw&rdquo; form.  Normally, <small>ROCGDB</small> substitutes template
+<dd><p>Display in &ldquo;raw&rdquo; form.  Normally, ROCgdb substitutes template
 parameters and typedefs defined in a class when printing the class&rsquo;
 members.  The <code>/r</code> flag disables this.
 </p>
@@ -536,7 +536,7 @@ the type of <code>$</code>, the last value in the value history.
 <span id="index-incomplete-type"></span>
 <p>Sometimes, programs use opaque data types or incomplete specifications
 of complex data structure.  If the debug information included in the
-program does not allow <small>ROCGDB</small> to display a full declaration of
+program does not allow ROCgdb to display a full declaration of
 the data type, it will say &lsquo;<samp>&lt;incomplete type&gt;</samp>&rsquo;.  For example,
 given these declarations:
 </p>
@@ -545,7 +545,7 @@ given these declarations:
     struct foo *fooptr;
 </pre></div>
 
-<p>but no definition for <code>struct foo</code> itself, <small>ROCGDB</small> will say:
+<p>but no definition for <code>struct foo</code> itself, ROCgdb will say:
 </p>
 <div class="example">
 <pre class="example">  (gdb) ptype foo
@@ -559,11 +559,11 @@ completely specified.
 <p>Othertimes, information about a variable&rsquo;s type is completely absent
 from the debug information included in the program.  This most often
 happens when the program or library where the variable is defined
-includes no debug information at all.  <small>ROCGDB</small> knows the variable
+includes no debug information at all.  ROCgdb knows the variable
 exists from inspecting the linker/loader symbol table (e.g., the ELF
 dynamic symbol table), but such symbols do not contain type
 information.  Inspecting the type of a (global) variable for which
-<small>ROCGDB</small> has no type information shows:
+ROCgdb has no type information shows:
 </p>
 <div class="example">
 <pre class="example">  (gdb) ptype var
@@ -584,7 +584,7 @@ types in your program whose names include the string <code>value</code>, but
 &lsquo;<samp>i type ^value$</samp>&rsquo; gives information only on types whose complete
 name is <code>value</code>.
 </p>
-<p>In programs using different languages, <small>ROCGDB</small> chooses the syntax
+<p>In programs using different languages, ROCgdb chooses the syntax
 to print the type description according to the
 &lsquo;<samp>set language</samp>&rsquo; value: using &lsquo;<samp>set language auto</samp>&rsquo;
 (see <a href="Automatically.html">Set Language Automatically</a>) means to use the
@@ -603,7 +603,7 @@ information.
 <span id="index-info-type_002dprinters"></span>
 </dd>
 <dt><span><code>info type-printers</code></span></dt>
-<dd><p>Versions of <small>ROCGDB</small> that ship with Python scripting enabled may
+<dd><p>Versions of ROCgdb that ship with Python scripting enabled may
 have &ldquo;type printers&rdquo; available.  When using <code>ptype</code> or
 <code>whatis</code>, these printers are consulted when the name of a type
 is needed.  See <a href="Type-Printing-API.html">Type Printing API</a>, for more information on writing
@@ -668,7 +668,7 @@ preprocessor macros.
 <p>With no options &lsquo;<samp>info sources</samp>&rsquo; prints the names of all source
 files in your program for which there is debugging information.  The
 source files are presented based on a list of object files
-(executables and libraries) currently loaded into <small>ROCGDB</small>.  For
+(executables and libraries) currently loaded into ROCgdb.  For
 each object file all of the associated source files are listed.
 </p>
 <p>Each source file will only be printed once for each object file, but a
@@ -679,7 +679,7 @@ multiple object files.
 match the regular expression will be printed.  The matching is
 case-sensitive, except on operating systems that have case-insensitive
 filesystem (e.g., MS-Windows). &lsquo;<samp>--</samp>&rsquo; can be used before
-<var>regexp</var> to prevent <small>ROCGDB</small> interpreting <var>regexp</var> as a
+<var>regexp</var> to prevent ROCgdb interpreting <var>regexp</var> as a
 command option (e.g. if <var>regexp</var> starts with &lsquo;<samp>-</samp>&rsquo;).
 </p>
 <p>By default, the <var>regexp</var> is used to match anywhere in the
@@ -690,7 +690,7 @@ basename matching <var>regexp</var> are shown.
 <p>It is possible that an object file may be printed in the list with no
 associated source files.  This can happen when either no source files
 match <var>regexp</var>, or, the object file was compiled without debug
-information and so <small>ROCGDB</small> is unable to find any source file
+information and so ROCgdb is unable to find any source file
 names.
 </p>
 <span id="index-info-functions"></span>
@@ -701,7 +701,7 @@ Similarly to &lsquo;<samp>info types</samp>&rsquo;, this command groups its outp
 files and annotates each function definition with its source line
 number.
 </p>
-<p>In programs using different languages, <small>ROCGDB</small> chooses the syntax
+<p>In programs using different languages, ROCgdb chooses the syntax
 to print the function name and type according to the
 &lsquo;<samp>set language</samp>&rsquo; value: using &lsquo;<samp>set language auto</samp>&rsquo;
 (see <a href="Automatically.html">Set Language Automatically</a>) means to use the
@@ -755,7 +755,7 @@ outside of functions (i.e. excluding local variables).
 The printed variables are grouped by source files and annotated with
 their respective source line numbers.
 </p>
-<p>In programs using different languages, <small>ROCGDB</small> chooses the syntax
+<p>In programs using different languages, ROCgdb chooses the syntax
 to print the variable name and type according to the
 &lsquo;<samp>set language</samp>&rsquo; value: using &lsquo;<samp>set language auto</samp>&rsquo;
 (see <a href="Automatically.html">Set Language Automatically</a>) means to use the
@@ -847,7 +847,7 @@ expression.
 <span id="index-set-opaque_002dtype_002dresolution"></span>
 </dd>
 <dt><span><code>set opaque-type-resolution on</code></span></dt>
-<dd><p>Tell <small>ROCGDB</small> to resolve opaque types.  An opaque type is a type
+<dd><p>Tell ROCgdb to resolve opaque types.  An opaque type is a type
 declared as a pointer to a <code>struct</code>, <code>class</code>, or
 <code>union</code>&mdash;for example, <code>struct MyType *</code>&mdash;that is used in one
 source file although the full declaration of <code>struct MyType</code> is in
@@ -858,7 +858,7 @@ the next time symbols for a file are loaded.
 </p>
 </dd>
 <dt><span><code>set opaque-type-resolution off</code></span></dt>
-<dd><p>Tell <small>ROCGDB</small> not to resolve opaque types.  In this case, the type
+<dd><p>Tell ROCgdb not to resolve opaque types.  In this case, the type
 is printed as follows:
 </p><div class="example">
 <pre class="example">{&lt;no data fields&gt;}
@@ -877,20 +877,20 @@ is printed as follows:
 <dt><span><code>set print symbol-loading brief</code></span></dt>
 <dt><span><code>set print symbol-loading off</code></span></dt>
 <dd><p>The <code>set print symbol-loading</code> command allows you to control the
-printing of messages when <small>ROCGDB</small> loads symbol information.
+printing of messages when ROCgdb loads symbol information.
 By default a message is printed for the executable and one for each
 shared library, and normally this is what you want.  However, when
 debugging apps with large numbers of shared libraries these messages
 can be annoying.
 When set to <code>brief</code> a message is printed for each executable,
-and when <small>ROCGDB</small> loads a collection of shared libraries at once
+and when ROCgdb loads a collection of shared libraries at once
 it will only print one message regardless of the number of shared
 libraries.  When set to <code>off</code> no messages are printed.
 </p>
 <span id="index-show-print-symbol_002dloading"></span>
 </dd>
 <dt><span><code>show print symbol-loading</code></span></dt>
-<dd><p>Show whether messages will be printed when a <small>ROCGDB</small> command
+<dd><p>Show whether messages will be printed when a ROCgdb command
 entered from the keyboard causes symbol information to be loaded.
 </p>
 <span id="maint-print-symbols"></span><span id="index-maint-print-symbols"></span>
@@ -915,26 +915,26 @@ with code at that address.  Note that <var>address</var> may be a symbol like
 If <code>-source <var>source</var></code> is specified, only dump symbols for that
 source file.
 </p>
-<p>These commands are used to debug the <small>ROCGDB</small> symbol-reading code.
-These commands do not modify internal <small>ROCGDB</small> state, therefore
+<p>These commands are used to debug the ROCgdb symbol-reading code.
+These commands do not modify internal ROCgdb state, therefore
 &lsquo;<samp>maint print symbols</samp>&rsquo; will only print symbols for already expanded symbol
 tables.
 You can use the command <code>info sources</code> to find out which files these are.
 If you use &lsquo;<samp>maint print psymbols</samp>&rsquo; instead, the dump shows information
-about symbols that <small>ROCGDB</small> only knows partially&mdash;that is, symbols
-defined in files that <small>ROCGDB</small> has skimmed, but not yet read completely.
+about symbols that ROCgdb only knows partially&mdash;that is, symbols
+defined in files that ROCgdb has skimmed, but not yet read completely.
 Finally, &lsquo;<samp>maint print msymbols</samp>&rsquo; just dumps &ldquo;minimal symbols&rdquo;, e.g.,
 &ldquo;ELF symbols&rdquo;.
 </p>
 <p>See <a href="Files.html">Commands to Specify Files</a>, for a discussion of how
-<small>ROCGDB</small> reads symbols (in the description of <code>symbol-file</code>).
+ROCgdb reads symbols (in the description of <code>symbol-file</code>).
 </p>
 <span id="index-maint-info-symtabs"></span>
 <span id="index-maint-info-psymtabs"></span>
-<span id="index-listing-ROCGDB_0027s-internal-symbol-tables"></span>
-<span id="index-symbol-tables_002c-listing-ROCGDB_0027s-internal"></span>
-<span id="index-full-symbol-tables_002c-listing-ROCGDB_0027s-internal"></span>
-<span id="index-partial-symbol-tables_002c-listing-ROCGDB_0027s-internal"></span>
+<span id="index-listing-ROCgdb_0027s-internal-symbol-tables"></span>
+<span id="index-symbol-tables_002c-listing-ROCgdb_0027s-internal"></span>
+<span id="index-full-symbol-tables_002c-listing-ROCgdb_0027s-internal"></span>
+<span id="index-partial-symbol-tables_002c-listing-ROCgdb_0027s-internal"></span>
 </dd>
 <dt><span><code>maint info symtabs <span class="roman">[</span> <var>regexp</var> <span class="roman">]</span></code></span></dt>
 <dt><span><code>maint info psymtabs <span class="roman">[</span> <var>regexp</var> <span class="roman">]</span></code></span></dt>
@@ -942,7 +942,7 @@ Finally, &lsquo;<samp>maint print msymbols</samp>&rsquo; just dumps &ldquo;minim
 <p>List the <code>struct symtab</code> or <code>struct partial_symtab</code>
 structures whose names match <var>regexp</var>.  If <var>regexp</var> is not
 given, list them all.  The output includes expressions which you can
-copy into a <small>ROCGDB</small> debugging this one to examine a particular
+copy into a ROCgdb debugging this one to examine a particular
 structure in more detail.  For example:
 </p>
 <div class="example">
@@ -964,8 +964,8 @@ structure in more detail.  For example:
 </pre></div>
 <p>We see that there is one partial symbol table whose filename contains
 the string &lsquo;<samp>dwarf2read</samp>&rsquo;, belonging to the &lsquo;<samp>gdb</samp>&rsquo; executable;
-and we see that <small>ROCGDB</small> has not read in any symtabs yet at all.
-If we set a breakpoint on a function, that will cause <small>ROCGDB</small> to
+and we see that ROCgdb has not read in any symtabs yet at all.
+If we set a breakpoint on a function, that will cause ROCgdb to
 read the symtab for the compilation unit containing that function:
 </p>
 <div class="example">
@@ -988,8 +988,8 @@ line 1574.
 </pre></div>
 
 <span id="index-maint-info-line_002dtable"></span>
-<span id="index-listing-ROCGDB_0027s-internal-line-tables"></span>
-<span id="index-line-tables_002c-listing-ROCGDB_0027s-internal"></span>
+<span id="index-listing-ROCgdb_0027s-internal-line-tables"></span>
+<span id="index-line-tables_002c-listing-ROCgdb_0027s-internal"></span>
 </dd>
 <dt><span><code>maint info line-table <span class="roman">[</span> <var>regexp</var> <span class="roman">]</span></code></span></dt>
 <dd>
@@ -1082,15 +1082,15 @@ symbol-cache</code>..
 </dd>
 <dt><span><code>maint set ignore-prologue-end-flag [on|off]</code></span></dt>
 <dd><p>Enable or disable the use of the &lsquo;<samp>PROLOGUE-END</samp>&rsquo; flag from the line-table.
-When &lsquo;<samp>off</samp>&rsquo; (the default), <small>ROCGDB</small> uses the &lsquo;<samp>PROLOGUE-END</samp>&rsquo; flag
+When &lsquo;<samp>off</samp>&rsquo; (the default), ROCgdb uses the &lsquo;<samp>PROLOGUE-END</samp>&rsquo; flag
 to place breakpoints past the end of a function prologue.  When &lsquo;<samp>on</samp>&rsquo;,
-<small>ROCGDB</small> ignores the flag and relies on prologue analyzers to skip function
+ROCgdb ignores the flag and relies on prologue analyzers to skip function
 prologues.
 </p>
 <span id="index-maint-show-ignore_002dprologue_002dend_002dflag"></span>
 </dd>
 <dt><span><code>maint show ignore-prologue-end-flag</code></span></dt>
-<dd><p>Show whether <small>ROCGDB</small> will ignore the &lsquo;<samp>PROLOGUE-END</samp>&rsquo; flag.
+<dd><p>Show whether ROCgdb will ignore the &lsquo;<samp>PROLOGUE-END</samp>&rsquo; flag.
 </p>
 </dd>
 </dl>
@@ -1099,7 +1099,7 @@ prologues.
 <hr>
 <div class="header">
 <p>
-Next: <a href="Altering.html">Altering Execution</a>, Previous: <a href="Languages.html">Using <small>ROCGDB</small> with Different Languages</a>, Up: <a href="index.html">Debugging with <small>ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Altering.html">Altering Execution</a>, Previous: <a href="Languages.html">Using ROCgdb with Different Languages</a>, Up: <a href="index.html">Debugging with ROCgdb</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

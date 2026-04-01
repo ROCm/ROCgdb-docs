@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Frame Decorator API (Debugging with ROCGDB)</title>
+<title>Frame Decorator API (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Frame Decorator API (Debugging with ROCGDB)">
-<meta name="keywords" content="Frame Decorator API (Debugging with ROCGDB)">
+<meta name="description" content="Frame Decorator API (Debugging with ROCgdb)">
+<meta name="keywords" content="Frame Decorator API (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -119,7 +119,7 @@ necessary to maintain integrity of the data contained in each
 </p>
 <p>Frame decorators have a mandatory interface, defined below.
 </p>
-<p><small>ROCGDB</small> already contains a frame decorator called
+<p>ROCgdb already contains a frame decorator called
 <code>FrameDecorator</code>.  This contains substantial amounts of
 boilerplate code to decorate the content of a <code>gdb.Frame</code>.  It is
 recommended that other frame decorators inherit and extend this
@@ -163,7 +163,7 @@ be printed.
 <p>This method must return a Python string describing the function, or
 <code>None</code>.
 </p>
-<p>If this function returns <code>None</code>, <small>ROCGDB</small> will not print any
+<p>If this function returns <code>None</code>, ROCgdb will not print any
 data for this field.
 </p></dd></dl>
 
@@ -175,7 +175,7 @@ data for this field.
 <p>This method must return a Python numeric integer type of sufficient
 size to describe the address of the frame, or <code>None</code>.
 </p>
-<p>If this function returns a <code>None</code>, <small>ROCGDB</small> will not print
+<p>If this function returns a <code>None</code>, ROCgdb will not print
 any data for this field.
 </p></dd></dl>
 
@@ -187,7 +187,7 @@ any data for this field.
 <p>This method must return a Python string containing the filename and
 the path to the object file backing the frame, or <code>None</code>.
 </p>
-<p>If this function returns a <code>None</code>, <small>ROCGDB</small> will not print
+<p>If this function returns a <code>None</code>, ROCgdb will not print
 any data for this field.
 </p></dd></dl>
 
@@ -199,7 +199,7 @@ position within the function addressed by this frame.
 </p>
 <p>This method must return a Python integer type, or <code>None</code>.
 </p>
-<p>If this function returns a <code>None</code>, <small>ROCGDB</small> will not print
+<p>If this function returns a <code>None</code>, ROCgdb will not print
 any data for this field.
 </p></dd></dl>
 
@@ -217,7 +217,7 @@ single <code>self</code> parameter and must return a <code>gdb.Symbol</code>
 implement a <code>value</code> method which takes a single <code>self</code>
 parameter and must return a <code>gdb.Value</code> (see <a href="Values-From-Inferior.html">Values From Inferior</a>), a Python value, or <code>None</code>.  If the <code>value</code>
 method returns <code>None</code>, and the <code>argument</code> method returns a
-<code>gdb.Symbol</code>, <small>ROCGDB</small> will look-up and print the value of
+<code>gdb.Symbol</code>, ROCgdb will look-up and print the value of
 the <code>gdb.Symbol</code> automatically.
 </p>
 <p>A brief example:
@@ -300,7 +300,7 @@ frame filter frame_args function</a>).  Below is a modified example:
 <dt id="index-FrameDecorator_002einferior_005fframe"><span class="category">Function: </span><span><strong>FrameDecorator.inferior_frame</strong> <em>(self):</em><a href='#index-FrameDecorator_002einferior_005fframe' class='copiable-anchor'> &para;</a></span></dt>
 <dd>
 <p>This method must return the underlying <code>gdb.Frame</code> that this
-frame decorator is decorating.  <small>ROCGDB</small> requires the underlying
+frame decorator is decorating.  ROCgdb requires the underlying
 frame for internal frame information to determine how to print certain
 values when printing a frame.
 </p></dd></dl>

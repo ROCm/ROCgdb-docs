@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>PowerPC Embedded (Debugging with ROCGDB)</title>
+<title>PowerPC Embedded (Debugging with ROCgdb)</title>
 
-<meta name="description" content="PowerPC Embedded (Debugging with ROCGDB)">
-<meta name="keywords" content="PowerPC Embedded (Debugging with ROCGDB)">
+<meta name="description" content="PowerPC Embedded (Debugging with ROCgdb)">
+<meta name="keywords" content="PowerPC Embedded (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -105,7 +105,7 @@ Next: <a href="AVR.html" accesskey="n" rel="next">Atmel AVR</a>, Previous: <a hr
 <span id="PowerPC-Embedded-1"></span><h4 class="subsection">22.3.8 PowerPC Embedded</h4>
 
 <span id="index-DVC-register"></span>
-<p><small>ROCGDB</small> supports using the DVC (Data Value Compare) register to
+<p>ROCgdb supports using the DVC (Data Value Compare) register to
 implement in hardware simple hardware watchpoint conditions of the form:
 </p>
 <div class="example">
@@ -113,14 +113,14 @@ implement in hardware simple hardware watchpoint conditions of the form:
   if  <var>address|variable</var> == <var>constant expression</var>
 </pre></div>
 
-<p>The DVC register will be automatically used when <small>ROCGDB</small> detects
+<p>The DVC register will be automatically used when ROCgdb detects
 such pattern in a condition expression, and the created watchpoint uses one
 debug register (either the <code>exact-watchpoints</code> option is on and the
 variable is scalar, or the variable has a length of one byte).  This feature
-is available in native <small>ROCGDB</small> running on a Linux kernel version 2.6.34
+is available in native ROCgdb running on a Linux kernel version 2.6.34
 or newer.
 </p>
-<p>When running on PowerPC embedded processors, <small>ROCGDB</small> automatically uses
+<p>When running on PowerPC embedded processors, ROCgdb automatically uses
 ranged hardware watchpoints, unless the <code>exact-watchpoints</code> option is on,
 in which case watchpoints using only one debug register are created when
 watching variables of scalar types.
@@ -140,10 +140,10 @@ about the <code>mask</code> argument in <a href="Set-Watchpoints.html">Setting W
 <p>PowerPC embedded processors support hardware accelerated
 <em>ranged breakpoints</em>.  A ranged breakpoint stops execution of
 the inferior whenever it executes an instruction at any address within
-the range it was set at.  To set a ranged breakpoint in <small>ROCGDB</small>,
+the range it was set at.  To set a ranged breakpoint in ROCgdb,
 use the <code>break-range</code> command.
 </p>
-<p><small>ROCGDB</small> provides the following PowerPC-specific commands:
+<p>ROCgdb provides the following PowerPC-specific commands:
 </p>
 <dl compact="compact">
 <dd><span id="index-break_002drange"></span>
@@ -151,7 +151,7 @@ use the <code>break-range</code> command.
 <dt><span><code>break-range <var>start-locspec</var>, <var>end-locspec</var></code></span></dt>
 <dd><p>Set a breakpoint for an address range given by <var>start-locspec</var> and
 <var>end-locspec</var>, which are location specs.  See <a href="Location-Specifications.html">Location Specifications</a>, for a list of all the possible forms of location
-specs.  <small>ROCGDB</small> resolves both <var>start-locspec</var> and
+specs.  ROCgdb resolves both <var>start-locspec</var> and
 <var>end-locspec</var>, and uses the addresses of the resolved code
 locations as start and end addresses of the range to break at.  The
 breakpoint will stop execution of the inferior whenever it executes an
@@ -164,24 +164,24 @@ with an error without creating a breakpoint.
 </dd>
 <dt><span><code>set powerpc soft-float</code></span></dt>
 <dt><span><code>show powerpc soft-float</code></span></dt>
-<dd><p>Force <small>ROCGDB</small> to use (or not use) a software floating point calling
-convention.  By default, <small>ROCGDB</small> selects the calling convention based
+<dd><p>Force ROCgdb to use (or not use) a software floating point calling
+convention.  By default, ROCgdb selects the calling convention based
 on the selected architecture and the provided executable file.
 </p>
 </dd>
 <dt><span><code>set powerpc vector-abi</code></span></dt>
 <dt><span><code>show powerpc vector-abi</code></span></dt>
-<dd><p>Force <small>ROCGDB</small> to use the specified calling convention for vector
+<dd><p>Force ROCgdb to use the specified calling convention for vector
 arguments and return values.  The valid options are &lsquo;<samp>auto</samp>&rsquo;;
 &lsquo;<samp>generic</samp>&rsquo;, to avoid vector registers even if they are present;
 &lsquo;<samp>altivec</samp>&rsquo;, to use AltiVec registers; and &lsquo;<samp>spe</samp>&rsquo; to use SPE
-registers.  By default, <small>ROCGDB</small> selects the calling convention
+registers.  By default, ROCgdb selects the calling convention
 based on the selected architecture and the provided executable file.
 </p>
 </dd>
 <dt><span><code>set powerpc exact-watchpoints</code></span></dt>
 <dt><span><code>show powerpc exact-watchpoints</code></span></dt>
-<dd><p>Allow <small>ROCGDB</small> to use only one debug register when watching a variable
+<dd><p>Allow ROCgdb to use only one debug register when watching a variable
 of scalar type, thus assuming that the variable is accessed through the
 address of its first byte.
 </p>

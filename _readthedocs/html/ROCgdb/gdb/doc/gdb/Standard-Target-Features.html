@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Standard Target Features (Debugging with ROCGDB)</title>
+<title>Standard Target Features (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Standard Target Features (Debugging with ROCGDB)">
-<meta name="keywords" content="Standard Target Features (Debugging with ROCGDB)">
+<meta name="description" content="Standard Target Features (Debugging with ROCgdb)">
+<meta name="keywords" content="Standard Target Features (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -106,32 +106,32 @@ Previous: <a href="Enum-Target-Types.html" accesskey="p" rel="prev">Enum Target 
 
 <p>A target description must contain either no registers or all the
 target&rsquo;s registers.  If the description contains no registers, then
-<small>ROCGDB</small> will assume a default register layout, selected based on
+ROCgdb will assume a default register layout, selected based on
 the architecture.  If the description contains any registers, the
 default layout will not be used; the standard registers must be
-described in the target description, in such a way that <small>ROCGDB</small>
+described in the target description, in such a way that ROCgdb
 can recognize them.
 </p>
 <p>This is accomplished by giving specific names to feature elements
-which contain standard registers.  <small>ROCGDB</small> will look for features
+which contain standard registers.  ROCgdb will look for features
 with those names and verify that they contain the expected registers;
 if any known feature is missing required registers, or if any required
-feature is missing, <small>ROCGDB</small> will reject the target
+feature is missing, ROCgdb will reject the target
 description.  You can add additional registers to any of the
-standard features &mdash; <small>ROCGDB</small> will display them just as if
+standard features &mdash; ROCgdb will display them just as if
 they were added to an unrecognized feature.
 </p>
 <p>This section lists the known features and their expected contents.
 Sample XML documents for these features are included in the
-<small>ROCGDB</small> source tree, in the directory <samp>gdb/features</samp>.
+ROCgdb source tree, in the directory <samp>gdb/features</samp>.
 </p>
-<p>Names recognized by <small>ROCGDB</small> should include the name of the
+<p>Names recognized by ROCgdb should include the name of the
 company or organization which selected the name, and the overall
 architecture to which the feature applies; so e.g. the feature
 containing ARM core registers is named &lsquo;<samp>org.gnu.gdb.arm.core</samp>&rsquo;.
 </p>
 <p>The names of registers are not case sensitive for the purpose
-of recognizing standard features, but <small>ROCGDB</small> will only display
+of recognizing standard features, but ROCgdb will only display
 registers using the capitalization used in the description.
 </p>
 

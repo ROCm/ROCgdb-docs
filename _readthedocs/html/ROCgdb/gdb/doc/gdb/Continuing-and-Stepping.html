@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Continuing and Stepping (Debugging with ROCGDB)</title>
+<title>Continuing and Stepping (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Continuing and Stepping (Debugging with ROCGDB)">
-<meta name="keywords" content="Continuing and Stepping (Debugging with ROCGDB)">
+<meta name="description" content="Continuing and Stepping (Debugging with ROCgdb)">
+<meta name="keywords" content="Continuing and Stepping (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -160,7 +160,7 @@ interesting, until you see the problem happen.
 </dd>
 <dt><span><code>step</code></span></dt>
 <dd><p>Continue running your program until control reaches a different source
-line, then stop it and return control to <small>ROCGDB</small>.  This command is
+line, then stop it and return control to ROCgdb.  This command is
 abbreviated <code>s</code>.
 </p>
 <blockquote>
@@ -224,7 +224,7 @@ information rather than stepping over it.
 </p>
 <p>This is useful in cases where you may be interested in inspecting the
 machine instructions of a function which has no symbolic info and do not
-want <small>ROCGDB</small> to automatically skip over this function.
+want ROCgdb to automatically skip over this function.
 </p>
 </dd>
 <dt><span><code>set step-mode off</code></span></dt>
@@ -233,7 +233,7 @@ debug information.  This is the default.
 </p>
 </dd>
 <dt><span><code>show step-mode</code></span></dt>
-<dd><p>Show whether <small>ROCGDB</small> will stop in or step over functions without
+<dd><p>Show whether ROCgdb will stop in or step over functions without
 source line debug information.
 </p>
 <span id="index-finish"></span>
@@ -350,7 +350,7 @@ current one.
 <dd><p>Execute one machine instruction, then stop and return to the debugger.
 </p>
 <p>It is often useful to do &lsquo;<samp>display/i $pc</samp>&rsquo; when stepping by machine
-instructions.  This makes <small>ROCGDB</small> automatically display the next
+instructions.  This makes ROCgdb automatically display the next
 instruction to be executed, each time your program stops.  See <a href="Auto-Display.html">Automatic Display</a>.
 </p>
 <p>An argument is a repeat count, as in <code>step</code>.
@@ -371,15 +371,15 @@ proceed until the function returns.
 
 <span id="range-stepping"></span><span id="index-range-stepping"></span>
 <span id="index-target_002dassisted-range-stepping"></span>
-<p>By default, and if available, <small>ROCGDB</small> makes use of
+<p>By default, and if available, ROCgdb makes use of
 target-assisted <em>range stepping</em>.  In other words, whenever you
-use a stepping command (e.g., <code>step</code>, <code>next</code>), <small>ROCGDB</small>
+use a stepping command (e.g., <code>step</code>, <code>next</code>), ROCgdb
 tells the target to step the corresponding range of instruction
 addresses instead of issuing multiple single-steps.  This speeds up
 line stepping, particularly for remote targets.  Ideally, there should
 be no reason you would want to turn range stepping off.  However, it&rsquo;s
 possible that a bug in the debug info, a bug in the remote stub (for
-remote targets), or even a bug in <small>ROCGDB</small> could make line
+remote targets), or even a bug in ROCgdb could make line
 stepping behave incorrectly when target-assisted range stepping is
 enabled.  You can use the following command to turn off range stepping
 if necessary:
@@ -392,9 +392,9 @@ if necessary:
 <dt><span><code>show range-stepping</code></span></dt>
 <dd><p>Control whether range stepping is enabled.
 </p>
-<p>If <code>on</code>, and the target supports it, <small>ROCGDB</small> tells the
+<p>If <code>on</code>, and the target supports it, ROCgdb tells the
 target to step a range of addresses itself, instead of issuing
-multiple single-steps.  If <code>off</code>, <small>ROCGDB</small> always issues
+multiple single-steps.  If <code>off</code>, ROCgdb always issues
 single-steps, even if range stepping is supported by the target.  The
 default is <code>on</code>.
 </p>

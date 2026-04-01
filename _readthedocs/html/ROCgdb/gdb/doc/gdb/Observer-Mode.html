@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Observer Mode (Debugging with ROCGDB)</title>
+<title>Observer Mode (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Observer Mode (Debugging with ROCGDB)">
-<meta name="keywords" content="Observer Mode (Debugging with ROCGDB)">
+<meta name="description" content="Observer Mode (Debugging with ROCgdb)">
+<meta name="keywords" content="Observer Mode (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -104,17 +104,17 @@ Previous: <a href="Interrupted-System-Calls.html" accesskey="p" rel="prev">Inter
 <span id="Observer-Mode-1"></span><h4 class="subsection">5.5.6 Observer Mode</h4>
 
 <p>If you want to build on non-stop mode and observe program behavior
-without any chance of disruption by <small>ROCGDB</small>, you can set
+without any chance of disruption by ROCgdb, you can set
 variables to disable all of the debugger&rsquo;s attempts to modify state,
 whether by writing memory, inserting breakpoints, etc.  These operate
 at a low level, intercepting operations from all commands.
 </p>
-<p>When all of these are set to <code>off</code>, then <small>ROCGDB</small> is said to
+<p>When all of these are set to <code>off</code>, then ROCgdb is said to
 be <em>observer mode</em>.  As a convenience, the variable
 <code>observer</code> can be set to disable these, plus enable non-stop
 mode.
 </p>
-<p>Note that <small>ROCGDB</small> will not prevent you from making nonsensical
+<p>Note that ROCgdb will not prevent you from making nonsensical
 combinations of these settings. For instance, if you have enabled
 <code>may-insert-breakpoints</code> but disabled <code>may-write-memory</code>,
 then breakpoints that work by writing trap instructions into the code
@@ -139,7 +139,7 @@ normal debugging, though remaining in non-stop mode.
 </dd>
 <dt><span><code>set may-write-registers on</code></span></dt>
 <dt><span><code>set may-write-registers off</code></span></dt>
-<dd><p>This controls whether <small>ROCGDB</small> will attempt to alter the values of
+<dd><p>This controls whether ROCgdb will attempt to alter the values of
 registers, such as with assignment expressions in <code>print</code>, or the
 <code>jump</code> command.  It defaults to <code>on</code>.
 </p>
@@ -151,7 +151,7 @@ registers, such as with assignment expressions in <code>print</code>, or the
 </dd>
 <dt><span><code>set may-write-memory on</code></span></dt>
 <dt><span><code>set may-write-memory off</code></span></dt>
-<dd><p>This controls whether <small>ROCGDB</small> will attempt to alter the contents
+<dd><p>This controls whether ROCgdb will attempt to alter the contents
 of memory, such as with assignment expressions in <code>print</code>.  It
 defaults to <code>on</code>.
 </p>
@@ -163,9 +163,9 @@ defaults to <code>on</code>.
 </dd>
 <dt><span><code>set may-insert-breakpoints on</code></span></dt>
 <dt><span><code>set may-insert-breakpoints off</code></span></dt>
-<dd><p>This controls whether <small>ROCGDB</small> will attempt to insert breakpoints.
+<dd><p>This controls whether ROCgdb will attempt to insert breakpoints.
 This affects all breakpoints, including internal breakpoints defined
-by <small>ROCGDB</small>.  It defaults to <code>on</code>.
+by ROCgdb.  It defaults to <code>on</code>.
 </p>
 </dd>
 <dt><span><code>show may-insert-breakpoints</code></span></dt>
@@ -175,7 +175,7 @@ by <small>ROCGDB</small>.  It defaults to <code>on</code>.
 </dd>
 <dt><span><code>set may-insert-tracepoints on</code></span></dt>
 <dt><span><code>set may-insert-tracepoints off</code></span></dt>
-<dd><p>This controls whether <small>ROCGDB</small> will attempt to insert (regular)
+<dd><p>This controls whether ROCgdb will attempt to insert (regular)
 tracepoints at the beginning of a tracing experiment.  It affects only
 non-fast tracepoints, fast tracepoints being under the control of
 <code>may-insert-fast-tracepoints</code>.  It defaults to <code>on</code>.
@@ -188,7 +188,7 @@ non-fast tracepoints, fast tracepoints being under the control of
 </dd>
 <dt><span><code>set may-insert-fast-tracepoints on</code></span></dt>
 <dt><span><code>set may-insert-fast-tracepoints off</code></span></dt>
-<dd><p>This controls whether <small>ROCGDB</small> will attempt to insert fast
+<dd><p>This controls whether ROCgdb will attempt to insert fast
 tracepoints at the beginning of a tracing experiment.  It affects only
 fast tracepoints, regular (non-fast) tracepoints being under the
 control of <code>may-insert-tracepoints</code>.  It defaults to <code>on</code>.
@@ -201,7 +201,7 @@ control of <code>may-insert-tracepoints</code>.  It defaults to <code>on</code>.
 </dd>
 <dt><span><code>set may-interrupt on</code></span></dt>
 <dt><span><code>set may-interrupt off</code></span></dt>
-<dd><p>This controls whether <small>ROCGDB</small> will attempt to interrupt or stop
+<dd><p>This controls whether ROCgdb will attempt to interrupt or stop
 program execution.  When this variable is <code>off</code>, the
 <code>interrupt</code> command will have no effect, nor will
 <kbd>Ctrl-c</kbd>. It defaults to <code>on</code>.

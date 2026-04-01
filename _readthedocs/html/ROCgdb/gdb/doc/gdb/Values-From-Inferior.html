@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Values From Inferior (Debugging with ROCGDB)</title>
+<title>Values From Inferior (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Values From Inferior (Debugging with ROCGDB)">
-<meta name="keywords" content="Values From Inferior (Debugging with ROCGDB)">
+<meta name="description" content="Values From Inferior (Debugging with ROCgdb)">
+<meta name="keywords" content="Values From Inferior (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -107,8 +107,8 @@ Next: <a href="Types-In-Python.html" accesskey="n" rel="next">Types In Python</a
 <span id="index-python_002c-working-with-values-from-inferior"></span>
 
 <span id="index-gdb_002eValue"></span>
-<p><small>ROCGDB</small> provides values it obtains from the inferior program in
-an object of type <code>gdb.Value</code>.  <small>ROCGDB</small> uses this object
+<p>ROCgdb provides values it obtains from the inferior program in
+an object of type <code>gdb.Value</code>.  ROCgdb uses this object
 for its internal bookkeeping of the inferior&rsquo;s values, and for
 fetching values when necessary.
 </p>
@@ -228,7 +228,7 @@ it will just return the static type of the value as in <kbd>ptype foo</kbd>
 <dt id="index-Value_002eis_005flazy"><span class="category">Variable: </span><span><strong>Value.is_lazy</strong><a href='#index-Value_002eis_005flazy' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>The value of this read-only boolean attribute is <code>True</code> if this
 <code>gdb.Value</code> has not yet been fetched from the inferior.  
-<small>ROCGDB</small> does not fetch values until necessary, for efficiency.  
+ROCgdb does not fetch values until necessary, for efficiency.  
 For example:
 </p>
 <div class="example">
@@ -452,7 +452,7 @@ operator were used.  Consult a C<tt>++</tt> reference for details.
 <dd><p>Convert a <code>gdb.Value</code> to a string, similarly to what the <code>print</code>
 command does.  Invoked with no arguments, this is equivalent to calling
 the <code>str</code> function on the <code>gdb.Value</code>.  The representation of
-the same value may change across different versions of <small>ROCGDB</small>, so
+the same value may change across different versions of ROCgdb, so
 you shouldn&rsquo;t, for instance, parse the strings returned by this method.
 </p>
 <p>All the arguments are keyword only.  If an argument is not specified, the
@@ -556,16 +556,16 @@ print repeats</code> in <a href="Print-Settings.html">Print Settings</a>).
 <dt><span><code>format</code></span></dt>
 <dd><p>A string containing a single character representing the format to use for
 the returned string.  For instance, <code>'x'</code> is equivalent to using the
-<small>ROCGDB</small> command <code>print</code> with the <code>/x</code> option and formats
+ROCgdb command <code>print</code> with the <code>/x</code> option and formats
 the value as a hexadecimal number.
 </p>
 </dd>
 <dt><span><code>styling</code></span></dt>
-<dd><p><code>True</code> if <small>ROCGDB</small> should apply styling to the returned
+<dd><p><code>True</code> if ROCgdb should apply styling to the returned
 string.  When styling is applied, the returned string might contain
 ANSI terminal escape sequences.  Escape sequences will only be
 included if styling is turned on, see <a href="Output-Styling.html">Output Styling</a>.
-Additionally, <small>ROCGDB</small> only styles some value contents, so not
+Additionally, ROCgdb only styles some value contents, so not
 every output string will contain escape sequences.
 </p>
 <p>When <code>False</code>, which is the default, no output styling is applied.
@@ -632,14 +632,14 @@ will throw an exception.
 <p>If the optional <var>encoding</var> argument is given, it must be a string
 naming the encoding of the <code>gdb.LazyString</code>.  Some examples are:
 &lsquo;<samp>ascii</samp>&rsquo;, &lsquo;<samp>iso-8859-6</samp>&rsquo; or &lsquo;<samp>utf-8</samp>&rsquo;.  If the
-<var>encoding</var> argument is an encoding that <small>ROCGDB</small> does
-recognize, <small>ROCGDB</small> will raise an error.
+<var>encoding</var> argument is an encoding that ROCgdb does
+recognize, ROCgdb will raise an error.
 </p>
-<p>When a lazy string is printed, the <small>ROCGDB</small> encoding machinery is
+<p>When a lazy string is printed, the ROCgdb encoding machinery is
 used to convert the string during printing.  If the optional
 <var>encoding</var> argument is not provided, or is an empty string,
-<small>ROCGDB</small> will automatically select the encoding most suitable for
-the string type.  For further information on encoding in <small>ROCGDB</small>
+ROCgdb will automatically select the encoding most suitable for
+the string type.  For further information on encoding in ROCgdb
 please see <a href="Character-Sets.html">Character Sets</a>.
 </p>
 <p>If the optional <var>length</var> argument is given, the string will be

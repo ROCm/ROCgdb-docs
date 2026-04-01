@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Emacs (Debugging with ROCGDB)</title>
+<title>Emacs (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Emacs (Debugging with ROCGDB)">
-<meta name="keywords" content="Emacs (Debugging with ROCGDB)">
+<meta name="description" content="Emacs (Debugging with ROCgdb)">
+<meta name="keywords" content="Emacs (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -99,30 +99,30 @@ ul.no-bullet {list-style: none}
 <div class="chapter" id="Emacs">
 <div class="header">
 <p>
-Next: <a href="GDB_002fMI.html" accesskey="n" rel="next">The <small>GDB/MI</small> Interface</a>, Previous: <a href="TUI.html" accesskey="p" rel="prev"><small>ROCGDB</small> Text User Interface</a>, Up: <a href="index.html" accesskey="u" rel="up">Debugging with <small>ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="GDB_002fMI.html" accesskey="n" rel="next">The <small>GDB/MI</small> Interface</a>, Previous: <a href="TUI.html" accesskey="p" rel="prev">ROCgdb Text User Interface</a>, Up: <a href="index.html" accesskey="u" rel="up">Debugging with ROCgdb</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="Using-ROCGDB-under-GNU-Emacs"></span><h2 class="chapter">27 Using <small>ROCGDB</small> under <small>GNU</small> Emacs</h2>
+<span id="Using-ROCgdb-under-GNU-Emacs"></span><h2 class="chapter">27 Using ROCgdb under <small>GNU</small> Emacs</h2>
 
 <span id="index-Emacs"></span>
 <span id="index-GNU-Emacs"></span>
 <p>A special interface allows you to use <small>GNU</small> Emacs to view (and
 edit) the source files for the program you are debugging with
-<small>ROCGDB</small>.
+ROCgdb.
 </p>
 <p>To use this interface, use the command <kbd>M-x gdb</kbd> in Emacs.  Give the
 executable file you want to debug as an argument.  This command starts
-<small>ROCGDB</small> as a subprocess of Emacs, with input and output through a newly
+ROCgdb as a subprocess of Emacs, with input and output through a newly
 created Emacs buffer.
 </p>
-<p>Running <small>ROCGDB</small> under Emacs can be just like running <small>ROCGDB</small> normally except for two
+<p>Running ROCgdb under Emacs can be just like running ROCgdb normally except for two
 things:
 </p>
 <ul>
 <li> All &ldquo;terminal&rdquo; input and output goes through an Emacs buffer, called
 the GUD buffer.
 
-<p>This applies both to <small>ROCGDB</small> commands and their output, and to the input
+<p>This applies both to ROCgdb commands and their output, and to the input
 and output done by the program you are debugging.
 </p>
 <p>This is useful because it means that you can copy the text of previous
@@ -134,15 +134,15 @@ with your program.  In particular, you can send signals the usual
 way&mdash;for example, <kbd>C-c C-c</kbd> for an interrupt, <kbd>C-c C-z</kbd> for a
 stop.
 </p>
-</li><li> <small>ROCGDB</small> displays source code through Emacs.
+</li><li> ROCgdb displays source code through Emacs.
 
-<p>Each time <small>ROCGDB</small> displays a stack frame, Emacs automatically finds the
+<p>Each time ROCgdb displays a stack frame, Emacs automatically finds the
 source file for that frame and puts an arrow (&lsquo;<samp>=&gt;</samp>&rsquo;) at the
 left margin of the current line.  Emacs uses a separate buffer for
-source display, and splits the screen to show both your <small>ROCGDB</small> session
+source display, and splits the screen to show both your ROCgdb session
 and the source.
 </p>
-<p>Explicit <small>ROCGDB</small> <code>list</code> or search commands still produce output as
+<p>Explicit ROCgdb <code>list</code> or search commands still produce output as
 usual, but you probably have no reason to use them from Emacs.
 </p></li></ul>
 
@@ -154,18 +154,18 @@ that can control the execution and describe the state of your program.
 gdb</kbd> argument, then Emacs sets your current working directory to where
 your program resides.  If you only specify the file name, then Emacs
 sets your current working directory to the directory associated
-with the previous buffer.  In this case, <small>ROCGDB</small> may find your
+with the previous buffer.  In this case, ROCgdb may find your
 program by searching your environment&rsquo;s <code>PATH</code> variable, but on
 some operating systems it might not find the source.  So, although the
-<small>ROCGDB</small> input and output session proceeds normally, the auxiliary
+ROCgdb input and output session proceeds normally, the auxiliary
 buffer does not display the current source and line of execution.
 </p>
-<p>The initial working directory of <small>ROCGDB</small> is printed on the top
+<p>The initial working directory of ROCgdb is printed on the top
 line of the GUD buffer and this serves as a default for the commands
-that specify files for <small>ROCGDB</small> to operate on.  See <a href="Files.html">Commands to Specify Files</a>.
+that specify files for ROCgdb to operate on.  See <a href="Files.html">Commands to Specify Files</a>.
 </p>
 <p>By default, <kbd>M-x gdb</kbd> calls the program called <samp>gdb</samp>.  If you
-need to call <small>ROCGDB</small> by a different name (for example, if you
+need to call ROCgdb by a different name (for example, if you
 keep several configurations around, with different names) you can
 customize the Emacs variable <code>gud-gdb-command-name</code> to run the
 one you want.
@@ -179,44 +179,44 @@ addition to the standard Shell mode commands:
 </p>
 </dd>
 <dt><span><kbd>C-c C-s</kbd></span></dt>
-<dd><p>Execute to another source line, like the <small>ROCGDB</small> <code>step</code> command; also
+<dd><p>Execute to another source line, like the ROCgdb <code>step</code> command; also
 update the display window to show the current file and location.
 </p>
 </dd>
 <dt><span><kbd>C-c C-n</kbd></span></dt>
 <dd><p>Execute to next source line in this function, skipping all function
-calls, like the <small>ROCGDB</small> <code>next</code> command.  Then update the display window
+calls, like the ROCgdb <code>next</code> command.  Then update the display window
 to show the current file and location.
 </p>
 </dd>
 <dt><span><kbd>C-c C-i</kbd></span></dt>
-<dd><p>Execute one instruction, like the <small>ROCGDB</small> <code>stepi</code> command; update
+<dd><p>Execute one instruction, like the ROCgdb <code>stepi</code> command; update
 display window accordingly.
 </p>
 </dd>
 <dt><span><kbd>C-c C-f</kbd></span></dt>
-<dd><p>Execute until exit from the selected stack frame, like the <small>ROCGDB</small>
+<dd><p>Execute until exit from the selected stack frame, like the ROCgdb
 <code>finish</code> command.
 </p>
 </dd>
 <dt><span><kbd>C-c C-r</kbd></span></dt>
-<dd><p>Continue execution of your program, like the <small>ROCGDB</small> <code>continue</code>
+<dd><p>Continue execution of your program, like the ROCgdb <code>continue</code>
 command.
 </p>
 </dd>
 <dt><span><kbd>C-c &lt;</kbd></span></dt>
 <dd><p>Go up the number of frames indicated by the numeric argument, like the
-<small>ROCGDB</small> <code>up</code> command.
+ROCgdb <code>up</code> command.
 </p>
 </dd>
 <dt><span><kbd>C-c &gt;</kbd></span></dt>
 <dd><p>Go down the number of frames indicated by the numeric argument, like the
-<small>ROCGDB</small> <code>down</code> command.
+ROCgdb <code>down</code> command.
 </p></dd>
 </dl>
 
 <p>In any source file, the Emacs command <kbd>C-x <span class="key">SPC</span></kbd> (<code>gud-break</code>)
-tells <small>ROCGDB</small> to set a breakpoint on the source line point is on.
+tells ROCgdb to set a breakpoint on the source line point is on.
 </p>
 <p>In text command mode, if you type <kbd>M-x speedbar</kbd>, Emacs displays a
 separate frame which shows a backtrace when the GUD buffer is current.
@@ -227,26 +227,26 @@ selected frame become the current one.  In graphical mode, the
 speedbar displays watch expressions.
 </p>
 <p>If you accidentally delete the source-display buffer, an easy way to get
-it back is to type the command <code>f</code> in the <small>ROCGDB</small> buffer, to
+it back is to type the command <code>f</code> in the ROCgdb buffer, to
 request a frame display; when you run under Emacs, this recreates
 the source buffer if necessary to show you the context of the current
 frame.
 </p>
 <p>The source files displayed in Emacs are in ordinary Emacs buffers
 which are visiting the source files in the usual way.  You can edit
-the files with these buffers if you wish; but keep in mind that <small>ROCGDB</small>
+the files with these buffers if you wish; but keep in mind that ROCgdb
 communicates with Emacs in terms of line numbers.  If you add or
-delete lines from the text, the line numbers that <small>ROCGDB</small> knows cease
+delete lines from the text, the line numbers that ROCgdb knows cease
 to correspond properly with the code.
 </p>
-<p>A more detailed description of Emacs&rsquo; interaction with <small>ROCGDB</small> is
+<p>A more detailed description of Emacs&rsquo; interaction with ROCgdb is
 given in the Emacs manual.
 </p>
 </div>
 <hr>
 <div class="header">
 <p>
-Next: <a href="GDB_002fMI.html">The <small>GDB/MI</small> Interface</a>, Previous: <a href="TUI.html"><small>ROCGDB</small> Text User Interface</a>, Up: <a href="index.html">Debugging with <small>ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="GDB_002fMI.html">The <small>GDB/MI</small> Interface</a>, Previous: <a href="TUI.html">ROCgdb Text User Interface</a>, Up: <a href="index.html">Debugging with ROCgdb</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

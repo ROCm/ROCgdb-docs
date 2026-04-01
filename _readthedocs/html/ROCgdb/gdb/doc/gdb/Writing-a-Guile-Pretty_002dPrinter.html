@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Writing a Guile Pretty-Printer (Debugging with ROCGDB)</title>
+<title>Writing a Guile Pretty-Printer (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Writing a Guile Pretty-Printer (Debugging with ROCGDB)">
-<meta name="keywords" content="Writing a Guile Pretty-Printer (Debugging with ROCGDB)">
+<meta name="description" content="Writing a Guile Pretty-Printer (Debugging with ROCgdb)">
+<meta name="keywords" content="Writing a Guile Pretty-Printer (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -147,7 +147,7 @@ If not, it returns <code>#f</code>.
 <p>We recommend that you put your core pretty-printers into a Guile
 package.  If your pretty-printers are for use with a library, we
 further recommend embedding a version number into the package name.
-This practice will enable <small>ROCGDB</small> to load multiple versions of
+This practice will enable ROCgdb to load multiple versions of
 your pretty-printers at the same time, because they will have
 different names.
 </p>
@@ -160,10 +160,10 @@ the current objfile.
 <p>Taken as a whole, this approach will scale nicely to multiple
 inferiors, each potentially using a different library version.
 Embedding a version number in the Guile package name will ensure that
-<small>ROCGDB</small> is able to load both sets of printers simultaneously.
+ROCgdb is able to load both sets of printers simultaneously.
 Then, because the search for pretty-printers is done by objfile, and
 because your auto-loaded code took care to register your library&rsquo;s
-printers with a specific objfile, <small>ROCGDB</small> will find the correct
+printers with a specific objfile, ROCgdb will find the correct
 printers for the specific version of the library used by each
 inferior.
 </p>
@@ -247,7 +247,7 @@ the object that handles the lookup.
 (append-objfile-pretty-printer! (current-objfile) (build-pretty-printer))
 </pre></div>
 
-<p>Finally, when this printer is loaded into <small>ROCGDB</small>, here is the
+<p>Finally, when this printer is loaded into ROCgdb, here is the
 corresponding output of &lsquo;<samp>info pretty-printer</samp>&rsquo;:
 </p>
 <div class="example">

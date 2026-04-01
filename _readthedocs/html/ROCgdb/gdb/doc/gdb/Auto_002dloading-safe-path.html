@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Auto-loading safe path (Debugging with ROCGDB)</title>
+<title>Auto-loading safe path (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Auto-loading safe path (Debugging with ROCGDB)">
-<meta name="keywords" content="Auto-loading safe path (Debugging with ROCGDB)">
+<meta name="description" content="Auto-loading safe path (Debugging with ROCgdb)">
+<meta name="keywords" content="Auto-loading safe path (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -106,8 +106,8 @@ Next: <a href="Auto_002dloading-verbose-mode.html" accesskey="n" rel="next">Disp
 <span id="index-auto_002dloading-safe_002dpath"></span>
 
 <p>As the files of inferior can come from untrusted source (such as submitted by
-an application user) <small>ROCGDB</small> does not always load any files automatically.
-<small>ROCGDB</small> provides the &lsquo;<samp>set auto-load safe-path</samp>&rsquo; setting to list
+an application user) ROCgdb does not always load any files automatically.
+ROCgdb provides the &lsquo;<samp>set auto-load safe-path</samp>&rsquo; setting to list
 directories trusted for loading files not explicitly requested by user.
 Each directory can also be a shell wildcard pattern.
 </p>
@@ -125,8 +125,8 @@ warning: File &quot;/home/user/gdb/gdb-gdb.py&quot; auto-loading has been
          to &quot;$debugdir:$datadir/auto-load&quot;.
 </pre></div>
 
-<p>To instruct <small>ROCGDB</small> to go ahead and use the init files anyway,
-invoke <small>ROCGDB</small> like this:
+<p>To instruct ROCgdb to go ahead and use the init files anyway,
+invoke ROCgdb like this:
 </p>
 <div class="example">
 <pre class="example">$ gdb -q -iex &quot;set auto-load safe-path /home/user/gdb&quot; ./gdb
@@ -144,7 +144,7 @@ Each directory can also be a shell wildcard pattern; wildcards do not match
 directory separator - see <code>FNM_PATHNAME</code> for system function <code>fnmatch</code>
 (see <a data-manual="libc" href="https://www.gnu.org/software/libc/manual/html_node/Wildcard-Matching.html#Wildcard-Matching">fnmatch</a> in <cite>GNU C Library Reference Manual</cite>).
 If you omit <var>directories</var>, &lsquo;<samp>auto-load safe-path</samp>&rsquo; will be reset to
-its default value as specified during <small>ROCGDB</small> compilation.
+its default value as specified during ROCgdb compilation.
 </p>
 <p>The list of directories uses path separator (&lsquo;<samp>:</samp>&rsquo; on GNU and Unix
 systems, &lsquo;<samp>;</samp>&rsquo; on MS-Windows and MS-DOS) to separate directories, similarly
@@ -169,10 +169,10 @@ by the host platform path separator in use.
 to (see <a href="objfile_002dgdbdotext-file.html#with_002dauto_002dload_002ddir">with-auto-load-dir</a>).  <samp>$debugdir</samp> and <samp>$datadir</samp>
 substitution applies the same as for <a href="objfile_002dgdbdotext-file.html#set-auto_002dload-scripts_002ddirectory">set auto-load scripts-directory</a>.
 The default <code>set auto-load safe-path</code> value can be also overridden by
-<small>ROCGDB</small> configuration option <samp>--with-auto-load-safe-path</samp>.
+ROCgdb configuration option <samp>--with-auto-load-safe-path</samp>.
 </p>
 <p>Setting this variable to <samp>/</samp> disables this security protection,
-corresponding <small>ROCGDB</small> configuration option is
+corresponding ROCgdb configuration option is
 <samp>--without-auto-load-safe-path</samp>.
 This variable is supposed to be set to the system directories writable by the
 system superuser only.  Users can add their source directories in init files in
@@ -180,7 +180,7 @@ their home directories (see <a href="Initialization-Files.html#Home-Directory-In
 init file in the current directory
 (see <a href="Initialization-Files.html#Init-File-in-the-Current-Directory-during-Startup">Init File in the Current Directory during Startup</a>).
 </p>
-<p>To force <small>ROCGDB</small> to load the files it declined to load in the previous
+<p>To force ROCgdb to load the files it declined to load in the previous
 example, you could use one of the following ways:
 </p>
 <dl compact="compact">
@@ -192,18 +192,18 @@ by &lsquo;<samp>show auto-load safe-path</samp>&rsquo; (such as &lsquo;<samp>/us
 </dd>
 <dt><span><kbd>gdb -iex &quot;set auto-load safe-path /usr:/bin:~/src/gdb&quot; &hellip;</kbd></span></dt>
 <dd><p>Specify this directory as in the previous case but just for a single
-<small>ROCGDB</small> session.
+ROCgdb session.
 </p>
 </dd>
 <dt><span><kbd>gdb -iex &quot;set auto-load safe-path /&quot; &hellip;</kbd></span></dt>
-<dd><p>Disable auto-loading safety for a single <small>ROCGDB</small> session.
-This assumes all the files you debug during this <small>ROCGDB</small> session will come
+<dd><p>Disable auto-loading safety for a single ROCgdb session.
+This assumes all the files you debug during this ROCgdb session will come
 from trusted sources.
 </p>
 </dd>
 <dt><span><kbd>./configure --without-auto-load-safe-path</kbd></span></dt>
-<dd><p>During compilation of <small>ROCGDB</small> you may disable any auto-loading safety.
-This assumes all the files you will ever debug with this <small>ROCGDB</small> come from
+<dd><p>During compilation of ROCgdb you may disable any auto-loading safety.
+This assumes all the files you will ever debug with this ROCgdb come from
 trusted sources.
 </p></dd>
 </dl>
@@ -213,7 +213,7 @@ also suppresses any such warning messages:
 </p>
 <dl compact="compact">
 <dt><span><kbd>gdb -iex &quot;set auto-load no&quot; &hellip;</kbd></span></dt>
-<dd><p>You can use <small>ROCGDB</small> command-line option for a single <small>ROCGDB</small> session.
+<dd><p>You can use ROCgdb command-line option for a single ROCgdb session.
 </p>
 </dd>
 <dt><span><samp>~/.gdbinit</samp>: &lsquo;<samp>set auto-load no</samp>&rsquo;</span></dt>
@@ -224,9 +224,9 @@ use system init file instead (see <a href="System_002dwide-configuration.html">S
 </dl>
 
 <p>This setting applies to the file names as entered by user.  If no entry matches
-<small>ROCGDB</small> tries as a last resort to also resolve all the file names into
+ROCgdb tries as a last resort to also resolve all the file names into
 their canonical form (typically resolving symbolic links) and compare the
-entries again.  <small>ROCGDB</small> already canonicalizes most of the filenames on its
+entries again.  ROCgdb already canonicalizes most of the filenames on its
 own before starting the comparison so a canonical form of directories is
 recommended to be entered.
 </p>

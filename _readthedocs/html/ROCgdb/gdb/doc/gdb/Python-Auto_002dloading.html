@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Python Auto-loading (Debugging with ROCGDB)</title>
+<title>Python Auto-loading (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Python Auto-loading (Debugging with ROCGDB)">
-<meta name="keywords" content="Python Auto-loading (Debugging with ROCGDB)">
+<meta name="description" content="Python Auto-loading (Debugging with ROCgdb)">
+<meta name="keywords" content="Python Auto-loading (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -99,7 +99,7 @@ ul.no-bullet {list-style: none}
 <div class="subsection" id="Python-Auto_002dloading">
 <div class="header">
 <p>
-Next: <a href="Python-modules.html" accesskey="n" rel="next">Python modules</a>, Previous: <a href="Python-API.html" accesskey="p" rel="prev">Python API</a>, Up: <a href="Python.html" accesskey="u" rel="up">Extending <small>ROCGDB</small> using Python</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Python-modules.html" accesskey="n" rel="next">Python modules</a>, Previous: <a href="Python-API.html" accesskey="p" rel="prev">Python API</a>, Up: <a href="Python.html" accesskey="u" rel="up">Extending ROCgdb using Python</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
 <span id="Python-Auto_002dloading-1"></span><h4 class="subsection">24.3.3 Python Auto-loading</h4>
@@ -107,7 +107,7 @@ Next: <a href="Python-modules.html" accesskey="n" rel="next">Python modules</a>,
 
 <p>When a new object file is read (for example, due to the <code>file</code>
 command, or because the inferior has loaded a shared library),
-<small>ROCGDB</small> will look for Python support scripts in several ways:
+ROCgdb will look for Python support scripts in several ways:
 <samp><var>objfile</var>-gdb.py</samp> and <code>.debug_gdb_scripts</code> section.
 See <a href="Auto_002dloading-extensions.html">Auto-loading extensions</a>.
 </p>
@@ -132,13 +132,13 @@ and the list of auto-loaded scripts can be printed.
 <span id="index-print-list-of-auto_002dloaded-Python-scripts"></span>
 </dd>
 <dt><span><code>info auto-load python-scripts [<var>regexp</var>]</code></span></dt>
-<dd><p>Print the list of all Python scripts that <small>ROCGDB</small> auto-loaded.
+<dd><p>Print the list of all Python scripts that ROCgdb auto-loaded.
 </p>
 <p>Also printed is the list of Python scripts that were mentioned in
 the <code>.debug_gdb_scripts</code> section and were either not found
 (see <a href="dotdebug_005fgdb_005fscripts-section.html">The <code>.debug_gdb_scripts</code> section</a>) or were not auto-loaded due to
 <code>auto-load safe-path</code> rejection (see <a href="Auto_002dloading.html">Automatically loading associated files</a>).
-This is useful because their names are not printed when <small>ROCGDB</small>
+This is useful because their names are not printed when ROCgdb
 tries to load them and fails.  There may be many of them, and printing
 an error message for each one is problematic.
 </p>
@@ -156,7 +156,7 @@ No     my-foo-pretty-printers.py
 </dd>
 </dl>
 
-<p>When reading an auto-loaded file or script, <small>ROCGDB</small> sets the
+<p>When reading an auto-loaded file or script, ROCgdb sets the
 <em>current objfile</em>.  This is available via the <code>gdb.current_objfile</code>
 function (see <a href="Objfiles-In-Python.html">Objfiles In Python</a>).  This can be useful for
 registering objfile-specific pretty-printers and frame-filters.
@@ -165,7 +165,7 @@ registering objfile-specific pretty-printers and frame-filters.
 <hr>
 <div class="header">
 <p>
-Next: <a href="Python-modules.html">Python modules</a>, Previous: <a href="Python-API.html">Python API</a>, Up: <a href="Python.html">Extending <small>ROCGDB</small> using Python</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Python-modules.html">Python modules</a>, Previous: <a href="Python-API.html">Python API</a>, Up: <a href="Python.html">Extending ROCgdb using Python</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

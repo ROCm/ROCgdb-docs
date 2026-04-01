@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Inferiors Connections and Programs (Debugging with ROCGDB)</title>
+<title>Inferiors Connections and Programs (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Inferiors Connections and Programs (Debugging with ROCGDB)">
-<meta name="keywords" content="Inferiors Connections and Programs (Debugging with ROCGDB)">
+<meta name="description" content="Inferiors Connections and Programs (Debugging with ROCgdb)">
+<meta name="keywords" content="Inferiors Connections and Programs (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -99,22 +99,22 @@ ul.no-bullet {list-style: none}
 <div class="section" id="Inferiors-Connections-and-Programs">
 <div class="header">
 <p>
-Next: <a href="Threads.html" accesskey="n" rel="next">Debugging Programs with Multiple Threads</a>, Previous: <a href="Kill-Process.html" accesskey="p" rel="prev">Killing the Child Process</a>, Up: <a href="Running.html" accesskey="u" rel="up">Running Programs Under <small>ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Threads.html" accesskey="n" rel="next">Debugging Programs with Multiple Threads</a>, Previous: <a href="Kill-Process.html" accesskey="p" rel="prev">Killing the Child Process</a>, Up: <a href="Running.html" accesskey="u" rel="up">Running Programs Under ROCgdb</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
 <span id="Debugging-Multiple-Inferiors-Connections-and-Programs"></span><h3 class="section">4.9 Debugging Multiple Inferiors Connections and Programs</h3>
 
-<p><small>ROCGDB</small> lets you run and debug multiple programs in a single
-session.  In addition, <small>ROCGDB</small> on some systems may let you run
+<p>ROCgdb lets you run and debug multiple programs in a single
+session.  In addition, ROCgdb on some systems may let you run
 several programs simultaneously (otherwise you have to exit from one
-before starting another).  On some systems <small>ROCGDB</small> may even let
+before starting another).  On some systems ROCgdb may even let
 you debug several programs simultaneously on different remote systems.
 In the most general case, you can have multiple threads of execution
 in each of multiple processes, launched from multiple executables,
 running on different machines.
 </p>
 <span id="index-inferior"></span>
-<p><small>ROCGDB</small> represents the state of each program execution with an
+<p>ROCgdb represents the state of each program execution with an
 object called an <em>inferior</em>.  An inferior typically corresponds to
 a process, but is more general and applies also to targets that do not
 have processes.  Inferiors may be created before a process runs, and
@@ -140,26 +140,26 @@ elements, even duplicates or overlapping ranges are valid.  E.g.
 <dd><span id="index-info-inferiors-_005b-id_2026-_005d"></span>
 </dd>
 <dt><span><code>info inferiors</code></span></dt>
-<dd><p>Print a list of all inferiors currently being managed by <small>ROCGDB</small>.
+<dd><p>Print a list of all inferiors currently being managed by ROCgdb.
 By default all inferiors are printed, but the ID list <var>id</var>&hellip; can be
 used to limit the display to just the requested inferiors.
 </p>
-<p><small>ROCGDB</small> displays for each inferior (in this order):
+<p>ROCgdb displays for each inferior (in this order):
 </p>
 <ol>
-<li> the inferior number assigned by <small>ROCGDB</small>
+<li> the inferior number assigned by ROCgdb
 
 </li><li> the target system&rsquo;s inferior identifier
 
 </li><li> the target connection the inferior is bound to, including the unique
-connection number assigned by <small>ROCGDB</small>, and the protocol used by
+connection number assigned by ROCgdb, and the protocol used by
 the connection.
 
 </li><li> the name of the executable the inferior is running.
 
 </li></ol>
 
-<p>An asterisk &lsquo;<samp>*</samp>&rsquo; preceding the <small>ROCGDB</small> inferior number
+<p>An asterisk &lsquo;<samp>*</samp>&rsquo; preceding the ROCgdb inferior number
 indicates the current inferior.
 </p>
 <p>For example,
@@ -198,14 +198,14 @@ indicates the current inferior.
 </dd>
 <dt><span><code>info connections</code></span></dt>
 <dd><p>Print a list of all open target connections currently being managed by
-<small>ROCGDB</small>.  By default all connections are printed, but the ID list
+ROCgdb.  By default all connections are printed, but the ID list
 <var>id</var>&hellip; can be used to limit the display to just the requested
 connections.
 </p>
-<p><small>ROCGDB</small> displays for each connection (in this order):
+<p>ROCgdb displays for each connection (in this order):
 </p>
 <ol>
-<li> the connection number assigned by <small>ROCGDB</small>.
+<li> the connection number assigned by ROCgdb.
 
 </li><li> the protocol used by the connection.
 
@@ -235,7 +235,7 @@ connection of the current inferior.
 </dd>
 <dt><span><code>inferior <var>infno</var></code></span></dt>
 <dd><p>Make inferior number <var>infno</var> the current inferior.  The argument
-<var>infno</var> is the inferior number assigned by <small>ROCGDB</small>, as shown
+<var>infno</var> is the inferior number assigned by ROCgdb, as shown
 in the first field of the &lsquo;<samp>info inferiors</samp>&rsquo; display.
 </p></dd>
 </dl>
@@ -249,7 +249,7 @@ information on convenience variables.
 </p>
 <p>You can get multiple executables into a debugging session via the
 <code>add-inferior</code> and <code><span class="nolinebreak">clone-inferior</span></code><!-- /@w --> commands.  On some
-systems <small>ROCGDB</small> can add inferiors to the debug session
+systems ROCgdb can add inferiors to the debug session
 automatically by following calls to <code>fork</code> and <code>exec</code>.  To
 remove inferiors from the debugging session use the
 <code><span class="nolinebreak">remove-inferiors</span></code><!-- /@w --> command.
@@ -318,7 +318,7 @@ using the <code>kill&nbsp;inferiors</code><!-- /@w --> command:
 <dd><span id="index-detach-inferiors-infno_2026"></span>
 </dd>
 <dt><span><code>detach inferior <var>infno</var>&hellip;</code></span></dt>
-<dd><p>Detach from the inferior or inferiors identified by <small>ROCGDB</small>
+<dd><p>Detach from the inferior or inferiors identified by ROCgdb
 inferior number(s) <var>infno</var>&hellip;.  Note that the inferior&rsquo;s entry
 still stays on the list of inferiors shown by <code>info inferiors</code>,
 but its Description will show &lsquo;<samp>&lt;null&gt;</samp>&rsquo;.
@@ -326,7 +326,7 @@ but its Description will show &lsquo;<samp>&lt;null&gt;</samp>&rsquo;.
 <span id="index-kill-inferiors-infno_2026"></span>
 </dd>
 <dt><span><code>kill inferiors <var>infno</var>&hellip;</code></span></dt>
-<dd><p>Kill the inferior or inferiors identified by <small>ROCGDB</small> inferior
+<dd><p>Kill the inferior or inferiors identified by ROCgdb inferior
 number(s) <var>infno</var>&hellip;.  Note that the inferior&rsquo;s entry still
 stays on the list of inferiors shown by <code>info inferiors</code>, but its
 Description will show &lsquo;<samp>&lt;null&gt;</samp>&rsquo;.
@@ -339,7 +339,7 @@ a normal process exit, the inferior is still valid and listed with
 <code>info inferiors</code>, ready to be restarted.
 </p>
 
-<p>To be notified when inferiors are started or exit under <small>ROCGDB</small>&rsquo;s
+<p>To be notified when inferiors are started or exit under ROCgdb&rsquo;s
 control use <code>set&nbsp;print&nbsp;<span class="nolinebreak">inferior-events</span></code><!-- /@w -->:
 </p>
 <dl compact="compact">
@@ -350,14 +350,14 @@ control use <code>set&nbsp;print&nbsp;<span class="nolinebreak">inferior-events<
 <dt><span><code>set print inferior-events on</code></span></dt>
 <dt><span><code>set print inferior-events off</code></span></dt>
 <dd><p>The <code>set print inferior-events</code> command allows you to enable or
-disable printing of messages when <small>ROCGDB</small> notices that new
+disable printing of messages when ROCgdb notices that new
 inferiors have started or that inferiors have exited or have been
 detached.  By default, these messages will be printed.
 </p>
 <span id="index-show-print-inferior_002devents"></span>
 </dd>
 <dt><span><code>show print inferior-events</code></span></dt>
-<dd><p>Show whether messages will be printed when <small>ROCGDB</small> detects that
+<dd><p>Show whether messages will be printed when ROCgdb detects that
 inferiors have started, exited or have been detached.
 </p></dd>
 </dl>
@@ -367,7 +367,7 @@ single program: e.g., <code>print myglobal</code> will simply display the
 value of <code>myglobal</code> in the current inferior.
 </p>
 
-<p>Occasionally, when debugging <small>ROCGDB</small> itself, it may be useful to
+<p>Occasionally, when debugging ROCgdb itself, it may be useful to
 get more info about the relationship of inferiors, programs, address
 spaces in a debug session.  You can do that with the <code>maint&nbsp;info&nbsp;<span class="nolinebreak">program-spaces</span></code><!-- /@w --> command.
 </p>
@@ -376,12 +376,12 @@ spaces in a debug session.  You can do that with the <code>maint&nbsp;info&nbsp;
 </dd>
 <dt><span><code>maint info program-spaces</code></span></dt>
 <dd><p>Print a list of all program spaces currently being managed by
-<small>ROCGDB</small>.
+ROCgdb.
 </p>
-<p><small>ROCGDB</small> displays for each program space (in this order):
+<p>ROCgdb displays for each program space (in this order):
 </p>
 <ol>
-<li> the program space number assigned by <small>ROCGDB</small>
+<li> the program space number assigned by ROCgdb
 
 </li><li> the name of the executable loaded into the program space, with e.g.,
 the <code>file</code> command.
@@ -391,10 +391,10 @@ the <code>core-file</code> command.
 
 </li></ol>
 
-<p>An asterisk &lsquo;<samp>*</samp>&rsquo; preceding the <small>ROCGDB</small> program space number
+<p>An asterisk &lsquo;<samp>*</samp>&rsquo; preceding the ROCgdb program space number
 indicates the current program space.
 </p>
-<p>In addition, below each program space line, <small>ROCGDB</small> prints extra
+<p>In addition, below each program space line, ROCgdb prints extra
 information that isn&rsquo;t suitable to display in tabular form.  For
 example, the list of inferiors bound to the program space.
 </p>
@@ -432,7 +432,7 @@ space as a result of inferior 1 having executed a <code>vfork</code> call.
 <hr>
 <div class="header">
 <p>
-Next: <a href="Threads.html">Debugging Programs with Multiple Threads</a>, Previous: <a href="Kill-Process.html">Killing the Child Process</a>, Up: <a href="Running.html">Running Programs Under <small>ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Threads.html">Debugging Programs with Multiple Threads</a>, Previous: <a href="Kill-Process.html">Killing the Child Process</a>, Up: <a href="Running.html">Running Programs Under ROCgdb</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

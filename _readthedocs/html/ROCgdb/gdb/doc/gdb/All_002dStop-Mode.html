@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>All-Stop Mode (Debugging with ROCGDB)</title>
+<title>All-Stop Mode (Debugging with ROCgdb)</title>
 
-<meta name="description" content="All-Stop Mode (Debugging with ROCGDB)">
-<meta name="keywords" content="All-Stop Mode (Debugging with ROCGDB)">
+<meta name="description" content="All-Stop Mode (Debugging with ROCgdb)">
+<meta name="keywords" content="All-Stop Mode (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -105,7 +105,7 @@ Next: <a href="Non_002dStop-Mode.html" accesskey="n" rel="next">Non-Stop Mode</a
 
 <span id="index-all_002dstop-mode"></span>
 
-<p>In all-stop mode, whenever your program stops under <small>ROCGDB</small> for any reason,
+<p>In all-stop mode, whenever your program stops under ROCgdb for any reason,
 <em>all</em> threads of execution stop, not just the current thread.  This
 allows you to examine the overall state of the program, including
 switching between threads, without worrying that things may change
@@ -115,9 +115,9 @@ underfoot.
 executing.  <em>This is true even when single-stepping</em> with commands
 like <code>step</code> or <code>next</code>.
 </p>
-<p>In particular, <small>ROCGDB</small> cannot single-step all threads in lockstep.
+<p>In particular, ROCgdb cannot single-step all threads in lockstep.
 Since thread scheduling is up to your debugging target&rsquo;s operating
-system (not controlled by <small>ROCGDB</small>), other threads may
+system (not controlled by ROCgdb), other threads may
 execute more than one statement while the current thread completes a
 single step.  Moreover, in general other threads stop in the middle of a
 statement, rather than at a clean statement boundary, when the program
@@ -131,13 +131,13 @@ first thread completes whatever you requested.
 <span id="index-automatic-thread-selection"></span>
 <span id="index-switching-threads-automatically"></span>
 <span id="index-threads_002c-automatic-switching"></span>
-<p>Whenever <small>ROCGDB</small> stops your program, due to a breakpoint or a
+<p>Whenever ROCgdb stops your program, due to a breakpoint or a
 signal, it automatically selects the thread where that breakpoint or
-signal happened.  <small>ROCGDB</small> alerts you to the context switch with a
+signal happened.  ROCgdb alerts you to the context switch with a
 message such as &lsquo;<samp>[Switching to Thread <var>n</var>]</samp>&rsquo; to identify the
 thread.  
 </p>
-<p>On some OSes, you can modify <small>ROCGDB</small>&rsquo;s default behavior by
+<p>On some OSes, you can modify ROCgdb&rsquo;s default behavior by
 locking the OS scheduler to allow only a single thread to run.
 </p>
 <dl compact="compact">
@@ -168,7 +168,7 @@ step, and they are completely free to run when you use commands like
 <p>This mode optimizes for single-stepping; it prevents other threads
 from preempting the current thread while you are stepping, so that the
 focus of debugging does not change unexpectedly.  However, unless
-another thread hits a breakpoint during its timeslice, <small>ROCGDB</small>
+another thread hits a breakpoint during its timeslice, ROCgdb
 does not change the current thread away from the thread that you are
 debugging.
 </p>
@@ -190,17 +190,17 @@ threads created by the resumed thread are held stopped.
 
 <span id="index-resume-threads-of-multiple-processes-simultaneously"></span>
 <p>By default, when you issue one of the execution commands such as
-<code>continue</code>, <code>next</code> or <code>step</code>, <small>ROCGDB</small> allows only
-threads of the current inferior to run.  For example, if <small>ROCGDB</small>
+<code>continue</code>, <code>next</code> or <code>step</code>, ROCgdb allows only
+threads of the current inferior to run.  For example, if ROCgdb
 is attached to two inferiors, each with two threads, the
 <code>continue</code> command resumes only the two threads of the current
 inferior.  This is useful, for example, when you debug a program that
 forks and you want to hold the parent stopped (so that, for instance,
 it doesn&rsquo;t run to exit), while you debug the child.  In other
 situations, you may not be interested in inspecting the current state
-of any of the processes <small>ROCGDB</small> is attached to, and you may want
+of any of the processes ROCgdb is attached to, and you may want
 to resume them all until some breakpoint is hit.  In the latter case,
-you can instruct <small>ROCGDB</small> to allow all threads of all the
+you can instruct ROCgdb to allow all threads of all the
 inferiors to run with the <code>set&nbsp;<span class="nolinebreak">schedule-multiple</span></code><!-- /@w --> command.
 </p>
 <dl compact="compact">

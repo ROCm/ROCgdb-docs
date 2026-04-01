@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Forks (Debugging with ROCGDB)</title>
+<title>Forks (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Forks (Debugging with ROCGDB)">
-<meta name="keywords" content="Forks (Debugging with ROCGDB)">
+<meta name="description" content="Forks (Debugging with ROCgdb)">
+<meta name="keywords" content="Forks (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -99,7 +99,7 @@ ul.no-bullet {list-style: none}
 <div class="section" id="Forks">
 <div class="header">
 <p>
-Next: <a href="Checkpoint_002fRestart.html" accesskey="n" rel="next">Setting a <em>Bookmark</em> to Return to Later</a>, Previous: <a href="Threads.html" accesskey="p" rel="prev">Debugging Programs with Multiple Threads</a>, Up: <a href="Running.html" accesskey="u" rel="up">Running Programs Under <small>ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Checkpoint_002fRestart.html" accesskey="n" rel="next">Setting a <em>Bookmark</em> to Return to Later</a>, Previous: <a href="Threads.html" accesskey="p" rel="prev">Debugging Programs with Multiple Threads</a>, Up: <a href="Running.html" accesskey="u" rel="up">Running Programs Under ROCgdb</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
 <span id="Debugging-Forks"></span><h3 class="section">4.11 Debugging Forks</h3>
@@ -107,9 +107,9 @@ Next: <a href="Checkpoint_002fRestart.html" accesskey="n" rel="next">Setting a <
 <span id="index-fork_002c-debugging-programs-which-call"></span>
 <span id="index-multiple-processes"></span>
 <span id="index-processes_002c-multiple"></span>
-<p>On most systems, <small>ROCGDB</small> has no special support for debugging
+<p>On most systems, ROCgdb has no special support for debugging
 programs which create additional processes using the <code>fork</code>
-function.  When a program forks, <small>ROCGDB</small> will continue to debug the
+function.  When a program forks, ROCgdb will continue to debug the
 parent process and the child process will run unimpeded.  If you have
 set a breakpoint in any code which the child then executes, the child
 will get a <code>SIGTRAP</code> signal which (unless it catches the signal)
@@ -119,14 +119,14 @@ will cause it to terminate.
 which isn&rsquo;t too painful.  Put a call to <code>sleep</code> in the code which
 the child process executes after the fork.  It may be useful to sleep
 only if a certain environment variable is set, or a certain file exists,
-so that the delay need not occur when you don&rsquo;t want to run <small>ROCGDB</small>
+so that the delay need not occur when you don&rsquo;t want to run ROCgdb
 on the child.  While the child is sleeping, use the <code>ps</code> program to
-get its process ID.  Then tell <small>ROCGDB</small> (a new invocation of
-<small>ROCGDB</small> if you are also debugging the parent process) to attach to
+get its process ID.  Then tell ROCgdb (a new invocation of
+ROCgdb if you are also debugging the parent process) to attach to
 the child process (see <a href="Attach.html">Debugging an Already-running Process</a>).  From that point on you can debug
 the child process just like any other process which you attached to.
 </p>
-<p>On some systems, <small>ROCGDB</small> provides support for debugging programs
+<p>On some systems, ROCgdb provides support for debugging programs
 that create additional processes using the <code>fork</code> or <code>vfork</code>
 functions.  On <small>GNU</small>/Linux platforms, this feature is supported
 with kernel version 2.5.46 and later.
@@ -135,7 +135,7 @@ with kernel version 2.5.46 and later.
 connected to <code>gdbserver</code> in either <code>target remote</code> mode or
 <code>target extended-remote</code> mode.
 </p>
-<p>By default, when a program forks, <small>ROCGDB</small> will continue to debug
+<p>By default, when a program forks, ROCgdb will continue to debug
 the parent process and the child process will run unimpeded.
 </p>
 <p>If you want to follow the child process instead of the parent process,
@@ -188,7 +188,7 @@ independently.  This is the default.
 </p>
 </dd>
 <dt><span><code>off</code></span></dt>
-<dd><p>Both processes will be held under the control of <small>ROCGDB</small>.
+<dd><p>Both processes will be held under the control of ROCgdb.
 One process (child or parent, depending on the value of 
 <code>follow-fork-mode</code>) is debugged as usual, while the other
 is held suspended.  
@@ -203,9 +203,9 @@ is held suspended.
 </p></dd>
 </dl>
 
-<p>If you choose to set &lsquo;<samp>detach-on-fork</samp>&rsquo; mode off, then <small>ROCGDB</small>
+<p>If you choose to set &lsquo;<samp>detach-on-fork</samp>&rsquo; mode off, then ROCgdb
 will retain control of all forked processes (including nested forks).
-You can list the forked processes under the control of <small>ROCGDB</small> by
+You can list the forked processes under the control of ROCgdb by
 using the <code>info&nbsp;inferiors</code><!-- /@w --> command, and switch from one fork
 to another by using the <code>inferior</code> command (see <a href="Inferiors-Connections-and-Programs.html">Debugging Multiple Inferiors Connections and Programs</a>).
 </p>
@@ -216,7 +216,7 @@ command.  See <a href="Inferiors-Connections-and-Programs.html">Debugging
 Multiple Inferiors Connections and Programs</a>.
 </p>
 <p>If you ask to debug a child process and a <code>vfork</code> is followed by an
-<code>exec</code>, <small>ROCGDB</small> executes the new target up to the first
+<code>exec</code>, ROCgdb executes the new target up to the first
 breakpoint in the new target.  If you have a breakpoint set on
 <code>main</code> in your original program, the breakpoint will also be set on
 the child process&rsquo;s <code>main</code>.
@@ -224,11 +224,11 @@ the child process&rsquo;s <code>main</code>.
 <p>On some systems, when a child process is spawned by <code>vfork</code>, you
 cannot debug the child or parent until an <code>exec</code> call completes.
 </p>
-<p>If you issue a <code>run</code> command to <small>ROCGDB</small> after an <code>exec</code>
+<p>If you issue a <code>run</code> command to ROCgdb after an <code>exec</code>
 call executes, the new target restarts.  To restart the parent
 process, use the <code>file</code> command with the parent executable name
 as its argument.  By default, after an <code>exec</code> call executes,
-<small>ROCGDB</small> discards the symbols of the previous executable image.
+ROCgdb discards the symbols of the previous executable image.
 You can change this behavior with the <code>set&nbsp;<span class="nolinebreak">follow-exec-mode</span></code><!-- /@w -->
 command.
 </p>
@@ -244,7 +244,7 @@ command.
 </p>
 <dl compact="compact">
 <dt><span><code>new</code></span></dt>
-<dd><p><small>ROCGDB</small> creates a new inferior and rebinds the process to this
+<dd><p>ROCgdb creates a new inferior and rebinds the process to this
 new inferior.  The program the process was running before the
 <code>exec</code> call can be restarted afterwards by restarting the
 original inferior.
@@ -267,7 +267,7 @@ Program exited normally.
 
 </dd>
 <dt><span><code>same</code></span></dt>
-<dd><p><small>ROCGDB</small> keeps the process bound to the same inferior.  The new
+<dd><p>ROCgdb keeps the process bound to the same inferior.  The new
 executable image replaces the previous executable loaded in the
 inferior.  Restarting the inferior after the <code>exec</code> call, with
 e.g., the <code>run</code> command, restarts the executable the process was
@@ -295,14 +295,14 @@ Program exited normally.
 <p><code>follow-exec-mode</code> is supported in native mode and
 <code>target extended-remote</code> mode.
 </p>
-<p>You can use the <code>catch</code> command to make <small>ROCGDB</small> stop whenever
+<p>You can use the <code>catch</code> command to make ROCgdb stop whenever
 a <code>fork</code>, <code>vfork</code>, or <code>exec</code> call is made.  See <a href="Set-Catchpoints.html">Setting Catchpoints</a>.
 </p>
 </div>
 <hr>
 <div class="header">
 <p>
-Next: <a href="Checkpoint_002fRestart.html">Setting a <em>Bookmark</em> to Return to Later</a>, Previous: <a href="Threads.html">Debugging Programs with Multiple Threads</a>, Up: <a href="Running.html">Running Programs Under <small>ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Checkpoint_002fRestart.html">Setting a <em>Bookmark</em> to Return to Later</a>, Previous: <a href="Threads.html">Debugging Programs with Multiple Threads</a>, Up: <a href="Running.html">Running Programs Under ROCgdb</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

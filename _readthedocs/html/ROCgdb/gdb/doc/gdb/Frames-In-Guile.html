@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Frames In Guile (Debugging with ROCGDB)</title>
+<title>Frames In Guile (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Frames In Guile (Debugging with ROCGDB)">
-<meta name="keywords" content="Frames In Guile (Debugging with ROCGDB)">
+<meta name="description" content="Frames In Guile (Debugging with ROCgdb)">
+<meta name="keywords" content="Frames In Guile (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -105,11 +105,11 @@ Next: <a href="Blocks-In-Guile.html" accesskey="n" rel="next">Accessing blocks f
 <span id="Accessing-inferior-stack-frames-from-Guile_002e"></span><h4 class="subsubsection">24.4.3.15 Accessing inferior stack frames from Guile.</h4>
 
 <span id="index-frames-in-guile"></span>
-<p>When the debugged program stops, <small>ROCGDB</small> is able to analyze its call
+<p>When the debugged program stops, ROCgdb is able to analyze its call
 stack (see <a href="Frames.html">Stack frames</a>).  The <code>&lt;gdb:frame&gt;</code> class
 represents a frame in the stack.  A <code>&lt;gdb:frame&gt;</code> object is only valid
 while its corresponding frame exists in the inferior&rsquo;s stack.  If you try
-to use an invalid frame object, <small>ROCGDB</small> will throw a
+to use an invalid frame object, ROCgdb will throw a
 <code>gdb:invalid-object</code> exception (see <a href="Guile-Exception-Handling.html">Guile Exception Handling</a>).
 </p>
 <p>Two <code>&lt;gdb:frame&gt;</code> objects can be compared for equality with the
@@ -159,7 +159,7 @@ architecture.  See <a href="Architectures-In-Guile.html">Guile representation of
 </p>
 </dd>
 <dt><span><code>DUMMY_FRAME</code></span></dt>
-<dd><p>A fake stack frame that was created by <small>ROCGDB</small> when performing an
+<dd><p>A fake stack frame that was created by ROCgdb when performing an
 inferior function call.
 </p>
 </dd>
@@ -240,7 +240,7 @@ one to unwind further.
 <dd><p>Any stop reason greater or equal to this value indicates some kind
 of error.  This special value facilitates writing code that tests
 for errors in unwinding in a way that will work correctly even if
-the list of the other values is modified in future <small>ROCGDB</small>
+the list of the other values is modified in future ROCgdb
 versions.  Using it, you could write:
 </p>
 <div class="example">
@@ -321,7 +321,7 @@ Stack</a>.
 
 <dl class="def">
 <dt id="index-unwind_002dstop_002dreason_002dstring"><span class="category">Scheme Procedure: </span><span><strong>unwind-stop-reason-string</strong> <em>reason</em><a href='#index-unwind_002dstop_002dreason_002dstring' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Return a string explaining the reason why <small>ROCGDB</small> stopped unwinding
+<dd><p>Return a string explaining the reason why ROCgdb stopped unwinding
 frames, as expressed by the given <var>reason</var> code (an integer, see the
 <code>frame-unwind-stop-reason</code> procedure above in this section).
 </p></dd></dl>

@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Breakpoints In Guile (Debugging with ROCGDB)</title>
+<title>Breakpoints In Guile (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Breakpoints In Guile (Debugging with ROCGDB)">
-<meta name="keywords" content="Breakpoints In Guile (Debugging with ROCGDB)">
+<meta name="description" content="Breakpoints In Guile (Debugging with ROCgdb)">
+<meta name="keywords" content="Breakpoints In Guile (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -109,10 +109,10 @@ Next: <a href="Lazy-Strings-In-Guile.html" accesskey="n" rel="next">Guile repres
 
 <p>Breakpoints in Guile are represented by objects of type
 <code>&lt;gdb:breakpoint&gt;</code>.  New breakpoints can be created with the
-<code>make-breakpoint</code> Guile function, and then added to <small>ROCGDB</small> with the
+<code>make-breakpoint</code> Guile function, and then added to ROCgdb with the
 <code>register-breakpoint!</code> Guile function.
 This two-step approach is taken to separate out the side-effect of adding
-the breakpoint to <small>ROCGDB</small> from <code>make-breakpoint</code>.
+the breakpoint to ROCgdb from <code>make-breakpoint</code>.
 </p>
 <p>Support is also provided to view and manipulate breakpoints created
 outside of Guile.
@@ -128,7 +128,7 @@ The contents can be any location recognized by the <code>break</code> command,
 or in the case of a watchpoint, by the <code>watch</code> command.
 </p>
 <p>The breakpoint is initially marked as &lsquo;<samp>invalid</samp>&rsquo;.
-The breakpoint is not usable until it has been registered with <small>ROCGDB</small>
+The breakpoint is not usable until it has been registered with ROCgdb
 with <code>register-breakpoint!</code>, at which point it becomes &lsquo;<samp>valid</samp>&rsquo;.
 The result is the <code>&lt;gdb:breakpoint&gt;</code> object representing the breakpoint.
 </p>
@@ -152,7 +152,7 @@ breakpoint.  Temporary breakpoints are deleted after they have been hit,
 after which the Guile breakpoint is no longer usable (although it may be
 re-registered with <code>register-breakpoint!</code>).
 </p>
-<p>When a watchpoint is created, <small>ROCGDB</small> will try to create a
+<p>When a watchpoint is created, ROCgdb will try to create a
 hardware assisted watchpoint.  If successful, the type of the watchpoint
 is changed from <code>BP_WATCHPOINT</code> to <code>BP_HARDWARE_WATCHPOINT</code>
 for <code>WP_WRITE</code>, <code>BP_READ_WATCHPOINT</code> for <code>WP_READ</code>,
@@ -213,7 +213,7 @@ This value cannot be specified when creating the breakpoint.
 
 <dl class="def">
 <dt id="index-register_002dbreakpoint_0021"><span class="category">Scheme Procedure: </span><span><strong>register-breakpoint!</strong> <em>breakpoint</em><a href='#index-register_002dbreakpoint_0021' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Add <var>breakpoint</var>, a <code>&lt;gdb:breakpoint&gt;</code> object, to <small>ROCGDB</small>&rsquo;s
+<dd><p>Add <var>breakpoint</var>, a <code>&lt;gdb:breakpoint&gt;</code> object, to ROCgdb&rsquo;s
 list of breakpoints.  The breakpoint must have been created with
 <code>make-breakpoint</code>.  One cannot register breakpoints that have been
 created outside of Guile.  Once a breakpoint is registered it becomes
@@ -224,12 +224,12 @@ The result is unspecified.
 
 <dl class="def">
 <dt id="index-delete_002dbreakpoint_0021"><span class="category">Scheme Procedure: </span><span><strong>delete-breakpoint!</strong> <em>breakpoint</em><a href='#index-delete_002dbreakpoint_0021' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Remove <var>breakpoint</var> from <small>ROCGDB</small>&rsquo;s list of breakpoints.
+<dd><p>Remove <var>breakpoint</var> from ROCgdb&rsquo;s list of breakpoints.
 This also invalidates the Guile <var>breakpoint</var> object.
 Any further attempt to access the object will throw an exception.
 </p>
 <p>If <var>breakpoint</var> was created from Guile with <code>make-breakpoint</code>
-it may be re-registered with <small>ROCGDB</small>, in which case the breakpoint
+it may be re-registered with ROCgdb, in which case the breakpoint
 becomes valid again.
 </p></dd></dl>
 
@@ -249,7 +249,7 @@ and <code>#f</code> otherwise.
 <dt id="index-breakpoint_002dvalid_003f"><span class="category">Scheme Procedure: </span><span><strong>breakpoint-valid?</strong> <em>breakpoint</em><a href='#index-breakpoint_002dvalid_003f' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Return <code>#t</code> if <var>breakpoint</var> is valid, <code>#f</code> otherwise.
 Breakpoints created with <code>make-breakpoint</code> are marked as invalid
-until they are registered with <small>ROCGDB</small> with <code>register-breakpoint!</code>.
+until they are registered with ROCgdb with <code>register-breakpoint!</code>.
 A <code>&lt;gdb:breakpoint&gt;</code> object can become invalid
 if the user deletes the breakpoint.  In this case, the object still
 exists, but the underlying breakpoint does not.  In the cases of
@@ -412,7 +412,7 @@ if one of the methods returns <code>#t</code> but the others return
 <p>You should not alter the execution state of the inferior (i.e., step,
 next, etc.), alter the current frame context (i.e., change the current
 active frame), or alter, add or delete any breakpoint.  As a general
-rule, you should not alter any data within <small>ROCGDB</small> or the inferior
+rule, you should not alter any data within ROCgdb or the inferior
 at this time.
 </p>
 <p>Example <code>stop</code> implementation:

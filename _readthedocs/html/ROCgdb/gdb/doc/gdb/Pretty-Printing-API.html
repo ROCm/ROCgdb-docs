@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Pretty Printing API (Debugging with ROCGDB)</title>
+<title>Pretty Printing API (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Pretty Printing API (Debugging with ROCGDB)">
-<meta name="keywords" content="Pretty Printing API (Debugging with ROCGDB)">
+<meta name="description" content="Pretty Printing API (Debugging with ROCgdb)">
+<meta name="keywords" content="Pretty Printing API (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -109,17 +109,17 @@ Next: <a href="Selecting-Pretty_002dPrinters.html" accesskey="n" rel="next">Sele
 specific interface, defined here.  An example output is provided
 (see <a href="Pretty-Printing.html">Pretty Printing</a>).
 </p>
-<p>Because <small>ROCGDB</small> did not document extensibility for
-pretty-printers, by default <small>ROCGDB</small> will assume that only the
+<p>Because ROCgdb did not document extensibility for
+pretty-printers, by default ROCgdb will assume that only the
 basic pretty-printer methods may be available.  The basic methods are
 marked as such, below.
 </p>
-<p>To allow extensibility, <small>ROCGDB</small> provides the
+<p>To allow extensibility, ROCgdb provides the
 <code>gdb.ValuePrinter</code> base class.  This class does not provide any
 attributes or behavior, but instead serves as a tag that can be
-recognized by <small>ROCGDB</small>.  For such printers, <small>ROCGDB</small> reserves
+recognized by ROCgdb.  For such printers, ROCgdb reserves
 all attributes starting with a lower-case letter.  That is, in the
-future, <small>ROCGDB</small> may add a new method or attribute to the
+future, ROCgdb may add a new method or attribute to the
 pretty-printer protocol, and <code>gdb.ValuePrinter</code>-based printers
 are expected to handle this gracefully.  A simple way to do this would
 be to use a leading underscore (or two, following the Python
@@ -127,20 +127,20 @@ name-mangling scheme) to any attributes local to the implementation.
 </p>
 <dl class="def">
 <dt id="index-pretty_005fprinter_002echildren"><span class="category">Function: </span><span><strong>pretty_printer.children</strong> <em>(self)</em><a href='#index-pretty_005fprinter_002echildren' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p><small>ROCGDB</small> will call this method on a pretty-printer to compute the
+<dd><p>ROCgdb will call this method on a pretty-printer to compute the
 children of the pretty-printer&rsquo;s value.
 </p>
 <p>This method must return an object conforming to the Python iterator
 protocol.  Each item returned by the iterator must be a tuple holding
 two elements.  The first element is the &ldquo;name&rdquo; of the child; the
 second element is the child&rsquo;s value.  The value can be any Python
-object which is convertible to a <small>ROCGDB</small> value.
+object which is convertible to a ROCgdb value.
 </p>
 <p>This is a basic method, and is optional.  If it does not exist,
-<small>ROCGDB</small> will act as though the value has no children.
+ROCgdb will act as though the value has no children.
 </p>
 <p>For efficiency, the <code>children</code> method should lazily compute its
-results.  This will let <small>ROCGDB</small> read as few elements as
+results.  This will let ROCgdb read as few elements as
 necessary, for example when various print settings (see <a href="Print-Settings.html">Print Settings</a>) or <code>-var-list-children</code> (see <a href="GDB_002fMI-Variable-Objects.html"><small>GDB/MI</small> Variable Objects</a>) limit the number of elements to be displayed.
 </p>
 <p>Children may be hidden from display based on the value of &lsquo;<samp>set
@@ -157,7 +157,7 @@ printed.
 <p>This is a basic method, and is optional.  If it does exist, this
 method must return a string or the special value <code>None</code>.
 </p>
-<p>Some display hints are predefined by <small>ROCGDB</small>:
+<p>Some display hints are predefined by ROCgdb:
 </p>
 <dl compact="compact">
 <dt><span>&lsquo;<samp>array</samp>&rsquo;</span></dt>
@@ -175,26 +175,26 @@ values.
 <dt><span>&lsquo;<samp>string</samp>&rsquo;</span></dt>
 <dd><p>Indicate that the object being printed is &ldquo;string-like&rdquo;.  If the
 printer&rsquo;s <code>to_string</code> method returns a Python string of some
-kind, then <small>ROCGDB</small> will call its internal language-specific
+kind, then ROCgdb will call its internal language-specific
 string-printing function to format the string.  For the CLI this means
 adding quotation marks, possibly escaping some characters, respecting
 <code>set print elements</code>, and the like.
 </p></dd>
 </dl>
 
-<p>The special value <code>None</code> causes <small>ROCGDB</small> to apply the default
+<p>The special value <code>None</code> causes ROCgdb to apply the default
 display rules.
 </p></dd></dl>
 
 <dl class="def">
 <dt id="index-pretty_005fprinter_002eto_005fstring"><span class="category">Function: </span><span><strong>pretty_printer.to_string</strong> <em>(self)</em><a href='#index-pretty_005fprinter_002eto_005fstring' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p><small>ROCGDB</small> will call this method to display the string
+<dd><p>ROCgdb will call this method to display the string
 representation of the value passed to the object&rsquo;s constructor.
 </p>
 <p>This is a basic method, and is optional.
 </p>
 <p>When printing from the CLI, if the <code>to_string</code> method exists,
-then <small>ROCGDB</small> will prepend its result to the values returned by
+then ROCgdb will prepend its result to the values returned by
 <code>children</code>.  Exactly how this formatting is done is dependent on
 the display hint, and may change as more hints are added.  Also,
 depending on the print settings (see <a href="Print-Settings.html">Print Settings</a>), the CLI may
@@ -204,11 +204,11 @@ the result of <code>children</code>.
 <p>If this method returns a string, it is printed verbatim.
 </p>
 <p>Otherwise, if this method returns an instance of <code>gdb.Value</code>,
-then <small>ROCGDB</small> prints this value.  This may result in a call to
+then ROCgdb prints this value.  This may result in a call to
 another pretty-printer.
 </p>
 <p>If instead the method returns a Python value which is convertible to a
-<code>gdb.Value</code>, then <small>ROCGDB</small> performs the conversion and prints
+<code>gdb.Value</code>, then ROCgdb performs the conversion and prints
 the resulting value.  Again, this may result in a call to another
 pretty-printer.  Python scalars (integers, floats, and booleans) and
 strings are convertible to <code>gdb.Value</code>; other types are not.
@@ -221,7 +221,7 @@ are performed in this method and nothing is printed.
 
 <dl class="def">
 <dt id="index-pretty_005fprinter_002enum_005fchildren"><span class="category">Function: </span><span><strong>pretty_printer.num_children</strong> <em>()</em><a href='#index-pretty_005fprinter_002enum_005fchildren' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>This is not a basic method, so <small>ROCGDB</small> will only ever call it for
+<dd><p>This is not a basic method, so ROCgdb will only ever call it for
 objects derived from <code>gdb.ValuePrinter</code>.
 </p>
 <p>If available, this method should return the number of children.
@@ -230,7 +230,7 @@ objects derived from <code>gdb.ValuePrinter</code>.
 
 <dl class="def">
 <dt id="index-pretty_005fprinter_002echild"><span class="category">Function: </span><span><strong>pretty_printer.child</strong> <em>(n)</em><a href='#index-pretty_005fprinter_002echild' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>This is not a basic method, so <small>ROCGDB</small> will only ever call it for
+<dd><p>This is not a basic method, so ROCgdb will only ever call it for
 objects derived from <code>gdb.ValuePrinter</code>.
 </p>
 <p>If available, this method should return the child item (that is, a
@@ -238,7 +238,7 @@ tuple holding the name and value of this child) indicated by <var>n</var>.
 Indices start at zero.
 </p></dd></dl>
 
-<p><small>ROCGDB</small> provides a function which can be used to look up the
+<p>ROCgdb provides a function which can be used to look up the
 default pretty-printer for a <code>gdb.Value</code>:
 </p>
 <dl class="def">

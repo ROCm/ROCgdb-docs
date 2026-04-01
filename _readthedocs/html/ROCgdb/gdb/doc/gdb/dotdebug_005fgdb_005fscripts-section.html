@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>dotdebug_gdb_scripts section (Debugging with ROCGDB)</title>
+<title>dotdebug_gdb_scripts section (Debugging with ROCgdb)</title>
 
-<meta name="description" content="dotdebug_gdb_scripts section (Debugging with ROCGDB)">
-<meta name="keywords" content="dotdebug_gdb_scripts section (Debugging with ROCGDB)">
+<meta name="description" content="dotdebug_gdb_scripts section (Debugging with ROCgdb)">
+<meta name="keywords" content="dotdebug_gdb_scripts section (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -106,7 +106,7 @@ Next: <a href="Which-flavor-to-choose_003f.html" accesskey="n" rel="next">Which 
 <span id="index-_002edebug_005fgdb_005fscripts-section"></span>
 
 <p>For systems using file formats like ELF and COFF,
-when <small>ROCGDB</small> loads a new object file
+when ROCgdb loads a new object file
 it will look for a special section named <code>.debug_gdb_scripts</code>.
 If this section exists, its contents is a list of null-terminated entries
 specifying scripts to load.  Each entry begins with a non-null prefix byte that
@@ -129,7 +129,7 @@ script is in a file or inlined in <code>.debug_gdb_scripts</code>.
 <div class="subsubsection" id="Script-File-Entries">
 <h4 class="subsubsection">24.5.2.1 Script File Entries</h4>
 
-<p>If the entry specifies a file, <small>ROCGDB</small> will look for the file first
+<p>If the entry specifies a file, ROCgdb will look for the file first
 in the current directory and then along the source search path
 (see <a href="Source-Path.html">Specifying Source Directories</a>),
 except that <samp>$cdir</samp> is not searched, since the compilation
@@ -177,10 +177,10 @@ the first newline (<code>0xa</code>) character, is the script name, and must not
 contain any kind of space character, e.g., spaces or tabs.
 The rest of the entry, up to the trailing null byte, is the script to
 execute in the specified language.  The name needs to be unique among
-all script names, as <small>ROCGDB</small> executes each script only once based
+all script names, as ROCgdb executes each script only once based
 on its name.
 </p>
-<p>Here is an example from file <samp>py-section-script.c</samp> in the <small>ROCGDB</small>
+<p>Here is an example from file <samp>py-section-script.c</samp> in the ROCgdb
 testsuite.
 </p>
 <div class="example">

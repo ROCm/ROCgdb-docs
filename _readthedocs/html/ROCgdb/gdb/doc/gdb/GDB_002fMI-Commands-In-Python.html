@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>GDB/MI Commands In Python (Debugging with ROCGDB)</title>
+<title>GDB/MI Commands In Python (Debugging with ROCgdb)</title>
 
-<meta name="description" content="GDB/MI Commands In Python (Debugging with ROCGDB)">
-<meta name="keywords" content="GDB/MI Commands In Python (Debugging with ROCGDB)">
+<meta name="description" content="GDB/MI Commands In Python (Debugging with ROCgdb)">
+<meta name="keywords" content="GDB/MI Commands In Python (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -115,7 +115,7 @@ subclass.
 <dl class="def">
 <dt id="index-MICommand_002e_005f_005finit_005f_005f"><span class="category">Function: </span><span><strong>MICommand.__init__</strong> <em>(name)</em><a href='#index-MICommand_002e_005f_005finit_005f_005f' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>The object initializer for <code>MICommand</code> registers the new command
-with <small>ROCGDB</small>.  This initializer is normally invoked from the
+with ROCgdb.  This initializer is normally invoked from the
 subclass&rsquo; own <code>__init__</code> method.
 </p>
 <p><var>name</var> is the name of the command.  It must be a valid name of a
@@ -128,11 +128,11 @@ previous command will be replaced with the new command.
 
 <dl class="def">
 <dt id="index-MICommand_002einvoke"><span class="category">Function: </span><span><strong>MICommand.invoke</strong> <em>(arguments)</em><a href='#index-MICommand_002einvoke' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>This method is called by <small>ROCGDB</small> when the new MI command is
+<dd><p>This method is called by ROCgdb when the new MI command is
 invoked.
 </p>
 <p><var>arguments</var> is a list of strings.  Note, that <code>--thread</code>
-and <code>--frame</code> arguments are handled by <small>ROCGDB</small> itself therefore
+and <code>--frame</code> arguments are handled by ROCgdb itself therefore
 they do not show up in <code>arguments</code>.
 </p>
 <p>If this method raises an exception, then it is turned into a
@@ -229,12 +229,12 @@ MIEcho(&quot;-echo-string&quot;, &quot;string&quot;)
 new <small>GDB/MI</small> commands <code>-echo-dict</code>, <code>-echo-list</code>, and
 <code>-echo-string</code>.  Each time a subclass of <code>gdb.MICommand</code> is
 instantiated, the new command is automatically registered with
-<small>ROCGDB</small>.
+ROCgdb.
 </p>
-<p>Depending on how the Python code is read into <small>ROCGDB</small>, you may
+<p>Depending on how the Python code is read into ROCgdb, you may
 need to import the <code>gdb</code> module explicitly.
 </p>
-<p>The following example shows a <small>ROCGDB</small> session in which the above
+<p>The following example shows a ROCgdb session in which the above
 commands have been added:
 </p>
 <div class="example">

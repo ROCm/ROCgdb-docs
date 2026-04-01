@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Stop Reply Packets (Debugging with ROCGDB)</title>
+<title>Stop Reply Packets (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Stop Reply Packets (Debugging with ROCGDB)">
-<meta name="keywords" content="Stop Reply Packets (Debugging with ROCGDB)">
+<meta name="description" content="Stop Reply Packets (Debugging with ROCgdb)">
+<meta name="keywords" content="Stop Reply Packets (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -99,7 +99,7 @@ ul.no-bullet {list-style: none}
 <div class="section" id="Stop-Reply-Packets">
 <div class="header">
 <p>
-Next: <a href="General-Query-Packets.html" accesskey="n" rel="next">General Query Packets</a>, Previous: <a href="Packets.html" accesskey="p" rel="prev">Packets</a>, Up: <a href="Remote-Protocol.html" accesskey="u" rel="up"><small>ROCGDB</small> Remote Serial Protocol</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="General-Query-Packets.html" accesskey="n" rel="next">General Query Packets</a>, Previous: <a href="Packets.html" accesskey="p" rel="prev">Packets</a>, Up: <a href="Remote-Protocol.html" accesskey="u" rel="up">ROCgdb Remote Serial Protocol</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
 <span id="Stop-Reply-Packets-1"></span><h3 class="section">E.4 Stop Reply Packets</h3>
@@ -111,7 +111,7 @@ receive any of the below as a reply.  Except for &lsquo;<samp>?</samp>&rsquo;
 and &lsquo;<samp>vStopped</samp>&rsquo;, that reply is only returned
 when the target halts.  In the below the exact meaning of <em>signal
 number</em> is defined by the header <samp>include/gdb/signals.h</samp> in the
-<small>ROCGDB</small> source code.
+ROCgdb source code.
 </p>
 <p>In non-stop mode, the server will simply reply &lsquo;<samp>OK</samp>&rsquo; to commands
 such as &lsquo;<samp>vCont</samp>&rsquo;; any stop will be the subject of a future
@@ -119,7 +119,7 @@ notification.  See <a href="Remote-Non_002dStop.html">Remote Protocol Support fo
 </p>
 <p>As in the description of request packets, we include spaces in the
 reply templates for clarity; these are not part of the reply packet&rsquo;s
-syntax.  No <small>ROCGDB</small> stop reply packet uses spaces to separate its
+syntax.  No ROCgdb stop reply packet uses spaces to separate its
 components.
 </p>
 <dl compact="compact">
@@ -154,7 +154,7 @@ specific event that stopped the target.  The currently defined stop
 reasons are listed below.  The <var>aa</var> should be &lsquo;<samp>05</samp>&rsquo;, the trap
 signal.  At most one stop reason should be present.
 
-</li><li> Otherwise, <small>ROCGDB</small> should ignore this &lsquo;<samp><var>n</var>:<var>r</var></samp>&rsquo; pair
+</li><li> Otherwise, ROCgdb should ignore this &lsquo;<samp><var>n</var>:<var>r</var></samp>&rsquo; pair
 and go on to the next; this allows us to extend the protocol in the
 future.
 </li></ul>
@@ -178,7 +178,7 @@ syscall number, in hex.
 </dd>
 <dt><span>&lsquo;<samp>library</samp>&rsquo;</span></dt>
 <dd><p>The packet indicates that the loaded libraries have changed.
-<small>ROCGDB</small> should use &lsquo;<samp>qXfer:libraries:read</samp>&rsquo; to fetch a new
+ROCgdb should use &lsquo;<samp>qXfer:libraries:read</samp>&rsquo; to fetch a new
 list of loaded libraries.  The <var>r</var> part is ignored.
 </p>
 <span id="index-replay-log-events_002c-remote-reply"></span>
@@ -193,7 +193,7 @@ for more information.
 </dd>
 <dt><span>&lsquo;<samp>swbreak</samp>&rsquo;</span></dt>
 <dd><span id="swbreak-stop-reason"></span><p>The packet indicates a software breakpoint instruction was executed,
-irrespective of whether it was <small>ROCGDB</small> that planted the
+irrespective of whether it was ROCgdb that planted the
 breakpoint or the breakpoint is hardcoded in the program.  The <var>r</var>
 part must be left empty.
 </p>
@@ -203,8 +203,8 @@ breakpoint address plus an offset.  On such targets, the stub is
 responsible for adjusting the PC to point back at the breakpoint
 address.
 </p>
-<p>This packet should not be sent by default; older <small>ROCGDB</small> versions
-did not support it.  <small>ROCGDB</small> requests it, by supplying an
+<p>This packet should not be sent by default; older ROCgdb versions
+did not support it.  ROCgdb requests it, by supplying an
 appropriate &lsquo;<samp>qSupported</samp>&rsquo; feature (see <a href="General-Query-Packets.html#qSupported">qSupported</a>).  The
 remote stub must also supply the appropriate &lsquo;<samp>qSupported</samp>&rsquo; feature
 indicating support.
@@ -226,8 +226,8 @@ apply.
 thread ID of the new child process, as specified in <a href="Packets.html#thread_002did-syntax">thread-id syntax</a>.  This packet is only applicable to targets that support fork
 events.
 </p>
-<p>This packet should not be sent by default; older <small>ROCGDB</small> versions
-did not support it.  <small>ROCGDB</small> requests it, by supplying an
+<p>This packet should not be sent by default; older ROCgdb versions
+did not support it.  ROCgdb requests it, by supplying an
 appropriate &lsquo;<samp>qSupported</samp>&rsquo; feature (see <a href="General-Query-Packets.html#qSupported">qSupported</a>).  The
 remote stub must also supply the appropriate &lsquo;<samp>qSupported</samp>&rsquo; feature
 indicating support.
@@ -239,8 +239,8 @@ indicating support.
 thread ID of the new child process, as specified in <a href="Packets.html#thread_002did-syntax">thread-id syntax</a>.  This packet is only applicable to targets that support vfork
 events.
 </p>
-<p>This packet should not be sent by default; older <small>ROCGDB</small> versions
-did not support it.  <small>ROCGDB</small> requests it, by supplying an
+<p>This packet should not be sent by default; older ROCgdb versions
+did not support it.  ROCgdb requests it, by supplying an
 appropriate &lsquo;<samp>qSupported</samp>&rsquo; feature (see <a href="General-Query-Packets.html#qSupported">qSupported</a>).  The
 remote stub must also supply the appropriate &lsquo;<samp>qSupported</samp>&rsquo; feature
 indicating support.
@@ -254,8 +254,8 @@ address spaces of the parent and child process are no longer
 shared. The <var>r</var> part is ignored.  This packet is only
 applicable to targets that support vforkdone events.
 </p>
-<p>This packet should not be sent by default; older <small>ROCGDB</small> versions
-did not support it.  <small>ROCGDB</small> requests it, by supplying an
+<p>This packet should not be sent by default; older ROCgdb versions
+did not support it.  ROCgdb requests it, by supplying an
 appropriate &lsquo;<samp>qSupported</samp>&rsquo; feature (see <a href="General-Query-Packets.html#qSupported">qSupported</a>).  The
 remote stub must also supply the appropriate &lsquo;<samp>qSupported</samp>&rsquo; feature
 indicating support.
@@ -267,8 +267,8 @@ indicating support.
 is the absolute pathname of the file that was executed, in hex.
 This packet is only applicable to targets that support exec events.
 </p>
-<p>This packet should not be sent by default; older <small>ROCGDB</small> versions
-did not support it.  <small>ROCGDB</small> requests it, by supplying an
+<p>This packet should not be sent by default; older ROCgdb versions
+did not support it.  ROCgdb requests it, by supplying an
 appropriate &lsquo;<samp>qSupported</samp>&rsquo; feature (see <a href="General-Query-Packets.html#qSupported">qSupported</a>).  The
 remote stub must also supply the appropriate &lsquo;<samp>qSupported</samp>&rsquo; feature
 indicating support.
@@ -280,16 +280,16 @@ indicating support.
 thread ID of the new child thread, as specified in <a href="Packets.html#thread_002did-syntax">thread-id syntax</a>.  This packet is only applicable to targets that support clone
 events.
 </p>
-<p>This packet should not be sent by default; <small>ROCGDB</small> requests it
+<p>This packet should not be sent by default; ROCgdb requests it
 with the <a href="General-Query-Packets.html#QThreadOptions">QThreadOptions</a> packet.
 </p>
 <span id="index-thread-create-event_002c-remote-reply"></span>
 <span id="thread-create-event"></span></dd>
 <dt><span>&lsquo;<samp>create</samp>&rsquo;</span></dt>
 <dd><p>The packet indicates that the thread was just created.  The new thread
-is stopped until <small>ROCGDB</small> sets it running with a resumption packet
+is stopped until ROCgdb sets it running with a resumption packet
 (see <a href="Packets.html#vCont-packet">vCont packet</a>).  This packet should not be sent by default;
-<small>ROCGDB</small> requests it with the <a href="General-Query-Packets.html#QThreadEvents">QThreadEvents</a> packet.  See
+ROCgdb requests it with the <a href="General-Query-Packets.html#QThreadEvents">QThreadEvents</a> packet.  See
 also the &lsquo;<samp>w</samp>&rsquo; (see <a href="#thread-exit-event">thread exit event</a>) remote reply below.  The
 <var>r</var> part is ignored.
 </p>
@@ -303,7 +303,7 @@ also the &lsquo;<samp>w</samp>&rsquo; (see <a href="#thread-exit-event">thread e
 applicable to certain targets.
 </p>
 <p>The second form of the response, including the process ID of the
-exited process, can be used only when <small>ROCGDB</small> has reported
+exited process, can be used only when ROCgdb has reported
 support for multiprocess protocol extensions; see <a href="General-Query-Packets.html#multiprocess-extensions">multiprocess extensions</a>.  Both <var>AA</var> and <var>pid</var> are formatted as big-endian
 hex strings.
 </p>
@@ -313,7 +313,7 @@ hex strings.
 <dd><p>The process terminated with signal <var>AA</var>.
 </p>
 <p>The second form of the response, including the process ID of the
-terminated process, can be used only when <small>ROCGDB</small> has reported
+terminated process, can be used only when ROCgdb has reported
 support for multiprocess protocol extensions; see <a href="General-Query-Packets.html#multiprocess-extensions">multiprocess extensions</a>.  Both <var>AA</var> and <var>pid</var> are formatted as big-endian
 hex strings.
 </p>
@@ -322,7 +322,7 @@ hex strings.
 <dt><span>&lsquo;<samp>w <var>AA</var> ; <var>tid</var></samp>&rsquo;</span></dt>
 <dd>
 <p>The thread exited, and <var>AA</var> is the exit status.  This response
-should not be sent by default; <small>ROCGDB</small> requests it with either
+should not be sent by default; ROCgdb requests it with either
 the <a href="General-Query-Packets.html#QThreadEvents">QThreadEvents</a> or <a href="General-Query-Packets.html#QThreadOptions">QThreadOptions</a> packets.  See also
 <a href="#thread-create-event">thread create event</a> above.  <var>AA</var> is formatted as a
 big-endian hex string.
@@ -337,8 +337,8 @@ subsequently exits.  At this point, even though the process is still
 alive, and thus no &lsquo;<samp>W</samp>&rsquo; stop reply is sent, no thread is actually
 executing either.  The &lsquo;<samp>N</samp>&rsquo; stop reply thus informs the client
 that it can stop waiting for stop replies.  This packet should not be
-sent by default; older <small>ROCGDB</small> versions did not support it.
-<small>ROCGDB</small> requests it, by supplying an appropriate
+sent by default; older ROCgdb versions did not support it.
+ROCgdb requests it, by supplying an appropriate
 &lsquo;<samp>qSupported</samp>&rsquo; feature (see <a href="General-Query-Packets.html#qSupported">qSupported</a>).  The remote stub must
 also supply the appropriate &lsquo;<samp>qSupported</samp>&rsquo; feature indicating
 support.
@@ -354,15 +354,15 @@ for &lsquo;<samp>W</samp>&rsquo;, &lsquo;<samp>T</samp>&rsquo;, etc.  This reply
 <dt><span>&lsquo;<samp>F <var>call-id</var>,<var>parameter</var>&hellip;</samp>&rsquo;</span></dt>
 <dd><p><var>call-id</var> is the identifier which says which host system call should
 be called.  This is just the name of the function.  Translation into the
-correct system call is only applicable as it&rsquo;s defined in <small>ROCGDB</small>.
+correct system call is only applicable as it&rsquo;s defined in ROCgdb.
 See <a href="File_002dI_002fO-Remote-Protocol-Extension.html">File-I/O Remote Protocol Extension</a>, for a list of implemented
 system calls.
 </p>
 <p>&lsquo;<samp><var>parameter</var>&hellip;</samp>&rsquo; is a list of parameters as defined for
 this very system call.
 </p>
-<p>The target replies with this packet when it expects <small>ROCGDB</small> to
-call a host system call on behalf of the target.  <small>ROCGDB</small> replies
+<p>The target replies with this packet when it expects ROCgdb to
+call a host system call on behalf of the target.  ROCgdb replies
 with an appropriate &lsquo;<samp>F</samp>&rsquo; packet and keeps up waiting for the next
 reply packet from the target.  The latest &lsquo;<samp>C</samp>&rsquo;, &lsquo;<samp>c</samp>&rsquo;, &lsquo;<samp>S</samp>&rsquo;
 or &lsquo;<samp>s</samp>&rsquo; action is expected to be continued.  See <a href="File_002dI_002fO-Remote-Protocol-Extension.html">File-I/O Remote Protocol Extension</a>, for more details.
@@ -374,7 +374,7 @@ or &lsquo;<samp>s</samp>&rsquo; action is expected to be continued.  See <a href
 <hr>
 <div class="header">
 <p>
-Next: <a href="General-Query-Packets.html">General Query Packets</a>, Previous: <a href="Packets.html">Packets</a>, Up: <a href="Remote-Protocol.html"><small>ROCGDB</small> Remote Serial Protocol</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="General-Query-Packets.html">General Query Packets</a>, Previous: <a href="Packets.html">Packets</a>, Up: <a href="Remote-Protocol.html">ROCgdb Remote Serial Protocol</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Value Sizes (Debugging with ROCGDB)</title>
+<title>Value Sizes (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Value Sizes (Debugging with ROCGDB)">
-<meta name="keywords" content="Value Sizes (Debugging with ROCGDB)">
+<meta name="description" content="Value Sizes (Debugging with ROCgdb)">
+<meta name="keywords" content="Value Sizes (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -103,33 +103,33 @@ Previous: <a href="Searching-Memory.html" accesskey="p" rel="prev">Search Memory
 <hr>
 <span id="Value-Sizes-1"></span><h3 class="section">10.24 Value Sizes</h3>
 
-<p>Whenever <small>ROCGDB</small> prints a value memory will be allocated within
-<small>ROCGDB</small> to hold the contents of the value.  It is possible in
+<p>Whenever ROCgdb prints a value memory will be allocated within
+ROCgdb to hold the contents of the value.  It is possible in
 some languages with dynamic typing systems, that an invalid program
 may indicate a value that is incorrectly large, this in turn may cause
-<small>ROCGDB</small> to try and allocate an overly large amount of memory.
+ROCgdb to try and allocate an overly large amount of memory.
 </p>
 <dl compact="compact">
 <dd><span id="set-max_002dvalue_002dsize"></span><span id="index-set-max_002dvalue_002dsize"></span>
 </dd>
 <dt><span><code>set max-value-size <var>bytes</var></code></span></dt>
 <dt><span><code>set max-value-size unlimited</code></span></dt>
-<dd><p>Set the maximum size of memory that <small>ROCGDB</small> will allocate for the
+<dd><p>Set the maximum size of memory that ROCgdb will allocate for the
 contents of a value to <var>bytes</var>, trying to display a value that
 requires more memory than that will result in an error.
 </p>
 <p>Setting this variable does not effect values that have already been
-allocated within <small>ROCGDB</small>, only future allocations.
+allocated within ROCgdb, only future allocations.
 </p>
 <p>There&rsquo;s a minimum size that <code>max-value-size</code> can be set to in
-order that <small>ROCGDB</small> can still operate correctly, this minimum is
+order that ROCgdb can still operate correctly, this minimum is
 currently 16 bytes.
 </p>
 <p>The limit applies to the results of some subexpressions as well as to
 complete expressions.  For example, an expression denoting a simple
 integer component, such as <code>x.y.z</code>, may fail if the size of
 <var>x.y</var> is dynamic and exceeds <var>bytes</var>.  On the other hand,
-<small>ROCGDB</small> is sometimes clever; the expression <code>A[i]</code>, where
+ROCgdb is sometimes clever; the expression <code>A[i]</code>, where
 <var>A</var> is an array variable with non-constant size, will generally
 succeed regardless of the bounds on <var>A</var>, as long as the component
 size is less than <var>bytes</var>.
@@ -139,7 +139,7 @@ size is less than <var>bytes</var>.
 <span id="index-show-max_002dvalue_002dsize"></span>
 </dd>
 <dt><span><code>show max-value-size</code></span></dt>
-<dd><p>Show the maximum size of memory, in bytes, that <small>ROCGDB</small> will
+<dd><p>Show the maximum size of memory, in bytes, that ROCgdb will
 allocate for the contents of a value.
 </p></dd>
 </dl>

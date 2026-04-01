@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>TUI Windows In Python (Debugging with ROCGDB)</title>
+<title>TUI Windows In Python (Debugging with ROCgdb)</title>
 
-<meta name="description" content="TUI Windows In Python (Debugging with ROCGDB)">
-<meta name="keywords" content="TUI Windows In Python (Debugging with ROCGDB)">
+<meta name="description" content="TUI Windows In Python (Debugging with ROCgdb)">
+<meta name="keywords" content="TUI Windows In Python (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -105,13 +105,13 @@ Next: <a href="Disassembly-In-Python.html" accesskey="n" rel="next">Instruction 
 <span id="Implementing-new-TUI-windows"></span><h4 class="subsubsection">24.3.2.39 Implementing new TUI windows</h4>
 <span id="index-Python-TUI-Windows"></span>
 
-<p>New TUI (see <a href="TUI.html"><small>ROCGDB</small> Text User Interface</a>) windows can be implemented in Python.
+<p>New TUI (see <a href="TUI.html">ROCgdb Text User Interface</a>) windows can be implemented in Python.
 </p>
 <dl class="def">
 <dt id="index-gdb_002eregister_005fwindow_005ftype"><span class="category">Function: </span><span><strong>gdb.register_window_type</strong> <em>(name, factory)</em><a href='#index-gdb_002eregister_005fwindow_005ftype' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Because TUI windows are created and destroyed depending on the layout
 the user chooses, new window types are implemented by registering a
-factory function with <small>ROCGDB</small>.
+factory function with ROCgdb.
 </p>
 <p><var>name</var> is the name of the new window.  It&rsquo;s an error to try to
 replace one of the built-in windows, but other window types can be
@@ -166,7 +166,7 @@ displayed above the window.  This attribute can be modified.
 <dl class="def">
 <dt id="index-TuiWindow_002ewrite"><span class="category">Function: </span><span><strong>TuiWindow.write</strong> <em>(string <span class="roman">[</span>, full_window<span class="roman">]</span>)</em><a href='#index-TuiWindow_002ewrite' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Write <var>string</var> to the window.  <var>string</var> can contain ANSI
-terminal escape styling sequences; <small>ROCGDB</small> will translate these
+terminal escape styling sequences; ROCgdb will translate these
 as appropriate for the terminal.
 </p>
 <p>If the <var>full_window</var> parameter is <code>True</code>, then <var>string</var>
@@ -178,19 +178,19 @@ contains the full contents of the window.  This is similar to calling
 conforming to the TUI window protocol.  These are the methods that can
 be called on this object, which is referred to below as the &ldquo;window
 object&rdquo;.  The methods documented below are optional; if the object
-does not implement one of these methods, <small>ROCGDB</small> will not attempt
+does not implement one of these methods, ROCgdb will not attempt
 to call it.  Additional new methods may be added to the window
-protocol in the future.  <small>ROCGDB</small> guarantees that they will begin
+protocol in the future.  ROCgdb guarantees that they will begin
 with a lower-case letter, so you can start implementation methods with
 upper-case letters or underscore to avoid any future conflicts.
 </p>
 <dl class="def">
 <dt id="index-Window_002eclose"><span class="category">Function: </span><span><strong>Window.close</strong> <em>()</em><a href='#index-Window_002eclose' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>When the TUI window is closed, the <code>gdb.TuiWindow</code> object will be
-put into an invalid state.  At this time, <small>ROCGDB</small> will call
+put into an invalid state.  At this time, ROCgdb will call
 <code>close</code> method on the window object.
 </p>
-<p>After this method is called, <small>ROCGDB</small> will discard any references
+<p>After this method is called, ROCgdb will discard any references
 it holds on this window object, and will no longer call methods on
 this object.
 </p></dd></dl>
@@ -199,7 +199,7 @@ this object.
 <dt id="index-Window_002erender"><span class="category">Function: </span><span><strong>Window.render</strong> <em>()</em><a href='#index-Window_002erender' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>In some situations, a TUI window can change size.  For example, this
 can happen if the user resizes the terminal, or changes the layout.
-When this happens, <small>ROCGDB</small> will call the <code>render</code> method on
+When this happens, ROCgdb will call the <code>render</code> method on
 the window object.
 </p>
 <p>If your window is intended to update in response to changes in the

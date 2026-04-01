@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Non-debug DLL Symbols (Debugging with ROCGDB)</title>
+<title>Non-debug DLL Symbols (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Non-debug DLL Symbols (Debugging with ROCGDB)">
-<meta name="keywords" content="Non-debug DLL Symbols (Debugging with ROCGDB)">
+<meta name="description" content="Non-debug DLL Symbols (Debugging with ROCgdb)">
+<meta name="keywords" content="Non-debug DLL Symbols (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -106,10 +106,10 @@ Up: <a href="Cygwin-Native.html" accesskey="u" rel="up">Features for Debugging M
 
 <p>Very often on windows, some of the DLLs that your program relies on do
 not include symbolic debugging information (for example,
-<samp>kernel32.dll</samp>).  When <small>ROCGDB</small> doesn&rsquo;t recognize any debugging
+<samp>kernel32.dll</samp>).  When ROCgdb doesn&rsquo;t recognize any debugging
 symbols in a DLL, it relies on the minimal amount of symbolic
 information contained in the DLL&rsquo;s export table.  This section
-describes working with such symbols, known internally to <small>ROCGDB</small> as
+describes working with such symbols, known internally to ROCgdb as
 &ldquo;minimal symbols&rdquo;.
 </p>
 <p>Note that before the debugged program has started execution, no DLLs
@@ -133,7 +133,7 @@ exclamation mark (&ldquo;!&rdquo;)  being interpreted as a language operator.
 </p>
 <p>Note that the internal name of the DLL may be all upper-case, even
 though the file name of the DLL is lower-case, or vice-versa.  Since
-symbols within <small>ROCGDB</small> are <em>case-sensitive</em> this may cause
+symbols within ROCgdb are <em>case-sensitive</em> this may cause
 some confusion. If in doubt, try the <code>info functions</code> and
 <code>info variables</code> commands or even <code>maint print msymbols</code>
 (see <a href="Symbols.html">Examining the Symbol Table</a>). Here&rsquo;s an example:
@@ -163,7 +163,7 @@ Non-debugging symbols:
 <h4 class="subsubsection">22.1.4.3 Working with Minimal Symbols</h4>
 
 <p>Symbols extracted from a DLL&rsquo;s export table do not contain very much
-type information. All that <small>ROCGDB</small> can do is guess whether a symbol
+type information. All that ROCgdb can do is guess whether a symbol
 refers to a function or variable depending on the linker section that
 contains the symbol. Also note that the actual contents of the memory
 contained in a DLL are not available unless the program is running. This
@@ -203,7 +203,7 @@ $2 = 0x22fd98 &quot;/cygdrive/c/mydirectory/myprogram&quot;
 </pre></div>
 
 <p>Setting a break point within a DLL is possible even before the program
-starts execution. However, under these circumstances, <small>ROCGDB</small> can&rsquo;t
+starts execution. However, under these circumstances, ROCgdb can&rsquo;t
 examine the initial instructions of the function in order to skip the
 function&rsquo;s frame set-up code. You can work around this by using &ldquo;*&amp;&rdquo;
 to set the breakpoint at a raw memory address:

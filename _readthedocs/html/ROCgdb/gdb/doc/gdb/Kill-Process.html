@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Kill Process (Debugging with ROCGDB)</title>
+<title>Kill Process (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Kill Process (Debugging with ROCGDB)">
-<meta name="keywords" content="Kill Process (Debugging with ROCGDB)">
+<meta name="description" content="Kill Process (Debugging with ROCgdb)">
+<meta name="keywords" content="Kill Process (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -99,7 +99,7 @@ ul.no-bullet {list-style: none}
 <div class="section" id="Kill-Process">
 <div class="header">
 <p>
-Next: <a href="Inferiors-Connections-and-Programs.html" accesskey="n" rel="next">Debugging Multiple Inferiors Connections and Programs</a>, Previous: <a href="Attach.html" accesskey="p" rel="prev">Debugging an Already-running Process</a>, Up: <a href="Running.html" accesskey="u" rel="up">Running Programs Under <small>ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Inferiors-Connections-and-Programs.html" accesskey="n" rel="next">Debugging Multiple Inferiors Connections and Programs</a>, Previous: <a href="Attach.html" accesskey="p" rel="prev">Debugging an Already-running Process</a>, Up: <a href="Running.html" accesskey="u" rel="up">Running Programs Under ROCgdb</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
 <span id="Killing-the-Child-Process"></span><h3 class="section">4.8 Killing the Child Process</h3>
@@ -108,23 +108,23 @@ Next: <a href="Inferiors-Connections-and-Programs.html" accesskey="n" rel="next"
 <dd><span id="index-kill"></span>
 </dd>
 <dt><span><code>kill</code></span></dt>
-<dd><p>Kill the child process in which your program is running under <small>ROCGDB</small>.
+<dd><p>Kill the child process in which your program is running under ROCgdb.
 </p></dd>
 </dl>
 
 <p>This command is useful if you wish to debug a core dump instead of a
-running process.  <small>ROCGDB</small> ignores any core dump file while your program
+running process.  ROCgdb ignores any core dump file while your program
 is running.
 </p>
-<p>On some operating systems, a program cannot be executed outside <small>ROCGDB</small>
-while you have breakpoints set on it inside <small>ROCGDB</small>.  You can use the
+<p>On some operating systems, a program cannot be executed outside ROCgdb
+while you have breakpoints set on it inside ROCgdb.  You can use the
 <code>kill</code> command in this situation to permit running your program
 outside the debugger.
 </p>
 <p>The <code>kill</code> command is also useful if you wish to recompile and
 relink your program, since on many systems it is impossible to modify an
 executable file while it is running in a process.  In this case, when you
-next type <code>run</code>, <small>ROCGDB</small> notices that the file has changed, and
+next type <code>run</code>, ROCgdb notices that the file has changed, and
 reads the symbol table again (while trying to preserve your current
 breakpoint settings).
 </p>

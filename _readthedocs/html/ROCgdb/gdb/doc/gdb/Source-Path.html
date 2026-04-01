@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Source Path (Debugging with ROCGDB)</title>
+<title>Source Path (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Source Path (Debugging with ROCGDB)">
-<meta name="keywords" content="Source Path (Debugging with ROCGDB)">
+<meta name="description" content="Source Path (Debugging with ROCgdb)">
+<meta name="keywords" content="Source Path (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -109,15 +109,15 @@ Next: <a href="Machine-Code.html" accesskey="n" rel="next">Source and Machine Co
 <p>Executable programs sometimes do not record the directories of the source
 files from which they were compiled, just the names.  Even when they do,
 the directories could be moved between the compilation and your debugging
-session.  <small>ROCGDB</small> has a list of directories to search for source files;
-this is called the <em>source path</em>.  Each time <small>ROCGDB</small> wants a source file,
+session.  ROCgdb has a list of directories to search for source files;
+this is called the <em>source path</em>.  Each time ROCgdb wants a source file,
 it tries all the directories in the list, in the order they are present
 in the list, until it finds a file with the desired name.
 </p>
 <p>For example, suppose an executable references the file
 <samp>/usr/src/foo-1.0/lib/foo.c</samp>, does not record a compilation
 directory, and the <em>source path</em> is <samp>/mnt/cross</samp>.
-<small>ROCGDB</small> would look for the source file in the following
+ROCgdb would look for the source file in the following
 locations:
 </p>
 <ol>
@@ -128,11 +128,11 @@ locations:
 </li></ol>
 
 <p>If the source file is not present at any of the above locations then
-an error is printed.  <small>ROCGDB</small> does not look up the parts of the
+an error is printed.  ROCgdb does not look up the parts of the
 source file name, such as <samp>/mnt/cross/src/foo-1.0/lib/foo.c</samp>.
 Likewise, the subdirectories of the source path are not searched: if
 the source path is <samp>/mnt/cross</samp>, and the binary refers to
-<samp>foo.c</samp>, <small>ROCGDB</small> would not find it under
+<samp>foo.c</samp>, ROCgdb would not find it under
 <samp>/mnt/cross/usr/src/foo-1.0/lib</samp>.
 </p>
 <p>Plain file names, relative file names with leading directories, file
@@ -140,7 +140,7 @@ names containing dots, etc. are all treated as described above,
 except that non-absolute file names are not looked up literally.  If
 the <em>source path</em> is <samp>/mnt/cross</samp>, the source file is
 recorded as <samp>../lib/foo.c</samp>, and no compilation directory is
-recorded, then <small>ROCGDB</small> will search in the following locations:
+recorded, then ROCgdb will search in the following locations:
 </p>
 <ol>
 <li> <samp>/mnt/cross/../lib/foo.c</samp>
@@ -161,19 +161,19 @@ recorded, then <small>ROCGDB</small> will search in the following locations:
 &lsquo;<samp>$cdir</samp>&rsquo; and &lsquo;<samp>$cwd</samp>&rsquo;, these refer to the compilation directory
 (if one is recorded) and the current working directory respectively.
 </p>
-<p>&lsquo;<samp>$cdir</samp>&rsquo; causes <small>ROCGDB</small> to search within the compilation
+<p>&lsquo;<samp>$cdir</samp>&rsquo; causes ROCgdb to search within the compilation
 directory, if one is recorded in the debug information.  If no
 compilation directory is recorded in the debug information then
 &lsquo;<samp>$cdir</samp>&rsquo; is ignored.
 </p>
 <p>&lsquo;<samp>$cwd</samp>&rsquo; is not the same as &lsquo;<samp>.</samp>&rsquo;&mdash;the former tracks the
-current working directory as it changes during your <small>ROCGDB</small>
+current working directory as it changes during your ROCgdb
 session, while the latter is immediately expanded to the current
 directory at the time you add an entry to the source path.
 </p>
 <p>If a compilation directory is recorded in the debug information, and
-<small>ROCGDB</small> has not found the source file after the first search
-using <em>source path</em>, then <small>ROCGDB</small> will combine the
+ROCgdb has not found the source file after the first search
+using <em>source path</em>, then ROCgdb will combine the
 compilation directory and the filename, and then search for the source
 file again using the <em>source path</em>.
 </p>
@@ -181,7 +181,7 @@ file again using the <em>source path</em>.
 <samp>/usr/src/foo-1.0/lib/foo.c</samp>, the compilation directory is
 recorded as <samp>/project/build</samp>, and the <em>source path</em> is
 <samp>/mnt/cross:$cdir:$cwd</samp> while the current working directory of
-the <small>ROCGDB</small> session is <samp>/home/user</samp>, then <small>ROCGDB</small> will
+the ROCgdb session is <samp>/home/user</samp>, then ROCgdb will
 search for the source file in the following locations:
 </p>
 <ol>
@@ -205,11 +205,11 @@ would be similar.
 </p>
 <p>When searching for source files on MS-DOS and MS-Windows, where
 absolute paths start with a drive letter (e.g.
-<samp>C:/project/foo.c</samp>), <small>ROCGDB</small> will remove the drive letter
+<samp>C:/project/foo.c</samp>), ROCgdb will remove the drive letter
 from the file name before appending it to a search directory from
 <em>source path</em>; for instance if the executable references the
 source file <samp>C:/project/foo.c</samp> and <em>source path</em> is set to
-<samp>D:/mnt/cross</samp>, then <small>ROCGDB</small> will search in the following
+<samp>D:/mnt/cross</samp>, then ROCgdb will search in the following
 locations for the source file:
 </p>
 <ol>
@@ -222,20 +222,20 @@ locations for the source file:
 <p>Note that the executable search path is <em>not</em> used to locate the
 source files.
 </p>
-<p>Whenever you reset or rearrange the source path, <small>ROCGDB</small> clears out
+<p>Whenever you reset or rearrange the source path, ROCgdb clears out
 any information it has cached about where source files are found and where
 each line is in the file.
 </p>
 <span id="index-directory"></span>
 <span id="index-dir"></span>
-<p>When you start <small>ROCGDB</small>, its source path includes only &lsquo;<samp>$cdir</samp>&rsquo;
+<p>When you start ROCgdb, its source path includes only &lsquo;<samp>$cdir</samp>&rsquo;
 and &lsquo;<samp>$cwd</samp>&rsquo;, in that order.
 To add other directories, use the <code>directory</code> command.
 </p>
-<p>The search path is used to find both program source files and <small>ROCGDB</small>
+<p>The search path is used to find both program source files and ROCgdb
 script files (read using the &lsquo;<samp>-command</samp>&rsquo; option and &lsquo;<samp>source</samp>&rsquo; command).
 </p>
-<p>In addition to the source path, <small>ROCGDB</small> provides a set of commands
+<p>In addition to the source path, ROCgdb provides a set of commands
 that manage a list of source path substitution rules.  A <em>substitution
 rule</em> specifies how to rewrite source directories stored in the program&rsquo;s
 debug information in case the sources were moved to a different
@@ -243,14 +243,14 @@ directory between compilation and debugging.  A rule is made of
 two strings, the first specifying what needs to be rewritten in
 the path, and the second specifying how it should be rewritten.
 In <a href="#set-substitute_002dpath">set substitute-path</a>, we name these two parts <var>from</var> and
-<var>to</var> respectively.  <small>ROCGDB</small> does a simple string replacement
+<var>to</var> respectively.  ROCgdb does a simple string replacement
 of <var>from</var> with <var>to</var> at the start of the directory part of the
 source file name, and uses that result instead of the original file
 name to look up the sources.
 </p>
 <p>Using the previous example, suppose the <samp>foo-1.0</samp> tree has been
 moved from <samp>/usr/src</samp> to <samp>/mnt/cross</samp>, then you can tell
-<small>ROCGDB</small> to replace <samp>/usr/src</samp> in all source path names with
+ROCgdb to replace <samp>/usr/src</samp> in all source path names with
 <samp>/mnt/cross</samp>.  The first lookup will then be
 <samp>/mnt/cross/foo-1.0/lib/foo.c</samp> in place of the original location
 of <samp>/usr/src/foo-1.0/lib/foo.c</samp>.  To define a source path
@@ -280,18 +280,18 @@ longer exists.  On the other hand, <code>set substitute-path</code> modifies
 the debugger behavior to look at the rewritten location instead.  So, if
 for any reason a source file that is not relevant to your executable is
 located at the original location, a substitution rule is the only
-method available to point <small>ROCGDB</small> at the new location.
+method available to point ROCgdb at the new location.
 </p>
 <span id="index-_002d_002dwith_002drelocated_002dsources"></span>
 <span id="index-default-source-path-substitution"></span>
 <p>You can configure a default source path substitution rule by
-configuring <small>ROCGDB</small> with the
+configuring ROCgdb with the
 &lsquo;<samp>--with-relocated-sources=<var>dir</var></samp>&rsquo; option.  The <var>dir</var>
-should be the name of a directory under <small>ROCGDB</small>&rsquo;s configured
+should be the name of a directory under ROCgdb&rsquo;s configured
 prefix (set with &lsquo;<samp>--prefix</samp>&rsquo; or &lsquo;<samp>--exec-prefix</samp>&rsquo;), and
 directory names in debug information under <var>dir</var> will be adjusted
-automatically if the installed <small>ROCGDB</small> is moved to a new
-location.  This is useful if <small>ROCGDB</small>, libraries or executables
+automatically if the installed ROCgdb is moved to a new
+location.  This is useful if ROCgdb, libraries or executables
 with debug information and corresponding source code are being moved
 together.
 </p>
@@ -303,13 +303,13 @@ directory names may be given to this command, separated by &lsquo;<samp>:</samp>
 (&lsquo;<samp>;</samp>&rsquo; on MS-DOS and MS-Windows, where &lsquo;<samp>:</samp>&rsquo; usually appears as
 part of absolute file names) or
 whitespace.  You may specify a directory that is already in the source
-path; this moves it forward, so <small>ROCGDB</small> searches it sooner.
+path; this moves it forward, so ROCgdb searches it sooner.
 </p>
 <p>The special strings &lsquo;<samp>$cdir</samp>&rsquo; (to refer to the compilation
 directory, if one is recorded), and &lsquo;<samp>$cwd</samp>&rsquo; (to refer to the
 current working directory) can also be included in the list of
 directories <var>dirname</var>.  Though these will already be in the source
-path they will be moved forward in the list so <small>ROCGDB</small> searches
+path they will be moved forward in the list so ROCgdb searches
 them sooner.
 </p>
 </dd>
@@ -339,8 +339,8 @@ current list of existing substitution rules.  If a rule with the same
 <pre class="example">(gdb) set substitute-path /foo/bar /mnt/cross
 </pre></div>
 
-<p>will tell <small>ROCGDB</small> to replace &lsquo;<samp>/foo/bar</samp>&rsquo; with
-&lsquo;<samp>/mnt/cross</samp>&rsquo;, which will allow <small>ROCGDB</small> to find the file
+<p>will tell ROCgdb to replace &lsquo;<samp>/foo/bar</samp>&rsquo; with
+&lsquo;<samp>/mnt/cross</samp>&rsquo;, which will allow ROCgdb to find the file
 <samp>baz.c</samp> even though it was moved.
 </p>
 <p>In the case when more than one substitution rule have been defined,
@@ -355,7 +355,7 @@ the substitution.
 (gdb) set substitute-path /usr/src /mnt/src
 </pre></div>
 
-<p><small>ROCGDB</small> would then rewrite <samp>/usr/src/include/defs.h</samp> into
+<p>ROCgdb would then rewrite <samp>/usr/src/include/defs.h</samp> into
 <samp>/mnt/include/defs.h</samp> by using the first rule.  However, it would
 use the second rule to rewrite <samp>/usr/src/lib/foo.c</samp> into
 <samp>/mnt/src/lib/foo.c</samp>.
@@ -381,7 +381,7 @@ rules.
 </dl>
 
 <p>If your source path is cluttered with directories that are no longer of
-interest, <small>ROCGDB</small> may sometimes cause confusion by finding the wrong
+interest, ROCgdb may sometimes cause confusion by finding the wrong
 versions of source.  You can correct the situation as follows:
 </p>
 <ol>

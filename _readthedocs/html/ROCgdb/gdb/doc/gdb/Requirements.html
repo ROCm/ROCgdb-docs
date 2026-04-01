@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Requirements (Debugging with ROCGDB)</title>
+<title>Requirements (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Requirements (Debugging with ROCGDB)">
-<meta name="keywords" content="Requirements (Debugging with ROCGDB)">
+<meta name="description" content="Requirements (Debugging with ROCgdb)">
+<meta name="keywords" content="Requirements (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -98,29 +98,29 @@ ul.no-bullet {list-style: none}
 <div class="section" id="Requirements">
 <div class="header">
 <p>
-Next: <a href="Running-Configure.html" accesskey="n" rel="next">Invoking the <small>ROCGDB</small> <samp>configure</samp> Script</a>, Up: <a href="Installing-GDB.html" accesskey="u" rel="up">Installing <small>ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Running-Configure.html" accesskey="n" rel="next">Invoking the ROCgdb <samp>configure</samp> Script</a>, Up: <a href="Installing-GDB.html" accesskey="u" rel="up">Installing ROCgdb</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="Requirements-for-Building-ROCGDB"></span><h3 class="section">C.1 Requirements for Building <small>ROCGDB</small></h3>
-<span id="index-building-ROCGDB_002c-requirements-for"></span>
+<span id="Requirements-for-Building-ROCgdb"></span><h3 class="section">C.1 Requirements for Building ROCgdb</h3>
+<span id="index-building-ROCgdb_002c-requirements-for"></span>
 
-<p>Building <small>ROCGDB</small> requires various tools and packages to be available.
+<p>Building ROCgdb requires various tools and packages to be available.
 Other packages will be used only if they are found.
 </p>
-<span id="Tools_002fPackages-Necessary-for-Building-ROCGDB"></span><h3 class="heading">Tools/Packages Necessary for Building <small>ROCGDB</small></h3>
+<span id="Tools_002fPackages-Necessary-for-Building-ROCgdb"></span><h3 class="heading">Tools/Packages Necessary for Building ROCgdb</h3>
 <dl compact="compact">
 <dt><span>C<tt>++</tt>17 compiler</span></dt>
-<dd><p><small>ROCGDB</small> is written in C<tt>++</tt>17.  It should be buildable with any
+<dd><p>ROCgdb is written in C<tt>++</tt>17.  It should be buildable with any
 recent C<tt>++</tt>17 compiler, e.g. GCC.
 </p>
 </dd>
 <dt><span>GNU make</span></dt>
-<dd><p><small>ROCGDB</small>&rsquo;s build system relies on features only found in the GNU
+<dd><p>ROCgdb&rsquo;s build system relies on features only found in the GNU
 make program.  Other variants of <code>make</code> will not work.
 </p>
 </dd>
 <dt><span>Libraries</span></dt>
-<dd><p>The following libraries are mandatory for building <small>ROCGDB</small>.  The
+<dd><p>The following libraries are mandatory for building ROCgdb.  The
 <samp>configure</samp> script searches for each of these libraries in
 several standard locations; if some library is installed in an unusual
 place, you can use either the <samp>--with-<var>lib</var></samp>
@@ -136,13 +136,13 @@ them if your system doesn&rsquo;t already include them.
 </p>
 <dl compact="compact">
 <dt><span>GMP (The GNU Multiple Precision arithmetic library)</span></dt>
-<dd><p><small>ROCGDB</small> uses GMP to perform some of its extended-precision
+<dd><p>ROCgdb uses GMP to perform some of its extended-precision
 arithmetic.  The latest version of GMP is available from
 <a href="https://gmplib.org/">https://gmplib.org/</a>.
 </p>
 <span id="MPFR"></span></dd>
 <dt><span>MPFR (The GNU Multiple-precision floating-point library)</span></dt>
-<dd><p><small>ROCGDB</small> uses MPFR to emulate the target floating-point
+<dd><p>ROCgdb uses MPFR to emulate the target floating-point
 arithmetic during expression evaluation, if the target uses different
 floating-point formats than the host.  The latest version of MPFR is
 available from <a href="http://www.mpfr.org">http://www.mpfr.org</a>.
@@ -152,14 +152,14 @@ available from <a href="http://www.mpfr.org">http://www.mpfr.org</a>.
 </dd>
 </dl>
 
-<span id="Tools_002fPackages-Optional-for-Building-ROCGDB"></span><h3 class="heading">Tools/Packages Optional for Building <small>ROCGDB</small></h3>
+<span id="Tools_002fPackages-Optional-for-Building-ROCgdb"></span><h3 class="heading">Tools/Packages Optional for Building ROCgdb</h3>
 <p>The tools/packages and libraries listed below are optional;
-<small>ROCGDB</small> can be build without them, at the expense of some run-time
+ROCgdb can be build without them, at the expense of some run-time
 functionality that will be missing.  As above, we list the home sites
 for each package/library, and the command-line options supported by
 the <samp>configure</samp> script to specify their installation directories
 if they are non-standard.  In addition, for each package you can use
-the option <samp>--with-<var>package</var></samp> to force <small>ROCGDB</small> to be
+the option <samp>--with-<var>package</var></samp> to force ROCgdb to be
 compiled with the named <var>package</var>, and
 <samp>--without-<var>package</var></samp> to disable building with it even if
 it is available.  See <a href="Configure-Options.html"><samp>configure</samp> Options</a>, for detailed description
@@ -167,7 +167,7 @@ of the options to <samp>configure</samp>.
 </p>
 <dl compact="compact">
 <dt><span>Python</span></dt>
-<dd><p><small>ROCGDB</small> can be scripted using Python language.  See <a href="Python.html">Extending <small>ROCGDB</small> using Python</a>.
+<dd><p>ROCgdb can be scripted using Python language.  See <a href="Python.html">Extending ROCgdb using Python</a>.
 The latest version is available from
 <a href="https://www.python.org/downloads/">https://www.python.org/downloads/</a>.  Use the
 <samp>--with-python=<var>dir</var></samp> to specify the non-standard directory
@@ -175,7 +175,7 @@ where Python is installed.
 </p>
 </dd>
 <dt><span>Guile</span></dt>
-<dd><p><small>ROCGDB</small> can also be scripted using GNU Guile.  See <a href="Guile.html">Extending <small>ROCGDB</small> using Guile</a>.  The
+<dd><p>ROCgdb can also be scripted using GNU Guile.  See <a href="Guile.html">Extending ROCgdb using Guile</a>.  The
 latest version can be found on
 <a href="https://www.gnu.org/software/guile/download/">https://www.gnu.org/software/guile/download/</a>.  If you have more
 than one version of Guile installed, use the
@@ -184,8 +184,8 @@ to include in the build.
 </p>
 <span id="Expat"></span></dd>
 <dt><span>Expat</span></dt>
-<dd><p>If available, <small>ROCGDB</small> uses the Expat library for parsing XML
-files.  <small>ROCGDB</small> uses XML files for the following functionalities:
+<dd><p>If available, ROCgdb uses the Expat library for parsing XML
+files.  ROCgdb uses XML files for the following functionalities:
 </p>
 <ul>
 <li> Remote protocol memory maps (see <a href="Memory-Map-Format.html">Memory Map Format</a>)
@@ -205,7 +205,7 @@ places for Expat.
 </p>
 </dd>
 <dt><span>iconv</span></dt>
-<dd><p><small>ROCGDB</small>&rsquo;s features related to character sets (see <a href="Character-Sets.html">Character Sets</a>) require a functioning <code>iconv</code> implementation.  If you are
+<dd><p>ROCgdb&rsquo;s features related to character sets (see <a href="Character-Sets.html">Character Sets</a>) require a functioning <code>iconv</code> implementation.  If you are
 on a GNU system, then this is provided by the GNU C Library.  Some
 other systems also provide a working <code>iconv</code>.  Use the option
 <samp>--with-iconv-bin</samp> to specify where to find the <code>iconv</code>
@@ -217,20 +217,20 @@ library; its latest version can be found on
 provide it.  Use the <samp>--with-libiconv-prefix</samp> option to
 <samp>configure</samp> to specify non-standard installation place for it.
 </p>
-<p>Alternatively, <small>ROCGDB</small>&rsquo;s top-level <samp>configure</samp> and
+<p>Alternatively, ROCgdb&rsquo;s top-level <samp>configure</samp> and
 <samp>Makefile</samp> will arrange to build Libiconv if a directory named
 <samp>libiconv</samp> appears in the top-most source directory.  If Libiconv
 is built this way, and if the operating system does not provide a
 suitable <code>iconv</code> implementation, then the just-built library will
-automatically be used by <small>ROCGDB</small>.  One easy way to set this up is
+automatically be used by ROCgdb.  One easy way to set this up is
 to download GNU Libiconv, unpack it inside the top-level directory of
-the <small>ROCGDB</small> source tree, and then rename the directory holding
+the ROCgdb source tree, and then rename the directory holding
 the Libiconv source code to &lsquo;<samp>libiconv</samp>&rsquo;.
 </p>
 <span id="index-compressed-debug-sections"></span>
 </dd>
 <dt><span>lzma</span></dt>
-<dd><p><small>ROCGDB</small> can support debugging sections that are compressed with
+<dd><p>ROCgdb can support debugging sections that are compressed with
 the LZMA library.  See <a href="MiniDebugInfo.html">Debugging information in a special section</a>.  If this library is not
 included with your operating system, you can find it in the xz package
 at <a href="http://tukaani.org/xz/">http://tukaani.org/xz/</a>.  Use the
@@ -239,10 +239,10 @@ location.
 </p>
 </dd>
 <dt><span>zlib</span></dt>
-<dd><p><small>ROCGDB</small> will use the &lsquo;<samp>zlib</samp>&rsquo; library, if available, to read
+<dd><p>ROCgdb will use the &lsquo;<samp>zlib</samp>&rsquo; library, if available, to read
 compressed debug sections.  Some linkers, such as GNU <code>gold</code>,
 are capable of producing binaries with compressed debug sections.  If
-<small>ROCGDB</small> is compiled with &lsquo;<samp>zlib</samp>&rsquo;, it will be able to read the
+ROCgdb is compiled with &lsquo;<samp>zlib</samp>&rsquo;, it will be able to read the
 debug information in such binaries.
 </p>
 <p>The &lsquo;<samp>zlib</samp>&rsquo; library is likely included with your operating system
@@ -256,7 +256,7 @@ distribution; if it is not, you can get the latest version from
 <hr>
 <div class="header">
 <p>
-Next: <a href="Running-Configure.html">Invoking the <small>ROCGDB</small> <samp>configure</samp> Script</a>, Up: <a href="Installing-GDB.html">Installing <small>ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Running-Configure.html">Invoking the ROCgdb <samp>configure</samp> Script</a>, Up: <a href="Installing-GDB.html">Installing ROCgdb</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Character Sets (Debugging with ROCGDB)</title>
+<title>Character Sets (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Character Sets (Debugging with ROCGDB)">
-<meta name="keywords" content="Character Sets (Debugging with ROCGDB)">
+<meta name="description" content="Character Sets (Debugging with ROCgdb)">
+<meta name="keywords" content="Character Sets (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -110,27 +110,27 @@ Next: <a href="Caching-Target-Data.html" accesskey="n" rel="next">Caching Data o
 <span id="index-target-character-set"></span>
 
 <p>If the program you are debugging uses a different character set to
-represent characters and strings than the one <small>ROCGDB</small> uses itself,
-<small>ROCGDB</small> can automatically translate between the character sets for
-you.  The character set <small>ROCGDB</small> uses we call the <em>host
+represent characters and strings than the one ROCgdb uses itself,
+ROCgdb can automatically translate between the character sets for
+you.  The character set ROCgdb uses we call the <em>host
 character set</em>; the one the inferior program uses we call the
 <em>target character set</em>.
 </p>
-<p>For example, if you are running <small>ROCGDB</small> on a <small>GNU</small>/Linux system, which
-uses the ISO Latin 1 character set, but you are using <small>ROCGDB</small>&rsquo;s
+<p>For example, if you are running ROCgdb on a <small>GNU</small>/Linux system, which
+uses the ISO Latin 1 character set, but you are using ROCgdb&rsquo;s
 remote protocol (see <a href="Remote-Debugging.html">Debugging Remote Programs</a>) to debug a program
 running on an IBM mainframe, which uses the <small>EBCDIC</small> character set,
 then the host character set is Latin-1, and the target character set is
-<small>EBCDIC</small>.  If you give <small>ROCGDB</small> the command <code>set
-target-charset EBCDIC-US</code>, then <small>ROCGDB</small> translates between
+<small>EBCDIC</small>.  If you give ROCgdb the command <code>set
+target-charset EBCDIC-US</code>, then ROCgdb translates between
 <small>EBCDIC</small> and Latin 1 as you print character or string values, or use
 character and string literals in expressions.
 </p>
-<p><small>ROCGDB</small> has no way to automatically recognize which character set
+<p>ROCgdb has no way to automatically recognize which character set
 the inferior program uses; you must tell it, using the <code>set
 target-charset</code> command, described below.
 </p>
-<p>Here are the commands for controlling <small>ROCGDB</small>&rsquo;s character set
+<p>Here are the commands for controlling ROCgdb&rsquo;s character set
 support:
 </p>
 <dl compact="compact">
@@ -143,21 +143,21 @@ list of supported target character sets, type
 <dt id='index-set-host_002dcharset'><span><code>set host-charset <var>charset</var></code><a href='#index-set-host_002dcharset' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Set the current host character set to <var>charset</var>.
 </p>
-<p>By default, <small>ROCGDB</small> uses a host character set appropriate to the
+<p>By default, ROCgdb uses a host character set appropriate to the
 system it is running on; you can override that default using the
-<code>set host-charset</code> command.  On some systems, <small>ROCGDB</small> cannot
+<code>set host-charset</code> command.  On some systems, ROCgdb cannot
 automatically determine the appropriate host character set.  In this
-case, <small>ROCGDB</small> uses &lsquo;<samp>UTF-8</samp>&rsquo;.
+case, ROCgdb uses &lsquo;<samp>UTF-8</samp>&rsquo;.
 </p>
-<p><small>ROCGDB</small> can only use certain character sets as its host character
+<p>ROCgdb can only use certain character sets as its host character
 set.  If you type <kbd>set&nbsp;<span class="nolinebreak">host-charset</span>&nbsp;<span class="key">TAB</span><span class="key">TAB</span><!-- /@w --></kbd>,
-<small>ROCGDB</small> will list the host character sets it supports.
+ROCgdb will list the host character sets it supports.
 </p>
 </dd>
 <dt id='index-set-charset'><span><code>set charset <var>charset</var></code><a href='#index-set-charset' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Set the current host and target character sets to <var>charset</var>.  As
 above, if you type <kbd>set&nbsp;charset&nbsp;<span class="key">TAB</span><span class="key">TAB</span><!-- /@w --></kbd>,
-<small>ROCGDB</small> will list the names of the character sets that can be used
+ROCgdb will list the names of the character sets that can be used
 for both host and target.
 </p>
 </dd>
@@ -185,7 +185,7 @@ display the list of supported wide character sets, type
 </p></dd>
 </dl>
 
-<p>Here is an example of <small>ROCGDB</small>&rsquo;s character set support in action.
+<p>Here is an example of ROCgdb&rsquo;s character set support in action.
 Assume that the following source code has been placed in the file
 <samp>charset-test.c</samp>:
 </p>
@@ -221,7 +221,7 @@ Copyright 2001 Free Software Foundation, Inc.
 </pre></div>
 
 <p>We can use the <code>show charset</code> command to see what character sets
-<small>ROCGDB</small> is currently using to interpret and display characters and
+ROCgdb is currently using to interpret and display characters and
 strings:
 </p>
 <div class="example">
@@ -240,7 +240,7 @@ The current host and target character set is `ASCII'.
 </pre></div>
 
 <p>Let&rsquo;s assume that <small>ASCII</small> is indeed the correct character set for our
-host system &mdash; in other words, let&rsquo;s assume that if <small>ROCGDB</small> prints
+host system &mdash; in other words, let&rsquo;s assume that if ROCgdb prints
 characters using the <small>ASCII</small> character set, our terminal will display
 them properly.  Since our current target character set is also
 <small>ASCII</small>, the contents of <code>ascii_hello</code> print legibly:
@@ -253,7 +253,7 @@ $2 = 72 'H'
 (gdb)
 </pre></div>
 
-<p><small>ROCGDB</small> uses the target character set for character and string
+<p>ROCgdb uses the target character set for character and string
 literals you use in expressions:
 </p>
 <div class="example">
@@ -265,7 +265,7 @@ $3 = 43 '+'
 <p>The <small>ASCII</small> character set uses the number 43 to encode the &lsquo;<samp>+</samp>&rsquo;
 character.
 </p>
-<p><small>ROCGDB</small> relies on the user to tell it which character set the
+<p>ROCgdb relies on the user to tell it which character set the
 target program uses.  If we print <code>ibm1047_hello</code> while our target
 character set is still <small>ASCII</small>, we get jibberish:
 </p>
@@ -278,7 +278,7 @@ $5 = 200 '\310'
 </pre></div>
 
 <p>If we invoke the <code>set target-charset</code> followed by <tt class="key">TAB</tt><tt class="key">TAB</tt>,
-<small>ROCGDB</small> tells us the character sets it supports:
+ROCgdb tells us the character sets it supports:
 </p>
 <div class="example">
 <pre class="example">(gdb) set target-charset
@@ -288,7 +288,7 @@ ASCII       EBCDIC-US   IBM1047     ISO-8859-1
 
 <p>We can select <small>IBM1047</small> as our target character set, and examine the
 program&rsquo;s strings again.  Now the <small>ASCII</small> string is wrong, but
-<small>ROCGDB</small> translates the contents of <code>ibm1047_hello</code> from the
+ROCgdb translates the contents of <code>ibm1047_hello</code> from the
 target character set, <small>IBM1047</small>, to the host character set,
 <small>ASCII</small>, and they display correctly:
 </p>
@@ -308,7 +308,7 @@ $9 = 200 'H'
 (gdb)
 </pre></div>
 
-<p>As above, <small>ROCGDB</small> uses the target character set for character and
+<p>As above, ROCgdb uses the target character set for character and
 string literals you use in expressions:
 </p>
 <div class="example">

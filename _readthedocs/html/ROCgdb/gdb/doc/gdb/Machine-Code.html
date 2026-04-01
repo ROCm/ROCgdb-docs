@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Machine Code (Debugging with ROCGDB)</title>
+<title>Machine Code (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Machine Code (Debugging with ROCGDB)">
-<meta name="keywords" content="Machine Code (Debugging with ROCGDB)">
+<meta name="description" content="Machine Code (Debugging with ROCgdb)">
+<meta name="keywords" content="Machine Code (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -188,7 +188,7 @@ both flag will give an error.
 </p>
 <p>The default memory range is the function surrounding the program
 counter of the selected frame.  A single argument to this command is a
-program counter value; <small>ROCGDB</small> dumps the function surrounding
+program counter value; ROCgdb dumps the function surrounding
 this value.  When two arguments are given, they should be separated by
 a comma, possibly surrounded by whitespace.  The arguments specify a
 range of addresses to dump, in one of two forms:
@@ -402,7 +402,7 @@ mnemonics or other syntax.
 <p>For programs that were dynamically linked and use shared libraries,
 instructions that call functions or branch to locations in the shared
 libraries might show a seemingly bogus location&mdash;it&rsquo;s actually a
-location of the relocation table.  On some architectures, <small>ROCGDB</small>
+location of the relocation table.  On some architectures, ROCgdb
 might be able to resolve these to actual function names.
 </p>
 <dl compact="compact">
@@ -456,18 +456,18 @@ assemblers for x86-based targets.
 </dd>
 <dt><span><code>set disassemble-next-line</code></span></dt>
 <dt><span><code>show disassemble-next-line</code></span></dt>
-<dd><p>Control whether or not <small>ROCGDB</small> will disassemble the next source
-line or instruction when execution stops.  If ON, <small>ROCGDB</small> will
+<dd><p>Control whether or not ROCgdb will disassemble the next source
+line or instruction when execution stops.  If ON, ROCgdb will
 display disassembly of the next source line when execution of the
 program being debugged stops.  This is <em>in addition</em> to
-displaying the source line itself, which <small>ROCGDB</small> always does if
+displaying the source line itself, which ROCgdb always does if
 possible.  If the next source line cannot be displayed for some reason
-(e.g., if <small>ROCGDB</small> cannot find the source file, or there&rsquo;s no line
-info in the debug info), <small>ROCGDB</small> will display disassembly of the
+(e.g., if ROCgdb cannot find the source file, or there&rsquo;s no line
+info in the debug info), ROCgdb will display disassembly of the
 next <em>instruction</em> instead of showing the next source line.  If
-AUTO, <small>ROCGDB</small> will display disassembly of next instruction only
+AUTO, ROCgdb will display disassembly of next instruction only
 if the source line cannot be displayed.  This setting causes
-<small>ROCGDB</small> to display some feedback when you step through a function
+ROCgdb to display some feedback when you step through a function
 with no line info or whose source file is unavailable.  The default is
 OFF, which means never display the disassembly of the next line or
 instruction.

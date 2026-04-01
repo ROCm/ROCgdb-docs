@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Guile Exception Handling (Debugging with ROCGDB)</title>
+<title>Guile Exception Handling (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Guile Exception Handling (Debugging with ROCGDB)">
-<meta name="keywords" content="Guile Exception Handling (Debugging with ROCGDB)">
+<meta name="description" content="Guile Exception Handling (Debugging with ROCgdb)">
+<meta name="keywords" content="Guile Exception Handling (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -109,8 +109,8 @@ Next: <a href="Values-From-Inferior-In-Guile.html" accesskey="n" rel="next">Valu
 
 <p>When executing the <code>guile</code> command, Guile exceptions
 uncaught within the Guile code are translated to calls to the
-<small>ROCGDB</small> error-reporting mechanism.  If the command that called
-<code>guile</code> does not handle the error, <small>ROCGDB</small> will
+ROCgdb error-reporting mechanism.  If the command that called
+<code>guile</code> does not handle the error, ROCgdb will
 terminate it and report the error according to the setting of
 the <code>guile print-stack</code> parameter.
 </p>
@@ -168,27 +168,27 @@ Error while executing Scheme code.
 </dd>
 </dl>
 
-<p><small>ROCGDB</small> errors that happen in <small>ROCGDB</small> commands invoked by
+<p>ROCgdb errors that happen in ROCgdb commands invoked by
 Guile code are converted to Guile exceptions.  The type of the
 Guile exception depends on the error.
 </p>
-<p>Guile procedures provided by <small>ROCGDB</small> can throw the standard
+<p>Guile procedures provided by ROCgdb can throw the standard
 Guile exceptions like <code>wrong-type-arg</code> and <code>out-of-range</code>.
 </p>
 <p>User interrupt (via <kbd>C-c</kbd> or by typing <kbd>q</kbd> at a pagination
 prompt) is translated to a Guile <code>signal</code> exception with value
 <code>SIGINT</code>.
 </p>
-<p><small>ROCGDB</small> Guile procedures can also throw these exceptions:
+<p>ROCgdb Guile procedures can also throw these exceptions:
 </p>
 <dl compact="compact">
 <dt id='index-gdb_003aerror'><span><code>gdb:error</code><a href='#index-gdb_003aerror' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>This exception is a catch-all for errors generated from within <small>ROCGDB</small>.
+<dd><p>This exception is a catch-all for errors generated from within ROCgdb.
 </p>
 </dd>
 <dt id='index-gdb_003ainvalid_002dobject'><span><code>gdb:invalid-object</code><a href='#index-gdb_003ainvalid_002dobject' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>This exception is thrown when accessing Guile objects that wrap underlying
-<small>ROCGDB</small> objects have become invalid.  For example, a
+ROCgdb objects have become invalid.  For example, a
 <code>&lt;gdb:breakpoint&gt;</code> object becomes invalid if the user deletes it
 from the command line.  The object still exists in Guile, but the
 object it represents is gone.  Further operations on this breakpoint
@@ -202,7 +202,7 @@ memory in the inferior.
 </dd>
 <dt id='index-gdb_003app_002dtype_002derror'><span><code>gdb:pp-type-error</code><a href='#index-gdb_003app_002dtype_002derror' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>This exception is thrown when a Guile pretty-printer passes a bad object
-to <small>ROCGDB</small>.
+to ROCgdb.
 </p></dd>
 </dl>
 
