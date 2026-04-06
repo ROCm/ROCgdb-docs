@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>M2 Types (Debugging with ROCGDB)</title>
+<title>M2 Types (Debugging with ROCgdb)</title>
 
-<meta name="description" content="M2 Types (Debugging with ROCGDB)">
-<meta name="keywords" content="M2 Types (Debugging with ROCGDB)">
+<meta name="description" content="M2 Types (Debugging with ROCgdb)">
+<meta name="keywords" content="M2 Types (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -105,12 +105,12 @@ Next: <a href="M2-Defaults.html" accesskey="n" rel="next">Modula-2 Defaults</a>,
 <span id="Modula_002d2-Types"></span><h4 class="subsubsection">15.4.9.4 Modula-2 Types</h4>
 <span id="index-Modula_002d2-types"></span>
 
-<p>Currently <small>ROCGDB</small> can print the following data types in Modula-2
+<p>Currently ROCgdb can print the following data types in Modula-2
 syntax: array types, record types, set types, pointer types, procedure
 types, enumerated types, subrange types and base types.  You can also
 print the contents of variables declared using these type.
 This section gives a number of simple source code examples together with
-sample <small>ROCGDB</small> sessions.
+sample ROCgdb sessions.
 </p>
 <p>The first example contains the following section of code:
 </p>
@@ -120,7 +120,7 @@ sample <small>ROCGDB</small> sessions.
    r: [20..40] ;
 </pre></div>
 
-<p>and you can request <small>ROCGDB</small> to interrogate the type and value of
+<p>and you can request ROCgdb to interrogate the type and value of
 <code>r</code> and <code>s</code>.
 </p>
 <div class="example">
@@ -152,7 +152,7 @@ type = SET ['A'..'Z']
 expressions using the debugger.
 </p>
 <p>The following example shows how you might declare an array in Modula-2
-and how you can interact with <small>ROCGDB</small> to print its type and contents:
+and how you can interact with ROCgdb to print its type and contents:
 </p>
 <div class="example">
 <pre class="example">VAR
@@ -181,7 +181,7 @@ BEGIN
    s := blue ;
 </pre></div>
 
-<p>The <small>ROCGDB</small> interaction shows how you can query the data type
+<p>The ROCgdb interaction shows how you can query the data type
 and value of a variable.
 </p>
 <div class="example">
@@ -209,7 +209,7 @@ $1 = {1, 0, 0, 0, 0}
 type = ARRAY [1..5] OF CARDINAL
 </pre></div>
 
-<p>The Modula-2 language interface to <small>ROCGDB</small> also understands
+<p>The Modula-2 language interface to ROCgdb also understands
 pointer types as shown in this example:
 </p>
 <div class="example">
@@ -220,14 +220,14 @@ BEGIN
    s^[1] := 1 ;
 </pre></div>
 
-<p>and you can request that <small>ROCGDB</small> describes the type of <code>s</code>.
+<p>and you can request that ROCgdb describes the type of <code>s</code>.
 </p>
 <div class="example">
 <pre class="example">(gdb) ptype s
 type = POINTER TO ARRAY [1..5] OF CARDINAL
 </pre></div>
 
-<p><small>ROCGDB</small> handles compound types as we can see in this example.
+<p>ROCgdb handles compound types as we can see in this example.
 Here we combine array types, record types, pointer types and subrange
 types:
 </p>
@@ -245,7 +245,7 @@ VAR
    s: POINTER TO ARRAY myrange OF foo ;
 </pre></div>
 
-<p>and you can ask <small>ROCGDB</small> to describe the type of <code>s</code> as shown
+<p>and you can ask ROCgdb to describe the type of <code>s</code> as shown
 below.
 </p>
 <div class="example">

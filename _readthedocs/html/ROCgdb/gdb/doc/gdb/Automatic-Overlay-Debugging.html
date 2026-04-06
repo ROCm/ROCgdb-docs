@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Automatic Overlay Debugging (Debugging with ROCGDB)</title>
+<title>Automatic Overlay Debugging (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Automatic Overlay Debugging (Debugging with ROCGDB)">
-<meta name="keywords" content="Automatic Overlay Debugging (Debugging with ROCGDB)">
+<meta name="description" content="Automatic Overlay Debugging (Debugging with ROCgdb)">
+<meta name="keywords" content="Automatic Overlay Debugging (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -105,15 +105,15 @@ Next: <a href="Overlay-Sample-Program.html" accesskey="n" rel="next">Overlay Sam
 <span id="Automatic-Overlay-Debugging-1"></span><h3 class="section">14.3 Automatic Overlay Debugging</h3>
 <span id="index-automatic-overlay-debugging"></span>
 
-<p><small>ROCGDB</small> can automatically track which overlays are mapped and which
+<p>ROCgdb can automatically track which overlays are mapped and which
 are not, given some simple co-operation from the overlay manager in the
 inferior.  If you enable automatic overlay debugging with the
-<code>overlay auto</code> command (see <a href="Overlay-Commands.html">Overlay Commands</a>), <small>ROCGDB</small>
+<code>overlay auto</code> command (see <a href="Overlay-Commands.html">Overlay Commands</a>), ROCgdb
 looks in the inferior&rsquo;s memory for certain variables describing the
 current state of the overlays.
 </p>
 <p>Here are the variables your overlay manager must define to support
-<small>ROCGDB</small>&rsquo;s automatic overlay debugging:
+ROCgdb&rsquo;s automatic overlay debugging:
 </p>
 <dl compact="compact">
 <dt><span><code>_ovly_table</code>:</span></dt>
@@ -145,18 +145,18 @@ number of elements in <code>_ovly_table</code>.
 </dd>
 </dl>
 
-<p>To decide whether a particular overlay is mapped or not, <small>ROCGDB</small>
+<p>To decide whether a particular overlay is mapped or not, ROCgdb
 looks for an entry in <code><span class="nolinebreak">_ovly_table</span></code><!-- /@w --> whose <code>vma</code> and
 <code>lma</code> members equal the VMA and LMA of the overlay&rsquo;s section in the
-executable file.  When <small>ROCGDB</small> finds a matching entry, it consults
+executable file.  When ROCgdb finds a matching entry, it consults
 the entry&rsquo;s <code>mapped</code> member to determine whether the overlay is
 currently mapped.
 </p>
 <p>In addition, your overlay manager may define a function called
-<code>_ovly_debug_event</code>.  If this function is defined, <small>ROCGDB</small>
+<code>_ovly_debug_event</code>.  If this function is defined, ROCgdb
 will silently set a breakpoint there.  If the overlay manager then
 calls this function whenever it has changed the overlay table, this
-will enable <small>ROCGDB</small> to accurately keep track of which overlays
+will enable ROCgdb to accurately keep track of which overlays
 are in program memory, and update any breakpoints that may be set
 in overlays.  This will allow breakpoints to work even if the
 overlays are kept in ROM or other non-writable memory while they

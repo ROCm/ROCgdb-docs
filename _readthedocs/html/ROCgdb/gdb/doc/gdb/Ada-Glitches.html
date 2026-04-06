@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Ada Glitches (Debugging with ROCGDB)</title>
+<title>Ada Glitches (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Ada Glitches (Debugging with ROCGDB)">
-<meta name="keywords" content="Ada Glitches (Debugging with ROCGDB)">
+<meta name="description" content="Ada Glitches (Debugging with ROCgdb)">
+<meta name="keywords" content="Ada Glitches (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -106,7 +106,7 @@ Previous: <a href="Ada-Source-Character-Set.html" accesskey="p" rel="prev">Ada S
 
 <p>Besides the omissions listed previously (see <a href="Omissions-from-Ada.html">Omissions from Ada</a>),
 we know of several problems with and limitations of Ada mode in
-<small>ROCGDB</small>,
+ROCgdb,
 some of which will be fixed with planned future releases of the debugger 
 and the GNU Ada compiler.
 </p>
@@ -124,7 +124,7 @@ floating-point arithmetic, and may give results that only approximate those on
 the host machine.
 
 </li><li> The GNAT compiler never generates the prefix <code>Standard</code> for any of 
-the standard symbols defined by the Ada language.  <small>ROCGDB</small> knows about 
+the standard symbols defined by the Ada language.  ROCgdb knows about 
 this: it will strip the prefix from names when you use it, and will never
 look for a name you have so qualified among local symbols, nor match against
 symbols in other packages or subprograms.  If you have 
@@ -155,7 +155,7 @@ This is the default.
 </p>
 </dd>
 <dt><span><code>set ada trust-PAD-over-XVS off</code></span></dt>
-<dd><p>This is related to the encoding using by the GNAT compiler.  If <small>ROCGDB</small>
+<dd><p>This is related to the encoding using by the GNAT compiler.  If ROCgdb
 sometimes prints the wrong value for certain entities, changing <code>ada
 trust-PAD-over-XVS</code> to <code>off</code> activates a work-around which may fix
 the issue.  It is always safe to set <code>ada trust-PAD-over-XVS</code> to
@@ -181,7 +181,7 @@ Ada features, the long-term goal is to slowly replace these descriptive
 types by their pure DWARF equivalent.  To facilitate that transition,
 a new maintenance option is available to force the debugger to ignore
 those descriptive types.  It allows the user to quickly evaluate how
-well <small>ROCGDB</small> works without them.
+well ROCgdb works without them.
 </p>
 <dl compact="compact">
 <dd>
@@ -194,7 +194,7 @@ The default is not to ignore descriptives types (<code>off</code>).
 <span id="index-maint-ada-show-ignore_002ddescriptive_002dtypes"></span>
 </dd>
 <dt><span><code>maintenance ada show ignore-descriptive-types</code></span></dt>
-<dd><p>Show if descriptive types are ignored by <small>ROCGDB</small>.
+<dd><p>Show if descriptive types are ignored by ROCgdb.
 </p>
 </dd>
 </dl>

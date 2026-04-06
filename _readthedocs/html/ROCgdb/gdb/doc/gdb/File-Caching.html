@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>File Caching (Debugging with ROCGDB)</title>
+<title>File Caching (Debugging with ROCgdb)</title>
 
-<meta name="description" content="File Caching (Debugging with ROCGDB)">
-<meta name="keywords" content="File Caching (Debugging with ROCGDB)">
+<meta name="description" content="File Caching (Debugging with ROCgdb)">
+<meta name="keywords" content="File Caching (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -99,14 +99,14 @@ ul.no-bullet {list-style: none}
 <div class="section" id="File-Caching">
 <div class="header">
 <p>
-Next: <a href="Separate-Debug-Files.html" accesskey="n" rel="next">Debugging Information in Separate Files</a>, Previous: <a href="Files.html" accesskey="p" rel="prev">Commands to Specify Files</a>, Up: <a href="GDB-Files.html" accesskey="u" rel="up"><small>ROCGDB</small> Files</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Separate-Debug-Files.html" accesskey="n" rel="next">Debugging Information in Separate Files</a>, Previous: <a href="Files.html" accesskey="p" rel="prev">Commands to Specify Files</a>, Up: <a href="GDB-Files.html" accesskey="u" rel="up">ROCgdb Files</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
 <span id="File-Caching-1"></span><h3 class="section">18.2 File Caching</h3>
 <span id="index-caching-of-opened-files"></span>
 <span id="index-caching-of-bfd-objects"></span>
 
-<p>To speed up file loading, and reduce memory usage, <small>ROCGDB</small> will
+<p>To speed up file loading, and reduce memory usage, ROCgdb will
 reuse the <code>bfd</code> objects used to track open files.  See <a data-manual="bfd" href="https://sourceware.org/binutils/docs/bfd/index.html#Top">BFD</a> in <cite>The Binary File Descriptor Library</cite>.  The following commands
 allow visibility and control of the caching behavior.
 </p>
@@ -115,7 +115,7 @@ allow visibility and control of the caching behavior.
 </dd>
 <dt><span><code>maint info bfds</code></span></dt>
 <dd><p>This prints information about each <code>bfd</code> object that is known to
-<small>ROCGDB</small>.
+ROCgdb.
 </p>
 <span id="index-maint-set-bfd_002dsharing"></span>
 <span id="index-maint-show-bfd_002dsharing"></span>
@@ -124,7 +124,7 @@ allow visibility and control of the caching behavior.
 <dt><span><code>maint set bfd-sharing</code></span></dt>
 <dt><span><code>maint show bfd-sharing</code></span></dt>
 <dd><p>Control whether <code>bfd</code> objects can be shared.  When sharing is
-enabled <small>ROCGDB</small> reuses already open <code>bfd</code> objects rather
+enabled ROCgdb reuses already open <code>bfd</code> objects rather
 than reopening the same file.  Turning sharing off does not cause
 already shared <code>bfd</code> objects to be unshared, but all future files
 that are opened will create a new <code>bfd</code> object.  Similarly,

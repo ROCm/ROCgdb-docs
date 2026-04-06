@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Functions In Python (Debugging with ROCGDB)</title>
+<title>Functions In Python (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Functions In Python (Debugging with ROCGDB)">
-<meta name="keywords" content="Functions In Python (Debugging with ROCGDB)">
+<meta name="description" content="Functions In Python (Debugging with ROCgdb)">
+<meta name="keywords" content="Functions In Python (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -116,7 +116,7 @@ class <code>gdb.Function</code>.
 <dl class="def">
 <dt id="index-Function_002e_005f_005finit_005f_005f"><span class="category">Function: </span><span><strong>Function.__init__</strong> <em>(name)</em><a href='#index-Function_002e_005f_005finit_005f_005f' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>The initializer for <code>Function</code> registers the new function with
-<small>ROCGDB</small>.  The argument <var>name</var> is the name of the function,
+ROCgdb.  The argument <var>name</var> is the name of the function,
 a string.  The function will be visible to the user as a convenience
 variable of type <code>internal function</code>, whose name is the same as
 the given <var>name</var>.
@@ -129,7 +129,7 @@ string for the new class.
 <dt id="index-Function_002einvoke"><span class="category">Function: </span><span><strong>Function.invoke</strong> <em>(*args)</em><a href='#index-Function_002einvoke' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>When a convenience function is evaluated, its arguments are converted
 to instances of <code>gdb.Value</code>, and then the function&rsquo;s
-<code>invoke</code> method is called.  Note that <small>ROCGDB</small> does not
+<code>invoke</code> method is called.  Note that ROCgdb does not
 predetermine the arity of convenience functions.  Instead, all
 available arguments are passed to <code>invoke</code>, following the
 standard Python calling convention.  In particular, a convenience
@@ -158,8 +158,8 @@ Greet ()
 </pre></div>
 
 <p>The last line instantiates the class, and is necessary to trigger the
-registration of the function with <small>ROCGDB</small>.  Depending on how the
-Python code is read into <small>ROCGDB</small>, you may need to import the
+registration of the function with ROCgdb.  Depending on how the
+Python code is read into ROCgdb, you may need to import the
 <code>gdb</code> module explicitly.
 </p>
 <p>Now you can use the function in an expression:

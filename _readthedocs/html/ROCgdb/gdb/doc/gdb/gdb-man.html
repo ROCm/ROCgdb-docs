@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>gdb man (Debugging with ROCGDB)</title>
+<title>gdb man (Debugging with ROCgdb)</title>
 
-<meta name="description" content="gdb man (Debugging with ROCGDB)">
-<meta name="keywords" content="gdb man (Debugging with ROCGDB)">
+<meta name="description" content="gdb man (Debugging with ROCgdb)">
+<meta name="keywords" content="gdb man (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -104,11 +104,11 @@ ul.no-bullet {list-style: none}
 
 <p>gdb [OPTIONS] [<var>prog</var>|<var>prog</var> <var>procID</var>|<var>prog</var> <var>core</var>]
 </p>
-<p>The purpose of a debugger such as <small>ROCGDB</small> is to allow you to see what is
+<p>The purpose of a debugger such as ROCgdb is to allow you to see what is
 going on &ldquo;inside&rdquo; another program while it executes &ndash; or what another
 program was doing at the moment it crashed.
 </p>
-<p><small>ROCGDB</small> can do four main kinds of things (plus other things in support of
+<p>ROCgdb can do four main kinds of things (plus other things in support of
 these) to help you catch bugs in the act:
 </p>
 <ul>
@@ -122,16 +122,16 @@ these) to help you catch bugs in the act:
 effects of one bug and go on to learn about another.
 </li></ul>
 
-<p>You can use <small>ROCGDB</small> to debug programs written in C, C<tt>++</tt>, Fortran and
+<p>You can use ROCgdb to debug programs written in C, C<tt>++</tt>, Fortran and
 Modula-2.
 </p>
-<p><small>ROCGDB</small> is invoked with the shell command <code>gdb</code>.  Once started, it reads
-commands from the terminal until you tell it to exit with the <small>ROCGDB</small>
-command <code>quit</code> or <code>exit</code>.  You can get online help from <small>ROCGDB</small> itself
+<p>ROCgdb is invoked with the shell command <code>gdb</code>.  Once started, it reads
+commands from the terminal until you tell it to exit with the ROCgdb
+command <code>quit</code> or <code>exit</code>.  You can get online help from ROCgdb itself
 by using the command <code>help</code>.
 </p>
 <p>You can run <code>gdb</code> with no arguments or options; but the most
-usual way to start <small>ROCGDB</small> is with one argument or two, specifying an
+usual way to start ROCgdb is with one argument or two, specifying an
 executable program as the argument:
 </p>
 <div class="example">
@@ -152,10 +152,10 @@ executable program as the argument:
 gdb -p 1234
 </pre></div>
 
-<p>would attach <small>ROCGDB</small> to process <code>1234</code>.  With option <samp>-p</samp> you
+<p>would attach ROCgdb to process <code>1234</code>.  With option <samp>-p</samp> you
 can omit the <var>program</var> filename.
 </p>
-<p>Here are some of the most frequently needed <small>ROCGDB</small> commands:
+<p>Here are some of the most frequently needed ROCgdb commands:
 </p>
 <dl compact="compact">
 <dt><span><code>break [<var>file</var>:][<var>function</var>|<var>line</var>]</code></span></dt>
@@ -197,13 +197,13 @@ function calls in the line.
 </p>
 </dd>
 <dt><span><code>help [<var>name</var>]</code></span></dt>
-<dd><p>Show information about <small>ROCGDB</small> command <var>name</var>, or general information
-about using <small>ROCGDB</small>.
+<dd><p>Show information about ROCgdb command <var>name</var>, or general information
+about using ROCgdb.
 </p>
 </dd>
 <dt><span><code>quit</code></span></dt>
 <dt><span><code>exit</code></span></dt>
-<dd><p>Exit from <small>ROCGDB</small>.
+<dd><p>Exit from ROCgdb.
 </p></dd>
 </dl>
 
@@ -220,7 +220,7 @@ present to be unambiguous.
 </p>
 <p>The abbreviated forms are shown here with &lsquo;<samp>-</samp>&rsquo; and long forms are shown
 with &lsquo;<samp>--</samp>&rsquo; to reflect how they are shown in <samp>--help</samp>. However,
-<small>ROCGDB</small> recognizes all of the following conventions for most options:
+ROCgdb recognizes all of the following conventions for most options:
 </p>
 <dl compact="compact">
 <dt><span><code>--option=<var>value</var></code></span></dt>
@@ -271,17 +271,17 @@ file.
 </dd>
 <dt><span><code>--command=<var>file</var></code></span></dt>
 <dt><span><code>-x <var>file</var></code></span></dt>
-<dd><p>Execute <small>ROCGDB</small> commands from <var>file</var>.
+<dd><p>Execute ROCgdb commands from <var>file</var>.
 </p>
 </dd>
 <dt><span><code>--eval-command=<var>command</var></code></span></dt>
 <dt><span><code>-ex <var>command</var></code></span></dt>
-<dd><p>Execute given <small>ROCGDB</small> <var>command</var>.
+<dd><p>Execute given ROCgdb <var>command</var>.
 </p>
 </dd>
 <dt><span><code>--init-eval-command=<var>command</var></code></span></dt>
 <dt><span><code>-iex</code></span></dt>
-<dd><p>Execute <small>ROCGDB</small> <var>command</var> before loading the inferior.
+<dd><p>Execute ROCgdb <var>command</var> before loading the inferior.
 </p>
 </dd>
 <dt><span><code>--directory=<var>directory</var></code></span></dt>
@@ -311,10 +311,10 @@ messages are also suppressed in batch mode.
 <dt><span><code>--batch</code></span></dt>
 <dd><p>Run in batch mode.  Exit with status <code>0</code> after processing all the command
 files specified with <samp>-x</samp> (and <samp>.gdbinit</samp>, if not inhibited).
-Exit with nonzero status if an error occurs in executing the <small>ROCGDB</small>
+Exit with nonzero status if an error occurs in executing the ROCgdb
 commands in the command files.
 </p>
-<p>Batch mode may be useful for running <small>ROCGDB</small> as a filter, for example to
+<p>Batch mode may be useful for running ROCgdb as a filter, for example to
 download and run a program on another computer; in order to make this
 more useful, the message
 </p>
@@ -322,19 +322,19 @@ more useful, the message
 <pre class="example">Program exited normally.
 </pre></div>
 
-<p>(which is ordinarily issued whenever a program running under <small>ROCGDB</small> control
+<p>(which is ordinarily issued whenever a program running under ROCgdb control
 terminates) is not issued when running in batch mode.
 </p>
 </dd>
 <dt><span><code>--batch-silent</code></span></dt>
-<dd><p>Run in batch mode, just like <samp>--batch</samp>, but totally silent.  All <small>ROCGDB</small>
+<dd><p>Run in batch mode, just like <samp>--batch</samp>, but totally silent.  All ROCgdb
 output is suppressed (stderr is unaffected).  This is much quieter than
 <samp>--silent</samp> and would be useless for an interactive session.
 </p>
 <p>This is particularly useful when using targets that give &lsquo;<samp>Loading section</samp>&rsquo;
 messages, for example.
 </p>
-<p>Note that targets that give their output via <small>ROCGDB</small>, as opposed to writing
+<p>Note that targets that give their output via ROCgdb, as opposed to writing
 directly to <code>stdout</code>, will also be made silent.
 </p>
 </dd>
@@ -347,18 +347,18 @@ the following command:
 <pre class="example">gdb ./a.out -q
 </pre></div>
 
-<p>It would start <small>ROCGDB</small> with <samp>-q</samp>, not printing the introductory message.  On
+<p>It would start ROCgdb with <samp>-q</samp>, not printing the introductory message.  On
 the other hand, using:
 </p>
 <div class="example">
 <pre class="example">gdb --args ./a.out -q
 </pre></div>
 
-<p>starts <small>ROCGDB</small> with the introductory message, and passes the option to the inferior.
+<p>starts ROCgdb with the introductory message, and passes the option to the inferior.
 </p>
 </dd>
 <dt><span><code>--pid=<var>pid</var></code></span></dt>
-<dd><p>Attach <small>ROCGDB</small> to an already running program, with the PID <var>pid</var>.
+<dd><p>Attach ROCgdb to an already running program, with the PID <var>pid</var>.
 </p>
 </dd>
 <dt><span><code>--tui</code></span></dt>
@@ -374,7 +374,7 @@ the other hand, using:
 </p>
 </dd>
 <dt><span><code>--return-child-result</code></span></dt>
-<dd><p><small>ROCGDB</small>&rsquo;s exit code will be the same as the child&rsquo;s exit code.
+<dd><p>ROCgdb&rsquo;s exit code will be the same as the child&rsquo;s exit code.
 </p>
 </dd>
 <dt><span><code>--configuration</code></span></dt>
@@ -386,31 +386,31 @@ the other hand, using:
 </p>
 </dd>
 <dt><span><code>--cd=<var>directory</var></code></span></dt>
-<dd><p>Run <small>ROCGDB</small> using <var>directory</var> as its working directory,
+<dd><p>Run ROCgdb using <var>directory</var> as its working directory,
 instead of the current directory.
 </p>
 </dd>
 <dt><span><code>--data-directory=<var>directory</var></code></span></dt>
 <dt><span><code>-D</code></span></dt>
-<dd><p>Run <small>ROCGDB</small> using <var>directory</var> as its data directory.  The data
-directory is where <small>ROCGDB</small> searches for its auxiliary files.
+<dd><p>Run ROCgdb using <var>directory</var> as its data directory.  The data
+directory is where ROCgdb searches for its auxiliary files.
 </p>
 </dd>
 <dt><span><code>--fullname</code></span></dt>
 <dt><span><code>-f</code></span></dt>
-<dd><p>Emacs sets this option when it runs <small>ROCGDB</small> as a subprocess.  It tells
-<small>ROCGDB</small> to output the full file name and line number in a standard,
+<dd><p>Emacs sets this option when it runs ROCgdb as a subprocess.  It tells
+ROCgdb to output the full file name and line number in a standard,
 recognizable fashion each time a stack frame is displayed (which
 includes each time the program stops).  This recognizable format looks
 like two &lsquo;<samp>\032</samp>&rsquo; characters, followed by the file name, line number
 and character position separated by colons, and a newline.  The
-Emacs-to-<small>ROCGDB</small> interface program uses the two &lsquo;<samp>\032</samp>&rsquo;
+Emacs-to-ROCgdb interface program uses the two &lsquo;<samp>\032</samp>&rsquo;
 characters as a signal to display the source code for the frame.
 </p>
 </dd>
 <dt><span><code>-b <var>baudrate</var></code></span></dt>
 <dd><p>Set the line speed (baud rate or bits per second) of any serial
-interface used by <small>ROCGDB</small> for remote debugging.
+interface used by ROCgdb for remote debugging.
 </p>
 </dd>
 <dt><span><code>-l <var>timeout</var></code></span></dt>

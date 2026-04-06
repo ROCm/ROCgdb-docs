@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Thread groups (Debugging with ROCGDB)</title>
+<title>Thread groups (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Thread groups (Debugging with ROCGDB)">
-<meta name="keywords" content="Thread groups (Debugging with ROCGDB)">
+<meta name="description" content="Thread groups (Debugging with ROCgdb)">
+<meta name="keywords" content="Thread groups (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -102,8 +102,8 @@ Previous: <a href="Asynchronous-and-non_002dstop-modes.html" accesskey="p" rel="
 </div>
 <hr>
 <span id="Thread-groups-1"></span><h4 class="subsection">28.1.3 Thread groups</h4>
-<p><small>ROCGDB</small> may be used to debug several processes at the same time.
-On some platforms, <small>ROCGDB</small> may support debugging of several
+<p>ROCgdb may be used to debug several processes at the same time.
+On some platforms, ROCgdb may support debugging of several
 hardware systems, each one having several cores with several different
 processes running on each core.  This section describes the MI
 mechanism to support such debugging scenarios.
@@ -123,7 +123,7 @@ hierarchy of machines/cores/processes, MI introduces the concept of a
 thread groups.  A thread group always has a string identifier, a type,
 and may have additional attributes specific to the type.  A new
 command, <code>-list-thread-groups</code>, returns the list of top-level
-thread groups, which correspond to processes that <small>ROCGDB</small> is
+thread groups, which correspond to processes that ROCgdb is
 debugging at the moment.  By passing an identifier of a thread group
 to the <code>-list-thread-groups</code> command, it is possible to obtain
 the members of specific thread group.
@@ -131,7 +131,7 @@ the members of specific thread group.
 <p>To allow users to easily discover processes, and other objects, they
 wish to debug, a concept of <em>available thread group</em> is
 introduced.  Available thread group is a thread group that
-<small>ROCGDB</small> is not debugging, but that can be attached to, using the
+ROCgdb is not debugging, but that can be attached to, using the
 <code>-target-attach</code> command.  The list of available top-level thread
 groups can be obtained using &lsquo;<samp>-list-thread-groups --available</samp>&rsquo;.
 In general, the content of a thread group may be retrieved only after

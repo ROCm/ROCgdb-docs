@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Debugger Adapter Protocol (Debugging with ROCGDB)</title>
+<title>Debugger Adapter Protocol (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Debugger Adapter Protocol (Debugging with ROCGDB)">
-<meta name="keywords" content="Debugger Adapter Protocol (Debugging with ROCGDB)">
+<meta name="description" content="Debugger Adapter Protocol (Debugging with ROCgdb)">
+<meta name="keywords" content="Debugger Adapter Protocol (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -99,7 +99,7 @@ ul.no-bullet {list-style: none}
 <div class="chapter" id="Debugger-Adapter-Protocol">
 <div class="header">
 <p>
-Next: <a href="JIT-Interface.html" accesskey="n" rel="next">JIT Compilation Interface</a>, Previous: <a href="Annotations.html" accesskey="p" rel="prev"><small>ROCGDB</small> Annotations</a>, Up: <a href="index.html" accesskey="u" rel="up">Debugging with <small>ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="JIT-Interface.html" accesskey="n" rel="next">JIT Compilation Interface</a>, Previous: <a href="Annotations.html" accesskey="p" rel="prev">ROCgdb Annotations</a>, Up: <a href="index.html" accesskey="u" rel="up">Debugging with ROCgdb</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
 <span id="Debugger-Adapter-Protocol-1"></span><h2 class="chapter">30 Debugger Adapter Protocol</h2>
@@ -108,11 +108,11 @@ Next: <a href="JIT-Interface.html" accesskey="n" rel="next">JIT Compilation Inte
 IDEs to communicate with debuggers.  It is documented at
 <a href="https://microsoft.github.io/debug-adapter-protocol/">https://microsoft.github.io/debug-adapter-protocol/</a>.
 </p>
-<p>Generally, <small>ROCGDB</small> implements the Debugger Adapter Protocol as
+<p>Generally, ROCgdb implements the Debugger Adapter Protocol as
 written.  However, in some cases, extensions are either needed or even
 expected.
 </p>
-<p><small>ROCGDB</small> defines some parameters that can be passed to the
+<p>ROCgdb defines some parameters that can be passed to the
 <code>launch</code> request:
 </p>
 <dl compact="compact">
@@ -123,7 +123,7 @@ provided as command-line arguments to the inferior, as if by
 </p>
 </dd>
 <dt><span><code>cwd</code></span></dt>
-<dd><p>If provided, this should be a string.  <small>ROCGDB</small> will change its
+<dd><p>If provided, this should be a string.  ROCgdb will change its
 working directory to this directory, as if by the <code>cd</code> command
 (see <a href="Working-Directory.html">Your Program&rsquo;s Working Directory</a>).  The launched program will inherit this
 as its working directory.  Note that change of directory happens
@@ -144,56 +144,56 @@ corresponds to the <code>file</code> command.  See <a href="Files.html">Commands
 </p>
 </dd>
 <dt><span><code>stopAtBeginningOfMainSubprogram</code></span></dt>
-<dd><p>If provided, this must be a boolean.  When &lsquo;<samp>True</samp>&rsquo;, <small>ROCGDB</small>
+<dd><p>If provided, this must be a boolean.  When &lsquo;<samp>True</samp>&rsquo;, ROCgdb
 will set a temporary breakpoint at the program&rsquo;s main procedure, using
 the same approach as the <code>start</code> command.  See <a href="Starting.html">Starting your Program</a>.
 </p>
 </dd>
 <dt><span><code>stopOnEntry</code></span></dt>
-<dd><p>If provided, this must be a boolean.  When &lsquo;<samp>True</samp>&rsquo;, <small>ROCGDB</small>
+<dd><p>If provided, this must be a boolean.  When &lsquo;<samp>True</samp>&rsquo;, ROCgdb
 will set a temporary breakpoint at the program&rsquo;s first instruction, using
 the same approach as the <code>starti</code> command.  See <a href="Starting.html">Starting your Program</a>.
 </p></dd>
 </dl>
 
-<p><small>ROCGDB</small> defines some parameters that can be passed to the
+<p>ROCgdb defines some parameters that can be passed to the
 <code>attach</code> request.  Either <code>pid</code> or <code>target</code> must be
 specified, but if both are specified then <code>target</code> will be
 ignored.
 </p>
 <dl compact="compact">
 <dt><span><code>pid</code></span></dt>
-<dd><p>The process ID to which <small>ROCGDB</small> should attach.  See <a href="Attach.html">Debugging an Already-running Process</a>.
+<dd><p>The process ID to which ROCgdb should attach.  See <a href="Attach.html">Debugging an Already-running Process</a>.
 </p>
 </dd>
 <dt><span><code>program</code></span></dt>
 <dd><p>If provided, this is a string that specifies the program to use.  This
 corresponds to the <code>file</code> command.  See <a href="Files.html">Commands to Specify Files</a>.  In some cases,
-<small>ROCGDB</small> can automatically determine which program is running.
+ROCgdb can automatically determine which program is running.
 However, for many remote targets, this is not the case, and so this
 should be supplied.
 </p>
 </dd>
 <dt><span><code>target</code></span></dt>
-<dd><p>The target to which <small>ROCGDB</small> should connect.  This is a string and
+<dd><p>The target to which ROCgdb should connect.  This is a string and
 is passed to the <code>target remote</code> command.  See <a href="Connecting.html">Connecting to a Remote Target</a>.
 </p></dd>
 </dl>
 
 <p>In response to the <code>disassemble</code> request, DAP allows the client
 to return the bytes of each instruction in an implementation-defined
-format.  <small>ROCGDB</small> implements this by sending a string with the
+format.  ROCgdb implements this by sending a string with the
 bytes encoded in hex, like <code>&quot;55a2b900&quot;</code>.
 </p>
 <p>When the <code>repl</code> context is used for the <code>evaluate</code> request,
-<small>ROCGDB</small> evaluates the provided expression as a CLI command.
+ROCgdb evaluates the provided expression as a CLI command.
 </p>
 <p>Evaluation in general can cause the inferior to continue execution.
 For example, evaluating the <code>continue</code> command could do this, as
 could evaluating an expression that involves an inferior function
 call.
 </p>
-<p><code>repl</code> evaluation can also cause <small>ROCGDB</small> to appear to stop
+<p><code>repl</code> evaluation can also cause ROCgdb to appear to stop
 responding to requests, for example if a CLI script does a lengthy
 computation.
 </p>
@@ -201,7 +201,7 @@ computation.
 request.  (In fact, <code>cancel</code> should work for any request, but it
 is unlikely to be useful for most of them.)
 </p>
-<p><small>ROCGDB</small> provides a couple of logging settings that can be used in
+<p>ROCgdb provides a couple of logging settings that can be used in
 DAP mode.  These can be set on the command line using the <code>-iex</code>
 option (see <a href="File-Options.html">Choosing Files</a>).
 </p>
@@ -225,7 +225,7 @@ normal exception and not normally be logged.
 <hr>
 <div class="header">
 <p>
-Next: <a href="JIT-Interface.html">JIT Compilation Interface</a>, Previous: <a href="Annotations.html"><small>ROCGDB</small> Annotations</a>, Up: <a href="index.html">Debugging with <small>ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="JIT-Interface.html">JIT Compilation Interface</a>, Previous: <a href="Annotations.html">ROCgdb Annotations</a>, Up: <a href="index.html">Debugging with ROCgdb</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

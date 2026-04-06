@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Convenience Funs (Debugging with ROCGDB)</title>
+<title>Convenience Funs (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Convenience Funs (Debugging with ROCGDB)">
-<meta name="keywords" content="Convenience Funs (Debugging with ROCGDB)">
+<meta name="description" content="Convenience Funs (Debugging with ROCgdb)">
+<meta name="keywords" content="Convenience Funs (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -105,13 +105,13 @@ Next: <a href="Registers.html" accesskey="n" rel="next">Registers</a>, Previous:
 <span id="Convenience-Functions"></span><h3 class="section">10.13 Convenience Functions</h3>
 
 <span id="index-convenience-functions"></span>
-<p><small>ROCGDB</small> also supplies some <em>convenience functions</em>.  These
+<p>ROCgdb also supplies some <em>convenience functions</em>.  These
 have a syntax similar to convenience variables.  A convenience
 function can be used in an expression just like an ordinary function;
 however, a convenience function is implemented internally to
-<small>ROCGDB</small>.
+ROCgdb.
 </p>
-<p>These functions do not require <small>ROCGDB</small> to be configured with
+<p>These functions do not require ROCgdb to be configured with
 <code>Python</code> support, which means that they are always available.
 </p>
 <dl compact="compact">
@@ -159,7 +159,7 @@ foo (void)
 }
 </pre></div>
 
-<p>The result of calling it inside <small>ROCGDB</small> is <code>void</code>:
+<p>The result of calling it inside ROCgdb is <code>void</code>:
 </p>
 <div class="example">
 <pre class="example">(gdb) print foo ()
@@ -176,9 +176,9 @@ $4 = 1
 <span id="index-_0024_005fgdb_005fsetting_005fstr_002c-convenience-function"></span>
 </dd>
 <dt><span><code>$_gdb_setting_str (<var>setting</var>)</code></span></dt>
-<dd><p>Return the value of the <small>ROCGDB</small> <var>setting</var> as a string.
+<dd><p>Return the value of the ROCgdb <var>setting</var> as a string.
 <var>setting</var> is any setting that can be used in a <code>set</code> or
-<code>show</code> command (see <a href="Controlling-GDB.html">Controlling <small>ROCGDB</small></a>).
+<code>show</code> command (see <a href="Controlling-GDB.html">Controlling ROCgdb</a>).
 </p>
 <div class="example">
 <pre class="example">(gdb) show print frame-arguments
@@ -193,7 +193,7 @@ $2 = &quot;30&quot;
 <span id="index-_0024_005fgdb_005fsetting_002c-convenience-function"></span>
 </dd>
 <dt><span><code>$_gdb_setting (<var>setting</var>)</code></span></dt>
-<dd><p>Return the value of the <small>ROCGDB</small> <var>setting</var>.
+<dd><p>Return the value of the ROCgdb <var>setting</var>.
 The type of the returned value depends on the setting.
 </p>
 <p>The value type for boolean and auto boolean settings is <code>int</code>.
@@ -214,7 +214,7 @@ For example, <code>set height unlimited</code> is equivalent to
 <p>Some other settings that accept the <code>unlimited</code> value
 use the value <code>0</code> to literally mean zero.
 For example, <code>set history size 0</code> indicates to not
-record any <small>ROCGDB</small> commands in the command history.
+record any ROCgdb commands in the command history.
 For such settings, <code>-1</code> is the synonym
 for <code>unlimited</code>.
 </p>
@@ -268,10 +268,10 @@ are returned as string values.
 <dd>
 <p>Invoke a shell to execute <var>command-string</var>.  <var>command-string</var>
 must be a string.  The shell runs on the host machine, the machine
-<small>ROCGDB</small> is running on.  Returns the command&rsquo;s exit status.  On
+ROCgdb is running on.  Returns the command&rsquo;s exit status.  On
 Unix systems, a command which exits with a zero exit status has
 succeeded, and non-zero exit status indicates failure.  When a command
-terminates on a fatal signal whose number is <var>N</var>, <small>ROCGDB</small>
+terminates on a fatal signal whose number is <var>N</var>, ROCgdb
 uses the value 128+<var>N</var> as the exit status, as is standard in Unix
 shells.  Note that <var>N</var> is a host signal number, not a target
 signal number.  If you&rsquo;re native debugging, they will be the same, but
@@ -306,7 +306,7 @@ possible.  For example, avoid running a command that may block
 indefinitely, or that sleeps for a while before exiting.  Prefer a
 command or script which analyzes some state and exits immediately.
 This is important because the debugged program stops for the
-breakpoint every time, and then <small>ROCGDB</small> evaluates the breakpoint
+breakpoint every time, and then ROCgdb evaluates the breakpoint
 condition.  If the condition is false, the program is re-resumed
 transparently, without informing you of the stop.  A quick shell
 command thus avoids significantly slowing down the debugged program
@@ -319,7 +319,7 @@ function does not affect the <code>$_shell_exitcode</code> and
 </dd>
 </dl>
 
-<p>The following functions require <small>ROCGDB</small> to be configured with
+<p>The following functions require ROCgdb to be configured with
 <code>Python</code> support.
 </p>
 <dl compact="compact">
@@ -422,7 +422,7 @@ frame specified by <var>number_of_frames</var>.
 </dd>
 <dt><span><code>$_as_string(<var>value</var>)</code></span></dt>
 <dd><p>This convenience function is considered deprecated, and could be
-removed from future versions of <small>ROCGDB</small>.  Use the &lsquo;<samp>%V</samp>&rsquo; format
+removed from future versions of ROCgdb.  Use the &lsquo;<samp>%V</samp>&rsquo; format
 specifier instead (see <a href="Output.html#g_t_0025V-Format-Specifier">%V Format Specifier</a>).
 </p>
 <p>Return the string representation of <var>value</var>.
@@ -512,7 +512,7 @@ except for heterogeneous lanes.  See <a href="Heterogeneous-Debugging.html">Debu
 </dd>
 </dl>
 
-<p><small>ROCGDB</small> provides the ability to list and get help on
+<p>ROCgdb provides the ability to list and get help on
 convenience functions.
 </p>
 <dl compact="compact">

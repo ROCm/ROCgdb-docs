@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Symbol Tables In Guile (Debugging with ROCGDB)</title>
+<title>Symbol Tables In Guile (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Symbol Tables In Guile (Debugging with ROCGDB)">
-<meta name="keywords" content="Symbol Tables In Guile (Debugging with ROCGDB)">
+<meta name="description" content="Symbol Tables In Guile (Debugging with ROCgdb)">
+<meta name="keywords" content="Symbol Tables In Guile (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -108,13 +108,13 @@ Next: <a href="Breakpoints-In-Guile.html" accesskey="n" rel="next">Manipulating 
 <span id="index-_003cgdb_003asymtab_003e"></span>
 <span id="index-_003cgdb_003asal_003e"></span>
 
-<p>Access to symbol table data maintained by <small>ROCGDB</small> on the inferior
+<p>Access to symbol table data maintained by ROCgdb on the inferior
 is exposed to Guile via two objects: <code>&lt;gdb:sal&gt;</code> (symtab-and-line) and
 <code>&lt;gdb:symtab&gt;</code>.  Symbol table and line data for a frame is returned
 from the <code>frame-find-sal</code> <code>&lt;gdb:frame&gt;</code> procedure.
 See <a href="Frames-In-Guile.html">Accessing inferior stack frames from Guile.</a>.
 </p>
-<p>For more information on <small>ROCGDB</small>&rsquo;s symbol table management, see
+<p>For more information on ROCgdb&rsquo;s symbol table management, see
 <a href="Symbols.html">Examining the Symbol Table</a>.
 </p>
 <p>The following symtab-related procedures are provided by the
@@ -130,7 +130,7 @@ Otherwise return <code>#f</code>.
 <dt id="index-symtab_002dvalid_003f"><span class="category">Scheme Procedure: </span><span><strong>symtab-valid?</strong> <em>symtab</em><a href='#index-symtab_002dvalid_003f' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Return <code>#t</code> if the <code>&lt;gdb:symtab&gt;</code> object is valid,
 <code>#f</code> if not.  A <code>&lt;gdb:symtab&gt;</code> object becomes invalid when
-the symbol table it refers to no longer exists in <small>ROCGDB</small>.
+the symbol table it refers to no longer exists in ROCgdb.
 All other <code>&lt;gdb:symtab&gt;</code> procedures will throw an exception
 if it is invalid at the time the procedure is called.
 </p></dd></dl>
@@ -175,7 +175,7 @@ Otherwise return <code>#f</code>.
 <dt id="index-sal_002dvalid_003f"><span class="category">Scheme Procedure: </span><span><strong>sal-valid?</strong> <em>sal</em><a href='#index-sal_002dvalid_003f' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Return <code>#t</code> if <var>sal</var> is valid, <code>#f</code> if not.
 A <code>&lt;gdb:sal&gt;</code> object becomes invalid when the Symbol table object
-it refers to no longer exists in <small>ROCGDB</small>.  All other
+it refers to no longer exists in ROCgdb.  All other
 <code>&lt;gdb:sal&gt;</code> procedures will throw an exception if it is
 invalid at the time the procedure is called.
 </p></dd></dl>

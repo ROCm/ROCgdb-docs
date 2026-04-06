@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Disassembly In Python (Debugging with ROCGDB)</title>
+<title>Disassembly In Python (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Disassembly In Python (Debugging with ROCGDB)">
-<meta name="keywords" content="Disassembly In Python (Debugging with ROCGDB)">
+<meta name="description" content="Disassembly In Python (Debugging with ROCgdb)">
+<meta name="keywords" content="Disassembly In Python (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -105,19 +105,19 @@ Next: <a href="Missing-Debug-Info-In-Python.html" accesskey="n" rel="next">Missi
 <span id="Instruction-Disassembly-In-Python"></span><h4 class="subsubsection">24.3.2.40 Instruction Disassembly In Python</h4>
 <span id="index-python-instruction-disassembly"></span>
 
-<p><small>ROCGDB</small>&rsquo;s builtin disassembler can be extended, or even replaced,
+<p>ROCgdb&rsquo;s builtin disassembler can be extended, or even replaced,
 using the Python API.  The disassembler related features are contained
 within the <code>gdb.disassembler</code> module:
 </p>
 <span id="DisassembleInfo-Class"></span><dl class="def">
 <dt id="index-gdb_002edisassembler_002eDisassembleInfo"><span class="category">class: </span><span><strong>gdb.disassembler.DisassembleInfo</strong><a href='#index-gdb_002edisassembler_002eDisassembleInfo' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Disassembly is driven by instances of this class.  Each time
-<small>ROCGDB</small> needs to disassemble an instruction, an instance of this
+ROCgdb needs to disassemble an instruction, an instance of this
 class is created and passed to a registered disassembler.  The
 disassembler is then responsible for disassembling an instruction and
 returning a result.
 </p>
-<p>Instances of this type are usually created within <small>ROCGDB</small>,
+<p>Instances of this type are usually created within ROCgdb,
 however, it is possible to create a copy of an instance of this type,
 see the description of <code>__init__</code> for more details.
 </p>
@@ -125,21 +125,21 @@ see the description of <code>__init__</code> for more details.
 </p>
 <dl class="def">
 <dt id="index-DisassembleInfo_002eaddress"><span class="category">Variable: </span><span><strong>DisassembleInfo.address</strong><a href='#index-DisassembleInfo_002eaddress' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>A read-only integer containing the address at which <small>ROCGDB</small>
+<dd><p>A read-only integer containing the address at which ROCgdb
 wishes to disassemble a single instruction.
 </p></dd></dl>
 
 <dl class="def">
 <dt id="index-DisassembleInfo_002earchitecture"><span class="category">Variable: </span><span><strong>DisassembleInfo.architecture</strong><a href='#index-DisassembleInfo_002earchitecture' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>The <code>gdb.Architecture</code> (see <a href="Architectures-In-Python.html">Python representation of architectures</a>) for
-which <small>ROCGDB</small> is currently disassembling, this property is
+which ROCgdb is currently disassembling, this property is
 read-only.
 </p></dd></dl>
 
 <dl class="def">
 <dt id="index-DisassembleInfo_002eprogspace"><span class="category">Variable: </span><span><strong>DisassembleInfo.progspace</strong><a href='#index-DisassembleInfo_002eprogspace' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>The <code>gdb.Progspace</code> (see <a href="Progspaces-In-Python.html">Program Spaces
-In Python</a>) for which <small>ROCGDB</small> is currently disassembling, this
+In Python</a>) for which ROCgdb is currently disassembling, this
 property is read-only.
 </p></dd></dl>
 
@@ -164,7 +164,7 @@ will become invalid at the same time as <var>info</var>.
 be created, these sub-classes must be initialized as copies of an
 existing <code>DisassembleInfo</code> object, but sub-classes might choose
 to override the <code>read_memory</code> method, and so control what
-<small>ROCGDB</small> sees when reading from memory
+ROCgdb sees when reading from memory
 (see <a href="#builtin_005fdisassemble">builtin_disassemble</a>).
 </p></dd></dl>
 
@@ -177,7 +177,7 @@ starting at <var>offset</var> from
 </p>
 <p>It is important that the disassembler read the instruction bytes using
 this method, rather than reading inferior memory directly, as in some
-cases <small>ROCGDB</small> disassembles from an internal buffer rather than
+cases ROCgdb disassembles from an internal buffer rather than
 directly from inferior memory, calling this method handles this
 detail.
 </p>
@@ -186,11 +186,11 @@ just as <code>Inferior.read_memory</code> does
 (see <a href="Inferiors-In-Python.html#gdbpy_005finferior_005fread_005fmemory">Inferior.read_memory</a>).  The
 length of the returned buffer will always be exactly <var>length</var>.
 </p>
-<p>If <small>ROCGDB</small> is unable to read the required memory then a
+<p>If ROCgdb is unable to read the required memory then a
 <code>gdb.MemoryError</code> exception is raised (see <a href="Exception-Handling.html">Exception Handling</a>).
 </p>
 <p>This method can be overridden by a sub-class in order to control what
-<small>ROCGDB</small> sees when reading from memory
+ROCgdb sees when reading from memory
 (see <a href="#builtin_005fdisassemble">builtin_disassemble</a>).  When overriding this method it is
 important to understand how <code>builtin_disassemble</code> makes use of
 this method.
@@ -206,7 +206,7 @@ be raised.
 </p>
 <p>Raising a <code>MemoryError</code> inside <code>read_memory</code> does not
 automatically mean a <code>MemoryError</code> will be raised by
-<code>builtin_disassemble</code>.  It is possible the <small>ROCGDB</small>&rsquo;s builtin
+<code>builtin_disassemble</code>.  It is possible the ROCgdb&rsquo;s builtin
 disassembler is probing to see how many bytes are available.  When
 <code>read_memory</code> raises the <code>MemoryError</code> the builtin
 disassembler might be able to perform a complete disassembly with the
@@ -257,11 +257,11 @@ perform disassembly.  Calling <code>__call__</code> on this base class will
 raise a <code>NotImplementedError</code> exception.
 </p>
 <p>The <var>info</var> argument is an instance of <code>DisassembleInfo</code>, and
-describes the instruction that <small>ROCGDB</small> wants disassembling.
+describes the instruction that ROCgdb wants disassembling.
 </p>
-<p>If this function returns <code>None</code>, this indicates to <small>ROCGDB</small>
+<p>If this function returns <code>None</code>, this indicates to ROCgdb
 that this sub-class doesn&rsquo;t wish to disassemble the requested
-instruction.  <small>ROCGDB</small> will then use its builtin disassembler to
+instruction.  ROCgdb will then use its builtin disassembler to
 perform the disassembly.
 </p>
 <p>Alternatively, this function can return a <code>DisassemblerResult</code>
@@ -269,9 +269,9 @@ that represents the disassembled instruction, this type is described
 in more detail below.
 </p>
 <p>The <code>__call__</code> method can raise a <code>gdb.MemoryError</code>
-exception (see <a href="Exception-Handling.html">Exception Handling</a>) to indicate to <small>ROCGDB</small>
+exception (see <a href="Exception-Handling.html">Exception Handling</a>) to indicate to ROCgdb
 that there was a problem accessing the required memory, this will then
-be displayed by <small>ROCGDB</small> within the disassembler output.
+be displayed by ROCgdb within the disassembler output.
 </p>
 <p>Ideally, the only three outcomes from invoking <code>__call__</code> would
 be a return of <code>None</code>, a successful disassembly returned in a
@@ -320,7 +320,7 @@ name, and the unused argument can be ignored.
 <p>The <var>string</var> argument, if not <code>None</code>, is a non-empty string
 that represents the entire disassembled instruction.  Building a result
 object using the <var>string</var> argument does not allow for any styling
-information to be included in the result.  <small>ROCGDB</small> will style the
+information to be included in the result.  ROCgdb will style the
 result as a single <code>DisassemblerTextPart</code> with <code>STYLE_TEXT</code>
 style (see <a href="#Disassembler-Styling-Parts">Disassembler Styling Parts</a>).
 </p>
@@ -328,7 +328,7 @@ style (see <a href="#Disassembler-Styling-Parts">Disassembler Styling Parts</a>)
 of <code>DisassemblerPart</code> objects.  Each part represents a small part
 of the disassembled instruction along with associated styling
 information.  A result object built using <var>parts</var> can be displayed
-by <small>ROCGDB</small> with full styling information
+by ROCgdb with full styling information
 (see <a href="Output-Styling.html#style_005fdisassembler_005fenabled"><kbd>set style disassembler
 enabled</kbd></a>).
 </p></dd></dl>
@@ -358,7 +358,7 @@ be valid.  The <var>string</var> value is created by concatenating the
 <dd><p>A read-only property containing a non-empty sequence of
 <code>DisassemblerPart</code> objects.  Each <code>DisassemblerPart</code> object
 contains a small part of the instruction along with information about
-how that part should be styled.  <small>ROCGDB</small> uses this information to
+how that part should be styled.  ROCgdb uses this information to
 create styled disassembler output
 (see <a href="Output-Styling.html#style_005fdisassembler_005fenabled"><kbd>set style disassembler
 enabled</kbd></a>).
@@ -410,7 +410,7 @@ class (see <a href="#DisassembleInfo-Class">DisassembleInfo Class</a>).
 <dl class="def">
 <dt id="index-DisassemblerTextPart_002estyle"><span class="category">Variable: </span><span><strong>DisassemblerTextPart.style</strong><a href='#index-DisassemblerTextPart_002estyle' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>A read-only property that contains one of the defined style constants.
-<small>ROCGDB</small> will use this style when styling this part of the
+ROCgdb will use this style when styling this part of the
 disassembled instruction (see <a href="#Disassembler-Style-Constants">Disassembler Style Constants</a>).
 </p></dd></dl>
 </dd></dl>
@@ -421,7 +421,7 @@ disassembled instruction (see <a href="#Disassembler-Style-Constants">Disassembl
 address within a disassembled instruction.  Using a
 <code>DisassemblerAddressPart</code> instead of a
 <code>DisassemblerTextPart</code> with <code>STYLE_ADDRESS</code> is preferred,
-<small>ROCGDB</small> will display the address as both an absolute address, and
+ROCgdb will display the address as both an absolute address, and
 will look up a suitable symbol to display next to the address.  Using
 <code>DisassemblerAddressPart</code> also ensures that user settings such as
 <code>set print max-symbolic-offset</code> are respected.
@@ -458,22 +458,22 @@ object&rsquo;s <code>__init__</code> method.
 
 <span id="Disassembler-Style-Constants"></span>
 <p>The following table lists all of the disassembler styles that are
-available.  <small>ROCGDB</small> maps these style constants onto its style
+available.  ROCgdb maps these style constants onto its style
 settings (see <a href="Output-Styling.html">Output Styling</a>).  In some cases, several style
 constants produce the same style settings, and thus will produce the
 same visual effect on the screen.  This could change in future
-releases of <small>ROCGDB</small>, so care should be taken to select the
+releases of ROCgdb, so care should be taken to select the
 correct style constant to ensure correct output styling in future
-releases of <small>ROCGDB</small>.
+releases of ROCgdb.
 </p>
 <dl compact="compact">
 <dd><span id="index-STYLE_005fTEXT"></span>
 </dd>
 <dt id='index-gdb_002edisassembler_002eSTYLE_005fTEXT'><span><code>gdb.disassembler.STYLE_TEXT</code><a href='#index-gdb_002edisassembler_002eSTYLE_005fTEXT' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>This is the default style used by <small>ROCGDB</small> when styling
+<dd><p>This is the default style used by ROCgdb when styling
 disassembler output.  This style should be used for any parts of the
 instruction that don&rsquo;t fit any of the other styles listed below.
-<small>ROCGDB</small> styles text with this style using its default style.
+ROCgdb styles text with this style using its default style.
 </p>
 <span id="index-STYLE_005fMNEMONIC"></span>
 </dd>
@@ -482,7 +482,7 @@ instruction that don&rsquo;t fit any of the other styles listed below.
 usually appears at, or near, the start of the disassembled instruction
 string.
 </p>
-<p><small>ROCGDB</small> styles text with this style using the <code>disassembler
+<p>ROCgdb styles text with this style using the <code>disassembler
 mnemonic</code> style setting.
 </p>
 <span id="index-STYLE_005fSUB_005fMNEMONIC"></span>
@@ -503,7 +503,7 @@ the primary mnemonic (which will have styled <code>STYLE_MNEMONIC</code>).
 style <code>STYLE_MNEMONIC</code>, while <code>lsl</code> is the sub-mnemonic, and
 would be given the style <code>STYLE_SUB_MNEMONIC</code>.
 </p>
-<p><small>ROCGDB</small> styles text with this style using the <code>disassembler
+<p>ROCgdb styles text with this style using the <code>disassembler
 mnemonic</code> style setting.
 </p>
 <span id="index-STYLE_005fASSEMBLER_005fDIRECTIVE"></span>
@@ -522,7 +522,7 @@ disassembling using an assembler directive, for example:
 similar to a mnemonic in many ways but is something that is not part
 of the architecture&rsquo;s instruction set.
 </p>
-<p><small>ROCGDB</small> styles text with this style using the <code>disassembler
+<p>ROCgdb styles text with this style using the <code>disassembler
 mnemonic</code> style setting.
 </p>
 <span id="index-STYLE_005fREGISTER"></span>
@@ -531,7 +531,7 @@ mnemonic</code> style setting.
 <dd><p>This style is used for styling any text that represents a register
 name, or register number, within a disassembled instruction.
 </p>
-<p><small>ROCGDB</small> styles text with this style using the <code>disassembler
+<p>ROCgdb styles text with this style using the <code>disassembler
 register</code> style setting.
 </p>
 <span id="index-STYLE_005fADDRESS"></span>
@@ -545,7 +545,7 @@ should consider if a <code>DisassemblerAddressPart</code> would be more
 appropriate.  See <a href="#Disassembler-Styling-Parts">Disassembler Styling Parts</a> for a description
 of what each part offers.
 </p>
-<p><small>ROCGDB</small> styles text with this style using the <code>disassembler
+<p>ROCgdb styles text with this style using the <code>disassembler
 address</code> style setting.
 </p>
 <span id="index-STYLE_005fADDRESS_005fOFFSET"></span>
@@ -564,7 +564,7 @@ this would be an address offset.  Similarly, a branch instruction
 might jump to an address in a register plus an address offset that is
 encoded into the instruction.
 </p>
-<p><small>ROCGDB</small> styles text with this style using the <code>disassembler
+<p>ROCgdb styles text with this style using the <code>disassembler
 immediate</code> style setting.
 </p>
 <span id="index-STYLE_005fIMMEDIATE"></span>
@@ -576,7 +576,7 @@ offsets, or register numbers (The styles <code>STYLE_ADDRESS</code>,
 <code>STYLE_ADDRESS_OFFSET</code>, or <code>STYLE_REGISTER</code> can be used in
 those cases).
 </p>
-<p><small>ROCGDB</small> styles text with this style using the <code>disassembler
+<p>ROCgdb styles text with this style using the <code>disassembler
 immediate</code> style setting.
 </p>
 <span id="index-STYLE_005fSYMBOL"></span>
@@ -599,7 +599,7 @@ referring too.  For example:
 automatically by the <code>DisassemblerAddressPart</code> class
 (see <a href="#Disassembler-Styling-Parts">Disassembler Styling Parts</a>).
 </p>
-<p><small>ROCGDB</small> styles text with this style using the <code>disassembler
+<p>ROCgdb styles text with this style using the <code>disassembler
 symbol</code> style setting.
 </p>
 <span id="index-STYLE_005fCOMMENT_005fSTART"></span>
@@ -612,10 +612,10 @@ style is sticky, and overrides the style of any further pieces within
 this instruction.
 </p>
 <p>This means that, after a <code>STYLE_COMMENT_START</code> piece has been
-seen, <small>ROCGDB</small> will apply the comment style until the end of the
+seen, ROCgdb will apply the comment style until the end of the
 line, ignoring the specific style within a piece.
 </p>
-<p><small>ROCGDB</small> styles text with this style using the <code>disassembler
+<p>ROCgdb styles text with this style using the <code>disassembler
 comment</code> style setting.
 </p></dd>
 </dl>
@@ -630,7 +630,7 @@ comment</code> style setting.
 </p>
 <p>The optional <var>architecture</var> is either a string, or the value
 <code>None</code>.  If it is a string, then it should be the name of an
-architecture known to <small>ROCGDB</small>, as returned either from
+architecture known to ROCgdb, as returned either from
 <code>gdb.Architecture.name</code>
 (see <a href="Architectures-In-Python.html#gdbpy_005farchitecture_005fname">gdb.Architecture.name</a>), or from
 <code>gdb.architecture_names</code>
@@ -644,7 +644,7 @@ by all architectures.
 <span id="index-disassembler-in-Python_002c-global-vs_002e-specific"></span>
 <span id="index-search-order-for-disassembler-in-Python"></span>
 <span id="index-look-up-of-disassembler-in-Python"></span>
-<p><small>ROCGDB</small> only records a single disassembler for each architecture,
+<p>ROCgdb only records a single disassembler for each architecture,
 and a single global disassembler.  Calling
 <code>register_disassembler</code> for an architecture, or for the global
 disassembler, will replace any existing disassembler registered for
@@ -653,16 +653,16 @@ that <var>architecture</var> value.  The previous disassembler is returned.
 <p>If <var>disassembler</var> is <code>None</code> then any disassembler currently
 registered for <var>architecture</var> is deregistered and returned.
 </p>
-<p>When <small>ROCGDB</small> is looking for a disassembler to use, <small>ROCGDB</small>
+<p>When ROCgdb is looking for a disassembler to use, ROCgdb
 first looks for an architecture specific disassembler.  If none has
-been registered then <small>ROCGDB</small> looks for a global disassembler (one
+been registered then ROCgdb looks for a global disassembler (one
 registered with <var>architecture</var> set to <code>None</code>).  Only one
 disassembler is called to perform disassembly, so, if there is both an
 architecture specific disassembler, and a global disassembler
 registered, it is the architecture specific disassembler that will be
 used.
 </p>
-<p><small>ROCGDB</small> tracks the architecture specific, and global
+<p>ROCgdb tracks the architecture specific, and global
 disassemblers separately, so it doesn&rsquo;t matter in which order
 disassemblers are created or registered; an architecture specific
 disassembler, if present, will always be used in preference to a
@@ -675,7 +675,7 @@ have been registered.
 
 <span id="builtin_005fdisassemble"></span><dl class="def">
 <dt id="index-builtin_005fdisassemble"><span class="category">Function: </span><span><strong>builtin_disassemble</strong> <em>(info)</em><a href='#index-builtin_005fdisassemble' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>This function calls back into <small>ROCGDB</small>&rsquo;s builtin disassembler to
+<dd><p>This function calls back into ROCgdb&rsquo;s builtin disassembler to
 disassemble the instruction identified by <var>info</var>, an instance, or
 sub-class, of <code>DisassembleInfo</code>.
 </p>
@@ -689,7 +689,7 @@ values returned.
 <p>It is important to understand that, even when
 <code>DisassembleInfo.read_memory</code> raises a <code>gdb.MemoryError</code>, it
 is the internal disassembler itself that reports the memory error to
-<small>ROCGDB</small>.  The reason for this is that the disassembler might
+ROCgdb.  The reason for this is that the disassembler might
 probe memory to see if a byte is readable or not; if the byte can&rsquo;t be
 read then the disassembler may choose not to report an error, but
 instead to disassemble the bytes that it does have available.
@@ -706,7 +706,7 @@ disassembly correctly.
 call to <code>read_memory</code>, will pass through
 <code>builtin_disassemble</code>, and be visible to the caller.
 </p>
-<p>Finally, there are a few cases where <small>ROCGDB</small>&rsquo;s builtin
+<p>Finally, there are a few cases where ROCgdb&rsquo;s builtin
 disassembler can fail for reasons that are not covered by
 <code>MemoryError</code>.  In these cases, a <code>GdbError</code> will be raised.
 The contents of the exception will be a string describing the problem

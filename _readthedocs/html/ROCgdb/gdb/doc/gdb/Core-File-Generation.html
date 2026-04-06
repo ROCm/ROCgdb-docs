@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Core File Generation (Debugging with ROCGDB)</title>
+<title>Core File Generation (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Core File Generation (Debugging with ROCGDB)">
-<meta name="keywords" content="Core File Generation (Debugging with ROCGDB)">
+<meta name="description" content="Core File Generation (Debugging with ROCgdb)">
+<meta name="keywords" content="Core File Generation (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -110,12 +110,12 @@ image of a running process and its process status (register values
 etc.).  Its primary use is post-mortem debugging of a program that
 crashed while it ran outside a debugger.  A program that crashes
 automatically produces a core file, unless this feature is disabled by
-the user.  See <a href="Files.html">Commands to Specify Files</a>, for information on invoking <small>ROCGDB</small> in
+the user.  See <a href="Files.html">Commands to Specify Files</a>, for information on invoking ROCgdb in
 the post-mortem debugging mode.
 </p>
 <p>Occasionally, you may wish to produce a core file of the program you
 are debugging in order to preserve a snapshot of its state.
-<small>ROCGDB</small> has a special command for that.
+ROCgdb has a special command for that.
 </p>
 <dl compact="compact">
 <dd><span id="index-gcore"></span>
@@ -128,13 +128,13 @@ are debugging in order to preserve a snapshot of its state.
 specified, the file name defaults to <samp>core.<var>pid</var></samp>, where
 <var>pid</var> is the inferior process ID.
 </p>
-<p><small>ROCGDB</small> ensures that all threads of the current inferior are
+<p>ROCgdb ensures that all threads of the current inferior are
 stopped while generating the core dump.  If any of the inferior&rsquo;s threads
-are running when executing this command, <small>ROCGDB</small> stops the threads
+are running when executing this command, ROCgdb stops the threads
 and resumes them when the command is done.
 </p>
 <p>If supported by the filesystem where the core is written to,
-<small>ROCGDB</small> generates a sparse core dump file.
+ROCgdb generates a sparse core dump file.
 </p>
 <p>Note that this command is implemented only for some systems (as of
 this writing, <small>GNU</small>/Linux, FreeBSD, Solaris, and S390).
@@ -166,7 +166,7 @@ about the bits that can be set in the
 manpage of <code>core(5)</code>.
 </p>
 <p>By default, this option is <code>on</code>.  If this option is turned
-<code>off</code>, <small>ROCGDB</small> does not read the <samp>coredump_filter</samp> file
+<code>off</code>, ROCgdb does not read the <samp>coredump_filter</samp> file
 and instead uses the same default value as the Linux kernel in order
 to decide which pages will be dumped in the core dump file.  This
 value is currently <code>0x33</code>, which means that bits <code>0</code>
@@ -178,7 +178,7 @@ This will cause these memory mappings to be dumped automatically.
 <span id="set-dump_002dexcluded_002dmappings"></span></dd>
 <dt><span><code>set dump-excluded-mappings on</code></span></dt>
 <dt><span><code>set dump-excluded-mappings off</code></span></dt>
-<dd><p>If <code>on</code> is specified, <small>ROCGDB</small> will dump memory mappings
+<dd><p>If <code>on</code> is specified, ROCgdb will dump memory mappings
 marked with the <code>VM_DONTDUMP</code> flag.  This flag is represented in
 the file <samp>/proc/<var>pid</var>/smaps</samp> with the acronym <code>dd</code>.
 </p>

@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Conditions (Debugging with ROCGDB)</title>
+<title>Conditions (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Conditions (Debugging with ROCGDB)">
-<meta name="keywords" content="Conditions (Debugging with ROCGDB)">
+<meta name="description" content="Conditions (Debugging with ROCgdb)">
+<meta name="keywords" content="Conditions (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -130,7 +130,7 @@ your program.  This can be useful, for example, to activate functions
 that log program progress, or to use your own print functions to
 format special data structures.  The effects are completely predictable
 unless there is another enabled breakpoint at the same address.  (In
-that case, <small>ROCGDB</small> might see the other breakpoint first and stop your
+that case, ROCgdb might see the other breakpoint first and stop your
 program without checking the condition of this one.)  Note that
 breakpoint commands are usually more convenient and flexible than break
 conditions for the
@@ -139,15 +139,15 @@ purpose of performing side effects when a breakpoint is reached
 </p>
 <p>Breakpoint conditions can also be evaluated on the target&rsquo;s side if
 the target supports it.  Instead of evaluating the conditions locally,
-<small>ROCGDB</small> encodes the expression into an agent expression
+ROCgdb encodes the expression into an agent expression
 (see <a href="Agent-Expressions.html">The GDB Agent Expression Mechanism</a>) suitable for execution on the target,
-independently of <small>ROCGDB</small>.  Global variables become raw memory
+independently of ROCgdb.  Global variables become raw memory
 locations, locals become stack accesses, and so forth.
 </p>
-<p>In this case, <small>ROCGDB</small> will only be notified of a breakpoint trigger
+<p>In this case, ROCgdb will only be notified of a breakpoint trigger
 when its condition evaluates to true.  This mechanism may provide faster
 response times depending on the performance characteristics of the target
-since it does not need to keep <small>ROCGDB</small> informed about
+since it does not need to keep ROCgdb informed about
 every breakpoint trigger, even those with false conditions.
 </p>
 <p>Break conditions can be specified when a breakpoint is set, by using
@@ -167,17 +167,17 @@ catchpoint.
 watchpoint, or catchpoint number <var>bnum</var>.  After you set a condition,
 breakpoint <var>bnum</var> stops your program only if the value of
 <var>expression</var> is true (nonzero, in C).  When you use
-<code>condition</code>, <small>ROCGDB</small> checks <var>expression</var> immediately for
+<code>condition</code>, ROCgdb checks <var>expression</var> immediately for
 syntactic correctness, and to determine whether symbols in it have
 referents in the context of your breakpoint.  If <var>expression</var> uses
-symbols not referenced in the context of the breakpoint, <small>ROCGDB</small>
+symbols not referenced in the context of the breakpoint, ROCgdb
 prints an error message:
 </p>
 <div class="example">
 <pre class="example">No symbol &quot;foo&quot; in current context.
 </pre></div>
 
-<p><small>ROCGDB</small> does
+<p>ROCgdb does
 not actually evaluate <var>expression</var> at the time the <code>condition</code>
 command (or a command that sets a breakpoint with a condition, like
 <code>break if &hellip;</code>) is given, however.  See <a href="Expressions.html">Expressions</a>.
@@ -214,7 +214,7 @@ your program reaches it.
 <dt><span><code>ignore <var>bnum</var> <var>count</var></code></span></dt>
 <dd><p>Set the ignore count of breakpoint number <var>bnum</var> to <var>count</var>.
 The next <var>count</var> times the breakpoint is reached, your program&rsquo;s
-execution does not stop; other than to decrement the ignore count, <small>ROCGDB</small>
+execution does not stop; other than to decrement the ignore count, ROCgdb
 takes no action.
 </p>
 <p>To make the breakpoint stop the next time it is reached, specify
@@ -226,7 +226,7 @@ breakpoint, you can specify an ignore count directly as an argument to
 </p>
 <p>If a breakpoint has a positive ignore count and a condition, the
 condition is not checked.  Once the ignore count reaches zero,
-<small>ROCGDB</small> resumes checking the condition.
+ROCgdb resumes checking the condition.
 </p>
 <p>You could achieve the effect of the ignore count with a condition such
 as &lsquo;<samp><span class="nolinebreak">$foo--</span>&nbsp;&lt;=&nbsp;0</samp>&rsquo;<!-- /@w --> using a debugger convenience variable that

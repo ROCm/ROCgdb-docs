@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>gdb.ptwrite (Debugging with ROCGDB)</title>
+<title>gdb.ptwrite (Debugging with ROCgdb)</title>
 
-<meta name="description" content="gdb.ptwrite (Debugging with ROCGDB)">
-<meta name="keywords" content="gdb.ptwrite (Debugging with ROCGDB)">
+<meta name="description" content="gdb.ptwrite (Debugging with ROCgdb)">
+<meta name="keywords" content="gdb.ptwrite (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -114,7 +114,7 @@ The <small>GCC</small> intrinsics for it are:
 void _ptwrite64 (unsigned __int64 a)
 </pre></div>
 
-<p>If an inferior uses the instruction, <small>ROCGDB</small> by default inserts the
+<p>If an inferior uses the instruction, ROCgdb by default inserts the
 raw payload value as auxiliary information into the execution history.
 Auxiliary information is by default printed during
 <code>record instruction-history</code>, <code>record function-call-history</code>,
@@ -141,7 +141,7 @@ main (void)
 </pre></div>
 
 
-<p><small>ROCGDB</small> output after recording the sample program in pt format:
+<p>ROCgdb output after recording the sample program in pt format:
 </p><div class="example">
 <pre class="example">(gdb) record instruction-history 12,14
 12         0x0040074c &lt;ptwrite64+16&gt;:   ptwrite %rbx
@@ -159,10 +159,10 @@ main (void)
 registered as the <code>PTWRITE</code> filter function.  This function will be
 called with the <code>PTWRITE</code> payload and PC as arguments during trace
 decoding.  The function can return a string, which will be printed by
-<small>ROCGDB</small> during the aforementioned commands, or <code>None</code>, resulting
+ROCgdb during the aforementioned commands, or <code>None</code>, resulting
 in no output.  To register such a filter function, the user needs to
 provide a filter factory function, which returns a new filter function
-object to be called by <small>ROCGDB</small>.
+object to be called by ROCgdb.
 </p>
 <span id="index-gdb_002eptwrite_002eregister_005ffilter_005ffactory"></span>
 <dl class="def">
@@ -237,7 +237,7 @@ function, the default auxiliary information will be printed.
         [0x43]
 </pre></div>
 
-<p>This <small>ROCGDB</small> feature is dependent on hardware and operating system
+<p>This ROCgdb feature is dependent on hardware and operating system
 support and requires the Intel Processor Trace decoder library in version
 2.0.0 or newer.
 </p>

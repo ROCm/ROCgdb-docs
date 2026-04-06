@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Overlay Commands (Debugging with ROCGDB)</title>
+<title>Overlay Commands (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Overlay Commands (Debugging with ROCGDB)">
-<meta name="keywords" content="Overlay Commands (Debugging with ROCGDB)">
+<meta name="description" content="Overlay Commands (Debugging with ROCgdb)">
+<meta name="keywords" content="Overlay Commands (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -104,26 +104,26 @@ Next: <a href="Automatic-Overlay-Debugging.html" accesskey="n" rel="next">Automa
 <hr>
 <span id="Overlay-Commands-1"></span><h3 class="section">14.2 Overlay Commands</h3>
 
-<p>To use <small>ROCGDB</small>&rsquo;s overlay support, each overlay in your program must
+<p>To use ROCgdb&rsquo;s overlay support, each overlay in your program must
 correspond to a separate section of the executable file.  The section&rsquo;s
 virtual memory address and load memory address must be the overlay&rsquo;s
 mapped and load addresses.  Identifying overlays with sections allows
-<small>ROCGDB</small> to determine the appropriate address of a function or
+ROCgdb to determine the appropriate address of a function or
 variable, depending on whether the overlay is mapped or not.
 </p>
-<p><small>ROCGDB</small>&rsquo;s overlay commands all start with the word <code>overlay</code>;
+<p>ROCgdb&rsquo;s overlay commands all start with the word <code>overlay</code>;
 you can abbreviate this as <code>ov</code> or <code>ovly</code>.  The commands are:
 </p>
 <dl compact="compact">
 <dt id='index-overlay'><span><code>overlay off</code><a href='#index-overlay' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Disable <small>ROCGDB</small>&rsquo;s overlay support.  When overlay support is
-disabled, <small>ROCGDB</small> assumes that all functions and variables are
-always present at their mapped addresses.  By default, <small>ROCGDB</small>&rsquo;s
+<dd><p>Disable ROCgdb&rsquo;s overlay support.  When overlay support is
+disabled, ROCgdb assumes that all functions and variables are
+always present at their mapped addresses.  By default, ROCgdb&rsquo;s
 overlay support is disabled.
 </p>
 </dd>
 <dt id='index-manual-overlay-debugging'><span><code>overlay manual</code><a href='#index-manual-overlay-debugging' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Enable <em>manual</em> overlay debugging.  In this mode, <small>ROCGDB</small>
+<dd><p>Enable <em>manual</em> overlay debugging.  In this mode, ROCgdb
 relies on you to tell it which overlays are mapped, and which are not,
 using the <code>overlay map-overlay</code> and <code>overlay unmap-overlay</code>
 commands described below.
@@ -131,34 +131,34 @@ commands described below.
 </dd>
 <dt id='index-map-an-overlay'><span><code>overlay map-overlay <var>overlay</var></code><a href='#index-map-an-overlay' class='copiable-anchor'> &para;</a></span></dt>
 <dt><span><code>overlay map <var>overlay</var></code></span></dt>
-<dd><p>Tell <small>ROCGDB</small> that <var>overlay</var> is now mapped; <var>overlay</var> must
+<dd><p>Tell ROCgdb that <var>overlay</var> is now mapped; <var>overlay</var> must
 be the name of the object file section containing the overlay.  When an
-overlay is mapped, <small>ROCGDB</small> assumes it can find the overlay&rsquo;s
-functions and variables at their mapped addresses.  <small>ROCGDB</small> assumes
+overlay is mapped, ROCgdb assumes it can find the overlay&rsquo;s
+functions and variables at their mapped addresses.  ROCgdb assumes
 that any other overlays whose mapped ranges overlap that of
 <var>overlay</var> are now unmapped.
 </p>
 </dd>
 <dt id='index-unmap-an-overlay'><span><code>overlay unmap-overlay <var>overlay</var></code><a href='#index-unmap-an-overlay' class='copiable-anchor'> &para;</a></span></dt>
 <dt><span><code>overlay unmap <var>overlay</var></code></span></dt>
-<dd><p>Tell <small>ROCGDB</small> that <var>overlay</var> is no longer mapped; <var>overlay</var>
+<dd><p>Tell ROCgdb that <var>overlay</var> is no longer mapped; <var>overlay</var>
 must be the name of the object file section containing the overlay.
-When an overlay is unmapped, <small>ROCGDB</small> assumes it can find the
+When an overlay is unmapped, ROCgdb assumes it can find the
 overlay&rsquo;s functions and variables at their load addresses.
 </p>
 </dd>
 <dt><span><code>overlay auto</code></span></dt>
-<dd><p>Enable <em>automatic</em> overlay debugging.  In this mode, <small>ROCGDB</small>
+<dd><p>Enable <em>automatic</em> overlay debugging.  In this mode, ROCgdb
 consults a data structure the overlay manager maintains in the inferior
 to see which overlays are mapped.  For details, see <a href="Automatic-Overlay-Debugging.html">Automatic Overlay Debugging</a>.
 </p>
 </dd>
 <dt id='index-reloading-the-overlay-table'><span><code>overlay load-target</code><a href='#index-reloading-the-overlay-table' class='copiable-anchor'> &para;</a></span></dt>
 <dt><span><code>overlay load</code></span></dt>
-<dd><p>Re-read the overlay table from the inferior.  Normally, <small>ROCGDB</small>
-re-reads the table <small>ROCGDB</small> automatically each time the inferior
+<dd><p>Re-read the overlay table from the inferior.  Normally, ROCgdb
+re-reads the table ROCgdb automatically each time the inferior
 stops, so this command should only be necessary if you have changed the
-overlay mapping yourself using <small>ROCGDB</small>.  This command is only
+overlay mapping yourself using ROCgdb.  This command is only
 useful when using automatic overlay debugging.
 </p>
 </dd>
@@ -170,17 +170,17 @@ addresses, load addresses, and sizes.
 </dd>
 </dl>
 
-<p>Normally, when <small>ROCGDB</small> prints a code address, it includes the name
+<p>Normally, when ROCgdb prints a code address, it includes the name
 of the function the address falls in:
 </p>
 <div class="example">
 <pre class="example">(gdb) print main
 $3 = {int ()} 0x11a0 &lt;main&gt;
 </pre></div>
-<p>When overlay debugging is enabled, <small>ROCGDB</small> recognizes code in
+<p>When overlay debugging is enabled, ROCgdb recognizes code in
 unmapped overlays, and prints the names of unmapped functions with
 asterisks around them.  For example, if <code>foo</code> is a function in an
-unmapped overlay, <small>ROCGDB</small> prints it this way:
+unmapped overlay, ROCgdb prints it this way:
 </p>
 <div class="example">
 <pre class="example">(gdb) overlay list
@@ -188,7 +188,7 @@ No sections are mapped.
 (gdb) print foo
 $5 = {int (int)} 0x100000 &lt;*foo*&gt;
 </pre></div>
-<p>When <code>foo</code>&rsquo;s overlay is mapped, <small>ROCGDB</small> prints the function&rsquo;s
+<p>When <code>foo</code>&rsquo;s overlay is mapped, ROCgdb prints the function&rsquo;s
 name normally:
 </p>
 <div class="example">
@@ -199,21 +199,21 @@ Section .ov.foo.text, loaded at 0x100000 - 0x100034,
 $6 = {int (int)} 0x1016 &lt;foo&gt;
 </pre></div>
 
-<p>When overlay debugging is enabled, <small>ROCGDB</small> can find the correct
+<p>When overlay debugging is enabled, ROCgdb can find the correct
 address for functions and variables in an overlay, whether or not the
-overlay is mapped.  This allows most <small>ROCGDB</small> commands, like
+overlay is mapped.  This allows most ROCgdb commands, like
 <code>break</code> and <code>disassemble</code>, to work normally, even on unmapped
-code.  However, <small>ROCGDB</small>&rsquo;s breakpoint support has some limitations:
+code.  However, ROCgdb&rsquo;s breakpoint support has some limitations:
 </p>
 <ul>
 <li> <span id="index-breakpoints-in-overlays"></span>
 <span id="index-overlays_002c-setting-breakpoints-in"></span>
 You can set breakpoints in functions in unmapped overlays, as long as
-<small>ROCGDB</small> can write to the overlay at its load address.
-</li><li> <small>ROCGDB</small> can not set hardware or simulator-based breakpoints in
+ROCgdb can write to the overlay at its load address.
+</li><li> ROCgdb can not set hardware or simulator-based breakpoints in
 unmapped overlays.  However, if you set a breakpoint at the end of your
-overlay manager (and tell <small>ROCGDB</small> which overlays are now mapped, if
-you are using manual overlay management), <small>ROCGDB</small> will re-set its
+overlay manager (and tell ROCgdb which overlays are now mapped, if
+you are using manual overlay management), ROCgdb will re-set its
 breakpoints properly.
 </li></ul>
 

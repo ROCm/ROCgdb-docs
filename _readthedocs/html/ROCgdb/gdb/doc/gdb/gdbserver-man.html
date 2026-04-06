@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>gdbserver man (Debugging with ROCGDB)</title>
+<title>gdbserver man (Debugging with ROCgdb)</title>
 
-<meta name="description" content="gdbserver man (Debugging with ROCGDB)">
-<meta name="keywords" content="gdbserver man (Debugging with ROCGDB)">
+<meta name="description" content="gdbserver man (Debugging with ROCgdb)">
+<meta name="keywords" content="gdbserver man (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -109,7 +109,7 @@ gdbserver &ndash;attach <var>comm</var> <var>pid</var>
 gdbserver &ndash;multi <var>comm</var>
 </pre></div>
 
-<p><code>gdbserver</code> is a program that allows you to run <small>ROCGDB</small> on a different machine
+<p><code>gdbserver</code> is a program that allows you to run ROCgdb on a different machine
 than the one which is running the program being debugged.
 </p>
 <span id="Usage-_0028server-_0028target_0029-side_0029"></span><h4 class="subheading">Usage (server (target) side)</h4>
@@ -117,10 +117,10 @@ than the one which is running the program being debugged.
 <p>First, you need to have a copy of the program you want to debug put onto
 the target system.  The program can be stripped to save space if needed, as
 <code>gdbserver</code> doesn&rsquo;t care about symbols.  All symbol handling is taken care of by
-the <small>ROCGDB</small> running on the host system.
+the ROCgdb running on the host system.
 </p>
 <p>To use the server, you log on to the target system, and run the <code>gdbserver</code>
-program.  You must tell it (a) how to communicate with <small>ROCGDB</small>, (b) the name of
+program.  You must tell it (a) how to communicate with ROCgdb, (b) the name of
 your program, and (c) its arguments.  The general syntax is:
 </p>
 <div class="example">
@@ -134,8 +134,8 @@ your program, and (c) its arguments.  The general syntax is:
 </pre></div>
 
 <p>This tells <code>gdbserver</code> to debug emacs with an argument of foo.txt, and
-to communicate with <small>ROCGDB</small> via <samp>/dev/com1</samp>.  <code>gdbserver</code> now
-waits patiently for the host <small>ROCGDB</small> to communicate with it.
+to communicate with ROCgdb via <samp>/dev/com1</samp>.  <code>gdbserver</code> now
+waits patiently for the host ROCgdb to communicate with it.
 </p>
 <p>To use a TCP connection, you could say:
 </p>
@@ -144,12 +144,12 @@ waits patiently for the host <small>ROCGDB</small> to communicate with it.
 </pre></div>
 
 <p>This says pretty much the same thing as the last example, except that we are
-going to communicate with the <code>host</code> <small>ROCGDB</small> via TCP.  The <code>host:2345</code> argument means
+going to communicate with the <code>host</code> ROCgdb via TCP.  The <code>host:2345</code> argument means
 that we are expecting to see a TCP connection from <code>host</code> to local TCP port
 2345.  (Currently, the <code>host</code> part is ignored.)  You can choose any number you
 want for the port number as long as it does not conflict with any existing TCP
 ports on the target system.  This same port number must be used in the host
-<small>ROCGDB</small>s <code>target remote</code> command, which will be described shortly.  Note that if
+ROCgdbs <code>target remote</code> command, which will be described shortly.  Note that if
 you chose a port number that conflicts with another service, <code>gdbserver</code> will
 print an error message and exit.
 </p>
@@ -175,7 +175,7 @@ the program you want to debug.
 <span id="Usage-_0028host-side_0029"></span><h4 class="subheading">Usage (host side)</h4>
 
 <p>You need an unstripped copy of the target program on your host system, since
-<small>ROCGDB</small> needs to examine its symbol tables and such.  Start up <small>ROCGDB</small> as you normally
+ROCgdb needs to examine its symbol tables and such.  Start up ROCgdb as you normally
 would, with the target program as the first argument.  (You may need to use the
 <samp>--baud</samp> option if the serial line is running at anything except 9600 baud.)
 That is <code>gdb TARGET-PROG</code>, or <code>gdb --baud BAUD TARGET-PROG</code>.  After that, the only
@@ -203,7 +203,7 @@ command, otherwise you may get an error that looks something like
 <p><code>gdbserver</code> can also debug multiple inferiors at once,
 described in
 <a href="Inferiors-Connections-and-Programs.html">Debugging Multiple Inferiors Connections and Programs</a>.
-In such case use the <code>extended-remote</code> <small>ROCGDB</small> command variant:
+In such case use the <code>extended-remote</code> ROCgdb command variant:
 </p>
 <div class="example">
 <pre class="example">(gdb) target extended-remote the-target:2345
@@ -222,11 +222,11 @@ case.
 </pre></div>
 
 <p>The <var>comm</var> parameter specifies how should the server communicate
-with <small>ROCGDB</small>; it is either a device name (to use a serial line),
+with ROCgdb; it is either a device name (to use a serial line),
 a TCP port number (<code>:1234</code>), or <code>-</code> or <code>stdio</code> to use
 stdin/stdout of <code>gdbserver</code>.  Specify the name of the program to
 debug in <var>prog</var>.  Any remaining arguments will be passed to the
-program verbatim.  When the program exits, <small>ROCGDB</small> will close the
+program verbatim.  When the program exits, ROCgdb will close the
 connection, and <code>gdbserver</code> will exit.
 </p>
 </li><li> Debug a specific program by specifying the process ID of a running
@@ -237,9 +237,9 @@ program:
 </pre></div>
 
 <p>The <var>comm</var> parameter is as described above.  Supply the process ID
-of a running program in <var>pid</var>; <small>ROCGDB</small> will do everything
+of a running program in <var>pid</var>; ROCgdb will do everything
 else.  Like with the previous mode, when the process <var>pid</var> exits,
-<small>ROCGDB</small> will close the connection, and <code>gdbserver</code> will exit.
+ROCgdb will close the connection, and <code>gdbserver</code> will exit.
 </p>
 </li><li> Multi-process mode &ndash; debug more than one program/process:
 
@@ -247,8 +247,8 @@ else.  Like with the previous mode, when the process <var>pid</var> exits,
 <pre class="example">gdbserver --multi <var>comm</var>
 </pre></div>
 
-<p>In this mode, <small>ROCGDB</small> can instruct <code>gdbserver</code> which
-command(s) to run.  Unlike the other 2 modes, <small>ROCGDB</small> will not
+<p>In this mode, ROCgdb can instruct <code>gdbserver</code> which
+command(s) to run.  Unlike the other 2 modes, ROCgdb will not
 close the connection when a process being debugged exits, so you can
 debug several processes in the same session.
 </p></li></ul>
@@ -331,7 +331,7 @@ wrapper, then any command-line arguments to pass to the wrapper, then
 <dd><p>By default, <code>gdbserver</code> keeps the listening TCP port open, so that
 additional connections are possible.  However, if you start <code>gdbserver</code>
 with the <samp>--once</samp> option, it will stop listening for any further
-connection attempts after connecting to the first <small>ROCGDB</small> session.
+connection attempts after connecting to the first ROCgdb session.
 </p>
 
 

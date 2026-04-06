@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Files (Debugging with ROCGDB)</title>
+<title>Files (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Files (Debugging with ROCGDB)">
-<meta name="keywords" content="Files (Debugging with ROCGDB)">
+<meta name="description" content="Files (Debugging with ROCgdb)">
+<meta name="keywords" content="Files (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -98,7 +98,7 @@ ul.no-bullet {list-style: none}
 <div class="section" id="Files">
 <div class="header">
 <p>
-Next: <a href="File-Caching.html" accesskey="n" rel="next">File Caching</a>, Up: <a href="GDB-Files.html" accesskey="u" rel="up"><small>ROCGDB</small> Files</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="File-Caching.html" accesskey="n" rel="next">File Caching</a>, Up: <a href="GDB-Files.html" accesskey="u" rel="up">ROCgdb Files</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
 <span id="Commands-to-Specify-Files"></span><h3 class="section">18.1 Commands to Specify Files</h3>
@@ -108,14 +108,14 @@ Next: <a href="File-Caching.html" accesskey="n" rel="next">File Caching</a>, Up:
 
 <p>You may want to specify executable and core dump file names.  The usual
 way to do this is at start-up time, using the arguments to
-<small>ROCGDB</small>&rsquo;s start-up commands (see <a href="Invocation.html">Getting In and
-Out of <small>ROCGDB</small></a>).
+ROCgdb&rsquo;s start-up commands (see <a href="Invocation.html">Getting In and
+Out of ROCgdb</a>).
 </p>
 <p>Occasionally it is necessary to change to a different file during a
-<small>ROCGDB</small> session.  Or you may run <small>ROCGDB</small> and forget to
+ROCgdb session.  Or you may run ROCgdb and forget to
 specify a file you want to use.  Or you are debugging a remote target
 via <code>gdbserver</code> (see <a href="Server.html">Using the <code>gdbserver</code>
-Program</a>).  In these situations the <small>ROCGDB</small> commands to specify
+Program</a>).  In these situations the ROCgdb commands to specify
 new files are useful.
 </p>
 <dl compact="compact">
@@ -126,10 +126,10 @@ new files are useful.
 <dd><p>Use <var>filename</var> as the program to be debugged.  It is read for its
 symbols and for the contents of pure memory.  It is also the program
 executed when you use the <code>run</code> command.  If you do not specify a
-directory and the file is not found in the <small>ROCGDB</small> working directory,
-<small>ROCGDB</small> uses the environment variable <code>PATH</code> as a list of
+directory and the file is not found in the ROCgdb working directory,
+ROCgdb uses the environment variable <code>PATH</code> as a list of
 directories to search, just as the shell does when looking for a program
-to run.  You can change the value of this variable, for both <small>ROCGDB</small>
+to run.  You can change the value of this variable, for both ROCgdb
 and your program, using the <code>path</code> command.
 </p>
 <p>The <var>filename</var> argument supports escaping and quoting, see
@@ -137,25 +137,25 @@ and your program, using the <code>path</code> command.
 </p>
 <span id="index-unlinked-object-files"></span>
 <span id="index-patching-object-files"></span>
-<p>You can load unlinked object <samp>.o</samp> files into <small>ROCGDB</small> using
+<p>You can load unlinked object <samp>.o</samp> files into ROCgdb using
 the <code>file</code> command.  You will not be able to &ldquo;run&rdquo; an object
 file, but you can disassemble functions and inspect variables.  Also,
 if the underlying BFD functionality supports it, you could use
 <kbd>gdb -write</kbd> to patch object files using this technique.  Note
-that <small>ROCGDB</small> can neither interpret nor modify relocations in this
+that ROCgdb can neither interpret nor modify relocations in this
 case, so branches and some initialized variables will appear to go to
 the wrong place.  But this feature is still handy from time to time.
 </p>
 </dd>
 <dt><span><code>file</code></span></dt>
-<dd><p><code>file</code> with no argument makes <small>ROCGDB</small> discard any information it
+<dd><p><code>file</code> with no argument makes ROCgdb discard any information it
 has on both executable file and the symbol table.
 </p>
 <span id="index-exec_002dfile"></span>
 </dd>
 <dt><span><code>exec-file <span class="roman">[</span> <var>filename</var> <span class="roman">]</span></code></span></dt>
 <dd><p>Specify that the program to be run (but not the symbol table) is found
-in <var>filename</var>.  <small>ROCGDB</small> searches the environment variable <code>PATH</code>
+in <var>filename</var>.  ROCgdb searches the environment variable <code>PATH</code>
 if necessary to locate your program.  Omitting <var>filename</var> means to
 discard information on the executable file.
 </p>
@@ -174,14 +174,14 @@ address of each section in the symbol file.  This is useful if the
 program is relocated at runtime, such as the Linux kernel with kASLR
 enabled.
 </p>
-<p><code>symbol-file</code> with no argument clears out <small>ROCGDB</small> information on your
+<p><code>symbol-file</code> with no argument clears out ROCgdb information on your
 program&rsquo;s symbol table.
 </p>
-<p>The <code>symbol-file</code> command causes <small>ROCGDB</small> to forget the contents of
+<p>The <code>symbol-file</code> command causes ROCgdb to forget the contents of
 some breakpoints and auto-display expressions.  This is because they may
 contain pointers to the internal data recording symbols and data types,
 which are part of the old symbol table data being discarded inside
-<small>ROCGDB</small>.
+ROCgdb.
 </p>
 <p><code>symbol-file</code> does not repeat if you press <tt class="key">RET</tt> again after
 executing it once.
@@ -189,7 +189,7 @@ executing it once.
 <p>The <var>filename</var> argument supports escaping and quoting, see
 <a href="Filename-Arguments.html">Filenames As Command Arguments</a>.
 </p>
-<p>When <small>ROCGDB</small> is configured for a particular environment, it
+<p>When ROCgdb is configured for a particular environment, it
 understands debugging information in whatever format is the standard
 generated for that environment; you may use either a <small>GNU</small> compiler, or
 other compilers that adhere to the local conventions.
@@ -203,7 +203,7 @@ symbol table in full right away.  Instead, it scans the symbol table
 quickly to find which source files and which symbols are present.  The
 details are read later, one source file at a time, as they are needed.
 </p>
-<p>The purpose of this two-stage reading strategy is to make <small>ROCGDB</small>
+<p>The purpose of this two-stage reading strategy is to make ROCgdb
 start up faster.  For the most part, it is invisible except for
 occasional pauses while the symbol table details for a particular source
 file are being read.  (The <code>set verbose</code> command can turn these
@@ -222,9 +222,9 @@ in stabs format.
 </dd>
 <dt><span><code>symbol-file <span class="roman">[</span> -readnow <span class="roman">]</span> <var>filename</var></code></span></dt>
 <dt><span><code>file <span class="roman">[</span> -readnow <span class="roman">]</span> <var>filename</var></code></span></dt>
-<dd><p>You can override the <small>ROCGDB</small> two-stage strategy for reading symbol
+<dd><p>You can override the ROCgdb two-stage strategy for reading symbol
 tables by using the &lsquo;<samp>-readnow</samp>&rsquo; option with any of the commands that
-load symbol table information, if you want to be sure <small>ROCGDB</small> has the
+load symbol table information, if you want to be sure ROCgdb has the
 entire symbol table available.
 </p>
 <span id="index-_002dreadnever_002c-option-for-symbol_002dfile-command"></span>
@@ -233,7 +233,7 @@ entire symbol table available.
 </dd>
 <dt><span><code>symbol-file <span class="roman">[</span> -readnever <span class="roman">]</span> <var>filename</var></code></span></dt>
 <dt><span><code>file <span class="roman">[</span> -readnever <span class="roman">]</span> <var>filename</var></code></span></dt>
-<dd><p>You can instruct <small>ROCGDB</small> to never read the symbolic information
+<dd><p>You can instruct ROCgdb to never read the symbolic information
 contained in <var>filename</var> by using the &lsquo;<samp>-readnever</samp>&rsquo; option.
 See <a href="File-Options.html#g_t_002d_002dreadnever">--readnever</a>.
 </p>
@@ -244,14 +244,14 @@ See <a href="File-Options.html#g_t_002d_002dreadnever">--readnever</a>.
 <dt><span><code>core</code></span></dt>
 <dd><p>Specify the whereabouts of a core dump file to be used as the &ldquo;contents
 of memory&rdquo;.  Traditionally, core files contain only some parts of the
-address space of the process that generated them; <small>ROCGDB</small> can access the
+address space of the process that generated them; ROCgdb can access the
 executable file itself for other parts.
 </p>
 <p><code>core-file</code> with no argument specifies that no core file is
 to be used.
 </p>
 <p>Note that the core file is ignored when your program is actually running
-under <small>ROCGDB</small>.  So, if you have been running your program and you
+under ROCgdb.  So, if you have been running your program and you
 wish to debug a core file instead, you must kill the subprocess in which
 the program is running.  To do this, use the <code>kill</code> command
 (see <a href="Kill-Process.html">Killing the Child Process</a>).
@@ -267,7 +267,7 @@ into the program that is running.  The <var>textaddress</var> parameter gives
 the memory address at which the file&rsquo;s text section has been loaded.
 You can additionally specify the base address of other sections using
 an arbitrary number of &lsquo;<samp>-s <var>section</var> <var>address</var></samp>&rsquo; pairs.
-If a section is omitted, <small>ROCGDB</small> will use its default addresses
+If a section is omitted, ROCgdb will use its default addresses
 as found in <var>filename</var>.  Any <var>address</var> or <var>textaddress</var>
 can be given as an expression.
 </p>
@@ -376,7 +376,7 @@ their addresses.
 <dd><p><code>info files</code> and <code>info target</code> are synonymous; both print the
 current target (see <a href="Targets.html">Specifying a Debugging Target</a>),
 including the names of the executable and core dump files currently in
-use by <small>ROCGDB</small>, and the files from which symbols were loaded.  The
+use by ROCgdb, and the files from which symbols were loaded.  The
 command <code>help target</code> lists all possible targets rather than
 current ones.
 </p>
@@ -401,7 +401,7 @@ printed.  There are two types of filter:
 </p></dd>
 <dt><span><code><var>section-flag</var></code></span></dt>
 <dd><p>Display information for any section with <var>section-flag</var>.  The
-section flags that <small>ROCGDB</small> currently knows about are:
+section flags that ROCgdb currently knows about are:
 </p><dl compact="compact">
 <dt><span><code>ALLOC</code></span></dt>
 <dd><p>Section will have space allocated in the process when loaded.
@@ -449,8 +449,8 @@ COFF shared library information.
 <span id="index-maint-info-target_002dsections"></span>
 </dd>
 <dt><span><code>maint info target-sections</code></span></dt>
-<dd><p>This command prints <small>ROCGDB</small>&rsquo;s internal section table.  For each
-target <small>ROCGDB</small> maintains a table containing the allocatable
+<dd><p>This command prints ROCgdb&rsquo;s internal section table.  For each
+target ROCgdb maintains a table containing the allocatable
 sections from all currently mapped objects, along with information
 about where the section is mapped.
 </p>
@@ -458,9 +458,9 @@ about where the section is mapped.
 <span id="index-read_002donly-sections"></span>
 </dd>
 <dt><span><code>set trust-readonly-sections on</code></span></dt>
-<dd><p>Tell <small>ROCGDB</small> that readonly sections in your object file
+<dd><p>Tell ROCgdb that readonly sections in your object file
 really are read-only (i.e. that their contents will not change).
-In that case, <small>ROCGDB</small> can fetch values from these sections
+In that case, ROCgdb can fetch values from these sections
 out of the object file, rather than from the target program.
 For some targets (notably embedded ones), this can be a significant
 enhancement to debugging performance.
@@ -469,7 +469,7 @@ enhancement to debugging performance.
 </p>
 </dd>
 <dt><span><code>set trust-readonly-sections off</code></span></dt>
-<dd><p>Tell <small>ROCGDB</small> not to trust readonly sections.  This means that
+<dd><p>Tell ROCgdb not to trust readonly sections.  This means that
 the contents of the section might change while the program is running,
 and must therefore be fetched from the target when needed.
 </p>
@@ -480,20 +480,20 @@ and must therefore be fetched from the target when needed.
 </dl>
 
 <p>All file-specifying commands allow both absolute and relative file names
-as arguments.  <small>ROCGDB</small> always converts the file name to an absolute file
+as arguments.  ROCgdb always converts the file name to an absolute file
 name and remembers it that way.
 </p>
 <span id="index-shared-libraries"></span>
-<span id="Shared-Libraries"></span><p><small>ROCGDB</small> supports <small>GNU</small>/Linux, MS-Windows, SunOS,
+<span id="Shared-Libraries"></span><p>ROCgdb supports <small>GNU</small>/Linux, MS-Windows, SunOS,
 Darwin/Mach-O, SVr4, IBM RS/6000 AIX, FDPIC (FR-V), and
 DSBT (TIC6X) shared libraries.
 </p>
-<p>On MS-Windows <small>ROCGDB</small> must be linked with the Expat library to support
+<p>On MS-Windows ROCgdb must be linked with the Expat library to support
 shared libraries.  See <a href="Requirements.html#Expat">Expat</a>.
 </p>
-<p><small>ROCGDB</small> automatically loads symbol definitions from shared libraries
+<p>ROCgdb automatically loads symbol definitions from shared libraries
 when you use the <code>run</code> command, or when you examine a core file.
-(Before you issue the <code>run</code> command, <small>ROCGDB</small> does not understand
+(Before you issue the <code>run</code> command, ROCgdb does not understand
 references to a function in a shared library, however&mdash;unless you are
 debugging a core file).
 </p>
@@ -512,13 +512,13 @@ commands:
 <dd><p>If <var>mode</var> is <code>on</code>, symbols from all shared object libraries
 will be loaded automatically when the inferior begins execution, you
 attach to an independently started inferior, or when the dynamic linker
-informs <small>ROCGDB</small> that a new library has been loaded.  If <var>mode</var>
+informs ROCgdb that a new library has been loaded.  If <var>mode</var>
 is <code>off</code>, symbols must be loaded manually, using the
 <code>sharedlibrary</code> command.  The default value is <code>on</code>.
 </p>
 <span id="index-memory-used-for-symbol-tables"></span>
 <p>If your program uses lots of shared libraries with debug info that
-takes large amounts of memory, you can decrease the <small>ROCGDB</small>
+takes large amounts of memory, you can decrease the ROCgdb
 memory footprint by preventing it from automatically loading the
 symbols from shared libraries.  To that end, type <kbd>set
 auto-solib-add off</kbd> before running the inferior, then load each
@@ -574,42 +574,42 @@ discarded.
 </p></dd>
 </dl>
 
-<p>Sometimes you may wish that <small>ROCGDB</small> stops and gives you control
+<p>Sometimes you may wish that ROCgdb stops and gives you control
 when any of shared library events happen.  The best way to do this is
 to use <code>catch load</code> and <code>catch unload</code> (see <a href="Set-Catchpoints.html">Setting Catchpoints</a>).
 </p>
-<p><small>ROCGDB</small> also supports the <code>set stop-on-solib-events</code>
+<p>ROCgdb also supports the <code>set stop-on-solib-events</code>
 command for this.  This command exists for historical reasons.  It is
 less useful than setting a catchpoint, because it does not allow for
 conditions or commands as a catchpoint does.
 </p>
 <dl compact="compact">
 <dt id='index-set-stop_002don_002dsolib_002devents'><span><code>set stop-on-solib-events</code><a href='#index-set-stop_002don_002dsolib_002devents' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>This command controls whether <small>ROCGDB</small> should give you control
+<dd><p>This command controls whether ROCgdb should give you control
 when the dynamic linker notifies it about some shared library event.
 The most common event of interest is loading or unloading of a new
 shared library.
 </p>
 </dd>
 <dt id='index-show-stop_002don_002dsolib_002devents'><span><code>show stop-on-solib-events</code><a href='#index-show-stop_002don_002dsolib_002devents' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Show whether <small>ROCGDB</small> stops and gives you control when shared
+<dd><p>Show whether ROCgdb stops and gives you control when shared
 library events happen.
 </p></dd>
 </dl>
 
 <p>Shared libraries are also supported in many cross or remote debugging
-configurations.  <small>ROCGDB</small> needs to have access to the target&rsquo;s libraries;
+configurations.  ROCgdb needs to have access to the target&rsquo;s libraries;
 this can be accomplished either by providing copies of the libraries
-on the host system, or by asking <small>ROCGDB</small> to automatically retrieve the
+on the host system, or by asking ROCgdb to automatically retrieve the
 libraries from the target.  If copies of the target libraries are
 provided, they need to be the same as the target libraries, although the
 copies on the target can be stripped as long as the copies on the host are
 not.
 </p>
 <span id="index-where-to-look-for-shared-libraries"></span>
-<p>For remote debugging, you need to tell <small>ROCGDB</small> where the target
+<p>For remote debugging, you need to tell ROCgdb where the target
 libraries are, so that it can load the correct copies&mdash;otherwise, it
-may try to load the host&rsquo;s libraries.  <small>ROCGDB</small> has two variables
+may try to load the host&rsquo;s libraries.  ROCgdb has two variables
 to specify the search directories for target libraries.
 </p>
 <dl compact="compact">
@@ -625,14 +625,14 @@ runtime loaders store the absolute paths to the shared library in the
 target program&rsquo;s memory.  When starting processes remotely, and when
 attaching to already-running processes (local or remote), their
 executable filenames will be prefixed with <var>path</var> if reported to
-<small>ROCGDB</small> as absolute by the operating system.  If you use
+ROCgdb as absolute by the operating system.  If you use
 <code>set sysroot</code> to find executables and shared libraries, they need
 to be laid out in the same way that they are on the target, with
 e.g. a <samp>/bin</samp>, <samp>/lib</samp> and <samp>/usr/lib</samp> hierarchy under
 <var>path</var>.
 </p>
 <p>If <var>path</var> starts with the sequence <samp>target:</samp> and the target
-system is remote then <small>ROCGDB</small> will retrieve the target binaries
+system is remote then ROCgdb will retrieve the target binaries
 from the remote system.  This is only supported when using a remote
 target that supports the <code>remote get</code> command (see <a href="File-Transfer.html">Sending files to a remote system</a>).  The part of <var>path</var>
 following the initial <samp>target:</samp> (if present) is used as system
@@ -644,16 +644,16 @@ named <samp>target:</samp> or <samp>remote:</samp>, you need to use some
 equivalent variant of the name like <samp>./target:</samp>.
 </p>
 <p>For targets with an MS-DOS based filesystem, such as MS-Windows,
-<small>ROCGDB</small> tries prefixing a few variants of the target
+ROCgdb tries prefixing a few variants of the target
 absolute file name with <var>path</var>.  But first, on Unix hosts,
-<small>ROCGDB</small> converts all backslash directory separators into forward
+ROCgdb converts all backslash directory separators into forward
 slashes, because the backslash is not a directory separator on Unix:
 </p>
 <div class="example">
 <pre class="example">  c:\foo\bar.dll &rArr; c:/foo/bar.dll
 </pre></div>
 
-<p>Then, <small>ROCGDB</small> attempts prefixing the target file name with
+<p>Then, ROCgdb attempts prefixing the target file name with
 <var>path</var>, and looks for the resulting file name in the host file
 system:
 </p>
@@ -661,7 +661,7 @@ system:
 <pre class="example">  c:/foo/bar.dll &rArr; /path/to/sysroot/c:/foo/bar.dll
 </pre></div>
 
-<p>If that does not find the binary, <small>ROCGDB</small> tries removing
+<p>If that does not find the binary, ROCgdb tries removing
 the &lsquo;<samp>:</samp>&rsquo; character from the drive spec, both for convenience, and,
 for the case of the host file system not supporting file names with
 colons:
@@ -682,10 +682,10 @@ copies of the target system shared libraries like so (note &lsquo;<samp>c</samp>
 </pre></div>
 
 <p>and point the system root at <samp>/path/to/sysroot</samp>, so that
-<small>ROCGDB</small> can find the correct copies of both
+ROCgdb can find the correct copies of both
 <samp>c:\sys\bin\foo.dll</samp>, and <samp>z:\sys\bin\bar.dll</samp>.
 </p>
-<p>If that still does not find the binary, <small>ROCGDB</small> tries
+<p>If that still does not find the binary, ROCgdb tries
 removing the whole drive spec from the target file name:
 </p>
 <div class="example">
@@ -702,9 +702,9 @@ sysroot</code>.
 <span id="index-_002d_002dwith_002dsysroot"></span>
 <p>You can set the default system root by using the configure-time
 &lsquo;<samp>--with-sysroot</samp>&rsquo; option.  If the system root is inside
-<small>ROCGDB</small>&rsquo;s configured binary prefix (set with &lsquo;<samp>--prefix</samp>&rsquo; or
+ROCgdb&rsquo;s configured binary prefix (set with &lsquo;<samp>--prefix</samp>&rsquo; or
 &lsquo;<samp>--exec-prefix</samp>&rsquo;), then the default system root will be updated
-automatically if the installed <small>ROCGDB</small> is moved to a new
+automatically if the installed ROCgdb is moved to a new
 location.
 </p>
 <span id="index-show-sysroot"></span>
@@ -720,7 +720,7 @@ directories to search for shared libraries.  &lsquo;<samp>solib-search-path</sam
 is used after &lsquo;<samp>sysroot</samp>&rsquo; fails to locate the library, or if the
 path to the library is relative instead of absolute.  If you want to
 use &lsquo;<samp>solib-search-path</samp>&rsquo; instead of &lsquo;<samp>sysroot</samp>&rsquo;, be sure to set
-&lsquo;<samp>sysroot</samp>&rsquo; to a nonexistent directory to prevent <small>ROCGDB</small> from
+&lsquo;<samp>sysroot</samp>&rsquo; to a nonexistent directory to prevent ROCgdb from
 finding your host&rsquo;s libraries.  &lsquo;<samp>sysroot</samp>&rsquo; is preferred; setting
 it to a nonexistent directory may interfere with automatic loading
 of shared library symbols.
@@ -738,38 +738,38 @@ of shared library symbols.
 <dd><p>Set assumed file system kind for target reported file names.
 </p>
 <p>Shared library file names as reported by the target system may not
-make sense as is on the system <small>ROCGDB</small> is running on.  For
+make sense as is on the system ROCgdb is running on.  For
 example, when remote debugging a target that has MS-DOS based file
 system semantics, from a Unix host, the target may be reporting to
-<small>ROCGDB</small> a list of loaded shared libraries with file names such as
+ROCgdb a list of loaded shared libraries with file names such as
 <samp>c:\Windows\kernel32.dll</samp>.  On Unix hosts, there&rsquo;s no concept of
 drive letters, so the &lsquo;<samp>c:\</samp>&rsquo; prefix is not normally understood as
 indicating an absolute file name, and neither is the backslash
 normally considered a directory separator character.  In that case,
 the native file system would interpret this whole absolute file name
 as a relative file name with no directory components.  This would make
-it impossible to point <small>ROCGDB</small> at a copy of the remote target&rsquo;s
+it impossible to point ROCgdb at a copy of the remote target&rsquo;s
 shared libraries on the host using <code>set sysroot</code>, and impractical
 with <code>set solib-search-path</code>.  Setting
-<code>target-file-system-kind</code> to <code>dos-based</code> tells <small>ROCGDB</small>
+<code>target-file-system-kind</code> to <code>dos-based</code> tells ROCgdb
 to interpret such file names similarly to how the target would, and to
-map them to file names valid on <small>ROCGDB</small>&rsquo;s native file system
+map them to file names valid on ROCgdb&rsquo;s native file system
 semantics.  The value of <var>kind</var> can be <code>&quot;auto&quot;</code>, in addition
-to one of the supported file system kinds.  In that case, <small>ROCGDB</small>
+to one of the supported file system kinds.  In that case, ROCgdb
 tries to determine the appropriate file system variant based on the
 current target&rsquo;s operating system (see <a href="ABI.html">Configuring the
 Current ABI</a>).  The supported file system settings are:
 </p>
 <dl compact="compact">
 <dt><span><code>unix</code></span></dt>
-<dd><p>Instruct <small>ROCGDB</small> to assume the target file system is of Unix
+<dd><p>Instruct ROCgdb to assume the target file system is of Unix
 kind.  Only file names starting the forward slash (&lsquo;<samp>/</samp>&rsquo;) character
 are considered absolute, and the directory separator character is also
 the forward slash.
 </p>
 </dd>
 <dt><span><code>dos-based</code></span></dt>
-<dd><p>Instruct <small>ROCGDB</small> to assume the target file system is DOS based.
+<dd><p>Instruct ROCgdb to assume the target file system is DOS based.
 File names starting with either a forward slash, or a drive letter
 followed by a colon (e.g., &lsquo;<samp>c:</samp>&rsquo;), are considered absolute, and
 both the slash (&lsquo;<samp>/</samp>&rsquo;) and the backslash (&lsquo;<samp>\\</samp>&rsquo;) characters are
@@ -777,7 +777,7 @@ considered directory separators.
 </p>
 </dd>
 <dt><span><code>auto</code></span></dt>
-<dd><p>Instruct <small>ROCGDB</small> to use the file system kind associated with the
+<dd><p>Instruct ROCgdb to use the file system kind associated with the
 target operating system (see <a href="ABI.html">Configuring the Current ABI</a>).
 This is the default.
 </p></dd>
@@ -787,9 +787,9 @@ This is the default.
 
 <span id="index-file-name-canonicalization"></span>
 <span id="index-base-name-differences"></span>
-<p>When processing file names provided by the user, <small>ROCGDB</small>
+<p>When processing file names provided by the user, ROCgdb
 frequently needs to compare them to the file names recorded in the
-program&rsquo;s debug info.  Normally, <small>ROCGDB</small> compares just the
+program&rsquo;s debug info.  Normally, ROCgdb compares just the
 <em>base names</em> of the files as strings, which is reasonably fast
 even for very large programs.  (The base name of a file is the last
 portion of its name, after stripping all the leading directories.)
@@ -797,9 +797,9 @@ This shortcut in comparison is based upon the assumption that files
 cannot have more than one base name.  This is usually true, but
 references to files that use symlinks or similar filesystem
 facilities violate that assumption.  If your program records files
-using such facilities, or if you provide file names to <small>ROCGDB</small>
+using such facilities, or if you provide file names to ROCgdb
 using symlinks etc., you can set <code>basenames-may-differ</code> to
-<code>true</code> to instruct <small>ROCGDB</small> to completely canonicalize each
+<code>true</code> to instruct ROCgdb to completely canonicalize each
 pair of file names it needs to compare.  This will make file-name
 comparisons accurate, but at a price of a significant slowdown.
 </p>
@@ -826,7 +826,7 @@ provided by prefixing <var>path</var> with <samp>remote:</samp></p>
 <hr>
 <div class="header">
 <p>
-Next: <a href="File-Caching.html">File Caching</a>, Up: <a href="GDB-Files.html"><small>ROCGDB</small> Files</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="File-Caching.html">File Caching</a>, Up: <a href="GDB-Files.html">ROCgdb Files</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

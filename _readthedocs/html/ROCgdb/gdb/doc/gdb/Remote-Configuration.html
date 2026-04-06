@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Remote Configuration (Debugging with ROCGDB)</title>
+<title>Remote Configuration (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Remote Configuration (Debugging with ROCGDB)">
-<meta name="keywords" content="Remote Configuration (Debugging with ROCGDB)">
+<meta name="description" content="Remote Configuration (Debugging with ROCgdb)">
+<meta name="keywords" content="Remote Configuration (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -114,7 +114,7 @@ extensions of the remote protocol, see <a href="system.html">system-call-allowed
 <dt id='index-address-size-for-remote-targets'><span><code>set remoteaddresssize <var>bits</var></code><a href='#index-address-size-for-remote-targets' class='copiable-anchor'> &para;</a></span></dt>
 <dd><span id="index-bits-in-remote-address"></span>
 <p>Set the maximum size of address in a memory packet to the specified
-number of bits.  <small>ROCGDB</small> will mask off the address bits above
+number of bits.  ROCgdb will mask off the address bits above
 that number, when it passes addresses to the remote target.  The
 default value is the number of bits in the target&rsquo;s address.
 </p>
@@ -144,15 +144,15 @@ remote targets.
 </dd>
 <dt id='index-interrupt-remote-programs'><span><code>set remotebreak</code><a href='#index-interrupt-remote-programs' class='copiable-anchor'> &para;</a></span></dt>
 <dd><span id="index-BREAK-signal-instead-of-Ctrl_002dC"></span>
-<span id="set-remotebreak"></span><p>If set to on, <small>ROCGDB</small> sends a <code>BREAK</code> signal to the remote
+<span id="set-remotebreak"></span><p>If set to on, ROCgdb sends a <code>BREAK</code> signal to the remote
 when you type <kbd>Ctrl-c</kbd> to interrupt the program running
-on the remote.  If set to off, <small>ROCGDB</small> sends the &lsquo;<samp>Ctrl-C</samp>&rsquo;
+on the remote.  If set to off, ROCgdb sends the &lsquo;<samp>Ctrl-C</samp>&rsquo;
 character instead.  The default is off, since most remote systems
 expect to see &lsquo;<samp>Ctrl-C</samp>&rsquo; as the interrupt signal.
 </p>
 </dd>
 <dt><span><code>show remotebreak</code></span></dt>
-<dd><p>Show whether <small>ROCGDB</small> sends <code>BREAK</code> or &lsquo;<samp>Ctrl-C</samp>&rsquo; to
+<dd><p>Show whether ROCgdb sends <code>BREAK</code> or &lsquo;<samp>Ctrl-C</samp>&rsquo; to
 interrupt the remote program.
 </p>
 </dd>
@@ -203,7 +203,7 @@ responses.
 <span id="set-remote-hardware_002dwatchpoint_002dlimit"></span><span id="set-remote-hardware_002dbreakpoint_002dlimit"></span></dd>
 <dt><span><code>set remote hardware-watchpoint-limit <var>limit</var></code></span></dt>
 <dt><span><code>set remote hardware-breakpoint-limit <var>limit</var></code></span></dt>
-<dd><p>Restrict <small>ROCGDB</small> to using <var>limit</var> remote hardware watchpoints
+<dd><p>Restrict ROCgdb to using <var>limit</var> remote hardware watchpoints
 or breakpoints.  The <var>limit</var> can be set to 0 to disable hardware
 watchpoints or breakpoints, and <code>unlimited</code> for unlimited
 watchpoints or breakpoints.
@@ -212,13 +212,13 @@ watchpoints or breakpoints.
 <dt><span><code>show remote hardware-watchpoint-limit</code></span></dt>
 <dt><span><code>show remote hardware-breakpoint-limit</code></span></dt>
 <dd><p>Show the current limit for the number of hardware watchpoints or
-breakpoints that <small>ROCGDB</small> can use.
+breakpoints that ROCgdb can use.
 </p>
 <span id="index-limit-hardware-watchpoints-length"></span>
 <span id="index-remote-target_002c-limit-watchpoints-length"></span>
 <span id="set-remote-hardware_002dwatchpoint_002dlength_002dlimit"></span></dd>
 <dt><span><code>set remote hardware-watchpoint-length-limit <var>limit</var></code></span></dt>
-<dd><p>Restrict <small>ROCGDB</small> to using <var>limit</var> bytes for the maximum
+<dd><p>Restrict ROCgdb to using <var>limit</var> bytes for the maximum
 length of a remote hardware watchpoint.  A <var>limit</var> of 0 disables
 hardware watchpoints and <code>unlimited</code> allows watchpoints of any
 length.
@@ -251,31 +251,31 @@ It is <code>BREAK</code> signal followed by character <code>g</code>.
 </dd>
 <dt><span><code>show remote interrupt-sequence</code></span></dt>
 <dd><p>Show which of &lsquo;<samp>Ctrl-C</samp>&rsquo;, <code>BREAK</code> or <code>BREAK-g</code>
-is sent by <small>ROCGDB</small> to interrupt the remote program.
+is sent by ROCgdb to interrupt the remote program.
 <code>BREAK-g</code> is BREAK signal followed by <code>g</code> and
 also known as Magic SysRq g.
 </p>
 </dd>
 <dt id='index-send-interrupt_002dsequence-on-start'><span><code>set remote interrupt-on-connect</code><a href='#index-send-interrupt_002dsequence-on-start' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Specify whether interrupt-sequence is sent to remote target when
-<small>ROCGDB</small> connects to it.  This is mostly needed when you debug
+ROCgdb connects to it.  This is mostly needed when you debug
 Linux kernel.  Linux kernel expects <code>BREAK</code> followed by <code>g</code>
-which is known as Magic SysRq g in order to connect <small>ROCGDB</small>.
+which is known as Magic SysRq g in order to connect ROCgdb.
 </p>
 </dd>
 <dt><span><code>show remote interrupt-on-connect</code></span></dt>
 <dd><p>Show whether interrupt-sequence is sent
-to remote target when <small>ROCGDB</small> connects to it.
+to remote target when ROCgdb connects to it.
 </p>
 <span id="index-set-tcp"></span>
 <span id="index-show-tcp"></span>
 </dd>
 <dt id='index-auto_002dretry_002c-for-remote-TCP-target'><span><code>set tcp auto-retry on</code><a href='#index-auto_002dretry_002c-for-remote-TCP-target' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Enable auto-retry for remote TCP connections.  This is useful if the remote
-debugging agent is launched in parallel with <small>ROCGDB</small>; there is a race
+debugging agent is launched in parallel with ROCgdb; there is a race
 condition because the agent may not become ready to accept the connection
-before <small>ROCGDB</small> attempts to connect.  When auto-retry is
-enabled, if the initial attempt to connect fails, <small>ROCGDB</small> reattempts
+before ROCgdb attempts to connect.  When auto-retry is
+enabled, if the initial attempt to connect fails, ROCgdb reattempts
 to establish the connection using the timeout specified by 
 <code>set tcp connect-timeout</code>.
 </p>
@@ -296,7 +296,7 @@ to establish the connection using the timeout specified by
 (enabled by <code>set tcp auto-retry on</code>) and waiting for connections
 that are merely slow to complete, and represents an approximate cumulative
 value.  If <var>seconds</var> is <code>unlimited</code>, there is no timeout and
-<small>ROCGDB</small> will keep attempting to establish a connection forever,
+ROCgdb will keep attempting to establish a connection forever,
 unless interrupted with <kbd>Ctrl-c</kbd>.  The default is 15 seconds.
 </p>
 </dd>
@@ -306,19 +306,19 @@ unless interrupted with <kbd>Ctrl-c</kbd>.  The default is 15 seconds.
 </dl>
 
 <span id="index-remote-packets_002c-enabling-and-disabling"></span>
-<p>The <small>ROCGDB</small> remote protocol autodetects the packets supported by
+<p>The ROCgdb remote protocol autodetects the packets supported by
 your debugging stub.  If you need to override the autodetection, you
 can use these commands to enable or disable individual packets.  Each
 packet can be set to &lsquo;<samp>on</samp>&rsquo; (the remote target supports this
 packet), &lsquo;<samp>off</samp>&rsquo; (the remote target does not support this packet),
 or &lsquo;<samp>auto</samp>&rsquo; (detect remote target support for this packet).  They
 all default to &lsquo;<samp>auto</samp>&rsquo;.  For more information about each packet,
-see <a href="Remote-Protocol.html"><small>ROCGDB</small> Remote Serial Protocol</a>.
+see <a href="Remote-Protocol.html">ROCgdb Remote Serial Protocol</a>.
 </p>
 <p>During normal use, you should not have to use any of these commands.
 If you do, that may be a bug in your remote debugging stub, or a bug
-in <small>ROCGDB</small>.  You may want to report the problem to the
-<small>ROCGDB</small> developers.
+in ROCgdb.  You may want to report the problem to the
+ROCgdb developers.
 </p>
 <p>For each packet <var>name</var>, the command to enable or disable the
 packet is <code>set remote <var>name</var>-packet</code>.  If you configure a packet, the

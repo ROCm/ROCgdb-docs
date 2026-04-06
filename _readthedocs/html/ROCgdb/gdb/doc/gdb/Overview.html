@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Overview (Debugging with ROCGDB)</title>
+<title>Overview (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Overview (Debugging with ROCGDB)">
-<meta name="keywords" content="Overview (Debugging with ROCGDB)">
+<meta name="description" content="Overview (Debugging with ROCgdb)">
+<meta name="keywords" content="Overview (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -98,7 +98,7 @@ ul.no-bullet {list-style: none}
 <div class="section" id="Overview">
 <div class="header">
 <p>
-Next: <a href="Standard-Replies.html" accesskey="n" rel="next">Standard Replies</a>, Up: <a href="Remote-Protocol.html" accesskey="u" rel="up"><small>ROCGDB</small> Remote Serial Protocol</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Standard-Replies.html" accesskey="n" rel="next">Standard Replies</a>, Up: <a href="Remote-Protocol.html" accesskey="u" rel="up">ROCgdb Remote Serial Protocol</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
 <span id="Overview-1"></span><h3 class="section">E.1 Overview</h3>
@@ -106,15 +106,15 @@ Next: <a href="Standard-Replies.html" accesskey="n" rel="next">Standard Replies<
 <p>There may be occasions when you need to know something about the
 protocol&mdash;for example, if there is only one serial port to your target
 machine, you might want your program to do something special if it
-recognizes a packet meant for <small>ROCGDB</small>.
+recognizes a packet meant for ROCgdb.
 </p>
 <p>In the examples below, &lsquo;<samp>-&gt;</samp>&rsquo; and &lsquo;<samp>&lt;-</samp>&rsquo; are used to indicate
 transmitted and received data, respectively.
 </p>
-<span id="index-protocol_002c-ROCGDB-remote-serial"></span>
-<span id="index-serial-protocol_002c-ROCGDB-remote"></span>
+<span id="index-protocol_002c-ROCgdb-remote-serial"></span>
+<span id="index-serial-protocol_002c-ROCgdb-remote"></span>
 <span id="index-remote-serial-protocol"></span>
-<p>All <small>ROCGDB</small> commands and responses (other than acknowledgments
+<p>All ROCgdb commands and responses (other than acknowledgments
 and notifications, see <a href="Notification-Packets.html">Notification Packets</a>) are sent as a
 <var>packet</var>.  A <var>packet</var> is introduced with the character
 &lsquo;<samp>$</samp>&rsquo;, the actual <var>packet-data</var>, and the terminating character
@@ -124,22 +124,22 @@ and notifications, see <a href="Notification-Packets.html">Notification Packets<
 <pre class="example"><code>$</code><var>packet-data</var><code>#</code><var>checksum</var>
 </pre></div>
 
-<span id="index-checksum_002c-for-ROCGDB-remote"></span>
+<span id="index-checksum_002c-for-ROCgdb-remote"></span>
 <p>The two-digit <var>checksum</var> is computed as the modulo 256 sum of all
 characters between the leading &lsquo;<samp>$</samp>&rsquo; and the trailing &lsquo;<samp>#</samp>&rsquo; (an
 eight bit unsigned checksum).
 </p>
-<p>Implementors should note that prior to <small>ROCGDB</small> 5.0 the protocol
+<p>Implementors should note that prior to ROCgdb 5.0 the protocol
 specification also included an optional two-digit <var>sequence-id</var>:
 </p>
 <div class="example">
 <pre class="example"><code>$</code><var>sequence-id</var><code>:</code><var>packet-data</var><code>#</code><var>checksum</var>
 </pre></div>
 
-<span id="index-sequence_002did_002c-for-ROCGDB-remote"></span>
-<p>That <var>sequence-id</var> was appended to the acknowledgment.  <small>ROCGDB</small>
+<span id="index-sequence_002did_002c-for-ROCgdb-remote"></span>
+<p>That <var>sequence-id</var> was appended to the acknowledgment.  ROCgdb
 has never output <var>sequence-id</var>s.  Stubs that handle packets added
-since <small>ROCGDB</small> 5.0 must not accept <var>sequence-id</var>.
+since ROCgdb 5.0 must not accept <var>sequence-id</var>.
 </p>
 <p>When either the host or the target machine receives a packet, the first
 response expected is an acknowledgment: either &lsquo;<samp>+</samp>&rsquo; (to indicate
@@ -155,12 +155,12 @@ retransmission):
 once a connection is established.
 See <a href="Packet-Acknowledgment.html">Packet Acknowledgment</a>, for details.
 </p>
-<p>The host (<small>ROCGDB</small>) sends <var>command</var>s, and the target (the
+<p>The host (ROCgdb) sends <var>command</var>s, and the target (the
 debugging stub incorporated in your program) sends a <var>response</var>.  In
 the case of step and continue <var>command</var>s, the response is only sent
 when the operation has completed, and the target has again stopped all
 threads in all attached processes.  This is the default all-stop mode
-behavior, but the remote protocol also supports <small>ROCGDB</small>&rsquo;s non-stop 
+behavior, but the remote protocol also supports ROCgdb&rsquo;s non-stop 
 execution mode; see <a href="Remote-Non_002dStop.html">Remote Protocol Support for Non-Stop Mode</a>, for details.
 </p>
 <p><var>packet-data</var> consists of a sequence of characters with the
@@ -172,7 +172,7 @@ exceptions).
 &lsquo;<samp>:</samp>&rsquo;.  Except where otherwise noted all numbers are represented in
 <small>HEX</small> with leading zeros suppressed.
 </p>
-<p>Implementors should note that prior to <small>ROCGDB</small> 5.0, the character
+<p>Implementors should note that prior to ROCgdb 5.0, the character
 &lsquo;<samp>:</samp>&rsquo; could not appear as the third character in a packet (as it
 would potentially conflict with the <var>sequence-id</var>).
 </p>
@@ -219,11 +219,11 @@ respond indicating a command is not supported.
 <p>In describing packets (commands and responses), each description has a
 template showing the overall syntax, followed by an explanation of the
 packet&rsquo;s meaning.  We include spaces in some of the templates for
-clarity; these are not part of the packet&rsquo;s syntax.  No <small>ROCGDB</small>
+clarity; these are not part of the packet&rsquo;s syntax.  No ROCgdb
 packet uses spaces to separate its components.  For example, a
 template like &lsquo;<samp>foo <var>bar</var> <var>baz</var></samp>&rsquo; describes a packet
 beginning with the three ASCII bytes &lsquo;<samp>foo</samp>&rsquo;, followed by a
-<var>bar</var>, followed directly by a <var>baz</var>.  <small>ROCGDB</small> does not
+<var>bar</var>, followed directly by a <var>baz</var>.  ROCgdb does not
 transmit a space character between the &lsquo;<samp>foo</samp>&rsquo; and the <var>bar</var>,
 or between the <var>bar</var> and the <var>baz</var>.
 </p>
@@ -233,7 +233,7 @@ packet beginning with the single ASCII character &lsquo;<samp>c</samp>&rsquo;, p
 followed by an <var>addr</var>.
 </p>
 <p>At a minimum, a stub is required to support the &lsquo;<samp>?</samp>&rsquo; command to
-tell <small>ROCGDB</small> the reason for halting, &lsquo;<samp>g</samp>&rsquo; and &lsquo;<samp>G</samp>&rsquo;
+tell ROCgdb the reason for halting, &lsquo;<samp>g</samp>&rsquo; and &lsquo;<samp>G</samp>&rsquo;
 commands for register access, and the &lsquo;<samp>m</samp>&rsquo; and &lsquo;<samp>M</samp>&rsquo; commands
 for memory access.  Stubs that only control single-threaded targets
 can implement run control with the &lsquo;<samp>c</samp>&rsquo; (continue) command, and if
@@ -246,7 +246,7 @@ are optional.
 <hr>
 <div class="header">
 <p>
-Next: <a href="Standard-Replies.html">Standard Replies</a>, Up: <a href="Remote-Protocol.html"><small>ROCGDB</small> Remote Serial Protocol</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Standard-Replies.html">Standard Replies</a>, Up: <a href="Remote-Protocol.html">ROCgdb Remote Serial Protocol</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

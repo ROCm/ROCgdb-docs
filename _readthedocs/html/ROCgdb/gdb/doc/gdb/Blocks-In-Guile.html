@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Blocks In Guile (Debugging with ROCGDB)</title>
+<title>Blocks In Guile (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Blocks In Guile (Debugging with ROCGDB)">
-<meta name="keywords" content="Blocks In Guile (Debugging with ROCGDB)">
+<meta name="description" content="Blocks In Guile (Debugging with ROCgdb)">
+<meta name="keywords" content="Blocks In Guile (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -107,7 +107,7 @@ Next: <a href="Symbols-In-Guile.html" accesskey="n" rel="next">Guile representat
 <span id="index-blocks-in-guile"></span>
 <span id="index-_003cgdb_003ablock_003e"></span>
 
-<p>In <small>ROCGDB</small>, symbols are stored in blocks.  A block corresponds
+<p>In ROCgdb, symbols are stored in blocks.  A block corresponds
 roughly to a scope in the source code.  Blocks are organized
 hierarchically, and are represented individually in Guile as an object
 of type <code>&lt;gdb:block&gt;</code>.  Blocks rely on debugging information being
@@ -123,7 +123,7 @@ block typically holds public global variables and functions.
 block</em>.  The static block typically holds file-scoped variables and
 functions.
 </p>
-<p><small>ROCGDB</small> provides a method to get a block&rsquo;s superblock, but there
+<p>ROCgdb provides a method to get a block&rsquo;s superblock, but there
 is currently no way to examine the sub-blocks of a block, or to
 iterate over all the blocks in a symbol table (see <a href="Symbol-Tables-In-Guile.html">Symbol table representation in Guile.</a>).
 </p>
@@ -237,7 +237,7 @@ Otherwise return <code>#f</code>.
 <dd><p>Return an object of type <code>&lt;gdb:iterator&gt;</code> that will iterate
 over all symbols of the block.
 Guile programs should not assume that a specific block object will
-always contain a given symbol, since changes in <small>ROCGDB</small> features and
+always contain a given symbol, since changes in ROCgdb features and
 infrastructure may cause symbols move across blocks in a symbol table.
 See <a href="Iterators-In-Guile.html">Iterators In Guile</a>.
 </p></dd></dl>

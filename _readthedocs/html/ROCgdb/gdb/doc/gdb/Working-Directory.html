@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Working Directory (Debugging with ROCGDB)</title>
+<title>Working Directory (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Working Directory (Debugging with ROCGDB)">
-<meta name="keywords" content="Working Directory (Debugging with ROCGDB)">
+<meta name="description" content="Working Directory (Debugging with ROCgdb)">
+<meta name="keywords" content="Working Directory (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -99,7 +99,7 @@ ul.no-bullet {list-style: none}
 <div class="section" id="Working-Directory">
 <div class="header">
 <p>
-Next: <a href="Input_002fOutput.html" accesskey="n" rel="next">Your Program&rsquo;s Input and Output</a>, Previous: <a href="Environment.html" accesskey="p" rel="prev">Your Program&rsquo;s Environment</a>, Up: <a href="Running.html" accesskey="u" rel="up">Running Programs Under <small>ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Input_002fOutput.html" accesskey="n" rel="next">Your Program&rsquo;s Input and Output</a>, Previous: <a href="Environment.html" accesskey="p" rel="prev">Your Program&rsquo;s Environment</a>, Up: <a href="Running.html" accesskey="u" rel="up">Running Programs Under ROCgdb</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
 <span id="Your-Program_0027s-Working-Directory"></span><h3 class="section">4.5 Your Program&rsquo;s Working Directory</h3>
@@ -108,7 +108,7 @@ Next: <a href="Input_002fOutput.html" accesskey="n" rel="next">Your Program&rsqu
 <p>Each time you start your program with <code>run</code>, the inferior will be
 initialized with the current working directory specified by the
 <kbd>set cwd</kbd> command.  If no directory has been specified by this
-command, then the inferior will inherit <small>ROCGDB</small>&rsquo;s current working
+command, then the inferior will inherit ROCgdb&rsquo;s current working
 directory as its working directory if native debugging, or it will
 inherit the remote server&rsquo;s current working directory if remote
 debugging.
@@ -121,15 +121,15 @@ debugging.
 <dd><p>Set the inferior&rsquo;s working directory to <var>directory</var>, which will be
 <code>glob</code>-expanded in order to resolve tildes (<samp>~</samp>).  If no
 argument has been specified, the command clears the setting and resets
-it to an empty state.  This setting has no effect on <small>ROCGDB</small>&rsquo;s
+it to an empty state.  This setting has no effect on ROCgdb&rsquo;s
 working directory, and it only takes effect the next time you start
 the inferior.  The <samp>~</samp> in <var>directory</var> is a short for the
 <em>home directory</em>, usually pointed to by the <code>HOME</code> environment
-variable.  On MS-Windows, if <code>HOME</code> is not defined, <small>ROCGDB</small>
+variable.  On MS-Windows, if <code>HOME</code> is not defined, ROCgdb
 uses the concatenation of <code>HOMEDRIVE</code> and <code>HOMEPATH</code> as
 fallback.
 </p>
-<p>You can also change <small>ROCGDB</small>&rsquo;s current working directory by using
+<p>You can also change ROCgdb&rsquo;s current working directory by using
 the <code>cd</code> command.
 See <a href="#cd-command">cd command</a>.
 </p>
@@ -139,30 +139,30 @@ See <a href="#cd-command">cd command</a>.
 <dt><span><code>show cwd</code></span></dt>
 <dd><p>Show the inferior&rsquo;s working directory.  If no directory has been
 specified by <kbd>set cwd</kbd>, then the default inferior&rsquo;s working
-directory is the same as <small>ROCGDB</small>&rsquo;s working directory.
+directory is the same as ROCgdb&rsquo;s working directory.
 </p>
 <span id="index-cd"></span>
-<span id="index-change-ROCGDB_0027s-working-directory"></span>
+<span id="index-change-ROCgdb_0027s-working-directory"></span>
 <span id="cd-command"></span></dd>
 <dt><span><code>cd <span class="roman">[</span><var>directory</var><span class="roman">]</span></code></span></dt>
-<dd><p>Set the <small>ROCGDB</small> working directory to <var>directory</var>.  If not
+<dd><p>Set the ROCgdb working directory to <var>directory</var>.  If not
 given, <var>directory</var> uses <samp>'~'</samp>.
 </p>
-<p>The <small>ROCGDB</small> working directory serves as a default for the
-commands that specify files for <small>ROCGDB</small> to operate on.
+<p>The ROCgdb working directory serves as a default for the
+commands that specify files for ROCgdb to operate on.
 See <a href="Files.html">Commands to Specify Files</a>.
 See <a href="#set-cwd-command">set cwd command</a>.
 </p>
 <span id="index-pwd"></span>
 </dd>
 <dt><span><code>pwd</code></span></dt>
-<dd><p>Print the <small>ROCGDB</small> working directory.
+<dd><p>Print the ROCgdb working directory.
 </p></dd>
 </dl>
 
 <p>It is generally impossible to find the current working directory of
 the process being debugged (since a program can change its directory
-during its run).  If you work on a system where <small>ROCGDB</small> supports
+during its run).  If you work on a system where ROCgdb supports
 the <code>info proc</code> command (see <a href="Process-Information.html">Process Information</a>), you can
 use the <code>info proc</code> command to find out the
 current working directory of the debuggee.
@@ -171,7 +171,7 @@ current working directory of the debuggee.
 <hr>
 <div class="header">
 <p>
-Next: <a href="Input_002fOutput.html">Your Program&rsquo;s Input and Output</a>, Previous: <a href="Environment.html">Your Program&rsquo;s Environment</a>, Up: <a href="Running.html">Running Programs Under <small>ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Input_002fOutput.html">Your Program&rsquo;s Input and Output</a>, Previous: <a href="Environment.html">Your Program&rsquo;s Environment</a>, Up: <a href="Running.html">Running Programs Under ROCgdb</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

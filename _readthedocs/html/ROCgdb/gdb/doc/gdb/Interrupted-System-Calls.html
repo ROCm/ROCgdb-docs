@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Interrupted System Calls (Debugging with ROCGDB)</title>
+<title>Interrupted System Calls (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Interrupted System Calls (Debugging with ROCGDB)">
-<meta name="keywords" content="Interrupted System Calls (Debugging with ROCGDB)">
+<meta name="description" content="Interrupted System Calls (Debugging with ROCgdb)">
+<meta name="keywords" content="Interrupted System Calls (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -107,12 +107,12 @@ Next: <a href="Observer-Mode.html" accesskey="n" rel="next">Observer Mode</a>, P
 <span id="index-thread-breakpoints-and-system-calls"></span>
 <span id="index-system-calls-and-thread-breakpoints"></span>
 <span id="index-premature-return-from-system-calls"></span>
-<p>There is an unfortunate side effect when using <small>ROCGDB</small> to debug
+<p>There is an unfortunate side effect when using ROCgdb to debug
 multi-threaded programs.  If one thread stops for a
 breakpoint, or for some other reason, and another thread is blocked in a
 system call, then the system call may return prematurely.  This is a
 consequence of the interaction between multiple threads and the signals
-that <small>ROCGDB</small> uses to implement breakpoints and other events that
+that ROCgdb uses to implement breakpoints and other events that
 stop execution.
 </p>
 <p>To handle this problem, your program should check the return value of
@@ -137,11 +137,11 @@ at a breakpoint or for some other reason.
 </pre></div>
 
 <p>A system call is allowed to return early, so the system is still
-conforming to its specification.  But <small>ROCGDB</small> does cause your
+conforming to its specification.  But ROCgdb does cause your
 multi-threaded program to behave differently than it would without
-<small>ROCGDB</small>.
+ROCgdb.
 </p>
-<p>Also, <small>ROCGDB</small> uses internal breakpoints in the thread library to
+<p>Also, ROCgdb uses internal breakpoints in the thread library to
 monitor certain events such as thread creation and thread destruction.
 When such an event happens, a system call in another thread may return
 prematurely, even though your program does not appear to stop.

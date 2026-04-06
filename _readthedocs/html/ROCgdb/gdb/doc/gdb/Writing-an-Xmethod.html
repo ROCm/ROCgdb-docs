@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Writing an Xmethod (Debugging with ROCGDB)</title>
+<title>Writing an Xmethod (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Writing an Xmethod (Debugging with ROCGDB)">
-<meta name="keywords" content="Writing an Xmethod (Debugging with ROCGDB)">
+<meta name="description" content="Writing an Xmethod (Debugging with ROCgdb)">
+<meta name="keywords" content="Writing an Xmethod (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -213,9 +213,9 @@ class MyClassWorker_plus(gdb.xmethod.XMethodWorker):
         return obj['a_'] + other['a_']
 </pre></div>
 
-<p>For <small>ROCGDB</small> to actually lookup a xmethod, it has to be
+<p>For ROCgdb to actually lookup a xmethod, it has to be
 registered with it.  The matcher defined above is registered with
-<small>ROCGDB</small> globally as follows:
+ROCgdb globally as follows:
 </p>
 <div class="example">
 <pre class="example">gdb.xmethod.register_xmethod_matcher(None, MyClassMatcher())
@@ -229,7 +229,7 @@ code as follows:
 </pre></div>
 
 <p>then, after loading the Python script defining the xmethod matchers
-and workers into <small>ROCGDB</small>, invoking the method <code>geta</code> or using
+and workers into ROCgdb, invoking the method <code>geta</code> or using
 the operator <code>+</code> on <code>obj</code> will invoke the xmethods
 defined above:
 </p>

@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Lazy Strings In Guile (Debugging with ROCGDB)</title>
+<title>Lazy Strings In Guile (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Lazy Strings In Guile (Debugging with ROCGDB)">
-<meta name="keywords" content="Lazy Strings In Guile (Debugging with ROCGDB)">
+<meta name="description" content="Lazy Strings In Guile (Debugging with ROCgdb)">
+<meta name="keywords" content="Lazy Strings In Guile (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -110,13 +110,13 @@ Next: <a href="Architectures-In-Guile.html" accesskey="n" rel="next">Guile repre
 <p>A <em>lazy string</em> is a string whose contents is not retrieved or
 encoded until it is needed.
 </p>
-<p>A <code>&lt;gdb:lazy-string&gt;</code> is represented in <small>ROCGDB</small> as an
+<p>A <code>&lt;gdb:lazy-string&gt;</code> is represented in ROCgdb as an
 <code>address</code> that points to a region of memory, an <code>encoding</code>
 that will be used to encode that region of memory, and a <code>length</code>
 to delimit the region of memory that represents the string.  The
 difference between a <code>&lt;gdb:lazy-string&gt;</code> and a string wrapped within
 a <code>&lt;gdb:value&gt;</code> is that a <code>&lt;gdb:lazy-string&gt;</code> will be treated
-differently by <small>ROCGDB</small> when printing.  A <code>&lt;gdb:lazy-string&gt;</code> is
+differently by ROCgdb when printing.  A <code>&lt;gdb:lazy-string&gt;</code> is
 retrieved and encoded during printing, while a <code>&lt;gdb:value&gt;</code>
 wrapping a string is immediately retrieved and encoded on creation.
 </p>
@@ -144,8 +144,8 @@ first null of appropriate width.
 <dl class="def">
 <dt id="index-lazy_002dstring_002dencoding"><span class="category">Scheme Procedure: </span><span><strong>lazy-string-encoding</strong> <em>lazy-string</em><a href='#index-lazy_002dstring_002dencoding' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Return the encoding that will be applied to <var>lazy-string</var>
-when the string is printed by <small>ROCGDB</small>.  If the encoding is not
-set, or contains an empty string,  then <small>ROCGDB</small> will select the
+when the string is printed by ROCgdb.  If the encoding is not
+set, or contains an empty string,  then ROCgdb will select the
 most appropriate encoding when the string is printed.
 </p></dd></dl>
 
@@ -161,7 +161,7 @@ See <a href="Types-In-Guile.html">Types In Guile</a>.
 <dt id="index-lazy_002dstring_002d_003evalue"><span class="category">Scheme Procedure: </span><span><strong>lazy-string-&gt;value</strong> <em>lazy-string</em><a href='#index-lazy_002dstring_002d_003evalue' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Convert the <code>&lt;gdb:lazy-string&gt;</code> to a <code>&lt;gdb:value&gt;</code>.  This value
 will point to the string in memory, but will lose all the delayed
-retrieval, encoding and handling that <small>ROCGDB</small> applies to a
+retrieval, encoding and handling that ROCgdb applies to a
 <code>&lt;gdb:lazy-string&gt;</code>.
 </p></dd></dl>
 

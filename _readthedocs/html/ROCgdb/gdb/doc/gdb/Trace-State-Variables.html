@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Trace State Variables (Debugging with ROCGDB)</title>
+<title>Trace State Variables (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Trace State Variables (Debugging with ROCGDB)">
-<meta name="keywords" content="Trace State Variables (Debugging with ROCGDB)">
+<meta name="description" content="Trace State Variables (Debugging with ROCgdb)">
+<meta name="keywords" content="Trace State Variables (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -112,7 +112,7 @@ but they are stored on the target.  They must be created explicitly,
 using a <code>tvariable</code> command.  They are always 64-bit signed
 integers.
 </p>
-<p>Trace state variables are remembered by <small>ROCGDB</small>, and downloaded
+<p>Trace state variables are remembered by ROCgdb, and downloaded
 to the target along with tracepoint information when the trace
 experiment starts.  There are no intrinsic limits on the number of
 trace state variables, beyond memory limitations of the target.
@@ -120,7 +120,7 @@ trace state variables, beyond memory limitations of the target.
 <span id="index-convenience-variables_002c-and-trace-state-variables"></span>
 <p>Although trace state variables are managed by the target, you can use
 them in print commands and expressions as if they were convenience
-variables; <small>ROCGDB</small> will get the current value from the target
+variables; ROCgdb will get the current value from the target
 while the trace experiment is running.  Trace state variables share
 the same namespace as other &ldquo;$&rdquo; variables, which means that you
 cannot have trace state variables with names like <code>$23</code> or
@@ -133,7 +133,7 @@ variable with the same name.
 <code>$<var>name</var></code>, and optionally gives it an initial value of
 <var>expression</var>.  The <var>expression</var> is evaluated when this command is
 entered; the result will be converted to an integer if possible,
-otherwise <small>ROCGDB</small> will report an error. A subsequent
+otherwise ROCgdb will report an error. A subsequent
 <code>tvariable</code> command specifying the same name does not create a
 variable, but instead assigns the supplied initial value to the
 existing variable of that name, overwriting any previous initial

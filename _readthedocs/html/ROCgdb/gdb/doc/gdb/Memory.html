@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Memory (Debugging with ROCGDB)</title>
+<title>Memory (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Memory (Debugging with ROCGDB)">
-<meta name="keywords" content="Memory (Debugging with ROCGDB)">
+<meta name="description" content="Memory (Debugging with ROCgdb)">
+<meta name="keywords" content="Memory (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -172,7 +172,7 @@ be altered.
 </p>
 </dd>
 <dt><span><span class="roman"><var>addr</var>, starting display address</span></span></dt>
-<dd><p><var>addr</var> is the address where you want <small>ROCGDB</small> to begin displaying
+<dd><p><var>addr</var> is the address where you want ROCgdb to begin displaying
 memory.  The expression need not have a pointer value (though it may);
 it is always interpreted as an integer address of a byte of memory.
 See <a href="Expressions.html">Expressions</a>, for more information on expressions.  The default for
@@ -244,7 +244,7 @@ using &lsquo;<samp>m</samp>&rsquo;.  See <a href="Memory-Tagging.html">Memory Ta
 (the amount of bytes a particular memory tag covers).  For example, AArch64
 has a granule size of 16 bytes, so it will display a tag every 16 bytes.
 </p>
-<p>Due to the way <small>ROCGDB</small> prints information with the <code>x</code> command (not
+<p>Due to the way ROCgdb prints information with the <code>x</code> command (not
 aligned to a particular boundary), the tag information will refer to the
 initial address displayed on a particular line.  If a memory tag boundary
 is crossed in the middle of a line displayed by the <code>x</code> command, it
@@ -256,7 +256,7 @@ passed to the <code>x</code> command.
 <span id="index-_0024_005f_002c-_0024_005f_005f_002c-and-value-history"></span>
 <p>The addresses and contents printed by the <code>x</code> command are not saved
 in the value history because there is often too much of them and they
-would get in the way.  Instead, <small>ROCGDB</small> makes these values available for
+would get in the way.  Instead, ROCgdb makes these values available for
 subsequent use in expressions as values of the convenience variables
 <code>$_</code> and <code>$__</code>.  After an <code>x</code> command, the last address
 examined is available for use in expressions in the convenience variable
@@ -271,7 +271,7 @@ address printed if several units were printed on the last line of output.
 <p>Most targets have an addressable memory unit size of 8 bits.  This means
 that to each memory address are associated 8 bits of data.  Some
 targets, however, have other addressable memory unit sizes.
-Within <small>ROCGDB</small> and this document, the term
+Within ROCgdb and this document, the term
 <em>addressable memory unit</em> (or <em>memory unit</em> for short) is used
 when explicitly referring to a chunk of data of that size.  The word
 <em>byte</em> is used to refer to a chunk of data of 8 bits, regardless of

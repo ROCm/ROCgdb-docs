@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>The Ctrl-C Message (Debugging with ROCGDB)</title>
+<title>The Ctrl-C Message (Debugging with ROCgdb)</title>
 
-<meta name="description" content="The Ctrl-C Message (Debugging with ROCGDB)">
-<meta name="keywords" content="The Ctrl-C Message (Debugging with ROCGDB)">
+<meta name="description" content="The Ctrl-C Message (Debugging with ROCgdb)">
+<meta name="keywords" content="The Ctrl-C Message (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -105,12 +105,12 @@ Next: <a href="Console-I_002fO.html" accesskey="n" rel="next">Console I/O</a>, P
 <span id="The-Ctrl_002dC-Message-1"></span><h4 class="subsection">E.14.5 The &lsquo;<samp>Ctrl-C</samp>&rsquo; Message</h4>
 <span id="index-ctrl_002dc-message_002c-in-file_002di_002fo-protocol"></span>
 
-<p>If the &lsquo;<samp>Ctrl-C</samp>&rsquo; flag is set in the <small>ROCGDB</small>
+<p>If the &lsquo;<samp>Ctrl-C</samp>&rsquo; flag is set in the ROCgdb
 reply packet (see <a href="The-F-Reply-Packet.html">The <code>F</code> Reply Packet</a>),
 the target should behave as if it had
 gotten a break message.  The meaning for the target is &ldquo;system call
 interrupted by <code>SIGINT</code>&rdquo;.  Consequently, the target should actually stop
-(as with a break message) and return to <small>ROCGDB</small> with a <code>T02</code>
+(as with a break message) and return to ROCgdb with a <code>T02</code>
 packet.
 </p>
 <p>It&rsquo;s important for the target to know in which
@@ -130,11 +130,11 @@ on POSIX systems.  In any other case, the target may presume that the
 system call has been finished &mdash; successfully or not &mdash; and should behave
 as if the break message arrived right after the system call.
 </p>
-<p><small>ROCGDB</small> must behave reliably.  If the system call has not been called
-yet, <small>ROCGDB</small> may send the <code>F</code> reply immediately, setting <code>EINTR</code> as
+<p>ROCgdb must behave reliably.  If the system call has not been called
+yet, ROCgdb may send the <code>F</code> reply immediately, setting <code>EINTR</code> as
 <code>errno</code> in the packet.  If the system call on the host has been finished
 before the user requests a break, the full action must be finished by
-<small>ROCGDB</small>.  This requires sending <code>M</code> or <code>X</code> packets as necessary.
+ROCgdb.  This requires sending <code>M</code> or <code>X</code> packets as necessary.
 The <code>F</code> packet may only be sent when either nothing has happened
 or the full action has been completed.
 </p>

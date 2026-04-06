@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>File Options (Debugging with ROCGDB)</title>
+<title>File Options (Debugging with ROCgdb)</title>
 
-<meta name="description" content="File Options (Debugging with ROCGDB)">
-<meta name="keywords" content="File Options (Debugging with ROCGDB)">
+<meta name="description" content="File Options (Debugging with ROCgdb)">
+<meta name="keywords" content="File Options (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -98,26 +98,26 @@ ul.no-bullet {list-style: none}
 <div class="subsection" id="File-Options">
 <div class="header">
 <p>
-Next: <a href="Mode-Options.html" accesskey="n" rel="next">Choosing Modes</a>, Up: <a href="Invoking-GDB.html" accesskey="u" rel="up">Invoking <small>ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Mode-Options.html" accesskey="n" rel="next">Choosing Modes</a>, Up: <a href="Invoking-GDB.html" accesskey="u" rel="up">Invoking ROCgdb</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
 <span id="Choosing-Files"></span><h4 class="subsection">2.1.1 Choosing Files</h4>
 
-<p>When <small>ROCGDB</small> starts, it reads any arguments other than options as
+<p>When ROCgdb starts, it reads any arguments other than options as
 specifying an executable file and core file (or process ID).  This is
 the same as if the arguments were specified by the &lsquo;<samp>-se</samp>&rsquo; and
-&lsquo;<samp>-c</samp>&rsquo; (or &lsquo;<samp>-p</samp>&rsquo;) options respectively.  (<small>ROCGDB</small> reads the
+&lsquo;<samp>-c</samp>&rsquo; (or &lsquo;<samp>-p</samp>&rsquo;) options respectively.  (ROCgdb reads the
 first argument that does not have an associated option flag as
 equivalent to the &lsquo;<samp>-se</samp>&rsquo; option followed by that argument; and the
 second argument that does not have an associated option flag, if any, as
 equivalent to the &lsquo;<samp>-c</samp>&rsquo;/&lsquo;<samp>-p</samp>&rsquo; option followed by that argument.)
-If the second argument begins with a decimal digit, <small>ROCGDB</small> will
+If the second argument begins with a decimal digit, ROCgdb will
 first attempt to attach to it as a process, and if that fails, attempt
 to open it as a corefile.  If you have a corefile whose name begins with
-a digit, you can prevent <small>ROCGDB</small> from treating it as a pid by
+a digit, you can prevent ROCgdb from treating it as a pid by
 prefixing it with <samp>./</samp>, e.g. <samp>./12345</samp>.
 </p>
-<p>If <small>ROCGDB</small> has not been configured to included core file support,
+<p>If ROCgdb has not been configured to included core file support,
 such as for most embedded targets, then it will complain about a second
 argument and ignore it.
 </p>
@@ -127,7 +127,7 @@ symbol and/or executable file is the same as that used by the
 <code>file</code> command.  See <a href="Files.html">file</a>.
 </p>
 <p>Many options have both long and short forms; both are shown in the
-following list.  <small>ROCGDB</small> also recognizes the long forms if you truncate
+following list.  ROCgdb also recognizes the long forms if you truncate
 them, so long as enough of the option is present to be unambiguous.
 (If you prefer, you can flag option arguments with &lsquo;<samp>--</samp>&rsquo; rather
 than &lsquo;<samp>-</samp>&rsquo;, though we illustrate the more usual convention.)
@@ -175,7 +175,7 @@ See <a href="Command-Files.html">Command files</a>.
 <dt id='index-_002d_002deval_002dcommand'><span><code>-eval-command <var>command</var></code><a href='#index-_002d_002deval_002dcommand' class='copiable-anchor'> &para;</a></span></dt>
 <dt><span><code>-ex <var>command</var></code></span></dt>
 <dd><span id="index-_002dex"></span>
-<p>Execute a single <small>ROCGDB</small> command.
+<p>Execute a single ROCgdb command.
 </p>
 <p>This option may be used multiple times to call multiple commands.  It may
 also be interleaved with &lsquo;<samp>-command</samp>&rsquo; as required.
@@ -191,28 +191,28 @@ also be interleaved with &lsquo;<samp>-command</samp>&rsquo; as required.
 <dd><span id="index-_002dix"></span>
 <p>Execute commands from file <var>file</var> before loading the inferior (but
 after loading gdbinit files).
-See <a href="Startup.html">What <small>ROCGDB</small> Does During Startup</a>.
+See <a href="Startup.html">What ROCgdb Does During Startup</a>.
 </p>
 </dd>
 <dt id='index-_002d_002dinit_002deval_002dcommand'><span><code>-init-eval-command <var>command</var></code><a href='#index-_002d_002dinit_002deval_002dcommand' class='copiable-anchor'> &para;</a></span></dt>
 <dt><span><code>-iex <var>command</var></code></span></dt>
 <dd><span id="index-_002diex"></span>
-<p>Execute a single <small>ROCGDB</small> command before loading the inferior (but
+<p>Execute a single ROCgdb command before loading the inferior (but
 after loading gdbinit files).
-See <a href="Startup.html">What <small>ROCGDB</small> Does During Startup</a>.
+See <a href="Startup.html">What ROCgdb Does During Startup</a>.
 </p>
 </dd>
 <dt id='index-_002d_002dearly_002dinit_002dcommand'><span><code>-early-init-command <var>file</var></code><a href='#index-_002d_002dearly_002dinit_002dcommand' class='copiable-anchor'> &para;</a></span></dt>
 <dt><span><code>-eix <var>file</var></code></span></dt>
 <dd><span id="index-_002deix"></span>
 <p>Execute commands from <var>file</var> very early in the initialization
-process, before any output is produced.  See <a href="Startup.html">What <small>ROCGDB</small> Does During Startup</a>.
+process, before any output is produced.  See <a href="Startup.html">What ROCgdb Does During Startup</a>.
 </p>
 </dd>
 <dt id='index-_002d_002dearly_002dinit_002deval_002dcommand'><span><code>-early-init-eval-command <var>command</var></code><a href='#index-_002d_002dearly_002dinit_002deval_002dcommand' class='copiable-anchor'> &para;</a></span></dt>
 <dt><span><code>-eiex <var>command</var></code></span></dt>
 <dd><span id="index-_002deiex"></span>
-<p>Execute a single <small>ROCGDB</small> command very early in the initialization
+<p>Execute a single ROCgdb command very early in the initialization
 process, before any output is produced.
 </p>
 </dd>
@@ -246,7 +246,7 @@ an unnecessary cause of delay.
 <hr>
 <div class="header">
 <p>
-Next: <a href="Mode-Options.html">Choosing Modes</a>, Up: <a href="Invoking-GDB.html">Invoking <small>ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Mode-Options.html">Choosing Modes</a>, Up: <a href="Invoking-GDB.html">Invoking ROCgdb</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

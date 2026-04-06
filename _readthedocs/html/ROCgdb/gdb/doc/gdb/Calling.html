@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Calling (Debugging with ROCGDB)</title>
+<title>Calling (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Calling (Debugging with ROCGDB)">
-<meta name="keywords" content="Calling (Debugging with ROCGDB)">
+<meta name="description" content="Calling (Debugging with ROCgdb)">
+<meta name="keywords" content="Calling (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -122,7 +122,7 @@ returned values.
 <p>You can use this variant of the <code>print</code> command if you want to
 execute a function from your program that does not return anything
 (a.k.a. <em>a void function</em>), but without cluttering the output
-with <code>void</code> returned values that <small>ROCGDB</small> will otherwise
+with <code>void</code> returned values that ROCgdb will otherwise
 print.  If the result is not void, it is printed and saved in the
 value history.
 </p></dd>
@@ -149,10 +149,10 @@ in that case is controlled by the
 <span id="index-unwind-stack-in-called-functions"></span>
 <span id="index-call-dummy-stack-unwinding"></span>
 <p>Set unwinding of the stack if a signal is received while in a function
-that <small>ROCGDB</small> called in the program being debugged.  If set to on,
-<small>ROCGDB</small> unwinds the stack it created for the call and restores
+that ROCgdb called in the program being debugged.  If set to on,
+ROCgdb unwinds the stack it created for the call and restores
 the context to what it was before the call.  If set to off (the
-default), <small>ROCGDB</small> stops in the frame where the signal was
+default), ROCgdb stops in the frame where the signal was
 received.
 </p>
 <p>The command <code>set unwindonsignal</code> is an alias for this command,
@@ -162,7 +162,7 @@ and is maintained for backward compatibility.
 <dt id='index-show-unwind_002don_002dsignal'><span><code>show unwind-on-signal</code><a href='#index-show-unwind_002don_002dsignal' class='copiable-anchor'> &para;</a></span></dt>
 <dd><span id="index-show-unwindonsignal"></span>
 <p>Show the current setting of stack unwinding in the functions called by
-<small>ROCGDB</small>.
+ROCgdb.
 </p>
 <p>The command <code>show unwindonsignal</code> is an alias for this command,
 and is maintained for backward compatibility.
@@ -172,46 +172,46 @@ and is maintained for backward compatibility.
 <dd><span id="index-unwind-stack-in-called-functions-with-unhandled-exceptions"></span>
 <span id="index-call-dummy-stack-unwinding-on-unhandled-exception_002e"></span>
 <p>Set unwinding of the stack if a C<tt>++</tt> exception is raised, but left
-unhandled while in a function that <small>ROCGDB</small> called in the program being
-debugged.  If set to on (the default), <small>ROCGDB</small> unwinds the stack
+unhandled while in a function that ROCgdb called in the program being
+debugged.  If set to on (the default), ROCgdb unwinds the stack
 it created for the call and restores the context to what it was before
-the call.  If set to off, <small>ROCGDB</small> the exception is delivered to
+the call.  If set to off, ROCgdb the exception is delivered to
 the default C<tt>++</tt> exception handler and the inferior terminated.
 </p>
 </dd>
 <dt id='index-show-unwind_002don_002dterminating_002dexception'><span><code>show unwind-on-terminating-exception</code><a href='#index-show-unwind_002don_002dterminating_002dexception' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Show the current setting of stack unwinding in the functions called by
-<small>ROCGDB</small>.
+ROCgdb.
 </p>
 <span id="set-unwind_002don_002dtimeout"></span></dd>
 <dt id='index-set-unwind_002don_002dtimeout'><span><code>set unwind-on-timeout</code><a href='#index-set-unwind_002don_002dtimeout' class='copiable-anchor'> &para;</a></span></dt>
 <dd><span id="index-unwind-stack-in-called-functions-when-timing-out"></span>
 <span id="index-call-dummy-stack-unwinding-on-timeout_002e"></span>
-<p>Set unwinding of the stack if a function called from <small>ROCGDB</small>
-times out.  If set to <code>off</code> (the default), <small>ROCGDB</small> stops in
+<p>Set unwinding of the stack if a function called from ROCgdb
+times out.  If set to <code>off</code> (the default), ROCgdb stops in
 the frame where the timeout occurred.  If set to <code>on</code>,
-<small>ROCGDB</small> unwinds the stack it created for the call and restores
+ROCgdb unwinds the stack it created for the call and restores
 the context to what it was before the call.
 </p>
 </dd>
 <dt id='index-show-unwind_002don_002dtimeout'><span><code>show unwind-on-timeout</code><a href='#index-show-unwind_002don_002dtimeout' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Show whether <small>ROCGDB</small> will unwind the stack if a function called
-from <small>ROCGDB</small> times out.
+<dd><p>Show whether ROCgdb will unwind the stack if a function called
+from ROCgdb times out.
 </p>
 </dd>
 <dt id='index-set-may_002dcall_002dfunctions'><span><code>set may-call-functions</code><a href='#index-set-may_002dcall_002dfunctions' class='copiable-anchor'> &para;</a></span></dt>
 <dd><span id="index-disabling-calling-functions-in-the-program"></span>
 <span id="index-calling-functions-in-the-program_002c-disabling"></span>
 <p>Set permission to call functions in the program.
-This controls whether <small>ROCGDB</small> will attempt to call functions in
+This controls whether ROCgdb will attempt to call functions in
 the program, such as with expressions in the <code>print</code> command.  It
 defaults to <code>on</code>.
 </p>
-<p>To call a function in the program, <small>ROCGDB</small> has to temporarily
+<p>To call a function in the program, ROCgdb has to temporarily
 modify the state of the inferior.  This has potentially undesired side
-effects.  Also, having <small>ROCGDB</small> call nested functions is likely to
+effects.  Also, having ROCgdb call nested functions is likely to
 be erroneous and may even crash the program being debugged.  You can
-avoid such hazards by forbidding <small>ROCGDB</small> from calling functions
+avoid such hazards by forbidding ROCgdb from calling functions
 in the program being debugged.  If calling functions in the program
 is forbidden, GDB will throw an error when a command (such as printing
 an expression) starts a function call in the program.
@@ -231,7 +231,7 @@ call by typing the interrupt character (often <kbd>Ctrl-c</kbd>).
 <p>If a called function is interrupted for any reason, including hitting
 a breakpoint, or triggering a watchpoint, and the stack is not unwound
 due to <code>set unwind-on-terminating-exception on</code>, <code>set
-unwind-on-timeout on</code>, or <code>set unwind-on-signal on</code> (see <a href="#stack-unwind-settings">stack unwind settings</a>), then the dummy-frame, created by <small>ROCGDB</small> to
+unwind-on-timeout on</code>, or <code>set unwind-on-signal on</code> (see <a href="#stack-unwind-settings">stack unwind settings</a>), then the dummy-frame, created by ROCgdb to
 facilitate the call to the program function, will be visible in the
 backtrace, for example frame <code>#3</code> in the following backtrace:
 </p>
@@ -251,21 +251,21 @@ like any other stop.
 <p>Depending on why the function was interrupted then it may be possible
 to resume the inferior (using commands like <code>continue</code>,
 <code>step</code>, etc).  In this case, when the inferior finally returns to
-the dummy-frame, <small>ROCGDB</small> will once again halt the inferior.
+the dummy-frame, ROCgdb will once again halt the inferior.
 </p>
-<p>On targets that support asynchronous execution (see <a href="Background-Execution.html">Background Execution</a>) <small>ROCGDB</small> can place a timeout on any functions called
-from <small>ROCGDB</small>.  If the timeout expires and the function call is
-still ongoing, then <small>ROCGDB</small> will interrupt the program.
+<p>On targets that support asynchronous execution (see <a href="Background-Execution.html">Background Execution</a>) ROCgdb can place a timeout on any functions called
+from ROCgdb.  If the timeout expires and the function call is
+still ongoing, then ROCgdb will interrupt the program.
 </p>
-<p>If a function called from <small>ROCGDB</small> is interrupted by a timeout,
+<p>If a function called from ROCgdb is interrupted by a timeout,
 then by default the inferior is left in the frame where the timeout
 occurred, this behavior can be adjusted with &lsquo;<samp>set
 unwind-on-timeout</samp>&rsquo; (see <a href="#set-unwind_002don_002dtimeout">set unwind-on-timeout</a>).
 </p>
 <p>For targets that don&rsquo;t support asynchronous execution
 (see <a href="Background-Execution.html">Background Execution</a>) then timeouts for functions called from
-<small>ROCGDB</small> are not supported, the timeout settings described below
-will be treated as <code>unlimited</code>, meaning <small>ROCGDB</small> will wait
+ROCgdb are not supported, the timeout settings described below
+will be treated as <code>unlimited</code>, meaning ROCgdb will wait
 indefinitely for function call to complete, unless interrupted by the
 user using <kbd>Ctrl-C</kbd>.
 </p>
@@ -312,7 +312,7 @@ execution (see <a href="Background-Execution.html">Background Execution</a>), fo
 setting is treated as <code>unlimited</code>.
 </p>
 <p>If a function called from a breakpoint or watchpoint condition times
-out, then <small>ROCGDB</small> will stop at the point where the timeout
+out, then ROCgdb will stop at the point where the timeout
 occurred.  The breakpoint condition evaluation will be abandoned.
 </p>
 </dd>
@@ -331,10 +331,10 @@ breakpoint or watchpoint condition.
 
 <span id="index-no-debug-info-functions"></span>
 <p>Sometimes, a function you wish to call is missing debug information.
-In such case, <small>ROCGDB</small> does not know the type of the function,
+In such case, ROCgdb does not know the type of the function,
 including the types of the function&rsquo;s parameters.  To avoid calling
 the inferior function incorrectly, which could result in the called
-function functioning erroneously and even crash, <small>ROCGDB</small> refuses
+function functioning erroneously and even crash, ROCgdb refuses
 to call the function unless you tell it the type of the function.
 </p>
 <p>For prototyped (i.e. ANSI/ISO style) functions, there are two ways
@@ -372,7 +372,7 @@ calling that.  I.e., the call above is equivalent to:
 
 <p>If the function you wish to call is declared as unprototyped (i.e.
 old K&amp;R style), you must use the cast-to-function-pointer syntax, so
-that <small>ROCGDB</small> knows that it needs to apply default argument
+that ROCgdb knows that it needs to apply default argument
 promotions (promote float arguments to double).  See <a href="ABI.html">float
 promotion</a>.  For example, given this unprototyped C function with
 float parameters, and no debug info:

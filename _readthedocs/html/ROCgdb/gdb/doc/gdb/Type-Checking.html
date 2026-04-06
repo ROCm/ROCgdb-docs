@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Type Checking (Debugging with ROCGDB)</title>
+<title>Type Checking (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Type Checking (Debugging with ROCGDB)">
-<meta name="keywords" content="Type Checking (Debugging with ROCGDB)">
+<meta name="description" content="Type Checking (Debugging with ROCgdb)">
+<meta name="keywords" content="Type Checking (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -121,20 +121,20 @@ Cannot resolve method klass::my_method to any overloaded instance
 <p>The second example fails because in C<tt>++</tt> the integer constant
 &lsquo;<samp>0x1234</samp>&rsquo; is not type-compatible with the pointer parameter type.
 </p>
-<p>For the expressions you use in <small>ROCGDB</small> commands, you can tell
-<small>ROCGDB</small> to not enforce strict type checking or
+<p>For the expressions you use in ROCgdb commands, you can tell
+ROCgdb to not enforce strict type checking or
 to treat any mismatches as errors and abandon the expression;
-When type checking is disabled, <small>ROCGDB</small> successfully evaluates
+When type checking is disabled, ROCgdb successfully evaluates
 expressions like the second example above.
 </p>
 <p>Even if type checking is off, there may be other reasons
-related to type that prevent <small>ROCGDB</small> from evaluating an expression.
-For instance, <small>ROCGDB</small> does not know how to add an <code>int</code> and
+related to type that prevent ROCgdb from evaluating an expression.
+For instance, ROCgdb does not know how to add an <code>int</code> and
 a <code>struct foo</code>.  These particular type errors have nothing to do
 with the language in use and usually arise from expressions which make
 little sense to evaluate anyway.
 </p>
-<p><small>ROCGDB</small> provides some additional commands for controlling type checking:
+<p>ROCgdb provides some additional commands for controlling type checking:
 </p>
 <span id="index-set-check-type"></span>
 <span id="index-show-check-type"></span>
@@ -142,12 +142,12 @@ little sense to evaluate anyway.
 <dt><span><code>set check type on</code></span></dt>
 <dt><span><code>set check type off</code></span></dt>
 <dd><p>Set strict type checking on or off.  If any type mismatches occur in
-evaluating an expression while type checking is on, <small>ROCGDB</small> prints a
+evaluating an expression while type checking is on, ROCgdb prints a
 message and aborts evaluation of the expression.
 </p>
 </dd>
 <dt><span><code>show check type</code></span></dt>
-<dd><p>Show the current setting of type checking and whether <small>ROCGDB</small>
+<dd><p>Show the current setting of type checking and whether ROCgdb
 is enforcing strict type checking rules.
 </p></dd>
 </dl>

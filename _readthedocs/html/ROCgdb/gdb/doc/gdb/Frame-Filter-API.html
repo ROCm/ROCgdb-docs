@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Frame Filter API (Debugging with ROCGDB)</title>
+<title>Frame Filter API (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Frame Filter API (Debugging with ROCGDB)">
-<meta name="keywords" content="Frame Filter API (Debugging with ROCGDB)">
+<meta name="description" content="Frame Filter API (Debugging with ROCgdb)">
+<meta name="keywords" content="Frame Filter API (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -107,7 +107,7 @@ Next: <a href="Frame-Decorator-API.html" accesskey="n" rel="next">Decorating Fra
 
 <p>Frame filters are Python objects that manipulate the visibility of a
 frame or frames when a backtrace (see <a href="Backtrace.html">Backtraces</a>) is printed by
-<small>ROCGDB</small>.
+ROCgdb.
 </p>
 <p>Only commands that print a backtrace, or, in the case of <small>GDB/MI</small>
 commands (see <a href="GDB_002fMI.html">The <small>GDB/MI</small> Interface</a>), those that return a collection of frames
@@ -129,9 +129,9 @@ where the filter does not perform any operations).  Typically, frame
 filters utilize tools such as the Python&rsquo;s <code>itertools</code> module to
 work with and create new iterators from the source iterator.
 Regardless of how a filter chooses to apply actions, it must not alter
-the underlying <small>ROCGDB</small> frame or frames, or attempt to alter the
-call-stack within <small>ROCGDB</small>.  This preserves data integrity within
-<small>ROCGDB</small>.  Frame filters are executed on a priority basis and care
+the underlying ROCgdb frame or frames, or attempt to alter the
+call-stack within ROCgdb.  This preserves data integrity within
+ROCgdb.  Frame filters are executed on a priority basis and care
 should be taken that some frame filters may have been executed before,
 and that some frame filters will be executed after.
 </p>
@@ -142,7 +142,7 @@ tens of thousands in some cases.  To search every frame when a frame
 filter executes may be too expensive at that step.  The frame filter
 cannot know how many frames it has to iterate over, and it may have to
 iterate through them all.  This ends up duplicating effort as
-<small>ROCGDB</small> performs this iteration when it prints the frames.  If
+ROCgdb performs this iteration when it prints the frames.  If
 the filter can defer unwinding frames until frame decorators are
 executed, after the last filter has executed, it should.  See <a href="Frame-Decorator-API.html">Decorating Frames</a>, for more information on decorators.  Also, there are
 examples for both frame decorators and filters in later chapters.
@@ -160,16 +160,16 @@ can be found are: <code>gdb.Progspace</code> which contains a
 object which also contains a <code>frame_filters</code> dictionary
 attribute.
 </p>
-<p>When a command is executed from <small>ROCGDB</small> that is compatible with
-frame filters, <small>ROCGDB</small> combines the <code>global</code>,
+<p>When a command is executed from ROCgdb that is compatible with
+frame filters, ROCgdb combines the <code>global</code>,
 <code>gdb.Progspace</code> and all <code>gdb.Objfile</code> dictionaries currently
 loaded.  All of the <code>gdb.Objfile</code> dictionaries are combined, as
 several frames, and thus several object files, might be in use.
-<small>ROCGDB</small> then prunes any frame filter whose <code>enabled</code>
+ROCgdb then prunes any frame filter whose <code>enabled</code>
 attribute is <code>False</code>.  This pruned list is then sorted according
 to the <code>priority</code> attribute in each filter.
 </p>
-<p>Once the dictionaries are combined, pruned and sorted, <small>ROCGDB</small>
+<p>Once the dictionaries are combined, pruned and sorted, ROCgdb
 creates an iterator which wraps each frame in the call stack in a
 <code>FrameDecorator</code> object, and calls each filter in order.  The
 output from the previous filter will always be the input to the next
@@ -180,7 +180,7 @@ implement, defined here:
 </p>
 <dl class="def">
 <dt id="index-FrameFilter_002efilter"><span class="category">Function: </span><span><strong>FrameFilter.filter</strong> <em>(iterator)</em><a href='#index-FrameFilter_002efilter' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p><small>ROCGDB</small> will call this method on a frame filter when it has
+<dd><p>ROCgdb will call this method on a frame filter when it has
 reached the order in the priority list for that filter.
 </p>
 <p>For example, if there are four frame filters:
@@ -220,14 +220,14 @@ the frame decorator interface.  If a frame filter does not wish to
 perform any operations on this iterator, it should return that
 iterator untouched.
 </p>
-<p>This method is not optional.  If it does not exist, <small>ROCGDB</small> will
+<p>This method is not optional.  If it does not exist, ROCgdb will
 raise and print an error.
 </p></dd></dl>
 
 <dl class="def">
 <dt id="index-FrameFilter_002ename"><span class="category">Variable: </span><span><strong>FrameFilter.name</strong><a href='#index-FrameFilter_002ename' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>The <code>name</code> attribute must be Python string which contains the
-name of the filter displayed by <small>ROCGDB</small> (see <a href="Frame-Filter-Management.html">Management of Frame Filters.</a>).  This attribute may contain any combination of letters
+name of the filter displayed by ROCgdb (see <a href="Frame-Filter-Management.html">Management of Frame Filters.</a>).  This attribute may contain any combination of letters
 or numbers.  Care should be taken to ensure that it is unique.  This
 attribute is mandatory.
 </p></dd></dl>
@@ -235,7 +235,7 @@ attribute is mandatory.
 <dl class="def">
 <dt id="index-FrameFilter_002eenabled"><span class="category">Variable: </span><span><strong>FrameFilter.enabled</strong><a href='#index-FrameFilter_002eenabled' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>The <code>enabled</code> attribute must be Python boolean.  This attribute
-indicates to <small>ROCGDB</small> whether the frame filter is enabled, and
+indicates to ROCgdb whether the frame filter is enabled, and
 should be considered when frame filters are executed.  If
 <code>enabled</code> is <code>True</code>, then the frame filter will be executed
 when any of the backtrace commands detailed earlier in this chapter

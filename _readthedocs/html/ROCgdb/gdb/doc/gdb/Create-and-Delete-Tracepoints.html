@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Create and Delete Tracepoints (Debugging with ROCGDB)</title>
+<title>Create and Delete Tracepoints (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Create and Delete Tracepoints (Debugging with ROCGDB)">
-<meta name="keywords" content="Create and Delete Tracepoints (Debugging with ROCGDB)">
+<meta name="description" content="Create and Delete Tracepoints (Debugging with ROCgdb)">
+<meta name="keywords" content="Create and Delete Tracepoints (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -119,13 +119,13 @@ If remote stub doesn&rsquo;t support the &lsquo;<samp>InstallInTrace</samp>&rsqu
 these changes don&rsquo;t take effect until the next <code>tstart</code>
 command, and once a trace experiment is running, further changes will
 not have any effect until the next trace experiment starts.  In addition,
-<small>ROCGDB</small> supports <em>pending tracepoints</em>&mdash;tracepoints whose
+ROCgdb supports <em>pending tracepoints</em>&mdash;tracepoints whose
 address is not yet resolved.  (This is similar to pending breakpoints.)
 Pending tracepoints are not downloaded to the target and not installed
 until they are resolved.  The resolution of pending tracepoints requires
-<small>ROCGDB</small> support&mdash;when debugging with the remote target, and
-<small>ROCGDB</small> disconnects from the remote stub (see <a href="Starting-and-Stopping-Trace-Experiments.html#disconnected-tracing">disconnected tracing</a>), pending tracepoints can not be resolved (and downloaded to
-the remote stub) while <small>ROCGDB</small> is disconnected.
+ROCgdb support&mdash;when debugging with the remote target, and
+ROCgdb disconnects from the remote stub (see <a href="Starting-and-Stopping-Trace-Experiments.html#disconnected-tracing">disconnected tracing</a>), pending tracepoints can not be resolved (and downloaded to
+the remote stub) while ROCgdb is disconnected.
 </p>
 <p>Here are some examples of using the <code>trace</code> command:
 </p>
@@ -163,7 +163,7 @@ may not be possible to create a fast tracepoint at the desired
 location, in which case the command will exit with an explanatory
 message.
 </p>
-<p><small>ROCGDB</small> handles arguments to <code>ftrace</code> exactly as for
+<p>ROCgdb handles arguments to <code>ftrace</code> exactly as for
 <code>trace</code>.
 </p>
 <p>On 32-bit x86-architecture systems, fast tracepoints normally need to
@@ -172,7 +172,7 @@ placed at 4-byte instructions if the low 64K of memory of the target
 program is available to install trampolines.  Some Unix-type systems,
 such as <small>GNU</small>/Linux, exclude low addresses from the program&rsquo;s
 address space; but for instance with the Linux kernel it is possible
-to let <small>ROCGDB</small> use this area by doing a <code>sysctl</code> command
+to let ROCgdb use this area by doing a <code>sysctl</code> command
 to set the <code>mmap_min_addr</code> kernel parameter, as in
 </p>
 <div class="example">
@@ -194,7 +194,7 @@ result from resolving <var>locspec</var>.  It may not be possible to set a
 static tracepoint at the desired code location, in which case the
 command will exit with an explanatory message.
 </p>
-<p><small>ROCGDB</small> handles arguments to <code>strace</code> exactly as for
+<p>ROCgdb handles arguments to <code>strace</code> exactly as for
 <code>trace</code>, with the addition that the user can also specify
 <code>-m <var>marker</var></code> instead of a location spec.  This probes the marker
 identified by the <var>marker</var> string identifier.  This identifier
@@ -240,7 +240,7 @@ the &lsquo;<samp>Data:</samp>&rsquo; field.
 </p>
 <p>You can inspect this data when analyzing the trace buffer, by printing
 the $_sdata variable like any other variable available to
-<small>ROCGDB</small>.  See <a href="Tracepoint-Actions.html">Tracepoint Action Lists</a>.
+ROCgdb.  See <a href="Tracepoint-Actions.html">Tracepoint Action Lists</a>.
 </p>
 <span id="index-_0024tpnum"></span>
 <span id="index-last-tracepoint-number"></span>

@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Sample Session (Debugging with ROCGDB)</title>
+<title>Sample Session (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Sample Session (Debugging with ROCGDB)">
-<meta name="keywords" content="Sample Session (Debugging with ROCGDB)">
+<meta name="description" content="Sample Session (Debugging with ROCgdb)">
+<meta name="keywords" content="Sample Session (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -99,12 +99,12 @@ ul.no-bullet {list-style: none}
 <div class="chapter" id="Sample-Session">
 <div class="header">
 <p>
-Next: <a href="Invocation.html" accesskey="n" rel="next">Getting In and Out of <small>ROCGDB</small></a>, Previous: <a href="Summary.html" accesskey="p" rel="prev">Summary of <small>ROCGDB</small></a>, Up: <a href="index.html" accesskey="u" rel="up">Debugging with <small>ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Invocation.html" accesskey="n" rel="next">Getting In and Out of ROCgdb</a>, Previous: <a href="Summary.html" accesskey="p" rel="prev">Summary of ROCgdb</a>, Up: <a href="index.html" accesskey="u" rel="up">Debugging with ROCgdb</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="A-Sample-ROCGDB-Session"></span><h2 class="chapter">1 A Sample <small>ROCGDB</small> Session</h2>
+<span id="A-Sample-ROCgdb-Session"></span><h2 class="chapter">1 A Sample ROCgdb Session</h2>
 
-<p>You can use this manual at your leisure to read all about <small>ROCGDB</small>.
+<p>You can use this manual at your leisure to read all about ROCgdb.
 However, a handful of commands are enough to get started using the
 debugger.  This chapter illustrates those commands.
 </p>
@@ -139,23 +139,23 @@ $ <b>./m4</b>
 m4: End of input: 0: fatal error: EOF in string
 </pre></div>
 
-<p>Let us use <small>ROCGDB</small> to try to see what is going on.
+<p>Let us use ROCgdb to try to see what is going on.
 </p>
 <div class="example">
 <pre class="example">$ <b>gdb m4</b>
-ROCGDB is free software and you are welcome to distribute copies
+ROCgdb is free software and you are welcome to distribute copies
  of it under certain conditions; type &quot;show copying&quot; to see
  the conditions.
-There is absolutely no warranty for ROCGDB; type &quot;show warranty&quot;
+There is absolutely no warranty for ROCgdb; type &quot;show warranty&quot;
  for details.
 
-ROCGDB 16.3, Copyright 1999 Free Software Foundation, Inc...
+ROCgdb 16.3, Copyright 1999 Free Software Foundation, Inc...
 (gdb)
 </pre></div>
 
-<p><small>ROCGDB</small> reads only enough symbol data to know where to find the
+<p>ROCgdb reads only enough symbol data to know where to find the
 rest when needed; as a result, the first prompt comes up very quickly.
-We now tell <small>ROCGDB</small> to use a narrower display width than usual, so
+We now tell ROCgdb to use a narrower display width than usual, so
 that examples fit in this manual.
 </p>
 <div class="example">
@@ -164,7 +164,7 @@ that examples fit in this manual.
 
 <p>We need to see how the <code>m4</code> built-in <code>changequote</code> works.
 Having looked at the source, we know the relevant subroutine is
-<code>m4_changequote</code>, so we set a breakpoint there with the <small>ROCGDB</small>
+<code>m4_changequote</code>, so we set a breakpoint there with the ROCgdb
 <code>break</code> command.
 </p>
 <div class="example">
@@ -172,7 +172,7 @@ Having looked at the source, we know the relevant subroutine is
 Breakpoint 1 at 0x62f4: file builtin.c, line 879.
 </pre></div>
 
-<p>Using the <code>run</code> command, we start <code>m4</code> running under <small>ROCGDB</small>
+<p>Using the <code>run</code> command, we start <code>m4</code> running under ROCgdb
 control; as long as control does not reach the <code>m4_changequote</code>
 subroutine, the program runs as usual:
 </p>
@@ -185,7 +185,7 @@ Starting program: /work/Editorial/gdb/gnu/m4/m4
 0000
 </pre></div>
 
-<p>To trigger the breakpoint, we call <code>changequote</code>.  <small>ROCGDB</small>
+<p>To trigger the breakpoint, we call <code>changequote</code>.  ROCgdb
 suspends execution of <code>m4</code>, displaying information about the
 context where it stops.
 </p>
@@ -339,9 +339,9 @@ lengths.  We allow <code>m4</code> exit by giving it an EOF as input:
 Program exited normally.
 </pre></div>
 
-<p>The message &lsquo;<samp>Program exited normally.</samp>&rsquo; is from <small>ROCGDB</small>; it
-indicates <code>m4</code> has finished executing.  We can end our <small>ROCGDB</small>
-session with the <small>ROCGDB</small> <code>quit</code> command.
+<p>The message &lsquo;<samp>Program exited normally.</samp>&rsquo; is from ROCgdb; it
+indicates <code>m4</code> has finished executing.  We can end our ROCgdb
+session with the ROCgdb <code>quit</code> command.
 </p>
 <div class="example">
 <pre class="example">(gdb) <b>quit</b>
@@ -351,7 +351,7 @@ session with the <small>ROCGDB</small> <code>quit</code> command.
 <hr>
 <div class="header">
 <p>
-Next: <a href="Invocation.html">Getting In and Out of <small>ROCGDB</small></a>, Previous: <a href="Summary.html">Summary of <small>ROCGDB</small></a>, Up: <a href="index.html">Debugging with <small>ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Invocation.html">Getting In and Out of ROCgdb</a>, Previous: <a href="Summary.html">Summary of ROCgdb</a>, Up: <a href="index.html">Debugging with ROCgdb</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

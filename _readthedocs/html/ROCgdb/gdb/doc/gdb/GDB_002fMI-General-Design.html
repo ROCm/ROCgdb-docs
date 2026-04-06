@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>GDB/MI General Design (Debugging with ROCGDB)</title>
+<title>GDB/MI General Design (Debugging with ROCgdb)</title>
 
-<meta name="description" content="GDB/MI General Design (Debugging with ROCGDB)">
-<meta name="keywords" content="GDB/MI General Design (Debugging with ROCGDB)">
+<meta name="description" content="GDB/MI General Design (Debugging with ROCgdb)">
+<meta name="keywords" content="GDB/MI General Design (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -104,15 +104,15 @@ Next: <a href="GDB_002fMI-Command-Syntax.html" accesskey="n" rel="next"><small>G
 <span id="GDB_002fMI-General-Design-1"></span><h3 class="section">28.1 <small>GDB/MI</small> General Design</h3>
 <span id="index-GDB_002fMI-General-Design"></span>
 
-<p>Interaction of a <small>GDB/MI</small> frontend with <small>ROCGDB</small> involves three
-parts&mdash;commands sent to <small>ROCGDB</small>, responses to those commands
+<p>Interaction of a <small>GDB/MI</small> frontend with ROCgdb involves three
+parts&mdash;commands sent to ROCgdb, responses to those commands
 and notifications.  Each command results in exactly one response,
 indicating either successful completion of the command, or an error.
 For the commands that do not resume the target, the response contains the
 requested information.  For the commands that resume the target, the
 response only indicates whether the target was successfully resumed.
 Notifications is the mechanism for reporting changes in the state of the
-target, or in <small>ROCGDB</small> state, that cannot conveniently be associated with
+target, or in ROCgdb state, that cannot conveniently be associated with
 a command and reported as part of that command response.
 </p>
 <p>The important examples of notifications are:
@@ -133,7 +133,7 @@ this information in command response would mean no output is produced
 until the command is finished, which is undesirable.
 
 </li><li> General notifications.  Commands may have various side effects on
-the <small>ROCGDB</small> or target state beyond their official purpose.  For example,
+the ROCgdb or target state beyond their official purpose.  For example,
 a command may change the selected thread.  Although such changes can
 be included in command response, using notification allows for more
 orthogonal frontend design.
@@ -141,7 +141,7 @@ orthogonal frontend design.
 </li></ul>
 
 <p>There&rsquo;s no guarantee that whenever an MI command reports an error,
-<small>ROCGDB</small> or the target are in any specific state, and especially,
+ROCgdb or the target are in any specific state, and especially,
 the state is not reverted to the state before the MI command was
 processed.  Therefore, whenever an MI command results in an error, 
 we recommend that the frontend refreshes all the information shown in 

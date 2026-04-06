@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Print Settings (Debugging with ROCGDB)</title>
+<title>Print Settings (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Print Settings (Debugging with ROCGDB)">
-<meta name="keywords" content="Print Settings (Debugging with ROCGDB)">
+<meta name="description" content="Print Settings (Debugging with ROCgdb)">
+<meta name="keywords" content="Print Settings (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -106,7 +106,7 @@ Next: <a href="Pretty-Printing.html" accesskey="n" rel="next">Pretty Printing</a
 
 <span id="index-format-options"></span>
 <span id="index-print-settings"></span>
-<p><small>ROCGDB</small> provides the following ways to control how arrays, structures,
+<p>ROCgdb provides the following ways to control how arrays, structures,
 and symbols are printed.
 </p>
 <p>These settings are useful for debugging programs in any language:
@@ -116,7 +116,7 @@ and symbols are printed.
 <span id="set-print-address"></span></dd>
 <dt id='index-print_002fdon_0027t-print-memory-addresses'><span><code>set print address</code><a href='#index-print_002fdon_0027t-print-memory-addresses' class='copiable-anchor'> &para;</a></span></dt>
 <dt><span><code>set print address on</code></span></dt>
-<dd><p><small>ROCGDB</small> prints memory addresses showing the location of stack
+<dd><p>ROCgdb prints memory addresses showing the location of stack
 traces, structure values, pointer values, breakpoints, and so forth,
 even when it also displays the contents of those addresses.  The default
 is <code>on</code>.  For example, this is what a stack frame display looks like with
@@ -142,7 +142,7 @@ this is the same stack frame displayed with <code>set print address off</code>:
 </pre></div>
 
 <p>You can use &lsquo;<samp>set print address off</samp>&rsquo; to eliminate all machine
-dependent displays from the <small>ROCGDB</small> interface.  For example, with
+dependent displays from the ROCgdb interface.  For example, with
 <code>print address off</code>, you should get the same text for backtraces on
 all machines&mdash;whether or not they involve pointer arguments.
 </p>
@@ -153,18 +153,18 @@ all machines&mdash;whether or not they involve pointer arguments.
 </p></dd>
 </dl>
 
-<p>When <small>ROCGDB</small> prints a symbolic address, it normally prints the
+<p>When ROCgdb prints a symbolic address, it normally prints the
 closest earlier symbol plus an offset.  If that symbol does not uniquely
 identify the address (for example, it is a name whose scope is a single
 source file), you may need to clarify.  One way to do this is with
 <code>info line</code>, for example &lsquo;<samp>info line *0x4537</samp>&rsquo;.  Alternately,
-you can set <small>ROCGDB</small> to print the source file and line number when
+you can set ROCgdb to print the source file and line number when
 it prints a symbolic address:
 </p>
 <dl compact="compact">
 <dt id='index-source-file-and-line-of-a-symbol'><span><code>set print symbol-filename on</code><a href='#index-source-file-and-line-of-a-symbol' class='copiable-anchor'> &para;</a></span></dt>
 <dd><span id="index-symbol_002c-source-file-and-line"></span>
-<p>Tell <small>ROCGDB</small> to print the source file name and line number of a
+<p>Tell ROCgdb to print the source file name and line number of a
 symbol in the symbolic form of an address.
 </p>
 </dd>
@@ -174,13 +174,13 @@ default.
 </p>
 </dd>
 <dt><span><code>show print symbol-filename</code></span></dt>
-<dd><p>Show whether or not <small>ROCGDB</small> will print the source file name and
+<dd><p>Show whether or not ROCgdb will print the source file name and
 line number of a symbol in the symbolic form of an address.
 </p></dd>
 </dl>
 
 <p>Another situation where it is helpful to show symbol filenames and line
-numbers is when disassembling code; <small>ROCGDB</small> shows you the line
+numbers is when disassembling code; ROCgdb shows you the line
 number and source file that corresponds to each instruction.
 </p>
 <p>Also, you may wish to see the symbolic form only if the address being
@@ -189,15 +189,15 @@ printed is reasonably close to the closest earlier symbol:
 <dl compact="compact">
 <dt id='index-maximum-value-for-offset-of-closest-symbol'><span><code>set print max-symbolic-offset <var>max-offset</var></code><a href='#index-maximum-value-for-offset-of-closest-symbol' class='copiable-anchor'> &para;</a></span></dt>
 <dt><span><code>set print max-symbolic-offset unlimited</code></span></dt>
-<dd><p>Tell <small>ROCGDB</small> to only display the symbolic form of an address if the
+<dd><p>Tell ROCgdb to only display the symbolic form of an address if the
 offset between the closest earlier symbol and the address is less than
-<var>max-offset</var>.  The default is <code>unlimited</code>, which tells <small>ROCGDB</small>
+<var>max-offset</var>.  The default is <code>unlimited</code>, which tells ROCgdb
 to always print the symbolic form of an address if any symbol precedes
 it.  Zero is equivalent to <code>unlimited</code>.
 </p>
 </dd>
 <dt><span><code>show print max-symbolic-offset</code></span></dt>
-<dd><p>Ask how large the maximum offset is that <small>ROCGDB</small> prints in a
+<dd><p>Ask how large the maximum offset is that ROCgdb prints in a
 symbolic address.
 </p></dd>
 </dl>
@@ -208,7 +208,7 @@ symbolic address.
 &lsquo;<samp>set print symbol-filename on</samp>&rsquo;.  Then you can determine the name
 and source file location of the variable where it points, using
 &lsquo;<samp>p/a <var>pointer</var></samp>&rsquo;.  This interprets the address in symbolic form.
-For example, here <small>ROCGDB</small> shows that a variable <code>ptt</code> points
+For example, here ROCgdb shows that a variable <code>ptt</code> points
 at another variable <code>t</code>, defined in <samp>hi2.c</samp>:
 </p>
 <div class="example">
@@ -228,18 +228,18 @@ the appropriate <code>set print</code> options turned on.
 </p>
 <span id="set-print-symbol"></span><dl compact="compact">
 <dt><span><code>set print symbol on</code></span></dt>
-<dd><p>Tell <small>ROCGDB</small> to print the symbol corresponding to an address, if
+<dd><p>Tell ROCgdb to print the symbol corresponding to an address, if
 one exists.
 </p>
 </dd>
 <dt><span><code>set print symbol off</code></span></dt>
-<dd><p>Tell <small>ROCGDB</small> not to print the symbol corresponding to an
-address.  In this mode, <small>ROCGDB</small> will still print the symbol
+<dd><p>Tell ROCgdb not to print the symbol corresponding to an
+address.  In this mode, ROCgdb will still print the symbol
 corresponding to pointers to functions.  This is the default.
 </p>
 </dd>
 <dt><span><code>show print symbol</code></span></dt>
-<dd><p>Show whether <small>ROCGDB</small> will display the symbol corresponding to an
+<dd><p>Show whether ROCgdb will display the symbol corresponding to an
 address.
 </p></dd>
 </dl>
@@ -283,7 +283,7 @@ arrays.
 <dt id='index-print-binary-values-in-groups-of-four-bits'><span><code>set print nibbles</code><a href='#index-print-binary-values-in-groups-of-four-bits' class='copiable-anchor'> &para;</a></span></dt>
 <dt><span><code>set print nibbles on</code></span></dt>
 <dd><p>Print binary values in groups of four bits, known as <em>nibbles</em>,
-when using the print command of <small>ROCGDB</small> with the option &lsquo;<samp>/t</samp>&rsquo;.
+when using the print command of ROCgdb with the option &lsquo;<samp>/t</samp>&rsquo;.
 For example, this is what it looks like with <code>set print nibbles on</code>:
 </p>
 <div class="example">
@@ -306,8 +306,8 @@ $2 = 0100 1100 1110
 <dt><span><code>set print characters elements</code></span></dt>
 <dt><span><code>set print characters unlimited</code></span></dt>
 <dd><span id="index-limit-on-number-of-printed-string-characters"></span>
-<p>Set a limit on how many characters of a string <small>ROCGDB</small> will print.
-If <small>ROCGDB</small> is printing a large string, it stops printing after it
+<p>Set a limit on how many characters of a string ROCgdb will print.
+If ROCgdb is printing a large string, it stops printing after it
 has printed the number of characters set by the <code>set print
 characters</code> command.  This equally applies to multi-byte and wide
 character strings, that is for strings whose character type is
@@ -319,23 +319,23 @@ limit on the number of characters to print follows one for array
 elements; see <a href="#set-print-elements">set print elements</a>.
 Setting <var>number-of-characters</var> to <code>unlimited</code> means that the
 number of characters to print is unlimited.
-When <small>ROCGDB</small> starts, this limit is set to <code>elements</code>.
+When ROCgdb starts, this limit is set to <code>elements</code>.
 </p>
 </dd>
 <dt><span><code>show print characters</code></span></dt>
-<dd><p>Display the number of characters of a large string that <small>ROCGDB</small>
+<dd><p>Display the number of characters of a large string that ROCgdb
 will print.
 </p>
 <span id="set-print-elements"></span></dd>
 <dt id='index-number-of-array-elements-to-print'><span><code>set print elements <var>number-of-elements</var></code><a href='#index-number-of-array-elements-to-print' class='copiable-anchor'> &para;</a></span></dt>
 <dt><span><code>set print elements unlimited</code></span></dt>
 <dd><span id="index-limit-on-number-of-printed-array-elements"></span>
-<p>Set a limit on how many elements of an array <small>ROCGDB</small> will print.
-If <small>ROCGDB</small> is printing a large array, it stops printing after it has
+<p>Set a limit on how many elements of an array ROCgdb will print.
+If ROCgdb is printing a large array, it stops printing after it has
 printed the number of elements set by the <code>set print elements</code> command.
 By default this limit also applies to the display of strings; see
 <a href="#set-print-characters">set print characters</a>.
-When <small>ROCGDB</small> starts, this limit is set to 200.
+When ROCgdb starts, this limit is set to 200.
 Setting <var>number-of-elements</var> to <code>unlimited</code> or zero means
 that the number of elements to print is unlimited.
 </p>
@@ -343,13 +343,13 @@ that the number of elements to print is unlimited.
 <code>max-value-size</code> (see <a href="Value-Sizes.html#set-max_002dvalue_002dsize">max-value-size</a>),
 if the <code>print elements</code> is set such that the size of the elements
 being printed is less than or equal to <code>max-value-size</code>, then
-<small>ROCGDB</small> will print the array (up to the <code>print elements</code> limit),
+ROCgdb will print the array (up to the <code>print elements</code> limit),
 and only <code>max-value-size</code> worth of data will be added into the value
 history (see <a href="Value-History.html">Value History</a>).
 </p>
 </dd>
 <dt><span><code>show print elements</code></span></dt>
-<dd><p>Display the number of elements of a large array that <small>ROCGDB</small> will print.
+<dd><p>Display the number of elements of a large array that ROCgdb will print.
 </p>
 <span id="set-print-frame_002darguments"></span></dd>
 <dt id='index-set-print-frame_002darguments'><span><code>set print frame-arguments <var>value</var></code><a href='#index-set-print-frame_002darguments' class='copiable-anchor'> &para;</a></span></dt>
@@ -434,13 +434,13 @@ This is the default.
 <span id="set-print-entry_002dvalues"></span></dd>
 <dt id='index-set-print-entry_002dvalues'><span><code>set print entry-values <var>value</var></code><a href='#index-set-print-entry_002dvalues' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Set printing of frame argument values at function entry.  In some cases
-<small>ROCGDB</small> can determine the value of function argument which was passed by
+ROCgdb can determine the value of function argument which was passed by
 the function caller, even if the value was modified inside the called function
 and therefore is different.  With optimized code, the current value could be
 unavailable, but the entry value may still be known.
 </p>
 <p>The default value is <code>default</code> (see below for its description).  Older
-<small>ROCGDB</small> behaved as with the setting <code>no</code>.  Compilers not supporting
+ROCgdb behaved as with the setting <code>no</code>.  Compilers not supporting
 this feature will behave in the <code>default</code> setting the same way as with the
 <code>no</code> setting.
 </p>
@@ -589,7 +589,7 @@ source line), the line number and the source line.
 </p></dd>
 <dt><span><code>auto</code></span></dt>
 <dd><p>The information printed for a frame is decided automatically
-by the <small>ROCGDB</small> command that prints a frame.
+by the ROCgdb command that prints a frame.
 For example, <code>frame</code> prints the information printed by
 <code>source-and-location</code> while <code>stepi</code> will switch between
 <code>source-line</code> and <code>source-and-location</code> depending on the program
@@ -603,7 +603,7 @@ The default value is <code>auto</code>.
 <dt><span><code>set print repeats unlimited</code></span></dt>
 <dd><p>Set the threshold for suppressing display of repeated array
 elements.  When the number of consecutive identical elements of an
-array exceeds the threshold, <small>ROCGDB</small> prints the string
+array exceeds the threshold, ROCgdb prints the string
 <code>&quot;&lt;repeats <var>n</var> times&gt;&quot;</code>, where <var>n</var> is the number of
 identical repetitions, instead of displaying the identical elements
 themselves.  Setting the threshold to <code>unlimited</code> or zero will
@@ -633,7 +633,7 @@ s4 var = { { { { 3 } } } };
 </pre></div>
 
 <p>The following table shows how different values of <var>depth</var> will
-effect how <code>var</code> is printed by <small>ROCGDB</small>:
+effect how <code>var</code> is printed by ROCgdb:
 </p>
 <table>
 <thead><tr><th width="30%"><var>depth</var> setting</th><th width="70%">Result of &lsquo;<samp>p var</samp>&rsquo;</th></tr></thead>
@@ -672,7 +672,7 @@ replaces with ellipsis.
 </dd>
 <dt><span><code>set print memory-tag-violations</code></span></dt>
 <dt><span><code>set print memory-tag-violations on</code></span></dt>
-<dd><p>Cause <small>ROCGDB</small> to display additional information about memory tag violations
+<dd><p>Cause ROCgdb to display additional information about memory tag violations
 when printing pointers and addresses.
 </p>
 </dd>
@@ -686,20 +686,20 @@ pointers and addresses.
 </p>
 <span id="set-print-null_002dstop"></span></dd>
 <dt id='index-NULL-elements-in-arrays'><span><code>set print null-stop</code><a href='#index-NULL-elements-in-arrays' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Cause <small>ROCGDB</small> to stop printing the characters of an array when the first
+<dd><p>Cause ROCgdb to stop printing the characters of an array when the first
 <small>NULL</small> is encountered.  This is useful when large arrays actually
 contain only short strings.
 The default is off.
 </p>
 </dd>
 <dt><span><code>show print null-stop</code></span></dt>
-<dd><p>Show whether <small>ROCGDB</small> stops printing an array on the first
+<dd><p>Show whether ROCgdb stops printing an array on the first
 <small>NULL</small> character.
 </p>
 <span id="set-print-pretty"></span></dd>
 <dt id='index-print-structures-in-indented-form'><span><code>set print pretty on</code><a href='#index-print-structures-in-indented-form' class='copiable-anchor'> &para;</a></span></dt>
 <dd><span id="index-indentation-in-structure-display"></span>
-<p>Cause <small>ROCGDB</small> to print structures in an indented format with one member
+<p>Cause ROCgdb to print structures in an indented format with one member
 per line, like this:
 </p>
 <div class="example">
@@ -715,7 +715,7 @@ per line, like this:
 
 </dd>
 <dt><span><code>set print pretty off</code></span></dt>
-<dd><p>Cause <small>ROCGDB</small> to print structures in a compact format, like this:
+<dd><p>Cause ROCgdb to print structures in a compact format, like this:
 </p>
 <div class="example">
 <pre class="example">$1 = {next = 0x0, flags = {sweet = 1, sour = 1}, \
@@ -726,7 +726,7 @@ meat = 0x54 &quot;Pork&quot;}
 </p>
 </dd>
 <dt><span><code>show print pretty</code></span></dt>
-<dd><p>Show which format <small>ROCGDB</small> is using to print structures.
+<dd><p>Show which format ROCgdb is using to print structures.
 </p>
 <span id="set-print-raw_002dvalues"></span></dd>
 <dt><span><code>set print raw-values on</code></span></dt>
@@ -749,7 +749,7 @@ otherwise print the value in raw form.
 <dt id='index-eight_002dbit-characters-in-strings'><span><code>set print sevenbit-strings on</code><a href='#index-eight_002dbit-characters-in-strings' class='copiable-anchor'> &para;</a></span></dt>
 <dd><span id="index-octal-escapes-in-strings"></span>
 <p>Print using only seven-bit characters; if this option is set,
-<small>ROCGDB</small> displays any eight-bit characters (in strings or
+ROCgdb displays any eight-bit characters (in strings or
 character values) using the notation <code>\</code><var>nnn</var>.  This setting is
 best if you are working in English (<small>ASCII</small>) and you use the
 high-order bit of characters as a marker or &ldquo;meta&rdquo; bit.
@@ -761,22 +761,22 @@ international character sets, and is the default.
 </p>
 </dd>
 <dt><span><code>show print sevenbit-strings</code></span></dt>
-<dd><p>Show whether or not <small>ROCGDB</small> is printing only seven-bit characters.
+<dd><p>Show whether or not ROCgdb is printing only seven-bit characters.
 </p>
 <span id="set-print-union"></span></dd>
 <dt id='index-unions-in-structures_002c-printing'><span><code>set print union on</code><a href='#index-unions-in-structures_002c-printing' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Tell <small>ROCGDB</small> to print unions which are contained in structures
+<dd><p>Tell ROCgdb to print unions which are contained in structures
 and other unions.  This is the default setting.
 </p>
 </dd>
 <dt><span><code>set print union off</code></span></dt>
-<dd><p>Tell <small>ROCGDB</small> not to print unions which are contained in
-structures and other unions.  <small>ROCGDB</small> will print <code>&quot;{...}&quot;</code>
+<dd><p>Tell ROCgdb not to print unions which are contained in
+structures and other unions.  ROCgdb will print <code>&quot;{...}&quot;</code>
 instead.
 </p>
 </dd>
 <dt><span><code>show print union</code></span></dt>
-<dd><p>Ask <small>ROCGDB</small> whether or not it will print unions which are contained in
+<dd><p>Ask ROCgdb whether or not it will print unions which are contained in
 structures and other unions.
 </p>
 <p>For example, given the declarations
@@ -849,7 +849,7 @@ or demangled form.
 <dt><span><code>set demangle-style <var>style</var></code></span></dt>
 <dd><p>Choose among several encoding schemes used by different compilers to represent
 C<tt>++</tt> names.  If you omit <var>style</var>, you will see a list of possible
-formats.  The default value is <var>auto</var>, which lets <small>ROCGDB</small> choose a
+formats.  The default value is <var>auto</var>, which lets ROCgdb choose a
 decoding style by inspecting your program.
 </p>
 </dd>

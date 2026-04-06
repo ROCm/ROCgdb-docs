@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Compiling and Injecting Code (Debugging with ROCGDB)</title>
+<title>Compiling and Injecting Code (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Compiling and Injecting Code (Debugging with ROCGDB)">
-<meta name="keywords" content="Compiling and Injecting Code (Debugging with ROCGDB)">
+<meta name="description" content="Compiling and Injecting Code (Debugging with ROCgdb)">
+<meta name="keywords" content="Compiling and Injecting Code (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -101,13 +101,13 @@ ul.no-bullet {list-style: none}
 Previous: <a href="Patching.html" accesskey="p" rel="prev">Patching Programs</a>, Up: <a href="Altering.html" accesskey="u" rel="up">Altering Execution</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="Compiling-and-injecting-code-in-ROCGDB"></span><h3 class="section">17.7 Compiling and injecting code in <small>ROCGDB</small></h3>
+<span id="Compiling-and-injecting-code-in-ROCgdb"></span><h3 class="section">17.7 Compiling and injecting code in ROCgdb</h3>
 <span id="index-injecting-code"></span>
 <span id="index-writing-into-executables-1"></span>
 <span id="index-compiling-code"></span>
 
-<p><small>ROCGDB</small> supports on-demand compilation and code injection into
-programs running under <small>ROCGDB</small>.  GCC 5.0 or higher built with
+<p>ROCgdb supports on-demand compilation and code injection into
+programs running under ROCgdb.  GCC 5.0 or higher built with
 <samp>libcc1.so</samp> must be installed for this functionality to be enabled.
 This functionality is implemented with the following commands.
 </p>
@@ -117,14 +117,14 @@ This functionality is implemented with the following commands.
 <dt><span><code>compile code <var>source-code</var></code></span></dt>
 <dt><span><code>compile code -raw <var>--</var> <var>source-code</var></code></span></dt>
 <dd><p>Compile <var>source-code</var> with the compiler language found as the current
-language in <small>ROCGDB</small> (see <a href="Languages.html">Using <small>ROCGDB</small> with Different Languages</a>).  If compilation and
+language in ROCgdb (see <a href="Languages.html">Using ROCgdb with Different Languages</a>).  If compilation and
 injection is not supported with the current language specified in
-<small>ROCGDB</small>, or the compiler does not support this feature, an error
+ROCgdb, or the compiler does not support this feature, an error
 message will be printed.  If <var>source-code</var> compiles and links
-successfully, <small>ROCGDB</small> will load the object-code emitted,
+successfully, ROCgdb will load the object-code emitted,
 and execute it within the context of the currently selected inferior.
 It is important to note that the compiled code is executed immediately.
-After execution, the compiled code is removed from <small>ROCGDB</small> and any
+After execution, the compiled code is removed from ROCgdb and any
 new types or variables you have defined will be deleted.
 </p>
 <p>The command allows you to specify <var>source-code</var> in two ways.
@@ -157,7 +157,7 @@ editor.
 &gt;end
 </pre></div>
 
-<p>Specifying &lsquo;<samp>-raw</samp>&rsquo;, prohibits <small>ROCGDB</small> from wrapping the
+<p>Specifying &lsquo;<samp>-raw</samp>&rsquo;, prohibits ROCgdb from wrapping the
 provided <var>source-code</var> in a callable scope.  In this case, you must
 specify the entry point of the code by defining a function named
 <code>_gdb_expr_</code>.  The &lsquo;<samp>-raw</samp>&rsquo; code cannot access variables of the
@@ -184,7 +184,7 @@ inferior symbols otherwise.
 <dt><span><code>compile print [[<var>options</var>] --] <var>expr</var></code></span></dt>
 <dt><span><code>compile print [[<var>options</var>] --] /<var>f</var> <var>expr</var></code></span></dt>
 <dd><p>Compile and execute <var>expr</var> with the compiler language found as the
-current language in <small>ROCGDB</small> (see <a href="Languages.html">Using <small>ROCGDB</small> with Different Languages</a>).  By default the
+current language in ROCgdb (see <a href="Languages.html">Using ROCgdb with Different Languages</a>).  By default the
 value of <var>expr</var> is printed in a format appropriate to its data type;
 you can choose a different format by specifying &lsquo;<samp>/<var>f</var></samp>&rsquo;, where
 <var>f</var> is a letter specifying the format; see <a href="Output-Formats.html">Output
@@ -206,12 +206,12 @@ multiple-line editor.
 <dl compact="compact">
 <dd><span id="set-debug-compile"></span></dd>
 <dt id='index-compile-command-debugging-info'><span><code>set debug compile</code><a href='#index-compile-command-debugging-info' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Turns on or off display of <small>ROCGDB</small> process of compiling and
+<dd><p>Turns on or off display of ROCgdb process of compiling and
 injecting the code.  The default is off.
 </p>
 </dd>
 <dt><span><code>show debug compile</code></span></dt>
-<dd><p>Displays the current state of displaying <small>ROCGDB</small> process of
+<dd><p>Displays the current state of displaying ROCgdb process of
 compiling and injecting the code.
 </p>
 <span id="set-debug-compile_002dcplus_002dtypes"></span></dd>
@@ -234,9 +234,9 @@ C<tt>++</tt> type conversion.
 <div class="subsection" id="Compilation-options-for-the-compile-command">
 <h4 class="subsection">17.7.1 Compilation options for the <code>compile</code> command</h4>
 
-<p><small>ROCGDB</small> needs to specify the right compilation options for the code
+<p>ROCgdb needs to specify the right compilation options for the code
 to be injected, in part to make its ABI compatible with the inferior
-and in part to make the injected code compatible with <small>ROCGDB</small>&rsquo;s
+and in part to make the injected code compatible with ROCgdb&rsquo;s
 injecting process.
 </p>
 <p>The options used, in increasing precedence:
@@ -288,14 +288,14 @@ highlights specific issues on a per language basis.
 </p>
 <dl compact="compact">
 <dt><span>C code examples and caveats</span></dt>
-<dd><p>When the language in <small>ROCGDB</small> is set to &lsquo;<samp>C</samp>&rsquo;, the compiler will
+<dd><p>When the language in ROCgdb is set to &lsquo;<samp>C</samp>&rsquo;, the compiler will
 attempt to compile the source code with a &lsquo;<samp>C</samp>&rsquo; compiler.  The source
 code provided to the <code>compile</code> command will have much the same
 access to variables and types as it normally would if it were part of
-the program currently being debugged in <small>ROCGDB</small>.
+the program currently being debugged in ROCgdb.
 </p>
 <p>Below is a sample program that forms the basis of the examples that
-follow.  This program has been compiled and loaded into <small>ROCGDB</small>,
+follow.  This program has been compiled and loaded into ROCgdb,
 much like any other normal debugging session.
 </p>
 <div class="example">
@@ -321,10 +321,10 @@ int main(void)
 </pre></div>
 
 <p>For the purposes of the examples in this section, the program above has
-been compiled, loaded into <small>ROCGDB</small>, stopped at the function
-<code>main</code>, and <small>ROCGDB</small> is awaiting input from the user.
+been compiled, loaded into ROCgdb, stopped at the function
+<code>main</code>, and ROCgdb is awaiting input from the user.
 </p>
-<p>To access variables and types for any program in <small>ROCGDB</small>, the
+<p>To access variables and types for any program in ROCgdb, the
 program must be compiled and packaged with debug information.  The
 <code>compile</code> command is not an exception to this rule.  Without debug
 information, you can still use the <code>compile</code> command, but you will
@@ -333,7 +333,7 @@ be very limited in what variables and types you can access.
 <p>So with that in mind, the example above has been compiled with debug
 information enabled.  The <code>compile</code> command will have access to
 all variables and types (except those that may have been optimized
-out).  Currently, as <small>ROCGDB</small> has stopped the program in the
+out).  Currently, as ROCgdb has stopped the program in the
 <code>main</code> function, the <code>compile</code> command would have access to
 the variable <code>k</code>.  You could invoke the <code>compile</code> command
 and type some source code to set the value of <code>k</code>.  You can also
@@ -374,7 +374,7 @@ the duration of its run.  This example is valid:
 <pre class="example">compile code int ff = 5; printf (&quot;ff is %d\n&quot;, ff);
 </pre></div>
 
-<p>However, if you were to type the following into <small>ROCGDB</small> after that
+<p>However, if you were to type the following into ROCgdb after that
 command has completed:
 </p>
 <div class="example">
@@ -430,7 +430,7 @@ Compilation failed.
 
 <p>Variables that have been optimized away by the compiler are not
 accessible to the code submitted to the <code>compile</code> command.
-Access to those variables will generate a compiler error which <small>ROCGDB</small>
+Access to those variables will generate a compiler error which ROCgdb
 will print to the console.
 </p></dd>
 </dl>
@@ -439,14 +439,14 @@ will print to the console.
 <div class="subsection" id="Compiler-search-for-the-compile-command">
 <h4 class="subsection">17.7.3 Compiler search for the <code>compile</code> command</h4>
 
-<p><small>ROCGDB</small> needs to find <small>GCC</small> for the inferior being debugged
+<p>ROCgdb needs to find <small>GCC</small> for the inferior being debugged
 which may not be obvious for remote targets of different architecture
-than where <small>ROCGDB</small> is running.  Environment variable <code>PATH</code> on
-<small>ROCGDB</small> host is searched for <small>GCC</small> binary matching the
+than where ROCgdb is running.  Environment variable <code>PATH</code> on
+ROCgdb host is searched for <small>GCC</small> binary matching the
 target architecture and operating system.  This search can be overridden
-by <code>set compile-gcc</code> <small>ROCGDB</small> command below.  <code>PATH</code> is
-taken from shell that executed <small>ROCGDB</small>, it is not the value set by
-<small>ROCGDB</small> command <code>set environment</code>).  See <a href="Environment.html">Your Program&rsquo;s Environment</a>.
+by <code>set compile-gcc</code> ROCgdb command below.  <code>PATH</code> is
+taken from shell that executed ROCgdb, it is not the value set by
+ROCgdb command <code>set environment</code>).  See <a href="Environment.html">Your Program&rsquo;s Environment</a>.
 </p>
 
 <p>Specifically <code>PATH</code> is searched for binaries matching regular expression
@@ -457,7 +457,7 @@ example both <code>i386</code> and <code>x86_64</code> targets look for pattern
 for pattern <code>s390x?</code>.  <var>os</var> is currently supported only for
 pattern <code>linux(-gnu)?</code>.
 </p>
-<p>On Posix hosts the compiler driver <small>ROCGDB</small> needs to find also
+<p>On Posix hosts the compiler driver ROCgdb needs to find also
 shared library <samp>libcc1.so</samp> from the compiler.  It is searched in
 default shared library search path (overridable with usual environment
 variable <code>LD_LIBRARY_PATH</code>), unrelated to <code>PATH</code> or <code>set

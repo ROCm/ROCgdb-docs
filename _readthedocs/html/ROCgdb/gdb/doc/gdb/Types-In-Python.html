@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Types In Python (Debugging with ROCGDB)</title>
+<title>Types In Python (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Types In Python (Debugging with ROCGDB)">
-<meta name="keywords" content="Types In Python (Debugging with ROCGDB)">
+<meta name="description" content="Types In Python (Debugging with ROCgdb)">
+<meta name="keywords" content="Types In Python (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -107,7 +107,7 @@ Next: <a href="Pretty-Printing-API.html" accesskey="n" rel="next">Pretty Printin
 <span id="index-Python_002c-working-with-types"></span>
 
 <span id="index-gdb_002eType"></span>
-<p><small>ROCGDB</small> represents types from the inferior using the class
+<p>ROCgdb represents types from the inferior using the class
 <code>gdb.Type</code>.
 </p>
 <p>The following type-related functions are available in the <code>gdb</code>
@@ -145,7 +145,7 @@ description of the <code>Type.fields</code> method for a description of the
 <dl class="def">
 <dt id="index-Type_002ealignof"><span class="category">Variable: </span><span><strong>Type.alignof</strong><a href='#index-Type_002ealignof' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>The alignment of this type, in bytes.  Type alignment comes from the
-debugging information; if it was not specified, then <small>ROCGDB</small> will
+debugging information; if it was not specified, then ROCgdb will
 use the relevant ABI to try to determine the alignment.  In some
 cases, even this is not possible, and zero will be returned.
 </p></dd></dl>
@@ -233,7 +233,7 @@ which <code>Type.is_scalar</code> is <code>False</code>), will raise a
 </p>
 <p>Some languages have array-like objects that are represented internally
 as structures.  For example, this is true for a Rust slice type, or
-for an Ada unconstrained array.  <small>ROCGDB</small> may know about these
+for an Ada unconstrained array.  ROCgdb may know about these
 types.  This determination is done based on the language from which
 the type originated.
 </p></dd></dl>
@@ -365,7 +365,7 @@ variant of this type.  That is, the result is neither <code>const</code> nor
 <dt id="index-Type_002erange"><span class="category">Function: </span><span><strong>Type.range</strong> <em>()</em><a href='#index-Type_002erange' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Return a Python <code>Tuple</code> object that contains two elements: the
 low bound of the argument type and the high bound of that type.  If
-the type does not have a range, <small>ROCGDB</small> will raise a
+the type does not have a range, ROCgdb will raise a
 <code>gdb.error</code> exception (see <a href="Exception-Handling.html">Exception Handling</a>).
 </p></dd></dl>
 
@@ -563,13 +563,13 @@ language-defined string types; C strings are not represented this way.
 <span id="index-TYPE_005fCODE_005fINTERNAL_005fFUNCTION"></span>
 </dd>
 <dt id='index-gdb_002eTYPE_005fCODE_005fINTERNAL_005fFUNCTION'><span><code>gdb.TYPE_CODE_INTERNAL_FUNCTION</code><a href='#index-gdb_002eTYPE_005fCODE_005fINTERNAL_005fFUNCTION' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>A function internal to <small>ROCGDB</small>.  This is the type used to represent
+<dd><p>A function internal to ROCgdb.  This is the type used to represent
 convenience functions.
 </p>
 <span id="index-TYPE_005fCODE_005fXMETHOD"></span>
 </dd>
 <dt id='index-gdb_002eTYPE_005fCODE_005fXMETHOD'><span><code>gdb.TYPE_CODE_XMETHOD</code><a href='#index-gdb_002eTYPE_005fCODE_005fXMETHOD' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>A method internal to <small>ROCGDB</small>.  This is the type used to represent
+<dd><p>A method internal to ROCgdb.  This is the type used to represent
 xmethods (see <a href="Writing-an-Xmethod.html">Writing an Xmethod</a>).
 </p>
 <span id="index-TYPE_005fCODE_005fFIXED_005fPOINT"></span>

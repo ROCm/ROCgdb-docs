@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Guile Auto-loading (Debugging with ROCGDB)</title>
+<title>Guile Auto-loading (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Guile Auto-loading (Debugging with ROCGDB)">
-<meta name="keywords" content="Guile Auto-loading (Debugging with ROCGDB)">
+<meta name="description" content="Guile Auto-loading (Debugging with ROCgdb)">
+<meta name="keywords" content="Guile Auto-loading (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -99,7 +99,7 @@ ul.no-bullet {list-style: none}
 <div class="subsection" id="Guile-Auto_002dloading">
 <div class="header">
 <p>
-Next: <a href="Guile-Modules.html" accesskey="n" rel="next">Guile Modules</a>, Previous: <a href="Guile-API.html" accesskey="p" rel="prev">Guile API</a>, Up: <a href="Guile.html" accesskey="u" rel="up">Extending <small>ROCGDB</small> using Guile</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Guile-Modules.html" accesskey="n" rel="next">Guile Modules</a>, Previous: <a href="Guile-API.html" accesskey="p" rel="prev">Guile API</a>, Up: <a href="Guile.html" accesskey="u" rel="up">Extending ROCgdb using Guile</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
 <span id="Guile-Auto_002dloading-1"></span><h4 class="subsection">24.4.4 Guile Auto-loading</h4>
@@ -107,7 +107,7 @@ Next: <a href="Guile-Modules.html" accesskey="n" rel="next">Guile Modules</a>, P
 
 <p>When a new object file is read (for example, due to the <code>file</code>
 command, or because the inferior has loaded a shared library),
-<small>ROCGDB</small> will look for Guile support scripts in two ways:
+ROCgdb will look for Guile support scripts in two ways:
 <samp><var>objfile</var>-gdb.scm</samp> and the <code>.debug_gdb_scripts</code> section.
 See <a href="Auto_002dloading-extensions.html">Auto-loading extensions</a>.
 </p>
@@ -132,11 +132,11 @@ and the list of auto-loaded scripts can be printed.
 <span id="index-print-list-of-auto_002dloaded-Guile-scripts"></span>
 </dd>
 <dt><span><code>info auto-load guile-scripts [<var>regexp</var>]</code></span></dt>
-<dd><p>Print the list of all Guile scripts that <small>ROCGDB</small> auto-loaded.
+<dd><p>Print the list of all Guile scripts that ROCgdb auto-loaded.
 </p>
 <p>Also printed is the list of Guile scripts that were mentioned in
 the <code>.debug_gdb_scripts</code> section and were not found.
-This is useful because their names are not printed when <small>ROCGDB</small>
+This is useful because their names are not printed when ROCgdb
 tries to load them and fails.  There may be many of them, and printing
 an error message for each one is problematic.
 </p>
@@ -154,7 +154,7 @@ No     my-foo-pretty-printers.scm
 </dd>
 </dl>
 
-<p>When reading an auto-loaded file, <small>ROCGDB</small> sets the
+<p>When reading an auto-loaded file, ROCgdb sets the
 <em>current objfile</em>.  This is available via the <code>current-objfile</code>
 procedure (see <a href="Objfiles-In-Guile.html">Objfiles In Guile</a>).  This can be useful for
 registering objfile-specific pretty-printers.

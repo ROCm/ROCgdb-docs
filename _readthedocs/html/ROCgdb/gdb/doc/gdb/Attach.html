@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Attach (Debugging with ROCGDB)</title>
+<title>Attach (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Attach (Debugging with ROCGDB)">
-<meta name="keywords" content="Attach (Debugging with ROCGDB)">
+<meta name="description" content="Attach (Debugging with ROCgdb)">
+<meta name="keywords" content="Attach (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -99,7 +99,7 @@ ul.no-bullet {list-style: none}
 <div class="section" id="Attach">
 <div class="header">
 <p>
-Next: <a href="Kill-Process.html" accesskey="n" rel="next">Killing the Child Process</a>, Previous: <a href="Input_002fOutput.html" accesskey="p" rel="prev">Your Program&rsquo;s Input and Output</a>, Up: <a href="Running.html" accesskey="u" rel="up">Running Programs Under <small>ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Kill-Process.html" accesskey="n" rel="next">Killing the Child Process</a>, Previous: <a href="Input_002fOutput.html" accesskey="p" rel="prev">Your Program&rsquo;s Input and Output</a>, Up: <a href="Running.html" accesskey="u" rel="up">Running Programs Under ROCgdb</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
 <span id="Debugging-an-Already_002drunning-Process"></span><h3 class="section">4.7 Debugging an Already-running Process</h3>
@@ -109,7 +109,7 @@ Next: <a href="Kill-Process.html" accesskey="n" rel="next">Killing the Child Pro
 <dl compact="compact">
 <dt><span><code>attach <var>process-id</var></code></span></dt>
 <dd><p>This command attaches to a running process&mdash;one that was started
-outside <small>ROCGDB</small>.  (<code>info files</code> shows your active
+outside ROCgdb.  (<code>info files</code> shows your active
 targets.)  The command takes as argument a process ID.  The usual way to
 find out the <var>process-id</var> of a Unix process is with the <code>ps</code> utility,
 or with the &lsquo;<samp>jobs -l</samp>&rsquo; shell command.
@@ -133,8 +133,8 @@ Specify Files</a>.
 </p>
 <span id="set-exec_002dfile_002dmismatch"></span><p>If the debugger can determine that the executable file running in the
 process it is attaching to does not match the current exec-file loaded
-by <small>ROCGDB</small>, the option <code>exec-file-mismatch</code> specifies how to
-handle the mismatch.  <small>ROCGDB</small> tries to compare the files by
+by ROCgdb, the option <code>exec-file-mismatch</code> specifies how to
+handle the mismatch.  ROCgdb tries to compare the files by
 comparing their build IDs (see <a href="Separate-Debug-Files.html#build-ID">build ID</a>), if available.
 </p>
 <dl compact="compact">
@@ -144,7 +144,7 @@ comparing their build IDs (see <a href="Separate-Debug-Files.html#build-ID">buil
 <dt><span><code>set exec-file-mismatch &lsquo;<samp>ask|warn|off</samp>&rsquo;</code></span></dt>
 <dd>
 <p>Whether to detect mismatch between the current executable file loaded
-by <small>ROCGDB</small> and the executable file used to start the process.  If
+by ROCgdb and the executable file used to start the process.  If
 &lsquo;<samp>ask</samp>&rsquo;, the default, display a warning and ask the user whether to
 load the process executable file; if &lsquo;<samp>warn</samp>&rsquo;, just display a
 warning; if &lsquo;<samp>off</samp>&rsquo;, don&rsquo;t attempt to detect a mismatch.
@@ -159,31 +159,31 @@ will be loaded as well.
 </dd>
 </dl>
 
-<p>The first thing <small>ROCGDB</small> does after arranging to debug the specified
+<p>The first thing ROCgdb does after arranging to debug the specified
 process is to stop it.  You can examine and modify an attached process
-with all the <small>ROCGDB</small> commands that are ordinarily available when
+with all the ROCgdb commands that are ordinarily available when
 you start processes with <code>run</code>.  You can insert breakpoints; you
 can step and continue; you can modify storage.  If you would rather the
 process continue running, you may use the <code>continue</code> command after
-attaching <small>ROCGDB</small> to the process.
+attaching ROCgdb to the process.
 </p>
 <dl compact="compact">
 <dd><span id="index-detach"></span>
 </dd>
 <dt><span><code>detach</code></span></dt>
 <dd><p>When you have finished debugging the attached process, you can use the
-<code>detach</code> command to release it from <small>ROCGDB</small> control.  Detaching
+<code>detach</code> command to release it from ROCgdb control.  Detaching
 the process continues its execution.  After the <code>detach</code> command,
-that process and <small>ROCGDB</small> become completely independent once more, and you
+that process and ROCgdb become completely independent once more, and you
 are ready to <code>attach</code> another process or start one with <code>run</code>.
 <code>detach</code> does not repeat if you press <tt class="key">RET</tt> again after
 executing the command.
 </p></dd>
 </dl>
 
-<p>If you exit <small>ROCGDB</small> while you have an attached process, you detach
+<p>If you exit ROCgdb while you have an attached process, you detach
 that process.  If you use the <code>run</code> command, you kill that process.
-By default, <small>ROCGDB</small> asks for confirmation if you try to do either of these
+By default, ROCgdb asks for confirmation if you try to do either of these
 things; you can control whether or not you need to confirm by using the
 <code>set confirm</code> command (see <a href="Messages_002fWarnings.html">Optional Warnings and
 Messages</a>).
@@ -192,7 +192,7 @@ Messages</a>).
 <hr>
 <div class="header">
 <p>
-Next: <a href="Kill-Process.html">Killing the Child Process</a>, Previous: <a href="Input_002fOutput.html">Your Program&rsquo;s Input and Output</a>, Up: <a href="Running.html">Running Programs Under <small>ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Kill-Process.html">Killing the Child Process</a>, Previous: <a href="Input_002fOutput.html">Your Program&rsquo;s Input and Output</a>, Up: <a href="Running.html">Running Programs Under ROCgdb</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

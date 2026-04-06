@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>AArch64 Features (Debugging with ROCGDB)</title>
+<title>AArch64 Features (Debugging with ROCgdb)</title>
 
-<meta name="description" content="AArch64 Features (Debugging with ROCGDB)">
-<meta name="keywords" content="AArch64 Features (Debugging with ROCGDB)">
+<meta name="description" content="AArch64 Features (Debugging with ROCgdb)">
+<meta name="keywords" content="AArch64 Features (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -137,7 +137,7 @@ new architectural features are added.  The current layout can be found in the
 aarch64-core.xml file.
 </p>
 <p>Extra registers are allowed in this feature, but they will not affect
-<small>ROCGDB</small>.
+ROCgdb.
 </p>
 </div>
 <div class="subsubsection" id="AArch64-floating_002dpoint-registers-feature">
@@ -162,7 +162,7 @@ can change as new architectural features are added.
 be found in the aarch64-fpu.xml file.
 </p>
 <p>Extra registers are allowed in this feature, but they will not affect
-<small>ROCGDB</small>.
+ROCgdb.
 </p>
 </div>
 <div class="subsubsection" id="AArch64-SVE-registers-feature">
@@ -191,11 +191,11 @@ a &lsquo;<samp>z</samp>&rsquo; register.  It is closely associated with the curr
 length.  It has a type of &lsquo;<samp>int</samp>&rsquo;.
 </li></ul>
 
-<p>When <small>ROCGDB</small> sees the SVE feature, it will assume the Scalable Vector
+<p>When ROCgdb sees the SVE feature, it will assume the Scalable Vector
 Extension is supported, and will adjust the sizes of the &lsquo;<samp>z</samp>&rsquo;, &lsquo;<samp>p</samp>&rsquo;
 and &lsquo;<samp>ffr</samp>&rsquo; registers accordingly, based on the value of &lsquo;<samp>vg</samp>&rsquo;.
 </p>
-<p><small>ROCGDB</small> will also create pseudo-registers equivalent to the &lsquo;<samp>v</samp>&rsquo;
+<p>ROCgdb will also create pseudo-registers equivalent to the &lsquo;<samp>v</samp>&rsquo;
 vector registers from the &lsquo;<samp>org.gnu.gdb.aarch64.fpu</samp>&rsquo; feature.
 </p>
 <p>The first 128 bits of the &lsquo;<samp>z</samp>&rsquo; registers overlap the 128 bits of the
@@ -212,14 +212,14 @@ can change as new architectural features are added.
 aarch64-sve.c file, and should match what is described in aarch64-fpu.xml.
 </p>
 <p>Extra registers are allowed in this feature, but they will not affect
-<small>ROCGDB</small>.
+ROCgdb.
 </p>
 </div>
 <div class="subsubsection" id="AArch64-Pointer-Authentication-registers-feature">
 <h4 class="subsubsection">G.5.1.4 AArch64 Pointer Authentication registers feature</h4>
 
 <p>The &lsquo;<samp>org.gnu.gdb.aarch64.pauth</samp>&rsquo; optional feature was introduced so
-<small>ROCGDB</small> could detect support for the Pointer Authentication
+ROCgdb could detect support for the Pointer Authentication
 extension.  If present, it must contain one of two possible register sets.
 </p>
 <p>Pointer Authentication masks for user-mode:
@@ -244,19 +244,19 @@ data pointers.  It is 64 bits in size.
 code pointers.  It is 64 bits in size.
 </li></ul>
 
-<p>If <small>ROCGDB</small> sees any of the two sets of registers in this feature, it will
-assume the target is capable of signing pointers.  If so, <small>ROCGDB</small> will
+<p>If ROCgdb sees any of the two sets of registers in this feature, it will
+assume the target is capable of signing pointers.  If so, ROCgdb will
 decorate backtraces with a &lsquo;<samp>[PAC]</samp>&rsquo; marker alongside a function that
 has a signed link register value that needs to be unmasked/decoded.
 </p>
-<p><small>ROCGDB</small> will also use the masks to remove non-address bits from pointers.
+<p>ROCgdb will also use the masks to remove non-address bits from pointers.
 </p>
 <p>Extra registers are allowed in this feature, but they will not affect
-<small>ROCGDB</small>.
+ROCgdb.
 </p>
 <p>Please note the &lsquo;<samp>org.gnu.gdb.aarch64.pauth</samp>&rsquo; feature string is deprecated
 and must only be used for backwards compatibility with older releases of
-<small>ROCGDB</small> and <code>gdbserver</code>.  Targets that support Pointer
+ROCgdb and <code>gdbserver</code>.  Targets that support Pointer
 Authentication must advertise such capability by using the
 &lsquo;<samp>org.gnu.gdb.aarch64.pauth_v2</samp>&rsquo; feature string instead.
 </p>
@@ -264,17 +264,17 @@ Authentication must advertise such capability by using the
 as feature &lsquo;<samp>org.gnu.gdb.aarch64.pauth</samp>&rsquo;.
 </p>
 <p>The reason for having feature &lsquo;<samp>org.gnu.gdb.aarch64.pauth_v2</samp>&rsquo; is a bug in
-previous versions of <small>ROCGDB</small> (versions 9, 10, 11 and 12).  This bug
-caused <small>ROCGDB</small> to crash whenever the target reported support for Pointer
+previous versions of ROCgdb (versions 9, 10, 11 and 12).  This bug
+caused ROCgdb to crash whenever the target reported support for Pointer
 Authentication (using feature string &lsquo;<samp>org.gnu.gdb.aarch64.pauth</samp>&rsquo;) and also
 reported additional system registers that were not accounted for by
-<small>ROCGDB</small>.  This is more common when using emulators and on bare-metal
+ROCgdb.  This is more common when using emulators and on bare-metal
 debugging scenarios.
 </p>
-<p>It can also happen if a newer gdbserver is used with an old <small>ROCGDB</small> that
+<p>It can also happen if a newer gdbserver is used with an old ROCgdb that
 has the bug.  In such a case, the newer gdbserver might report Pointer
 Authentication support via the &lsquo;<samp>org.gnu.gdb.aarch64.pauth</samp>&rsquo; feature string
-and also report additional registers the older <small>ROCGDB</small> does not know
+and also report additional registers the older ROCgdb does not know
 about, potentially leading to a crash.
 </p>
 </div>
@@ -282,7 +282,7 @@ about, potentially leading to a crash.
 <h4 class="subsubsection">G.5.1.5 AArch64 TLS registers feature</h4>
 
 <p>The &lsquo;<samp>org.gnu.gdb.aarch64.tls</samp>&rsquo; optional feature was introduced to expose
-the TLS registers to <small>ROCGDB</small>.  If present, it must contain either one
+the TLS registers to ROCgdb.  If present, it must contain either one
 of the following register sets.
 </p>
 <p>Only &lsquo;<samp>tpidr</samp>&rsquo;:
@@ -302,22 +302,22 @@ and has a type of &lsquo;<samp>data_ptr</samp>&rsquo;.  It may be used in the fu
 the Scalable Matrix Extension for a lazy restore scheme.
 </li></ul>
 
-<p>If <small>ROCGDB</small> sees this feature, it will attempt to find one of the
+<p>If ROCgdb sees this feature, it will attempt to find one of the
 variations of the register set.  If &lsquo;<samp>tpidr2</samp>&rsquo; is available,
-<small>ROCGDB</small> may act on it to display additional data in the future.
+ROCgdb may act on it to display additional data in the future.
 </p>
 <p>There is no XML for this feature as the presence of &lsquo;<samp>tpidr2</samp>&rsquo; is
 determined dynamically at runtime.
 </p>
 <p>Extra registers are allowed in this feature, but they will not affect
-<small>ROCGDB</small>.
+ROCgdb.
 </p>
 </div>
 <div class="subsubsection" id="AArch64-MTE-registers-feature">
 <h4 class="subsubsection">G.5.1.6 AArch64 MTE registers feature</h4>
 
 <p>The &lsquo;<samp>org.gnu.gdb.aarch64.mte</samp>&rsquo; optional feature was introduced so
-<small>ROCGDB</small> could detect support for the Memory Tagging Extension and
+ROCgdb could detect support for the Memory Tagging Extension and
 control memory tagging settings.  If present, this feature must have the
 following register:
 </p>
@@ -332,7 +332,7 @@ of this feature and register is not enough to enable memory tagging support.
 <p>This restriction may be lifted in the future.
 </p>
 <p>Extra registers are allowed in this feature, but they will not affect
-<small>ROCGDB</small>.
+ROCgdb.
 </p>
 </div>
 <div class="subsubsection" id="AArch64-SME-registers-feature">
@@ -361,7 +361,7 @@ extensions of the architecture.
 </li></ul>
 
 <p>Extra registers are allowed in this feature, but they will not affect
-<small>ROCGDB</small>.
+ROCgdb.
 </p>
 <p>The &lsquo;<samp>org.gnu.gdb.aarch64.sme</samp>&rsquo; feature is required when the target also
 reports support for the &lsquo;<samp>org.gnu.gdb.aarch64.sme2</samp>&rsquo; feature.
@@ -382,7 +382,7 @@ of bytes.
 </li></ul>
 
 <p>Extra registers are allowed in this feature, but they will not affect
-<small>ROCGDB</small>.
+ROCgdb.
 </p>
 </div>
 </div>

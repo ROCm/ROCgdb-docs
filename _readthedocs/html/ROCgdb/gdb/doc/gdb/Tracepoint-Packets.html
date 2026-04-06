@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Tracepoint Packets (Debugging with ROCGDB)</title>
+<title>Tracepoint Packets (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Tracepoint Packets (Debugging with ROCGDB)">
-<meta name="keywords" content="Tracepoint Packets (Debugging with ROCGDB)">
+<meta name="description" content="Tracepoint Packets (Debugging with ROCgdb)">
+<meta name="keywords" content="Tracepoint Packets (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -99,14 +99,14 @@ ul.no-bullet {list-style: none}
 <div class="section" id="Tracepoint-Packets">
 <div class="header">
 <p>
-Next: <a href="Host-I_002fO-Packets.html" accesskey="n" rel="next">Host I/O Packets</a>, Previous: <a href="Architecture_002dSpecific-Protocol-Details.html" accesskey="p" rel="prev">Architecture-Specific Protocol Details</a>, Up: <a href="Remote-Protocol.html" accesskey="u" rel="up"><small>ROCGDB</small> Remote Serial Protocol</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Host-I_002fO-Packets.html" accesskey="n" rel="next">Host I/O Packets</a>, Previous: <a href="Architecture_002dSpecific-Protocol-Details.html" accesskey="p" rel="prev">Architecture-Specific Protocol Details</a>, Up: <a href="Remote-Protocol.html" accesskey="u" rel="up">ROCgdb Remote Serial Protocol</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
 <span id="Tracepoint-Packets-1"></span><h3 class="section">E.7 Tracepoint Packets</h3>
 <span id="index-tracepoint-packets"></span>
 <span id="index-packets_002c-tracepoint"></span>
 
-<p>Here we describe the packets <small>ROCGDB</small> uses to implement
+<p>Here we describe the packets ROCgdb uses to implement
 tracepoints (see <a href="Tracepoints.html">Tracepoints</a>).
 </p>
 <dl compact="compact">
@@ -219,14 +219,14 @@ fit in a single packet.
 </p>
 <p>The available string types are &lsquo;<samp>at</samp>&rsquo; for the location,
 &lsquo;<samp>cond</samp>&rsquo; for the conditional, and &lsquo;<samp>cmd</samp>&rsquo; for an action command.
-<small>ROCGDB</small> sends a separate packet for each command in the action
+ROCgdb sends a separate packet for each command in the action
 list, in the same order in which the commands are stored in the list.
 </p>
 <p>The target does not need to do anything with source strings except
 report them back as part of the replies to the &lsquo;<samp>qTfP</samp>&rsquo;/&lsquo;<samp>qTsP</samp>&rsquo;
 query packets.
 </p>
-<p>Although this packet is optional, and <small>ROCGDB</small> will only send it
+<p>Although this packet is optional, and ROCgdb will only send it
 if the target replies with &lsquo;<samp>TracepointSource</samp>&rsquo; See <a href="General-Query-Packets.html">General Query Packets</a>, it makes both disconnected tracing and trace files
 much easier to use.  Otherwise the user must be careful that the
 tracepoints in effect while looking at trace frames are identical to
@@ -239,12 +239,12 @@ be found.
 <dd><span id="index-QTDV-packet"></span>
 <p>Create a new trace state variable, number <var>n</var>, with an initial
 value of <var>value</var>, which is a 64-bit signed integer.  Both <var>n</var>
-and <var>value</var> are encoded as hexadecimal values. <small>ROCGDB</small> has
+and <var>value</var> are encoded as hexadecimal values. ROCgdb has
 the option of not using this packet for initial values of zero; the
 target should simply create the trace state variables as they are
 mentioned in expressions.  The value <var>builtin</var> should be 1 (one)
 if the trace state variable is builtin and 0 (zero) if it is not builtin.
-<small>ROCGDB</small> only sets <var>builtin</var> to 1 if a previous &lsquo;<samp>qTfV</samp>&rsquo; or
+ROCgdb only sets <var>builtin</var> to 1 if a previous &lsquo;<samp>qTfV</samp>&rsquo; or
 &lsquo;<samp>qTsV</samp>&rsquo; packet had it set.  The contents of <var>name</var> is the
 hex-encoded name (without the leading &lsquo;<samp>$</samp>&rsquo;) of the trace state
 variable.
@@ -253,7 +253,7 @@ variable.
 <dt id='index-QTFrame-packet'><span>&lsquo;<samp>QTFrame:<var>n</var></samp>&rsquo;<a href='#index-QTFrame-packet' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Select the <var>n</var>&rsquo;th tracepoint frame from the buffer, and use the
 register and memory contents recorded there to answer subsequent
-request packets from <small>ROCGDB</small>.
+request packets from ROCgdb.
 </p>
 <p>A successful reply from the stub indicates that the stub has found the
 requested frame.  The response is a series of parts, concatenated
@@ -360,17 +360,17 @@ experiment.  No more data will be collected from the tracepoint unless
 will answer requests for these ranges from memory&rsquo;s current contents,
 if they were not collected as part of the tracepoint hit.
 </p>
-<p><small>ROCGDB</small> uses this to mark read-only regions of memory, like those
+<p>ROCgdb uses this to mark read-only regions of memory, like those
 containing program code.  Since these areas never change, they should
 still have the same contents they did when the tracepoint was hit, so
 there&rsquo;s no reason for the stub to refuse to provide their contents.
 </p>
 </dd>
 <dt id='index-QTDisconnected-packet'><span>&lsquo;<samp>QTDisconnected:<var>value</var></samp>&rsquo;<a href='#index-QTDisconnected-packet' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Set the choice to what to do with the tracing run when <small>ROCGDB</small>
+<dd><p>Set the choice to what to do with the tracing run when ROCgdb
 disconnects from the target.  A <var>value</var> of 1 directs the target to
 continue the tracing run, while 0 tells the target to stop tracing if
-<small>ROCGDB</small> is no longer in the picture.
+ROCgdb is no longer in the picture.
 </p>
 </dd>
 <dt id='index-qTStatus-packet'><span>&lsquo;<samp>qTStatus</samp>&rsquo;<a href='#index-qTStatus-packet' class='copiable-anchor'> &para;</a></span></dt>
@@ -407,7 +407,7 @@ stopped manually).  It is hex-encoded.
 </p>
 </dd>
 <dt><span>&lsquo;<samp>tdisconnected:0</samp>&rsquo;</span></dt>
-<dd><p>The trace stopped because <small>ROCGDB</small> disconnected from the target.
+<dd><p>The trace stopped because ROCgdb disconnected from the target.
 </p>
 </dd>
 <dt><span>&lsquo;<samp>tpasscount:<var>tpnum</var></samp>&rsquo;</span></dt>
@@ -460,7 +460,7 @@ and may fill up.
 </dd>
 <dt><span>&lsquo;<samp>disconn:<var>n</var></samp>&rsquo;</span></dt>
 <dd><p>The value of the disconnected tracing flag.  <code>1</code> means that
-tracing will continue after <small>ROCGDB</small> disconnects, <code>0</code> means
+tracing will continue after ROCgdb disconnects, <code>0</code> means
 that the trace run will stop.
 </p>
 </dd>
@@ -512,7 +512,7 @@ was not collected.
 </dd>
 <dt><span>&lsquo;<samp>qTsP</samp>&rsquo;</span></dt>
 <dd><p>These packets request data about tracepoints that are being used by
-the target.  <small>ROCGDB</small> sends <code>qTfP</code> to get the first piece
+the target.  ROCgdb sends <code>qTfP</code> to get the first piece
 of data, and multiple <code>qTsP</code> to get additional pieces.  Replies
 to these packets generally take the form of the <code>QTDP</code> packets
 that define tracepoints. (FIXME add detailed syntax)
@@ -523,7 +523,7 @@ that define tracepoints. (FIXME add detailed syntax)
 </dd>
 <dt><span>&lsquo;<samp>qTsV</samp>&rsquo;</span></dt>
 <dd><p>These packets request data about trace state variables that are on the
-target.  <small>ROCGDB</small> sends <code>qTfV</code> to get the first vari of data,
+target.  ROCgdb sends <code>qTfV</code> to get the first vari of data,
 and multiple <code>qTsV</code> to get additional variables.  Replies to
 these packets follow the syntax of the <code>QTDV</code> packets that define
 trace state variables.
@@ -534,7 +534,7 @@ trace state variables.
 <dd><span id="qTfSTM"></span><span id="qTsSTM"></span><span id="index-qTfSTM-packet"></span>
 <span id="index-qTsSTM-packet"></span>
 <p>These packets request data about static tracepoint markers that exist
-in the target program.  <small>ROCGDB</small> sends <code>qTfSTM</code> to get the
+in the target program.  ROCgdb sends <code>qTfSTM</code> to get the
 first piece of data, and multiple <code>qTsSTM</code> to get additional
 pieces.  Replies to these packets take the following form:
 </p>
@@ -555,7 +555,7 @@ pieces.  Replies to these packets take the following form:
 <var>id</var> and <var>extra</var> are strings encoded in hex.
 </p>
 <p>In response to each query, the target will reply with a list of one or
-more markers, separated by commas.  <small>ROCGDB</small> will respond to each
+more markers, separated by commas.  ROCgdb will respond to each
 reply with a request for more markers (using the &lsquo;<samp>qs</samp>&rsquo; form of the
 query), until the target responds with &lsquo;<samp>l</samp>&rsquo; (lower-case ell, for
 <em>last</em>).
@@ -622,7 +622,7 @@ it had executed in the original location.
 </p>
 <p>In response to several of the tracepoint packets, the target may also
 respond with a number of intermediate &lsquo;<samp>qRelocInsn</samp>&rsquo; request
-packets before the final result packet, to have <small>ROCGDB</small> handle
+packets before the final result packet, to have ROCgdb handle
 this relocation operation.  If a packet supports this mechanism, its
 documentation will explicitly say so.  See for example the above
 descriptions for the &lsquo;<samp>QTStart</samp>&rsquo; and &lsquo;<samp>QTDP</samp>&rsquo; packets.  The
@@ -631,10 +631,10 @@ format of the request is:
 <dl compact="compact">
 <dt><span>&lsquo;<samp>qRelocInsn:<var>from</var>;<var>to</var></samp>&rsquo;</span></dt>
 <dd>
-<p>This requests <small>ROCGDB</small> to copy instruction at address <var>from</var>
+<p>This requests ROCgdb to copy instruction at address <var>from</var>
 to address <var>to</var>, possibly adjusted so that executing the
 instruction at <var>to</var> has the same effect as executing it at
-<var>from</var>.  <small>ROCGDB</small> writes the adjusted instruction to target
+<var>from</var>.  ROCgdb writes the adjusted instruction to target
 memory starting at <var>to</var>.
 </p></dd>
 </dl>
@@ -652,7 +652,7 @@ the length in bytes of resulting relocated instruction sequence.
 <hr>
 <div class="header">
 <p>
-Next: <a href="Host-I_002fO-Packets.html">Host I/O Packets</a>, Previous: <a href="Architecture_002dSpecific-Protocol-Details.html">Architecture-Specific Protocol Details</a>, Up: <a href="Remote-Protocol.html"><small>ROCGDB</small> Remote Serial Protocol</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Host-I_002fO-Packets.html">Host I/O Packets</a>, Previous: <a href="Architecture_002dSpecific-Protocol-Details.html">Architecture-Specific Protocol Details</a>, Up: <a href="Remote-Protocol.html">ROCgdb Remote Serial Protocol</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

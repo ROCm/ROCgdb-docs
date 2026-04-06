@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Cygwin Native (Debugging with ROCGDB)</title>
+<title>Cygwin Native (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Cygwin Native (Debugging with ROCGDB)">
-<meta name="keywords" content="Cygwin Native (Debugging with ROCGDB)">
+<meta name="description" content="Cygwin Native (Debugging with ROCgdb)">
+<meta name="keywords" content="Cygwin Native (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -107,14 +107,14 @@ Next: <a href="Hurd-Native.html" accesskey="n" rel="next">Commands Specific to <
 <span id="index-native-Cygwin-debugging"></span>
 <span id="index-Cygwin_002dspecific-commands"></span>
 
-<p><small>ROCGDB</small> supports native debugging of MS Windows programs, including
+<p>ROCgdb supports native debugging of MS Windows programs, including
 DLLs with and without symbolic debugging information.
 </p>
 <span id="index-Ctrl_002dBREAK_002c-MS_002dWindows"></span>
 <span id="index-interrupt-debuggee-on-MS_002dWindows"></span>
 <p>MS-Windows programs that call <code>SetConsoleMode</code> to switch off the
 special meaning of the &lsquo;<samp>Ctrl-C</samp>&rsquo; keystroke cannot be interrupted
-by typing <kbd>C-c</kbd>.  For this reason, <small>ROCGDB</small> on MS-Windows
+by typing <kbd>C-c</kbd>.  For this reason, ROCgdb on MS-Windows
 supports <kbd>C-<span class="key">BREAK</span></kbd> as an alternative interrupt key
 sequence, which can be used to interrupt the debuggee even if it
 ignores <kbd>C-c</kbd>.
@@ -163,7 +163,7 @@ Suggested command is: <code><var>fully-qualified-path-to-gdb.exe</var> -ex
 
 <p>The first <code>%ld</code> will be replaced by the process ID of the
 crashing process, the second <code>%ld</code> will be replaced by the ID of
-the event that blocks the crashing process, waiting for <small>ROCGDB</small>
+the event that blocks the crashing process, waiting for ROCgdb
 to attach.
 </p>
 </li><li>- <code>Auto</code> (REG_SZ) &mdash; either <code>1</code> or <code>0</code>.  <code>1</code> will
@@ -178,18 +178,18 @@ terminate the crashing process (OK) or debug it (Cancel).
 <span id="index-Cygwin-DLL_002c-debugging"></span>
 </dd>
 <dt><span><code>set cygwin-exceptions <var>mode</var></code></span></dt>
-<dd><p>If <var>mode</var> is <code>on</code>, <small>ROCGDB</small> will break on exceptions that
+<dd><p>If <var>mode</var> is <code>on</code>, ROCgdb will break on exceptions that
 happen inside the Cygwin DLL.  If <var>mode</var> is <code>off</code>,
-<small>ROCGDB</small> will delay recognition of exceptions, and may ignore some
+ROCgdb will delay recognition of exceptions, and may ignore some
 exceptions which seem to be caused by internal Cygwin DLL
 &ldquo;bookkeeping&rdquo;.  This option is meant primarily for debugging the
 Cygwin DLL itself; the default value is <code>off</code> to avoid annoying
-<small>ROCGDB</small> users with false <code>SIGSEGV</code> signals.
+ROCgdb users with false <code>SIGSEGV</code> signals.
 </p>
 <span id="index-show-cygwin_002dexceptions"></span>
 </dd>
 <dt><span><code>show cygwin-exceptions</code></span></dt>
-<dd><p>Displays whether <small>ROCGDB</small> will break on exceptions that happen
+<dd><p>Displays whether ROCgdb will break on exceptions that happen
 inside the Cygwin DLL itself.
 </p>
 <span id="index-set-new_002dconsole"></span>

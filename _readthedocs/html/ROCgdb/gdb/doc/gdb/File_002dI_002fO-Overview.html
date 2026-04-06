@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>File-I/O Overview (Debugging with ROCGDB)</title>
+<title>File-I/O Overview (Debugging with ROCgdb)</title>
 
-<meta name="description" content="File-I/O Overview (Debugging with ROCGDB)">
-<meta name="keywords" content="File-I/O Overview (Debugging with ROCGDB)">
+<meta name="description" content="File-I/O Overview (Debugging with ROCgdb)">
+<meta name="keywords" content="File-I/O Overview (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -113,30 +113,30 @@ This simulates file system operations even on targets that lack file systems.
 </p>
 <p>The protocol is defined to be independent of both the host and target systems.
 It uses its own internal representation of datatypes and values.  Both
-<small>ROCGDB</small> and the target&rsquo;s <small>ROCGDB</small> stub are responsible for
+ROCgdb and the target&rsquo;s ROCgdb stub are responsible for
 translating the system-dependent value representations into the internal
 protocol representations when data is transmitted.
 </p>
 <p>The communication is synchronous.  A system call is possible only when 
-<small>ROCGDB</small> is waiting for a response from the &lsquo;<samp>C</samp>&rsquo;, &lsquo;<samp>c</samp>&rsquo;, &lsquo;<samp>S</samp>&rsquo; 
-or &lsquo;<samp>s</samp>&rsquo; packets.  While <small>ROCGDB</small> handles the request for a system call,
+ROCgdb is waiting for a response from the &lsquo;<samp>C</samp>&rsquo;, &lsquo;<samp>c</samp>&rsquo;, &lsquo;<samp>S</samp>&rsquo; 
+or &lsquo;<samp>s</samp>&rsquo; packets.  While ROCgdb handles the request for a system call,
 the target is stopped to allow deterministic access to the target&rsquo;s
 memory.  Therefore File-I/O is not interruptible by target signals.  On
 the other hand, it is possible to interrupt File-I/O by a user interrupt 
-(&lsquo;<samp>Ctrl-C</samp>&rsquo;) within <small>ROCGDB</small>.
+(&lsquo;<samp>Ctrl-C</samp>&rsquo;) within ROCgdb.
 </p>
 <p>The target&rsquo;s request to perform a host system call does not finish
 the latest &lsquo;<samp>C</samp>&rsquo;, &lsquo;<samp>c</samp>&rsquo;, &lsquo;<samp>S</samp>&rsquo; or &lsquo;<samp>s</samp>&rsquo; action.  That means,
 after finishing the system call, the target returns to continuing the
 previous activity (continue, step).  No additional continue or step
-request from <small>ROCGDB</small> is required.
+request from ROCgdb is required.
 </p>
 <div class="example">
 <pre class="example">(gdb) continue
   &lt;- target requests 'system call X'
-  target is stopped, ROCGDB executes system call
-  -&gt; ROCGDB returns result
-  ... target continues, ROCGDB returns to wait for the target
+  target is stopped, ROCgdb executes system call
+  -&gt; ROCgdb returns result
+  ... target continues, ROCgdb returns to wait for the target
   &lt;- target hits breakpoint and sends a Txx packet
 </pre></div>
 

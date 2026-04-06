@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Python Commands (Debugging with ROCGDB)</title>
+<title>Python Commands (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Python Commands (Debugging with ROCGDB)">
-<meta name="keywords" content="Python Commands (Debugging with ROCGDB)">
+<meta name="description" content="Python Commands (Debugging with ROCgdb)">
+<meta name="keywords" content="Python Commands (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -98,14 +98,14 @@ ul.no-bullet {list-style: none}
 <div class="subsection" id="Python-Commands">
 <div class="header">
 <p>
-Next: <a href="Python-API.html" accesskey="n" rel="next">Python API</a>, Up: <a href="Python.html" accesskey="u" rel="up">Extending <small>ROCGDB</small> using Python</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Python-API.html" accesskey="n" rel="next">Python API</a>, Up: <a href="Python.html" accesskey="u" rel="up">Extending ROCgdb using Python</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
 <span id="Python-Commands-1"></span><h4 class="subsection">24.3.1 Python Commands</h4>
 <span id="index-python-commands"></span>
 <span id="index-commands-to-access-python"></span>
 
-<p><small>ROCGDB</small> provides two commands for accessing the Python interpreter,
+<p>ROCgdb provides two commands for accessing the Python interpreter,
 and one related setting:
 </p>
 <dl compact="compact">
@@ -115,7 +115,7 @@ and one related setting:
 <dt><span><code>python-interactive <span class="roman">[</span><var>command</var><span class="roman">]</span></code></span></dt>
 <dt><span><code>pi <span class="roman">[</span><var>command</var><span class="roman">]</span></code></span></dt>
 <dd><p>Without an argument, the <code>python-interactive</code> command can be used
-to start an interactive Python prompt.  To return to <small>ROCGDB</small>,
+to start an interactive Python prompt.  To return to ROCgdb,
 type the <code>EOF</code> character (e.g., <kbd>Ctrl-D</kbd> on an empty prompt).
 </p>
 <p>Alternatively, a single-line Python command can be given as an
@@ -158,7 +158,7 @@ containing <code>end</code>.  For example:
 <span id="set_005fpython_005fprint_005fstack"></span><span id="index-set-python-print_002dstack"></span>
 </dd>
 <dt><span><code>set python print-stack</code></span></dt>
-<dd><p>By default, <small>ROCGDB</small> will print only the message component of a
+<dd><p>By default, ROCgdb will print only the message component of a
 Python exception when an error occurs in a Python script.  This can be
 controlled using <code>set python print-stack</code>: if <code>full</code>, then
 full Python stack printing is enabled; if <code>none</code>, then Python stack
@@ -168,7 +168,7 @@ the message component of the error is printed.
 <span id="index-set-python-ignore_002denvironment"></span>
 </dd>
 <dt><span><code>set python ignore-environment <span class="roman">[</span>on<span class="roman">|</span>off<span class="roman">]</span></code></span></dt>
-<dd><p>By default this option is &lsquo;<samp>off</samp>&rsquo;, and, when <small>ROCGDB</small>
+<dd><p>By default this option is &lsquo;<samp>off</samp>&rsquo;, and, when ROCgdb
 initializes its internal Python interpreter, the Python interpreter
 will check the environment for variables that will effect how it
 behaves, for example <code>PYTHONHOME</code>, and
@@ -176,7 +176,7 @@ behaves, for example <code>PYTHONHOME</code>, and
 </p>
 <p>If this option is set to &lsquo;<samp>on</samp>&rsquo; before Python is initialized then
 Python will ignore all such environment variables.  As Python is
-initialized early during <small>ROCGDB</small>&rsquo;s startup process, then this
+initialized early during ROCgdb&rsquo;s startup process, then this
 option must be placed into the early initialization file
 (see <a href="Initialization-Files.html">Initialization Files</a>) to have the desired effect.
 </p>
@@ -186,14 +186,14 @@ option must be placed into the early initialization file
 <span id="index-set-python-dont_002dwrite_002dbytecode"></span>
 </dd>
 <dt><span><code>set python dont-write-bytecode <span class="roman">[</span>auto<span class="roman">|</span>on<span class="roman">|</span>off<span class="roman">]</span></code></span></dt>
-<dd><p>When this option is &lsquo;<samp>off</samp>&rsquo;, then, once <small>ROCGDB</small> has
+<dd><p>When this option is &lsquo;<samp>off</samp>&rsquo;, then, once ROCgdb has
 initialized the Python interpreter, the interpreter will byte-compile
 any Python modules that it imports and write the byte code to disk in
 <samp>.pyc</samp> files.
 </p>
 <p>If this option is set to &lsquo;<samp>on</samp>&rsquo; before Python is initialized then
 Python will no longer write the byte code to disk.  As Python is
-initialized early during <small>ROCGDB</small>&rsquo;s startup process, then this
+initialized early during ROCgdb&rsquo;s startup process, then this
 option must be placed into the early initialization file
 (see <a href="Initialization-Files.html">Initialization Files</a>) to have the desired effect.
 </p>
@@ -211,18 +211,18 @@ sense, indicate that it&rsquo;s on/enabled.
 </p></dd>
 </dl>
 
-<p>It is also possible to execute a Python script from the <small>ROCGDB</small>
+<p>It is also possible to execute a Python script from the ROCgdb
 interpreter:
 </p>
 <dl compact="compact">
 <dt><span><code>source <samp>script-name</samp></code></span></dt>
-<dd><p>The script name must end with &lsquo;<samp>.py</samp>&rsquo; and <small>ROCGDB</small> must be configured
+<dd><p>The script name must end with &lsquo;<samp>.py</samp>&rsquo; and ROCgdb must be configured
 to recognize the script language based on filename extension using
 the <code>script-extension</code> setting.  See <a href="Extending-GDB.html">Extending GDB</a>.
 </p></dd>
 </dl>
 
-<p>The following commands are intended to help debug <small>ROCGDB</small> itself:
+<p>The following commands are intended to help debug ROCgdb itself:
 </p>
 <dl compact="compact">
 <dd><span id="index-set-debug-py_002dbreakpoint"></span>
@@ -230,7 +230,7 @@ the <code>script-extension</code> setting.  See <a href="Extending-GDB.html">Ext
 </dd>
 <dt><span><code>set debug py-breakpoint on<span class="roman">|</span>off</code></span></dt>
 <dt><span><code>show debug py-breakpoint</code></span></dt>
-<dd><p>When &lsquo;<samp>on</samp>&rsquo;, <small>ROCGDB</small> prints debug messages related to the
+<dd><p>When &lsquo;<samp>on</samp>&rsquo;, ROCgdb prints debug messages related to the
 Python breakpoint API.  This is &lsquo;<samp>off</samp>&rsquo; by default.
 </p>
 <span id="index-set-debug-py_002dunwind"></span>
@@ -238,7 +238,7 @@ Python breakpoint API.  This is &lsquo;<samp>off</samp>&rsquo; by default.
 </dd>
 <dt><span><code>set debug py-unwind on<span class="roman">|</span>off</code></span></dt>
 <dt><span><code>show debug py-unwind</code></span></dt>
-<dd><p>When &lsquo;<samp>on</samp>&rsquo;, <small>ROCGDB</small> prints debug messages related to the
+<dd><p>When &lsquo;<samp>on</samp>&rsquo;, ROCgdb prints debug messages related to the
 Python unwinder API.  This is &lsquo;<samp>off</samp>&rsquo; by default.
 </p></dd>
 </dl>
@@ -255,7 +255,7 @@ Python unwinder API.  This is &lsquo;<samp>off</samp>&rsquo; by default.
 <hr>
 <div class="header">
 <p>
-Next: <a href="Python-API.html">Python API</a>, Up: <a href="Python.html">Extending <small>ROCGDB</small> using Python</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Python-API.html">Python API</a>, Up: <a href="Python.html">Extending ROCgdb using Python</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

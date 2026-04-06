@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Objfiles In Python (Debugging with ROCGDB)</title>
+<title>Objfiles In Python (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Objfiles In Python (Debugging with ROCGDB)">
-<meta name="keywords" content="Objfiles In Python (Debugging with ROCGDB)">
+<meta name="description" content="Objfiles In Python (Debugging with ROCgdb)">
+<meta name="keywords" content="Objfiles In Python (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -107,18 +107,18 @@ Next: <a href="Frames-In-Python.html" accesskey="n" rel="next">Accessing inferio
 <span id="index-objfiles-in-python"></span>
 <span id="index-gdb_002eObjfile"></span>
 <span id="index-Objfile"></span>
-<p><small>ROCGDB</small> loads symbols for an inferior from various
+<p>ROCgdb loads symbols for an inferior from various
 symbol-containing files (see <a href="Files.html">Commands to Specify Files</a>).  These include the primary
 executable file, any shared libraries used by the inferior, and any
 separate debug info files (see <a href="Separate-Debug-Files.html">Debugging Information in Separate Files</a>).
-<small>ROCGDB</small> calls these symbol-containing files <em>objfiles</em>.
+ROCgdb calls these symbol-containing files <em>objfiles</em>.
 </p>
 <p>The following objfile-related functions are available in the
 <code>gdb</code> module:
 </p>
 <dl class="def">
 <dt id="index-gdb_002ecurrent_005fobjfile"><span class="category">Function: </span><span><strong>gdb.current_objfile</strong> <em>()</em><a href='#index-gdb_002ecurrent_005fobjfile' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>When auto-loading a Python script (see <a href="Python-Auto_002dloading.html">Python Auto-loading</a>), <small>ROCGDB</small>
+<dd><p>When auto-loading a Python script (see <a href="Python-Auto_002dloading.html">Python Auto-loading</a>), ROCgdb
 sets the &ldquo;current objfile&rdquo; to the corresponding objfile.  This
 function returns the current objfile.  If there is no current objfile,
 this function returns <code>None</code>.
@@ -235,7 +235,7 @@ associated with the objfile.
 <p>See <a href="Inferiors-In-Python.html#choosing-attribute-names">choosing attribute names</a>, for guidance on selecting a suitable
 name for new attributes.
 </p>
-<p>In this contrived example we record the time when <small>ROCGDB</small>
+<p>In this contrived example we record the time when ROCgdb
 loaded the objfile.
 </p>
 <div class="example">
@@ -258,19 +258,19 @@ Reading symbols from ./hello...
 <dt id="index-Objfile_002eis_005fvalid"><span class="category">Function: </span><span><strong>Objfile.is_valid</strong> <em>()</em><a href='#index-Objfile_002eis_005fvalid' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Returns <code>True</code> if the <code>gdb.Objfile</code> object is valid,
 <code>False</code> if not.  A <code>gdb.Objfile</code> object can become invalid
-if the object file it refers to is not loaded in <small>ROCGDB</small> any
+if the object file it refers to is not loaded in ROCgdb any
 longer.  All other <code>gdb.Objfile</code> methods will throw an exception
 if it is invalid at the time the method is called.
 </p></dd></dl>
 
 <dl class="def">
 <dt id="index-Objfile_002eadd_005fseparate_005fdebug_005ffile"><span class="category">Function: </span><span><strong>Objfile.add_separate_debug_file</strong> <em>(file)</em><a href='#index-Objfile_002eadd_005fseparate_005fdebug_005ffile' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Add <var>file</var> to the list of files that <small>ROCGDB</small> will search for
+<dd><p>Add <var>file</var> to the list of files that ROCgdb will search for
 debug information for the objfile.
 This is useful when the debug info has been removed from the program
-and stored in a separate file.  <small>ROCGDB</small> has built-in support for
+and stored in a separate file.  ROCgdb has built-in support for
 finding separate debug info files (see <a href="Separate-Debug-Files.html">Debugging Information in Separate Files</a>), but if
-the file doesn&rsquo;t live in one of the standard places that <small>ROCGDB</small>
+the file doesn&rsquo;t live in one of the standard places that ROCgdb
 searches then this function can be used to add a debug info file
 from a different place.
 </p></dd></dl>

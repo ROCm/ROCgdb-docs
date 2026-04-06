@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>System-wide configuration (Debugging with ROCGDB)</title>
+<title>System-wide configuration (Debugging with ROCgdb)</title>
 
-<meta name="description" content="System-wide configuration (Debugging with ROCGDB)">
-<meta name="keywords" content="System-wide configuration (Debugging with ROCGDB)">
+<meta name="description" content="System-wide configuration (Debugging with ROCgdb)">
+<meta name="keywords" content="System-wide configuration (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -98,16 +98,16 @@ ul.no-bullet {list-style: none}
 <div class="section" id="System_002dwide-configuration">
 <div class="header">
 <p>
-Previous: <a href="Configure-Options.html" accesskey="p" rel="prev"><samp>configure</samp> Options</a>, Up: <a href="Installing-GDB.html" accesskey="u" rel="up">Installing <small>ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Previous: <a href="Configure-Options.html" accesskey="p" rel="prev"><samp>configure</samp> Options</a>, Up: <a href="Installing-GDB.html" accesskey="u" rel="up">Installing ROCgdb</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
 <span id="System_002dwide-configuration-and-settings"></span><h3 class="section">C.6 System-wide configuration and settings</h3>
 <span id="index-system_002dwide-init-file"></span>
 
-<p><small>ROCGDB</small> can be configured to have a system-wide init file and a
+<p>ROCgdb can be configured to have a system-wide init file and a
 system-wide init file directory; this file and files in that directory
 (if they have a recognized file extension) will be read and executed at
-startup (see <a href="Startup.html">What <small>ROCGDB</small> does during startup</a>).
+startup (see <a href="Startup.html">What ROCgdb does during startup</a>).
 </p>
 <p>Here are the corresponding configure options:
 </p>
@@ -122,32 +122,32 @@ is <var>directory</var>.
 </p></dd>
 </dl>
 
-<p>If <small>ROCGDB</small> has been configured with the option <samp>--prefix=$prefix</samp>,
+<p>If ROCgdb has been configured with the option <samp>--prefix=$prefix</samp>,
 they may be subject to relocation.  Two possible cases:
 </p>
 <ul>
 <li> If the default location of this init file/directory contains <samp>$prefix</samp>,
 it will be subject to relocation.  Suppose that the configure options
 are <samp>--prefix=$prefix --with-system-gdbinit=$prefix/etc/gdbinit</samp>;
-if <small>ROCGDB</small> is moved from <samp>$prefix</samp> to <samp>$install</samp>, the system
+if ROCgdb is moved from <samp>$prefix</samp> to <samp>$install</samp>, the system
 init file is looked for as <samp>$install/etc/gdbinit</samp> instead of
 <samp>$prefix/etc/gdbinit</samp>.
 
 </li><li> By contrast, if the default location does not contain the prefix,
-it will not be relocated.  E.g. if <small>ROCGDB</small> has been configured with
+it will not be relocated.  E.g. if ROCgdb has been configured with
 <samp>--prefix=/usr/local --with-system-gdbinit=/usr/share/gdb/gdbinit</samp>,
-then <small>ROCGDB</small> will always look for <samp>/usr/share/gdb/gdbinit</samp>,
-wherever <small>ROCGDB</small> is installed.
+then ROCgdb will always look for <samp>/usr/share/gdb/gdbinit</samp>,
+wherever ROCgdb is installed.
 </li></ul>
 
 <p>If the configured location of the system-wide init file (as given by the
 <samp>--with-system-gdbinit</samp> option at configure time) is in the
 data-directory (as specified by <samp>--with-gdb-datadir</samp> at configure
-time) or in one of its subdirectories, then <small>ROCGDB</small> will look for the
+time) or in one of its subdirectories, then ROCgdb will look for the
 system-wide init file in the directory specified by the
 <samp>--data-directory</samp> command-line option.
-Note that the system-wide init file is only read once, during <small>ROCGDB</small>
-initialization.  If the data-directory is changed after <small>ROCGDB</small> has
+Note that the system-wide init file is only read once, during ROCgdb
+initialization.  If the data-directory is changed after ROCgdb has
 started with the <code>set data-directory</code> command, the file will not be
 reread.
 </p>
@@ -156,7 +156,7 @@ reread.
 </p>
 <p>Any supported scripting language can be used for these init files, as long
 as the file extension matches the scripting language.  To be interpreted
-as regular <small>ROCGDB</small> commands, the files needs to have a <samp>.gdb</samp>
+as regular ROCgdb commands, the files needs to have a <samp>.gdb</samp>
 extension.
 </p>
 
@@ -167,7 +167,7 @@ extension.
 <hr>
 <div class="header">
 <p>
-Previous: <a href="Configure-Options.html"><samp>configure</samp> Options</a>, Up: <a href="Installing-GDB.html">Installing <small>ROCGDB</small></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+Previous: <a href="Configure-Options.html"><samp>configure</samp> Options</a>, Up: <a href="Installing-GDB.html">Installing ROCgdb</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

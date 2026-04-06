@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Objfiles In Guile (Debugging with ROCGDB)</title>
+<title>Objfiles In Guile (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Objfiles In Guile (Debugging with ROCGDB)">
-<meta name="keywords" content="Objfiles In Guile (Debugging with ROCGDB)">
+<meta name="description" content="Objfiles In Guile (Debugging with ROCgdb)">
+<meta name="keywords" content="Objfiles In Guile (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -106,11 +106,11 @@ Next: <a href="Frames-In-Guile.html" accesskey="n" rel="next">Accessing inferior
 
 <span id="index-objfiles-in-guile"></span>
 <span id="index-_003cgdb_003aobjfile_003e"></span>
-<p><small>ROCGDB</small> loads symbols for an inferior from various
+<p>ROCgdb loads symbols for an inferior from various
 symbol-containing files (see <a href="Files.html">Commands to Specify Files</a>).  These include the primary
 executable file, any shared libraries used by the inferior, and any
 separate debug info files (see <a href="Separate-Debug-Files.html">Debugging Information in Separate Files</a>).
-<small>ROCGDB</small> calls these symbol-containing files <em>objfiles</em>.
+ROCgdb calls these symbol-containing files <em>objfiles</em>.
 </p>
 <p>Each objfile is represented as an object of type <code>&lt;gdb:objfile&gt;</code>.
 </p>
@@ -127,7 +127,7 @@ Otherwise return <code>#f</code>.
 <dt id="index-objfile_002dvalid_003f"><span class="category">Scheme Procedure: </span><span><strong>objfile-valid?</strong> <em>objfile</em><a href='#index-objfile_002dvalid_003f' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Return <code>#t</code> if <var>objfile</var> is valid, <code>#f</code> if not.
 A <code>&lt;gdb:objfile&gt;</code> object can become invalid
-if the object file it refers to is not loaded in <small>ROCGDB</small> any
+if the object file it refers to is not loaded in ROCgdb any
 longer.  All other <code>&lt;gdb:objfile&gt;</code> procedures will throw an exception
 if it is invalid at the time the procedure is called.
 </p></dd></dl>
@@ -160,7 +160,7 @@ See <a href="Guile-Pretty-Printing-API.html">Guile Pretty Printing API</a>, for 
 
 <dl class="def">
 <dt id="index-current_002dobjfile"><span class="category">Scheme Procedure: </span><span><strong>current-objfile</strong><a href='#index-current_002dobjfile' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>When auto-loading a Guile script (see <a href="Guile-Auto_002dloading.html">Guile Auto-loading</a>), <small>ROCGDB</small>
+<dd><p>When auto-loading a Guile script (see <a href="Guile-Auto_002dloading.html">Guile Auto-loading</a>), ROCgdb
 sets the &ldquo;current objfile&rdquo; to the corresponding objfile.  This
 function returns the current objfile.  If there is no current objfile,
 this function returns <code>#f</code>.

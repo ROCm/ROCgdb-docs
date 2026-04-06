@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Target Commands (Debugging with ROCGDB)</title>
+<title>Target Commands (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Target Commands (Debugging with ROCGDB)">
-<meta name="keywords" content="Target Commands (Debugging with ROCGDB)">
+<meta name="description" content="Target Commands (Debugging with ROCgdb)">
+<meta name="keywords" content="Target Commands (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -106,7 +106,7 @@ Next: <a href="Byte-Order.html" accesskey="n" rel="next">Choosing Target Byte Or
 
 <dl compact="compact">
 <dt><span><code>target <var>type</var> <var>parameters</var></code></span></dt>
-<dd><p>Connects the <small>ROCGDB</small> host environment to a target machine or
+<dd><p>Connects the ROCgdb host environment to a target machine or
 process.  A target is typically a protocol for talking to debugging
 facilities.  You use the argument <var>type</var> to specify the type or
 protocol of the target machine.
@@ -133,7 +133,7 @@ select it.
 <span id="index-set-gnutarget"></span>
 </dd>
 <dt><span><code>set gnutarget <var>args</var></code></span></dt>
-<dd><p><small>ROCGDB</small> uses its own library BFD to read your files.  <small>ROCGDB</small>
+<dd><p>ROCgdb uses its own library BFD to read your files.  ROCgdb
 knows whether it is reading an <em>executable</em>,
 a <em>core</em>, or a <em>.o</em> file; however, you can specify the file format
 with the <code>set gnutarget</code> command.  Unlike most <code>target</code> commands,
@@ -151,7 +151,7 @@ you must know the actual BFD name.
 <dt><span><code>show gnutarget</code></span></dt>
 <dd><p>Use the <code>show gnutarget</code> command to display what file format
 <code>gnutarget</code> is set to read.  If you have not set <code>gnutarget</code>,
-<small>ROCGDB</small> will determine the file format for each file automatically,
+ROCgdb will determine the file format for each file automatically,
 and <code>show gnutarget</code> displays &lsquo;<samp>The current BFD target is &quot;auto&quot;</samp>&rsquo;.
 </p></dd>
 </dl>
@@ -180,12 +180,12 @@ configuration):
 </p>
 </dd>
 <dt id='index-remote-target'><span><code>target remote <var>medium</var></code><a href='#index-remote-target' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>A remote system connected to <small>ROCGDB</small> via a serial line or network
-connection.  This command tells <small>ROCGDB</small> to use its own remote
+<dd><p>A remote system connected to ROCgdb via a serial line or network
+connection.  This command tells ROCgdb to use its own remote
 protocol over <var>medium</var> for debugging.  See <a href="Remote-Debugging.html">Debugging Remote Programs</a>.
 </p>
 <p>For example, if you have a board connected to <samp>/dev/ttya</samp> on the
-machine running <small>ROCGDB</small>, you could say:
+machine running ROCgdb, you could say:
 </p>
 <div class="example">
 <pre class="example">target remote /dev/ttya
@@ -198,7 +198,7 @@ clobbered by the download.
 </p>
 </dd>
 <dt id='index-built_002din-simulator-target'><span><code>target sim <span class="roman">[</span><var>simargs</var><span class="roman">]</span> &hellip;</code><a href='#index-built_002din-simulator-target' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Builtin CPU simulator.  <small>ROCGDB</small> includes simulators for most architectures.
+<dd><p>Builtin CPU simulator.  ROCgdb includes simulators for most architectures.
 In general,
 </p><div class="example">
 <pre class="example">        target sim
@@ -221,7 +221,7 @@ etc.) even when <code>set auto-connect-native-target</code> is <code>off</code>
 </dd>
 </dl>
 
-<p>Different targets are available on different configurations of <small>ROCGDB</small>;
+<p>Different targets are available on different configurations of ROCgdb;
 your configuration may have more or fewer targets.
 </p>
 <p>Many remote targets require you to download the executable&rsquo;s code once
@@ -244,12 +244,12 @@ monitor.
 <dt id='index-set-debug-monitor'><span><code>set debug monitor</code><a href='#index-set-debug-monitor' class='copiable-anchor'> &para;</a></span></dt>
 <dd><span id="index-display-remote-monitor-communications"></span>
 <p>Enable or disable display of communications messages between
-<small>ROCGDB</small> and the remote monitor.
+ROCgdb and the remote monitor.
 </p>
 </dd>
 <dt id='index-show-debug-monitor'><span><code>show debug monitor</code><a href='#index-show-debug-monitor' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Show the current status of displaying communications between
-<small>ROCGDB</small> and the remote monitor.
+ROCgdb and the remote monitor.
 </p></dd>
 </dl>
 
@@ -259,13 +259,13 @@ monitor.
 </dd>
 <dt><span><code>load <var>filename</var> <var>offset</var></code></span></dt>
 <dd><span id="load"></span><p>Depending on what remote debugging facilities are configured into
-<small>ROCGDB</small>, the <code>load</code> command may be available.  Where it exists, it
+ROCgdb, the <code>load</code> command may be available.  Where it exists, it
 is meant to make <var>filename</var> (an executable) available for debugging
 on the remote system&mdash;by downloading, or dynamic linking, for example.
-<code>load</code> also records the <var>filename</var> symbol table in <small>ROCGDB</small>, like
+<code>load</code> also records the <var>filename</var> symbol table in ROCgdb, like
 the <code>add-symbol-file</code> command.
 </p>
-<p>If your <small>ROCGDB</small> does not have a <code>load</code> command, attempting to
+<p>If your ROCgdb does not have a <code>load</code> command, attempting to
 execute it gets the error message &ldquo;<code>You can't do that when your
 target is &hellip;</code>&rdquo;
 </p>
@@ -274,11 +274,11 @@ For some object file formats, you can specify the load address when you
 link the program; for other formats, like a.out, the object file format
 specifies a fixed address.
 </p>
-<p>It is also possible to tell <small>ROCGDB</small> to load the executable file at a
+<p>It is also possible to tell ROCgdb to load the executable file at a
 specific offset described by the optional argument <var>offset</var>.  When
 <var>offset</var> is provided, <var>filename</var> must also be provided.
 </p>
-<p>Depending on the remote side capabilities, <small>ROCGDB</small> may be able to
+<p>Depending on the remote side capabilities, ROCgdb may be able to
 load programs into flash memory.
 </p>
 <p><code>load</code> does not repeat if you press <tt class="key">RET</tt> again after using it.

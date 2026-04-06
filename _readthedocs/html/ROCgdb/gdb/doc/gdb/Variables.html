@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Variables (Debugging with ROCGDB)</title>
+<title>Variables (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Variables (Debugging with ROCGDB)">
-<meta name="keywords" content="Variables (Debugging with ROCGDB)">
+<meta name="description" content="Variables (Debugging with ROCgdb)">
+<meta name="keywords" content="Variables (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -158,7 +158,7 @@ using the colon-colon (<code>::</code>) notation:
 
 <p>Here <var>file</var> or <var>function</var> is the name of the context for the
 static <var>variable</var>.  In the case of file names, you can use quotes to
-make sure <small>ROCGDB</small> parses the file name as a single word&mdash;for example,
+make sure ROCgdb parses the file name as a single word&mdash;for example,
 to print a global value of <code>x</code> defined in <samp>f2.c</samp>:
 </p>
 <div class="example">
@@ -251,9 +251,9 @@ when compiling.
 <p>Another possible effect of compiler optimizations is to optimize
 unused variables out of existence, or assign variables to registers (as
 opposed to memory addresses).  Depending on the support for such cases
-offered by the debug info format used by the compiler, <small>ROCGDB</small>
+offered by the debug info format used by the compiler, ROCgdb
 might not be able to display values for such local variables.  If that
-happens, <small>ROCGDB</small> will print a message like this:
+happens, ROCgdb will print a message like this:
 </p>
 <div class="example">
 <pre class="example">No symbol &quot;foo&quot; in current context.
@@ -266,16 +266,16 @@ options.  See <a href="C.html">C and C<tt>++</tt></a>, for more information abou
 info formats that are best suited to C<tt>++</tt> programs.
 </p>
 <p>If you ask to print an object whose contents are unknown to
-<small>ROCGDB</small>, e.g., because its data type is not completely specified
-by the debug information, <small>ROCGDB</small> will say &lsquo;<samp>&lt;incomplete
+ROCgdb, e.g., because its data type is not completely specified
+by the debug information, ROCgdb will say &lsquo;<samp>&lt;incomplete
 type&gt;</samp>&rsquo;.  See <a href="Symbols.html">incomplete type</a>, for more about this.
 </p>
 <span id="index-no-debug-info-variables"></span>
 <p>If you try to examine or use the value of a (global) variable for
-which <small>ROCGDB</small> has no type information, e.g., because the program
-includes no debug information, <small>ROCGDB</small> displays an error message.
+which ROCgdb has no type information, e.g., because the program
+includes no debug information, ROCgdb displays an error message.
 See <a href="Symbols.html">unknown type</a>, for more about unknown types.  If you
-cast the variable to its declared type, <small>ROCGDB</small> gets the
+cast the variable to its declared type, ROCgdb gets the
 variable&rsquo;s value using the cast-to type as the variable&rsquo;s type.  For
 example, in a C program:
 </p>
@@ -306,7 +306,7 @@ $2 = 30
 <p>Strings are identified as arrays of <code>char</code> values without specified
 signedness.  Arrays of either <code>signed char</code> or <code>unsigned char</code> get
 printed as arrays of 1 byte sized integers.  <code>-fsigned-char</code> or
-<code>-funsigned-char</code> <small>GCC</small> options have no effect as <small>ROCGDB</small>
+<code>-funsigned-char</code> <small>GCC</small> options have no effect as ROCgdb
 defines literal string type <code>&quot;char&quot;</code> as <code>char</code> without a sign.
 For program code
 </p>

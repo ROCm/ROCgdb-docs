@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Tail Call Frames (Debugging with ROCGDB)</title>
+<title>Tail Call Frames (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Tail Call Frames (Debugging with ROCGDB)">
-<meta name="keywords" content="Tail Call Frames (Debugging with ROCGDB)">
+<meta name="description" content="Tail Call Frames (Debugging with ROCgdb)">
+<meta name="keywords" content="Tail Call Frames (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -113,8 +113,8 @@ instead.  Such use of a jump instruction is called <em>tail call</em>.
 <p>During execution of function <code>C</code>, there will be no indication in the
 function call stack frames that it was tail-called from <code>B</code>.  If function
 <code>A</code> regularly calls function <code>B</code> which tail-calls function <code>C</code>,
-then <small>ROCGDB</small> will see <code>A</code> as the caller of <code>C</code>.  However, in
-some cases <small>ROCGDB</small> can determine that <code>C</code> was tail-called from
+then ROCgdb will see <code>A</code> as the caller of <code>C</code>.  However, in
+some cases ROCgdb can determine that <code>C</code> was tail-called from
 <code>B</code>, and it will then create fictitious call frame for that, with the
 return address set up as if <code>B</code> called <code>C</code> normally.
 </p>
@@ -124,7 +124,7 @@ the compiler has to produce &lsquo;<samp>DW_TAG_call_site</samp>&rsquo; tags.  W
 this information.
 </p>
 <p><kbd>info frame</kbd> command (see <a href="Frame-Info.html">Information About a Frame</a>) will indicate the tail call frame
-kind by text <code>tail call frame</code> such as in this sample <small>ROCGDB</small> output:
+kind by text <code>tail call frame</code> such as in this sample ROCgdb output:
 </p>
 <div class="example">
 <pre class="example">(gdb) x/i $pc - 2
@@ -141,7 +141,7 @@ Stack level 1, frame at 0x7fffffffda30:
 <p>The detection of all the possible code path executions can find them ambiguous.
 There is no execution history stored (possible <a href="Reverse-Execution.html">Running programs backward</a> is never
 used for this purpose) and the last known caller could have reached the known
-callee by multiple different jump sequences.  In such case <small>ROCGDB</small> still
+callee by multiple different jump sequences.  In such case ROCgdb still
 tries to show at least all the unambiguous top tail callers and all the
 unambiguous bottom tail callees, if any.
 </p>
@@ -207,9 +207,9 @@ tailcall: reduced: 0x4004d2(a) |
 
 <p>Frames #0 and #2 are real, #1 is a virtual tail call frame.
 The code can have possible execution paths <code>main&rarr;a&rarr;b&rarr;c&rarr;d&rarr;f</code> or
-<code>main&rarr;a&rarr;b&rarr;e&rarr;f</code>, <small>ROCGDB</small> cannot find which one from the inferior state.
+<code>main&rarr;a&rarr;b&rarr;e&rarr;f</code>, ROCgdb cannot find which one from the inferior state.
 </p>
-<p><code>initial:</code> state shows some random possible calling sequence <small>ROCGDB</small>
+<p><code>initial:</code> state shows some random possible calling sequence ROCgdb
 has found.  It then finds another possible calling sequence - that one is
 prefixed by <code>compare:</code>.  The non-ambiguous intersection of these two is
 printed as the <code>reduced:</code> calling sequence.  That one could have many
@@ -242,10 +242,10 @@ i=&lt;optimized out&gt;) at t.c:6
 #2  0x000000000040036e in main () at t.c:7
 </pre></div>
 
-<p><small>ROCGDB</small> cannot find out from the inferior state if and how many times did
+<p>ROCgdb cannot find out from the inferior state if and how many times did
 function <code>a</code> call itself (via function <code>b</code>) as these calls would be
 tail calls.  Such tail calls would modify the <code>i</code> variable, therefore
-<small>ROCGDB</small> cannot be sure the value it knows would be right - <small>ROCGDB</small>
+ROCgdb cannot be sure the value it knows would be right - ROCgdb
 prints <code>&lt;optimized out&gt;</code> instead.
 </p>
 </div>

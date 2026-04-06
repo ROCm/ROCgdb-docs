@@ -57,10 +57,10 @@ U.S. and other countries. PCIe(R) is a registered trademark of
 PCI-SIG Corporation.  Other product names used in this publication are for
 identification purposes only and may be trademarks of their respective
 companies. -->
-<title>Symbols In Python (Debugging with ROCGDB)</title>
+<title>Symbols In Python (Debugging with ROCgdb)</title>
 
-<meta name="description" content="Symbols In Python (Debugging with ROCGDB)">
-<meta name="keywords" content="Symbols In Python (Debugging with ROCGDB)">
+<meta name="description" content="Symbols In Python (Debugging with ROCgdb)">
+<meta name="keywords" content="Symbols In Python (Debugging with ROCgdb)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -107,9 +107,9 @@ Next: <a href="Symbol-Tables-In-Python.html" accesskey="n" rel="next">Symbol tab
 <span id="index-symbols-in-python"></span>
 <span id="index-gdb_002eSymbol"></span>
 
-<p><small>ROCGDB</small> represents every variable, function and type as an
+<p>ROCgdb represents every variable, function and type as an
 entry in a symbol table.  See <a href="Symbols.html">Examining the Symbol Table</a>.
-Similarly, Python represents these symbols in <small>ROCGDB</small> with the
+Similarly, Python represents these symbols in ROCgdb with the
 <code>gdb.Symbol</code> object.
 </p>
 <p>The following symbol-related functions are available in the <code>gdb</code>
@@ -173,10 +173,10 @@ up such variables, iterate over the variables of the function&rsquo;s
 </p>
 <p>There can be multiple global symbols with static linkage with the same
 name.  This function will only return the first matching symbol that
-it finds.  Which symbol is found depends on where <small>ROCGDB</small> is
-currently stopped, as <small>ROCGDB</small> will first search for matching
+it finds.  Which symbol is found depends on where ROCgdb is
+currently stopped, as ROCgdb will first search for matching
 symbols in the current object file, and then search all other object
-files.  If the application is not yet running then <small>ROCGDB</small> will
+files.  If the application is not yet running then ROCgdb will
 search all object files in the order they appear in the debug
 information.
 </p></dd></dl>
@@ -238,7 +238,7 @@ This attribute is not writable.
 <dt id="index-Symbol_002eprint_005fname"><span class="category">Variable: </span><span><strong>Symbol.print_name</strong><a href='#index-Symbol_002eprint_005fname' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>The name of the symbol in a form suitable for output.  This is either
 <code>name</code> or <code>linkage_name</code>, depending on whether the user
-asked <small>ROCGDB</small> to display demangled or mangled names.
+asked ROCgdb to display demangled or mangled names.
 </p></dd></dl>
 
 <dl class="def">
@@ -289,7 +289,7 @@ arguments.
 <dt id="index-Symbol_002eis_005fvalid"><span class="category">Function: </span><span><strong>Symbol.is_valid</strong> <em>()</em><a href='#index-Symbol_002eis_005fvalid' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Returns <code>True</code> if the <code>gdb.Symbol</code> object is valid,
 <code>False</code> if not.  A <code>gdb.Symbol</code> object can become invalid if
-the symbol it refers to does not exist in <small>ROCGDB</small> any longer.
+the symbol it refers to does not exist in ROCgdb any longer.
 All other <code>gdb.Symbol</code> methods will throw an exception if it is
 invalid at the time the method is called.
 </p></dd></dl>
@@ -313,7 +313,7 @@ as constants in the <code>gdb</code> module:
 <dt id='index-gdb_002eSYMBOL_005fUNDEF_005fDOMAIN'><span><code>gdb.SYMBOL_UNDEF_DOMAIN</code><a href='#index-gdb_002eSYMBOL_005fUNDEF_005fDOMAIN' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>This is used when a domain has not been discovered or none of the
 following domains apply.  This usually indicates an error either
-in the symbol information or in <small>ROCGDB</small>&rsquo;s handling of symbols.
+in the symbol information or in ROCgdb&rsquo;s handling of symbols.
 </p>
 <span id="index-SYMBOL_005fVAR_005fDOMAIN"></span>
 </dd>
@@ -386,7 +386,7 @@ as constants in the <code>gdb</code> module:
 </dd>
 <dt id='index-gdb_002eSYMBOL_005fLOC_005fUNDEF'><span><code>gdb.SYMBOL_LOC_UNDEF</code><a href='#index-gdb_002eSYMBOL_005fLOC_005fUNDEF' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>If this is returned by address class, it indicates an error either in
-the symbol information or in <small>ROCGDB</small>&rsquo;s handling of symbols.
+the symbol information or in ROCgdb&rsquo;s handling of symbols.
 </p>
 <span id="index-SYMBOL_005fLOC_005fCONST"></span>
 </dd>
