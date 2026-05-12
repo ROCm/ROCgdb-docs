@@ -4,9 +4,9 @@
 
 .. _rocgdb-installation:
 
-====================
-Installing ROCgdb
-====================
+========================
+Build ROCgdb from source
+========================
 
 This topic provides information required to build and install ROCgdb.
 

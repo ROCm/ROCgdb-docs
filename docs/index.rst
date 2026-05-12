@@ -28,7 +28,7 @@ The code is open source and hosted at: https://github.com/ROCm/ROCgdb
 
   .. grid-item-card:: Install
 
-    * :ref:`Installation <rocgdb-installation>`
+    * :ref:`Build from source <rocgdb-installation>`
 
   .. grid-item-card:: Quick reference
 
