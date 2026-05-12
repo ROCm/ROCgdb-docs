@@ -4,16 +4,16 @@
 
 .. _rocgdb-installation:
 
-========================
+************************
 Build ROCgdb from source
-========================
+************************
 
 This topic provides information required to build and install ROCgdb.
 
 System requirements
 --------------------
 
-- A system supporting ROCm. See the `supported operating systems <https://rocm.docs.amd.com/projects/install-on-linux/en/latest/reference/system-requirements.html#supported-operating-systems>`_.
+- A system supporting ROCm. See the :ref:`supported operating systems <rocm:release-supported-os>`.
 
 - A C++17 compiler such as GCC 9 or Clang 5.
 
