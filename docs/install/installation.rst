@@ -13,7 +13,7 @@ Before you begin, verify that your system is supported. For more information,
 see :ref:`ROCm Core SDK components <rocm:release-components>`.
 
 For advanced workflows, source builds, or custom configurations, see
-:doc:`./build`.
+`Build the AMD ROCm Debugger <https://github.com/ROCm/ROCgdb/blob/amd-staging/README-ROCM.md#build-the-amd-rocm-debugger>`__.
 
 .. _install-rocm:
 
