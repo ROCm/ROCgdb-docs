@@ -28,7 +28,8 @@ The code is open source and hosted at: https://github.com/ROCm/ROCgdb
 
   .. grid-item-card:: Install
 
-    * :ref:`Installation <rocgdb-installation>`
+    * :ref:`Install ROCgdb <rocgdb-installation>`
+    * `Build from source <https://github.com/ROCm/ROCgdb/blob/amd-staging/README-ROCM.md#build-the-amd-rocm-debugger>`__
 
   .. grid-item-card:: Quick reference
 

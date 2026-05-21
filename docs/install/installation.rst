@@ -1,112 +1,85 @@
 .. meta::
-   :description: Source-level debugger for Linux, based on the GNU Debugger
-   :keywords: Install ROCgdb, Build ROCgdb, Install AMD ROCm Debugger, Build AMD ROCm Debugger
+   :description: Installation instructions for ROCgdb
+   :keywords: rocm, debug, debugger, api, lib, install, debugger, tool
 
-.. _rocgdb-installation:
+.. _installation:
 
-====================
-Installing ROCgdb
-====================
+******************************
+Install ROCm Debugger (ROCgdb)
+******************************
 
-This topic provides information required to build and install ROCgdb.
+Before you begin, verify that your system is supported. For more information,
+see :ref:`ROCm Core SDK components <rocm:release-components>`.
 
-System requirements
---------------------
+For advanced workflows, source builds, or custom configurations, see
+`Build the AMD ROCm Debugger <https://github.com/ROCm/ROCgdb/blob/amd-staging/README-ROCM.md#build-the-amd-rocm-debugger>`__.
 
-- A system supporting ROCm. See the `supported operating systems <https://rocm.docs.amd.com/projects/install-on-linux/en/latest/reference/system-requirements.html#supported-operating-systems>`_.
+.. _install-rocm:
 
-- A C++17 compiler such as GCC 9 or Clang 5.
+Install the ROCm Core SDK
+=========================
 
-- AMD Debugger API Library (``ROCdbgapi``) that can be installed as part of the
-  ROCm release using the ``rocm-dbgapi`` package.
+ROCdbgapi is included with the ROCm Core SDK on Linux. For the most
+complete installation, we recommend that developers use the
+``amdrocm-core-sdk`` meta package.
 
-- Install the required packages according to the OS:
+For instructions, see :doc:`Install AMD ROCm <rocm:install/rocm>`. Use the
+selector panel on that page to view instructions appropriate for your system
+environment.
 
-.. tab-set::
+.. _install-base:
 
-   .. tab-item:: Ubuntu
-      :sync: ubuntu
+Install ROCm debuggers on Linux
+===============================
 
-      .. code-block:: shell
+Alternatively, if you want to install ROCgdb as part of the ROCm
+Debugger package (a subset of the ROCm Core SDK ``amdrocm-core-sdk``) without
+additional ROCm libraries and tools, install the ``amdrocm-debugger`` package.
+This includes the ROCm debuggers, dependencies, and base packages.
 
-        apt install bison flex gcc make ncurses-dev texinfo g++ zlib1g-dev \
-        libexpat-dev python3-dev liblzma-dev libgmp-dev libmpfr-dev
+1. Complete the :doc:`ROCm installation prerequisites <rocm:install/rocm>` to
+   install dependencies and configure GPU access permissions.
 
-   .. tab-item:: RHEL
-      :sync: rhel
+2. Install the ROCm Debugger package that matches your desired ROCm version.
+   Package names use the following format:
 
-      .. code-block:: shell
+   .. code-block:: shell-session
 
-        yum install -y epel-release centos-release-scl bison flex gcc make \
-        texinfo texinfo-tex gcc-c++ zlib-devel expat-devel python3-devel \
-        xz-devel gmp-devel ncurses-devel mpfr-devel
+      amdrocm-debugger<rocm_version>
 
-   .. tab-item:: SLES
-      :sync: sles
+   Where ``<rocm_version>`` is the ROCm Core SDK version to install. Omit this
+   suffix to install the latest available version.
 
-      .. code-block:: shell
+   For example, to install the latest ROCm Debugger package release for
+   supported GPU architectures:
 
-        zypper in bison flex gcc make texinfo gcc-c++ zlib-devel libexpat-devel \
-        python3-devel xz-devel gmp-devel ncurses-devel mpfr-devel
+   .. tab-set::
 
-.. note::
+      .. tab-item:: Debian-based distros
 
-  ROCgdb might become unresponsive in SELinux-enabled distributions. To learn more about this issue, see `installation troubleshooting <https://rocm.docs.amd.com/projects/install-on-linux/en/latest/reference/install-faq.html#issue-10-rocm-debugging-tools-might-become-unresponsive-in-selinux-enabled-distributions>`_.
+         .. code-block:: bash
 
-Building ROCgdb
-----------------
+            sudo apt install amdrocm-debugger
 
-An example command line to build ROCgdb on Linux:
+      .. tab-item:: RHEL-based distros
 
-.. code-block:: bash
+         .. code-block:: bash
 
-  cd rocgdb
-  mkdir build
-  cd build
-  ../configure --program-prefix=roc \
-  --enable-64-bit-bfd --enable-targets="x86_64-linux-gnu,amdgcn-amd-amdhsa" \
-  --disable-ld --disable-gas --disable-gdbserver --disable-sim --enable-tui \
-  --disable-gdbtk --disable-gprofng --disable-shared --with-expat \
-  --with-system-zlib --without-guile --without-babeltrace --with-lzma \
-  --with-python=python3
-  make
+            sudo dnf install amdrocm-debugger
 
-If ``ROCdbgapi`` is not installed in the system's default location, specify ``PKG_CONFIG_PATH`` to make the correct build configuration available to ``pkg-config``.
-If ``ROCdbgapi`` is installed in ``/opt/rocm-$ROCM_VERSION`` (default for ROCm packages), use ``PKG_CONFIG_PATH=/opt/rocm-$ROCM_VERSION/share/pkgconfig``.
+      .. tab-item:: SLES
 
-If the system's dynamic linker is not configured to locate ``ROCdbgapi`` where it is
-installed, configure and build ROCgdb using ``LDFLAGS="-Wl,-rpath=/opt/rocm-$ROCM_VERSION/lib"``.
-Alternatively, use ``LD_LIBRARY_PATH`` at runtime to indicate where ``ROCdbgapi`` is installed.
+         .. code-block:: bash
 
-You can find the built ROCgdb executable in ``build/gdb/gdb`` and the user manual in ``build/gdb/doc/gdb.info``.
+            sudo zypper install amdrocm-debugger
 
-Installing ROCgdb
-------------------
+.. _install-nightly:
 
-To install ROCgdb, use:
+Install a nightly build
+=======================
 
-.. code-block:: bash
+The `TheRock <https://github.com/ROCm/TheRock>`__ build system also publishes
+nightly builds for the ROCm Core SDK and its components, including ROCgdb. See
+`Nightly release status
+<https://github.com/ROCm/TheRock#nightly-release-status>`__ for details.
 
-  make install
-
-This installs ROCgdb in ``<prefix>/bin/rocgdb``.
-
-Installing libraries
----------------------
-
-To execute ROCgdb, you must install the ``ROCdbgapi`` library and its dependent ``Comgr`` library. These can be installed as part of the ROCm release using the ``rocm-dbgapi`` package:
-
-- ``librocm-dbgapi.so.0``
-- ``libamd_comgr.so``
-
-To generate the ROCgdb user guide as a PDF, use:
-
-.. code-block:: bash
-
-  make pdf
-
-This generates the PDF in ``build/gdb/doc/gdb.pdf``.
-
-.. note::
-
-  For ROCgdb user guide in HTML format, see `ROCgdb user guide <https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/index.html>`_.
