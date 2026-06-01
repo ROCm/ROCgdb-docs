@@ -3,7 +3,7 @@
    :description: Installation instructions for ROCgdb
    :keywords: rocm, debug, debugger, api, lib, install, debugger, tool
 
-.. _installation:
+.. _rocgdb-installation:
 
 ******************************
 Install ROCm Debugger (ROCgdb)
