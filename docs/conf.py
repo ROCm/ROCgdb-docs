@@ -9,8 +9,6 @@ import subprocess
 import sys
 from pathlib import Path
 
-from rocm_docs import ROCmDocs
-
 subprocess.run("git submodule update --init", shell=True)
 
 with open("../ROCgdb/gdb/version.in", encoding="utf-8") as f:
@@ -53,5 +51,4 @@ html_theme_options = {
     "link_main_doc": False,
 }
 
-for sphinx_var in ROCmDocs.SPHINX_VARS:
-    globals()[sphinx_var] = getattr(docs_core, sphinx_var)
+extensions = ["rocm_docs"]
