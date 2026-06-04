@@ -38,3 +38,20 @@ external_projects_current_project = "rocgdb"
 
 for sphinx_var in ROCmDocs.SPHINX_VARS:
     globals()[sphinx_var] = getattr(docs_core, sphinx_var)
+
+html_theme = "rocm_docs_theme"
+html_theme_options = {
+    "announcement": f"This is ROCm {ROCM_VERSION} technology preview release documentation. For the latest production stream release, refer to <a id='rocm-banner' href='https://rocm.docs.amd.com/en/latest/'>ROCm documentation</a>.",
+    "flavor": "generic",
+    "header_title": f"ROCm™ {ROCM_VERSION} Preview",
+    "header_link": f"https://rocm.docs.amd.com/en/7.13.0-preview/index.html",
+    "version_list_link": "",
+    "nav_secondary_items": {
+        "GitHub": "https://github.com/ROCm/ROCm",
+        "Community": "https://github.com/ROCm/ROCm/discussions",
+        "Blogs": "https://rocm.blogs.amd.com/",
+        "System and Infra Docs": "https://instinct.docs.amd.com/",
+        "Support": "https://github.com/ROCm/ROCm/issues/new/choose",
+    },
+    "link_main_doc": False,
+}
