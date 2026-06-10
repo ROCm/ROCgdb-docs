@@ -9,6 +9,17 @@ import subprocess
 import sys
 from pathlib import Path
 
+# Make rocm-docs-core recognize <X.Y.Z>-preview slugs (e.g. 7.13.0-preview) as
+# valid version identifiers so intersphinx URLs to sister projects resolve to
+# the matching preview build instead of falling back to /en/latest/.
+# Remove once rocm-docs-core ships native support.
+from rocm_docs import projects as _rdc_projects
+
+# Extend DOCS_VERSION_PATTERN to also match X.Y.Z-preview slugs that RTD uses
+# for docs/X.Y.Z branches (e.g. "7.13.0-preview" for branch "docs/7.13.0").
+# Without this, get_static_version() falls back to "latest" for these slugs.
+_rdc_projects.DOCS_VERSION_PATTERN = r"^(docs-\d+\.\d+\.\d+|\d+\.\d+\.\d+-preview)$"
+
 subprocess.run("git submodule update --init", shell=True)
 
 with open("../ROCgdb/gdb/version.in", encoding="utf-8") as f:
