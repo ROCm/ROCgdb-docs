@@ -59,3 +59,17 @@ Command:
 ```bash
 ./build_docs.sh
 ```
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines and the
+[ROCm contribution guide](https://rocm.docs.amd.com/en/latest/contribute/contributing.html)
+for the broader process.
+
+## Security
+
+See [SECURITY.md](SECURITY.md) for the security policy and how to report a vulnerability.
+
+## License
+
+See [LICENSE](LICENSE).
