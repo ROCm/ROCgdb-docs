@@ -5,6 +5,7 @@
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
 
 import re
+import shutil
 import subprocess
 import sys
 from pathlib import Path
@@ -12,6 +13,23 @@ from pathlib import Path
 from rocm_docs import ROCmDocs
 
 subprocess.run("git submodule update --init", shell=True)
+
+DOCS_DIR = Path(__file__).parent.resolve()
+ROOT_DIR = DOCS_DIR.parent
+
+
+def copy_rtd_file(src_path: Path, dest_path: Path):
+    if not src_path.exists():
+        print(f"Skipped copy, source not found: {src_path}")
+        return
+    dest_path.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(src_path, dest_path)
+    print(f"Copied {src_path} -> {dest_path}")
+
+
+# Source the license from the ROCgdb submodule; the built docs are derived
+# from GPL-licensed ROCgdb source, so they carry ROCgdb's license.
+copy_rtd_file(ROOT_DIR / "ROCgdb" / "COPYING", ROOT_DIR / "LICENSE")
 
 with open("../ROCgdb/gdb/version.in", encoding="utf-8") as f:
     match = re.search(r"([0-9.]+)[^0-9.]+", f.read())
