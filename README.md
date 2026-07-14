@@ -2,6 +2,9 @@
 
 Documentation repository for [ROCgdb](https://github.com/ROCm-Developer-Tools/ROCgdb)
 
+> [!NOTE]
+> The published documentation is available at [ROCgdb documentation](https://rocm.docs.amd.com/projects/ROCgdb/en/latest/) in an organized, easy-to-read format, with search and a table of contents.
+
 ## Important files from the submodule
 
 The HTML files in the base GDB needs to be built.
