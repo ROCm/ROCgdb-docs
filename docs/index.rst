@@ -49,4 +49,4 @@ You can find licensing information on the `Licensing <https://rocm.docs.amd.com/
 
 .. |ROCgdb user guide| raw:: html
 
-   <a href="ROCgdb/gdb/doc/gdb/index.html" target="_blank">User guide</a>
+   <a href="ROCgdb/gdb/doc/gdb/index.html" target="_blank" rel="noopener noreferrer">User guide</a>
