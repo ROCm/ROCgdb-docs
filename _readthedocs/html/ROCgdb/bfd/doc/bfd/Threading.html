@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- This file documents the BFD library.
 
-Copyright (C) 1991-2025 Free Software Foundation, Inc.
+Copyright (C) 1991-2024 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -88,25 +88,15 @@ to work on different BFD objects at the same time.
 <div class="example">
 <pre class="example">typedef bool (*bfd_lock_unlock_fn_type) (void *);
 </pre></div>
-<span id="index-_005fbfd_005fthreading_005fenabled"></span>
-<ul class="section-toc">
-<li><a href="#g_t_005fbfd_005fthreading_005fenabled" accesskey="1"><code>_bfd_threading_enabled</code></a></li>
-<li><a href="#bfd_005fthread_005finit" accesskey="2"><code>bfd_thread_init</code></a></li>
-<li><a href="#bfd_005fthread_005fcleanup" accesskey="3"><code>bfd_thread_cleanup</code></a></li>
-<li><a href="#bfd_005flock" accesskey="4"><code>bfd_lock</code></a></li>
-<li><a href="#bfd_005funlock" accesskey="5"><code>bfd_unlock</code></a></li>
-</ul>
-<div class="subsubsection" id="g_t_005fbfd_005fthreading_005fenabled">
-<h4 class="subsubsection">2.3.1.1 <code>_bfd_threading_enabled</code></h4>
-<dl class="def">
-<dt id="index-_005fbfd_005fthreading_005fenabled-1"><span class="category">Function: </span><span><em>bool</em> <strong>_bfd_threading_enabled</strong> <em>(void);</em><a href='#index-_005fbfd_005fthreading_005fenabled-1' class='copiable-anchor'> &para;</a></span></dt>
-<dd><p>Return true if threading is enabled, false if not.
-</p>
-</dd></dl>
 <span id="index-bfd_005fthread_005finit"></span>
-</div>
+<ul class="section-toc">
+<li><a href="#bfd_005fthread_005finit" accesskey="1"><code>bfd_thread_init</code></a></li>
+<li><a href="#bfd_005fthread_005fcleanup" accesskey="2"><code>bfd_thread_cleanup</code></a></li>
+<li><a href="#bfd_005flock" accesskey="3"><code>bfd_lock</code></a></li>
+<li><a href="#bfd_005funlock" accesskey="4"><code>bfd_unlock</code></a></li>
+</ul>
 <div class="subsubsection" id="bfd_005fthread_005finit">
-<h4 class="subsubsection">2.3.1.2 <code>bfd_thread_init</code></h4>
+<h4 class="subsubsection">2.3.1.1 <code>bfd_thread_init</code></h4>
 <dl class="def">
 <dt id="index-bfd_005fthread_005finit-1"><span class="category">Function: </span><span><em>bool</em> <strong>bfd_thread_init</strong> <em>(bfd_lock_unlock_fn_type lock, bfd_lock_unlock_fn_type unlock, void *data);</em><a href='#index-bfd_005fthread_005finit-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Initialize BFD threading.  The functions passed in will be
@@ -115,15 +105,13 @@ be called a single time in a given process.  Returns true on
 success and false on error.  DATA is passed verbatim to the
 lock and unlock functions.  The lock and unlock functions
 should return true on success, or set the BFD error and return
-false on failure.  Note also that the lock must be a recursive
-lock: BFD may attempt to acquire the lock when it is already
-held by the current thread.
+false on failure.
 </p>
 </dd></dl>
 <span id="index-bfd_005fthread_005fcleanup"></span>
 </div>
 <div class="subsubsection" id="bfd_005fthread_005fcleanup">
-<h4 class="subsubsection">2.3.1.3 <code>bfd_thread_cleanup</code></h4>
+<h4 class="subsubsection">2.3.1.2 <code>bfd_thread_cleanup</code></h4>
 <dl class="def">
 <dt id="index-bfd_005fthread_005fcleanup-1"><span class="category">Function: </span><span><em>void</em> <strong>bfd_thread_cleanup</strong> <em>(void);</em><a href='#index-bfd_005fthread_005fcleanup-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Clean up any thread-local state.  This should be called by a
@@ -135,7 +123,7 @@ later call BFD functions on the same thread again.
 <span id="index-bfd_005flock"></span>
 </div>
 <div class="subsubsection" id="bfd_005flock">
-<h4 class="subsubsection">2.3.1.4 <code>bfd_lock</code></h4>
+<h4 class="subsubsection">2.3.1.3 <code>bfd_lock</code></h4>
 <dl class="def">
 <dt id="index-bfd_005flock-1"><span class="category">Function: </span><span><em>bool</em> <strong>bfd_lock</strong> <em>(void);</em><a href='#index-bfd_005flock-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Acquire the global BFD lock, if needed.  Returns true on
@@ -145,7 +133,7 @@ success, false on error.
 <span id="index-bfd_005funlock"></span>
 </div>
 <div class="subsubsection" id="bfd_005funlock">
-<h4 class="subsubsection">2.3.1.5 <code>bfd_unlock</code></h4>
+<h4 class="subsubsection">2.3.1.4 <code>bfd_unlock</code></h4>
 <dl class="def">
 <dt id="index-bfd_005funlock-1"><span class="category">Function: </span><span><em>bool</em> <strong>bfd_unlock</strong> <em>(void);</em><a href='#index-bfd_005funlock-1' class='copiable-anchor'> &para;</a></span></dt>
 <dd><p>Release the global BFD lock, if needed.  Returns true on
