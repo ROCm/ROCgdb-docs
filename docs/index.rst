@@ -9,8 +9,8 @@ ROCgdb documentation
 ======================
 
 This is the documentation for AMD ROCm Debugger (ROCgdb) for Linux, which is the AMD source-level debugger based on the `GNU Debugger (GDB) <https://www.sourceware.org/gdb/documentation/>`_. For documentation on ROCgdb for Windows, see `AMD ROCm debugger for Windows <https://rocm.docs.amd.com/projects/install-on-windows/en/latest/how-to/debugger-windows.html>`_. ROCgdb enables heterogeneous debugging on the ROCm software that consists of an x86-based host architecture along with
-commercially available AMD GPU architectures supported by the :doc:`AMD Debugger API
-Library (ROCdbgapi) <rocdbgapi:index>`. ROCdbgapi is included with ROCm.
+commercially available AMD GPU architectures supported by the `AMD Debugger API
+Library (ROCdbgapi) <https://rocm.docs.amd.com/projects/ROCdbgapi/en/latest/index.html>`_. ROCdbgapi is included with ROCm.
 
 ROCgdb provides the following features:
 
