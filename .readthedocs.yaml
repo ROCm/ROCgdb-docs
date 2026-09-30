@@ -8,6 +8,12 @@ sphinx:
 
 formats: [htmlzip, pdf, epub]
 
+# Check out the ROCgdb submodule right after clone, so build_docs.sh (run in
+# build.jobs.pre_build) can configure and build the GDB manuals from it.
+submodules:
+   include:
+      - ROCgdb
+
 python:
    install:
    - requirements: docs/sphinx/requirements.txt
