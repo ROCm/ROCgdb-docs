@@ -1,0 +1,106 @@
+name: Build GDB docs and publish release asset
+
+# The GDB manuals (HTML via makeinfo, PDF via texi2dvi/pdftex) are built from the
+# ROCgdb submodule. This is a ~16 min native build that exceeds the Read the Docs
+# build-time limit, so it runs here instead and publishes the result as a release
+# asset that Read the Docs downloads during its own (light) build.
+#
+# The asset is keyed by the ROCgdb submodule commit, NOT by branch: the docs
+# depend only on that commit plus build_docs.sh. Any branch (amd-staging,
+# docs/10.1.0, ...) whose submodule points at the same commit reuses the same
+# asset, so the build runs at most once per unique submodule commit.
+
+on:
+  push:
+    branches:
+      - amd-staging
+      - "docs/**"
+      - update-rocgdb-amd-staging
+    paths:
+      # A submodule pointer bump is a change to the gitlink at this path.
+      - ROCgdb
+      - build_docs.sh
+      - .github/workflows/build-gdb-docs.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  # Serialize per submodule commit so two branches sharing a commit don't race
+  # to create the same release. Resolved to the SHA in the job below.
+  group: build-gdb-docs-${{ github.sha }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Check out repository and ROCgdb submodule
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 1
+
+      - name: Resolve ROCgdb submodule commit (the asset key)
+        id: key
+        run: |
+          set -euo pipefail
+          SHA=$(git rev-parse HEAD:ROCgdb)
+          echo "sha=$SHA" >> "$GITHUB_OUTPUT"
+          echo "tag=gdb-docs-$SHA" >> "$GITHUB_OUTPUT"
+          echo "Submodule commit: $SHA"
+
+      - name: Skip if this submodule commit was already built
+        id: check
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          if gh release view "${{ steps.key.outputs.tag }}" \
+               --json assets --jq '.assets[].name' 2>/dev/null \
+               | grep -qx "rocgdb-docs-html-pdf.tar.gz"; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+            echo "Asset for ${{ steps.key.outputs.tag }} already exists; skipping build."
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Install build dependencies
+        if: steps.check.outputs.exists == 'false'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            build-essential libgmp-dev libmpfr-dev texinfo bison flex \
+            texlive texlive-plain-generic
+
+      - name: Build GDB HTML and PDF
+        if: steps.check.outputs.exists == 'false'
+        run: bash build_docs.sh
+
+      - name: Package outputs
+        if: steps.check.outputs.exists == 'false'
+        run: |
+          set -euo pipefail
+          test -f _readthedocs/html/ROCgdb/gdb/doc/gdb/index.html
+          ls docs/_static/pdf/ROCgdb/*.pdf >/dev/null
+          tar -czf rocgdb-docs-html-pdf.tar.gz \
+            _readthedocs/html/ROCgdb \
+            docs/_static/pdf/ROCgdb
+          echo "case-collision pairs preserved (expect 2 for bss.html/Bss.html):"
+          tar -tzf rocgdb-docs-html-pdf.tar.gz | grep -ciE '/bss\.html$'
+
+      - name: Publish release asset keyed by submodule commit
+        if: steps.check.outputs.exists == 'false'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          TAG="${{ steps.key.outputs.tag }}"
+          if ! gh release view "$TAG" >/dev/null 2>&1; then
+            gh release create "$TAG" \
+              --target "$GITHUB_SHA" \
+              --title "GDB docs for ROCgdb ${{ steps.key.outputs.sha }}" \
+              --notes "GDB HTML + PDF built from ROCgdb ${{ steps.key.outputs.sha }} and consumed by Read the Docs. Auto-generated; do not edit."
+          fi
+          gh release upload "$TAG" rocgdb-docs-html-pdf.tar.gz --clobber

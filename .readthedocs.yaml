@@ -8,8 +8,9 @@ sphinx:
 
 formats: [htmlzip, pdf, epub]
 
-# Check out the ROCgdb submodule right after clone, so build_docs.sh (run in
-# build.jobs.pre_build) can configure and build the GDB manuals from it.
+# conf.py reads the GDB version from ROCgdb/gdb/version.in and copies
+# ROCgdb/COPYING -> LICENSE, so the submodule must be checked out. This is a
+# cheap clone only; the heavy GDB build runs in GitHub Actions, not here.
 submodules:
    include:
       - ROCgdb
@@ -22,22 +23,19 @@ build:
    os: ubuntu-22.04
    tools:
       python: "3.10"
-   # System packages needed to build the GDB manuals from the ROCgdb submodule:
-   # build-essential/bison/flex to configure+make the tree, libgmp-dev/libmpfr-dev
-   # are required by GDB's configure, texinfo for makeinfo (HTML), and
-   # texi2dvi + texlive for the PDF (pdftex) step.
-   apt_packages:
-      - build-essential
-      - libgmp-dev
-      - libmpfr-dev
-      - texinfo
-      - bison
-      - flex
-      - texlive
-      - texlive-plain-generic
    jobs:
-      # Regenerate the GDB HTML (_readthedocs/html/ROCgdb) and PDFs
-      # (docs/_static/pdf/ROCgdb) before Sphinx runs, so they are no longer
-      # committed to the repository.
+      # The GDB manuals (HTML + PDF) are built by the "Build GDB docs" GitHub
+      # Actions workflow and published as a release asset keyed by the ROCgdb
+      # submodule commit, because the native build exceeds the Read the Docs
+      # build-time limit. Derive that same commit here and download the matching
+      # asset instead of building. This makes each RTD version pull exactly the
+      # docs for its pinned submodule commit, independent of branch.
+      # --fail: if the asset is missing the build fails loudly (e.g. the Actions
+      # build for this submodule commit has not finished yet) rather than
+      # shipping dead links.
       pre_build:
-         - bash build_docs.sh
+         - >-
+            curl --fail --location --show-error --silent
+            --output rocgdb-docs-html-pdf.tar.gz
+            "https://github.com/ROCm/ROCgdb-docs/releases/download/gdb-docs-$(git rev-parse HEAD:ROCgdb)/rocgdb-docs-html-pdf.tar.gz"
+         - tar -xzf rocgdb-docs-html-pdf.tar.gz
