@@ -16,3 +16,22 @@ build:
    os: ubuntu-22.04
    tools:
       python: "3.10"
+   # System packages needed to build the GDB manuals from the ROCgdb submodule:
+   # build-essential/bison/flex to configure+make the tree, libgmp-dev/libmpfr-dev
+   # are required by GDB's configure, texinfo for makeinfo (HTML), and
+   # texi2dvi + texlive for the PDF (pdftex) step.
+   apt_packages:
+      - build-essential
+      - libgmp-dev
+      - libmpfr-dev
+      - texinfo
+      - bison
+      - flex
+      - texlive
+      - texlive-plain-generic
+   jobs:
+      # Regenerate the GDB HTML (_readthedocs/html/ROCgdb) and PDFs
+      # (docs/_static/pdf/ROCgdb) before Sphinx runs, so they are no longer
+      # committed to the repository.
+      pre_build:
+         - bash build_docs.sh
