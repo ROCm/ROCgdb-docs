@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- Copyright © 1988-2024 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being "Free Software" and "Free Software Needs
+Free Documentation", with the Front-Cover Texts being "A GNU Manual,"
+and with the Back-Cover Texts as in (a) below.
+
+(a) The FSF's Back-Cover Text is: "You are free to copy and modify
+this GNU Manual.  Buying copies from GNU Press supports the FSF in
+developing GNU and promoting software freedom."
+
+Legal Disclaimer and Copyright Information
+
+AMD ROCm software is made available by Advanced Micro Devices, Inc. under the
+open source license identified in the top-level directory for the library in
+the repository on https://github.com/ROCm/ (Github.com) (Portions of AMD
+ROCm software are licensed under MITx11 and UIL/NCSA. For more information on
+the license, review the license.txt in the top-level directory for the
+library on https://github.com/ROCm/ (Github.com)).  The additional terms
+and conditions below apply to your use of AMD ROCm technical documentation.
+
+©2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
+
+The information presented in this document is for informational purposes only
+and may contain technical inaccuracies, omissions, and typographical errors.
+The information contained herein is subject to change and may be rendered
+inaccurate for many reasons, including but not limited to product and roadmap
+changes, component and motherboard version changes, new model and/or product
+releases, product differences between differing manufacturers, software
+changes, BIOS flashes, firmware upgrades, or the like.  Any computer system has
+risks of security vulnerabilities that cannot be completely prevented or
+mitigated.  AMD assumes no obligation to update or otherwise correct or revise
+this information.  However, AMD reserves the right to revise this information
+and to make changes from time to time to the content hereof without obligation
+of AMD to notify any person of such revisions or changes.
+
+THIS INFORMATION IS PROVIDED "AS IS."  AMD MAKES NO REPRESENTATIONS OR
+WARRANTIES WITH RESPECT TO THE CONTENTS HEREOF AND ASSUMES NO RESPONSIBILITY
+FOR ANY INACCURACIES, ERRORS, OR OMISSIONS THAT MAY APPEAR IN THIS INFORMATION.
+AMD SPECIFICALLY DISCLAIMS ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT,
+MERCHANTABILITY, OR FITNESS FOR ANY PARTICULAR PURPOSE.  IN NO EVENT WILL AMD
+BE LIABLE TO ANY PERSON FOR ANY RELIANCE, DIRECT, INDIRECT, SPECIAL, OR OTHER
+CONSEQUENTIAL DAMAGES ARISING FROM THE USE OF ANY INFORMATION CONTAINED HEREIN,
+EVEN IF AMD IS EXPRESSLY ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+
+AMD, the AMD Arrow logo, AMD Instinct™, Radeon™, AMD ROCm™, and combinations
+thereof are trademarks of Advanced Micro Devices, Inc.
+Linux® is the registered trademark of Linus Torvalds in the
+U.S. and other countries. PCIe® is a registered trademark of
+PCI-SIG Corporation.  Other product names used in this publication are for
+identification purposes only and may be trademarks of their respective
+companies. -->
+<title>HIP Runtime Error GDB/MI Catchpoint Commands (Debugging with ROCgdb)</title>
+
+<meta name="description" content="HIP Runtime Error GDB/MI Catchpoint Commands (Debugging with ROCgdb)">
+<meta name="keywords" content="HIP Runtime Error GDB/MI Catchpoint Commands (Debugging with ROCgdb)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="Concept-Index.html" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="GDB_002fMI-Catchpoint-Commands.html" rel="up" title="GDB/MI Catchpoint Commands">
+<link href="C_002b_002b-Exception-GDB_002fMI-Catchpoint-Commands.html" rel="prev" title="C++ Exception GDB/MI Catchpoint Commands">
+<style type="text/css">
+<!--
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+div.example {margin-left: 3.2em}
+span:hover a.copiable-link {visibility: visible}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<div class="subsection-level-extent" id="HIP-Runtime-Error-GDB_002fMI-Catchpoint-Commands">
+<div class="nav-panel">
+<p>
+Previous: <a href="C_002b_002b-Exception-GDB_002fMI-Catchpoint-Commands.html" accesskey="p" rel="prev">C<code class="t">++</code> Exception <small class="sc">GDB/MI</small> Catchpoints</a>, Up: <a href="GDB_002fMI-Catchpoint-Commands.html" accesskey="u" rel="up"><small class="sc">GDB/MI</small> Catchpoint Commands</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="subsection" id="HIP-Runtime-Error-gdb_002fmi-Catchpoints"><span>28.9.4 HIP Runtime Error <small class="sc">GDB/MI</small> Catchpoints<a class="copiable-link" href="#HIP-Runtime-Error-gdb_002fmi-Catchpoints"> &para;</a></span></h4>
+
+<p>The following <small class="sc">GDB/MI</small> commands can be used to create catchpoints
+that stop the execution when HIP runtime errors are being returned.
+</p>
+<a class="index-entry-id" id="index-_002dcatch_002dhiperr"></a>
+<h4 class="subheading" id="The-_002dcatch_002dhiperr-Command"><span>The <code class="code">-catch-hiperr</code> Command<a class="copiable-link" href="#The-_002dcatch_002dhiperr-Command"> &para;</a></span></h4>
+
+<h4 class="subsubheading" id="Synopsis-21"><span>Synopsis<a class="copiable-link" href="#Synopsis-21"> &para;</a></span></h4>
+
+<div class="example smallexample">
+<pre class="example-preformatted"> -catch-hiperr [ -c <var class="var">condition</var> ] [ -t ]
+</pre></div>
+
+<p>Stop when the debuggee catches a HIP runtime error.
+</p>
+<dl class="table">
+<dt>&lsquo;<samp class="samp">-c <var class="var">condition</var></samp>&rsquo;</dt>
+<dd><p>Make the catchpoint conditional on <var class="var">condition</var>.
+</p></dd>
+<dt>&lsquo;<samp class="samp">-t</samp>&rsquo;</dt>
+<dd><p>Create a temporary catchpoint.
+</p></dd>
+</dl>
+
+<h4 class="subsubheading" id="ROCgdb-Command-20"><span>ROCgdb Command<a class="copiable-link" href="#ROCgdb-Command-20"> &para;</a></span></h4>
+
+<p>The corresponding ROCgdb commands are &lsquo;<samp class="samp">catch hiperr</samp>&rsquo; and
+&lsquo;<samp class="samp">tcatch hiperr</samp>&rsquo; (see <a class="pxref" href="Set-Catchpoints.html#catch-hiperr">catch hiperr</a>).
+</p>
+<h4 class="subsubheading" id="Example-20"><span>Example<a class="copiable-link" href="#Example-20"> &para;</a></span></h4>
+
+<div class="example smallexample">
+<pre class="example-preformatted">-catch-hiperr -c $_hiperr==hipErrorInvalidDevice -t
+^done,bkpt={number=&quot;1&quot;,type=&quot;catchpoint&quot;,disp=&quot;del&quot;,enabled=&quot;y&quot;,
+  what=&quot;catch hiperr&quot;,catch-type=&quot;hiperr&quot;,
+  cond=&quot;$_hiperr==hipErrorInvalidDevice&quot;,times=&quot;0&quot;}
+(gdb)
+-exec-run
+^running
+(gdb)
+~&quot;\n&quot;
+~&quot;Thread 1 \&quot;hip\&quot; hit Temporary catchpoint 1 (HIP error)\n&quot;
+~&quot;HIP API call failed with error hipErrorInvalidDevice (101):
+  invalid device ordinal\n&quot;
+~&quot;\n&quot;
+~&quot;The $_hiperr convenience variable holds the error number.\n&quot;
+*stopped,bkptno=&quot;1&quot;,reason=&quot;breakpoint-hit&quot;,disp=&quot;del&quot;,
+  hiperr-code=&quot;101&quot;,hiperr-name=&quot;hipErrorInvalidDevice&quot;,
+  hiperr-str=&quot;invalid device ordinal&quot;,thread-id=&quot;1&quot;,
+  stopped-threads=&quot;all&quot;,core=&quot;0&quot;
+=breakpoint-deleted,id=&quot;1&quot;
+</pre></div>
+
+<p>The &lsquo;<samp class="samp">*stopped</samp>&rsquo; record is extended with three fields:
+</p>
+<dl class="table">
+<dt>&lsquo;<samp class="samp">hiperr-code</samp>&rsquo;</dt>
+<dd><p>The error number.
+</p>
+</dd>
+<dt>&lsquo;<samp class="samp">hiperr-name</samp>&rsquo;</dt>
+<dd><p>The name of the error.
+</p>
+</dd>
+<dt>&lsquo;<samp class="samp">hiperr-str</samp>&rsquo;</dt>
+<dd><p>The descriptive text about the error.
+</p>
+</dd>
+</dl>
+
+</div>
+
+
+
+</body>
+</html>
