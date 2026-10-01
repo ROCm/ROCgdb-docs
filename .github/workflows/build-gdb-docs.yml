@@ -104,3 +104,42 @@ jobs:
               --notes "GDB HTML + PDF built from ROCgdb ${{ steps.key.outputs.sha }} and consumed by Read the Docs. Auto-generated; do not edit."
           fi
           gh release upload "$TAG" rocgdb-docs-html-pdf.tar.gz --clobber
+
+      - name: Trigger Read the Docs build for this branch
+        # The asset exists now (just published, or already present via dedup), so
+        # it is safe to kick the matching Read the Docs version. This sequences
+        # the two systems: RTD's pre_build downloads the asset instead of racing
+        # it. Only regular (branch) versions can be triggered via the API; PR
+        # preview (external) versions rebuild only on new PR commits, so they are
+        # intentionally not handled here. This step never fails the workflow -
+        # publishing the asset above is the critical outcome; a trigger problem
+        # is surfaced as a warning so a misconfigured token/slug is visible.
+        if: github.event_name == 'push'
+        env:
+          RTD_TOKEN: ${{ secrets.RTD_TOKEN }}
+          # Override with repo variables if the project slug or API host differ
+          # (Business tier uses app.readthedocs.com).
+          RTD_PROJECT: ${{ vars.RTD_PROJECT || 'advanced-micro-devices-rocgdb-internal' }}
+          RTD_HOST: ${{ vars.RTD_HOST || 'app.readthedocs.org' }}
+        run: |
+          set -uo pipefail
+          if [ -z "${RTD_TOKEN:-}" ]; then
+            echo "::warning::RTD_TOKEN secret not set; skipping Read the Docs trigger. Rebuild the RTD version manually once this run is green."
+            exit 0
+          fi
+          # RTD slugifies branch names (e.g. '/' -> '-'): docs/10.1.0 -> docs-10.1.0.
+          VERSION="${GITHUB_REF_NAME//\//-}"
+          URL="https://${RTD_HOST}/api/v3/projects/${RTD_PROJECT}/versions/${VERSION}/builds/"
+          echo "Triggering Read the Docs build: POST $URL"
+          CODE=$(curl -sS -o /tmp/rtd_resp.json -w '%{http_code}' \
+            -X POST "$URL" \
+            -H "Authorization: Token ${RTD_TOKEN}" \
+            -H "Content-Length: 0" || echo "000")
+          echo "Read the Docs API returned HTTP $CODE"
+          cat /tmp/rtd_resp.json 2>/dev/null || true
+          echo
+          case "$CODE" in
+            20*) echo "Triggered Read the Docs build for version '$VERSION'." ;;
+            404) echo "::warning::Read the Docs version '$VERSION' not found - this branch may not be an RTD version. No build triggered." ;;
+            *)   echo "::warning::Read the Docs trigger returned HTTP $CODE; no build triggered. Trigger it manually if this branch should publish." ;;
+          esac
