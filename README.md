@@ -28,7 +28,19 @@ limit, so it does not run on Read the Docs. Instead it is automated in two steps
 2. **Read the Docs downloads the published docs.** During its build,
    [`.readthedocs.yaml`](.readthedocs.yaml) derives the same submodule commit with
    `git rev-parse HEAD:ROCgdb`, downloads the matching release asset, and extracts it
-   into place. Read the Docs does not compile the manuals itself.
+   into place. Read the Docs still checks out the `ROCgdb` submodule (a shallow clone,
+   no build) because `docs/conf.py` reads the version from `ROCgdb/gdb/version.in` and
+   the license from `ROCgdb/COPYING`; neither file is part of the release asset. Read
+   the Docs does not compile the manuals itself.
+
+> [!NOTE]
+> When the submodule pointer changes, the Read the Docs build can start before the
+> GitHub Actions build has published the new asset. In that case the download fails
+> with a 404 ("artifact not found") and the Read the Docs build fails. This is
+> expected: wait for the `Build GDB docs and publish release asset` workflow to finish,
+> then **rerun the Read the Docs build** and it will find the asset. For branch builds
+> the workflow triggers Read the Docs automatically once the asset is published; a
+> pull request preview must be rebuilt manually (or by pushing a new commit).
 
 To update the documentation, update the `ROCgdb` submodule pointer and push:
 
