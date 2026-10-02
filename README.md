@@ -1,33 +1,66 @@
 # ROCgdb-docs
 
-Documentation repository for [ROCgdb](https://github.com/ROCm-Developer-Tools/ROCgdb)
+Documentation repository for [ROCgdb](https://github.com/ROCm/ROCgdb)
 
 > [!NOTE]
 > The published documentation is available at [ROCgdb documentation](https://rocm.docs.amd.com/projects/ROCgdb/en/latest/) in an organized, easy-to-read format, with search and a table of contents.
 
-## Important files from the submodule
+## How the GDB documentation is built
 
-The HTML files in the base GDB needs to be built.
+The GDB manuals (HTML and PDF) are generated from the [ROCgdb](https://github.com/ROCm/ROCgdb)
+submodule, not written by hand. `build_docs.sh` configures and builds the submodule
+(`configure` + `make` + `make do-html` + `make do-pdf`) and copies the result into
+`_readthedocs/html/ROCgdb` (HTML) and `docs/_static/pdf/ROCgdb` (PDF).
 
-The `build_docs.py` script handles this.
+That native build takes around 16 minutes, which exceeds Read the Docs' build-time
+limit, so it does not run on Read the Docs. Instead it is automated in two steps:
 
-Simply update the submodule to the desired branch, then run the script.
+1. **GitHub Actions builds and publishes the docs.** The
+   [`Build GDB docs and publish release asset`](.github/workflows/build-gdb-docs.yml)
+   workflow runs `build_docs.sh` on a Linux runner, packages the HTML and PDFs into
+   `rocgdb-docs-html-pdf.tar.gz`, and publishes it as a GitHub Release asset. The
+   asset is keyed by the ROCgdb submodule commit (release tag `gdb-docs-<submodule
+   sha>`), so any branch pinning the same submodule commit reuses the same asset and
+   the build is skipped when it already exists. The workflow runs on pushes that
+   change the submodule pointer or build files (and on manual dispatch), and triggers
+   the matching Read the Docs build once the asset is published.
+
+2. **Read the Docs downloads the published docs.** During its build,
+   [`.readthedocs.yaml`](.readthedocs.yaml) derives the same submodule commit with
+   `git rev-parse HEAD:ROCgdb`, downloads the matching release asset, and extracts it
+   into place. Read the Docs still checks out the `ROCgdb` submodule (a shallow clone,
+   no build) because `docs/conf.py` reads the version from `ROCgdb/gdb/version.in` and
+   the license from `ROCgdb/COPYING`; neither file is part of the release asset. Read
+   the Docs does not compile the manuals itself.
+
+> [!NOTE]
+> When the submodule pointer changes, the Read the Docs build can start before the
+> GitHub Actions build has published the new asset. In that case the download fails
+> with a 404 ("artifact not found") and the Read the Docs build fails. This is
+> expected: wait for the `Build GDB docs and publish release asset` workflow to finish,
+> then **rerun the Read the Docs build** and it will find the asset. For branch builds
+> the workflow triggers Read the Docs automatically once the asset is published; a
+> pull request preview must be rebuilt manually (or by pushing a new commit).
+
+To update the documentation, update the `ROCgdb` submodule pointer and push:
 
 ```bash
-# update submodule
 cd ROCgdb
 git fetch origin
-git checkout <desired branch>
-git pull
+git checkout <desired commit or branch>
 cd ..
-# build the HTML docs for GDB
-# and prepare them for hosting by Read the Docs
-./build_docs.sh
+git add ROCgdb
+git commit -m "Update ROCgdb submodule"
+git push
 ```
+
+The GitHub Actions workflow then builds and publishes the new docs, and Read the Docs
+picks them up. The generated HTML and PDF trees are not committed to this repository.
 
 ## How to build documentation locally
 
-Run the following steps to build the base documentation site:
+Publishing is automated (see above); these steps are for previewing the site on your
+own machine. Run the following steps to build the base documentation site:
 
 ```bash
 cd docs
