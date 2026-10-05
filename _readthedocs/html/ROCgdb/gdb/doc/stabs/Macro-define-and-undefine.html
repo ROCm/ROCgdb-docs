@@ -1,9 +1,9 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- Copyright (C) 1992-2024 Free Software Foundation, Inc.
+<!-- Copyright © 1992-2024 Free Software Foundation, Inc.
 Contributed by Cygnus Support.  Written by Julia Menapace, Jim Kingdon,
 and David MacKenzie.
 
@@ -30,21 +30,9 @@ Free Documentation License". -->
 <link href="Types.html" rel="prev" title="Types">
 <style type="text/css">
 <!--
-a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
-a.summary-letter {text-decoration: none}
-blockquote.indentedblock {margin-right: 0em}
-div.display {margin-left: 3.2em}
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
 div.example {margin-left: 3.2em}
-kbd {font-style: oblique}
-pre.display {font-family: inherit}
-pre.format {font-family: inherit}
-pre.menu-comment {font-family: serif}
-pre.menu-preformatted {font-family: serif}
-span.nolinebreak {white-space: nowrap}
-span.roman {font-family: initial; font-weight: normal}
-span.sansserif {font-family: sans-serif; font-weight: normal}
-span:hover a.copiable-anchor {visibility: visible}
-ul.no-bullet {list-style: none}
+span:hover a.copiable-link {visibility: visible}
 -->
 </style>
 
@@ -52,36 +40,36 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<div class="chapter" id="Macro-define-and-undefine">
-<div class="header">
+<div class="chapter-level-extent" id="Macro-define-and-undefine">
+<div class="nav-panel">
 <p>
 Next: <a href="Symbol-Tables.html" accesskey="n" rel="next">Symbol Information in Symbol Tables</a>, Previous: <a href="Types.html" accesskey="p" rel="prev">Defining Types</a>, Up: <a href="index.html" accesskey="u" rel="up">The &quot;stabs&quot; representation of debugging information</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Symbol-Types-Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<span id="Representation-of-_0023define-and-_0023undef"></span><h2 class="chapter">6 Representation of #define and #undef</h2>
+<h2 class="chapter" id="Representation-of-_0023define-and-_0023undef"><span>6 Representation of #define and #undef<a class="copiable-link" href="#Representation-of-_0023define-and-_0023undef"> &para;</a></span></h2>
 
 <p>This section describes the stabs support for macro define and undefine
-information, supported on some systems.  (e.g., with <samp>-g3</samp>
-<samp>-gstabs</samp> when using GCC).
+information, supported on some systems.  (e.g., with <samp class="option">-g3</samp>
+<samp class="option">-gstabs</samp> when using GCC).
 </p>
-<p>A <code>#define <var>macro-name</var> <var>macro-body</var></code> is represented with
-an <code>N_MAC_DEFINE</code> stab with a string field of
-<code><var>macro-name</var> <var>macro-body</var></code>.
-<span id="index-N_005fMAC_005fDEFINE"></span>
+<p>A <code class="code">#define <var class="var">macro-name</var> <var class="var">macro-body</var></code> is represented with
+an <code class="code">N_MAC_DEFINE</code> stab with a string field of
+<code class="code"><var class="var">macro-name</var> <var class="var">macro-body</var></code>.
+<a class="index-entry-id" id="index-N_005fMAC_005fDEFINE"></a>
 </p>
-<p>An <code>#undef <var>macro-name</var></code> is represented with an
-<code>N_MAC_UNDEF</code> stabs with a string field of simply
-<code><var>macro-name</var></code>.
-<span id="index-N_005fMAC_005fUNDEF"></span>
+<p>An <code class="code">#undef <var class="var">macro-name</var></code> is represented with an
+<code class="code">N_MAC_UNDEF</code> stabs with a string field of simply
+<code class="code"><var class="var">macro-name</var></code>.
+<a class="index-entry-id" id="index-N_005fMAC_005fUNDEF"></a>
 </p>
-<p>For both <code>N_MAC_DEFINE</code> and <code>N_MAC_UNDEF</code>, the desc field is
-the line number within the file where the corresponding <code>#define</code>
-or <code>#undef</code> occurred.
+<p>For both <code class="code">N_MAC_DEFINE</code> and <code class="code">N_MAC_UNDEF</code>, the desc field is
+the line number within the file where the corresponding <code class="code">#define</code>
+or <code class="code">#undef</code> occurred.
 </p>
 <p>For example, the following C code:
 </p>
 <div class="example">
-<pre class="example">    #define NONE	42
+<pre class="example-preformatted">    #define NONE	42
     #define TWO(a, b)	(a + (a) + 2 * b)
     #define ONE(c)	(c + 19)
 
@@ -109,15 +97,15 @@ or <code>#undef</code> occurred.
 <p>produces the following stabs (as well as many others):
 </p>
 <div class="example">
-<pre class="example">    .stabs	&quot;NONE 42&quot;,54,0,1,0
+<pre class="example-preformatted">    .stabs	&quot;NONE 42&quot;,54,0,1,0
     .stabs	&quot;TWO(a,b) (a + (a) + 2 * b)&quot;,54,0,2,0
     .stabs	&quot;ONE(c) (c + 19)&quot;,54,0,3,0
     .stabs	&quot;ONE&quot;,58,0,10,0
     .stabs	&quot;ONE(c) (c + 23)&quot;,54,0,11,0
 </pre></div>
 
-<p>NOTE: In the above example, <code>54</code> is <code>N_MAC_DEFINE</code> and
-<code>58</code> is <code>N_MAC_UNDEF</code>.
+<p>NOTE: In the above example, <code class="code">54</code> is <code class="code">N_MAC_DEFINE</code> and
+<code class="code">58</code> is <code class="code">N_MAC_UNDEF</code>.
 </p>
 </div>
 
