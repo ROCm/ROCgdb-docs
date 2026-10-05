@@ -92,3 +92,11 @@ external_projects_current_project = "rocgdb"
 
 for sphinx_var in ROCmDocs.SPHINX_VARS:
     globals()[sphinx_var] = getattr(docs_core, sphinx_var)
+
+# Embed the ROCgdb commit + version in each Sphinx page's <head> (visible in
+# browser "view source"). Registered after the ROCmDocs loop above so it does not
+# clobber `extensions`. See docs/_ext/rocgdb_meta.py.
+sys.path.append(str(DOCS_DIR / "_ext"))
+extensions = list(extensions) + ["rocgdb_meta"]
+# rocgdb_commit is set above from the build info; expose the version too.
+rocgdb_version = version_number
