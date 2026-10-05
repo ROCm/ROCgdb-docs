@@ -29,8 +29,8 @@ build:
       pre_build:
          - pip install pyyaml
          - >-
-            SHA=$(python3 scripts/resolve_rocgdb_commit.py);
+            TAG=$(python3 scripts/resolve_rocgdb_commit.py --tag);
             curl --fail --location --show-error --silent
             --output rocgdb-docs-html-pdf.tar.gz
-            "https://github.com/ROCm/ROCgdb-docs/releases/download/gdb-docs-${SHA}/rocgdb-docs-html-pdf.tar.gz"
+            "https://github.com/ROCm/ROCgdb-docs/releases/download/${TAG}/rocgdb-docs-html-pdf.tar.gz"
          - tar -xzf rocgdb-docs-html-pdf.tar.gz
