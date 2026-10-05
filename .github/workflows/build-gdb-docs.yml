@@ -6,9 +6,9 @@ name: Build GDB docs and publish release asset
 # asset that Read the Docs downloads during its own (light) build.
 #
 # ROCgdb is no longer a git submodule: the source and branch/commit are declared
-# in rocgdb.yaml and cloned at build time. The asset is keyed by the resolved
-# ROCgdb commit, NOT by branch, so any ROCgdb-docs branch resolving to the same
-# ROCgdb commit reuses the same asset and the build runs at most once per commit.
+# in rocgdb.yaml and cloned at build time. The asset is keyed by the ROCgdb source
+# branch and commit (tag gdb-docs-<branch>-<commit>), so builds dedup per
+# branch+commit and the tag shows which source branch it came from.
 
 on:
   push:
@@ -47,11 +47,13 @@ jobs:
           set -euo pipefail
           pip install --quiet pyyaml
           URL=$(python3 -c "import yaml;print(yaml.safe_load(open('rocgdb.yaml'))['rocgdb']['url'])")
-          SHA=$(python3 scripts/resolve_rocgdb_commit.py)
+          SHA=$(python3 scripts/resolve_rocgdb_commit.py --commit)
+          TAG=$(python3 scripts/resolve_rocgdb_commit.py --tag)
           echo "Resolved ROCgdb commit: $SHA"
+          echo "Release tag: $TAG"
           echo "url=$URL" >> "$GITHUB_OUTPUT"
           echo "sha=$SHA" >> "$GITHUB_OUTPUT"
-          echo "tag=gdb-docs-$SHA" >> "$GITHUB_OUTPUT"
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
 
       - name: Skip if this commit was already built
         id: check
