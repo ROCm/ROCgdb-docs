@@ -1,24 +1,23 @@
 name: Build GDB docs and publish release asset
 
 # The GDB manuals (HTML via makeinfo, PDF via texi2dvi/pdftex) are built from the
-# ROCgdb submodule. This is a ~16 min native build that exceeds the Read the Docs
+# ROCgdb source. This is a ~16 min native build that exceeds the Read the Docs
 # build-time limit, so it runs here instead and publishes the result as a release
 # asset that Read the Docs downloads during its own (light) build.
 #
-# The asset is keyed by the ROCgdb submodule commit, NOT by branch: the docs
-# depend only on that commit plus build_docs.sh. Any branch (amd-staging,
-# docs/10.1.0, ...) whose submodule points at the same commit reuses the same
-# asset, so the build runs at most once per unique submodule commit.
+# ROCgdb is no longer a git submodule: the source and branch/commit are declared
+# in rocgdb.yaml and cloned at build time. The asset is keyed by the ROCgdb source
+# branch and commit (tag gdb-docs-<branch>-<commit>), so builds dedup per
+# branch+commit and the tag shows which source branch it came from.
 
 on:
   push:
     branches:
       - amd-staging
       - "docs/**"
-      - update-rocgdb-amd-staging
+      - rocgdb-config-no-submodule
     paths:
-      # A submodule pointer bump is a change to the gitlink at this path.
-      - ROCgdb
+      - rocgdb.yaml
       - build_docs.sh
       - .github/workflows/build-gdb-docs.yml
   workflow_dispatch:
@@ -27,8 +26,8 @@ permissions:
   contents: write
 
 concurrency:
-  # Serialize per submodule commit so two branches sharing a commit don't race
-  # to create the same release. Resolved to the SHA in the job below.
+  # Serialize per workflow run; the real per-commit guard is the "skip if exists"
+  # check against the resolved-commit release tag below.
   group: build-gdb-docs-${{ github.sha }}
   cancel-in-progress: false
 
@@ -36,23 +35,27 @@ jobs:
   build:
     runs-on: ubuntu-22.04
     steps:
-      - name: Check out repository and ROCgdb submodule
+      - name: Check out repository
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
-          submodules: recursive
           fetch-depth: 1
           persist-credentials: false
 
-      - name: Resolve ROCgdb submodule commit (the asset key)
+      - name: Resolve ROCgdb commit from rocgdb.yaml (the asset key)
         id: key
         run: |
           set -euo pipefail
-          SHA=$(git rev-parse HEAD:ROCgdb)
+          pip install --quiet pyyaml
+          URL=$(python3 -c "import yaml;print(yaml.safe_load(open('rocgdb.yaml'))['rocgdb']['url'])")
+          SHA=$(python3 scripts/resolve_rocgdb_commit.py --commit)
+          TAG=$(python3 scripts/resolve_rocgdb_commit.py --tag)
+          echo "Resolved ROCgdb commit: $SHA"
+          echo "Release tag: $TAG"
+          echo "url=$URL" >> "$GITHUB_OUTPUT"
           echo "sha=$SHA" >> "$GITHUB_OUTPUT"
-          echo "tag=gdb-docs-$SHA" >> "$GITHUB_OUTPUT"
-          echo "Submodule commit: $SHA"
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
 
-      - name: Skip if this submodule commit was already built
+      - name: Skip if this commit was already built
         id: check
         env:
           GH_TOKEN: ${{ github.token }}
@@ -66,6 +69,17 @@ jobs:
           else
             echo "exists=false" >> "$GITHUB_OUTPUT"
           fi
+
+      - name: Clone ROCgdb at the resolved commit
+        if: steps.check.outputs.exists == 'false'
+        run: |
+          set -euo pipefail
+          # Keep LF endings so GDB's configure script runs on this Linux runner.
+          git -c core.autocrlf=false -c core.eol=lf \
+            clone "${{ steps.key.outputs.url }}" ROCgdb
+          git -c core.autocrlf=false -c core.eol=lf \
+            -C ROCgdb checkout --quiet "${{ steps.key.outputs.sha }}"
+          echo "ROCgdb at $(git -C ROCgdb rev-parse HEAD)"
 
       - name: Install build dependencies
         if: steps.check.outputs.exists == 'false'
@@ -85,13 +99,27 @@ jobs:
           set -euo pipefail
           test -f _readthedocs/html/ROCgdb/gdb/doc/gdb/index.html
           ls docs/_static/pdf/ROCgdb/*.pdf >/dev/null
+
+          # Bundle the version + license + resolved commit so Read the Docs (which
+          # no longer clones ROCgdb) can read them without the source tree.
+          mkdir -p rocgdb-meta
+          cp ROCgdb/gdb/version.in rocgdb-meta/version.in
+          cp ROCgdb/COPYING rocgdb-meta/COPYING
+          VERSION=$(sed -n 's/.*\([0-9][0-9.]*\).*/\1/p' ROCgdb/gdb/version.in | head -n1)
+          {
+            echo "commit=${{ steps.key.outputs.sha }}"
+            echo "version=${VERSION}"
+          } > rocgdb-meta/rocgdb-build-info.txt
+          echo "build info:"; cat rocgdb-meta/rocgdb-build-info.txt
+
           tar -czf rocgdb-docs-html-pdf.tar.gz \
             _readthedocs/html/ROCgdb \
-            docs/_static/pdf/ROCgdb
+            docs/_static/pdf/ROCgdb \
+            rocgdb-meta
           echo "case-collision pairs preserved (expect 2 for bss.html/Bss.html):"
           tar -tzf rocgdb-docs-html-pdf.tar.gz | grep -ciE '/bss\.html$'
 
-      - name: Publish release asset keyed by submodule commit
+      - name: Publish release asset keyed by resolved commit
         if: steps.check.outputs.exists == 'false'
         env:
           GH_TOKEN: ${{ github.token }}
