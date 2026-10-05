@@ -6,16 +6,20 @@
 
 import re
 import shutil
-import subprocess
 import sys
 from pathlib import Path
 
 from rocm_docs import ROCmDocs
 
-subprocess.run("git submodule update --init", shell=True)
-
 DOCS_DIR = Path(__file__).parent.resolve()
 ROOT_DIR = DOCS_DIR.parent
+
+# ROCgdb is no longer a git submodule. The "Build GDB docs" workflow builds the
+# manuals and bundles the resolved commit, version, and license into the release
+# asset under rocgdb-meta/, which Read the Docs extracts at the repo root before
+# this build runs. Read those instead of a local ROCgdb checkout. A local ROCgdb/
+# clone (for developer previews) is used as a fallback.
+META_DIR = ROOT_DIR / "rocgdb-meta"
 
 
 def copy_rtd_file(src_path: Path, dest_path: Path):
@@ -27,15 +31,47 @@ def copy_rtd_file(src_path: Path, dest_path: Path):
     print(f"Copied {src_path} -> {dest_path}")
 
 
-# Source the license from the ROCgdb submodule; the built docs are derived
-# from GPL-licensed ROCgdb source, so they carry ROCgdb's license.
-copy_rtd_file(ROOT_DIR / "ROCgdb" / "COPYING", ROOT_DIR / "LICENSE")
+def _read_build_info() -> dict:
+    """Parse rocgdb-meta/rocgdb-build-info.txt (key=value) if present."""
+    info: dict = {}
+    info_file = META_DIR / "rocgdb-build-info.txt"
+    if info_file.exists():
+        for line in info_file.read_text(encoding="utf-8").splitlines():
+            if "=" in line:
+                k, v = line.split("=", 1)
+                info[k.strip()] = v.strip()
+    return info
 
-with open("../ROCgdb/gdb/version.in", encoding="utf-8") as f:
-    match = re.search(r"([0-9.]+)[^0-9.]+", f.read())
+
+def _version_from_file(version_in: Path) -> str:
+    match = re.search(r"([0-9.]+)[^0-9.]+", version_in.read_text(encoding="utf-8"))
     if not match:
         raise ValueError("VERSION not found!")
-    version_number = match[1]
+    return match[1]
+
+
+build_info = _read_build_info()
+
+# License: prefer the bundled copy, fall back to a local ROCgdb checkout.
+for copying in (META_DIR / "COPYING", ROOT_DIR / "ROCgdb" / "COPYING"):
+    if copying.exists():
+        copy_rtd_file(copying, ROOT_DIR / "LICENSE")
+        break
+
+# Version + resolved commit: prefer the bundled build info, then the bundled
+# version.in, then a local ROCgdb checkout.
+rocgdb_commit = build_info.get("commit", "")
+if build_info.get("version"):
+    version_number = build_info["version"]
+elif (META_DIR / "version.in").exists():
+    version_number = _version_from_file(META_DIR / "version.in")
+elif (ROOT_DIR / "ROCgdb" / "gdb" / "version.in").exists():
+    version_number = _version_from_file(ROOT_DIR / "ROCgdb" / "gdb" / "version.in")
+else:
+    raise ValueError(
+        "No ROCgdb version source found (expected rocgdb-meta/ from the release "
+        "asset, or a local ROCgdb/ checkout)."
+    )
 left_nav_title = f"ROCgdb {version_number} Documentation"
 
 # for PDF output on Read the Docs
