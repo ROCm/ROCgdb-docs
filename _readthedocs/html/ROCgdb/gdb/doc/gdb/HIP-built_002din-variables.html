@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- Copyright © 1988-2024 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being "Free Software" and "Free Software Needs
+Free Documentation", with the Front-Cover Texts being "A GNU Manual,"
+and with the Back-Cover Texts as in (a) below.
+
+(a) The FSF's Back-Cover Text is: "You are free to copy and modify
+this GNU Manual.  Buying copies from GNU Press supports the FSF in
+developing GNU and promoting software freedom."
+
+Legal Disclaimer and Copyright Information
+
+AMD ROCm software is made available by Advanced Micro Devices, Inc. under the
+open source license identified in the top-level directory for the library in
+the repository on https://github.com/ROCm/ (Github.com) (Portions of AMD
+ROCm software are licensed under MITx11 and UIL/NCSA. For more information on
+the license, review the license.txt in the top-level directory for the
+library on https://github.com/ROCm/ (Github.com)).  The additional terms
+and conditions below apply to your use of AMD ROCm technical documentation.
+
+©2019-2024 Advanced Micro Devices, Inc.  All rights reserved.
+
+The information presented in this document is for informational purposes only
+and may contain technical inaccuracies, omissions, and typographical errors.
+The information contained herein is subject to change and may be rendered
+inaccurate for many reasons, including but not limited to product and roadmap
+changes, component and motherboard version changes, new model and/or product
+releases, product differences between differing manufacturers, software
+changes, BIOS flashes, firmware upgrades, or the like.  Any computer system has
+risks of security vulnerabilities that cannot be completely prevented or
+mitigated.  AMD assumes no obligation to update or otherwise correct or revise
+this information.  However, AMD reserves the right to revise this information
+and to make changes from time to time to the content hereof without obligation
+of AMD to notify any person of such revisions or changes.
+
+THIS INFORMATION IS PROVIDED "AS IS."  AMD MAKES NO REPRESENTATIONS OR
+WARRANTIES WITH RESPECT TO THE CONTENTS HEREOF AND ASSUMES NO RESPONSIBILITY
+FOR ANY INACCURACIES, ERRORS, OR OMISSIONS THAT MAY APPEAR IN THIS INFORMATION.
+AMD SPECIFICALLY DISCLAIMS ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT,
+MERCHANTABILITY, OR FITNESS FOR ANY PARTICULAR PURPOSE.  IN NO EVENT WILL AMD
+BE LIABLE TO ANY PERSON FOR ANY RELIANCE, DIRECT, INDIRECT, SPECIAL, OR OTHER
+CONSEQUENTIAL DAMAGES ARISING FROM THE USE OF ANY INFORMATION CONTAINED HEREIN,
+EVEN IF AMD IS EXPRESSLY ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+
+AMD, the AMD Arrow logo, AMD Instinct™, Radeon™, AMD ROCm™, and combinations
+thereof are trademarks of Advanced Micro Devices, Inc.
+Linux® is the registered trademark of Linus Torvalds in the
+U.S. and other countries. PCIe® is a registered trademark of
+PCI-SIG Corporation.  Other product names used in this publication are for
+identification purposes only and may be trademarks of their respective
+companies. -->
+<title>HIP built-in variables (Debugging with ROCgdb)</title>
+
+<meta name="description" content="HIP built-in variables (Debugging with ROCgdb)">
+<meta name="keywords" content="HIP built-in variables (Debugging with ROCgdb)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="Concept-Index.html" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="HIP.html" rel="up" title="HIP">
+<link href="HIP-Runtime-Errors.html" rel="next" title="HIP Runtime Errors">
+<style type="text/css">
+<!--
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+span:hover a.copiable-link {visibility: visible}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<div class="subsubsection-level-extent" id="HIP-built_002din-variables">
+<div class="nav-panel">
+<p>
+Next: <a href="HIP-Runtime-Errors.html" accesskey="n" rel="next">HIP Runtime Errors</a>, Up: <a href="HIP.html" accesskey="u" rel="up">HIP</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="subsubsection" id="HIP-Built_002din-Variables"><span>15.4.11.1 HIP Built-in Variables<a class="copiable-link" href="#HIP-Built_002din-Variables"> &para;</a></span></h4>
+<p>These context variables exist throughout the lifetime of a HIP
+kernel.  ROCgdb can evaluate them in any expression, as
+long as the current language is <code class="code">hip</code>.
+</p>
+<dl class="table">
+<dt><var class="var">threadIdx</var></dt>
+<dd><p>The three-dimensional position of the current HIP thread (a.k.a. lane)
+within the HIP block.
+</p>
+</dd>
+<dt><var class="var">blockIdx</var></dt>
+<dd><p>The three-dimensional position of the current HIP block within the grid.
+</p>
+</dd>
+<dt><var class="var">blockDim</var></dt>
+<dd><p>Dimensions of the current HIP block.
+</p>
+</dd>
+<dt><var class="var">gridDim</var></dt>
+<dd><p>Dimensions of the current HIP grid in number of HIP blocks.
+</p>
+</dd>
+<dt><var class="var">warpSize</var></dt>
+<dd><p>The size of the wavefront for the dispatch that the current kernel
+belongs to.
+</p>
+</dd>
+</dl>
+
+</div>
+
+
+
+</body>
+</html>
