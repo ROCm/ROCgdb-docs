@@ -38,7 +38,7 @@ The code is open source and hosted at: https://github.com/ROCm/ROCgdb
 
   .. grid-item-card:: How to
 
-    * |ROCgdb user guide|
+    * `User guide <https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/index.html>`_
     * :ref:`setting-third-party`
     * :ref:`debugging-python`
 
@@ -52,6 +52,3 @@ To contribute to the documentation, refer to
 
 You can find licensing information on the `Licensing <https://rocm.docs.amd.com/en/latest/about/license.html>`_ page.
 
-.. |ROCgdb user guide| raw:: html
-
-   <a href="ROCgdb/gdb/doc/gdb/index.html" target="_blank">User guide</a>
