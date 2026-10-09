@@ -38,15 +38,17 @@ The code is open source and hosted at: https://github.com/ROCm/ROCgdb
 
   .. grid-item-card:: How to
 
-    * |ROCgdb user guide|
+    * `User guide <https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/index.html>`_
     * :ref:`setting-third-party`
     * :ref:`debugging-python`
+
+  .. grid-item-card:: Reference
+
+    * `Debugging with ROCgdb <https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/AMD-GPU.html>`_
+    * `Debugging heterogeneous programs <https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/Heterogeneous-Debugging.html>`_
 
 To contribute to the documentation, refer to
 `Contributing to ROCm  <https://rocm.docs.amd.com/en/latest/contribute/contributing.html>`_.
 
 You can find licensing information on the `Licensing <https://rocm.docs.amd.com/en/latest/about/license.html>`_ page.
 
-.. |ROCgdb user guide| raw:: html
-
-   <a href="ROCgdb/gdb/doc/gdb/index.html" target="_blank">User guide</a>
