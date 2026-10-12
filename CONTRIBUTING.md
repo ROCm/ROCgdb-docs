@@ -11,9 +11,11 @@ first review the following guidance. For general documentation conventions, see
 [Contributing to ROCm docs](https://rocm.docs.amd.com/en/latest/contribute/contributing.html).
 
 ROCgdb-docs is the documentation repository for
-[ROCgdb](https://github.com/ROCm-Developer-Tools/ROCgdb), the ROCm source-level debugger. This
-repository hosts the documentation site and includes the ROCgdb source as a submodule, from which
-the base GDB HTML documentation is built.
+[ROCgdb](https://github.com/ROCm/ROCgdb), the ROCm source-level debugger. This repository hosts the
+documentation site. The base GDB HTML documentation is built from the ROCgdb source, which is
+cloned at build time from the repository and revision declared in
+[`rocgdb.yaml`](rocgdb.yaml). See
+[How the GDB documentation is built](README.md#how-the-gdb-documentation-is-built) for details.
 
 ## Development workflow
 
