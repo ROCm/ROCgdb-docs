@@ -12,10 +12,16 @@ name: Build GDB docs and publish release asset
 
 on:
   push:
-    branches:
-      - amd-staging
-      - "docs/**"
-      - rocgdb-config-no-submodule
+    # Every branch, so a pull request that changes the ROCgdb source gets its
+    # manuals rebuilt and can be reviewed on its own Read the Docs preview.
+    #
+    # There is deliberately no branches: filter. It was never an access control -
+    # triggering this workflow requires write access to the repository whether you
+    # push, dispatch it manually, or edit the filter itself - so all it did was
+    # force every test branch to be added by hand and then forgotten about. The
+    # cost of dropping it is low: the "skip if exists" check below means branches
+    # resolving to an already-built ROCgdb commit publish nothing, so only a
+    # genuinely new commit causes a build.
     paths:
       - rocgdb.yaml
       - build_docs.sh
