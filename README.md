@@ -7,55 +7,64 @@ Documentation repository for [ROCgdb](https://github.com/ROCm/ROCgdb)
 
 ## How the GDB documentation is built
 
-The GDB manuals (HTML and PDF) are generated from the [ROCgdb](https://github.com/ROCm/ROCgdb)
-submodule, not written by hand. `build_docs.sh` configures and builds the submodule
-(`configure` + `make` + `make do-html` + `make do-pdf`) and copies the result into
-`_readthedocs/html/ROCgdb` (HTML) and `docs/_static/pdf/ROCgdb` (PDF).
+The GDB manuals (HTML and PDF) are generated from the
+[ROCgdb](https://github.com/ROCm/ROCgdb) source, not written by hand. `build_docs.sh`
+configures that source and runs `make do-html` and `make do-pdf`, copying the result
+into `_readthedocs/html/ROCgdb` (HTML) and `docs/_static/pdf/ROCgdb` (PDF). The
+generated trees are not committed to this repository.
 
-That native build takes around 16 minutes, which exceeds Read the Docs' build-time
-limit, so it does not run on Read the Docs. Instead it is automated in two steps:
+Read the Docs does the whole thing during its own build, so there is no workflow,
+release asset or API token involved. [`.readthedocs.yaml`](.readthedocs.yaml)
+installs the toolchain through `apt_packages` and then runs two `pre_build` jobs:
 
-1. **GitHub Actions builds and publishes the docs.** The
-   [`Build GDB docs and publish release asset`](.github/workflows/build-gdb-docs.yml)
-   workflow runs `build_docs.sh` on a Linux runner, packages the HTML and PDFs into
-   `rocgdb-docs-html-pdf.tar.gz`, and publishes it as a GitHub Release asset. The
-   asset is keyed by the ROCgdb submodule commit (release tag `gdb-docs-<submodule
-   sha>`), so any branch pinning the same submodule commit reuses the same asset and
-   the build is skipped when it already exists. The workflow runs on pushes that
-   change the submodule pointer or build files (and on manual dispatch), and triggers
-   the matching Read the Docs build once the asset is published.
+1. [`scripts/fetch_rocgdb.sh`](scripts/fetch_rocgdb.sh) shallow-fetches the ROCgdb
+   commit into `ROCgdb/`.
+2. `build_docs.sh` configures that checkout and generates the manuals.
 
-2. **Read the Docs downloads the published docs.** During its build,
-   [`.readthedocs.yaml`](.readthedocs.yaml) derives the same submodule commit with
-   `git rev-parse HEAD:ROCgdb`, downloads the matching release asset, and extracts it
-   into place. Read the Docs still checks out the `ROCgdb` submodule (a shallow clone,
-   no build) because `docs/conf.py` reads the version from `ROCgdb/gdb/version.in` and
-   the license from `ROCgdb/COPYING`; neither file is part of the release asset. Read
-   the Docs does not compile the manuals itself.
+`docs/conf.py` reads the version, license and commit from the same checkout.
 
-> [!NOTE]
-> When the submodule pointer changes, the Read the Docs build can start before the
-> GitHub Actions build has published the new asset. In that case the download fails
-> with a 404 ("artifact not found") and the Read the Docs build fails. This is
-> expected: wait for the `Build GDB docs and publish release asset` workflow to finish,
-> then **rerun the Read the Docs build** and it will find the asset. For branch builds
-> the workflow triggers Read the Docs automatically once the asset is published; a
-> pull request preview must be rebuilt manually (or by pushing a new commit).
+ROCgdb is not a git submodule. Which source to build is declared in
+[`rocgdb.yaml`](rocgdb.yaml):
 
-To update the documentation, update the `ROCgdb` submodule pointer and push:
+```yaml
+rocgdb:
+  url: https://github.com/ROCm/ROCgdb.git
+  branch: release/therock-10.1
+  commit: 7e541ef6fe7d5ad8172cf227656103f22f975226
+```
+
+`scripts/resolve_rocgdb_commit.py` turns that into the commit to fetch. A non-empty
+`commit` is used as-is, which keeps builds reproducible; leave it empty to track the
+latest commit of `branch`, resolved with `git ls-remote`.
+
+The build fits comfortably inside the Read the Docs build-time limit. Measured in an
+ubuntu-22.04 container on a constrained CPU budget:
+
+| phase | time |
+| --- | --- |
+| `apt_packages` (including texlive) | 44s |
+| shallow fetch of ROCgdb | 34s |
+| `configure` | 2s |
+| `make do-html` | 95s |
+| `make do-pdf` | 9s |
+| total | 184s |
+
+Two things keep it there, and both are easy to undo by accident. `build_docs.sh`
+runs no `make` before the doc targets, which build their own prerequisites, and it
+passes `--disable-binutils`, `--disable-gas`, `--disable-ld` and friends to
+`configure` so the sibling binutils manuals are not built. See the comments in that
+script, which record the measurements behind both.
+
+To update the documentation, edit `rocgdb.yaml` and push:
 
 ```bash
-cd ROCgdb
-git fetch origin
-git checkout <desired commit or branch>
-cd ..
-git add ROCgdb
-git commit -m "Update ROCgdb submodule"
+# Point at a different branch, or set `commit` to pin an exact revision.
+$EDITOR rocgdb.yaml
+git commit -am "Update ROCgdb source for the GDB manuals"
 git push
 ```
 
-The GitHub Actions workflow then builds and publishes the new docs, and Read the Docs
-picks them up. The generated HTML and PDF trees are not committed to this repository.
+Read the Docs rebuilds and picks up the new source on its next build.
 
 ## How to build documentation locally
 
@@ -68,32 +77,28 @@ pip3 install -r sphinx/requirements.txt
 python3 -m sphinx -T -E -b html -d _build/doctrees -D language=en . _build/html
 ```
 
-Run the additional following steps to build the gdb documentation and display it locally with the documentation site:
+Run the additional following steps to build the gdb documentation. These are the same
+two jobs Read the Docs runs, so a local preview matches what gets published. ROCgdb is
+fetched into `ROCgdb/` at the repository root, which is where `build_docs.sh` and
+`docs/conf.py` look for it (the directory is gitignored):
 
 ```bash
 cd ..
-git submodule update --init --recursive
-cd ROCgdb
-./configure
-make
-make do-html
-cd ..
-cp -v --parents `find ROCgdb/ -name "*.html"` docs/_build/html
+pip3 install pyyaml
+bash scripts/fetch_rocgdb.sh
+bash build_docs.sh
 ```
 
-Alternatively, change `build_docs.sh` and run it.
+That needs the same toolchain Read the Docs installs: `build-essential`, `libgmp-dev`,
+`libmpfr-dev`, `texinfo`, `bison`, `flex`, and `texlive` plus `texlive-plain-generic`
+for the PDFs. To preview a different revision, edit `rocgdb.yaml` first, or check out
+that revision in `ROCgdb/` after fetching.
 
-Change:
-
-```diff
-- cp -v --parents `find ROCgdb/ -name '*.html'` _readthedocs/html
-+ cp -v --parents `find ROCgdb/ -name '*.html'` docs/_build/html
-```
-
-Command:
+`build_docs.sh` writes the HTML to `_readthedocs/html/ROCgdb`. To view it alongside a
+local Sphinx build instead, copy it across:
 
 ```bash
-./build_docs.sh
+cp -v --parents `find _readthedocs/html/ROCgdb -name "*.html"` docs/_build/html
 ```
 
 ## Contributing

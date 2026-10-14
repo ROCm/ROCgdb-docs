@@ -8,13 +8,6 @@ sphinx:
 
 formats: [htmlzip, pdf, epub]
 
-# conf.py reads the GDB version from ROCgdb/gdb/version.in and copies
-# ROCgdb/COPYING -> LICENSE, so the submodule must be checked out. This is a
-# cheap clone only; the heavy GDB build runs in GitHub Actions, not here.
-submodules:
-   include:
-      - ROCgdb
-
 python:
    install:
    - requirements: docs/sphinx/requirements.txt
@@ -23,19 +16,31 @@ build:
    os: ubuntu-22.04
    tools:
       python: "3.10"
+   # Toolchain for building the GDB manuals: build-essential/bison/flex to
+   # configure the tree, libgmp-dev and libmpfr-dev for GDB's configure, texinfo
+   # for makeinfo (HTML), and texlive for texi2dvi/pdftex (PDF).
+   apt_packages:
+      - build-essential
+      - libgmp-dev
+      - libmpfr-dev
+      - texinfo
+      - bison
+      - flex
+      - texlive
+      - texlive-plain-generic
    jobs:
-      # The GDB manuals (HTML + PDF) are built by the "Build GDB docs" GitHub
-      # Actions workflow and published as a release asset keyed by the ROCgdb
-      # submodule commit, because the native build exceeds the Read the Docs
-      # build-time limit. Derive that same commit here and download the matching
-      # asset instead of building. This makes each RTD version pull exactly the
-      # docs for its pinned submodule commit, independent of branch.
-      # --fail: if the asset is missing the build fails loudly (e.g. the Actions
-      # build for this submodule commit has not finished yet) rather than
-      # shipping dead links.
+      # Build the GDB manuals here rather than downloading a prebuilt asset.
+      # ROCgdb is not a submodule: fetch_rocgdb.sh shallow-fetches the commit
+      # resolved from rocgdb.yaml, then build_docs.sh generates the HTML into
+      # _readthedocs/html/ROCgdb and the PDFs into docs/_static/pdf/ROCgdb.
+      # docs/conf.py reads the version and license from that checkout.
+      #
+      # This was previously impossible: the build took ~16 min against a ~15 min
+      # limit. After narrowing it to the doc targets and skipping the sibling
+      # binutils components it measures ~3 min end to end (44s apt, 34s shallow
+      # fetch, 106s configure + do-html + do-pdf), so the whole pipeline now fits
+      # in one config file with no workflow, release asset or API token.
       pre_build:
-         - >-
-            curl --fail --location --show-error --silent
-            --output rocgdb-docs-html-pdf.tar.gz
-            "https://github.com/ROCm/ROCgdb-docs/releases/download/gdb-docs-$(git rev-parse HEAD:ROCgdb)/rocgdb-docs-html-pdf.tar.gz"
-         - tar -xzf rocgdb-docs-html-pdf.tar.gz
+         - pip install pyyaml
+         - bash scripts/fetch_rocgdb.sh
+         - bash build_docs.sh
