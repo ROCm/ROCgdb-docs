@@ -59,13 +59,20 @@ for copying in (META_DIR / "COPYING", ROOT_DIR / "ROCgdb" / "COPYING"):
         copy_rtd_file(copying, ROOT_DIR / "LICENSE")
         break
 
-# Version + resolved commit: prefer the bundled build info, then the bundled
-# version.in, then a local ROCgdb checkout.
+# Version + resolved commit.
+#
+# version.in is checked before the build info even though both are bundled in the
+# release asset, because version.in is copied verbatim while the build info's
+# `version` is derived by the workflow and so can be wrong. It was: the
+# extraction greedily matched the last digits of "16.3" and recorded `version=3`,
+# which rendered as "ROCgdb 3 Documentation". Parsing the verbatim file with the
+# same regex used for a local checkout keeps one parser for one format, and makes
+# already-published assets render correctly without being rebuilt.
 rocgdb_commit = build_info.get("commit", "")
-if build_info.get("version"):
-    version_number = build_info["version"]
-elif (META_DIR / "version.in").exists():
+if (META_DIR / "version.in").exists():
     version_number = _version_from_file(META_DIR / "version.in")
+elif build_info.get("version"):
+    version_number = build_info["version"]
 elif (ROOT_DIR / "ROCgdb" / "gdb" / "version.in").exists():
     version_number = _version_from_file(ROOT_DIR / "ROCgdb" / "gdb" / "version.in")
 else:

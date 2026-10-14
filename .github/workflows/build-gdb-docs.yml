@@ -105,7 +105,9 @@ jobs:
           mkdir -p rocgdb-meta
           cp ROCgdb/gdb/version.in rocgdb-meta/version.in
           cp ROCgdb/COPYING rocgdb-meta/COPYING
-          VERSION=$(sed -n 's/.*\([0-9][0-9.]*\).*/\1/p' ROCgdb/gdb/version.in | head -n1)
+          # Take the FIRST version-looking token. The previous sed anchored on a
+          # greedy .* and so captured the last digits instead: "16.3" -> "3".
+          VERSION=$(grep -oE '[0-9]+(\.[0-9]+)*' ROCgdb/gdb/version.in | head -n1)
           {
             echo "commit=${{ steps.key.outputs.sha }}"
             echo "version=${VERSION}"
