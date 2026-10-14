@@ -1,5 +1,13 @@
 # Anywhere {branch} is used, the branch name will be substituted.
 # These comments will also be removed.
+#
+# Use ${project:rocgdb} rather than a hand-written base URL with ${branch} for
+# links into this project's own published docs. ${branch} substitutes the raw git
+# branch name, which is not a Read the Docs version: on a feature branch it yields
+# .../en/<branch-name>/... and on a release branch it yields .../en/docs/10.1.0/...
+# (unslugified), both 404. ${project:rocgdb} resolves through the shared project
+# mapping, which maps the branch to a real version - latest, stable, docs-X.Y.Z or
+# X.Y.Z-preview - and falls back to latest for anything else.
 root: index
 subtrees:
   - caption: Install
@@ -16,9 +24,9 @@ subtrees:
       title: Commands for key operations
   - caption: How to
     entries:
-    - url: http://rocm.docs.amd.com/projects/ROCgdb/en/${branch}/ROCgdb/gdb/doc/gdb/index.html
+    - url: ${project:rocgdb}/ROCgdb/gdb/doc/gdb/index.html
       title: User guide (HTML)
-    - url: https://rocm.docs.amd.com/projects/ROCgdb/en/${branch}/_static/pdf/ROCgdb/gdb.pdf
+    - url: ${project:rocgdb}/_static/pdf/ROCgdb/gdb.pdf
       title: User guide (PDF)
     - file: how-to/third-party-tools
     - file: how-to/debugging-python
