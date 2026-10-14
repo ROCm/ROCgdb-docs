@@ -4,6 +4,7 @@
 # list see the documentation:
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
 
+import os
 import re
 import shutil
 import sys
@@ -82,6 +83,36 @@ version = version_number
 release = version_number
 
 external_toc_path = "./sphinx/_toc.yml"
+
+# Read the Docs sets READTHEDOCS_CANONICAL_URL to the base of the version being
+# built, including pull request previews
+# (https://<slug>--<pr>.com.readthedocs.build/projects/ROCgdb/en/<pr>). Sphinx
+# uses html_baseurl for canonical links, and rocm-docs-core's llms.py already
+# reads it ahead of READTHEDOCS_CANONICAL_URL, so setting it here gives every
+# consumer one agreed base instead of each resolving its own.
+html_baseurl = os.environ.get("READTHEDOCS_CANONICAL_URL", "")
+
+# Base for the sidebar links into this project's own built output. The GDB
+# manuals and PDFs are extracted into the output tree rather than being Sphinx
+# sources, so they cannot be `file:` TOC entries and must be written as URLs. A
+# `url:` entry is emitted into the sidebar verbatim, and the sidebar renders on
+# pages at several directory depths, so no single relative path is correct for
+# all of them - the base has to be absolute.
+#
+# Using html_baseurl keeps those links inside whichever build the reader is
+# looking at, instead of sending them from a preview back to the published site.
+# Off Read the Docs it is empty, so fall back to ${project:rocgdb}, which
+# rocm-docs-core resolves to the published docs for the matching version; that
+# token is left in place for its own pass over the template.
+_toc_template_src = DOCS_DIR / "sphinx" / "_toc.yml.in"
+_toc_template_gen = DOCS_DIR / "sphinx" / "_toc.yml.generated.in"
+_toc_template_gen.write_text(
+    _toc_template_src.read_text(encoding="utf-8").replace(
+        "@DOCS_BASE@", html_baseurl.rstrip("/") or "${project:rocgdb}"
+    ),
+    encoding="utf-8",
+)
+external_toc_template_path = "./sphinx/_toc.yml.generated.in"
 
 docs_core = ROCmDocs(left_nav_title)
 docs_core.setup()
