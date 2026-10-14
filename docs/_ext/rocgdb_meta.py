@@ -6,8 +6,8 @@ Adds, to the Sphinx-built pages (not the generated GDB manual pages):
     <meta name="rocgdb-version" content="<version>">
 
 so the exact ROCgdb source the docs were built from is visible in the browser
-"view source". Values come from conf.py (sourced from the release asset's
-rocgdb-meta/ bundle), registered as the config values below.
+"view source". Values come from conf.py, which reads them from the ROCgdb
+checkout the manuals were built from, registered as the config values below.
 
 Sphinx has no site-wide html_meta, and rocm-docs-core does not manage meta tags,
 so the standard html-page-context event is used (the same event rocm-docs-core

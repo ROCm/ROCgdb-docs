@@ -1,18 +1,21 @@
 #!/usr/bin/env python3
-"""Resolve the ROCgdb commit (and release tag) to build/download from rocgdb.yaml.
+"""Resolve the ROCgdb commit to build from rocgdb.yaml.
 
 If `rocgdb.commit` is set, that commit is used (reproducible builds). Otherwise
 the latest commit of `rocgdb.branch` is resolved with `git ls-remote`.
 
-The release asset is keyed by both the ROCgdb branch and commit so the tag is
-human-readable about which source branch it came from:
+`scripts/fetch_rocgdb.sh` calls this with --commit to decide what to fetch, so
+the source of truth for the revision is rocgdb.yaml alone.
+
+--slug and --tag build a release-asset tag of the form
 
     gdb-docs-<branch-last-segment>-<commit>
 
 e.g. branch `release/therock-10.1` + commit `7e541ef...` -> `gdb-docs-therock-10.1-7e541ef...`.
 
-Both the GitHub Actions build workflow and the Read the Docs build read the same
-value through this script, so they always agree on the tag.
+Nothing on this branch uses them: the manuals are built during the Read the Docs
+build rather than published as an asset. They are kept so this script stays
+identical to the one on the branch that does publish assets.
 
 Usage:
   python3 scripts/resolve_rocgdb_commit.py [--commit|--slug|--tag] [path/to/rocgdb.yaml]
