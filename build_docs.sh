@@ -9,7 +9,16 @@ rm -rf _build
 mkdir _build
 pushd _build
 ../ROCgdb/configure --with-bugurl="https://github.com/ROCm/ROCgdb/issues"
-make
+
+# Build only what the manuals need, in parallel. Measured on 16 CPUs against the
+# same ROCgdb commit, all producing an identical 1956 HTML files + 17 PDFs:
+# a full serial `make` (what this script used to do) ~13 min, `make -j16` 194s,
+# `make all-gdb -j16` 169s.
+make all-gdb -j"$(nproc)"
+
+# Do not pass -j to do-html/do-pdf below. The top-level recursion is not
+# parallel-safe: it races a subdirectory's manual against that subdirectory's own
+# configure and dies with "Error 1", leaving 23 of 1956 HTML files behind.
 
 # Generate HTML
 make do-html
