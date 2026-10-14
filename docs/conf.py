@@ -7,6 +7,7 @@
 import os
 import re
 import shutil
+import subprocess
 import sys
 from pathlib import Path
 
@@ -61,7 +62,22 @@ for copying in (META_DIR / "COPYING", ROOT_DIR / "ROCgdb" / "COPYING"):
 
 # Version + resolved commit: prefer the bundled build info, then the bundled
 # version.in, then a local ROCgdb checkout.
+#
+# When the manuals are built during this build rather than downloaded, there is
+# no bundled build info, so read the commit from the checkout that was just
+# fetched. Without this the rocgdb-commit meta tag would silently go missing on
+# exactly the builds that compiled the manuals themselves.
 rocgdb_commit = build_info.get("commit", "")
+if not rocgdb_commit and (ROOT_DIR / "ROCgdb" / ".git").exists():
+    try:
+        rocgdb_commit = subprocess.run(
+            ["git", "-C", str(ROOT_DIR / "ROCgdb"), "rev-parse", "HEAD"],
+            capture_output=True,
+            text=True,
+            check=True,
+        ).stdout.strip()
+    except (OSError, subprocess.CalledProcessError) as err:
+        print(f"Could not read the ROCgdb commit from the checkout: {err}")
 if build_info.get("version"):
     version_number = build_info["version"]
 elif (META_DIR / "version.in").exists():
