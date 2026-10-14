@@ -44,7 +44,7 @@ The code is open source and hosted at: https://github.com/ROCm/ROCgdb
 
   .. grid-item-card:: Reference
 
-    * `Debugging with ROCgdb <https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/AMD-GPU.html>`_
+    * `Debugging on AMD GPU <https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/AMD-GPU.html>`_
     * `Debugging heterogeneous programs <https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/Heterogeneous-Debugging.html>`_
 
 To contribute to the documentation, refer to
