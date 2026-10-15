@@ -4,18 +4,23 @@
 # list see the documentation:
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
 
+import os
 import re
 import shutil
-import subprocess
 import sys
 from pathlib import Path
 
 from rocm_docs import ROCmDocs
 
-subprocess.run("git submodule update --init", shell=True)
-
 DOCS_DIR = Path(__file__).parent.resolve()
 ROOT_DIR = DOCS_DIR.parent
+
+# ROCgdb is no longer a git submodule. The "Build GDB docs" workflow builds the
+# manuals and bundles the resolved commit, version, and license into the release
+# asset under rocgdb-meta/, which Read the Docs extracts at the repo root before
+# this build runs. Read those instead of a local ROCgdb checkout. A local ROCgdb/
+# clone (for developer previews) is used as a fallback.
+META_DIR = ROOT_DIR / "rocgdb-meta"
 
 
 def copy_rtd_file(src_path: Path, dest_path: Path):
@@ -27,15 +32,54 @@ def copy_rtd_file(src_path: Path, dest_path: Path):
     print(f"Copied {src_path} -> {dest_path}")
 
 
-# Source the license from the ROCgdb submodule; the built docs are derived
-# from GPL-licensed ROCgdb source, so they carry ROCgdb's license.
-copy_rtd_file(ROOT_DIR / "ROCgdb" / "COPYING", ROOT_DIR / "LICENSE")
+def _read_build_info() -> dict:
+    """Parse rocgdb-meta/rocgdb-build-info.txt (key=value) if present."""
+    info: dict = {}
+    info_file = META_DIR / "rocgdb-build-info.txt"
+    if info_file.exists():
+        for line in info_file.read_text(encoding="utf-8").splitlines():
+            if "=" in line:
+                k, v = line.split("=", 1)
+                info[k.strip()] = v.strip()
+    return info
 
-with open("../ROCgdb/gdb/version.in", encoding="utf-8") as f:
-    match = re.search(r"([0-9.]+)[^0-9.]+", f.read())
+
+def _version_from_file(version_in: Path) -> str:
+    match = re.search(r"([0-9.]+)[^0-9.]+", version_in.read_text(encoding="utf-8"))
     if not match:
         raise ValueError("VERSION not found!")
-    version_number = match[1]
+    return match[1]
+
+
+build_info = _read_build_info()
+
+# License: prefer the bundled copy, fall back to a local ROCgdb checkout.
+for copying in (META_DIR / "COPYING", ROOT_DIR / "ROCgdb" / "COPYING"):
+    if copying.exists():
+        copy_rtd_file(copying, ROOT_DIR / "LICENSE")
+        break
+
+# Version + resolved commit.
+#
+# version.in is checked before the build info even though both are bundled in the
+# release asset, because version.in is copied verbatim while the build info's
+# `version` is derived by the workflow and so can be wrong. It was: the
+# extraction greedily matched the last digits of "16.3" and recorded `version=3`,
+# which rendered as "ROCgdb 3 Documentation". Parsing the verbatim file with the
+# same regex used for a local checkout keeps one parser for one format, and makes
+# already-published assets render correctly without being rebuilt.
+rocgdb_commit = build_info.get("commit", "")
+if (META_DIR / "version.in").exists():
+    version_number = _version_from_file(META_DIR / "version.in")
+elif build_info.get("version"):
+    version_number = build_info["version"]
+elif (ROOT_DIR / "ROCgdb" / "gdb" / "version.in").exists():
+    version_number = _version_from_file(ROOT_DIR / "ROCgdb" / "gdb" / "version.in")
+else:
+    raise ValueError(
+        "No ROCgdb version source found (expected rocgdb-meta/ from the release "
+        "asset, or a local ROCgdb/ checkout)."
+    )
 left_nav_title = f"ROCgdb {version_number} Documentation"
 
 # for PDF output on Read the Docs
@@ -46,6 +90,61 @@ version = version_number
 release = version_number
 
 external_toc_path = "./sphinx/_toc.yml"
+
+# Read the Docs sets READTHEDOCS_CANONICAL_URL to the base of the version being
+# built, including pull request previews
+# (https://<slug>--<pr>.com.readthedocs.build/projects/ROCgdb/en/<pr>). Sphinx
+# uses html_baseurl for canonical links, and rocm-docs-core's llms.py already
+# reads it ahead of READTHEDOCS_CANONICAL_URL, so setting it here gives every
+# consumer one agreed base instead of each resolving its own.
+html_baseurl = os.environ.get("READTHEDOCS_CANONICAL_URL", "")
+
+# Base for the sidebar links into this project's own built output. The GDB
+# manuals and PDFs are extracted into the output tree rather than being Sphinx
+# sources, so they cannot be `file:` TOC entries and must be written as URLs. A
+# `url:` entry is emitted into the sidebar verbatim, and the sidebar renders on
+# pages at several directory depths, so no single relative path is correct for
+# all of them - the base has to be absolute.
+#
+# Using html_baseurl keeps those links inside whichever build the reader is
+# looking at, instead of sending them from a preview back to the published site.
+# Off Read the Docs it is empty, so fall back to ${project:rocgdb}, which
+# rocm-docs-core resolves to the published docs for the matching version; that
+# token is left in place for its own pass over the template.
+_toc_template_src = DOCS_DIR / "sphinx" / "_toc.yml.in"
+_toc_template_gen = DOCS_DIR / "sphinx" / "_toc.yml.generated.in"
+_toc_template_gen.write_text(
+    _toc_template_src.read_text(encoding="utf-8").replace(
+        "@DOCS_BASE@", html_baseurl.rstrip("/") or "${project:rocgdb}"
+    ),
+    encoding="utf-8",
+)
+external_toc_template_path = "./sphinx/_toc.yml.generated.in"
+
+# The same links appear on the landing page, which is reStructuredText rather
+# than the TOC template, so it needs its own mechanism: a substitution cannot be
+# used inside a hyperlink target in reStructuredText, but a whole link can be
+# defined as a substitution. Define them here so index.rst never hardcodes a
+# version.
+#
+# Relative links would also follow the build and are simpler, but only in HTML -
+# this project also publishes PDF and epub, where a relative href to a file
+# outside the document is dead. These stay absolute for that reason.
+#
+# Off Read the Docs html_baseurl is empty. The TOC falls back to
+# ${project:rocgdb}, but that is a rocm-docs-core token which nothing expands in
+# reStructuredText, so fall back to a literal URL here instead. It only affects
+# local builds; on Read the Docs html_baseurl is always set.
+_docs_base_abs = (
+    html_baseurl.rstrip("/")
+    or "https://rocm.docs.amd.com/projects/ROCgdb/en/latest"
+)
+_gdb_manual = f"{_docs_base_abs}/ROCgdb/gdb/doc/gdb"
+rst_prolog = f"""
+.. |gdb-user-guide| replace:: `User guide <{_gdb_manual}/index.html>`__
+.. |gdb-amd-gpu| replace:: `Debugging on AMD GPU <{_gdb_manual}/AMD-GPU.html>`__
+.. |gdb-heterogeneous| replace:: `Debugging heterogeneous programs <{_gdb_manual}/Heterogeneous-Debugging.html>`__
+"""
 
 docs_core = ROCmDocs(left_nav_title)
 docs_core.setup()
@@ -64,3 +163,11 @@ html_theme_options = {
     "use_issues_button": True,
     "use_download_button": True,
 }
+
+# Embed the ROCgdb commit + version in each Sphinx page's <head> (visible in
+# browser "view source"). Registered after the ROCmDocs loop above so it does not
+# clobber `extensions`. See docs/_ext/rocgdb_meta.py.
+sys.path.append(str(DOCS_DIR / "_ext"))
+extensions = list(extensions) + ["rocgdb_meta"]
+# rocgdb_commit is set above from the build info; expose the version too.
+rocgdb_version = version_number
