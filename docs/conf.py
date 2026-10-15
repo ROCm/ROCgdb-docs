@@ -121,6 +121,31 @@ _toc_template_gen.write_text(
 )
 external_toc_template_path = "./sphinx/_toc.yml.generated.in"
 
+# The same links appear on the landing page, which is reStructuredText rather
+# than the TOC template, so it needs its own mechanism: a substitution cannot be
+# used inside a hyperlink target in reStructuredText, but a whole link can be
+# defined as a substitution. Define them here so index.rst never hardcodes a
+# version.
+#
+# Relative links would also follow the build and are simpler, but only in HTML -
+# this project also publishes PDF and epub, where a relative href to a file
+# outside the document is dead. These stay absolute for that reason.
+#
+# Off Read the Docs html_baseurl is empty. The TOC falls back to
+# ${project:rocgdb}, but that is a rocm-docs-core token which nothing expands in
+# reStructuredText, so fall back to a literal URL here instead. It only affects
+# local builds; on Read the Docs html_baseurl is always set.
+_docs_base_abs = (
+    html_baseurl.rstrip("/")
+    or "https://rocm.docs.amd.com/projects/ROCgdb/en/latest"
+)
+_gdb_manual = f"{_docs_base_abs}/ROCgdb/gdb/doc/gdb"
+rst_prolog = f"""
+.. |gdb-user-guide| replace:: `User guide <{_gdb_manual}/index.html>`__
+.. |gdb-amd-gpu| replace:: `Debugging on AMD GPU <{_gdb_manual}/AMD-GPU.html>`__
+.. |gdb-heterogeneous| replace:: `Debugging heterogeneous programs <{_gdb_manual}/Heterogeneous-Debugging.html>`__
+"""
+
 docs_core = ROCmDocs(left_nav_title)
 docs_core.setup()
 
