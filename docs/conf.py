@@ -51,11 +51,14 @@ docs_core = ROCmDocs(left_nav_title)
 docs_core.setup()
 
 html_static_path = ['_static']
+html_css_files = ['rocgdb.css']
 
 external_projects_current_project = "rocgdb"
 
 for sphinx_var in ROCmDocs.SPHINX_VARS:
     globals()[sphinx_var] = getattr(docs_core, sphinx_var)
+
+extensions += ["rocm_docs.selector", "sphinxcontrib.mermaid"]
 
 html_theme_options = {
     "flavor": "rocm",
@@ -64,3 +67,7 @@ html_theme_options = {
     "use_issues_button": True,
     "use_download_button": True,
 }
+
+# Generate llms.txt and llms-full.txt (https://llmstxt.org/) for LLM-assisted
+# access to the documentation.
+rocm_docs_generate_llms = True
