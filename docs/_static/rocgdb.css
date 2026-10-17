@@ -1,0 +1,187 @@
+/* Workflow-page callouts. These are plain admonitions with a class, so
+   PDF and EPUB builds still render them as ordinary admonitions. */
+
+.admonition.rocgdb-expected,
+.admonition.rocgdb-iffails,
+.admonition.rocgdb-evidence {
+  border-left-width: 0.3rem;
+  border-left-style: solid;
+}
+
+.admonition.rocgdb-expected {
+  border-left-color: #1a7f37;
+}
+
+.admonition.rocgdb-iffails {
+  border-left-color: #bf8700;
+}
+
+.admonition.rocgdb-evidence {
+  border-left-color: #0969da;
+}
+
+.admonition.rocgdb-expected > .admonition-title::before {
+  background-color: #1a7f37;
+}
+
+.admonition.rocgdb-iffails > .admonition-title::before {
+  background-color: #bf8700;
+}
+
+.admonition.rocgdb-evidence > .admonition-title::before {
+  background-color: #0969da;
+}
+
+/* Landing page eyebrow above the page title. */
+.rocgdb-eyebrow {
+  color: var(--pst-color-secondary, #ed1c24);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  margin-bottom: 0;
+  text-transform: uppercase;
+}
+
+/* Landing page hero: text on the left, illustration on the right. The
+   layout follows the width of the article, not the browser window. */
+.rocgdb-hero-wrap {
+  border-bottom: 1px solid var(--pst-color-border, #d0d7de);
+  container-type: inline-size;
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+}
+
+/* Let the landing page use the full article width instead of the
+   theme's default reading column. */
+.bd-main .bd-content .bd-article-container:has(.rocgdb-hero-wrap) {
+  max-width: none;
+}
+
+.bd-main .bd-content .bd-article-container:has(.rocgdb-hero-wrap) article p {
+  max-width: 65rem;
+}
+
+.rocgdb-hero {
+  align-items: center;
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+@container (min-width: 26rem) {
+  .rocgdb-hero {
+    gap: 2rem;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+}
+
+@container (min-width: 56rem) {
+  .rocgdb-hero {
+    gap: 3rem;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 28rem);
+  }
+}
+
+.rocgdb-hero-text h1 {
+  font-size: clamp(1.75rem, 7cqi, 2.6rem);
+  line-height: 1.15;
+  margin: 0.25rem 0 0.75rem;
+}
+
+.rocgdb-hero-subtitle {
+  color: var(--pst-color-text-muted);
+  font-size: 1rem;
+  line-height: 1.5;
+  margin-bottom: 1.25rem;
+}
+
+.rocgdb-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.rocgdb-hero-actions p {
+  margin: 0;
+}
+
+.rocgdb-hero-actions .sd-btn {
+  font-size: 0.9rem;
+  padding: 0.4rem 1rem;
+  white-space: nowrap;
+}
+
+.rocgdb-hero-art a {
+  cursor: zoom-in;
+  display: block;
+}
+
+.rocgdb-hero-art a:hover img {
+  opacity: 0.85;
+}
+
+.rocgdb-hero-art img {
+  display: block;
+  height: auto;
+  width: 100%;
+}
+
+.rocgdb-hero-art p {
+  color: var(--pst-color-text-muted);
+  font-size: 0.8rem;
+  line-height: 1.4;
+  margin: 0.5rem 0 0;
+}
+
+/* Compact numbered "Where to start" tiles. */
+.rocgdb-tiles.sd-container-fluid {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.rocgdb-tile.sd-card {
+  border-top: 0.2rem solid #0969da;
+  box-shadow: none;
+}
+
+.rocgdb-tile .sd-card-body {
+  padding: 0.9rem 1rem;
+}
+
+.rocgdb-tile .sd-card-body p {
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+.rocgdb-card-number {
+  color: var(--pst-color-text-muted);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.rocgdb-card-number p {
+  margin-bottom: 0.1rem !important;
+}
+
+/* Reference banner and closing link. */
+.rocgdb-reference {
+  background-color: var(--pst-color-surface, #f6f8fa);
+  border-left: 0.25rem solid var(--pst-color-border, #8c959f);
+  margin-bottom: 1rem;
+  padding: 0.9rem 1.2rem;
+}
+
+.rocgdb-reference > p {
+  margin-bottom: 0.5rem;
+}
+
+.rocgdb-reference-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.5rem;
+}
+
+.rocgdb-reference-links p {
+  margin: 0;
+}
