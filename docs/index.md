@@ -138,9 +138,9 @@ Start from the symptom you saw, not a command name.
 :::
 ::::
 
-## Contribute
-
+:::{div} rocgdb-footer-note
 To contribute to the documentation, refer to
 [Contributing to ROCm](https://rocm.docs.amd.com/en/latest/contribute/contributing.html).
 
 You can find licensing information on the [Licensing](https://rocm.docs.amd.com/en/latest/about/license.html) page.
+:::

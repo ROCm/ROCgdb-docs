@@ -11,6 +11,10 @@ myst:
 
 Select what you see to get the checks that match your symptom.
 
+```{raw} html
+<noscript><p><strong>JavaScript is turned off.</strong> The symptom selector needs it. Use the full checklist instead: <a href="kernel-breakpoint-not-hit.html">Kernel breakpoint isn't hit</a>.</p></noscript>
+```
+
 ## Kernel breakpoint problems
 
 ```{eval-rst}
@@ -58,8 +62,6 @@ For the full ordered checklist and the evidence to collect before you escalate, 
 
 ## All symptom pages
 
-| What you see | Go to |
-| --- | --- |
-| You set a breakpoint in a HIP kernel and the application never stops there | {ref}`rocgdb-troubleshoot-breakpoint-not-hit` |
+* {ref}`rocgdb-troubleshoot-breakpoint-not-hit`: You set a breakpoint in a HIP kernel and the application never stops there.
 
 If your problem isn't listed, start with {ref}`rocgdb-gpu-execution-state` to confirm what state ROCgdb reports, then see {ref}`rocgdb-essential-commands`.

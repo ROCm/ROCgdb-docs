@@ -8,28 +8,57 @@
   border-left-style: solid;
 }
 
+/* Use the theme's semantic colors so the callouts match the rest of the
+   site and follow light and dark mode. The title bar gets the tint, the
+   icon gets the accent color. */
 .admonition.rocgdb-expected {
-  border-left-color: #1a7f37;
+  border-left-color: var(--pst-color-success);
+}
+
+.admonition.rocgdb-expected > .admonition-title {
+  background-color: var(--pst-color-success-bg);
+}
+
+.admonition.rocgdb-expected > .admonition-title::after {
+  color: var(--pst-color-success);
+  content: var(--pst-icon-check-circle);
 }
 
 .admonition.rocgdb-iffails {
-  border-left-color: #bf8700;
+  border-left-color: var(--pst-color-warning);
+}
+
+.admonition.rocgdb-iffails > .admonition-title {
+  background-color: var(--pst-color-warning-bg);
+}
+
+.admonition.rocgdb-iffails > .admonition-title::after {
+  color: var(--pst-color-warning);
+  content: var(--pst-icon-exclamation-triangle);
 }
 
 .admonition.rocgdb-evidence {
-  border-left-color: #0969da;
+  border-left-color: var(--pst-color-info);
 }
 
-.admonition.rocgdb-expected > .admonition-title::before {
-  background-color: #1a7f37;
+.admonition.rocgdb-evidence > .admonition-title {
+  background-color: var(--pst-color-info-bg);
 }
 
-.admonition.rocgdb-iffails > .admonition-title::before {
-  background-color: #bf8700;
+.admonition.rocgdb-evidence > .admonition-title::after {
+  color: var(--pst-color-info);
+  content: var(--pst-icon-info-circle);
 }
 
-.admonition.rocgdb-evidence > .admonition-title::before {
-  background-color: #0969da;
+/* Symptom selector: center the heading text vertically so it lines up with
+   the option labels, and leave space before the selected content. */
+.rocm-docs-selector-group {
+  margin-bottom: 1.25rem;
+}
+
+.rocm-docs-selector-group .rocm-docs-selector-group-heading {
+  align-items: center;
+  display: flex;
 }
 
 /* Landing page eyebrow above the page title. */
@@ -184,4 +213,17 @@
 
 .rocgdb-reference-links p {
   margin: 0;
+}
+
+/* Contribution and license note at the bottom of the landing page. */
+.rocgdb-footer-note {
+  border-top: 1px solid var(--pst-color-border, #d0d7de);
+  color: var(--pst-color-text-muted);
+  font-size: 0.9rem;
+  margin-top: 2rem;
+  padding-top: 1rem;
+}
+
+.rocgdb-footer-note p {
+  margin-bottom: 0.4rem;
 }
