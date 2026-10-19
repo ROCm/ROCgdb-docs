@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 220" font-family="Helvetica, Arial, sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">ROCgdb architecture</title>
+  <desc id="d">The host software stack (HIP application, HIP and HSA runtime, amdgpu driver) sits above the AMD GPU. ROCgdb reads state from every layer through the ROCgdb debug library.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0 0 L10 5 L0 10 z" fill="#ed1c24"/>
+    </marker>
+  </defs>
+  <rect width="460" height="220" fill="#ffffff"/>
+
+  <!-- group labels -->
+  <g fill="none" stroke="#c4cad0" stroke-width="1">
+    <path d="M30 24 V136"/>
+    <path d="M30 156 V204"/>
+  </g>
+  <g font-size="9" font-weight="700" letter-spacing="1.5" fill="#6e7781" text-anchor="middle">
+    <text transform="translate(18 80) rotate(-90)">HOST</text>
+    <text transform="translate(18 180) rotate(-90)">DEVICE</text>
+  </g>
+
+  <!-- HIP application -->
+  <polygon points="44,24 54,16 284,16 274,24" fill="#eef4fd" stroke="#9db8e6" stroke-width="0.8"/>
+  <polygon points="274,24 284,16 284,40 274,48" fill="#b7cdf0" stroke="#9db8e6" stroke-width="0.8"/>
+  <rect x="44" y="24" width="230" height="24" fill="#dbe8fb" stroke="#9db8e6" stroke-width="0.8"/>
+  <text x="56" y="36" font-size="12" font-weight="700" fill="#0b57d0">Your HIP application</text>
+  <text x="56" y="45" font-size="8.5" fill="#57606a">host code · GPU kernels</text>
+
+  <!-- HIP and HSA runtime -->
+  <polygon points="44,66 54,58 284,58 274,66" fill="#fafafa" stroke="#c4cad0" stroke-width="0.8"/>
+  <polygon points="274,66 284,58 284,82 274,90" fill="#dcdfe3" stroke="#c4cad0" stroke-width="0.8"/>
+  <rect x="44" y="66" width="230" height="24" fill="#f0f1f3" stroke="#c4cad0" stroke-width="0.8"/>
+  <text x="56" y="82" font-size="12" font-weight="700" fill="#1f2328">HIP and HSA runtime</text>
+
+  <!-- amdgpu driver -->
+  <polygon points="44,108 54,100 284,100 274,108" fill="#fafafa" stroke="#c4cad0" stroke-width="0.8"/>
+  <polygon points="274,108 284,100 284,124 274,132" fill="#dcdfe3" stroke="#c4cad0" stroke-width="0.8"/>
+  <rect x="44" y="108" width="230" height="24" fill="#f0f1f3" stroke="#c4cad0" stroke-width="0.8"/>
+  <text x="56" y="124" font-size="12" font-weight="700" fill="#1f2328">amdgpu driver</text>
+
+  <!-- AMD GPU -->
+  <polygon points="44,152 54,144 284,144 274,152" fill="#3a4048" stroke="#1f2328" stroke-width="0.8"/>
+  <polygon points="274,152 284,144 284,196 274,204" fill="#0d1014" stroke="#1f2328" stroke-width="0.8"/>
+  <rect x="44" y="152" width="230" height="52" fill="#1f2328" stroke="#1f2328" stroke-width="0.8"/>
+  <text x="56" y="170" font-size="12" font-weight="700" fill="#ffffff">AMD GPU</text>
+  <text x="56" y="185" font-size="9" fill="#c9d1d9">agents · queues · dispatches</text>
+  <text x="56" y="197" font-size="9" fill="#c9d1d9">wavefronts · lanes</text>
+
+  <!-- ROCgdb -->
+  <g stroke="#ed1c24" stroke-width="1" stroke-dasharray="4 3" fill="none">
+    <path d="M338 36 H290" marker-end="url(#arrow)"/>
+    <path d="M338 78 H290" marker-end="url(#arrow)"/>
+    <path d="M338 120 H290" marker-end="url(#arrow)"/>
+    <path d="M338 174 H290" marker-end="url(#arrow)"/>
+  </g>
+  <path d="M338 36 V174" stroke="#ed1c24" stroke-width="1" stroke-dasharray="4 3" fill="none"/>
+  <path d="M338 105 H352" stroke="#ed1c24" stroke-width="1" fill="none"/>
+  <rect x="352" y="80" width="96" height="50" rx="5" fill="#ffffff" stroke="#ed1c24" stroke-width="1.2"/>
+  <text x="400" y="102" font-size="13" font-weight="700" fill="#1f2328" text-anchor="middle">ROCgdb</text>
+  <text x="400" y="117" font-size="9.5" fill="#57606a" text-anchor="middle">debug library</text>
+</svg>
