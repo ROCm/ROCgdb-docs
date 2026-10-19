@@ -156,7 +156,7 @@ The following commands are related to heterogeneous debugging:
 
 - **Lanes:**
 
-  On some heterogeneous systems there can be heterogeneous agents that support Single Instruction Multiple Data (SIMD) or Single Instruction Multiple Threads (STMT) machine instructions. On these target architectures, a single machine instruction can operate in parallel on multiple heterogeneous lanes.
+  On some heterogeneous systems there can be heterogeneous agents that support Single Instruction Multiple Data (SIMD) or Single Instruction Multiple Threads (SIMT) machine instructions. On these target architectures, a single machine instruction can operate in parallel on multiple heterogeneous lanes.
 
   To facilitate debugging heterogeneous programs, the following command displays information about individual source language threads of execution that are mapped to SIMD-like lanes of a thread.
 
@@ -184,7 +184,7 @@ Sample output:
 
 .. code-block:: shell
 
-    #0  saxpy (tid=0) at /home/oogunbow/saxpy.cpp:33
+    #0  saxpy (tid=0) at /home/user/saxpy.cpp:33
     #1  0x00007ffff608ee40 in kern () at /home/user/saxpy.cpp:4
 
 View stack frames
@@ -316,7 +316,8 @@ Print array
 
 .. code-block:: shell
 
-    (gdb) print *foo[2]@8     -- i.e. (gdb) print *<address>@<count>
+    # print *<address>@<count>
+    (gdb) print *foo[2]@8
 
 Print expressions
 ------------------
@@ -330,7 +331,7 @@ Print formats
 
 .. code-block:: shell
 
-    // (gdb) p/<code> <value>
+    # p/<code> <value>
     (gdb) p/x foo[1]
 
 The values for <code> are:
@@ -447,13 +448,20 @@ Set catchpoints
 
 .. code-block:: shell
 
-    (gdb) catch load            -- Catch loads of shared libraries (debug dynamic linking).
-    (gdb) catch unload          -- Catch unloads of shared libraries (track cleanup/unloading).
-    (gdb) catch rethrow         -- Catch an exception, when rethrown (trace exception propagation).
-    (gdb) catch signal SIGSEGV  -- Catch signals by their names and/or numbers (debug crashes or signals).
-    (gdb) catch syscall open    -- Catch system calls by names, groups, or numbers (trace system-level calls).
-    (gdb) catch throw           -- Catch an exception, when thrown (trace exception origins).
-    (gdb) catch vfork           -- Catch calls to vfork (monitor child process creation).
+    # Catch loads of shared libraries (debug dynamic linking).
+    (gdb) catch load
+    # Catch unloads of shared libraries (track cleanup/unloading).
+    (gdb) catch unload
+    # Catch an exception, when rethrown (trace exception propagation).
+    (gdb) catch rethrow
+    # Catch signals by their names and/or numbers (debug crashes or signals).
+    (gdb) catch signal SIGSEGV
+    # Catch system calls by names, groups, or numbers (trace system-level calls).
+    (gdb) catch syscall open
+    # Catch an exception, when thrown (trace exception origins).
+    (gdb) catch throw
+    # Catch calls to vfork (monitor child process creation).
+    (gdb) catch vfork
 
 Set scheduler locking (waves)
 ------------------------------
@@ -469,7 +477,7 @@ Set scheduler non-stop (waves)
 
 .. code-block:: shell
 
-    set non-stop non
+    set non-stop on
 
 For more information, see `Non-stop mode <https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/Non_002dStop-Mode.html>`_.
 
@@ -501,7 +509,7 @@ Delete breakpoint, watchpoint, catchpoint
 
 .. code-block:: shell
 
-    // delete <list>
+    # delete <list>
     delete 4
 
 Step execution (source line)
