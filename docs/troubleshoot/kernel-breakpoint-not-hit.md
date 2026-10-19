@@ -13,18 +13,18 @@ myst:
 
 # Kernel breakpoint isn't hit
 
-Your application runs to completion, or runs past the point where you expect it to stop, and ROCgdb never stops in your GPU kernel.
+Find out why ROCgdb doesn't stop at a breakpoint in a HIP kernel.
 
 ## When to use this page
 
-Use this page when you set a breakpoint in a HIP kernel and ROCgdb doesn't stop there. If you haven't stopped in a kernel before, start with {ref}`rocgdb-first-hip-kernel`.
+Use this page when your application runs to completion, or runs past the point where you expect it to stop, and ROCgdb never stops in your GPU kernel. If you haven't stopped in a kernel before, start with {ref}`rocgdb-first-hip-kernel`.
 
 ## Prerequisites
 
 * The application runs correctly without the debugger.
 * You can reproduce the problem in a ROCgdb session.
 
-## Shortest path
+## Steps
 
 Work through these checks in order. Each one rules out a common cause.
 
@@ -73,9 +73,7 @@ Breakpoint 1 (saxpy_kernel) pending.
 `info breakpoints` lists the breakpoint with `<PENDING>` as its address until the GPU code is loaded.
 :::
 
-:::{admonition} If this fails
-:class: rocgdb-iffails
-
+:::{tip}
 If you set the breakpoint on a source line in GPU code, it can resolve to an unexpected place before the GPU code is loaded. Set it by kernel function name instead.
 :::
 
@@ -83,10 +81,16 @@ If you set the breakpoint on a source line in GPU code, it can resolve to an une
 
 ### 3. Confirm the application reaches the kernel launch
 
-Set a breakpoint on the host line that launches the kernel, then run. In the `saxpy` example, the launch is at line 86 of `main.hip`.
+Set a breakpoint on the host line that launches the kernel, then run. In the `saxpy` example, find the launch line in `main.hip`:
 
 ```shell
-(gdb) break main.hip:86
+$ grep -n saxpy_kernel main.hip
+```
+
+Use the line number of the launch, not the kernel definition:
+
+```shell
+(gdb) break main.hip:<line-number>
 (gdb) run
 ```
 
@@ -123,14 +127,6 @@ All GPU code objects are loaded by the beginning of `main`, so the kernel breakp
 Disabling deferred loading has limits. If the application calls `fork`, it might crash. If the application embeds many device code objects, ROCgdb might report errors because of open file limits.
 :::
 
-### 5. Check your ROCgdb configuration
-
-```shell
-(gdb) show configuration
-```
-
-Use the output to confirm that you're running the ROCgdb build you expect. You also need it if you contact support.
-
 ## Interpret what you see
 
 ```{list-table}
@@ -151,12 +147,14 @@ Use the output to confirm that you're running the ROCgdb build you expect. You a
   - The binary lacks debug information. Rebuild with `-ggdb -O0` (check 1).
 ```
 
-## Collect evidence before you escalate
+## Report a problem
+
+If these checks don't resolve the problem, [open an issue](https://github.com/ROCm/ROCgdb/issues) and include the following.
 
 :::{admonition} Evidence to collect
 :class: rocgdb-evidence
 
-* The output of `show configuration`.
+* The output of `show configuration`, which shows the ROCgdb build you're running.
 * The ROCm version, GPU architecture, and operating system.
 * The compile command, including optimization and debug flags.
 * The commands you ran and the output of `info breakpoints`.

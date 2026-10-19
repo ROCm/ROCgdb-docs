@@ -17,7 +17,7 @@ myst:
 # Debug GPU code with ROCgdb
 
 :::{div} rocgdb-hero-subtitle
-Stop inside a HIP kernel, inspect a single work-item, and find out why a session did not behave as expected.
+Stop inside a HIP kernel, inspect a single lane, and find out why a session didn't behave as expected.
 :::
 
 :::{div} rocgdb-hero-actions
@@ -33,7 +33,7 @@ Debug your first HIP kernel
 :outline:
 :class: sd-rounded-pill
 
-Something is not working
+Troubleshoot a problem
 ```
 :::
 
@@ -51,7 +51,9 @@ ROCgdb reads state at every level, from a host source line down to a single lane
 </div>
 </div>
 
-ROCgdb is the AMD source-level debugger for Linux, based on the [GNU Debugger (GDB)](https://www.sourceware.org/gdb/documentation/). It debugs ROCm applications on x86 hosts with supported AMD GPUs, so you can set breakpoints, step through code, and inspect memory and variables in the host and GPU code of the same {doc}`HIP <hip:index>` application. ROCgdb uses the {doc}`AMD Debugger API Library (ROCdbgapi) <rocdbgapi:index>`, which is included with ROCm. For ROCgdb on Windows, see [AMD ROCm debugger for Windows](https://rocm.docs.amd.com/projects/install-on-windows/en/latest/how-to/debugger-windows.html).
+ROCgdb is the AMD source-level debugger for Linux, based on the [GNU Debugger (GDB)](https://www.sourceware.org/gdb/documentation/). It debugs ROCm applications on x86 hosts with supported AMD GPUs. You can set breakpoints, step through code, and inspect memory and variables in the host and GPU code of the same {doc}`HIP <hip:index>` application. ROCgdb uses the {doc}`AMD Debugger API Library (ROCdbgapi) <rocdbgapi:index>`, which is included with ROCm.
+
+For ROCgdb on Windows, see [AMD ROCm debugger for Windows](https://rocm.docs.amd.com/projects/install-on-windows/en/latest/how-to/debugger-windows.html).
 
 The code is open source and hosted at: <https://github.com/ROCm/ROCgdb>
 
@@ -70,9 +72,9 @@ The code is open source and hosted at: <https://github.com/ROCm/ROCgdb>
 
 **Start here**
 
-Prepare a debug build and complete one kernel stop.
+Prepare a debug build and stop in your first kernel.
 
-{ref}`First HIP kernel →<rocgdb-first-hip-kernel>`
+{ref}`Debug your first HIP kernel →<rocgdb-first-hip-kernel>`
 
 {ref}`Install ROCgdb →<rocgdb-installation>`
 ::::
@@ -100,7 +102,7 @@ Waves, lanes, and the commands that show them.
 
 **Development environments**
 
-Command line, third-party tools, and Python.
+Third-party tools and Python.
 
 {ref}`Third-party tools →<setting-third-party>`
 
@@ -118,7 +120,7 @@ Command line, third-party tools, and Python.
 
 Start from the symptom you saw, not a command name.
 
-{ref}`Troubleshoot a session →<rocgdb-troubleshoot>`
+{ref}`Pick your symptom →<rocgdb-troubleshoot>`
 ::::
 :::::
 

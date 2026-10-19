@@ -18,7 +18,7 @@ ROCgdb extends GDB's model of threads and frames to cover the GPU. This page map
 :widths: 20 45 35
 
 * - Concept
-  - How ROCgdb shows it
+  - Description
   - Command
 * - Agent
   - An AMD GPU (or other HSA agent) in the system
@@ -45,15 +45,15 @@ ROCgdb extends GDB's model of threads and frames to cover the GPU. This page map
 
 ## Waves are threads
 
-A wave is a group of work-items that execute together on the GPU. ROCgdb lists each wave in `info threads` next to the host CPU threads, and you select one with `thread <id>`. After you select a wave, commands such as `info registers` and `backtrace` apply to that wave.
+A wave is a group of lanes (work-items) that execute together on the GPU. ROCgdb lists each wave in `info threads` next to the host CPU threads, and you select one with `thread <id>`. After you select a wave, commands such as `info registers` and `backtrace` apply to that wave.
 
-The wave identifier in the `Target Id` column encodes its position in the system. For example, `AMDGPU Wave 1:2:1:1 (0,0,0)/0` identifies the agent, queue, dispatch, and wave ordinals, followed by the workgroup coordinates and the wave's index within the workgroup.
+The wave identifier in the `Target Id` column encodes where the wave sits in the system. In `AMDGPU Wave 1:2:1:1 (0,0,0)/0`, `1:2:1:1` gives the agent, queue, dispatch, and wave numbers, `(0,0,0)` gives the workgroup coordinates, and `/0` gives the wave's index within the workgroup.
 
 ## Lanes are work-items
 
 A wave runs its lanes in lockstep. When you want to look at the values for one work-item, select a lane with `lane <id>`. Variable values you print after that belong to the selected lane. Use `info lanes` to list the lanes of the current wave and their state.
 
-## Where to go next
+## Related information
 
 ```{eval-rst}
 * To use these commands in a session, see :ref:`rocgdb-first-hip-kernel`.

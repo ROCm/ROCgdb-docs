@@ -7,7 +7,7 @@ myst:
 
 (rocgdb-troubleshoot)=
 
-# Troubleshoot ROCgdb sessions
+# Troubleshoot ROCgdb problems
 
 Select what you see to get the checks that match your symptom.
 
@@ -58,10 +58,10 @@ Select what you see to get the checks that match your symptom.
    2. Confirm the application runs correctly without the debugger. See the prerequisites in :ref:`rocgdb-troubleshoot-breakpoint-not-hit`.
 ```
 
-For the full ordered checklist and the evidence to collect before you escalate, see {ref}`rocgdb-troubleshoot-breakpoint-not-hit`.
+For the full ordered checklist and the evidence to include in an issue, see {ref}`rocgdb-troubleshoot-breakpoint-not-hit`.
 
 ## All symptom pages
 
 * {ref}`rocgdb-troubleshoot-breakpoint-not-hit`: You set a breakpoint in a HIP kernel and the application never stops there.
 
-If your problem isn't listed, start with {ref}`rocgdb-gpu-execution-state` to confirm what state ROCgdb reports, then see {ref}`rocgdb-essential-commands`.
+If your problem isn't listed, start with {ref}`rocgdb-gpu-execution-state` to confirm what state ROCgdb reports, then see {ref}`rocgdb-essential-commands`. If that doesn't help, [open an issue](https://github.com/ROCm/ROCgdb/issues).

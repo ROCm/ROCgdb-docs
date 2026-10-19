@@ -8,7 +8,8 @@ myst:
 % TODO(engineering validation): Confirm the expected-result statements on
 % this page against a supported ROCm and ROCgdb release before publication.
 % Replace the sample `info threads` and `info lanes` output with output from
-% the saxpy example (kernel name, source file, and program name).
+% the saxpy example (kernel name, source file, and program name), and add
+% real output to the expected result in step 4.
 
 (rocgdb-first-hip-kernel)=
 
@@ -16,12 +17,12 @@ myst:
 
 In one session, you build a HIP application with debug information, stop inside a GPU kernel, select a wave and a lane, print a value, and resume execution. You don't need the GDB manual to finish this page.
 
-## When this page is useful
+## When to use this page
 
 Use this page when you can build and run a HIP application but have never stopped inside a kernel with ROCgdb, or when you want a known-good path before you debug your own code.
 
-:::{important}
-This page assumes you know HIP well enough to compile and run `saxpy`. It doesn't assume you know that ROCgdb shows a GPU wavefront as a GDB thread, or when to use `info threads` versus `info lanes`. Those are explained where you use them. For the full model, see {ref}`rocgdb-gpu-execution-state`.
+:::{note}
+This page assumes you can compile and run `saxpy`. It explains the ROCgdb ideas, such as a GPU wave appearing as a GDB thread, where you use them. For the full model, see {ref}`rocgdb-gpu-execution-state`.
 :::
 
 ## Prerequisites
@@ -141,7 +142,7 @@ The `AMDGPU Wave` entry is marked with `*` as the current thread.
 
 ## 6. Select a lane
 
-A wave runs many work-items in lockstep. Each work-item is a lane. List the lanes of the selected wave, then select one.
+A wave runs many work-items in lockstep. ROCgdb calls each work-item a lane. List the lanes of the selected wave, then select one.
 
 ```shell
 (gdb) info lanes
@@ -161,7 +162,7 @@ Sample output:
 :::{admonition} Expected result
 :class: rocgdb-expected
 
-The selected context identifies one wave and one work-item (lane).
+The selected context identifies one wave and one lane.
 :::
 
 ## 7. Inspect a value
@@ -178,7 +179,7 @@ Each command prints a value in the form `$<n> = <value>`.
 :::{admonition} Expected result
 :class: rocgdb-expected
 
-The values correspond to the work-item you selected. Select a different lane and print again to see them change.
+The values correspond to the lane you selected. Select a different lane and print again to see them change.
 :::
 
 :::{admonition} If this fails
@@ -195,11 +196,13 @@ If a variable is unavailable or optimized out, verify the optimization level (`-
 
 ROCgdb might stop again when another wave reaches the breakpoint.
 
+To end the session, run `quit`.
+
 ## You are done when
 
-You have stopped in GPU code, selected a wave and a lane, inspected data for that work-item, and resumed execution.
+You have stopped in GPU code, selected a wave and a lane, inspected data for that lane, and resumed execution.
 
-## Next steps
+## Related information
 
 * {ref}`Understand GPU execution state <rocgdb-gpu-execution-state>`
 * {ref}`Troubleshoot a kernel breakpoint that isn't hit <rocgdb-troubleshoot-breakpoint-not-hit>`
