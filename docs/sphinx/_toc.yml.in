@@ -1,5 +1,16 @@
 # Anywhere {branch} is used, the branch name will be substituted.
 # These comments will also be removed.
+#
+# @DOCS_BASE@ is substituted by docs/conf.py, which writes _toc.yml.generated.in
+# from this file; rocm-docs-core then formats that into _toc.yml. It becomes
+# html_baseurl (Read the Docs' base for the version being built, so the links
+# stay inside a pull request preview), or ${project:rocgdb} off Read the Docs,
+# which rocm-docs-core resolves to the published docs for the matching version.
+#
+# Do not write the base by hand with ${branch}: that substitutes the raw git
+# branch name, which is not a Read the Docs version. On a feature branch it
+# yields .../en/<branch-name>/... and on a release branch .../en/docs/10.1.0/...
+# (unslugified, Read the Docs serves docs-10.1.0) - both 404.
 root: index
 subtrees:
   - caption: Install
@@ -16,17 +27,17 @@ subtrees:
       title: Commands for key operations
   - caption: How to
     entries:
-    - url: https://rocm.docs.amd.com/projects/ROCgdb/en/${branch}/ROCgdb/gdb/doc/gdb/index.html
+    - url: @DOCS_BASE@/ROCgdb/gdb/doc/gdb/index.html
       title: User guide (HTML)
-    - url: https://rocm.docs.amd.com/projects/ROCgdb/en/${branch}/_static/pdf/ROCgdb/gdb.pdf
+    - url: @DOCS_BASE@/_static/pdf/ROCgdb/gdb.pdf
       title: User guide (PDF)
     - file: how-to/third-party-tools
     - file: how-to/debugging-python
   - caption: Reference
     entries:
-    - url: https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/AMD-GPU.html
+    - url: @DOCS_BASE@/ROCgdb/gdb/doc/gdb/AMD-GPU.html
       title: Debugging on AMD GPU
-    - url: https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/Heterogeneous-Debugging.html
+    - url: @DOCS_BASE@/ROCgdb/gdb/doc/gdb/Heterogeneous-Debugging.html
       title: Debugging heterogeneous programs
   - caption: About
     entries:
