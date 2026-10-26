@@ -32,13 +32,13 @@ Work-group
   A set of work-items that run together on one part of the GPU and can share fast local memory.
 
 Wave
-  A set of work-items from one work-group that the hardware runs together. Every work-item in a wave runs the same instruction at the same time, which is called running in *lockstep*. Also called a *wavefront*.
+  A set of work-items from one work-group that the hardware runs together. The work-items in a wave share one instruction stream, which is called running in *lockstep*. When the work-items take different branches, the hardware masks off the lanes that don't take the current branch, so only the active lanes run each instruction. Also called a *wavefront*.
 
 Lane
   The slot that a work-item occupies in its wave, numbered from 0. In ROCgdb, you select a lane to inspect the work-item in that slot.
 ```
 
-The hardware runs one instruction on all the lanes of a wave at once, which is SIMD (single instruction, multiple data). Because each lane has its own variables, a lane behaves like an independent thread, which is why this model is also called SIMT (single instruction, multiple threads).
+The hardware runs one instruction at a time for a whole wave, and it applies that instruction to every *active* lane at once. This is SIMD (single instruction, multiple data). Because each lane has its own variables, a lane behaves like an independent thread, which is why this model is also called SIMT (single instruction, multiple threads). A lane is inactive while its work-item is on a different branch from the rest of the wave, so `info lanes` can show both active and inactive lanes.
 
 ## Concept map
 
@@ -72,7 +72,7 @@ The hardware runs one instruction on all the lanes of a wave at once, which is S
   - `x <space>#<address>`
 ```
 
-For example, `x/4xw global#<address>` prints four words of global memory in hexadecimal. For the other address spaces, see {ref}`rocgdb-essential-commands`.
+The `x` command takes an optional format after a slash, so `x/4xw global#<address>` prints four words of global memory in hexadecimal. Without a format, `x global#<address>` prints one word in hexadecimal. If you leave out `<space>#`, ROCgdb uses the default address space of the AMD GPU architecture, which is `global`. The `local` space is the memory shared by a work-group. The `private_lane` space is the private memory of one lane. The `private_wave` space is the unswizzled backing memory for the `private_lane` space of a wave. The `generic` space can reach the `global`, `local`, and `private_lane` spaces. For more examples, see {ref}`rocgdb-essential-commands`.
 
 ## Waves are threads
 
@@ -80,11 +80,11 @@ ROCgdb lists each {term}`wave` in `info threads` next to the host CPU threads, a
 
 The wave ID in the `Target Id` column encodes where the wave sits in the system. In `AMDGPU Wave 1:2:1:1 (0,0,0)/0`, `1:2:1:1` gives the agent, queue, dispatch, and wave numbers. `(0,0,0)` gives the position of the work-group in the dispatch, and `/0` gives the wave's index within the work-group.
 
-<a href="../_static/rocgdb-wave-id.svg" target="_blank" rel="noopener" title="Open the diagram in a new tab"><img src="../_static/rocgdb-wave-id.svg" alt="Diagram that splits the wave ID AMDGPU Wave 1:2:1:1 (0,0,0)/0 into the agent, queue, dispatch, and wave numbers, the work-group position, and the wave index in the work-group, and the lane ID AMDGPU Lane 1:2:1:1/0 (0,0,0)[0,0,0] into the wave, lane index, work-group position, and work-item position in the work-group. The commands that list each level are shown under the parts."></a>
+<a href="../_static/rocgdb-wave-id.svg" target="_blank" rel="noopener" title="Open the diagram in a new tab"><img src="../_static/rocgdb-wave-id.svg" alt="Diagram that splits the wave ID AMDGPU Wave 1:2:1:1 (0,0,0)/0 into the agent, queue, dispatch, and wave numbers, the work-group position, and the wave index in the work-group, and the lane ID AMDGPU Lane 1:2:1:1/0 (0,0,0)[0,0,0] into the wave ID, the lane index, the work-group position, and work-item position in the work-group. The commands that list each level are shown under the parts."></a>
 
 ## Lanes are work-items
 
-A wave has one lane for each of its work-items, and the lanes run in lockstep. When you want to look at the values for one work-item, select its lane with `lane <id>`. Variable values you print after that belong to the selected lane. Use `info lanes` to list the lanes of the current wave and their state.
+A wave has one lane for each of its work-items, and the lanes run in lockstep. Lanes that take a different branch are inactive until the wave reaches code that they run. When you want to look at the values for one work-item, select its lane with `lane <id>`. Variable values you print after that belong to the selected lane. Use `info lanes` to list the lanes of the current wave and their state.
 
 A lane ID extends the wave ID. In `AMDGPU Lane 1:2:1:1/0 (0,0,0)[0,0,0]`, `1:2:1:1` identifies the wave, `/0` is the lane index, `(0,0,0)` is the work-group position, and `[0,0,0]` is the position of the work-item within the work-group.
 

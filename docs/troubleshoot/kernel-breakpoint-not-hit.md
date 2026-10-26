@@ -5,9 +5,13 @@ myst:
     "keywords": "ROCgdb breakpoint not hit, kernel breakpoint, pending breakpoint, deferred loading, HIP_ENABLE_DEFERRED_LOADING"
 ---
 
-% TODO(engineering validation): Checks 2 and 3 were run against ROCgdb
-% 16.3 (ROCm 7.2) on a system without a GPU. Confirm checks 3 and 4 and
-% add real sample output on a system with a supported GPU.
+% TODO(engineering validation): The original note said checks 2 and 3 were
+% run against ROCgdb 16.3 (ROCm 7.2) on a system without a GPU. On such a
+% system, only the "If this fails" branch of check 3 could be exercised
+% (inferred from the page text, confirm with the author). Check 1 (build) has
+% no recorded validation. Still to validate on a system with a supported GPU:
+% the expected result of check 3 and all of check 4 (deferred loading). Add
+% real sample output for each.
 
 (rocgdb-troubleshoot-breakpoint-not-hit)=
 

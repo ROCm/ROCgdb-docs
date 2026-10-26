@@ -7,9 +7,12 @@ myst:
 
 % TODO(engineering validation): Confirm the expected-result statements on
 % this page against a supported ROCm and ROCgdb release before publication.
-% Replace the sample `info threads` and `info lanes` output with output from
-% the saxpy example (kernel name, source file, and program name), and add
-% real output to the expected result in step 4.
+% Replace the illustrative `info threads` and `info lanes` samples with
+% output captured from a real saxpy run on a supported GPU. The source line
+% in `saxpy_kernel () at main.hip:8` is a placeholder: in the rocm-examples
+% amd-staging saxpy `main.hip`, the kernel is defined at line 36, so the
+% reported stop line will differ. Also add real output to the expected
+% result in step 4.
 
 (rocgdb-first-hip-kernel)=
 
@@ -121,7 +124,7 @@ ROCgdb represents a GPU {term}`wave` through GDB's thread abstraction. List the 
 (gdb) info threads
 ```
 
-Sample output. The kernel name, IDs, addresses, and paths differ on your system:
+Sample output. This sample is illustrative, not captured from a real run. The IDs, addresses, paths, and line numbers differ on your system:
 
 ```shell
   Id   Target Id                                     Frame
@@ -150,7 +153,7 @@ A wave runs many {term}`work-items <work-item>` in lockstep. ROCgdb calls the po
 (gdb) info lanes
 ```
 
-Sample output:
+Sample output. This sample is illustrative, like the previous one:
 
 ```shell
   Id   State Target Id                            Frame

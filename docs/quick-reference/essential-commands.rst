@@ -8,7 +8,13 @@
 Commands by task
 ****************
 
-Find the ROCgdb command for what you want to do. Sample output is collapsed under each table, and it differs on your system.
+Find the ROCgdb command for what you want to do. Sample output is collapsed under each table.
+
+This page uses the terms :term:`agent <HSA agent>`, :term:`wave`, and :term:`lane`. :ref:`rocgdb-gpu-execution-state` defines them.
+
+.. note::
+
+   The sample output is illustrative. It comes from different sessions and different programs, so thread IDs, addresses, file names, line numbers, and kernel names differ between samples, and they differ from the output on your system and from the sample output in :ref:`rocgdb-first-hip-kernel`.
 
 .. list-table::
    :header-rows: 1
@@ -46,6 +52,12 @@ Source and disassembly
    * - View disassembly
      - ``disassemble``
      - Shows the machine instructions of the current function.
+   * - Show the source view
+     - ``layout src``
+     - Opens the text user interface (TUI) with the source code. For more layouts, see `TUI-specific commands <../ROCgdb/gdb/doc/gdb/TUI-Commands.html>`_.
+   * - Show the assembly view
+     - ``layout asm``
+     - Opens the TUI with the assembly code.
 
 .. dropdown:: Sample output: ``list``
 
@@ -115,7 +127,7 @@ These commands show the agents, queues, dispatches, threads, waves, and lanes of
      - Shows the host threads and the GPU waves. See `Debugging programs with multiple threads <https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/Threads.html>`_.
    * - List the lanes of the current wave
      - ``info lanes``
-     - Shows the lanes of the current wave. Use it to find the lane that you want to inspect, for example when you compare a variable across work-items in the same wave. A lane is one work-item, and a single machine instruction operates on all the lanes of a wave in parallel. See `Debugging heterogeneous programs <https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/Heterogeneous-Debugging.html>`_.
+     - Shows the lanes of the current wave. Use it to find the lane that you want to inspect, for example when you compare a variable across work-items in the same wave. A lane is one work-item. A single machine instruction operates on all the active lanes of a wave in parallel, and the ``State`` column shows whether each lane is active (``A``) or inactive (``I``). See `Debugging heterogeneous programs <https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/Heterogeneous-Debugging.html>`_.
 
 .. dropdown:: Sample output: ``info agents``
 
@@ -193,12 +205,16 @@ Frames and variables
 
 .. dropdown:: Sample output: ``backtrace``
 
+   This sample comes from a different program than the ``saxpy_kernel`` samples above.
+
    .. code-block:: shell
 
        #0  saxpy (tid=0) at /home/user/saxpy.cpp:33
        #1  0x00007ffff608ee40 in kern () at /home/user/saxpy.cpp:4
 
 .. dropdown:: Sample output: ``info frame``
+
+   This sample comes from a different program than the ``saxpy_kernel`` samples above.
 
    .. code-block:: shell
 
@@ -251,7 +267,7 @@ Registers and memory
        exec           0x5555555555555555  6148914691236517205
        vcc            0xffffffffffffffff  18446744073709551615
 
-To view GPU data in an address space, use the ``x`` command with the address space and address. In these examples, ``4xw`` prints four words in hexadecimal:
+To view GPU data in an address space, use ``x <space>#<address>``. Without a format, this prints one word in hexadecimal. If you leave out ``<space>#``, ROCgdb uses the default address space, which is ``global`` on AMD GPUs. In these examples, the ``/4xw`` format prints four (``4``) words (``w``) in hexadecimal (``x``). The address ``0xdeadbeef`` is a placeholder:
 
 .. code-block:: shell
 
@@ -343,32 +359,43 @@ Change kernel focus
 
    * - Task
      - Command
-     - Example
+     - Notes
    * - Change thread
      - ``thread <id>``
-     - ``thread 9``
+     - Selects a CPU thread or GPU wave by its ``Id`` in the ``info threads`` output. For example, ``thread 9``.
    * - Change lane
      - ``lane <id>``
-     - ``lane 5``
+     - Selects a lane of the current wave by its ``Id`` in the ``info lanes`` output. For example, ``lane 5``.
    * - Select a frame
      - ``frame <index>``
-     - ``frame 1``
+     - Selects a frame by its number in the ``backtrace`` output. Frame 0 is the innermost frame. For example, ``frame 1`` selects the caller of the function in frame 0.
    * - Move up the stack
      - ``up <count>``
-     - ``up 2``
+     - Moves ``<count>`` frames toward the caller. For example, ``up 2`` selects the caller of the caller.
    * - Move down the stack
      - ``down <count>``
-     - ``down 1``
+     - Moves ``<count>`` frames back toward frame 0. For example, ``down 1`` selects the frame that the current frame called.
 
 Control kernel execution
 ========================
+
+Attach to a running process
+---------------------------
+
+To attach ROCgdb to a running process and continue execution, use the following commands. Use ``ps`` to find the ``<process_id>`` of the application.
+
+.. code-block:: shell
+
+   $ rocgdb -pid <process_id>
+   […]
+   (gdb) continue
 
 Set breakpoints
 ---------------
 
 .. code-block:: shell
 
-    (gdb) break saxpy.cpp:47
+    (gdb) break <file>:<line-number>
     (gdb) break func_foo
     (gdb) break *0x01234567
 
@@ -376,7 +403,7 @@ To set a temporary breakpoint, use ``tbreak``:
 
 .. code-block:: shell
 
-    (gdb) tbreak saxpy.cpp:47
+    (gdb) tbreak <file>:<line-number>
     (gdb) tbreak func_foo
     (gdb) tbreak +24
 
@@ -498,7 +525,7 @@ To run commands automatically when a breakpoint is hit, use a command sequence:
 
 .. code-block:: shell
 
-    (gdb) break saxpy.cpp:47
+    (gdb) break <file>:<line-number>
     command BREAKPOINT_NUMBER
     continue
     end
@@ -508,4 +535,5 @@ Can't find a command?
 
 * For the AMD GPU commands and the debugging model, see `Debugging on AMD GPU <../ROCgdb/gdb/doc/gdb/AMD-GPU.html>`_ in the ROCgdb user guide.
 * For every GDB command, see the `full user guide <../ROCgdb/gdb/doc/gdb/index.html>`_.
+* The user guide is also installed with ROCm as a texinfo file at ``/opt/rocm/share/info/rocgdb/gdb.info`` and as a PDF file at ``/opt/rocm/share/doc/rocgdb/rocgdb.pdf``.
 * If a command or sample on this page is wrong or missing, `open an issue <https://github.com/ROCm/ROCgdb/issues>`_.

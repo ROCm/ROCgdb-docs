@@ -46,7 +46,7 @@ Troubleshoot a problem
 <div class="rocgdb-hero-art">
 
 :::{only} html
-<a href="_static/rocgdb-architecture.svg" target="_blank" rel="noopener" title="Open the diagram in a new tab"><img src="_static/rocgdb-architecture.svg" alt="Diagram of the ROCgdb stack. Your HIP application, the HIP and HSA runtime, the amdgpu driver, and the AMD GPU are stacked from top to bottom, with ROCgdb connected to each layer by an arrow."></a>
+<a href="_static/rocgdb-architecture.svg" target="_blank" rel="noopener" title="Open the diagram in a new tab"><img src="_static/rocgdb-architecture.svg" alt="Diagram of the ROCgdb stack. Your HIP application, the HIP and HSA runtime, the amdgpu driver, and the AMD GPU are stacked from top to bottom, with ROCgdb connected to each of the four layers by a dashed arrow."></a>
 
 ROCgdb reaches into every layer, from a host source line down to a single lane.
 :::
@@ -55,11 +55,9 @@ ROCgdb reaches into every layer, from a host source line down to a single lane.
 </div>
 </div>
 
-For ROCgdb on Windows, see [AMD ROCm debugger for Windows](https://rocm.docs.amd.com/projects/install-on-windows/en/latest/how-to/debugger-windows.html). The code is open source and hosted at [ROCm/ROCgdb](https://github.com/ROCm/ROCgdb) on GitHub.
-
 ## Where to start
 
-{ref}`Before you start: install ROCgdb. <rocgdb-installation>`
+If you have not installed ROCgdb yet, {ref}`do that first <rocgdb-installation>`.
 
 :::::{grid} 1 2 2 4
 :gutter: 3
@@ -141,6 +139,8 @@ Start from the symptom you saw, not a command name.
 ::::
 
 :::{div} rocgdb-footer-note
+The ROCgdb code is open source and hosted at [ROCm/ROCgdb](https://github.com/ROCm/ROCgdb) on GitHub. For ROCgdb on Windows, see [AMD ROCm debugger for Windows](https://rocm.docs.amd.com/projects/install-on-windows/en/latest/how-to/debugger-windows.html).
+
 To contribute to the documentation, refer to
 [Contributing to ROCm](https://rocm.docs.amd.com/en/latest/contribute/contributing.html).
 
