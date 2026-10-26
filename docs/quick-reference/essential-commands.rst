@@ -22,6 +22,8 @@ This page uses the terms :term:`agent <HSA agent>`, :term:`wave`, and :term:`lan
 
    * - I want to
      - Go to
+   * - Attach to a program that is already running
+     - `Attach to a running process`_
    * - Look at code, agents, queues, waves, lanes, frames, and registers
      - `Inspect kernel state`_
    * - Print a variable, array, or expression
@@ -32,6 +34,17 @@ This page uses the terms :term:`agent <HSA agent>`, :term:`wave`, and :term:`lan
      - `Change kernel focus`_
    * - Set breakpoints, step, and resume
      - `Control kernel execution`_
+
+Attach to a running process
+===========================
+
+To attach ROCgdb to a program that is already running, instead of starting it under ROCgdb, use the following commands. Use ``ps`` to find the ``<process_id>`` of the application.
+
+.. code-block:: shell
+
+   $ rocgdb -pid <process_id>
+   […]
+   (gdb) continue
 
 Inspect kernel state
 ====================
@@ -378,17 +391,6 @@ Change kernel focus
 
 Control kernel execution
 ========================
-
-Attach to a running process
----------------------------
-
-To attach ROCgdb to a running process and continue execution, use the following commands. Use ``ps`` to find the ``<process_id>`` of the application.
-
-.. code-block:: shell
-
-   $ rocgdb -pid <process_id>
-   […]
-   (gdb) continue
 
 Set breakpoints
 ---------------

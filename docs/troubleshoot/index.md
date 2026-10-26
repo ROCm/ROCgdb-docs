@@ -20,11 +20,9 @@ Find the checks that match what you see.
 % The checklist page (kernel-breakpoint-not-hit.md) is canonical. Each
 % selector branch gives the short inline steps, drawn from that page, and
 % links to the full check. If you change a command there, change it here.
+% The never-stops branch ends with the build check because missing debug
+% information can also make a breakpoint appear to never stop.
 % The selector needs JavaScript, so print builds use the plain list below it.
-% The never-stops branch skips the build check on purpose. The checklist maps
-% a missing build (no debug information) to "source line is wrong or
-% unavailable", which is the wrong-place branch. Keep the build check there.
-
 ```{eval-rst}
 .. only:: html
 
@@ -51,6 +49,7 @@ Find the checks that match what you see.
       1. Allow pending breakpoints, then set the breakpoint by kernel name: ``set breakpoint pending on``, then ``break saxpy_kernel``. See :ref:`rocgdb-bp-check-exists`.
       2. Set a breakpoint on the host line that launches the kernel, then ``run``. If the program exits first, read its output. See :ref:`rocgdb-bp-check-launch`.
       3. If the launch is reached but the breakpoint stays ``<PENDING>``, run ``export HIP_ENABLE_DEFERRED_LOADING=0`` and start a new session. See :ref:`rocgdb-bp-check-deferred`.
+      4. If the source lines are missing, or none of the above helps, rebuild with ``-ggdb -O0`` and start a new session. See :ref:`rocgdb-bp-check-build`.
 
    .. selected:: s=wrong-place
 
@@ -69,7 +68,7 @@ Find the checks that match what you see.
 
 .. only:: not html
 
-   * **The breakpoint is set but never stops:** run ``set breakpoint pending on`` and ``break saxpy_kernel`` (:ref:`rocgdb-bp-check-exists`), break on the host launch line (:ref:`rocgdb-bp-check-launch`), then try ``HIP_ENABLE_DEFERRED_LOADING=0`` (:ref:`rocgdb-bp-check-deferred`).
+   * **The breakpoint is set but never stops:** run ``set breakpoint pending on`` and ``break saxpy_kernel`` (:ref:`rocgdb-bp-check-exists`), break on the host launch line (:ref:`rocgdb-bp-check-launch`), try ``HIP_ENABLE_DEFERRED_LOADING=0`` (:ref:`rocgdb-bp-check-deferred`), then rebuild with ``-ggdb -O0`` if the source lines are missing (:ref:`rocgdb-bp-check-build`).
    * **It stops on a different line than I set:** break by kernel function name (:ref:`rocgdb-bp-check-exists`), try ``HIP_ENABLE_DEFERRED_LOADING=0`` (:ref:`rocgdb-bp-check-deferred`), then rebuild with ``-ggdb -O0`` (:ref:`rocgdb-bp-check-build`).
    * **The program exits before the kernel runs:** break on the host launch line and read the program output (:ref:`rocgdb-bp-check-launch`), then see :ref:`rocgdb-troubleshoot-breakpoint-not-hit`.
 ```
