@@ -115,7 +115,7 @@ These commands show the agents, queues, dispatches, threads, waves, and lanes of
      - Shows the host threads and the GPU waves. See `Debugging programs with multiple threads <https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/Threads.html>`_.
    * - List the lanes of the current wave
      - ``info lanes``
-     - Shows the lanes of the current wave. A lane is one work-item, and a single machine instruction operates on all the lanes of a wave in parallel. See `Debugging heterogeneous programs <https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/Heterogeneous-Debugging.html>`_.
+     - Shows the lanes of the current wave. Use it to find the lane that you want to inspect, for example when you compare a variable across work-items in the same wave. A lane is one work-item, and a single machine instruction operates on all the lanes of a wave in parallel. See `Debugging heterogeneous programs <https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/Heterogeneous-Debugging.html>`_.
 
 .. dropdown:: Sample output: ``info agents``
 
@@ -141,6 +141,14 @@ These commands show the agents, queues, dispatches, threads, waves, and lanes of
 
           Id   Target Id                      Grid    Workgroup Fence   Kernel Function
         * 1    AMDGPU Dispatch 1:2:1 (PKID 0) [1,1,1] [1,1,1]   B|Aa|Ra saxpy_kernel()
+
+   The ``Fence`` column shows the memory fences that the dispatch packet requests, separated by ``|``:
+
+   * ``B``: The barrier bit is set. The next packet in the queue doesn't start until this dispatch completes.
+   * ``Aa`` or ``As``: An acquire fence at agent scope (``a``) or system scope (``s``) runs before the dispatch.
+   * ``Ra`` or ``Rs``: A release fence at agent scope (``a``) or system scope (``s``) runs when the dispatch completes.
+
+   In the sample, ``B|Aa|Ra`` means a barrier with acquire and release fences at agent scope.
 
 .. dropdown:: Sample output: ``info threads``
 

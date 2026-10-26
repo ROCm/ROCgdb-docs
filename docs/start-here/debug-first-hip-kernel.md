@@ -33,11 +33,13 @@ This page assumes you can compile and run `saxpy`. It explains the ROCgdb ideas,
 
 ## 1. Compile with debug information
 
-Build so that source lines and variables are available to the debugger. The `-I` option points to the example's shared header. With amd-llvm, use `amdclang++ -ggdb -O0 -x hip --offload-arch=native -I../../Common main.hip -o saxpy` instead.
+Build the {term}`HIP` application so that source lines and variables are available to the debugger. The `-ggdb` option adds debug information, so ROCgdb can map machine code back to your source lines and variables. The `-O0` option turns off optimization, so the compiler doesn't reorder code or remove variables that you want to inspect. The `-I` option points to the example's shared header.
 
 ```shell
-$ hipcc -ggdb -O0 -I../../Common main.hip -o saxpy
+$ amdclang++ -ggdb -O0 -x hip --offload-arch=native -I../../Common main.hip -o saxpy
 ```
+
+If you build with `hipcc`, use the same options: `hipcc -ggdb -O0 -I../../Common main.hip -o saxpy`.
 
 :::{admonition} Expected result
 :class: rocgdb-expected
@@ -113,7 +115,7 @@ If the application runs to completion without stopping, check debug symbols, bre
 
 ## 5. Select a wave
 
-ROCgdb represents a GPU wave through GDB's thread abstraction. List the threads, then select the wave you want to inspect.
+ROCgdb represents a GPU {term}`wave` through GDB's thread abstraction. List the threads, then select the wave you want to inspect.
 
 ```shell
 (gdb) info threads
@@ -142,7 +144,7 @@ The `AMDGPU Wave` entry is marked with `*` as the current thread.
 
 ## 6. Select a lane
 
-A wave runs many work-items in lockstep. ROCgdb calls each work-item a lane. List the lanes of the selected wave, then select one.
+A wave runs many {term}`work-items <work-item>` in lockstep. ROCgdb calls the position of each work-item in the wave a {term}`lane`. List the lanes of the selected wave, then select one.
 
 ```shell
 (gdb) info lanes

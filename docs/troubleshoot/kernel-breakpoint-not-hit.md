@@ -32,10 +32,10 @@ Work through these checks in order. Each one rules out a common cause.
 
 ### 1. Confirm the build has debug information
 
-Rebuild the application with debug information and no optimization, then start a new ROCgdb session.
+Rebuild the application with debug information (`-ggdb`) and no optimization (`-O0`), then start a new ROCgdb session. If you build with `hipcc`, use the same `-ggdb -O0` options.
 
 ```shell
-$ hipcc -ggdb -O0 main.hip -o saxpy
+$ amdclang++ -ggdb -O0 -x hip --offload-arch=native main.hip -o saxpy
 ```
 
 :::{admonition} Expected result

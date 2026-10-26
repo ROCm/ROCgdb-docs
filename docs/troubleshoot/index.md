@@ -27,16 +27,16 @@ Find the checks that match what you see.
    .. selector:: What do you see?
       :key: s
 
-      .. selector-option:: Never stops
+      .. selector-option:: The breakpoint is set but never stops
          :value: never-stops
          :default:
          :width: 4
 
-      .. selector-option:: Stops in the wrong place
+      .. selector-option:: It stops on a different line than I set
          :value: wrong-place
          :width: 4
 
-      .. selector-option:: Exits early
+      .. selector-option:: The program exits before the kernel runs
          :value: exits-early
          :width: 4
 
@@ -54,9 +54,9 @@ Find the checks that match what you see.
 
 .. only:: not html
 
-   * **Never stops:** the application runs to completion without stopping at your breakpoint. See :ref:`rocgdb-bp-check-exists`, :ref:`rocgdb-bp-check-launch`, and :ref:`rocgdb-bp-check-deferred`.
-   * **Stops in the wrong place:** ROCgdb stops somewhere other than the line you set. See :ref:`rocgdb-bp-check-exists`, :ref:`rocgdb-bp-check-deferred`, and :ref:`rocgdb-bp-check-build`.
-   * **Exits early:** the application ends before it reaches your kernel. See :ref:`rocgdb-bp-check-launch` and :ref:`rocgdb-troubleshoot-breakpoint-not-hit`.
+   * **The breakpoint is set but never stops:** the application runs to completion without stopping at your breakpoint. See :ref:`rocgdb-bp-check-exists`, :ref:`rocgdb-bp-check-launch`, and :ref:`rocgdb-bp-check-deferred`.
+   * **It stops on a different line than I set:** ROCgdb stops somewhere other than the line you set. See :ref:`rocgdb-bp-check-exists`, :ref:`rocgdb-bp-check-deferred`, and :ref:`rocgdb-bp-check-build`.
+   * **The program exits before the kernel runs:** the application ends before it reaches your kernel. See :ref:`rocgdb-bp-check-launch` and :ref:`rocgdb-troubleshoot-breakpoint-not-hit`.
 ```
 
 For the full ordered checklist and the evidence to include in an issue, see {ref}`rocgdb-troubleshoot-breakpoint-not-hit`.

@@ -9,7 +9,36 @@ myst:
 
 # GPU execution state in ROCgdb
 
-ROCgdb extends GDB's model of threads and frames to cover the GPU. This page maps each GPU concept to the ROCgdb command that shows it, so you know which command to run when you're stopped in a kernel.
+ROCgdb extends GDB's model of threads and frames to cover the GPU. This page defines the GPU terms that ROCgdb uses, and maps each one to the command that shows it, so you know which command to run when you're stopped in a kernel.
+
+## Key terms
+
+The terms build on each other, so read them in order. Other pages link to these definitions the first time they use a term.
+
+```{glossary}
+HIP
+  The C++ GPU programming interface that you write applications against. A HIP application has host code that runs on the CPU and kernels that run on the GPU.
+
+Kernel
+  A function that runs on the GPU. One kernel launch runs many copies of the function in parallel.
+
+HSA agent
+  A device that can run kernels, such as an AMD GPU. ROCgdb shortens this to *agent*.
+
+Work-item
+  One copy of a kernel running on the GPU, with its own variables. A kernel launch creates many work-items.
+
+Work-group
+  A set of work-items that run together on one part of the GPU and can share fast local memory.
+
+Wave
+  A set of work-items from one work-group that the hardware runs together. Every work-item in a wave runs the same instruction at the same time, which is called running in *lockstep*. Also called a *wavefront*.
+
+Lane
+  The slot that a work-item occupies in its wave, numbered from 0. In ROCgdb, you select a lane to inspect the work-item in that slot.
+```
+
+The hardware runs one instruction on all the lanes of a wave at once, which is SIMD (single instruction, multiple data). Because each lane has its own variables, a lane behaves like an independent thread, which is why this model is also called SIMT (single instruction, multiple threads).
 
 ## Concept map
 
@@ -21,7 +50,7 @@ ROCgdb extends GDB's model of threads and frames to cover the GPU. This page map
   - Description
   - Command
 * - Agent
-  - An AMD GPU (or other HSA agent) in the system
+  - An AMD GPU (or other {term}`HSA agent`) in the system
   - `info agents`
 * - Queue
   - An HSA queue that receives kernel dispatches
@@ -30,10 +59,10 @@ ROCgdb extends GDB's model of threads and frames to cover the GPU. This page map
   - One kernel launch, including grid and workgroup size
   - `info dispatches`
 * - Wave
-  - A GPU wave, listed as a GDB thread named `AMDGPU Wave`
+  - A {term}`wave`, which ROCgdb lists as a GDB thread named `AMDGPU Wave`
   - `info threads`, `thread <id>`
 * - Lane
-  - One work-item of a wave
+  - One {term}`lane` of a wave, which you can select to inspect one {term}`work-item`
   - `info lanes`, `lane <id>`
 * - Registers
   - The registers of the current wave
@@ -47,13 +76,17 @@ For example, `x/4xw global#<address>` prints four words of global memory in hexa
 
 ## Waves are threads
 
-A wave is a group of lanes (work-items) that execute together on the GPU. ROCgdb lists each wave in `info threads` next to the host CPU threads, and you select one with `thread <id>`. After you select a wave, commands such as `info registers` and `backtrace` apply to that wave.
+ROCgdb lists each {term}`wave` in `info threads` next to the host CPU threads, and you select one with `thread <id>`. After you select a wave, commands such as `info registers` and `backtrace` apply to that wave.
 
-The wave identifier in the `Target Id` column encodes where the wave sits in the system. In `AMDGPU Wave 1:2:1:1 (0,0,0)/0`, `1:2:1:1` gives the agent, queue, dispatch, and wave numbers, `(0,0,0)` gives the workgroup coordinates, and `/0` gives the wave's index within the workgroup.
+The wave ID in the `Target Id` column encodes where the wave sits in the system. In `AMDGPU Wave 1:2:1:1 (0,0,0)/0`, `1:2:1:1` gives the agent, queue, dispatch, and wave numbers. `(0,0,0)` gives the position of the work-group in the dispatch, and `/0` gives the wave's index within the work-group.
+
+<a href="../_static/rocgdb-wave-id.svg" target="_blank" rel="noopener" title="Open the diagram in a new tab"><img src="../_static/rocgdb-wave-id.svg" alt="Diagram that splits the wave ID AMDGPU Wave 1:2:1:1 (0,0,0)/0 into the agent, queue, dispatch, and wave numbers, the work-group position, and the wave index in the work-group, and the lane ID AMDGPU Lane 1:2:1:1/0 (0,0,0)[0,0,0] into the wave, lane index, work-group position, and work-item position in the work-group. The commands that list each level are shown under the parts."></a>
 
 ## Lanes are work-items
 
-A wave runs its lanes in lockstep. When you want to look at the values for one work-item, select a lane with `lane <id>`. Variable values you print after that belong to the selected lane. Use `info lanes` to list the lanes of the current wave and their state.
+A wave has one lane for each of its work-items, and the lanes run in lockstep. When you want to look at the values for one work-item, select its lane with `lane <id>`. Variable values you print after that belong to the selected lane. Use `info lanes` to list the lanes of the current wave and their state.
+
+A lane ID extends the wave ID. In `AMDGPU Lane 1:2:1:1/0 (0,0,0)[0,0,0]`, `1:2:1:1` identifies the wave, `/0` is the lane index, `(0,0,0)` is the work-group position, and `[0,0,0]` is the position of the work-item within the work-group.
 
 ## Related information
 
