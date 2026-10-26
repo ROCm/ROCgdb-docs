@@ -16,6 +16,10 @@ myst:
 
 # Debug GPU code with ROCgdb
 
+:::{div} rocgdb-hero-lead
+ROCgdb is AMD's source-level debugger for Linux, based on the [GNU Debugger (GDB)](https://www.sourceware.org/gdb/documentation/). It debugs ROCm applications on x86 hosts with supported AMD GPUs.
+:::
+
 :::{div} rocgdb-hero-subtitle
 Stop inside a HIP kernel, inspect a single lane, and find out why a session didn't behave as expected.
 :::
@@ -42,22 +46,20 @@ Troubleshoot a problem
 <div class="rocgdb-hero-art">
 
 :::{only} html
-<a href="_static/rocgdb-architecture.svg" target="_blank" rel="noopener" title="Open the diagram in a new tab"><img src="_static/rocgdb-architecture.svg" alt="ROCgdb reads state from the HIP application, the HIP and HSA runtime, the amdgpu driver, and the AMD GPU through the ROCgdb debug library."></a>
+<a href="_static/rocgdb-architecture.svg" target="_blank" rel="noopener" title="Open the diagram in a new tab"><img src="_static/rocgdb-architecture.svg" alt="Diagram of the ROCgdb stack. Your HIP application, the HIP and HSA runtime, the amdgpu driver, and the AMD GPU are stacked from top to bottom, with ROCgdb connected to each layer by an arrow."></a>
 
-ROCgdb reads state at every level, from a host source line down to a single lane on the GPU.
+ROCgdb reaches into every layer, from a host source line down to a single lane.
 :::
 
 </div>
 </div>
 </div>
 
-ROCgdb is the AMD source-level debugger for Linux, based on the [GNU Debugger (GDB)](https://www.sourceware.org/gdb/documentation/). It debugs ROCm applications on x86 hosts with supported AMD GPUs. You can set breakpoints, step through code, and inspect memory and variables in the host and GPU code of the same {doc}`HIP <hip:index>` application. ROCgdb uses the {doc}`AMD Debugger API Library (ROCdbgapi) <rocdbgapi:index>`, which is included with ROCm.
-
-For ROCgdb on Windows, see [AMD ROCm debugger for Windows](https://rocm.docs.amd.com/projects/install-on-windows/en/latest/how-to/debugger-windows.html).
-
-The code is open source and hosted at: <https://github.com/ROCm/ROCgdb>
+For ROCgdb on Windows, see [AMD ROCm debugger for Windows](https://rocm.docs.amd.com/projects/install-on-windows/en/latest/how-to/debugger-windows.html). The code is open source and hosted at [ROCm/ROCgdb](https://github.com/ROCm/ROCgdb) on GitHub.
 
 ## Where to start
+
+{ref}`Before you start: install ROCgdb. <rocgdb-installation>`
 
 :::::{grid} 1 2 2 4
 :gutter: 3
@@ -75,8 +77,6 @@ The code is open source and hosted at: <https://github.com/ROCm/ROCgdb>
 Prepare a debug build and stop in your first kernel.
 
 {ref}`Debug your first HIP kernel →<rocgdb-first-hip-kernel>`
-
-{ref}`Install ROCgdb →<rocgdb-installation>`
 ::::
 
 ::::{grid-item-card}
@@ -100,7 +100,7 @@ Waves, lanes, and the commands that show them.
 03
 :::
 
-**Development environments**
+**Debug with other tools**
 
 Third-party tools and Python.
 

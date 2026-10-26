@@ -33,7 +33,7 @@ This page assumes you can compile and run `saxpy`. It explains the ROCgdb ideas,
 
 ## 1. Compile with debug information
 
-Build so that source lines and variables are available to the debugger. This is the same compile step as in the {ref}`ROCgdb quick start <rocgdb-setup>`. The `-I` option points to the example's shared header.
+Build so that source lines and variables are available to the debugger. The `-I` option points to the example's shared header. With amd-llvm, use `amdclang++ -ggdb -O0 -x hip --offload-arch=native -I../../Common main.hip -o saxpy` instead.
 
 ```shell
 $ hipcc -ggdb -O0 -I../../Common main.hip -o saxpy
@@ -113,7 +113,7 @@ If the application runs to completion without stopping, check debug symbols, bre
 
 ## 5. Select a wave
 
-ROCgdb represents a GPU wavefront through GDB's thread abstraction. List the threads, then select the wave you want to inspect.
+ROCgdb represents a GPU wave through GDB's thread abstraction. List the threads, then select the wave you want to inspect.
 
 ```shell
 (gdb) info threads
@@ -123,9 +123,9 @@ Sample output. The kernel name, IDs, addresses, and paths differ on your system:
 
 ```shell
   Id   Target Id                                     Frame
-  1    Thread 0x7ffff6288180 (LWP 645917) "nosimple" 0x00007ffff207d586 in ?? () from /opt/rocm-7.1.0/lib/libhsa-runtime64.so.1
-  2    Thread 0x7fffe81ff6c0 (LWP 645924) "nosimple" __GI___ioctl (fd=3, request=3222817548) at ../sysdeps/unix/sysv/linux/ioctl.c:36
-* 7    AMDGPU Wave 1:2:1:1 (0,0,0)/0 "saxpy"      kern () at /home/user/saxpy.cpp:7
+  1    Thread 0x7ffff6288180 (LWP 645917) "saxpy" 0x00007ffff207d586 in ?? () from /opt/rocm-7.1.0/lib/libhsa-runtime64.so.1
+  2    Thread 0x7fffe81ff6c0 (LWP 645924) "saxpy" __GI___ioctl (fd=3, request=3222817548) at ../sysdeps/unix/sysv/linux/ioctl.c:36
+* 7    AMDGPU Wave 1:2:1:1 (0,0,0)/0 "saxpy"      saxpy_kernel () at main.hip:8
 ```
 
 Select a wave by its ID:
@@ -152,7 +152,7 @@ Sample output:
 
 ```shell
   Id   State Target Id                            Frame
-* 0    A     AMDGPU Lane 1:2:1:1/0 (0,0,0)[0,0,0] kern () at /home/user/saxpy.cpp:7
+* 0    A     AMDGPU Lane 1:2:1:1/0 (0,0,0)[0,0,0] saxpy_kernel () at main.hip:8
 ```
 
 ```shell

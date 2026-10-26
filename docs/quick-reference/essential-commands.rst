@@ -42,10 +42,10 @@ Source and disassembly
      - Notes
    * - View kernel code
      - ``list``
-     -
+     - Shows the source lines around the current line. Run ``list`` again to see the next lines.
    * - View disassembly
      - ``disassemble``
-     -
+     - Shows the machine instructions of the current function.
 
 .. dropdown:: Sample output: ``list``
 
@@ -92,7 +92,7 @@ Source and disassembly
 Heterogeneous system state
 --------------------------
 
-These commands show the agents, queues, dispatches, threads, and lanes of a heterogeneous program.
+These commands show the agents, queues, dispatches, threads, waves, and lanes of your program.
 
 .. list-table::
    :header-rows: 1
@@ -103,19 +103,19 @@ These commands show the agents, queues, dispatches, threads, and lanes of a hete
      - Notes
    * - List agents
      - ``info agents``
-     - Lists each heterogeneous agent. See `info agents command <https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/Heterogeneous-Debugging.html#index-info-agents>`_.
+     - Shows each agent, such as an AMD GPU, in the system. See `info agents command <https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/Heterogeneous-Debugging.html#index-info-agents>`_.
    * - List queues
      - ``info queues``
-     - Lists each heterogeneous queue. See `info queues command <https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/Heterogeneous-Debugging.html#index-info-queues>`_.
+     - Shows each queue that receives kernel dispatches. See `info queues command <https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/Heterogeneous-Debugging.html#index-info-queues>`_.
    * - List dispatches
      - ``info dispatches``
-     - Lists each heterogeneous dispatch. See `info dispatches command <https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/Heterogeneous-Debugging.html#index-info-dispatches>`_.
+     - Shows each kernel launch. See `info dispatches command <https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/Heterogeneous-Debugging.html#index-info-dispatches>`_.
    * - List CPU threads and GPU waves
      - ``info threads``
-     - Lists the threads created on all heterogeneous agents. See `Debugging programs with multiple threads <https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/Threads.html>`_.
+     - Shows the host threads and the GPU waves. See `Debugging programs with multiple threads <https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/Threads.html>`_.
    * - List the lanes of the current wave
      - ``info lanes``
-     - Displays information about individual source language threads of execution that are mapped to SIMD-like lanes of a thread. On target architectures that support Single Instruction Multiple Data (SIMD) or Single Instruction Multiple Threads (SIMT) instructions, a single machine instruction can operate in parallel on multiple lanes. See `Debugging heterogeneous programs <https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/Heterogeneous-Debugging.html>`_.
+     - Shows the lanes of the current wave. A lane is one work-item, and a single machine instruction operates on all the lanes of a wave in parallel. See `Debugging heterogeneous programs <https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/Heterogeneous-Debugging.html>`_.
 
 .. dropdown:: Sample output: ``info agents``
 
@@ -140,7 +140,7 @@ These commands show the agents, queues, dispatches, threads, and lanes of a hete
    .. code-block:: shell
 
           Id   Target Id                      Grid    Workgroup Fence   Kernel Function
-        * 1    AMDGPU Dispatch 1:2:1 (PKID 0) [1,1,1] [1,1,1]   B|Aa|Ra kern()
+        * 1    AMDGPU Dispatch 1:2:1 (PKID 0) [1,1,1] [1,1,1]   B|Aa|Ra saxpy_kernel()
 
 .. dropdown:: Sample output: ``info threads``
 
@@ -151,14 +151,14 @@ These commands show the agents, queues, dispatches, threads, and lanes of a hete
          2    Thread 0x7ffff55ff6c0 (LWP 1981871) "saxpy" __GI___ioctl (fd=3, request=3222817548) at ../sysdeps/unix/sysv/linux/ioctl.c:36
          4    Thread 0x7fffeffff6c0 (LWP 1981873) "saxpy" __GI___ioctl (fd=3, request=3222817548) at ../sysdeps/unix/sysv/linux/ioctl.c:36
          6    Thread 0x7ffff5dff6c0 (LWP 1981877) "saxpy" __GI___ioctl (fd=3, request=3222817548) at ../sysdeps/unix/sysv/linux/ioctl.c:36
-       * 7    AMDGPU Wave 1:2:1:1 (0,0,0)/0 "saxpy"       saxpy_kernel () at saxpy.cpp:8
+       * 7    AMDGPU Wave 1:2:1:1 (0,0,0)/0 "saxpy"       saxpy_kernel () at main.hip:8
 
 .. dropdown:: Sample output: ``info lanes``
 
    .. code-block:: shell
 
          Id   State Target Id                            Frame
-       * 0    A     AMDGPU Lane 1:2:1:1/0 (0,0,0)[0,0,0] kern () at /home/user/saxpy.cpp:7
+       * 0    A     AMDGPU Lane 1:2:1:1/0 (0,0,0)[0,0,0] saxpy_kernel () at main.hip:8
 
 Frames and variables
 --------------------
@@ -172,16 +172,16 @@ Frames and variables
      - Notes
    * - View the back trace
      - ``backtrace``
-     -
+     - Shows the call stack of the current wave or thread.
    * - View the current stack frame
      - ``info frame``
-     -
+     - Shows the address, saved registers, and source language of the current frame.
    * - View frame arguments
      - ``info args``
-     -
+     - Shows the arguments of the current frame.
    * - View frame local variables
      - ``info locals``
-     -
+     - Shows the local variables of the current frame.
 
 .. dropdown:: Sample output: ``backtrace``
 
@@ -226,10 +226,10 @@ Registers and memory
      - Notes
    * - View GPU registers
      - ``info registers``
-     - Dumps the general-purpose registers, which provide all-inclusive data about the state of the current wavefront.
+     - Shows the general-purpose registers of the current wave.
    * - View all GPU registers
      - ``info all-registers``
-     - Dumps all registers, not only the general-purpose registers.
+     - Shows all registers, not only the general-purpose registers.
 
 .. dropdown:: Sample output: ``info registers``
 
@@ -243,15 +243,15 @@ Registers and memory
        exec           0x5555555555555555  6148914691236517205
        vcc            0xffffffffffffffff  18446744073709551615
 
-To view GPU data in an address space, use the ``x`` command with the address space and address:
+To view GPU data in an address space, use the ``x`` command with the address space and address. In these examples, ``4xw`` prints four words in hexadecimal:
 
 .. code-block:: shell
 
-    (gdb) x/nfu global#0xdeadbeef
-    (gdb) x/nfu local#0xdeadbeef
-    (gdb) x/nfu generic#0xdeadbeef
-    (gdb) x/nfu private_wave#0xdeadbeef
-    (gdb) x/nfu private_lane#0xdeadbeef
+    (gdb) x/4xw global#0xdeadbeef
+    (gdb) x/4xw local#0xdeadbeef
+    (gdb) x/4xw generic#0xdeadbeef
+    (gdb) x/4xw private_wave#0xdeadbeef
+    (gdb) x/4xw private_lane#0xdeadbeef
 
 For more information, see `AMD GPU address spaces <https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/AMD-GPU.html#AMD-GPU-Address-Spaces>`_.
 
@@ -344,13 +344,13 @@ Change kernel focus
      - ``lane 5``
    * - Select a frame
      - ``frame <index>``
-     -
+     - ``frame 1``
    * - Move up the stack
      - ``up <count>``
-     -
+     - ``up 2``
    * - Move down the stack
      - ``down <count>``
-     -
+     - ``down 1``
 
 Control kernel execution
 ========================
@@ -459,32 +459,32 @@ Step and resume
 
 .. list-table::
    :header-rows: 1
-   :widths: 35 30 35
+   :widths: 30 30 40
 
    * - Task
      - Command
-     - Example
+     - Notes
    * - Step one source line
      - ``step``, ``next``
-     -
+     - ``step`` enters called functions. ``next`` steps over them.
    * - Step several source lines
      - ``step <count>``, ``next <count>``
-     - ``step 3``, ``next 3``
+     - For example, ``step 3``.
    * - Continue until a later source line
      - ``until``
-     -
+     - Runs until a line after the current one, so you don't step through a loop more than once.
    * - Continue until an address
      - ``until <address>``
-     - ``until 0x0000ffffdeadbeef``
+     - For example, ``until 0x0000ffffdeadbeef``.
    * - Run until the current frame returns
      - ``finish``
-     -
+     - Stops when the current function returns to its caller.
    * - Step one machine instruction
      - ``stepi``, ``nexti``
-     -
+     - ``stepi`` enters called functions. ``nexti`` steps over them.
    * - Resume execution
      - ``continue``
-     -
+     - Runs until the next breakpoint or the end of the program.
 
 To run commands automatically when a breakpoint is hit, use a command sequence:
 

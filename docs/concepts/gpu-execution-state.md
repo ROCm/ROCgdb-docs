@@ -30,7 +30,7 @@ ROCgdb extends GDB's model of threads and frames to cover the GPU. This page map
   - One kernel launch, including grid and workgroup size
   - `info dispatches`
 * - Wave
-  - A GPU wavefront, listed as a GDB thread named `AMDGPU Wave`
+  - A GPU wave, listed as a GDB thread named `AMDGPU Wave`
   - `info threads`, `thread <id>`
 * - Lane
   - One work-item of a wave
@@ -40,8 +40,10 @@ ROCgdb extends GDB's model of threads and frames to cover the GPU. This page map
   - `info registers`, `info all-registers`
 * - Address spaces
   - GPU memory regions, such as `global`, `local`, `private_wave`, and `private_lane`
-  - `x/nfu <space>#<address>`
+  - `x <space>#<address>`
 ```
+
+For example, `x/4xw global#<address>` prints four words of global memory in hexadecimal. For the other address spaces, see {ref}`rocgdb-essential-commands`.
 
 ## Waves are threads
 

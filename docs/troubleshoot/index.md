@@ -9,7 +9,7 @@ myst:
 
 # Troubleshoot ROCgdb problems
 
-Select what you see to get the checks that match your symptom.
+Find the checks that match what you see.
 
 ```{raw} html
 <noscript><p><strong>JavaScript is turned off.</strong> The symptom selector needs it. Use the full checklist instead: <a href="kernel-breakpoint-not-hit.html">Kernel breakpoint isn't hit</a>.</p></noscript>
@@ -17,45 +17,46 @@ Select what you see to get the checks that match your symptom.
 
 ## Kernel breakpoint problems
 
+% The checklist page (kernel-breakpoint-not-hit.md) is canonical. Keep each
+% selector branch to one sentence and a link so the two don't drift apart.
+% The selector needs JavaScript, so print builds use the plain list below it.
+
 ```{eval-rst}
-.. selector:: What do you see?
-   :key: s
+.. only:: html
 
-   .. selector-option:: Never stops
-      :value: never-stops
-      :default:
-      :width: 4
+   .. selector:: What do you see?
+      :key: s
 
-   .. selector-option:: Stops in the wrong place
-      :value: wrong-place
-      :width: 4
+      .. selector-option:: Never stops
+         :value: never-stops
+         :default:
+         :width: 4
 
-   .. selector-option:: Exits early
-      :value: exits-early
-      :width: 4
+      .. selector-option:: Stops in the wrong place
+         :value: wrong-place
+         :width: 4
 
-.. selected:: s=never-stops
+      .. selector-option:: Exits early
+         :value: exits-early
+         :width: 4
 
-   You set a breakpoint in a HIP kernel and the application runs to completion without stopping there.
+   .. selected:: s=never-stops
 
-   1. Run ``info breakpoints``. If no breakpoint is listed, run ``set breakpoint pending on`` and set the breakpoint again. See :ref:`rocgdb-bp-check-exists`.
-   2. Set a breakpoint on the host line that launches the kernel. If the program exits before that line, the kernel never launches. See :ref:`rocgdb-bp-check-launch`.
-   3. If the breakpoint stays pending after the launch, set ``HIP_ENABLE_DEFERRED_LOADING=0`` and run the session again. See :ref:`rocgdb-bp-check-deferred`.
+      The application runs to completion without stopping at your breakpoint. Start with :ref:`rocgdb-bp-check-exists`, then check :ref:`rocgdb-bp-check-launch` and :ref:`rocgdb-bp-check-deferred`.
 
-.. selected:: s=wrong-place
+   .. selected:: s=wrong-place
 
-   You set a breakpoint on a source line in GPU code and ROCgdb stops somewhere else.
+      ROCgdb stops somewhere other than the line you set. Start with :ref:`rocgdb-bp-check-exists`, then check :ref:`rocgdb-bp-check-deferred` and :ref:`rocgdb-bp-check-build`.
 
-   1. Set the breakpoint by kernel function name instead of by source line. See :ref:`rocgdb-bp-check-exists`.
-   2. Set ``HIP_ENABLE_DEFERRED_LOADING=0`` so the GPU code is loaded before you set the breakpoint. See :ref:`rocgdb-bp-check-deferred`.
-   3. Rebuild with ``-ggdb -O0`` so line information is accurate. See :ref:`rocgdb-bp-check-build`.
+   .. selected:: s=exits-early
 
-.. selected:: s=exits-early
+      The application ends before it reaches your kernel. Start with :ref:`rocgdb-bp-check-launch`, then confirm the prerequisites in :ref:`rocgdb-troubleshoot-breakpoint-not-hit`.
 
-   The application ends before it reaches your kernel.
+.. only:: not html
 
-   1. Read the program output. A HIP error such as ``no ROCm-capable device is detected`` means the application exits before it launches the kernel. See :ref:`rocgdb-bp-check-launch`.
-   2. Confirm the application runs correctly without the debugger. See the prerequisites in :ref:`rocgdb-troubleshoot-breakpoint-not-hit`.
+   * **Never stops:** the application runs to completion without stopping at your breakpoint. See :ref:`rocgdb-bp-check-exists`, :ref:`rocgdb-bp-check-launch`, and :ref:`rocgdb-bp-check-deferred`.
+   * **Stops in the wrong place:** ROCgdb stops somewhere other than the line you set. See :ref:`rocgdb-bp-check-exists`, :ref:`rocgdb-bp-check-deferred`, and :ref:`rocgdb-bp-check-build`.
+   * **Exits early:** the application ends before it reaches your kernel. See :ref:`rocgdb-bp-check-launch` and :ref:`rocgdb-troubleshoot-breakpoint-not-hit`.
 ```
 
 For the full ordered checklist and the evidence to include in an issue, see {ref}`rocgdb-troubleshoot-breakpoint-not-hit`.

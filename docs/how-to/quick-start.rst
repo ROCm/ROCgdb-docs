@@ -8,65 +8,12 @@
 ROCgdb quick start
 *********************
 
-After :ref:`installing ROCgdb <rocgdb-installation>`, follow the :ref:`setup <rocgdb-setup>` to start debugging your application.
+After :ref:`installing ROCgdb <rocgdb-installation>`, work through :ref:`rocgdb-first-hip-kernel`. It covers compiling with debug information, launching your application under ROCgdb, setting a kernel breakpoint, and selecting a wave and lane.
 
-.. _rocgdb-setup:
+This page covers what the tutorial doesn't: attaching to a running process, switching layouts, and finding the full ROCgdb user guide.
 
-Source compilation
-===================
-
-Before debugging, compile your software with debug information.
-
-To compile your source with debug symbols, use:
-
-.. code-block:: shell
-
-   $ hipcc -ggdb -O0 saxpy.cpp -o saxpy
-
-Or, compile using amd-llvm:
-
-.. code-block:: shell
-
-   amdclang++ -ggdb -O0 -x hip --offload-arch=native saxpy.cpp -o saxpy
-
-Adding the ``-g`` flag to your compilation command generates debug information even when optimizations
-are turned on. Note that higher optimization levels make debugging more difficult,
-so it might be helpful to turn off these optimizations with the ``-O0`` compiler option.
-
-For saxpy source code, see `main.hip <https://github.com/ROCm/rocm-examples/blob/amd-staging/HIP-Basic/saxpy/main.hip>`_.
-
-Debugging using ROCgdb
-========================
-
-You can either launch and run your application under debugger control or attach the debugger to a running process and continue execution.
-
-To start debugging your application under debugger control, follow these steps:
-
-1. Launch your application under debugger control:
-
-   .. code-block:: shell
-
-      $ rocgdb ./saxpy
-      […]
-
-   At this point, the application is not running, but you'll have access to the debugger console. On the console, you can use any :ref:`gdb option <rocgdb-essential-commands>` for host debugging along with ROCgdb-specific features for device debugging.
-
-2. Set a breakpoint before running the application with debugger.
-
-   .. code-block:: shell
-
-      tbreak my_app.cpp:458
-
-   This places a temporary breakpoint at the specified line. To start your application, use:
-
-   .. code-block:: shell
-
-      (gdb) run
-
-   If the breakpoint is in the device code, the debugger shows the device and host
-   threads. The device threads are not individual work items; instead, they represent a
-   wavefront on the device. You can switch between the device wavefronts as you can
-   between the host threads.
+Attach to a running process
+===========================
 
 To attach the debugger to a running process and continue execution, use:
 
@@ -76,21 +23,24 @@ To attach the debugger to a running process and continue execution, use:
    […]
    (gdb) continue
 
-Use ``ps`` command to get the <process_id> of the running application, to which the debugger needs to be attached.
+Use the ``ps`` command to get the ``<process_id>`` of the application to attach to.
 
-You can also switch between layouts, which allows you to use different layouts for different situations while debugging.
+Switch layouts
+==============
+
+Switch layouts to suit the situation while you debug:
 
 .. code-block:: shell
 
    layout src
    layout asm
 
-The ``src`` layout is the source code view, while the ``asm`` is the assembly view. For more layouts, see `TUI-specific commands <https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/TUI-Commands.html>`_.
+The ``src`` layout is the source code view, and the ``asm`` layout is the assembly view. For more layouts, see `TUI-specific commands <https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/TUI-Commands.html>`_.
 
-After starting or attaching your application with the debugger, you can utilize these :ref:`rocgdb-essential-commands` to perform further operations.
+After you launch or attach, use the :ref:`rocgdb-essential-commands` to inspect and control your application.
 
 ROCgdb user guide
-===================
+=================
 
 The `ROCgdb user guide <https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/index.html>`_ provides detailed information about using ROCgdb.
 This user guide is also installed in the following directories when you `install ROCm <https://rocm.docs.amd.com/projects/install-on-linux/en/latest/>`_:
