@@ -58,7 +58,6 @@ external_projects_current_project = "rocgdb"
 for sphinx_var in ROCmDocs.SPHINX_VARS:
     globals()[sphinx_var] = getattr(docs_core, sphinx_var)
 
-extensions += ["rocm_docs.selector", "sphinxcontrib.mermaid"]
 
 html_theme_options = {
     "flavor": "rocm",

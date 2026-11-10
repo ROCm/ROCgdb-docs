@@ -116,9 +116,9 @@ Third-party tools and Python.
 
 **Troubleshoot**
 
-Start from the symptom you saw, not a command name.
+Find the checks that match the symptom you saw.
 
-{ref}`Pick your symptom →<rocgdb-troubleshoot>`
+{ref}`Troubleshoot a problem →<rocgdb-troubleshoot>`
 ::::
 :::::
 

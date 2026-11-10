@@ -142,56 +142,56 @@ These commands show the agents, queues, dispatches, threads, waves, and lanes of
      - ``info lanes``
      - Shows the lanes of the current wave. Use it to find the lane that you want to inspect, for example when you compare a variable across work-items in the same wave. A lane is one work-item. A single machine instruction operates on all the active lanes of a wave in parallel, and the ``State`` column shows whether each lane is active (``A``) or inactive (``I``). See `Debugging heterogeneous programs <https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/Heterogeneous-Debugging.html>`_.
 
-.. dropdown:: Sample output: ``info agents``
+Sample output for ``info agents``:
 
-   .. code-block:: shell
+.. code-block:: shell
 
-         Id State Target Id                  Architecture Device Name        Cores Threads Location
-       * 1  A     AMDGPU Agent (GPUID 35090) gfx90a       AMD Instinct MI210 416   3328    0000:4a:00.0
-         2  A     AMDGPU Agent (GPUID 34915) gfx90a       AMD Instinct MI210 416   3328    0000:09:00.0
-         3  A     AMDGPU Agent (GPUID 56224) gfx90a       AMD Instinct MI210 416   3328    0000:0c:00.0
-         4  A     AMDGPU Agent (GPUID 33385) gfx90a       AMD Instinct MI210 416   3328    0000:11:00.0
+      Id State Target Id                  Architecture Device Name        Cores Threads Location
+    * 1  A     AMDGPU Agent (GPUID 35090) gfx90a       AMD Instinct MI210 416   3328    0000:4a:00.0
+      2  A     AMDGPU Agent (GPUID 34915) gfx90a       AMD Instinct MI210 416   3328    0000:09:00.0
+      3  A     AMDGPU Agent (GPUID 56224) gfx90a       AMD Instinct MI210 416   3328    0000:0c:00.0
+      4  A     AMDGPU Agent (GPUID 33385) gfx90a       AMD Instinct MI210 416   3328    0000:11:00.0
 
-.. dropdown:: Sample output: ``info queues``
+Sample output for ``info queues``:
 
-   .. code-block:: shell
+.. code-block:: shell
 
-         Id   Target Id                Type         Read   Write  Size     Address
-         1    AMDGPU Queue 1:1 (QID 0) HSA          2      2      4096     0x00007ffff626e000
-       * 2    AMDGPU Queue 1:2 (QID 1) HSA          0      2      1048576  0x00007fffe5800000
+      Id   Target Id                Type         Read   Write  Size     Address
+      1    AMDGPU Queue 1:1 (QID 0) HSA          2      2      4096     0x00007ffff626e000
+    * 2    AMDGPU Queue 1:2 (QID 1) HSA          0      2      1048576  0x00007fffe5800000
 
-.. dropdown:: Sample output: ``info dispatches``
+Sample output for ``info dispatches``:
 
-   .. code-block:: shell
+.. code-block:: shell
 
-          Id   Target Id                      Grid    Workgroup Fence   Kernel Function
-        * 1    AMDGPU Dispatch 1:2:1 (PKID 0) [1,1,1] [1,1,1]   B|Aa|Ra saxpy_kernel()
+       Id   Target Id                      Grid    Workgroup Fence   Kernel Function
+     * 1    AMDGPU Dispatch 1:2:1 (PKID 0) [1,1,1] [1,1,1]   B|Aa|Ra saxpy_kernel()
 
-   The ``Fence`` column shows the memory fences that the dispatch packet requests, separated by ``|``:
+The ``Fence`` column shows the memory fences that the dispatch packet requests, separated by ``|``:
 
-   * ``B``: The barrier bit is set. The next packet in the queue doesn't start until this dispatch completes.
-   * ``Aa`` or ``As``: An acquire fence at agent scope (``a``) or system scope (``s``) runs before the dispatch.
-   * ``Ra`` or ``Rs``: A release fence at agent scope (``a``) or system scope (``s``) runs when the dispatch completes.
+* ``B``: The barrier bit is set. The next packet in the queue doesn't start until this dispatch completes.
+* ``Aa`` or ``As``: An acquire fence at agent scope (``a``) or system scope (``s``) runs before the dispatch.
+* ``Ra`` or ``Rs``: A release fence at agent scope (``a``) or system scope (``s``) runs when the dispatch completes.
 
-   In the sample, ``B|Aa|Ra`` means a barrier with acquire and release fences at agent scope.
+In the sample, ``B|Aa|Ra`` means a barrier with acquire and release fences at agent scope.
 
-.. dropdown:: Sample output: ``info threads``
+Sample output for ``info threads``:
 
-   .. code-block:: shell
+.. code-block:: shell
 
-         Id   Target Id                                    Frame
-         1    Thread 0x7ffff648bf80 (LWP 1981864) "saxpy" 0x00007ffff5a6c9ef in ?? () from /opt/rocm-7.1.0/lib/libhsa-runtime64.so.1
-         2    Thread 0x7ffff55ff6c0 (LWP 1981871) "saxpy" __GI___ioctl (fd=3, request=3222817548) at ../sysdeps/unix/sysv/linux/ioctl.c:36
-         4    Thread 0x7fffeffff6c0 (LWP 1981873) "saxpy" __GI___ioctl (fd=3, request=3222817548) at ../sysdeps/unix/sysv/linux/ioctl.c:36
-         6    Thread 0x7ffff5dff6c0 (LWP 1981877) "saxpy" __GI___ioctl (fd=3, request=3222817548) at ../sysdeps/unix/sysv/linux/ioctl.c:36
-       * 7    AMDGPU Wave 1:2:1:1 (0,0,0)/0 "saxpy"       saxpy_kernel () at main.hip:8
+      Id   Target Id                                    Frame
+      1    Thread 0x7ffff648bf80 (LWP 1981864) "saxpy" 0x00007ffff5a6c9ef in ?? () from /opt/rocm-7.1.0/lib/libhsa-runtime64.so.1
+      2    Thread 0x7ffff55ff6c0 (LWP 1981871) "saxpy" __GI___ioctl (fd=3, request=3222817548) at ../sysdeps/unix/sysv/linux/ioctl.c:36
+      4    Thread 0x7fffeffff6c0 (LWP 1981873) "saxpy" __GI___ioctl (fd=3, request=3222817548) at ../sysdeps/unix/sysv/linux/ioctl.c:36
+      6    Thread 0x7ffff5dff6c0 (LWP 1981877) "saxpy" __GI___ioctl (fd=3, request=3222817548) at ../sysdeps/unix/sysv/linux/ioctl.c:36
+    * 7    AMDGPU Wave 1:2:1:1 (0,0,0)/0 "saxpy"       saxpy_kernel () at main.hip:8
 
-.. dropdown:: Sample output: ``info lanes``
+Sample output for ``info lanes``:
 
-   .. code-block:: shell
+.. code-block:: shell
 
-         Id   State Target Id                            Frame
-       * 0    A     AMDGPU Lane 1:2:1:1/0 (0,0,0)[0,0,0] saxpy_kernel () at main.hip:8
+      Id   State Target Id                            Frame
+    * 0    A     AMDGPU Lane 1:2:1:1/0 (0,0,0)[0,0,0] saxpy_kernel () at main.hip:8
 
 Frames and variables
 --------------------
@@ -216,40 +216,40 @@ Frames and variables
      - ``info locals``
      - Shows the local variables of the current frame.
 
-.. dropdown:: Sample output: ``backtrace``
+Sample output for ``backtrace``:
 
-   This sample comes from a different program than the ``saxpy_kernel`` samples above.
+This sample comes from a different program than the ``saxpy_kernel`` samples above.
 
-   .. code-block:: shell
+.. code-block:: shell
 
-       #0  saxpy (tid=0) at /home/user/saxpy.cpp:33
-       #1  0x00007ffff608ee40 in kern () at /home/user/saxpy.cpp:4
+    #0  saxpy (tid=0) at /home/user/saxpy.cpp:33
+    #1  0x00007ffff608ee40 in kern () at /home/user/saxpy.cpp:4
 
-.. dropdown:: Sample output: ``info frame``
+Sample output for ``info frame``:
 
-   This sample comes from a different program than the ``saxpy_kernel`` samples above.
+This sample comes from a different program than the ``saxpy_kernel`` samples above.
 
-   .. code-block:: shell
+.. code-block:: shell
 
-       Stack level 0, frame at private_wave#0x800:
-       pc = 0x7ffff608e3bc in bar (/home/user/saxpy.cpp:33); saved pc = 0x7ffff608ee40
-       called by frame at private_wave#0x0
-       source language c++.
-       Arglist at private_wave#0x800, args: tid=0
-       Locals at private_wave#0x800, Saved registers:
-       v36 at private_wave#0x1500, v37 at private_wave#0x1600
+    Stack level 0, frame at private_wave#0x800:
+    pc = 0x7ffff608e3bc in bar (/home/user/saxpy.cpp:33); saved pc = 0x7ffff608ee40
+    called by frame at private_wave#0x0
+    source language c++.
+    Arglist at private_wave#0x800, args: tid=0
+    Locals at private_wave#0x800, Saved registers:
+    v36 at private_wave#0x1500, v37 at private_wave#0x1600
 
-.. dropdown:: Sample output: ``info args``
+Sample output for ``info args``:
 
-   .. code-block:: shell
+.. code-block:: shell
 
-       tid = 0
+    tid = 0
 
-.. dropdown:: Sample output: ``info locals``
+Sample output for ``info locals``:
 
-   .. code-block:: shell
+.. code-block:: shell
 
-       No locals.
+    No locals.
 
 Registers and memory
 --------------------
@@ -268,17 +268,17 @@ Registers and memory
      - ``info all-registers``
      - Shows all registers, not only the general-purpose registers.
 
-.. dropdown:: Sample output: ``info registers``
+Sample output for ``info registers``:
 
-   .. code-block:: shell
+.. code-block:: shell
 
-       v0             {0x30 <repeats 64 times>}
-       ....
-       s41            0x0                 0
-       m0             0x1008              4104
-       pc             0x7ffff608e3bc      0x7ffff608e3bc <saxpy(int)+268>
-       exec           0x5555555555555555  6148914691236517205
-       vcc            0xffffffffffffffff  18446744073709551615
+    v0             {0x30 <repeats 64 times>}
+    ....
+    s41            0x0                 0
+    m0             0x1008              4104
+    pc             0x7ffff608e3bc      0x7ffff608e3bc <saxpy(int)+268>
+    exec           0x5555555555555555  6148914691236517205
+    vcc            0xffffffffffffffff  18446744073709551615
 
 To view GPU data in an address space, use ``x <space>#<address>``. Without a format, this prints one word in hexadecimal. If you leave out ``<space>#``, ROCgdb uses the default address space, which is ``global`` on AMD GPUs. In these examples, the ``/4xw`` format prints four (``4``) words (``w``) in hexadecimal (``x``). The address ``0xdeadbeef`` is a placeholder:
 

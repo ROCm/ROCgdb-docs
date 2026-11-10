@@ -42,11 +42,7 @@ Rebuild the application with debug information (`-ggdb`) and no optimization (`-
 $ amdclang++ -ggdb -O0 -x hip --offload-arch=native main.hip -o saxpy
 ```
 
-:::{admonition} Expected result
-:class: rocgdb-expected
-
-The rebuilt binary runs without the debugger. If your build system already passes `-ggdb` and a low optimization level, you can skip the rebuild.
-:::
+**Expected result:** The rebuilt binary runs without the debugger. If your build system already passes `-ggdb` and a low optimization level, you can skip the rebuild.
 
 (rocgdb-bp-check-exists)=
 
@@ -71,11 +67,7 @@ Function "saxpy_kernel" not defined.
 Breakpoint 1 (saxpy_kernel) pending.
 ```
 
-:::{admonition} Expected result
-:class: rocgdb-expected
-
-`info breakpoints` lists the breakpoint with `<PENDING>` as its address until the GPU code is loaded.
-:::
+**Expected result:** `info breakpoints` lists the breakpoint with `<PENDING>` as its address until the GPU code is loaded.
 
 :::{tip}
 If you set the breakpoint on a source line in GPU code, it can resolve to an unexpected place before the GPU code is loaded. Set it by kernel function name instead.
@@ -98,17 +90,9 @@ Use the line number of the launch, not the kernel definition:
 (gdb) run
 ```
 
-:::{admonition} Expected result
-:class: rocgdb-expected
+**Expected result:** Execution stops at the launch line. Host code is loaded at startup, so this breakpoint resolves immediately.
 
-Execution stops at the launch line. Host code is loaded at startup, so this breakpoint resolves immediately.
-:::
-
-:::{admonition} If this fails
-:class: rocgdb-iffails
-
-If the program exits first, read its output. For example, when no GPU is visible to the application, it can print a HIP error such as `no ROCm-capable device is detected` and exit before it launches the kernel. Fix that problem in the application or the environment. It isn't a ROCgdb problem.
-:::
+**If this fails:** If the program exits first, read its output. For example, when no GPU is visible to the application, it can print a HIP error such as `no ROCm-capable device is detected` and exit before it launches the kernel. Fix that problem in the application or the environment. It isn't a ROCgdb problem.
 
 (rocgdb-bp-check-deferred)=
 
@@ -121,11 +105,7 @@ $ export HIP_ENABLE_DEFERRED_LOADING=0
 $ rocgdb ./saxpy
 ```
 
-:::{admonition} Expected result
-:class: rocgdb-expected
-
-All GPU code objects are loaded by the beginning of `main`, so the kernel breakpoint resolves before the kernel launches.
-:::
+**Expected result:** All GPU code objects are loaded by the beginning of `main`, so the kernel breakpoint resolves before the kernel launches.
 
 :::{note}
 Disabling deferred loading has limits. If the application calls `fork`, it might crash. If the application embeds many device code objects, ROCgdb might report errors because of open file limits.
@@ -153,17 +133,13 @@ Disabling deferred loading has limits. If the application calls `fork`, it might
 
 ## Report a problem
 
-If these checks don't resolve the problem, [open an issue](https://github.com/ROCm/ROCgdb/issues) and include the following.
-
-:::{admonition} Evidence to collect
-:class: rocgdb-evidence
+If these checks don't resolve the problem, [open an issue](https://github.com/ROCm/ROCgdb/issues) and include the following:
 
 * The output of `show configuration`, which shows the ROCgdb build you're running.
 * The ROCm version, GPU architecture, and operating system.
 * The compile command, including optimization and debug flags.
 * The commands you ran and the output of `info breakpoints`.
 * Whether the problem still occurs with `HIP_ENABLE_DEFERRED_LOADING=0`.
-:::
 
 ## Related information
 
