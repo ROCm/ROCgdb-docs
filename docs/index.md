@@ -124,7 +124,7 @@ Find the checks that match the symptom you saw.
 
 ## What ROCgdb does
 
-ROCgdb is the AMD ROCm source-level debugger for Linux, based on the GNU Debugger (GDB). It debugs both halves of a ROCm application in one session: the host code running on the CPU, and the kernels running on AMD GPUs. GPU wavefronts appear as threads next to the host threads, so you use the same GDB commands for both.
+ROCgdb debugs both halves of a ROCm application in one session: the host code running on the CPU, and the kernels running on AMD GPUs. GPU wavefronts appear as threads next to the host threads, so you use the same GDB commands for both. With ROCgdb, you can do the following.
 
 * **Stop inside a kernel.** Set breakpoints on a kernel or a source line, with conditions that ROCgdb checks for each lane. See {ref}`Debug your first HIP kernel <rocgdb-first-hip-kernel>`.
 * **Inspect waves and lanes.** List waves with `info threads` and lanes with `info lanes`, switch between them with `thread` and `lane`, and print a value for every lane at once. See {ref}`GPU execution state <rocgdb-gpu-execution-state>`.
