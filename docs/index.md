@@ -122,6 +122,19 @@ Find the checks that match the symptom you saw.
 ::::
 :::::
 
+## What ROCgdb does
+
+ROCgdb is the AMD ROCm source-level debugger for Linux, based on the GNU Debugger (GDB). It debugs both halves of a ROCm application in one session: the host code running on the CPU, and the kernels running on AMD GPUs. GPU wavefronts appear as threads next to the host threads, so you use the same GDB commands for both.
+
+* **Stop inside a kernel.** Set breakpoints on a kernel or a source line, with conditions that ROCgdb checks for each lane. See {ref}`Debug your first HIP kernel <rocgdb-first-hip-kernel>`.
+* **Inspect waves and lanes.** List waves with `info threads` and lanes with `info lanes`, switch between them with `thread` and `lane`, and print a value for every lane at once. See {ref}`GPU execution state <rocgdb-gpu-execution-state>`.
+* **See what the GPU is running.** List GPUs, queues, and kernel launches with `info agents`, `info queues` and `info dispatches`. See [Debugging heterogeneous programs](https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/Heterogeneous-Debugging.html).
+* **Catch errors where they happen.** `catch hiperr` stops when a HIP API call fails, and `set amdgpu precise-memory on` reports a GPU memory violation at the instruction that caused it. See [catch hiperr](https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/Set-Catchpoints.html#catch-hiperr) and [memory violation reporting](https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/AMD-GPU.html#AMD-GPU-Memory-Violation-Reporting).
+* **Watch GPU memory.** Stop when a value changes, with up to four hardware write watchpoints. See {ref}`step 6 of Wrong results <rocgdb-wr-watch>`.
+* **Attach to a running application.** Use `rocgdb -p` to look at an application that's already running. See {ref}`rocgdb-attach`.
+* **Debug after a crash.** Open a core file that holds both CPU and GPU state. ROCgdb writes one with `gcore`, and the ROCm runtime writes one when a GPU fault crashes the application. See [AMD GPU core dumps](https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/AMD-GPU.html#AMD-GPU-core-dumps).
+* **Use it from other tools.** Debug from an editor such as Visual Studio Code, or debug HIP kernels launched from Python. See [Setting up third-party tools](https://rocm.docs.amd.com/projects/ROCgdb/en/latest/how-to/third-party-tools.html) and {ref}`Debugging Python kernel code <debugging-python>`.
+
 ## Reference
 
 ::::{div} rocgdb-reference
