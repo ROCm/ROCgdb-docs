@@ -120,15 +120,15 @@ Disabling deferred loading has limits. If the application calls `fork`, it might
 * - What you see
   - Likely cause
 * - `info breakpoints` reports no breakpoints after you set one
-  - You answered `n` to the pending breakpoint prompt. Run `set breakpoint pending on` (check 2).
+  - You answered `n` to the pending breakpoint prompt. Run `set breakpoint pending on` ({ref}`check 2 <rocgdb-bp-check-exists>`).
 * - The program exits before the host launch line
-  - The kernel is never launched, for example because of a HIP runtime error (check 3).
+  - The kernel is never launched, for example because of a HIP runtime error ({ref}`check 3 <rocgdb-bp-check-launch>`).
 * - The breakpoint stays pending after the kernel should have run
-  - The GPU code wasn't loaded. Disable deferred loading (check 4).
+  - The GPU code wasn't loaded. Disable deferred loading ({ref}`check 4 <rocgdb-bp-check-deferred>`).
 * - A source-line breakpoint stops in an unexpected place
-  - The GPU code that contains that line wasn't loaded when you set the breakpoint. Set the breakpoint by function name (check 2).
+  - The GPU code that contains that line wasn't loaded when you set the breakpoint. Set the breakpoint by function name ({ref}`check 2 <rocgdb-bp-check-exists>`).
 * - The breakpoint is set but the source line is wrong or unavailable
-  - The binary lacks debug information. Rebuild with `-ggdb -O0` (check 1).
+  - The binary lacks debug information. Rebuild with `-ggdb -O0` ({ref}`check 1 <rocgdb-bp-check-build>`).
 ```
 
 ## Report a problem
