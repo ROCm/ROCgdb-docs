@@ -109,7 +109,7 @@ When ROCgdb can't debug a GPU, it prints a warning and keeps running, so you mig
   - End the other debugging session, or give each session its own GPUs (see the container row in {ref}`step 4 <rocgdb-kl-limitations>`).
 ```
 
-All four messages are described in [Device driver and ROCm runtime](https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/AMD-GPU.html#AMD-GPU-Device-Driver-and-AMD-ROCm-Runtime).
+These messages are described in [Device driver and ROCm runtime](https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/AMD-GPU.html#AMD-GPU-Device-Driver-and-AMD-ROCm-Runtime).
 
 **Expected result:** A new session prints no `amd-dbgapi` warnings, and `info agents` shows your GPU with state `A`.
 
@@ -186,13 +186,13 @@ The **Status** column uses three values:
 * - Set more than four GPU watchpoints, or watch reads (`rwatch`, `awatch`)
   - Limited
   - Use at most four `watch` (write) watchpoints with a combined size of 32 bytes or less. Each watchpoint's size counts as rounded up to a multiple of 8 bytes. Beyond that, ROCgdb falls back to software watchpoints, which are very slow. `rwatch` and `awatch` are accepted, but `continue` then fails with `Could not insert hardware watchpoint … too many hardware breakpoints/watchpoints`. To catch a read, put a conditional breakpoint on the line that reads the value. This only helps if you know which lines read it.
-* - Catch a write with a watchpoint, but it doesn't stop
+* - Catch every write to a location with a watchpoint
   - Limited
   - Watchpoints reach the GPU only after the ROCm runtime starts. Set them after your first kernel breakpoint, and set them again after `run` restarts the program. Writes by `hipMemcpy` use direct memory access (DMA) and aren't seen: start ROCgdb with `HSA_ENABLE_SDMA=0`. On gfx10, gfx11, and gfx12 GPUs, a write by a kernel's last instruction can be missed: run `set amdgpu precise-memory on` before `run`.
-* - Single-step, but ROCgdb seems to wait forever
+* - Single-step a wave when ROCgdb seems to wait forever
   - Limited
-  - Press **Ctrl-C** to cancel the step, then run it again.
-* - Press Ctrl-C after resuming only a GPU wave with `set scheduler-locking on`
+  - Press Ctrl-C to cancel the step, then run it again.
+* - Interrupt with Ctrl-C after resuming only a GPU wave with `set scheduler-locking on`
   - Not supported
   - Ctrl-C can't stop GPU waves when no CPU thread is running. Before you resume only a GPU wave, make sure a breakpoint will stop it. If ROCgdb is already stuck, end the `rocgdb` process.
 * - Put a breakpoint inside an `s_clause` on gfx10, gfx11, or gfx12
@@ -303,9 +303,9 @@ Linux on x86-64. ROCgdb for Windows is released separately, with its own documen
 * - gfx9
   - gfx900 (Vega 10), gfx906 (Vega 7nm), gfx908 (AMD Instinct MI100), gfx90a (AMD Instinct MI200 Series), gfx942 (AMD Instinct MI300X, MI300A), gfx950 (AMD Instinct MI350X, MI355X)
 * - gfx10
-  - gfx1010, gfx1011, gfx1012, gfx1030, gfx1031, gfx1032 (Radeon RX 6600)
+  - gfx1010, gfx1011, gfx1012, gfx1030, gfx1031, gfx1032
 * - gfx11
-  - gfx1100 (Radeon PRO W7900, Radeon RX 7900 XTX and XT), gfx1101 (Radeon RX 7800 XT, 7700 XT), gfx1102 (Radeon RX 7600), gfx1150 (Radeon 890M), gfx1151 (Radeon 8060S), gfx1153, and new for the next release: gfx1170, gfx1171, gfx1172
+  - gfx1100 (Radeon PRO W7900, Radeon RX 7900 XTX and XT), gfx1101 (Radeon RX 7800 XT, 7700 XT), gfx1102 (Radeon RX 7600), gfx1150 (Radeon 890M), gfx1151 (Radeon 8060S), gfx1153, gfx1170, gfx1171, gfx1172
 * - gfx12
   - gfx1200 (Radeon RX 9060), gfx1201 (Radeon RX 9070, 9070 XT), gfx1250, gfx1250-strict
 * - Generic targets

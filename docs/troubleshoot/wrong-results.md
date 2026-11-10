@@ -108,7 +108,7 @@ Output captured on an AMD Instinct MI210 (gfx90a):
 Thread 21 "saxpy_kernel" hit Breakpoint 2, with lane 40, saxpy_kernel (a=2, d_x=0x7fffe9800000, d_y=0x7fffe9200000, size=1000000) at saxpy.hip:7
 ```
 
-It's Breakpoint 2 because {ref}`step 1 <rocgdb-wr-check-hiperr>` set `catch hiperr`. The numbers depend on your system. The lane is the thread index modulo the wave size, so it's lane 40 on gfx9 GPUs and lane 8 on wave32 GPUs such as gfx1100 and gfx1201. The thread number and the wave part of the lane ID (`1:1:1:16`) also vary.
+It's Breakpoint 2 if you ran {ref}`step 1 <rocgdb-wr-check-hiperr>` first, because that step set `catch hiperr`. Otherwise it's Breakpoint 1. The numbers depend on your system. The lane is the thread index modulo the wave size, so it's lane 40 on gfx9 GPUs and lane 8 on wave32 GPUs such as gfx1100 and gfx1201. The thread number and the wave part of the lane ID (`1:1:1:16`) also vary.
 
 Confirm you're on the right work-item:
 

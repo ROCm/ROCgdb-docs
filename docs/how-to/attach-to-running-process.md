@@ -41,7 +41,7 @@ If you can start the application yourself, use {ref}`Debug your first HIP kernel
 ## Prerequisites
 
 * ROCgdb is installed. See {ref}`Install ROCm Debugger (ROCgdb) <rocgdb-installation>`.
-* You're logged in with the account that runs the application, or you can use `sudo`.
+* You're logged in with the account that runs the application.
 * The application is built with `-ggdb`, so ROCgdb can show source lines.
 
 ## How the steps fit together
@@ -94,7 +94,7 @@ ROCgdb pauses the whole application, CPU threads and GPU waves, and shows the `(
 
 :::{admonition} If this fails
 
-* `ptrace: Operation not permitted.` The kernel's Yama `ptrace_scope` setting is `1`, the Ubuntu default. It lets a debugger attach only to processes it started, even when they run as the same user. Check the setting with `cat /proc/sys/kernel/yama/ptrace_scope`, and see [Yama ptrace_scope](https://www.kernel.org/doc/html/latest/admin-guide/LSM/Yama.html). Relaxing it is a system-wide security decision for your administrator. To avoid the problem, start the application under `rocgdb` instead of attaching. If you can use `sudo`, `sudo rocgdb -p <process-id>` also works.
+* `ptrace: Operation not permitted.` The kernel's Yama `ptrace_scope` setting is `1`, the Ubuntu default. It lets a debugger attach only to processes it started, even when they run as the same user. Check the setting with `cat /proc/sys/kernel/yama/ptrace_scope` (see [Yama ptrace_scope](https://www.kernel.org/doc/html/latest/admin-guide/LSM/Yama.html)). Relaxing it is a system-wide security decision for your administrator, so start the application under `rocgdb` instead of attaching.
 * **Inside a container**, the container needs `--cap-add=SYS_PTRACE --security-opt seccomp=unconfined`. See the {ref}`container row <rocgdb-kl-container>` in Known limitations.
 * `At least one agent is busy` or another `amd-dbgapi` warning: use the {ref}`warnings table <rocgdb-kl-warnings>` in Known limitations.
 * **A restriction about cooperative groups or compute unit (CU) masking** on gfx1100, gfx1101, or gfx1102: there's no workaround on these GPUs.
@@ -116,7 +116,7 @@ Wave line captured on an AMD Instinct MI210 (gfx90a), for an application started
   5    AMDGPU Wave 1:1:?:1 (?,?,?)/?   0x... in spin_kernel (seconds=60, out=0x...) at attach_app.hip:12
 ```
 
-The `?` depends on the GPU. On gfx90a it's in the dispatch field (`1:1:?:1`), and the line has no quoted name. gfx942, gfx1100, and gfx1201 print complete IDs even without `HSA_ENABLE_DEBUG=1`, with the kernel name in quotes, for example `AMDGPU Wave 1:1:1:1 (0,0,0)/0 "spin_kernel"`. You need `HSA_ENABLE_DEBUG=1` only on GPUs where `?` appears.
+The `?` depends on the GPU. On gfx90a it's in the dispatch field (`1:1:?:1`), and the line has no quoted name. gfx942, gfx1100, and gfx1201 print complete IDs even without `HSA_ENABLE_DEBUG=1`, with the kernel name in quotes, for example `AMDGPU Wave 1:1:1:1 (0,0,0)/0 "spin_kernel"`.
 
 **Expected result:** You see the CPU threads and, if a kernel is running right now, one or more `AMDGPU Wave` entries. If you see waves, go to {ref}`step 5a <rocgdb-attach-inspect>`. If you don't, go to {ref}`step 5b <rocgdb-attach-next-launch>`.
 
@@ -142,7 +142,12 @@ If there's no source line, the GPU code was built without `-ggdb`. You can still
 :::
 
 :::{tip}
-If the kernel looks hung, run `thread apply all -q print $pc`, then `continue`, press Ctrl-C after a few seconds, and run it again. A spinning wave's program counter (PC) moves, and a wave waiting at a barrier stays put. To look inside one wave, run `info lanes` first, then `lane apply all print <loop-variable>`. Continue, press Ctrl-C, select the wave again with `thread <wave-thread-id>` (after Ctrl-C, ROCgdb selects a CPU thread), and print again. Among active lanes, a changing value means the lane is still in the loop, and an unchanged value means it left the loop or is waiting.
+If the kernel looks hung, find out whether it's still moving:
+
+1. Run `thread apply all -q print $pc`, then `continue`, press Ctrl-C after a few seconds, and run the print again. A spinning wave's program counter (PC) moves, and a wave waiting at a barrier stays put.
+2. To look inside one wave, run `info lanes`, then `lane apply all print <loop-variable>`.
+3. Run `continue`, press Ctrl-C, and select the wave again with `thread <wave-thread-id>`. After Ctrl-C, ROCgdb selects a CPU thread.
+4. Print the variable again. Among active lanes, a changing value means the lane is still in the loop, and an unchanged value means it left the loop or is waiting.
 :::
 
 (rocgdb-attach-next-launch)=
@@ -157,7 +162,9 @@ Attaching can't go back to kernels that have already finished, but you can stop 
 (gdb) continue
 ```
 
-**Expected result:** If the application has already loaded the GPU code, for example because any kernel in it has run, the breakpoint resolves right away. ROCgdb stops when the kernel next launches, and you can carry on from step 5 of {ref}`Debug your first HIP kernel <rocgdb-first-hip-kernel-select-wave>`. If the kernel is in a code object that loads later, the breakpoint stays `<PENDING>` until that code object loads.
+**Expected result:** ROCgdb stops when the kernel next launches, and you can carry on from step 5 of {ref}`Debug your first HIP kernel <rocgdb-first-hip-kernel-select-wave>`.
+
+If the application has already loaded the GPU code, for example because any kernel in it has run, the breakpoint resolves right away. If the kernel is in a code object that loads later, the breakpoint stays `<PENDING>` until that code object loads.
 
 :::{admonition} If this fails
 
@@ -188,7 +195,7 @@ If you need a core file for later, save it before you detach. While ROCgdb is at
   - Read more
 * - `ptrace: Operation not permitted.`
   - Linux blocked the attach (Yama `ptrace_scope` is `1`).
-  - Start the application under ROCgdb, or use `sudo`. Changing `ptrace_scope` is for your administrator ({ref}`step 3 <rocgdb-attach-attach>`).
+  - Start the application under ROCgdb. Changing `ptrace_scope` is for your administrator ({ref}`step 3 <rocgdb-attach-attach>`).
   - [Yama ptrace_scope](https://www.kernel.org/doc/html/latest/admin-guide/LSM/Yama.html)
 * - `AMDGPU Wave 1:1:?:1 (?,?,?)/?`
   - The wave started before ROCgdb attached, on a GPU such as gfx90a, and the application wasn't started with `HSA_ENABLE_DEBUG=1`.
