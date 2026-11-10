@@ -46,7 +46,10 @@ If you build with `hipcc`, use the same options: `hipcc -ggdb -O0 -I../../Common
 
 **Expected result:** The `saxpy` binary exists and still runs: `./saxpy` prints the usual host-side result.
 
-**If this fails:** Fix the HIP build first. If you omit `-ggdb` or use a high `-O` level, later steps look like debugger bugs.
+:::{admonition} If this fails
+
+Fix the HIP build first. If you omit `-ggdb` or use a high `-O` level, later steps look like debugger bugs.
+:::
 
 ## 2. Launch ROCgdb
 
