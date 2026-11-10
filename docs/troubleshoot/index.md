@@ -45,8 +45,25 @@ The application ends before it reaches your kernel.
 
 For the full ordered checklist and the evidence to include in an issue, see {ref}`rocgdb-troubleshoot-breakpoint-not-hit`.
 
+## Wrong results problems
+
+% The page below is canonical. This section only routes to it.
+
+### The kernel runs but some output values are wrong
+
+The application runs to completion, but some output elements aren't what you expect, or a value you print in ROCgdb looks wrong.
+
+1. Stop on any HIP API error with `catch hiperr`, then run. See {ref}`rocgdb-wr-check-hiperr`.
+2. Work out which work-item wrote the wrong element, and stop only that work-item with a conditional breakpoint. See {ref}`rocgdb-wr-stop-workitem`.
+3. Print the values that work-item reads, then step through and print the output element. See {ref}`rocgdb-wr-check-inputs`.
+4. If the value is right when the work-item writes it, watch the location to find what overwrites it. See {ref}`rocgdb-wr-watch`.
+
+For the full ordered steps and the evidence to include in an issue, see {ref}`rocgdb-troubleshoot-wrong-results`.
+
 ## All symptom pages
 
 * {ref}`rocgdb-troubleshoot-breakpoint-not-hit`: You set a breakpoint in a HIP kernel and the application never stops there.
+* {ref}`rocgdb-troubleshoot-wrong-results`: Your kernel runs to completion but some output values are wrong, or a value you print isn't what you expect.
+* {ref}`rocgdb-known-limitations`: ROCgdb doesn't see your GPU, prints an `amd-dbgapi` warning, or a feature doesn't work the way it does in CPU code.
 
 If your problem isn't listed, start with {ref}`rocgdb-gpu-execution-state` to confirm what state ROCgdb reports, then see {ref}`rocgdb-essential-commands`. If that doesn't help, [open an issue](https://github.com/ROCm/ROCgdb/issues).

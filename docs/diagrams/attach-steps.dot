@@ -1,0 +1,19 @@
+digraph G {
+graph [fontname="Helvetica", bgcolor="white", nodesep=0.45, ranksep=0.5, pad=0.2]; node [fontname="Helvetica", fontsize=12, shape=box, style="filled,rounded", color="#9db8e6", fillcolor="#dbe8fb", fontcolor="#1f2328", margin="0.18,0.1"]; edge [fontname="Helvetica", fontsize=11, color="#57606a", fontcolor="#1f2328"];
+
+start [label="You need to debug an application\nthat is already running", shape=box, color="#d9b76b", fillcolor="#fff4dc"];
+c0 [label="Can you restart it?", shape=diamond, style=filled, color="#9db8e6", fillcolor="#dbe8fb", margin="0.05,0.05"];
+s1 [label="1. Restart it with HSA_ENABLE_DEBUG=1"];
+n1 [label="Attach anyway. Waves that already\nexist may show ? in their IDs", color="#e0a43a", fillcolor="#feefb3"];
+s2 [label="2. Find the process ID"];
+c3 [label="3. Does rocgdb -p PID attach?", shape=diamond, style=filled, color="#9db8e6", fillcolor="#dbe8fb", margin="0.05,0.05"];
+f3 [label="Fix ptrace permission\nor the container setup", color="#e0a43a", fillcolor="#feefb3"];
+c4 [label="4. Does info threads show\nAMDGPU Wave entries?", shape=diamond, style=filled, color="#9db8e6", fillcolor="#dbe8fb", margin="0.05,0.05"];
+a [label="5a. Inspect the waves\nthat are running"];
+b [label="5b. Break on the next\nkernel launch"];
+end [label="6. Detach. The application\nkeeps running", color="#5bb381", fillcolor="#e3f9ec"];
+start -> c0; c0 -> s1 [label=" Yes "]; c0 -> n1 [label=" No "]; s1 -> s2; n1 -> s2; s2 -> c3;
+c3 -> f3 [label=" No "]; f3 -> c3; c3 -> c4 [label=" Yes "];
+c4 -> a [label=" Yes "]; c4 -> b [label=" No "]; a -> end; b -> end;
+
+}

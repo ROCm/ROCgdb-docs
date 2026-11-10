@@ -34,6 +34,8 @@ This page assumes you can compile and run `saxpy`. It explains the ROCgdb ideas,
 * You have the [saxpy](https://github.com/ROCm/rocm-examples/tree/amd-staging/HIP-Basic/saxpy) example from the ROCm examples repository, or an equivalent one-kernel HIP program. The commands on this page assume the `saxpy` example directory, where the kernel is named `saxpy_kernel`.
 * The application runs without the debugger.
 
+(rocgdb-first-hip-kernel-build)=
+
 ## 1. Compile with debug information
 
 Build the {term}`HIP` application so that source lines and variables are available to the debugger. The `-ggdb` option adds debug information, so ROCgdb can map machine code back to your source lines and variables. The `-O0` option turns off optimization, so the compiler doesn't reorder code or remove variables that you want to inspect. The `-I` option points to the example's shared header.
@@ -97,6 +99,8 @@ If you run `break saxpy_kernel` without `set breakpoint pending on`, ROCgdb asks
 If the application runs to completion without stopping, check debug symbols, breakpoint resolution, and whether the kernel launched. A ROCm-capable GPU must be visible to the application. If it isn't, the application exits with a HIP error before it launches the kernel. See {ref}`rocgdb-troubleshoot-breakpoint-not-hit`.
 :::
 
+(rocgdb-first-hip-kernel-select-wave)=
+
 ## 5. Select a wave
 
 ROCgdb represents a GPU {term}`wave` through GDB's thread abstraction. List the threads, then select the wave you want to inspect.
@@ -142,6 +146,8 @@ Sample output. This sample is illustrative, like the previous one:
 ```
 
 **Expected result:** The selected context identifies one wave and one lane.
+
+(rocgdb-first-hip-kernel-inspect-value)=
 
 ## 7. Inspect a value
 

@@ -1,0 +1,23 @@
+digraph G {
+graph [fontname="Helvetica", bgcolor="white", nodesep=0.45, ranksep=0.45, pad=0.2];
+node [fontname="Helvetica", fontsize=12, shape=box, style="filled,rounded", color="#9db8e6", fillcolor="#dbe8fb", fontcolor="#1f2328", margin="0.18,0.1"];
+edge [fontname="Helvetica", fontsize=11, color="#57606a", fontcolor="#1f2328"];
+you [label="You\ncommand line, TUI, or an IDE through GDB/MI", color="#d9b76b", fillcolor="#fff4dc"];
+gdb [label="ROCgdb\nGDB with AMD GPU support"];
+cc [label="ROCm compiler (amdclang++)\nadds debug information", color="#5bb381", fillcolor="#e3f9ec"];
+app [label="Your HIP application\nhost code and GPU kernels", color="#5bb381", fillcolor="#e3f9ec"];
+rt [label="HSA runtime (ROCr), which HIP sits on\nloads GPU code objects", color="#5bb381", fillcolor="#e3f9ec"];
+dbg [label="AMD Debugger API library\nROCdbgapi"];
+comgr [label="AMD Code Object Manager library\nROCcomgr"];
+drv [label="amdgpu driver (KFD interface)\ndebug support", color="#5bb381", fillcolor="#e3f9ec"];
+gpu [label="AMD GPU\nagents, queues, dispatches, waves, lanes", color="#8f7fe0", fillcolor="#e8e4ff"];
+you -> gdb;
+gdb -> app [label=" host threads and memory "];
+cc -> app [style=dotted, label=" builds "];
+app -> rt;
+gdb -> dbg;
+rt -> dbg [style=dotted, label=" registers loaded code objects "];
+dbg -> comgr [label=" disassembles GPU code "];
+dbg -> drv;
+drv -> gpu;
+}

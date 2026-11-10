@@ -1,0 +1,18 @@
+digraph G {
+graph [fontname="Helvetica", bgcolor="white", nodesep=0.45, ranksep=0.5, pad=0.2]; node [fontname="Helvetica", fontsize=12, shape=box, style="filled,rounded", color="#9db8e6", fillcolor="#dbe8fb", fontcolor="#1f2328", margin="0.18,0.1"]; edge [fontname="Helvetica", fontsize=11, color="#57606a", fontcolor="#1f2328"];
+
+start [label="Some output values are wrong", shape=box, color="#d9b76b", fillcolor="#fff4dc"];
+c1 [label="1. Does catch hiperr stop\non a HIP error?", shape=diamond, style=filled, color="#9db8e6", fillcolor="#dbe8fb", margin="0.05,0.05"];
+f1 [label="Fix the failing HIP call.\nThe kernel may be fine", color="#e0a43a", fillcolor="#feefb3"];
+s2 [label="2. Work out which work-item\nwrote a wrong element"];
+s3 [label="3. Stop only that work-item\nwith a conditional breakpoint"];
+c4 [label="4. Are the values it\nreads correct?", shape=diamond, style=filled, color="#9db8e6", fillcolor="#dbe8fb", margin="0.05,0.05"];
+f4 [label="The bug is earlier: a host copy or\nthe kernel that produced the input", color="#e0a43a", fillcolor="#feefb3"];
+c5 [label="5. Step and print. Does the value\ngo wrong in this work-item?", shape=diamond, style=filled, color="#9db8e6", fillcolor="#dbe8fb", margin="0.05,0.05"];
+ok [label="You found the line. Fix the code", color="#5bb381", fillcolor="#e3f9ec"];
+s6 [label="6. The value is right here, so watch\nthe output to see what overwrites it"];
+start -> c1; c1 -> f1 [label=" Yes "]; c1 -> s2 [label=" No "]; s2 -> s3; s3 -> c4;
+c4 -> f4 [label=" No "]; c4 -> c5 [label=" Yes "];
+c5 -> ok [label=" Yes "]; c5 -> s6 [label=" No "];
+
+}
