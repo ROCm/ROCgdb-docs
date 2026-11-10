@@ -44,17 +44,9 @@ $ amdclang++ -ggdb -O0 -x hip --offload-arch=native -I../../Common main.hip -o s
 
 If you build with `hipcc`, use the same options: `hipcc -ggdb -O0 -I../../Common main.hip -o saxpy`.
 
-:::{admonition} Expected result
-:class: rocgdb-expected
+**Expected result:** The `saxpy` binary exists and still runs: `./saxpy` prints the usual host-side result.
 
-The `saxpy` binary exists and still runs: `./saxpy` prints the usual host-side result.
-:::
-
-:::{admonition} If this fails
-:class: rocgdb-iffails
-
-Fix the HIP build first. If you omit `-ggdb` or use a high `-O` level, later steps look like debugger bugs.
-:::
+**If this fails:** Fix the HIP build first. If you omit `-ggdb` or use a high `-O` level, later steps look like debugger bugs.
 
 ## 2. Launch ROCgdb
 
@@ -64,11 +56,7 @@ Start the binary under the debugger. The process isn't running yet; you get a `(
 $ rocgdb ./saxpy
 ```
 
-:::{admonition} Expected result
-:class: rocgdb-expected
-
-ROCgdb reads symbols from `./saxpy` and shows the `(gdb)` prompt.
-:::
+**Expected result:** ROCgdb reads symbols from `./saxpy` and shows the `(gdb)` prompt.
 
 ## 3. Set a kernel breakpoint
 
@@ -79,10 +67,7 @@ By default, the HIP runtime loads GPU code only when the first kernel launches. 
 (gdb) break saxpy_kernel
 ```
 
-:::{admonition} Expected result
-:class: rocgdb-expected
-
-ROCgdb reports that it can't find the function yet and that the breakpoint is pending:
+**Expected result:** ROCgdb reports that it can't find the function yet and that the breakpoint is pending:
 
 ```shell
 Function "saxpy_kernel" not defined.
@@ -90,10 +75,8 @@ Breakpoint 1 (saxpy_kernel) pending.
 ```
 
 `info breakpoints` lists the breakpoint with `<PENDING>` as its address until the kernel's code is loaded.
-:::
 
 :::{admonition} If this fails
-:class: rocgdb-iffails
 
 If you run `break saxpy_kernel` without `set breakpoint pending on`, ROCgdb asks `Make breakpoint pending on future shared library load? (y or [n])`. If you answer `n`, no breakpoint is created and the kernel never stops. See {ref}`rocgdb-troubleshoot-breakpoint-not-hit`.
 :::
@@ -104,14 +87,9 @@ If you run `break saxpy_kernel` without `set breakpoint pending on`, ROCgdb asks
 (gdb) run
 ```
 
-:::{admonition} Expected result
-:class: rocgdb-expected
-
-Execution stops inside `saxpy_kernel`, and ROCgdb reports an AMDGPU wave.
-:::
+**Expected result:** Execution stops inside `saxpy_kernel`, and ROCgdb reports an AMDGPU wave.
 
 :::{admonition} If this fails
-:class: rocgdb-iffails
 
 If the application runs to completion without stopping, check debug symbols, breakpoint resolution, and whether the kernel launched. A ROCm-capable GPU must be visible to the application. If it isn't, the application exits with a HIP error before it launches the kernel. See {ref}`rocgdb-troubleshoot-breakpoint-not-hit`.
 :::
@@ -139,11 +117,7 @@ Select a wave by its ID:
 (gdb) thread <wave-thread-id>
 ```
 
-:::{admonition} Expected result
-:class: rocgdb-expected
-
-The `AMDGPU Wave` entry is marked with `*` as the current thread.
-:::
+**Expected result:** The `AMDGPU Wave` entry is marked with `*` as the current thread.
 
 ## 6. Select a lane
 
@@ -164,11 +138,7 @@ Sample output. This sample is illustrative, like the previous one:
 (gdb) lane <lane-id>
 ```
 
-:::{admonition} Expected result
-:class: rocgdb-expected
-
-The selected context identifies one wave and one lane.
-:::
+**Expected result:** The selected context identifies one wave and one lane.
 
 ## 7. Inspect a value
 
@@ -181,14 +151,9 @@ Print variables in the context of the selected wave and lane.
 
 Each command prints a value in the form `$<n> = <value>`.
 
-:::{admonition} Expected result
-:class: rocgdb-expected
-
-The values correspond to the lane you selected. Select a different lane and print again to see them change.
-:::
+**Expected result:** The values correspond to the lane you selected. Select a different lane and print again to see them change.
 
 :::{admonition} If this fails
-:class: rocgdb-iffails
 
 If a variable is unavailable or optimized out, verify the optimization level (`-O0`), the variable scope, and the selected lane.
 :::
