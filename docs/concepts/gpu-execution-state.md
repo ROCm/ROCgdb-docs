@@ -98,8 +98,6 @@ ROCgdb doesn't talk to the GPU directly. It works through the ROCm components be
 
 <a href="../_static/rocgdb-components.svg" target="_blank" rel="noopener" title="Open the diagram in a new tab"><img src="../_static/rocgdb-components.svg" style="max-width: 100%; height: auto;" alt="Block diagram of how ROCgdb connects to your application, ROCdbgapi, the HSA runtime, the amdgpu driver, and the AMD GPU. The component table below describes each part."></a>
 
-Colours in the diagram: yellow is you, blue is the debugger and its libraries, green is your application and the ROCm stack, and purple is the GPU.
-
 ```{list-table}
 :header-rows: 1
 

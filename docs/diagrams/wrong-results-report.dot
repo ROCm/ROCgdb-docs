@@ -1,13 +1,25 @@
 digraph G {
-graph [fontname="Helvetica", bgcolor="white", nodesep=0.45, ranksep=0.5, pad=0.2]; node [fontname="Helvetica", fontsize=12, shape=box, style="filled,rounded", color="#9db8e6", fillcolor="#dbe8fb", fontcolor="#1f2328", margin="0.18,0.1"]; edge [fontname="Helvetica", fontsize=11, color="#57606a", fontcolor="#1f2328"];
+@graph; @edge; @base;
 
-start [label="print and x disagree, or ROCgdb shows\na value the application never wrote", shape=box, color="#d9b76b", fillcolor="#fff4dc"];
-c1 [label="Does a row in Known limitations\nmatch what you see?", shape=diamond, style=filled, color="#9db8e6", fillcolor="#dbe8fb", margin="0.05,0.05"];
-u [label="Use that row's workaround.\nIf it has none, the behavior is expected", color="#e0a43a", fillcolor="#feefb3"];
-c2 [label="Is the problem in the\ndocumentation itself?", shape=diamond, style=filled, color="#9db8e6", fillcolor="#dbe8fb", margin="0.05,0.05"];
-d [label="Open a ROCgdb-docs issue", color="#8f7fe0", fillcolor="#e8e4ff"];
-r [label="Search ROCgdb issues, then open\none with the evidence below", color="#8f7fe0", fillcolor="#e8e4ff"];
-start -> c1; c1 -> u [label=" Yes "]; c1 -> c2 [label=" No "];
-c2 -> d [label=" Yes "]; c2 -> r [label=" No "];
+node [@dark];
+start [label="ROCgdb prints a value that differs from an\nindependent one, such as a printf"];
 
+node [@decision];
+c1 [label="Does a row in Known limitations\nmatch what you see?"];
+c2 [label="Is the problem in the\ndocumentation itself?"];
+
+node [@done];
+u [label="Use that row's workaround.\nIf it has none, the\nbehavior is expected."];
+d [label="Open a ROCgdb-docs issue."];
+r [label="Search ROCgdb issues, then\nopen one with the\nevidence below."];
+
+edge [fontname="Helvetica-Bold,Arial,sans-serif"];
+start -> c1;
+c1 -> u [label="Yes"];
+c1 -> c2 [label="No"];
+c2 -> d [label="Yes"];
+c2 -> r [label="No"];
+
+{rank=same; c1; u}
+{rank=same; c2; d}
 }

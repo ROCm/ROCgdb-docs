@@ -49,7 +49,7 @@ If you haven't stopped in a kernel before, start with {ref}`Debug your first HIP
 
 ## How the checks fit together
 
-<a href="../_static/rocgdb-known-limitations-checks.svg" target="_blank" rel="noopener" title="Open the diagram in a new tab"><img src="../_static/rocgdb-known-limitations-checks.svg" style="max-width: 100%; height: auto;" alt="Flowchart of the four checks on this page. Check that info agents lists your GPU with state A, fixing driver, firmware, or runtime warnings if it doesn't. Check that the GPU code is built with -ggdb -O0, rebuilding if it isn't. Then look for a matching row in the limitations tables. If there is none, report a problem."></a>
+<a href="../_static/rocgdb-known-limitations-checks.svg" target="_blank" rel="noopener" title="Open the diagram in a new tab"><img src="../_static/rocgdb-known-limitations-checks.svg" style="max-width: 100%; height: auto;" alt="Flowchart of the four checks on this page. Check that info agents lists your GPU with state A, fixing driver, firmware, runtime, or ROCm setup problems if it doesn't. Check that the GPU code is built with -ggdb -O0 by a current ROCm compiler, rebuilding if it isn't. Then look for a matching row in the limitations tables. If there is none, report a problem."></a>
 
 (rocgdb-kl-check-gpu)=
 

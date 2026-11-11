@@ -1,23 +1,45 @@
 digraph G {
-graph [fontname="Helvetica", bgcolor="white", nodesep=0.45, ranksep=0.45, pad=0.2];
-node [fontname="Helvetica", fontsize=12, shape=box, style="filled,rounded", color="#9db8e6", fillcolor="#dbe8fb", fontcolor="#1f2328", margin="0.18,0.1"];
-edge [fontname="Helvetica", fontsize=11, color="#57606a", fontcolor="#1f2328"];
-you [label="You\ncommand line, TUI, or an IDE through GDB/MI", color="#d9b76b", fillcolor="#fff4dc"];
-gdb [label="ROCgdb\nGDB with AMD GPU support"];
-cc [label="ROCm compiler (amdclang++)\nadds debug information", color="#5bb381", fillcolor="#e3f9ec"];
-app [label="Your HIP application\nhost code and GPU kernels", color="#5bb381", fillcolor="#e3f9ec"];
-rt [label="HSA runtime (ROCr), which HIP sits on\nloads GPU code objects", color="#5bb381", fillcolor="#e3f9ec"];
-dbg [label="AMD Debugger API library\nROCdbgapi"];
-comgr [label="AMD Code Object Manager library\nROCcomgr"];
-drv [label="amdgpu driver (KFD interface)\ndebug support", color="#5bb381", fillcolor="#e3f9ec"];
-gpu [label="AMD GPU\nagents, queues, dispatches, waves, lanes", color="#8f7fe0", fillcolor="#e8e4ff"];
+@graph; @edge; @base;
+graph [compound=true, ranksep=0.5];
+
+node [@done];
+you [label=<<B>You</B><BR/><FONT POINT-SIZE="11" COLOR="#57606a">command line, TUI, or an IDE through GDB/MI</FONT>>];
+
+subgraph cluster_dbg {
+  label=<<B>DEBUGGER</B>>; labeljust=l; fontname="Helvetica,Arial,sans-serif"; fontsize=10; fontcolor="#57606a";
+  style="rounded,filled"; fillcolor="#f6f9fe"; color="#9db8e6";
+  node [@blue];
+  gdb [label=<<B>ROCgdb</B><BR/><FONT POINT-SIZE="11" COLOR="#57606a">GDB with AMD GPU support</FONT>>];
+  dbg [label=<<B>ROCdbgapi</B><BR/><FONT POINT-SIZE="11" COLOR="#57606a">AMD Debugger API library</FONT>>];
+  comgr [label=<<B>ROCcomgr</B><BR/><FONT POINT-SIZE="11" COLOR="#57606a">AMD Code Object Manager library</FONT>>];
+}
+
+subgraph cluster_app {
+  label=<<B>YOUR APPLICATION</B>>; labeljust=l; fontname="Helvetica,Arial,sans-serif"; fontsize=10; fontcolor="#57606a";
+  style="rounded,filled"; fillcolor="#fafafa"; color="#c4cad0";
+  node [@action];
+  cc [label=<<B>ROCm compiler</B><BR/><FONT POINT-SIZE="11" COLOR="#57606a">amdclang++ adds debug information</FONT>>];
+  app [label=<<B>HIP application</B><BR/><FONT POINT-SIZE="11" COLOR="#57606a">host code and GPU kernels</FONT>>];
+  rt [label=<<B>HSA runtime (ROCr)</B><BR/><FONT POINT-SIZE="11" COLOR="#57606a">HIP sits on it; loads GPU code objects</FONT>>];
+}
+
+subgraph cluster_sys {
+  label=<<B>SYSTEM</B>>; labeljust=r; fontname="Helvetica,Arial,sans-serif"; fontsize=10; fontcolor="#57606a";
+  style="rounded,filled"; fillcolor="#fafafa"; color="#c4cad0";
+  node [@action];
+  drv [label=<<B>amdgpu driver</B><BR/><FONT POINT-SIZE="11" COLOR="#57606a">KFD interface, debug support</FONT>>];
+  node [@dark];
+  gpu [label=<<B>AMD GPU</B><BR/><FONT POINT-SIZE="11" COLOR="#c4cad0">agents, queues, dispatches, waves, lanes</FONT>>];
+}
+
+edge [fontname="Helvetica,Arial,sans-serif"];
 you -> gdb;
-gdb -> app [label=" host threads and memory "];
-cc -> app [style=dotted, label=" builds "];
+cc -> app [label=" builds"];
+gdb -> app [label=" host threads\n and memory"];
 app -> rt;
-gdb -> dbg;
-rt -> dbg [style=dotted, label=" registers loaded code objects "];
-dbg -> comgr [label=" disassembles GPU code "];
-dbg -> drv;
+rt -> dbg [label=" lists loaded\n code objects"];
+gdb -> dbg [weight=3, label=" reads and controls\n GPU state"];
+dbg -> comgr [label=" disassembles\n GPU code"];
+dbg -> drv [label=" debug interface"];
 drv -> gpu;
 }

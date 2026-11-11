@@ -1,16 +1,32 @@
 digraph G {
-graph [fontname="Helvetica", bgcolor="white", nodesep=0.45, ranksep=0.5, pad=0.2]; node [fontname="Helvetica", fontsize=12, shape=box, style="filled,rounded", color="#9db8e6", fillcolor="#dbe8fb", fontcolor="#1f2328", margin="0.18,0.1"]; edge [fontname="Helvetica", fontsize=11, color="#57606a", fontcolor="#1f2328"];
+@graph; @edge; @base;
 
-start [label="ROCgdb doesn't do\nwhat you expect", shape=box, color="#d9b76b", fillcolor="#fff4dc"];
-c1 [label="1. Does info agents list\nyour GPU with state A?", shape=diamond, style=filled, color="#9db8e6", fillcolor="#dbe8fb", margin="0.05,0.05"];
-f2 [label="2. Read the amd-dbgapi warnings and\nfix the driver, firmware, or runtime", color="#e0a43a", fillcolor="#feefb3"];
-c3 [label="3. Is the GPU code built\nwith -ggdb -O0?", shape=diamond, style=filled, color="#9db8e6", fillcolor="#dbe8fb", margin="0.05,0.05"];
-f3 [label="Rebuild with -ggdb -O0", color="#e0a43a", fillcolor="#feefb3"];
-c4 [label="4. Does a row in the\nlimitations tables match?", shape=diamond, style=filled, color="#9db8e6", fillcolor="#dbe8fb", margin="0.05,0.05"];
-yes [label="Use the workaround in that row", color="#5bb381", fillcolor="#e3f9ec"];
-rep [label="Report a problem", color="#8f7fe0", fillcolor="#e8e4ff"];
-start -> c1; c1 -> f2 [label=" No "]; f2 -> c1; c1 -> c3 [label=" Yes "];
-c3 -> f3 [label=" No "]; f3 -> c3; c3 -> c4 [label=" Yes "];
-c4 -> yes [label=" Yes "]; c4 -> rep [label=" No "];
+node [@dark];
+start [label="ROCgdb doesn't do\nwhat you expect"];
 
+node [@decision];
+c1 [label="1. Does info agents list\nyour GPU with state A?"];
+c3 [label="3. Is the GPU code built with\n-ggdb -O0 by a current compiler?"];
+c4 [label="4. Does a row in the\nlimitations tables match?"];
+
+node [@action];
+f2 [label="2. Read the amd-dbgapi warnings. Fix\nthe driver, firmware, runtime, or ROCm\nsetup, then check again."];
+f3 [label="Rebuild with -ggdb -O0 and your\ncurrent ROCm compiler, then check again."];
+
+node [@done];
+yes [label="Use the workaround\nin that row."];
+rep [label="Report a problem."];
+
+edge [fontname="Helvetica-Bold,Arial,sans-serif"];
+start -> c1;
+c1 -> f2 [label="No"];
+c1 -> c3 [label="Yes"];
+c3 -> f3 [label="No"];
+c3 -> c4 [label="Yes"];
+c4 -> yes [label="Yes"];
+c4 -> rep [label="No"];
+
+{rank=same; c1; f2}
+{rank=same; c3; f3}
+{rank=same; yes; rep}
 }

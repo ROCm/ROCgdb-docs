@@ -1,16 +1,30 @@
 digraph G {
-graph [fontname="Helvetica", bgcolor="white", nodesep=0.45, ranksep=0.5, pad=0.2]; node [fontname="Helvetica", fontsize=12, shape=box, style="filled,rounded", color="#9db8e6", fillcolor="#dbe8fb", fontcolor="#1f2328", margin="0.18,0.1"]; edge [fontname="Helvetica", fontsize=11, color="#57606a", fontcolor="#1f2328"];
+@graph; @edge; @base;
 
-start [label="Still stuck after the steps\non this page", shape=box, color="#d9b76b", fillcolor="#fff4dc"];
-c1 [label="Does the application work\nwithout ROCgdb?", shape=diamond, style=filled, color="#9db8e6", fillcolor="#dbe8fb", margin="0.05,0.05"];
-f1 [label="Fix the application or ROCm setup first.\nROCm problems go to ROCm/TheRock issues", color="#e0a43a", fillcolor="#feefb3"];
-c2 [label="Does a row in Known limitations\nmatch what you see?", shape=diamond, style=filled, color="#9db8e6", fillcolor="#dbe8fb", margin="0.05,0.05"];
-u [label="Use that row's workaround.\nIf it has none, the behavior is expected", color="#e0a43a", fillcolor="#feefb3"];
-c3 [label="Is the problem in the\ndocumentation itself?", shape=diamond, style=filled, color="#9db8e6", fillcolor="#dbe8fb", margin="0.05,0.05"];
-d [label="Open a ROCgdb-docs issue", color="#8f7fe0", fillcolor="#e8e4ff"];
-r [label="Search ROCgdb issues, then open\none with the evidence below", color="#8f7fe0", fillcolor="#e8e4ff"];
-start -> c1; c1 -> f1 [label=" No "]; c1 -> c2 [label=" Yes "];
-c2 -> u [label=" Yes "]; c2 -> c3 [label=" No "];
-c3 -> d [label=" Yes "]; c3 -> r [label=" No "];
+node [@dark];
+start [label="Still stuck after the steps\non this page"];
 
+node [@decision];
+c1 [label="Does the application work\nwithout ROCgdb?"];
+c2 [label="Does a row in Known limitations\nmatch what you see?"];
+c3 [label="Is the problem in the\ndocumentation itself?"];
+
+node [@done];
+f1 [label="Fix the application or ROCm\nsetup first. ROCm problems go\nto ROCm/TheRock issues."];
+u [label="Use that row's workaround.\nIf it has none, the\nbehavior is expected."];
+d [label="Open a ROCgdb-docs issue."];
+r [label="Search ROCgdb issues, then\nopen one with the\nevidence below."];
+
+edge [fontname="Helvetica-Bold,Arial,sans-serif"];
+start -> c1;
+c1 -> f1 [label="No"];
+c1 -> c2 [label="Yes"];
+c2 -> u [label="Yes"];
+c2 -> c3 [label="No"];
+c3 -> d [label="Yes"];
+c3 -> r [label="No"];
+
+{rank=same; c1; f1}
+{rank=same; c2; u}
+{rank=same; c3; d}
 }
