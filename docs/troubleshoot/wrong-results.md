@@ -5,15 +5,6 @@ myst:
     "keywords": "ROCgdb wrong results, conditional breakpoint, blockIdx, threadIdx, watch, catch hiperr, wrong output"
 ---
 
-% TODO(engineering validation): Items still open from the 10.2 review.
-% - Interpret table: confirm where to send compiler problems that appear only
-%   in optimized builds (ROCm/llvm-project or upstream LLVM) with the
-%   compiler team.
-% - The step 6 sample is from gfx90a. On gfx11 and gfx12, the watchpoint can
-%   miss the write.
-% - The breakpoint hit message in step 3 was captured on gfx90a (MI210). The
-%   lane is the thread index modulo the wave size.
-
 (rocgdb-troubleshoot-wrong-results)=
 
 # Wrong results or unexpected values

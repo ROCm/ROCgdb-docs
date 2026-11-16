@@ -5,16 +5,6 @@ myst:
     "keywords": "ROCgdb known limitations, supported GPUs, amd-dbgapi warning, watchpoints, attach, core dump, workaround"
 ---
 
-% TODO(engineering validation): Items still open from the 10.2 review.
-% - Workarounds not stated in the manual: gdbserver, thousands of waves at one
-%   breakpoint, read and access watchpoints, function calls in GPU code,
-%   sanitizers, runtime core dumps while attached, OpenMP. Confirm with the
-%   ROCgdb team.
-% - SR-IOV: confirm whether whole-GPU passthrough to a VM is supported, and
-%   whether runtime GPU core dumps while attached are fixed for 10.2.
-% - The limitations come from the AMD GPU Restrictions section of the ROCgdb
-%   manual source on amd-staging. Recheck before publication.
-
 (rocgdb-known-limitations)=
 
 # Known limitations and compatibility

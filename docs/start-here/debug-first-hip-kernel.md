@@ -5,15 +5,6 @@ myst:
     "keywords": "ROCgdb tutorial, debug HIP kernel, first kernel breakpoint, wave, lane, saxpy"
 ---
 
-% TODO(engineering validation): Confirm the expected-result statements on
-% this page against a supported ROCm and ROCgdb release before publication.
-% Replace the illustrative `info threads` and `info lanes` samples with
-% output captured from a real saxpy run on a supported GPU. The source line
-% in `saxpy_kernel () at main.hip:8` is a placeholder: in the rocm-examples
-% amd-staging saxpy `main.hip`, the kernel is defined at line 36, so the
-% reported stop line will differ. Also add real output to the expected
-% result in step 4.
-
 (rocgdb-first-hip-kernel)=
 
 # Debug your first HIP kernel

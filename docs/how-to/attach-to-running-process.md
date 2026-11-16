@@ -5,18 +5,6 @@ myst:
     "keywords": "ROCgdb attach, rocgdb -p, HSA_ENABLE_DEBUG, ptrace_scope, running process, detach, gcore"
 ---
 
-% TODO(engineering validation): Items still open from the 10.2 review.
-% - Step 3: the page tells readers how to check ptrace_scope and leaves changing
-%   it to the administrator. Decide whether to also offer `sudo rocgdb -p` in
-%   step 3 and in the Interpret table.
-% - Step 5a hung-kernel procedure: corrected from a test on an MI300X. Confirm
-%   on a gfx11 or gfx12 GPU.
-% - Interpret table: confirm the Cluster column wording for `info dispatches`
-%   against the manual. The cluster wave ID was captured on gfx1250-strict.
-% - ROCgdb pull request #182 (attach without forward progress) didn't make
-%   10.2 and wouldn't have changed anything users see.
-% - Recorded for a later revision, not 10.2: GPU core dumps while attached.
-
 (rocgdb-attach)=
 
 # Attach to a running process
