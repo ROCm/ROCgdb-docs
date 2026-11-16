@@ -182,7 +182,7 @@ If the value is right when this work-item writes it but wrong at the end, someth
 (gdb) continue
 ```
 
-Each time the value changes, ROCgdb stops and shows the old value and the new value. Run `info threads` to see which wave is current. Output captured on an AMD Instinct MI210 (gfx90a), where a second kernel, `clobber_kernel`, overwrites the element. It's Hardware watchpoint 3 because the catchpoint and breakpoint from steps 1 and 3 come first:
+Each time the value changes, ROCgdb stops and shows the old value and the new value. Run `info threads` to see which wave is current. Output captured on an AMD Instinct MI210 (gfx90a), with a modified copy of the saxpy example in which a second kernel, `clobber_kernel`, overwrites the element. It's Hardware watchpoint 3 because the catchpoint and breakpoint from steps 1 and 3 come first:
 
 ```text
 Thread 15634 "clobber_kernel" hit Hardware watchpoint 3: -location d_y[global_idx]

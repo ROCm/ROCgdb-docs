@@ -314,9 +314,12 @@ Use ``print`` to show the value of a variable, an array slice, or an expression 
    * - Print a variable
      - ``print <variable>``
      - ``print foo``
-   * - Print an array
-     - ``print *<address>@<count>``
-     - ``print *foo[2]@8``
+   * - Print part of an array
+     - ``print <array>[<index>]@<count>``
+     - ``print foo[2]@8``
+   * - Print memory through a pointer
+     - ``print *<pointer>@<count>``
+     - ``print *ptr@8``
    * - Print an expression
      - ``print <expression>``
      - ``print foo[4] >> 1``
