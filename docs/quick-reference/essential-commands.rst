@@ -14,7 +14,7 @@ This page uses the terms :term:`agent <HSA agent>`, :term:`wave`, and :term:`lan
 
 .. note::
 
-   The sample output is illustrative. It comes from different sessions and different programs, so thread IDs, addresses, file names, line numbers, and kernel names differ between samples, and they differ from the output on your system and from the sample output in :ref:`rocgdb-first-hip-kernel`.
+   The sample output is illustrative. The samples come from different sessions and programs, so thread IDs, addresses, file names, line numbers, and kernel names vary from sample to sample. Your output differs too.
 
 .. list-table::
    :header-rows: 1
@@ -24,7 +24,7 @@ This page uses the terms :term:`agent <HSA agent>`, :term:`wave`, and :term:`lan
      - Go to
    * - Attach to a program that is already running
      - `Attach to a running process`_
-   * - Look at code, agents, queues, waves, lanes, frames, and registers
+   * - Look at code, agents, queues, dispatches, waves, lanes, frames, registers, and memory
      - `Inspect kernel state`_
    * - Print a variable, array, or expression
      - `Print kernel data`_
@@ -35,10 +35,12 @@ This page uses the terms :term:`agent <HSA agent>`, :term:`wave`, and :term:`lan
    * - Set breakpoints, step, and resume
      - `Control kernel execution`_
 
+.. _rocgdb-commands-attach:
+
 Attach to a running process
 ===========================
 
-To attach ROCgdb to a program that is already running, instead of starting it under ROCgdb, use the following commands. Use ``pgrep -a <program-name>`` to find the ``<process-id>`` of the application.
+To attach ROCgdb to a program that's already running, find its process ID with ``pgrep -a <program-name>``, then attach:
 
 .. code-block:: shell
 
@@ -51,7 +53,7 @@ For the full procedure, including what to do if the attach fails, see :ref:`rocg
 Inspect kernel state
 ====================
 
-Use these commands to look at code, agents, queues, waves, lanes, frames, registers, and memory.
+Use these commands to look at code, agents, queues, dispatches, waves, lanes, frames, registers, and memory.
 
 Source and disassembly
 ----------------------
@@ -76,9 +78,9 @@ Source and disassembly
      - ``layout asm``
      - Opens the TUI with the assembly code.
 
-.. dropdown:: Sample output: ``list``
+Sample output for ``list``:
 
-   .. code-block:: text
+.. code-block:: text
 
        1  #include <hip/hip_runtime.h>
        2  #include <algorithm>
@@ -101,9 +103,9 @@ Source and disassembly
        ....
        99  }
 
-.. dropdown:: Sample output: ``disassemble``
+Sample output for ``disassemble``:
 
-   .. code-block:: shell
+.. code-block:: text
 
        Dump of assembler code for function _ZL3bari:
            0x00007ffff608e2b0 <+0>:     s_waitcnt vmcnt(0) expcnt(0) lgkmcnt(0)
@@ -132,23 +134,23 @@ These commands show the agents, queues, dispatches, threads, waves, and lanes of
      - Notes
    * - List agents
      - ``info agents``
-     - Shows each agent, such as an AMD GPU, in the system. See `info agents command <https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/Heterogeneous-Debugging.html#index-info-agents>`_.
+     - Shows each agent, such as an AMD GPU, in the system. See `info agents command <../ROCgdb/gdb/doc/gdb/Heterogeneous-Debugging.html#index-info-agents>`_.
    * - List queues
      - ``info queues``
-     - Shows each queue that receives kernel dispatches. See `info queues command <https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/Heterogeneous-Debugging.html#index-info-queues>`_.
+     - Shows each queue that receives kernel dispatches. See `info queues command <../ROCgdb/gdb/doc/gdb/Heterogeneous-Debugging.html#index-info-queues>`_.
    * - List dispatches
      - ``info dispatches``
-     - Shows each kernel launch. See `info dispatches command <https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/Heterogeneous-Debugging.html#index-info-dispatches>`_.
+     - Shows each kernel launch. See `info dispatches command <../ROCgdb/gdb/doc/gdb/Heterogeneous-Debugging.html#index-info-dispatches>`_.
    * - List CPU threads and GPU waves
      - ``info threads``
-     - Shows the host threads and the GPU waves. See `Debugging programs with multiple threads <https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/Threads.html>`_.
+     - Shows the CPU threads and the GPU waves. See `Debugging programs with multiple threads <../ROCgdb/gdb/doc/gdb/Threads.html>`_.
    * - List the lanes of the current wave
      - ``info lanes``
-     - Shows the lanes of the current wave. Use it to find the lane that you want to inspect, for example when you compare a variable across work-items in the same wave. A lane is one work-item. A single machine instruction operates on all the active lanes of a wave in parallel, and the ``State`` column shows whether each lane is active (``A``) or inactive (``I``). See `Debugging heterogeneous programs <https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/Heterogeneous-Debugging.html>`_.
+     - Shows the lanes of the current wave and whether each one is active (``A``) or inactive (``I``). Use it to find the lane to inspect. See `Debugging heterogeneous programs <../ROCgdb/gdb/doc/gdb/Heterogeneous-Debugging.html>`_.
 
 Sample output for ``info agents``:
 
-.. code-block:: shell
+.. code-block:: text
 
       Id State Target Id                  Architecture Device Name        Cores Threads Location
     * 1  A     AMDGPU Agent (GPUID 35090) gfx90a       AMD Instinct MI210 416   3328    0000:4a:00.0
@@ -158,7 +160,7 @@ Sample output for ``info agents``:
 
 Sample output for ``info queues``:
 
-.. code-block:: shell
+.. code-block:: text
 
       Id   Target Id                Type         Read   Write  Size     Address
       1    AMDGPU Queue 1:1 (QID 0) HSA          2      2      4096     0x00007ffff626e000
@@ -166,7 +168,7 @@ Sample output for ``info queues``:
 
 Sample output for ``info dispatches``:
 
-.. code-block:: shell
+.. code-block:: text
 
        Id   Target Id                      Grid    Workgroup Fence   Kernel Function
      * 1    AMDGPU Dispatch 1:2:1 (PKID 0) [1,1,1] [1,1,1]   B|Aa|Ra saxpy_kernel()
@@ -181,7 +183,7 @@ In the sample, ``B|Aa|Ra`` means a barrier with acquire and release fences at ag
 
 Sample output for ``info threads``:
 
-.. code-block:: shell
+.. code-block:: text
 
       Id   Target Id                                    Frame
       1    Thread 0x7ffff648bf80 (LWP 1981864) "saxpy" 0x00007ffff5a6c9ef in ?? () from /opt/rocm/lib/libhsa-runtime64.so.1
@@ -192,7 +194,7 @@ Sample output for ``info threads``:
 
 Sample output for ``info lanes``:
 
-.. code-block:: shell
+.. code-block:: text
 
       Id   State Target Id                            Frame
     * 0    A     AMDGPU Lane 1:2:1:1/0 (0,0,0)[0,0,0] saxpy_kernel () at main.hip:8
@@ -222,18 +224,14 @@ Frames and variables
 
 Sample output for ``backtrace``:
 
-This sample comes from a different program than the preceding ``saxpy_kernel`` samples.
-
-.. code-block:: shell
+.. code-block:: text
 
     #0  saxpy (tid=0) at /home/user/saxpy.cpp:33
     #1  0x00007ffff608ee40 in kern () at /home/user/saxpy.cpp:4
 
 Sample output for ``info frame``:
 
-This sample comes from a different program than the preceding ``saxpy_kernel`` samples.
-
-.. code-block:: shell
+.. code-block:: text
 
     Stack level 0, frame at private_wave#0x800:
     pc = 0x7ffff608e3bc in bar (/home/user/saxpy.cpp:33); saved pc = 0x7ffff608ee40
@@ -245,13 +243,13 @@ This sample comes from a different program than the preceding ``saxpy_kernel`` s
 
 Sample output for ``info args``:
 
-.. code-block:: shell
+.. code-block:: text
 
     tid = 0
 
 Sample output for ``info locals``:
 
-.. code-block:: shell
+.. code-block:: text
 
     No locals.
 
@@ -271,10 +269,13 @@ Registers and memory
    * - View all GPU registers
      - ``info all-registers``
      - Shows all registers, not only the general-purpose registers.
+   * - View GPU memory
+     - ``x/<format> <space>#<address>``
+     - Prints memory in an AMD GPU address space. See the examples after the sample output.
 
 Sample output for ``info registers``:
 
-.. code-block:: shell
+.. code-block:: text
 
     v0             {0x30 <repeats 64 times>}
     ....
@@ -284,7 +285,7 @@ Sample output for ``info registers``:
     exec           0x5555555555555555  6148914691236517205
     vcc            0xffffffffffffffff  18446744073709551615
 
-To view GPU data in an address space, use ``x <space>#<address>``. Without a format, this prints one word in hexadecimal. If you leave out ``<space>#``, ROCgdb uses the default address space, which is ``global`` on AMD GPUs. In these examples, the ``/4xw`` format prints four (``4``) words (``w``) in hexadecimal (``x``). The address ``0xdeadbeef`` is a placeholder:
+Without a format, ``x <space>#<address>`` prints one word in hexadecimal. If you leave out ``<space>#``, ROCgdb uses the default address space, which is ``global`` on AMD GPUs. In the following examples, the ``/4xw`` format prints four (``4``) words (``w``) in hexadecimal (``x``), and ``0xdeadbeef`` is a placeholder address:
 
 .. code-block:: shell
 
@@ -294,10 +295,14 @@ To view GPU data in an address space, use ``x <space>#<address>``. Without a for
     (gdb) x/4xw private_wave#0xdeadbeef
     (gdb) x/4xw private_lane#0xdeadbeef
 
-For more information, see `AMD GPU address spaces <https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/AMD-GPU.html#AMD-GPU-Address-Spaces>`_.
+For more information, see `AMD GPU address spaces <../ROCgdb/gdb/doc/gdb/AMD-GPU.html#AMD-GPU-Address-Spaces>`_.
+
+.. _rocgdb-commands-print:
 
 Print kernel data
 =================
+
+Use ``print`` to show the value of a variable, an array slice, or an expression in the current lane.
 
 .. list-table::
    :header-rows: 1
@@ -316,8 +321,8 @@ Print kernel data
      - ``print <expression>``
      - ``print foo[4] >> 1``
    * - Print in a format
-     - ``p/<code> <value>``
-     - ``p/x foo[1]``
+     - ``print/<code> <value>``
+     - ``print/x foo[1]``
 
 The values for ``<code>`` are:
 
@@ -336,9 +341,9 @@ The values for ``<code>`` are:
    * - ``o``
      - Octal
    * - ``t``
-     - Binary (two)
+     - Binary
    * - ``a``
-     - Address (hex + offset)
+     - Address, in hexadecimal and as an offset from the nearest symbol
    * - ``c``
      - Character
    * - ``f``
@@ -353,6 +358,8 @@ The values for ``<code>`` are:
 Modify kernel data
 ==================
 
+Use ``set var`` or ``print`` to change a value in the current lane. ``print`` also shows the new value.
+
 .. list-table::
    :header-rows: 1
    :widths: 35 35 30
@@ -360,15 +367,17 @@ Modify kernel data
    * - Task
      - Command
      - Example
-   * - Modify kernel data directly
+   * - Change a variable
      - ``set var <variable>=<value>``
      - ``set var foo[1]=45``
-   * - Modify kernel data indirectly
+   * - Change a variable and print the new value
      - ``print <variable>=<value>``
      - ``print foo[3]=3``
 
 Change kernel focus
 ===================
+
+Use these commands to choose the thread, wave, lane, or frame that other commands apply to.
 
 .. list-table::
    :header-rows: 1
@@ -377,10 +386,10 @@ Change kernel focus
    * - Task
      - Command
      - Notes
-   * - Change thread
+   * - Select a thread or wave
      - ``thread <id>``
      - Selects a CPU thread or GPU wave by its ``Id`` in the ``info threads`` output. For example, ``thread 9``.
-   * - Change lane
+   * - Select a lane
      - ``lane <id>``
      - Selects a lane of the current wave by its ``Id`` in the ``info lanes`` output. For example, ``lane 5``.
    * - Select a frame
@@ -432,9 +441,13 @@ Set conditional breakpoints
 Set watchpoints and catchpoints
 -------------------------------
 
+To stop when a value changes, use ``watch``:
+
 .. code-block:: shell
 
     (gdb) watch foo[4]
+
+To stop when an event happens, use ``catch``:
 
 .. list-table::
    :header-rows: 1
@@ -469,15 +482,15 @@ Set scheduler modes
    * - Task
      - Command
      - More information
-   * - Lock the scheduler (waves)
+   * - Resume only the current thread or wave
      - ``set scheduler-locking on``
-     - `Scheduler locking mode <https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/All_002dStop-Mode.html#set-scheduler_002dlocking>`_
+     - `Scheduler locking mode <../ROCgdb/gdb/doc/gdb/All_002dStop-Mode.html#set-scheduler_002dlocking>`_
    * - Turn on non-stop mode
      - ``set non-stop on``
-     - `Non-stop mode <https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/Non_002dStop-Mode.html>`_
+     - `Non-stop mode <../ROCgdb/gdb/doc/gdb/Non_002dStop-Mode.html>`_
    * - Turn on all-stop mode
      - ``set non-stop off``
-     - `All-stop mode <https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/All_002dStop-Mode.html>`_
+     - `All-stop mode <../ROCgdb/gdb/doc/gdb/All_002dStop-Mode.html>`_
 
 Manage breakpoints, watchpoints, and catchpoints
 ------------------------------------------------
@@ -536,9 +549,9 @@ To run commands automatically when a breakpoint is hit, use a command sequence:
 .. code-block:: shell
 
     (gdb) break <file>:<line-number>
-    command BREAKPOINT_NUMBER
-    continue
-    end
+    (gdb) commands <breakpoint-number>
+    > continue
+    > end
 
 Can't find a command?
 =====================

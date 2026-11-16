@@ -96,7 +96,7 @@ A lane ID extends the wave ID. In `AMDGPU Lane 1:2:1:1/0 (0,0,0)[0,0,0]`, `1:2:1
 
 ## How ROCgdb fits together
 
-ROCgdb doesn't talk to the GPU directly. It works through the ROCm components below, and each one has to be a version that ROCgdb supports.
+ROCgdb doesn't talk to the GPU directly. It works through the ROCm components in the following diagram, and each one has to be a version that ROCgdb supports.
 
 <a href="../_static/rocgdb-components.svg" target="_blank" rel="noopener" title="Open the diagram in a new tab"><img src="../_static/rocgdb-components.svg" style="max-width: 100%; height: auto;" alt="Block diagram of how ROCgdb connects to your application, ROCdbgapi, the ROCm runtime, the amdgpu driver, and the AMD GPU. The component table below describes each part."></a>
 

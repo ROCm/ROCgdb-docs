@@ -1,7 +1,8 @@
 """Render docs/diagrams/*.dot to docs/_static/rocgdb-<name>.svg with Graphviz,
 and add an accessible title and description to each SVG.
 
-Run from any directory: python3 -I docs/diagrams/build.py
+Run from the repository root: python3 -I docs/diagrams/build.py (the script
+finds its .dot files relative to its own location).
 """
 import re
 import subprocess

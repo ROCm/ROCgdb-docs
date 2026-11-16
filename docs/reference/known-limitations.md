@@ -57,7 +57,7 @@ Other GPUs show the same columns, for example `gfx1100` and `AMD Radeon Pro W790
 :::{admonition} If this fails
 
 * **The GPU shows `U`.** ROCgdb can't debug it. Find its **Architecture** value in the {ref}`GPU architectures table <rocgdb-kl-supported>`. If it isn't listed, there's no workaround on that GPU. If it's listed, the driver or firmware is the problem: go to {ref}`step 2 <rocgdb-kl-warnings>`.
-* **No GPUs are listed, or the program exits before the breakpoint.** The application can't see a GPU. Run `rocminfo` outside ROCgdb. If it lists no `gfx` agent, fix the ROCm installation first. See {ref}`Install ROCm <rocgdb-installation>`. If `rocminfo` lists the GPU, check that `ROCR_VISIBLE_DEVICES` and `HIP_VISIBLE_DEVICES` aren't set to hide it. In a container, check the device mapping in the limitations table in {ref}`step 4 <rocgdb-kl-limitations>`.
+* **No GPUs are listed, or the program exits before the breakpoint.** The application can't see a GPU. Run `rocminfo` outside ROCgdb. If it lists no `gfx` agent, fix the ROCm installation first. See {ref}`Install ROCm Debugger (ROCgdb) <rocgdb-installation>`. If `rocminfo` lists the GPU, check that `ROCR_VISIBLE_DEVICES` and `HIP_VISIBLE_DEVICES` aren't set to hide it. In a container, check the device mapping in the limitations table in {ref}`step 4 <rocgdb-kl-limitations>`.
 :::
 
 (rocgdb-kl-warnings)=
@@ -113,11 +113,11 @@ If ROCgdb reports `ELF file ABI version (0) is not supported`, the GPU code is o
 
 ## 4. Check the known limitations
 
-These limitations apply to this release of ROCgdb. Find the row that matches what you're trying to do. The tables cover the common ones. The full list is in [AMD GPU restrictions](https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/AMD-GPU.html#AMD-GPU-Restrictions) in the manual.
+These limitations apply to this release of ROCgdb. Find the row that matches what you're trying to do. The tables cover the common ones. The full list is in [AMD GPU restrictions](https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/AMD-GPU.html#AMD-GPU-Restrictions) in the ROCgdb user guide.
 
 The **Status** column uses three values:
 
-* **Not supported:** Doesn't work, with or without a workaround.
+* **Not supported:** Doesn't work. The row gives an alternative if there is one.
 * **Limited:** Works with restrictions.
 * **Needs setup:** Works once you change a setting.
 
@@ -303,7 +303,7 @@ ROCgdb supports the following GPU architectures.
   - gfx9-generic, gfx9-4-generic, gfx10-1-generic, gfx10-3-generic, gfx11-generic, gfx11-7-generic, gfx12-generic, gfx12-5-generic
 ```
 
-Example products are from LLVM's [AMDGPU processors table](https://llvm.org/docs/AMDGPUUsage.html#processors), which lists more. On your system, `info agents` shows the product name in the **Device Name** column. Some features don't work on every architecture. See {ref}`step 4 <rocgdb-kl-limitations>`, and the [architectures list in the manual](https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/AMD-GPU.html#AMD-GPU-Architectures).
+Example products are from LLVM's [AMDGPU processors table](https://llvm.org/docs/AMDGPUUsage.html#processors), which lists more. On your system, `info agents` shows the product name in the **Device Name** column. Some features don't work on every architecture. See {ref}`step 4 <rocgdb-kl-limitations>`, and the [architectures list in the ROCgdb user guide](https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/AMD-GPU.html#AMD-GPU-Architectures).
 
 ### Source languages
 
@@ -322,7 +322,7 @@ ROCgdb supports the following source languages.
   - Breakpoints, stepping, registers, and memory work, but values aren't printed with language-aware formatting. The code must be built for Code Object V3 or later with DWARF 4 debug information.
 ```
 
-See [source languages](https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/AMD-GPU.html#AMD-ROCm-Source-Languages) in the manual.
+See [source languages](https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/AMD-GPU.html#AMD-ROCm-Source-Languages) in the ROCgdb user guide.
 
 ## Interpret what you see
 
@@ -338,7 +338,7 @@ Find what you see in the first column.
 * - `info agents` shows `U` for a GPU
   - ROCgdb can't debug that GPU.
   - Check its architecture, then the warnings ({ref}`steps 1 and 2 <rocgdb-kl-check-gpu>`).
-  - [info agents in the manual](https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/Heterogeneous-Debugging.html)
+  - [info agents in the ROCgdb user guide](https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/Heterogeneous-Debugging.html)
 * - No `AMDGPU Wave` ever appears in `info threads`
   - No GPU is visible, or no kernel launched.
   - {ref}`Step 1 <rocgdb-kl-check-gpu>`, then {ref}`confirm the kernel launches <rocgdb-bp-check-launch>`.
@@ -382,8 +382,8 @@ Where to send it:
 To open a ROCgdb issue:
 
 1. **Search first.** Search [ROCgdb issues](https://github.com/ROCm/ROCgdb/issues) for the exact warning or error text. If someone has already reported it, add a thumbs-up and a comment with your evidence rather than opening a new issue. This follows the [ROCm feedback guidance](https://rocm.docs.amd.com/en/latest/contribute/feedback.html).
-2. **Collect the evidence** in the box below.
-3. **Open the issue** with a title like *Watchpoint doesn't trigger on gfx942*, and paste the template below into the description.
+2. **Collect the evidence** in the following box.
+3. **Open the issue** with a title like *Watchpoint doesn't trigger on gfx942*, and paste the following template into the description.
 4. **Watch the issue.** Engineers might ask you to try something, so check back for questions.
 
 :::{admonition} Evidence to collect
@@ -429,4 +429,4 @@ ROCgdb shows your GPU as active with no startup warnings, and you've either foun
 * {ref}`Debug your first HIP kernel <rocgdb-first-hip-kernel>`
 * {ref}`Kernel breakpoint isn't hit <rocgdb-troubleshoot-breakpoint-not-hit>`
 * [ROCm compatibility matrix](https://rocm.docs.amd.com/en/latest/compatibility/compatibility-matrix.html)
-* [AMD GPU restrictions](https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/AMD-GPU.html#AMD-GPU-Restrictions) (full list in the manual)
+* [AMD GPU restrictions](https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/AMD-GPU.html#AMD-GPU-Restrictions) (full list in the ROCgdb user guide)

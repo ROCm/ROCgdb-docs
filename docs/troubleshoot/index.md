@@ -26,16 +26,16 @@ Choose the symptom that matches what you see.
 The application runs to completion without stopping at your breakpoint.
 
 1. Allow pending breakpoints, then set the breakpoint by kernel name: `set breakpoint pending on`, then `break saxpy_kernel`. See {ref}`rocgdb-bp-check-exists`.
-2. Set a breakpoint on the host line that launches the kernel, then `run`. If the program exits first, read its output. See {ref}`rocgdb-bp-check-launch`.
+2. Set a breakpoint on the host line that launches the kernel, then `run`. If the program exits first, read its output. At the launch line, run `info agents`: every GPU you plan to debug should show `A`, with no `amd-dbgapi` warnings at startup. See {ref}`rocgdb-bp-check-launch`.
 3. If the launch is reached but the breakpoint stays `<PENDING>`, run `export HIP_ENABLE_DEFERRED_LOADING=0` and start a new session. See {ref}`rocgdb-bp-check-deferred`.
 4. If the source lines are missing, or none of the preceding steps helps, rebuild with `-ggdb -O0` and start a new session. See {ref}`rocgdb-bp-check-build`.
 
-### It stops on a different line than I set
+### The breakpoint stops on a different line than you set
 
 ROCgdb stops somewhere other than the line you set.
 
 1. Set the breakpoint by kernel function name instead of by source line, with `set breakpoint pending on` first. See {ref}`rocgdb-bp-check-exists`.
-2. Run `export HIP_ENABLE_DEFERRED_LOADING=0` so that the GPU code is loaded before you set the breakpoint. See {ref}`rocgdb-bp-check-deferred`.
+2. Quit ROCgdb, run `export HIP_ENABLE_DEFERRED_LOADING=0` in the shell, and start a new session so that the GPU code is loaded before you set the breakpoint. See {ref}`rocgdb-bp-check-deferred`.
 3. If the source line is wrong or unavailable, rebuild with `-ggdb -O0` and start a new session. See {ref}`rocgdb-bp-check-build`.
 
 ### The program exits before the kernel runs
@@ -43,15 +43,15 @@ ROCgdb stops somewhere other than the line you set.
 The application ends before it reaches your kernel.
 
 1. Set a breakpoint on the host line that launches the kernel, then `run`. If the program exits first, read its output for a HIP error such as `no ROCm-capable device is detected`. See {ref}`rocgdb-bp-check-launch`.
-2. If the application runs correctly outside the debugger, work through the full checklist in {ref}`rocgdb-troubleshoot-breakpoint-not-hit`.
+2. If the application runs correctly outside the debugger, work through the full steps in {ref}`rocgdb-troubleshoot-breakpoint-not-hit`.
 
-For the full ordered checklist and the evidence to include in an issue, see {ref}`rocgdb-troubleshoot-breakpoint-not-hit`.
+For the full ordered steps and the evidence to include in an issue, see {ref}`rocgdb-troubleshoot-breakpoint-not-hit`.
 
-## Wrong results problems
+## Wrong result problems
 
 If the application runs but its output is wrong, start here.
 
-% The page below is canonical. This section only routes to it.
+% The wrong-results page is canonical. This section only routes to it.
 
 ### The kernel runs but some output values are wrong
 

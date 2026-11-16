@@ -65,7 +65,7 @@ By default, the HIP runtime loads GPU code only when the first kernel launches. 
 
 **Expected result:** ROCgdb reports that it can't find the function yet and that the breakpoint is pending:
 
-```shell
+```text
 Function "saxpy_kernel" not defined.
 Breakpoint 1 (saxpy_kernel) pending.
 ```
@@ -102,7 +102,7 @@ ROCgdb represents a GPU {term}`wave` through GDB's thread abstraction. List the 
 
 Sample output. This sample is illustrative, not captured from a real run. The IDs, addresses, paths, and line numbers differ on your system:
 
-```shell
+```text
   Id   Target Id                                     Frame
   1    Thread 0x7ffff6288180 (LWP 645917) "saxpy" 0x00007ffff207d586 in ?? () from /opt/rocm/lib/libhsa-runtime64.so.1
   2    Thread 0x7fffe81ff6c0 (LWP 645924) "saxpy" __GI___ioctl (fd=3, request=3222817548) at ../sysdeps/unix/sysv/linux/ioctl.c:36
@@ -127,7 +127,7 @@ A wave runs many {term}`work-items <work-item>` in lockstep. ROCgdb calls the po
 
 Sample output. This sample is illustrative, like the previous one:
 
-```shell
+```text
   Id   State Target Id                            Frame
 * 0    A     AMDGPU Lane 1:2:1:1/0 (0,0,0)[0,0,0] saxpy_kernel () at main.hip:8
 ```
@@ -174,6 +174,6 @@ You have stopped in GPU code, selected a wave and a lane, inspected data for tha
 
 ## Related information
 
-* {ref}`Understand GPU execution state <rocgdb-gpu-execution-state>`
-* {ref}`Troubleshoot a kernel breakpoint that isn't hit <rocgdb-troubleshoot-breakpoint-not-hit>`
+* {ref}`GPU execution state in ROCgdb <rocgdb-gpu-execution-state>`
+* {ref}`Kernel breakpoint isn't hit <rocgdb-troubleshoot-breakpoint-not-hit>`
 * {ref}`Commands by task <rocgdb-essential-commands>`

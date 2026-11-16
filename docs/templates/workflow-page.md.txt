@@ -1,5 +1,6 @@
 % Workflow page template (not built by Sphinx: the .txt suffix is intentional).
 % Copy to a new .md file and fill in every section. Delete these comments.
+% Number step headings ("## 1.", "## 2.") and refer to them as "step N".
 % Title: sentence case, symptom or task first ("Kernel breakpoint isn't hit").
 % Meta description: 150-160 characters.
 % Every command, sample output, and limitation needs ROCgdb engineering
@@ -27,43 +28,61 @@ if the reader might be new to the concept.>
 
 * <What must be true before starting.>
 
-## Steps
+## How the steps fit together
 
-### 1. <Step title>
+<Optional. A flowchart generated from a Graphviz source in docs/diagrams/
+(run build.py), linked so that it opens in a new tab. Give it alt text that
+describes every step and branch.>
 
-<One action. Command in a code block.>
+(rocgdb-<page-slug>-<step-slug>)=
 
-:::{admonition} Expected result
-:class: rocgdb-expected
+## 1. <Step title>
 
-<What the reader should see.>
-:::
+<One action. Command in a code block. Tag commands as shell and debugger
+output as text.>
+
+**Expected result:** <What the reader should see.>
 
 :::{admonition} If this fails
-:class: rocgdb-iffails
 
-<Link to the next check or a related page.>
+<What to try next, with a link to the step or page that covers it.>
 :::
 
 ## Interpret what you see
+
+Find what you see in the first column.
 
 ```{list-table}
 :header-rows: 1
 
 * - What you see
-  - Likely cause
+  - What it means
+  - What to do
+  - Read more
+* - <Message or behavior>
+  - <Cause>
+  - <Action, with a link to the step that covers it>
+  - <Link to a page or a section of the ROCgdb user guide>
 ```
 
 ## Report a problem
 
-If these checks don't resolve the problem, [open an issue](https://github.com/ROCm/ROCgdb/issues) and include the following.
+<When to report, then point to the shared routing and issue template.>
+Follow the routing and template in {ref}`Known limitations <rocgdb-kl-report>`.
 
 :::{admonition} Evidence to collect
-:class: rocgdb-evidence
 
-* <Item>
+* The evidence from {ref}`Known limitations <rocgdb-kl-report>`: `rocgdb --version`, `rocminfo | grep gfx`, OS and kernel, and a session log.
+* <Evidence specific to this page.>
 :::
+
+Open the issue on [ROCm/ROCgdb issues](https://github.com/ROCm/ROCgdb/issues).
+
+## You are done when
+
+<The observable outcome that shows the task is finished or the problem is found.>
 
 ## Related information
 
-* <Links to concept, command reference, and generated manual pages.>
+* <Links to concept pages, the commands page, and ROCgdb user guide sections.
+  Use the page title as the link text.>

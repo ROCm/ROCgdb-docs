@@ -46,7 +46,7 @@ $ rocgdb ./saxpy
 
 :::{admonition} If this fails
 
-If ROCgdb stops with a message like this one from the manual, a HIP call returned an error:
+If ROCgdb stops with a message like this one from the ROCgdb user guide, a HIP call returned an error:
 
 ```text
 Thread 1 "prog" hit Catchpoint 1 (HIP error)
@@ -257,7 +257,7 @@ First decide whether the problem is in your code or in ROCgdb. Compare the value
 
 If ROCgdb's value doesn't match the independent one, it's likely a ROCgdb problem. Comparing `print` with `x/f` doesn't show this, because both read memory the same way. Follow the same routing as {ref}`Known limitations <rocgdb-kl-report>`:
 
-<a href="../_static/rocgdb-wrong-results-report.svg" target="_blank" rel="noopener" title="Open the diagram in a new tab"><img src="../_static/rocgdb-wrong-results-report.svg" style="max-width: 100%; height: auto;" alt="Flowchart for choosing where to send a wrong-value problem. If a row in Known limitations matches, use its workaround. Otherwise, report documentation problems to ROCgdb-docs and everything else to ROCgdb with the evidence listed below."></a>
+<a href="../_static/rocgdb-wrong-results-report.svg" target="_blank" rel="noopener" title="Open the diagram in a new tab"><img src="../_static/rocgdb-wrong-results-report.svg" style="max-width: 100%; height: auto;" alt="Flowchart for choosing where to send a wrong-value problem. If a row in Known limitations matches, use its workaround. Otherwise, report documentation problems to ROCgdb-docs and everything else to ROCgdb with the evidence in the following box."></a>
 
 :::{admonition} Evidence to collect
 
@@ -278,5 +278,5 @@ You've found the line that produces the wrong value or the write that overwrites
 
 * {ref}`Debug your first HIP kernel <rocgdb-first-hip-kernel>`
 * {ref}`GPU execution state in ROCgdb <rocgdb-gpu-execution-state>`
-* {ref}`Commands by task: print kernel data <rocgdb-essential-commands>`
-* [Lane commands in the manual](https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/Heterogeneous-Debugging.html#lane-ID)
+* {ref}`Commands by task: print kernel data <rocgdb-commands-print>`
+* [Lane commands in the ROCgdb user guide](https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/Heterogeneous-Debugging.html#lane-ID)

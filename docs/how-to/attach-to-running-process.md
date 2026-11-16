@@ -259,7 +259,7 @@ You've attached to the application, inspected its running waves or stopped at it
 
 ## Related information
 
-* {ref}`Commands by task: attach to a running process <rocgdb-essential-commands>`
+* {ref}`Commands by task: attach to a running process <rocgdb-commands-attach>`
 * {ref}`Debug your first HIP kernel <rocgdb-first-hip-kernel>`
-* [Debugging an already-running process](https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/Attach.html) (manual)
-* [Attaching restrictions](https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/AMD-GPU.html#AMD-GPU-Attaching-Restrictions) (manual)
+* [Debugging an already-running process](https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/Attach.html) (ROCgdb user guide)
+* [Attaching restrictions](https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/AMD-GPU.html#AMD-GPU-Attaching-Restrictions) (ROCgdb user guide)
