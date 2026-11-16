@@ -46,7 +46,7 @@ Troubleshoot a problem
 <div class="rocgdb-hero-art">
 
 :::{only} html
-<a href="_static/rocgdb-architecture.svg" target="_blank" rel="noopener" title="Open the diagram in a new tab"><img src="_static/rocgdb-architecture.svg" alt="Diagram of the ROCgdb stack. Your HIP application, the HSA runtime (ROCr), the amdgpu driver, and the AMD GPU are stacked from top to bottom, with ROCgdb connected to each of the four layers by a dashed arrow."></a>
+<a href="_static/rocgdb-architecture.svg" target="_blank" rel="noopener" title="Open the diagram in a new tab"><img src="_static/rocgdb-architecture.svg" alt="Diagram of the ROCgdb stack. Your HIP application, the HIP and ROCm runtimes, the amdgpu driver, and the AMD GPU are stacked from top to bottom, with ROCgdb connected to each of the four layers by a dashed arrow."></a>
 
 ROCgdb reaches into every layer, from a host source line down to a single lane.
 :::

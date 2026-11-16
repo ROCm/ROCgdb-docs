@@ -33,7 +33,7 @@ ALT = {
     ),
     "components": (
         "How ROCgdb fits together",
-        "Block diagram. You use ROCgdb from the command line, the TUI, or an IDE through GDB/MI. ROCgdb works with your HIP application's host threads and memory, and with the AMD Debugger API library, ROCdbgapi. The ROCm compiler adds debug information to your application. The application runs on the HSA runtime (ROCr), which loads GPU code objects and registers the list of them with the amdgpu driver. ROCdbgapi reads that list from the application's process memory. ROCgdb uses ROCdbgapi to read and control GPU state. ROCdbgapi uses the AMD Code Object Manager library, ROCcomgr, to disassemble GPU code, and the debug interface of the amdgpu driver's KFD interface to reach the AMD GPU, which has agents, queues, dispatches, waves, and lanes.",
+        "Block diagram. You use ROCgdb from the command line, the TUI, or an IDE through GDB/MI. ROCgdb works with your HIP application's host threads and memory, and with the AMD Debugger API library, ROCdbgapi. The ROCm compiler adds debug information to your application. The application runs on the ROCm runtime (ROCr), which loads GPU code objects and registers the list of them with the amdgpu driver. ROCdbgapi reads that list from the application's process memory. ROCgdb uses ROCdbgapi to read and control GPU state. ROCdbgapi uses the AMD Code Object Manager library, ROCcomgr, to disassemble GPU code, and the debug interface of the amdgpu driver's KFD interface to reach the AMD GPU, which has agents, queues, dispatches, waves, and lanes.",
     ),
 }
 

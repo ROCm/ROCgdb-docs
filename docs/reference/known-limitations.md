@@ -82,7 +82,7 @@ When ROCgdb can't debug a GPU, it prints a warning and keeps running, so you mig
   - Update the driver packages (or `linux-firmware`), reboot, and repeat {ref}`step 1 <rocgdb-kl-check-gpu>`. To check the firmware versions, run `amd-smi firmware`.
 * - `AMD GPU runtime's r_debug::r_version ... not supported`
   - The application loaded a ROCm runtime whose version is outside the range this ROCgdb supports. This usually means it loaded a different ROCm installation from ROCgdb's, for example a runtime bundled with the application, as some Python wheels do.
-  - Run `ldd ./saxpy | grep hsa-runtime` to see which HSA runtime the application loads. Run the application against the same ROCm installation that ROCgdb came from. If the application needs a newer runtime than this ROCgdb supports, update ROCgdb.
+  - Run `ldd ./saxpy | grep hsa-runtime` to see which ROCm runtime the application loads. Run the application against the same ROCm installation that ROCgdb came from. If the application needs a newer runtime than this ROCgdb supports, update ROCgdb.
 * - `At least one agent is busy (debugging may be enabled by another process)`
   - Another process on this GPU is already being debugged. Some GPUs, such as gfx908, allow only one.
   - End the other debugging session, or give each session its own GPUs (see the container row in {ref}`step 4 <rocgdb-kl-limitations>`).
