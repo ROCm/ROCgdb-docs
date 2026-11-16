@@ -102,7 +102,7 @@ Track down a wrong result, or attach to an application that's already running.
 03
 :::
 
-**Development environments**
+**Debug with other tools**
 
 Debug from an editor such as Visual Studio Code, or debug HIP kernels launched from Python.
 
@@ -150,7 +150,9 @@ ROCgdb debugs both halves of a ROCm application in one session: the host code ru
 {ref}`Commands by task →<rocgdb-essential-commands>`
 
 {ref}`Known limitations and compatibility →<rocgdb-known-limitations>`
+:::
 
+:::{div} rocgdb-reference-links
 <p><a href="ROCgdb/gdb/doc/gdb/AMD-GPU.html">Debugging on AMD GPU →</a></p>
 
 <p><a href="ROCgdb/gdb/doc/gdb/Heterogeneous-Debugging.html">Debugging heterogeneous programs →</a></p>
