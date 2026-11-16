@@ -57,7 +57,7 @@ ROCgdb reads state at every level, from a host source line down to a single lane
 
 ## Where to start
 
-ROCgdb is installed with ROCm, and you start it with the `rocgdb` command. If you haven't installed it yet, {ref}`do that first <rocgdb-installation>`.
+ROCgdb is installed with ROCm, and you start it with the `rocgdb` command. If you haven't installed it yet, {ref}`do that first <rocgdb-installation>`. On Windows, use the separately released [AMD ROCm debugger for Windows](https://rocm.docs.amd.com/projects/install-on-windows/en/latest/how-to/debugger-windows.html).
 
 :::::{grid} 1 2 2 4
 :gutter: 3
@@ -162,10 +162,5 @@ ROCgdb debugs both halves of a ROCm application in one session: the host code ru
 ::::
 
 :::{div} rocgdb-footer-note
-The ROCgdb code is open source and hosted at [ROCm/ROCgdb](https://github.com/ROCm/ROCgdb) on GitHub. ROCgdb for Windows is released separately, with its own documentation and support matrix; see [AMD ROCm debugger for Windows](https://rocm.docs.amd.com/projects/install-on-windows/en/latest/how-to/debugger-windows.html).
-
-To contribute to the documentation, see
-[Contributing to ROCm](https://rocm.docs.amd.com/en/latest/contribute/contributing.html).
-
-You can find licensing information on the [Licensing](https://rocm.docs.amd.com/en/latest/about/license.html) page.
+ROCgdb is open source: [ROCm/ROCgdb](https://github.com/ROCm/ROCgdb) on GitHub · [Contributing to ROCm](https://rocm.docs.amd.com/en/latest/contribute/contributing.html) · [Licensing](https://rocm.docs.amd.com/en/latest/about/license.html)
 :::
