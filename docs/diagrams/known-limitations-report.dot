@@ -10,19 +10,18 @@ c2 [label="Does a row in Known limitations\nmatch what you see?"];
 c3 [label="Is the problem in the\ndocumentation itself?"];
 
 node [@done];
-f1 [label="Fix the application or ROCm\nsetup first. ROCm problems go\nto ROCm/TheRock issues."];
-u [label="Use that row's workaround.\nIf it has none, the\nbehavior is expected."];
-d [label="Open a ROCgdb-docs issue."];
-r [label="Search ROCgdb issues, then\nopen one with the\nevidence below."];
+f1 [label="Fix the application or ROCm setup first.\nROCm problems go to ROCm/TheRock issues"];
+u [label="Use that row's workaround.\nIf it has none, the behavior is expected"];
+d [label="Open a ROCgdb-docs issue"];
+r [label="Search ROCgdb issues, then open\none with the evidence below"];
 
-edge [fontname="Helvetica-Bold,Arial,sans-serif"];
 start -> c1;
-c1 -> f1 [label="No"];
-c1 -> c2 [label="Yes"];
-c2 -> u [label="Yes"];
-c2 -> c3 [label="No"];
-c3 -> d [label="Yes"];
-c3 -> r [label="No"];
+c1 -> f1 [@no];
+c1 -> c2 [@yes];
+c2 -> u [@yes];
+c2 -> c3 [@no];
+c3 -> d [@yes];
+c3 -> r [@no];
 
 {rank=same; c1; f1}
 {rank=same; c2; u}

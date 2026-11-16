@@ -28,7 +28,7 @@ The commands on this page use the saxpy example, which computes `y[i] = a * x[i]
 
 ## How the steps fit together
 
-<a href="../_static/rocgdb-wrong-results-steps.svg" target="_blank" rel="noopener" title="Open the diagram in a new tab"><img src="../_static/rocgdb-wrong-results-steps.svg" style="max-width: 100%; height: auto;" alt="Flowchart of the six steps on this page. Check for HIP errors first. Then work out which work-item wrote a wrong element, stop only that work-item, and check the values it reads. If an input is wrong, the bug is earlier. If the inputs are right, step and print to find the line where the value goes wrong, or watch the output to find what overwrites it."></a>
+<a href="../_static/rocgdb-wrong-results-steps.svg" target="_blank" rel="noopener" title="Open the diagram in a new tab"><img src="../_static/rocgdb-wrong-results-steps.svg" style="max-width: 100%; height: auto;" alt="Flowchart of the six steps on this page. Check for HIP errors first. Then work out which work-item wrote a wrong element, stop only that work-item, and check the values it reads. If an input is wrong, the bug is earlier. If the inputs are right, step and print to find the line where the value goes wrong, or watch the output to see what overwrites it."></a>
 
 (rocgdb-wr-check-hiperr)=
 

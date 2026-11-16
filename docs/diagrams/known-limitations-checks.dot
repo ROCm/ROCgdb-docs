@@ -6,27 +6,26 @@ start [label="ROCgdb doesn't do\nwhat you expect"];
 
 node [@decision];
 c1 [label="1. Does info agents list\nyour GPU with state A?"];
-c3 [label="3. Is the GPU code built with\n-ggdb -O0 by a current compiler?"];
+c3 [label="3. Is the GPU code built\nwith -ggdb -O0?"];
 c4 [label="4. Does a row in the\nlimitations tables match?"];
 
 node [@action];
-f2 [label="2. Read the amd-dbgapi warnings. Fix\nthe driver, firmware, runtime, or ROCm\nsetup, then check again."];
-f3 [label="Rebuild with -ggdb -O0 and your\ncurrent ROCm compiler, then check again."];
+f2 [label="2. Read the amd-dbgapi warnings and\nfix the driver, firmware, or runtime"];
+f3 [label="Rebuild with -ggdb -O0"];
 
 node [@done];
-yes [label="Use the workaround\nin that row."];
-rep [label="Report a problem."];
+yes [label="Use the workaround\nin that row"];
+rep [label="Report a problem"];
 
-edge [fontname="Helvetica-Bold,Arial,sans-serif"];
-start -> c1;
-c1 -> f2 [label="No"];
-c1 -> c3 [label="Yes"];
-c3 -> f3 [label="No"];
-c3 -> c4 [label="Yes"];
-c4 -> yes [label="Yes"];
-c4 -> rep [label="No"];
+start -> c1 [weight=10];
+c1 -> f2 [@no];
+f2 -> c1;
+c1 -> c3 [@yes, weight=10];
+c3 -> f3 [@no];
+f3 -> c3;
+c3 -> c4 [@yes, weight=10];
+c4 -> yes [@yes, weight=10];
+c4 -> rep [@no];
 
-{rank=same; c1; f2}
-{rank=same; c3; f3}
 {rank=same; yes; rep}
 }

@@ -2,7 +2,7 @@ digraph G {
 @graph; @edge; @base;
 
 node [@dark];
-start [label="Debug an application\nthat's already running"];
+start [label="You need to debug an application\nthat is already running"];
 
 node [@decision];
 c0 [label="Can you restart it?"];
@@ -11,28 +11,27 @@ c4 [label="4. Does info threads show\nAMDGPU Wave entries?"];
 
 node [@action];
 s1 [label="1. Restart it with\nHSA_ENABLE_DEBUG=1"];
-n1 [label="Attach anyway. Waves that already\nexist might show ? in their IDs."];
+n1 [label="Attach anyway. Waves that already\nexist might show ? in their IDs"];
 s2 [label="2. Find the process ID"];
-f3 [label="Fix ptrace permission or the container\nsetup, then attach again. Or start the\napplication under ROCgdb instead."];
+f3 [label="Fix ptrace permission\nor the container setup"];
 a [label="5a. Inspect the\nwaves that are running"];
 b [label="5b. Break on the\nnext kernel launch"];
 
 node [@done];
-end [label="6. Detach. The application\nkeeps running."];
+end [label="6. Detach. The application\nkeeps running"];
 
-edge [fontname="Helvetica-Bold,Arial,sans-serif"];
 start -> c0;
-c0 -> s1 [label="Yes"];
-c0 -> n1 [label="No"];
+c0 -> s1 [@yes];
+c0 -> n1 [@no];
 s1 -> s2; n1 -> s2;
-s2 -> c3;
-c3 -> f3 [label="No"];
-c3 -> c4 [label="Yes"];
-c4 -> a [label="Yes"];
-c4 -> b [label="No"];
+s2 -> c3 [weight=10];
+c3 -> f3 [@no];
+f3 -> c3;
+c3 -> c4 [@yes, weight=10];
+c4 -> a [@yes];
+c4 -> b [@no];
 a -> end; b -> end;
 
-{rank=same; c3; f3}
 {rank=same; s1; n1}
 {rank=same; a; b}
 }

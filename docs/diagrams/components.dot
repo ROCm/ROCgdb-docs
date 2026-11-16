@@ -6,7 +6,7 @@ node [@done];
 you [label=<<B>You</B><BR/><FONT POINT-SIZE="11" COLOR="#57606a">command line, TUI, or an IDE through GDB/MI</FONT>>];
 
 subgraph cluster_dbg {
-  label=<<B>DEBUGGER</B>>; labeljust=l; fontname="Helvetica,Arial,sans-serif"; fontsize=10; fontcolor="#57606a";
+  label=<<B>DEBUGGER</B>>; labeljust=l; fontname="Helvetica,Arial,sans-serif"; fontsize=12; fontcolor="#57606a";
   style="rounded,filled"; fillcolor="#f6f9fe"; color="#9db8e6";
   node [@blue];
   gdb [label=<<B>ROCgdb</B><BR/><FONT POINT-SIZE="11" COLOR="#57606a">GDB with AMD GPU support</FONT>>];
@@ -15,7 +15,7 @@ subgraph cluster_dbg {
 }
 
 subgraph cluster_app {
-  label=<<B>YOUR APPLICATION</B>>; labeljust=l; fontname="Helvetica,Arial,sans-serif"; fontsize=10; fontcolor="#57606a";
+  label=<<B>YOUR APPLICATION</B>>; labeljust=l; fontname="Helvetica,Arial,sans-serif"; fontsize=12; fontcolor="#57606a";
   style="rounded,filled"; fillcolor="#fafafa"; color="#c4cad0";
   node [@action];
   cc [label=<<B>ROCm compiler</B><BR/><FONT POINT-SIZE="11" COLOR="#57606a">amdclang++ adds debug information</FONT>>];
@@ -24,7 +24,7 @@ subgraph cluster_app {
 }
 
 subgraph cluster_sys {
-  label=<<B>SYSTEM</B>>; labeljust=r; fontname="Helvetica,Arial,sans-serif"; fontsize=10; fontcolor="#57606a";
+  label=<<B>SYSTEM</B>>; labeljust=r; fontname="Helvetica,Arial,sans-serif"; fontsize=12; fontcolor="#57606a";
   style="rounded,filled"; fillcolor="#fafafa"; color="#c4cad0";
   node [@action];
   drv [label=<<B>amdgpu driver</B><BR/><FONT POINT-SIZE="11" COLOR="#57606a">KFD interface, debug support</FONT>>];
@@ -37,7 +37,8 @@ you -> gdb;
 cc -> app [label=" builds"];
 gdb -> app [label=" host threads\n and memory"];
 app -> rt;
-rt -> dbg [label=" lists loaded\n code objects"];
+rt -> drv [label=" registers its\n code object list"];
+dbg -> app [style=dotted, constraint=false, label=" reads the code\n object list from\n process memory"];
 gdb -> dbg [weight=3, label=" reads and controls\n GPU state"];
 dbg -> comgr [label=" disassembles\n GPU code"];
 dbg -> drv [label=" debug interface"];

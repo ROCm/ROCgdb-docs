@@ -46,7 +46,7 @@ Troubleshoot a problem
 <div class="rocgdb-hero-art">
 
 :::{only} html
-<a href="_static/rocgdb-architecture.svg" target="_blank" rel="noopener" title="Open the diagram in a new tab"><img src="_static/rocgdb-architecture.svg" alt="Diagram of the ROCgdb stack. Your HIP application, the HIP and HSA runtime, the amdgpu driver, and the AMD GPU are stacked from top to bottom, with ROCgdb connected to each of the four layers by a dashed arrow."></a>
+<a href="_static/rocgdb-architecture.svg" target="_blank" rel="noopener" title="Open the diagram in a new tab"><img src="_static/rocgdb-architecture.svg" alt="Diagram of the ROCgdb stack. Your HIP application, the HSA runtime (ROCr), the amdgpu driver, and the AMD GPU are stacked from top to bottom, with ROCgdb connected to each of the four layers by a dashed arrow."></a>
 
 ROCgdb reaches into every layer, from a host source line down to a single lane.
 :::
@@ -57,7 +57,7 @@ ROCgdb reaches into every layer, from a host source line down to a single lane.
 
 ## Where to start
 
-If you haven't installed ROCgdb yet, {ref}`do that first <rocgdb-installation>`.
+ROCgdb is installed with ROCm, and you start it with the `rocgdb` command. If you haven't installed it yet, {ref}`do that first <rocgdb-installation>`.
 
 :::::{grid} 1 2 2 4
 :gutter: 3
@@ -154,7 +154,7 @@ ROCgdb debugs both halves of a ROCm application in one session: the host code ru
 ::::
 
 :::{div} rocgdb-footer-note
-The ROCgdb code is open source and hosted at [ROCm/ROCgdb](https://github.com/ROCm/ROCgdb) on GitHub. For ROCgdb on Windows, see [AMD ROCm debugger for Windows](https://rocm.docs.amd.com/projects/install-on-windows/en/latest/how-to/debugger-windows.html).
+The ROCgdb code is open source and hosted at [ROCm/ROCgdb](https://github.com/ROCm/ROCgdb) on GitHub. ROCgdb for Windows is released separately, with its own documentation and support matrix; see [AMD ROCm debugger for Windows](https://rocm.docs.amd.com/projects/install-on-windows/en/latest/how-to/debugger-windows.html).
 
 To contribute to the documentation, refer to
 [Contributing to ROCm](https://rocm.docs.amd.com/en/latest/contribute/contributing.html).
