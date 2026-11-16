@@ -34,11 +34,11 @@ subgraph cluster_sys {
 
 edge [fontname="Helvetica,Arial,sans-serif"];
 you -> gdb;
-cc -> app [label=" builds"];
+cc -> app [style=dotted, label=" builds"];
 gdb -> app [label=" host threads\n and memory"];
 app -> rt;
-rt -> drv [label=" registers its\n code object list"];
-dbg -> app [style=dotted, constraint=false, label=" reads the code\n object list from\n process memory"];
+rt -> drv [style=dotted, label=" registers its\n code object list"];
+dbg -> app [style=dotted, constraint=false, headlabel="reads the code\nobject list from\nprocess memory", labelangle=18, labeldistance=10];
 gdb -> dbg [weight=3, label=" reads and controls\n GPU state"];
 dbg -> comgr [label=" disassembles\n GPU code"];
 dbg -> drv [label=" debug interface"];
