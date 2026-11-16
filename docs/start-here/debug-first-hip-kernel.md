@@ -113,7 +113,7 @@ Sample output. This sample is illustrative, not captured from a real run. The ID
 
 ```shell
   Id   Target Id                                     Frame
-  1    Thread 0x7ffff6288180 (LWP 645917) "saxpy" 0x00007ffff207d586 in ?? () from /opt/rocm-7.1.0/lib/libhsa-runtime64.so.1
+  1    Thread 0x7ffff6288180 (LWP 645917) "saxpy" 0x00007ffff207d586 in ?? () from /opt/rocm/lib/libhsa-runtime64.so.1
   2    Thread 0x7fffe81ff6c0 (LWP 645924) "saxpy" __GI___ioctl (fd=3, request=3222817548) at ../sysdeps/unix/sysv/linux/ioctl.c:36
 * 7    AMDGPU Wave 1:2:1:1 (0,0,0)/0 "saxpy"      saxpy_kernel () at main.hip:8
 ```

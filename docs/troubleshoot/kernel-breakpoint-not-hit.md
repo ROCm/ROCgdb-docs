@@ -92,11 +92,14 @@ Use the line number of the launch, not the kernel definition:
 
 **Expected result:** Execution stops at the launch line. Host code is loaded at startup, so this breakpoint resolves immediately.
 
-**If this fails:** If the program exits first, read its output. For example, when no GPU is visible to the application, it can print a HIP error such as `no ROCm-capable device is detected` and exit before it launches the kernel. Fix that problem in the application or the environment. It isn't a ROCgdb problem.
+:::{admonition} If this fails
+
+If the program exits first, read its output. For example, when no GPU is visible to the application, it can print a HIP error such as `no ROCm-capable device is detected` and exit before it launches the kernel. Fix that problem in the application or the environment. It isn't a ROCgdb problem.
+:::
 
 (rocgdb-bp-check-deferred)=
 
-### 4. Disable deferred code loading
+### 4. Turn off deferred code loading
 
 If the application reaches the launch but the breakpoint stays pending, ask the HIP runtime to load all GPU code objects at startup, then run the session again.
 
@@ -108,7 +111,7 @@ $ rocgdb ./saxpy
 **Expected result:** All GPU code objects are loaded by the beginning of `main`, so the kernel breakpoint resolves before the kernel launches.
 
 :::{note}
-Disabling deferred loading has limits. If the application calls `fork`, it might crash. If the application embeds many device code objects, ROCgdb might report errors because of open file limits.
+Turning off deferred loading has limits. If the application calls `fork`, it might crash. If the application embeds many device code objects, ROCgdb might report errors because of open file limits.
 :::
 
 ## Interpret what you see
@@ -124,7 +127,7 @@ Disabling deferred loading has limits. If the application calls `fork`, it might
 * - The program exits before the host launch line
   - The kernel is never launched, for example because of a HIP runtime error ({ref}`check 3 <rocgdb-bp-check-launch>`).
 * - The breakpoint stays pending after the kernel should have run
-  - The GPU code wasn't loaded. Disable deferred loading ({ref}`check 4 <rocgdb-bp-check-deferred>`).
+  - The GPU code wasn't loaded. Turn off deferred loading ({ref}`check 4 <rocgdb-bp-check-deferred>`).
 * - A source-line breakpoint stops in an unexpected place
   - The GPU code that contains that line wasn't loaded when you set the breakpoint. Set the breakpoint by function name ({ref}`check 2 <rocgdb-bp-check-exists>`).
 * - The breakpoint is set but the source line is wrong or unavailable

@@ -17,7 +17,7 @@ myst:
 # Debug GPU code with ROCgdb
 
 :::{div} rocgdb-hero-lead
-ROCgdb is AMD's source-level debugger for Linux, based on the [GNU Debugger (GDB)](https://www.sourceware.org/gdb/documentation/). It debugs ROCm applications on x86 hosts with supported AMD GPUs.
+ROCgdb is a source-level debugger for Linux, based on the [GNU Debugger (GDB)](https://www.sourceware.org/gdb/documentation/). It debugs ROCm applications on x86 hosts with supported AMD GPUs.
 :::
 
 :::{div} rocgdb-hero-subtitle
@@ -57,7 +57,7 @@ ROCgdb reaches into every layer, from a host source line down to a single lane.
 
 ## Where to start
 
-If you have not installed ROCgdb yet, {ref}`do that first <rocgdb-installation>`.
+If you haven't installed ROCgdb yet, {ref}`do that first <rocgdb-installation>`.
 
 :::::{grid} 1 2 2 4
 :gutter: 3
@@ -142,6 +142,8 @@ ROCgdb debugs both halves of a ROCm application in one session: the host code ru
 
 :::{div} rocgdb-reference-links
 {ref}`Commands by task →<rocgdb-essential-commands>`
+
+{ref}`Known limitations and compatibility →<rocgdb-known-limitations>`
 
 <p><a href="ROCgdb/gdb/doc/gdb/AMD-GPU.html">Debugging on AMD GPU →</a></p>
 

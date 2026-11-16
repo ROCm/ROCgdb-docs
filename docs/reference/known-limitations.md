@@ -12,19 +12,8 @@ myst:
 %   ROCgdb team.
 % - SR-IOV: confirm whether whole-GPU passthrough to a VM is supported, and
 %   whether runtime GPU core dumps while attached are fixed for 10.2.
-% - The gfx1153 product name, and all product names against the published LLVM
-%   AMDGPU processors table and the ROCm compatibility matrix. gfx1250 and
-%   gfx1170 to gfx1172 stay without names until those are public.
-% - The limitations come from the AMD GPU Restrictions section of
-%   gdb/doc/gdb/gdb.texinfo on amd-staging (commit c4f4140, checked 10 November
-%   2026). Recheck before publication.
-% - Product names to settle with the product owners: gfx1153 (LLVM says TBA,
-%   the TheRock target list says Radeon 820M, the ROCm 10.1 compatibility matrix
-%   says Radeon 840M) and gfx1032 (Radeon RX 6600 appears only in the TheRock
-%   list; LLVM says TBA and the matrix does not list it).
-% - Compiler-bug routing on the wrong-results page (ROCm/llvm-project for
-%   AMD-specific problems, upstream LLVM otherwise) needs the compiler team to
-%   confirm it is their process.
+% - The limitations come from the AMD GPU Restrictions section of the ROCgdb
+%   manual source on amd-staging. Recheck before publication.
 
 (rocgdb-known-limitations)=
 
@@ -77,7 +66,7 @@ Other GPUs show the same columns, for example `gfx1100` and `AMD Radeon Pro W790
 
 :::{admonition} If this fails
 
-* **The GPU shows `U`.** ROCgdb can't debug it. Find its **Architecture** value in [supported architectures](https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/AMD-GPU.html#AMD-GPU-Architectures). If it isn't listed, there's no workaround on that GPU. If it's listed, the driver or firmware is the problem: go to {ref}`step 2 <rocgdb-kl-warnings>`.
+* **The GPU shows `U`.** ROCgdb can't debug it. Find its **Architecture** value in the {ref}`GPU architectures table <rocgdb-kl-supported>`. If it isn't listed, there's no workaround on that GPU. If it's listed, the driver or firmware is the problem: go to {ref}`step 2 <rocgdb-kl-warnings>`.
 * **No GPUs are listed, or the program exits before the breakpoint.** The application can't see a GPU. Run `rocminfo` outside ROCgdb. If it lists no `gfx` agent, fix the ROCm installation first. See {ref}`Install ROCm <rocgdb-installation>`. If `rocminfo` lists the GPU, check that `ROCR_VISIBLE_DEVICES` and `HIP_VISIBLE_DEVICES` aren't set to hide it. In a container, check the device mapping in the limitations table in {ref}`step 4 <rocgdb-kl-limitations>`.
 :::
 
@@ -134,17 +123,19 @@ If ROCgdb reports `ELF file ABI version (0) is not supported`, the GPU code is o
 
 ## 4. Check the known limitations
 
-These limitations apply to ROCgdb in ROCm 10.2. Find the row that matches what you're trying to do. The tables cover the common ones. The full list is in [AMD GPU restrictions](https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/AMD-GPU.html#AMD-GPU-Restrictions) in the manual. Last checked against the manual on the ROCgdb `amd-staging` branch, commit `c4f4140`.
+These limitations apply to this release of ROCgdb. Find the row that matches what you're trying to do. The tables cover the common ones. The full list is in [AMD GPU restrictions](https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/AMD-GPU.html#AMD-GPU-Restrictions) in the manual.
 
 The **Status** column uses three values:
 
-* **Not supported**: doesn't work, with or without a workaround.
-* **Limited**: works with restrictions.
-* **Needs setup**: works once you change a setting.
+* **Not supported:** Doesn't work, with or without a workaround.
+* **Limited:** Works with restrictions.
+* **Needs setup:** Works once you change a setting.
 
 (rocgdb-kl-container)=
 
 ### Setup and environment
+
+These limitations affect how you set up the system and start ROCgdb.
 
 ```{list-table}
 :header-rows: 1
@@ -171,6 +162,8 @@ The **Status** column uses three values:
 
 ### Breakpoints, stepping, and watchpoints
 
+These limitations affect how you stop, step, and watch values in a kernel.
+
 ```{list-table}
 :header-rows: 1
 
@@ -185,16 +178,16 @@ The **Status** column uses three values:
   - Make fewer waves stop with a condition, such as `break saxpy_kernel if blockIdx.x == 0`, or use `break -lane 0 saxpy_kernel` with `set scheduler-locking on`. `tbreak` reduces the number of hits ROCgdb reports, not the number of waves that halt: many waves can still stop at the breakpoint address, and ROCgdb continues them when you resume. See [breakpoints on heterogeneous lanes](https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/Heterogeneous-Debugging.html#break-commands).
 * - Set more than four GPU watchpoints, or watch reads (`rwatch`, `awatch`)
   - Limited
-  - Use at most four `watch` (write) watchpoints with a combined size of 32 bytes or less. Each watchpoint's size counts as rounded up to a multiple of 8 bytes. Beyond that, ROCgdb falls back to software watchpoints, which are very slow. `rwatch` and `awatch` are accepted, but `continue` then fails with `Could not insert hardware watchpoint … too many hardware breakpoints/watchpoints`. To catch a read, put a conditional breakpoint on the line that reads the value. This only helps if you know which lines read it.
+  - Use at most four `watch` (write) watchpoints with a combined size of 32 bytes or less. Each watchpoint's size counts as rounded up to a multiple of 8 bytes. Beyond that, ROCgdb falls back to software watchpoints, which are slow. `rwatch` and `awatch` are accepted, but `continue` then fails with `Could not insert hardware watchpoint … too many hardware breakpoints/watchpoints`. To catch a read, put a conditional breakpoint on the line that reads the value. This only helps if you know which lines read it.
 * - Catch every write to a location with a watchpoint
   - Limited
-  - Watchpoints reach the GPU only after the ROCm runtime starts. Set them after your first kernel breakpoint, and set them again after `run` restarts the program. Writes by `hipMemcpy` use direct memory access (DMA) and aren't seen: start ROCgdb with `HSA_ENABLE_SDMA=0`. On gfx10, gfx11, and gfx12 GPUs, a write by a kernel's last instruction can be missed: run `set amdgpu precise-memory on` before `run`.
+  - Watchpoints reach the GPU only after the ROCm runtime starts. Set them after your first kernel breakpoint, and set them again after `run` restarts the program. Writes by `hipMemcpy` use direct memory access (DMA) and aren't seen: start ROCgdb with `HSA_ENABLE_SDMA=0`. On gfx10, gfx11, and gfx12 GPUs, a write by a kernel's last instruction can be missed. Run `set amdgpu precise-memory on` before `run`, although precise memory might not be available on these GPUs. See {ref}`step 6 of Wrong results <rocgdb-wr-watch>`.
 * - Single-step a wave when ROCgdb seems to wait forever
   - Limited
-  - Press Ctrl-C to cancel the step, then run it again.
-* - Interrupt with Ctrl-C after resuming only a GPU wave with `set scheduler-locking on`
+  - Press Ctrl+C to cancel the step, then run it again.
+* - Interrupt with Ctrl+C after resuming only a GPU wave with `set scheduler-locking on`
   - Not supported
-  - Ctrl-C can't stop GPU waves when no CPU thread is running. Before you resume only a GPU wave, make sure a breakpoint will stop it. If ROCgdb is already stuck, end the `rocgdb` process.
+  - Ctrl+C can't stop GPU waves when no CPU thread is running. Before you resume only a GPU wave, make sure a breakpoint will stop it. If ROCgdb is already stuck, kill the `rocgdb` process from another terminal.
 * - Put a breakpoint inside an `s_clause` on gfx10, gfx11, or gfx12
   - Not supported
   - Put the breakpoint before or after the clause. You can step through a clause.
@@ -210,6 +203,8 @@ The **Status** column uses three values:
 ```
 
 ### Inspecting values
+
+These limitations affect what you can print and examine.
 
 ```{list-table}
 :header-rows: 1
@@ -239,13 +234,15 @@ The **Status** column uses three values:
 
 ### Attaching and core dumps
 
+These limitations affect attaching to a running process and getting core dumps.
+
 ```{list-table}
 :header-rows: 1
 
 * - What you're trying to do
   - Status
   - What to do instead
-* - See the work-group of waves that started before you attached
+* - See the workgroup of waves that started before you attached
   - Needs setup
   - Start the application with `HSA_ENABLE_DEBUG=1`. Without it, some GPUs show `?` in those waves' IDs, and that can't be fixed after the application has started. See {ref}`rocgdb-attach`.
 * - Debug an application that uses cooperative groups or compute unit (CU) masking on gfx1100, gfx1101, or gfx1102
@@ -264,6 +261,8 @@ The **Status** column uses three values:
 
 ### Languages and tools
 
+These limitations affect source languages and other tools.
+
 ```{list-table}
 :header-rows: 1
 
@@ -272,11 +271,11 @@ The **Status** column uses three values:
   - What to do instead
 * - Debug Fortran or OpenCL kernels
   - Limited
-  - Breakpoints, stepping, registers and memory work, but values aren't printed with language-aware formatting. Compile with Code Object V3 or later and DWARF 4. See [source languages](https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/AMD-GPU.html#AMD-ROCm-Source-Languages).
-* - Use OpenMP language features while debugging C, C++ or Fortran
+  - Breakpoints, stepping, registers, and memory work, but values aren't printed with language-aware formatting. Compile with Code Object V3 or later and DWARF 4. See [source languages](https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/AMD-GPU.html#AMD-ROCm-Source-Languages).
+* - Use OpenMP language features while debugging C, C++, or Fortran
   - Not supported
   - OpenMP target regions can be debugged as ordinary GPU kernels. ROCgdb has no OpenMP-specific view, kernel names are compiler-generated (`__omp_offloading_…`), and OpenMP internals such as `.omp.iv` show up in `info locals`.
-* - Debug a build that uses the address, memory or thread sanitizer on the GPU
+* - Debug a build that uses the address, memory, or thread sanitizer on the GPU
   - Not supported
   - Debug a build without `-fsanitize`, and run the sanitizer build outside ROCgdb.
 ```
@@ -295,6 +294,8 @@ Linux on x86-64. ROCgdb for Windows is released separately, with its own documen
 
 ### GPU architectures
 
+ROCgdb supports the following GPU architectures.
+
 ```{list-table}
 :header-rows: 1
 
@@ -305,9 +306,9 @@ Linux on x86-64. ROCgdb for Windows is released separately, with its own documen
 * - gfx10
   - gfx1010, gfx1011, gfx1012, gfx1030, gfx1031, gfx1032
 * - gfx11
-  - gfx1100 (Radeon PRO W7900, Radeon RX 7900 XTX and XT), gfx1101 (Radeon RX 7800 XT, 7700 XT), gfx1102 (Radeon RX 7600), gfx1150 (Radeon 890M), gfx1151 (Radeon 8060S), gfx1153, gfx1170, gfx1171, gfx1172
+  - gfx1100 (AMD Radeon PRO W7900, AMD Radeon RX 7900 XTX and XT), gfx1101 (AMD Radeon RX 7800 XT, 7700 XT), gfx1102 (AMD Radeon RX 7600), gfx1150 (AMD Radeon 890M), gfx1151 (AMD Radeon 8060S), gfx1153, gfx1170, gfx1171, gfx1172
 * - gfx12
-  - gfx1200 (Radeon RX 9060), gfx1201 (Radeon RX 9070, 9070 XT), gfx1250, gfx1250-strict
+  - gfx1200 (AMD Radeon RX 9060), gfx1201 (AMD Radeon RX 9070, 9070 XT), gfx1250, gfx1250-strict
 * - Generic targets
   - gfx9-generic, gfx9-4-generic, gfx10-1-generic, gfx10-3-generic, gfx11-generic, gfx11-7-generic, gfx12-generic, gfx12-5-generic
 ```
@@ -315,6 +316,8 @@ Linux on x86-64. ROCgdb for Windows is released separately, with its own documen
 Example products are from LLVM's [AMDGPU processors table](https://llvm.org/docs/AMDGPUUsage.html#processors), which lists more. On your system, `info agents` shows the product name in the **Device Name** column. Some features don't work on every architecture. See {ref}`step 4 <rocgdb-kl-limitations>`, and the [architectures list in the manual](https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/AMD-GPU.html#AMD-GPU-Architectures).
 
 ### Source languages
+
+ROCgdb supports the following source languages.
 
 ```{list-table}
 :header-rows: 1
@@ -326,12 +329,14 @@ Example products are from LLVM's [AMDGPU processors table](https://llvm.org/docs
 * - Assembly
   - Assembly code kernels are supported.
 * - OpenCL, Fortran, and others
-  - Breakpoints, stepping, registers and memory work, but values aren't printed with language-aware formatting. The code must be built for Code Object V3 or later with DWARF 4 debug information.
+  - Breakpoints, stepping, registers, and memory work, but values aren't printed with language-aware formatting. The code must be built for Code Object V3 or later with DWARF 4 debug information.
 ```
 
 See [source languages](https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/AMD-GPU.html#AMD-ROCm-Source-Languages) in the manual.
 
 ## Interpret what you see
+
+Find what you see in the first column.
 
 ```{list-table}
 :header-rows: 1
@@ -360,7 +365,7 @@ See [source languages](https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgd
   - The build is optimized.
   - Rebuild with `-ggdb -O0`.
   - {ref}`Compile with debug information <rocgdb-first-hip-kernel-build>`
-* - `continue` is very slow after you add a watchpoint
+* - `continue` is slow after you add a watchpoint
   - The watchpoints went over the hardware limit, so ROCgdb fell back to software.
   - Delete watchpoints until four or fewer are left, with a combined size of 32 bytes or less.
   - [Setting watchpoints](https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/Set-Watchpoints.html)
@@ -386,9 +391,9 @@ Where to send it:
 
 To open a ROCgdb issue:
 
-1. **Search first.** Search [ROCgdb issues](https://github.com/ROCm/ROCgdb/issues) for the exact warning or error text. If someone has already reported it, add a thumbs-up and a comment with your evidence rather than opening a new issue. This is the [ROCm feedback guidance](https://rocm.docs.amd.com/en/latest/contribute/feedback.html).
+1. **Search first.** Search [ROCgdb issues](https://github.com/ROCm/ROCgdb/issues) for the exact warning or error text. If someone has already reported it, add a thumbs-up and a comment with your evidence rather than opening a new issue. This follows the [ROCm feedback guidance](https://rocm.docs.amd.com/en/latest/contribute/feedback.html).
 2. **Collect the evidence** in the box below.
-3. **Open the issue** with a title like *Watchpoint doesn't trigger on gfx942, ROCm 10.2*, and paste the template below into the description.
+3. **Open the issue** with a title like *Watchpoint doesn't trigger on gfx942*, and paste the template below into the description.
 4. **Watch the issue.** Engineers might ask you to try something, so check back for questions.
 
 :::{admonition} Evidence to collect

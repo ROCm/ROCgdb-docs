@@ -6,21 +6,16 @@ myst:
 ---
 
 % TODO(engineering validation): Items still open from the 10.2 review.
-% - Step 3: confirm the advice for ptrace_scope. The page tells readers how to
-%   check the setting and leaves changing it to the administrator.
-% - Step 5a tip: the hung-kernel procedure was corrected from a test on an
-%   MI300X. Confirm on a gfx11 or gfx12 GPU.
-% - Step 4: the work-group cluster wave ID in the Interpret table was captured
-%   on gfx1250-strict. Confirm the Cluster column wording for `info
-%   dispatches` against the manual.
-% - If ROCgdb pull request #182 (attach without forward progress) merges
-%   before 10.2, check whether anything users see on this page changes.
-% - Captures requested from Luis on 10 November 2026 and still open: steps 3,
-%   5b and 6 describe output (a clean `rocgdb -p` attach, the breakpoint
-%   message after `break <kernel>`, and the `gcore` and `detach` output) but
-%   show none. Only the step 4 wave line is a real capture.
-% - Recorded for a later revision, not 10.2: `sudo rocgdb -p`, and GPU core
-%   dumps while attached.
+% - Step 3: the page tells readers how to check ptrace_scope and leaves changing
+%   it to the administrator. Decide whether to also offer `sudo rocgdb -p` in
+%   step 3 and in the Interpret table.
+% - Step 5a hung-kernel procedure: corrected from a test on an MI300X. Confirm
+%   on a gfx11 or gfx12 GPU.
+% - Interpret table: confirm the Cluster column wording for `info dispatches`
+%   against the manual. The cluster wave ID was captured on gfx1250-strict.
+% - ROCgdb pull request #182 (attach without forward progress) didn't make
+%   10.2 and wouldn't have changed anything users see.
+% - Recorded for a later revision, not 10.2: GPU core dumps while attached.
 
 (rocgdb-attach)=
 
@@ -36,7 +31,7 @@ Use this page when:
 * Something you can't wrap with `rocgdb`, such as a job launcher or service, starts the application.
 * The application seems to hang and you want to see where.
 
-If you can start the application yourself, use {ref}`Debug your first HIP kernel <rocgdb-first-hip-kernel>` instead. Starting under ROCgdb shows more.
+If you can start the application yourself, use {ref}`Debug your first HIP kernel <rocgdb-first-hip-kernel>` instead. Starting the application under ROCgdb gives you complete wave IDs and every kernel launch.
 
 ## Prerequisites
 
@@ -52,7 +47,7 @@ If you can start the application yourself, use {ref}`Debug your first HIP kernel
 
 ## 1. Start the application with HSA_ENABLE_DEBUG=1
 
-On some GPUs, such as gfx90a, waves that started before ROCgdb attached can't report their dispatch or work-group position. Setting `HSA_ENABLE_DEBUG=1` before the application starts makes that information available on every GPU. You need it only on GPUs where ROCgdb shows `?` ({ref}`step 4 <rocgdb-attach-threads>`). The cost is a small increase in launch time for very short-lived waves.
+On some GPUs, such as gfx90a, waves that started before ROCgdb attached can't report their dispatch or workgroup position. Setting `HSA_ENABLE_DEBUG=1` before the application starts makes that information available on every GPU. You need it only on GPUs where ROCgdb shows `?` ({ref}`step 4 <rocgdb-attach-threads>`). The cost is a small increase in launch time for short-lived waves.
 
 ```shell
 $ HSA_ENABLE_DEBUG=1 ./saxpy
@@ -90,13 +85,30 @@ $ rocgdb -p <process-id>
 
 ROCgdb pauses the whole application, CPU threads and GPU waves, and shows the `(gdb)` prompt. You can also attach from inside ROCgdb with `attach <process-id>`.
 
+Output captured with the GDB banner left out:
+
+```text
+$ rocgdb -p 1912841
+Attaching to process 1912841
+[New LWP 1912852]
+[New LWP 1912850]
+[New LWP 1912849]
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/usr/lib/x86_64-linux-gnu/libthread_db.so.1".
+__syscall_cancel_arch () at ../sysdeps/unix/sysv/linux/x86_64/syscall_cancel.S:56
+warning: 56     ../sysdeps/unix/sysv/linux/x86_64/syscall_cancel.S: No such file or directory
+(gdb)
+```
+
+The two lines before `(gdb)` depend on where the application was when ROCgdb attached. The `warning:` only means that the C library's source file isn't installed on that system.
+
 **Expected result:** ROCgdb reads the application's symbols and shows the `(gdb)` prompt with no `amd-dbgapi` warnings.
 
 :::{admonition} If this fails
 
-* `ptrace: Operation not permitted.` The kernel's Yama `ptrace_scope` setting is `1`, the Ubuntu default. It lets a debugger attach only to processes it started, even when they run as the same user. Check the setting with `cat /proc/sys/kernel/yama/ptrace_scope` (see [Yama ptrace_scope](https://www.kernel.org/doc/html/latest/admin-guide/LSM/Yama.html)). Relaxing it is a system-wide security decision for your administrator, so start the application under `rocgdb` instead of attaching.
+* **`ptrace: Operation not permitted.`** The kernel's Yama `ptrace_scope` setting is `1`, the Ubuntu default. It lets a debugger attach only to processes it started, even when they run as the same user. Check the setting with `cat /proc/sys/kernel/yama/ptrace_scope` (see [Yama ptrace_scope](https://www.kernel.org/doc/html/latest/admin-guide/LSM/Yama.html)). Relaxing it is a system-wide security decision for your administrator, so start the application under `rocgdb` instead of attaching.
 * **Inside a container**, the container needs `--cap-add=SYS_PTRACE --security-opt seccomp=unconfined`. See the {ref}`container row <rocgdb-kl-container>` in Known limitations.
-* `At least one agent is busy` or another `amd-dbgapi` warning: use the {ref}`warnings table <rocgdb-kl-warnings>` in Known limitations.
+* **`At least one agent is busy` or another `amd-dbgapi` warning:** use the {ref}`warnings table <rocgdb-kl-warnings>` in Known limitations.
 * **A restriction about cooperative groups or compute unit (CU) masking** on gfx1100, gfx1101, or gfx1102: there's no workaround on these GPUs.
 :::
 
@@ -141,14 +153,14 @@ Select a wave, see where it is, and print its values as you would in any kernel 
 If there's no source line, the GPU code was built without `-ggdb`. You can still see the machine instructions with `x/5i $pc`. Rebuild with `-ggdb` for next time.
 :::
 
-:::{tip}
-If the kernel looks hung, find out whether it's still moving:
+### If the kernel looks hung
 
-1. Run `thread apply all -q print $pc`, then `continue`, press Ctrl-C after a few seconds, and run the print again. A spinning wave's program counter (PC) moves, and a wave waiting at a barrier stays put.
+Find out whether the kernel is still moving:
+
+1. Run `thread apply all -q print $pc`, then `continue`, press Ctrl+C after a few seconds, and run the print again. A spinning wave's program counter (PC) moves, and a wave waiting at a barrier stays put.
 2. To look inside one wave, run `info lanes`, then `lane apply all print <loop-variable>`.
-3. Run `continue`, press Ctrl-C, and select the wave again with `thread <wave-thread-id>`. After Ctrl-C, ROCgdb selects a CPU thread.
+3. Run `continue`, press Ctrl+C, and select the wave again with `thread <wave-thread-id>`. After Ctrl+C, ROCgdb selects a CPU thread.
 4. Print the variable again. Among active lanes, a changing value means the lane is still in the loop, and an unchanged value means it left the loop or is waiting.
-:::
 
 (rocgdb-attach-next-launch)=
 
@@ -166,25 +178,41 @@ Attaching can't go back to kernels that have already finished, but you can stop 
 
 If the application has already loaded the GPU code, for example because any kernel in it has run, the breakpoint resolves right away. If the kernel is in a code object that loads later, the breakpoint stays `<PENDING>` until that code object loads.
 
+Output captured after attaching, for the preceding commands:
+
+```text
+Breakpoint 1 at 0x7b8db2c31cc4: file saxpy_loop.hip, line 8.
+Continuing.
+[Switching to thread 5, lane 0 (AMDGPU Lane 1:2:1:1/0 (0,0,0)[0,0,0])]
+Thread 5 "saxpy_kernel" hit Breakpoint 1, with lanes [0-63], saxpy_kernel (a=2, d_x=0x7b8db0600000, d_y=0x7b8daba00000, size=1000000) at saxpy_loop.hip:8
+8         int global_idx = blockIdx.x * blockDim.x + threadIdx.x;
+```
+
 :::{admonition} If this fails
 
-If ROCgdb never stops, the kernel isn't launched again. Press Ctrl-C, run `detach`, and either attach earlier next time or start the application under ROCgdb. For other causes, see {ref}`Kernel breakpoint isn't hit <rocgdb-troubleshoot-breakpoint-not-hit>`.
+If ROCgdb never stops, the kernel isn't launched again. Press Ctrl+C, run `detach`, and either attach earlier next time or start the application under ROCgdb. For other causes, see {ref}`Kernel breakpoint isn't hit <rocgdb-troubleshoot-breakpoint-not-hit>`.
 :::
 
 (rocgdb-attach-detach)=
 
 ## 6. Detach
 
-If you need a core file for later, save it before you detach. While ROCgdb is attached, the ROCm runtime can't write its own GPU core dump, but ROCgdb can:
+If you need a core file for later, save it before you detach. While ROCgdb is attached, the ROCm runtime can't write its own GPU core dump, but ROCgdb can. Check that you have the disk space first, because the core file can be large. In one test, a small program stopped with about 15,000 waves produced a core file of 874 MB. Save the core file, then detach:
 
-```shell
+```text
 (gdb) gcore saxpy.core
+warning: Memory read failed for corefile section, 4096 bytes at 0xffffffffff600000.
+Saved corefile saxpy.core
 (gdb) detach
+Detaching from program: /path/to/saxpy, process 1912841
+[Inferior 1 (process 1912841) detached]
 ```
 
-**Expected result:** ROCgdb prints `Detaching from program` and the application keeps running. `quit` also detaches from a process you attached to.
+**Expected result:** ROCgdb prints `Saved corefile`, then `Detaching from program: <path>, process <process-id>` and `[Inferior 1 (process <process-id>) detached]`, and the application keeps running. The `gcore` warning `Memory read failed for corefile section` is harmless. `quit` also detaches from a process you attached to: it asks `Quit anyway? (y or n)`, then prints the same two detach lines.
 
 ## Interpret what you see
+
+Find what you see in the first column.
 
 ```{list-table}
 :header-rows: 1
@@ -201,8 +229,8 @@ If you need a core file for later, save it before you detach. While ROCgdb is at
   - The wave started before ROCgdb attached, on a GPU such as gfx90a, and the application wasn't started with `HSA_ENABLE_DEBUG=1`.
   - Nothing else is affected. Next time, start the application with `HSA_ENABLE_DEBUG=1`.
   - [Attaching restrictions](https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/AMD-GPU.html#AMD-GPU-Attaching-Restrictions)
-* - A wave ID with two coordinate groups, such as `AMDGPU Wave 1:2:1:3 (0,0,0)/(1,0,0)/0` (captured on gfx1250-strict)
-  - The kernel uses work-group clusters. The first group is the cluster, the second is the work-group's position within the cluster, and the last number is the wave's index within the work-group. Lane IDs use the same form. In `info dispatches`, the Cluster column is in work-items, not work-groups: a cluster of two 64-work-item work-groups shows `[128,1,1]`.
+* - A wave ID with two coordinate groups, such as `AMDGPU Wave 1:2:1:3 (0,0,0)/(1,0,0)/0`
+  - The kernel uses workgroup clusters. The first group is the cluster, the second is the workgroup's position within the cluster, and the last number is the wave's index within the workgroup. Lane IDs use the same form. In `info dispatches`, the Cluster column is in work-items, not workgroups: a cluster of two 64-work-item workgroups shows `[128,1,1]`. The example was captured on gfx1250-strict.
   - Nothing to fix.
   - [Target identifiers](https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/AMD-GPU.html#AMD-GPU-Heterogeneous-Entity-Target-Identifies-and-Convenience-Variables)
 * - No `AMDGPU Wave` entries
@@ -213,9 +241,9 @@ If you need a core file for later, save it before you detach. While ROCgdb is at
   - The kernel doesn't launch again.
   - Start the application under ROCgdb instead.
   - {ref}`Kernel breakpoint isn't hit <rocgdb-troubleshoot-breakpoint-not-hit>`
-* - Ctrl-C doesn't interrupt ROCgdb
+* - Ctrl+C doesn't interrupt ROCgdb
   - Only a GPU wave was resumed with `scheduler-locking` on.
-  - End the `rocgdb` process. See {ref}`Known limitations <rocgdb-kl-limitations>`.
+  - Kill the `rocgdb` process from another terminal. See {ref}`Known limitations <rocgdb-kl-limitations>`.
   - [AMD GPU restrictions](https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/AMD-GPU.html#AMD-GPU-Restrictions)
 * - No `gpucore` file after a crash while ROCgdb was attached
   - Expected. The runtime can't write a GPU core dump while ROCgdb is attached.

@@ -13,6 +13,8 @@ Find the checks that match what you see.
 
 ## Kernel breakpoint problems
 
+Choose the symptom that matches what you see.
+
 % The checklist page (kernel-breakpoint-not-hit.md) is canonical. Each
 % section below gives the short inline steps, drawn from that page, and
 % links to the full check. If you change a command there, change it here.
@@ -26,7 +28,7 @@ The application runs to completion without stopping at your breakpoint.
 1. Allow pending breakpoints, then set the breakpoint by kernel name: `set breakpoint pending on`, then `break saxpy_kernel`. See {ref}`rocgdb-bp-check-exists`.
 2. Set a breakpoint on the host line that launches the kernel, then `run`. If the program exits first, read its output. See {ref}`rocgdb-bp-check-launch`.
 3. If the launch is reached but the breakpoint stays `<PENDING>`, run `export HIP_ENABLE_DEFERRED_LOADING=0` and start a new session. See {ref}`rocgdb-bp-check-deferred`.
-4. If the source lines are missing, or none of the above helps, rebuild with `-ggdb -O0` and start a new session. See {ref}`rocgdb-bp-check-build`.
+4. If the source lines are missing, or none of the preceding steps helps, rebuild with `-ggdb -O0` and start a new session. See {ref}`rocgdb-bp-check-build`.
 
 ### It stops on a different line than I set
 
@@ -46,6 +48,8 @@ The application ends before it reaches your kernel.
 For the full ordered checklist and the evidence to include in an issue, see {ref}`rocgdb-troubleshoot-breakpoint-not-hit`.
 
 ## Wrong results problems
+
+If the application runs but its output is wrong, start here.
 
 % The page below is canonical. This section only routes to it.
 

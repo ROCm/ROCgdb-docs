@@ -8,7 +8,7 @@
 Commands by task
 ****************
 
-Find the ROCgdb command for what you want to do. Sample output is collapsed under each table.
+Find the ROCgdb command for what you want to do. Where a command prints a result, a sample of its output follows the table.
 
 This page uses the terms :term:`agent <HSA agent>`, :term:`wave`, and :term:`lane`. :ref:`rocgdb-gpu-execution-state` defines them.
 
@@ -38,16 +38,20 @@ This page uses the terms :term:`agent <HSA agent>`, :term:`wave`, and :term:`lan
 Attach to a running process
 ===========================
 
-To attach ROCgdb to a program that is already running, instead of starting it under ROCgdb, use the following commands. Use ``ps`` to find the ``<process_id>`` of the application.
+To attach ROCgdb to a program that is already running, instead of starting it under ROCgdb, use the following commands. Use ``pgrep -a <program-name>`` to find the ``<process-id>`` of the application.
 
 .. code-block:: shell
 
-   $ rocgdb -pid <process_id>
+   $ rocgdb -p <process-id>
    […]
    (gdb) continue
 
+For the full procedure, including what to do if the attach fails, see :ref:`rocgdb-attach`.
+
 Inspect kernel state
 ====================
+
+Use these commands to look at code, agents, queues, waves, lanes, frames, registers, and memory.
 
 Source and disassembly
 ----------------------
@@ -180,7 +184,7 @@ Sample output for ``info threads``:
 .. code-block:: shell
 
       Id   Target Id                                    Frame
-      1    Thread 0x7ffff648bf80 (LWP 1981864) "saxpy" 0x00007ffff5a6c9ef in ?? () from /opt/rocm-7.1.0/lib/libhsa-runtime64.so.1
+      1    Thread 0x7ffff648bf80 (LWP 1981864) "saxpy" 0x00007ffff5a6c9ef in ?? () from /opt/rocm/lib/libhsa-runtime64.so.1
       2    Thread 0x7ffff55ff6c0 (LWP 1981871) "saxpy" __GI___ioctl (fd=3, request=3222817548) at ../sysdeps/unix/sysv/linux/ioctl.c:36
       4    Thread 0x7fffeffff6c0 (LWP 1981873) "saxpy" __GI___ioctl (fd=3, request=3222817548) at ../sysdeps/unix/sysv/linux/ioctl.c:36
       6    Thread 0x7ffff5dff6c0 (LWP 1981877) "saxpy" __GI___ioctl (fd=3, request=3222817548) at ../sysdeps/unix/sysv/linux/ioctl.c:36
@@ -203,7 +207,7 @@ Frames and variables
    * - Task
      - Command
      - Notes
-   * - View the back trace
+   * - View the call stack
      - ``backtrace``
      - Shows the call stack of the current wave or thread.
    * - View the current stack frame
@@ -218,7 +222,7 @@ Frames and variables
 
 Sample output for ``backtrace``:
 
-This sample comes from a different program than the ``saxpy_kernel`` samples above.
+This sample comes from a different program than the preceding ``saxpy_kernel`` samples.
 
 .. code-block:: shell
 
@@ -227,7 +231,7 @@ This sample comes from a different program than the ``saxpy_kernel`` samples abo
 
 Sample output for ``info frame``:
 
-This sample comes from a different program than the ``saxpy_kernel`` samples above.
+This sample comes from a different program than the preceding ``saxpy_kernel`` samples.
 
 .. code-block:: shell
 
@@ -392,6 +396,8 @@ Change kernel focus
 Control kernel execution
 ========================
 
+Use these commands to stop the program where you want, step through it, and resume it.
+
 Set breakpoints
 ---------------
 
@@ -436,6 +442,8 @@ Set watchpoints and catchpoints
 
    * - Command
      - Catches
+   * - ``catch hiperr``
+     - A failed HIP API call (find HIP errors before you debug a kernel).
    * - ``catch load``
      - Loads of shared libraries (debug dynamic linking).
    * - ``catch unload``

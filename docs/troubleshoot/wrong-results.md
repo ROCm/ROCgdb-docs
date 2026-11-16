@@ -6,19 +6,13 @@ myst:
 ---
 
 % TODO(engineering validation): Items still open from the 10.2 review.
-% - Step 6: confirm that `watch -location d_y[global_idx]`, set from a GPU
-%   stop, catches a later write by another wave or kernel on gfx9 and on
-%   gfx11 or gfx12 (confirmed once, for another kernel and another wave).
 % - Interpret table: confirm where to send compiler problems that appear only
 %   in optimized builds (ROCm/llvm-project or upstream LLVM) with the
 %   compiler team.
+% - The step 6 sample is from gfx90a. On gfx11 and gfx12, the watchpoint can
+%   miss the write.
 % - The breakpoint hit message in step 3 was captured on gfx90a (MI210). The
 %   lane is the thread index modulo the wave size.
-% - Captures requested from Luis on 10 November 2026 and still open: step 4
-%   (the `next` then `print` sequence: confirm one `next` is enough for
-%   `global_idx` to be set, and that the values 1000, 2, 1001 and 1 are real;
-%   they were worked out from the code) and step 6 (the watchpoint stop
-%   message, with the old value, new value and writing line, has no sample).
 
 (rocgdb-troubleshoot-wrong-results)=
 
@@ -122,7 +116,7 @@ Confirm you're on the right work-item:
 :::{admonition} If this fails
 
 * **It never stops.** Check that the work-item exists: when the kernel stops without the condition, `print gridDim.x` and `print blockDim.x` should be large enough. If they are, see {ref}`Kernel breakpoint isn't hit <rocgdb-troubleshoot-breakpoint-not-hit>`.
-* `No symbol "blockIdx" in current context.` Your ROCgdb is older than ROCm 7.11, which added the HIP built-in variables. Set the breakpoint on a line after the kernel computes its index, and use that variable instead. Load the GPU code at startup so that the line breakpoint resolves correctly: start ROCgdb with `HIP_ENABLE_DEFERRED_LOADING=0`, then run `break main.hip:<line> if global_idx == 1000`.
+* **`No symbol "blockIdx" in current context.`** Your ROCgdb is older than ROCm 7.11, which added the HIP built-in variables. Set the breakpoint on a line after the kernel computes its index, and use that variable instead. Load the GPU code at startup so that the line breakpoint resolves correctly: start ROCgdb with `HIP_ENABLE_DEFERRED_LOADING=0`, then run `break main.hip:<line> if global_idx == 1000`.
 :::
 
 :::{tip}
@@ -137,15 +131,18 @@ Before you step through the code, print everything the wrong value is computed f
 
 ```shell
 (gdb) next
+8       if (global_idx < size)
 (gdb) print global_idx
-$1 = 1000
+$3 = 1000
 (gdb) print a
-$2 = 2
+$4 = 2
 (gdb) print d_x[global_idx]
-$3 = 1001
+$5 = 1001
 (gdb) print d_y[global_idx]
-$4 = 1
+$6 = 1
 ```
+
+The `$` numbers carry on from the two prints in step 3. Before the `next`, `global_idx` isn't set yet and prints `0`.
 
 **Expected result:** Every input matches what you expect. Here, that means `a = 2`, `x[1000] = 1001` and `y[1000] = 1`, so the kernel should write `2 * 1001 + 1 = 2003`.
 
@@ -163,9 +160,11 @@ Step one line at a time and print the output element after each step. The first 
 
 ```shell
 (gdb) next
+9       d_y[global_idx] = a * d_x[global_idx] + d_y[global_idx];
 (gdb) next
+10      }
 (gdb) print d_y[global_idx]
-$5 = 2003
+$7 = 2003
 ```
 
 To see every local variable at once, run `info locals`.
@@ -192,18 +191,29 @@ If the value is right when this work-item writes it but wrong at the end, someth
 (gdb) continue
 ```
 
-Each time the value changes, ROCgdb stops and shows the old value, the new value, and the line that wrote it. Run `info threads` to see which wave is current.
+Each time the value changes, ROCgdb stops and shows the old value and the new value. Run `info threads` to see which wave is current. Output captured on an AMD Instinct MI210 (gfx90a), where a second kernel, `clobber_kernel`, overwrites the element. It's Hardware watchpoint 3 because the catchpoint and breakpoint from steps 1 and 3 come first:
 
-**Expected result:** ROCgdb stops at the write that changes `2003` to the wrong value, and selects lane 0 of the wave that wrote it. Without precise memory reporting, the stop can be reported one line after the write, on gfx942 too. To stop on the writing line, run `set amdgpu precise-memory on` before `run`.
+```text
+Thread 15634 "clobber_kernel" hit Hardware watchpoint 3: -location d_y[global_idx]
+Old value = 2003
+New value = -1
+clobber_kernel (d_y=0x7fffe9200000) at saxpy2.hip:17
+17      }
+Warning: precise memory signal reporting is not enabled, watchpoint stop location may not be accurate. See "show amdgpu precise-memory".
+```
+
+**Expected result:** ROCgdb stops at the write that changes `2003` to the wrong value, and selects lane 0 of the wave that wrote it. On gfx9 GPUs such as gfx90a and gfx942, the stop is reported one line after the write, with the warning shown in the sample. To stop on the writing line, run `set amdgpu precise-memory on` before `run`. The stop is then on the line that wrote the value (line 16, `d_y[global_idx] = -1.0f;`, in this example), with no warning.
 
 :::{admonition} If this fails
 
 * **The value changes but ROCgdb doesn't stop.** A `hipMemcpy` probably wrote it. Copies use direct memory access (DMA), which watchpoints don't see. Quit, then start ROCgdb with `HSA_ENABLE_SDMA=0 rocgdb ./saxpy` and repeat from {ref}`step 3 <rocgdb-wr-stop-workitem>`. ROCgdb then stops in an unnamed runtime copy kernel rather than in your code, which shows that a copy wrote the value.
-* **On gfx10, gfx11, or gfx12**, a write by the kernel's last instruction can be missed. Run `set amdgpu precise-memory on` before `run`.
+* **On gfx11 or gfx12**, the watchpoint can miss the write. In testing, it caught the write in 2 of 6 runs on gfx1100 and in 6 of 6 runs on gfx1201, and when it stopped, it was on the writing line. Precise memory might not be available on these GPUs: `set amdgpu precise-memory on` can report that it couldn't be enabled, and `show amdgpu precise-memory` then says `on (currently disabled)`.
 * **ROCgdb says it can't set a hardware watchpoint.** You can have at most four, with a combined size of 32 bytes or less. Delete the others with `delete <number>`.
 :::
 
 ## Interpret what you see
+
+Find what you see in the first column.
 
 ```{list-table}
 :header-rows: 1
@@ -242,7 +252,7 @@ Each time the value changes, ROCgdb stops and shows the old value, the new value
   - {ref}`Known limitations <rocgdb-kl-limitations>`
 * - Output is wrong only in an optimized build
   - The bug might depend on optimization, and ROCgdb can't show reliable values at `-O1` and higher.
-  - Report it with both compile commands. AMD-specific compiler problems go to [ROCm/llvm-project issues](https://github.com/ROCm/llvm-project/issues), and others to [upstream LLVM issues](https://github.com/llvm/llvm-project/issues). The compiler team still has to confirm which applies.
+  - Report it with both compile commands. Compiler problems that are specific to AMD GPUs go to [ROCm/llvm-project issues](https://github.com/ROCm/llvm-project/issues), and others to [upstream LLVM issues](https://github.com/llvm/llvm-project/issues).
   - [AMD GPU restrictions](https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/AMD-GPU.html#AMD-GPU-Restrictions)
 ```
 
