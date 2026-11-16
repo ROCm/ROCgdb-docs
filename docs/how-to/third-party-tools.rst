@@ -235,11 +235,11 @@ Follow these steps to configure the Remote Debugger settings:
 
 6. Select **GDB** in the drop out menu and add these two configurations: **(gdb) Attach** and **(gdb) Launch**.
 
-   - Attach doesn't require any extra setup.
+   - **(gdb) Attach** needs permission to attach to the process (``ptrace``). See :ref:`step 3 of Attach to a running process <rocgdb-attach-attach>`.
 
    - Launch requires the environment variable ``LD_LIBRARY_PATH`` to point to the debug build of runtime.
 
-   - If required, set the debugger path to ``rocgdb`` installation path. For example, ``miDebuggerPath: /opt/rocm-7.2.0/bin/rocgdb``.
+   - If required, set the debugger path to ``rocgdb`` installation path. For example, ``miDebuggerPath: /opt/rocm/bin/rocgdb``.
 
 Configuration file: launch.json
 --------------------------------
@@ -259,7 +259,7 @@ Here is a sample launch.json file:
             "request": "attach",
             "processId": "${command:pickProcess}",
             "program" : "/usr/bin/python3",
-            "miDebuggerPath": "/opt/rocm-6.4.0/bin/rocgdb",
+            "miDebuggerPath": "/opt/rocm/bin/rocgdb",
             "MIMode": "gdb",
             "setupCommands": [
             {

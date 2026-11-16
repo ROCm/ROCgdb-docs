@@ -28,7 +28,7 @@ If you haven't stopped in a kernel before, start with {ref}`Debug your first HIP
 
 ## How the checks fit together
 
-<a href="../_static/rocgdb-known-limitations-checks.svg" target="_blank" rel="noopener" title="Open the diagram in a new tab"><img src="../_static/rocgdb-known-limitations-checks.svg" style="max-width: 100%; height: auto;" alt="Flowchart of the four checks on this page. Check that info agents lists your GPU with state A, reading the amd-dbgapi warnings and fixing the driver, firmware, or runtime if it doesn't. Check that the GPU code is built with -ggdb -O0, rebuilding if it isn't. Then look for a matching row in the limitations tables. If there is none, report a problem."></a>
+<a href="../_static/rocgdb-known-limitations-checks.svg" target="_blank" rel="noopener" title="Open the diagram in a new tab"><img src="../_static/rocgdb-known-limitations-checks.svg" style="max-width: 100%; height: auto;" alt="Flowchart of the four checks on this page. Check that info agents lists your GPU with state A. If it doesn't and the GPU's architecture isn't supported, there's no workaround on that GPU. Otherwise, read the amd-dbgapi warnings and fix the driver, firmware, or runtime. Check that the GPU code is built with -ggdb -O0, rebuilding if it isn't. Then look for a matching row in the limitations tables. If there is none, report a problem."></a>
 
 (rocgdb-kl-check-gpu)=
 
@@ -145,10 +145,12 @@ These limitations affect how you set up the system and start ROCgdb.
 * - Debug remotely with `gdbserver`
   - Not supported
   - Run ROCgdb on the machine that has the GPU, for example in an SSH session.
-* - Debug on a GPU shared through Single Root I/O Virtualization (SR-IOV), including gfx1030, gfx1031, and gfx1032
+* - Debug on any GPU shared through Single Root I/O Virtualization (SR-IOV), for example gfx1030, gfx1031, or gfx1032
   - Not supported
   - No workaround. Debug on a system where the GPU isn't shared through SR-IOV.
 ```
+
+(rocgdb-kl-breakpoints)=
 
 ### Breakpoints, stepping, and watchpoints
 
@@ -171,7 +173,7 @@ These limitations affect how you stop, step, and watch values in a kernel.
   - Use at most four `watch` (write) watchpoints with a combined size of 32 bytes or less. Each watchpoint's size counts as rounded up to a multiple of 8 bytes. Beyond that, ROCgdb falls back to software watchpoints, which are slow. `rwatch` and `awatch` are accepted, but `continue` then fails with `Could not insert hardware watchpoint … too many hardware breakpoints/watchpoints`. To catch a read, put a conditional breakpoint on the line that reads the value. This only helps if you know which lines read it.
 * - Catch every write to a location with a watchpoint
   - Limited
-  - Watchpoints reach the GPU only after the ROCm runtime starts. Set them after your first kernel breakpoint, and set them again after `run` restarts the program. Writes by `hipMemcpy` use direct memory access (DMA) and aren't seen: start ROCgdb with `HSA_ENABLE_SDMA=0`. On gfx10, gfx11, and gfx12 GPUs, a write by a kernel's last instruction can be missed. Run `set amdgpu precise-memory on` before `run`, although precise memory might not be available on these GPUs. See {ref}`step 6 of Wrong results <rocgdb-wr-watch>`.
+  - Watchpoints reach the GPU only after the ROCm runtime starts. Set them after your first kernel breakpoint, and set them again after `run` restarts the program. Writes by `hipMemcpy` use direct memory access (DMA) and aren't seen: start ROCgdb with `HSA_ENABLE_SDMA=0`. On gfx10, gfx11, and gfx12 GPUs, a write by a kernel's last instruction can be missed. Run `set amdgpu precise-memory on` before `run`, although precise memory might not be available on these GPUs. On any GPU, without precise memory, the stop can be reported after the writing instruction (on gfx90a and gfx942, one line later). See {ref}`step 6 of Wrong results <rocgdb-wr-watch>`.
 * - Single-step a wave when ROCgdb seems to wait forever
   - Limited
   - Press Ctrl+C to cancel the step, then run it again.
@@ -232,7 +234,7 @@ These limitations affect attaching to a running process and getting core dumps.
 * - What you're trying to do
   - Status
   - What to do instead
-* - See the workgroup of waves that started before you attached
+* - See the dispatch and workgroup position of waves that started before you attached
   - Needs setup
   - Start the application with `HSA_ENABLE_DEBUG=1`. Without it, some GPUs show `?` in those waves' IDs, and that can't be fixed after the application has started. See {ref}`rocgdb-attach`.
 * - Debug an application that uses cooperative groups or compute unit (CU) masking on gfx1100, gfx1101, or gfx1102
@@ -343,7 +345,7 @@ Find what you see in the first column.
   - No GPU is visible, or no kernel launched.
   - {ref}`Step 1 <rocgdb-kl-check-gpu>`, then {ref}`confirm the kernel launches <rocgdb-bp-check-launch>`.
   - {ref}`Waves are threads <rocgdb-waves-are-threads>`
-* - A line starting with `amd-dbgapi: warning`
+* - A line starting with `amd-dbgapi` or `amd_dbgapi`
   - Driver, firmware, or runtime mismatch.
   - Use the table in {ref}`step 2 <rocgdb-kl-warnings>`.
   - [Device driver and ROCm runtime](https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/AMD-GPU.html#AMD-GPU-Device-Driver-and-AMD-ROCm-Runtime)

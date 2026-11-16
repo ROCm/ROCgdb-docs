@@ -27,9 +27,13 @@ If you can start the application yourself, use {ref}`Debug your first HIP kernel
 * You're logged in with the account that runs the application.
 * The application is built with `-ggdb`, so ROCgdb can show source lines.
 
+:::{note}
+The sample output on this page comes from long-running test programs, not the stock saxpy example. saxpy exits before you can attach while a kernel runs.
+:::
+
 ## How the steps fit together
 
-<a href="../_static/rocgdb-attach-steps.svg" target="_blank" rel="noopener" title="Open the diagram in a new tab"><img src="../_static/rocgdb-attach-steps.svg" style="max-width: 100%; height: auto;" alt="Flowchart of the steps on this page. If you can restart the application, restart it with HSA_ENABLE_DEBUG=1. Otherwise, attach anyway. Find the process ID, then attach with rocgdb -p. If the attach fails, fix ptrace permission or the container setup. If info threads shows AMDGPU Wave entries, inspect the waves. If it doesn't, break on the next kernel launch. Then detach. The application keeps running."></a>
+<a href="../_static/rocgdb-attach-steps.svg" target="_blank" rel="noopener" title="Open the diagram in a new tab"><img src="../_static/rocgdb-attach-steps.svg" style="max-width: 100%; height: auto;" alt="Flowchart of the steps on this page. If you can restart the application, restart it with HSA_ENABLE_DEBUG=1. Otherwise, attach anyway. Find the process ID, then attach with rocgdb -p. If the attach fails, fix the container setup, or ask your administrator about ptrace. If info threads shows AMDGPU Wave entries, inspect the waves. If it doesn't, break on the next kernel launch. Then detach. The application keeps running."></a>
 
 (rocgdb-attach-env)=
 
@@ -116,7 +120,7 @@ Wave line captured on an AMD Instinct MI210 (gfx90a), for an application started
   5    AMDGPU Wave 1:1:?:1 (?,?,?)/?   0x... in spin_kernel (seconds=60, out=0x...) at attach_app.hip:12
 ```
 
-The `?` depends on the GPU. On gfx90a it's in the dispatch field (`1:1:?:1`), and the line has no quoted name. gfx942, gfx1100, and gfx1201 print complete IDs even without `HSA_ENABLE_DEBUG=1`, with the kernel name in quotes, for example `AMDGPU Wave 1:1:1:1 (0,0,0)/0 "spin_kernel"`.
+The `?` depends on the GPU. On gfx90a, the dispatch field and the workgroup position are `?` (`1:1:?:1 (?,?,?)/?`), and the line has no quoted name. gfx942, gfx1100, and gfx1201 print complete IDs even without `HSA_ENABLE_DEBUG=1`, with the kernel name in quotes, for example `AMDGPU Wave 1:1:1:1 (0,0,0)/0 "spin_kernel"`.
 
 **Expected result:** You see the CPU threads and, if a kernel is running right now, one or more `AMDGPU Wave` entries. If you see waves, go to {ref}`step 5a <rocgdb-attach-inspect>`. If you don't, go to {ref}`step 5b <rocgdb-attach-next-launch>`.
 

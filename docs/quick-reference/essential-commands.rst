@@ -1,5 +1,5 @@
 .. meta::
-   :description: Find the ROCgdb command for a task, such as inspecting GPU state, printing and changing data, switching waves and lanes, and controlling execution.
+   :description: Find the ROCgdb command for a task, such as inspecting GPU state, printing and changing kernel data, switching waves and lanes, and controlling execution.
    :keywords: ROCgdb commands, AMD ROCm Debugger quick start, ROCgdb quick reference
 
 .. _rocgdb-essential-commands:
@@ -8,7 +8,7 @@
 Commands by task
 ****************
 
-Find the ROCgdb command for what you want to do. Where a command prints a result, a sample of its output follows the table.
+Find the ROCgdb command for what you want to do. For the inspection commands, a sample of the output follows each table.
 
 This page uses the terms :term:`agent <HSA agent>`, :term:`wave`, and :term:`lane`. :ref:`rocgdb-gpu-execution-state` defines them.
 
@@ -57,6 +57,8 @@ Use these commands to look at code, agents, queues, dispatches, waves, lanes, fr
 
 Source and disassembly
 ----------------------
+
+Use these commands to view source lines and machine instructions.
 
 .. list-table::
    :header-rows: 1
@@ -202,6 +204,8 @@ Sample output for ``info lanes``:
 Frames and variables
 --------------------
 
+Use these commands to view the call stack and the arguments and local variables of a frame.
+
 .. list-table::
    :header-rows: 1
    :widths: 35 30 35
@@ -226,7 +230,7 @@ Sample output for ``backtrace``:
 
 .. code-block:: text
 
-    #0  saxpy (tid=0) at /home/user/saxpy.cpp:33
+    #0  bar (tid=0) at /home/user/saxpy.cpp:33
     #1  0x00007ffff608ee40 in kern () at /home/user/saxpy.cpp:4
 
 Sample output for ``info frame``:
@@ -256,6 +260,8 @@ Sample output for ``info locals``:
 Registers and memory
 --------------------
 
+Use these commands to view the registers of the current wave and the contents of GPU memory.
+
 .. list-table::
    :header-rows: 1
    :widths: 35 30 35
@@ -281,19 +287,19 @@ Sample output for ``info registers``:
     ....
     s41            0x0                 0
     m0             0x1008              4104
-    pc             0x7ffff608e3bc      0x7ffff608e3bc <saxpy(int)+268>
+    pc             0x7ffff608e3bc      0x7ffff608e3bc <bar(int)+268>
     exec           0x5555555555555555  6148914691236517205
     vcc            0xffffffffffffffff  18446744073709551615
 
-Without a format, ``x <space>#<address>`` prints one word in hexadecimal. If you leave out ``<space>#``, ROCgdb uses the default address space, which is ``global`` on AMD GPUs. In the following examples, the ``/4xw`` format prints four (``4``) words (``w``) in hexadecimal (``x``), and ``0xdeadbeef`` is a placeholder address:
+Without a format, ``x`` prints one word in hexadecimal. Without ``<space>#``, ROCgdb uses the default address space, ``global``. In the following examples, the ``/4xw`` format prints four (``4``) words (``w``) in hexadecimal (``x``), and ``0x0000ffffdeadbeef`` is a placeholder address:
 
 .. code-block:: shell
 
-    (gdb) x/4xw global#0xdeadbeef
-    (gdb) x/4xw local#0xdeadbeef
-    (gdb) x/4xw generic#0xdeadbeef
-    (gdb) x/4xw private_wave#0xdeadbeef
-    (gdb) x/4xw private_lane#0xdeadbeef
+    (gdb) x/4xw global#0x0000ffffdeadbeef
+    (gdb) x/4xw local#0x0000ffffdeadbeef
+    (gdb) x/4xw generic#0x0000ffffdeadbeef
+    (gdb) x/4xw private_wave#0x0000ffffdeadbeef
+    (gdb) x/4xw private_lane#0x0000ffffdeadbeef
 
 For more information, see `AMD GPU address spaces <../ROCgdb/gdb/doc/gdb/AMD-GPU.html#AMD-GPU-Address-Spaces>`_.
 
@@ -361,7 +367,7 @@ The values for ``<code>`` are:
 Modify kernel data
 ==================
 
-Use ``set var`` or ``print`` to change a value in the current lane. ``print`` also shows the new value.
+Use ``set var`` or ``print`` to change a value. ROCgdb evaluates the expression in the current lane. A change to global memory is visible to every lane. ``print`` also shows the new value.
 
 .. list-table::
    :header-rows: 1
@@ -413,11 +419,13 @@ Use these commands to stop the program where you want, step through it, and resu
 Set breakpoints
 ---------------
 
+To stop at a function, a source line, or an address, use ``break``:
+
 .. code-block:: shell
 
     (gdb) break <file>:<line-number>
     (gdb) break func_foo
-    (gdb) break *0x01234567
+    (gdb) break *0x0000ffffdeadbeef
 
 To set a temporary breakpoint, use ``tbreak``:
 
@@ -430,6 +438,8 @@ To set a temporary breakpoint, use ``tbreak``:
 Set conditional breakpoints
 ---------------------------
 
+To stop only when a condition is true, add ``if <condition>`` to ``break``. The condition can use a program variable or a ROCgdb convenience variable for the current agent, queue, dispatch, thread, or lane:
+
 .. code-block:: shell
 
     (gdb) break func_foo if idx == 9
@@ -438,8 +448,8 @@ Set conditional breakpoints
     (gdb) break func_foo if $_dispatch == 6
     (gdb) break func_foo if $_thread == 7
     (gdb) break func_foo if $_lane == 15
-    (gdb) break func_foo if $_thread_workgroup_pos == 3
-    (gdb) break func_foo if $_lane_workgroup_pos == "[0,0,0]"
+    (gdb) break func_foo if $_streq($_thread_workgroup_pos, "3")
+    (gdb) break func_foo if $_streq($_lane_workgroup_pos, "[0,0,0]")
 
 Set watchpoints and catchpoints
 -------------------------------
@@ -462,21 +472,23 @@ To stop when an event happens, use ``catch``:
      - A failed HIP API call (find HIP errors before you debug a kernel).
    * - ``catch load``
      - Loads of shared libraries (debug dynamic linking).
-   * - ``catch unload``
-     - Unloads of shared libraries (track cleanup and unloading).
    * - ``catch rethrow``
      - An exception when it is rethrown (trace exception propagation).
    * - ``catch signal SIGSEGV``
      - Signals by name or number (debug crashes or signals).
-   * - ``catch syscall open``
+   * - ``catch syscall openat``
      - System calls by name, group, or number (trace system-level calls).
    * - ``catch throw``
      - An exception when it is thrown (trace exception origins).
+   * - ``catch unload``
+     - Unloads of shared libraries (track cleanup and unloading).
    * - ``catch vfork``
      - Calls to ``vfork`` (monitor child process creation).
 
 Set scheduler modes
 -------------------
+
+Use these commands to choose which threads and waves resume when you step or continue.
 
 .. list-table::
    :header-rows: 1
@@ -490,13 +502,15 @@ Set scheduler modes
      - `Scheduler locking mode <../ROCgdb/gdb/doc/gdb/All_002dStop-Mode.html#set-scheduler_002dlocking>`_
    * - Turn on non-stop mode
      - ``set non-stop on``
-     - `Non-stop mode <../ROCgdb/gdb/doc/gdb/Non_002dStop-Mode.html>`_
+     - `Non-stop mode <../ROCgdb/gdb/doc/gdb/Non_002dStop-Mode.html>`_. Run this before ``run`` or before you attach.
    * - Turn on all-stop mode
      - ``set non-stop off``
-     - `All-stop mode <../ROCgdb/gdb/doc/gdb/All_002dStop-Mode.html>`_
+     - `All-stop mode <../ROCgdb/gdb/doc/gdb/All_002dStop-Mode.html>`_. Run this before ``run`` or before you attach.
 
 Manage breakpoints, watchpoints, and catchpoints
 ------------------------------------------------
+
+Use these commands to turn off, turn on, or remove the breakpoints, watchpoints, and catchpoints that you set. Run ``info breakpoints`` to list their numbers. ``<breakpoint-numbers>`` is one or more numbers or ranges, for example ``4`` or ``2-5``.
 
 .. list-table::
    :header-rows: 1
@@ -506,17 +520,19 @@ Manage breakpoints, watchpoints, and catchpoints
      - Command
      - Example
    * - Disable
-     - ``disable <list>``
+     - ``disable <breakpoint-numbers>``
      - ``disable 4``
    * - Enable
-     - ``enable <list>``
+     - ``enable <breakpoint-numbers>``
      - ``enable 4``
    * - Delete
-     - ``delete <list>``
+     - ``delete <breakpoint-numbers>``
      - ``delete 4``
 
 Step and resume
 ---------------
+
+Use these commands to move through the program one step at a time or to resume it.
 
 .. list-table::
    :header-rows: 1
@@ -535,8 +551,8 @@ Step and resume
      - ``until``
      - Runs until a line after the current one, so you don't step through a loop more than once.
    * - Continue until an address
-     - ``until <address>``
-     - For example, ``until 0x0000ffffdeadbeef``.
+     - ``until *<address>``
+     - For example, ``until *0x0000ffffdeadbeef``.
    * - Run until the current frame returns
      - ``finish``
      - Stops when the current function returns to its caller.
@@ -561,5 +577,5 @@ Can't find a command?
 
 * For the AMD GPU commands and the debugging model, see `Debugging on AMD GPU <../ROCgdb/gdb/doc/gdb/AMD-GPU.html>`_ in the ROCgdb user guide.
 * For every GDB command, see the `full user guide <../ROCgdb/gdb/doc/gdb/index.html>`_.
-* The user guide is also installed with ROCm as a texinfo file at ``/opt/rocm/share/info/rocgdb/gdb.info`` and as a PDF file at ``/opt/rocm/share/doc/rocgdb/rocgdb.pdf``.
+* The user guide is also installed with ROCm as an Info file at ``/opt/rocm/share/info/rocgdb/gdb.info`` (read it with ``info -f <path>``) and as a PDF file at ``/opt/rocm/share/doc/rocm-gdb/rocgdb.pdf``.
 * If a command or sample on this page is wrong or missing, `open an issue <https://github.com/ROCm/ROCgdb/issues>`_.

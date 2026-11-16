@@ -168,7 +168,7 @@ If `next` skips the line that writes the output, this lane didn't take that bran
 :::
 
 :::{tip}
-To compare a value across every lane in the wave, run `lane apply all print d_y[global_idx]`. A wrong value that repeats in a pattern, such as every 64 lanes, usually means an indexing bug. See {ref}`Lanes are work-items <rocgdb-lanes-are-work-items>`.
+To compare a value across every lane in the wave, run `lane apply all print d_y[global_idx]`. A wrong value that repeats in a pattern, such as every wave (32 or 64 lanes), usually means an indexing bug. See {ref}`Lanes are work-items <rocgdb-lanes-are-work-items>`.
 :::
 
 (rocgdb-wr-watch)=
@@ -199,7 +199,7 @@ Warning: precise memory signal reporting is not enabled, watchpoint stop locatio
 
 * **The value changes but ROCgdb doesn't stop.** A `hipMemcpy` probably wrote it. Copies use direct memory access (DMA), which watchpoints don't see. Quit, then start ROCgdb with `HSA_ENABLE_SDMA=0 rocgdb ./saxpy` and repeat from {ref}`step 3 <rocgdb-wr-stop-workitem>`. ROCgdb then stops in an unnamed runtime copy kernel rather than in your code, which shows that a copy wrote the value.
 * **On gfx11 or gfx12**, the watchpoint can miss the write. In testing, it caught the write in 2 of 6 runs on gfx1100 and in 6 of 6 runs on gfx1201, and when it stopped, it was on the writing line. Precise memory might not be available on these GPUs: `set amdgpu precise-memory on` can report that it couldn't be enabled, and `show amdgpu precise-memory` then says `on (currently disabled)`.
-* **ROCgdb says it can't set a hardware watchpoint.** You can have at most four, with a combined size of 32 bytes or less. Delete the others with `delete <number>`.
+* **You set more than four `watch` watchpoints, or their combined size is over 32 bytes.** ROCgdb falls back to slow software watchpoints, so `continue` gets slow. Delete the others with `delete <number>`. The `Could not insert hardware watchpoint` error comes from `rwatch` and `awatch`, which ROCgdb accepts but can't insert.
 :::
 
 ## Interpret what you see

@@ -14,7 +14,7 @@ OUT = HERE.parent / "_static"
 ALT = {
     "known-limitations-checks": (
         "Checks for a ROCgdb problem",
-        "Flowchart. Start: ROCgdb doesn't do what you expect. Check 1: does info agents list your GPU with state A? If no, step 2: read the amd-dbgapi warnings and fix the driver, firmware, or runtime, then go back to check 1. If yes, check 3: is the GPU code built with -ggdb -O0? If no, rebuild with -ggdb -O0, then go back to check 3. If yes, check 4: does a row in the limitations tables match? If yes, use the workaround in that row. If no, report a problem.",
+        "Flowchart. Start: ROCgdb doesn't do what you expect. Check 1: does info agents list your GPU with state A? If no, is its architecture in the supported list? If it isn't, there's no workaround on that GPU. If it is, step 2: read the amd-dbgapi warnings and fix the driver, firmware, or runtime, then go back to check 1. If yes, check 3: is the GPU code built with -ggdb -O0? If no, rebuild with -ggdb -O0, then go back to check 3. If yes, check 4: does a row in the limitations tables match? If yes, use the workaround in that row. If no, report a problem.",
     ),
     "known-limitations-report": (
         "Where to send a ROCgdb problem",
@@ -30,7 +30,7 @@ ALT = {
     ),
     "attach-steps": (
         "Steps to attach ROCgdb to a running process",
-        "Flowchart. Start: you need to debug an application that is already running. If you can restart it, step 1: restart it with HSA_ENABLE_DEBUG=1. If not, attach anyway, and waves that already exist might show a question mark in their IDs. Step 2: find the process ID. Step 3: does rocgdb -p PID attach? If not, fix ptrace permission or the container setup, then go back to step 3. Step 4: does info threads show AMDGPU Wave entries? If yes, step 5a: inspect the waves that are running. If no, step 5b: break on the next kernel launch. Step 6: detach. The application keeps running.",
+        "Flowchart. Start: you need to debug an application that is already running. If you can restart it, step 1: restart it with HSA_ENABLE_DEBUG=1. If not, attach anyway, and waves that already exist might show a question mark in their IDs. Step 2: find the process ID. Step 3: does rocgdb -p PID attach? If not, fix the container setup, or ask your administrator about ptrace, then go back to step 3. Step 4: does info threads show AMDGPU Wave entries? If yes, step 5a: inspect the waves that are running. If no, step 5b: break on the next kernel launch. Step 6: detach. The application keeps running.",
     ),
     "components": (
         "How ROCgdb fits together",

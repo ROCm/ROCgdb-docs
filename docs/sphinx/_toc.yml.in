@@ -1,5 +1,5 @@
-# Anywhere {branch} is used, the branch name will be substituted.
-# These comments will also be removed.
+# rocm-docs-core substitutes ${branch} with the raw git branch name. Don't use
+# it for doc links (see below). These comments are removed from the output.
 #
 # @DOCS_BASE@ is substituted by docs/conf.py, which writes _toc.yml.generated.in
 # from this file; rocm-docs-core then formats that into _toc.yml. It becomes
@@ -10,14 +10,14 @@
 # Do not write the base by hand with ${branch}: that substitutes the raw git
 # branch name, which is not a Read the Docs version. On a feature branch it
 # yields .../en/<branch-name>/... and on a release branch .../en/docs/10.1.0/...
-# (unslugified, Read the Docs serves docs-10.1.0) - both 404.
+# (unslugified, Read the Docs serves docs-10.1.0); both return 404.
 root: index
 subtrees:
   - caption: Start here
     entries:
     - file: install/installation
       title: Install ROCm Debugger (ROCgdb)
-    - url: https://github.com/ROCm/ROCgdb/blob/amd-staging/README-ROCM.md
+    - url: https://github.com/ROCm/ROCgdb/blob/amd-staging/README-ROCM.md#build-the-amd-rocm-debugger
       title: Build from source
     - file: start-here/debug-first-hip-kernel
       title: Debug your first HIP kernel
