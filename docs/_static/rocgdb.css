@@ -1,6 +1,6 @@
 /* Landing page eyebrow above the page title. */
 .rocgdb-eyebrow {
-  color: var(--pst-color-secondary, #ed1c24);
+  color: var(--pst-color-text-muted);
   font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -115,7 +115,7 @@
 }
 
 .rocgdb-tile.sd-card {
-  border-top: 0.2rem solid #0969da;
+  border-top: 0.2rem solid var(--pst-color-primary);
   box-shadow: none;
 }
 
@@ -151,10 +151,21 @@
   margin-bottom: 0.5rem;
 }
 
+.rocgdb-reference {
+  container-type: inline-size;
+}
+
+/* One column on narrow screens, otherwise two even columns. */
 .rocgdb-reference-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.25rem 1.5rem;
+  display: grid;
+  gap: 0.25rem 2rem;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+@container (min-width: 36rem) {
+  .rocgdb-reference-links {
+    grid-template-columns: repeat(2, max-content);
+  }
 }
 
 .rocgdb-reference-links p {

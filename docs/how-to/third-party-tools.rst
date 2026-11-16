@@ -4,9 +4,9 @@
 
 .. _setting-third-party:
 
-*****************************
-Setting up third-party tools
-*****************************
+************************
+Set up third-party tools
+************************
 
 This topic discusses how to configure third-party tools or plugins such as the GDB dashboard and Visual Studio (VS) Code GUI for debugging applications using ROCgdb.
 

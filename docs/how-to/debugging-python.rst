@@ -4,9 +4,9 @@
 
 .. _debugging-python:
 
-=============================
-Debugging Python kernel code
-=============================
+========================
+Debug Python kernel code
+========================
 
 This topic provides information on debugging Python (Pytorch) kernel code that offloads HIP compute kernels to AMD GPU.
 
