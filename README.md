@@ -19,8 +19,8 @@ ROCgdb is not a git submodule. Which source to build is declared in
 ```yaml
 rocgdb:
   url: https://github.com/ROCm/ROCgdb.git
-  branch: release/therock-10.1
-  commit: 7e541ef6fe7d5ad8172cf227656103f22f975226
+  branch: release/therock-10.2
+  commit: 1326d1cb924108c6d8768915bf02c51496e595b4
 ```
 
 `scripts/resolve_rocgdb_commit.py` turns that into the commit to build and the release
@@ -28,7 +28,7 @@ tag to publish under. A non-empty `commit` is used as-is, which keeps builds
 reproducible; leave it empty to track the latest commit of `branch`, resolved with
 `git ls-remote`. The release tag is `gdb-docs-<last segment of branch>-<commit>`, so
 the pinned commit above publishes under
-`gdb-docs-therock-10.1-7e541ef6fe7d5ad8172cf227656103f22f975226`.
+`gdb-docs-therock-10.2-1326d1cb924108c6d8768915bf02c51496e595b4`.
 
 The native build takes around 16 minutes, which exceeds Read the Docs' build-time
 limit, so it does not run on Read the Docs. Instead it is automated in two steps:
