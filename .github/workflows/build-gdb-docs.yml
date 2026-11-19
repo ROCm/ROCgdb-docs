@@ -124,8 +124,6 @@ jobs:
             _readthedocs/html/ROCgdb \
             docs/_static/pdf/ROCgdb \
             rocgdb-meta
-          echo "case-collision pairs preserved (expect 2 for bss.html/Bss.html):"
-          tar -tzf rocgdb-docs-html-pdf.tar.gz | grep -ciE '/bss\.html$'
 
       - name: Publish release asset keyed by resolved commit
         if: steps.check.outputs.exists == 'false'
