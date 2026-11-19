@@ -243,7 +243,7 @@ Find what you see in the first column.
   - {ref}`Known limitations <rocgdb-kl-limitations>`
 * - Output is wrong only in an optimized build
   - The bug might depend on optimization, and ROCgdb can't show reliable values at `-O1` and higher.
-  - Report it with both compile commands. Compiler problems that are specific to AMD GPUs go to [ROCm/llvm-project issues](https://github.com/ROCm/llvm-project/issues), and others to [upstream LLVM issues](https://github.com/llvm/llvm-project/issues).
+  - Report it with both compile commands. If the problem is specific to AMD GPUs, or you're not sure, report it to [ROCm/llvm-project issues](https://github.com/ROCm/llvm-project/issues). Report other compiler problems to [upstream LLVM issues](https://github.com/llvm/llvm-project/issues).
   - [AMD GPU restrictions](https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/AMD-GPU.html#AMD-GPU-Restrictions)
 ```
 
