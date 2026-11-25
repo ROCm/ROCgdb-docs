@@ -188,7 +188,12 @@ Find what you see in the first column.
 
 ## Report a problem
 
-If these steps don't resolve the problem, follow the routing and template in {ref}`Known limitations <rocgdb-kl-report>`.
+If these steps don't resolve the problem, follow the routing and template in {ref}`Known limitations <rocgdb-kl-report>`. Report the problem to one of these places:
+
+```{include} ../reference/known-limitations.md
+:start-after: "% start-report-routing"
+:end-before: "% end-report-routing"
+```
 
 :::{admonition} Evidence to collect
 
@@ -197,8 +202,6 @@ If these steps don't resolve the problem, follow the routing and template in {re
 * The commands you ran and the output of `info breakpoints`.
 * Whether the problem still happens with `HIP_ENABLE_DEFERRED_LOADING=0`.
 :::
-
-Open the issue on [ROCm/ROCgdb issues](https://github.com/ROCm/ROCgdb/issues).
 
 ## You are done when
 

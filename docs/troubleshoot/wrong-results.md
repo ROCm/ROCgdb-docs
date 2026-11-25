@@ -28,7 +28,7 @@ The commands on this page use the saxpy example, which computes `y[i] = a * x[i]
 
 ## How the steps fit together
 
-<a href="../_static/rocgdb-wrong-results-steps.svg" target="_blank" rel="noopener" title="Open the diagram in a new tab"><img src="../_static/rocgdb-wrong-results-steps.svg" style="max-width: 100%; height: auto;" alt="Flowchart of the six steps on this page. Check for HIP errors first. Then work out which work-item wrote a wrong element, stop only that work-item, and check the values it reads. If an input is wrong, the bug is earlier. If the inputs are right, step and print to find the line where the value goes wrong, or watch the output to see what overwrites it."></a>
+<a href="../_static/rocgdb-wrong-results-steps.svg" target="_blank" rel="noopener" title="Open the diagram in a new tab"><img src="../_static/rocgdb-wrong-results-steps.svg" style="max-width: 100%; height: auto;" alt="Flowchart of the six steps on this page. Check for HIP errors first. Then work out which work-item wrote a wrong element, stop only that work-item, and check the values it reads. If an input is wrong, the bug is earlier: check the host copy, or repeat from step 2 for the kernel that produced the input. If the inputs are right, step and print to find the line where the value goes wrong, or watch the output to see what overwrites it."></a>
 
 (rocgdb-wr-check-hiperr)=
 
@@ -182,7 +182,7 @@ If the value is right when this work-item writes it but wrong at the end, someth
 (gdb) continue
 ```
 
-Each time the value changes, ROCgdb stops and shows the old value and the new value. Run `info threads` to see which wave is current. Output captured on an AMD Instinct MI210 (gfx90a), with a modified copy of the saxpy example in which a second kernel, `clobber_kernel`, overwrites the element. It's Hardware watchpoint 3 because the catchpoint and breakpoint from steps 1 and 3 come first:
+Each time the value changes, ROCgdb stops and shows the old value and the new value. Run `info threads` to see which wave is current. The following output comes from a separate session and program, not from the session in step 3, so the thread number (15634) and the file name (`saxpy2.hip`) differ from the earlier samples. It was captured on an AMD Instinct MI210 (gfx90a), with a modified copy of the saxpy example in which a second kernel, `clobber_kernel`, overwrites the element. It's Hardware watchpoint 3 because the catchpoint and breakpoint from steps 1 and 3 come first:
 
 ```text
 Thread 15634 "clobber_kernel" hit Hardware watchpoint 3: -location d_y[global_idx]
@@ -195,12 +195,16 @@ Warning: precise memory signal reporting is not enabled, watchpoint stop locatio
 
 **Expected result:** ROCgdb stops at the write that changes `2003` to the wrong value, and selects lane 0 of the wave that wrote it. On gfx9 GPUs such as gfx90a and gfx942, the stop is reported one line after the write, with the warning shown in the sample. To stop on the writing line, run `set amdgpu precise-memory on` before `run`. The stop is then on the line that wrote the value (line 16, `d_y[global_idx] = -1.0f;`, in this example), with no warning.
 
+This warning is specific to watchpoint stops. A memory violation (`SIGSEGV`) prints a different warning, `precise memory violation signal reporting is not enabled`. See the {ref}`Interpret table <rocgdb-wr-interpret>`.
+
 :::{admonition} If this fails
 
 * **The value changes but ROCgdb doesn't stop.** A `hipMemcpy` probably wrote it. Copies use direct memory access (DMA), which watchpoints don't see. Quit, then start ROCgdb with `HSA_ENABLE_SDMA=0 rocgdb ./saxpy` and repeat from {ref}`step 3 <rocgdb-wr-stop-workitem>`. ROCgdb then stops in an unnamed runtime copy kernel rather than in your code, which shows that a copy wrote the value.
 * **On gfx11 or gfx12**, the watchpoint can miss the write. In testing, it caught the write in 2 of 6 runs on gfx1100 and in 6 of 6 runs on gfx1201, and when it stopped, it was on the writing line. Precise memory might not be available on these GPUs: `set amdgpu precise-memory on` can report that it couldn't be enabled, and `show amdgpu precise-memory` then says `on (currently disabled)`.
 * **You set more than four `watch` watchpoints, or their combined size is over 32 bytes.** ROCgdb falls back to slow software watchpoints, so `continue` gets slow. Delete the others with `delete <number>`. The `Could not insert hardware watchpoint` error comes from `rwatch` and `awatch`, which ROCgdb accepts but can't insert.
 :::
+
+(rocgdb-wr-interpret)=
 
 ## Interpret what you see
 
@@ -255,9 +259,12 @@ First decide whether the problem is in your code or in ROCgdb. Compare the value
 (gdb) print d_y[global_idx]
 ```
 
-If ROCgdb's value doesn't match the independent one, it's likely a ROCgdb problem. Comparing `print` with `x/f` doesn't show this, because both read memory the same way. Follow the same routing as {ref}`Known limitations <rocgdb-kl-report>`:
+If ROCgdb's value doesn't match the independent one, it's likely a ROCgdb problem. Comparing `print` with `x/f` doesn't show this, because both read memory the same way. Before you report it, work through the {ref}`routing in Known limitations <rocgdb-kl-report>`. It checks that the application works without ROCgdb, and then looks for a matching limitation. Then report the problem to one of these places:
 
-<a href="../_static/rocgdb-wrong-results-report.svg" target="_blank" rel="noopener" title="Open the diagram in a new tab"><img src="../_static/rocgdb-wrong-results-report.svg" style="max-width: 100%; height: auto;" alt="Flowchart for choosing where to send a wrong-value problem. If a row in Known limitations matches, use its workaround. Otherwise, report documentation problems to ROCgdb-docs and everything else to ROCgdb with the evidence in the following box."></a>
+```{include} ../reference/known-limitations.md
+:start-after: "% start-report-routing"
+:end-before: "% end-report-routing"
+```
 
 :::{admonition} Evidence to collect
 
@@ -268,7 +275,7 @@ If ROCgdb's value doesn't match the independent one, it's likely a ROCgdb proble
 * Whether the problem still happens with `HIP_ENABLE_DEFERRED_LOADING=0`.
 :::
 
-Open the issue on [ROCm/ROCgdb issues](https://github.com/ROCm/ROCgdb/issues) using the template in {ref}`Known limitations <rocgdb-kl-report>`.
+To open a ROCgdb issue, use the steps and template in {ref}`Known limitations <rocgdb-kl-report>`.
 
 ## You are done when
 

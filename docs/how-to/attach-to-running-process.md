@@ -245,7 +245,12 @@ Find what you see in the first column.
 
 ## Report a problem
 
-Before you open an issue, try starting the application under ROCgdb and reproducing the same problem. If it happens only when you attach, say so in the issue, because that narrows the problem down a lot. Then follow the routing and template in {ref}`Known limitations <rocgdb-kl-report>`.
+Before you open an issue, try starting the application under ROCgdb and reproducing the same problem. If it happens only when you attach, say so in the issue, because that narrows the problem down a lot. Then follow the routing and template in {ref}`Known limitations <rocgdb-kl-report>`. Report the problem to one of these places:
+
+```{include} ../reference/known-limitations.md
+:start-after: "% start-report-routing"
+:end-before: "% end-report-routing"
+```
 
 :::{admonition} Evidence to collect
 
@@ -254,8 +259,6 @@ Before you open an issue, try starting the application under ROCgdb and reproduc
 * The full output of `rocgdb -p <process-id>`, then `info threads` and `info agents`.
 * Whether the problem also happens when you start the application under ROCgdb.
 :::
-
-Open the issue on [ROCm/ROCgdb issues](https://github.com/ROCm/ROCgdb/issues).
 
 ## You are done when
 

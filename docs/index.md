@@ -88,9 +88,7 @@ Prepare a debug build, stop in your first kernel, and learn what ROCgdb shows.
 
 **Debug tasks**
 
-Track down a wrong result, or attach to an application that's already running.
-
-{ref}`Wrong results or unexpected values →<rocgdb-troubleshoot-wrong-results>`
+Look at an application that's already running, without restarting it.
 
 {ref}`Attach to a running process →<rocgdb-attach>`
 ::::
@@ -125,6 +123,8 @@ Start from the symptom you saw, not a command name.
 {ref}`Troubleshoot a problem →<rocgdb-troubleshoot>`
 
 {ref}`Kernel breakpoint isn't hit →<rocgdb-troubleshoot-breakpoint-not-hit>`
+
+{ref}`Wrong results or unexpected values →<rocgdb-troubleshoot-wrong-results>`
 ::::
 :::::
 

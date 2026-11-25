@@ -6,13 +6,15 @@ start [label="ROCgdb doesn't do\nwhat you expect"];
 
 node [@decision];
 c1 [label="1. Does info agents list\nyour GPU with state A?"];
+n1 [label="Is your GPU listed\nwith state U?"];
 c2 [label="Is its architecture in\nthe supported list?"];
-c3 [label="3. Is the GPU code built\nwith -ggdb -O0?"];
+c3 [label="3. Is the GPU code built with -ggdb -O0\nand Code Object V3 or later?"];
 c4 [label="4. Does a row in the\nlimitations tables match?"];
 
 node [@action];
 f2 [label="2. Read the amd-dbgapi warnings and\nfix the driver, firmware, or runtime"];
-f3 [label="Rebuild with -ggdb -O0"];
+f3 [label="Rebuild with your current ROCm compiler and\n-ggdb -O0. This also fixes the\nELF file ABI version (0) error"];
+f0 [label="Run rocminfo outside ROCgdb. Fix the ROCm install\nif it lists no gfx agent. Otherwise check\nROCR_VISIBLE_DEVICES, HIP_VISIBLE_DEVICES,\nand the container device mapping"];
 
 node [@done];
 yes [label="Use the workaround\nin that row"];
@@ -20,7 +22,10 @@ rep [label="Report a problem"];
 unsup [label="No workaround\non that GPU"];
 
 start -> c1 [weight=10];
-c1 -> c2 [@no];
+c1 -> n1 [@no];
+n1 -> c2 [@yes];
+n1 -> f0 [@no];
+f0 -> c1;
 c2 -> f2 [@yes];
 c2 -> unsup [@no];
 f2 -> c1;

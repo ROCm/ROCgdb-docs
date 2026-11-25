@@ -16,17 +16,20 @@ s6 [label="6. The value is right here, so watch\nthe output to see what overwrit
 
 node [@done];
 f1 [label="Fix the failing HIP call.\nThe kernel might be fine"];
-f4 [label="The bug is earlier: a host copy or\nthe kernel that produced the input"];
+f4 [label="The bug is earlier. Check the host copy,\nor the kernel that produced the input"];
 ok [label="You found the line. Fix the code"];
+w [label="ROCgdb stops at the write that\nchanges the value. Fix that code"];
 
 start -> c1;
 c1 -> f1 [@yes];
 c1 -> s2 [@no];
 s2 -> s3 -> c4;
 c4 -> f4 [@no];
+f4 -> s2 [label="Earlier kernel:\nrepeat from step 2", constraint=false];
 c4 -> c5 [@yes];
 c5 -> ok [@yes];
 c5 -> s6 [@no];
+s6 -> w;
 
 {rank=same; c1; f1}
 {rank=same; c4; f4}

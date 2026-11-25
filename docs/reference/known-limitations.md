@@ -28,7 +28,7 @@ If you haven't stopped in a kernel before, start with {ref}`Debug your first HIP
 
 ## How the checks fit together
 
-<a href="../_static/rocgdb-known-limitations-checks.svg" target="_blank" rel="noopener" title="Open the diagram in a new tab"><img src="../_static/rocgdb-known-limitations-checks.svg" style="max-width: 100%; height: auto;" alt="Flowchart of the four checks on this page. Check that info agents lists your GPU with state A. If it doesn't and the GPU's architecture isn't supported, there's no workaround on that GPU. Otherwise, read the amd-dbgapi warnings and fix the driver, firmware, or runtime. Check that the GPU code is built with -ggdb -O0, rebuilding if it isn't. Then look for a matching row in the limitations tables. If there is none, report a problem."></a>
+<a href="../_static/rocgdb-known-limitations-checks.svg" target="_blank" rel="noopener" title="Open the diagram in a new tab"><img src="../_static/rocgdb-known-limitations-checks.svg" style="max-width: 100%; height: auto;" alt="Flowchart of the four checks on this page. Check that info agents lists your GPU with state A. If it doesn't, check whether the GPU is listed at all. If it isn't listed, run rocminfo and check the ROCm installation and device visibility. If it's listed with state U and its architecture isn't supported, there's no workaround on that GPU. Otherwise, read the amd-dbgapi warnings and fix the driver, firmware, or runtime. Check that the GPU code is built with -ggdb -O0 and Code Object V3 or later, rebuilding if it isn't. Then look for a matching row in the limitations tables. If there is none, report a problem."></a>
 
 (rocgdb-kl-check-gpu)=
 
@@ -377,9 +377,13 @@ If your problem isn't explained by the preceding steps or tables, work out where
 
 Where to send it:
 
+% The three bullets between the markers are included by the Attach, Kernel
+% breakpoint isn't hit, and Wrong results pages. Edit them only here.
+% start-report-routing
 * ROCgdb problems: [ROCm/ROCgdb issues](https://github.com/ROCm/ROCgdb/issues)
 * Wrong or unclear documentation: [ROCm/ROCgdb-docs issues](https://github.com/ROCm/ROCgdb-docs/issues)
 * ROCm installation, driver, or runtime problems: [ROCm/TheRock issues](https://github.com/ROCm/TheRock/issues)
+% end-report-routing
 
 To open a ROCgdb issue:
 

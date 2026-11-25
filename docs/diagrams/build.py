@@ -14,7 +14,7 @@ OUT = HERE.parent / "_static"
 ALT = {
     "known-limitations-checks": (
         "Checks for a ROCgdb problem",
-        "Flowchart. Start: ROCgdb doesn't do what you expect. Check 1: does info agents list your GPU with state A? If no, is its architecture in the supported list? If it isn't, there's no workaround on that GPU. If it is, step 2: read the amd-dbgapi warnings and fix the driver, firmware, or runtime, then go back to check 1. If yes, check 3: is the GPU code built with -ggdb -O0? If no, rebuild with -ggdb -O0, then go back to check 3. If yes, check 4: does a row in the limitations tables match? If yes, use the workaround in that row. If no, report a problem.",
+        "Flowchart. Start: ROCgdb doesn't do what you expect. Check 1: does info agents list your GPU with state A? If no, is your GPU listed with state U? If it isn't listed at all, run rocminfo outside ROCgdb, fix the ROCm installation if it lists no gfx agent, otherwise check ROCR_VISIBLE_DEVICES, HIP_VISIBLE_DEVICES, and the container device mapping, then go back to check 1. If it's listed with U, is its architecture in the supported list? If it isn't, there's no workaround on that GPU. If it is, step 2: read the amd-dbgapi warnings and fix the driver, firmware, or runtime, then go back to check 1. If yes, check 3: is the GPU code built with -ggdb -O0 and Code Object V3 or later? If no, rebuild with your current ROCm compiler and -ggdb -O0, which also fixes the ELF file ABI version (0) error, then go back to check 3. If yes, check 4: does a row in the limitations tables match? If yes, use the workaround in that row. If no, report a problem.",
     ),
     "known-limitations-report": (
         "Where to send a ROCgdb problem",
@@ -22,7 +22,7 @@ ALT = {
     ),
     "wrong-results-steps": (
         "Steps to find a wrong value in a kernel",
-        "Flowchart. Start: some output values are wrong. Step 1: does catch hiperr stop on a HIP error? If yes, fix the failing HIP call. The kernel might be fine. If no, step 2: work out which work-item wrote a wrong element. Step 3: stop only that work-item with a conditional breakpoint. Step 4: are the values this work-item reads correct? If no, the bug is earlier, in a host copy or the kernel that produced the input. If yes, step 5: step and print. If the value goes wrong in this work-item, you found the line. Fix the code. If not, step 6: the value is right here, so watch the output to see what overwrites it.",
+        "Flowchart. Start: some output values are wrong. Step 1: does catch hiperr stop on a HIP error? If yes, fix the failing HIP call. The kernel might be fine. If no, step 2: work out which work-item wrote a wrong element. Step 3: stop only that work-item with a conditional breakpoint. Step 4: are the values this work-item reads correct? If no, the bug is earlier: check the host copy, or repeat from step 2 for the kernel that produced the input. If yes, step 5: step and print. If the value goes wrong in this work-item, you found the line. Fix the code. If not, step 6: the value is right here, so watch the output to see what overwrites it. ROCgdb stops at the write that changes the value. Fix that code.",
     ),
     "wrong-results-report": (
         "Where to send a wrong-value problem",
