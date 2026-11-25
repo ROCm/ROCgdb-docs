@@ -222,7 +222,8 @@ Find what you see in the first column.
   - Nothing else is affected. Next time, start the application with `HSA_ENABLE_DEBUG=1`.
   - [Attaching restrictions](https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/AMD-GPU.html#AMD-GPU-Attaching-Restrictions)
 * - A wave ID with two coordinate groups, such as `AMDGPU Wave 1:2:1:3 (0,0,0)/(1,0,0)/0`
-  - The kernel uses workgroup clusters. The first group is the cluster, the second is the workgroup's position within the cluster, and the last number is the wave's index within the workgroup. Lane IDs use the same form. In `info dispatches`, the Cluster column is in work-items, not workgroups: a cluster of two 64-work-item workgroups shows `[128,1,1]`.  - Nothing to fix.
+  - The kernel uses workgroup clusters. The first group is the cluster, the second is the workgroup's position within the cluster, and the last number is the wave's index within the workgroup. Lane IDs use the same form. In `info dispatches`, the Cluster column is in work-items, not workgroups: a cluster of two 64-work-item workgroups shows `[128,1,1]`.
+  - Nothing to fix.
   - [Target identifiers](https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/AMD-GPU.html#AMD-GPU-Heterogeneous-Entity-Target-Identifies-and-Convenience-Variables)
 * - No `AMDGPU Wave` entries
   - No kernel is running right now.

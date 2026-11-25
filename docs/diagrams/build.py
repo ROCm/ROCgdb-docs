@@ -24,10 +24,6 @@ ALT = {
         "Steps to find a wrong value in a kernel",
         "Flowchart. Start: some output values are wrong. Step 1: does catch hiperr stop on a HIP error? If yes, fix the failing HIP call. The kernel might be fine. If no, step 2: work out which work-item wrote a wrong element. Step 3: stop only that work-item with a conditional breakpoint. Step 4: are the values this work-item reads correct? If no, the bug is earlier: check the host copy, or repeat from step 2 for the kernel that produced the input. If yes, step 5: step and print. If the value goes wrong in this work-item, you found the line. Fix the code. If not, step 6: the value is right here, so watch the output to see what overwrites it. ROCgdb stops at the write that changes the value. Fix that code.",
     ),
-    "wrong-results-report": (
-        "Where to send a wrong-value problem",
-        "Flowchart. Start: ROCgdb's value doesn't match an independent check, such as a device printf, the host value after hipMemcpy, or the application's output. If a row in Known limitations matches, use that row's workaround, or accept the behavior as expected if it has none. Otherwise, if the problem is in the documentation, open a ROCgdb-docs issue. If not, search ROCgdb issues, then open one with the evidence.",
-    ),
     "attach-steps": (
         "Steps to attach ROCgdb to a running process",
         "Flowchart. Start: you need to debug an application that is already running. If you can restart it, step 1: restart it with HSA_ENABLE_DEBUG=1. If not, attach anyway, and waves that already exist might show a question mark in their IDs. Step 2: find the process ID. Step 3: does rocgdb -p PID attach? If not, fix the container setup, or ask your administrator about ptrace, then go back to step 3. Step 4: does info threads show AMDGPU Wave entries? If yes, step 5a: inspect the waves that are running. If no, step 5b: break on the next kernel launch. Step 6: detach. The application keeps running.",

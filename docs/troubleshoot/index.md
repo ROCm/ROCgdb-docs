@@ -43,7 +43,7 @@ ROCgdb stops somewhere other than the line you set.
 The application ends before it reaches your kernel.
 
 1. Set a breakpoint on the host line that launches the kernel, then `run`. If the program exits first, read its output for a HIP error such as `no ROCm-capable device is detected`. See {ref}`Confirm the application reaches the kernel launch <rocgdb-bp-check-launch>`.
-2. If the application runs correctly outside the debugger but exits under ROCgdb, check that ROCgdb can see your GPU and read any `amd-dbgapi` startup warnings. See {ref}`Check that ROCgdb can see your GPU <rocgdb-kl-check-gpu>` and {ref}`Read the startup warnings <rocgdb-kl-warnings>`.
+2. If the application runs correctly outside the debugger but exits under ROCgdb, check that ROCgdb can see your GPU and read any startup warnings that mention `amd-dbgapi` or `AMD GPU`. See {ref}`Check that ROCgdb can see your GPU <rocgdb-kl-check-gpu>` and {ref}`Read the startup warnings <rocgdb-kl-warnings>`.
 
 For the full ordered steps and the evidence to include in an issue, see {ref}`rocgdb-troubleshoot-breakpoint-not-hit`.
 
@@ -69,7 +69,7 @@ For the full ordered steps and the evidence to include in an issue, see {ref}`ro
 
 If ROCgdb can't debug your GPU, start here.
 
-### ROCgdb doesn't list your GPU or prints an `amd-dbgapi` warning
+### ROCgdb doesn't list your GPU or prints an `amd-dbgapi` or `AMD GPU` warning
 
 ROCgdb can't see your GPU, or it prints a warning about the driver, firmware, or runtime.
 
@@ -80,6 +80,6 @@ ROCgdb can't see your GPU, or it prints a warning about the driver, firmware, or
 
 * {ref}`rocgdb-troubleshoot-breakpoint-not-hit`: Your kernel breakpoint never stops, stops on the wrong line, or the application exits before the kernel runs.
 * {ref}`rocgdb-troubleshoot-wrong-results`: Your kernel runs to completion but some output values are wrong, or a value you print isn't what you expect.
-* {ref}`rocgdb-known-limitations`: ROCgdb doesn't see your GPU, prints an `amd-dbgapi` warning, or a feature doesn't work the way it does in CPU code.
+* {ref}`rocgdb-known-limitations`: ROCgdb doesn't see your GPU, prints a warning that mentions `amd-dbgapi` or `AMD GPU`, or a feature doesn't work the way it does in CPU code.
 
 If your problem isn't listed, check whether it's a {ref}`known limitation <rocgdb-kl-limitations>`. If no row matches, follow {ref}`Report a problem <rocgdb-kl-report>` to choose where to send it and what evidence to include.

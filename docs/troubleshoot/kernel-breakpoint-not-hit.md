@@ -108,7 +108,7 @@ At the launch line, list the GPUs:
 (gdb) info agents
 ```
 
-**Expected result:** Execution stops at the launch line, and `info agents` lists every GPU you plan to debug with `A` (active) in the **State** column. ROCgdb printed no `amd-dbgapi` warnings.
+**Expected result:** Execution stops at the launch line, and `info agents` lists every GPU you plan to debug with `A` (active) in the **State** column. ROCgdb printed no warnings that mention `amd-dbgapi` or `AMD GPU`.
 
 The kernel breakpoint is still `<PENDING>` here, because the GPU code loads when the kernel launches. The launch statement spans two source lines, and `next` steps through them one at a time. In the example, the launch is lines 86 and 87, and the line numbers depend on the version of the example:
 
