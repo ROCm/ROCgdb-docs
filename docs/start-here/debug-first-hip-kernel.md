@@ -100,7 +100,7 @@ Thread 6 "saxpy_kernel" hit Breakpoint 1, with lanes [0-63], saxpy_kernel (a=2, 
 39	  const unsigned int global_idx = blockIdx.x * blockDim.x + threadIdx.x;
 ```
 
-The line number depends on the version of the example. On the `amd-staging` branch, the kernel starts at line 36 and this line is 39. On wave32 GPUs, such as gfx1100 and gfx1201, the wave has 32 lanes, so the hit message says `with lanes [0-31]`.
+The line numbers depend on the version of the example. On wave32 GPUs, such as gfx1100 and gfx1201, the wave has 32 lanes, so the hit message says `with lanes [0-31]`.
 
 :::{admonition} If this fails
 
@@ -117,7 +117,7 @@ ROCgdb represents a GPU wave through GDB's thread abstraction. List the threads,
 (gdb) info threads 1-10
 ```
 
-The full `info threads` output is long: every wave is a thread, and saxpy launches thousands, so limit the range. Output captured on an AMD Instinct MI300X (gfx942). Your IDs, addresses, paths, and line numbers differ:
+The full `info threads` output is long: every wave is a thread, and saxpy launches thousands, so limit the range. Sample output on a GPU with 64-lane waves. Your IDs, addresses, paths, and line numbers differ:
 
 ```text
   Id   Target Id                                    Frame
@@ -133,7 +133,7 @@ The full `info threads` output is long: every wave is a thread, and saxpy launch
   10   AMDGPU Wave 1:1:1:5 (8,0,0)/0 "saxpy_kernel" __hip_get_block_dim_x () at /opt/rocm/include/hip/amd_detail/amd_hip_runtime.h:255
 ```
 
-The CPU threads keep the program name, `"saxpy"`. The wave rows use the kernel name, `"saxpy_kernel"`, in quotes. The `*` marks the wave that hit the breakpoint. The `(0,0,0)/0` part is the wave's position in its workgroup and its index within the workgroup.
+The CPU threads keep the program name, `"saxpy"`. The wave rows use the kernel name, `"saxpy_kernel"`, in quotes. The `*` marks the wave that hit the breakpoint. In `(0,0,0)/0`, `(0,0,0)` is the position of the workgroup in the dispatch, and `/0` is the wave's index within the workgroup.
 
 Select a wave by its ID:
 
@@ -151,7 +151,7 @@ A wave runs many {term}`work-items <work-item>` in lockstep. ROCgdb calls the po
 (gdb) info lanes
 ```
 
-Sample output from the same gfx942 session, trimmed after lane 5. `info lanes` prints one row for every lane in the wave, 64 here and 32 on wave32 GPUs:
+`info lanes` prints one row for every lane in the wave, 64 in this sample and 32 on wave32 GPUs. The sample shows the first six lanes:
 
 ```text
   Id   State Target Id                              Frame

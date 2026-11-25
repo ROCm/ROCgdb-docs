@@ -16,7 +16,7 @@ Find out whether ROCgdb supports your GPU and setup, and whether what you're try
 Use this page when:
 
 * ROCgdb starts, but you never see an `AMDGPU Wave` in `info threads`.
-* ROCgdb prints a warning that starts with `amd-dbgapi`.
+* ROCgdb prints a warning that mentions `amd-dbgapi` or `AMD GPU`.
 * A feature such as a watchpoint, a function call, attaching, or a core dump doesn't behave the way it does in CPU code.
 
 If you haven't stopped in a kernel before, start with {ref}`Debug your first HIP kernel <rocgdb-first-hip-kernel>`.
@@ -64,7 +64,7 @@ Other GPUs show the same columns, for example `gfx1100` and `AMD Radeon Pro W790
 
 ## 2. Read the startup warnings
 
-When ROCgdb can't debug a GPU, it prints a warning and keeps running, so you might miss it. Scroll back to where you typed `run` and look for a warning that mentions `amd-dbgapi` or `AMD GPU`. The prefix in 10.2 is `amd-dbgapi`, with hyphens. Find the line in this table that matches.
+When ROCgdb can't debug a GPU, it prints a warning and keeps running, so you might miss it. Scroll back to where you typed `run` and look for a warning that mentions `amd-dbgapi` or `AMD GPU`. Find the line in this table that matches.
 
 ```{list-table}
 :header-rows: 1
@@ -173,7 +173,7 @@ These limitations affect how you stop, step, and watch values in a kernel.
   - Use at most four `watch` (write) watchpoints with a combined size of 32 bytes or less. Each watchpoint's size counts as rounded up to a multiple of 8 bytes. Beyond that, `continue` fails with `Could not insert hardware watchpoint`, and ROCgdb doesn't fall back to software watchpoints. A single watchpoint whose size alone is over 32 bytes is the exception: it falls back to a slow software watchpoint. `rwatch` and `awatch` are accepted, but `continue` then fails with the same error. To catch a read, put a conditional breakpoint on the line that reads the value. This only helps if you know which lines read it.
 * - Catch every write to a location with a watchpoint
   - Limited
-  - Watchpoints reach the GPU only after the ROCm runtime starts. Set them after your first kernel breakpoint, and set them again after `run` restarts the program. Writes by `hipMemcpy` use direct memory access (DMA) and aren't seen: start ROCgdb with `HSA_ENABLE_SDMA=0`. On gfx10, gfx11, and gfx12 GPUs, a write by a kernel's last instruction can be missed when precise memory is off. Run `set amdgpu precise-memory on` before `run`, although precise memory isn't available on every GPU. On any GPU, without precise memory, the stop can be reported after the writing instruction (on gfx90a and gfx942, one line later). See {ref}`step 6 of Wrong results <rocgdb-wr-watch>`.
+  - Watchpoints reach the GPU only after the ROCm runtime starts. Set them after your first kernel breakpoint, and set them again after `run` restarts the program. Some writes by `hipMemcpy` use direct memory access (DMA) and aren't seen: start ROCgdb with `HSA_ENABLE_SDMA=0`. On some GPUs, such as gfx1100, a write by a kernel's last instruction can be missed when precise memory is off. Run `set amdgpu precise-memory on` before `run`, although precise memory isn't available on every GPU. On any GPU, without precise memory, the stop can be reported after the writing instruction (on gfx90a and gfx942, after the writing line). See {ref}`step 6 of Wrong results <rocgdb-wr-watch>`.
 * - Single-step a wave when ROCgdb seems to wait forever
   - Limited
   - Press Ctrl+C to cancel the step, then run it again.

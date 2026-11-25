@@ -82,9 +82,9 @@ The `x` command takes an optional format after a slash, so `x/4xw global#<addres
 
 ROCgdb lists each {term}`wave` in `info threads` next to the host CPU threads, and you select one with `thread <id>`. After you select a wave, commands such as `info registers` and `backtrace` apply to that wave.
 
-The wave ID in the `Target Id` column encodes where the wave sits in the system. In `AMDGPU Wave 1:2:1:1 (0,0,0)/0`, `1:2:1:1` gives the agent, queue, dispatch, and wave numbers. `(0,0,0)` gives the position of the workgroup in the dispatch, and `/0` gives the wave's index within the workgroup.
+The wave ID in the `Target Id` column encodes where the wave sits in the system. In `AMDGPU Wave 1:1:1:1 (0,0,0)/0`, `1:1:1:1` gives the agent, queue, dispatch, and wave numbers. `(0,0,0)` gives the position of the workgroup in the dispatch, and `/0` gives the wave's index within the workgroup.
 
-<a href="../_static/rocgdb-wave-id.svg" target="_blank" rel="noopener" title="Open the diagram in a new tab"><img src="../_static/rocgdb-wave-id.svg" alt="Diagram that splits the wave ID AMDGPU Wave 1:2:1:1 (0,0,0)/0 into the agent, queue, dispatch, and wave numbers, the workgroup position, and the wave index in the workgroup, and the lane ID AMDGPU Lane 1:2:1:1/0 (0,0,0)[0,0,0] into the wave ID, the lane index, the workgroup position, and work-item position in the workgroup. The commands that list each level are shown under the parts."></a>
+<a href="../_static/rocgdb-wave-id.svg" target="_blank" rel="noopener" title="Open the diagram in a new tab"><img src="../_static/rocgdb-wave-id.svg" alt="Diagram that splits the wave ID AMDGPU Wave 1:1:1:1 (0,0,0)/0 into the agent, queue, dispatch, and wave numbers, the workgroup position, and the wave index in the workgroup, and the lane ID AMDGPU Lane 1:1:1:1/0 (0,0,0)[0,0,0] into the wave ID, the lane index, the workgroup position, and work-item position in the workgroup. The commands that list each level are shown under the parts."></a>
 
 (rocgdb-lanes-are-work-items)=
 
@@ -92,7 +92,7 @@ The wave ID in the `Target Id` column encodes where the wave sits in the system.
 
 A wave has one lane for each of its work-items, and the lanes run in lockstep. Lanes that take a different branch are inactive until the wave reaches code that they run. When you want to look at the values for one work-item, select its lane with `lane <id>`. Variable values you print after that belong to the selected lane. Use `info lanes` to list the lanes of the current wave and their state.
 
-A lane ID extends the wave ID. In `AMDGPU Lane 1:2:1:1/0 (0,0,0)[0,0,0]`, `1:2:1:1` identifies the wave, `/0` is the lane index, `(0,0,0)` is the workgroup position, and `[0,0,0]` is the position of the work-item within the workgroup.
+A lane ID extends the wave ID. In `AMDGPU Lane 1:1:1:1/0 (0,0,0)[0,0,0]`, `1:1:1:1` identifies the wave, `/0` is the lane index, `(0,0,0)` is the workgroup position, and `[0,0,0]` is the position of the work-item within the workgroup.
 
 ## How ROCgdb fits together
 

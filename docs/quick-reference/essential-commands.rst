@@ -196,6 +196,10 @@ Sample output for ``info threads``. The full listing is long, because every wave
      3    Thread 0x7fffe29ff6c0 (LWP 3349955) "saxpy"  __GI___ioctl (fd=3, request=3222817548) at ../sysdeps/unix/sysv/linux/ioctl.c:36
      5    Thread 0x7fffe21fe6c0 (LWP 3349958) "saxpy"  __GI___ioctl (fd=3, request=3222817548) at ../sysdeps/unix/sysv/linux/ioctl.c:36
    * 6    AMDGPU Wave 1:1:1:1 (0,0,0)/0 "saxpy_kernel" saxpy_kernel (a=2, d_x=0x7fffe9c00000, d_y=0x7fffe9600000, size=1000000) at main.hip:39
+     7    AMDGPU Wave 1:1:1:2 (0,0,0)/1 "saxpy_kernel" __hip_get_block_dim_x () at /opt/rocm/include/hip/amd_detail/amd_hip_runtime.h:255
+     8    AMDGPU Wave 1:1:1:3 (0,0,0)/2 "saxpy_kernel" __hip_get_block_dim_x () at /opt/rocm/include/hip/amd_detail/amd_hip_runtime.h:255
+     9    AMDGPU Wave 1:1:1:4 (0,0,0)/3 "saxpy_kernel" __hip_get_block_dim_x () at /opt/rocm/include/hip/amd_detail/amd_hip_runtime.h:255
+     10   AMDGPU Wave 1:1:1:5 (8,0,0)/0 "saxpy_kernel" __hip_get_block_dim_x () at /opt/rocm/include/hip/amd_detail/amd_hip_runtime.h:255
 
 The CPU threads keep the program name, ``"saxpy"``. The wave rows use the kernel name, ``"saxpy_kernel"``, in quotes.
 

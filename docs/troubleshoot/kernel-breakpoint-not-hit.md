@@ -110,14 +110,14 @@ At the launch line, list the GPUs:
 
 **Expected result:** Execution stops at the launch line, and `info agents` lists every GPU you plan to debug with `A` (active) in the **State** column. ROCgdb printed no `amd-dbgapi` warnings.
 
-The kernel breakpoint is still `<PENDING>` here, because the GPU code loads when the kernel launches. The launch statement spans two source lines, so one `next` moves from the first line to the second without running it. In the example's `amd-staging` branch, they're lines 86 and 87:
+The kernel breakpoint is still `<PENDING>` here, because the GPU code loads when the kernel launches. The launch statement spans two source lines, and `next` steps through them one at a time. In the example, the launch is lines 86 and 87, and the line numbers depend on the version of the example:
 
 ```text
 86	  saxpy_kernel<<<dim3(grid_size), dim3(block_size), 0, hipStreamDefault>>>(
 87	      a, d_x, d_y, size);
 ```
 
-Step again to run the launch, then check the kernel breakpoint:
+The launch doesn't run on the first `next`. In the example, three `next` commands move from line 86 to line 87, back to line 86, and then to line 90, and the launch runs on the third. Run `next` until ROCgdb moves past the launch, then check the kernel breakpoint:
 
 ```shell
 (gdb) next
@@ -128,7 +128,7 @@ Step again to run the launch, then check the kernel breakpoint:
 
 :::{admonition} If this fails
 
-* **The kernel breakpoint still shows `<PENDING>` after `next`.** If the kernel is in a separate code object that loads later, for example through the module API `hipModuleLoad` or in a library, the breakpoint stays pending until that code object loads. Go to {ref}`step 4 <rocgdb-bp-check-deferred>`.
+* **The kernel breakpoint still shows `<PENDING>` after the launch ran.** The kernel might be in a separate code object that loads later, for example through the module API `hipModuleLoad` or in a library. The breakpoint stays pending until that code object loads. Go to {ref}`step 4 <rocgdb-bp-check-deferred>`.
 * **The program exits first.** Read its output. For example, when no GPU is visible to the application, it can print a HIP error such as `no ROCm-capable device is detected` and exit before it launches the kernel. Fix that problem in the application or the environment. It isn't a ROCgdb problem.
 * **A GPU shows `U`, or no GPU is listed.** See {ref}`Check that ROCgdb can see your GPU <rocgdb-kl-check-gpu>`.
 * **The output after `run` has a warning that mentions `amd-dbgapi` or `AMD GPU`.** Find the warning in {ref}`Read the startup warnings <rocgdb-kl-warnings>`.
@@ -143,7 +143,7 @@ If the kernel breakpoint is still `<PENDING>` after the launch ran, there are tw
 * **The name is wrong.** A misspelled name stays pending forever, and a mangled name works. After the runtime loads the code object, `info functions <name>` lists the GPU kernels, so you can check the spelling.
 * **The kernel is in a separate code object that loads later**, for example through `hipModuleLoad` or in a library. The breakpoint stays pending until that code object loads. `HIP_ENABLE_DEFERRED_LOADING=0` doesn't change that.
 
-If any kernel in the application has already run, the runtime has loaded the code object, so breakpoints on its other kernels resolve, whether or not you set `HIP_ENABLE_DEFERRED_LOADING=0`.
+If any kernel in the application has already run, the runtime has loaded the code object, so breakpoints on its other kernels resolve. This is true with or without `HIP_ENABLE_DEFERRED_LOADING=0`.
 
 To make the kernel breakpoint resolve before the first kernel launches, ask the HIP runtime to load all GPU code objects at startup, then run the session again:
 

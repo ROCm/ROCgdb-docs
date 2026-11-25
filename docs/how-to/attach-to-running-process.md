@@ -189,7 +189,7 @@ If ROCgdb never stops, the kernel isn't launched again. Press Ctrl+C, run `detac
 
 ## 6. Detach
 
-If you need a core file for later, save it before you detach. ROCgdb's `gcore` writes a core file with both CPU and GPU state, and it works while ROCgdb is attached to the process. Check that you have the disk space first, because the core file can be large. In one test, a small program stopped with about 15,000 waves produced a core file of 874 MB. Save the core file, then detach:
+If you need a core file for later, save it before you detach. ROCgdb's `gcore` writes a core file with both CPU and GPU state, and it works while ROCgdb is attached to the process. Check that you have the disk space first, because the core file can be large. Save the core file, then detach:
 
 ```text
 (gdb) gcore saxpy.core
@@ -222,8 +222,7 @@ Find what you see in the first column.
   - Nothing else is affected. Next time, start the application with `HSA_ENABLE_DEBUG=1`.
   - [Attaching restrictions](https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/AMD-GPU.html#AMD-GPU-Attaching-Restrictions)
 * - A wave ID with two coordinate groups, such as `AMDGPU Wave 1:2:1:3 (0,0,0)/(1,0,0)/0`
-  - The kernel uses workgroup clusters. The first group is the cluster, the second is the workgroup's position within the cluster, and the last number is the wave's index within the workgroup. Lane IDs use the same form. In `info dispatches`, the Cluster column is in work-items, not workgroups: a cluster of two 64-work-item workgroups shows `[128,1,1]`. The example was captured on gfx1250.
-  - Nothing to fix.
+  - The kernel uses workgroup clusters. The first group is the cluster, the second is the workgroup's position within the cluster, and the last number is the wave's index within the workgroup. Lane IDs use the same form. In `info dispatches`, the Cluster column is in work-items, not workgroups: a cluster of two 64-work-item workgroups shows `[128,1,1]`.  - Nothing to fix.
   - [Target identifiers](https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/AMD-GPU.html#AMD-GPU-Heterogeneous-Entity-Target-Identifies-and-Convenience-Variables)
 * - No `AMDGPU Wave` entries
   - No kernel is running right now.
