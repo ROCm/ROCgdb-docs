@@ -92,7 +92,15 @@ Start the application. It runs until a wave reaches the kernel breakpoint.
 (gdb) run
 ```
 
-**Expected result:** Execution stops inside `saxpy_kernel`, and ROCgdb reports an AMDGPU wave.
+**Expected result:** Execution stops inside `saxpy_kernel`, and ROCgdb reports an AMDGPU wave. The output starts with the stop message, which names the wave's thread, its lane, and the kernel:
+
+```text
+[Switching to thread 6, lane 0 (AMDGPU Lane 1:1:1:1/0 (0,0,0)[0,0,0])]
+Thread 6 "saxpy_kernel" hit Breakpoint 1, with lanes [0-63], saxpy_kernel (a=2, d_x=0x7fffe9c00000, d_y=0x7fffe9600000, size=1000000) at main.hip:39
+39	  const unsigned int global_idx = blockIdx.x * blockDim.x + threadIdx.x;
+```
+
+The line number depends on the version of the example. On the `amd-staging` branch, the kernel starts at line 36 and this line is 39. On wave32 GPUs, such as gfx1100 and gfx1201, the wave has 32 lanes, so the hit message says `with lanes [0-31]`.
 
 :::{admonition} If this fails
 
@@ -106,17 +114,26 @@ If the application runs to completion without stopping, check debug symbols, bre
 ROCgdb represents a GPU wave through GDB's thread abstraction. List the threads, then select the wave you want to inspect.
 
 ```shell
-(gdb) info threads
+(gdb) info threads 1-10
 ```
 
-Sample output. This sample is illustrative, not captured from a real run. The IDs, addresses, paths, and line numbers differ on your system:
+The full `info threads` output is long: every wave is a thread, and saxpy launches thousands, so limit the range. Output captured on an AMD Instinct MI300X (gfx942). Your IDs, addresses, paths, and line numbers differ:
 
 ```text
-  Id   Target Id                                     Frame
-  1    Thread 0x7ffff6288180 (LWP 645917) "saxpy" 0x00007ffff207d586 in ?? () from /opt/rocm/lib/libhsa-runtime64.so.1
-  2    Thread 0x7fffe81ff6c0 (LWP 645924) "saxpy" __GI___ioctl (fd=3, request=3222817548) at ../sysdeps/unix/sysv/linux/ioctl.c:36
-* 7    AMDGPU Wave 1:2:1:1 (0,0,0)/0 "saxpy"      saxpy_kernel () at main.hip:8
+  Id   Target Id                                    Frame
+  1    Thread 0x7ffff6fe5500 (LWP 3349951) "saxpy"  0x00007fffec6ea7d3 in rocr::core::BusyWaitSignal::WaitRelaxed(hsa_signal_condition_t, long, unsigned long, hsa_wait_state_t) ()
+   from /opt/rocm/lib/libhsa-runtime64.so.1
+  2    Thread 0x7fffeb3ff6c0 (LWP 3349954) "saxpy"  __GI___ioctl (fd=3, request=3222817548) at ../sysdeps/unix/sysv/linux/ioctl.c:36
+  3    Thread 0x7fffe29ff6c0 (LWP 3349955) "saxpy"  __GI___ioctl (fd=3, request=3222817548) at ../sysdeps/unix/sysv/linux/ioctl.c:36
+  5    Thread 0x7fffe21fe6c0 (LWP 3349958) "saxpy"  __GI___ioctl (fd=3, request=3222817548) at ../sysdeps/unix/sysv/linux/ioctl.c:36
+* 6    AMDGPU Wave 1:1:1:1 (0,0,0)/0 "saxpy_kernel" saxpy_kernel (a=2, d_x=0x7fffe9c00000, d_y=0x7fffe9600000, size=1000000) at main.hip:39
+  7    AMDGPU Wave 1:1:1:2 (0,0,0)/1 "saxpy_kernel" __hip_get_block_dim_x () at /opt/rocm/include/hip/amd_detail/amd_hip_runtime.h:255
+  8    AMDGPU Wave 1:1:1:3 (0,0,0)/2 "saxpy_kernel" __hip_get_block_dim_x () at /opt/rocm/include/hip/amd_detail/amd_hip_runtime.h:255
+  9    AMDGPU Wave 1:1:1:4 (0,0,0)/3 "saxpy_kernel" __hip_get_block_dim_x () at /opt/rocm/include/hip/amd_detail/amd_hip_runtime.h:255
+  10   AMDGPU Wave 1:1:1:5 (8,0,0)/0 "saxpy_kernel" __hip_get_block_dim_x () at /opt/rocm/include/hip/amd_detail/amd_hip_runtime.h:255
 ```
+
+The CPU threads keep the program name, `"saxpy"`. The wave rows use the kernel name, `"saxpy_kernel"`, in quotes. The `*` marks the wave that hit the breakpoint. The `(0,0,0)/0` part is the wave's position in its workgroup and its index within the workgroup.
 
 Select a wave by its ID:
 
@@ -134,18 +151,26 @@ A wave runs many {term}`work-items <work-item>` in lockstep. ROCgdb calls the po
 (gdb) info lanes
 ```
 
-Sample output. This sample is illustrative, like the previous one:
+Sample output from the same gfx942 session, trimmed after lane 5. `info lanes` prints one row for every lane in the wave, 64 here and 32 on wave32 GPUs:
 
 ```text
-  Id   State Target Id                            Frame
-* 0    A     AMDGPU Lane 1:2:1:1/0 (0,0,0)[0,0,0] saxpy_kernel () at main.hip:8
+  Id   State Target Id                              Frame
+* 0    A     AMDGPU Lane 1:1:1:1/0 (0,0,0)[0,0,0]   saxpy_kernel (a=2, d_x=0x7fffe9c00000, d_y=0x7fffe9600000, size=1000000) at main.hip:39
+  1    A     AMDGPU Lane 1:1:1:1/1 (0,0,0)[1,0,0]   saxpy_kernel (a=2, d_x=0x7fffe9c00000, d_y=0x7fffe9600000, size=1000000) at main.hip:39
+  2    A     AMDGPU Lane 1:1:1:1/2 (0,0,0)[2,0,0]   saxpy_kernel (a=2, d_x=0x7fffe9c00000, d_y=0x7fffe9600000, size=1000000) at main.hip:39
+  3    A     AMDGPU Lane 1:1:1:1/3 (0,0,0)[3,0,0]   saxpy_kernel (a=2, d_x=0x7fffe9c00000, d_y=0x7fffe9600000, size=1000000) at main.hip:39
+  4    A     AMDGPU Lane 1:1:1:1/4 (0,0,0)[4,0,0]   saxpy_kernel (a=2, d_x=0x7fffe9c00000, d_y=0x7fffe9600000, size=1000000) at main.hip:39
+  5    A     AMDGPU Lane 1:1:1:1/5 (0,0,0)[5,0,0]   saxpy_kernel (a=2, d_x=0x7fffe9c00000, d_y=0x7fffe9600000, size=1000000) at main.hip:39
+  ...
 ```
+
+The **State** column shows `A` for active or `I` for inactive. Select a lane by its ID:
 
 ```shell
 (gdb) lane <lane-id>
 ```
 
-**Expected result:** The selected context identifies one wave and one lane.
+**Expected result:** The selected context identifies one wave and one lane. To select lane 5 of the current wave, run `lane 5`. ROCgdb prints a `[Switching to thread ...]` line that names the thread and the lane ID, such as `(AMDGPU Lane 1:1:1:1/5 (0,0,0)[5,0,0])`, then the source line for that lane.
 
 (rocgdb-first-hip-kernel-inspect-value)=
 

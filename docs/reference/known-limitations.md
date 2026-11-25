@@ -64,7 +64,7 @@ Other GPUs show the same columns, for example `gfx1100` and `AMD Radeon Pro W790
 
 ## 2. Read the startup warnings
 
-When ROCgdb can't debug a GPU, it prints a warning and keeps running, so you might miss it. Scroll back to where you typed `run` and look for lines that start with `amd-dbgapi` or `amd_dbgapi`. Find the line in this table that matches.
+When ROCgdb can't debug a GPU, it prints a warning and keeps running, so you might miss it. Scroll back to where you typed `run` and look for a warning that mentions `amd-dbgapi` or `AMD GPU`. The prefix in 10.2 is `amd-dbgapi`, with hyphens. Find the line in this table that matches.
 
 ```{list-table}
 :header-rows: 1
@@ -84,7 +84,7 @@ When ROCgdb can't debug a GPU, it prints a warning and keeps running, so you mig
   - The application loaded a ROCm runtime whose version is outside the range this ROCgdb supports. This usually means it loaded a different ROCm installation from ROCgdb's, for example a runtime bundled with the application, as some Python wheels do.
   - Run `ldd ./saxpy | grep hsa-runtime` to see which ROCm runtime the application loads. Run the application against the same ROCm installation that ROCgdb came from. If the application needs a newer runtime than this ROCgdb supports, update ROCgdb.
 * - `At least one agent is busy (debugging may be enabled by another process)`
-  - Another process on this GPU is already being debugged. Some GPUs, such as gfx908, allow only one.
+  - Another process on this GPU is already being debugged. Some GPUs, such as gfx908, allow only one debugged process per GPU.
   - End the other debugging session, or give each session its own GPUs (see the container row in {ref}`step 4 <rocgdb-kl-limitations>`).
 ```
 
@@ -138,7 +138,7 @@ These limitations affect how you set up the system and start ROCgdb.
   - Map `/dev/kfd` and the GPU's `/dev/dri/renderD<N>` into the container, add the user to the `render` group (Ubuntu) or `video` group (other distributions), and pass `--cap-add=SYS_PTRACE --security-opt seccomp=unconfined`. [Example command](https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/AMD-GPU.html#AMD-GPU-Restrictions).
 * - Debug two applications on the same GPU at the same time
   - Limited
-  - On some GPUs, such as gfx908, only one debugged process can use a GPU. Run each session in its own container with a different set of GPUs. One ROCgdb session can't debug two GPU applications at once.
+  - On some GPUs, such as gfx908, only one debugged process can use a GPU. Run each session in its own container with a different set of GPUs.
 * - Debug several programs that use the GPU in one ROCgdb session
   - Limited
   - When ROCgdb halts GPU waves in one program, the other programs might not be able to run GPU waves.
@@ -167,13 +167,13 @@ These limitations affect how you stop, step, and watch values in a kernel.
   - Run `set breakpoint pending on`, then set the breakpoint by kernel name, not by source line. Or start ROCgdb with `HIP_ENABLE_DEFERRED_LOADING=0`. See {ref}`Kernel breakpoint isn't hit <rocgdb-troubleshoot-breakpoint-not-hit>`.
 * - Continue quickly when thousands of waves hit the same breakpoint
   - Limited
-  - Make fewer waves stop with a condition, such as `break saxpy_kernel if blockIdx.x == 0`, or use `break -lane 0 saxpy_kernel` with `set scheduler-locking on`. `tbreak` reduces the number of hits ROCgdb reports, not the number of waves that halt: many waves can still stop at the breakpoint address, and ROCgdb continues them when you resume. See [breakpoints on heterogeneous lanes](https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/Heterogeneous-Debugging.html#break-commands).
+  - Use `break -lane 0` with `set scheduler-locking on`, which stops one lane and is cheaper than stopping every wave. `tbreak` also reduces the number of hits ROCgdb reports, not the number of waves that halt: many waves can still stop at the breakpoint address, and ROCgdb continues them when you resume. See [breakpoints on heterogeneous lanes](https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/Heterogeneous-Debugging.html#break-commands).
 * - Set more than four GPU watchpoints, or watch reads (`rwatch`, `awatch`)
   - Limited
-  - Use at most four `watch` (write) watchpoints with a combined size of 32 bytes or less. Each watchpoint's size counts as rounded up to a multiple of 8 bytes. Beyond that, ROCgdb falls back to software watchpoints, which are slow. `rwatch` and `awatch` are accepted, but `continue` then fails with `Could not insert hardware watchpoint … too many hardware breakpoints/watchpoints`. To catch a read, put a conditional breakpoint on the line that reads the value. This only helps if you know which lines read it.
+  - Use at most four `watch` (write) watchpoints with a combined size of 32 bytes or less. Each watchpoint's size counts as rounded up to a multiple of 8 bytes. Beyond that, `continue` fails with `Could not insert hardware watchpoint`, and ROCgdb doesn't fall back to software watchpoints. A single watchpoint whose size alone is over 32 bytes is the exception: it falls back to a slow software watchpoint. `rwatch` and `awatch` are accepted, but `continue` then fails with the same error. To catch a read, put a conditional breakpoint on the line that reads the value. This only helps if you know which lines read it.
 * - Catch every write to a location with a watchpoint
   - Limited
-  - Watchpoints reach the GPU only after the ROCm runtime starts. Set them after your first kernel breakpoint, and set them again after `run` restarts the program. Writes by `hipMemcpy` use direct memory access (DMA) and aren't seen: start ROCgdb with `HSA_ENABLE_SDMA=0`. On gfx10, gfx11, and gfx12 GPUs, a write by a kernel's last instruction can be missed. Run `set amdgpu precise-memory on` before `run`, although precise memory might not be available on these GPUs. On any GPU, without precise memory, the stop can be reported after the writing instruction (on gfx90a and gfx942, one line later). See {ref}`step 6 of Wrong results <rocgdb-wr-watch>`.
+  - Watchpoints reach the GPU only after the ROCm runtime starts. Set them after your first kernel breakpoint, and set them again after `run` restarts the program. Writes by `hipMemcpy` use direct memory access (DMA) and aren't seen: start ROCgdb with `HSA_ENABLE_SDMA=0`. On gfx10, gfx11, and gfx12 GPUs, a write by a kernel's last instruction can be missed when precise memory is off. Run `set amdgpu precise-memory on` before `run`, although precise memory isn't available on every GPU. On any GPU, without precise memory, the stop can be reported after the writing instruction (on gfx90a and gfx942, one line later). See {ref}`step 6 of Wrong results <rocgdb-wr-watch>`.
 * - Single-step a wave when ROCgdb seems to wait forever
   - Limited
   - Press Ctrl+C to cancel the step, then run it again.
@@ -239,13 +239,10 @@ These limitations affect attaching to a running process and getting core dumps.
   - Start the application with `HSA_ENABLE_DEBUG=1`. Without it, some GPUs show `?` in those waves' IDs, and that can't be fixed after the application has started. See {ref}`rocgdb-attach`.
 * - Debug an application that uses cooperative groups or compute unit (CU) masking on gfx1100, gfx1101, or gfx1102
   - Not supported
-  - No workaround on these GPUs. While ROCgdb is attached, creating a cooperative or CU-masked queue fails.
-* - Get a GPU core dump from the ROCm runtime while ROCgdb is attached
-  - Not supported
-  - Run `gcore` in ROCgdb when the application stops. ROCgdb writes a core file with both CPU and GPU state.
+  - No workaround on these GPUs. Creating a cooperative or CU-masked queue fails, whether ROCgdb attached to the application or started it.
 * - Get a GPU core dump from the ROCm runtime on gfx1100, gfx1101, or gfx1102
   - Not supported
-  - Run the application under ROCgdb and use `gcore` when it stops.
+  - Run the application under ROCgdb, or attach, and use `gcore` when it stops.
 * - Get a GPU core dump when the crash is in host code
   - Not supported
   - Only the host core file is written. Open it in ROCgdb as a normal core file. See [AMD GPU core dumps](https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/AMD-GPU.html#AMD-GPU-core-dumps).
@@ -300,12 +297,12 @@ ROCgdb supports the following GPU architectures.
 * - gfx11
   - gfx1100 (AMD Radeon PRO W7900, AMD Radeon RX 7900 XTX and XT), gfx1101 (AMD Radeon RX 7800 XT, 7700 XT), gfx1102 (AMD Radeon RX 7600), gfx1150 (AMD Radeon 890M), gfx1151 (AMD Radeon 8060S), gfx1153, gfx1170, gfx1171, gfx1172
 * - gfx12
-  - gfx1200 (AMD Radeon RX 9060), gfx1201 (AMD Radeon RX 9070, 9070 XT), gfx1250, gfx1250-strict
+  - gfx1200 (AMD Radeon RX 9060), gfx1201 (AMD Radeon RX 9070, 9070 XT), gfx1250
 * - Generic targets
   - gfx9-generic, gfx9-4-generic, gfx10-1-generic, gfx10-3-generic, gfx11-generic, gfx11-7-generic, gfx12-generic, gfx12-5-generic
 ```
 
-Example products are from LLVM's [AMDGPU processors table](https://llvm.org/docs/AMDGPUUsage.html#processors), which lists more. On your system, `info agents` shows the product name in the **Device Name** column. Some features don't work on every architecture. See {ref}`step 4 <rocgdb-kl-limitations>`, and the [architectures list in the ROCgdb user guide](https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/AMD-GPU.html#AMD-GPU-Architectures).
+Example products are from LLVM's [AMDGPU processors table](https://llvm.org/docs/AMDGPUUsage.html#processors), which lists more. On your system, `info agents` shows the product name in the **Device Name** column. ROCgdb reports `gfx1250` for both plain and strict-compiled code; `gfx1250-strict` is a compiler target name, not a name that appears in `info agents`. Some features don't work on every architecture. See {ref}`step 4 <rocgdb-kl-limitations>`, and the [architectures list in the ROCgdb user guide](https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/AMD-GPU.html#AMD-GPU-Architectures).
 
 ### Source languages
 
@@ -345,7 +342,7 @@ Find what you see in the first column.
   - No GPU is visible, or no kernel launched.
   - {ref}`Step 1 <rocgdb-kl-check-gpu>`, then {ref}`confirm the kernel launches <rocgdb-bp-check-launch>`.
   - {ref}`Waves are threads <rocgdb-waves-are-threads>`
-* - A line starting with `amd-dbgapi` or `amd_dbgapi`
+* - A warning that mentions `amd-dbgapi` or `AMD GPU`
   - Driver, firmware, or runtime mismatch.
   - Use the table in {ref}`step 2 <rocgdb-kl-warnings>`.
   - [Device driver and ROCm runtime](https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/AMD-GPU.html#AMD-GPU-Device-Driver-and-AMD-ROCm-Runtime)

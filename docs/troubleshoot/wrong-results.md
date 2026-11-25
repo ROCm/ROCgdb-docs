@@ -34,7 +34,7 @@ The commands on this page use the saxpy example, which computes `y[i] = a * x[i]
 
 ## 1. Rule out HIP API errors
 
-If a `hipMemcpy` or a kernel launch fails, the output keeps its old contents, which looks just like a kernel bug. Ask ROCgdb to stop on any HIP API error before you look at the kernel.
+If a `hipMemcpy` or a kernel launch fails, the output keeps its old contents, which looks just like a kernel bug. Ask ROCgdb to stop on any HIP API error before you look at the kernel. `catch hiperr` is available in ROCm 7.14 and later.
 
 ```shell
 $ rocgdb ./saxpy
@@ -51,6 +51,7 @@ If ROCgdb stops with a message like this one from the ROCgdb user guide, a HIP c
 ```text
 Thread 1 "prog" hit Catchpoint 1 (HIP error)
 HIP API call failed with error hipErrorInvalidDevice (101): invalid device ordinal
+The $_hiperr convenience variable holds the error number.
 ```
 
 Run `backtrace` to see which call in your code failed, and fix that call first. See [catch hiperr](https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/Set-Catchpoints.html#catch-hiperr).
@@ -90,10 +91,11 @@ Output captured on an AMD Instinct MI210 (gfx90a):
 
 ```text
 [Switching to thread 21, lane 40 (AMDGPU Lane 1:1:1:16/40 (3,0,0)[232,0,0])]
-Thread 21 "saxpy_kernel" hit Breakpoint 2, with lane 40, saxpy_kernel (a=2, d_x=0x7fffe9800000, d_y=0x7fffe9200000, size=1000000) at saxpy.hip:7
+Thread 21 "saxpy_kernel" hit Breakpoint 2, with lane 40, saxpy_kernel (a=2, d_x=0x7fffe9c00000, d_y=0x7fffe9600000, size=1000000) at main.hip:39
+39	  const unsigned int global_idx = blockIdx.x * blockDim.x + threadIdx.x;
 ```
 
-It's Breakpoint 2 if you ran {ref}`step 1 <rocgdb-wr-check-hiperr>` first, because that step set `catch hiperr`. Otherwise it's Breakpoint 1. The numbers depend on your system. The lane is the thread index modulo the wave size, so it's lane 40 on gfx9 GPUs and lane 8 on wave32 GPUs such as gfx1100 and gfx1201. The thread number and the wave part of the lane ID (`1:1:1:16`) also vary.
+It's Breakpoint 2 if you ran {ref}`step 1 <rocgdb-wr-check-hiperr>` first, because that step set `catch hiperr`. Otherwise it's Breakpoint 1. The numbers depend on your system. The lane is the thread index modulo the wave size, so it's lane 40 on gfx9 GPUs and lane 8 on wave32 GPUs such as gfx1100 and gfx1201. The thread number and the wave part of the lane ID (`1:1:1:16`) also vary. The `main.hip` line numbers depend on the version of the example: on the `amd-staging` branch, `saxpy_kernel` starts at line 36 and this line is 39.
 
 Confirm you're on the right work-item:
 
@@ -122,7 +124,7 @@ Before you step through the code, print everything the wrong value is computed f
 
 ```shell
 (gdb) next
-8       if (global_idx < size)
+43        if (global_idx < size) {
 (gdb) print global_idx
 $3 = 1000
 (gdb) print a
@@ -151,14 +153,14 @@ Step one line at a time and print the output element after each step. The first 
 
 ```shell
 (gdb) next
-9       d_y[global_idx] = a * d_x[global_idx] + d_y[global_idx];
+44          d_y[global_idx] = a * d_x[global_idx] + d_y[global_idx];
 (gdb) next
-10      }
+46      }
 (gdb) print d_y[global_idx]
 $7 = 2003
 ```
 
-To see every local variable at once, run `info locals`.
+To see every local variable at once, run `info locals`. At this point it shows only `global_idx = 1000`, because the kernel has no other local variables.
 
 **Expected result:** Either you find the line that produces the wrong value, and you're ready to fix it, or the value is correct after the kernel writes it. In that case, go to {ref}`step 6 <rocgdb-wr-watch>`.
 
@@ -199,9 +201,10 @@ This warning is specific to watchpoint stops. A memory violation (`SIGSEGV`) pri
 
 :::{admonition} If this fails
 
-* **The value changes but ROCgdb doesn't stop.** A `hipMemcpy` probably wrote it. Copies use direct memory access (DMA), which watchpoints don't see. Quit, then start ROCgdb with `HSA_ENABLE_SDMA=0 rocgdb ./saxpy` and repeat from {ref}`step 3 <rocgdb-wr-stop-workitem>`. ROCgdb then stops in an unnamed runtime copy kernel rather than in your code, which shows that a copy wrote the value.
-* **On gfx11 or gfx12**, the watchpoint can miss the write. In testing, it caught the write in 2 of 6 runs on gfx1100 and in 6 of 6 runs on gfx1201, and when it stopped, it was on the writing line. Precise memory might not be available on these GPUs: `set amdgpu precise-memory on` can report that it couldn't be enabled, and `show amdgpu precise-memory` then says `on (currently disabled)`.
-* **You set more than four `watch` watchpoints, or their combined size is over 32 bytes.** ROCgdb falls back to slow software watchpoints, so `continue` gets slow. Delete the others with `delete <number>`. The `Could not insert hardware watchpoint` error comes from `rwatch` and `awatch`, which ROCgdb accepts but can't insert.
+* **The value changes but ROCgdb doesn't stop.** A `hipMemcpy` probably wrote it. Large copies use direct memory access (DMA), which watchpoints don't see. Quit, then start ROCgdb with `HSA_ENABLE_SDMA=0 rocgdb ./saxpy` and repeat from {ref}`step 3 <rocgdb-wr-stop-workitem>`. ROCgdb then stops in an unnamed runtime copy kernel rather than in your code, which shows that a copy wrote the value. Small copies can go through a kernel instead of DMA, and the watchpoint then catches them even without `HSA_ENABLE_SDMA=0`.
+* **The watchpoint doesn't stop on a write by the kernel's last instruction.** On gfx10, gfx11, and gfx12 GPUs, if the write is the last instruction the kernel executes and precise memory is off, the watchpoint can miss it. Add code after the write, or move the write earlier, and the watchpoint should stop.
+* **Precise memory isn't available.** `show amdgpu precise-memory` says `on (currently disabled)` after you set it and before `run`, on every GPU, so that alone isn't a failure. Precise memory couldn't be enabled if, after `run`, ROCgdb prints `AMDGPU precise memory access reporting could not be enabled.` In 10.2, precise memory works on gfx90a, gfx942, and gfx950, and isn't available on gfx1100 and gfx1201. The driver decides whether it's available. Without it, the watchpoint can miss a write made by the kernel's last instruction, and ROCgdb can report the stop after the writing instruction.
+* **You set more than four `watch` watchpoints, or their combined size is over 32 bytes.** ROCgdb stops with `Could not insert hardware watchpoint` and doesn't fall back to software watchpoints. Delete the others with `delete <number>`. ROCgdb takes `rwatch` and `awatch` but can't insert them, so `continue` also fails with the same error. A single `watch` whose size alone is over 32 bytes is the exception: ROCgdb falls back to a slow software watchpoint.
 :::
 
 (rocgdb-wr-interpret)=

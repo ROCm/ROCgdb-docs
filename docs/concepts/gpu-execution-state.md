@@ -110,8 +110,8 @@ ROCgdb doesn't talk to the GPU directly. It works through the ROCm components in
   - The debugger you run: GDB with support for AMD GPU code objects, waves and lanes added.
   - `rocgdb --version`, and every `(gdb)` command.
 * - **AMD Debugger API library (ROCdbgapi)**
-  - The library ROCgdb uses to read and control GPU state. It's installed with ROCm in the `rocm-dbgapi` package.
-  - Warnings that start with `amd-dbgapi`. Run `set debug amd-dbgapi-lib log-level info` to see its diagnostic messages.
+  - The library ROCgdb uses to read and control GPU state. It's installed with ROCm in the `amdrocm-debugger` package, which also provides ROCgdb and the ROCr debug agent.
+  - Warnings that mention `amd-dbgapi` or `AMD GPU`. Run `set debug amd-dbgapi-lib log-level info` to see its diagnostic messages.
 * - **AMD Code Object Manager library (ROCcomgr)**
   - ROCdbgapi uses it to disassemble GPU code.
   - `x/i $pc` at a GPU stop.
@@ -125,7 +125,7 @@ ROCgdb doesn't talk to the GPU directly. It works through the ROCm components in
   - Produces the debug information ROCgdb reads. Build with `-ggdb` and `-O0`.
   - `<optimized out>` values or missing source lines if the build doesn't have it.
 * - `roccoremerge`
-  - Combines the GPU core file that the ROCm runtime writes (`gpucore.<pid>`) with the host core file, so ROCgdb can open them as one.
+  - Combines the GPU core file that the ROCm runtime writes, for example `gpucore.<pid>.gpu`, with the host core file, so ROCgdb can open them as one. The exact name follows `core_pattern`.
   - After a GPU fault outside ROCgdb. See [AMD GPU core dumps](https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/AMD-GPU.html#AMD-GPU-core-dumps).
 ```
 

@@ -26,8 +26,8 @@ If a kernel breakpoint never stops, or stops somewhere you don't expect, start h
 The application runs to completion without stopping at your breakpoint.
 
 1. Allow pending breakpoints, then set the breakpoint by kernel name: `set breakpoint pending on`, then `break saxpy_kernel`. See {ref}`Check that the breakpoint exists <rocgdb-bp-check-exists>`.
-2. Set a breakpoint on the host line that launches the kernel, then `run`. If the program exits first, read its output. At the launch line, `info agents` lists every GPU you plan to debug with `A`, and the output after `run` has no `amd-dbgapi` or `amd_dbgapi` warnings. See {ref}`Confirm the application reaches the kernel launch <rocgdb-bp-check-launch>`.
-3. Run `next` to execute the launch, then `info breakpoints`. The kernel breakpoint now shows an address. If it still shows `<PENDING>`, run `export HIP_ENABLE_DEFERRED_LOADING=0` and start a new session. See {ref}`Turn off deferred loading <rocgdb-bp-check-deferred>`.
+2. Set a breakpoint on the host line that launches the kernel, then `run`. If the program exits first, read its output. At the launch line, `info agents` lists every GPU you plan to debug with `A`, and the output after `run` has no warnings that mention `amd-dbgapi`. See {ref}`Confirm the application reaches the kernel launch <rocgdb-bp-check-launch>`.
+3. Run `next` until the launch executes, then `info breakpoints`. The kernel breakpoint now shows an address. The launch statement can span two source lines, so the first `next` might not run it. If the breakpoint still shows `<PENDING>` after the launch, check the kernel name, and check whether the kernel is in a code object that loads later, for example through `hipModuleLoad` or a library. `HIP_ENABLE_DEFERRED_LOADING=0` doesn't help in that case. See {ref}`Check the kernel name and the code object <rocgdb-bp-check-deferred>`.
 4. If the source lines are missing, or none of the preceding steps helps, rebuild with `-ggdb -O0` and start a new session. See {ref}`Confirm the build has debug information <rocgdb-bp-check-build>`.
 5. If the breakpoint still doesn't stop, check the {ref}`known limitations <rocgdb-kl-limitations>`.
 
@@ -74,7 +74,7 @@ If ROCgdb can't debug your GPU, start here.
 ROCgdb can't see your GPU, or it prints a warning about the driver, firmware, or runtime.
 
 1. Run `info agents`, and check that every GPU you plan to debug appears with `A`. See {ref}`Check that ROCgdb can see your GPU <rocgdb-kl-check-gpu>`.
-2. Scroll back to where you typed `run`, and look for lines that start with `amd-dbgapi` or `amd_dbgapi`. See {ref}`Read the startup warnings <rocgdb-kl-warnings>`.
+2. Scroll back to where you typed `run`, and look for a warning that mentions `amd-dbgapi` or `AMD GPU`. See {ref}`Read the startup warnings <rocgdb-kl-warnings>`.
 
 ## All troubleshooting pages
 

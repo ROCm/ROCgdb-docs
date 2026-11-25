@@ -80,30 +80,25 @@ Use these commands to view source lines and machine instructions.
      - ``layout asm``
      - Opens the TUI with the assembly code.
 
-Sample output for ``list``:
+Sample output for ``list``, stopped in the kernel:
 
 .. code-block:: text
 
-       1  #include <hip/hip_runtime.h>
-       2  #include <algorithm>
-       3  #include <iostream>
-       4  #include <numeric>
-       5  #include <vector>
-       6  #include <cstddef>
-       8  __global__ void saxpy_kernel(const float a, const float* d_x, float* d_y, const unsigned int size)
-       9  {
-       10      // Compute the current thread's index in the grid.
-       11      const unsigned int global_idx = blockIdx.x * blockDim.x + threadIdx.x;
-       12      // The grid can be larger than the number of items in the vectors. Avoid out-of-bounds addressing.
-       13      if(global_idx < size)
-       14      {
-       15          d_y[global_idx] = a * d_x[global_idx] + d_y[global_idx];
-       16      }
-       17  }
-       18  int main()
-       19  {
-       ....
-       99  }
+   (gdb) list
+   34      /// \brief Calculates \p d_y[i]=a*d_x[i]+d_y[i] where \p i stands for the
+   35      /// thread's index in the grid.
+   36      __global__ void saxpy_kernel(const float a, const float *d_x, float *d_y,
+   37                                   const unsigned int size) {
+   38        // Compute the current thread's index in the grid.
+   39        const unsigned int global_idx = blockIdx.x * blockDim.x + threadIdx.x;
+   40
+   41        // The grid can be larger than the number of items in the vectors. Avoid
+   42        // out-of-bounds addressing.
+   43        if (global_idx < size) {
+   (gdb) list
+   44          d_y[global_idx] = a * d_x[global_idx] + d_y[global_idx];
+   45        }
+   ...
 
 Sample output for ``disassemble``:
 
@@ -145,7 +140,7 @@ These commands show the agents, queues, dispatches, threads, waves, and lanes of
      - Shows each kernel launch. See `info dispatches command <../ROCgdb/gdb/doc/gdb/Heterogeneous-Debugging.html#index-info-dispatches>`_.
    * - List CPU threads and GPU waves
      - ``info threads``
-     - Shows the CPU threads and the GPU waves. See `Debugging programs with multiple threads <../ROCgdb/gdb/doc/gdb/Threads.html>`_.
+     - Shows the CPU threads and the GPU waves. Every wave is a thread, so a GPU program can list thousands. Limit the output with a range, such as ``info threads 1-10``. See `Debugging programs with multiple threads <../ROCgdb/gdb/doc/gdb/Threads.html>`_.
    * - List the lanes of the current wave
      - ``info lanes``
      - Shows the lanes of the current wave and whether each one is active (``A``) or inactive (``I``). Use it to find the lane to inspect. See `Debugging heterogeneous programs <../ROCgdb/gdb/doc/gdb/Heterogeneous-Debugging.html>`_.
@@ -168,12 +163,18 @@ Sample output for ``info queues``:
       1    AMDGPU Queue 1:1 (QID 0) HSA          2      2      4096     0x00007ffff626e000
     * 2    AMDGPU Queue 1:2 (QID 1) HSA          0      2      1048576  0x00007fffe5800000
 
+This sample shows only part of the output. The number of queues depends on the application and the runtime.
+
 Sample output for ``info dispatches``:
 
 .. code-block:: text
 
-       Id   Target Id                      Grid    Workgroup Fence   Kernel Function
-     * 1    AMDGPU Dispatch 1:2:1 (PKID 0) [1,1,1] [1,1,1]   B|Aa|Ra saxpy_kernel()
+      Id   Target Id                      Grid          Cluster Workgroup Fence   Kernel Function
+    * 1    AMDGPU Dispatch 1:1:1 (PKID 1) [1000192,1,1] -       [256,1,1] B|As|Rs saxpy_kernel(float, float const*, float*, unsigned int)
+
+``info dispatches`` lists the dispatch reliably only while you're stopped inside the kernel. At the host line that launches the kernel, it prints ``No dispatches are currently active.`` because the launch hasn't happened yet.
+
+The **Cluster** column is the launch's cluster dimensions. It shows ``-`` when the kernel doesn't use workgroup clusters.
 
 The ``Fence`` column shows the memory fences that the dispatch packet requests, separated by ``|``:
 
@@ -181,25 +182,35 @@ The ``Fence`` column shows the memory fences that the dispatch packet requests, 
 * ``Aa`` or ``As``: An acquire fence at agent scope (``a``) or system scope (``s``) runs before the dispatch.
 * ``Ra`` or ``Rs``: A release fence at agent scope (``a``) or system scope (``s``) runs when the dispatch completes.
 
-In the sample, ``B|Aa|Ra`` means a barrier with acquire and release fences at agent scope.
+In the sample, ``B|As|Rs`` means a barrier with acquire and release fences at system scope.
 
-Sample output for ``info threads``:
+Sample output for ``info threads``. The full listing is long, because every wave is a thread, so limit the range:
 
 .. code-block:: text
 
-      Id   Target Id                                    Frame
-      1    Thread 0x7ffff648bf80 (LWP 1981864) "saxpy" 0x00007ffff5a6c9ef in ?? () from /opt/rocm/lib/libhsa-runtime64.so.1
-      2    Thread 0x7ffff55ff6c0 (LWP 1981871) "saxpy" __GI___ioctl (fd=3, request=3222817548) at ../sysdeps/unix/sysv/linux/ioctl.c:36
-      4    Thread 0x7fffeffff6c0 (LWP 1981873) "saxpy" __GI___ioctl (fd=3, request=3222817548) at ../sysdeps/unix/sysv/linux/ioctl.c:36
-      6    Thread 0x7ffff5dff6c0 (LWP 1981877) "saxpy" __GI___ioctl (fd=3, request=3222817548) at ../sysdeps/unix/sysv/linux/ioctl.c:36
-    * 7    AMDGPU Wave 1:2:1:1 (0,0,0)/0 "saxpy"       saxpy_kernel () at main.hip:8
+   (gdb) info threads 1-10
+     Id   Target Id                                    Frame
+     1    Thread 0x7ffff6fe5500 (LWP 3349951) "saxpy"  0x00007fffec6ea7d3 in rocr::core::BusyWaitSignal::WaitRelaxed(hsa_signal_condition_t, long, unsigned long, hsa_wait_state_t) ()
+      from /opt/rocm/lib/libhsa-runtime64.so.1
+     2    Thread 0x7fffeb3ff6c0 (LWP 3349954) "saxpy"  __GI___ioctl (fd=3, request=3222817548) at ../sysdeps/unix/sysv/linux/ioctl.c:36
+     3    Thread 0x7fffe29ff6c0 (LWP 3349955) "saxpy"  __GI___ioctl (fd=3, request=3222817548) at ../sysdeps/unix/sysv/linux/ioctl.c:36
+     5    Thread 0x7fffe21fe6c0 (LWP 3349958) "saxpy"  __GI___ioctl (fd=3, request=3222817548) at ../sysdeps/unix/sysv/linux/ioctl.c:36
+   * 6    AMDGPU Wave 1:1:1:1 (0,0,0)/0 "saxpy_kernel" saxpy_kernel (a=2, d_x=0x7fffe9c00000, d_y=0x7fffe9600000, size=1000000) at main.hip:39
+
+The CPU threads keep the program name, ``"saxpy"``. The wave rows use the kernel name, ``"saxpy_kernel"``, in quotes.
 
 Sample output for ``info lanes``:
 
 .. code-block:: text
 
-      Id   State Target Id                            Frame
-    * 0    A     AMDGPU Lane 1:2:1:1/0 (0,0,0)[0,0,0] saxpy_kernel () at main.hip:8
+   (gdb) info lanes
+     Id   State Target Id                              Frame
+   * 0    A     AMDGPU Lane 1:1:1:1/0 (0,0,0)[0,0,0]   saxpy_kernel (a=2, d_x=0x7fffe9c00000, d_y=0x7fffe9600000, size=1000000) at main.hip:39
+     1    A     AMDGPU Lane 1:1:1:1/1 (0,0,0)[1,0,0]   saxpy_kernel (a=2, d_x=0x7fffe9c00000, d_y=0x7fffe9600000, size=1000000) at main.hip:39
+     2    A     AMDGPU Lane 1:1:1:1/2 (0,0,0)[2,0,0]   saxpy_kernel (a=2, d_x=0x7fffe9c00000, d_y=0x7fffe9600000, size=1000000) at main.hip:39
+     ...
+
+``info lanes`` prints one row for every lane in the wave, 64 on gfx9 GPUs such as gfx90a, gfx942, and gfx950, and 32 on wave32 GPUs such as gfx1100 and gfx1201. This sample shows only the first three lanes.
 
 Frames and variables
 --------------------
@@ -469,7 +480,7 @@ To stop when an event happens, use ``catch``:
    * - Command
      - Catches
    * - ``catch hiperr``
-     - A failed HIP API call (find HIP errors before you debug a kernel).
+     - A failed HIP API call (find HIP errors before you debug a kernel). Requires ROCm 7.14 or later.
    * - ``catch load``
      - Loads of shared libraries (debug dynamic linking).
    * - ``catch rethrow``
@@ -577,5 +588,5 @@ Can't find a command?
 
 * For the AMD GPU commands and the debugging model, see `Debugging on AMD GPU <../ROCgdb/gdb/doc/gdb/AMD-GPU.html>`_ in the ROCgdb user guide.
 * For every GDB command, see the `full user guide <../ROCgdb/gdb/doc/gdb/index.html>`_.
-* The user guide is also installed with ROCm as an Info file at ``/opt/rocm/share/info/rocgdb/gdb.info`` (read it with ``info -f <path>``) and as a PDF file at ``/opt/rocm/share/doc/rocm-gdb/rocgdb.pdf``.
+* The user guide is also installed with ROCm as an Info file at ``/opt/rocm/share/info/rocgdb/gdb.info`` (read it with ``info -f <path>``), along with the ROCgdb man pages.
 * If a command or sample on this page is wrong or missing, `open an issue <https://github.com/ROCm/ROCgdb/issues>`_.

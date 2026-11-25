@@ -39,7 +39,7 @@ The sample output on this page comes from long-running test programs, not the st
 
 ## 1. Start the application with HSA_ENABLE_DEBUG=1
 
-On some GPUs, such as gfx90a, waves that started before ROCgdb attached can't report their dispatch or workgroup position. Setting `HSA_ENABLE_DEBUG=1` before the application starts makes that information available on every GPU. You need it only on GPUs where ROCgdb shows `?` ({ref}`step 4 <rocgdb-attach-threads>`). The cost is a small increase in launch time for short-lived waves.
+On some GPUs, such as gfx90a, waves that started before ROCgdb attached can't report their dispatch or workgroup position. Setting `HSA_ENABLE_DEBUG=1` before the application starts makes that information available on every GPU. You need it only on GPUs where ROCgdb shows `?` ({ref}`step 4 <rocgdb-attach-threads>`).
 
 ```shell
 $ HSA_ENABLE_DEBUG=1 ./saxpy
@@ -64,7 +64,7 @@ $ pgrep -a saxpy
 
 :::{admonition} If this fails
 
-If several processes are listed, for example one per MPI rank, pick one and attach to that. One ROCgdb session can't debug two GPU applications at once.
+If several processes are listed, for example one per MPI rank, pick one and attach to that. If you need to debug more than one, attach several sessions, or start each under its own ROCgdb. One session debugging several GPU programs is possible but limited. See the {ref}`known limitations <rocgdb-kl-limitations>`.
 :::
 
 (rocgdb-attach-attach)=
@@ -101,7 +101,7 @@ The two lines before `(gdb)` depend on where the application was when ROCgdb att
 * **`ptrace: Operation not permitted.`** The kernel's Yama `ptrace_scope` setting is `1`, the Ubuntu default. It lets a debugger attach only to processes it started, even when they run as the same user. Check the setting with `cat /proc/sys/kernel/yama/ptrace_scope` (see [Yama ptrace_scope](https://www.kernel.org/doc/html/latest/admin-guide/LSM/Yama.html)). Relaxing it is a system-wide security decision for your administrator, so start the application under `rocgdb` instead of attaching.
 * **Inside a container**, the container needs `--cap-add=SYS_PTRACE --security-opt seccomp=unconfined`. See the {ref}`container row <rocgdb-kl-container>` in Known limitations.
 * **`At least one agent is busy` or another `amd-dbgapi` warning:** use the {ref}`warnings table <rocgdb-kl-warnings>` in Known limitations.
-* **A restriction about cooperative groups or compute unit (CU) masking** on gfx1100, gfx1101, or gfx1102: there's no workaround on these GPUs.
+* **A restriction about cooperative groups or compute unit (CU) masking** on gfx1100, gfx1101, or gfx1102: there's no workaround on these GPUs. Creating a cooperative or CU-masked queue fails under ROCgdb whether you attach or start the application under the debugger.
 :::
 
 (rocgdb-attach-threads)=
@@ -189,7 +189,7 @@ If ROCgdb never stops, the kernel isn't launched again. Press Ctrl+C, run `detac
 
 ## 6. Detach
 
-If you need a core file for later, save it before you detach. While ROCgdb is attached, the ROCm runtime can't write its own GPU core dump, but ROCgdb can. Check that you have the disk space first, because the core file can be large. In one test, a small program stopped with about 15,000 waves produced a core file of 874 MB. Save the core file, then detach:
+If you need a core file for later, save it before you detach. ROCgdb's `gcore` writes a core file with both CPU and GPU state, and it works while ROCgdb is attached to the process. Check that you have the disk space first, because the core file can be large. In one test, a small program stopped with about 15,000 waves produced a core file of 874 MB. Save the core file, then detach:
 
 ```text
 (gdb) gcore saxpy.core
@@ -222,7 +222,7 @@ Find what you see in the first column.
   - Nothing else is affected. Next time, start the application with `HSA_ENABLE_DEBUG=1`.
   - [Attaching restrictions](https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/AMD-GPU.html#AMD-GPU-Attaching-Restrictions)
 * - A wave ID with two coordinate groups, such as `AMDGPU Wave 1:2:1:3 (0,0,0)/(1,0,0)/0`
-  - The kernel uses workgroup clusters. The first group is the cluster, the second is the workgroup's position within the cluster, and the last number is the wave's index within the workgroup. Lane IDs use the same form. In `info dispatches`, the Cluster column is in work-items, not workgroups: a cluster of two 64-work-item workgroups shows `[128,1,1]`. The example was captured on gfx1250-strict.
+  - The kernel uses workgroup clusters. The first group is the cluster, the second is the workgroup's position within the cluster, and the last number is the wave's index within the workgroup. Lane IDs use the same form. In `info dispatches`, the Cluster column is in work-items, not workgroups: a cluster of two 64-work-item workgroups shows `[128,1,1]`. The example was captured on gfx1250.
   - Nothing to fix.
   - [Target identifiers](https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/AMD-GPU.html#AMD-GPU-Heterogeneous-Entity-Target-Identifies-and-Convenience-Variables)
 * - No `AMDGPU Wave` entries
@@ -237,9 +237,9 @@ Find what you see in the first column.
   - Only a GPU wave was resumed with `scheduler-locking` on.
   - Kill the `rocgdb` process from another terminal. See {ref}`Known limitations <rocgdb-kl-limitations>`.
   - [AMD GPU restrictions](https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/AMD-GPU.html#AMD-GPU-Restrictions)
-* - No `gpucore` file after a crash while ROCgdb was attached
-  - Expected. The runtime can't write a GPU core dump while ROCgdb is attached.
-  - Use `gcore` before you detach ({ref}`step 6 <rocgdb-attach-detach>`).
+* - No GPU core file after a crash
+  - Core files are named by `core_pattern`. If the pattern contains `%p`, the GPU core is `core.<pid>.gpu`. With a piped pattern it's `gpucore.<pid>.gpu`. Without `%p` (for example `core`), it's `core.gpu`. The runtime writes it whether or not ROCgdb is attached, but not on gfx1100, gfx1101, or gfx1102.
+  - Look in the process's working directory, or in the directory named by `core_pattern`. If the GPU is one where the runtime can't write a GPU core, use `gcore` ({ref}`step 6 <rocgdb-attach-detach>`).
   - [AMD GPU core dumps](https://rocm.docs.amd.com/projects/ROCgdb/en/latest/ROCgdb/gdb/doc/gdb/AMD-GPU.html#AMD-GPU-core-dumps)
 ```
 
