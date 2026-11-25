@@ -170,7 +170,7 @@ The **State** column shows `A` for active or `I` for inactive. Select a lane by 
 (gdb) lane <lane-id>
 ```
 
-**Expected result:** The selected context identifies one wave and one lane. To select lane 5 of the current wave, run `lane 5`. ROCgdb prints a `[Switching to thread ...]` line that names the thread and the lane ID, such as `(AMDGPU Lane 1:1:1:1/5 (0,0,0)[5,0,0])`, then the source line for that lane.
+**Expected result:** The selected context identifies one wave and one lane. To select lane 5 of the current wave, run `lane 5`. ROCgdb prints a `[Switching to thread ...]` line that names the thread and the lane ID, such as `(AMDGPU Lane 1:1:1:1/5 (0,0,0)[5,0,0])`.
 
 (rocgdb-first-hip-kernel-inspect-value)=
 
