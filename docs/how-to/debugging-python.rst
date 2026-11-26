@@ -4,9 +4,9 @@
 
 .. _debugging-python:
 
-=============================
-Debugging Python kernel code
-=============================
+========================
+Debug Python kernel code
+========================
 
 This topic provides information on debugging Python (Pytorch) kernel code that offloads HIP compute kernels to AMD GPU.
 
@@ -28,7 +28,7 @@ To start debugging Python code, follow these steps:
 
 4. Select **Python C++ Debugger Custom** option in the configurations. It launches the Python Debugger and attaches gdb to the Python process.
 
-5. Verify the (gdb) Attach configuration. You might need to run ``echo 0|sudo tee /proc/sys/kernel/yama/ptrace_scope`` to allow attach.
+5. Verify the (gdb) Attach configuration. If the attach fails with ``ptrace: Operation not permitted``, the kernel's Yama ``ptrace_scope`` setting is blocking it. Ask your administrator to allow ptrace attach.
 
 6. You can now see the Python Debugger and gdb threads in the **CALL STACK** window. The **Breakpoint** window works for both and is easy to navigate.
 

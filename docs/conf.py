@@ -150,11 +150,13 @@ docs_core = ROCmDocs(left_nav_title)
 docs_core.setup()
 
 html_static_path = ['_static']
+html_css_files = ['rocgdb.css']
 
 external_projects_current_project = "rocgdb"
 
 for sphinx_var in ROCmDocs.SPHINX_VARS:
     globals()[sphinx_var] = getattr(docs_core, sphinx_var)
+
 
 html_theme_options = {
     "flavor": "rocm",
@@ -171,3 +173,7 @@ sys.path.append(str(DOCS_DIR / "_ext"))
 extensions = list(extensions) + ["rocgdb_meta"]
 # rocgdb_commit is set above from the build info; expose the version too.
 rocgdb_version = version_number
+
+# Generate llms.txt and llms-full.txt (https://llmstxt.org/) for LLM-assisted
+# access to the documentation.
+rocm_docs_generate_llms = True

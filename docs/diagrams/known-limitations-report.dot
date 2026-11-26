@@ -1,0 +1,29 @@
+digraph G {
+@graph; @edge; @base;
+
+node [@dark];
+start [label="Still stuck after the steps\non this page"];
+
+node [@decision];
+c1 [label="Does the application work\nwithout ROCgdb?"];
+c2 [label="Does a row in Known limitations\nmatch what you see?"];
+c3 [label="Is the problem in the\ndocumentation itself?"];
+
+node [@done];
+f1 [label="Fix the application or ROCm setup first.\nROCm problems go to ROCm/TheRock issues"];
+u [label="Use that row's workaround.\nIf it has none, the behavior is expected"];
+d [label="Open a ROCgdb-docs issue"];
+r [label="Search ROCgdb issues, then open\none with the evidence below"];
+
+start -> c1;
+c1 -> f1 [@no];
+c1 -> c2 [@yes];
+c2 -> u [@yes];
+c2 -> c3 [@no];
+c3 -> d [@yes];
+c3 -> r [@no];
+
+{rank=same; c1; f1}
+{rank=same; c2; u}
+{rank=same; c3; d}
+}

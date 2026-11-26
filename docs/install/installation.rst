@@ -19,7 +19,7 @@ For advanced workflows, source builds, or custom configurations, see
 Install the ROCm Core SDK
 =========================
 
-ROCdbgapi is included with the ROCm Core SDK on Linux. For the most
+ROCgdb is included with the ROCm Core SDK on Linux. For the most
 complete installation, we recommend that developers use the
 ``amdrocm-core-sdk`` meta package.
 
