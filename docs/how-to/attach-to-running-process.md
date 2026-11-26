@@ -39,7 +39,7 @@ The sample output on this page comes from long-running test programs, not the st
 
 ## 1. Start the application with HSA_ENABLE_DEBUG=1
 
-On some GPUs, such as gfx90a, waves that started before ROCgdb attached can't report their dispatch or workgroup position. Setting `HSA_ENABLE_DEBUG=1` before the application starts makes that information available on every GPU. You need it only on GPUs like gfx90a; gfx942, gfx1100, and gfx1201 report complete IDs without it. Find your GPU with `rocminfo | grep gfx`. If you don't need the variable, step 4 shows what you'd see without it ({ref}`step 4 <rocgdb-attach-threads>`).
+On some GPUs, such as gfx90a, waves that started before ROCgdb attached can't report their dispatch or workgroup position. Setting `HSA_ENABLE_DEBUG=1` before the application starts makes that information available on every GPU. You need it only on GPUs like gfx90a. gfx942, gfx1100, and gfx1201 report complete IDs without it. To find your GPU, run `rocminfo | grep gfx`. Without the variable, a GPU like gfx90a shows `?` for the missing IDs in {ref}`step 4 <rocgdb-attach-threads>`.
 
 ```shell
 $ HSA_ENABLE_DEBUG=1 ./saxpy
