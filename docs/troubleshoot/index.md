@@ -60,8 +60,9 @@ The application runs to completion, but some output elements aren't what you exp
 
 1. Stop on any HIP API error with `catch hiperr`, then run. See {ref}`Rule out HIP API errors <rocgdb-wr-check-hiperr>`.
 2. Work out which work-item wrote the wrong element, and stop only that work-item with a conditional breakpoint. See {ref}`Work out which work-item wrote the wrong element <rocgdb-wr-find-workitem>` and {ref}`Stop only that work-item <rocgdb-wr-stop-workitem>`.
-3. Print the values that work-item reads, then step through and print the output element. See {ref}`Step through and print the value <rocgdb-wr-step-print>`. If an input is already wrong, the bug is earlier: see {ref}`step 4 of the wrong-results checks <rocgdb-wr-check-inputs>`.
-4. If the value is right when the work-item writes it, watch the location to find what overwrites it. See {ref}`Find what overwrites the output <rocgdb-wr-watch>`.
+3. Print the values that work-item reads. If an input is already wrong, the bug is earlier. See {ref}`Check the values this work-item reads <rocgdb-wr-check-inputs>`.
+4. Step through and print the output element. See {ref}`Step through and print the value <rocgdb-wr-step-print>`.
+5. If the value is right when the work-item writes it, watch the location to find what overwrites it. See {ref}`Find what overwrites the output <rocgdb-wr-watch>`.
 
 For the full ordered steps and the evidence to include in an issue, see {ref}`rocgdb-troubleshoot-wrong-results`.
 

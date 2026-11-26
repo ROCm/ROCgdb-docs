@@ -11,6 +11,13 @@ from pathlib import Path
 HERE = Path(__file__).parent
 OUT = HERE.parent / "_static"
 
+# Hand-authored, not generated: rocgdb-architecture.svg and rocgdb-wave-id.svg
+# have no .dot source, and this script doesn't touch them. They carry their own
+# role, title, and desc, so they need no ALT entry. Graphviz can't match them:
+# the architecture diagram uses isometric blocks with two-tone faces, rotated
+# HOST/DEVICE labels, and dashed arrows fanning out from one spine. The wave-id
+# diagram is a table of labeled boxes, not a graph. Edit the SVGs directly.
+
 ALT = {
     "known-limitations-checks": (
         "Checks for a ROCgdb problem",

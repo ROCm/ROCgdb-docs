@@ -39,7 +39,7 @@ The sample output on this page comes from long-running test programs, not the st
 
 ## 1. Start the application with HSA_ENABLE_DEBUG=1
 
-On some GPUs, such as gfx90a, waves that started before ROCgdb attached can't report their dispatch or workgroup position. Setting `HSA_ENABLE_DEBUG=1` before the application starts makes that information available on every GPU. You need it only on GPUs where ROCgdb shows `?` ({ref}`step 4 <rocgdb-attach-threads>`).
+On some GPUs, such as gfx90a, waves that started before ROCgdb attached can't report their dispatch or workgroup position. Setting `HSA_ENABLE_DEBUG=1` before the application starts makes that information available on every GPU. You need it only on GPUs like gfx90a; gfx942, gfx1100, and gfx1201 report complete IDs without it. Find your GPU with `rocminfo | grep gfx`. If you don't need the variable, step 4 shows what you'd see without it ({ref}`step 4 <rocgdb-attach-threads>`).
 
 ```shell
 $ HSA_ENABLE_DEBUG=1 ./saxpy
@@ -60,7 +60,7 @@ Skip this step. Everything else on this page still works. Waves that already exi
 $ pgrep -a saxpy
 ```
 
-**Expected result:** One line with the process ID and command, for example `48213 ./saxpy`.
+**Expected result:** One line with the process ID and command, for example `1912841 ./saxpy`.
 
 :::{admonition} If this fails
 
@@ -98,7 +98,7 @@ The two lines before `(gdb)` depend on where the application was when ROCgdb att
 
 :::{admonition} If this fails
 
-* **`ptrace: Operation not permitted.`** The kernel's Yama `ptrace_scope` setting is `1`, the Ubuntu default. It lets a debugger attach only to processes it started, even when they run as the same user. Check the setting with `cat /proc/sys/kernel/yama/ptrace_scope` (see [Yama ptrace_scope](https://www.kernel.org/doc/html/latest/admin-guide/LSM/Yama.html)). Relaxing it is a system-wide security decision for your administrator, so start the application under `rocgdb` instead of attaching.
+* **`ptrace: Operation not permitted.`** The kernel's Yama `ptrace_scope` setting is `1`, the Ubuntu default. It lets a debugger attach only to processes it started, even when they run as the same user. Check the setting with `cat /proc/sys/kernel/yama/ptrace_scope` (see [Yama ptrace_scope](https://www.kernel.org/doc/html/latest/admin-guide/LSM/Yama.html)). Relaxing it is a system-wide security decision for your administrator. If they change it, attach again. If they don't, start the application under `rocgdb` instead of attaching.
 * **Inside a container**, the container needs `--cap-add=SYS_PTRACE --security-opt seccomp=unconfined`. See the {ref}`container row <rocgdb-kl-container>` in Known limitations.
 * **`At least one agent is busy` or another `amd-dbgapi` warning:** use the {ref}`warnings table <rocgdb-kl-warnings>` in Known limitations.
 * **A restriction about cooperative groups or compute unit (CU) masking** on gfx1100, gfx1101, or gfx1102: there's no workaround on these GPUs. Creating a cooperative or CU-masked queue fails under ROCgdb whether you attach or start the application under the debugger.
