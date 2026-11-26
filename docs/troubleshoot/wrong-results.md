@@ -101,7 +101,9 @@ Confirm you're on the right work-item:
 
 ```shell
 (gdb) print blockIdx.x
+$1 = 3
 (gdb) print threadIdx.x
+$2 = 232
 ```
 
 **Expected result:** Execution stops once, the hit message names one lane (`with lane 40` on gfx9), and the two values print as `3` and `232`.
